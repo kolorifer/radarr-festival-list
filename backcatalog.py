@@ -4,9 +4,6 @@ from urllib.parse import quote
 from urllib.request import Request, urlopen
 
 # Audit-only historical canon layer. Nothing here is connected to Radarr yet.
-# Candidates are intentionally explicit/stable so GitHub Actions does not depend
-# on fragile scraping. Scores reflect independent canon signals discussed in the
-# project; details remain visible for review before any import feed is enabled.
 MIN_YEAR = 2000
 MAX_YEAR = 2023
 MIN_SCORE = 2
@@ -18,7 +15,7 @@ CANDIDATES = [
     ("Moonlight", 2016, 6, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics: =#60", "Sight & Sound 2022 directors: =#93"]),
     ("The Tree of Life", 2011, 5, ["TSPDT 21st-century: top tier", "major festival/canon signal"]),
     ("Tropical Malady", 2004, 5, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics: =#95"]),
-    ("The Gleaners and I", 2000, 5, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics top 100"]),
+    ("The Gleaners & I", 2000, 5, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics top 100"]),
     ("Get Out", 2017, 5, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics: =#95"]),
     ("Goodbye, Dragon Inn", 2003, 4, ["TSPDT 21st-century: high tier", "Sight & Sound 2022 critics: =#108"]),
     ("Werckmeister Harmonies", 2000, 4, ["TSPDT 21st-century: high tier", "strong international canon signal"]),
@@ -37,9 +34,6 @@ CANDIDATES = [
     ("Caché", 2005, 4, ["TSPDT 21st-century: elite/high tier", "Sight & Sound 2022 directors: =#93"]),
 ]
 
-# User has already watched these and explicitly does not want them promoted into
-# an automatic library feed. Keep them documented rather than silently erasing
-# their canonical significance.
 EXCLUDED_AFTER_REVIEW = {
     "La Ciénaga": "watched; did not like",
     "Uncle Boonmee Who Can Recall His Past Lives": "watched; did not like",
@@ -51,8 +45,8 @@ def imdb_lookup(title, year):
     req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urlopen(req, timeout=20) as response:
         data = json.load(response)
-    exact = []
-    fallback = []
+    same_title = []
+    same_year = []
     for item in data.get("d", []):
         imdb_id = item.get("id", "")
         if not imdb_id.startswith("tt"):
@@ -61,22 +55,39 @@ def imdb_lookup(title, year):
         item_year = item.get("y")
         row = (imdb_id, item_title, item_year)
         if item_title.casefold() == title.casefold() and item_year == year:
-            exact.append(row)
-        elif item_title.casefold() == title.casefold():
-            fallback.append(row)
-    choices = exact or fallback
-    if not choices:
-        raise RuntimeError(f"Could not resolve IMDb title: {title} ({year})")
-    return choices[0]
+            return row
+        if item_title.casefold() == title.casefold():
+            same_title.append(row)
+        if item_year == year:
+            same_year.append(row)
+    if same_title:
+        return same_title[0]
+    # IMDb can expose an alternate/translated title. A same-year result is a
+    # useful fallback for this small reviewed candidate set, but keep failures
+    # non-fatal so one title can never break the whole audit.
+    if len(same_year) == 1:
+        return same_year[0]
+    return None
 
 
 def main():
     details = []
     radarr = []
+    unresolved = []
     for title, year, score, signals in CANDIDATES:
         if not (MIN_YEAR <= year <= MAX_YEAR) or score < MIN_SCORE:
             continue
-        imdb_id, resolved_title, resolved_year = imdb_lookup(title, year)
+        try:
+            match = imdb_lookup(title, year)
+        except Exception as exc:
+            unresolved.append({"title": title, "year": year, "error": str(exc)})
+            print(f"WARNING: IMDb lookup failed for {title} ({year}): {exc}")
+            continue
+        if not match:
+            unresolved.append({"title": title, "year": year, "error": "no unambiguous IMDb match"})
+            print(f"WARNING: unresolved IMDb title: {title} ({year})")
+            continue
+        imdb_id, resolved_title, resolved_year = match
         details.append({
             "title": resolved_title,
             "year": resolved_year or year,
@@ -96,11 +107,12 @@ def main():
         "year_range": [MIN_YEAR, MAX_YEAR],
         "min_score": MIN_SCORE,
         "candidates": details,
+        "unresolved": unresolved,
         "excluded_after_review": EXCLUDED_AFTER_REVIEW,
     }
     Path("backcatalog-details.json").write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     Path("backcatalog.json").write_text(json.dumps(radarr, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Audit only: wrote {len(radarr)} candidates to backcatalog.json")
+    print(f"Audit only: wrote {len(radarr)} candidates to backcatalog.json; {len(unresolved)} unresolved")
     for row in details:
         print(f"{row['score']}  {row['title']} ({row['year']})  {row['imdb_id']}")
 
