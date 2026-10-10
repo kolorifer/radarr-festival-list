@@ -39,12 +39,12 @@ jobs:
 
       - name: Commit changes
         run: |
-          if git diff --quiet -- festival.json curated.json curated-details.json; then
+          git add festival.json curated.json curated-details.json
+          if git diff --cached --quiet; then
             echo "No list changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add festival.json curated.json curated-details.json
           git commit -m "Update festival lists"
           git push
