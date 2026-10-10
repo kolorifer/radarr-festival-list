@@ -19,6 +19,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -44,6 +45,7 @@ jobs:
       - name: Commit changes
         run: |
           git add festival.json curated.json curated-details.json backcatalog.json backcatalog-details.json
+          if [ -f sources/tspdt-21c.json ]; then git add sources/tspdt-21c.json; fi
           if git diff --cached --quiet; then
             echo "No list changes."
             exit 0
