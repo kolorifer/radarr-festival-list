@@ -1,120 +1,274 @@
 import json
+import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 
+from bs4 import BeautifulSoup
+
 # Audit-only historical canon layer. Nothing here is connected to Radarr yet.
 MIN_YEAR = 2000
 MAX_YEAR = 2023
-MIN_SCORE = 2
+TSPDT_URL = "https://theyshootpictures.com/21stcentury_allfilms_table.php"
+CACHE = Path("sources/tspdt-21c.json")
 
-CANDIDATES = [
-    ("In the Mood for Love", 2000, 7, ["TSPDT 21st-century: elite tier", "Sight & Sound 2022 critics: #5"]),
-    ("Mulholland Drive", 2001, 7, ["TSPDT 21st-century: elite tier", "Sight & Sound 2022 critics: #8"]),
-    ("Yi Yi", 2000, 6, ["TSPDT 21st-century: elite tier", "Sight & Sound 2022 critics: =#90", "Sight & Sound 2022 directors: =#93"]),
-    ("Moonlight", 2016, 6, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics: =#60", "Sight & Sound 2022 directors: =#93"]),
-    ("The Tree of Life", 2011, 5, ["TSPDT 21st-century: top tier", "major festival/canon signal"]),
-    ("Tropical Malady", 2004, 5, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics: =#95"]),
-    ("The Gleaners & I", 2000, 5, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics top 100"]),
-    ("Get Out", 2017, 5, ["TSPDT 21st-century: top tier", "Sight & Sound 2022 critics: =#95"]),
-    ("Goodbye, Dragon Inn", 2003, 4, ["TSPDT 21st-century: high tier", "Sight & Sound 2022 critics: =#108"]),
-    ("Werckmeister Harmonies", 2000, 4, ["TSPDT 21st-century: high tier", "strong international canon signal"]),
-    ("Phantom Thread", 2017, 3, ["TSPDT 21st-century: high tier"]),
-    ("The Act of Killing", 2012, 3, ["TSPDT 21st-century: high tier", "major documentary canon signal"]),
-    ("Boyhood", 2014, 3, ["TSPDT 21st-century: high tier"]),
-    ("Once Upon a Time in Anatolia", 2011, 3, ["TSPDT 21st-century: high tier", "Cannes Grand Prix"]),
-    ("Elephant", 2003, 3, ["TSPDT 21st-century: high tier", "Cannes Palme d'Or"]),
-    ("The Death of Mr. Lazarescu", 2005, 3, ["TSPDT 21st-century: high tier", "Cannes Un Certain Regard winner"]),
-    ("Punch-Drunk Love", 2002, 3, ["TSPDT 21st-century: high tier"]),
-    ("The Lives of Others", 2006, 3, ["TSPDT 21st-century: high tier", "major awards signal"]),
-    ("The Master", 2012, 3, ["TSPDT 21st-century: high tier"]),
-    ("Morvern Callar", 2002, 2, ["TSPDT 21st-century: strong tier"]),
-    ("A Prophet", 2009, 3, ["TSPDT 21st-century: strong tier", "Cannes Grand Prix"]),
-    ("Synecdoche, New York", 2008, 2, ["TSPDT 21st-century: strong tier"]),
-    ("Caché", 2005, 4, ["TSPDT 21st-century: elite/high tier", "Sight & Sound 2022 directors: =#93"]),
-]
-
-EXCLUDED_AFTER_REVIEW = {
-    "La Ciénaga": "watched; did not like",
-    "Uncle Boonmee Who Can Recall His Past Lives": "watched; did not like",
+# Independent canon signals from the 2022 Sight & Sound polls.
+# These are deliberately small/high-confidence boosts; TSPDT remains the universe.
+SIGHT_SOUND_CRITICS = {
+    ("In the Mood for Love", 2000),
+    ("Mulholland Dr.", 2001),
+    ("The Gleaners & I", 2000),
+    ("Spirited Away", 2001),
+    ("Tropical Malady", 2004),
+    ("Moonlight", 2016),
+    ("Get Out", 2017),
+    ("Parasite", 2019),
+    ("Portrait of a Lady on Fire", 2019),
 }
+SIGHT_SOUND_DIRECTORS = {
+    ("Eternal Sunshine of the Spotless Mind", 2004),
+    ("Caché", 2005),
+    ("Yi Yi", 2000),
+    ("Moonlight", 2016),
+    ("Parasite", 2019),
+}
+
+# Taste is a tie-breaker, never the gatekeeper. Unknown films get no penalty.
+TASTE = {
+    ("Moonlight", 2016): 1.0,
+    ("Melancholia", 2011): 1.0,
+    ("Get Out", 2017): 1.0,
+    ("The Tree of Life", 2011): 1.0,
+    ("Boyhood", 2014): 1.0,
+    ("The Lives of Others", 2006): 1.0,
+    ("Lost in Translation", 2003): 1.0,
+    ("The White Ribbon", 2009): 1.0,
+    ("Dogville", 2003): 1.0,
+    ("The Turin Horse", 2011): 0.5,
+    ("A Prophet", 2009): 0.5,
+}
+EXCLUDED_AFTER_REVIEW = {
+    ("La Ciénaga", 2001): "watched; did not like",
+    ("Uncle Boonmee Who Can Recall His Past Lives", 2010): "watched; did not like",
+}
+
+
+def fetch(url):
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (radarr-festival-list audit)"})
+    with urlopen(req, timeout=30) as response:
+        return response.read()
+
+
+def article_first(title):
+    # TSPDT often stores articles at the end: "Tree of Life, The".
+    m = re.match(r"^(.*), (The|A|An)$", title)
+    return f"{m.group(2)} {m.group(1)}" if m else title
+
+
+def clean_tspdt_title(title):
+    title = re.sub(r"\s*\[\d{4}\]\s*$", "", title).strip()
+    return article_first(title)
+
+
+def scrape_tspdt():
+    soup = BeautifulSoup(fetch(TSPDT_URL), "html.parser")
+    rows = []
+    for tr in soup.select("tr"):
+        cells = [c.get_text(" ", strip=True) for c in tr.select("td")]
+        if len(cells) < 7 or not cells[0].isdigit():
+            continue
+        rank = int(cells[0])
+        title_raw = cells[2]
+        if "[TV]" in title_raw:
+            continue
+        try:
+            year = int(cells[4])
+        except ValueError:
+            continue
+        rows.append({
+            "rank": rank,
+            "title": clean_tspdt_title(title_raw),
+            "tspdt_title": title_raw,
+            "director": cells[3],
+            "year": year,
+            "country": cells[5],
+            "runtime": int(cells[6]) if cells[6].isdigit() else None,
+        })
+    if len(rows) < 900:
+        raise RuntimeError(f"TSPDT parse returned only {len(rows)} films")
+    CACHE.parent.mkdir(parents=True, exist_ok=True)
+    CACHE.write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return rows
+
+
+def load_tspdt():
+    try:
+        return scrape_tspdt(), "live"
+    except Exception as exc:
+        if CACHE.exists():
+            print(f"WARNING: live TSPDT refresh failed; using cache: {exc}")
+            return json.loads(CACHE.read_text(encoding="utf-8")), "cache"
+        raise
+
+
+def tspdt_points(rank):
+    if rank <= 25:
+        return 5.0
+    if rank <= 50:
+        return 4.0
+    if rank <= 100:
+        return 3.0
+    if rank <= 250:
+        return 2.0
+    if rank <= 500:
+        return 1.0
+    return 0.5
+
+
+def canonical_key(title, year):
+    aliases = {
+        ("Mulholland Dr.", 2001): "Mulholland Drive",
+        ("The Gleaners & I", 2000): "The Gleaners & I",
+        ("Melancholia", 2011): "Melancholia",
+        ("The Tree of Life", 2011): "The Tree of Life",
+        ("The White Ribbon", 2009): "The White Ribbon",
+        ("The Turin Horse", 2011): "The Turin Horse",
+        ("The Lives of Others", 2006): "The Lives of Others",
+        ("A Prophet", 2009): "A Prophet",
+        ("La Ciénaga", 2001): "La Ciénaga",
+    }
+    return aliases.get((title, year), title), year
 
 
 def imdb_lookup(title, year):
     url = f"https://v2.sg.media-imdb.com/suggestion/x/{quote(title)}.json"
-    req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urlopen(req, timeout=20) as response:
-        data = json.load(response)
+    data = json.loads(fetch(url))
+    exact = []
     same_title = []
     same_year = []
+    norm = re.sub(r"[^a-z0-9]+", "", title.casefold())
     for item in data.get("d", []):
         imdb_id = item.get("id", "")
         if not imdb_id.startswith("tt"):
             continue
         item_title = item.get("l", "")
         item_year = item.get("y")
+        item_norm = re.sub(r"[^a-z0-9]+", "", item_title.casefold())
         row = (imdb_id, item_title, item_year)
-        if item_title.casefold() == title.casefold() and item_year == year:
-            return row
-        if item_title.casefold() == title.casefold():
+        if item_norm == norm and item_year == year:
+            exact.append(row)
+        elif item_norm == norm:
             same_title.append(row)
-        if item_year == year:
+        elif item_year == year:
             same_year.append(row)
+    if exact:
+        return exact[0]
     if same_title:
-        return same_title[0]
-    # IMDb can expose an alternate/translated title. A same-year result is a
-    # useful fallback for this small reviewed candidate set, but keep failures
-    # non-fatal so one title can never break the whole audit.
-    if len(same_year) == 1:
-        return same_year[0]
+        return min(same_title, key=lambda x: abs((x[2] or year) - year))
+    # Avoid the old unsafe "one same-year result" fallback for the large universe.
     return None
 
 
+def score_row(row):
+    title, year = canonical_key(row["title"], row["year"])
+    key = (title, year)
+    score = tspdt_points(row["rank"])
+    signals = [f"TSPDT 21st-century #{row['rank']}"]
+    if key in SIGHT_SOUND_CRITICS:
+        score += 3.0
+        signals.append("Sight & Sound 2022 critics top 100")
+    if key in SIGHT_SOUND_DIRECTORS:
+        score += 2.0
+        signals.append("Sight & Sound 2022 directors top 100")
+    taste = TASTE.get(key, 0)
+    if taste:
+        score += taste
+        signals.append(f"personal-positive +{taste:g}")
+    excluded = EXCLUDED_AFTER_REVIEW.get(key)
+    return title, score, signals, excluded
+
+
+def resolve_one(row):
+    title, score, signals, excluded = score_row(row)
+    match = imdb_lookup(title, row["year"])
+    if not match:
+        return None, {"title": title, "year": row["year"], "tspdt_rank": row["rank"]}
+    imdb_id, resolved_title, resolved_year = match
+    return {
+        "title": resolved_title,
+        "year": resolved_year or row["year"],
+        "imdb_id": imdb_id,
+        "tspdt_rank": row["rank"],
+        "score": score,
+        "signals": signals,
+        "director": row["director"],
+        "country": row["country"],
+        "runtime": row["runtime"],
+        "status": "excluded-after-review" if excluded else "candidate",
+        "exclusion_reason": excluded,
+    }, None
+
+
 def main():
-    details = []
-    radarr = []
-    unresolved = []
-    for title, year, score, signals in CANDIDATES:
-        if not (MIN_YEAR <= year <= MAX_YEAR) or score < MIN_SCORE:
-            continue
-        try:
-            match = imdb_lookup(title, year)
-        except Exception as exc:
-            unresolved.append({"title": title, "year": year, "error": str(exc)})
-            print(f"WARNING: IMDb lookup failed for {title} ({year}): {exc}")
-            continue
-        if not match:
-            unresolved.append({"title": title, "year": year, "error": "no unambiguous IMDb match"})
-            print(f"WARNING: unresolved IMDb title: {title} ({year})")
-            continue
-        imdb_id, resolved_title, resolved_year = match
-        details.append({
-            "title": resolved_title,
-            "year": resolved_year or year,
-            "imdb_id": imdb_id,
-            "score": score,
-            "signals": signals,
-            "status": "candidate",
-        })
-        radarr.append({"title": resolved_title, "imdb_id": imdb_id})
+    tspdt, source_mode = load_tspdt()
+    universe = [r for r in tspdt if MIN_YEAR <= r["year"] <= MAX_YEAR]
+    print(f"TSPDT source={source_mode}; {len(universe)} films in {MIN_YEAR}-{MAX_YEAR}")
 
-    details.sort(key=lambda x: (-x["score"], x["year"], x["title"]))
-    radarr_order = {x["imdb_id"]: i for i, x in enumerate(details)}
-    radarr.sort(key=lambda x: radarr_order[x["imdb_id"]])
+    details, unresolved = [], []
+    # A small pool keeps the build reasonably fast without hammering IMDb.
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        futures = {pool.submit(resolve_one, row): row for row in universe}
+        for i, future in enumerate(as_completed(futures), 1):
+            row = futures[future]
+            try:
+                item, miss = future.result()
+                if item:
+                    details.append(item)
+                if miss:
+                    unresolved.append(miss)
+            except Exception as exc:
+                unresolved.append({"title": row["title"], "year": row["year"], "tspdt_rank": row["rank"], "error": str(exc)})
+            if i % 100 == 0:
+                print(f"Resolved {i}/{len(universe)}")
 
+    details.sort(key=lambda x: (-x["score"], x["tspdt_rank"]))
+    unresolved.sort(key=lambda x: x["tspdt_rank"])
+
+    # backcatalog.json remains audit-only for now. It contains every resolved,
+    # non-excluded 2000-2023 TSPDT Top-1000 film, ordered by our score.
+    radarr = [{"title": x["title"], "imdb_id": x["imdb_id"]} for x in details if x["status"] == "candidate"]
     audit = {
         "mode": "audit-only",
         "year_range": [MIN_YEAR, MAX_YEAR],
-        "min_score": MIN_SCORE,
+        "source": "TSPDT 21st Century Top 1000",
+        "source_mode": source_mode,
+        "scoring": {
+            "TSPDT_1_25": 5,
+            "TSPDT_26_50": 4,
+            "TSPDT_51_100": 3,
+            "TSPDT_101_250": 2,
+            "TSPDT_251_500": 1,
+            "TSPDT_501_1000": 0.5,
+            "Sight_and_Sound_critics_top100": 3,
+            "Sight_and_Sound_directors_top100": 2,
+            "taste": "0 to +1; ranking/tie-break only",
+        },
+        "universe_count": len(universe),
+        "resolved_count": len(details),
+        "unresolved_count": len(unresolved),
         "candidates": details,
         "unresolved": unresolved,
-        "excluded_after_review": EXCLUDED_AFTER_REVIEW,
+        "excluded_after_review": [
+            {"title": k[0], "year": k[1], "reason": v}
+            for k, v in EXCLUDED_AFTER_REVIEW.items()
+        ],
     }
     Path("backcatalog-details.json").write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     Path("backcatalog.json").write_text(json.dumps(radarr, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Audit only: wrote {len(radarr)} candidates to backcatalog.json; {len(unresolved)} unresolved")
-    for row in details:
-        print(f"{row['score']}  {row['title']} ({row['year']})  {row['imdb_id']}")
+    print(f"Audit only: {len(details)} resolved, {len(unresolved)} unresolved, {len(radarr)} non-excluded")
+    for row in details[:50]:
+        print(f"{row['score']:>4g}  TSPDT #{row['tspdt_rank']:>3}  {row['title']} ({row['year']})  {row['imdb_id']}")
 
 
 if __name__ == "__main__":
