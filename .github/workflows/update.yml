@@ -1,4 +1,4 @@
-name: Update festival list
+name: Update festival lists
 
 on:
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
     branches: [main]
     paths:
       - festival.py
+      - curated.py
       - requirements.txt
       - .github/workflows/update.yml
   schedule:
-    # IMDb's list changes slowly; twice daily is plenty.
     - cron: "17 5,17 * * *"
 
 permissions:
@@ -31,17 +31,20 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build Radarr list
+      - name: Build IMDb festival list
         run: python festival.py
+
+      - name: Build scored curated list
+        run: python curated.py
 
       - name: Commit changes
         run: |
-          if git diff --quiet -- festival.json; then
-            echo "No festival list changes."
+          if git diff --quiet -- festival.json curated.json curated-details.json; then
+            echo "No list changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add festival.json
-          git commit -m "Update festival list"
+          git add festival.json curated.json curated-details.json
+          git commit -m "Update festival lists"
           git push
