@@ -7,6 +7,7 @@ on:
     paths:
       - festival.py
       - curated.py
+      - backcatalog.py
       - requirements.txt
       - .github/workflows/update.yml
   schedule:
@@ -37,9 +38,12 @@ jobs:
       - name: Build scored curated list
         run: python curated.py
 
+      - name: Build back catalogue audit
+        run: python backcatalog.py
+
       - name: Commit changes
         run: |
-          git add festival.json curated.json curated-details.json
+          git add festival.json curated.json curated-details.json backcatalog.json backcatalog-details.json
           if git diff --cached --quiet; then
             echo "No list changes."
             exit 0
