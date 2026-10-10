@@ -1,133 +1,102 @@
 import json
 import re
 import sys
-from html.parser import HTMLParser
 from pathlib import Path
-
-import requests
+from urllib.request import Request, urlopen
 
 # Add the next annual IMDb Editors list ID here when it appears.
-LISTS = {
-    "2026": "ls4179043772",
-}
-
+LISTS = {"2026": "ls4179043772"}
 OUTPUT = Path("festival.json")
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36",
-    "Accept": "text/html",
-    "Accept-Language": "en-US,en;q=0.9",
-}
+GRAPHQL_URL = "https://api.graphql.imdb.com/"
+# IMDb's public website query, verified against the festival list.
+# If IMDb retires it, update from Kometa-Team/IMDb-Hash's LIST_HASH.
+LIST_QUERY_HASH = "dc98c1b896ffcb97e619b888d27721ff40fea6985fd022bca920615ed744ee0b"
 
 
-class PageDataParser(HTMLParser):
-    """Read only IMDb's embedded page data, never unrelated title links."""
-
-    def __init__(self):
-        super().__init__()
-        self.capture = False
-        self.parts = []
-
-    def handle_starttag(self, tag, attrs):
-        if tag == "script" and dict(attrs).get("id") == "__NEXT_DATA__":
-            self.capture = True
-
-    def handle_data(self, data):
-        if self.capture:
-            self.parts.append(data)
-
-    def handle_endtag(self, tag):
-        if tag == "script":
-            self.capture = False
-
-
-def find_title_search(value):
-    if isinstance(value, dict):
-        search = value.get("titleListItemSearch")
-        if isinstance(search, dict) and isinstance(search.get("edges"), list):
-            return search
-        for child in value.values():
-            found = find_title_search(child)
-            if found is not None:
-                return found
-    elif isinstance(value, list):
-        for child in value:
-            found = find_title_search(child)
-            if found is not None:
-                return found
-    return None
+def fetch_page(list_id, after=None, page_size=100):
+    payload = {
+        "operationName": "TitleListMainPage",
+        "variables": {
+            "lsConst": list_id, "first": page_size, "after": after,
+            "locale": "en-US", "isInPace": False,
+            "sort": {"by": "LIST_ORDER", "order": "ASC"},
+        },
+        "extensions": {"persistedQuery": {"version": 1, "sha256Hash": LIST_QUERY_HASH}},
+    }
+    request = Request(
+        GRAPHQL_URL, data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json", "x-imdb-client-name": "imdb-web-next-localized"},
+    )
+    with urlopen(request, timeout=30) as response:
+        data = json.load(response)
+    if data.get("errors"):
+        raise RuntimeError("IMDb GraphQL: " + "; ".join(e.get("message", "unknown error") for e in data["errors"]))
+    result = (data.get("data") or {}).get("list")
+    if not result or not isinstance(result.get("titleListItemSearch"), dict):
+        raise RuntimeError(f"IMDb returned no public title list for {list_id}")
+    return result["titleListItemSearch"]
 
 
-def parse_page(html):
-    parser = PageDataParser()
-    parser.feed(html)
-    if not parser.parts:
-        raise RuntimeError("IMDb returned no embedded page data (possibly a challenge page)")
-    data = json.loads("".join(parser.parts))
-    search = find_title_search(data.get("props", {}).get("pageProps", {}))
-    if search is None:
-        raise RuntimeError("IMDb page data contains no title list; markup may have changed")
-
-    # Never publish only the first page of a larger list. This also protects
-    # against unexpected changes to IMDb's initial page size.
-    page_info = search.get("pageInfo") or {}
-    if page_info.get("hasNextPage") is not False:
-        raise RuntimeError(
-            "IMDb did not provide a complete list in its public page data; "
-            "refusing to publish a partial feed"
-        )
-
+def fetch_list(list_id, page_size=100):
     movies = []
     seen = set()
-    for edge in search["edges"]:
-        item = edge.get("listItem") or {}
-        imdb_id = item.get("id", "")
-        if not re.fullmatch(r"tt[0-9]+", imdb_id):
-            raise RuntimeError("IMDb list entry has no valid title ID")
-        if imdb_id in seen:
-            continue
-        seen.add(imdb_id)
-        title = (item.get("titleText") or {}).get("text") or imdb_id
-        movies.append({"title": title, "imdb_id": imdb_id})
-
-    total = search.get("total")
-    if isinstance(total, int) and total != len(search["edges"]):
+    cursors = set()
+    after = None
+    expected_total = None
+    while True:
+        search = fetch_page(list_id, after, page_size)
+        total = search.get("total")
+        if type(total) is not int or total < 1:
+            raise RuntimeError("IMDb returned an empty or invalid list count")
+        if expected_total is None:
+            expected_total = total
+        elif total != expected_total:
+            raise RuntimeError("IMDb list changed during pagination; retry later")
+        edges = search.get("edges")
+        if not isinstance(edges, list) or not edges:
+            raise RuntimeError("IMDb returned an empty or invalid page")
+        for edge in edges:
+            item = edge.get("listItem") or {}
+            imdb_id = item.get("id", "")
+            title = (item.get("titleText") or {}).get("text")
+            if not isinstance(imdb_id, str) or not re.fullmatch(r"tt[0-9]+", imdb_id):
+                raise RuntimeError("IMDb list entry has no valid title ID")
+            if not isinstance(title, str) or not title.strip():
+                raise RuntimeError("IMDb list entry has no title")
+            if imdb_id in seen:
+                raise RuntimeError("IMDb returned a duplicate title; refusing a partial feed")
+            seen.add(imdb_id)
+            movies.append({"title": title, "imdb_id": imdb_id})
+        info = search.get("pageInfo") or {}
+        if info.get("hasNextPage") is False:
+            break
+        if info.get("hasNextPage") is not True or len(movies) >= expected_total:
+            raise RuntimeError("IMDb returned inconsistent pagination")
+        after = info.get("endCursor")
+        if not isinstance(after, str) or not after or after in cursors:
+            raise RuntimeError("IMDb returned a missing or repeated pagination cursor")
+        cursors.add(after)
+    if len(movies) != expected_total:
         raise RuntimeError("IMDb list count does not match the returned entries")
     return movies
-
-
-def fetch_list(list_id: str):
-    response = requests.get(
-        f"https://www.imdb.com/list/{list_id}/",
-        headers=HEADERS,
-        timeout=30,
-    )
-    response.raise_for_status()
-    return parse_page(response.text)
 
 
 def main():
     all_movies = []
     seen = set()
-
     for year, list_id in LISTS.items():
         movies = fetch_list(list_id)
-        if not movies:
-            raise RuntimeError(f"No movies found for {year}: {list_id}")
         print(f"{year}: found {len(movies)} movies")
-
         for movie in movies:
-            if movie["imdb_id"] in seen:
-                continue
-            seen.add(movie["imdb_id"])
-            all_movies.append(movie)
-
+            if movie["imdb_id"] not in seen:
+                seen.add(movie["imdb_id"])
+                all_movies.append(movie)
     if not all_movies:
         raise RuntimeError("No movies found; refusing to overwrite festival.json")
-
-    OUTPUT.write_text(
-        json.dumps(all_movies, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    # Replace only after every configured list has been fetched and validated.
+    temporary = OUTPUT.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(all_movies, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    temporary.replace(OUTPUT)
     print(f"Wrote {len(all_movies)} movies to {OUTPUT}")
 
 
