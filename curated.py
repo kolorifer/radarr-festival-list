@@ -7,24 +7,17 @@ from pathlib import Path
 from urllib.parse import quote
 
 import requests
-from bs4 import BeautifulSoup
 
 MIN_SCORE = 2
 OUTPUT = Path("curated.json")
 DETAIL_OUTPUT = Path("curated-details.json")
 FESTIVAL_INPUT = Path("festival.json")
 YEAR = 2026
-
-URLS = {
-    "venice": "https://www.labiennale.org/en/news/official-awards-83rd-venice-international-film-festival",
-    "berlin": "https://letterboxd.com/berlinale_ifb/list/winners-of-the-76th-berlin-international/detail/",
-    "letterboxd": "https://letterboxd.com/crew/list/best-of-cannes-2026/",
-}
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; radarr-festival-list/1.0)"}
 
-# Cannes blocks GitHub-hosted runners with HTTP 403. Keep its film-level 2026
-# jury results as explicit data, verified against the official results and Reuters.
-# Acting/performance prizes are deliberately ignored.
+# Completed 2026 festival/editorial results are kept as explicit, auditable data.
+# Cannes and Letterboxd block GitHub-hosted runners, so scraping them in Actions is
+# unreliable. Acting/performance prizes are deliberately ignored.
 CANNES_2026 = [
     ("Fjord", 2, "Cannes: Palme d'Or"),
     ("Minotaur", 1, "Cannes: Grand Prix"),
@@ -33,104 +26,34 @@ CANNES_2026 = [
     ("La Bola Negra", 1, "Cannes: Best Director"),
 ]
 
-VENICE_AWARDS = {
-    "GOLDEN LION FOR BEST FILM": 2, "SILVER LION – GRAND JURY PRIZE": 1,
-    "SILVER LION - GRAND JURY PRIZE": 1, "SILVER LION – AWARD FOR BEST DIRECTOR": 1,
-    "SILVER LION - AWARD FOR BEST DIRECTOR": 1, "SPECIAL JURY PRIZE": 1,
-    "AWARD FOR BEST SCREENPLAY": 1,
-}
-BERLIN_AWARDS = {
-    "Golden Bear for Best Film": 2, "Silver Bear Grand Jury Prize": 1,
-    "Silver Bear Jury Prize": 1, "Silver Bear for Best Director": 1,
-    "Silver Bear for Best Screenplay": 1, "Silver Bear for Outstanding Artistic Contribution": 1,
-}
+BERLIN_2026 = [
+    ("Yellow Letters", 2, "Berlinale: Golden Bear for Best Film"),
+    ("Salvation", 1, "Berlinale: Silver Bear Grand Jury Prize"),
+    ("Queen at Sea", 1, "Berlinale: Silver Bear Jury Prize"),
+    ("Everybody Digs Bill Evans", 1, "Berlinale: Silver Bear for Best Director"),
+    ("Nina Roza", 1, "Berlinale: Silver Bear for Best Screenplay"),
+    ("Yo (Love Is a Rebellious Bird)", 1, "Berlinale: Silver Bear for Outstanding Artistic Contribution"),
+]
 
+VENICE_2026 = [
+    ("Woman Unknown", 2, "Venice: Golden Lion for Best Film"),
+    ("Possible Love", 1, "Venice: Silver Lion - Grand Jury Prize"),
+    ("DAU", 1, "Venice: Silver Lion - Best Director"),
+    ("A Good Little Soldier", 1, "Venice: Best Screenplay"),
+    ("NAZA", 1, "Venice: Special Jury Prize"),
+]
 
-def get_soup(url):
-    r = requests.get(url, headers=HEADERS, timeout=30)
-    r.raise_for_status()
-    return BeautifulSoup(r.text, "html.parser")
-
-
-def clean(s):
-    return re.sub(r"\s+", " ", s).strip()
+LETTERBOXD_CANNES_2026 = [
+    "All of a Sudden", "La Bola Negra", "Clarissa", "Club Kid", "Coward",
+    "Dua", "Hope", "I'll Be Gone in June", "I See Buildings Fall Like Lightning",
+    "La Gradiva", "The Man I Love", "Paper Tiger", "The Samurai and the Prisoner",
+    "Tangles", "Teenage Sex and Death at Camp Miasma",
+]
 
 
 def norm(s):
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode().lower()
     return re.sub(r"[^a-z0-9]+", "", s)
-
-
-def lines(url):
-    return [clean(x) for x in get_soup(url).stripped_strings if clean(x)]
-
-
-def title_after(ls, i, skip=8):
-    """Find the next plausible title after an award label."""
-    noise = ("directed by", "by ", "for the film", "jury", "award", "prize", "best ", "to:")
-    for x in ls[i + 1:i + 1 + skip]:
-        low = x.lower()
-        if len(x) < 2 or any(low.startswith(n) for n in noise):
-            continue
-        if re.search(r"\b(19|20)\d{2}\b", x) and len(x) > 40:
-            continue
-        return x
-    return None
-
-
-def parse_award_page(url, award_map, source):
-    ls = lines(url)
-    out = []
-    for i, text in enumerate(ls):
-        key = next((k for k in award_map if k.lower() == text.lower().rstrip(":")), None)
-        if not key:
-            continue
-        title = title_after(ls, i)
-        if title:
-            title = re.split(r"\s+by\s+", title, maxsplit=1, flags=re.I)[0].strip()
-            out.append((title, award_map[key], f"{source}: {key}"))
-    return out
-
-
-def parse_letterboxd_hq():
-    soup = get_soup(URLS["letterboxd"])
-    titles = []
-    for tag in soup.select("[data-film-name]"):
-        title = clean(tag.get("data-film-name", ""))
-        if title and title not in titles:
-            titles.append(title)
-    if not titles:
-        for tag in soup.find_all("h2"):
-            title = clean(tag.get_text(" ", strip=True))
-            if title and title.lower() not in {"best of cannes 2026"} and title not in titles:
-                titles.append(title)
-    if not titles:
-        raise RuntimeError("Could not parse Letterboxd HQ Cannes list")
-    return [(t, 1, "Letterboxd HQ: Best of Cannes 2026") for t in titles[:30]]
-
-
-def parse_berlin():
-    soup = get_soup(URLS["berlin"])
-    out = []
-    for h2 in soup.find_all("h2"):
-        title = clean(h2.get_text(" ", strip=True))
-        if not title:
-            continue
-        context = []
-        node = h2
-        for _ in range(5):
-            node = node.find_next()
-            if not node:
-                break
-            context.append(clean(node.get_text(" ", strip=True)))
-        blob = " | ".join(context)
-        for award, score in BERLIN_AWARDS.items():
-            if award.lower() in blob.lower():
-                out.append((title, score, f"Berlinale: {award}"))
-                break
-    if not out:
-        raise RuntimeError("Could not parse Berlinale winners")
-    return out
 
 
 def imdb_lookup(title):
@@ -160,10 +83,8 @@ def main():
         reasons[k].append("IMDb Festival list")
         display[k] = m["title"]
 
-    signals = list(CANNES_2026)
-    signals += parse_award_page(URLS["venice"], VENICE_AWARDS, "Venice")
-    signals += parse_berlin()
-    signals += parse_letterboxd_hq()
+    signals = list(CANNES_2026) + list(BERLIN_2026) + list(VENICE_2026)
+    signals += [(t, 1, "Letterboxd HQ: Best of Cannes 2026") for t in LETTERBOXD_CANNES_2026]
 
     for title, points, reason in signals:
         k = norm(title)
