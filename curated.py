@@ -16,21 +16,23 @@ FESTIVAL_INPUT = Path("festival.json")
 YEAR = 2026
 
 URLS = {
-    "cannes": "https://www.festival-cannes.com/en/press/press-releases/the-79th-festival-de-cannes-winners-list/",
     "venice": "https://www.labiennale.org/en/news/official-awards-83rd-venice-international-film-festival",
     "berlin": "https://letterboxd.com/berlinale_ifb/list/winners-of-the-76th-berlin-international/detail/",
     "letterboxd": "https://letterboxd.com/crew/list/best-of-cannes-2026/",
 }
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; radarr-festival-list/1.0)"}
 
-# Top festival prizes are worth 2. Other film-level jury prizes are worth 1.
+# Cannes blocks GitHub-hosted runners with HTTP 403. Keep its film-level 2026
+# jury results as explicit data, verified against the official results and Reuters.
 # Acting/performance prizes are deliberately ignored.
-CANNES_AWARDS = {
-    "PALME D’OR": 2, "PALME D'OR": 2, "GRAND PRIX": 1,
-    "JURY PRIZE": 1, "PRIX DU JURY": 1, "BEST DIRECTOR": 1,
-    "PRIX DE LA MISE EN SCÈNE": 1, "BEST SCREENPLAY": 1,
-    "PRIX DU SCÉNARIO": 1, "CAMÉRA D’OR": 1, "CAMERA D'OR": 1,
-}
+CANNES_2026 = [
+    ("Fjord", 2, "Cannes: Palme d'Or"),
+    ("Minotaur", 1, "Cannes: Grand Prix"),
+    ("The Dreamed Adventure", 1, "Cannes: Jury Prize"),
+    ("Fatherland", 1, "Cannes: Best Director"),
+    ("La Bola Negra", 1, "Cannes: Best Director"),
+]
+
 VENICE_AWARDS = {
     "GOLDEN LION FOR BEST FILM": 2, "SILVER LION – GRAND JURY PRIZE": 1,
     "SILVER LION - GRAND JURY PRIZE": 1, "SILVER LION – AWARD FOR BEST DIRECTOR": 1,
@@ -85,7 +87,6 @@ def parse_award_page(url, award_map, source):
             continue
         title = title_after(ls, i)
         if title:
-            # Venice often formats TITLE by Director on one line.
             title = re.split(r"\s+by\s+", title, maxsplit=1, flags=re.I)[0].strip()
             out.append((title, award_map[key], f"{source}: {key}"))
     return out
@@ -99,7 +100,6 @@ def parse_letterboxd_hq():
         if title and title not in titles:
             titles.append(title)
     if not titles:
-        # Current Letterboxd detail/list pages expose film titles in h2 headings.
         for tag in soup.find_all("h2"):
             title = clean(tag.get_text(" ", strip=True))
             if title and title.lower() not in {"best of cannes 2026"} and title not in titles:
@@ -142,7 +142,6 @@ def imdb_lookup(title):
     pool = exact or [c for c in candidates if re.fullmatch(r"tt\d+", c.get("id", ""))]
     if not pool:
         return None
-    # Prefer recent titles when names collide.
     pool.sort(key=lambda c: (abs((c.get("y") or YEAR) - YEAR), 0 if c in exact else 1))
     c = pool[0]
     return {"title": c.get("l") or title, "imdb_id": c["id"]}
@@ -155,15 +154,13 @@ def main():
     reasons = defaultdict(list)
     display = {}
 
-    # IMDb Festival is one independent signal.
     for m in festival:
         k = norm(m["title"])
         scores[k] += 1
         reasons[k].append("IMDb Festival list")
         display[k] = m["title"]
 
-    signals = []
-    signals += parse_award_page(URLS["cannes"], CANNES_AWARDS, "Cannes")
+    signals = list(CANNES_2026)
     signals += parse_award_page(URLS["venice"], VENICE_AWARDS, "Venice")
     signals += parse_berlin()
     signals += parse_letterboxd_hq()
