@@ -1,0 +1,264 @@
+{
+  "mode": "audit-only",
+  "year_range": [
+    2000,
+    2023
+  ],
+  "min_score": 2,
+  "candidates": [
+    {
+      "title": "In the Mood for Love",
+      "year": 2000,
+      "imdb_id": "tt0118694",
+      "score": 7,
+      "signals": [
+        "TSPDT 21st-century: elite tier",
+        "Sight & Sound 2022 critics: #5"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Mulholland Drive",
+      "year": 2001,
+      "imdb_id": "tt0166924",
+      "score": 7,
+      "signals": [
+        "TSPDT 21st-century: elite tier",
+        "Sight & Sound 2022 critics: #8"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Yi Yi",
+      "year": 2000,
+      "imdb_id": "tt0244316",
+      "score": 6,
+      "signals": [
+        "TSPDT 21st-century: elite tier",
+        "Sight & Sound 2022 critics: =#90",
+        "Sight & Sound 2022 directors: =#93"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Moonlight",
+      "year": 2016,
+      "imdb_id": "tt4975722",
+      "score": 6,
+      "signals": [
+        "TSPDT 21st-century: top tier",
+        "Sight & Sound 2022 critics: =#60",
+        "Sight & Sound 2022 directors: =#93"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "The Gleaners & I",
+      "year": 2000,
+      "imdb_id": "tt0247380",
+      "score": 5,
+      "signals": [
+        "TSPDT 21st-century: top tier",
+        "Sight & Sound 2022 critics top 100"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Tropical Malady",
+      "year": 2004,
+      "imdb_id": "tt0381668",
+      "score": 5,
+      "signals": [
+        "TSPDT 21st-century: top tier",
+        "Sight & Sound 2022 critics: =#95"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "The Tree of Life",
+      "year": 2011,
+      "imdb_id": "tt0478304",
+      "score": 5,
+      "signals": [
+        "TSPDT 21st-century: top tier",
+        "major festival/canon signal"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Get Out",
+      "year": 2017,
+      "imdb_id": "tt5052448",
+      "score": 5,
+      "signals": [
+        "TSPDT 21st-century: top tier",
+        "Sight & Sound 2022 critics: =#95"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Werckmeister Harmonies",
+      "year": 2000,
+      "imdb_id": "tt0249241",
+      "score": 4,
+      "signals": [
+        "TSPDT 21st-century: high tier",
+        "strong international canon signal"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Goodbye, Dragon Inn",
+      "year": 2003,
+      "imdb_id": "tt0377556",
+      "score": 4,
+      "signals": [
+        "TSPDT 21st-century: high tier",
+        "Sight & Sound 2022 critics: =#108"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Caché",
+      "year": 2005,
+      "imdb_id": "tt0387898",
+      "score": 4,
+      "signals": [
+        "TSPDT 21st-century: elite/high tier",
+        "Sight & Sound 2022 directors: =#93"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Punch-Drunk Love",
+      "year": 2002,
+      "imdb_id": "tt0272338",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Elephant",
+      "year": 2003,
+      "imdb_id": "tt0363589",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier",
+        "Cannes Palme d'Or"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "The Death of Mr. Lazarescu",
+      "year": 2005,
+      "imdb_id": "tt0456149",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier",
+        "Cannes Un Certain Regard winner"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "The Lives of Others",
+      "year": 2006,
+      "imdb_id": "tt0405094",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier",
+        "major awards signal"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "A Prophet",
+      "year": 2009,
+      "imdb_id": "tt1235166",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: strong tier",
+        "Cannes Grand Prix"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Once Upon a Time in Anatolia",
+      "year": 2011,
+      "imdb_id": "tt1827487",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier",
+        "Cannes Grand Prix"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "The Act of Killing",
+      "year": 2012,
+      "imdb_id": "tt2375605",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier",
+        "major documentary canon signal"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "The Master",
+      "year": 2012,
+      "imdb_id": "tt1560747",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Boyhood",
+      "year": 2014,
+      "imdb_id": "tt1065073",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Phantom Thread",
+      "year": 2017,
+      "imdb_id": "tt5776858",
+      "score": 3,
+      "signals": [
+        "TSPDT 21st-century: high tier"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Morvern Callar",
+      "year": 2002,
+      "imdb_id": "tt0300214",
+      "score": 2,
+      "signals": [
+        "TSPDT 21st-century: strong tier"
+      ],
+      "status": "candidate"
+    },
+    {
+      "title": "Synecdoche, New York",
+      "year": 2008,
+      "imdb_id": "tt0383028",
+      "score": 2,
+      "signals": [
+        "TSPDT 21st-century: strong tier"
+      ],
+      "status": "candidate"
+    }
+  ],
+  "unresolved": [],
+  "excluded_after_review": {
+    "La Ciénaga": "watched; did not like",
+    "Uncle Boonmee Who Can Recall His Past Lives": "watched; did not like"
+  }
+}
