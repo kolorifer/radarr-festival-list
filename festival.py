@@ -5,7 +5,11 @@ from pathlib import Path
 from urllib.request import Request, urlopen
 
 # Add the next annual IMDb Editors list ID here when it appears.
-LISTS = {"2026": "ls4179043772"}
+LISTS = {
+    "2026": "ls4179043772",
+    "2025": "ls592740542",
+    "2024": "ls540386006",
+}
 OUTPUT = Path("festival.json")
 GRAPHQL_URL = "https://api.graphql.imdb.com/"
 # IMDb's public website query, verified against the festival list.

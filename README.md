@@ -7,6 +7,8 @@ The repository checks IMDb twice a day and generates `festival.json` in the Stev
 ## Current source
 
 - 2026 — https://www.imdb.com/list/ls4179043772/
+- 2025 — https://www.imdb.com/list/ls592740542/
+- 2024 — https://www.imdb.com/list/ls540386006/
 
 Future annual lists can be added to `LISTS` in `festival.py`.
 
