@@ -4,9 +4,22 @@ import math
 from pathlib import Path
 
 BACKCATALOG=Path("backcatalog-details.json"); AUDIENCE=Path("audience-ratings.json"); OUTPUT=Path("scoring-simulation.json"); QUALIFIERS=Path("simulation-qualifiers.json")
+# Film-level institutional recognition only. Acting/craft awards are deliberately excluded.
+# This remains a research simulation: production scoring is untouched.
 RECOGNITION={
-"tt2543164":(.50,"Academy Best Picture nominee"),"tt2024544":(1.50,"Academy Best Picture winner"),"tt1454468":(.50,"Academy Best Picture nominee"),"tt0993846":(.50,"Academy Best Picture nominee"),
-"tt2042568":(.50,"Cannes Grand Prix"),"tt2758880":(.50,"Cannes Jury Prize"),"tt3808342":(1.00,"Academy Foreign Language Film winner + Cannes Grand Prix"),"tt3508840":(.50,"Cannes Best Director")}
+"tt2543164":(.50,"Academy Best Picture nominee"),
+"tt2024544":(1.50,"Academy Best Picture winner"),
+"tt1454468":(.50,"Academy Best Picture nominee"),
+"tt0993846":(.50,"Academy Best Picture nominee"),
+"tt2042568":(.50,"Cannes Grand Prix"),
+"tt2400275":(.50,"Cannes Jury Prize"),
+"tt3808342":(1.00,"Academy Foreign Language Film winner + Cannes Grand Prix"),
+"tt3508840":(.50,"Cannes Best Director"),
+# Additional calibration cases: objective film-level signals, not taste overrides.
+"tt0407887":(1.50,"Academy Best Picture winner"), # The Departed
+"tt4034228":(.50,"Academy Best Picture nominee"), # Manchester by the Sea
+"tt3464902":(.50,"Cannes Jury Prize"), # The Lobster
+}
 def q(v,x):
  v=sorted(n for n in v if isinstance(n,(int,float))); p=(len(v)-1)*x; lo=math.floor(p); hi=math.ceil(p); return v[lo] if lo==hi else v[lo]*(hi-p)+v[hi]*(p-lo)
 def revised(r):
@@ -32,8 +45,8 @@ def main():
  for r in rows:
   ab,asig=audience(r,t); rb,rsig=RECOGNITION.get(r['imdb_id'],(0,None)); score=round(revised(r['rank'])+r['existing_bonus']+ab+rb,3); sim.append({**r,'audience_bonus':ab,'audience_signals':asig,'recognition_bonus':rb,'recognition_signal':rsig,'simulated_score':score})
  old={r['imdb_id'] for r in rows if r['production_score']>=3}; new={r['imdb_id'] for r in sim if r['simulated_score']>=3}; promoted=sorted([r for r in sim if r['imdb_id'] in new-old],key=lambda x:(-x['simulated_score'],x['rank'])); near=sorted([r for r in sim if 2.5<=r['simulated_score']<3],key=lambda x:(-x['simulated_score'],x['rank']))
- names={'Arrival','12 Years a Slave','Gravity','The Wolf of Wall Street','La Commune (Paris, 1871)','Inside Llewyn Davis','Son of Saul','The Assassin'}
- out={'mode':'simulation-2-verified-recognition','production_unchanged':True,'thresholds_used':t,'counts':{'production_qualifiers':len(old),'simulated_qualifiers':len(new),'promoted':len(promoted),'demoted':0,'near_below':len(near)},'calibration':sorted([r for r in sim if r['title'] in names],key=lambda x:x['rank']),'promoted':promoted,'near_below':near}
+ names={'Arrival','12 Years a Slave','Gravity','The Wolf of Wall Street','La Commune (Paris, 1871)','Inside Llewyn Davis','Son of Saul','The Assassin','The Departed','Manchester by the Sea','The Lobster','Donnie Darko','Dune','Blade Runner 2049','Midsommar','Her','Ex Machina','Scott Pilgrim vs. the World','Goodbye to Language','Winter Sleep'}
+ out={'mode':'simulation-3-expanded-film-recognition','production_unchanged':True,'notes':['Corrects Goodbye to Language IMDb recognition mapping; Winter Sleep no longer receives that Jury Prize.','Still TSPDT-only candidate universe; coverage failures are intentionally not hidden by scoring changes.'],'thresholds_used':t,'counts':{'production_qualifiers':len(old),'simulated_qualifiers':len(new),'promoted':len(promoted),'demoted':len(old-new),'near_below':len(near)},'calibration':sorted([r for r in sim if r['title'] in names],key=lambda x:x['rank']),'promoted':promoted,'near_below':near}
  OUTPUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
  compact=[{'title':r['title'],'year':r['year'],'imdb_id':r['imdb_id'],'rank':r['rank'],'score':r['simulated_score'],'audience_bonus':r['audience_bonus'],'recognition_bonus':r['recognition_bonus'],'recognition_signal':r['recognition_signal']} for r in sorted(sim,key=lambda x:(-x['simulated_score'],x['rank'])) if r['simulated_score']>=3]
  QUALIFIERS.write_text(json.dumps(compact,ensure_ascii=False,separators=(',',':'))+'\n')
