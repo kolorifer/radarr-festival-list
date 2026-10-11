@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - simulate_scoring.py
+      - audience-ratings.json
       - .github/workflows/simulate.yml
 
 permissions:
