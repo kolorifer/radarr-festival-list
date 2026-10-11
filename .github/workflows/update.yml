@@ -9,8 +9,6 @@ on:
       - curated.py
       - backcatalog.py
       - backcatalog_resolve.py
-      - simulate_scoring.py
-      - audience-ratings.json
       - requirements.txt
       - .github/workflows/update.yml
   schedule:
@@ -45,12 +43,9 @@ jobs:
       - name: Build back catalogue audit
         run: python backcatalog_resolve.py
 
-      - name: Run research scoring simulation
-        run: python simulate_scoring.py
-
       - name: Commit changes
         run: |
-          git add festival.json curated.json curated-details.json backcatalog.json backcatalog-details.json scoring-simulation.json
+          git add festival.json curated.json curated-details.json backcatalog.json backcatalog-details.json
           if [ -f sources/tspdt-21c.json ]; then git add sources/tspdt-21c.json; fi
           if git diff --cached --quiet; then
             echo "No list changes."
@@ -58,5 +53,5 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
-          git commit -m "Update festival lists and scoring simulation"
+          git commit -m "Update festival lists"
           git push
