@@ -3,9 +3,9 @@
   "production_unchanged": true,
   "coverage": {
     "tspdt_candidates": 951,
-    "audience_records": 912,
-    "candidate_ids_with_audience": 912,
-    "candidate_ids_missing_audience": 39,
+    "audience_records": 948,
+    "candidate_ids_with_audience": 948,
+    "candidate_ids_missing_audience": 3,
     "audience_ids_not_in_current_candidates": 0,
     "missing_audience": [
       {
@@ -25,228 +25,12 @@
         "year": 2020,
         "imdb_id": "tt10551100",
         "rank": 861
-      },
-      {
-        "title": "The Lost City of Z",
-        "year": 2016,
-        "imdb_id": "tt1212428",
-        "rank": 883
-      },
-      {
-        "title": "A Thousand Suns",
-        "year": 2013,
-        "imdb_id": "tt3118566",
-        "rank": 884
-      },
-      {
-        "title": "In Jackson Heights",
-        "year": 2015,
-        "imdb_id": "tt4936064",
-        "rank": 885
-      },
-      {
-        "title": "The Raid: Redemption",
-        "year": 2011,
-        "imdb_id": "tt1899353",
-        "rank": 886
-      },
-      {
-        "title": "Road to Perdition",
-        "year": 2002,
-        "imdb_id": "tt0257044",
-        "rank": 888
-      },
-      {
-        "title": "Good Time",
-        "year": 2017,
-        "imdb_id": "tt4846232",
-        "rank": 890
-      },
-      {
-        "title": "Spider-Man 2",
-        "year": 2004,
-        "imdb_id": "tt0316654",
-        "rank": 891
-      },
-      {
-        "title": "Oxhide",
-        "year": 2005,
-        "imdb_id": "tt0453795",
-        "rank": 892
-      },
-      {
-        "title": "Flags of Our Fathers",
-        "year": 2006,
-        "imdb_id": "tt0418689",
-        "rank": 893
-      },
-      {
-        "title": "24 City",
-        "year": 2008,
-        "imdb_id": "tt1103963",
-        "rank": 895
-      },
-      {
-        "title": "Inheritance",
-        "year": 2020,
-        "imdb_id": "tt7923220",
-        "rank": 897
-      },
-      {
-        "title": "Brick",
-        "year": 2005,
-        "imdb_id": "tt0393109",
-        "rank": 898
-      },
-      {
-        "title": "Zidane: A 21st Century Portrait",
-        "year": 2006,
-        "imdb_id": "tt0478337",
-        "rank": 899
-      },
-      {
-        "title": "Blade Runner 2049",
-        "year": 2017,
-        "imdb_id": "tt1856101",
-        "rank": 900
-      },
-      {
-        "title": "City of Life and Death",
-        "year": 2009,
-        "imdb_id": "tt1124052",
-        "rank": 901
-      },
-      {
-        "title": "Perfect Days",
-        "year": 2023,
-        "imdb_id": "tt27503384",
-        "rank": 902
-      },
-      {
-        "title": "Animal Kingdom",
-        "year": 2010,
-        "imdb_id": "tt1313092",
-        "rank": 903
-      },
-      {
-        "title": "Moneyball",
-        "year": 2011,
-        "imdb_id": "tt1210166",
-        "rank": 904
-      },
-      {
-        "title": "Japón",
-        "year": 2002,
-        "imdb_id": "tt0322824",
-        "rank": 905
-      },
-      {
-        "title": "Belfast",
-        "year": 2021,
-        "imdb_id": "tt12789558",
-        "rank": 907
-      },
-      {
-        "title": "Drug War",
-        "year": 2012,
-        "imdb_id": "tt2165735",
-        "rank": 908
-      },
-      {
-        "title": "Afire",
-        "year": 2023,
-        "imdb_id": "tt26440619",
-        "rank": 910
-      },
-      {
-        "title": "The Sea Inside",
-        "year": 2004,
-        "imdb_id": "tt0369702",
-        "rank": 911
-      },
-      {
-        "title": "Three Monkeys",
-        "year": 2008,
-        "imdb_id": "tt1233381",
-        "rank": 912
-      },
-      {
-        "title": "Sobibór, October 14, 1943, 4 p.m.",
-        "year": 2001,
-        "imdb_id": "tt0286978",
-        "rank": 913
-      },
-      {
-        "title": "Bergman Island",
-        "year": 2021,
-        "imdb_id": "tt6910282",
-        "rank": 914
-      },
-      {
-        "title": "Dick Johnson Is Dead",
-        "year": 2020,
-        "imdb_id": "tt11394180",
-        "rank": 915
-      },
-      {
-        "title": "A Single Man",
-        "year": 2009,
-        "imdb_id": "tt1315981",
-        "rank": 916
-      },
-      {
-        "title": "Mr. Turner",
-        "year": 2014,
-        "imdb_id": "tt2473794",
-        "rank": 917
-      },
-      {
-        "title": "What We Do in the Shadows",
-        "year": 2014,
-        "imdb_id": "tt3416742",
-        "rank": 918
-      },
-      {
-        "title": "Midnight in Paris",
-        "year": 2011,
-        "imdb_id": "tt1605783",
-        "rank": 919
-      },
-      {
-        "title": "House of Tolerance",
-        "year": 2011,
-        "imdb_id": "tt1660379",
-        "rank": 920
-      },
-      {
-        "title": "Monos",
-        "year": 2019,
-        "imdb_id": "tt6062774",
-        "rank": 921
-      },
-      {
-        "title": "A Tale of Two Sisters",
-        "year": 2003,
-        "imdb_id": "tt0365376",
-        "rank": 922
-      },
-      {
-        "title": "Secretary",
-        "year": 2002,
-        "imdb_id": "tt0274812",
-        "rank": 923
-      },
-      {
-        "title": "What Do We See When We Look at the Sky?",
-        "year": 2021,
-        "imdb_id": "tt14035154",
-        "rank": 924
       }
     ]
   },
   "distributions": {
     "imdb_rating": {
-      "n": 912,
+      "n": 948,
       "p10": 6.5,
       "p25": 6.9,
       "median": 7.3,
@@ -254,13 +38,13 @@
       "p90": 8.0
     },
     "imdb_votes": {
-      "n": 912,
-      "p10": 1942.5000000000002,
+      "n": 948,
+      "p10": 1938.0,
       "median": 48754.5,
-      "p90": 644734.8999999997
+      "p90": 630314.0000000003
     },
     "letterboxd_rating": {
-      "n": 910,
+      "n": 946,
       "p10": 3.5,
       "p25": 3.7,
       "median": 3.8,
@@ -268,10 +52,10 @@
       "p90": 4.2
     },
     "letterboxd_votes": {
-      "n": 910,
-      "p10": 4521.5,
-      "median": 74026.5,
-      "p90": 1593961.4000000001
+      "n": 946,
+      "p10": 4438.0,
+      "median": 72905.0,
+      "p90": 1546650.0
     }
   },
   "thresholds_used": {
@@ -279,8 +63,8 @@
     "imdb_exceptional": 8.0,
     "letterboxd_strong": 4.0,
     "letterboxd_exceptional": 4.2,
-    "imdb_vote_floor": 1943,
-    "letterboxd_vote_floor": 4522
+    "imdb_vote_floor": 1938,
+    "letterboxd_vote_floor": 4438
   },
   "model": {
     "tspdt": "5/4/3/2.5/2/1/0.5 with #101-150=2.5",
