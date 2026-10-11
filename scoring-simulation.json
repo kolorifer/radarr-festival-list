@@ -1,12 +1,6 @@
 {
   "mode": "simulation-2-verified-recognition",
   "production_unchanged": true,
-  "coverage": {
-    "tspdt_candidates": 951,
-    "audience_records": 948,
-    "candidate_ids_with_audience": 948,
-    "candidate_ids_missing_audience": 3
-  },
   "thresholds_used": {
     "imdb_strong": 7.7,
     "imdb_exceptional": 8.0,
@@ -16,12 +10,6 @@
     "letterboxd_vote_floor": 4438,
     "imdb_votes_median": 48754,
     "letterboxd_votes_median": 72905
-  },
-  "model": {
-    "tspdt": "5/4/3/2.5/2/1/0.5 with #101-150=2.5",
-    "audience": "p75/p90 strength; p10 minimum; half confidence below median vote count; combined cap +0.5",
-    "recognition": "verified film-level Academy/Cannes signals only in this phase; Best Picture winner +1.5; major film-level win/combined recognition up to +1; nominee/major secondary Cannes prize +0.5",
-    "cutoff": 3.0
   },
   "counts": {
     "production_qualifiers": 109,
@@ -46,7 +34,7 @@
       "audience_signals": [
         "Letterboxd exceptional x0.5 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.75
     },
@@ -61,7 +49,7 @@
       "imdb_votes": 19151,
       "letterboxd_rating": 3.5,
       "letterboxd_votes": 33319,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
       "recognition_bonus": 0.5,
       "recognition_signal": "Cannes Best Director",
@@ -299,7 +287,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 3.0
     },
@@ -319,7 +307,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 3.0
     },
@@ -339,7 +327,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 3.0
     },
@@ -354,7 +342,7 @@
       "imdb_votes": 19151,
       "letterboxd_rating": 3.5,
       "letterboxd_votes": 33319,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
       "recognition_bonus": 0.5,
       "recognition_signal": "Cannes Best Director",
@@ -376,7 +364,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 3.0
     },
@@ -396,7 +384,7 @@
         "Letterboxd strong x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 3.0
     },
@@ -416,7 +404,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 3.0
     },
@@ -436,7 +424,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 3.0
     },
@@ -481,7 +469,6 @@
       "simulated_score": 3.0
     }
   ],
-  "demoted": [],
   "near_below": [
     {
       "title": "Still Walking",
@@ -499,7 +486,7 @@
         "Letterboxd exceptional x0.5 confidence",
         "IMDb strong x0.5 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.812
     },
@@ -518,7 +505,7 @@
       "audience_signals": [
         "Letterboxd exceptional x0.5 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.75
     },
@@ -537,7 +524,7 @@
       "audience_signals": [
         "Letterboxd strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.75
     },
@@ -556,7 +543,7 @@
       "audience_signals": [
         "Letterboxd strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.75
     },
@@ -575,7 +562,7 @@
       "audience_signals": [
         "Letterboxd strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.75
     },
@@ -594,7 +581,7 @@
       "audience_signals": [
         "Letterboxd strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.75
     },
@@ -613,7 +600,7 @@
       "audience_signals": [
         "Letterboxd strong x0.5 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.625
     },
@@ -632,7 +619,7 @@
       "audience_signals": [
         "Letterboxd strong x0.5 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.625
     },
@@ -651,7 +638,7 @@
       "audience_signals": [
         "IMDb strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.625
     },
@@ -670,7 +657,7 @@
       "audience_signals": [
         "IMDb strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.625
     },
@@ -689,7 +676,7 @@
       "audience_signals": [
         "Letterboxd strong x0.5 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.625
     },
@@ -704,9 +691,9 @@
       "imdb_votes": 500510,
       "letterboxd_rating": 3.8,
       "letterboxd_votes": 344087,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -721,9 +708,9 @@
       "imdb_votes": 277860,
       "letterboxd_rating": 3.7,
       "letterboxd_votes": 306408,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -738,9 +725,9 @@
       "imdb_votes": 2875,
       "letterboxd_rating": 3.9,
       "letterboxd_votes": 8527,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -755,9 +742,9 @@
       "imdb_votes": 16646,
       "letterboxd_rating": 3.8,
       "letterboxd_votes": 31954,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -772,9 +759,9 @@
       "imdb_votes": 11167,
       "letterboxd_rating": 3.4,
       "letterboxd_votes": 54553,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -789,9 +776,9 @@
       "imdb_votes": 8006,
       "letterboxd_rating": 3.9,
       "letterboxd_votes": 13252,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -806,9 +793,9 @@
       "imdb_votes": 21349,
       "letterboxd_rating": 3.9,
       "letterboxd_votes": 51702,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -823,9 +810,9 @@
       "imdb_votes": 165918,
       "letterboxd_rating": 3.6,
       "letterboxd_votes": 361272,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -840,9 +827,9 @@
       "imdb_votes": 11308,
       "letterboxd_rating": 3.7,
       "letterboxd_votes": 47810,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -857,9 +844,9 @@
       "imdb_votes": 6729,
       "letterboxd_rating": 3.4,
       "letterboxd_votes": 18620,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -874,9 +861,9 @@
       "imdb_votes": 16592,
       "letterboxd_rating": 3.7,
       "letterboxd_votes": 40287,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -891,9 +878,9 @@
       "imdb_votes": null,
       "letterboxd_rating": null,
       "letterboxd_votes": null,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -908,9 +895,9 @@
       "imdb_votes": 369992,
       "letterboxd_rating": 3.8,
       "letterboxd_votes": 3285753,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -925,9 +912,9 @@
       "imdb_votes": 52028,
       "letterboxd_rating": 3.8,
       "letterboxd_votes": 55360,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -942,9 +929,9 @@
       "imdb_votes": 4004,
       "letterboxd_rating": 3.7,
       "letterboxd_votes": 12632,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -959,9 +946,9 @@
       "imdb_votes": 6068,
       "letterboxd_rating": 3.9,
       "letterboxd_votes": 22462,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -976,9 +963,9 @@
       "imdb_votes": 1292,
       "letterboxd_rating": 3.8,
       "letterboxd_votes": 6845,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -993,9 +980,9 @@
       "imdb_votes": 160174,
       "letterboxd_rating": 3.9,
       "letterboxd_votes": 232578,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1010,9 +997,9 @@
       "imdb_votes": 17950,
       "letterboxd_rating": 3.6,
       "letterboxd_votes": 49596,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1027,9 +1014,9 @@
       "imdb_votes": 144940,
       "letterboxd_rating": 3.8,
       "letterboxd_votes": 337204,
-      "audience_bonus": 0.0,
+      "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1049,7 +1036,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1069,7 +1056,7 @@
         "Letterboxd strong x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1089,7 +1076,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1109,7 +1096,7 @@
         "Letterboxd strong x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1129,7 +1116,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1149,7 +1136,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1169,7 +1156,7 @@
         "Letterboxd strong x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1189,7 +1176,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1208,7 +1195,7 @@
       "audience_signals": [
         "Letterboxd exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1228,7 +1215,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x0.5 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1248,7 +1235,7 @@
         "Letterboxd strong x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1268,7 +1255,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1288,7 +1275,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1308,7 +1295,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1328,7 +1315,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1348,7 +1335,7 @@
         "Letterboxd strong x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1368,7 +1355,7 @@
         "Letterboxd exceptional x1 confidence",
         "IMDb strong x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1387,7 +1374,7 @@
       "audience_signals": [
         "Letterboxd exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     },
@@ -1407,7 +1394,7 @@
         "Letterboxd strong x1 confidence",
         "IMDb exceptional x1 confidence"
       ],
-      "recognition_bonus": 0.0,
+      "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
     }
