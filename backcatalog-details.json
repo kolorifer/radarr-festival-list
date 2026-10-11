@@ -96,8 +96,8 @@
       "country": "USA",
       "runtime": 147,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Tropical Malady",
@@ -537,8 +537,8 @@
       "country": "UK",
       "runtime": 108,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Toni Erdmann",
@@ -649,8 +649,8 @@
       "country": "USA",
       "runtime": 145,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Pan's Labyrinth",
@@ -777,8 +777,8 @@
       "country": "USA",
       "runtime": 109,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Platform",
@@ -793,8 +793,8 @@
       "country": "China",
       "runtime": 154,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "In Vanda's Room",
@@ -891,8 +891,8 @@
       "country": "USA",
       "runtime": 134,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Amour",
@@ -908,8 +908,8 @@
       "country": "Austria",
       "runtime": 127,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Roma",
@@ -959,8 +959,8 @@
       "country": "Denmark",
       "runtime": 140,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Still Life",
@@ -1041,8 +1041,8 @@
       "country": "Taiwan",
       "runtime": 120,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Zodiac",
@@ -1057,8 +1057,8 @@
       "country": "USA",
       "runtime": 158,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "WALL·E",
@@ -1217,8 +1217,8 @@
       "country": "Austria",
       "runtime": 130,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Colossal Youth",
@@ -1393,8 +1393,8 @@
       "country": "Italy",
       "runtime": 141,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "35 Shots of Rum",
@@ -1425,8 +1425,8 @@
       "country": "UK",
       "runtime": 96,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "The Intruder",
@@ -1457,8 +1457,8 @@
       "country": "Australia",
       "runtime": 127,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Distant",
@@ -1489,8 +1489,8 @@
       "country": "UK",
       "runtime": 123,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "The New World",
@@ -1537,8 +1537,8 @@
       "country": "Sweden",
       "runtime": 114,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "Petite Maman",
@@ -1734,8 +1734,8 @@
       "country": "Russia",
       "runtime": 110,
       "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
+      "watch_state": "watched",
+      "recommended_monitored": false
     },
     {
       "title": "The Circle",
