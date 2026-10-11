@@ -35,8 +35,9 @@ def imdb_lookup(title,year):
     _,iid,t,y=min(cand); return iid,t,y
 
 def academy():
-    # This historical CSV is Windows-1252/Latin-1 encoded, not UTF-8.
-    raw=get(ACADEMY_CSV).decode('cp1252')
+    # The historical mirror contains mixed legacy bytes. latin-1 maps every byte
+    # deterministically; title normalization plus IMDb resolution handles accents.
+    raw=get(ACADEMY_CSV).decode('latin-1')
     rows=list(csv.DictReader(io.StringIO(raw)))
     films={}
     allowed={
@@ -48,7 +49,8 @@ def academy():
         'Documentary Feature Film':'Documentary Feature Film',
     }
     for r in rows:
-        ceremony=int(r['year'])
+        try: ceremony=int(r['year'])
+        except (TypeError,ValueError): continue
         film_year=ceremony-1
         if not (MIN_FILM_YEAR<=film_year<=MAX_FILM_YEAR): continue
         cat=allowed.get(r['category'])
@@ -58,8 +60,7 @@ def academy():
         status='winner' if winner else 'nominee'
         key=(norm(title),film_year)
         f=films.setdefault(key,{'title':title,'year':film_year,'signals':[],'institutional_strength':0})
-        if cat=='Best Picture': strength=3 if winner else 1
-        else: strength=2 if winner else 1
+        strength=(3 if winner else 1) if cat=='Best Picture' else (2 if winner else 1)
         sig=f'Academy {cat} {status}'
         f['institutional_strength']=max(f['institutional_strength'],strength)
         if sig not in f['signals']: f['signals'].append(sig)
