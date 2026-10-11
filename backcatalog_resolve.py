@@ -1,5 +1,6 @@
 """More tolerant and rate-limit-safe IMDb resolver for backcatalog.py."""
 import json
+import threading
 import time
 from difflib import SequenceMatcher
 from urllib.error import HTTPError
@@ -7,17 +8,10 @@ from urllib.parse import quote
 
 import backcatalog as bc
 
-# Confirmed title variants where IMDb's primary English title is unrelated to the
-# title used by TSPDT. Fuzzy matching handles ordinary spelling/localisation variants.
 PRIMARY_TITLE_ALIASES = {
     ("La Ciénaga", 2001): "The Swamp",
 }
 
-# Verified IMDb identities for titles the suggestion endpoint cannot resolve
-# reliably. These are deliberately keyed by both TSPDT title and year: this is a
-# narrow identity layer, not a relaxation of matching for the rest of the list.
-# It also preserves works TSPDT treats as films even when IMDb models them as an
-# episode (Small Axe) or a short.
 VERIFIED_IMDB = {
     ("Margaret", 2011): ("tt0466893", "Margaret", 2011),
     ("Lovers Rock", 2020): ("tt10551102", "Lovers Rock", 2020),
@@ -66,6 +60,12 @@ VERIFIED_IMDB = {
     ("Jackie", 2016): ("tt1619029", "Jackie", 2016),
 }
 
+# backcatalog.py resolves concurrently. Serialize outbound IMDb suggestion requests and
+# leave a small gap between them so six workers cannot burst into IMDb's 429 limit.
+_REQUEST_LOCK = threading.Lock()
+_NEXT_REQUEST_AT = 0.0
+REQUEST_INTERVAL = 0.40
+
 
 def similarity(a, b):
     a = bc.normalized_title(a)
@@ -77,14 +77,26 @@ def similarity(a, b):
     return SequenceMatcher(None, a, b).ratio()
 
 
-def fetch_json_with_retry(url, attempts=6):
+def _rate_limited_fetch(url):
+    global _NEXT_REQUEST_AT
+    with _REQUEST_LOCK:
+        now = time.monotonic()
+        if now < _NEXT_REQUEST_AT:
+            time.sleep(_NEXT_REQUEST_AT - now)
+        try:
+            return bc.fetch(url)
+        finally:
+            _NEXT_REQUEST_AT = time.monotonic() + REQUEST_INTERVAL
+
+
+def fetch_json_with_retry(url, attempts=8):
     for attempt in range(attempts):
         try:
-            return json.loads(bc.fetch(url))
+            return json.loads(_rate_limited_fetch(url))
         except HTTPError as exc:
             if exc.code != 429 or attempt == attempts - 1:
                 raise
-            time.sleep(1.5 * (2 ** attempt))
+            time.sleep(min(10 * (attempt + 1), 60))
     raise RuntimeError("unreachable")
 
 
