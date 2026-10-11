@@ -1,7 +1,7 @@
 {
   "source": "ReelDB",
   "purpose": "audience-rating research; not yet part of production scoring",
-  "ratings_count": 948,
+  "ratings_count": 985,
   "ratings": {
     "tt4975722": {
       "title": "Moonlight",
@@ -44605,6 +44605,1676 @@
         "myanimelist": null,
         "mdblist": {
           "rating": 74,
+          "votes": null
+        }
+      }
+    },
+    "tt0241303": {
+      "title": "Chocolat",
+      "year": 2000,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 211888
+        },
+        "metacritic": {
+          "rating": 64,
+          "votes": 31
+        },
+        "metacritic_user": {
+          "rating": 6.7,
+          "votes": 104
+        },
+        "trakt": {
+          "rating": 73,
+          "votes": 4475
+        },
+        "tomatoes": {
+          "rating": 63,
+          "votes": 163,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 83,
+          "votes": 12986
+        },
+        "tmdb": {
+          "rating": 69,
+          "votes": 3589
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 121657
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 71,
+          "votes": null
+        }
+      }
+    },
+    "tt0234288": {
+      "title": "Divided We Fall",
+      "year": 2000,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 5587
+        },
+        "metacritic": {
+          "rating": 69,
+          "votes": 23
+        },
+        "metacritic_user": {
+          "rating": 5.5,
+          "votes": 4
+        },
+        "trakt": {
+          "rating": 70,
+          "votes": 78
+        },
+        "tomatoes": {
+          "rating": 90,
+          "votes": 62,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 90,
+          "votes": 94
+        },
+        "tmdb": {
+          "rating": 72,
+          "votes": 61
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 1459
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 67,
+          "votes": null
+        }
+      }
+    },
+    "tt0209037": {
+      "title": "Everybody Famous!",
+      "year": 2000,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.9,
+          "votes": 3385
+        },
+        "metacritic": {
+          "rating": 60,
+          "votes": 18
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 1
+        },
+        "trakt": {
+          "rating": 61,
+          "votes": 27
+        },
+        "tomatoes": {
+          "rating": 54,
+          "votes": 52,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 64,
+          "votes": 32
+        },
+        "tmdb": {
+          "rating": 55,
+          "votes": 36
+        },
+        "letterboxd": {
+          "rating": 3.4,
+          "votes": 768
+        },
+        "roger_ebert": {
+          "rating": 1.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 58,
+          "votes": null
+        }
+      }
+    },
+    "tt0248912": {
+      "title": "Into the Arms of Strangers: Stories of the Kindertransport",
+      "year": 2000,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.7,
+          "votes": 2082
+        },
+        "metacritic": {
+          "rating": 79,
+          "votes": 25
+        },
+        "metacritic_user": {
+          "rating": 7.2,
+          "votes": 5
+        },
+        "trakt": {
+          "rating": 67,
+          "votes": 70
+        },
+        "tomatoes": {
+          "rating": 92,
+          "votes": 37,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 88,
+          "votes": 47
+        },
+        "tmdb": {
+          "rating": 74,
+          "votes": 35
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 723
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 59,
+          "votes": null
+        }
+      }
+    },
+    "tt0236447": {
+      "title": "Long Night's Journey into Day",
+      "year": 2000,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 498
+        },
+        "metacritic": {
+          "rating": 85,
+          "votes": 4
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 2
+        },
+        "trakt": {
+          "rating": 51,
+          "votes": 6
+        },
+        "tomatoes": {
+          "rating": 94,
+          "votes": 16,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 71,
+          "votes": 8
+        },
+        "tmdb": {
+          "rating": 65,
+          "votes": 6
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 212
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": null
+      }
+    },
+    "tt0240885": {
+      "title": "Scottsboro: An American Tragedy",
+      "year": 2000,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 390
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 60,
+          "votes": 14
+        },
+        "tomatoes": {
+          "rating": 67,
+          "votes": 6,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 88,
+          "votes": 2
+        },
+        "tmdb": {
+          "rating": 82,
+          "votes": 6
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 216
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": null
+      }
+    },
+    "tt0240912": {
+      "title": "Sound and Fury",
+      "year": 2000,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.8,
+          "votes": 1125
+        },
+        "metacritic": {
+          "rating": 85,
+          "votes": 17
+        },
+        "metacritic_user": {
+          "rating": 9.3,
+          "votes": 4
+        },
+        "trakt": {
+          "rating": 68,
+          "votes": 48
+        },
+        "tomatoes": {
+          "rating": 97,
+          "votes": 29,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 88,
+          "votes": 39
+        },
+        "tmdb": {
+          "rating": 73,
+          "votes": 16
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 1074
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 55,
+          "votes": null
+        }
+      }
+    },
+    "tt0264476": {
+      "title": "Children Underground",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 8.2,
+          "votes": 2596
+        },
+        "metacritic": {
+          "rating": 85,
+          "votes": 7
+        },
+        "metacritic_user": {
+          "rating": 5.6,
+          "votes": 7
+        },
+        "trakt": {
+          "rating": 76,
+          "votes": 59
+        },
+        "tomatoes": {
+          "rating": 94,
+          "votes": 17,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 92,
+          "votes": 88
+        },
+        "tmdb": {
+          "rating": 76,
+          "votes": 40
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 1538
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 68,
+          "votes": null
+        }
+      }
+    },
+    "tt0279064": {
+      "title": "Elling",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 16824
+        },
+        "metacritic": {
+          "rating": 70,
+          "votes": 21
+        },
+        "metacritic_user": {
+          "rating": 5.4,
+          "votes": 13
+        },
+        "trakt": {
+          "rating": 72,
+          "votes": 215
+        },
+        "tomatoes": {
+          "rating": 85,
+          "votes": 59,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 91,
+          "votes": 358
+        },
+        "tmdb": {
+          "rating": 71,
+          "votes": 207
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 7058
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 76,
+          "votes": null
+        }
+      }
+    },
+    "tt0268397": {
+      "title": "Jimmy Neutron: Boy Genius",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.1,
+          "votes": 41049
+        },
+        "metacritic": {
+          "rating": 65,
+          "votes": 21
+        },
+        "metacritic_user": {
+          "rating": 6.2,
+          "votes": 97
+        },
+        "trakt": {
+          "rating": 64,
+          "votes": 1617
+        },
+        "tomatoes": {
+          "rating": 74,
+          "votes": 76,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 54,
+          "votes": 862
+        },
+        "tmdb": {
+          "rating": 61,
+          "votes": 1045
+        },
+        "letterboxd": {
+          "rating": 3.0,
+          "votes": 100574
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 64,
+          "votes": null
+        }
+      }
+    },
+    "tt0274622": {
+      "title": "LaLee's Kin: The Legacy of Cotton",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 262
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 65,
+          "votes": 6
+        },
+        "tomatoes": null,
+        "tomatoes_audience": {
+          "rating": 100,
+          "votes": 2
+        },
+        "tmdb": {
+          "rating": 60,
+          "votes": 3
+        },
+        "letterboxd": null,
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": null
+      }
+    },
+    "tt0307197": {
+      "title": "Murder on a Sunday Morning",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 4795
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 78,
+          "votes": 110
+        },
+        "tomatoes": null,
+        "tomatoes_audience": {
+          "rating": 90,
+          "votes": 81
+        },
+        "tmdb": {
+          "rating": 74,
+          "votes": 65
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 2461
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 69,
+          "votes": null
+        }
+      }
+    },
+    "tt0283509": {
+      "title": "No Man's Land",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 50974
+        },
+        "metacritic": {
+          "rating": 84,
+          "votes": 29
+        },
+        "metacritic_user": {
+          "rating": 8.4,
+          "votes": 39
+        },
+        "trakt": {
+          "rating": 76,
+          "votes": 673
+        },
+        "tomatoes": {
+          "rating": 93,
+          "votes": 97,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 92,
+          "votes": 659
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 521
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 16846
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 83,
+          "votes": null
+        }
+      }
+    },
+    "tt0282864": {
+      "title": "Promises",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 8.3,
+          "votes": 2795
+        },
+        "metacritic": {
+          "rating": 80,
+          "votes": 16
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 2
+        },
+        "trakt": {
+          "rating": 73,
+          "votes": 29
+        },
+        "tomatoes": {
+          "rating": 96,
+          "votes": 46,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 96,
+          "votes": 138
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 41
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 1343
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 67,
+          "votes": null
+        }
+      }
+    },
+    "tt0292542": {
+      "title": "Son of the Bride",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.8,
+          "votes": 18107
+        },
+        "metacritic": {
+          "rating": 68,
+          "votes": 29
+        },
+        "metacritic_user": {
+          "rating": 7.5,
+          "votes": 11
+        },
+        "trakt": {
+          "rating": 78,
+          "votes": 319
+        },
+        "tomatoes": {
+          "rating": 86,
+          "votes": 58,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 91,
+          "votes": 268
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 242
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 29595
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 79,
+          "votes": null
+        }
+      }
+    },
+    "tt0309061": {
+      "title": "War Photographer",
+      "year": 2001,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 4462
+        },
+        "metacritic": {
+          "rating": 79,
+          "votes": 12
+        },
+        "metacritic_user": {
+          "rating": 7.0,
+          "votes": 4
+        },
+        "trakt": {
+          "rating": 76,
+          "votes": 88
+        },
+        "tomatoes": {
+          "rating": 81,
+          "votes": 26,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 93,
+          "votes": 135
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 76
+        },
+        "letterboxd": {
+          "rating": 3.8,
+          "votes": 2476
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 71,
+          "votes": null
+        }
+      }
+    },
+    "tt0299658": {
+      "title": "Chicago",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 258996
+        },
+        "metacritic": {
+          "rating": 81,
+          "votes": 39
+        },
+        "metacritic_user": {
+          "rating": 7.7,
+          "votes": 236
+        },
+        "trakt": {
+          "rating": 75,
+          "votes": 6245
+        },
+        "tomatoes": {
+          "rating": 87,
+          "votes": 260,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 83,
+          "votes": 17472
+        },
+        "tmdb": {
+          "rating": 71,
+          "votes": 2998
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 541874
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 79,
+          "votes": null
+        }
+      }
+    },
+    "tt0303281": {
+      "title": "Daughter from Danang",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 643
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 63,
+          "votes": 13
+        },
+        "tomatoes": null,
+        "tomatoes_audience": null,
+        "tmdb": {
+          "rating": 69,
+          "votes": 10
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 461
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 14,
+          "votes": null
+        }
+      }
+    },
+    "tt0313196": {
+      "title": "El Crimen del Padre Amaro",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.7,
+          "votes": 15121
+        },
+        "metacritic": {
+          "rating": 60,
+          "votes": 29
+        },
+        "metacritic_user": {
+          "rating": 5.8,
+          "votes": 6
+        },
+        "trakt": {
+          "rating": 67,
+          "votes": 292
+        },
+        "tomatoes": {
+          "rating": 63,
+          "votes": 82,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 74,
+          "votes": 476
+        },
+        "tmdb": {
+          "rating": 66,
+          "votes": 317
+        },
+        "letterboxd": {
+          "rating": 3.3,
+          "votes": 24220
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 67,
+          "votes": null
+        }
+      }
+    },
+    "tt0268380": {
+      "title": "Ice Age",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 573594
+        },
+        "metacritic": {
+          "rating": 61,
+          "votes": 34
+        },
+        "metacritic_user": {
+          "rating": 7.7,
+          "votes": 465
+        },
+        "trakt": {
+          "rating": 77,
+          "votes": 22474
+        },
+        "tomatoes": {
+          "rating": 76,
+          "votes": 164,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 82,
+          "votes": 27845
+        },
+        "tmdb": {
+          "rating": 74,
+          "votes": 14688
+        },
+        "letterboxd": {
+          "rating": 3.6,
+          "votes": 1289878
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 74,
+          "votes": null
+        }
+      }
+    },
+    "tt0275847": {
+      "title": "Lilo & Stitch",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 247718
+        },
+        "metacritic": {
+          "rating": 75,
+          "votes": 31
+        },
+        "metacritic_user": {
+          "rating": 8.0,
+          "votes": 305
+        },
+        "trakt": {
+          "rating": 80,
+          "votes": 15925
+        },
+        "tomatoes": {
+          "rating": 86,
+          "votes": 154,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 78,
+          "votes": 9328
+        },
+        "tmdb": {
+          "rating": 76,
+          "votes": 7275
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 1141566
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 79,
+          "votes": null
+        }
+      }
+    },
+    "tt0161860": {
+      "title": "Nowhere in Africa",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 14903
+        },
+        "metacritic": {
+          "rating": 72,
+          "votes": 31
+        },
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 70,
+          "votes": 244
+        },
+        "tomatoes": null,
+        "tomatoes_audience": null,
+        "tmdb": {
+          "rating": 70,
+          "votes": 195
+        },
+        "letterboxd": {
+          "rating": 3.6,
+          "votes": 4220
+        },
+        "roger_ebert": {
+          "rating": 4.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 76,
+          "votes": null
+        }
+      }
+    },
+    "tt0316013": {
+      "title": "Prisoner of Paradise",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 446
+        },
+        "metacritic": {
+          "rating": 70,
+          "votes": 13
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 0
+        },
+        "trakt": {
+          "rating": 66,
+          "votes": 14
+        },
+        "tomatoes": {
+          "rating": 82,
+          "votes": 28,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 77,
+          "votes": 10
+        },
+        "tmdb": {
+          "rating": 68,
+          "votes": 4
+        },
+        "letterboxd": null,
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": null
+      }
+    },
+    "tt0166813": {
+      "title": "Spirit: Stallion of the Cimarron",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 95767
+        },
+        "metacritic": {
+          "rating": 52,
+          "votes": 29
+        },
+        "metacritic_user": {
+          "rating": 7.9,
+          "votes": 150
+        },
+        "trakt": {
+          "rating": 80,
+          "votes": 6697
+        },
+        "tomatoes": {
+          "rating": 69,
+          "votes": 123,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 78,
+          "votes": 2155
+        },
+        "tmdb": {
+          "rating": 77,
+          "votes": 5047
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 330525
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 72,
+          "votes": null
+        }
+      }
+    },
+    "tt0133240": {
+      "title": "Treasure Planet",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 151054
+        },
+        "metacritic": {
+          "rating": 60,
+          "votes": 30
+        },
+        "metacritic_user": {
+          "rating": 8.0,
+          "votes": 261
+        },
+        "trakt": {
+          "rating": 79,
+          "votes": 9261
+        },
+        "tomatoes": {
+          "rating": 68,
+          "votes": 149,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 73,
+          "votes": 2214
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 4751
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 449002
+        },
+        "roger_ebert": {
+          "rating": 2.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 71,
+          "votes": null
+        }
+      }
+    },
+    "tt0301727": {
+      "title": "Winged Migration",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 12750
+        },
+        "metacritic": {
+          "rating": 82,
+          "votes": 34
+        },
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 76,
+          "votes": 291
+        },
+        "tomatoes": {
+          "rating": 95,
+          "votes": 130,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 88,
+          "votes": 334
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 214
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 5678
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 81,
+          "votes": null
+        }
+      }
+    },
+    "tt0245157": {
+      "title": "Zus & Zo",
+      "year": 2002,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.1,
+          "votes": 1741
+        },
+        "metacritic": {
+          "rating": 50,
+          "votes": 9
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 3
+        },
+        "trakt": {
+          "rating": 56,
+          "votes": 19
+        },
+        "tomatoes": {
+          "rating": 40,
+          "votes": 20,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 38,
+          "votes": 17
+        },
+        "tmdb": {
+          "rating": 50,
+          "votes": 24
+        },
+        "letterboxd": {
+          "rating": 3.1,
+          "votes": 327
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 34,
+          "votes": null
+        }
+      }
+    },
+    "tt0321376": {
+      "title": "Balseros",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 655
+        },
+        "metacritic": {
+          "rating": 73,
+          "votes": 14
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 1
+        },
+        "trakt": {
+          "rating": 69,
+          "votes": 20
+        },
+        "tomatoes": {
+          "rating": 88,
+          "votes": 24,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 84,
+          "votes": 27
+        },
+        "tmdb": {
+          "rating": 65,
+          "votes": 16
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 312
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 44,
+          "votes": null
+        }
+      }
+    },
+    "tt0328880": {
+      "title": "Brother Bear",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.9,
+          "votes": 138924
+        },
+        "metacritic": {
+          "rating": 48,
+          "votes": 28
+        },
+        "metacritic_user": {
+          "rating": 6.8,
+          "votes": 175
+        },
+        "trakt": {
+          "rating": 77,
+          "votes": 8240
+        },
+        "tomatoes": {
+          "rating": 38,
+          "votes": 130,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 66,
+          "votes": 3543
+        },
+        "tmdb": {
+          "rating": 72,
+          "votes": 5885
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 551005
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 65,
+          "votes": null
+        }
+      }
+    },
+    "tt0120804": {
+      "title": "Evil",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.6,
+          "votes": 318585
+        },
+        "metacritic": {
+          "rating": 35,
+          "votes": 24
+        },
+        "metacritic_user": {
+          "rating": 6.9,
+          "votes": 539
+        },
+        "trakt": {
+          "rating": 71,
+          "votes": 14970
+        },
+        "tomatoes": {
+          "rating": 36,
+          "votes": 162,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 67,
+          "votes": 16835
+        },
+        "tmdb": {
+          "rating": 66,
+          "votes": 7220
+        },
+        "letterboxd": {
+          "rating": 2.9,
+          "votes": 343500
+        },
+        "roger_ebert": {
+          "rating": 1.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 53,
+          "votes": null
+        }
+      }
+    },
+    "tt0373175": {
+      "title": "My Architect",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 3469
+        },
+        "metacritic": {
+          "rating": 81,
+          "votes": 29
+        },
+        "metacritic_user": {
+          "rating": 8.0,
+          "votes": 4
+        },
+        "trakt": {
+          "rating": 69,
+          "votes": 55
+        },
+        "tomatoes": {
+          "rating": 93,
+          "votes": 91,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 83,
+          "votes": 184
+        },
+        "tmdb": {
+          "rating": 69,
+          "votes": 35
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 2144
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 78,
+          "votes": null
+        }
+      }
+    },
+    "tt0329575": {
+      "title": "Seabiscuit",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.3,
+          "votes": 79575
+        },
+        "metacritic": {
+          "rating": 72,
+          "votes": 43
+        },
+        "metacritic_user": {
+          "rating": 7.1,
+          "votes": 60
+        },
+        "trakt": {
+          "rating": 72,
+          "votes": 1913
+        },
+        "tomatoes": {
+          "rating": 77,
+          "votes": 206,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 76,
+          "votes": 2840
+        },
+        "tmdb": {
+          "rating": 70,
+          "votes": 966
+        },
+        "letterboxd": {
+          "rating": 3.4,
+          "votes": 37400
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 74,
+          "votes": null
+        }
+      }
+    },
+    "tt0351817": {
+      "title": "The Twilight Samurai",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 8.0,
+          "votes": 27350
+        },
+        "metacritic": {
+          "rating": 82,
+          "votes": 25
+        },
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 80,
+          "votes": 618
+        },
+        "tomatoes": {
+          "rating": 99,
+          "votes": 69,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 94,
+          "votes": 816
+        },
+        "tmdb": {
+          "rating": 78,
+          "votes": 378
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 14008
+        },
+        "roger_ebert": {
+          "rating": 4.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 86,
+          "votes": null
+        }
+      }
+    },
+    "tt0343168": {
+      "title": "The Weather Underground",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 3883
+        },
+        "metacritic": {
+          "rating": 77,
+          "votes": 23
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 2
+        },
+        "trakt": {
+          "rating": 70,
+          "votes": 132
+        },
+        "tomatoes": {
+          "rating": 92,
+          "votes": 59,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 87,
+          "votes": 211
+        },
+        "tmdb": {
+          "rating": 66,
+          "votes": 54
+        },
+        "letterboxd": {
+          "rating": 3.6,
+          "votes": 2744
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 78,
+          "votes": null
+        }
+      }
+    },
+    "tt0322674": {
+      "title": "Twin Sisters",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 7727
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 74,
+          "votes": 115
+        },
+        "tomatoes": null,
+        "tomatoes_audience": {
+          "rating": 82,
+          "votes": null
+        },
+        "tmdb": {
+          "rating": 67,
+          "votes": 87
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 2231
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 63,
+          "votes": null
+        }
+      }
+    },
+    "tt0288330": {
+      "title": "Zelary",
+      "year": 2003,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 3930
+        },
+        "metacritic": {
+          "rating": 66,
+          "votes": 20
+        },
+        "metacritic_user": {
+          "rating": 7.0,
+          "votes": 6
+        },
+        "trakt": {
+          "rating": 74,
+          "votes": 71
+        },
+        "tomatoes": {
+          "rating": 74,
+          "votes": 50,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 91,
+          "votes": 123
+        },
+        "tmdb": {
+          "rating": 69,
+          "votes": 56
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 1177
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 62,
+          "votes": null
+        }
+      }
+    },
+    "tt0382330": {
+      "title": "As It Is in Heaven",
+      "year": 2004,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 19420
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 72,
+          "votes": 239
+        },
+        "tomatoes": {
+          "rating": 83,
+          "votes": 6,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 91,
+          "votes": 1000
+        },
+        "tmdb": {
+          "rating": 71,
+          "votes": 197
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 5745
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 73,
           "votes": null
         }
       }
