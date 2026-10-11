@@ -488,6 +488,10 @@
     "imdb_id": "tt2332522"
   },
   {
+    "title": "Cemetery of Splendor",
+    "imdb_id": "tt2818654"
+  },
+  {
     "title": "2046",
     "imdb_id": "tt0212712"
   },
@@ -498,6 +502,10 @@
   {
     "title": "Shaun of the Dead",
     "imdb_id": "tt0365748"
+  },
+  {
+    "title": "Spring, Summer, Fall, Winter... and Spring",
+    "imdb_id": "tt0374546"
   },
   {
     "title": "The Pianist",
@@ -893,7 +901,7 @@
   },
   {
     "title": "Aftersun",
-    "imdb_id": "tt19512922"
+    "imdb_id": "tt19770238"
   },
   {
     "title": "American Psycho",
@@ -1005,7 +1013,7 @@
   },
   {
     "title": "Happy Hour",
-    "imdb_id": "tt3660682"
+    "imdb_id": "tt4780662"
   },
   {
     "title": "The Zone of Interest",
@@ -1068,8 +1076,8 @@
     "imdb_id": "tt2121382"
   },
   {
-    "title": "Manchester by the sea?",
-    "imdb_id": "tt14349610"
+    "title": "Manchester by the Sea",
+    "imdb_id": "tt4034228"
   },
   {
     "title": "Time",
@@ -1272,6 +1280,10 @@
     "imdb_id": "tt17009710"
   },
   {
+    "title": "Kings and Queen",
+    "imdb_id": "tt0344273"
+  },
+  {
     "title": "Antichrist",
     "imdb_id": "tt0870984"
   },
@@ -1286,6 +1298,10 @@
   {
     "title": "Raw",
     "imdb_id": "tt4954522"
+  },
+  {
+    "title": "O Fantasma",
+    "imdb_id": "tt0239381"
   },
   {
     "title": "The Lobster",
@@ -1410,6 +1426,10 @@
   {
     "title": "The Look of Silence",
     "imdb_id": "tt3521134"
+  },
+  {
+    "title": "Neighboring Sounds",
+    "imdb_id": "tt2190367"
   },
   {
     "title": "13 Lakes",
@@ -1632,6 +1652,10 @@
     "imdb_id": "tt0319061"
   },
   {
+    "title": "Samson & Delilah",
+    "imdb_id": "tt1340123"
+  },
+  {
     "title": "Babel",
     "imdb_id": "tt0449467"
   },
@@ -1768,6 +1792,10 @@
     "imdb_id": "tt1029234"
   },
   {
+    "title": "120 BPM (Beats Per Minute)",
+    "imdb_id": "tt6135348"
+  },
+  {
     "title": "Like Father, Like Son",
     "imdb_id": "tt2331143"
   },
@@ -1882,6 +1910,10 @@
   {
     "title": "Flight of the Red Balloon",
     "imdb_id": "tt0826711"
+  },
+  {
+    "title": "La Porte Rouge",
+    "imdb_id": "tt4698742"
   },
   {
     "title": "The Wind Rises",
@@ -2034,6 +2066,10 @@
   {
     "title": "Mommy",
     "imdb_id": "tt3612616"
+  },
+  {
+    "title": "Human Surge",
+    "imdb_id": "tt6041312"
   },
   {
     "title": "Once",
@@ -2194,6 +2230,10 @@
   {
     "title": "Edge of Tomorrow",
     "imdb_id": "tt1631867"
+  },
+  {
+    "title": "Spider-Man",
+    "imdb_id": "tt0145487"
   },
   {
     "title": "The Immigrant",
@@ -2626,6 +2666,10 @@
   {
     "title": "Sweeney Todd: The Demon Barber of Fleet Street",
     "imdb_id": "tt0408236"
+  },
+  {
+    "title": "Compartment Number 6",
+    "imdb_id": "tt10262648"
   },
   {
     "title": "A Screaming Man",
@@ -3204,6 +3248,10 @@
     "imdb_id": "tt1103963"
   },
   {
+    "title": "Inheritance",
+    "imdb_id": "tt7923220"
+  },
+  {
     "title": "Brick",
     "imdb_id": "tt0393109"
   },
@@ -3304,7 +3352,267 @@
     "imdb_id": "tt14035154"
   },
   {
+    "title": "Before Night Falls",
+    "imdb_id": "tt0247196"
+  },
+  {
+    "title": "Manakamana",
+    "imdb_id": "tt3103326"
+  },
+  {
+    "title": "REC",
+    "imdb_id": "tt1038988"
+  },
+  {
+    "title": "Pig",
+    "imdb_id": "tt11003218"
+  },
+  {
+    "title": "Fire Will Come",
+    "imdb_id": "tt8212958"
+  },
+  {
+    "title": "The Descendants",
+    "imdb_id": "tt1033575"
+  },
+  {
+    "title": "God's Own Country",
+    "imdb_id": "tt5635086"
+  },
+  {
+    "title": "Enemy",
+    "imdb_id": "tt2316411"
+  },
+  {
+    "title": "Green Room",
+    "imdb_id": "tt4062536"
+  },
+  {
+    "title": "I Am Not a Witch",
+    "imdb_id": "tt6213284"
+  },
+  {
+    "title": "Kiss Kiss Bang Bang",
+    "imdb_id": "tt0373469"
+  },
+  {
+    "title": "Wonder Woman",
+    "imdb_id": "tt0451279"
+  },
+  {
+    "title": "Touching the Void",
+    "imdb_id": "tt0379557"
+  },
+  {
+    "title": "Whisky",
+    "imdb_id": "tt0331370"
+  },
+  {
+    "title": "Half Nelson",
+    "imdb_id": "tt0468489"
+  },
+  {
+    "title": "Faya Dayi",
+    "imdb_id": "tt13648216"
+  },
+  {
+    "title": "My Mother's Smile",
+    "imdb_id": "tt0317965"
+  },
+  {
+    "title": "The Dreamers",
+    "imdb_id": "tt0309987"
+  },
+  {
+    "title": "Aquarius",
+    "imdb_id": "tt5221584"
+  },
+  {
+    "title": "Unrelated",
+    "imdb_id": "tt1107850"
+  },
+  {
+    "title": "Elvis",
+    "imdb_id": "tt3704428"
+  },
+  {
+    "title": "Strong Island",
+    "imdb_id": "tt5873150"
+  },
+  {
+    "title": "David Byrne's American Utopia",
+    "imdb_id": "tt11874226"
+  },
+  {
+    "title": "All of Us Strangers",
+    "imdb_id": "tt21192142"
+  },
+  {
+    "title": "In Front of Your Face",
+    "imdb_id": "tt14776918"
+  },
+  {
+    "title": "The Isle",
+    "imdb_id": "tt0255589"
+  },
+  {
+    "title": "Shirkers",
+    "imdb_id": "tt7472352"
+  },
+  {
+    "title": "3 Faces",
+    "imdb_id": "tt8269552"
+  },
+  {
+    "title": "Rachel Getting Married",
+    "imdb_id": "tt1084950"
+  },
+  {
+    "title": "Cloud Atlas",
+    "imdb_id": "tt1371111"
+  },
+  {
+    "title": "A Girl at My Door",
+    "imdb_id": "tt3661798"
+  },
+  {
+    "title": "Another Round",
+    "imdb_id": "tt10288566"
+  },
+  {
+    "title": "Season of the Devil",
+    "imdb_id": "tt7200370"
+  },
+  {
+    "title": "Evolution",
+    "imdb_id": "tt4291590"
+  },
+  {
+    "title": "The Ring",
+    "imdb_id": "tt0298130"
+  },
+  {
+    "title": "Dreams of a Life",
+    "imdb_id": "tt1819513"
+  },
+  {
+    "title": "Ghost in the Shell 2: Innocence",
+    "imdb_id": "tt0347246"
+  },
+  {
+    "title": "Top Gun: Maverick",
+    "imdb_id": "tt1745960"
+  },
+  {
+    "title": "Encounters at the End of the World",
+    "imdb_id": "tt1093824"
+  },
+  {
+    "title": "A Fantastic Woman",
+    "imdb_id": "tt5639354"
+  },
+  {
+    "title": "Shirley",
+    "imdb_id": "tt8430598"
+  },
+  {
+    "title": "Il Divo",
+    "imdb_id": "tt1023490"
+  },
+  {
+    "title": "We Have a Pope",
+    "imdb_id": "tt1456472"
+  },
+  {
+    "title": "Knives Out",
+    "imdb_id": "tt8946378"
+  },
+  {
+    "title": "You Ain't Seen Nothin' Yet",
+    "imdb_id": "tt1690389"
+  },
+  {
+    "title": "The Barbarian Invasions",
+    "imdb_id": "tt0338135"
+  },
+  {
+    "title": "Pontypool",
+    "imdb_id": "tt1226681"
+  },
+  {
+    "title": "The Lego Movie",
+    "imdb_id": "tt1490017"
+  },
+  {
+    "title": "Closeness",
+    "imdb_id": "tt6777056"
+  },
+  {
+    "title": "20th Century Women",
+    "imdb_id": "tt4385888"
+  },
+  {
+    "title": "Control",
+    "imdb_id": "tt0421082"
+  },
+  {
+    "title": "Cow",
+    "imdb_id": "tt11548822"
+  },
+  {
+    "title": "Nightcrawler",
+    "imdb_id": "tt2872718"
+  },
+  {
     "title": "Into the Wild",
     "imdb_id": "tt0758758"
+  },
+  {
+    "title": "Asteroid City",
+    "imdb_id": "tt14230388"
+  },
+  {
+    "title": "Lantana",
+    "imdb_id": "tt0259393"
+  },
+  {
+    "title": "Let the Bullets Fly",
+    "imdb_id": "tt1533117"
+  },
+  {
+    "title": "The Big Short",
+    "imdb_id": "tt1596363"
+  },
+  {
+    "title": "The Nine Muses",
+    "imdb_id": "tt1706701"
+  },
+  {
+    "title": "Bloody Nose, Empty Pockets",
+    "imdb_id": "tt11392114"
+  },
+  {
+    "title": "Eighth Grade",
+    "imdb_id": "tt7014006"
+  },
+  {
+    "title": "Stuck on You",
+    "imdb_id": "tt0338466"
+  },
+  {
+    "title": "Greenberg",
+    "imdb_id": "tt1234654"
+  },
+  {
+    "title": "Ten Canoes",
+    "imdb_id": "tt0466399"
+  },
+  {
+    "title": "The Mourning Forest",
+    "imdb_id": "tt1016205"
+  },
+  {
+    "title": "Mind Game",
+    "imdb_id": "tt0452039"
   }
 ]
