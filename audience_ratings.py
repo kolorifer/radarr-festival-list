@@ -8,9 +8,10 @@ from urllib.request import Request, urlopen
 
 API_KEY = os.environ["REELDB_API_KEY"]
 SOURCE = Path("backcatalog-details.json")
+PHASE_B = Path("sources/phase-b-institutional.json")
 OUTPUT = Path("audience-ratings.json")
 API_BASE = "https://api.reeldb.io"
-MAX_REQUESTS_PER_RUN = 50
+MAX_REQUESTS_PER_RUN = 40
 
 
 def fetch_rating(imdb_id):
@@ -23,7 +24,17 @@ def fetch_rating(imdb_id):
 
 def main():
     source = json.loads(SOURCE.read_text(encoding="utf-8"))
-    movies = source["candidates"]
+    movies = list(source["candidates"])
+    # Research branch only: extend the collection universe with independently
+    # sourced Phase-B films. Deduplicate by IMDb ID so the TSPDT cache is preserved.
+    if PHASE_B.exists():
+        phase_b = json.loads(PHASE_B.read_text(encoding="utf-8"))
+        seen = {m.get("imdb_id") for m in movies}
+        for f in phase_b.get("films", []):
+            iid = f.get("imdb_id")
+            if iid and iid not in seen:
+                movies.append({"imdb_id": iid, "title": f["title"], "year": f["year"], "tspdt_rank": None})
+                seen.add(iid)
     if OUTPUT.exists():
         existing = json.loads(OUTPUT.read_text(encoding="utf-8"))
         results = existing.get("ratings", {})
@@ -32,7 +43,7 @@ def main():
 
     pending_all = [m for m in movies if m.get("imdb_id") and m["imdb_id"] not in results]
     pending = pending_all[:MAX_REQUESTS_PER_RUN]
-    print(f"{len(movies)} resolved movies")
+    print(f"{len(movies)} resolved movies in union universe")
     print(f"{len(results)} already cached")
     print(f"{len(pending_all)} total missing; attempting at most {len(pending)} this run")
     failures = []
@@ -42,7 +53,7 @@ def main():
         try:
             data = fetch_rating(imdb_id)
             results[imdb_id] = {"title": movie["title"], "year": movie["year"],
-                                "tspdt_rank": movie["tspdt_rank"], "reeldb": data}
+                                "tspdt_rank": movie.get("tspdt_rank"), "reeldb": data}
             print(f"[{index}/{len(pending)}] {movie['title']} ({movie['year']}) OK")
         except HTTPError as exc:
             print(f"[{index}/{len(pending)}] {movie['title']} HTTP {exc.code}")
