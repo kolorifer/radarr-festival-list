@@ -2,6 +2,10 @@ name: Collect audience ratings
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - audience_ratings.py
 
 permissions:
   contents: write
