@@ -13,13 +13,15 @@ OUTPUT = Path("audience-ratings.json")
 API_BASE = "https://api.reeldb.io"
 
 
+from urllib.parse import urlencode
+
 def fetch_rating(imdb_id):
-    url = f"{API_BASE}/ratings/{imdb_id}"
+    query = urlencode({"apikey": API_KEY})
+    url = f"{API_BASE}/v1/title/{imdb_id}/ratings?{query}"
 
     request = Request(
         url,
         headers={
-            "Authorization": f"Bearer {API_KEY}",
             "Accept": "application/json",
             "User-Agent": "radarr-festival-list/1.0",
         },
