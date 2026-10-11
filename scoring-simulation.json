@@ -20,15 +20,15 @@
   "model": {
     "tspdt": "5/4/3/2.5/2/1/0.5 with #101-150=2.5",
     "audience": "p75/p90 strength; p10 minimum; half confidence below median vote count; combined cap +0.5",
-    "recognition": "verified film-level Academy/Cannes signals only in this phase; winner +1.5, nominee/major secondary Cannes prize +0.5",
+    "recognition": "verified film-level Academy/Cannes signals only in this phase; Best Picture winner +1.5; major film-level win/combined recognition up to +1; nominee/major secondary Cannes prize +0.5",
     "cutoff": 3.0
   },
   "counts": {
     "production_qualifiers": 109,
-    "simulated_qualifiers": 123,
-    "promoted": 14,
+    "simulated_qualifiers": 124,
+    "promoted": 15,
     "demoted": 0,
-    "near_below": 51
+    "near_below": 50
   },
   "calibration": [
     {
@@ -160,9 +160,9 @@
       "audience_signals": [
         "Letterboxd strong x0.5 confidence"
       ],
-      "recognition_bonus": 0.5,
-      "recognition_signal": "Cannes Grand Prix",
-      "simulated_score": 2.625
+      "recognition_bonus": 1.0,
+      "recognition_signal": "Academy Foreign Language Film winner + Cannes Grand Prix",
+      "simulated_score": 3.125
     },
     {
       "title": "The Wolf of Wall Street",
@@ -262,6 +262,25 @@
       ],
       "recognition_bonus": 0.5,
       "recognition_signal": "Academy Best Picture nominee",
+      "simulated_score": 3.125
+    },
+    {
+      "title": "Son of Saul",
+      "year": 2015,
+      "imdb_id": "tt3808342",
+      "rank": 169,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.4,
+      "imdb_votes": 54933,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 65531,
+      "audience_bonus": 0.125,
+      "audience_signals": [
+        "Letterboxd strong x0.5 confidence"
+      ],
+      "recognition_bonus": 1.0,
+      "recognition_signal": "Academy Foreign Language Film winner + Cannes Grand Prix",
       "simulated_score": 3.125
     },
     {
@@ -672,25 +691,6 @@
       ],
       "recognition_bonus": 0.0,
       "recognition_signal": null,
-      "simulated_score": 2.625
-    },
-    {
-      "title": "Son of Saul",
-      "year": 2015,
-      "imdb_id": "tt3808342",
-      "rank": 169,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.4,
-      "imdb_votes": 54933,
-      "letterboxd_rating": 4.1,
-      "letterboxd_votes": 65531,
-      "audience_bonus": 0.125,
-      "audience_signals": [
-        "Letterboxd strong x0.5 confidence"
-      ],
-      "recognition_bonus": 0.5,
-      "recognition_signal": "Cannes Grand Prix",
       "simulated_score": 2.625
     },
     {
