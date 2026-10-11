@@ -1,6 +1,10 @@
 {
-  "mode": "simulation-2-verified-recognition",
+  "mode": "simulation-3-expanded-film-recognition",
   "production_unchanged": true,
+  "notes": [
+    "Corrects Goodbye to Language IMDb recognition mapping; Winter Sleep no longer receives that Jury Prize.",
+    "Still TSPDT-only candidate universe; coverage failures are intentionally not hidden by scoring changes."
+  ],
   "thresholds_used": {
     "imdb_strong": 7.7,
     "imdb_exceptional": 8.0,
@@ -13,10 +17,10 @@
   },
   "counts": {
     "production_qualifiers": 109,
-    "simulated_qualifiers": 124,
-    "promoted": 15,
+    "simulated_qualifiers": 125,
+    "promoted": 16,
     "demoted": 0,
-    "near_below": 50
+    "near_below": 49
   },
   "calibration": [
     {
@@ -37,6 +41,23 @@
       "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.75
+    },
+    {
+      "title": "Goodbye to Language",
+      "year": 2014,
+      "imdb_id": "tt2400275",
+      "rank": 119,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 5.8,
+      "imdb_votes": 6729,
+      "letterboxd_rating": 3.4,
+      "letterboxd_votes": 18620,
+      "audience_bonus": 0,
+      "audience_signals": [],
+      "recognition_bonus": 0.5,
+      "recognition_signal": "Cannes Jury Prize",
+      "simulated_score": 3.0
     },
     {
       "title": "The Assassin",
@@ -134,6 +155,46 @@
       "simulated_score": 3.125
     },
     {
+      "title": "The Departed",
+      "year": 2006,
+      "imdb_id": "tt0407887",
+      "rank": 156,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.5,
+      "imdb_votes": 1583371,
+      "letterboxd_rating": 4.3,
+      "letterboxd_votes": 1763032,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional x1 confidence",
+        "IMDb exceptional x1 confidence"
+      ],
+      "recognition_bonus": 1.5,
+      "recognition_signal": "Academy Best Picture winner",
+      "simulated_score": 4.0
+    },
+    {
+      "title": "Donnie Darko",
+      "year": 2001,
+      "imdb_id": "tt0246578",
+      "rank": 166,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 922309,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 2561001,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong x1 confidence",
+        "IMDb exceptional x1 confidence"
+      ],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 2.5
+    },
+    {
       "title": "Son of Saul",
       "year": 2015,
       "imdb_id": "tt3808342",
@@ -171,6 +232,176 @@
       "recognition_bonus": 0.5,
       "recognition_signal": "Academy Best Picture nominee",
       "simulated_score": 3.0
+    },
+    {
+      "title": "Her",
+      "year": 2013,
+      "imdb_id": "tt1798709",
+      "rank": 230,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.9,
+      "imdb_votes": 735468,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 2334141,
+      "audience_bonus": 0.375,
+      "audience_signals": [
+        "Letterboxd strong x1 confidence",
+        "IMDb strong x1 confidence"
+      ],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 2.375
+    },
+    {
+      "title": "Manchester by the Sea",
+      "year": 2016,
+      "imdb_id": "tt4034228",
+      "rank": 289,
+      "production_score": 1.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.8,
+      "imdb_votes": 364474,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 1192113,
+      "audience_bonus": 0.375,
+      "audience_signals": [
+        "Letterboxd strong x1 confidence",
+        "IMDb strong x1 confidence"
+      ],
+      "recognition_bonus": 0.5,
+      "recognition_signal": "Academy Best Picture nominee",
+      "simulated_score": 1.875
+    },
+    {
+      "title": "Winter Sleep",
+      "year": 2014,
+      "imdb_id": "tt2758880",
+      "rank": 302,
+      "production_score": 2.0,
+      "existing_bonus": 1.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 59644,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 57761,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional x0.5 confidence",
+        "IMDb exceptional x1 confidence"
+      ],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Lobster",
+      "year": 2015,
+      "imdb_id": "tt3464902",
+      "rank": 347,
+      "production_score": 1.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.1,
+      "imdb_votes": 338879,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 1219342,
+      "audience_bonus": 0,
+      "audience_signals": [],
+      "recognition_bonus": 0.5,
+      "recognition_signal": "Cannes Jury Prize",
+      "simulated_score": 1.5
+    },
+    {
+      "title": "Midsommar",
+      "year": 2019,
+      "imdb_id": "tt8772262",
+      "rank": 415,
+      "production_score": 1.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.1,
+      "imdb_votes": 500228,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 4056596,
+      "audience_bonus": 0,
+      "audience_signals": [],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 1.0
+    },
+    {
+      "title": "Ex Machina",
+      "year": 2014,
+      "imdb_id": "tt0470752",
+      "rank": 499,
+      "production_score": 1.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.7,
+      "imdb_votes": 647058,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 1379042,
+      "audience_bonus": 0.375,
+      "audience_signals": [
+        "Letterboxd strong x1 confidence",
+        "IMDb strong x1 confidence"
+      ],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 1.375
+    },
+    {
+      "title": "Dune",
+      "year": 2021,
+      "imdb_id": "tt1160419",
+      "rank": 540,
+      "production_score": 0.5,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 1094634,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 4500124,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "IMDb exceptional x1 confidence"
+      ],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 0.75
+    },
+    {
+      "title": "Scott Pilgrim vs. the World",
+      "year": 2010,
+      "imdb_id": "tt0446029",
+      "rank": 558,
+      "production_score": 0.5,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.5,
+      "imdb_votes": 501807,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 2730713,
+      "audience_bonus": 0,
+      "audience_signals": [],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 0.5
+    },
+    {
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "imdb_id": "tt1856101",
+      "rank": 900,
+      "production_score": 0.5,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 771397,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 2356616,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong x1 confidence",
+        "IMDb exceptional x1 confidence"
+      ],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 1.0
     }
   ],
   "promoted": [
@@ -193,6 +424,26 @@
       "recognition_bonus": 1.5,
       "recognition_signal": "Academy Best Picture winner",
       "simulated_score": 4.5
+    },
+    {
+      "title": "The Departed",
+      "year": 2006,
+      "imdb_id": "tt0407887",
+      "rank": 156,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.5,
+      "imdb_votes": 1583371,
+      "letterboxd_rating": 4.3,
+      "letterboxd_votes": 1763032,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional x1 confidence",
+        "IMDb exceptional x1 confidence"
+      ],
+      "recognition_bonus": 1.5,
+      "recognition_signal": "Academy Best Picture winner",
+      "simulated_score": 4.0
     },
     {
       "title": "Arrival",
@@ -332,6 +583,23 @@
       "simulated_score": 3.0
     },
     {
+      "title": "Goodbye to Language",
+      "year": 2014,
+      "imdb_id": "tt2400275",
+      "rank": 119,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 5.8,
+      "imdb_votes": 6729,
+      "letterboxd_rating": 3.4,
+      "letterboxd_votes": 18620,
+      "audience_bonus": 0,
+      "audience_signals": [],
+      "recognition_bonus": 0.5,
+      "recognition_signal": "Cannes Jury Prize",
+      "simulated_score": 3.0
+    },
+    {
       "title": "The Assassin",
       "year": 2015,
       "imdb_id": "tt3508840",
@@ -446,26 +714,6 @@
       ],
       "recognition_bonus": 0.5,
       "recognition_signal": "Academy Best Picture nominee",
-      "simulated_score": 3.0
-    },
-    {
-      "title": "Winter Sleep",
-      "year": 2014,
-      "imdb_id": "tt2758880",
-      "rank": 302,
-      "production_score": 2.0,
-      "existing_bonus": 1.0,
-      "imdb_rating": 8.0,
-      "imdb_votes": 59644,
-      "letterboxd_rating": 4.2,
-      "letterboxd_votes": 57761,
-      "audience_bonus": 0.5,
-      "audience_signals": [
-        "Letterboxd exceptional x0.5 confidence",
-        "IMDb exceptional x1 confidence"
-      ],
-      "recognition_bonus": 0.5,
-      "recognition_signal": "Cannes Jury Prize",
       "simulated_score": 3.0
     }
   ],
@@ -834,23 +1082,6 @@
       "simulated_score": 2.5
     },
     {
-      "title": "Goodbye to Language",
-      "year": 2014,
-      "imdb_id": "tt2400275",
-      "rank": 119,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 5.8,
-      "imdb_votes": 6729,
-      "letterboxd_rating": 3.4,
-      "letterboxd_votes": 18620,
-      "audience_bonus": 0,
-      "audience_signals": [],
-      "recognition_bonus": 0,
-      "recognition_signal": null,
-      "simulated_score": 2.5
-    },
-    {
       "title": "Meek's Cutoff",
       "year": 2010,
       "imdb_id": "tt1518812",
@@ -1016,26 +1247,6 @@
       "letterboxd_votes": 337204,
       "audience_bonus": 0,
       "audience_signals": [],
-      "recognition_bonus": 0,
-      "recognition_signal": null,
-      "simulated_score": 2.5
-    },
-    {
-      "title": "The Departed",
-      "year": 2006,
-      "imdb_id": "tt0407887",
-      "rank": 156,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.5,
-      "imdb_votes": 1583371,
-      "letterboxd_rating": 4.3,
-      "letterboxd_votes": 1763032,
-      "audience_bonus": 0.5,
-      "audience_signals": [
-        "Letterboxd exceptional x1 confidence",
-        "IMDb exceptional x1 confidence"
-      ],
       "recognition_bonus": 0,
       "recognition_signal": null,
       "simulated_score": 2.5
@@ -1392,6 +1603,26 @@
       "audience_bonus": 0.5,
       "audience_signals": [
         "Letterboxd strong x1 confidence",
+        "IMDb exceptional x1 confidence"
+      ],
+      "recognition_bonus": 0,
+      "recognition_signal": null,
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Winter Sleep",
+      "year": 2014,
+      "imdb_id": "tt2758880",
+      "rank": 302,
+      "production_score": 2.0,
+      "existing_bonus": 1.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 59644,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 57761,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional x0.5 confidence",
         "IMDb exceptional x1 confidence"
       ],
       "recognition_bonus": 0,
