@@ -98,7 +98,7 @@ def main():
             })
 
         # Be deliberately gentle with the API.
-        time.sleep(0.15)
+        time.sleep(1.2)
 
         # Checkpoint every 25 requests.
         if index % 25 == 0:
