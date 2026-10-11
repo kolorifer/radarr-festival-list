@@ -1,0 +1,1468 @@
+{
+  "mode": "simulation-only",
+  "production_unchanged": true,
+  "coverage": {
+    "tspdt_candidates": 951,
+    "audience_records": 912,
+    "candidate_ids_with_audience": 912,
+    "candidate_ids_missing_audience": 39,
+    "audience_ids_not_in_current_candidates": 0,
+    "missing_audience": [
+      {
+        "title": "Lovers Rock",
+        "year": 2020,
+        "imdb_id": "tt10551102",
+        "rank": 121
+      },
+      {
+        "title": "La Porte Rouge",
+        "year": 2007,
+        "imdb_id": "tt4698742",
+        "rank": 509
+      },
+      {
+        "title": "Mangrove",
+        "year": 2020,
+        "imdb_id": "tt10551100",
+        "rank": 861
+      },
+      {
+        "title": "The Lost City of Z",
+        "year": 2016,
+        "imdb_id": "tt1212428",
+        "rank": 883
+      },
+      {
+        "title": "A Thousand Suns",
+        "year": 2013,
+        "imdb_id": "tt3118566",
+        "rank": 884
+      },
+      {
+        "title": "In Jackson Heights",
+        "year": 2015,
+        "imdb_id": "tt4936064",
+        "rank": 885
+      },
+      {
+        "title": "The Raid: Redemption",
+        "year": 2011,
+        "imdb_id": "tt1899353",
+        "rank": 886
+      },
+      {
+        "title": "Road to Perdition",
+        "year": 2002,
+        "imdb_id": "tt0257044",
+        "rank": 888
+      },
+      {
+        "title": "Good Time",
+        "year": 2017,
+        "imdb_id": "tt4846232",
+        "rank": 890
+      },
+      {
+        "title": "Spider-Man 2",
+        "year": 2004,
+        "imdb_id": "tt0316654",
+        "rank": 891
+      },
+      {
+        "title": "Oxhide",
+        "year": 2005,
+        "imdb_id": "tt0453795",
+        "rank": 892
+      },
+      {
+        "title": "Flags of Our Fathers",
+        "year": 2006,
+        "imdb_id": "tt0418689",
+        "rank": 893
+      },
+      {
+        "title": "24 City",
+        "year": 2008,
+        "imdb_id": "tt1103963",
+        "rank": 895
+      },
+      {
+        "title": "Inheritance",
+        "year": 2020,
+        "imdb_id": "tt7923220",
+        "rank": 897
+      },
+      {
+        "title": "Brick",
+        "year": 2005,
+        "imdb_id": "tt0393109",
+        "rank": 898
+      },
+      {
+        "title": "Zidane: A 21st Century Portrait",
+        "year": 2006,
+        "imdb_id": "tt0478337",
+        "rank": 899
+      },
+      {
+        "title": "Blade Runner 2049",
+        "year": 2017,
+        "imdb_id": "tt1856101",
+        "rank": 900
+      },
+      {
+        "title": "City of Life and Death",
+        "year": 2009,
+        "imdb_id": "tt1124052",
+        "rank": 901
+      },
+      {
+        "title": "Perfect Days",
+        "year": 2023,
+        "imdb_id": "tt27503384",
+        "rank": 902
+      },
+      {
+        "title": "Animal Kingdom",
+        "year": 2010,
+        "imdb_id": "tt1313092",
+        "rank": 903
+      },
+      {
+        "title": "Moneyball",
+        "year": 2011,
+        "imdb_id": "tt1210166",
+        "rank": 904
+      },
+      {
+        "title": "Japón",
+        "year": 2002,
+        "imdb_id": "tt0322824",
+        "rank": 905
+      },
+      {
+        "title": "Belfast",
+        "year": 2021,
+        "imdb_id": "tt12789558",
+        "rank": 907
+      },
+      {
+        "title": "Drug War",
+        "year": 2012,
+        "imdb_id": "tt2165735",
+        "rank": 908
+      },
+      {
+        "title": "Afire",
+        "year": 2023,
+        "imdb_id": "tt26440619",
+        "rank": 910
+      },
+      {
+        "title": "The Sea Inside",
+        "year": 2004,
+        "imdb_id": "tt0369702",
+        "rank": 911
+      },
+      {
+        "title": "Three Monkeys",
+        "year": 2008,
+        "imdb_id": "tt1233381",
+        "rank": 912
+      },
+      {
+        "title": "Sobibór, October 14, 1943, 4 p.m.",
+        "year": 2001,
+        "imdb_id": "tt0286978",
+        "rank": 913
+      },
+      {
+        "title": "Bergman Island",
+        "year": 2021,
+        "imdb_id": "tt6910282",
+        "rank": 914
+      },
+      {
+        "title": "Dick Johnson Is Dead",
+        "year": 2020,
+        "imdb_id": "tt11394180",
+        "rank": 915
+      },
+      {
+        "title": "A Single Man",
+        "year": 2009,
+        "imdb_id": "tt1315981",
+        "rank": 916
+      },
+      {
+        "title": "Mr. Turner",
+        "year": 2014,
+        "imdb_id": "tt2473794",
+        "rank": 917
+      },
+      {
+        "title": "What We Do in the Shadows",
+        "year": 2014,
+        "imdb_id": "tt3416742",
+        "rank": 918
+      },
+      {
+        "title": "Midnight in Paris",
+        "year": 2011,
+        "imdb_id": "tt1605783",
+        "rank": 919
+      },
+      {
+        "title": "House of Tolerance",
+        "year": 2011,
+        "imdb_id": "tt1660379",
+        "rank": 920
+      },
+      {
+        "title": "Monos",
+        "year": 2019,
+        "imdb_id": "tt6062774",
+        "rank": 921
+      },
+      {
+        "title": "A Tale of Two Sisters",
+        "year": 2003,
+        "imdb_id": "tt0365376",
+        "rank": 922
+      },
+      {
+        "title": "Secretary",
+        "year": 2002,
+        "imdb_id": "tt0274812",
+        "rank": 923
+      },
+      {
+        "title": "What Do We See When We Look at the Sky?",
+        "year": 2021,
+        "imdb_id": "tt14035154",
+        "rank": 924
+      }
+    ]
+  },
+  "distributions": {
+    "imdb_rating": {
+      "n": 912,
+      "p10": 6.5,
+      "p25": 6.9,
+      "median": 7.3,
+      "p75": 7.7,
+      "p90": 8.0
+    },
+    "imdb_votes": {
+      "n": 912,
+      "p10": 1942.5000000000002,
+      "median": 48754.5,
+      "p90": 644734.8999999997
+    },
+    "letterboxd_rating": {
+      "n": 910,
+      "p10": 3.5,
+      "p25": 3.7,
+      "median": 3.8,
+      "p75": 4.0,
+      "p90": 4.2
+    },
+    "letterboxd_votes": {
+      "n": 910,
+      "p10": 4521.5,
+      "median": 74026.5,
+      "p90": 1593961.4000000001
+    }
+  },
+  "thresholds_used": {
+    "imdb_strong": 7.7,
+    "imdb_exceptional": 8.0,
+    "letterboxd_strong": 4.0,
+    "letterboxd_exceptional": 4.2,
+    "imdb_vote_floor": 1943,
+    "letterboxd_vote_floor": 4522
+  },
+  "model": {
+    "tspdt": "5/4/3/2.5/2/1/0.5 with #101-150=2.5",
+    "existing_non_tspdt_signals": "preserved exactly from production for this first simulation",
+    "audience": "Letterboxd +0.25/+0.50; IMDb +0.125/+0.25; combined cap +0.50; thresholds from p75/p90; vote floors p10",
+    "cutoff": 3.0
+  },
+  "counts": {
+    "production_qualifiers": 109,
+    "simulated_qualifiers": 119,
+    "promoted": 10,
+    "demoted": 0,
+    "near_below": 59
+  },
+  "promoted": [
+    {
+      "title": "Persepolis",
+      "year": 2007,
+      "imdb_id": "tt0808417",
+      "rank": 110,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 107270,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 288711,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "The Grand Budapest Hotel",
+      "year": 2014,
+      "imdb_id": "tt2278388",
+      "rank": 113,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.1,
+      "imdb_votes": 988927,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 3494437,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "The Lord of the Rings: The Return of the King",
+      "year": 2003,
+      "imdb_id": "tt0167260",
+      "rank": 116,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 9.0,
+      "imdb_votes": 2199411,
+      "letterboxd_rating": 4.6,
+      "letterboxd_votes": 2519293,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "La Commune (Paris, 1871)",
+      "year": 2000,
+      "imdb_id": "tt0257497",
+      "rank": 118,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 1539,
+      "letterboxd_rating": 4.3,
+      "letterboxd_votes": 4828,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "12 Years a Slave",
+      "year": 2013,
+      "imdb_id": "tt2024544",
+      "rank": 127,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.1,
+      "imdb_votes": 796169,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 768435,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "Spring, Summer, Fall, Winter... and Spring",
+      "year": 2003,
+      "imdb_id": "tt0374546",
+      "rank": 133,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 91675,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 74065,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "Still Walking",
+      "year": 2008,
+      "imdb_id": "tt1087578",
+      "rank": 144,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.9,
+      "imdb_votes": 21501,
+      "letterboxd_rating": 4.3,
+      "letterboxd_votes": 71607,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb strong"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "Million Dollar Baby",
+      "year": 2004,
+      "imdb_id": "tt0405159",
+      "rank": 145,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.1,
+      "imdb_votes": 775029,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 514810,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "Kill Bill: Vol. 1",
+      "year": 2003,
+      "imdb_id": "tt0266697",
+      "rank": 148,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.2,
+      "imdb_votes": 1327962,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 3619264,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    },
+    {
+      "title": "Inception",
+      "year": 2010,
+      "imdb_id": "tt1375666",
+      "rank": 150,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.8,
+      "imdb_votes": 2877777,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 4508236,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 3.0
+    }
+  ],
+  "demoted": [],
+  "near_below": [
+    {
+      "title": "Arrival",
+      "year": 2016,
+      "imdb_id": "tt2543164",
+      "rank": 141,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.9,
+      "imdb_votes": 882503,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 2749315,
+      "audience_bonus": 0.375,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb strong"
+      ],
+      "simulated_score": 2.875
+    },
+    {
+      "title": "The Son",
+      "year": 2002,
+      "imdb_id": "tt0291172",
+      "rank": 106,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.5,
+      "imdb_votes": 10660,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 10792,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "Mysteries of Lisbon",
+      "year": 2010,
+      "imdb_id": "tt20259142",
+      "rank": 117,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.3,
+      "imdb_votes": 470,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 4525,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "Certified Copy",
+      "year": 2010,
+      "imdb_id": "tt1020773",
+      "rank": 126,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.2,
+      "imdb_votes": 29388,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 74900,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "2046",
+      "year": 2004,
+      "imdb_id": "tt0212712",
+      "rank": 130,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.4,
+      "imdb_votes": 65103,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 153939,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "Inside Llewyn Davis",
+      "year": 2013,
+      "imdb_id": "tt2042568",
+      "rank": 131,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.4,
+      "imdb_votes": 173539,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 398523,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "La Flor",
+      "year": 2018,
+      "imdb_id": "tt9047474",
+      "rank": 135,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.3,
+      "imdb_votes": 968,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 4761,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "Ida",
+      "year": 2013,
+      "imdb_id": "tt2718492",
+      "rank": 143,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.4,
+      "imdb_votes": 63680,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 99851,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "Adaptation.",
+      "year": 2002,
+      "imdb_id": "tt0268126",
+      "rank": 146,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.6,
+      "imdb_votes": 214948,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 340421,
+      "audience_bonus": 0.25,
+      "audience_signals": [
+        "Letterboxd strong"
+      ],
+      "simulated_score": 2.75
+    },
+    {
+      "title": "Avatar",
+      "year": 2009,
+      "imdb_id": "tt0499549",
+      "rank": 124,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.9,
+      "imdb_votes": 1518247,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 3314787,
+      "audience_bonus": 0.125,
+      "audience_signals": [
+        "IMDb strong"
+      ],
+      "simulated_score": 2.625
+    },
+    {
+      "title": "Shaun of the Dead",
+      "year": 2004,
+      "imdb_id": "tt0365748",
+      "rank": 132,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.8,
+      "imdb_votes": 645967,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 1300222,
+      "audience_bonus": 0.125,
+      "audience_signals": [
+        "IMDb strong"
+      ],
+      "simulated_score": 2.625
+    },
+    {
+      "title": "Gravity",
+      "year": 2013,
+      "imdb_id": "tt1454468",
+      "rank": 147,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.7,
+      "imdb_votes": 907744,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 931414,
+      "audience_bonus": 0.125,
+      "audience_signals": [
+        "IMDb strong"
+      ],
+      "simulated_score": 2.625
+    },
+    {
+      "title": "The Hurt Locker",
+      "year": 2008,
+      "imdb_id": "tt0887912",
+      "rank": 101,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.5,
+      "imdb_votes": 500510,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 344087,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "A History of Violence",
+      "year": 2005,
+      "imdb_id": "tt0399146",
+      "rank": 102,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.4,
+      "imdb_votes": 277860,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 306408,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Blissfully Yours",
+      "year": 2002,
+      "imdb_id": "tt0317171",
+      "rank": 103,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.9,
+      "imdb_votes": 2875,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 8527,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Code Unknown",
+      "year": 2000,
+      "imdb_id": "tt0216625",
+      "rank": 105,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.1,
+      "imdb_votes": 16646,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 31954,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Trouble Every Day",
+      "year": 2001,
+      "imdb_id": "tt0204700",
+      "rank": 107,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 5.9,
+      "imdb_votes": 11167,
+      "letterboxd_rating": 3.4,
+      "letterboxd_votes": 54553,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Tabu",
+      "year": 2012,
+      "imdb_id": "tt2153963",
+      "rank": 108,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.3,
+      "imdb_votes": 8006,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 13252,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Wendy and Lucy",
+      "year": 2008,
+      "imdb_id": "tt1152850",
+      "rank": 109,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.1,
+      "imdb_votes": 21349,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 51702,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Irreversible",
+      "year": 2002,
+      "imdb_id": "tt0290673",
+      "rank": 112,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.3,
+      "imdb_votes": 165918,
+      "letterboxd_rating": 3.6,
+      "letterboxd_votes": 361272,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Atlantics",
+      "year": 2019,
+      "imdb_id": "tt10199586",
+      "rank": 115,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.7,
+      "imdb_votes": 11308,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 47810,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Goodbye to Language",
+      "year": 2014,
+      "imdb_id": "tt2400275",
+      "rank": 119,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 5.8,
+      "imdb_votes": 6729,
+      "letterboxd_rating": 3.4,
+      "letterboxd_votes": 18620,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Meek's Cutoff",
+      "year": 2010,
+      "imdb_id": "tt1518812",
+      "rank": 120,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.5,
+      "imdb_votes": 16592,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 40287,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Lovers Rock",
+      "year": 2020,
+      "imdb_id": "tt10551102",
+      "rank": 121,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": null,
+      "imdb_votes": null,
+      "letterboxd_rating": null,
+      "letterboxd_votes": null,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Assassin",
+      "year": 2015,
+      "imdb_id": "tt3508840",
+      "rank": 122,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.3,
+      "imdb_votes": 19151,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 33319,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Lady Bird",
+      "year": 2017,
+      "imdb_id": "tt4925292",
+      "rank": 123,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.4,
+      "imdb_votes": 369992,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 3285753,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Far from Heaven",
+      "year": 2002,
+      "imdb_id": "tt0297884",
+      "rank": 125,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.3,
+      "imdb_votes": 52028,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 55360,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Leviathan",
+      "year": 2012,
+      "imdb_id": "tt2332522",
+      "rank": 128,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.5,
+      "imdb_votes": 4004,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 12632,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Cemetery of Splendor",
+      "year": 2015,
+      "imdb_id": "tt2818654",
+      "rank": 129,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.8,
+      "imdb_votes": 6068,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 22462,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "No Home Movie",
+      "year": 2015,
+      "imdb_id": "tt4881016",
+      "rank": 136,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.6,
+      "imdb_votes": 1292,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 6845,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "A Serious Man",
+      "year": 2009,
+      "imdb_id": "tt1019452",
+      "rank": 138,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.0,
+      "imdb_votes": 160174,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 232578,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Stranger by the Lake",
+      "year": 2013,
+      "imdb_id": "tt2852458",
+      "rank": 140,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 6.9,
+      "imdb_votes": 17950,
+      "letterboxd_rating": 3.6,
+      "letterboxd_votes": 49596,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Host",
+      "year": 2006,
+      "imdb_id": "tt0468492",
+      "rank": 142,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.1,
+      "imdb_votes": 144940,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 337204,
+      "audience_bonus": 0.0,
+      "audience_signals": [],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Departed",
+      "year": 2006,
+      "imdb_id": "tt0407887",
+      "rank": 156,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.5,
+      "imdb_votes": 1583371,
+      "letterboxd_rating": 4.3,
+      "letterboxd_votes": 1763032,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Donnie Darko",
+      "year": 2001,
+      "imdb_id": "tt0246578",
+      "rank": 166,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 922309,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 2561001,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Interstellar",
+      "year": 2014,
+      "imdb_id": "tt0816692",
+      "rank": 167,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.7,
+      "imdb_votes": 2618469,
+      "letterboxd_rating": 4.5,
+      "letterboxd_votes": 6513992,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Toy Story 3",
+      "year": 2010,
+      "imdb_id": "tt0435761",
+      "rank": 170,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.3,
+      "imdb_votes": 993198,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 1937716,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Lord of the Rings: The Two Towers",
+      "year": 2002,
+      "imdb_id": "tt0167261",
+      "rank": 175,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.8,
+      "imdb_votes": 1989368,
+      "letterboxd_rating": 4.4,
+      "letterboxd_votes": 2458552,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Gladiator",
+      "year": 2000,
+      "imdb_id": "tt0172495",
+      "rank": 178,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.5,
+      "imdb_votes": 1887340,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 2341964,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "An Elephant Sitting Still",
+      "year": 2018,
+      "imdb_id": "tt8020896",
+      "rank": 180,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.8,
+      "imdb_votes": 9524,
+      "letterboxd_rating": 4.4,
+      "letterboxd_votes": 43212,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb strong"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Wolf of Wall Street",
+      "year": 2013,
+      "imdb_id": "tt0993846",
+      "rank": 182,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.2,
+      "imdb_votes": 1831024,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 4418816,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Incredibles",
+      "year": 2004,
+      "imdb_id": "tt0317705",
+      "rank": 189,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 919719,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 2574017,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Whiplash",
+      "year": 2014,
+      "imdb_id": "tt2582802",
+      "rank": 190,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.5,
+      "imdb_votes": 1186147,
+      "letterboxd_rating": 4.4,
+      "letterboxd_votes": 4867125,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "The Beaches of Agnès",
+      "year": 2008,
+      "imdb_id": "tt1129435",
+      "rank": 194,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 5443,
+      "letterboxd_rating": 4.3,
+      "letterboxd_votes": 34160,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Poetry",
+      "year": 2010,
+      "imdb_id": "tt1287878",
+      "rank": 195,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.8,
+      "imdb_votes": 15175,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 40189,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb strong"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Waltz with Bashir",
+      "year": 2008,
+      "imdb_id": "tt1185616",
+      "rank": 197,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 62993,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 60422,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "I Am Not Your Negro",
+      "year": 2016,
+      "imdb_id": "tt5804038",
+      "rank": 202,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.9,
+      "imdb_votes": 25012,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 68105,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb strong"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Drive My Car",
+      "year": 2021,
+      "imdb_id": "tt14039582",
+      "rank": 203,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.5,
+      "imdb_votes": 78327,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 399221,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "It's Such a Beautiful Day",
+      "year": 2012,
+      "imdb_id": "tt2396224",
+      "rank": 204,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.2,
+      "imdb_votes": 3464,
+      "letterboxd_rating": 4.4,
+      "letterboxd_votes": 136425,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Up",
+      "year": 2009,
+      "imdb_id": "tt1049413",
+      "rank": 207,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.3,
+      "imdb_votes": 1259146,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 3330034,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Fantastic Mr. Fox",
+      "year": 2009,
+      "imdb_id": "tt0432283",
+      "rank": 210,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.9,
+      "imdb_votes": 311788,
+      "letterboxd_rating": 4.3,
+      "letterboxd_votes": 3033104,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb strong"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Spider-Man: Into the Spider-Verse",
+      "year": 2018,
+      "imdb_id": "tt4633694",
+      "rank": 221,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.4,
+      "imdb_votes": 820004,
+      "letterboxd_rating": 4.4,
+      "letterboxd_votes": 5037013,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Black Swan",
+      "year": 2010,
+      "imdb_id": "tt0947798",
+      "rank": 227,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 899252,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 3413108,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Everything Everywhere All at Once",
+      "year": 2022,
+      "imdb_id": "tt6710474",
+      "rank": 228,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.7,
+      "imdb_votes": 663282,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 4168429,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb strong"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Gone Girl",
+      "year": 2014,
+      "imdb_id": "tt2267998",
+      "rank": 233,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.1,
+      "imdb_votes": 1191071,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 3346234,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Mother",
+      "year": 2009,
+      "imdb_id": "tt1216496",
+      "rank": 238,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.7,
+      "imdb_votes": 82019,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 207564,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb strong"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Aftersun",
+      "year": 2022,
+      "imdb_id": "tt19770238",
+      "rank": 239,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 7.6,
+      "imdb_votes": 134014,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 1717742,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Finding Nemo",
+      "year": 2003,
+      "imdb_id": "tt0266543",
+      "rank": 250,
+      "production_score": 2.0,
+      "existing_bonus": 0.0,
+      "imdb_rating": 8.2,
+      "imdb_votes": 1227868,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 2630963,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd strong",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    },
+    {
+      "title": "Winter Sleep",
+      "year": 2014,
+      "imdb_id": "tt2758880",
+      "rank": 302,
+      "production_score": 2.0,
+      "existing_bonus": 1.0,
+      "imdb_rating": 8.0,
+      "imdb_votes": 59644,
+      "letterboxd_rating": 4.2,
+      "letterboxd_votes": 57761,
+      "audience_bonus": 0.5,
+      "audience_signals": [
+        "Letterboxd exceptional",
+        "IMDb exceptional"
+      ],
+      "simulated_score": 2.5
+    }
+  ]
+}
