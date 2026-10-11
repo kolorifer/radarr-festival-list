@@ -1,5 +1,6 @@
 import json
 import re
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from urllib.parse import quote
@@ -14,10 +15,9 @@ TSPDT_URL = "https://theyshootpictures.com/21stcentury_allfilms_table.php"
 CACHE = Path("sources/tspdt-21c.json")
 
 # Independent canon signals from the 2022 Sight & Sound polls.
-# These are deliberately small/high-confidence boosts; TSPDT remains the universe.
 SIGHT_SOUND_CRITICS = {
     ("In the Mood for Love", 2000),
-    ("Mulholland Dr.", 2001),
+    ("Mulholland Drive", 2001),
     ("The Gleaners & I", 2000),
     ("Spirited Away", 2001),
     ("Tropical Malady", 2004),
@@ -53,6 +53,12 @@ EXCLUDED_AFTER_REVIEW = {
     ("Uncle Boonmee Who Can Recall His Past Lives", 2010): "watched; did not like",
 }
 
+# TSPDT/IMDb title variants that should be treated as the same film.
+ALIASES = {
+    ("Mulholland Dr.", 2001): "Mulholland Drive",
+    ("Ciénaga, La", 2001): "La Ciénaga",
+}
+
 
 def fetch(url):
     req = Request(url, headers={"User-Agent": "Mozilla/5.0 (radarr-festival-list audit)"})
@@ -61,8 +67,9 @@ def fetch(url):
 
 
 def article_first(title):
-    # TSPDT often stores articles at the end: "Tree of Life, The".
-    m = re.match(r"^(.*), (The|A|An)$", title)
+    # TSPDT often stores articles at the end. Cover common English and Romance-language forms.
+    articles = "The|A|An|La|Le|Les|El|Los|Las|Il|Lo|Gli|I|L'|Un|Une"
+    m = re.match(rf"^(.*), ({articles})$", title, flags=re.IGNORECASE)
     return f"{m.group(2)} {m.group(1)}" if m else title
 
 
@@ -127,47 +134,39 @@ def tspdt_points(rank):
 
 
 def canonical_key(title, year):
-    aliases = {
-        ("Mulholland Dr.", 2001): "Mulholland Drive",
-        ("The Gleaners & I", 2000): "The Gleaners & I",
-        ("Melancholia", 2011): "Melancholia",
-        ("The Tree of Life", 2011): "The Tree of Life",
-        ("The White Ribbon", 2009): "The White Ribbon",
-        ("The Turin Horse", 2011): "The Turin Horse",
-        ("The Lives of Others", 2006): "The Lives of Others",
-        ("A Prophet", 2009): "A Prophet",
-        ("La Ciénaga", 2001): "La Ciénaga",
-    }
-    return aliases.get((title, year), title), year
+    title = article_first(title.strip())
+    title = ALIASES.get((title, year), title)
+    return title, year
+
+
+def normalized_title(title):
+    # Accent-insensitive, punctuation-insensitive comparison while preserving letters/digits.
+    text = unicodedata.normalize("NFKD", title.casefold())
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return re.sub(r"[^a-z0-9]+", "", text)
 
 
 def imdb_lookup(title, year):
     url = f"https://v2.sg.media-imdb.com/suggestion/x/{quote(title)}.json"
     data = json.loads(fetch(url))
-    exact = []
-    same_title = []
-    same_year = []
-    norm = re.sub(r"[^a-z0-9]+", "", title.casefold())
+    norm = normalized_title(title)
+    matches = []
     for item in data.get("d", []):
         imdb_id = item.get("id", "")
         if not imdb_id.startswith("tt"):
             continue
         item_title = item.get("l", "")
         item_year = item.get("y")
-        item_norm = re.sub(r"[^a-z0-9]+", "", item_title.casefold())
-        row = (imdb_id, item_title, item_year)
-        if item_norm == norm and item_year == year:
-            exact.append(row)
-        elif item_norm == norm:
-            same_title.append(row)
-        elif item_year == year:
-            same_year.append(row)
-    if exact:
-        return exact[0]
-    if same_title:
-        return min(same_title, key=lambda x: abs((x[2] or year) - year))
-    # Avoid the old unsafe "one same-year result" fallback for the large universe.
-    return None
+        # Never accept an undated result or a distant remake/name collision.
+        if not isinstance(item_year, int) or abs(item_year - year) > 1:
+            continue
+        if normalized_title(item_title) != norm:
+            continue
+        matches.append((abs(item_year - year), imdb_id, item_title, item_year))
+    if not matches:
+        return None
+    _, imdb_id, item_title, item_year = min(matches)
+    return imdb_id, item_title, item_year
 
 
 def score_row(row):
@@ -197,7 +196,7 @@ def resolve_one(row):
     imdb_id, resolved_title, resolved_year = match
     return {
         "title": resolved_title,
-        "year": resolved_year or row["year"],
+        "year": resolved_year,
         "imdb_id": imdb_id,
         "tspdt_rank": row["rank"],
         "score": score,
@@ -216,7 +215,6 @@ def main():
     print(f"TSPDT source={source_mode}; {len(universe)} films in {MIN_YEAR}-{MAX_YEAR}")
 
     details, unresolved = [], []
-    # A small pool keeps the build reasonably fast without hammering IMDb.
     with ThreadPoolExecutor(max_workers=6) as pool:
         futures = {pool.submit(resolve_one, row): row for row in universe}
         for i, future in enumerate(as_completed(futures), 1):
@@ -235,14 +233,13 @@ def main():
     details.sort(key=lambda x: (-x["score"], x["tspdt_rank"]))
     unresolved.sort(key=lambda x: x["tspdt_rank"])
 
-    # backcatalog.json remains audit-only for now. It contains every resolved,
-    # non-excluded 2000-2023 TSPDT Top-1000 film, ordered by our score.
     radarr = [{"title": x["title"], "imdb_id": x["imdb_id"]} for x in details if x["status"] == "candidate"]
     audit = {
         "mode": "audit-only",
         "year_range": [MIN_YEAR, MAX_YEAR],
         "source": "TSPDT 21st Century Top 1000",
         "source_mode": source_mode,
+        "matching": "normalized exact title; IMDb year must be within ±1; undated results rejected",
         "scoring": {
             "TSPDT_1_25": 5,
             "TSPDT_26_50": 4,
