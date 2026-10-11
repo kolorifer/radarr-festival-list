@@ -3,10 +3,11 @@ name: Simulate backcatalog scoring
 on:
   workflow_dispatch:
   push:
-    branches: [main, simulation-4-multi-route]
+    branches: [main, simulation-4-multi-route, simulation-4b-union-universe]
     paths:
       - simulate_scoring.py
       - audience-ratings.json
+      - sources/phase-b-institutional.json
       - .github/workflows/simulate.yml
 
 permissions:
@@ -28,13 +29,14 @@ jobs:
           rows=json.load(open('simulation-promoted.json'))
           with open('simulation-promoted-titles.txt','w') as f:
               for i,r in enumerate(rows,1):
-                  f.write(f"{i:02d}\t{r['rank']}\t{r['year']}\t{r['title']}\t{','.join(r['routes'])}\n")
+                  rank = r['rank'] if r['rank'] is not None else 'OUT'
+                  f.write(f"{i:02d}\t{rank}\t{r['year']}\t{r['title']}\t{','.join(r['routes'])}\n")
           PY
       - name: Commit simulation
         run: |
-          git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt
+          git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
-          git commit -m "Update scoring simulation"
+          git commit -m "Update Phase B simulation"
           git push
