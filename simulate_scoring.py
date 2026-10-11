@@ -1,54 +1,70 @@
-"""Research-only scoring simulation. Does not modify production backcatalog scoring."""
-import json
-import math
+"""Research-only multi-route qualification simulation. Production scoring is untouched."""
+import json, math
 from pathlib import Path
 
-BACKCATALOG=Path("backcatalog-details.json"); AUDIENCE=Path("audience-ratings.json"); OUTPUT=Path("scoring-simulation.json"); QUALIFIERS=Path("simulation-qualifiers.json")
-# Film-level institutional recognition only. Acting/craft awards are deliberately excluded.
-# This remains a research simulation: production scoring is untouched.
+BACKCATALOG=Path("backcatalog-details.json"); AUDIENCE=Path("audience-ratings.json")
+OUTPUT=Path("scoring-simulation.json"); QUALIFIERS=Path("simulation-qualifiers.json")
+
+# Film-level recognition only; acting/craft awards are excluded.
+# Values are evidence strength for the institutional route, not additive score points.
 RECOGNITION={
-"tt2543164":(.50,"Academy Best Picture nominee"),
-"tt2024544":(1.50,"Academy Best Picture winner"),
-"tt1454468":(.50,"Academy Best Picture nominee"),
-"tt0993846":(.50,"Academy Best Picture nominee"),
-"tt2042568":(.50,"Cannes Grand Prix"),
-"tt2400275":(.50,"Cannes Jury Prize"),
-"tt3808342":(1.00,"Academy Foreign Language Film winner + Cannes Grand Prix"),
-"tt3508840":(.50,"Cannes Best Director"),
-# Additional calibration cases: objective film-level signals, not taste overrides.
-"tt0407887":(1.50,"Academy Best Picture winner"), # The Departed
-"tt4034228":(.50,"Academy Best Picture nominee"), # Manchester by the Sea
-"tt3464902":(.50,"Cannes Jury Prize"), # The Lobster
+"tt2543164":(1,"Academy Best Picture nominee"),
+"tt2024544":(3,"Academy Best Picture winner"),
+"tt1454468":(1,"Academy Best Picture nominee"),
+"tt0993846":(1,"Academy Best Picture nominee"),
+"tt2042568":(1,"Cannes Grand Prix"),
+"tt2400275":(1,"Cannes Jury Prize"),
+"tt3808342":(2,"Academy International Feature winner + Cannes Grand Prix"),
+"tt3508840":(1,"Cannes Best Director"),
+"tt0407887":(3,"Academy Best Picture winner"),
+"tt4034228":(1,"Academy Best Picture nominee"),
+"tt3464902":(1,"Cannes Jury Prize"),
 }
+
+CALIBRATION={'Arrival','12 Years a Slave','Gravity','The Wolf of Wall Street','La Commune (Paris, 1871)','Inside Llewyn Davis','Son of Saul','The Assassin','The Departed','Manchester by the Sea','The Lobster','Donnie Darko','Dune','Blade Runner 2049','Midsommar','Her','Ex Machina','Scott Pilgrim vs. the World','Goodbye to Language','Winter Sleep'}
+
 def q(v,x):
- v=sorted(n for n in v if isinstance(n,(int,float))); p=(len(v)-1)*x; lo=math.floor(p); hi=math.ceil(p); return v[lo] if lo==hi else v[lo]*(hi-p)+v[hi]*(p-lo)
-def revised(r):
- return 5 if r<=25 else 4 if r<=50 else 3 if r<=100 else 2.5 if r<=150 else 2 if r<=250 else 1 if r<=500 else .5
-def prod(r):
- return 5 if r<=25 else 4 if r<=50 else 3 if r<=100 else 2 if r<=250 else 1 if r<=500 else .5
-def audience(r,t):
- b=0; s=[]
- for rating,votes,strong,exceptional,floor,median,sw,ew,label in [(r['letterboxd_rating'],r['letterboxd_votes'],t['letterboxd_strong'],t['letterboxd_exceptional'],t['letterboxd_vote_floor'],t['letterboxd_votes_median'],.25,.5,'Letterboxd'),(r['imdb_rating'],r['imdb_votes'],t['imdb_strong'],t['imdb_exceptional'],t['imdb_vote_floor'],t['imdb_votes_median'],.125,.25,'IMDb')]:
-  if rating is None or votes is None: continue
-  raw=ew if rating>=exceptional else sw if rating>=strong else 0
-  conf=1 if votes>=median else .5 if votes>=floor else 0
-  if raw*conf: b+=raw*conf; s.append(f"{label} {'exceptional' if raw==ew else 'strong'} x{conf:g} confidence")
- return min(.5,b),s
+ v=sorted(n for n in v if isinstance(n,(int,float))); p=(len(v)-1)*x; lo=math.floor(p); hi=math.ceil(p)
+ return v[lo] if lo==hi else v[lo]*(hi-p)+v[hi]*(p-lo)
+
+def prod_base(r): return 5 if r<=25 else 4 if r<=50 else 3 if r<=100 else 2 if r<=250 else 1 if r<=500 else .5
+
 def main():
  back=json.loads(BACKCATALOG.read_text()); aud=json.loads(AUDIENCE.read_text()); ratings=aud['ratings']; rows=[]
  for c in back['candidates']:
   rr=ratings.get(c['imdb_id'],{}).get('reeldb',{}); im=rr.get('imdb') or {}; lb=rr.get('letterboxd') or {}
-  rows.append({'title':c['title'],'year':c['year'],'imdb_id':c['imdb_id'],'rank':c['tspdt_rank'],'production_score':c['score'],'existing_bonus':round(float(c['score'])-prod(c['tspdt_rank']),3),'imdb_rating':im.get('rating'),'imdb_votes':im.get('votes'),'letterboxd_rating':lb.get('rating'),'letterboxd_votes':lb.get('votes')})
+  rows.append({'title':c['title'],'year':c['year'],'imdb_id':c['imdb_id'],'rank':c['tspdt_rank'],'production_score':c['score'],'existing_bonus':round(float(c['score'])-prod_base(c['tspdt_rank']),3),'imdb_rating':im.get('rating'),'imdb_votes':im.get('votes'),'letterboxd_rating':lb.get('rating'),'letterboxd_votes':lb.get('votes')})
  ir=[r['imdb_rating'] for r in rows if r['imdb_rating'] is not None]; iv=[r['imdb_votes'] for r in rows if r['imdb_votes'] is not None]; lr=[r['letterboxd_rating'] for r in rows if r['letterboxd_rating'] is not None]; lv=[r['letterboxd_votes'] for r in rows if r['letterboxd_votes'] is not None]
- t={'imdb_strong':round(q(ir,.75),3),'imdb_exceptional':round(q(ir,.9),3),'letterboxd_strong':round(q(lr,.75),3),'letterboxd_exceptional':round(q(lr,.9),3),'imdb_vote_floor':round(q(iv,.1)),'letterboxd_vote_floor':round(q(lv,.1)),'imdb_votes_median':round(q(iv,.5)),'letterboxd_votes_median':round(q(lv,.5))}
+ t={'imdb_p75':q(ir,.75),'imdb_p90':q(ir,.9),'imdb_votes_median':q(iv,.5),'letterboxd_p75':q(lr,.75),'letterboxd_p90':q(lr,.9),'letterboxd_votes_median':q(lv,.5)}
  sim=[]
  for r in rows:
-  ab,asig=audience(r,t); rb,rsig=RECOGNITION.get(r['imdb_id'],(0,None)); score=round(revised(r['rank'])+r['existing_bonus']+ab+rb,3); sim.append({**r,'audience_bonus':ab,'audience_signals':asig,'recognition_bonus':rb,'recognition_signal':rsig,'simulated_score':score})
- old={r['imdb_id'] for r in rows if r['production_score']>=3}; new={r['imdb_id'] for r in sim if r['simulated_score']>=3}; promoted=sorted([r for r in sim if r['imdb_id'] in new-old],key=lambda x:(-x['simulated_score'],x['rank'])); near=sorted([r for r in sim if 2.5<=r['simulated_score']<3],key=lambda x:(-x['simulated_score'],x['rank']))
- names={'Arrival','12 Years a Slave','Gravity','The Wolf of Wall Street','La Commune (Paris, 1871)','Inside Llewyn Davis','Son of Saul','The Assassin','The Departed','Manchester by the Sea','The Lobster','Donnie Darko','Dune','Blade Runner 2049','Midsommar','Her','Ex Machina','Scott Pilgrim vs. the World','Goodbye to Language','Winter Sleep'}
- out={'mode':'simulation-3-expanded-film-recognition','production_unchanged':True,'notes':['Corrects Goodbye to Language IMDb recognition mapping; Winter Sleep no longer receives that Jury Prize.','Still TSPDT-only candidate universe; coverage failures are intentionally not hidden by scoring changes.'],'thresholds_used':t,'counts':{'production_qualifiers':len(old),'simulated_qualifiers':len(new),'promoted':len(promoted),'demoted':len(old-new),'near_below':len(near)},'calibration':sorted([r for r in sim if r['title'] in names],key=lambda x:x['rank']),'promoted':promoted,'near_below':near}
+  routes=[]; evidence=[]; rank=r['rank']; inst,instsig=RECOGNITION.get(r['imdb_id'],(0,None))
+  # Route 1: canon. Top 100 is sufficient; 101-250 needs an independent established signal already in production data.
+  canon = rank<=100 or (rank<=250 and r['existing_bonus']>=1)
+  if canon: routes.append('canon')
+  # Route 2: institutional. A Best Picture winner / equivalent very strong film-level recognition qualifies directly.
+  institutional = inst>=3
+  if institutional: routes.append('institutional')
+  # Audience breadth/strength is evidence, never a standalone route.
+  im_strong=r['imdb_rating'] is not None and r['imdb_votes'] is not None and r['imdb_rating']>=t['imdb_p75'] and r['imdb_votes']>=t['imdb_votes_median']
+  lb_strong=r['letterboxd_rating'] is not None and r['letterboxd_votes'] is not None and r['letterboxd_rating']>=t['letterboxd_p75'] and r['letterboxd_votes']>=t['letterboxd_votes_median']
+  im_exc=r['imdb_rating'] is not None and r['imdb_votes'] is not None and r['imdb_rating']>=t['imdb_p90'] and r['imdb_votes']>=t['imdb_votes_median']
+  lb_exc=r['letterboxd_rating'] is not None and r['letterboxd_votes'] is not None and r['letterboxd_rating']>=t['letterboxd_p90'] and r['letterboxd_votes']>=t['letterboxd_votes_median']
+  # Route 3: audience-critical convergence. Requires TSPDT critical standing plus broad agreement on both audience systems.
+  convergence = rank<=1000 and im_strong and lb_strong and (rank<=500 or im_exc or lb_exc)
+  if convergence: routes.append('convergence')
+  # Route 4: corroboration. Moderate canon + another independent film-level or broad-audience signal.
+  corroboration = (rank<=250 and (inst>=1 or (im_strong and lb_strong))) or (rank<=500 and inst>=2)
+  if corroboration and not routes: routes.append('corroboration')
+  if instsig: evidence.append(instsig)
+  if im_strong: evidence.append('IMDb strong/broad')
+  if lb_strong: evidence.append('Letterboxd strong/broad')
+  qualified=bool(routes)
+  sim.append({**r,'institutional_strength':inst,'institutional_signal':instsig,'imdb_strong_broad':im_strong,'letterboxd_strong_broad':lb_strong,'routes':routes,'qualified':qualified,'evidence':evidence})
+ old={r['imdb_id'] for r in rows if r['production_score']>=3}; new={r['imdb_id'] for r in sim if r['qualified']}
+ out={'mode':'simulation-4-multi-route','production_unchanged':True,'candidate_universe':'TSPDT-only in phase A; union-universe expansion is next and deliberately separated from route calibration','route_rules':{'canon':'TSPDT top 100 OR top 250 + existing independent major signal','institutional':'very strong film-level recognition (strength 3)','convergence':'TSPDT top 1000 + strong/broad IMDb + strong/broad Letterboxd + (top 500 OR exceptional on either audience system)','corroboration':'TSPDT top 250 + institutional signal or dual strong/broad audience; OR top 500 + strong institutional signal'},'thresholds_used':{k:round(v,3) for k,v in t.items()},'counts':{'production_qualifiers':len(old),'route_qualifiers':len(new),'promoted':len(new-old),'demoted':len(old-new)},'route_counts':{x:sum(x in r['routes'] for r in sim) for x in ['canon','institutional','convergence','corroboration']},'calibration':sorted([r for r in sim if r['title'] in CALIBRATION],key=lambda x:x['rank']),'promoted':sorted([r for r in sim if r['imdb_id'] in new-old],key=lambda x:x['rank']),'demoted':sorted([r for r in sim if r['imdb_id'] in old-new],key=lambda x:x['rank'])}
  OUTPUT.write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
- compact=[{'title':r['title'],'year':r['year'],'imdb_id':r['imdb_id'],'rank':r['rank'],'score':r['simulated_score'],'audience_bonus':r['audience_bonus'],'recognition_bonus':r['recognition_bonus'],'recognition_signal':r['recognition_signal']} for r in sorted(sim,key=lambda x:(-x['simulated_score'],x['rank'])) if r['simulated_score']>=3]
- QUALIFIERS.write_text(json.dumps(compact,ensure_ascii=False,separators=(',',':'))+'\n')
- print(json.dumps({'counts':out['counts'],'qualifiers':len(compact)}))
+ compact=[{'title':r['title'],'year':r['year'],'imdb_id':r['imdb_id'],'rank':r['rank'],'routes':r['routes'],'evidence':r['evidence']} for r in sim if r['qualified']]
+ QUALIFIERS.write_text(json.dumps(compact,ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps({'counts':out['counts'],'route_counts':out['route_counts']}))
 if __name__=='__main__': main()
