@@ -1,13 +1,8 @@
 {
-  "mode": "simulation-4-multi-route",
+  "mode": "simulation-4b-union-universe",
   "production_unchanged": true,
-  "candidate_universe": "TSPDT-only in phase A; union-universe expansion is next and deliberately separated from route calibration",
-  "route_rules": {
-    "canon": "TSPDT top 100 OR top 250 + existing independent major signal",
-    "institutional": "very strong film-level recognition (strength 3)",
-    "convergence": "TSPDT top 1000 + strong/broad IMDb + strong/broad Letterboxd + (top 500 OR exceptional on either audience system)",
-    "corroboration": "TSPDT top 250 + institutional signal or dual strong/broad audience; OR top 500 + strong institutional signal"
-  },
+  "candidate_universe": "TSPDT union independently verified film-level institutional sources (Phase B seed)",
+  "threshold_policy": "Audience thresholds frozen from TSPDT population before union expansion",
   "thresholds_used": {
     "imdb_p75": 7.7,
     "imdb_p90": 8.0,
@@ -17,10 +12,13 @@
     "letterboxd_votes_median": 72905.0
   },
   "counts": {
+    "candidate_universe": 953,
+    "tspdt_candidates": 951,
+    "outside_tspdt_candidates": 2,
     "production_qualifiers": 109,
     "route_qualifiers": 195,
     "promoted": 86,
-    "demoted": 0
+    "outside_tspdt_qualifiers": 0
   },
   "route_counts": {
     "canon": 109,
@@ -28,465 +26,53 @@
     "convergence": 121,
     "corroboration": 5
   },
-  "calibration": [
+  "phase_b_new": [
     {
-      "title": "La Commune (Paris, 1871)",
-      "year": 2000,
-      "imdb_id": "tt0257497",
-      "rank": 118,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.0,
-      "imdb_votes": 1539,
-      "letterboxd_rating": 4.3,
-      "letterboxd_votes": 4828,
-      "institutional_strength": 0,
-      "institutional_signal": null,
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": []
-    },
-    {
-      "title": "Goodbye to Language",
-      "year": 2014,
-      "imdb_id": "tt2400275",
-      "rank": 119,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 5.8,
-      "imdb_votes": 6729,
-      "letterboxd_rating": 3.4,
-      "letterboxd_votes": 18620,
-      "institutional_strength": 1,
-      "institutional_signal": "Cannes Jury Prize",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [
-        "corroboration"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Cannes Jury Prize"
-      ]
-    },
-    {
-      "title": "The Assassin",
-      "year": 2015,
-      "imdb_id": "tt3508840",
-      "rank": 122,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 6.3,
-      "imdb_votes": 19151,
-      "letterboxd_rating": 3.5,
-      "letterboxd_votes": 33319,
-      "institutional_strength": 1,
-      "institutional_signal": "Cannes Best Director",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [
-        "corroboration"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Cannes Best Director"
-      ]
-    },
-    {
-      "title": "12 Years a Slave",
-      "year": 2013,
-      "imdb_id": "tt2024544",
-      "rank": 127,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.1,
-      "imdb_votes": 796169,
-      "letterboxd_rating": 4.2,
-      "letterboxd_votes": 768435,
-      "institutional_strength": 3,
-      "institutional_signal": "Academy Best Picture winner",
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "institutional",
-        "convergence"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Academy Best Picture winner",
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Inside Llewyn Davis",
-      "year": 2013,
-      "imdb_id": "tt2042568",
-      "rank": 131,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.4,
-      "imdb_votes": 173539,
-      "letterboxd_rating": 4.0,
-      "letterboxd_votes": 398523,
-      "institutional_strength": 1,
-      "institutional_signal": "Cannes Grand Prix",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "corroboration"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Cannes Grand Prix",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Arrival",
-      "year": 2016,
-      "imdb_id": "tt2543164",
-      "rank": 141,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.9,
-      "imdb_votes": 882503,
-      "letterboxd_rating": 4.1,
-      "letterboxd_votes": 2749315,
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Best Picture nominee",
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "convergence"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Academy Best Picture nominee",
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Gravity",
-      "year": 2013,
-      "imdb_id": "tt1454468",
-      "rank": 147,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.7,
-      "imdb_votes": 907744,
-      "letterboxd_rating": 3.5,
-      "letterboxd_votes": 931414,
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Best Picture nominee",
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": false,
-      "routes": [
-        "corroboration"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Academy Best Picture nominee",
-        "IMDb strong/broad"
-      ]
-    },
-    {
-      "title": "The Departed",
-      "year": 2006,
-      "imdb_id": "tt0407887",
-      "rank": 156,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.5,
-      "imdb_votes": 1583371,
-      "letterboxd_rating": 4.3,
-      "letterboxd_votes": 1763032,
-      "institutional_strength": 3,
-      "institutional_signal": "Academy Best Picture winner",
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "institutional",
-        "convergence"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Academy Best Picture winner",
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Donnie Darko",
-      "year": 2001,
-      "imdb_id": "tt0246578",
-      "rank": 166,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.0,
-      "imdb_votes": 922309,
-      "letterboxd_rating": 4.0,
-      "letterboxd_votes": 2561001,
-      "institutional_strength": 0,
-      "institutional_signal": null,
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "convergence"
-      ],
-      "qualified": true,
-      "evidence": [
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Son of Saul",
-      "year": 2015,
-      "imdb_id": "tt3808342",
-      "rank": 169,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.4,
-      "imdb_votes": 54933,
-      "letterboxd_rating": 4.1,
-      "letterboxd_votes": 65531,
-      "institutional_strength": 2,
-      "institutional_signal": "Academy International Feature winner + Cannes Grand Prix",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [
-        "corroboration"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Academy International Feature winner + Cannes Grand Prix"
-      ]
-    },
-    {
-      "title": "The Wolf of Wall Street",
-      "year": 2013,
-      "imdb_id": "tt0993846",
-      "rank": 182,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.2,
-      "imdb_votes": 1831024,
-      "letterboxd_rating": 4.0,
-      "letterboxd_votes": 4418816,
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Best Picture nominee",
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "convergence"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Academy Best Picture nominee",
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Her",
-      "year": 2013,
-      "imdb_id": "tt1798709",
-      "rank": 230,
-      "production_score": 2.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.9,
-      "imdb_votes": 735468,
-      "letterboxd_rating": 4.0,
-      "letterboxd_votes": 2334141,
-      "institutional_strength": 0,
-      "institutional_signal": null,
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "convergence"
-      ],
-      "qualified": true,
-      "evidence": [
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Manchester by the Sea",
-      "year": 2016,
-      "imdb_id": "tt4034228",
-      "rank": 289,
-      "production_score": 1.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.8,
-      "imdb_votes": 364474,
-      "letterboxd_rating": 4.1,
-      "letterboxd_votes": 1192113,
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Best Picture nominee",
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "convergence"
-      ],
-      "qualified": true,
-      "evidence": [
-        "Academy Best Picture nominee",
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Winter Sleep",
-      "year": 2014,
-      "imdb_id": "tt2758880",
-      "rank": 302,
-      "production_score": 2.0,
-      "existing_bonus": 1.0,
-      "imdb_rating": 8.0,
-      "imdb_votes": 59644,
-      "letterboxd_rating": 4.2,
-      "letterboxd_votes": 57761,
-      "institutional_strength": 0,
-      "institutional_signal": null,
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "IMDb strong/broad"
-      ]
-    },
-    {
-      "title": "The Lobster",
-      "year": 2015,
-      "imdb_id": "tt3464902",
-      "rank": 347,
-      "production_score": 1.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.1,
-      "imdb_votes": 338879,
-      "letterboxd_rating": 3.7,
-      "letterboxd_votes": 1219342,
-      "institutional_strength": 1,
-      "institutional_signal": "Cannes Jury Prize",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Cannes Jury Prize"
-      ]
-    },
-    {
-      "title": "Midsommar",
+      "title": "1917",
       "year": 2019,
-      "imdb_id": "tt8772262",
-      "rank": 415,
-      "production_score": 1.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.1,
-      "imdb_votes": 500228,
-      "letterboxd_rating": 3.7,
-      "letterboxd_votes": 4056596,
-      "institutional_strength": 0,
-      "institutional_signal": null,
+      "imdb_id": "tt8579674",
+      "rank": null,
+      "production_score": 0,
+      "existing_bonus": 0,
+      "imdb_rating": null,
+      "imdb_votes": null,
+      "letterboxd_rating": null,
+      "letterboxd_votes": null,
+      "candidate_sources": [
+        "institutional"
+      ],
+      "institutional_strength": 1,
+      "institutional_signal": "Academy Best Picture nominee",
       "imdb_strong_broad": false,
       "letterboxd_strong_broad": false,
       "routes": [],
       "qualified": false,
-      "evidence": []
+      "evidence": [
+        "Academy Best Picture nominee"
+      ]
     },
     {
-      "title": "Ex Machina",
-      "year": 2014,
-      "imdb_id": "tt0470752",
-      "rank": 499,
-      "production_score": 1.0,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.7,
-      "imdb_votes": 647058,
-      "letterboxd_rating": 4.0,
-      "letterboxd_votes": 1379042,
-      "institutional_strength": 0,
-      "institutional_signal": null,
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "convergence"
+      "title": "Nocturnal Animals",
+      "year": 2016,
+      "imdb_id": "tt4550098",
+      "rank": null,
+      "production_score": 0,
+      "existing_bonus": 0,
+      "imdb_rating": null,
+      "imdb_votes": null,
+      "letterboxd_rating": null,
+      "letterboxd_votes": null,
+      "candidate_sources": [
+        "institutional"
       ],
-      "qualified": true,
-      "evidence": [
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
-      ]
-    },
-    {
-      "title": "Dune",
-      "year": 2021,
-      "imdb_id": "tt1160419",
-      "rank": 540,
-      "production_score": 0.5,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.0,
-      "imdb_votes": 1094634,
-      "letterboxd_rating": 3.9,
-      "letterboxd_votes": 4500124,
-      "institutional_strength": 0,
-      "institutional_signal": null,
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "IMDb strong/broad"
-      ]
-    },
-    {
-      "title": "Scott Pilgrim vs. the World",
-      "year": 2010,
-      "imdb_id": "tt0446029",
-      "rank": 558,
-      "production_score": 0.5,
-      "existing_bonus": 0.0,
-      "imdb_rating": 7.5,
-      "imdb_votes": 501807,
-      "letterboxd_rating": 3.9,
-      "letterboxd_votes": 2730713,
-      "institutional_strength": 0,
-      "institutional_signal": null,
+      "institutional_strength": 2,
+      "institutional_signal": "Venice Grand Jury Prize",
       "imdb_strong_broad": false,
       "letterboxd_strong_broad": false,
       "routes": [],
       "qualified": false,
-      "evidence": []
-    },
-    {
-      "title": "Blade Runner 2049",
-      "year": 2017,
-      "imdb_id": "tt1856101",
-      "rank": 900,
-      "production_score": 0.5,
-      "existing_bonus": 0.0,
-      "imdb_rating": 8.0,
-      "imdb_votes": 771397,
-      "letterboxd_rating": 4.1,
-      "letterboxd_votes": 2356616,
-      "institutional_strength": 0,
-      "institutional_signal": null,
-      "imdb_strong_broad": true,
-      "letterboxd_strong_broad": true,
-      "routes": [
-        "convergence"
-      ],
-      "qualified": true,
       "evidence": [
-        "IMDb strong/broad",
-        "Letterboxd strong/broad"
+        "Venice Grand Jury Prize"
       ]
     }
   ],
@@ -502,6 +88,9 @@
       "imdb_votes": 107270,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 288711,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -526,6 +115,9 @@
       "imdb_votes": 988927,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 3494437,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -550,6 +142,9 @@
       "imdb_votes": 2199411,
       "letterboxd_rating": 4.6,
       "letterboxd_votes": 2519293,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -574,6 +169,9 @@
       "imdb_votes": 6729,
       "letterboxd_rating": 3.4,
       "letterboxd_votes": 18620,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 1,
       "institutional_signal": "Cannes Jury Prize",
       "imdb_strong_broad": false,
@@ -597,6 +195,9 @@
       "imdb_votes": 19151,
       "letterboxd_rating": 3.5,
       "letterboxd_votes": 33319,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 1,
       "institutional_signal": "Cannes Best Director",
       "imdb_strong_broad": false,
@@ -620,6 +221,9 @@
       "imdb_votes": 796169,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 768435,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 3,
       "institutional_signal": "Academy Best Picture winner",
       "imdb_strong_broad": true,
@@ -646,6 +250,9 @@
       "imdb_votes": 173539,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 398523,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 1,
       "institutional_signal": "Cannes Grand Prix",
       "imdb_strong_broad": false,
@@ -670,6 +277,9 @@
       "imdb_votes": 91675,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 74065,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -694,6 +304,9 @@
       "imdb_votes": 882503,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 2749315,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 1,
       "institutional_signal": "Academy Best Picture nominee",
       "imdb_strong_broad": true,
@@ -719,6 +332,9 @@
       "imdb_votes": 775029,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 514810,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -743,6 +359,9 @@
       "imdb_votes": 907744,
       "letterboxd_rating": 3.5,
       "letterboxd_votes": 931414,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 1,
       "institutional_signal": "Academy Best Picture nominee",
       "imdb_strong_broad": true,
@@ -767,6 +386,9 @@
       "imdb_votes": 1327962,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 3619264,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -791,6 +413,9 @@
       "imdb_votes": 2877777,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 4508236,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -815,6 +440,9 @@
       "imdb_votes": 1583371,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 1763032,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 3,
       "institutional_signal": "Academy Best Picture winner",
       "imdb_strong_broad": true,
@@ -841,6 +469,9 @@
       "imdb_votes": 922309,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 2561001,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -865,6 +496,9 @@
       "imdb_votes": 2618469,
       "letterboxd_rating": 4.5,
       "letterboxd_votes": 6513992,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -889,6 +523,9 @@
       "imdb_votes": 54933,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 65531,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 2,
       "institutional_signal": "Academy International Feature winner + Cannes Grand Prix",
       "imdb_strong_broad": false,
@@ -912,6 +549,9 @@
       "imdb_votes": 993198,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 1937716,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -936,6 +576,9 @@
       "imdb_votes": 166837,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 251577,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -960,6 +603,9 @@
       "imdb_votes": 1989368,
       "letterboxd_rating": 4.4,
       "letterboxd_votes": 2458552,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -984,6 +630,9 @@
       "imdb_votes": 1887340,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 2341964,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1008,6 +657,9 @@
       "imdb_votes": 1831024,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 4418816,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 1,
       "institutional_signal": "Academy Best Picture nominee",
       "imdb_strong_broad": true,
@@ -1033,6 +685,9 @@
       "imdb_votes": 195609,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 129018,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1057,6 +712,9 @@
       "imdb_votes": 919719,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 2574017,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1081,6 +739,9 @@
       "imdb_votes": 1186147,
       "letterboxd_rating": 4.4,
       "letterboxd_votes": 4867125,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1105,6 +766,9 @@
       "imdb_votes": 318316,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 847307,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1129,6 +793,9 @@
       "imdb_votes": 1259146,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 3330034,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1153,6 +820,9 @@
       "imdb_votes": 311788,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 3033104,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1177,6 +847,9 @@
       "imdb_votes": 820004,
       "letterboxd_rating": 4.4,
       "letterboxd_votes": 5037013,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1201,6 +874,9 @@
       "imdb_votes": 899252,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 3413108,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1225,6 +901,9 @@
       "imdb_votes": 663282,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 4168429,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1249,6 +928,9 @@
       "imdb_votes": 735468,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 2334141,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1273,6 +955,9 @@
       "imdb_votes": 1191071,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 3346234,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1297,6 +982,9 @@
       "imdb_votes": 82019,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 207564,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1321,6 +1009,9 @@
       "imdb_votes": 116767,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 749040,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1345,6 +1036,9 @@
       "imdb_votes": 385460,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 1128163,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1369,6 +1063,9 @@
       "imdb_votes": 1227868,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 2630963,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1393,6 +1090,9 @@
       "imdb_votes": 209172,
       "letterboxd_rating": 4.4,
       "letterboxd_votes": 875409,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1417,6 +1117,9 @@
       "imdb_votes": 781066,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 5283694,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1441,6 +1144,9 @@
       "imdb_votes": 969029,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 4075979,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1465,6 +1171,9 @@
       "imdb_votes": 58781,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 80537,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1489,6 +1198,9 @@
       "imdb_votes": 916640,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 741582,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1513,6 +1225,9 @@
       "imdb_votes": 139591,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 122591,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1537,6 +1252,9 @@
       "imdb_votes": 364474,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 1192113,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 1,
       "institutional_signal": "Academy Best Picture nominee",
       "imdb_strong_broad": true,
@@ -1562,6 +1280,9 @@
       "imdb_votes": 356227,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 563758,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1586,6 +1307,9 @@
       "imdb_votes": 63349,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 334884,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1610,6 +1334,9 @@
       "imdb_votes": 882109,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 2002057,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1634,6 +1361,9 @@
       "imdb_votes": 523300,
       "letterboxd_rating": 4.4,
       "letterboxd_votes": 2751667,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1658,6 +1388,9 @@
       "imdb_votes": 567237,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 2529596,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1682,6 +1415,9 @@
       "imdb_votes": 420135,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 702315,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1706,6 +1442,9 @@
       "imdb_votes": 116290,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 672255,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1730,6 +1469,9 @@
       "imdb_votes": 152829,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 107491,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1754,6 +1496,9 @@
       "imdb_votes": 260862,
       "letterboxd_rating": 4.5,
       "letterboxd_votes": 682216,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1778,6 +1523,9 @@
       "imdb_votes": 136328,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 147997,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1802,6 +1550,9 @@
       "imdb_votes": 133132,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 1079188,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1826,6 +1577,9 @@
       "imdb_votes": 178452,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 78192,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1850,6 +1604,9 @@
       "imdb_votes": 1919071,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 3543023,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1874,6 +1631,9 @@
       "imdb_votes": 56674,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 265307,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1898,6 +1658,9 @@
       "imdb_votes": 61895,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 74773,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1922,6 +1685,9 @@
       "imdb_votes": 1632357,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 2216903,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1946,6 +1712,9 @@
       "imdb_votes": 480686,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 614870,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1970,6 +1739,9 @@
       "imdb_votes": 333046,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 240277,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -1994,6 +1766,9 @@
       "imdb_votes": 188755,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 607551,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2018,6 +1793,9 @@
       "imdb_votes": 755983,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 1112752,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2042,6 +1820,9 @@
       "imdb_votes": 647058,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 1379042,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2066,6 +1847,9 @@
       "imdb_votes": 384088,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 2330790,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2090,6 +1874,9 @@
       "imdb_votes": 404670,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 182474,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2114,6 +1901,9 @@
       "imdb_votes": 66269,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 281116,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2138,6 +1928,9 @@
       "imdb_votes": 541990,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 650429,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2162,6 +1955,9 @@
       "imdb_votes": 1103855,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 4667878,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2186,6 +1982,9 @@
       "imdb_votes": 227873,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 369036,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2210,6 +2009,9 @@
       "imdb_votes": 203773,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 224778,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2234,8 +2036,12 @@
       "imdb_votes": 178857,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 1883755,
-      "institutional_strength": 0,
-      "institutional_signal": null,
+      "candidate_sources": [
+        "TSPDT",
+        "institutional"
+      ],
+      "institutional_strength": 1,
+      "institutional_signal": "Academy Best Picture nominee",
       "imdb_strong_broad": true,
       "letterboxd_strong_broad": true,
       "routes": [
@@ -2243,6 +2049,7 @@
       ],
       "qualified": true,
       "evidence": [
+        "Academy Best Picture nominee",
         "IMDb strong/broad",
         "Letterboxd strong/broad"
       ]
@@ -2258,6 +2065,9 @@
       "imdb_votes": 289550,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 3061548,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2282,6 +2092,9 @@
       "imdb_votes": 245953,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 222318,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2306,6 +2119,9 @@
       "imdb_votes": 1094154,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 2600943,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2330,6 +2146,9 @@
       "imdb_votes": 307957,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 3217546,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2354,6 +2173,9 @@
       "imdb_votes": 987698,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 884346,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2378,6 +2200,9 @@
       "imdb_votes": 485717,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 831793,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2402,6 +2227,9 @@
       "imdb_votes": 274857,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 1643118,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2426,6 +2254,9 @@
       "imdb_votes": 1268632,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 2723207,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2450,6 +2281,9 @@
       "imdb_votes": 84449,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 104476,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2474,6 +2308,9 @@
       "imdb_votes": 780971,
       "letterboxd_rating": 4.2,
       "letterboxd_votes": 3354564,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2498,6 +2335,9 @@
       "imdb_votes": 771397,
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 2356616,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2522,6 +2362,9 @@
       "imdb_votes": 113074,
       "letterboxd_rating": 4.3,
       "letterboxd_votes": 920055,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2546,6 +2389,9 @@
       "imdb_votes": 908758,
       "letterboxd_rating": 4.0,
       "letterboxd_votes": 2426086,
+      "candidate_sources": [
+        "TSPDT"
+      ],
       "institutional_strength": 0,
       "institutional_signal": null,
       "imdb_strong_broad": true,
@@ -2559,6 +2405,5 @@
         "Letterboxd strong/broad"
       ]
     }
-  ],
-  "demoted": []
+  ]
 }
