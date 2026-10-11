@@ -69,6 +69,7 @@ TASTE = {
     ("The Lives of Others", 2006): 1.0, ("Lost in Translation", 2003): 1.0,
     ("The White Ribbon", 2009): 1.0, ("Dogville", 2003): 1.0,
     ("The Turin Horse", 2011): 0.5, ("A Prophet", 2009): 0.5,
+    ("Amores perros", 2000): 1.0, ("Call Me by Your Name", 2017): 1.0,
 }
 
 # Watch state affects recommended Radarr monitoring only; it never removes a canonical film.
@@ -85,7 +86,7 @@ WATCHED = {
     ("Zodiac", 2007), ("The Piano Teacher", 2001), ("The Great Beauty", 2013),
     ("Hunger", 2008), ("Moulin Rouge!", 2001), ("Fish Tank", 2009),
     ("Let the Right One In", 2008), ("Blue Is the Warmest Colour", 2013),
-    ("The Return", 2003),
+    ("The Return", 2003), ("Amores perros", 2000), ("Call Me by Your Name", 2017),
 }
 
 ALIASES = {
@@ -226,9 +227,10 @@ def main():
              "watch_policy": "watched films remain candidates but recommended_monitored=false",
              "universe_count": len(universe), "resolved_count": len(details), "unresolved_count": len(unresolved),
              "candidates": details, "unresolved": unresolved}
-    Path("backcatalog-details.json").write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     Path("backcatalog.json").write_text(json.dumps(radarr, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    Path("backcatalog-details.json").write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Audit only: {len(details)} resolved, {len(unresolved)} unresolved")
-    for row in details[:50]: print(f"{row['score']:>4g}  TSPDT #{row['tspdt_rank']:>3}  {row['title']} ({row['year']})  {row['imdb_id']}")
 
-if __name__ == "__main__": main()
+
+if __name__ == "__main__":
+    main()
