@@ -78,6 +78,14 @@ WATCHED = {
     ("Lost in Translation", 2003), ("The White Ribbon", 2009), ("Dogville", 2003),
     ("The Turin Horse", 2011), ("A Prophet", 2009), ("Caché", 2005),
     ("La Ciénaga", 2001), ("Uncle Boonmee Who Can Recall His Past Lives", 2010),
+    ("Mulholland Drive", 2001), ("Under the Skin", 2013),
+    ("A.I. Artificial Intelligence", 2001), ("Children of Men", 2006),
+    ("Platform", 2000), ("Brokeback Mountain", 2005), ("Amour", 2012),
+    ("Dancer in the Dark", 2000), ("Crouching Tiger, Hidden Dragon", 2000),
+    ("Zodiac", 2007), ("The Piano Teacher", 2001), ("The Great Beauty", 2013),
+    ("Hunger", 2008), ("Moulin Rouge!", 2001), ("Fish Tank", 2009),
+    ("Let the Right One In", 2008), ("Blue Is the Warmest Colour", 2013),
+    ("The Return", 2003),
 }
 
 ALIASES = {
