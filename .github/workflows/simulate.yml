@@ -6,6 +6,7 @@ on:
     branches: [main, simulation-4-multi-route, simulation-4b-union-universe]
     paths:
       - simulate_scoring.py
+      - phase_b_sources.py
       - audience-ratings.json
       - sources/phase-b-institutional.json
       - .github/workflows/simulate.yml
@@ -21,6 +22,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Build Phase B institutional universe
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python phase_b_sources.py
       - name: Run research scoring simulation
         run: |
           python simulate_scoring.py
@@ -35,6 +39,7 @@ jobs:
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
