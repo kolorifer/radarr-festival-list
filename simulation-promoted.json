@@ -1,5 +1,17 @@
 [
   {
+    "title": "The Hurt Locker",
+    "year": 2008,
+    "imdb_id": "tt0887912",
+    "rank": 101,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
     "title": "Persepolis",
     "year": 2007,
     "imdb_id": "tt0808417",
@@ -8,6 +20,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -21,6 +34,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -31,9 +45,11 @@
     "imdb_id": "tt0167260",
     "rank": 116,
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -60,6 +76,31 @@
     ],
     "evidence": [
       "Cannes Best Director"
+    ]
+  },
+  {
+    "title": "Lady Bird",
+    "year": 2017,
+    "imdb_id": "tt4925292",
+    "rank": 123,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Avatar",
+    "year": 2009,
+    "imdb_id": "tt0499549",
+    "rank": 124,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -104,6 +145,18 @@
     ]
   },
   {
+    "title": "A Serious Man",
+    "year": 2009,
+    "imdb_id": "tt1019452",
+    "rank": 138,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
     "title": "Arrival",
     "year": 2016,
     "imdb_id": "tt2543164",
@@ -118,14 +171,29 @@
     ]
   },
   {
+    "title": "Ida",
+    "year": 2013,
+    "imdb_id": "tt2718492",
+    "rank": 143,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Million Dollar Baby",
     "year": 2004,
     "imdb_id": "tt0405159",
     "rank": 145,
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -165,6 +233,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -182,6 +251,18 @@
       "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Dogtooth",
+    "year": 2009,
+    "imdb_id": "tt1379182",
+    "rank": 160,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee"
     ]
   },
   {
@@ -219,7 +300,7 @@
       "corroboration"
     ],
     "evidence": [
-      "Academy International Feature winner + Cannes Grand Prix"
+      "Academy International Feature Film winner"
     ]
   },
   {
@@ -231,8 +312,21 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner + Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Power of the Dog",
+    "year": 2021,
+    "imdb_id": "tt10293406",
+    "rank": 171,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
     ]
   },
   {
@@ -257,6 +351,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -267,9 +362,11 @@
     "imdb_id": "tt0172495",
     "rank": 178,
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -297,6 +394,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -310,6 +408,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -323,8 +422,22 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Waltz with Bashir",
+    "year": 2008,
+    "imdb_id": "tt1185616",
+    "rank": 197,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -341,6 +454,31 @@
     ]
   },
   {
+    "title": "I Am Not Your Negro",
+    "year": 2016,
+    "imdb_id": "tt5804038",
+    "rank": 202,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film nominee"
+    ]
+  },
+  {
+    "title": "Drive My Car",
+    "year": 2021,
+    "imdb_id": "tt14039582",
+    "rank": 203,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Up",
     "year": 2009,
     "imdb_id": "tt1049413",
@@ -349,6 +487,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner + Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -362,8 +501,35 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inside Out",
+    "year": 2015,
+    "imdb_id": "tt2096673",
+    "rank": 214,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Mystic River",
+    "year": 2003,
+    "imdb_id": "tt0327056",
+    "rank": 218,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -375,8 +541,21 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Man Without a Past",
+    "year": 2002,
+    "imdb_id": "tt0311519",
+    "rank": 222,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee"
     ]
   },
   {
@@ -388,6 +567,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -398,9 +578,11 @@
     "imdb_id": "tt6710474",
     "rank": 228,
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -414,6 +596,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -429,6 +612,31 @@
     "evidence": [
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Man on Wire",
+    "year": 2008,
+    "imdb_id": "tt1155592",
+    "rank": 235,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Black Panther",
+    "year": 2018,
+    "imdb_id": "tt1825683",
+    "rank": 236,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
     ]
   },
   {
@@ -458,6 +666,18 @@
     ]
   },
   {
+    "title": "Faces Places",
+    "year": 2017,
+    "imdb_id": "tt5598102",
+    "rank": 246,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film nominee"
+    ]
+  },
+  {
     "title": "Moonrise Kingdom",
     "year": 2012,
     "imdb_id": "tt1748122",
@@ -471,6 +691,19 @@
     ]
   },
   {
+    "title": "Cold War",
+    "year": 2018,
+    "imdb_id": "tt6543652",
+    "rank": 249,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Finding Nemo",
     "year": 2003,
     "imdb_id": "tt0266543",
@@ -479,6 +712,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -505,6 +739,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -518,8 +753,21 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Zone of Interest",
+    "year": 2023,
+    "imdb_id": "tt7160372",
+    "rank": 271,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner"
     ]
   },
   {
@@ -531,6 +779,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -541,9 +790,11 @@
     "imdb_id": "tt1010048",
     "rank": 279,
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -597,6 +848,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -623,6 +875,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -636,8 +889,21 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Shape of Water",
+    "year": 2017,
+    "imdb_id": "tt5580390",
+    "rank": 321,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
     ]
   },
   {
@@ -649,6 +915,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -675,6 +942,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Documentary Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -688,8 +956,21 @@
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Fog of War",
+    "year": 2003,
+    "imdb_id": "tt0317910",
+    "rank": 362,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner"
     ]
   },
   {
@@ -706,6 +987,19 @@
     ]
   },
   {
+    "title": "The Artist",
+    "year": 2011,
+    "imdb_id": "tt1655442",
+    "rank": 367,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
     "title": "The Worst Person in the World",
     "year": 2021,
     "imdb_id": "tt10370710",
@@ -714,6 +1008,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -727,6 +1022,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -740,6 +1036,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -870,6 +1167,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -893,9 +1191,11 @@
     "imdb_id": "tt1895587",
     "rank": 561,
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -906,9 +1206,11 @@
     "imdb_id": "tt15398776",
     "rank": 572,
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -962,6 +1264,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -975,8 +1278,22 @@
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The King's Speech",
+    "year": 2010,
+    "imdb_id": "tt1504320",
+    "rank": 737,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -988,6 +1305,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1001,6 +1319,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1027,6 +1346,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1040,8 +1360,22 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Crash",
+    "year": 2004,
+    "imdb_id": "tt0375679",
+    "rank": 849,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -1055,6 +1389,19 @@
     "evidence": [
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "A Beautiful Mind",
+    "year": 2001,
+    "imdb_id": "tt0268978",
+    "rank": 868,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -1105,6 +1452,7 @@
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1118,8 +1466,69 @@
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Argo",
+    "year": 2012,
+    "imdb_id": "tt1024648",
+    "rank": null,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "Birdman or (The Unexpected Virtue of Ignorance)",
+    "year": 2014,
+    "imdb_id": "tt2562232",
+    "rank": null,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "CODA",
+    "year": 2021,
+    "imdb_id": "tt10366460",
+    "rank": null,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "Chicago",
+    "year": 2002,
+    "imdb_id": "tt0299658",
+    "rank": null,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "Green Book",
+    "year": 2018,
+    "imdb_id": "tt6966692",
+    "rank": null,
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
     ]
   }
 ]

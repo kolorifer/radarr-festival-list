@@ -5,12 +5,15 @@
     "imdb_id": "tt4975722",
     "rank": 10,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
-      "canon"
+      "canon",
+      "institutional"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "Letterboxd strong/broad"
     ]
   },
@@ -20,13 +23,16 @@
     "imdb_id": "tt6751668",
     "rank": 11,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner + Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -84,13 +90,15 @@
     "imdb_id": "tt0245429",
     "rank": 4,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -101,13 +109,15 @@
     "imdb_id": "tt5052448",
     "rank": 22,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -148,13 +158,15 @@
     "imdb_id": "tt1832382",
     "rank": 17,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -180,12 +192,15 @@
     "imdb_id": "tt0478304",
     "rank": 8,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
-    "evidence": []
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
   },
   {
     "title": "Eternal Sunshine of the Spotless Mind",
@@ -238,13 +253,15 @@
     "imdb_id": "tt1149362",
     "rank": 25,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -294,13 +311,15 @@
     "imdb_id": "tt0469494",
     "rank": 5,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -341,13 +360,15 @@
     "imdb_id": "tt1392190",
     "rank": 19,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -384,12 +405,14 @@
     "imdb_id": "tt0335266",
     "rank": 27,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad"
     ]
   },
@@ -416,12 +439,14 @@
     "imdb_id": "tt1065073",
     "rank": 39,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad"
     ]
   },
@@ -457,12 +482,14 @@
     "imdb_id": "tt4048272",
     "rank": 28,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "Letterboxd strong/broad"
     ]
   },
@@ -498,13 +525,16 @@
     "imdb_id": "tt0477348",
     "rank": 32,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -515,12 +545,14 @@
     "imdb_id": "tt5776858",
     "rank": 33,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "Letterboxd strong/broad"
     ]
   },
@@ -530,12 +562,14 @@
     "imdb_id": "tt2375605",
     "rank": 34,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy Documentary Feature Film nominee",
       "Letterboxd strong/broad"
     ]
   },
@@ -558,13 +592,15 @@
     "imdb_id": "tt0457430",
     "rank": 36,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -745,13 +781,15 @@
     "imdb_id": "tt0405094",
     "rank": 51,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -762,13 +800,15 @@
     "imdb_id": "tt0388795",
     "rank": 56,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -779,13 +819,15 @@
     "imdb_id": "tt1602620",
     "rank": 60,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -796,12 +838,14 @@
     "imdb_id": "tt6155172",
     "rank": 73,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
       "Letterboxd strong/broad"
     ]
   },
@@ -856,13 +900,15 @@
     "imdb_id": "tt1235166",
     "rank": 68,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -905,13 +951,15 @@
     "imdb_id": "tt0190332",
     "rank": 55,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -939,13 +987,15 @@
     "imdb_id": "tt0910970",
     "rank": 58,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -995,13 +1045,15 @@
     "imdb_id": "tt0211915",
     "rank": 63,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1012,13 +1064,15 @@
     "imdb_id": "tt0120737",
     "rank": 64,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1042,12 +1096,14 @@
     "imdb_id": "tt1285016",
     "rank": 66,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad"
     ]
   },
@@ -1194,12 +1250,15 @@
     "imdb_id": "tt7131622",
     "rank": 78,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
-    "evidence": []
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
   },
   {
     "title": "Millennium Mambo",
@@ -1237,13 +1296,15 @@
     "imdb_id": "tt2358891",
     "rank": 83,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1295,12 +1356,15 @@
     "imdb_id": "tt0203009",
     "rank": 87,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
-    "evidence": []
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
   },
   {
     "title": "Distant",
@@ -1347,13 +1411,15 @@
     "imdb_id": "tt0361748",
     "rank": 91,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1413,12 +1479,15 @@
     "imdb_id": "tt0375063",
     "rank": 95,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
-    "evidence": []
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
   },
   {
     "title": "Requiem for a Dream",
@@ -1482,13 +1551,15 @@
     "imdb_id": "tt0245712",
     "rank": 104,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1499,12 +1570,16 @@
     "imdb_id": "tt9770150",
     "rank": 114,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
-      "canon"
+      "canon",
+      "institutional"
     ],
-    "evidence": []
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
   },
   {
     "title": "The Pianist",
@@ -1512,13 +1587,15 @@
     "imdb_id": "tt0253474",
     "rank": 134,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1544,13 +1621,15 @@
     "imdb_id": "tt8075192",
     "rank": 139,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon",
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1576,12 +1655,14 @@
     "imdb_id": "tt5726616",
     "rank": 161,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "canon"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad"
     ]
   },
@@ -1625,17 +1706,35 @@
     "evidence": []
   },
   {
+    "title": "The Hurt Locker",
+    "year": 2008,
+    "imdb_id": "tt0887912",
+    "rank": 101,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
     "title": "Persepolis",
     "year": 2007,
     "imdb_id": "tt0808417",
     "rank": 110,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1646,12 +1745,14 @@
     "imdb_id": "tt2278388",
     "rank": 113,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1662,12 +1763,15 @@
     "imdb_id": "tt0167260",
     "rank": 116,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1703,12 +1807,46 @@
     ]
   },
   {
+    "title": "Lady Bird",
+    "year": 2017,
+    "imdb_id": "tt4925292",
+    "rank": 123,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Avatar",
+    "year": 2009,
+    "imdb_id": "tt0499549",
+    "rank": 124,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
     "title": "12 Years a Slave",
     "year": 2013,
     "imdb_id": "tt2024544",
     "rank": 127,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "institutional",
@@ -1753,12 +1891,29 @@
     ]
   },
   {
+    "title": "A Serious Man",
+    "year": 2009,
+    "imdb_id": "tt1019452",
+    "rank": 138,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
     "title": "Arrival",
     "year": 2016,
     "imdb_id": "tt2543164",
     "rank": 141,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
@@ -1770,17 +1925,37 @@
     ]
   },
   {
+    "title": "Ida",
+    "year": 2013,
+    "imdb_id": "tt2718492",
+    "rank": 143,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Million Dollar Baby",
     "year": 2004,
     "imdb_id": "tt0405159",
     "rank": 145,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1791,7 +1966,8 @@
     "imdb_id": "tt1454468",
     "rank": 147,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "corroboration"
@@ -1823,12 +1999,14 @@
     "imdb_id": "tt1375666",
     "rank": 150,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1839,7 +2017,8 @@
     "imdb_id": "tt0407887",
     "rank": 156,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "institutional",
@@ -1849,6 +2028,22 @@
       "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Dogtooth",
+    "year": 2009,
+    "imdb_id": "tt1379182",
+    "rank": 160,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee"
     ]
   },
   {
@@ -1889,13 +2084,14 @@
     "imdb_id": "tt3808342",
     "rank": 169,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "corroboration"
     ],
     "evidence": [
-      "Academy International Feature winner + Cannes Grand Prix"
+      "Academy International Feature Film winner"
     ]
   },
   {
@@ -1904,14 +2100,32 @@
     "imdb_id": "tt0435761",
     "rank": 170,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner + Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Power of the Dog",
+    "year": 2021,
+    "imdb_id": "tt10293406",
+    "rank": 171,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
     ]
   },
   {
@@ -1936,12 +2150,14 @@
     "imdb_id": "tt0167261",
     "rank": 175,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1952,12 +2168,15 @@
     "imdb_id": "tt0172495",
     "rank": 178,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -1968,7 +2187,8 @@
     "imdb_id": "tt0993846",
     "rank": 182,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
@@ -1985,12 +2205,14 @@
     "imdb_id": "tt0299977",
     "rank": 185,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2001,12 +2223,14 @@
     "imdb_id": "tt0317705",
     "rank": 189,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2017,14 +2241,33 @@
     "imdb_id": "tt2582802",
     "rank": 190,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Waltz with Bashir",
+    "year": 2008,
+    "imdb_id": "tt1185616",
+    "rank": 197,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -2044,17 +2287,52 @@
     ]
   },
   {
+    "title": "I Am Not Your Negro",
+    "year": 2016,
+    "imdb_id": "tt5804038",
+    "rank": 202,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film nominee"
+    ]
+  },
+  {
+    "title": "Drive My Car",
+    "year": 2021,
+    "imdb_id": "tt14039582",
+    "rank": 203,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Up",
     "year": 2009,
     "imdb_id": "tt1049413",
     "rank": 207,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner + Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2065,14 +2343,50 @@
     "imdb_id": "tt0432283",
     "rank": 210,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inside Out",
+    "year": 2015,
+    "imdb_id": "tt2096673",
+    "rank": 214,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Mystic River",
+    "year": 2003,
+    "imdb_id": "tt0327056",
+    "rank": 218,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -2081,14 +2395,32 @@
     "imdb_id": "tt4633694",
     "rank": 221,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Man Without a Past",
+    "year": 2002,
+    "imdb_id": "tt0311519",
+    "rank": 222,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee"
     ]
   },
   {
@@ -2097,12 +2429,14 @@
     "imdb_id": "tt0947798",
     "rank": 227,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2113,12 +2447,15 @@
     "imdb_id": "tt6710474",
     "rank": 228,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2129,12 +2466,14 @@
     "imdb_id": "tt1798709",
     "rank": 230,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2153,6 +2492,39 @@
     "evidence": [
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Man on Wire",
+    "year": 2008,
+    "imdb_id": "tt1155592",
+    "rank": 235,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Black Panther",
+    "year": 2018,
+    "imdb_id": "tt1825683",
+    "rank": 236,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
     ]
   },
   {
@@ -2188,6 +2560,22 @@
     ]
   },
   {
+    "title": "Faces Places",
+    "year": 2017,
+    "imdb_id": "tt5598102",
+    "rank": 246,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film nominee"
+    ]
+  },
+  {
     "title": "Moonrise Kingdom",
     "year": 2012,
     "imdb_id": "tt1748122",
@@ -2204,19 +2592,54 @@
     ]
   },
   {
+    "title": "Cold War",
+    "year": 2018,
+    "imdb_id": "tt6543652",
+    "rank": 249,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Finding Nemo",
     "year": 2003,
     "imdb_id": "tt0266543",
     "rank": 250,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Shape of Water",
+    "year": 2017,
+    "imdb_id": "tt5580390",
+    "rank": 321,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
     ]
   },
   {
@@ -2257,12 +2680,14 @@
     "imdb_id": "tt3783958",
     "rank": 256,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2273,14 +2698,32 @@
     "imdb_id": "tt0382932",
     "rank": 257,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Zone of Interest",
+    "year": 2023,
+    "imdb_id": "tt7160372",
+    "rank": 271,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner"
     ]
   },
   {
@@ -2289,12 +2732,14 @@
     "imdb_id": "tt0286244",
     "rank": 278,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2305,12 +2750,15 @@
     "imdb_id": "tt1010048",
     "rank": 279,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2370,12 +2818,14 @@
     "imdb_id": "tt2576852",
     "rank": 305,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2402,12 +2852,14 @@
     "imdb_id": "tt0347149",
     "rank": 315,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2418,12 +2870,14 @@
     "imdb_id": "tt0449059",
     "rank": 319,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2434,12 +2888,14 @@
     "imdb_id": "tt2106476",
     "rank": 327,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2466,12 +2922,14 @@
     "imdb_id": "tt0310793",
     "rank": 356,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Documentary Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2482,14 +2940,32 @@
     "imdb_id": "tt1255953",
     "rank": 359,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Fog of War",
+    "year": 2003,
+    "imdb_id": "tt0317910",
+    "rank": 362,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner"
     ]
   },
   {
@@ -2509,17 +2985,36 @@
     ]
   },
   {
+    "title": "The Artist",
+    "year": 2011,
+    "imdb_id": "tt1655442",
+    "rank": 367,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
     "title": "The Worst Person in the World",
     "year": 2021,
     "imdb_id": "tt10370710",
     "rank": 370,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2530,12 +3025,14 @@
     "imdb_id": "tt0498380",
     "rank": 371,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2546,12 +3043,14 @@
     "imdb_id": "tt1853728",
     "rank": 397,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2690,12 +3189,14 @@
     "imdb_id": "tt0363163",
     "rank": 546,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2722,12 +3223,15 @@
     "imdb_id": "tt1895587",
     "rank": 561,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2738,12 +3242,15 @@
     "imdb_id": "tt15398776",
     "rank": 572,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
+      "institutional",
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2804,12 +3311,14 @@
     "imdb_id": "tt3281548",
     "rank": 650,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2820,14 +3329,33 @@
     "imdb_id": "tt1305806",
     "rank": 693,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film winner",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The King's Speech",
+    "year": 2010,
+    "imdb_id": "tt1504320",
+    "rank": 737,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -2836,12 +3364,14 @@
     "imdb_id": "tt0198781",
     "rank": 750,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2852,12 +3382,14 @@
     "imdb_id": "tt0327597",
     "rank": 776,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Animated Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2884,12 +3416,14 @@
     "imdb_id": "tt3170832",
     "rank": 825,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2900,14 +3434,33 @@
     "imdb_id": "tt14849194",
     "rank": 843,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Crash",
+    "year": 2004,
+    "imdb_id": "tt0375679",
+    "rank": 849,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -2924,6 +3477,23 @@
     "evidence": [
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "A Beautiful Mind",
+    "year": 2001,
+    "imdb_id": "tt0268978",
+    "rank": 868,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -2980,12 +3550,14 @@
     "imdb_id": "tt27503384",
     "rank": 902,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy International Feature Film nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
     ]
@@ -2996,14 +3568,91 @@
     "imdb_id": "tt1745960",
     "rank": 968,
     "sources": [
-      "TSPDT"
+      "TSPDT",
+      "institutional"
     ],
     "routes": [
       "convergence"
     ],
     "evidence": [
+      "Academy Best Picture nominee",
       "IMDb strong/broad",
       "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Chicago",
+    "year": 2002,
+    "imdb_id": "tt0299658",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "Argo",
+    "year": 2012,
+    "imdb_id": "tt1024648",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "Birdman or (The Unexpected Virtue of Ignorance)",
+    "year": 2014,
+    "imdb_id": "tt2562232",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "Green Book",
+    "year": 2018,
+    "imdb_id": "tt6966692",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "CODA",
+    "year": 2021,
+    "imdb_id": "tt10366460",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
     ]
   }
 ]
