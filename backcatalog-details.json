@@ -6,6 +6,7 @@
   ],
   "source": "TSPDT 21st Century Top 1000",
   "source_mode": "live",
+  "matching": "normalized exact title; IMDb year must be within ±1; undated results rejected",
   "scoring": {
     "TSPDT_1_25": 5,
     "TSPDT_26_50": 4,
@@ -18,8 +19,8 @@
     "taste": "0 to +1; ranking/tie-break only"
   },
   "universe_count": 951,
-  "resolved_count": 891,
-  "unresolved_count": 60,
+  "resolved_count": 828,
+  "unresolved_count": 123,
   "candidates": [
     {
       "title": "Moonlight",
@@ -86,6 +87,22 @@
       "director": "Wong Kar-wai",
       "country": "Hong Kong",
       "runtime": 97,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Mulholland Drive",
+      "year": 2001,
+      "imdb_id": "tt0166924",
+      "tspdt_rank": 2,
+      "score": 8.0,
+      "signals": [
+        "TSPDT 21st-century #2",
+        "Sight & Sound 2022 critics top 100"
+      ],
+      "director": "Lynch, David",
+      "country": "USA",
+      "runtime": 147,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -262,21 +279,6 @@
       "director": "Tarr, Béla",
       "country": "Hungary",
       "runtime": 155,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Mulholland Drive",
-      "year": 2001,
-      "imdb_id": "tt0166924",
-      "tspdt_rank": 2,
-      "score": 5.0,
-      "signals": [
-        "TSPDT 21st-century #2"
-      ],
-      "director": "Lynch, David",
-      "country": "USA",
-      "runtime": 147,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -1651,6 +1653,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Irreversible",
+      "year": 2002,
+      "imdb_id": "tt0290673",
+      "tspdt_rank": 112,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #112"
+      ],
+      "director": "Noé, Gaspar",
+      "country": "France",
+      "runtime": 97,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Grand Budapest Hotel",
       "year": 2014,
       "imdb_id": "tt2278388",
@@ -1726,6 +1743,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "La Commune (Paris, 1871)",
+      "year": 2000,
+      "imdb_id": "tt0257497",
+      "tspdt_rank": 118,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #118"
+      ],
+      "director": "Watkins, Peter",
+      "country": "France",
+      "runtime": 345,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Goodbye to Language",
       "year": 2014,
       "imdb_id": "tt2400275",
@@ -1752,21 +1784,6 @@
       "director": "Reichardt, Kelly",
       "country": "USA",
       "runtime": 104,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Lovers' Rock",
-      "year": 1964,
-      "imdb_id": "tt0060873",
-      "tspdt_rank": 121,
-      "score": 2.0,
-      "signals": [
-        "TSPDT 21st-century #121"
-      ],
-      "director": "McQueen, Steve",
-      "country": "UK",
-      "runtime": 70,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -1932,6 +1949,21 @@
       "director": "Polanski, Roman",
       "country": "France",
       "runtime": 148,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "La Flor",
+      "year": 2018,
+      "imdb_id": "tt9047474",
+      "tspdt_rank": 135,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #135"
+      ],
+      "director": "Llinás, Mariano",
+      "country": "Argentina",
+      "runtime": 808,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -2536,21 +2568,6 @@
       "exclusion_reason": null
     },
     {
-      "title": "The Circle",
-      "year": 2017,
-      "imdb_id": "tt4287320",
-      "tspdt_rank": 177,
-      "score": 2.0,
-      "signals": [
-        "TSPDT 21st-century #177"
-      ],
-      "director": "Panahi, Jafar",
-      "country": "Iran",
-      "runtime": 90,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
       "title": "Gladiator",
       "year": 2000,
       "imdb_id": "tt0172495",
@@ -2637,6 +2654,21 @@
       "director": "Suleiman, Elia",
       "country": "France",
       "runtime": 92,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Le Havre",
+      "year": 2011,
+      "imdb_id": "tt1508675",
+      "tspdt_rank": 184,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #184"
+      ],
+      "director": "Kaurismäki, Aki",
+      "country": "Finland",
+      "runtime": 93,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -3378,7 +3410,7 @@
     {
       "title": "Aftersun",
       "year": 2022,
-      "imdb_id": "tt19770238",
+      "imdb_id": "tt19512922",
       "tspdt_rank": 239,
       "score": 2.0,
       "signals": [
@@ -3798,7 +3830,7 @@
     {
       "title": "Happy Hour",
       "year": 2015,
-      "imdb_id": "tt4780662",
+      "imdb_id": "tt3660682",
       "tspdt_rank": 270,
       "score": 1.0,
       "signals": [
@@ -4036,9 +4068,9 @@
       "exclusion_reason": null
     },
     {
-      "title": "Manchester by the Sea",
+      "title": "Manchester by the sea?",
       "year": 2016,
-      "imdb_id": "tt4034228",
+      "imdb_id": "tt14349610",
       "tspdt_rank": 289,
       "score": 1.0,
       "signals": [
@@ -4362,6 +4394,21 @@
       "director": "Tarantino, Quentin",
       "country": "USA",
       "runtime": 104,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "La Chimera",
+      "year": 2023,
+      "imdb_id": "tt14561712",
+      "tspdt_rank": 311,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #311"
+      ],
+      "director": "Rohrwacher, Alice",
+      "country": "Italy",
+      "runtime": 131,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -5581,6 +5628,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "La libertad",
+      "year": 2001,
+      "imdb_id": "tt0291310",
+      "tspdt_rank": 401,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #401"
+      ],
+      "director": "Alonso, Lisandro",
+      "country": "Argentina",
+      "runtime": 73,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Another Year",
       "year": 2010,
       "imdb_id": "tt1431181",
@@ -6117,21 +6179,6 @@
       "director": "Burton, Tim",
       "country": "USA",
       "runtime": 125,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Samson and Delilah",
-      "year": 2011,
-      "imdb_id": "tt1956210",
-      "tspdt_rank": 441,
-      "score": 1.0,
-      "signals": [
-        "TSPDT 21st-century #441"
-      ],
-      "director": "Thornton, Warwick",
-      "country": "Australia",
-      "runtime": 101,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -7336,21 +7383,6 @@
       "exclusion_reason": null
     },
     {
-      "title": "Eden",
-      "year": 2024,
-      "imdb_id": "tt23149780",
-      "tspdt_rank": 527,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #527"
-      ],
-      "director": "Hansen-Løve, Mia",
-      "country": "France",
-      "runtime": 131,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
       "title": "The Queen",
       "year": 2006,
       "imdb_id": "tt0436697",
@@ -7632,6 +7664,21 @@
       "director": "Cronenberg, David",
       "country": "UK",
       "runtime": 101,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Los Muertos",
+      "year": 2004,
+      "imdb_id": "tt0407021",
+      "tspdt_rank": 550,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #550"
+      ],
+      "director": "Alonso, Lisandro",
+      "country": "Argentina",
+      "runtime": 78,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -9931,21 +9978,6 @@
       "exclusion_reason": null
     },
     {
-      "title": "Aurora",
-      "year": 2019,
-      "imdb_id": "tt8553606",
-      "tspdt_rank": 731,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #731"
-      ],
-      "director": "Puiu, Cristi",
-      "country": "Romania",
-      "runtime": 181,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
       "title": "Elena",
       "year": 2011,
       "imdb_id": "tt1925421",
@@ -10062,6 +10094,21 @@
       "director": "Moore, Michael",
       "country": "USA",
       "runtime": 122,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "¡Vivan las antípodas!",
+      "year": 2011,
+      "imdb_id": "tt1757939",
+      "tspdt_rank": 742,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #742"
+      ],
+      "director": "Kossakovsky, Victor",
+      "country": "Germany",
+      "runtime": 108,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -10512,6 +10559,21 @@
       "director": "Selick, Henry",
       "country": "USA",
       "runtime": 101,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Le pont des Arts",
+      "year": 2004,
+      "imdb_id": "tt0410466",
+      "tspdt_rank": 777,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #777"
+      ],
+      "director": "Green, Eugène",
+      "country": "France",
+      "runtime": 126,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -11371,21 +11433,6 @@
       "exclusion_reason": null
     },
     {
-      "title": "Black Sun",
-      "year": 2007,
-      "imdb_id": "tt0810456",
-      "tspdt_rank": 841,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #841"
-      ],
-      "director": "Tarn, Gary",
-      "country": "UK",
-      "runtime": 75,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
       "title": "A Quiet Passion",
       "year": 2016,
       "imdb_id": "tt2392830",
@@ -11622,21 +11669,6 @@
       "director": "Berlinger, Joe & Bruce Sinofsky",
       "country": "USA",
       "runtime": 141,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Mangrove",
-      "year": 2020,
-      "imdb_id": "tt22051740",
-      "tspdt_rank": 861,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #861"
-      ],
-      "director": "McQueen, Steve",
-      "country": "UK",
-      "runtime": 127,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -12046,21 +12078,6 @@
       "exclusion_reason": null
     },
     {
-      "title": "The Inheritance",
-      "year": 2023,
-      "imdb_id": "tt26440778",
-      "tspdt_rank": 897,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #897"
-      ],
-      "director": "Asili, Ephraim",
-      "country": "USA",
-      "runtime": 100,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
       "title": "Brick",
       "year": 2005,
       "imdb_id": "tt0393109",
@@ -12436,786 +12453,6 @@
       "exclusion_reason": null
     },
     {
-      "title": "Before Night Falls",
-      "year": 2000,
-      "imdb_id": "tt0247196",
-      "tspdt_rank": 925,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #925"
-      ],
-      "director": "Schnabel, Julian",
-      "country": "USA",
-      "runtime": 133,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Manakamana",
-      "year": 2013,
-      "imdb_id": "tt3103326",
-      "tspdt_rank": 927,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #927"
-      ],
-      "director": "Spray, Stephanie & Pacho Velez",
-      "country": "Nepal",
-      "runtime": 118,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "REC",
-      "year": 2007,
-      "imdb_id": "tt1038988",
-      "tspdt_rank": 930,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #930"
-      ],
-      "director": "Balagueró, Jaume & Paco Plaza",
-      "country": "Spain",
-      "runtime": 78,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Pig",
-      "year": 2021,
-      "imdb_id": "tt11003218",
-      "tspdt_rank": 932,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #932"
-      ],
-      "director": "Sarnoski, Michael",
-      "country": "USA",
-      "runtime": 92,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Fire Will Come",
-      "year": 2019,
-      "imdb_id": "tt8212958",
-      "tspdt_rank": 933,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #933"
-      ],
-      "director": "Laxe, Oliver",
-      "country": "Spain",
-      "runtime": 90,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Descendants",
-      "year": 2011,
-      "imdb_id": "tt1033575",
-      "tspdt_rank": 934,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #934"
-      ],
-      "director": "Payne, Alexander",
-      "country": "USA",
-      "runtime": 115,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "God's Own Country",
-      "year": 2017,
-      "imdb_id": "tt5635086",
-      "tspdt_rank": 935,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #935"
-      ],
-      "director": "Lee, Francis",
-      "country": "UK",
-      "runtime": 104,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Enemy",
-      "year": 2013,
-      "imdb_id": "tt2316411",
-      "tspdt_rank": 936,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #936"
-      ],
-      "director": "Villeneuve, Denis",
-      "country": "Canada",
-      "runtime": 91,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Green Room",
-      "year": 2015,
-      "imdb_id": "tt4062536",
-      "tspdt_rank": 937,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #937"
-      ],
-      "director": "Saulnier, Jeremy",
-      "country": "USA",
-      "runtime": 95,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "I Am Not a Witch",
-      "year": 2017,
-      "imdb_id": "tt6213284",
-      "tspdt_rank": 938,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #938"
-      ],
-      "director": "Nyoni, Rungano",
-      "country": "UK",
-      "runtime": 93,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Kiss Kiss Bang Bang",
-      "year": 2005,
-      "imdb_id": "tt0373469",
-      "tspdt_rank": 939,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #939"
-      ],
-      "director": "Black, Shane",
-      "country": "USA",
-      "runtime": 103,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Wonder Woman",
-      "year": 2017,
-      "imdb_id": "tt0451279",
-      "tspdt_rank": 940,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #940"
-      ],
-      "director": "Jenkins, Patty",
-      "country": "USA",
-      "runtime": 141,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Touching the Void",
-      "year": 2003,
-      "imdb_id": "tt0379557",
-      "tspdt_rank": 941,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #941"
-      ],
-      "director": "Macdonald, Kevin",
-      "country": "UK",
-      "runtime": 106,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Whisky",
-      "year": 2004,
-      "imdb_id": "tt0331370",
-      "tspdt_rank": 942,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #942"
-      ],
-      "director": "Rebella, Juan Pablo & Pablo Stoll",
-      "country": "Uruguay",
-      "runtime": 98,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Half Nelson",
-      "year": 2006,
-      "imdb_id": "tt0468489",
-      "tspdt_rank": 943,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #943"
-      ],
-      "director": "Fleck, Ryan",
-      "country": "USA",
-      "runtime": 107,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Faya Dayi",
-      "year": 2021,
-      "imdb_id": "tt13648216",
-      "tspdt_rank": 944,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #944"
-      ],
-      "director": "Beshir, Jessica",
-      "country": "Ethiopia",
-      "runtime": 120,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "My Mother's Smile",
-      "year": 2002,
-      "imdb_id": "tt0317965",
-      "tspdt_rank": 946,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #946"
-      ],
-      "director": "Bellocchio, Marco",
-      "country": "Italy",
-      "runtime": 105,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Dreamers",
-      "year": 2003,
-      "imdb_id": "tt0309987",
-      "tspdt_rank": 947,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #947"
-      ],
-      "director": "Bertolucci, Bernardo",
-      "country": "UK",
-      "runtime": 115,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Aquarius",
-      "year": 2016,
-      "imdb_id": "tt5221584",
-      "tspdt_rank": 948,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #948"
-      ],
-      "director": "Mendonça Filho, Kleber",
-      "country": "Brazil",
-      "runtime": 146,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Unrelated",
-      "year": 2007,
-      "imdb_id": "tt1107850",
-      "tspdt_rank": 949,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #949"
-      ],
-      "director": "Hogg, Joanna",
-      "country": "UK",
-      "runtime": 100,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Elvis",
-      "year": 2022,
-      "imdb_id": "tt3704428",
-      "tspdt_rank": 950,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #950"
-      ],
-      "director": "Luhrmann, Baz",
-      "country": "USA",
-      "runtime": 159,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Strong Island",
-      "year": 2017,
-      "imdb_id": "tt5873150",
-      "tspdt_rank": 951,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #951"
-      ],
-      "director": "Ford, Yance",
-      "country": "USA",
-      "runtime": 107,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "David Byrne's American Utopia",
-      "year": 2020,
-      "imdb_id": "tt11874226",
-      "tspdt_rank": 952,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #952"
-      ],
-      "director": "Lee, Spike",
-      "country": "USA",
-      "runtime": 105,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "All of Us Strangers",
-      "year": 2023,
-      "imdb_id": "tt21192142",
-      "tspdt_rank": 953,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #953"
-      ],
-      "director": "Haigh, Andrew",
-      "country": "UK",
-      "runtime": 105,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "In Front of Your Face",
-      "year": 2021,
-      "imdb_id": "tt14776918",
-      "tspdt_rank": 954,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #954"
-      ],
-      "director": "Hong Sang-soo",
-      "country": "South Korea",
-      "runtime": 85,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Isle",
-      "year": 2000,
-      "imdb_id": "tt0255589",
-      "tspdt_rank": 955,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #955"
-      ],
-      "director": "Kim Ki-duk",
-      "country": "South Korea",
-      "runtime": 90,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Shirkers",
-      "year": 2018,
-      "imdb_id": "tt7472352",
-      "tspdt_rank": 956,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #956"
-      ],
-      "director": "Tan, Sandi",
-      "country": "USA",
-      "runtime": 97,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "3 Faces",
-      "year": 2018,
-      "imdb_id": "tt8269552",
-      "tspdt_rank": 957,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #957"
-      ],
-      "director": "Panahi, Jafar",
-      "country": "Iran",
-      "runtime": 100,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Rachel Getting Married",
-      "year": 2008,
-      "imdb_id": "tt1084950",
-      "tspdt_rank": 958,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #958"
-      ],
-      "director": "Demme, Jonathan",
-      "country": "USA",
-      "runtime": 113,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Cloud Atlas",
-      "year": 2012,
-      "imdb_id": "tt1371111",
-      "tspdt_rank": 960,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #960"
-      ],
-      "director": "Tykwer, Tom/Lana Wachowski/Lilly Wachowski",
-      "country": "USA",
-      "runtime": 172,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "A Girl at My Door",
-      "year": 2014,
-      "imdb_id": "tt3661798",
-      "tspdt_rank": 961,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #961"
-      ],
-      "director": "Jung, July",
-      "country": "South Korea",
-      "runtime": 119,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Another Round",
-      "year": 2020,
-      "imdb_id": "tt10288566",
-      "tspdt_rank": 962,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #962"
-      ],
-      "director": "Vinterberg, Thomas",
-      "country": "Denmark",
-      "runtime": 117,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Season of the Devil",
-      "year": 2018,
-      "imdb_id": "tt7200370",
-      "tspdt_rank": 963,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #963"
-      ],
-      "director": "Diaz, Lav",
-      "country": "Philippines",
-      "runtime": 234,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Evolution",
-      "year": 2015,
-      "imdb_id": "tt4291590",
-      "tspdt_rank": 964,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #964"
-      ],
-      "director": "Hadzihalilovic, Lucile",
-      "country": "France",
-      "runtime": 81,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Ring",
-      "year": 2002,
-      "imdb_id": "tt0298130",
-      "tspdt_rank": 965,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #965"
-      ],
-      "director": "Verbinski, Gore",
-      "country": "USA",
-      "runtime": 115,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Dreams of a Life",
-      "year": 2011,
-      "imdb_id": "tt1819513",
-      "tspdt_rank": 966,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #966"
-      ],
-      "director": "Morley, Carol",
-      "country": "UK",
-      "runtime": 95,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Ghost in the Shell 2: Innocence",
-      "year": 2004,
-      "imdb_id": "tt0347246",
-      "tspdt_rank": 967,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #967"
-      ],
-      "director": "Oshii, Mamoru",
-      "country": "Japan",
-      "runtime": 99,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Top Gun: Maverick",
-      "year": 2022,
-      "imdb_id": "tt1745960",
-      "tspdt_rank": 968,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #968"
-      ],
-      "director": "Kosinski, Joseph",
-      "country": "USA",
-      "runtime": 130,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Encounters at the End of the World",
-      "year": 2007,
-      "imdb_id": "tt1093824",
-      "tspdt_rank": 969,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #969"
-      ],
-      "director": "Herzog, Werner",
-      "country": "USA",
-      "runtime": 99,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "A Fantastic Woman",
-      "year": 2017,
-      "imdb_id": "tt5639354",
-      "tspdt_rank": 970,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #970"
-      ],
-      "director": "Lelio, Sebastián",
-      "country": "Chile",
-      "runtime": 100,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Shirley",
-      "year": 2020,
-      "imdb_id": "tt8430598",
-      "tspdt_rank": 971,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #971"
-      ],
-      "director": "Decker, Josephine",
-      "country": "USA",
-      "runtime": 107,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "We Have a Pope",
-      "year": 2011,
-      "imdb_id": "tt1456472",
-      "tspdt_rank": 973,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #973"
-      ],
-      "director": "Moretti, Nanni",
-      "country": "Italy",
-      "runtime": 102,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Knives Out",
-      "year": 2019,
-      "imdb_id": "tt8946378",
-      "tspdt_rank": 974,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #974"
-      ],
-      "director": "Johnson, Rian",
-      "country": "USA",
-      "runtime": 130,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "You Ain't Seen Nothin' Yet",
-      "year": 2012,
-      "imdb_id": "tt1690389",
-      "tspdt_rank": 975,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #975"
-      ],
-      "director": "Resnais, Alain",
-      "country": "France",
-      "runtime": 115,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Barbarian Invasions",
-      "year": 2003,
-      "imdb_id": "tt0338135",
-      "tspdt_rank": 976,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #976"
-      ],
-      "director": "Arcand, Denys",
-      "country": "Canada",
-      "runtime": 99,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Pontypool",
-      "year": 2008,
-      "imdb_id": "tt1226681",
-      "tspdt_rank": 978,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #978"
-      ],
-      "director": "McDonald, Bruce",
-      "country": "Canada",
-      "runtime": 93,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Lego Movie",
-      "year": 2014,
-      "imdb_id": "tt1490017",
-      "tspdt_rank": 980,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #980"
-      ],
-      "director": "Lord, Phil & Christopher Miller",
-      "country": "USA",
-      "runtime": 100,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Closeness",
-      "year": 2017,
-      "imdb_id": "tt6777056",
-      "tspdt_rank": 981,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #981"
-      ],
-      "director": "Balagov, Kantemir",
-      "country": "Russia",
-      "runtime": 118,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "20th Century Women",
-      "year": 2016,
-      "imdb_id": "tt4385888",
-      "tspdt_rank": 982,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #982"
-      ],
-      "director": "Mills, Mike",
-      "country": "USA",
-      "runtime": 119,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Control",
-      "year": 2007,
-      "imdb_id": "tt0421082",
-      "tspdt_rank": 983,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #983"
-      ],
-      "director": "Corbijn, Anton",
-      "country": "UK",
-      "runtime": 122,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Cow",
-      "year": 2021,
-      "imdb_id": "tt11548822",
-      "tspdt_rank": 984,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #984"
-      ],
-      "director": "Arnold, Andrea",
-      "country": "UK",
-      "runtime": 94,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Nightcrawler",
-      "year": 2014,
-      "imdb_id": "tt2872718",
-      "tspdt_rank": 985,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #985"
-      ],
-      "director": "Gilroy, Dan",
-      "country": "USA",
-      "runtime": 117,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
       "title": "Into the Wild",
       "year": 2007,
       "imdb_id": "tt0758758",
@@ -13229,191 +12466,11 @@
       "runtime": 148,
       "status": "candidate",
       "exclusion_reason": null
-    },
-    {
-      "title": "Asteroid City",
-      "year": 2023,
-      "imdb_id": "tt14230388",
-      "tspdt_rank": 987,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #987"
-      ],
-      "director": "Anderson, Wes",
-      "country": "USA",
-      "runtime": 105,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Lantana",
-      "year": 2001,
-      "imdb_id": "tt0259393",
-      "tspdt_rank": 988,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #988"
-      ],
-      "director": "Lawrence, Ray",
-      "country": "Australia",
-      "runtime": 121,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Let the Bullets Fly",
-      "year": 2010,
-      "imdb_id": "tt1533117",
-      "tspdt_rank": 989,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #989"
-      ],
-      "director": "Jiang Wen",
-      "country": "China",
-      "runtime": 132,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Big Short",
-      "year": 2015,
-      "imdb_id": "tt1596363",
-      "tspdt_rank": 990,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #990"
-      ],
-      "director": "McKay, Adam",
-      "country": "USA",
-      "runtime": 130,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Nine Muses",
-      "year": 2010,
-      "imdb_id": "tt1706701",
-      "tspdt_rank": 991,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #991"
-      ],
-      "director": "Akomfrah, John",
-      "country": "Ghana",
-      "runtime": 90,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Bloody Nose, Empty Pockets",
-      "year": 2020,
-      "imdb_id": "tt11392114",
-      "tspdt_rank": 992,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #992"
-      ],
-      "director": "Ross IV, Bill & Turner Ross",
-      "country": "USA",
-      "runtime": 98,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Eighth Grade",
-      "year": 2018,
-      "imdb_id": "tt7014006",
-      "tspdt_rank": 993,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #993"
-      ],
-      "director": "Burnham, Bo",
-      "country": "USA",
-      "runtime": 93,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Stuck on You",
-      "year": 2003,
-      "imdb_id": "tt0338466",
-      "tspdt_rank": 994,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #994"
-      ],
-      "director": "Farrelly, Bobby & Peter Farrelly",
-      "country": "USA",
-      "runtime": 118,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Greenberg",
-      "year": 2010,
-      "imdb_id": "tt1234654",
-      "tspdt_rank": 995,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #995"
-      ],
-      "director": "Baumbach, Noah",
-      "country": "USA",
-      "runtime": 107,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Ten Canoes",
-      "year": 2006,
-      "imdb_id": "tt0466399",
-      "tspdt_rank": 996,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #996"
-      ],
-      "director": "de Heer, Rolf",
-      "country": "Australia",
-      "runtime": 92,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "The Mourning Forest",
-      "year": 2007,
-      "imdb_id": "tt1016205",
-      "tspdt_rank": 997,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #997"
-      ],
-      "director": "Kawase, Naomi",
-      "country": "Japan",
-      "runtime": 97,
-      "status": "candidate",
-      "exclusion_reason": null
-    },
-    {
-      "title": "Mind Game",
-      "year": 2004,
-      "imdb_id": "tt0452039",
-      "tspdt_rank": 998,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #998"
-      ],
-      "director": "Yuasa, Masaaki",
-      "country": "Japan",
-      "runtime": 103,
-      "status": "candidate",
-      "exclusion_reason": null
     }
   ],
   "unresolved": [
     {
-      "title": "Ciénaga, La",
+      "title": "La Ciénaga",
       "year": 2001,
       "tspdt_rank": 15
     },
@@ -13423,14 +12480,9 @@
       "tspdt_rank": 99
     },
     {
-      "title": "Irréversible",
-      "year": 2002,
-      "tspdt_rank": 112
-    },
-    {
-      "title": "Commune (Paris, 1871), La",
-      "year": 2000,
-      "tspdt_rank": 118
+      "title": "Lovers Rock",
+      "year": 2020,
+      "tspdt_rank": 121
     },
     {
       "title": "Cemetery of Splendour",
@@ -13443,22 +12495,17 @@
       "tspdt_rank": 133
     },
     {
-      "title": "Flor, La",
-      "year": 2018,
-      "tspdt_rank": 135
-    },
-    {
       "title": "The World",
       "year": 2004,
       "tspdt_rank": 157
     },
     {
-      "title": "Havre, Le",
-      "year": 2011,
-      "tspdt_rank": 184
+      "title": "The Circle",
+      "year": 2000,
+      "tspdt_rank": 177
     },
     {
-      "title": "Enfant, L'",
+      "title": "L' Enfant",
       "year": 2005,
       "tspdt_rank": 211
     },
@@ -13473,14 +12520,9 @@
       "tspdt_rank": 241
     },
     {
-      "title": "Quattro Volte, Le",
+      "title": "Le Quattro Volte",
       "year": 2010,
       "tspdt_rank": 283
-    },
-    {
-      "title": "Chimera, La",
-      "year": 2023,
-      "tspdt_rank": 311
     },
     {
       "title": "Kings & Queen",
@@ -13498,11 +12540,6 @@
       "tspdt_rank": 382
     },
     {
-      "title": "Libertad, La",
-      "year": 2001,
-      "tspdt_rank": 401
-    },
-    {
       "title": "Days",
       "year": 2020,
       "tspdt_rank": 411
@@ -13518,7 +12555,12 @@
       "tspdt_rank": 439
     },
     {
-      "title": "Captive, La",
+      "title": "Samson and Delilah",
+      "year": 2009,
+      "tspdt_rank": 441
+    },
+    {
+      "title": "La Captive",
       "year": 2000,
       "tspdt_rank": 466
     },
@@ -13533,9 +12575,14 @@
       "tspdt_rank": 479
     },
     {
-      "title": "Morte rouge, La",
+      "title": "La Morte rouge",
       "year": 2006,
       "tspdt_rank": 509
+    },
+    {
+      "title": "Eden",
+      "year": 2014,
+      "tspdt_rank": 527
     },
     {
       "title": "At Sea",
@@ -13546,11 +12593,6 @@
       "title": "Dune: Part One",
       "year": 2021,
       "tspdt_rank": 540
-    },
-    {
-      "title": "Muertos, Los",
-      "year": 2004,
-      "tspdt_rank": 550
     },
     {
       "title": "The Human Surge",
@@ -13588,7 +12630,7 @@
       "tspdt_rank": 610
     },
     {
-      "title": "Visite au Louvre, Une",
+      "title": "Une Visite au Louvre",
       "year": 2004,
       "tspdt_rank": 654
     },
@@ -13613,24 +12655,19 @@
       "tspdt_rank": 729
     },
     {
+      "title": "Aurora",
+      "year": 2010,
+      "tspdt_rank": 731
+    },
+    {
       "title": "Lady Vengeance",
       "year": 2005,
       "tspdt_rank": 738
     },
     {
-      "title": "¡Vivan las Antipodas!",
-      "year": 2011,
-      "tspdt_rank": 742
-    },
-    {
       "title": "Amy",
       "year": 2015,
       "tspdt_rank": 770
-    },
-    {
-      "title": "Pont des Arts, Le",
-      "year": 2004,
-      "tspdt_rank": 777
     },
     {
       "title": "Of Time and the City",
@@ -13648,9 +12685,19 @@
       "tspdt_rank": 836
     },
     {
+      "title": "Black Sun",
+      "year": 2005,
+      "tspdt_rank": 841
+    },
+    {
       "title": "Quei loro incontri",
       "year": 2006,
       "tspdt_rank": 854
+    },
+    {
+      "title": "Mangrove",
+      "year": 2020,
+      "tspdt_rank": 861
     },
     {
       "title": "America",
@@ -13673,9 +12720,14 @@
       "tspdt_rank": 894
     },
     {
-      "title": "Vie nouvelle, La",
+      "title": "La Vie nouvelle",
       "year": 2002,
       "tspdt_rank": 896
+    },
+    {
+      "title": "The Inheritance",
+      "year": 2020,
+      "tspdt_rank": 897
     },
     {
       "title": "No",
@@ -13688,29 +12740,418 @@
       "tspdt_rank": 909
     },
     {
+      "title": "Before Night Falls",
+      "year": 2000,
+      "tspdt_rank": 925,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
       "title": "Tristram Shandy: A Cock and Bull Story",
       "year": 2005,
-      "tspdt_rank": 926
+      "tspdt_rank": 926,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Manakamana",
+      "year": 2013,
+      "tspdt_rank": 927,
+      "error": "HTTP Error 429: Too Many Requests"
     },
     {
       "title": "Material",
       "year": 2009,
-      "tspdt_rank": 929
+      "tspdt_rank": 929,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "[Rec]",
+      "year": 2007,
+      "tspdt_rank": 930,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Pig",
+      "year": 2021,
+      "tspdt_rank": 932,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Fire Will Come",
+      "year": 2019,
+      "tspdt_rank": 933,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Descendants",
+      "year": 2011,
+      "tspdt_rank": 934,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "God's Own Country",
+      "year": 2017,
+      "tspdt_rank": 935,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Enemy",
+      "year": 2013,
+      "tspdt_rank": 936,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Green Room",
+      "year": 2015,
+      "tspdt_rank": 937,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "I Am Not a Witch",
+      "year": 2017,
+      "tspdt_rank": 938,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Kiss Kiss, Bang Bang",
+      "year": 2005,
+      "tspdt_rank": 939,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Wonder Woman",
+      "year": 2017,
+      "tspdt_rank": 940,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Touching the Void",
+      "year": 2003,
+      "tspdt_rank": 941,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Whisky",
+      "year": 2004,
+      "tspdt_rank": 942,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Half Nelson",
+      "year": 2006,
+      "tspdt_rank": 943,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Faya Dayi",
+      "year": 2021,
+      "tspdt_rank": 944,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "My Mother's Smile",
+      "year": 2002,
+      "tspdt_rank": 946,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Dreamers",
+      "year": 2003,
+      "tspdt_rank": 947,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Aquarius",
+      "year": 2016,
+      "tspdt_rank": 948,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Unrelated",
+      "year": 2007,
+      "tspdt_rank": 949,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Elvis",
+      "year": 2022,
+      "tspdt_rank": 950,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Strong Island",
+      "year": 2017,
+      "tspdt_rank": 951,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "David Byrne's American Utopia",
+      "year": 2020,
+      "tspdt_rank": 952,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "All of Us Strangers",
+      "year": 2023,
+      "tspdt_rank": 953,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "In Front of Your Face",
+      "year": 2021,
+      "tspdt_rank": 954,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Isle",
+      "year": 2000,
+      "tspdt_rank": 955,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Shirkers",
+      "year": 2018,
+      "tspdt_rank": 956,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "3 Faces",
+      "year": 2018,
+      "tspdt_rank": 957,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Rachel Getting Married",
+      "year": 2008,
+      "tspdt_rank": 958,
+      "error": "HTTP Error 429: Too Many Requests"
     },
     {
       "title": "Where Does Your Hidden Smile Lie?",
       "year": 2001,
-      "tspdt_rank": 959
+      "tspdt_rank": 959,
+      "error": "HTTP Error 429: Too Many Requests"
     },
     {
-      "title": "Divo, Il",
+      "title": "Cloud Atlas",
+      "year": 2012,
+      "tspdt_rank": 960,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "A Girl at My Door",
+      "year": 2014,
+      "tspdt_rank": 961,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Another Round",
+      "year": 2020,
+      "tspdt_rank": 962,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Season of the Devil",
+      "year": 2018,
+      "tspdt_rank": 963,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Evolution",
+      "year": 2015,
+      "tspdt_rank": 964,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Ring",
+      "year": 2002,
+      "tspdt_rank": 965,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Dreams of a Life",
+      "year": 2011,
+      "tspdt_rank": 966,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Ghost in the Shell 2: Innocence",
+      "year": 2004,
+      "tspdt_rank": 967,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Top Gun: Maverick",
+      "year": 2022,
+      "tspdt_rank": 968,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Encounters at the End of the World",
+      "year": 2007,
+      "tspdt_rank": 969,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "A Fantastic Woman",
+      "year": 2017,
+      "tspdt_rank": 970,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Shirley",
+      "year": 2020,
+      "tspdt_rank": 971,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Il Divo",
       "year": 2008,
-      "tspdt_rank": 972
+      "tspdt_rank": 972,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "We Have a Pope",
+      "year": 2011,
+      "tspdt_rank": 973,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Knives Out",
+      "year": 2019,
+      "tspdt_rank": 974,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "You Ain't Seen Nothin' Yet",
+      "year": 2012,
+      "tspdt_rank": 975,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Barbarian Invasions",
+      "year": 2003,
+      "tspdt_rank": 976,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Pontypool",
+      "year": 2008,
+      "tspdt_rank": 978,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Lego Movie",
+      "year": 2014,
+      "tspdt_rank": 980,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Closeness",
+      "year": 2017,
+      "tspdt_rank": 981,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "20th Century Women",
+      "year": 2016,
+      "tspdt_rank": 982,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Control",
+      "year": 2007,
+      "tspdt_rank": 983,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Cow",
+      "year": 2021,
+      "tspdt_rank": 984,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Nightcrawler",
+      "year": 2014,
+      "tspdt_rank": 985,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Asteroid City",
+      "year": 2023,
+      "tspdt_rank": 987,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Lantana",
+      "year": 2001,
+      "tspdt_rank": 988,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Let the Bullets Fly",
+      "year": 2010,
+      "tspdt_rank": 989,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Big Short",
+      "year": 2015,
+      "tspdt_rank": 990,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Nine Muses",
+      "year": 2010,
+      "tspdt_rank": 991,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Bloody Nose, Empty Pockets",
+      "year": 2020,
+      "tspdt_rank": 992,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Eighth Grade",
+      "year": 2018,
+      "tspdt_rank": 993,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Stuck on You",
+      "year": 2003,
+      "tspdt_rank": 994,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Greenberg",
+      "year": 2010,
+      "tspdt_rank": 995,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Ten Canoes",
+      "year": 2006,
+      "tspdt_rank": 996,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Mourning Forest",
+      "year": 2007,
+      "tspdt_rank": 997,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Mind Game",
+      "year": 2004,
+      "tspdt_rank": 998,
+      "error": "HTTP Error 429: Too Many Requests"
     },
     {
       "title": "Jackie",
       "year": 2016,
-      "tspdt_rank": 1000
+      "tspdt_rank": 1000,
+      "error": "HTTP Error 429: Too Many Requests"
     }
   ],
   "excluded_after_review": [
