@@ -1,0 +1,8 @@
+{
+  "films": [
+    {"title":"1917","year":2019,"imdb_id":"tt8579674","institutional_strength":1,"signals":["Academy Best Picture nominee"]},
+    {"title":"Past Lives","year":2023,"imdb_id":"tt13238346","institutional_strength":1,"signals":["Academy Best Picture nominee"]},
+    {"title":"Nocturnal Animals","year":2016,"imdb_id":"tt4550098","institutional_strength":2,"signals":["Venice Grand Jury Prize"]}
+  ],
+  "notes":"Research-only seed of independently verified film-level institutional candidates outside the TSPDT universe. Acting/craft awards excluded. Expand systematically before production use."
+}
