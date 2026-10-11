@@ -22,8 +22,8 @@
   },
   "watch_policy": "watched films remain candidates but recommended_monitored=false",
   "universe_count": 951,
-  "resolved_count": 951,
-  "unresolved_count": 0,
+  "resolved_count": 915,
+  "unresolved_count": 36,
   "candidates": [
     {
       "title": "Moonlight",
@@ -13542,86 +13542,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "The Lost City of Z",
-      "year": 2016,
-      "imdb_id": "tt1212428",
-      "tspdt_rank": 883,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #883"
-      ],
-      "director": "Gray, James",
-      "country": "USA",
-      "runtime": 141,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "A Thousand Suns",
-      "year": 2013,
-      "imdb_id": "tt3118566",
-      "tspdt_rank": 884,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #884"
-      ],
-      "director": "Diop, Mati",
-      "country": "France",
-      "runtime": 45,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "In Jackson Heights",
-      "year": 2015,
-      "imdb_id": "tt4936064",
-      "tspdt_rank": 885,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #885"
-      ],
-      "director": "Wiseman, Frederick",
-      "country": "USA",
-      "runtime": 190,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "The Raid: Redemption",
-      "year": 2011,
-      "imdb_id": "tt1899353",
-      "tspdt_rank": 886,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #886"
-      ],
-      "director": "Evans, Gareth",
-      "country": "Indonesia",
-      "runtime": 101,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Road to Perdition",
-      "year": 2002,
-      "imdb_id": "tt0257044",
-      "tspdt_rank": 888,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #888"
-      ],
-      "director": "Mendes, Sam",
-      "country": "USA",
-      "runtime": 117,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "The 3 Rooms of Melancholia",
       "year": 2004,
       "imdb_id": "tt0424272",
@@ -13633,70 +13553,6 @@
       "director": "Honkasalo, Pirjo",
       "country": "Finland",
       "runtime": 106,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Good Time",
-      "year": 2017,
-      "imdb_id": "tt4846232",
-      "tspdt_rank": 890,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #890"
-      ],
-      "director": "Safdie, Josh & Benny Safdie",
-      "country": "USA",
-      "runtime": 102,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Spider-Man 2",
-      "year": 2004,
-      "imdb_id": "tt0316654",
-      "tspdt_rank": 891,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #891"
-      ],
-      "director": "Raimi, Sam",
-      "country": "USA",
-      "runtime": 127,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Oxhide",
-      "year": 2005,
-      "imdb_id": "tt0453795",
-      "tspdt_rank": 892,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #892"
-      ],
-      "director": "Liu Jiayin",
-      "country": "China",
-      "runtime": 110,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Flags of Our Fathers",
-      "year": 2006,
-      "imdb_id": "tt0418689",
-      "tspdt_rank": 893,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #893"
-      ],
-      "director": "Eastwood, Clint",
-      "country": "USA",
-      "runtime": 132,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -13718,22 +13574,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "24 City",
-      "year": 2008,
-      "imdb_id": "tt1103963",
-      "tspdt_rank": 895,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #895"
-      ],
-      "director": "Jia Zhangke",
-      "country": "China",
-      "runtime": 112,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "A New Life",
       "year": 2002,
       "imdb_id": "tt0310313",
@@ -13745,150 +13585,6 @@
       "director": "Grandrieux, Philippe",
       "country": "France",
       "runtime": 102,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Inheritance",
-      "year": 2020,
-      "imdb_id": "tt7923220",
-      "tspdt_rank": 897,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #897"
-      ],
-      "director": "Asili, Ephraim",
-      "country": "USA",
-      "runtime": 100,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Brick",
-      "year": 2005,
-      "imdb_id": "tt0393109",
-      "tspdt_rank": 898,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #898"
-      ],
-      "director": "Johnson, Rian",
-      "country": "USA",
-      "runtime": 110,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Zidane: A 21st Century Portrait",
-      "year": 2006,
-      "imdb_id": "tt0478337",
-      "tspdt_rank": 899,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #899"
-      ],
-      "director": "Gordon, Douglas & Philippe Parreno",
-      "country": "France",
-      "runtime": 90,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Blade Runner 2049",
-      "year": 2017,
-      "imdb_id": "tt1856101",
-      "tspdt_rank": 900,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #900"
-      ],
-      "director": "Villeneuve, Denis",
-      "country": "USA",
-      "runtime": 164,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "City of Life and Death",
-      "year": 2009,
-      "imdb_id": "tt1124052",
-      "tspdt_rank": 901,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #901"
-      ],
-      "director": "Lu Chuan",
-      "country": "China",
-      "runtime": 133,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Perfect Days",
-      "year": 2023,
-      "imdb_id": "tt27503384",
-      "tspdt_rank": 902,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #902"
-      ],
-      "director": "Wenders, Wim",
-      "country": "Japan",
-      "runtime": 124,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Animal Kingdom",
-      "year": 2010,
-      "imdb_id": "tt1313092",
-      "tspdt_rank": 903,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #903"
-      ],
-      "director": "Michôd, David",
-      "country": "Australia",
-      "runtime": 113,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Moneyball",
-      "year": 2011,
-      "imdb_id": "tt1210166",
-      "tspdt_rank": 904,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #904"
-      ],
-      "director": "Miller, Bennett",
-      "country": "USA",
-      "runtime": 133,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Japón",
-      "year": 2002,
-      "imdb_id": "tt0322824",
-      "tspdt_rank": 905,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #905"
-      ],
-      "director": "Reygadas, Carlos",
-      "country": "Mexico",
-      "runtime": 122,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -13910,38 +13606,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "Belfast",
-      "year": 2021,
-      "imdb_id": "tt12789558",
-      "tspdt_rank": 907,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #907"
-      ],
-      "director": "Branagh, Kenneth",
-      "country": "UK",
-      "runtime": 98,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Drug War",
-      "year": 2012,
-      "imdb_id": "tt2165735",
-      "tspdt_rank": 908,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #908"
-      ],
-      "director": "To, Johnnie",
-      "country": "China",
-      "runtime": 107,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "Stevie",
       "year": 2002,
       "imdb_id": "tt0334416",
@@ -13953,246 +13617,6 @@
       "director": "James, Steve",
       "country": "USA",
       "runtime": 140,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Afire",
-      "year": 2023,
-      "imdb_id": "tt26440619",
-      "tspdt_rank": 910,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #910"
-      ],
-      "director": "Petzold, Christian",
-      "country": "Germany",
-      "runtime": 102,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "The Sea Inside",
-      "year": 2004,
-      "imdb_id": "tt0369702",
-      "tspdt_rank": 911,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #911"
-      ],
-      "director": "Amenábar, Alejandro",
-      "country": "Spain",
-      "runtime": 125,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Three Monkeys",
-      "year": 2008,
-      "imdb_id": "tt1233381",
-      "tspdt_rank": 912,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #912"
-      ],
-      "director": "Ceylan, Nuri Bilge",
-      "country": "Turkey",
-      "runtime": 109,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Sobibór, October 14, 1943, 4 p.m.",
-      "year": 2001,
-      "imdb_id": "tt0286978",
-      "tspdt_rank": 913,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #913"
-      ],
-      "director": "Lanzmann, Claude",
-      "country": "France",
-      "runtime": 95,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Bergman Island",
-      "year": 2021,
-      "imdb_id": "tt6910282",
-      "tspdt_rank": 914,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #914"
-      ],
-      "director": "Hansen-Løve, Mia",
-      "country": "France",
-      "runtime": 112,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Dick Johnson Is Dead",
-      "year": 2020,
-      "imdb_id": "tt11394180",
-      "tspdt_rank": 915,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #915"
-      ],
-      "director": "Johnson, Kirsten",
-      "country": "USA",
-      "runtime": 89,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "A Single Man",
-      "year": 2009,
-      "imdb_id": "tt1315981",
-      "tspdt_rank": 916,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #916"
-      ],
-      "director": "Ford, Tom",
-      "country": "USA",
-      "runtime": 101,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Mr. Turner",
-      "year": 2014,
-      "imdb_id": "tt2473794",
-      "tspdt_rank": 917,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #917"
-      ],
-      "director": "Leigh, Mike",
-      "country": "UK",
-      "runtime": 150,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "What We Do in the Shadows",
-      "year": 2014,
-      "imdb_id": "tt3416742",
-      "tspdt_rank": 918,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #918"
-      ],
-      "director": "Clement, Jemaine & Taika Waititi",
-      "country": "New Zealand",
-      "runtime": 86,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Midnight in Paris",
-      "year": 2011,
-      "imdb_id": "tt1605783",
-      "tspdt_rank": 919,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #919"
-      ],
-      "director": "Allen, Woody",
-      "country": "Spain",
-      "runtime": 94,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "House of Tolerance",
-      "year": 2011,
-      "imdb_id": "tt1660379",
-      "tspdt_rank": 920,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #920"
-      ],
-      "director": "Bonello, Bertrand",
-      "country": "France",
-      "runtime": 122,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Monos",
-      "year": 2019,
-      "imdb_id": "tt6062774",
-      "tspdt_rank": 921,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #921"
-      ],
-      "director": "Landes, Alejandro",
-      "country": "Colombia",
-      "runtime": 102,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "A Tale of Two Sisters",
-      "year": 2003,
-      "imdb_id": "tt0365376",
-      "tspdt_rank": 922,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #922"
-      ],
-      "director": "Kim Jee-woon",
-      "country": "South Korea",
-      "runtime": 114,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Secretary",
-      "year": 2002,
-      "imdb_id": "tt0274812",
-      "tspdt_rank": 923,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #923"
-      ],
-      "director": "Shainberg, Steven",
-      "country": "USA",
-      "runtime": 104,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "What Do We See When We Look at the Sky?",
-      "year": 2021,
-      "imdb_id": "tt14035154",
-      "tspdt_rank": 924,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #924"
-      ],
-      "director": "Koberidze, Aleksandre",
-      "country": "Georgia",
-      "runtime": 150,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -15318,5 +14742,222 @@
       "recommended_monitored": true
     }
   ],
-  "unresolved": []
+  "unresolved": [
+    {
+      "title": "The Lost City of Z",
+      "year": 2016,
+      "tspdt_rank": 883,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "A Thousand Suns",
+      "year": 2013,
+      "tspdt_rank": 884,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "In Jackson Heights",
+      "year": 2015,
+      "tspdt_rank": 885,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Raid: Redemption",
+      "year": 2011,
+      "tspdt_rank": 886,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Road to Perdition",
+      "year": 2002,
+      "tspdt_rank": 888,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Good Time",
+      "year": 2017,
+      "tspdt_rank": 890,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Spider-Man 2",
+      "year": 2004,
+      "tspdt_rank": 891,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Oxhide",
+      "year": 2005,
+      "tspdt_rank": 892,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Flags of Our Fathers",
+      "year": 2006,
+      "tspdt_rank": 893,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "24 City",
+      "year": 2008,
+      "tspdt_rank": 895,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Inheritance",
+      "year": 2020,
+      "tspdt_rank": 897,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Brick",
+      "year": 2005,
+      "tspdt_rank": 898,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Zidane: A 21st Century Portrait",
+      "year": 2006,
+      "tspdt_rank": 899,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "tspdt_rank": 900,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "City of Life and Death",
+      "year": 2009,
+      "tspdt_rank": 901,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Perfect Days",
+      "year": 2023,
+      "tspdt_rank": 902,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Animal Kingdom",
+      "year": 2010,
+      "tspdt_rank": 903,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Moneyball",
+      "year": 2011,
+      "tspdt_rank": 904,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Japón",
+      "year": 2002,
+      "tspdt_rank": 905,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Belfast",
+      "year": 2021,
+      "tspdt_rank": 907,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Drug War",
+      "year": 2012,
+      "tspdt_rank": 908,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Afire",
+      "year": 2023,
+      "tspdt_rank": 910,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "The Sea Inside",
+      "year": 2004,
+      "tspdt_rank": 911,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Three Monkeys",
+      "year": 2008,
+      "tspdt_rank": 912,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Sobibór, October 14, 1943, 4 p.m.",
+      "year": 2001,
+      "tspdt_rank": 913,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Bergman Island",
+      "year": 2021,
+      "tspdt_rank": 914,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Dick Johnson is Dead",
+      "year": 2020,
+      "tspdt_rank": 915,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "A Single Man",
+      "year": 2009,
+      "tspdt_rank": 916,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Mr. Turner",
+      "year": 2014,
+      "tspdt_rank": 917,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "What We Do in the Shadows",
+      "year": 2014,
+      "tspdt_rank": 918,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Midnight in Paris",
+      "year": 2011,
+      "tspdt_rank": 919,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "House of Tolerance",
+      "year": 2011,
+      "tspdt_rank": 920,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Monos",
+      "year": 2019,
+      "tspdt_rank": 921,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "A Tale of Two Sisters",
+      "year": 2003,
+      "tspdt_rank": 922,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "Secretary",
+      "year": 2002,
+      "tspdt_rank": 923,
+      "error": "HTTP Error 429: Too Many Requests"
+    },
+    {
+      "title": "What Do We See When We Look at the Sky?",
+      "year": 2021,
+      "tspdt_rank": 924,
+      "error": "HTTP Error 429: Too Many Requests"
+    }
+  ]
 }
