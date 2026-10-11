@@ -1653,6 +1653,23 @@
       "recommended_monitored": true
     },
     {
+      "title": "Amores Perros",
+      "year": 2000,
+      "imdb_id": "tt0245712",
+      "tspdt_rank": 104,
+      "score": 3.0,
+      "signals": [
+        "TSPDT 21st-century #104",
+        "personal-positive +1"
+      ],
+      "director": "González Iñárritu, Alejandro",
+      "country": "Mexico",
+      "runtime": 153,
+      "status": "candidate",
+      "watch_state": "watched",
+      "recommended_monitored": false
+    },
+    {
       "title": "Nomadland",
       "year": 2020,
       "imdb_id": "tt9770150",
@@ -1733,6 +1750,23 @@
       "director": "Zvyagintsev, Andrey",
       "country": "Russia",
       "runtime": 110,
+      "status": "candidate",
+      "watch_state": "watched",
+      "recommended_monitored": false
+    },
+    {
+      "title": "Call Me by Your Name",
+      "year": 2017,
+      "imdb_id": "tt5726616",
+      "tspdt_rank": 161,
+      "score": 3.0,
+      "signals": [
+        "TSPDT 21st-century #161",
+        "personal-positive +1"
+      ],
+      "director": "Guadagnino, Luca",
+      "country": "Italy",
+      "runtime": 132,
       "status": "candidate",
       "watch_state": "watched",
       "recommended_monitored": false
@@ -1832,22 +1866,6 @@
       "director": "Weerasethakul, Apichatpong",
       "country": "Thailand",
       "runtime": 125,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Amores Perros",
-      "year": 2000,
-      "imdb_id": "tt0245712",
-      "tspdt_rank": 104,
-      "score": 2.0,
-      "signals": [
-        "TSPDT 21st-century #104"
-      ],
-      "director": "González Iñárritu, Alejandro",
-      "country": "Mexico",
-      "runtime": 153,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -2648,22 +2666,6 @@
       "director": "Lanthimos, Yorgos",
       "country": "Greece",
       "runtime": 97,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Call Me by Your Name",
-      "year": 2017,
-      "imdb_id": "tt5726616",
-      "tspdt_rank": 161,
-      "score": 2.0,
-      "signals": [
-        "TSPDT 21st-century #161"
-      ],
-      "director": "Guadagnino, Luca",
-      "country": "Italy",
-      "runtime": 132,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true

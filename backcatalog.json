@@ -396,6 +396,10 @@
     "imdb_id": "tt9231040"
   },
   {
+    "title": "Amores Perros",
+    "imdb_id": "tt0245712"
+  },
+  {
     "title": "Nomadland",
     "imdb_id": "tt9770150"
   },
@@ -414,6 +418,10 @@
   {
     "title": "The Return",
     "imdb_id": "tt0376968"
+  },
+  {
+    "title": "Call Me by Your Name",
+    "imdb_id": "tt5726616"
   },
   {
     "title": "The Circle",
@@ -438,10 +446,6 @@
   {
     "title": "Blissfully Yours",
     "imdb_id": "tt0317171"
-  },
-  {
-    "title": "Amores Perros",
-    "imdb_id": "tt0245712"
   },
   {
     "title": "Code Unknown",
@@ -642,10 +646,6 @@
   {
     "title": "Dogtooth",
     "imdb_id": "tt1379182"
-  },
-  {
-    "title": "Call Me by Your Name",
-    "imdb_id": "tt5726616"
   },
   {
     "title": "You Were Never Really Here",
