@@ -19,8 +19,8 @@
     "taste": "0 to +1; ranking/tie-break only"
   },
   "universe_count": 951,
-  "resolved_count": 906,
-  "unresolved_count": 45,
+  "resolved_count": 951,
+  "unresolved_count": 0,
   "candidates": [
     {
       "title": "Moonlight",
@@ -1503,6 +1503,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Margaret",
+      "year": 2011,
+      "imdb_id": "tt0466893",
+      "tspdt_rank": 99,
+      "score": 3.0,
+      "signals": [
+        "TSPDT 21st-century #99"
+      ],
+      "director": "Lonergan, Kenneth",
+      "country": "USA",
+      "runtime": 150,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "First Cow",
       "year": 2019,
       "imdb_id": "tt9231040",
@@ -1799,6 +1814,21 @@
       "director": "Reichardt, Kelly",
       "country": "USA",
       "runtime": 104,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Lovers Rock",
+      "year": 2020,
+      "imdb_id": "tt10551102",
+      "tspdt_rank": 121,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #121"
+      ],
+      "director": "McQueen, Steve",
+      "country": "UK",
+      "runtime": 70,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -2328,6 +2358,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "The World",
+      "year": 2004,
+      "imdb_id": "tt0423176",
+      "tspdt_rank": 157,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #157"
+      ],
+      "director": "Jia Zhangke",
+      "country": "China",
+      "runtime": 140,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Souvenir",
       "year": 2019,
       "imdb_id": "tt6920356",
@@ -2609,6 +2654,21 @@
       "director": "Reichardt, Kelly",
       "country": "USA",
       "runtime": 107,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "The Circle",
+      "year": 2000,
+      "imdb_id": "tt0255094",
+      "tspdt_rank": 177,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #177"
+      ],
+      "director": "Panahi, Jafar",
+      "country": "Iran",
+      "runtime": 90,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -3078,6 +3138,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "The Child",
+      "year": 2005,
+      "imdb_id": "tt0456396",
+      "tspdt_rank": 211,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #211"
+      ],
+      "director": "Dardenne, Jean-Pierre & Luc Dardenne",
+      "country": "Belgium",
+      "runtime": 95,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Cameraperson",
       "year": 2016,
       "imdb_id": "tt5375040",
@@ -3149,6 +3224,21 @@
       "director": "Diaz, Lav",
       "country": "Philippines",
       "runtime": 540,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Borat",
+      "year": 2006,
+      "imdb_id": "tt0443453",
+      "tspdt_rank": 217,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #217"
+      ],
+      "director": "Charles, Larry",
+      "country": "USA",
+      "runtime": 84,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -3464,6 +3554,21 @@
       "director": "Wells, Charlotte",
       "country": "UK",
       "runtime": 102,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Sharasôju",
+      "year": 2003,
+      "imdb_id": "tt0363060",
+      "tspdt_rank": 241,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #241"
+      ],
+      "director": "Kawase, Naomi",
+      "country": "Japan",
+      "runtime": 100,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -4034,6 +4139,21 @@
       "director": "Bi Gan",
       "country": "China",
       "runtime": 138,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "The Four Times",
+      "year": 2010,
+      "imdb_id": "tt1646975",
+      "tspdt_rank": 283,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #283"
+      ],
+      "director": "Frammartino, Michelangelo",
+      "country": "Italy",
+      "runtime": 88,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -5868,6 +5988,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Days",
+      "year": 2020,
+      "imdb_id": "tt11697820",
+      "tspdt_rank": 411,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #411"
+      ],
+      "director": "Tsai Ming-liang",
+      "country": "Taiwan",
+      "runtime": 127,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Regular Lovers",
       "year": 2005,
       "imdb_id": "tt0443844",
@@ -6138,6 +6273,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Our Music",
+      "year": 2004,
+      "imdb_id": "tt0360845",
+      "tspdt_rank": 430,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #430"
+      ],
+      "director": "Godard, Jean-Luc",
+      "country": "France",
+      "runtime": 80,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Police, Adjective",
       "year": 2009,
       "imdb_id": "tt1337051",
@@ -6254,6 +6404,21 @@
       "director": "Assayas, Olivier",
       "country": "France",
       "runtime": 105,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Jogo de cena",
+      "year": 2007,
+      "imdb_id": "tt1165293",
+      "tspdt_rank": 439,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #439"
+      ],
+      "director": "Coutinho, Eduardo",
+      "country": "Brazil",
+      "runtime": 100,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -6648,6 +6813,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "The Captive",
+      "year": 2000,
+      "imdb_id": "tt0216605",
+      "tspdt_rank": 466,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #466"
+      ],
+      "director": "Akerman, Chantal",
+      "country": "France",
+      "runtime": 118,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Evil Does Not Exist",
       "year": 2023,
       "imdb_id": "tt28490044",
@@ -6824,6 +7004,21 @@
       "director": "Koreeda, Hirokazu",
       "country": "Japan",
       "runtime": 121,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "The Sun",
+      "year": 2005,
+      "imdb_id": "tt0439817",
+      "tspdt_rank": 479,
+      "score": 1.0,
+      "signals": [
+        "TSPDT 21st-century #479"
+      ],
+      "director": "Sokurov, Aleksandr",
+      "country": "Russia",
+      "runtime": 115,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -7518,6 +7713,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Eden",
+      "year": 2014,
+      "imdb_id": "tt3090634",
+      "tspdt_rank": 527,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #527"
+      ],
+      "director": "Hansen-Løve, Mia",
+      "country": "France",
+      "runtime": 131,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Queen",
       "year": 2006,
       "imdb_id": "tt0436697",
@@ -7679,6 +7889,36 @@
       "director": "McQueen, Steve",
       "country": "UK",
       "runtime": 101,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "At Sea",
+      "year": 2007,
+      "imdb_id": "tt1829648",
+      "tspdt_rank": 539,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #539"
+      ],
+      "director": "Hutton, Peter B.",
+      "country": "USA",
+      "runtime": 60,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Dune",
+      "year": 2021,
+      "imdb_id": "tt1160419",
+      "tspdt_rank": 540,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #540"
+      ],
+      "director": "Villeneuve, Denis",
+      "country": "USA",
+      "runtime": 155,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -7904,6 +8144,21 @@
       "director": "DuVernay, Ava",
       "country": "UK",
       "runtime": 128,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Santiago",
+      "year": 2007,
+      "imdb_id": "tt1002543",
+      "tspdt_rank": 557,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #557"
+      ],
+      "director": "Moreira Salles, João",
+      "country": "Brazil",
+      "runtime": 80,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -8298,6 +8553,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "The Mouth of the Wolf",
+      "year": 2009,
+      "imdb_id": "tt1603480",
+      "tspdt_rank": 588,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #588"
+      ],
+      "director": "Marcello, Pietro",
+      "country": "Italy",
+      "runtime": 68,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Wallace & Gromit: The Curse of the Were-Rabbit",
       "year": 2005,
       "imdb_id": "tt0312004",
@@ -8388,6 +8658,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Heremias, Book One: The Legend of the Lizard Princess",
+      "year": 2006,
+      "imdb_id": "tt0843515",
+      "tspdt_rank": 596,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #596"
+      ],
+      "director": "Diaz, Lav",
+      "country": "Philippines",
+      "runtime": 540,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Paradise: Love",
       "year": 2012,
       "imdb_id": "tt1403214",
@@ -8444,6 +8729,21 @@
       "director": "Liman, Doug",
       "country": "USA",
       "runtime": 113,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Wolff von Amerongen: Did He Commit Bankruptcy Offences?",
+      "year": 2004,
+      "imdb_id": "tt0499138",
+      "tspdt_rank": 601,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #601"
+      ],
+      "director": "Friedl, Gerhard Benedikt",
+      "country": "Germany",
+      "runtime": 73,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -8549,6 +8849,21 @@
       "director": "Benning, James",
       "country": "USA",
       "runtime": 111,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Dry Season",
+      "year": 2006,
+      "imdb_id": "tt0825241",
+      "tspdt_rank": 610,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #610"
+      ],
+      "director": "Haroun, Mahamat-Saleh",
+      "country": "Chad",
+      "runtime": 96,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -9168,6 +9483,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "A Visit to the Louvre",
+      "year": 2004,
+      "imdb_id": "tt0405418",
+      "tspdt_rank": 654,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #654"
+      ],
+      "director": "Straub, Jean-Marie & Danièle Huillet",
+      "country": "France",
+      "runtime": 44,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Day After",
       "year": 2017,
       "imdb_id": "tt6462506",
@@ -9783,6 +10113,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "The Secret of the Grain",
+      "year": 2007,
+      "imdb_id": "tt0487419",
+      "tspdt_rank": 698,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #698"
+      ],
+      "director": "Kechiche, Abdellatif",
+      "country": "France",
+      "runtime": 151,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Others",
       "year": 2001,
       "imdb_id": "tt0230600",
@@ -10128,6 +10473,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Barbara",
+      "year": 2012,
+      "imdb_id": "tt2178941",
+      "tspdt_rank": 727,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #727"
+      ],
+      "director": "Petzold, Christian",
+      "country": "Germany",
+      "runtime": 105,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Woman King",
       "year": 2022,
       "imdb_id": "tt8093700",
@@ -10143,6 +10503,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "My Mother",
+      "year": 2015,
+      "imdb_id": "tt3013610",
+      "tspdt_rank": 729,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #729"
+      ],
+      "director": "Moretti, Nanni",
+      "country": "Italy",
+      "runtime": 106,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Sicario",
       "year": 2015,
       "imdb_id": "tt3397884",
@@ -10154,6 +10529,21 @@
       "director": "Villeneuve, Denis",
       "country": "USA",
       "runtime": 121,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Aurora",
+      "year": 2010,
+      "imdb_id": "tt1403047",
+      "tspdt_rank": 731,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #731"
+      ],
+      "director": "Puiu, Cristi",
+      "country": "Romania",
+      "runtime": 181,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -10229,6 +10619,21 @@
       "director": "Hooper, Tom",
       "country": "UK",
       "runtime": 118,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Lady Vengeance",
+      "year": 2005,
+      "imdb_id": "tt0451094",
+      "tspdt_rank": 738,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #738"
+      ],
+      "director": "Park Chan-wook",
+      "country": "South Korea",
+      "runtime": 115,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -10668,6 +11073,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Amy",
+      "year": 2015,
+      "imdb_id": "tt2870648",
+      "tspdt_rank": 770,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #770"
+      ],
+      "director": "Kapadia, Asif",
+      "country": "UK",
+      "runtime": 128,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Orphanage",
       "year": 2007,
       "imdb_id": "tt0464141",
@@ -11073,6 +11493,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Of Time and the City",
+      "year": 2008,
+      "imdb_id": "tt1232790",
+      "tspdt_rank": 799,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #799"
+      ],
+      "director": "Davies, Terence",
+      "country": "UK",
+      "runtime": 72,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Knocked Up",
       "year": 2007,
       "imdb_id": "tt0478311",
@@ -11099,6 +11534,21 @@
       "director": "Payne, Alexander",
       "country": "USA",
       "runtime": 115,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Trilogia: To livadi pou dakryzei",
+      "year": 2004,
+      "imdb_id": "tt0366721",
+      "tspdt_rank": 802,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #802"
+      ],
+      "director": "Angelopoulos, Theo",
+      "country": "Greece",
+      "runtime": 170,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -11553,6 +12003,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Workers, Peasants",
+      "year": 2001,
+      "imdb_id": "tt0305923",
+      "tspdt_rank": 836,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #836"
+      ],
+      "director": "Straub, Jean-Marie & Danièle Huillet",
+      "country": "France",
+      "runtime": 123,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Road to Nowhere",
       "year": 2010,
       "imdb_id": "tt1504319",
@@ -11609,6 +12074,21 @@
       "director": "Hong Sang-soo",
       "country": "South Korea",
       "runtime": 100,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Black Sun",
+      "year": 2005,
+      "imdb_id": "tt0478101",
+      "tspdt_rank": 841,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #841"
+      ],
+      "director": "Tarn, Gary",
+      "country": "UK",
+      "runtime": 75,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -11763,6 +12243,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "These Encounters of Theirs",
+      "year": 2006,
+      "imdb_id": "tt0815227",
+      "tspdt_rank": 854,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #854"
+      ],
+      "director": "Straub, Jean-Marie & Danièle Huillet",
+      "country": "Italy",
+      "runtime": 68,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "The Novelist's Film",
       "year": 2022,
       "imdb_id": "tt17146978",
@@ -11853,6 +12348,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Mangrove",
+      "year": 2020,
+      "imdb_id": "tt10551100",
+      "tspdt_rank": 861,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #861"
+      ],
+      "director": "McQueen, Steve",
+      "country": "UK",
+      "runtime": 127,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Vicky Cristina Barcelona",
       "year": 2008,
       "imdb_id": "tt0497465",
@@ -11879,6 +12389,21 @@
       "director": "Suwichakornpong, Anocha",
       "country": "Thailand",
       "runtime": 105,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "America",
+      "year": 2019,
+      "imdb_id": "tt6217698",
+      "tspdt_rank": 865,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #865"
+      ],
+      "director": "Bradley, Garrett",
+      "country": "USA",
+      "runtime": 27,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -11939,6 +12464,21 @@
       "director": "Kapadia, Asif",
       "country": "UK",
       "runtime": 106,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Ex Libris",
+      "year": 2017,
+      "imdb_id": "tt6209282",
+      "tspdt_rank": 870,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #870"
+      ],
+      "director": "Wiseman, Frederick",
+      "country": "USA",
+      "runtime": 197,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -12183,6 +12723,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "The 3 Rooms of Melancholia",
+      "year": 2004,
+      "imdb_id": "tt0424272",
+      "tspdt_rank": 889,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #889"
+      ],
+      "director": "Honkasalo, Pirjo",
+      "country": "Finland",
+      "runtime": 106,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Good Time",
       "year": 2017,
       "imdb_id": "tt4846232",
@@ -12243,6 +12798,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "The Heart of the World",
+      "year": 2000,
+      "imdb_id": "tt0260948",
+      "tspdt_rank": 894,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #894"
+      ],
+      "director": "Maddin, Guy",
+      "country": "Canada",
+      "runtime": 6,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "24 City",
       "year": 2008,
       "imdb_id": "tt1103963",
@@ -12254,6 +12824,21 @@
       "director": "Jia Zhangke",
       "country": "China",
       "runtime": 112,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "A New Life",
+      "year": 2002,
+      "imdb_id": "tt0310313",
+      "tspdt_rank": 896,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #896"
+      ],
+      "director": "Grandrieux, Philippe",
+      "country": "France",
+      "runtime": 102,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -12393,6 +12978,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "No",
+      "year": 2012,
+      "imdb_id": "tt2059255",
+      "tspdt_rank": 906,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #906"
+      ],
+      "director": "Larraín, Pablo",
+      "country": "Chile",
+      "runtime": 118,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Belfast",
       "year": 2021,
       "imdb_id": "tt12789558",
@@ -12419,6 +13019,21 @@
       "director": "To, Johnnie",
       "country": "China",
       "runtime": 107,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Stevie",
+      "year": 2002,
+      "imdb_id": "tt0334416",
+      "tspdt_rank": 909,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #909"
+      ],
+      "director": "James, Steve",
+      "country": "USA",
+      "runtime": 140,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -12663,6 +13278,21 @@
       "exclusion_reason": null
     },
     {
+      "title": "Tristram Shandy",
+      "year": 2005,
+      "imdb_id": "tt0423409",
+      "tspdt_rank": 926,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #926"
+      ],
+      "director": "Winterbottom, Michael",
+      "country": "UK",
+      "runtime": 94,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
       "title": "Manakamana",
       "year": 2013,
       "imdb_id": "tt3103326",
@@ -12674,6 +13304,21 @@
       "director": "Spray, Stephanie & Pacho Velez",
       "country": "Nepal",
       "runtime": 118,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Material",
+      "year": 2009,
+      "imdb_id": "tt1380807",
+      "tspdt_rank": 929,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #929"
+      ],
+      "director": "Heise, Thomas",
+      "country": "Germany",
+      "runtime": 166,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -13079,6 +13724,21 @@
       "director": "Demme, Jonathan",
       "country": "USA",
       "runtime": 113,
+      "status": "candidate",
+      "exclusion_reason": null
+    },
+    {
+      "title": "Where Does Your Hidden Smile Lie?",
+      "year": 2001,
+      "imdb_id": "tt0342866",
+      "tspdt_rank": 959,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #959"
+      ],
+      "director": "Costa, Pedro",
+      "country": "Portugal",
+      "runtime": 104,
       "status": "candidate",
       "exclusion_reason": null
     },
@@ -13636,235 +14296,24 @@
       "runtime": 103,
       "status": "candidate",
       "exclusion_reason": null
-    }
-  ],
-  "unresolved": [
-    {
-      "title": "Margaret",
-      "year": 2011,
-      "tspdt_rank": 99
-    },
-    {
-      "title": "Lovers Rock",
-      "year": 2020,
-      "tspdt_rank": 121
-    },
-    {
-      "title": "The World",
-      "year": 2004,
-      "tspdt_rank": 157
-    },
-    {
-      "title": "The Circle",
-      "year": 2000,
-      "tspdt_rank": 177
-    },
-    {
-      "title": "L' Enfant",
-      "year": 2005,
-      "tspdt_rank": 211
-    },
-    {
-      "title": "Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan",
-      "year": 2006,
-      "tspdt_rank": 217
-    },
-    {
-      "title": "Shara",
-      "year": 2003,
-      "tspdt_rank": 241
-    },
-    {
-      "title": "Le Quattro Volte",
-      "year": 2010,
-      "tspdt_rank": 283
-    },
-    {
-      "title": "Days",
-      "year": 2020,
-      "tspdt_rank": 411
-    },
-    {
-      "title": "Notre musique",
-      "year": 2004,
-      "tspdt_rank": 430
-    },
-    {
-      "title": "Playing",
-      "year": 2007,
-      "tspdt_rank": 439
-    },
-    {
-      "title": "La Captive",
-      "year": 2000,
-      "tspdt_rank": 466
-    },
-    {
-      "title": "The Sun",
-      "year": 2005,
-      "tspdt_rank": 479
-    },
-    {
-      "title": "Eden",
-      "year": 2014,
-      "tspdt_rank": 527
-    },
-    {
-      "title": "At Sea",
-      "year": 2007,
-      "tspdt_rank": 539
-    },
-    {
-      "title": "Dune: Part One",
-      "year": 2021,
-      "tspdt_rank": 540
-    },
-    {
-      "title": "Santiago",
-      "year": 2007,
-      "tspdt_rank": 557
-    },
-    {
-      "title": "The Mouth of the Wolf",
-      "year": 2009,
-      "tspdt_rank": 588
-    },
-    {
-      "title": "Heremias",
-      "year": 2006,
-      "tspdt_rank": 596
-    },
-    {
-      "title": "Hat Wolff von Amerongen Konkursdelikte begangen?",
-      "year": 2004,
-      "tspdt_rank": 601
-    },
-    {
-      "title": "Daratt",
-      "year": 2006,
-      "tspdt_rank": 610
-    },
-    {
-      "title": "Une Visite au Louvre",
-      "year": 2004,
-      "tspdt_rank": 654
-    },
-    {
-      "title": "The Secret of the Grain",
-      "year": 2007,
-      "tspdt_rank": 698
-    },
-    {
-      "title": "Barbara",
-      "year": 2012,
-      "tspdt_rank": 727
-    },
-    {
-      "title": "Mia madre",
-      "year": 2015,
-      "tspdt_rank": 729
-    },
-    {
-      "title": "Aurora",
-      "year": 2010,
-      "tspdt_rank": 731
-    },
-    {
-      "title": "Lady Vengeance",
-      "year": 2005,
-      "tspdt_rank": 738
-    },
-    {
-      "title": "Amy",
-      "year": 2015,
-      "tspdt_rank": 770
-    },
-    {
-      "title": "Of Time and the City",
-      "year": 2008,
-      "tspdt_rank": 799
-    },
-    {
-      "title": "Trilogy: The Weeping Meadow",
-      "year": 2004,
-      "tspdt_rank": 802
-    },
-    {
-      "title": "Operai, contadini",
-      "year": 2001,
-      "tspdt_rank": 836
-    },
-    {
-      "title": "Black Sun",
-      "year": 2005,
-      "tspdt_rank": 841
-    },
-    {
-      "title": "Quei loro incontri",
-      "year": 2006,
-      "tspdt_rank": 854
-    },
-    {
-      "title": "Mangrove",
-      "year": 2020,
-      "tspdt_rank": 861
-    },
-    {
-      "title": "America",
-      "year": 2019,
-      "tspdt_rank": 865
-    },
-    {
-      "title": "Ex Libris: The New York Public Library",
-      "year": 2017,
-      "tspdt_rank": 870
-    },
-    {
-      "title": "The 3 Rooms of Melancholia",
-      "year": 2004,
-      "tspdt_rank": 889
-    },
-    {
-      "title": "The Heart of the World",
-      "year": 2000,
-      "tspdt_rank": 894
-    },
-    {
-      "title": "La Vie nouvelle",
-      "year": 2002,
-      "tspdt_rank": 896
-    },
-    {
-      "title": "No",
-      "year": 2012,
-      "tspdt_rank": 906
-    },
-    {
-      "title": "Stevie",
-      "year": 2002,
-      "tspdt_rank": 909
-    },
-    {
-      "title": "Tristram Shandy: A Cock and Bull Story",
-      "year": 2005,
-      "tspdt_rank": 926
-    },
-    {
-      "title": "Material",
-      "year": 2009,
-      "tspdt_rank": 929
-    },
-    {
-      "title": "Where Does Your Hidden Smile Lie?",
-      "year": 2001,
-      "tspdt_rank": 959
     },
     {
       "title": "Jackie",
       "year": 2016,
-      "tspdt_rank": 1000
+      "imdb_id": "tt1619029",
+      "tspdt_rank": 1000,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #1000"
+      ],
+      "director": "Larraín, Pablo",
+      "country": "Chile",
+      "runtime": 100,
+      "status": "candidate",
+      "exclusion_reason": null
     }
   ],
+  "unresolved": [],
   "excluded_after_review": [
     {
       "title": "La Ciénaga",
