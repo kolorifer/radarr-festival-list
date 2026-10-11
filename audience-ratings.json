@@ -1,7 +1,7 @@
 {
   "source": "ReelDB",
   "purpose": "audience-rating research; not yet part of production scoring",
-  "ratings_count": 912,
+  "ratings_count": 948,
   "ratings": {
     "tt4975722": {
       "title": "Moonlight",
@@ -42909,6 +42909,1702 @@
         "myanimelist": null,
         "mdblist": {
           "rating": 69,
+          "votes": null
+        }
+      }
+    },
+    "tt1212428": {
+      "title": "The Lost City of Z",
+      "year": 2016,
+      "tspdt_rank": 883,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.6,
+          "votes": 107344
+        },
+        "metacritic": {
+          "rating": 78,
+          "votes": 44
+        },
+        "metacritic_user": {
+          "rating": 7.0,
+          "votes": 272
+        },
+        "trakt": {
+          "rating": 66,
+          "votes": 6496
+        },
+        "tomatoes": {
+          "rating": 85,
+          "votes": 251,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 58,
+          "votes": 683
+        },
+        "tmdb": {
+          "rating": 64,
+          "votes": 3170
+        },
+        "letterboxd": {
+          "rating": 3.4,
+          "votes": 134167
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 71,
+          "votes": null
+        }
+      }
+    },
+    "tt3118566": {
+      "title": "A Thousand Suns",
+      "year": 2013,
+      "tspdt_rank": 884,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.0,
+          "votes": 225
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 62,
+          "votes": 8
+        },
+        "tomatoes": null,
+        "tomatoes_audience": null,
+        "tmdb": {
+          "rating": 68,
+          "votes": 9
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 1208
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 19,
+          "votes": null
+        }
+      }
+    },
+    "tt4936064": {
+      "title": "In Jackson Heights",
+      "year": 2015,
+      "tspdt_rank": 885,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 880
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 70,
+          "votes": 51
+        },
+        "tomatoes": {
+          "rating": 96,
+          "votes": 52,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 79,
+          "votes": 3
+        },
+        "tmdb": {
+          "rating": 65,
+          "votes": 29
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 3046
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 78,
+          "votes": null
+        }
+      }
+    },
+    "tt1899353": {
+      "title": "The Raid: Redemption",
+      "year": 2011,
+      "tspdt_rank": 886,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 233639
+        },
+        "metacritic": {
+          "rating": 73,
+          "votes": 31
+        },
+        "metacritic_user": {
+          "rating": 8.1,
+          "votes": 438
+        },
+        "trakt": {
+          "rating": 77,
+          "votes": 8813
+        },
+        "tomatoes": {
+          "rating": 87,
+          "votes": 170,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 87,
+          "votes": 4139
+        },
+        "tmdb": {
+          "rating": 74,
+          "votes": 4070
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 320545
+        },
+        "roger_ebert": {
+          "rating": 1.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 72,
+          "votes": null
+        }
+      }
+    },
+    "tt0257044": {
+      "title": "Road to Perdition",
+      "year": 2002,
+      "tspdt_rank": 888,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 303433
+        },
+        "metacritic": {
+          "rating": 72,
+          "votes": 36
+        },
+        "metacritic_user": {
+          "rating": 7.8,
+          "votes": 235
+        },
+        "trakt": {
+          "rating": 75,
+          "votes": 6808
+        },
+        "tomatoes": {
+          "rating": 82,
+          "votes": 214,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 86,
+          "votes": 6231
+        },
+        "tmdb": {
+          "rating": 74,
+          "votes": 4144
+        },
+        "letterboxd": {
+          "rating": 3.8,
+          "votes": 173426
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 76,
+          "votes": null
+        }
+      }
+    },
+    "tt4846232": {
+      "title": "Good Time",
+      "year": 2017,
+      "tspdt_rank": 890,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.3,
+          "votes": 160049
+        },
+        "metacritic": {
+          "rating": 80,
+          "votes": 41
+        },
+        "metacritic_user": {
+          "rating": 7.7,
+          "votes": 332
+        },
+        "trakt": {
+          "rating": 73,
+          "votes": 6777
+        },
+        "tomatoes": {
+          "rating": 91,
+          "votes": 237,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 82,
+          "votes": 542
+        },
+        "tmdb": {
+          "rating": 72,
+          "votes": 3264
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 844686
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 79,
+          "votes": null
+        }
+      }
+    },
+    "tt0316654": {
+      "title": "Spider-Man 2",
+      "year": 2004,
+      "tspdt_rank": 891,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 811068
+        },
+        "metacritic": {
+          "rating": 83,
+          "votes": 41
+        },
+        "metacritic_user": {
+          "rating": 8.7,
+          "votes": 2097
+        },
+        "trakt": {
+          "rating": 78,
+          "votes": 31325
+        },
+        "tomatoes": {
+          "rating": 93,
+          "votes": 276,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 82,
+          "votes": 59410
+        },
+        "tmdb": {
+          "rating": 73,
+          "votes": 17022
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 2653177
+        },
+        "roger_ebert": {
+          "rating": 2.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 78,
+          "votes": null
+        }
+      }
+    },
+    "tt0453795": {
+      "title": "Oxhide",
+      "year": 2005,
+      "tspdt_rank": 892,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.8,
+          "votes": 348
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 60,
+          "votes": 14
+        },
+        "tomatoes": null,
+        "tomatoes_audience": null,
+        "tmdb": {
+          "rating": 62,
+          "votes": 13
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 1429
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 23,
+          "votes": null
+        }
+      }
+    },
+    "tt0418689": {
+      "title": "Flags of Our Fathers",
+      "year": 2006,
+      "tspdt_rank": 893,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.1,
+          "votes": 135305
+        },
+        "metacritic": {
+          "rating": 79,
+          "votes": 39
+        },
+        "metacritic_user": {
+          "rating": 7.2,
+          "votes": 126
+        },
+        "trakt": {
+          "rating": 72,
+          "votes": 3237
+        },
+        "tomatoes": {
+          "rating": 76,
+          "votes": 238,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 69,
+          "votes": 8298
+        },
+        "tmdb": {
+          "rating": 68,
+          "votes": 2092
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 53309
+        },
+        "roger_ebert": {
+          "rating": 4.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 76,
+          "votes": null
+        }
+      }
+    },
+    "tt1103963": {
+      "title": "24 City",
+      "year": 2008,
+      "tspdt_rank": 895,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.1,
+          "votes": 2588
+        },
+        "metacritic": {
+          "rating": 75,
+          "votes": 11
+        },
+        "metacritic_user": {
+          "rating": 7.6,
+          "votes": 8
+        },
+        "trakt": {
+          "rating": 73,
+          "votes": 69
+        },
+        "tomatoes": {
+          "rating": 89,
+          "votes": 45,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 72,
+          "votes": 91
+        },
+        "tmdb": {
+          "rating": 70,
+          "votes": 64
+        },
+        "letterboxd": {
+          "rating": 3.8,
+          "votes": 6386
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 72,
+          "votes": null
+        }
+      }
+    },
+    "tt7923220": {
+      "title": "Inheritance",
+      "year": 2020,
+      "tspdt_rank": 897,
+      "reeldb": {
+        "imdb": {
+          "rating": 5.6,
+          "votes": 23934
+        },
+        "metacritic": {
+          "rating": 31,
+          "votes": 19
+        },
+        "metacritic_user": {
+          "rating": 5.3,
+          "votes": 23
+        },
+        "trakt": {
+          "rating": 63,
+          "votes": 2576
+        },
+        "tomatoes": {
+          "rating": 25,
+          "votes": 56,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 26,
+          "votes": 100
+        },
+        "tmdb": {
+          "rating": 63,
+          "votes": 764
+        },
+        "letterboxd": {
+          "rating": 2.6,
+          "votes": 44787
+        },
+        "roger_ebert": {
+          "rating": 2.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 43,
+          "votes": null
+        }
+      }
+    },
+    "tt0393109": {
+      "title": "Brick",
+      "year": 2005,
+      "tspdt_rank": 898,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.1,
+          "votes": 114710
+        },
+        "metacritic": {
+          "rating": 72,
+          "votes": 34
+        },
+        "metacritic_user": {
+          "rating": 6.4,
+          "votes": 143
+        },
+        "trakt": {
+          "rating": 70,
+          "votes": 2864
+        },
+        "tomatoes": {
+          "rating": 79,
+          "votes": 141,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 86,
+          "votes": 9211
+        },
+        "tmdb": {
+          "rating": 68,
+          "votes": 1437
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 152541
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 74,
+          "votes": null
+        }
+      }
+    },
+    "tt0478337": {
+      "title": "Zidane: A 21st Century Portrait",
+      "year": 2006,
+      "tspdt_rank": 899,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.2,
+          "votes": 3223
+        },
+        "metacritic": null,
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 55,
+          "votes": 49
+        },
+        "tomatoes": {
+          "rating": 67,
+          "votes": 21,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 62,
+          "votes": 189
+        },
+        "tmdb": {
+          "rating": 58,
+          "votes": 46
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 3013
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 52,
+          "votes": null
+        }
+      }
+    },
+    "tt1856101": {
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "tspdt_rank": 900,
+      "reeldb": {
+        "imdb": {
+          "rating": 8.0,
+          "votes": 771397
+        },
+        "metacritic": {
+          "rating": 81,
+          "votes": 54
+        },
+        "metacritic_user": {
+          "rating": 8.3,
+          "votes": 2842
+        },
+        "trakt": {
+          "rating": 79,
+          "votes": 37726
+        },
+        "tomatoes": {
+          "rating": 88,
+          "votes": 440,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 88,
+          "votes": 626
+        },
+        "tmdb": {
+          "rating": 76,
+          "votes": 15802
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 2356616
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 83,
+          "votes": null
+        }
+      }
+    },
+    "tt1124052": {
+      "title": "City of Life and Death",
+      "year": 2009,
+      "tspdt_rank": 901,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.7,
+          "votes": 12607
+        },
+        "metacritic": {
+          "rating": 85,
+          "votes": 13
+        },
+        "metacritic_user": null,
+        "trakt": {
+          "rating": 76,
+          "votes": 322
+        },
+        "tomatoes": {
+          "rating": 92,
+          "votes": 53,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 86,
+          "votes": 274
+        },
+        "tmdb": {
+          "rating": 74,
+          "votes": 250
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 7839
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 82,
+          "votes": null
+        }
+      }
+    },
+    "tt27503384": {
+      "title": "Perfect Days",
+      "year": 2023,
+      "tspdt_rank": 902,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 113074
+        },
+        "metacritic": {
+          "rating": 80,
+          "votes": 38
+        },
+        "metacritic_user": {
+          "rating": 8.2,
+          "votes": 192
+        },
+        "trakt": {
+          "rating": 81,
+          "votes": 7431
+        },
+        "tomatoes": {
+          "rating": 96,
+          "votes": 186,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 93,
+          "votes": 34
+        },
+        "tmdb": {
+          "rating": 78,
+          "votes": 2093
+        },
+        "letterboxd": {
+          "rating": 4.3,
+          "votes": 920055
+        },
+        "roger_ebert": {
+          "rating": 4.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 86,
+          "votes": null
+        }
+      }
+    },
+    "tt1313092": {
+      "title": "Animal Kingdom",
+      "year": 2010,
+      "tspdt_rank": 903,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 63951
+        },
+        "metacritic": {
+          "rating": 83,
+          "votes": 33
+        },
+        "metacritic_user": {
+          "rating": 7.8,
+          "votes": 148
+        },
+        "trakt": {
+          "rating": 70,
+          "votes": 1604
+        },
+        "tomatoes": {
+          "rating": 94,
+          "votes": 160,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 83,
+          "votes": 2097
+        },
+        "tmdb": {
+          "rating": 68,
+          "votes": 944
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 41504
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 77,
+          "votes": null
+        }
+      }
+    },
+    "tt1210166": {
+      "title": "Moneyball",
+      "year": 2011,
+      "tspdt_rank": 904,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 518446
+        },
+        "metacritic": {
+          "rating": 87,
+          "votes": 42
+        },
+        "metacritic_user": {
+          "rating": 8.0,
+          "votes": 812
+        },
+        "trakt": {
+          "rating": 77,
+          "votes": 14452
+        },
+        "tomatoes": {
+          "rating": 94,
+          "votes": 272,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 86,
+          "votes": 7827
+        },
+        "tmdb": {
+          "rating": 73,
+          "votes": 6033
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 910832
+        },
+        "roger_ebert": {
+          "rating": 4.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 83,
+          "votes": null
+        }
+      }
+    },
+    "tt0322824": {
+      "title": "Japón",
+      "year": 2002,
+      "tspdt_rank": 905,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.8,
+          "votes": 4234
+        },
+        "metacritic": {
+          "rating": 76,
+          "votes": 14
+        },
+        "metacritic_user": {
+          "rating": 5.0,
+          "votes": 5
+        },
+        "trakt": {
+          "rating": 69,
+          "votes": 49
+        },
+        "tomatoes": {
+          "rating": 79,
+          "votes": 28,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 73,
+          "votes": 91
+        },
+        "tmdb": {
+          "rating": 67,
+          "votes": 76
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 7770
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 63,
+          "votes": null
+        }
+      }
+    },
+    "tt12789558": {
+      "title": "Belfast",
+      "year": 2021,
+      "tspdt_rank": 907,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.2,
+          "votes": 139627
+        },
+        "metacritic": {
+          "rating": 75,
+          "votes": 55
+        },
+        "metacritic_user": {
+          "rating": 6.7,
+          "votes": 217
+        },
+        "trakt": {
+          "rating": 73,
+          "votes": 4714
+        },
+        "tomatoes": {
+          "rating": 86,
+          "votes": 330,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 92,
+          "votes": 600
+        },
+        "tmdb": {
+          "rating": 70,
+          "votes": 1743
+        },
+        "letterboxd": {
+          "rating": 3.5,
+          "votes": 243925
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 76,
+          "votes": null
+        }
+      }
+    },
+    "tt2165735": {
+      "title": "Drug War",
+      "year": 2012,
+      "tspdt_rank": 908,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.0,
+          "votes": 11616
+        },
+        "metacritic": {
+          "rating": 86,
+          "votes": 19
+        },
+        "metacritic_user": {
+          "rating": 7.0,
+          "votes": 53
+        },
+        "trakt": {
+          "rating": 68,
+          "votes": 429
+        },
+        "tomatoes": {
+          "rating": 94,
+          "votes": 53,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 77,
+          "votes": 125
+        },
+        "tmdb": {
+          "rating": 69,
+          "votes": 318
+        },
+        "letterboxd": {
+          "rating": 3.8,
+          "votes": 18244
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 78,
+          "votes": null
+        }
+      }
+    },
+    "tt26440619": {
+      "title": "Afire",
+      "year": 2023,
+      "tspdt_rank": 910,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.0,
+          "votes": 11670
+        },
+        "metacritic": {
+          "rating": 82,
+          "votes": 28
+        },
+        "metacritic_user": {
+          "rating": 6.3,
+          "votes": 18
+        },
+        "trakt": {
+          "rating": 67,
+          "votes": 499
+        },
+        "tomatoes": {
+          "rating": 91,
+          "votes": 125,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 73,
+          "votes": 13
+        },
+        "tmdb": {
+          "rating": 68,
+          "votes": 274
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 56507
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 76,
+          "votes": null
+        }
+      }
+    },
+    "tt0369702": {
+      "title": "The Sea Inside",
+      "year": 2004,
+      "tspdt_rank": 911,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 89572
+        },
+        "metacritic": {
+          "rating": 74,
+          "votes": 38
+        },
+        "metacritic_user": {
+          "rating": 7.7,
+          "votes": 47
+        },
+        "trakt": {
+          "rating": 77,
+          "votes": 1253
+        },
+        "tomatoes": {
+          "rating": 85,
+          "votes": 132,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 92,
+          "votes": 1798
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 1054
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 42502
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 79,
+          "votes": null
+        }
+      }
+    },
+    "tt1233381": {
+      "title": "Three Monkeys",
+      "year": 2008,
+      "tspdt_rank": 912,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.3,
+          "votes": 24452
+        },
+        "metacritic": {
+          "rating": 73,
+          "votes": 14
+        },
+        "metacritic_user": {
+          "rating": 6.9,
+          "votes": 18
+        },
+        "trakt": {
+          "rating": 69,
+          "votes": 276
+        },
+        "tomatoes": {
+          "rating": 77,
+          "votes": 61,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 72,
+          "votes": 207
+        },
+        "tmdb": {
+          "rating": 68,
+          "votes": 241
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 18202
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 72,
+          "votes": null
+        }
+      }
+    },
+    "tt0286978": {
+      "title": "Sobibór, October 14, 1943, 4 p.m.",
+      "year": 2001,
+      "tspdt_rank": 913,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 668
+        },
+        "metacritic": {
+          "rating": 81,
+          "votes": 7
+        },
+        "metacritic_user": {
+          "rating": 0.0,
+          "votes": 1
+        },
+        "trakt": {
+          "rating": 73,
+          "votes": 23
+        },
+        "tomatoes": {
+          "rating": 100,
+          "votes": 18,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 75,
+          "votes": 3
+        },
+        "tmdb": {
+          "rating": 65,
+          "votes": 16
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 785
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 49,
+          "votes": null
+        }
+      }
+    },
+    "tt6910282": {
+      "title": "Bergman Island",
+      "year": 2021,
+      "tspdt_rank": 914,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.6,
+          "votes": 11817
+        },
+        "metacritic": {
+          "rating": 80,
+          "votes": 32
+        },
+        "metacritic_user": {
+          "rating": 6.8,
+          "votes": 34
+        },
+        "trakt": {
+          "rating": 65,
+          "votes": 466
+        },
+        "tomatoes": {
+          "rating": 83,
+          "votes": 164,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 52,
+          "votes": 30
+        },
+        "tmdb": {
+          "rating": 62,
+          "votes": 252
+        },
+        "letterboxd": {
+          "rating": 3.6,
+          "votes": 54205
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 70,
+          "votes": null
+        }
+      }
+    },
+    "tt11394180": {
+      "title": "Dick Johnson Is Dead",
+      "year": 2020,
+      "tspdt_rank": 915,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.4,
+          "votes": 7729
+        },
+        "metacritic": {
+          "rating": 89,
+          "votes": 28
+        },
+        "metacritic_user": {
+          "rating": 7.4,
+          "votes": 60
+        },
+        "trakt": {
+          "rating": 72,
+          "votes": 446
+        },
+        "tomatoes": {
+          "rating": 99,
+          "votes": 101,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 79,
+          "votes": 37
+        },
+        "tmdb": {
+          "rating": 71,
+          "votes": 149
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 39000
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 82,
+          "votes": null
+        }
+      }
+    },
+    "tt1315981": {
+      "title": "A Single Man",
+      "year": 2009,
+      "tspdt_rank": 916,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.5,
+          "votes": 122848
+        },
+        "metacritic": {
+          "rating": 77,
+          "votes": 35
+        },
+        "metacritic_user": {
+          "rating": 8.1,
+          "votes": 199
+        },
+        "trakt": {
+          "rating": 73,
+          "votes": 2405
+        },
+        "tomatoes": {
+          "rating": 86,
+          "votes": 195,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 81,
+          "votes": 3816
+        },
+        "tmdb": {
+          "rating": 73,
+          "votes": 1715
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 119063
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 77,
+          "votes": null
+        }
+      }
+    },
+    "tt2473794": {
+      "title": "Mr. Turner",
+      "year": 2014,
+      "tspdt_rank": 917,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.8,
+          "votes": 28898
+        },
+        "metacritic": {
+          "rating": 94,
+          "votes": 44
+        },
+        "metacritic_user": {
+          "rating": 6.9,
+          "votes": 175
+        },
+        "trakt": {
+          "rating": 64,
+          "votes": 672
+        },
+        "tomatoes": {
+          "rating": 96,
+          "votes": 189,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 56,
+          "votes": 537
+        },
+        "tmdb": {
+          "rating": 65,
+          "votes": 599
+        },
+        "letterboxd": {
+          "rating": 3.6,
+          "votes": 23981
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 75,
+          "votes": null
+        }
+      }
+    },
+    "tt3416742": {
+      "title": "What We Do in the Shadows",
+      "year": 2014,
+      "tspdt_rank": 918,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 216197
+        },
+        "metacritic": {
+          "rating": 76,
+          "votes": 33
+        },
+        "metacritic_user": {
+          "rating": 7.8,
+          "votes": 351
+        },
+        "trakt": {
+          "rating": 77,
+          "votes": 11818
+        },
+        "tomatoes": {
+          "rating": 96,
+          "votes": 190,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 87,
+          "votes": 1414
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 4107
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 644856
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 82,
+          "votes": null
+        }
+      }
+    },
+    "tt1605783": {
+      "title": "Midnight in Paris",
+      "year": 2011,
+      "tspdt_rank": 919,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 474712
+        },
+        "metacritic": {
+          "rating": 81,
+          "votes": 40
+        },
+        "metacritic_user": {
+          "rating": 7.8,
+          "votes": 685
+        },
+        "trakt": {
+          "rating": 75,
+          "votes": 10825
+        },
+        "tomatoes": {
+          "rating": 93,
+          "votes": 225,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 83,
+          "votes": 8014
+        },
+        "tmdb": {
+          "rating": 75,
+          "votes": 7912
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 904838
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 80,
+          "votes": null
+        }
+      }
+    },
+    "tt1660379": {
+      "title": "House of Tolerance",
+      "year": 2011,
+      "tspdt_rank": 920,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.7,
+          "votes": 8776
+        },
+        "metacritic": {
+          "rating": 75,
+          "votes": 9
+        },
+        "metacritic_user": {
+          "rating": 7.6,
+          "votes": 16
+        },
+        "trakt": {
+          "rating": 64,
+          "votes": 274
+        },
+        "tomatoes": {
+          "rating": 84,
+          "votes": 31,
+          "certified_fresh": false
+        },
+        "tomatoes_audience": {
+          "rating": 63,
+          "votes": 67
+        },
+        "tmdb": {
+          "rating": 65,
+          "votes": 291
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 23065
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 72,
+          "votes": null
+        }
+      }
+    },
+    "tt6062774": {
+      "title": "Monos",
+      "year": 2019,
+      "tspdt_rank": 921,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.8,
+          "votes": 20044
+        },
+        "metacritic": {
+          "rating": 78,
+          "votes": 27
+        },
+        "metacritic_user": {
+          "rating": 7.2,
+          "votes": 56
+        },
+        "trakt": {
+          "rating": 67,
+          "votes": 881
+        },
+        "tomatoes": {
+          "rating": 93,
+          "votes": 148,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 85,
+          "votes": 4
+        },
+        "tmdb": {
+          "rating": 66,
+          "votes": 458
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 47133
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 75,
+          "votes": null
+        }
+      }
+    },
+    "tt0365376": {
+      "title": "A Tale of Two Sisters",
+      "year": 2003,
+      "tspdt_rank": 922,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.1,
+          "votes": 75456
+        },
+        "metacritic": {
+          "rating": 65,
+          "votes": 19
+        },
+        "metacritic_user": {
+          "rating": 7.5,
+          "votes": 88
+        },
+        "trakt": {
+          "rating": 71,
+          "votes": 2579
+        },
+        "tomatoes": {
+          "rating": 86,
+          "votes": 65,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 83,
+          "votes": 2287
+        },
+        "tmdb": {
+          "rating": 71,
+          "votes": 1408
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 148515
+        },
+        "roger_ebert": null,
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 74,
+          "votes": null
+        }
+      }
+    },
+    "tt0274812": {
+      "title": "Secretary",
+      "year": 2002,
+      "tspdt_rank": 923,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.8,
+          "votes": 110378
+        },
+        "metacritic": {
+          "rating": 63,
+          "votes": 39
+        },
+        "metacritic_user": {
+          "rating": 6.7,
+          "votes": 73
+        },
+        "trakt": {
+          "rating": 68,
+          "votes": 4126
+        },
+        "tomatoes": {
+          "rating": 78,
+          "votes": 157,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 82,
+          "votes": 4610
+        },
+        "tmdb": {
+          "rating": 68,
+          "votes": 2023
+        },
+        "letterboxd": {
+          "rating": 3.6,
+          "votes": 461170
+        },
+        "roger_ebert": {
+          "rating": 3.0,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 71,
+          "votes": null
+        }
+      }
+    },
+    "tt14035154": {
+      "title": "What Do We See When We Look at the Sky?",
+      "year": 2021,
+      "tspdt_rank": 924,
+      "reeldb": {
+        "imdb": {
+          "rating": 6.8,
+          "votes": 2514
+        },
+        "metacritic": {
+          "rating": 82,
+          "votes": 16
+        },
+        "metacritic_user": {
+          "rating": 5.9,
+          "votes": 8
+        },
+        "trakt": {
+          "rating": 67,
+          "votes": 103
+        },
+        "tomatoes": {
+          "rating": 90,
+          "votes": 50,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 59,
+          "votes": 8
+        },
+        "tmdb": {
+          "rating": 66,
+          "votes": 70
+        },
+        "letterboxd": {
+          "rating": 3.7,
+          "votes": 11773
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 74,
           "votes": null
         }
       }
