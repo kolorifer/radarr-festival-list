@@ -35,7 +35,8 @@ def imdb_lookup(title,year):
     _,iid,t,y=min(cand); return iid,t,y
 
 def academy():
-    raw=get(ACADEMY_CSV).decode('utf-8-sig')
+    # This historical CSV is Windows-1252/Latin-1 encoded, not UTF-8.
+    raw=get(ACADEMY_CSV).decode('cp1252')
     rows=list(csv.DictReader(io.StringIO(raw)))
     films={}
     allowed={
