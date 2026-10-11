@@ -3,7 +3,7 @@ name: Simulate backcatalog scoring
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, simulation-4-multi-route]
     paths:
       - simulate_scoring.py
       - audience-ratings.json
