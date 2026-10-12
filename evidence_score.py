@@ -1,9 +1,13 @@
 """Research-only normalized multi-source evidence scoring.
 
-Each active source family contributes at most 100 points. IMDb and Letterboxd
-are separate active audience families (100 points each). TMDb and Trakt audience
-evidence are calculated alongside them but kept experimental while audience-source
-architecture is evaluated.
+Non-audience evidence contributes up to 800 points. Audience evidence is a
+single 200-point block built from IMDb, Letterboxd and Trakt equally. Each raw
+audience component is calibrated on 0..100 and then scaled by 2/3, so the three
+populations together can contribute at most 200. TMDb remains diagnostic only.
+
+Audience-discovery seeds widen the research universe but never qualify a film by
+themselves. Existing route qualification remains frozen while the score is
+calibrated.
 """
 
 import json
@@ -15,6 +19,7 @@ INSTITUTIONAL = Path("sources/phase-b-institutional.json")
 QUALIFIERS = Path("simulation-qualifiers.json")
 AUDIENCE = Path("audience-ratings.json")
 SOURCE_SNAPSHOT = Path("sources/evidence-families.json")
+DISCOVERY = Path("sources/imdb-audience-discovery.json")
 OUTPUT = Path("evidence-scores.json")
 
 TSPDT_DEPTH = 1000
@@ -29,8 +34,11 @@ NON_AUDIENCE_FAMILIES = (
     "independent_cinema",
     "critics_groups_consensus",
 )
-ACTIVE_AUDIENCE_FAMILIES = ("imdb_audience", "letterboxd_audience")
-ALL_FAMILIES = NON_AUDIENCE_FAMILIES + ACTIVE_AUDIENCE_FAMILIES
+AUDIENCE_COMPONENTS = ("imdb_audience", "letterboxd_audience", "trakt_audience")
+AUDIENCE_SCALE = 2.0 / 3.0
+AUDIENCE_BLOCK_MAX = 200
+AUDIENCE_GATEWAY_MIN = 130
+AUDIENCE_GATEWAY_COMPONENT_MIN = 50
 
 
 def ranked_points(rank, depth):
@@ -78,31 +86,34 @@ def letterboxd_points(reeldb):
 
 
 def tmdb_points(reeldb):
-    """Experimental TMDb audience score, 0..100.
-
-    ReelDB exposes TMDb rating on a 0..100 scale. TMDb has a materially smaller
-    voting population than IMDb/Letterboxd, so breadth reaches full confidence
-    at 10k votes rather than 100k; 100 or fewer votes earn no breadth credit.
-    """
+    """Diagnostic TMDb audience score, 0..100; not included in overall score."""
     tmdb = (reeldb or {}).get("tmdb") or {}
     return _rating_component(tmdb.get("rating"), tmdb.get("votes"), 65.0, 85.0, 100, 10000)
 
 
 def trakt_points(reeldb):
-    """Experimental Trakt audience score, 0..100.
-
-    ReelDB exposes Trakt rating on a 0..100 scale. Like TMDb, Trakt has a smaller
-    voting population than IMDb/Letterboxd, so the same 100..10k breadth window
-    is used initially. This keeps the TMDb-vs-Trakt comparison symmetric.
-    """
+    """Calibrated Trakt audience score, 0..100."""
     trakt = (reeldb or {}).get("trakt") or {}
     return _rating_component(trakt.get("rating"), trakt.get("votes"), 65.0, 85.0, 100, 10000)
 
 
+def audience_raw_components(reeldb):
+    return {
+        "imdb_audience": imdb_points(reeldb),
+        "letterboxd_audience": letterboxd_points(reeldb),
+        "trakt_audience": trakt_points(reeldb),
+    }
+
+
 def audience_points(reeldb):
-    """Legacy helper: mean of active IMDb and Letterboxd component scores."""
-    components = [x for x in (imdb_points(reeldb), letterboxd_points(reeldb)) if x > 0]
-    return round(sum(components) / len(components), 2) if components else 0.0
+    """Active three-population audience block, 0..200."""
+    return round(sum(audience_raw_components(reeldb).values()) * AUDIENCE_SCALE, 2)
+
+
+def audience_gateway_pass(raw_components):
+    total = sum(raw_components.values()) * AUDIENCE_SCALE
+    strong_sources = sum(1 for value in raw_components.values() if value >= AUDIENCE_GATEWAY_COMPONENT_MIN)
+    return total >= AUDIENCE_GATEWAY_MIN and strong_sources >= 2
 
 
 def _load(path, default):
@@ -124,31 +135,44 @@ def ranked_indexes(snapshot):
     return out
 
 
-def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
+def build_rows(backcatalog, institutional, qualifiers, audience, snapshot, discovery=None):
+    discovery = discovery or {}
     candidates = {x["imdb_id"]: x for x in backcatalog.get("candidates", []) if x.get("imdb_id")}
     institutions = {x["imdb_id"]: x for x in institutional.get("films", []) if x.get("imdb_id")}
     qualifier_map = {x["imdb_id"]: x for x in qualifiers if x.get("imdb_id")}
     snapshot_films = snapshot.get("films") or {}
+    discovery_map = {x["imdb_id"]: x for x in discovery.get("films", []) if x.get("imdb_id")}
     ratings = audience.get("ratings") or {}
     ranked = ranked_indexes(snapshot)
 
-    ids = set(candidates) | set(institutions) | set(qualifier_map) | set(snapshot_films)
+    ids = set(candidates) | set(institutions) | set(qualifier_map) | set(snapshot_films) | set(discovery_map)
     rows = []
     for imdb_id in sorted(ids):
         candidate = candidates.get(imdb_id, {})
         inst = institutions.get(imdb_id, {})
         qual = qualifier_map.get(imdb_id, {})
         snap = snapshot_films.get(imdb_id, {})
-        title = candidate.get("title") or inst.get("title") or qual.get("title") or snap.get("title")
-        year = candidate.get("year") or inst.get("year") or qual.get("year") or snap.get("year")
+        seed = discovery_map.get(imdb_id, {})
+        title = candidate.get("title") or inst.get("title") or qual.get("title") or snap.get("title") or seed.get("title")
+        year = candidate.get("year") or inst.get("year") or qual.get("year") or snap.get("year") or seed.get("year")
         year_int = int(year) if str(year).isdigit() else None
         tspdt_rank = candidate.get("tspdt_rank")
+
+        candidate_sources = []
+        if candidate:
+            candidate_sources.append("tspdt")
+        if inst:
+            candidate_sources.append("institutional")
+        if snap:
+            candidate_sources.append("evidence_snapshot")
+        if seed:
+            candidate_sources.append("audience_discovery")
 
         points = {}
         evidence = {}
         experimental_points = {}
         experimental_evidence = {}
-        eligibility = {key: True for key in ALL_FAMILIES}
+        nonaud_eligibility = {key: True for key in NON_AUDIENCE_FAMILIES}
 
         tspdt = ranked_points(tspdt_rank, TSPDT_DEPTH)
         if tspdt:
@@ -159,7 +183,7 @@ def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
             spec = ranked[key]
             cutoff = spec.get("eligible_through_year")
             if year_int and cutoff and year_int > int(cutoff):
-                eligibility[key] = False
+                nonaud_eligibility[key] = False
                 continue
             hit = spec["films"].get(imdb_id)
             if hit:
@@ -182,38 +206,48 @@ def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
                 evidence[key] = family_evidence.get(key, [])
 
         rr = (ratings.get(imdb_id) or {}).get("reeldb") or {}
-        imdb_score = imdb_points(rr)
-        if imdb_score:
-            points["imdb_audience"] = imdb_score
-            evidence["imdb_audience"] = ["IMDb rating + vote breadth"]
-        lb_score = letterboxd_points(rr)
-        if lb_score:
-            points["letterboxd_audience"] = lb_score
-            evidence["letterboxd_audience"] = ["Letterboxd rating + vote breadth"]
+        if not rr and seed.get("imdb_rating") is not None and seed.get("imdb_votes") is not None:
+            rr = {"imdb": {"rating": seed.get("imdb_rating"), "votes": seed.get("imdb_votes")}}
+
+        raw_audience = audience_raw_components(rr)
+        for key, raw_value in raw_audience.items():
+            if raw_value > 0:
+                points[key] = round(raw_value * AUDIENCE_SCALE, 2)
+                evidence[key] = [f"{key.replace('_audience', '').title()} rating + vote breadth; 2/3 audience-block weight"]
+
         tmdb_score = tmdb_points(rr)
         if tmdb_score:
             experimental_points["tmdb_audience"] = tmdb_score
-            experimental_evidence["tmdb_audience"] = ["TMDb rating + vote breadth (experimental)"]
-        trakt_score = trakt_points(rr)
-        if trakt_score:
-            experimental_points["trakt_audience"] = trakt_score
-            experimental_evidence["trakt_audience"] = ["Trakt rating + vote breadth (experimental)"]
+            experimental_evidence["tmdb_audience"] = ["TMDb rating + vote breadth (diagnostic only)"]
 
-        eligible_sources = [k for k, ok in eligibility.items() if ok]
-        eligible_max = 100 * len(eligible_sources)
+        nonaud_points = sum(value for key, value in points.items() if key in NON_AUDIENCE_FAMILIES)
+        audience_total = round(sum(raw_audience.values()) * AUDIENCE_SCALE, 2)
+        gateway = bool(seed) and audience_gateway_pass(raw_audience)
+        has_nonaud = nonaud_points > 0
+
+        eligible_nonaud_sources = [key for key, ok in nonaud_eligibility.items() if ok]
+        eligible_max = 100 * len(eligible_nonaud_sources) + AUDIENCE_BLOCK_MAX
         total = round(sum(points.values()), 2)
         rows.append({
             "title": title,
             "year": year,
             "imdb_id": imdb_id,
             "tspdt_rank": tspdt_rank,
+            "candidate_sources": candidate_sources,
+            "audience_discovery_seed": bool(seed),
+            "audience_discovery_tier": seed.get("discovery_tier"),
+            "audience_gateway_pass": gateway,
+            "has_non_audience_evidence": has_nonaud,
+            "audience_only_candidate": bool(gateway and not has_nonaud),
+            "audience_raw_points": {k: round(v, 2) for k, v in raw_audience.items()},
+            "audience_score": audience_total,
             "source_points": points,
             "source_evidence": evidence,
             "experimental_source_points": experimental_points,
             "experimental_source_evidence": experimental_evidence,
             "overall_score": total,
             "source_hits": len(points),
-            "eligible_sources": len(eligible_sources),
+            "eligible_sources": len(eligible_nonaud_sources) + 1,
             "eligible_max_score": eligible_max,
             "eligible_score_pct": round(100.0 * total / eligible_max, 2) if eligible_max else 0.0,
             "qualified": bool(qual),
@@ -232,27 +266,25 @@ def main():
     qualifiers = _load(QUALIFIERS, [])
     audience = _load(AUDIENCE, {})
     snapshot = _load(SOURCE_SNAPSHOT, {})
-    rows = build_rows(backcatalog, institutional, qualifiers, audience, snapshot)
+    discovery = _load(DISCOVERY, {})
+    rows = build_rows(backcatalog, institutional, qualifiers, audience, snapshot, discovery)
 
     payload = {
-        "mode": "research-evidence-score-v5-split-audience",
+        "mode": "research-evidence-score-v6-audience200-discovery",
         "qualification_unchanged": True,
         "score_policy": {
-            "per_source_family_scale": "0..100",
+            "non_audience_max": 800,
+            "audience_max": 200,
+            "current_score_ceiling": 1000,
             "ranked_formula": "100 - 99 * (rank - 1) / (depth - 1)",
-            "raw_score": "sum of independent eligible family points; not rescaled to 1000",
             "late_film_policy": "sources published before a film existed are ineligible, not zero",
-            "audience_policy": "IMDb and Letterboxd are independent active 0..100 sources; TMDb and Trakt are experimental 0..100 audience sources",
-            "notes": [
-                "For a 100-item ranked list the mapping is exactly 100,99,...,1.",
-                "TSPDT preserves its full 1000-film depth on the same 1..100 scale.",
-                "US institutional = Academy + Golden Globes, capped at 100.",
-                "European recognition = BAFTA + Cannes + Berlin + Venice + European Film Awards, capped at 100.",
-                "Independent cinema = Sundance + Film Independent Spirit + Gotham, capped at 100.",
-                "Critics-groups consensus = NSFC + NYFCC + LAFCA Best Film wins; 35 points per group, capped at 100.",
-                "IMDb and Letterboxd each contribute up to 100 active points.",
-                "TMDb and Trakt are already present in ReelDB's cached payload; no extra API calls are required for comparison.",
-            ],
+            "audience_policy": "IMDb, Letterboxd and Trakt are calibrated separately on 0..100 then each multiplied by 2/3; combined maximum 200",
+            "audience_discovery_policy": "IMDb public datasets provide broad 2000+ discovery seeds; cross-audience support is flagged, but audience alone never qualifies",
+            "audience_gateway": {
+                "combined_min": AUDIENCE_GATEWAY_MIN,
+                "component_min": AUDIENCE_GATEWAY_COMPONENT_MIN,
+                "minimum_components_at_or_above_component_min": 2,
+            },
         },
         "sources": {
             "tspdt_21c": {"type": "ranked", "depth": TSPDT_DEPTH, "max_points": 100},
@@ -263,18 +295,27 @@ def main():
             "european_recognition": {"type": "family", "max_points": 100},
             "independent_cinema": {"type": "family", "max_points": 100},
             "critics_groups_consensus": {"type": "family", "max_points": 100},
-            "imdb_audience": {"type": "audience", "max_points": 100, "active": True},
-            "letterboxd_audience": {"type": "audience", "max_points": 100, "active": True},
-            "tmdb_audience": {"type": "audience", "max_points": 100, "active": False, "experimental": True},
-            "trakt_audience": {"type": "audience", "max_points": 100, "active": False, "experimental": True},
+            "imdb_audience": {"type": "audience_component", "raw_max": 100, "active_max": 66.67, "active": True},
+            "letterboxd_audience": {"type": "audience_component", "raw_max": 100, "active_max": 66.67, "active": True},
+            "trakt_audience": {"type": "audience_component", "raw_max": 100, "active_max": 66.67, "active": True},
+            "tmdb_audience": {"type": "audience", "max_points": 100, "active": False, "diagnostic": True},
         },
         "current_score_ceiling": 1000,
-        "experimental_audience_sources": ["tmdb_audience", "trakt_audience"],
         "count": len(rows),
+        "discovery_seed_count": sum(r["audience_discovery_seed"] for r in rows),
+        "audience_gateway_pass_count": sum(r["audience_gateway_pass"] for r in rows),
+        "audience_only_candidate_count": sum(r["audience_only_candidate"] for r in rows),
         "films": rows,
     }
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({"films": len(rows), "score_ceiling": 1000, "top": rows[:5]}))
+    print(json.dumps({
+        "films": len(rows),
+        "score_ceiling": 1000,
+        "discovery_seeds": payload["discovery_seed_count"],
+        "gateway_pass": payload["audience_gateway_pass_count"],
+        "audience_only": payload["audience_only_candidate_count"],
+        "top": rows[:5],
+    }))
 
 
 if __name__ == "__main__":
