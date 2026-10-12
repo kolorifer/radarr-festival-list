@@ -3144,16 +3144,18 @@
     "two_source_200": [
       {
         "title": "Melancholia",
-        "year": 2008,
-        "imdb_id": "tt1269566",
-        "rank": 1061,
-        "score": 66.67,
-        "imdb": 0.0,
-        "letterboxd": 16.22,
-        "tmdb": 0.0,
-        "source_hits": 2,
-        "qualified": false,
-        "routes": []
+        "year": 2011,
+        "imdb_id": "tt1527186",
+        "rank": 93,
+        "score": 349.56,
+        "imdb": 30.0,
+        "letterboxd": 61.54,
+        "tmdb": 23.95,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
       },
       {
         "title": "Get Out",
@@ -3750,16 +3752,18 @@
     "three_source_300": [
       {
         "title": "Melancholia",
-        "year": 2008,
-        "imdb_id": "tt1269566",
-        "rank": 1076,
-        "score": 66.67,
-        "imdb": 0.0,
-        "letterboxd": 16.22,
-        "tmdb": 0.0,
-        "source_hits": 2,
-        "qualified": false,
-        "routes": []
+        "year": 2011,
+        "imdb_id": "tt1527186",
+        "rank": 111,
+        "score": 373.51,
+        "imdb": 30.0,
+        "letterboxd": 61.54,
+        "tmdb": 23.95,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
       },
       {
         "title": "Get Out",
@@ -4356,16 +4360,18 @@
     "three_source_200": [
       {
         "title": "Melancholia",
-        "year": 2008,
-        "imdb_id": "tt1269566",
-        "rank": 1026,
-        "score": 61.26,
-        "imdb": 0.0,
-        "letterboxd": 16.22,
-        "tmdb": 0.0,
-        "source_hits": 2,
-        "qualified": false,
-        "routes": []
+        "year": 2011,
+        "imdb_id": "tt1527186",
+        "rank": 90,
+        "score": 335.01,
+        "imdb": 30.0,
+        "letterboxd": 61.54,
+        "tmdb": 23.95,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
       },
       {
         "title": "Get Out",
