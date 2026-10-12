@@ -9,6 +9,7 @@ on:
       - evidence_score.py
       - evidence_sources.py
       - evidence_sources_run.py
+      - evidence_calibration.py
       - test_evidence_score.py
       - test_evidence_sources.py
       - phase_b_sources.py
@@ -53,6 +54,9 @@ jobs:
         run: |
           python -m unittest -v test_evidence_sources.py test_evidence_score.py
           python evidence_score.py
+      - name: Print calibration controls
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python evidence_calibration.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
