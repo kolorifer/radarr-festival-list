@@ -16,7 +16,7 @@ API_BASE = "https://api.reeldb.io"
 
 # ReelDB documents 60 requests/minute and 1000/day for this account tier.
 # Stay comfortably below the minute limit while allowing one research run to
-# expand the current union universe without repeated manual dispatches.
+# expand the 2000+ union universe with audience-discovery seeds.
 MAX_REQUESTS_PER_RUN = 400
 REQUEST_INTERVAL_SECONDS = 1.35
 RATE_LIMIT_RETRY_SECONDS = 65
@@ -42,23 +42,19 @@ def build_movie_universe():
     movies = list(source["candidates"])
     seen = {m.get("imdb_id") for m in movies if m.get("imdb_id")}
 
-    # Research branch only: independently sourced Phase-B films.
     if PHASE_B.exists():
         phase_b = json.loads(PHASE_B.read_text(encoding="utf-8"))
         for film in phase_b.get("films", []):
             append_unique_movie(movies, seen, film.get("imdb_id"), film.get("title"), film.get("year"))
 
-    # EFA/Gotham/critics-group films can sit outside the earlier TSPDT +
-    # institutional seed. Include them so audience coverage matches evidence.py.
     if EVIDENCE.exists():
         snapshot = json.loads(EVIDENCE.read_text(encoding="utf-8"))
         for imdb_id, film in (snapshot.get("films") or {}).items():
             append_unique_movie(movies, seen, imdb_id, film.get("title"), film.get("year"))
 
-    # Broad IMDb audience discovery is only a candidate gateway. ReelDB coverage
-    # is collected here so IMDb/Letterboxd/Trakt can later determine whether the
-    # seed has genuinely broad cross-audience support. Audience alone still does
-    # not qualify a film.
+    # IMDb discovery is only a broad seed. ReelDB coverage collected here lets
+    # the scoring layer test genuine IMDb + Letterboxd + Trakt convergence.
+    # Audience evidence alone never qualifies a film.
     if DISCOVERY.exists():
         discovery = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         for film in discovery.get("films", []):
