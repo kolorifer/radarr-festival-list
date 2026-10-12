@@ -1,18 +1,23 @@
-"""Focused review of the leading hybrid policy: new>=225 + legacy>=175.
+"""Focused review of the leading guarded hybrid policy.
 
-Diagnostic only. This report concentrates on the uncertain boundary: newly
-promoted films between 225 and 250, legacy films retained below 225, and legacy
-films dropped below 175. It does not alter qualification or production feeds.
+New promotions require score >=225 plus two independent non-audience families.
+Legacy qualifiers are retained down to 175, with multi-route protection below
+that floor. Diagnostic only; no production qualification is changed.
 """
 
 import json
 from pathlib import Path
 
-from hybrid_selection_experiment import evaluate
+from hybrid_selection_experiment import evaluate, legacy_keep, score_keep
 
 SCORES = Path("evidence-scores.json")
 OUTPUT = Path("hybrid-policy-review.md")
-POLICY = {"new_floor": 225, "legacy_floor": 175, "protect_multi_route": True}
+POLICY = {
+    "new_floor": 225,
+    "legacy_floor": 175,
+    "protect_multi_route": True,
+    "min_non_audience_families": 2,
+}
 
 GROUPS = {
     "Canon": ("tspdt_21c", "sight_sound"),
@@ -63,16 +68,8 @@ def main():
     old_ids = {r.get("imdb_id") for r in rows if r.get("qualified")}
     selected = [
         r for r in rows
-        if (
-            (float(r.get("overall_score") or 0) >= POLICY["new_floor"] and r.get("has_non_audience_evidence"))
-            or (
-                r.get("qualified")
-                and (
-                    float(r.get("overall_score") or 0) >= POLICY["legacy_floor"]
-                    or len(r.get("routes") or []) >= 2
-                )
-            )
-        )
+        if score_keep(r, POLICY["new_floor"], POLICY["min_non_audience_families"])
+        or legacy_keep(r, POLICY["legacy_floor"], POLICY["protect_multi_route"])
     ]
     selected_ids = {r.get("imdb_id") for r in selected}
 
@@ -91,15 +88,15 @@ def main():
     dropped.sort(key=lambda r: (-float(r.get("overall_score") or 0), r.get("title") or ""))
 
     sections = [
-        "# Hybrid policy review — new ≥225, legacy ≥175",
+        "# Hybrid policy review — new ≥225 + two families, legacy ≥175",
         "",
-        "Diagnostic only. New films still require non-audience evidence; old multi-route qualifiers remain protected below the legacy floor.",
+        "Diagnostic only. New promotions require at least two independent non-audience families; TSPDT + Sight & Sound count as one correlated canon family. Old multi-route qualifiers remain protected below the legacy floor.",
         "",
         f"Selected **{result['selected']}** films: **{result['promotions_vs_old']}** promotions, **{result['legacy_retained']}** legacy retained, **{result['legacy_dropped']}** legacy dropped.",
         "",
         "## Boundary promotions: 225–249.99",
         "",
-        "These are the films most likely to determine whether 225 is too permissive.",
+        "These are the films most likely to determine whether 225 is too permissive after the two-family safeguard.",
         "",
         table(boundary_promotions),
         "",
@@ -111,7 +108,7 @@ def main():
         "",
         "## Legacy dropped below 175",
         "",
-        "These are the films the balanced policy would deliberately stop carrying forward.",
+        "These are the films the guarded balanced policy would deliberately stop carrying forward.",
         "",
         table(dropped),
         "",
