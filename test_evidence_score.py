@@ -36,7 +36,7 @@ class EvidenceScoreTests(unittest.TestCase):
                 "bbc_21c": {"published_depth": 100, "eligible_through_year": 2016, "films": [{"imdb_id": "tt1", "rank": 20}]},
                 "nyt_21c": {"published_depth": 100, "eligible_through_year": 2025, "films": []},
             },
-            "films": {"tt1": {"family_scores": {"us_institutional": 65, "european_recognition": 40}}},
+            "films": {"tt1": {"family_scores": {"us_institutional": 65, "european_recognition": 40, "critics_groups_consensus": 70}}},
         }
         row = build_rows(back, inst, quals, audience, snapshot)[0]
         self.assertEqual(row["source_points"]["tspdt_21c"], 1.0)
@@ -44,11 +44,12 @@ class EvidenceScoreTests(unittest.TestCase):
         self.assertEqual(row["source_points"]["bbc_21c"], 81.0)
         self.assertEqual(row["source_points"]["us_institutional"], 65.0)
         self.assertEqual(row["source_points"]["european_recognition"], 40.0)
+        self.assertEqual(row["source_points"]["critics_groups_consensus"], 70.0)
         self.assertEqual(row["source_points"]["audience_consensus"], 100.0)
         self.assertTrue(row["qualified"])
         self.assertEqual(row["routes"], ["convergence"])
 
-    def test_late_film_does_not_get_bbc_zero_in_eligible_max(self):
+    def test_late_film_does_not_get_old_ranked_sources_in_eligible_max(self):
         back = {"candidates": [{"imdb_id": "tt2", "title": "Late Film", "year": 2024, "tspdt_rank": 10}]}
         snapshot = {"ranked_sources": {
             "sight_sound": {"published_depth": 100, "eligible_through_year": 2022, "films": []},
@@ -56,8 +57,8 @@ class EvidenceScoreTests(unittest.TestCase):
             "nyt_21c": {"published_depth": 100, "eligible_through_year": 2025, "films": []},
         }, "films": {}}
         row = build_rows(back, {"films": []}, [], {"ratings": {}}, snapshot)[0]
-        self.assertEqual(row["eligible_sources"], 6)
-        self.assertEqual(row["eligible_max_score"], 600)
+        self.assertEqual(row["eligible_sources"], 7)
+        self.assertEqual(row["eligible_max_score"], 700)
 
 
 if __name__ == "__main__":
