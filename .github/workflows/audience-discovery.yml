@@ -1,0 +1,43 @@
+name: Build IMDb audience discovery
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [simulation-4b-union-universe]
+    paths:
+      - audience_discovery.py
+      - test_audience_discovery.py
+      - .github/workflows/audience-discovery.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audience-discovery-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test discovery gate
+        run: python -m unittest -v test_audience_discovery.py
+      - name: Build IMDb discovery seed
+        run: python audience_discovery.py
+      - name: Commit discovery seed
+        run: |
+          git add sources/imdb-audience-discovery.json
+          if git diff --cached --quiet; then
+            echo "No discovery changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions-bot@users.noreply.github.com"
+          git commit -m "Update IMDb audience discovery seed"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
