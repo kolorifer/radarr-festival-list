@@ -1,12 +1,14 @@
 {
-  "mode": "research-critical-consensus-experiment-v1",
+  "mode": "research-critical-consensus-experiment-v2-capped",
   "qualification_unchanged": true,
   "score_ceiling_unchanged": 1000,
-  "policy": "Metacritic critics + Rotten Tomatoes critics are merged inside the existing 100-point critics family; they do not create new score families.",
+  "policy": "Metacritic critics + Rotten Tomatoes critics are merged inside the existing 100-point critics family. Capped variants scale broad aggregates to <=30/40/50 before merging; no new score family is created.",
   "cached_ratings": 1623,
   "variants": {
     "balanced": {
       "variant": "balanced",
+      "curve": "balanced",
+      "broad_cap": 100,
       "top100_overlap_with_base": 92,
       "films_with_positive_critic_delta": 1395,
       "mean_positive_critic_delta": 59.15,
@@ -47,6 +49,7 @@
           "metacritic": 70.0,
           "tomatoes": 80.0,
           "aggregate": 75.0,
+          "broad_points": 75.0,
           "new_critics": 75.0
         },
         "Ex Machina": {
@@ -58,6 +61,7 @@
           "metacritic": 57.4,
           "tomatoes": 91.43,
           "aggregate": 74.42,
+          "broad_points": 74.42,
           "new_critics": 74.42
         },
         "Prisoners": {
@@ -69,6 +73,7 @@
           "metacritic": 33.33,
           "tomatoes": 60.0,
           "aggregate": 46.66,
+          "broad_points": 46.66,
           "new_critics": 46.66
         },
         "Shutter Island": {
@@ -80,6 +85,7 @@
           "metacritic": 9.25,
           "tomatoes": 25.71,
           "aggregate": 17.48,
+          "broad_points": 17.48,
           "new_critics": 17.48
         },
         "The Batman": {
@@ -91,6 +97,7 @@
           "metacritic": 40.0,
           "tomatoes": 71.43,
           "aggregate": 55.72,
+          "broad_points": 55.72,
           "new_critics": 55.72
         },
         "Tenet": {
@@ -102,6 +109,7 @@
           "metacritic": 30.0,
           "tomatoes": 28.57,
           "aggregate": 29.29,
+          "broad_points": 29.29,
           "new_critics": 29.29
         },
         "The Machinist": {
@@ -113,6 +121,7 @@
           "metacritic": 2.96,
           "tomatoes": 44.99,
           "aggregate": 23.98,
+          "broad_points": 23.98,
           "new_critics": 23.98
         },
         "Dune: Part Two": {
@@ -124,6 +133,7 @@
           "metacritic": 63.33,
           "tomatoes": 91.43,
           "aggregate": 77.38,
+          "broad_points": 77.38,
           "new_critics": 77.38
         },
         "Midsommar": {
@@ -135,6 +145,7 @@
           "metacritic": 40.0,
           "tomatoes": 65.71,
           "aggregate": 52.85,
+          "broad_points": 52.85,
           "new_critics": 52.85
         },
         "Nocturnal Animals": {
@@ -146,6 +157,7 @@
           "metacritic": 22.72,
           "tomatoes": 40.0,
           "aggregate": 31.36,
+          "broad_points": 31.36,
           "new_critics": 31.36
         },
         "Scott Pilgrim vs. the World": {
@@ -157,6 +169,7 @@
           "metacritic": 27.95,
           "tomatoes": 65.71,
           "aggregate": 46.83,
+          "broad_points": 46.83,
           "new_critics": 46.83
         },
         "La Commune (Paris, 1871)": {
@@ -168,6 +181,7 @@
           "metacritic": 0.0,
           "tomatoes": 0.0,
           "aggregate": 0.0,
+          "broad_points": 0.0,
           "new_critics": 0.0
         }
       },
@@ -180,6 +194,7 @@
           "new_rank": 287,
           "audience": 196.67,
           "aggregate_critics": 95.23,
+          "broad_critic_points": 95.23,
           "metacritic_component": 93.33,
           "tomatoes_component": 97.14
         },
@@ -191,6 +206,7 @@
           "new_rank": 351,
           "audience": 190.0,
           "aggregate_critics": 78.34,
+          "broad_critic_points": 78.34,
           "metacritic_component": 56.67,
           "tomatoes_component": 100.0
         },
@@ -202,6 +218,7 @@
           "new_rank": 358,
           "audience": 191.54,
           "aggregate_critics": 74.19,
+          "broad_critic_points": 74.19,
           "metacritic_component": 58.62,
           "tomatoes_component": 89.75
         },
@@ -213,6 +230,7 @@
           "new_rank": 389,
           "audience": 181.28,
           "aggregate_critics": 78.57,
+          "broad_critic_points": 78.57,
           "metacritic_component": 60.0,
           "tomatoes_component": 97.14
         },
@@ -224,6 +242,7 @@
           "new_rank": 413,
           "audience": 164.61,
           "aggregate_critics": 89.61,
+          "broad_critic_points": 89.61,
           "metacritic_component": 79.22,
           "tomatoes_component": 100.0
         },
@@ -235,6 +254,7 @@
           "new_rank": 472,
           "audience": 163.08,
           "aggregate_critics": 75.48,
+          "broad_critic_points": 75.48,
           "metacritic_component": 56.67,
           "tomatoes_component": 94.29
         },
@@ -246,6 +266,7 @@
           "new_rank": 485,
           "audience": 186.41,
           "aggregate_critics": 49.05,
+          "broad_critic_points": 49.05,
           "metacritic_component": 26.67,
           "tomatoes_component": 71.43
         },
@@ -257,6 +278,7 @@
           "new_rank": 492,
           "audience": 183.21,
           "aggregate_critics": 50.21,
+          "broad_critic_points": 50.21,
           "metacritic_component": 36.0,
           "tomatoes_component": 64.42
         },
@@ -268,6 +290,7 @@
           "new_rank": 497,
           "audience": 164.36,
           "aggregate_critics": 67.78,
+          "broad_critic_points": 67.78,
           "metacritic_component": 58.43,
           "tomatoes_component": 77.14
         },
@@ -279,6 +302,7 @@
           "new_rank": 509,
           "audience": 183.33,
           "aggregate_critics": 46.66,
+          "broad_critic_points": 46.66,
           "metacritic_component": 33.33,
           "tomatoes_component": 60.0
         },
@@ -290,6 +314,7 @@
           "new_rank": 511,
           "audience": 134.61,
           "aggregate_critics": 95.0,
+          "broad_critic_points": 95.0,
           "metacritic_component": 90.0,
           "tomatoes_component": 100.0
         },
@@ -301,6 +326,7 @@
           "new_rank": 515,
           "audience": 162.82,
           "aggregate_critics": 65.48,
+          "broad_critic_points": 65.48,
           "metacritic_component": 36.67,
           "tomatoes_component": 94.29
         },
@@ -312,6 +338,7 @@
           "new_rank": 521,
           "audience": 146.41,
           "aggregate_critics": 80.5,
+          "broad_critic_points": 80.5,
           "metacritic_component": 74.93,
           "tomatoes_component": 86.08
         },
@@ -323,6 +350,7 @@
           "new_rank": 523,
           "audience": 153.08,
           "aggregate_critics": 73.55,
+          "broad_critic_points": 73.55,
           "metacritic_component": 52.8,
           "tomatoes_component": 94.29
         },
@@ -334,6 +362,7 @@
           "new_rank": 532,
           "audience": 152.82,
           "aggregate_critics": 70.95,
+          "broad_critic_points": 70.95,
           "metacritic_component": 53.33,
           "tomatoes_component": 88.57
         },
@@ -345,6 +374,7 @@
           "new_rank": 540,
           "audience": 144.36,
           "aggregate_critics": 78.08,
+          "broad_critic_points": 78.08,
           "metacritic_component": 59.01,
           "tomatoes_component": 97.14
         },
@@ -356,6 +386,7 @@
           "new_rank": 548,
           "audience": 139.75,
           "aggregate_critics": 81.64,
+          "broad_critic_points": 81.64,
           "metacritic_component": 63.29,
           "tomatoes_component": 100.0
         },
@@ -367,6 +398,7 @@
           "new_rank": 564,
           "audience": 137.95,
           "aggregate_critics": 80.54,
+          "broad_critic_points": 80.54,
           "metacritic_component": 69.65,
           "tomatoes_component": 91.43
         },
@@ -378,6 +410,7 @@
           "new_rank": 568,
           "audience": 164.61,
           "aggregate_critics": 52.85,
+          "broad_critic_points": 52.85,
           "metacritic_component": 20.0,
           "tomatoes_component": 85.71
         },
@@ -389,6 +422,7 @@
           "new_rank": 571,
           "audience": 132.57,
           "aggregate_critics": 84.47,
+          "broad_critic_points": 84.47,
           "metacritic_component": 71.81,
           "tomatoes_component": 97.14
         },
@@ -400,6 +434,7 @@
           "new_rank": 590,
           "audience": 163.08,
           "aggregate_critics": 50.66,
+          "broad_critic_points": 50.66,
           "metacritic_component": 33.42,
           "tomatoes_component": 67.91
         },
@@ -411,6 +446,7 @@
           "new_rank": 596,
           "audience": 139.49,
           "aggregate_critics": 72.62,
+          "broad_critic_points": 72.62,
           "metacritic_component": 65.23,
           "tomatoes_component": 80.0
         },
@@ -422,6 +458,7 @@
           "new_rank": 601,
           "audience": 159.49,
           "aggregate_critics": 51.56,
+          "broad_critic_points": 51.56,
           "metacritic_component": 31.69,
           "tomatoes_component": 71.43
         },
@@ -433,6 +470,7 @@
           "new_rank": 611,
           "audience": 129.49,
           "aggregate_critics": 78.57,
+          "broad_critic_points": 78.57,
           "metacritic_component": 60.0,
           "tomatoes_component": 97.14
         },
@@ -444,6 +482,7 @@
           "new_rank": 612,
           "audience": 121.41,
           "aggregate_critics": 86.34,
+          "broad_critic_points": 86.34,
           "metacritic_component": 79.04,
           "tomatoes_component": 93.65
         },
@@ -455,6 +494,7 @@
           "new_rank": 620,
           "audience": 147.69,
           "aggregate_critics": 58.72,
+          "broad_critic_points": 58.72,
           "metacritic_component": 28.88,
           "tomatoes_component": 88.57
         },
@@ -466,6 +506,7 @@
           "new_rank": 637,
           "audience": 146.41,
           "aggregate_critics": 58.0,
+          "broad_critic_points": 58.0,
           "metacritic_component": 33.15,
           "tomatoes_component": 82.86
         },
@@ -477,6 +518,7 @@
           "new_rank": 650,
           "audience": 115.9,
           "aggregate_critics": 85.0,
+          "broad_critic_points": 85.0,
           "metacritic_component": 70.0,
           "tomatoes_component": 100.0
         },
@@ -488,6 +530,7 @@
           "new_rank": 661,
           "audience": 129.23,
           "aggregate_critics": 70.48,
+          "broad_critic_points": 70.48,
           "metacritic_component": 46.67,
           "tomatoes_component": 94.29
         },
@@ -499,6 +542,7 @@
           "new_rank": 665,
           "audience": 181.54,
           "aggregate_critics": 17.48,
+          "broad_critic_points": 17.48,
           "metacritic_component": 9.25,
           "tomatoes_component": 25.71
         },
@@ -510,6 +554,7 @@
           "new_rank": 667,
           "audience": 122.82,
           "aggregate_critics": 75.63,
+          "broad_critic_points": 75.63,
           "metacritic_component": 62.69,
           "tomatoes_component": 88.57
         },
@@ -521,6 +566,7 @@
           "new_rank": 669,
           "audience": 105.64,
           "aggregate_critics": 92.66,
+          "broad_critic_points": 92.66,
           "metacritic_component": 85.33,
           "tomatoes_component": 100.0
         },
@@ -532,6 +578,7 @@
           "new_rank": 670,
           "audience": 109.23,
           "aggregate_critics": 89.05,
+          "broad_critic_points": 89.05,
           "metacritic_component": 86.67,
           "tomatoes_component": 91.43
         },
@@ -543,6 +590,7 @@
           "new_rank": 671,
           "audience": 139.49,
           "aggregate_critics": 58.65,
+          "broad_critic_points": 58.65,
           "metacritic_component": 41.49,
           "tomatoes_component": 75.81
         },
@@ -554,6 +602,7 @@
           "new_rank": 675,
           "audience": 141.28,
           "aggregate_critics": 55.72,
+          "broad_critic_points": 55.72,
           "metacritic_component": 40.0,
           "tomatoes_component": 71.43
         },
@@ -565,6 +614,7 @@
           "new_rank": 680,
           "audience": 157.95,
           "aggregate_critics": 38.09,
+          "broad_critic_points": 38.09,
           "metacritic_component": 13.33,
           "tomatoes_component": 62.86
         },
@@ -576,6 +626,7 @@
           "new_rank": 694,
           "audience": 144.61,
           "aggregate_critics": 49.8,
+          "broad_critic_points": 49.8,
           "metacritic_component": 36.73,
           "tomatoes_component": 62.86
         },
@@ -587,6 +638,7 @@
           "new_rank": 696,
           "audience": 107.43,
           "aggregate_critics": 86.66,
+          "broad_critic_points": 86.66,
           "metacritic_component": 73.33,
           "tomatoes_component": 100.0
         },
@@ -598,6 +650,7 @@
           "new_rank": 699,
           "audience": 125.9,
           "aggregate_critics": 67.85,
+          "broad_critic_points": 67.85,
           "metacritic_component": 50.0,
           "tomatoes_component": 85.71
         },
@@ -609,6 +662,7 @@
           "new_rank": 701,
           "audience": 161.28,
           "aggregate_critics": 31.87,
+          "broad_critic_points": 31.87,
           "metacritic_component": 9.45,
           "tomatoes_component": 54.29
         }
@@ -616,6 +670,8 @@
     },
     "conservative": {
       "variant": "conservative",
+      "curve": "conservative",
+      "broad_cap": 100,
       "top100_overlap_with_base": 93,
       "films_with_positive_critic_delta": 1248,
       "mean_positive_critic_delta": 53.25,
@@ -656,6 +712,7 @@
           "metacritic": 62.05,
           "tomatoes": 72.0,
           "aggregate": 67.03,
+          "broad_points": 67.03,
           "new_critics": 67.03
         },
         "Ex Machina": {
@@ -667,6 +724,7 @@
           "metacritic": 46.65,
           "tomatoes": 88.0,
           "aggregate": 67.33,
+          "broad_points": 67.33,
           "new_critics": 67.33
         },
         "Prisoners": {
@@ -678,6 +736,7 @@
           "metacritic": 19.28,
           "tomatoes": 43.91,
           "aggregate": 31.59,
+          "broad_points": 31.59,
           "new_critics": 31.59
         },
         "Shutter Island": {
@@ -689,6 +748,7 @@
           "metacritic": 0.0,
           "tomatoes": 0.0,
           "aggregate": 0.0,
+          "broad_points": 0.0,
           "new_critics": 0.0
         },
         "The Batman": {
@@ -700,6 +760,7 @@
           "metacritic": 28.0,
           "tomatoes": 60.0,
           "aggregate": 44.0,
+          "broad_points": 44.0,
           "new_critics": 44.0
         },
         "Tenet": {
@@ -711,6 +772,7 @@
           "metacritic": 15.16,
           "tomatoes": 0.0,
           "aggregate": 11.37,
+          "broad_points": 11.37,
           "new_critics": 11.37
         },
         "The Machinist": {
@@ -722,6 +784,7 @@
           "metacritic": 0.0,
           "tomatoes": 24.01,
           "aggregate": 18.01,
+          "broad_points": 18.01,
           "new_critics": 18.01
         },
         "Dune: Part Two": {
@@ -733,6 +796,7 @@
           "metacritic": 56.0,
           "tomatoes": 88.0,
           "aggregate": 72.0,
+          "broad_points": 72.0,
           "new_critics": 72.0
         },
         "Midsommar": {
@@ -744,6 +808,7 @@
           "metacritic": 27.15,
           "tomatoes": 52.0,
           "aggregate": 39.58,
+          "broad_points": 39.58,
           "new_critics": 39.58
         },
         "Nocturnal Animals": {
@@ -755,6 +820,7 @@
           "metacritic": 7.34,
           "tomatoes": 16.0,
           "aggregate": 11.67,
+          "broad_points": 11.67,
           "new_critics": 11.67
         },
         "Scott Pilgrim vs. the World": {
@@ -766,6 +832,7 @@
           "metacritic": 13.89,
           "tomatoes": 52.0,
           "aggregate": 32.95,
+          "broad_points": 32.95,
           "new_critics": 32.95
         },
         "La Commune (Paris, 1871)": {
@@ -777,6 +844,7 @@
           "metacritic": 0.0,
           "tomatoes": 0.0,
           "aggregate": 0.0,
+          "broad_points": 0.0,
           "new_critics": 0.0
         }
       },
@@ -789,6 +857,7 @@
           "new_rank": 271,
           "audience": 196.67,
           "aggregate_critics": 94.0,
+          "broad_critic_points": 94.0,
           "metacritic_component": 92.0,
           "tomatoes_component": 96.0
         },
@@ -800,6 +869,7 @@
           "new_rank": 339,
           "audience": 190.0,
           "aggregate_critics": 74.0,
+          "broad_critic_points": 74.0,
           "metacritic_component": 48.0,
           "tomatoes_component": 100.0
         },
@@ -811,6 +881,7 @@
           "new_rank": 354,
           "audience": 191.54,
           "aggregate_critics": 65.47,
+          "broad_critic_points": 65.47,
           "metacritic_component": 48.56,
           "tomatoes_component": 82.37
         },
@@ -822,6 +893,7 @@
           "new_rank": 369,
           "audience": 181.28,
           "aggregate_critics": 73.61,
+          "broad_critic_points": 73.61,
           "metacritic_component": 51.23,
           "tomatoes_component": 96.0
         },
@@ -833,6 +905,7 @@
           "new_rank": 392,
           "audience": 164.61,
           "aggregate_critics": 85.6,
+          "broad_critic_points": 85.6,
           "metacritic_component": 71.21,
           "tomatoes_component": 100.0
         },
@@ -844,6 +917,7 @@
           "new_rank": 462,
           "audience": 163.08,
           "aggregate_critics": 68.88,
+          "broad_critic_points": 68.88,
           "metacritic_component": 45.75,
           "tomatoes_component": 92.0
         },
@@ -855,6 +929,7 @@
           "new_rank": 475,
           "audience": 134.61,
           "aggregate_critics": 94.0,
+          "broad_critic_points": 94.0,
           "metacritic_component": 88.0,
           "tomatoes_component": 100.0
         },
@@ -866,6 +941,7 @@
           "new_rank": 495,
           "audience": 186.41,
           "aggregate_critics": 35.82,
+          "broad_critic_points": 35.82,
           "metacritic_component": 11.64,
           "tomatoes_component": 60.0
         },
@@ -877,6 +953,7 @@
           "new_rank": 496,
           "audience": 164.36,
           "aggregate_critics": 57.84,
+          "broad_critic_points": 57.84,
           "metacritic_component": 47.68,
           "tomatoes_component": 68.0
         },
@@ -888,6 +965,7 @@
           "new_rank": 501,
           "audience": 162.82,
           "aggregate_critics": 58.0,
+          "broad_critic_points": 58.0,
           "metacritic_component": 24.0,
           "tomatoes_component": 92.0
         },
@@ -899,6 +977,7 @@
           "new_rank": 503,
           "audience": 153.08,
           "aggregate_critics": 66.84,
+          "broad_critic_points": 66.84,
           "metacritic_component": 41.67,
           "tomatoes_component": 92.0
         },
@@ -910,6 +989,7 @@
           "new_rank": 512,
           "audience": 146.41,
           "aggregate_critics": 71.47,
+          "broad_critic_points": 71.47,
           "metacritic_component": 66.38,
           "tomatoes_component": 76.55
         },
@@ -921,6 +1001,7 @@
           "new_rank": 517,
           "audience": 144.36,
           "aggregate_critics": 72.31,
+          "broad_critic_points": 72.31,
           "metacritic_component": 48.62,
           "tomatoes_component": 96.0
         },
@@ -932,6 +1013,7 @@
           "new_rank": 520,
           "audience": 152.82,
           "aggregate_critics": 63.22,
+          "broad_critic_points": 63.22,
           "metacritic_component": 42.43,
           "tomatoes_component": 84.0
         },
@@ -943,6 +1025,7 @@
           "new_rank": 526,
           "audience": 183.33,
           "aggregate_critics": 31.59,
+          "broad_critic_points": 31.59,
           "metacritic_component": 19.28,
           "tomatoes_component": 43.91
         },
@@ -954,6 +1037,7 @@
           "new_rank": 530,
           "audience": 139.75,
           "aggregate_critics": 74.77,
+          "broad_critic_points": 74.77,
           "metacritic_component": 53.51,
           "tomatoes_component": 96.02
         },
@@ -965,6 +1049,7 @@
           "new_rank": 540,
           "audience": 137.95,
           "aggregate_critics": 74.13,
+          "broad_critic_points": 74.13,
           "metacritic_component": 60.26,
           "tomatoes_component": 88.0
         },
@@ -976,6 +1061,7 @@
           "new_rank": 541,
           "audience": 132.57,
           "aggregate_critics": 79.39,
+          "broad_critic_points": 79.39,
           "metacritic_component": 62.79,
           "tomatoes_component": 96.0
         },
@@ -987,6 +1073,7 @@
           "new_rank": 568,
           "audience": 164.61,
           "aggregate_critics": 41.96,
+          "broad_critic_points": 41.96,
           "metacritic_component": 3.92,
           "tomatoes_component": 80.0
         },
@@ -998,6 +1085,7 @@
           "new_rank": 577,
           "audience": 139.49,
           "aggregate_critics": 63.78,
+          "broad_critic_points": 63.78,
           "metacritic_component": 55.57,
           "tomatoes_component": 72.0
         },
@@ -1009,6 +1097,7 @@
           "new_rank": 579,
           "audience": 129.49,
           "aggregate_critics": 73.75,
+          "broad_critic_points": 73.75,
           "metacritic_component": 51.49,
           "tomatoes_component": 96.0
         },
@@ -1020,6 +1109,7 @@
           "new_rank": 594,
           "audience": 121.41,
           "aggregate_critics": 78.88,
+          "broad_critic_points": 78.88,
           "metacritic_component": 70.8,
           "tomatoes_component": 86.97
         },
@@ -1031,6 +1121,7 @@
           "new_rank": 603,
           "audience": 163.08,
           "aggregate_critics": 36.26,
+          "broad_critic_points": 36.26,
           "metacritic_component": 20.27,
           "tomatoes_component": 52.25
         },
@@ -1042,6 +1133,7 @@
           "new_rank": 608,
           "audience": 159.49,
           "aggregate_critics": 38.9,
+          "broad_critic_points": 38.9,
           "metacritic_component": 17.8,
           "tomatoes_component": 60.0
         },
@@ -1053,6 +1145,7 @@
           "new_rank": 611,
           "audience": 115.9,
           "aggregate_critics": 82.0,
+          "broad_critic_points": 82.0,
           "metacritic_component": 64.0,
           "tomatoes_component": 100.0
         },
@@ -1064,6 +1157,7 @@
           "new_rank": 617,
           "audience": 147.69,
           "aggregate_critics": 49.23,
+          "broad_critic_points": 49.23,
           "metacritic_component": 14.46,
           "tomatoes_component": 84.0
         },
@@ -1075,6 +1169,7 @@
           "new_rank": 629,
           "audience": 105.64,
           "aggregate_critics": 89.04,
+          "broad_critic_points": 89.04,
           "metacritic_component": 78.08,
           "tomatoes_component": 100.0
         },
@@ -1086,6 +1181,7 @@
           "new_rank": 632,
           "audience": 157.95,
           "aggregate_critics": 36.0,
+          "broad_critic_points": 36.0,
           "metacritic_component": 0.0,
           "tomatoes_component": 48.0
         },
@@ -1097,6 +1193,7 @@
           "new_rank": 633,
           "audience": 109.23,
           "aggregate_critics": 84.5,
+          "broad_critic_points": 84.5,
           "metacritic_component": 80.99,
           "tomatoes_component": 88.0
         },
@@ -1108,6 +1205,7 @@
           "new_rank": 634,
           "audience": 146.41,
           "aggregate_critics": 47.08,
+          "broad_critic_points": 47.08,
           "metacritic_component": 20.07,
           "tomatoes_component": 74.09
         },
@@ -1119,6 +1217,7 @@
           "new_rank": 640,
           "audience": 129.23,
           "aggregate_critics": 63.16,
+          "broad_critic_points": 63.16,
           "metacritic_component": 34.31,
           "tomatoes_component": 92.0
         },
@@ -1130,6 +1229,7 @@
           "new_rank": 644,
           "audience": 122.82,
           "aggregate_critics": 68.19,
+          "broad_critic_points": 68.19,
           "metacritic_component": 52.39,
           "tomatoes_component": 84.0
         },
@@ -1141,6 +1241,7 @@
           "new_rank": 649,
           "audience": 107.43,
           "aggregate_critics": 83.15,
+          "broad_critic_points": 83.15,
           "metacritic_component": 66.29,
           "tomatoes_component": 100.0
         },
@@ -1152,6 +1253,7 @@
           "new_rank": 665,
           "audience": 107.69,
           "aggregate_critics": 80.21,
+          "broad_critic_points": 80.21,
           "metacritic_component": 64.42,
           "tomatoes_component": 96.0
         },
@@ -1163,6 +1265,7 @@
           "new_rank": 668,
           "audience": 161.28,
           "aggregate_critics": 26.02,
+          "broad_critic_points": 26.02,
           "metacritic_component": 0.0,
           "tomatoes_component": 34.69
         },
@@ -1174,6 +1277,7 @@
           "new_rank": 673,
           "audience": 139.49,
           "aggregate_critics": 46.52,
+          "broad_critic_points": 46.52,
           "metacritic_component": 29.47,
           "tomatoes_component": 63.56
         },
@@ -1185,6 +1289,7 @@
           "new_rank": 680,
           "audience": 141.28,
           "aggregate_critics": 44.0,
+          "broad_critic_points": 44.0,
           "metacritic_component": 28.0,
           "tomatoes_component": 60.0
         },
@@ -1196,6 +1301,7 @@
           "new_rank": 681,
           "audience": 125.9,
           "aggregate_critics": 59.17,
+          "broad_critic_points": 59.17,
           "metacritic_component": 38.35,
           "tomatoes_component": 80.0
         },
@@ -1207,6 +1313,7 @@
           "new_rank": 684,
           "audience": 125.9,
           "aggregate_critics": 58.21,
+          "broad_critic_points": 58.21,
           "metacritic_component": 36.42,
           "tomatoes_component": 80.0
         },
@@ -1218,6 +1325,7 @@
           "new_rank": 700,
           "audience": 107.69,
           "aggregate_critics": 73.86,
+          "broad_critic_points": 73.86,
           "metacritic_component": 59.71,
           "tomatoes_component": 88.0
         }
@@ -1225,6 +1333,8 @@
     },
     "strict": {
       "variant": "strict",
+      "curve": "strict",
+      "broad_cap": 100,
       "top100_overlap_with_base": 93,
       "films_with_positive_critic_delta": 1077,
       "mean_positive_critic_delta": 47.89,
@@ -1265,6 +1375,7 @@
           "metacritic": 49.53,
           "tomatoes": 65.0,
           "aggregate": 57.27,
+          "broad_points": 57.27,
           "new_critics": 57.27
         },
         "Ex Machina": {
@@ -1276,6 +1387,7 @@
           "metacritic": 32.98,
           "tomatoes": 84.17,
           "aggregate": 58.58,
+          "broad_points": 58.58,
           "new_critics": 58.58
         },
         "Prisoners": {
@@ -1287,6 +1399,7 @@
           "metacritic": 0.0,
           "tomatoes": 28.35,
           "aggregate": 21.26,
+          "broad_points": 21.26,
           "new_critics": 21.26
         },
         "Shutter Island": {
@@ -1298,6 +1411,7 @@
           "metacritic": 0.0,
           "tomatoes": 0.0,
           "aggregate": 0.0,
+          "broad_points": 0.0,
           "new_critics": 0.0
         },
         "The Batman": {
@@ -1309,6 +1423,7 @@
           "metacritic": 9.7,
           "tomatoes": 50.0,
           "aggregate": 29.85,
+          "broad_points": 29.85,
           "new_critics": 29.85
         },
         "Tenet": {
@@ -1320,6 +1435,7 @@
           "metacritic": 0.0,
           "tomatoes": 0.0,
           "aggregate": 0.0,
+          "broad_points": 0.0,
           "new_critics": 0.0
         },
         "The Machinist": {
@@ -1331,6 +1447,7 @@
           "metacritic": 0.0,
           "tomatoes": 7.82,
           "aggregate": 5.87,
+          "broad_points": 5.87,
           "new_critics": 5.87
         },
         "Dune: Part Two": {
@@ -1342,6 +1459,7 @@
           "metacritic": 42.41,
           "tomatoes": 85.0,
           "aggregate": 63.7,
+          "broad_points": 63.7,
           "new_critics": 63.7
         },
         "Midsommar": {
@@ -1353,6 +1471,7 @@
           "metacritic": 9.01,
           "tomatoes": 40.0,
           "aggregate": 24.5,
+          "broad_points": 24.5,
           "new_critics": 24.5
         },
         "Nocturnal Animals": {
@@ -1364,6 +1483,7 @@
           "metacritic": 0.0,
           "tomatoes": 0.0,
           "aggregate": 0.0,
+          "broad_points": 0.0,
           "new_critics": 0.0
         },
         "Scott Pilgrim vs. the World": {
@@ -1375,6 +1495,7 @@
           "metacritic": 0.0,
           "tomatoes": 38.87,
           "aggregate": 29.15,
+          "broad_points": 29.15,
           "new_critics": 29.15
         },
         "La Commune (Paris, 1871)": {
@@ -1386,6 +1507,7 @@
           "metacritic": 0.0,
           "tomatoes": 0.0,
           "aggregate": 0.0,
+          "broad_points": 0.0,
           "new_critics": 0.0
         }
       },
@@ -1398,6 +1520,7 @@
           "new_rank": 259,
           "audience": 196.67,
           "aggregate_critics": 90.12,
+          "broad_critic_points": 90.12,
           "metacritic_component": 85.25,
           "tomatoes_component": 95.0
         },
@@ -1409,6 +1532,7 @@
           "new_rank": 334,
           "audience": 190.0,
           "aggregate_critics": 66.32,
+          "broad_critic_points": 66.32,
           "metacritic_component": 32.64,
           "tomatoes_component": 100.0
         },
@@ -1420,6 +1544,7 @@
           "new_rank": 351,
           "audience": 191.54,
           "aggregate_critics": 55.82,
+          "broad_critic_points": 55.82,
           "metacritic_component": 37.37,
           "tomatoes_component": 74.27
         },
@@ -1431,6 +1556,7 @@
           "new_rank": 353,
           "audience": 181.28,
           "aggregate_critics": 65.84,
+          "broad_critic_points": 65.84,
           "metacritic_component": 36.68,
           "tomatoes_component": 95.0
         },
@@ -1442,6 +1568,7 @@
           "new_rank": 362,
           "audience": 164.61,
           "aggregate_critics": 80.64,
+          "broad_critic_points": 80.64,
           "metacritic_component": 61.29,
           "tomatoes_component": 100.0
         },
@@ -1453,6 +1580,7 @@
           "new_rank": 444,
           "audience": 134.61,
           "aggregate_critics": 89.63,
+          "broad_critic_points": 89.63,
           "metacritic_component": 79.26,
           "tomatoes_component": 100.0
         },
@@ -1464,6 +1592,7 @@
           "new_rank": 448,
           "audience": 186.41,
           "aggregate_critics": 37.5,
+          "broad_critic_points": 37.5,
           "metacritic_component": 0.0,
           "tomatoes_component": 50.0
         },
@@ -1475,6 +1604,7 @@
           "new_rank": 449,
           "audience": 163.08,
           "aggregate_critics": 60.46,
+          "broad_critic_points": 60.46,
           "metacritic_component": 30.92,
           "tomatoes_component": 90.0
         },
@@ -1486,6 +1616,7 @@
           "new_rank": 461,
           "audience": 164.61,
           "aggregate_critics": 56.25,
+          "broad_critic_points": 56.25,
           "metacritic_component": 0.0,
           "tomatoes_component": 75.0
         },
@@ -1497,6 +1628,7 @@
           "new_rank": 496,
           "audience": 153.08,
           "aggregate_critics": 58.9,
+          "broad_critic_points": 58.9,
           "metacritic_component": 27.8,
           "tomatoes_component": 90.0
         },
@@ -1508,6 +1640,7 @@
           "new_rank": 497,
           "audience": 164.36,
           "aggregate_critics": 46.91,
+          "broad_critic_points": 46.91,
           "metacritic_component": 33.82,
           "tomatoes_component": 60.0
         },
@@ -1519,6 +1652,7 @@
           "new_rank": 504,
           "audience": 162.82,
           "aggregate_critics": 47.33,
+          "broad_critic_points": 47.33,
           "metacritic_component": 4.66,
           "tomatoes_component": 90.0
         },
@@ -1530,6 +1664,7 @@
           "new_rank": 508,
           "audience": 144.36,
           "aggregate_critics": 64.33,
+          "broad_critic_points": 64.33,
           "metacritic_component": 35.74,
           "tomatoes_component": 92.91
         },
@@ -1541,6 +1676,7 @@
           "new_rank": 510,
           "audience": 146.41,
           "aggregate_critics": 62.28,
+          "broad_critic_points": 62.28,
           "metacritic_component": 57.0,
           "tomatoes_component": 67.56
         },
@@ -1552,6 +1688,7 @@
           "new_rank": 511,
           "audience": 147.69,
           "aggregate_critics": 60.0,
+          "broad_critic_points": 60.0,
           "metacritic_component": 0.0,
           "tomatoes_component": 80.0
         },
@@ -1563,6 +1700,7 @@
           "new_rank": 517,
           "audience": 152.82,
           "aggregate_critics": 53.42,
+          "broad_critic_points": 53.42,
           "metacritic_component": 26.85,
           "tomatoes_component": 80.0
         },
@@ -1574,6 +1712,7 @@
           "new_rank": 519,
           "audience": 139.75,
           "aggregate_critics": 65.97,
+          "broad_critic_points": 65.97,
           "metacritic_component": 41.83,
           "tomatoes_component": 90.12
         },
@@ -1585,6 +1724,7 @@
           "new_rank": 520,
           "audience": 132.57,
           "aggregate_critics": 73.06,
+          "broad_critic_points": 73.06,
           "metacritic_component": 51.12,
           "tomatoes_component": 95.0
         },
@@ -1596,6 +1736,7 @@
           "new_rank": 526,
           "audience": 183.33,
           "aggregate_critics": 21.26,
+          "broad_critic_points": 21.26,
           "metacritic_component": 0.0,
           "tomatoes_component": 28.35
         },
@@ -1607,6 +1748,7 @@
           "new_rank": 527,
           "audience": 137.95,
           "aggregate_critics": 66.45,
+          "broad_critic_points": 66.45,
           "metacritic_component": 47.91,
           "tomatoes_component": 85.0
         },
@@ -1618,6 +1760,7 @@
           "new_rank": 562,
           "audience": 159.49,
           "aggregate_critics": 36.95,
+          "broad_critic_points": 36.95,
           "metacritic_component": 0.0,
           "tomatoes_component": 49.26
         },
@@ -1629,6 +1772,7 @@
           "new_rank": 568,
           "audience": 129.49,
           "aggregate_critics": 65.94,
+          "broad_critic_points": 65.94,
           "metacritic_component": 36.89,
           "tomatoes_component": 95.0
         },
@@ -1640,6 +1784,7 @@
           "new_rank": 586,
           "audience": 139.49,
           "aggregate_critics": 52.92,
+          "broad_critic_points": 52.92,
           "metacritic_component": 43.68,
           "tomatoes_component": 62.17
         },
@@ -1651,6 +1796,7 @@
           "new_rank": 587,
           "audience": 115.9,
           "aggregate_critics": 76.44,
+          "broad_critic_points": 76.44,
           "metacritic_component": 52.87,
           "tomatoes_component": 100.0
         },
@@ -1662,6 +1808,7 @@
           "new_rank": 588,
           "audience": 121.41,
           "aggregate_critics": 70.89,
+          "broad_critic_points": 70.89,
           "metacritic_component": 62.17,
           "tomatoes_component": 79.61
         },
@@ -1673,6 +1820,7 @@
           "new_rank": 601,
           "audience": 105.64,
           "aggregate_critics": 84.34,
+          "broad_critic_points": 84.34,
           "metacritic_component": 68.69,
           "tomatoes_component": 100.0
         },
@@ -1684,6 +1832,7 @@
           "new_rank": 608,
           "audience": 109.23,
           "aggregate_critics": 78.3,
+          "broad_critic_points": 78.3,
           "metacritic_component": 71.59,
           "tomatoes_component": 85.0
         },
@@ -1695,6 +1844,7 @@
           "new_rank": 622,
           "audience": 107.43,
           "aggregate_critics": 77.19,
+          "broad_critic_points": 77.19,
           "metacritic_component": 54.37,
           "tomatoes_component": 100.0
         },
@@ -1706,6 +1856,7 @@
           "new_rank": 623,
           "audience": 163.08,
           "aggregate_critics": 21.5,
+          "broad_critic_points": 21.5,
           "metacritic_component": 3.85,
           "tomatoes_component": 39.14
         },
@@ -1717,6 +1868,7 @@
           "new_rank": 624,
           "audience": 157.95,
           "aggregate_critics": 26.25,
+          "broad_critic_points": 26.25,
           "metacritic_component": 0.0,
           "tomatoes_component": 35.0
         },
@@ -1728,6 +1880,7 @@
           "new_rank": 625,
           "audience": 127.69,
           "aggregate_critics": 56.25,
+          "broad_critic_points": 56.25,
           "metacritic_component": 0.0,
           "tomatoes_component": 75.0
         },
@@ -1739,6 +1892,7 @@
           "new_rank": 632,
           "audience": 129.23,
           "aggregate_critics": 53.84,
+          "broad_critic_points": 53.84,
           "metacritic_component": 17.67,
           "tomatoes_component": 90.0
         },
@@ -1750,6 +1904,7 @@
           "new_rank": 635,
           "audience": 122.82,
           "aggregate_critics": 59.46,
+          "broad_critic_points": 59.46,
           "metacritic_component": 38.92,
           "tomatoes_component": 80.0
         },
@@ -1761,6 +1916,7 @@
           "new_rank": 639,
           "audience": 107.69,
           "aggregate_critics": 73.82,
+          "broad_critic_points": 73.82,
           "metacritic_component": 52.64,
           "tomatoes_component": 95.0
         },
@@ -1772,6 +1928,7 @@
           "new_rank": 650,
           "audience": 146.41,
           "aggregate_critics": 34.04,
+          "broad_critic_points": 34.04,
           "metacritic_component": 3.8,
           "tomatoes_component": 64.28
         },
@@ -1783,6 +1940,7 @@
           "new_rank": 669,
           "audience": 161.28,
           "aggregate_critics": 13.58,
+          "broad_critic_points": 13.58,
           "metacritic_component": 0.0,
           "tomatoes_component": 18.1
         },
@@ -1794,6 +1952,7 @@
           "new_rank": 670,
           "audience": 125.9,
           "aggregate_critics": 48.62,
+          "broad_critic_points": 48.62,
           "metacritic_component": 22.23,
           "tomatoes_component": 75.0
         },
@@ -1805,6 +1964,7 @@
           "new_rank": 676,
           "audience": 125.9,
           "aggregate_critics": 47.98,
+          "broad_critic_points": 47.98,
           "metacritic_component": 20.97,
           "tomatoes_component": 75.0
         },
@@ -1816,6 +1976,7 @@
           "new_rank": 678,
           "audience": 107.69,
           "aggregate_critics": 65.69,
+          "broad_critic_points": 65.69,
           "metacritic_component": 46.37,
           "tomatoes_component": 85.0
         },
@@ -1827,8 +1988,1998 @@
           "new_rank": 679,
           "audience": 139.49,
           "aggregate_critics": 33.79,
+          "broad_critic_points": 33.79,
           "metacritic_component": 14.84,
           "tomatoes_component": 52.74
+        }
+      ]
+    },
+    "capped30_conservative": {
+      "variant": "capped30_conservative",
+      "curve": "conservative",
+      "broad_cap": 30,
+      "top100_overlap_with_base": 95,
+      "films_with_positive_critic_delta": 1248,
+      "mean_positive_critic_delta": 15.65,
+      "thresholds": {
+        "300": {
+          "selected": 155,
+          "promotions_vs_old": 31,
+          "old_qualified_retained": 124
+        },
+        "275": {
+          "selected": 204,
+          "promotions_vs_old": 53,
+          "old_qualified_retained": 151
+        },
+        "250": {
+          "selected": 256,
+          "promotions_vs_old": 89,
+          "old_qualified_retained": 167
+        },
+        "225": {
+          "selected": 327,
+          "promotions_vs_old": 131,
+          "old_qualified_retained": 196
+        },
+        "200": {
+          "selected": 422,
+          "promotions_vs_old": 200,
+          "old_qualified_retained": 222
+        }
+      },
+      "controls": {
+        "Blade Runner 2049": {
+          "base_score": 163.99,
+          "new_score": 184.1,
+          "base_rank": 527,
+          "new_rank": 500,
+          "old_critics": 0.0,
+          "metacritic": 62.05,
+          "tomatoes": 72.0,
+          "aggregate": 67.03,
+          "broad_points": 20.11,
+          "new_critics": 20.11
+        },
+        "Ex Machina": {
+          "base_score": 181.93,
+          "new_score": 202.13,
+          "base_rank": 443,
+          "new_rank": 414,
+          "old_critics": 0.0,
+          "metacritic": 46.65,
+          "tomatoes": 88.0,
+          "aggregate": 67.33,
+          "broad_points": 20.2,
+          "new_critics": 20.2
+        },
+        "Prisoners": {
+          "base_score": 183.34,
+          "new_score": 192.82,
+          "base_rank": 429,
+          "new_rank": 460,
+          "old_critics": 0.0,
+          "metacritic": 19.28,
+          "tomatoes": 43.91,
+          "aggregate": 31.59,
+          "broad_points": 9.48,
+          "new_critics": 9.48
+        },
+        "Shutter Island": {
+          "base_score": 181.54,
+          "new_score": 181.54,
+          "base_rank": 446,
+          "new_rank": 516,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 0.0,
+          "aggregate": 0.0,
+          "broad_points": 0.0,
+          "new_critics": 0.0
+        },
+        "The Batman": {
+          "base_score": 141.28,
+          "new_score": 154.48,
+          "base_rank": 658,
+          "new_rank": 661,
+          "old_critics": 0.0,
+          "metacritic": 28.0,
+          "tomatoes": 60.0,
+          "aggregate": 44.0,
+          "broad_points": 13.2,
+          "new_critics": 13.2
+        },
+        "Tenet": {
+          "base_score": 85.64,
+          "new_score": 89.05,
+          "base_rank": 1141,
+          "new_rank": 1177,
+          "old_critics": 0.0,
+          "metacritic": 15.16,
+          "tomatoes": 0.0,
+          "aggregate": 11.37,
+          "broad_points": 3.41,
+          "new_critics": 3.41
+        },
+        "The Machinist": {
+          "base_score": 114.37,
+          "new_score": 119.77,
+          "base_rank": 859,
+          "new_rank": 908,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 24.01,
+          "aggregate": 18.01,
+          "broad_points": 5.4,
+          "new_critics": 5.4
+        },
+        "Dune: Part Two": {
+          "base_score": 271.67,
+          "new_score": 293.27,
+          "base_rank": 179,
+          "new_rank": 169,
+          "old_critics": 0.0,
+          "metacritic": 56.0,
+          "tomatoes": 88.0,
+          "aggregate": 72.0,
+          "broad_points": 21.6,
+          "new_critics": 21.6
+        },
+        "Midsommar": {
+          "base_score": 138.2,
+          "new_score": 150.07,
+          "base_rank": 681,
+          "new_rank": 687,
+          "old_critics": 0.0,
+          "metacritic": 27.15,
+          "tomatoes": 52.0,
+          "aggregate": 39.58,
+          "broad_points": 11.87,
+          "new_critics": 11.87
+        },
+        "Nocturnal Animals": {
+          "base_score": 160.9,
+          "new_score": 164.4,
+          "base_rank": 543,
+          "new_rank": 595,
+          "old_critics": 0.0,
+          "metacritic": 7.34,
+          "tomatoes": 16.0,
+          "aggregate": 11.67,
+          "broad_points": 3.5,
+          "new_critics": 3.5
+        },
+        "Scott Pilgrim vs. the World": {
+          "base_score": 167.61,
+          "new_score": 177.5,
+          "base_rank": 508,
+          "new_rank": 541,
+          "old_critics": 0.0,
+          "metacritic": 13.89,
+          "tomatoes": 52.0,
+          "aggregate": 32.95,
+          "broad_points": 9.89,
+          "new_critics": 9.89
+        },
+        "La Commune (Paris, 1871)": {
+          "base_score": 115.88,
+          "new_score": 115.88,
+          "base_rank": 849,
+          "new_rank": 950,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 0.0,
+          "aggregate": 0.0,
+          "broad_points": 0.0,
+          "new_critics": 0.0
+        }
+      },
+      "newly_non_audience_covered_top40": [
+        {
+          "title": "The Odyssey",
+          "year": 2026,
+          "base_score": 196.67,
+          "new_score": 224.87,
+          "new_rank": 328,
+          "audience": 196.67,
+          "aggregate_critics": 94.0,
+          "broad_critic_points": 28.2,
+          "metacritic_component": 92.0,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Project Hail Mary",
+          "year": 2026,
+          "base_score": 190.01,
+          "new_score": 212.21,
+          "new_rank": 372,
+          "audience": 190.0,
+          "aggregate_critics": 74.0,
+          "broad_critic_points": 22.2,
+          "metacritic_component": 48.0,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Your Name.",
+          "year": 2016,
+          "base_score": 191.54,
+          "new_score": 211.18,
+          "new_rank": 376,
+          "audience": 191.54,
+          "aggregate_critics": 65.47,
+          "broad_critic_points": 19.64,
+          "metacritic_component": 48.56,
+          "tomatoes_component": 82.37
+        },
+        {
+          "title": "Avengers: Endgame",
+          "year": 2019,
+          "base_score": 181.28,
+          "new_score": 203.36,
+          "new_rank": 409,
+          "audience": 181.28,
+          "aggregate_critics": 73.61,
+          "broad_critic_points": 22.08,
+          "metacritic_component": 51.23,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Avengers: Infinity War",
+          "year": 2018,
+          "base_score": 186.41,
+          "new_score": 197.16,
+          "new_rank": 435,
+          "audience": 186.41,
+          "aggregate_critics": 35.82,
+          "broad_critic_points": 10.75,
+          "metacritic_component": 11.64,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Prisoners",
+          "year": 2013,
+          "base_score": 183.34,
+          "new_score": 192.82,
+          "new_rank": 460,
+          "audience": 183.33,
+          "aggregate_critics": 31.59,
+          "broad_critic_points": 9.48,
+          "metacritic_component": 19.28,
+          "tomatoes_component": 43.91
+        },
+        {
+          "title": "Harry Potter and the Deathly Hallows: Part 2",
+          "year": 2011,
+          "base_score": 164.61,
+          "new_score": 190.29,
+          "new_rank": 473,
+          "audience": 164.61,
+          "aggregate_critics": 85.6,
+          "broad_critic_points": 25.68,
+          "metacritic_component": 71.21,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Logan",
+          "year": 2017,
+          "base_score": 163.07,
+          "new_score": 183.73,
+          "new_rank": 503,
+          "audience": 163.08,
+          "aggregate_critics": 68.88,
+          "broad_critic_points": 20.66,
+          "metacritic_component": 45.75,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "The Dark Knight Rises",
+          "year": 2012,
+          "base_score": 164.36,
+          "new_score": 181.71,
+          "new_rank": 513,
+          "audience": 164.36,
+          "aggregate_critics": 57.84,
+          "broad_critic_points": 17.35,
+          "metacritic_component": 47.68,
+          "tomatoes_component": 68.0
+        },
+        {
+          "title": "Spider-Man: No Way Home",
+          "year": 2021,
+          "base_score": 162.81,
+          "new_score": 180.21,
+          "new_rank": 522,
+          "audience": 162.82,
+          "aggregate_critics": 58.0,
+          "broad_critic_points": 17.4,
+          "metacritic_component": 24.0,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Spider-Man: Brand New Day",
+          "year": 2026,
+          "base_score": 164.62,
+          "new_score": 177.21,
+          "new_rank": 542,
+          "audience": 164.61,
+          "aggregate_critics": 41.96,
+          "broad_critic_points": 12.59,
+          "metacritic_component": 3.92,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "Warrior",
+          "year": 2011,
+          "base_score": 163.07,
+          "new_score": 173.95,
+          "new_rank": 557,
+          "audience": 163.08,
+          "aggregate_critics": 36.26,
+          "broad_critic_points": 10.88,
+          "metacritic_component": 20.27,
+          "tomatoes_component": 52.25
+        },
+        {
+          "title": "Obsession",
+          "year": 2025,
+          "base_score": 153.07,
+          "new_score": 173.12,
+          "new_rank": 561,
+          "audience": 153.08,
+          "aggregate_critics": 66.84,
+          "broad_critic_points": 20.05,
+          "metacritic_component": 41.67,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Guardians of the Galaxy",
+          "year": 2014,
+          "base_score": 152.82,
+          "new_score": 171.79,
+          "new_rank": 566,
+          "audience": 152.82,
+          "aggregate_critics": 63.22,
+          "broad_critic_points": 18.97,
+          "metacritic_component": 42.43,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Batman Begins",
+          "year": 2005,
+          "base_score": 159.49,
+          "new_score": 171.16,
+          "new_rank": 567,
+          "audience": 159.49,
+          "aggregate_critics": 38.9,
+          "broad_critic_points": 11.67,
+          "metacritic_component": 17.8,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
+          "year": 2003,
+          "base_score": 161.28,
+          "new_score": 169.09,
+          "new_rank": 580,
+          "audience": 161.28,
+          "aggregate_critics": 26.02,
+          "broad_critic_points": 7.81,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 34.69
+        },
+        {
+          "title": "Guardians of the Galaxy Vol. 3",
+          "year": 2023,
+          "base_score": 157.95,
+          "new_score": 168.75,
+          "new_rank": 583,
+          "audience": 157.95,
+          "aggregate_critics": 36.0,
+          "broad_critic_points": 10.8,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 48.0
+        },
+        {
+          "title": "Ponyo",
+          "year": 2008,
+          "base_score": 146.41,
+          "new_score": 167.85,
+          "new_rank": 587,
+          "audience": 146.41,
+          "aggregate_critics": 71.47,
+          "broad_critic_points": 21.44,
+          "metacritic_component": 66.38,
+          "tomatoes_component": 76.55
+        },
+        {
+          "title": "Iron Man",
+          "year": 2008,
+          "base_score": 144.37,
+          "new_score": 166.06,
+          "new_rank": 591,
+          "audience": 144.36,
+          "aggregate_critics": 72.31,
+          "broad_critic_points": 21.69,
+          "metacritic_component": 48.62,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Mission: Impossible - Fallout",
+          "year": 2018,
+          "base_score": 134.61,
+          "new_score": 162.81,
+          "new_rank": 606,
+          "audience": 134.61,
+          "aggregate_critics": 94.0,
+          "broad_critic_points": 28.2,
+          "metacritic_component": 88.0,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "The Avengers",
+          "year": 2012,
+          "base_score": 147.7,
+          "new_score": 162.47,
+          "new_rank": 609,
+          "audience": 147.69,
+          "aggregate_critics": 49.23,
+          "broad_critic_points": 14.77,
+          "metacritic_component": 14.46,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Godzilla Minus One",
+          "year": 2023,
+          "base_score": 139.75,
+          "new_score": 162.18,
+          "new_rank": 613,
+          "audience": 139.75,
+          "aggregate_critics": 74.77,
+          "broad_critic_points": 22.43,
+          "metacritic_component": 53.51,
+          "tomatoes_component": 96.02
+        },
+        {
+          "title": "Tangled",
+          "year": 2010,
+          "base_score": 146.41,
+          "new_score": 160.53,
+          "new_rank": 625,
+          "audience": 146.41,
+          "aggregate_critics": 47.08,
+          "broad_critic_points": 14.12,
+          "metacritic_component": 20.07,
+          "tomatoes_component": 74.09
+        },
+        {
+          "title": "Skyfall",
+          "year": 2012,
+          "base_score": 137.94,
+          "new_score": 160.18,
+          "new_rank": 627,
+          "audience": 137.95,
+          "aggregate_critics": 74.13,
+          "broad_critic_points": 22.24,
+          "metacritic_component": 60.26,
+          "tomatoes_component": 88.0
+        },
+        {
+          "title": "V for Vendetta",
+          "year": 2005,
+          "base_score": 156.15,
+          "new_score": 158.85,
+          "new_rank": 634,
+          "audience": 156.15,
+          "aggregate_critics": 9.0,
+          "broad_critic_points": 2.7,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 12.0
+        },
+        {
+          "title": "Harry Potter and the Goblet of Fire",
+          "year": 2005,
+          "base_score": 139.48,
+          "new_score": 158.61,
+          "new_rank": 635,
+          "audience": 139.49,
+          "aggregate_critics": 63.78,
+          "broad_critic_points": 19.13,
+          "metacritic_component": 55.57,
+          "tomatoes_component": 72.0
+        },
+        {
+          "title": "Star Trek",
+          "year": 2009,
+          "base_score": 132.57,
+          "new_score": 156.39,
+          "new_rank": 645,
+          "audience": 132.57,
+          "aggregate_critics": 79.39,
+          "broad_critic_points": 23.82,
+          "metacritic_component": 62.79,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Captain Fantastic",
+          "year": 2016,
+          "base_score": 144.61,
+          "new_score": 155.21,
+          "new_rank": 654,
+          "audience": 144.61,
+          "aggregate_critics": 35.34,
+          "broad_critic_points": 10.6,
+          "metacritic_component": 23.87,
+          "tomatoes_component": 46.8
+        },
+        {
+          "title": "The Batman",
+          "year": 2022,
+          "base_score": 141.28,
+          "new_score": 154.48,
+          "new_rank": 661,
+          "audience": 141.28,
+          "aggregate_critics": 44.0,
+          "broad_critic_points": 13.2,
+          "metacritic_component": 28.0,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Cast Away",
+          "year": 2000,
+          "base_score": 139.48,
+          "new_score": 153.44,
+          "new_rank": 666,
+          "audience": 139.49,
+          "aggregate_critics": 46.52,
+          "broad_critic_points": 13.96,
+          "metacritic_component": 29.47,
+          "tomatoes_component": 63.56
+        },
+        {
+          "title": "Training Day",
+          "year": 2001,
+          "base_score": 146.41,
+          "new_score": 151.65,
+          "new_rank": 677,
+          "audience": 146.41,
+          "aggregate_critics": 17.45,
+          "broad_critic_points": 5.24,
+          "metacritic_component": 20.46,
+          "tomatoes_component": 14.44
+        },
+        {
+          "title": "John Wick: Chapter 4",
+          "year": 2023,
+          "base_score": 129.49,
+          "new_score": 151.61,
+          "new_rank": 678,
+          "audience": 129.49,
+          "aggregate_critics": 73.75,
+          "broad_critic_points": 22.12,
+          "metacritic_component": 51.49,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "How to Train Your Dragon",
+          "year": 2025,
+          "base_score": 141.03,
+          "new_score": 148.23,
+          "new_rank": 697,
+          "audience": 141.03,
+          "aggregate_critics": 24.0,
+          "broad_critic_points": 7.2,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 32.0
+        },
+        {
+          "title": "Thor: Ragnarok",
+          "year": 2017,
+          "base_score": 129.24,
+          "new_score": 148.19,
+          "new_rank": 698,
+          "audience": 129.23,
+          "aggregate_critics": 63.16,
+          "broad_critic_points": 18.95,
+          "metacritic_component": 34.31,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Wonder",
+          "year": 2017,
+          "base_score": 137.44,
+          "new_score": 146.87,
+          "new_rank": 711,
+          "audience": 137.43,
+          "aggregate_critics": 31.43,
+          "broad_critic_points": 9.43,
+          "metacritic_component": 3.31,
+          "tomatoes_component": 59.55
+        },
+        {
+          "title": "Inside Job",
+          "year": 2010,
+          "base_score": 121.41,
+          "new_score": 145.07,
+          "new_rank": 719,
+          "audience": 121.41,
+          "aggregate_critics": 78.88,
+          "broad_critic_points": 23.66,
+          "metacritic_component": 70.8,
+          "tomatoes_component": 86.97
+        },
+        {
+          "title": "Captain America: Civil War",
+          "year": 2016,
+          "base_score": 125.9,
+          "new_score": 143.65,
+          "new_rank": 727,
+          "audience": 125.9,
+          "aggregate_critics": 59.17,
+          "broad_critic_points": 17.75,
+          "metacritic_component": 38.35,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "X-Men: Days of Future Past",
+          "year": 2014,
+          "base_score": 125.9,
+          "new_score": 143.36,
+          "new_rank": 728,
+          "audience": 125.9,
+          "aggregate_critics": 58.21,
+          "broad_critic_points": 17.46,
+          "metacritic_component": 36.42,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "Dawn of the Planet of the Apes",
+          "year": 2014,
+          "base_score": 122.82,
+          "new_score": 143.28,
+          "new_rank": 729,
+          "audience": 122.82,
+          "aggregate_critics": 68.19,
+          "broad_critic_points": 20.46,
+          "metacritic_component": 52.39,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Harry Potter and the Sorcerer's Stone",
+          "year": 2001,
+          "base_score": 134.36,
+          "new_score": 142.87,
+          "new_rank": 732,
+          "audience": 134.36,
+          "aggregate_critics": 28.37,
+          "broad_critic_points": 8.51,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 37.83
+        }
+      ]
+    },
+    "capped40_conservative": {
+      "variant": "capped40_conservative",
+      "curve": "conservative",
+      "broad_cap": 40,
+      "top100_overlap_with_base": 95,
+      "films_with_positive_critic_delta": 1248,
+      "mean_positive_critic_delta": 20.89,
+      "thresholds": {
+        "300": {
+          "selected": 169,
+          "promotions_vs_old": 37,
+          "old_qualified_retained": 132
+        },
+        "275": {
+          "selected": 220,
+          "promotions_vs_old": 65,
+          "old_qualified_retained": 155
+        },
+        "250": {
+          "selected": 272,
+          "promotions_vs_old": 97,
+          "old_qualified_retained": 175
+        },
+        "225": {
+          "selected": 353,
+          "promotions_vs_old": 150,
+          "old_qualified_retained": 203
+        },
+        "200": {
+          "selected": 451,
+          "promotions_vs_old": 227,
+          "old_qualified_retained": 224
+        }
+      },
+      "controls": {
+        "Blade Runner 2049": {
+          "base_score": 163.99,
+          "new_score": 190.8,
+          "base_rank": 527,
+          "new_rank": 496,
+          "old_critics": 0.0,
+          "metacritic": 62.05,
+          "tomatoes": 72.0,
+          "aggregate": 67.03,
+          "broad_points": 26.81,
+          "new_critics": 26.81
+        },
+        "Ex Machina": {
+          "base_score": 181.93,
+          "new_score": 208.86,
+          "base_rank": 443,
+          "new_rank": 410,
+          "old_critics": 0.0,
+          "metacritic": 46.65,
+          "tomatoes": 88.0,
+          "aggregate": 67.33,
+          "broad_points": 26.93,
+          "new_critics": 26.93
+        },
+        "Prisoners": {
+          "base_score": 183.34,
+          "new_score": 195.98,
+          "base_rank": 429,
+          "new_rank": 465,
+          "old_critics": 0.0,
+          "metacritic": 19.28,
+          "tomatoes": 43.91,
+          "aggregate": 31.59,
+          "broad_points": 12.64,
+          "new_critics": 12.64
+        },
+        "Shutter Island": {
+          "base_score": 181.54,
+          "new_score": 181.54,
+          "base_rank": 446,
+          "new_rank": 542,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 0.0,
+          "aggregate": 0.0,
+          "broad_points": 0.0,
+          "new_critics": 0.0
+        },
+        "The Batman": {
+          "base_score": 141.28,
+          "new_score": 158.88,
+          "base_rank": 658,
+          "new_rank": 658,
+          "old_critics": 0.0,
+          "metacritic": 28.0,
+          "tomatoes": 60.0,
+          "aggregate": 44.0,
+          "broad_points": 17.6,
+          "new_critics": 17.6
+        },
+        "Tenet": {
+          "base_score": 85.64,
+          "new_score": 90.19,
+          "base_rank": 1141,
+          "new_rank": 1192,
+          "old_critics": 0.0,
+          "metacritic": 15.16,
+          "tomatoes": 0.0,
+          "aggregate": 11.37,
+          "broad_points": 4.55,
+          "new_critics": 4.55
+        },
+        "The Machinist": {
+          "base_score": 114.37,
+          "new_score": 121.57,
+          "base_rank": 859,
+          "new_rank": 925,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 24.01,
+          "aggregate": 18.01,
+          "broad_points": 7.2,
+          "new_critics": 7.2
+        },
+        "Dune: Part Two": {
+          "base_score": 271.67,
+          "new_score": 300.47,
+          "base_rank": 179,
+          "new_rank": 168,
+          "old_critics": 0.0,
+          "metacritic": 56.0,
+          "tomatoes": 88.0,
+          "aggregate": 72.0,
+          "broad_points": 28.8,
+          "new_critics": 28.8
+        },
+        "Midsommar": {
+          "base_score": 138.2,
+          "new_score": 154.03,
+          "base_rank": 681,
+          "new_rank": 690,
+          "old_critics": 0.0,
+          "metacritic": 27.15,
+          "tomatoes": 52.0,
+          "aggregate": 39.58,
+          "broad_points": 15.83,
+          "new_critics": 15.83
+        },
+        "Nocturnal Animals": {
+          "base_score": 160.9,
+          "new_score": 165.57,
+          "base_rank": 543,
+          "new_rank": 618,
+          "old_critics": 0.0,
+          "metacritic": 7.34,
+          "tomatoes": 16.0,
+          "aggregate": 11.67,
+          "broad_points": 4.67,
+          "new_critics": 4.67
+        },
+        "Scott Pilgrim vs. the World": {
+          "base_score": 167.61,
+          "new_score": 180.79,
+          "base_rank": 508,
+          "new_rank": 547,
+          "old_critics": 0.0,
+          "metacritic": 13.89,
+          "tomatoes": 52.0,
+          "aggregate": 32.95,
+          "broad_points": 13.18,
+          "new_critics": 13.18
+        },
+        "La Commune (Paris, 1871)": {
+          "base_score": 115.88,
+          "new_score": 115.88,
+          "base_rank": 849,
+          "new_rank": 980,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 0.0,
+          "aggregate": 0.0,
+          "broad_points": 0.0,
+          "new_critics": 0.0
+        }
+      },
+      "newly_non_audience_covered_top40": [
+        {
+          "title": "The Odyssey",
+          "year": 2026,
+          "base_score": 196.67,
+          "new_score": 234.27,
+          "new_rank": 316,
+          "audience": 196.67,
+          "aggregate_critics": 94.0,
+          "broad_critic_points": 37.6,
+          "metacritic_component": 92.0,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Project Hail Mary",
+          "year": 2026,
+          "base_score": 190.01,
+          "new_score": 219.61,
+          "new_rank": 369,
+          "audience": 190.0,
+          "aggregate_critics": 74.0,
+          "broad_critic_points": 29.6,
+          "metacritic_component": 48.0,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Your Name.",
+          "year": 2016,
+          "base_score": 191.54,
+          "new_score": 217.73,
+          "new_rank": 374,
+          "audience": 191.54,
+          "aggregate_critics": 65.47,
+          "broad_critic_points": 26.19,
+          "metacritic_component": 48.56,
+          "tomatoes_component": 82.37
+        },
+        {
+          "title": "Avengers: Endgame",
+          "year": 2019,
+          "base_score": 181.28,
+          "new_score": 210.72,
+          "new_rank": 399,
+          "audience": 181.28,
+          "aggregate_critics": 73.61,
+          "broad_critic_points": 29.44,
+          "metacritic_component": 51.23,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Avengers: Infinity War",
+          "year": 2018,
+          "base_score": 186.41,
+          "new_score": 200.74,
+          "new_rank": 447,
+          "audience": 186.41,
+          "aggregate_critics": 35.82,
+          "broad_critic_points": 14.33,
+          "metacritic_component": 11.64,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Harry Potter and the Deathly Hallows: Part 2",
+          "year": 2011,
+          "base_score": 164.61,
+          "new_score": 198.85,
+          "new_rank": 456,
+          "audience": 164.61,
+          "aggregate_critics": 85.6,
+          "broad_critic_points": 34.24,
+          "metacritic_component": 71.21,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Prisoners",
+          "year": 2013,
+          "base_score": 183.34,
+          "new_score": 195.98,
+          "new_rank": 465,
+          "audience": 183.33,
+          "aggregate_critics": 31.59,
+          "broad_critic_points": 12.64,
+          "metacritic_component": 19.28,
+          "tomatoes_component": 43.91
+        },
+        {
+          "title": "Logan",
+          "year": 2017,
+          "base_score": 163.07,
+          "new_score": 190.62,
+          "new_rank": 497,
+          "audience": 163.08,
+          "aggregate_critics": 68.88,
+          "broad_critic_points": 27.55,
+          "metacritic_component": 45.75,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "The Dark Knight Rises",
+          "year": 2012,
+          "base_score": 164.36,
+          "new_score": 187.5,
+          "new_rank": 508,
+          "audience": 164.36,
+          "aggregate_critics": 57.84,
+          "broad_critic_points": 23.14,
+          "metacritic_component": 47.68,
+          "tomatoes_component": 68.0
+        },
+        {
+          "title": "Spider-Man: No Way Home",
+          "year": 2021,
+          "base_score": 162.81,
+          "new_score": 186.01,
+          "new_rank": 516,
+          "audience": 162.82,
+          "aggregate_critics": 58.0,
+          "broad_critic_points": 23.2,
+          "metacritic_component": 24.0,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Spider-Man: Brand New Day",
+          "year": 2026,
+          "base_score": 164.62,
+          "new_score": 181.4,
+          "new_rank": 543,
+          "audience": 164.61,
+          "aggregate_critics": 41.96,
+          "broad_critic_points": 16.78,
+          "metacritic_component": 3.92,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "Obsession",
+          "year": 2025,
+          "base_score": 153.07,
+          "new_score": 179.81,
+          "new_rank": 554,
+          "audience": 153.08,
+          "aggregate_critics": 66.84,
+          "broad_critic_points": 26.74,
+          "metacritic_component": 41.67,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Guardians of the Galaxy",
+          "year": 2014,
+          "base_score": 152.82,
+          "new_score": 178.11,
+          "new_rank": 560,
+          "audience": 152.82,
+          "aggregate_critics": 63.22,
+          "broad_critic_points": 25.29,
+          "metacritic_component": 42.43,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Warrior",
+          "year": 2011,
+          "base_score": 163.07,
+          "new_score": 177.57,
+          "new_rank": 563,
+          "audience": 163.08,
+          "aggregate_critics": 36.26,
+          "broad_critic_points": 14.5,
+          "metacritic_component": 20.27,
+          "tomatoes_component": 52.25
+        },
+        {
+          "title": "Batman Begins",
+          "year": 2005,
+          "base_score": 159.49,
+          "new_score": 175.05,
+          "new_rank": 573,
+          "audience": 159.49,
+          "aggregate_critics": 38.9,
+          "broad_critic_points": 15.56,
+          "metacritic_component": 17.8,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Ponyo",
+          "year": 2008,
+          "base_score": 146.41,
+          "new_score": 175.0,
+          "new_rank": 574,
+          "audience": 146.41,
+          "aggregate_critics": 71.47,
+          "broad_critic_points": 28.59,
+          "metacritic_component": 66.38,
+          "tomatoes_component": 76.55
+        },
+        {
+          "title": "Iron Man",
+          "year": 2008,
+          "base_score": 144.37,
+          "new_score": 173.29,
+          "new_rank": 584,
+          "audience": 144.36,
+          "aggregate_critics": 72.31,
+          "broad_critic_points": 28.92,
+          "metacritic_component": 48.62,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Guardians of the Galaxy Vol. 3",
+          "year": 2023,
+          "base_score": 157.95,
+          "new_score": 172.35,
+          "new_rank": 586,
+          "audience": 157.95,
+          "aggregate_critics": 36.0,
+          "broad_critic_points": 14.4,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 48.0
+        },
+        {
+          "title": "Mission: Impossible - Fallout",
+          "year": 2018,
+          "base_score": 134.61,
+          "new_score": 172.21,
+          "new_rank": 588,
+          "audience": 134.61,
+          "aggregate_critics": 94.0,
+          "broad_critic_points": 37.6,
+          "metacritic_component": 88.0,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
+          "year": 2003,
+          "base_score": 161.28,
+          "new_score": 171.69,
+          "new_rank": 589,
+          "audience": 161.28,
+          "aggregate_critics": 26.02,
+          "broad_critic_points": 10.41,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 34.69
+        },
+        {
+          "title": "Godzilla Minus One",
+          "year": 2023,
+          "base_score": 139.75,
+          "new_score": 169.66,
+          "new_rank": 597,
+          "audience": 139.75,
+          "aggregate_critics": 74.77,
+          "broad_critic_points": 29.91,
+          "metacritic_component": 53.51,
+          "tomatoes_component": 96.02
+        },
+        {
+          "title": "Skyfall",
+          "year": 2012,
+          "base_score": 137.94,
+          "new_score": 167.59,
+          "new_rank": 609,
+          "audience": 137.95,
+          "aggregate_critics": 74.13,
+          "broad_critic_points": 29.65,
+          "metacritic_component": 60.26,
+          "tomatoes_component": 88.0
+        },
+        {
+          "title": "The Avengers",
+          "year": 2012,
+          "base_score": 147.7,
+          "new_score": 167.39,
+          "new_rank": 612,
+          "audience": 147.69,
+          "aggregate_critics": 49.23,
+          "broad_critic_points": 19.69,
+          "metacritic_component": 14.46,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Tangled",
+          "year": 2010,
+          "base_score": 146.41,
+          "new_score": 165.24,
+          "new_rank": 619,
+          "audience": 146.41,
+          "aggregate_critics": 47.08,
+          "broad_critic_points": 18.83,
+          "metacritic_component": 20.07,
+          "tomatoes_component": 74.09
+        },
+        {
+          "title": "Harry Potter and the Goblet of Fire",
+          "year": 2005,
+          "base_score": 139.48,
+          "new_score": 164.99,
+          "new_rank": 621,
+          "audience": 139.49,
+          "aggregate_critics": 63.78,
+          "broad_critic_points": 25.51,
+          "metacritic_component": 55.57,
+          "tomatoes_component": 72.0
+        },
+        {
+          "title": "Star Trek",
+          "year": 2009,
+          "base_score": 132.57,
+          "new_score": 164.33,
+          "new_rank": 629,
+          "audience": 132.57,
+          "aggregate_critics": 79.39,
+          "broad_critic_points": 31.76,
+          "metacritic_component": 62.79,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "V for Vendetta",
+          "year": 2005,
+          "base_score": 156.15,
+          "new_score": 159.75,
+          "new_rank": 653,
+          "audience": 156.15,
+          "aggregate_critics": 9.0,
+          "broad_critic_points": 3.6,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 12.0
+        },
+        {
+          "title": "John Wick: Chapter 4",
+          "year": 2023,
+          "base_score": 129.49,
+          "new_score": 158.99,
+          "new_rank": 656,
+          "audience": 129.49,
+          "aggregate_critics": 73.75,
+          "broad_critic_points": 29.5,
+          "metacritic_component": 51.49,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "The Batman",
+          "year": 2022,
+          "base_score": 141.28,
+          "new_score": 158.88,
+          "new_rank": 658,
+          "audience": 141.28,
+          "aggregate_critics": 44.0,
+          "broad_critic_points": 17.6,
+          "metacritic_component": 28.0,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Captain Fantastic",
+          "year": 2016,
+          "base_score": 144.61,
+          "new_score": 158.75,
+          "new_rank": 660,
+          "audience": 144.61,
+          "aggregate_critics": 35.34,
+          "broad_critic_points": 14.14,
+          "metacritic_component": 23.87,
+          "tomatoes_component": 46.8
+        },
+        {
+          "title": "Cast Away",
+          "year": 2000,
+          "base_score": 139.48,
+          "new_score": 158.09,
+          "new_rank": 664,
+          "audience": 139.49,
+          "aggregate_critics": 46.52,
+          "broad_critic_points": 18.61,
+          "metacritic_component": 29.47,
+          "tomatoes_component": 63.56
+        },
+        {
+          "title": "Thor: Ragnarok",
+          "year": 2017,
+          "base_score": 129.24,
+          "new_score": 154.5,
+          "new_rank": 685,
+          "audience": 129.23,
+          "aggregate_critics": 63.16,
+          "broad_critic_points": 25.26,
+          "metacritic_component": 34.31,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Training Day",
+          "year": 2001,
+          "base_score": 146.41,
+          "new_score": 153.39,
+          "new_rank": 696,
+          "audience": 146.41,
+          "aggregate_critics": 17.45,
+          "broad_critic_points": 6.98,
+          "metacritic_component": 20.46,
+          "tomatoes_component": 14.44
+        },
+        {
+          "title": "Inside Job",
+          "year": 2010,
+          "base_score": 121.41,
+          "new_score": 152.96,
+          "new_rank": 698,
+          "audience": 121.41,
+          "aggregate_critics": 78.88,
+          "broad_critic_points": 31.55,
+          "metacritic_component": 70.8,
+          "tomatoes_component": 86.97
+        },
+        {
+          "title": "How to Train Your Dragon",
+          "year": 2025,
+          "base_score": 141.03,
+          "new_score": 150.63,
+          "new_rank": 710,
+          "audience": 141.03,
+          "aggregate_critics": 24.0,
+          "broad_critic_points": 9.6,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 32.0
+        },
+        {
+          "title": "Dawn of the Planet of the Apes",
+          "year": 2014,
+          "base_score": 122.82,
+          "new_score": 150.1,
+          "new_rank": 713,
+          "audience": 122.82,
+          "aggregate_critics": 68.19,
+          "broad_critic_points": 27.28,
+          "metacritic_component": 52.39,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Wonder",
+          "year": 2017,
+          "base_score": 137.44,
+          "new_score": 150.01,
+          "new_rank": 714,
+          "audience": 137.43,
+          "aggregate_critics": 31.43,
+          "broad_critic_points": 12.57,
+          "metacritic_component": 3.31,
+          "tomatoes_component": 59.55
+        },
+        {
+          "title": "Captain America: Civil War",
+          "year": 2016,
+          "base_score": 125.9,
+          "new_score": 149.57,
+          "new_rank": 715,
+          "audience": 125.9,
+          "aggregate_critics": 59.17,
+          "broad_critic_points": 23.67,
+          "metacritic_component": 38.35,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "X-Men: Days of Future Past",
+          "year": 2014,
+          "base_score": 125.9,
+          "new_score": 149.18,
+          "new_rank": 720,
+          "audience": 125.9,
+          "aggregate_critics": 58.21,
+          "broad_critic_points": 23.28,
+          "metacritic_component": 36.42,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "Mission: Impossible - Dead Reckoning Part One",
+          "year": 2023,
+          "base_score": 115.9,
+          "new_score": 148.7,
+          "new_rank": 725,
+          "audience": 115.9,
+          "aggregate_critics": 82.0,
+          "broad_critic_points": 32.8,
+          "metacritic_component": 64.0,
+          "tomatoes_component": 100.0
+        }
+      ]
+    },
+    "capped50_conservative": {
+      "variant": "capped50_conservative",
+      "curve": "conservative",
+      "broad_cap": 50,
+      "top100_overlap_with_base": 94,
+      "films_with_positive_critic_delta": 1248,
+      "mean_positive_critic_delta": 26.25,
+      "thresholds": {
+        "300": {
+          "selected": 183,
+          "promotions_vs_old": 40,
+          "old_qualified_retained": 143
+        },
+        "275": {
+          "selected": 232,
+          "promotions_vs_old": 74,
+          "old_qualified_retained": 158
+        },
+        "250": {
+          "selected": 288,
+          "promotions_vs_old": 106,
+          "old_qualified_retained": 182
+        },
+        "225": {
+          "selected": 366,
+          "promotions_vs_old": 160,
+          "old_qualified_retained": 206
+        },
+        "200": {
+          "selected": 473,
+          "promotions_vs_old": 249,
+          "old_qualified_retained": 224
+        }
+      },
+      "controls": {
+        "Blade Runner 2049": {
+          "base_score": 163.99,
+          "new_score": 197.51,
+          "base_rank": 527,
+          "new_rank": 483,
+          "old_critics": 0.0,
+          "metacritic": 62.05,
+          "tomatoes": 72.0,
+          "aggregate": 67.03,
+          "broad_points": 33.52,
+          "new_critics": 33.52
+        },
+        "Ex Machina": {
+          "base_score": 181.93,
+          "new_score": 215.59,
+          "base_rank": 443,
+          "new_rank": 404,
+          "old_critics": 0.0,
+          "metacritic": 46.65,
+          "tomatoes": 88.0,
+          "aggregate": 67.33,
+          "broad_points": 33.66,
+          "new_critics": 33.66
+        },
+        "Prisoners": {
+          "base_score": 183.34,
+          "new_score": 199.13,
+          "base_rank": 429,
+          "new_rank": 478,
+          "old_critics": 0.0,
+          "metacritic": 19.28,
+          "tomatoes": 43.91,
+          "aggregate": 31.59,
+          "broad_points": 15.79,
+          "new_critics": 15.79
+        },
+        "Shutter Island": {
+          "base_score": 181.54,
+          "new_score": 181.54,
+          "base_rank": 446,
+          "new_rank": 566,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 0.0,
+          "aggregate": 0.0,
+          "broad_points": 0.0,
+          "new_critics": 0.0
+        },
+        "The Batman": {
+          "base_score": 141.28,
+          "new_score": 163.28,
+          "base_rank": 658,
+          "new_rank": 659,
+          "old_critics": 0.0,
+          "metacritic": 28.0,
+          "tomatoes": 60.0,
+          "aggregate": 44.0,
+          "broad_points": 22.0,
+          "new_critics": 22.0
+        },
+        "Tenet": {
+          "base_score": 85.64,
+          "new_score": 91.32,
+          "base_rank": 1141,
+          "new_rank": 1201,
+          "old_critics": 0.0,
+          "metacritic": 15.16,
+          "tomatoes": 0.0,
+          "aggregate": 11.37,
+          "broad_points": 5.68,
+          "new_critics": 5.68
+        },
+        "The Machinist": {
+          "base_score": 114.37,
+          "new_score": 123.38,
+          "base_rank": 859,
+          "new_rank": 945,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 24.01,
+          "aggregate": 18.01,
+          "broad_points": 9.01,
+          "new_critics": 9.01
+        },
+        "Dune: Part Two": {
+          "base_score": 271.67,
+          "new_score": 307.67,
+          "base_rank": 179,
+          "new_rank": 165,
+          "old_critics": 0.0,
+          "metacritic": 56.0,
+          "tomatoes": 88.0,
+          "aggregate": 72.0,
+          "broad_points": 36.0,
+          "new_critics": 36.0
+        },
+        "Midsommar": {
+          "base_score": 138.2,
+          "new_score": 157.99,
+          "base_rank": 681,
+          "new_rank": 694,
+          "old_critics": 0.0,
+          "metacritic": 27.15,
+          "tomatoes": 52.0,
+          "aggregate": 39.58,
+          "broad_points": 19.79,
+          "new_critics": 19.79
+        },
+        "Nocturnal Animals": {
+          "base_score": 160.9,
+          "new_score": 166.73,
+          "base_rank": 543,
+          "new_rank": 640,
+          "old_critics": 0.0,
+          "metacritic": 7.34,
+          "tomatoes": 16.0,
+          "aggregate": 11.67,
+          "broad_points": 5.83,
+          "new_critics": 5.83
+        },
+        "Scott Pilgrim vs. the World": {
+          "base_score": 167.61,
+          "new_score": 184.09,
+          "base_rank": 508,
+          "new_rank": 556,
+          "old_critics": 0.0,
+          "metacritic": 13.89,
+          "tomatoes": 52.0,
+          "aggregate": 32.95,
+          "broad_points": 16.48,
+          "new_critics": 16.48
+        },
+        "La Commune (Paris, 1871)": {
+          "base_score": 115.88,
+          "new_score": 115.88,
+          "base_rank": 849,
+          "new_rank": 1000,
+          "old_critics": 0.0,
+          "metacritic": 0.0,
+          "tomatoes": 0.0,
+          "aggregate": 0.0,
+          "broad_points": 0.0,
+          "new_critics": 0.0
+        }
+      },
+      "newly_non_audience_covered_top40": [
+        {
+          "title": "The Odyssey",
+          "year": 2026,
+          "base_score": 196.67,
+          "new_score": 243.67,
+          "new_rank": 306,
+          "audience": 196.67,
+          "aggregate_critics": 94.0,
+          "broad_critic_points": 47.0,
+          "metacritic_component": 92.0,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Project Hail Mary",
+          "year": 2026,
+          "base_score": 190.01,
+          "new_score": 227.01,
+          "new_rank": 363,
+          "audience": 190.0,
+          "aggregate_critics": 74.0,
+          "broad_critic_points": 37.0,
+          "metacritic_component": 48.0,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Your Name.",
+          "year": 2016,
+          "base_score": 191.54,
+          "new_score": 224.27,
+          "new_rank": 372,
+          "audience": 191.54,
+          "aggregate_critics": 65.47,
+          "broad_critic_points": 32.73,
+          "metacritic_component": 48.56,
+          "tomatoes_component": 82.37
+        },
+        {
+          "title": "Avengers: Endgame",
+          "year": 2019,
+          "base_score": 181.28,
+          "new_score": 218.08,
+          "new_rank": 392,
+          "audience": 181.28,
+          "aggregate_critics": 73.61,
+          "broad_critic_points": 36.8,
+          "metacritic_component": 51.23,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Harry Potter and the Deathly Hallows: Part 2",
+          "year": 2011,
+          "base_score": 164.61,
+          "new_score": 207.41,
+          "new_rank": 440,
+          "audience": 164.61,
+          "aggregate_critics": 85.6,
+          "broad_critic_points": 42.8,
+          "metacritic_component": 71.21,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Avengers: Infinity War",
+          "year": 2018,
+          "base_score": 186.41,
+          "new_score": 204.32,
+          "new_rank": 455,
+          "audience": 186.41,
+          "aggregate_critics": 35.82,
+          "broad_critic_points": 17.91,
+          "metacritic_component": 11.64,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Prisoners",
+          "year": 2013,
+          "base_score": 183.34,
+          "new_score": 199.13,
+          "new_rank": 478,
+          "audience": 183.33,
+          "aggregate_critics": 31.59,
+          "broad_critic_points": 15.79,
+          "metacritic_component": 19.28,
+          "tomatoes_component": 43.91
+        },
+        {
+          "title": "Logan",
+          "year": 2017,
+          "base_score": 163.07,
+          "new_score": 197.51,
+          "new_rank": 484,
+          "audience": 163.08,
+          "aggregate_critics": 68.88,
+          "broad_critic_points": 34.44,
+          "metacritic_component": 45.75,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "The Dark Knight Rises",
+          "year": 2012,
+          "base_score": 164.36,
+          "new_score": 193.28,
+          "new_rank": 509,
+          "audience": 164.36,
+          "aggregate_critics": 57.84,
+          "broad_critic_points": 28.92,
+          "metacritic_component": 47.68,
+          "tomatoes_component": 68.0
+        },
+        {
+          "title": "Spider-Man: No Way Home",
+          "year": 2021,
+          "base_score": 162.81,
+          "new_score": 191.81,
+          "new_rank": 515,
+          "audience": 162.82,
+          "aggregate_critics": 58.0,
+          "broad_critic_points": 29.0,
+          "metacritic_component": 24.0,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Obsession",
+          "year": 2025,
+          "base_score": 153.07,
+          "new_score": 186.49,
+          "new_rank": 541,
+          "audience": 153.08,
+          "aggregate_critics": 66.84,
+          "broad_critic_points": 33.42,
+          "metacritic_component": 41.67,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "Spider-Man: Brand New Day",
+          "year": 2026,
+          "base_score": 164.62,
+          "new_score": 185.6,
+          "new_rank": 544,
+          "audience": 164.61,
+          "aggregate_critics": 41.96,
+          "broad_critic_points": 20.98,
+          "metacritic_component": 3.92,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "Guardians of the Galaxy",
+          "year": 2014,
+          "base_score": 152.82,
+          "new_score": 184.43,
+          "new_rank": 555,
+          "audience": 152.82,
+          "aggregate_critics": 63.22,
+          "broad_critic_points": 31.61,
+          "metacritic_component": 42.43,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Ponyo",
+          "year": 2008,
+          "base_score": 146.41,
+          "new_score": 182.14,
+          "new_rank": 564,
+          "audience": 146.41,
+          "aggregate_critics": 71.47,
+          "broad_critic_points": 35.73,
+          "metacritic_component": 66.38,
+          "tomatoes_component": 76.55
+        },
+        {
+          "title": "Mission: Impossible - Fallout",
+          "year": 2018,
+          "base_score": 134.61,
+          "new_score": 181.61,
+          "new_rank": 565,
+          "audience": 134.61,
+          "aggregate_critics": 94.0,
+          "broad_critic_points": 47.0,
+          "metacritic_component": 88.0,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Warrior",
+          "year": 2011,
+          "base_score": 163.07,
+          "new_score": 181.2,
+          "new_rank": 568,
+          "audience": 163.08,
+          "aggregate_critics": 36.26,
+          "broad_critic_points": 18.13,
+          "metacritic_component": 20.27,
+          "tomatoes_component": 52.25
+        },
+        {
+          "title": "Iron Man",
+          "year": 2008,
+          "base_score": 144.37,
+          "new_score": 180.53,
+          "new_rank": 571,
+          "audience": 144.36,
+          "aggregate_critics": 72.31,
+          "broad_critic_points": 36.16,
+          "metacritic_component": 48.62,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Batman Begins",
+          "year": 2005,
+          "base_score": 159.49,
+          "new_score": 178.94,
+          "new_rank": 580,
+          "audience": 159.49,
+          "aggregate_critics": 38.9,
+          "broad_critic_points": 19.45,
+          "metacritic_component": 17.8,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Godzilla Minus One",
+          "year": 2023,
+          "base_score": 139.75,
+          "new_score": 177.13,
+          "new_rank": 588,
+          "audience": 139.75,
+          "aggregate_critics": 74.77,
+          "broad_critic_points": 37.38,
+          "metacritic_component": 53.51,
+          "tomatoes_component": 96.02
+        },
+        {
+          "title": "Guardians of the Galaxy Vol. 3",
+          "year": 2023,
+          "base_score": 157.95,
+          "new_score": 175.95,
+          "new_rank": 593,
+          "audience": 157.95,
+          "aggregate_critics": 36.0,
+          "broad_critic_points": 18.0,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 48.0
+        },
+        {
+          "title": "Skyfall",
+          "year": 2012,
+          "base_score": 137.94,
+          "new_score": 175.0,
+          "new_rank": 599,
+          "audience": 137.95,
+          "aggregate_critics": 74.13,
+          "broad_critic_points": 37.06,
+          "metacritic_component": 60.26,
+          "tomatoes_component": 88.0
+        },
+        {
+          "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
+          "year": 2003,
+          "base_score": 161.28,
+          "new_score": 174.29,
+          "new_rank": 603,
+          "audience": 161.28,
+          "aggregate_critics": 26.02,
+          "broad_critic_points": 13.01,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 34.69
+        },
+        {
+          "title": "The Avengers",
+          "year": 2012,
+          "base_score": 147.7,
+          "new_score": 172.31,
+          "new_rank": 608,
+          "audience": 147.69,
+          "aggregate_critics": 49.23,
+          "broad_critic_points": 24.61,
+          "metacritic_component": 14.46,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Star Trek",
+          "year": 2009,
+          "base_score": 132.57,
+          "new_score": 172.27,
+          "new_rank": 609,
+          "audience": 132.57,
+          "aggregate_critics": 79.39,
+          "broad_critic_points": 39.7,
+          "metacritic_component": 62.79,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "Harry Potter and the Goblet of Fire",
+          "year": 2005,
+          "base_score": 139.48,
+          "new_score": 171.37,
+          "new_rank": 616,
+          "audience": 139.49,
+          "aggregate_critics": 63.78,
+          "broad_critic_points": 31.89,
+          "metacritic_component": 55.57,
+          "tomatoes_component": 72.0
+        },
+        {
+          "title": "Tangled",
+          "year": 2010,
+          "base_score": 146.41,
+          "new_score": 169.95,
+          "new_rank": 624,
+          "audience": 146.41,
+          "aggregate_critics": 47.08,
+          "broad_critic_points": 23.54,
+          "metacritic_component": 20.07,
+          "tomatoes_component": 74.09
+        },
+        {
+          "title": "John Wick: Chapter 4",
+          "year": 2023,
+          "base_score": 129.49,
+          "new_score": 166.37,
+          "new_rank": 642,
+          "audience": 129.49,
+          "aggregate_critics": 73.75,
+          "broad_critic_points": 36.88,
+          "metacritic_component": 51.49,
+          "tomatoes_component": 96.0
+        },
+        {
+          "title": "The Batman",
+          "year": 2022,
+          "base_score": 141.28,
+          "new_score": 163.28,
+          "new_rank": 659,
+          "audience": 141.28,
+          "aggregate_critics": 44.0,
+          "broad_critic_points": 22.0,
+          "metacritic_component": 28.0,
+          "tomatoes_component": 60.0
+        },
+        {
+          "title": "Cast Away",
+          "year": 2000,
+          "base_score": 139.48,
+          "new_score": 162.74,
+          "new_rank": 666,
+          "audience": 139.49,
+          "aggregate_critics": 46.52,
+          "broad_critic_points": 23.26,
+          "metacritic_component": 29.47,
+          "tomatoes_component": 63.56
+        },
+        {
+          "title": "Captain Fantastic",
+          "year": 2016,
+          "base_score": 144.61,
+          "new_score": 162.28,
+          "new_rank": 668,
+          "audience": 144.61,
+          "aggregate_critics": 35.34,
+          "broad_critic_points": 17.67,
+          "metacritic_component": 23.87,
+          "tomatoes_component": 46.8
+        },
+        {
+          "title": "Inside Job",
+          "year": 2010,
+          "base_score": 121.41,
+          "new_score": 160.85,
+          "new_rank": 679,
+          "audience": 121.41,
+          "aggregate_critics": 78.88,
+          "broad_critic_points": 39.44,
+          "metacritic_component": 70.8,
+          "tomatoes_component": 86.97
+        },
+        {
+          "title": "Thor: Ragnarok",
+          "year": 2017,
+          "base_score": 129.24,
+          "new_score": 160.82,
+          "new_rank": 680,
+          "audience": 129.23,
+          "aggregate_critics": 63.16,
+          "broad_critic_points": 31.58,
+          "metacritic_component": 34.31,
+          "tomatoes_component": 92.0
+        },
+        {
+          "title": "V for Vendetta",
+          "year": 2005,
+          "base_score": 156.15,
+          "new_score": 160.65,
+          "new_rank": 682,
+          "audience": 156.15,
+          "aggregate_critics": 9.0,
+          "broad_critic_points": 4.5,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 12.0
+        },
+        {
+          "title": "Dawn of the Planet of the Apes",
+          "year": 2014,
+          "base_score": 122.82,
+          "new_score": 156.91,
+          "new_rank": 700,
+          "audience": 122.82,
+          "aggregate_critics": 68.19,
+          "broad_critic_points": 34.09,
+          "metacritic_component": 52.39,
+          "tomatoes_component": 84.0
+        },
+        {
+          "title": "Mission: Impossible - Dead Reckoning Part One",
+          "year": 2023,
+          "base_score": 115.9,
+          "new_score": 156.9,
+          "new_rank": 701,
+          "audience": 115.9,
+          "aggregate_critics": 82.0,
+          "broad_critic_points": 41.0,
+          "metacritic_component": 64.0,
+          "tomatoes_component": 100.0
+        },
+        {
+          "title": "Captain America: Civil War",
+          "year": 2016,
+          "base_score": 125.9,
+          "new_score": 155.49,
+          "new_rank": 709,
+          "audience": 125.9,
+          "aggregate_critics": 59.17,
+          "broad_critic_points": 29.59,
+          "metacritic_component": 38.35,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "Training Day",
+          "year": 2001,
+          "base_score": 146.41,
+          "new_score": 155.13,
+          "new_rank": 714,
+          "audience": 146.41,
+          "aggregate_critics": 17.45,
+          "broad_critic_points": 8.72,
+          "metacritic_component": 20.46,
+          "tomatoes_component": 14.44
+        },
+        {
+          "title": "X-Men: Days of Future Past",
+          "year": 2014,
+          "base_score": 125.9,
+          "new_score": 155.01,
+          "new_rank": 715,
+          "audience": 125.9,
+          "aggregate_critics": 58.21,
+          "broad_critic_points": 29.11,
+          "metacritic_component": 36.42,
+          "tomatoes_component": 80.0
+        },
+        {
+          "title": "Wonder",
+          "year": 2017,
+          "base_score": 137.44,
+          "new_score": 153.15,
+          "new_rank": 723,
+          "audience": 137.43,
+          "aggregate_critics": 31.43,
+          "broad_critic_points": 15.71,
+          "metacritic_component": 3.31,
+          "tomatoes_component": 59.55
+        },
+        {
+          "title": "How to Train Your Dragon",
+          "year": 2025,
+          "base_score": 141.03,
+          "new_score": 153.03,
+          "new_rank": 724,
+          "audience": 141.03,
+          "aggregate_critics": 24.0,
+          "broad_critic_points": 12.0,
+          "metacritic_component": 0.0,
+          "tomatoes_component": 32.0
         }
       ]
     }
