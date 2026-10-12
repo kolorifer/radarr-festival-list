@@ -1,8 +1,7 @@
 """Runtime corrections layered over the evidence source builder.
 
-This wrapper preserves true Sight & Sound published positions when pre-2000 films
-are filtered and feeds the complete 2025 NYT top-100 CSV into the generic ranked
-source resolver.
+This wrapper preserves true Sight & Sound published positions and feeds complete,
+parseable BBC 2016 and NYT 2025 rankings into the generic ranked-source resolver.
 """
 import csv
 import io
@@ -10,6 +9,7 @@ import re
 
 import evidence_sources as es
 
+BBC_URL = "https://pt.wikipedia.org/wiki/Os_100_melhores_filmes_do_s%C3%A9culo_XXI_segundo_a_BBC"
 NYT_URL = "https://gist.githubusercontent.com/mvark/2273ae29bfc5d7033016df4b6cebbc6d/raw/b088026b06661cadfcd5386dd13507309140bfb3/NYT-100-Best-Movies.csv"
 _ORIGINAL_RANKED_PARSER = es.parse_wikipedia_ranked
 
@@ -47,6 +47,7 @@ def parse_ranked(text):
 
 
 def main():
+    es.BBC_URL = BBC_URL
     es.NYT_URL = NYT_URL
     es.parse_sight_sound = parse_sight_sound
     es.parse_wikipedia_ranked = parse_ranked
