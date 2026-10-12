@@ -1,0 +1,350 @@
+{
+  "mode": "research-critics-choice-best-picture-v1",
+  "qualification_unchanged": true,
+  "active_score_unchanged": true,
+  "source": "Critics Choice Awards official archive",
+  "archive_url": "https://www.criticschoice.com/critics-choice-awards-archives/",
+  "weighting": {
+    "winner": 25.0,
+    "nominee": 8.0,
+    "family": "critics_groups_consensus"
+  },
+  "pages_discovered": 26,
+  "pages_parsed": 0,
+  "page_errors": [
+    {
+      "url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "error": "BEST PICTURE block not found"
+    },
+    {
+      "url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "error": "BEST PICTURE block not found"
+    }
+  ],
+  "records": 0,
+  "resolved_records": 0,
+  "unresolved_records": [],
+  "thresholds": {
+    "300": {
+      "selected": 167,
+      "promotions_vs_old": 37,
+      "old_qualified_retained": 130
+    },
+    "275": {
+      "selected": 218,
+      "promotions_vs_old": 64,
+      "old_qualified_retained": 154
+    },
+    "250": {
+      "selected": 273,
+      "promotions_vs_old": 97,
+      "old_qualified_retained": 176
+    },
+    "225": {
+      "selected": 353,
+      "promotions_vs_old": 150,
+      "old_qualified_retained": 203
+    },
+    "200": {
+      "selected": 452,
+      "promotions_vs_old": 227,
+      "old_qualified_retained": 225
+    }
+  },
+  "hybrid": {
+    "policy": {
+      "new_floor": 225,
+      "legacy_floor": 175,
+      "protect_multi_route": true,
+      "min_non_audience_families": 2
+    },
+    "baseline": {
+      "selected": 388,
+      "promotions_vs_old": 149,
+      "legacy_retained": 239,
+      "legacy_dropped": 16
+    },
+    "experimental": {
+      "selected": 388,
+      "promotions_vs_old": 149,
+      "legacy_retained": 239,
+      "legacy_dropped": 16
+    }
+  },
+  "newly_selected": [],
+  "controls": {
+    "Blade Runner 2049": {
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "imdb_id": "tt1856101",
+      "base_score": 190.8,
+      "new_score": 190.8,
+      "base_rank": 496,
+      "new_rank": 496,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Ex Machina": {
+      "title": "Ex Machina",
+      "year": 2014,
+      "imdb_id": "tt0470752",
+      "base_score": 208.86,
+      "new_score": 208.86,
+      "base_rank": 410,
+      "new_rank": 410,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Scott Pilgrim vs. the World": {
+      "title": "Scott Pilgrim vs. the World",
+      "year": 2010,
+      "imdb_id": "tt0446029",
+      "base_score": 180.79,
+      "new_score": 180.79,
+      "base_rank": 548,
+      "new_rank": 548,
+      "cca": null,
+      "qualified_old": false
+    },
+    "The Batman": {
+      "title": "The Batman",
+      "year": 2022,
+      "imdb_id": "tt1877830",
+      "base_score": 158.88,
+      "new_score": 158.88,
+      "base_rank": 658,
+      "new_rank": 658,
+      "cca": null,
+      "qualified_old": false
+    },
+    "Tenet": {
+      "title": "Tenet",
+      "year": 2020,
+      "imdb_id": "tt6723592",
+      "base_score": 90.19,
+      "new_score": 90.19,
+      "base_rank": 1191,
+      "new_rank": 1191,
+      "cca": null,
+      "qualified_old": false
+    },
+    "The Machinist": {
+      "title": "The Machinist",
+      "year": 2004,
+      "imdb_id": "tt0361862",
+      "base_score": 121.57,
+      "new_score": 121.57,
+      "base_rank": 924,
+      "new_rank": 924,
+      "cca": null,
+      "qualified_old": false
+    },
+    "Dune: Part Two": {
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "imdb_id": "tt15239678",
+      "base_score": 300.47,
+      "new_score": 300.47,
+      "base_rank": 166,
+      "new_rank": 166,
+      "cca": null,
+      "qualified_old": false
+    },
+    "Midsommar": {
+      "title": "Midsommar",
+      "year": 2019,
+      "imdb_id": "tt8772262",
+      "base_score": 154.03,
+      "new_score": 154.03,
+      "base_rank": 691,
+      "new_rank": 691,
+      "cca": null,
+      "qualified_old": false
+    },
+    "Nocturnal Animals": {
+      "title": "Nocturnal Animals",
+      "year": 2016,
+      "imdb_id": "tt4550098",
+      "base_score": 165.57,
+      "new_score": 165.57,
+      "base_rank": 618,
+      "new_rank": 618,
+      "cca": null,
+      "qualified_old": false
+    },
+    "The Odyssey": {
+      "title": "The Odyssey",
+      "year": 2026,
+      "imdb_id": "tt33764258",
+      "base_score": 234.27,
+      "new_score": 234.27,
+      "base_rank": 317,
+      "new_rank": 317,
+      "cca": null,
+      "qualified_old": false
+    },
+    "1917": {
+      "title": "1917",
+      "year": 2019,
+      "imdb_id": "tt8579674",
+      "base_score": 337.72,
+      "new_score": 337.72,
+      "base_rank": 123,
+      "new_rank": 123,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Arrival": {
+      "title": "Arrival",
+      "year": 2016,
+      "imdb_id": "tt2543164",
+      "base_score": 442.68,
+      "new_score": 442.68,
+      "base_rank": 55,
+      "new_rank": 55,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Get Out": {
+      "title": "Get Out",
+      "year": 2017,
+      "imdb_id": "tt5052448",
+      "base_score": 541.95,
+      "new_score": 541.95,
+      "base_rank": 20,
+      "new_rank": 20,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Mad Max: Fury Road": {
+      "title": "Mad Max: Fury Road",
+      "year": 2015,
+      "imdb_id": "tt1392190",
+      "base_score": 560.38,
+      "new_score": 560.38,
+      "base_rank": 16,
+      "new_rank": 16,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Her": {
+      "title": "Her",
+      "year": 2013,
+      "imdb_id": "tt1798709",
+      "base_score": 428.51,
+      "new_score": 428.51,
+      "base_rank": 65,
+      "new_rank": 65,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Manchester by the Sea": {
+      "title": "Manchester by the Sea",
+      "year": 2016,
+      "imdb_id": "tt4034228",
+      "base_score": 380.48,
+      "new_score": 380.48,
+      "base_rank": 89,
+      "new_rank": 89,
+      "cca": null,
+      "qualified_old": true
+    }
+  },
+  "largest_changes": []
+}
