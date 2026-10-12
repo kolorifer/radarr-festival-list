@@ -28,7 +28,7 @@ permissions:
 
 concurrency:
   group: scoring-simulation-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   simulate:
