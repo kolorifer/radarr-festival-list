@@ -6,6 +6,8 @@ on:
     branches: [main, simulation-4-multi-route, simulation-4b-union-universe]
     paths:
       - simulate_scoring.py
+      - evidence_score.py
+      - test_evidence_score.py
       - phase_b_sources.py
       - audience-ratings.json
       - sources/phase-b-institutional.json
@@ -39,10 +41,15 @@ jobs:
                   rank = r['rank'] if r['rank'] is not None else 'OUT'
                   f.write(f"{i:02d}\t{rank}\t{r['year']}\t{r['title']}\t{','.join(r['routes'])}\n")
           PY
+      - name: Test and build normalized evidence scores
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: |
+          python -m unittest -v test_evidence_score.py
+          python evidence_score.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json evidence-scores.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
