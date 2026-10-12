@@ -5,6 +5,11 @@ Production feeds/scoring are untouched.
 Academy input is a static CSV mirror derived from the official Oscars ceremony pages.
 Using the mirror avoids oscars.org blocking GitHub-hosted runners while keeping the
 research build deterministic. The official Academy database remains the authority.
+
+Identity resolution is deliberately cache-first after the authoritative local TSPDT
+catalog. Previously verified identities from the committed Phase-B snapshot are reused
+before any live IMDb suggestion lookup. This prevents transient IMDb/network failures
+from shrinking the research universe between CI runs.
 """
 import csv, io, json, re, unicodedata
 from pathlib import Path
@@ -35,9 +40,37 @@ def canonical_index():
         idx.setdefault(norm(title),[]).append((iid,title,year))
     return idx
 
-def canonical_lookup(title,year,index):
+def cached_index(path=None):
+    """Previously verified Phase-B identities, keyed by source and resolved titles.
+
+    This is a reproducibility cache, not an independent evidence source. Entries are
+    only reused for the same normalized title and approximately the same film year.
+    """
+    path=path or OUT
+    if not path.exists(): return {}
+    try: data=json.loads(path.read_text(encoding='utf-8'))
+    except (OSError,json.JSONDecodeError): return {}
+    idx={}
+    for row in data.get('films',[]):
+        iid=row.get('imdb_id')
+        year=row.get('resolved_year') if isinstance(row.get('resolved_year'),int) else row.get('year')
+        if not iid or not isinstance(year,int): continue
+        titles=[]
+        for field in ('title','resolved_title'):
+            value=row.get(field)
+            if value and value not in titles: titles.append(value)
+        for title in titles:
+            idx.setdefault(norm(title),[]).append((iid,row.get('resolved_title') or row.get('title') or title,year))
+    return idx
+
+def exact_lookup(title,year,index):
     hits=[x for x in index.get(norm(title),[]) if abs(x[2]-year)<=1]
-    return hits[0] if len(hits)==1 else None
+    # De-duplicate aliases that point to the same verified IMDb identity.
+    unique={x[0]:x for x in hits}
+    return next(iter(unique.values())) if len(unique)==1 else None
+
+def canonical_lookup(title,year,index):
+    return exact_lookup(title,year,index)
 
 def imdb_lookup(title,year):
     """Resolve only plausible movie suggestions; never accept a loose title hit."""
@@ -95,25 +128,39 @@ def academy():
     return list(films.values())
 
 def main():
-    films=academy(); resolved=[]; unresolved=[]; known=canonical_index()
+    films=academy(); resolved=[]; unresolved=[]
+    known=canonical_index(); cached=cached_index()
+    resolution_counts={'canonical':0,'cached':0,'live_imdb':0,'unresolved':0}
     for i,f in enumerate(films,1):
         m=canonical_lookup(f['title'],f['year'],known)
+        resolution='canonical' if m else None
+        if not m:
+            m=exact_lookup(f['title'],f['year'],cached)
+            if m: resolution='cached'
         if not m:
             try: m=imdb_lookup(f['title'],f['year'])
             except Exception as e:
                 print('IMDb lookup error',f['title'],type(e).__name__); m=None
+            if m: resolution='live_imdb'
         if m:
             iid,title,year=m
             if MIN_FILM_YEAR<=year<=MAX_FILM_YEAR:
                 f.update(imdb_id=iid,resolved_title=title,resolved_year=year); resolved.append(f)
+                resolution_counts[resolution]+=1
             else:
-                unresolved.append(f)
-        else: unresolved.append(f)
+                unresolved.append(f); resolution_counts['unresolved']+=1
+        else:
+            unresolved.append(f); resolution_counts['unresolved']+=1
         if i%50==0: print('resolved',i,'/',len(films))
     seed={'title':'Nocturnal Animals','year':2016,'imdb_id':'tt4550098','institutional_strength':2,'signals':['Venice Grand Jury Prize']}
     if not any(x['imdb_id']==seed['imdb_id'] for x in resolved): resolved.append(seed)
     resolved.sort(key=lambda x:(x['year'],x['title']))
     OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text(json.dumps({'films':resolved,'unresolved':unresolved,'notes':'Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded. Existing TSPDT IDs are preferred before exact-title IMDb resolution.'},ensure_ascii=False,indent=2)+'\n')
-    print(json.dumps({'source_candidates':len(films),'resolved':len(resolved),'unresolved':len(unresolved)}))
+    OUT.write_text(json.dumps({
+        'films':resolved,
+        'unresolved':unresolved,
+        'resolution_counts':resolution_counts,
+        'notes':'Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded. Existing TSPDT IDs are preferred, then previously verified Phase-B identities are reused, and only unresolved identities use exact-title IMDb suggestions.'
+    },ensure_ascii=False,indent=2)+'\n')
+    print(json.dumps({'source_candidates':len(films),'resolved':len(resolved),'unresolved':len(unresolved),'resolution_counts':resolution_counts}))
 if __name__=='__main__': main()
