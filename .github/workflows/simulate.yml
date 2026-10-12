@@ -11,6 +11,7 @@ on:
       - evidence_sources_run.py
       - evidence_sources_extra.py
       - evidence_calibration.py
+      - audience_weight_sensitivity.py
       - test_evidence_score.py
       - test_evidence_sources.py
       - test_evidence_sources_extra.py
@@ -63,10 +64,13 @@ jobs:
       - name: Print calibration controls
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python evidence_calibration.py
+      - name: Compare audience weights
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python audience_weight_sensitivity.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json audience-weight-sensitivity.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
