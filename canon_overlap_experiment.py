@@ -20,12 +20,26 @@ VARIANTS = {
     "canon100_single_family": {"mode": "merge", "corroboration": 0.25, "cap": 100.0, "ceiling": 900},
 }
 
-CONTROLS = (
-    "There Will Be Blood", "Parasite", "Moonlight", "Mulholland Drive", "Get Out",
-    "The Tree of Life", "Mad Max: Fury Road", "Melancholia", "Yi Yi",
-    "The Gleaners & I", "Goodbye, Dragon Inn", "The Swamp", "Zama",
-    "Caché", "Dogville", "The Turin Horse", "Blade Runner 2049", "La Commune (Paris, 1871)",
-)
+CONTROLS = {
+    "There Will Be Blood": 2007,
+    "Parasite": 2019,
+    "Moonlight": 2016,
+    "Mulholland Drive": 2001,
+    "Get Out": 2017,
+    "The Tree of Life": 2011,
+    "Mad Max: Fury Road": 2015,
+    "Melancholia": 2011,
+    "Yi Yi": 2000,
+    "The Gleaners & I": 2000,
+    "Goodbye, Dragon Inn": 2003,
+    "The Swamp": 2001,
+    "Zama": 2017,
+    "Caché": 2005,
+    "Dogville": 2003,
+    "The Turin Horse": 2011,
+    "Blade Runner 2049": 2017,
+    "La Commune (Paris, 1871)": 2000,
+}
 
 
 def canon_points(tspdt, ss, spec):
@@ -59,6 +73,16 @@ def compact(row):
     }
 
 
+def control_lookup(rows, title, year):
+    matches = [
+        row for row in rows
+        if row.get("title") == title
+        and str(row.get("year") or "").isdigit()
+        and abs(int(row.get("year")) - int(year)) <= 1
+    ]
+    return matches[0] if len(matches) == 1 else None
+
+
 def run_variant(rows, name, spec):
     experimental = []
     for row in rows:
@@ -83,7 +107,6 @@ def run_variant(rows, name, spec):
 
     base_top100 = {r.get("imdb_id") for r in rows[:100]}
     top100 = {r.get("imdb_id") for r in experimental[:100]}
-    by_title = {r.get("title"): r for r in experimental}
     thresholds = {}
     for floor in (300, 275, 250, 225, 200):
         selected = [r for r in experimental if r["experimental_score"] >= floor and r.get("has_non_audience_evidence")]
@@ -94,12 +117,17 @@ def run_variant(rows, name, spec):
         }
     changed = [r for r in experimental if abs(r["_canon_delta"]) > 0.001]
     changed.sort(key=lambda r: (r["_canon_delta"], r.get("title") or ""))
+    controls = {}
+    for title, year in CONTROLS.items():
+        row = control_lookup(experimental, title, year)
+        if row:
+            controls[title] = compact(row)
     return {
         "variant": name,
         "score_ceiling": spec["ceiling"],
         "top100_overlap_with_base": len(base_top100 & top100),
         "thresholds": thresholds,
-        "controls": {title: compact(by_title[title]) for title in CONTROLS if title in by_title},
+        "controls": controls,
         "affected_films": len(changed),
         "largest_reductions": [compact(r) for r in changed[:40]],
     }
@@ -110,7 +138,7 @@ def main():
     rows = payload.get("films") or []
     results = {name: run_variant(rows, name, spec) for name, spec in VARIANTS.items()}
     out = {
-        "mode": "research-canon-overlap-experiment-v1",
+        "mode": "research-canon-overlap-experiment-v2-title-year-controls",
         "qualification_unchanged": True,
         "active_score_mode": payload.get("mode"),
         "reason": "TSPDT and Sight & Sound show 100% containment for the 29 modern S&S entries and Spearman rho ~0.83; test diminishing returns before freezing weights.",
