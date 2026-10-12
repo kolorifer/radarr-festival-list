@@ -17,8 +17,8 @@ class CriticsChoiceExperimentTests(unittest.TestCase):
     def test_best_picture_parser_marks_bold_winner_and_deduplicates(self):
         html = """
         <article><div class='entry-content'>
-        <p>FILM CATEGORIES<br>BEST PICTURE<br>Film A<br>Film B<br><strong>Film B</strong><br>Film C</p>
-        <p>BEST DIRECTOR<br><strong>Director X – Film B</strong></p>
+        <p>FILM CATEGORIES<br><strong>BEST PICTURE</strong><br>Film A<br>Film B<br><strong>Film B</strong><br>Film C</p>
+        <p><strong>BEST DIRECTOR</strong><br><strong>Director X – Film B</strong></p>
         </div></article>
         """
         rows = parse_best_picture_page(html, 2020, "https://example.test/2020")
