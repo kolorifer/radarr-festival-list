@@ -1,8 +1,9 @@
 """Research-only normalized multi-source evidence scoring.
 
-Each source family contributes at most 100 points. The raw overall score is the
-sum of independent families, so the ceiling grows naturally as genuinely new
-families are added. Phase-4 qualification routes remain unchanged.
+Each active source family contributes at most 100 points. IMDb and Letterboxd
+are now separate audience families (100 points each). TMDb audience evidence is
+calculated alongside them but kept experimental until the three audience-source
+modes are compared.
 """
 
 import json
@@ -18,7 +19,7 @@ OUTPUT = Path("evidence-scores.json")
 
 TSPDT_DEPTH = 1000
 RANKED_FAMILIES = ("sight_sound", "bbc_21c", "nyt_21c")
-ALL_FAMILIES = (
+NON_AUDIENCE_FAMILIES = (
     "tspdt_21c",
     "sight_sound",
     "bbc_21c",
@@ -27,8 +28,9 @@ ALL_FAMILIES = (
     "european_recognition",
     "independent_cinema",
     "critics_groups_consensus",
-    "audience_consensus",
 )
+ACTIVE_AUDIENCE_FAMILIES = ("imdb_audience", "letterboxd_audience")
+ALL_FAMILIES = NON_AUDIENCE_FAMILIES + ACTIVE_AUDIENCE_FAMILIES
 
 
 def ranked_points(rank, depth):
@@ -55,28 +57,41 @@ def log_confidence(votes, low=1000, full=100000):
     return clamp01(math.log10(votes / low) / math.log10(full / low))
 
 
-def audience_points(reeldb):
-    """One 0..100 audience family combining quality and breadth.
+def _rating_component(rating, votes, rating_floor, rating_full, vote_low, vote_full):
+    if not isinstance(rating, (int, float)) or not isinstance(votes, (int, float)):
+        return 0.0
+    if rating_full <= rating_floor:
+        return 0.0
+    quality = clamp01((float(rating) - rating_floor) / (rating_full - rating_floor)) * 100.0
+    return round(quality * log_confidence(votes, vote_low, vote_full), 2)
 
-    IMDb and Letterboxd each earn a quality score, then vote volume discounts
-    small samples. Popularity alone cannot exceed the family cap and a tiny cult
-    audience cannot masquerade as broad consensus.
+
+def imdb_points(reeldb):
+    imdb = (reeldb or {}).get("imdb") or {}
+    return _rating_component(imdb.get("rating"), imdb.get("votes"), 6.5, 8.5, 1000, 100000)
+
+
+def letterboxd_points(reeldb):
+    lb = (reeldb or {}).get("letterboxd") or {}
+    votes = lb.get("votes") if lb.get("votes") is not None else lb.get("ratings")
+    return _rating_component(lb.get("rating"), votes, 3.0, 4.3, 1000, 100000)
+
+
+def tmdb_points(reeldb):
+    """Experimental TMDb audience score, 0..100.
+
+    ReelDB exposes TMDb rating on a 0..100 scale. TMDb has a materially smaller
+    voting population than IMDb/Letterboxd, so breadth reaches full confidence
+    at 10k votes rather than 100k; 100 or fewer votes earn no breadth credit.
     """
-    if not isinstance(reeldb, dict):
-        return 0.0
-    components = []
-    imdb = reeldb.get("imdb") or {}
-    if isinstance(imdb.get("rating"), (int, float)) and isinstance(imdb.get("votes"), (int, float)):
-        quality = clamp01((float(imdb["rating"]) - 6.5) / 2.0) * 100.0
-        components.append(quality * log_confidence(imdb["votes"]))
-    lb = reeldb.get("letterboxd") or {}
-    lb_votes = lb.get("votes") if lb.get("votes") is not None else lb.get("ratings")
-    if isinstance(lb.get("rating"), (int, float)) and isinstance(lb_votes, (int, float)):
-        quality = clamp01((float(lb["rating"]) - 3.0) / 1.3) * 100.0
-        components.append(quality * log_confidence(lb_votes))
-    if not components:
-        return 0.0
-    return round(sum(components) / len(components), 2)
+    tmdb = (reeldb or {}).get("tmdb") or {}
+    return _rating_component(tmdb.get("rating"), tmdb.get("votes"), 65.0, 85.0, 100, 10000)
+
+
+def audience_points(reeldb):
+    """Legacy helper: mean of IMDb and Letterboxd component scores."""
+    components = [x for x in (imdb_points(reeldb), letterboxd_points(reeldb)) if x > 0]
+    return round(sum(components) / len(components), 2) if components else 0.0
 
 
 def _load(path, default):
@@ -120,6 +135,8 @@ def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
 
         points = {}
         evidence = {}
+        experimental_points = {}
+        experimental_evidence = {}
         eligibility = {key: True for key in ALL_FAMILIES}
 
         tspdt = ranked_points(tspdt_rank, TSPDT_DEPTH)
@@ -154,10 +171,18 @@ def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
                 evidence[key] = family_evidence.get(key, [])
 
         rr = (ratings.get(imdb_id) or {}).get("reeldb") or {}
-        audience_score = audience_points(rr)
-        if audience_score:
-            points["audience_consensus"] = audience_score
-            evidence["audience_consensus"] = ["IMDb + Letterboxd quality/breadth convergence"]
+        imdb_score = imdb_points(rr)
+        if imdb_score:
+            points["imdb_audience"] = imdb_score
+            evidence["imdb_audience"] = ["IMDb rating + vote breadth"]
+        lb_score = letterboxd_points(rr)
+        if lb_score:
+            points["letterboxd_audience"] = lb_score
+            evidence["letterboxd_audience"] = ["Letterboxd rating + vote breadth"]
+        tmdb_score = tmdb_points(rr)
+        if tmdb_score:
+            experimental_points["tmdb_audience"] = tmdb_score
+            experimental_evidence["tmdb_audience"] = ["TMDb rating + vote breadth (experimental)"]
 
         eligible_sources = [k for k, ok in eligibility.items() if ok]
         eligible_max = 100 * len(eligible_sources)
@@ -169,6 +194,8 @@ def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
             "tspdt_rank": tspdt_rank,
             "source_points": points,
             "source_evidence": evidence,
+            "experimental_source_points": experimental_points,
+            "experimental_source_evidence": experimental_evidence,
             "overall_score": total,
             "source_hits": len(points),
             "eligible_sources": len(eligible_sources),
@@ -193,14 +220,14 @@ def main():
     rows = build_rows(backcatalog, institutional, qualifiers, audience, snapshot)
 
     payload = {
-        "mode": "research-evidence-score-v3",
+        "mode": "research-evidence-score-v4-split-audience",
         "qualification_unchanged": True,
         "score_policy": {
             "per_source_family_scale": "0..100",
             "ranked_formula": "100 - 99 * (rank - 1) / (depth - 1)",
             "raw_score": "sum of independent eligible family points; not rescaled to 1000",
             "late_film_policy": "sources published before a film existed are ineligible, not zero",
-            "audience_policy": "one capped family; IMDb and Letterboxd ratings are discounted by log-scaled vote breadth",
+            "audience_policy": "IMDb and Letterboxd are independent active 0..100 sources; TMDb is calculated as an experimental third 0..100 source",
             "notes": [
                 "For a 100-item ranked list the mapping is exactly 100,99,...,1.",
                 "TSPDT preserves its full 1000-film depth on the same 1..100 scale.",
@@ -208,7 +235,8 @@ def main():
                 "European recognition = BAFTA + Cannes + Berlin + Venice + European Film Awards, capped at 100.",
                 "Independent cinema = Sundance + Film Independent Spirit + Gotham, capped at 100.",
                 "Critics-groups consensus = NSFC + NYFCC + LAFCA Best Film wins; 35 points per group, capped at 100.",
-                "Audience remains one 0..100 family for this calibration; its weight is intentionally unchanged until the expanded-source run is evaluated.",
+                "IMDb and Letterboxd each contribute up to 100 active points.",
+                "TMDb is present in ReelDB's cached payload already; no extra API calls are required for the comparison.",
             ],
         },
         "sources": {
@@ -220,14 +248,17 @@ def main():
             "european_recognition": {"type": "family", "max_points": 100},
             "independent_cinema": {"type": "family", "max_points": 100},
             "critics_groups_consensus": {"type": "family", "max_points": 100},
-            "audience_consensus": {"type": "family", "max_points": 100},
+            "imdb_audience": {"type": "audience", "max_points": 100, "active": True},
+            "letterboxd_audience": {"type": "audience", "max_points": 100, "active": True},
+            "tmdb_audience": {"type": "audience", "max_points": 100, "active": False, "experimental": True},
         },
-        "current_score_ceiling": 900,
+        "current_score_ceiling": 1000,
+        "experimental_three_source_ceiling": 1100,
         "count": len(rows),
         "films": rows,
     }
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({"films": len(rows), "score_ceiling": 900, "top": rows[:5]}))
+    print(json.dumps({"films": len(rows), "score_ceiling": 1000, "top": rows[:5]}))
 
 
 if __name__ == "__main__":
