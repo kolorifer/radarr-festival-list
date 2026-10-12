@@ -1,0 +1,6503 @@
+{
+  "mode": "audience-source-comparison-v1",
+  "production_unchanged": true,
+  "qualification_unchanged": true,
+  "film_count": 1319,
+  "modes": {
+    "two_source_200": "IMDb 0..100 + Letterboxd 0..100 (active baseline)",
+    "three_source_300": "IMDb 0..100 + Letterboxd 0..100 + TMDb 0..100",
+    "three_source_200": "IMDb + Letterboxd + TMDb equally weighted, combined audience cap 200"
+  },
+  "coverage": {
+    "imdb": {
+      "raw_rating_and_votes": 1314,
+      "positive_scored": 1123
+    },
+    "letterboxd": {
+      "raw_rating_and_votes": 1309,
+      "positive_scored": 1262
+    },
+    "tmdb": {
+      "raw_rating_and_votes": 1314,
+      "positive_scored": 916
+    }
+  },
+  "correlations": {
+    "imdb_vs_letterboxd": {
+      "n": 1113,
+      "pearson_points": 0.751,
+      "spearman_points": 0.751
+    },
+    "imdb_vs_tmdb": {
+      "n": 909,
+      "pearson_points": 0.857,
+      "spearman_points": 0.86
+    },
+    "letterboxd_vs_tmdb": {
+      "n": 913,
+      "pearson_points": 0.637,
+      "spearman_points": 0.667
+    }
+  },
+  "cutoff_deltas_vs_two_source_200": {
+    "three_source_300": {
+      "50": {
+        "overlap": 45,
+        "entered": [
+          {
+            "title": "The Dark Knight",
+            "year": 2008,
+            "imdb_id": "tt0468569",
+            "rank": 37,
+            "score": 533.57,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 100.0,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Lord of the Rings: The Fellowship of the Ring",
+            "year": 2001,
+            "imdb_id": "tt0120737",
+            "rank": 40,
+            "score": 527.76,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 95.0,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          },
+          {
+            "title": "Gladiator",
+            "year": 2000,
+            "imdb_id": "tt0172495",
+            "rank": 42,
+            "score": 518.77,
+            "imdb": 100.0,
+            "letterboxd": 92.31,
+            "tmdb": 85.0,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "institutional",
+              "convergence"
+            ]
+          },
+          {
+            "title": "Oldboy",
+            "year": 2003,
+            "imdb_id": "tt0364569",
+            "rank": 44,
+            "score": 506.34,
+            "imdb": 90.0,
+            "letterboxd": 100.0,
+            "tmdb": 85.0,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          },
+          {
+            "title": "Portrait of a Lady on Fire",
+            "year": 2019,
+            "imdb_id": "tt8613070",
+            "rank": 50,
+            "score": 488.88,
+            "imdb": 75.0,
+            "letterboxd": 100.0,
+            "tmdb": 59.47,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          }
+        ],
+        "exited": [
+          {
+            "title": "Tár",
+            "year": 2022,
+            "imdb_id": "tt14444726",
+            "rank": 45,
+            "score": 449.18,
+            "imdb": 45.0,
+            "letterboxd": 69.23,
+            "tmdb": 18.12,
+            "source_hits": 8,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Artist",
+            "year": 2011,
+            "imdb_id": "tt1655442",
+            "rank": 46,
+            "score": 447.27,
+            "imdb": 65.0,
+            "letterboxd": 61.54,
+            "tmdb": 35.09,
+            "source_hits": 7,
+            "qualified": true,
+            "routes": [
+              "institutional"
+            ]
+          },
+          {
+            "title": "The Tree of Life",
+            "year": 2011,
+            "imdb_id": "tt0478304",
+            "rank": 48,
+            "score": 436.85,
+            "imdb": 15.0,
+            "letterboxd": 61.54,
+            "tmdb": 7.68,
+            "source_hits": 8,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Lady Bird",
+            "year": 2017,
+            "imdb_id": "tt4925292",
+            "rank": 49,
+            "score": 436.45,
+            "imdb": 45.0,
+            "letterboxd": 61.54,
+            "tmdb": 34.38,
+            "source_hits": 7,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "Son of Saul",
+            "year": 2015,
+            "imdb_id": "tt3808342",
+            "rank": 50,
+            "score": 436.35,
+            "imdb": 39.15,
+            "letterboxd": 76.85,
+            "tmdb": 16.18,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          }
+        ]
+      },
+      "100": {
+        "overlap": 95,
+        "entered": [
+          {
+            "title": "Django Unchained",
+            "year": 2012,
+            "imdb_id": "tt1853728",
+            "rank": 80,
+            "score": 415.76,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 80.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Hunt",
+            "year": 2012,
+            "imdb_id": "tt2106476",
+            "rank": 88,
+            "score": 397.71,
+            "imdb": 90.0,
+            "letterboxd": 100.0,
+            "tmdb": 68.02,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Three Billboards outside Ebbing, Missouri",
+            "year": 2017,
+            "imdb_id": "tt5027774",
+            "rank": 93,
+            "score": 394.62,
+            "imdb": 80.0,
+            "letterboxd": 84.62,
+            "tmdb": 80.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Interstellar",
+            "year": 2014,
+            "imdb_id": "tt0816692",
+            "rank": 98,
+            "score": 390.55,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 95.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Avatar",
+            "year": 2009,
+            "imdb_id": "tt0499549",
+            "rank": 99,
+            "score": 389.35,
+            "imdb": 70.0,
+            "letterboxd": 61.54,
+            "tmdb": 55.0,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          }
+        ],
+        "exited": [
+          {
+            "title": "Caché",
+            "year": 2005,
+            "imdb_id": "tt0387898",
+            "rank": 84,
+            "score": 358.93,
+            "imdb": 39.2,
+            "letterboxd": 76.92,
+            "tmdb": 14.0,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Toni Erdmann",
+            "year": 2016,
+            "imdb_id": "tt4048272",
+            "rank": 85,
+            "score": 358.1,
+            "imdb": 34.93,
+            "letterboxd": 72.85,
+            "tmdb": 10.53,
+            "source_hits": 8,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Melancholia",
+            "year": 2011,
+            "imdb_id": "tt1527186",
+            "rank": 93,
+            "score": 349.56,
+            "imdb": 30.0,
+            "letterboxd": 61.54,
+            "tmdb": 23.95,
+            "source_hits": 7,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Zero Dark Thirty",
+            "year": 2012,
+            "imdb_id": "tt1790885",
+            "rank": 95,
+            "score": 346.63,
+            "imdb": 45.0,
+            "letterboxd": 53.85,
+            "tmdb": 17.03,
+            "source_hits": 7,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Y tu mamá también",
+            "year": 2001,
+            "imdb_id": "tt0245574",
+            "rank": 99,
+            "score": 343.77,
+            "imdb": 60.0,
+            "letterboxd": 92.31,
+            "tmdb": 28.5,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          }
+        ]
+      },
+      "200": {
+        "overlap": 186,
+        "entered": [
+          {
+            "title": "The Prestige",
+            "year": 2006,
+            "imdb_id": "tt0482571",
+            "rank": 145,
+            "score": 341.79,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 85.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Help",
+            "year": 2011,
+            "imdb_id": "tt1454029",
+            "rank": 146,
+            "score": 340.66,
+            "imdb": 80.0,
+            "letterboxd": 76.92,
+            "tmdb": 83.74,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Coco",
+            "year": 2017,
+            "imdb_id": "tt2380307",
+            "rank": 156,
+            "score": 334.62,
+            "imdb": 95.0,
+            "letterboxd": 84.62,
+            "tmdb": 80.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Room",
+            "year": 2015,
+            "imdb_id": "tt3170832",
+            "rank": 159,
+            "score": 332.08,
+            "imdb": 80.0,
+            "letterboxd": 76.92,
+            "tmdb": 69.82,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Top Gun: Maverick",
+            "year": 2022,
+            "imdb_id": "tt1745960",
+            "rank": 164,
+            "score": 326.09,
+            "imdb": 85.0,
+            "letterboxd": 76.92,
+            "tmdb": 85.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Mommy",
+            "year": 2014,
+            "imdb_id": "tt3612616",
+            "rank": 165,
+            "score": 326.0,
+            "imdb": 68.3,
+            "letterboxd": 100.0,
+            "tmdb": 62.2,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Spider-Man: Across the Spider-Verse",
+            "year": 2023,
+            "imdb_id": "tt9362722",
+            "rank": 167,
+            "score": 323.76,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 88.76,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Hacksaw Ridge",
+            "year": 2016,
+            "imdb_id": "tt2119532",
+            "rank": 172,
+            "score": 319.62,
+            "imdb": 80.0,
+            "letterboxd": 84.62,
+            "tmdb": 80.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Imitation Game",
+            "year": 2014,
+            "imdb_id": "tt2084970",
+            "rank": 179,
+            "score": 314.23,
+            "imdb": 75.0,
+            "letterboxd": 69.23,
+            "tmdb": 70.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Donnie Darko",
+            "year": 2001,
+            "imdb_id": "tt0246578",
+            "rank": 180,
+            "score": 313.57,
+            "imdb": 75.0,
+            "letterboxd": 76.92,
+            "tmdb": 60.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Little Women",
+            "year": 2019,
+            "imdb_id": "tt3281548",
+            "rank": 181,
+            "score": 313.03,
+            "imdb": 60.0,
+            "letterboxd": 92.31,
+            "tmdb": 60.04,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Life of Pi",
+            "year": 2012,
+            "imdb_id": "tt0454876",
+            "rank": 188,
+            "score": 310.54,
+            "imdb": 70.0,
+            "letterboxd": 61.54,
+            "tmdb": 45.0,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "District 9",
+            "year": 2009,
+            "imdb_id": "tt1136608",
+            "rank": 199,
+            "score": 304.62,
+            "imdb": 70.0,
+            "letterboxd": 61.54,
+            "tmdb": 50.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Downfall",
+            "year": 2004,
+            "imdb_id": "tt0363163",
+            "rank": 200,
+            "score": 304.29,
+            "imdb": 85.0,
+            "letterboxd": 84.62,
+            "tmdb": 53.68,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          }
+        ],
+        "exited": [
+          {
+            "title": "Beasts of the Southern Wild",
+            "year": 2012,
+            "imdb_id": "tt2125435",
+            "rank": 159,
+            "score": 293.9,
+            "imdb": 33.95,
+            "letterboxd": 57.76,
+            "tmdb": 8.04,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "In the Bedroom",
+            "year": 2001,
+            "imdb_id": "tt0247425",
+            "rank": 163,
+            "score": 291.54,
+            "imdb": 37.15,
+            "letterboxd": 51.68,
+            "tmdb": 6.24,
+            "source_hits": 6,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)",
+            "year": 2021,
+            "imdb_id": "tt7378922",
+            "rank": 169,
+            "score": 287.31,
+            "imdb": 44.64,
+            "letterboxd": 82.67,
+            "tmdb": 10.15,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Holy Motors",
+            "year": 2012,
+            "imdb_id": "tt2076220",
+            "rank": 176,
+            "score": 282.78,
+            "imdb": 21.42,
+            "letterboxd": 69.23,
+            "tmdb": 13.95,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Certified Copy",
+            "year": 2010,
+            "imdb_id": "tt1020773",
+            "rank": 178,
+            "score": 282.6,
+            "imdb": 25.69,
+            "letterboxd": 79.3,
+            "tmdb": 8.38,
+            "source_hits": 6,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Far from Heaven",
+            "year": 2002,
+            "imdb_id": "tt0297884",
+            "rank": 186,
+            "score": 275.67,
+            "imdb": 34.32,
+            "letterboxd": 53.64,
+            "tmdb": 10.52,
+            "source_hits": 6,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Worst Person in the World",
+            "year": 2021,
+            "imdb_id": "tt10370710",
+            "rank": 189,
+            "score": 274.05,
+            "imdb": 60.0,
+            "letterboxd": 84.62,
+            "tmdb": 29.23,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Descendants",
+            "year": 2011,
+            "imdb_id": "tt1033575",
+            "rank": 190,
+            "score": 273.69,
+            "imdb": 40.0,
+            "letterboxd": 46.15,
+            "tmdb": 11.25,
+            "source_hits": 7,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Quo Vadis, Aida?",
+            "year": 2020,
+            "imdb_id": "tt8633462",
+            "rank": 191,
+            "score": 273.4,
+            "imdb": 61.07,
+            "letterboxd": 77.74,
+            "tmdb": 19.17,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Gleaners & I",
+            "year": 2000,
+            "imdb_id": "tt0247380",
+            "rank": 194,
+            "score": 270.87,
+            "imdb": 30.52,
+            "letterboxd": 91.14,
+            "tmdb": 10.91,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Milk",
+            "year": 2008,
+            "imdb_id": "tt1013753",
+            "rank": 196,
+            "score": 268.26,
+            "imdb": 50.0,
+            "letterboxd": 61.54,
+            "tmdb": 24.48,
+            "source_hits": 6,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Brooklyn",
+            "year": 2015,
+            "imdb_id": "tt2381111",
+            "rank": 197,
+            "score": 267.6,
+            "imdb": 50.0,
+            "letterboxd": 61.54,
+            "tmdb": 30.45,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Pain and Glory",
+            "year": 2019,
+            "imdb_id": "tt8291806",
+            "rank": 198,
+            "score": 267.53,
+            "imdb": 45.79,
+            "letterboxd": 84.62,
+            "tmdb": 29.08,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Lust, Caution",
+            "year": 2007,
+            "imdb_id": "tt0808357",
+            "rank": 200,
+            "score": 265.8,
+            "imdb": 42.13,
+            "letterboxd": 63.64,
+            "tmdb": 16.27,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          }
+        ]
+      },
+      "300": {
+        "overlap": 278,
+        "entered": [
+          {
+            "title": "Soul",
+            "year": 2020,
+            "imdb_id": "tt2948372",
+            "rank": 205,
+            "score": 299.23,
+            "imdb": 75.0,
+            "letterboxd": 69.23,
+            "tmdb": 80.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "The Intouchables",
+            "year": 2011,
+            "imdb_id": "tt1675434",
+            "rank": 226,
+            "score": 289.31,
+            "imdb": 100.0,
+            "letterboxd": 92.31,
+            "tmdb": 85.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Monsters, Inc.",
+            "year": 2001,
+            "imdb_id": "tt0198781",
+            "rank": 232,
+            "score": 285.39,
+            "imdb": 80.0,
+            "letterboxd": 84.62,
+            "tmdb": 65.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Dallas Buyers Club",
+            "year": 2013,
+            "imdb_id": "tt0790636",
+            "rank": 244,
+            "score": 280.83,
+            "imdb": 70.0,
+            "letterboxd": 76.92,
+            "tmdb": 68.91,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Coraline",
+            "year": 2009,
+            "imdb_id": "tt0327597",
+            "rank": 245,
+            "score": 279.78,
+            "imdb": 65.0,
+            "letterboxd": 92.31,
+            "tmdb": 69.27,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Hidden Figures",
+            "year": 2016,
+            "imdb_id": "tt4846340",
+            "rank": 247,
+            "score": 279.23,
+            "imdb": 65.0,
+            "letterboxd": 69.23,
+            "tmdb": 80.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Klaus",
+            "year": 2019,
+            "imdb_id": "tt4729430",
+            "rank": 248,
+            "score": 278.97,
+            "imdb": 85.0,
+            "letterboxd": 92.31,
+            "tmdb": 71.66,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Pride & Prejudice",
+            "year": 2005,
+            "imdb_id": "tt0414387",
+            "rank": 250,
+            "score": 278.17,
+            "imdb": 65.0,
+            "letterboxd": 92.31,
+            "tmdb": 73.28,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Puss in Boots: The Last Wish",
+            "year": 2022,
+            "imdb_id": "tt3915174",
+            "rank": 259,
+            "score": 273.26,
+            "imdb": 70.0,
+            "letterboxd": 84.62,
+            "tmdb": 83.64,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Gran Torino",
+            "year": 2008,
+            "imdb_id": "tt1205489",
+            "rank": 262,
+            "score": 271.76,
+            "imdb": 80.0,
+            "letterboxd": 69.23,
+            "tmdb": 70.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Zootopia",
+            "year": 2016,
+            "imdb_id": "tt2948356",
+            "rank": 263,
+            "score": 271.54,
+            "imdb": 75.0,
+            "letterboxd": 61.54,
+            "tmdb": 60.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "The Theory of Everything",
+            "year": 2014,
+            "imdb_id": "tt2980516",
+            "rank": 267,
+            "score": 271.15,
+            "imdb": 60.0,
+            "letterboxd": 46.15,
+            "tmdb": 65.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Society of the Snow",
+            "year": 2023,
+            "imdb_id": "tt16277242",
+            "rank": 269,
+            "score": 270.98,
+            "imdb": 65.0,
+            "letterboxd": 92.31,
+            "tmdb": 58.67,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Shaun of the Dead",
+            "year": 2004,
+            "imdb_id": "tt0365748",
+            "rank": 270,
+            "score": 270.9,
+            "imdb": 65.0,
+            "letterboxd": 69.23,
+            "tmdb": 49.65,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Bohemian Rhapsody",
+            "year": 2018,
+            "imdb_id": "tt1727824",
+            "rank": 275,
+            "score": 268.46,
+            "imdb": 70.0,
+            "letterboxd": 38.46,
+            "tmdb": 70.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Trial of the Chicago 7",
+            "year": 2020,
+            "imdb_id": "tt1070874",
+            "rank": 278,
+            "score": 267.75,
+            "imdb": 60.0,
+            "letterboxd": 61.54,
+            "tmdb": 46.21,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "How to Train Your Dragon",
+            "year": 2010,
+            "imdb_id": "tt0892769",
+            "rank": 279,
+            "score": 267.31,
+            "imdb": 80.0,
+            "letterboxd": 92.31,
+            "tmdb": 65.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Mary and Max",
+            "year": 2009,
+            "imdb_id": "tt0978762",
+            "rank": 285,
+            "score": 266.15,
+            "imdb": 80.0,
+            "letterboxd": 100.0,
+            "tmdb": 47.99,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Martian",
+            "year": 2015,
+            "imdb_id": "tt3659388",
+            "rank": 295,
+            "score": 261.54,
+            "imdb": 75.0,
+            "letterboxd": 61.54,
+            "tmdb": 60.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Wolfwalkers",
+            "year": 2020,
+            "imdb_id": "tt5198068",
+            "rank": 296,
+            "score": 261.02,
+            "imdb": 62.49,
+            "letterboxd": 92.31,
+            "tmdb": 46.63,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Guillermo del Toro's Pinocchio",
+            "year": 2022,
+            "imdb_id": "tt1488589",
+            "rank": 297,
+            "score": 260.9,
+            "imdb": 55.0,
+            "letterboxd": 76.92,
+            "tmdb": 53.98,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "Paprika",
+            "year": 2006,
+            "imdb_id": "tt0851578",
+            "rank": 300,
+            "score": 259.86,
+            "imdb": 60.0,
+            "letterboxd": 84.62,
+            "tmdb": 48.04,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          }
+        ],
+        "exited": [
+          {
+            "title": "You Can Count on Me",
+            "year": 2000,
+            "imdb_id": "tt0203230",
+            "rank": 243,
+            "score": 244.33,
+            "imdb": 38.25,
+            "letterboxd": 52.45,
+            "tmdb": 5.66,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Distant",
+            "year": 2002,
+            "imdb_id": "tt0346094",
+            "rank": 246,
+            "score": 243.74,
+            "imdb": 34.98,
+            "letterboxd": 52.38,
+            "tmdb": 6.45,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Never Rarely Sometimes Always",
+            "year": 2020,
+            "imdb_id": "tt7772582",
+            "rank": 255,
+            "score": 240.04,
+            "imdb": 29.55,
+            "letterboxd": 76.92,
+            "tmdb": 11.73,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "American Honey",
+            "year": 2016,
+            "imdb_id": "tt3721936",
+            "rank": 260,
+            "score": 237.66,
+            "imdb": 21.28,
+            "letterboxd": 61.54,
+            "tmdb": 7.35,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Songs from the Second Floor",
+            "year": 2000,
+            "imdb_id": "tt0120263",
+            "rank": 261,
+            "score": 237.43,
+            "imdb": 33.45,
+            "letterboxd": 58.14,
+            "tmdb": 6.46,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Chicago",
+            "year": 2002,
+            "imdb_id": "tt0299658",
+            "rank": 262,
+            "score": 236.92,
+            "imdb": 35.0,
+            "letterboxd": 76.92,
+            "tmdb": 22.15,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "institutional"
+            ]
+          },
+          {
+            "title": "The Wind That Shakes the Barley",
+            "year": 2006,
+            "imdb_id": "tt0460989",
+            "rank": 267,
+            "score": 234.28,
+            "imdb": 44.43,
+            "letterboxd": 75.34,
+            "tmdb": 19.41,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Child",
+            "year": 2005,
+            "imdb_id": "tt0456396",
+            "rank": 268,
+            "score": 233.67,
+            "imdb": 29.39,
+            "letterboxd": 43.09,
+            "tmdb": 5.87,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Motorcycle Diaries",
+            "year": 2004,
+            "imdb_id": "tt0318462",
+            "rank": 270,
+            "score": 233.09,
+            "imdb": 60.0,
+            "letterboxd": 76.92,
+            "tmdb": 26.3,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Crash",
+            "year": 2004,
+            "imdb_id": "tt0375679",
+            "rank": 273,
+            "score": 230.96,
+            "imdb": 60.0,
+            "letterboxd": 0.0,
+            "tmdb": 28.1,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "institutional"
+            ]
+          },
+          {
+            "title": "Petite Maman",
+            "year": 2021,
+            "imdb_id": "tt13204490",
+            "rank": 281,
+            "score": 227.09,
+            "imdb": 26.59,
+            "letterboxd": 84.62,
+            "tmdb": 10.29,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "All the Beauty and the Bloodshed",
+            "year": 2022,
+            "imdb_id": "tt21374850",
+            "rank": 282,
+            "score": 227.03,
+            "imdb": 24.4,
+            "letterboxd": 84.09,
+            "tmdb": 3.68,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Munich",
+            "year": 2005,
+            "imdb_id": "tt0408306",
+            "rank": 285,
+            "score": 226.4,
+            "imdb": 50.0,
+            "letterboxd": 61.54,
+            "tmdb": 22.38,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Assassination of Jesse James by the Coward Robert Ford",
+            "year": 2007,
+            "imdb_id": "tt0443680",
+            "rank": 288,
+            "score": 226.1,
+            "imdb": 50.0,
+            "letterboxd": 76.92,
+            "tmdb": 21.93,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Under the Skin",
+            "year": 2013,
+            "imdb_id": "tt1441395",
+            "rank": 290,
+            "score": 225.67,
+            "imdb": 0.0,
+            "letterboxd": 46.15,
+            "tmdb": 0.0,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Paddington 2",
+            "year": 2017,
+            "imdb_id": "tt4468740",
+            "rank": 291,
+            "score": 225.64,
+            "imdb": 65.0,
+            "letterboxd": 84.62,
+            "tmdb": 32.99,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Borat",
+            "year": 2006,
+            "imdb_id": "tt0443453",
+            "rank": 292,
+            "score": 225.44,
+            "imdb": 45.0,
+            "letterboxd": 53.85,
+            "tmdb": 8.96,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "13th",
+            "year": 2016,
+            "imdb_id": "tt5895028",
+            "rank": 293,
+            "score": 225.3,
+            "imdb": 67.94,
+            "letterboxd": 100.0,
+            "tmdb": 29.61,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Still Walking",
+            "year": 2008,
+            "imdb_id": "tt1087578",
+            "rank": 294,
+            "score": 225.22,
+            "imdb": 46.64,
+            "letterboxd": 92.75,
+            "tmdb": 21.84,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Happy as Lazzaro",
+            "year": 2018,
+            "imdb_id": "tt6752992",
+            "rank": 296,
+            "score": 224.23,
+            "imdb": 34.32,
+            "letterboxd": 82.97,
+            "tmdb": 20.23,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "On Body and Soul",
+            "year": 2017,
+            "imdb_id": "tt5607714",
+            "rank": 297,
+            "score": 223.47,
+            "imdb": 37.56,
+            "letterboxd": 48.49,
+            "tmdb": 14.08,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Assassin",
+            "year": 2015,
+            "imdb_id": "tt3508840",
+            "rank": 298,
+            "score": 223.29,
+            "imdb": 0.0,
+            "letterboxd": 29.28,
+            "tmdb": 0.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          }
+        ]
+      },
+      "500": {
+        "overlap": 474,
+        "entered": [
+          {
+            "title": "The Hateful Eight",
+            "year": 2015,
+            "imdb_id": "tt3460252",
+            "rank": 377,
+            "score": 228.24,
+            "imdb": 65.0,
+            "letterboxd": 76.92,
+            "tmdb": 65.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Knives Out",
+            "year": 2019,
+            "imdb_id": "tt8946378",
+            "rank": 388,
+            "score": 225.5,
+            "imdb": 70.0,
+            "letterboxd": 76.92,
+            "tmdb": 65.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "How to Train Your Dragon 2",
+            "year": 2014,
+            "imdb_id": "tt1646971",
+            "rank": 391,
+            "score": 224.23,
+            "imdb": 65.0,
+            "letterboxd": 69.23,
+            "tmdb": 60.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Notebook",
+            "year": 2004,
+            "imdb_id": "tt0332280",
+            "rank": 416,
+            "score": 217.22,
+            "imdb": 65.0,
+            "letterboxd": 69.23,
+            "tmdb": 70.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Scott Pilgrim vs. the World",
+            "year": 2010,
+            "imdb_id": "tt0446029",
+            "rank": 432,
+            "score": 212.8,
+            "imdb": 50.0,
+            "letterboxd": 69.23,
+            "tmdb": 48.77,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Star Wars: Episode III - Revenge of the Sith",
+            "year": 2005,
+            "imdb_id": "tt0121766",
+            "rank": 434,
+            "score": 212.42,
+            "imdb": 60.0,
+            "letterboxd": 84.62,
+            "tmdb": 45.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Ocean's Eleven",
+            "year": 2001,
+            "imdb_id": "tt0240772",
+            "rank": 435,
+            "score": 211.92,
+            "imdb": 60.0,
+            "letterboxd": 76.92,
+            "tmdb": 45.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Others",
+            "year": 2001,
+            "imdb_id": "tt0230600",
+            "rank": 439,
+            "score": 210.88,
+            "imdb": 55.0,
+            "letterboxd": 61.54,
+            "tmdb": 51.51,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Lilo & Stitch",
+            "year": 2002,
+            "imdb_id": "tt0275847",
+            "rank": 440,
+            "score": 210.82,
+            "imdb": 45.0,
+            "letterboxd": 84.62,
+            "tmdb": 51.2,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Shrek 2",
+            "year": 2004,
+            "imdb_id": "tt0298148",
+            "rank": 442,
+            "score": 209.62,
+            "imdb": 45.0,
+            "letterboxd": 84.62,
+            "tmdb": 40.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Bourne Ultimatum",
+            "year": 2007,
+            "imdb_id": "tt0440963",
+            "rank": 443,
+            "score": 209.41,
+            "imdb": 75.0,
+            "letterboxd": 53.85,
+            "tmdb": 43.59,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "I Saw the Devil",
+            "year": 2010,
+            "imdb_id": "tt1588170",
+            "rank": 447,
+            "score": 208.82,
+            "imdb": 65.0,
+            "letterboxd": 76.92,
+            "tmdb": 48.85,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Raid 2",
+            "year": 2014,
+            "imdb_id": "tt2265171",
+            "rank": 454,
+            "score": 207.83,
+            "imdb": 70.0,
+            "letterboxd": 76.92,
+            "tmdb": 39.4,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Nocturnal Animals",
+            "year": 2016,
+            "imdb_id": "tt4550098",
+            "rank": 458,
+            "score": 207.28,
+            "imdb": 45.0,
+            "letterboxd": 53.85,
+            "tmdb": 43.43,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Blind Side",
+            "year": 2009,
+            "imdb_id": "tt0878804",
+            "rank": 463,
+            "score": 206.18,
+            "imdb": 55.0,
+            "letterboxd": 30.77,
+            "tmdb": 55.41,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "28 Days Later",
+            "year": 2002,
+            "imdb_id": "tt0289043",
+            "rank": 467,
+            "score": 204.51,
+            "imdb": 50.0,
+            "letterboxd": 53.85,
+            "tmdb": 34.16,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Hamnet",
+            "year": 2025,
+            "imdb_id": "tt14905854",
+            "rank": 470,
+            "score": 203.98,
+            "imdb": 65.0,
+            "letterboxd": 92.31,
+            "tmdb": 36.67,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Moon",
+            "year": 2009,
+            "imdb_id": "tt1182345",
+            "rank": 472,
+            "score": 203.74,
+            "imdb": 65.0,
+            "letterboxd": 61.54,
+            "tmdb": 49.94,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Encanto",
+            "year": 2021,
+            "imdb_id": "tt2953050",
+            "rank": 473,
+            "score": 203.46,
+            "imdb": 35.0,
+            "letterboxd": 38.46,
+            "tmdb": 55.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Citizenfour",
+            "year": 2014,
+            "imdb_id": "tt4044364",
+            "rank": 474,
+            "score": 203.2,
+            "imdb": 66.8,
+            "letterboxd": 66.41,
+            "tmdb": 34.9,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Man on Fire",
+            "year": 2004,
+            "imdb_id": "tt0328107",
+            "rank": 478,
+            "score": 201.49,
+            "imdb": 60.0,
+            "letterboxd": 61.54,
+            "tmdb": 39.9,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Luca",
+            "year": 2021,
+            "imdb_id": "tt12801262",
+            "rank": 485,
+            "score": 197.61,
+            "imdb": 45.0,
+            "letterboxd": 53.85,
+            "tmdb": 63.76,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "500 Days of Summer",
+            "year": 2009,
+            "imdb_id": "tt1022603",
+            "rank": 489,
+            "score": 197.23,
+            "imdb": 55.0,
+            "letterboxd": 46.15,
+            "tmdb": 40.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Chorus",
+            "year": 2004,
+            "imdb_id": "tt0372824",
+            "rank": 491,
+            "score": 196.97,
+            "imdb": 65.23,
+            "letterboxd": 76.92,
+            "tmdb": 42.82,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Mitchells vs. the Machines",
+            "year": 2021,
+            "imdb_id": "tt7979580",
+            "rank": 493,
+            "score": 196.81,
+            "imdb": 55.0,
+            "letterboxd": 61.54,
+            "tmdb": 50.27,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Breadwinner",
+            "year": 2017,
+            "imdb_id": "tt3901826",
+            "rank": 497,
+            "score": 196.41,
+            "imdb": 44.9,
+            "letterboxd": 84.62,
+            "tmdb": 31.89,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          }
+        ],
+        "exited": [
+          {
+            "title": "Silent Light",
+            "year": 2007,
+            "imdb_id": "tt0841925",
+            "rank": 420,
+            "score": 191.26,
+            "imdb": 15.07,
+            "letterboxd": 33.52,
+            "tmdb": 1.14,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Wendy and Lucy",
+            "year": 2008,
+            "imdb_id": "tt1152850",
+            "rank": 430,
+            "score": 188.55,
+            "imdb": 19.94,
+            "letterboxd": 59.31,
+            "tmdb": 4.28,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Goodbye, Dragon Inn",
+            "year": 2003,
+            "imdb_id": "tt0377556",
+            "rank": 433,
+            "score": 187.65,
+            "imdb": 13.02,
+            "letterboxd": 66.12,
+            "tmdb": 2.12,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Crip Camp",
+            "year": 2020,
+            "imdb_id": "tt8923484",
+            "rank": 434,
+            "score": 187.6,
+            "imdb": 28.41,
+            "letterboxd": 65.91,
+            "tmdb": 4.03,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Of Gods and Men",
+            "year": 2010,
+            "imdb_id": "tt1588337",
+            "rank": 436,
+            "score": 187.19,
+            "imdb": 21.48,
+            "letterboxd": 32.28,
+            "tmdb": 3.14,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Death of Mr. Lazarescu",
+            "year": 2005,
+            "imdb_id": "tt0456149",
+            "rank": 438,
+            "score": 186.61,
+            "imdb": 40.14,
+            "letterboxd": 50.73,
+            "tmdb": 7.01,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Tabu",
+            "year": 2012,
+            "imdb_id": "tt2153963",
+            "rank": 440,
+            "score": 186.32,
+            "imdb": 18.07,
+            "letterboxd": 38.85,
+            "tmdb": 3.16,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Saint Omer",
+            "year": 2022,
+            "imdb_id": "tt15376894",
+            "rank": 441,
+            "score": 186.14,
+            "imdb": 4.06,
+            "letterboxd": 47.9,
+            "tmdb": 0.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Bridesmaids",
+            "year": 2011,
+            "imdb_id": "tt1478338",
+            "rank": 443,
+            "score": 185.54,
+            "imdb": 15.0,
+            "letterboxd": 30.77,
+            "tmdb": 0.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Beaches of Agnès",
+            "year": 2008,
+            "imdb_id": "tt1129435",
+            "rank": 445,
+            "score": 185.14,
+            "imdb": 27.59,
+            "letterboxd": 76.68,
+            "tmdb": 5.02,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Le Havre",
+            "year": 2011,
+            "imdb_id": "tt1508675",
+            "rank": 451,
+            "score": 182.44,
+            "imdb": 24.67,
+            "letterboxd": 53.91,
+            "tmdb": 8.73,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Souvenir",
+            "year": 2019,
+            "imdb_id": "tt6920356",
+            "rank": 463,
+            "score": 179.23,
+            "imdb": 0.0,
+            "letterboxd": 34.79,
+            "tmdb": 0.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Inland Empire",
+            "year": 2006,
+            "imdb_id": "tt0460829",
+            "rank": 466,
+            "score": 178.21,
+            "imdb": 13.84,
+            "letterboxd": 69.23,
+            "tmdb": 14.02,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Secret Sunshine",
+            "year": 2007,
+            "imdb_id": "tt0817225",
+            "rank": 467,
+            "score": 178.09,
+            "imdb": 26.11,
+            "letterboxd": 63.58,
+            "tmdb": 6.9,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "You Were Never Really Here",
+            "year": 2017,
+            "imdb_id": "tt5742374",
+            "rank": 468,
+            "score": 177.9,
+            "imdb": 10.0,
+            "letterboxd": 53.85,
+            "tmdb": 0.0,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Wonders",
+            "year": 2014,
+            "imdb_id": "tt3044244",
+            "rank": 469,
+            "score": 177.75,
+            "imdb": 4.16,
+            "letterboxd": 38.82,
+            "tmdb": 2.6,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Russian Ark",
+            "year": 2002,
+            "imdb_id": "tt0318034",
+            "rank": 471,
+            "score": 177.44,
+            "imdb": 23.91,
+            "letterboxd": 49.48,
+            "tmdb": 12.56,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "The Swamp",
+            "year": 2001,
+            "imdb_id": "tt0240419",
+            "rank": 473,
+            "score": 176.81,
+            "imdb": 12.38,
+            "letterboxd": 65.82,
+            "tmdb": 1.84,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Sorry to Bother You",
+            "year": 2018,
+            "imdb_id": "tt5688932",
+            "rank": 475,
+            "score": 176.39,
+            "imdb": 19.82,
+            "letterboxd": 53.85,
+            "tmdb": 6.36,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Ghost World",
+            "year": 2001,
+            "imdb_id": "tt0162346",
+            "rank": 479,
+            "score": 174.94,
+            "imdb": 40.0,
+            "letterboxd": 46.15,
+            "tmdb": 15.2,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Tomboy",
+            "year": 2011,
+            "imdb_id": "tt1847731",
+            "rank": 481,
+            "score": 174.49,
+            "imdb": 30.86,
+            "letterboxd": 75.74,
+            "tmdb": 17.74,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Memoria",
+            "year": 2021,
+            "imdb_id": "tt8399288",
+            "rank": 485,
+            "score": 174.22,
+            "imdb": 0.0,
+            "letterboxd": 56.72,
+            "tmdb": 0.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Time",
+            "year": 2021,
+            "imdb_id": "tt13138834",
+            "rank": 488,
+            "score": 173.06,
+            "imdb": 60.5,
+            "letterboxd": 41.2,
+            "tmdb": 12.38,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Take Shelter",
+            "year": 2011,
+            "imdb_id": "tt1675192",
+            "rank": 491,
+            "score": 172.15,
+            "imdb": 40.0,
+            "letterboxd": 61.54,
+            "tmdb": 16.49,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Blue Valentine",
+            "year": 2010,
+            "imdb_id": "tt1120985",
+            "rank": 495,
+            "score": 171.28,
+            "imdb": 40.0,
+            "letterboxd": 61.54,
+            "tmdb": 19.51,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Millennium Mambo",
+            "year": 2001,
+            "imdb_id": "tt0283283",
+            "rank": 499,
+            "score": 170.87,
+            "imdb": 9.46,
+            "letterboxd": 59.34,
+            "tmdb": 5.35,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          }
+        ]
+      }
+    },
+    "three_source_200": {
+      "50": {
+        "overlap": 47,
+        "entered": [
+          {
+            "title": "The Dark Knight",
+            "year": 2008,
+            "imdb_id": "tt0468569",
+            "rank": 45,
+            "score": 433.57,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 100.0,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Lord of the Rings: The Fellowship of the Ring",
+            "year": 2001,
+            "imdb_id": "tt0120737",
+            "rank": 46,
+            "score": 429.43,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 95.0,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          },
+          {
+            "title": "Gladiator",
+            "year": 2000,
+            "imdb_id": "tt0172495",
+            "rank": 48,
+            "score": 426.33,
+            "imdb": 100.0,
+            "letterboxd": 92.31,
+            "tmdb": 85.0,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "institutional",
+              "convergence"
+            ]
+          }
+        ],
+        "exited": [
+          {
+            "title": "Children of Men",
+            "year": 2006,
+            "imdb_id": "tt0206634",
+            "rank": 47,
+            "score": 441.64,
+            "imdb": 70.0,
+            "letterboxd": 100.0,
+            "tmdb": 52.6,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Tree of Life",
+            "year": 2011,
+            "imdb_id": "tt0478304",
+            "rank": 48,
+            "score": 436.85,
+            "imdb": 15.0,
+            "letterboxd": 61.54,
+            "tmdb": 7.68,
+            "source_hits": 8,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Son of Saul",
+            "year": 2015,
+            "imdb_id": "tt3808342",
+            "rank": 50,
+            "score": 436.35,
+            "imdb": 39.15,
+            "letterboxd": 76.85,
+            "tmdb": 16.18,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          }
+        ]
+      },
+      "100": {
+        "overlap": 98,
+        "entered": [
+          {
+            "title": "Avatar",
+            "year": 2009,
+            "imdb_id": "tt0499549",
+            "rank": 99,
+            "score": 327.17,
+            "imdb": 70.0,
+            "letterboxd": 61.54,
+            "tmdb": 55.0,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "Poor Things",
+            "year": 2023,
+            "imdb_id": "tt14230458",
+            "rank": 100,
+            "score": 325.79,
+            "imdb": 60.0,
+            "letterboxd": 69.23,
+            "tmdb": 48.53,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          }
+        ],
+        "exited": [
+          {
+            "title": "Zero Dark Thirty",
+            "year": 2012,
+            "imdb_id": "tt1790885",
+            "rank": 95,
+            "score": 346.63,
+            "imdb": 45.0,
+            "letterboxd": 53.85,
+            "tmdb": 17.03,
+            "source_hits": 7,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Y tu mamá también",
+            "year": 2001,
+            "imdb_id": "tt0245574",
+            "rank": 99,
+            "score": 343.77,
+            "imdb": 60.0,
+            "letterboxd": 92.31,
+            "tmdb": 28.5,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "canon",
+              "convergence"
+            ]
+          }
+        ]
+      },
+      "200": {
+        "overlap": 191,
+        "entered": [
+          {
+            "title": "The Help",
+            "year": 2011,
+            "imdb_id": "tt1454029",
+            "rank": 177,
+            "score": 260.44,
+            "imdb": 80.0,
+            "letterboxd": 76.92,
+            "tmdb": 83.74,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Room",
+            "year": 2015,
+            "imdb_id": "tt3170832",
+            "rank": 181,
+            "score": 256.5,
+            "imdb": 80.0,
+            "letterboxd": 76.92,
+            "tmdb": 69.82,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Life of Pi",
+            "year": 2012,
+            "imdb_id": "tt0454876",
+            "rank": 190,
+            "score": 251.69,
+            "imdb": 70.0,
+            "letterboxd": 61.54,
+            "tmdb": 45.0,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Mommy",
+            "year": 2014,
+            "imdb_id": "tt3612616",
+            "rank": 194,
+            "score": 249.17,
+            "imdb": 68.3,
+            "letterboxd": 100.0,
+            "tmdb": 62.2,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Gangs of New York",
+            "year": 2002,
+            "imdb_id": "tt0217505",
+            "rank": 195,
+            "score": 248.71,
+            "imdb": 50.0,
+            "letterboxd": 53.85,
+            "tmdb": 37.45,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Coco",
+            "year": 2017,
+            "imdb_id": "tt2380307",
+            "rank": 196,
+            "score": 248.08,
+            "imdb": 95.0,
+            "letterboxd": 84.62,
+            "tmdb": 80.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Moneyball",
+            "year": 2011,
+            "imdb_id": "tt1210166",
+            "rank": 197,
+            "score": 248.07,
+            "imdb": 55.0,
+            "letterboxd": 69.23,
+            "tmdb": 35.61,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Elephant",
+            "year": 2003,
+            "imdb_id": "tt0363589",
+            "rank": 198,
+            "score": 247.61,
+            "imdb": 30.0,
+            "letterboxd": 30.77,
+            "tmdb": 16.73,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "The Prestige",
+            "year": 2006,
+            "imdb_id": "tt0482571",
+            "rank": 200,
+            "score": 246.79,
+            "imdb": 100.0,
+            "letterboxd": 100.0,
+            "tmdb": 85.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          }
+        ],
+        "exited": [
+          {
+            "title": "20 Days in Mariupol",
+            "year": 2023,
+            "imdb_id": "tt24082438",
+            "rank": 171,
+            "score": 286.69,
+            "imdb": 90.93,
+            "letterboxd": 82.76,
+            "tmdb": 20.26,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "The Holdovers",
+            "year": 2023,
+            "imdb_id": "tt14849194",
+            "rank": 185,
+            "score": 276.56,
+            "imdb": 70.0,
+            "letterboxd": 100.0,
+            "tmdb": 39.4,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Worst Person in the World",
+            "year": 2021,
+            "imdb_id": "tt10370710",
+            "rank": 189,
+            "score": 274.05,
+            "imdb": 60.0,
+            "letterboxd": 84.62,
+            "tmdb": 29.23,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Quo Vadis, Aida?",
+            "year": 2020,
+            "imdb_id": "tt8633462",
+            "rank": 191,
+            "score": 273.4,
+            "imdb": 61.07,
+            "letterboxd": 77.74,
+            "tmdb": 19.17,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Gleaners & I",
+            "year": 2000,
+            "imdb_id": "tt0247380",
+            "rank": 194,
+            "score": 270.87,
+            "imdb": 30.52,
+            "letterboxd": 91.14,
+            "tmdb": 10.91,
+            "source_hits": 6,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "The Wrestler",
+            "year": 2008,
+            "imdb_id": "tt1125849",
+            "rank": 195,
+            "score": 270.22,
+            "imdb": 70.0,
+            "letterboxd": 84.62,
+            "tmdb": 40.46,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Pain and Glory",
+            "year": 2019,
+            "imdb_id": "tt8291806",
+            "rank": 198,
+            "score": 267.53,
+            "imdb": 45.79,
+            "letterboxd": 84.62,
+            "tmdb": 29.08,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Tale of The Princess Kaguya",
+            "year": 2013,
+            "imdb_id": "tt2576852",
+            "rank": 199,
+            "score": 267.44,
+            "imdb": 67.57,
+            "letterboxd": 100.0,
+            "tmdb": 52.57,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Lust, Caution",
+            "year": 2007,
+            "imdb_id": "tt0808357",
+            "rank": 200,
+            "score": 265.8,
+            "imdb": 42.13,
+            "letterboxd": 63.64,
+            "tmdb": 16.27,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          }
+        ]
+      },
+      "300": {
+        "overlap": 288,
+        "entered": [
+          {
+            "title": "Soul",
+            "year": 2020,
+            "imdb_id": "tt2948372",
+            "rank": 248,
+            "score": 224.49,
+            "imdb": 75.0,
+            "letterboxd": 69.23,
+            "tmdb": 80.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "The Theory of Everything",
+            "year": 2014,
+            "imdb_id": "tt2980516",
+            "rank": 270,
+            "score": 214.1,
+            "imdb": 60.0,
+            "letterboxd": 46.15,
+            "tmdb": 65.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Trial of the Chicago 7",
+            "year": 2020,
+            "imdb_id": "tt1070874",
+            "rank": 277,
+            "score": 211.83,
+            "imdb": 60.0,
+            "letterboxd": 61.54,
+            "tmdb": 46.21,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Shaun of the Dead",
+            "year": 2004,
+            "imdb_id": "tt0365748",
+            "rank": 284,
+            "score": 209.61,
+            "imdb": 65.0,
+            "letterboxd": 69.23,
+            "tmdb": 49.65,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Bohemian Rhapsody",
+            "year": 2018,
+            "imdb_id": "tt1727824",
+            "rank": 285,
+            "score": 208.97,
+            "imdb": 70.0,
+            "letterboxd": 38.46,
+            "tmdb": 70.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Dallas Buyers Club",
+            "year": 2013,
+            "imdb_id": "tt0790636",
+            "rank": 286,
+            "score": 208.89,
+            "imdb": 70.0,
+            "letterboxd": 76.92,
+            "tmdb": 68.91,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Monsters, Inc.",
+            "year": 2001,
+            "imdb_id": "tt0198781",
+            "rank": 287,
+            "score": 208.85,
+            "imdb": 80.0,
+            "letterboxd": 84.62,
+            "tmdb": 65.0,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Hidden Figures",
+            "year": 2016,
+            "imdb_id": "tt4846340",
+            "rank": 289,
+            "score": 207.82,
+            "imdb": 65.0,
+            "letterboxd": 69.23,
+            "tmdb": 80.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "120 BPM (Beats Per Minute)",
+            "year": 2017,
+            "imdb_id": "tt6135348",
+            "rank": 295,
+            "score": 206.16,
+            "imdb": 28.15,
+            "letterboxd": 69.88,
+            "tmdb": 34.46,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Zootopia",
+            "year": 2016,
+            "imdb_id": "tt2948356",
+            "rank": 296,
+            "score": 206.03,
+            "imdb": 75.0,
+            "letterboxd": 61.54,
+            "tmdb": 60.0,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "Licorice Pizza",
+            "year": 2021,
+            "imdb_id": "tt11271038",
+            "rank": 298,
+            "score": 204.65,
+            "imdb": 30.0,
+            "letterboxd": 38.46,
+            "tmdb": 14.48,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Coraline",
+            "year": 2009,
+            "imdb_id": "tt0327597",
+            "rank": 299,
+            "score": 204.25,
+            "imdb": 65.0,
+            "letterboxd": 92.31,
+            "tmdb": 69.27,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          }
+        ],
+        "exited": [
+          {
+            "title": "Petite Maman",
+            "year": 2021,
+            "imdb_id": "tt13204490",
+            "rank": 281,
+            "score": 227.09,
+            "imdb": 26.59,
+            "letterboxd": 84.62,
+            "tmdb": 10.29,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "All the Beauty and the Bloodshed",
+            "year": 2022,
+            "imdb_id": "tt21374850",
+            "rank": 282,
+            "score": 227.03,
+            "imdb": 24.4,
+            "letterboxd": 84.09,
+            "tmdb": 3.68,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Munich",
+            "year": 2005,
+            "imdb_id": "tt0408306",
+            "rank": 285,
+            "score": 226.4,
+            "imdb": 50.0,
+            "letterboxd": 61.54,
+            "tmdb": 22.38,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Mother",
+            "year": 2009,
+            "imdb_id": "tt1216496",
+            "rank": 286,
+            "score": 226.24,
+            "imdb": 57.42,
+            "letterboxd": 92.31,
+            "tmdb": 37.39,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "The Assassination of Jesse James by the Coward Robert Ford",
+            "year": 2007,
+            "imdb_id": "tt0443680",
+            "rank": 288,
+            "score": 226.1,
+            "imdb": 50.0,
+            "letterboxd": 76.92,
+            "tmdb": 21.93,
+            "source_hits": 5,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Perfect Days",
+            "year": 2023,
+            "imdb_id": "tt27503384",
+            "rank": 289,
+            "score": 225.71,
+            "imdb": 70.0,
+            "letterboxd": 100.0,
+            "tmdb": 42.92,
+            "source_hits": 5,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Paddington 2",
+            "year": 2017,
+            "imdb_id": "tt4468740",
+            "rank": 291,
+            "score": 225.64,
+            "imdb": 65.0,
+            "letterboxd": 84.62,
+            "tmdb": 32.99,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          },
+          {
+            "title": "Borat",
+            "year": 2006,
+            "imdb_id": "tt0443453",
+            "rank": 292,
+            "score": 225.44,
+            "imdb": 45.0,
+            "letterboxd": 53.85,
+            "tmdb": 8.96,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "13th",
+            "year": 2016,
+            "imdb_id": "tt5895028",
+            "rank": 293,
+            "score": 225.3,
+            "imdb": 67.94,
+            "letterboxd": 100.0,
+            "tmdb": 29.61,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Still Walking",
+            "year": 2008,
+            "imdb_id": "tt1087578",
+            "rank": 294,
+            "score": 225.22,
+            "imdb": 46.64,
+            "letterboxd": 92.75,
+            "tmdb": 21.84,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Happy as Lazzaro",
+            "year": 2018,
+            "imdb_id": "tt6752992",
+            "rank": 296,
+            "score": 224.23,
+            "imdb": 34.32,
+            "letterboxd": 82.97,
+            "tmdb": 20.23,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Free Solo",
+            "year": 2018,
+            "imdb_id": "tt7775622",
+            "rank": 299,
+            "score": 222.59,
+            "imdb": 77.97,
+            "letterboxd": 84.62,
+            "tmdb": 38.98,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "convergence"
+            ]
+          }
+        ]
+      },
+      "500": {
+        "overlap": 489,
+        "entered": [
+          {
+            "title": "Encanto",
+            "year": 2021,
+            "imdb_id": "tt2953050",
+            "rank": 464,
+            "score": 160.64,
+            "imdb": 35.0,
+            "letterboxd": 38.46,
+            "tmdb": 55.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Nocturnal Animals",
+            "year": 2016,
+            "imdb_id": "tt4550098",
+            "rank": 470,
+            "score": 159.85,
+            "imdb": 45.0,
+            "letterboxd": 53.85,
+            "tmdb": 43.43,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "How to Train Your Dragon 2",
+            "year": 2014,
+            "imdb_id": "tt1646971",
+            "rank": 474,
+            "score": 159.49,
+            "imdb": 65.0,
+            "letterboxd": 69.23,
+            "tmdb": 60.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Hateful Eight",
+            "year": 2015,
+            "imdb_id": "tt3460252",
+            "rank": 476,
+            "score": 159.27,
+            "imdb": 65.0,
+            "letterboxd": 76.92,
+            "tmdb": 65.0,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Blind Side",
+            "year": 2009,
+            "imdb_id": "tt0878804",
+            "rank": 477,
+            "score": 159.12,
+            "imdb": 55.0,
+            "letterboxd": 30.77,
+            "tmdb": 55.41,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "28 Days Later",
+            "year": 2002,
+            "imdb_id": "tt0289043",
+            "rank": 480,
+            "score": 158.51,
+            "imdb": 50.0,
+            "letterboxd": 53.85,
+            "tmdb": 34.16,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Scott Pilgrim vs. the World",
+            "year": 2010,
+            "imdb_id": "tt0446029",
+            "rank": 481,
+            "score": 156.8,
+            "imdb": 50.0,
+            "letterboxd": 69.23,
+            "tmdb": 48.77,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Knives Out",
+            "year": 2019,
+            "imdb_id": "tt8946378",
+            "rank": 493,
+            "score": 154.86,
+            "imdb": 70.0,
+            "letterboxd": 76.92,
+            "tmdb": 65.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Others",
+            "year": 2001,
+            "imdb_id": "tt0230600",
+            "rank": 494,
+            "score": 154.86,
+            "imdb": 55.0,
+            "letterboxd": 61.54,
+            "tmdb": 51.51,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Barbie",
+            "year": 2023,
+            "imdb_id": "tt1517268",
+            "rank": 495,
+            "score": 154.56,
+            "imdb": 15.0,
+            "letterboxd": 53.85,
+            "tmdb": 20.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Shrek 2",
+            "year": 2004,
+            "imdb_id": "tt0298148",
+            "rank": 500,
+            "score": 153.08,
+            "imdb": 45.0,
+            "letterboxd": 84.62,
+            "tmdb": 40.0,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          }
+        ],
+        "exited": [
+          {
+            "title": "The Quiet Girl",
+            "year": 2022,
+            "imdb_id": "tt15109082",
+            "rank": 464,
+            "score": 178.95,
+            "imdb": 44.35,
+            "letterboxd": 84.6,
+            "tmdb": 17.67,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Secret Sunshine",
+            "year": 2007,
+            "imdb_id": "tt0817225",
+            "rank": 467,
+            "score": 178.09,
+            "imdb": 26.11,
+            "letterboxd": 63.58,
+            "tmdb": 6.9,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Swamp",
+            "year": 2001,
+            "imdb_id": "tt0240419",
+            "rank": 473,
+            "score": 176.81,
+            "imdb": 12.38,
+            "letterboxd": 65.82,
+            "tmdb": 1.84,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          },
+          {
+            "title": "Hunt for the Wilderpeople",
+            "year": 2016,
+            "imdb_id": "tt4698684",
+            "rank": 478,
+            "score": 175.1,
+            "imdb": 65.0,
+            "letterboxd": 84.62,
+            "tmdb": 38.03,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Tomboy",
+            "year": 2011,
+            "imdb_id": "tt1847731",
+            "rank": 481,
+            "score": 174.49,
+            "imdb": 30.86,
+            "letterboxd": 75.74,
+            "tmdb": 17.74,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Time",
+            "year": 2021,
+            "imdb_id": "tt13138834",
+            "rank": 488,
+            "score": 173.06,
+            "imdb": 60.5,
+            "letterboxd": 41.2,
+            "tmdb": 12.38,
+            "source_hits": 3,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Take Shelter",
+            "year": 2011,
+            "imdb_id": "tt1675192",
+            "rank": 491,
+            "score": 172.15,
+            "imdb": 40.0,
+            "letterboxd": 61.54,
+            "tmdb": 16.49,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Blue Valentine",
+            "year": 2010,
+            "imdb_id": "tt1120985",
+            "rank": 495,
+            "score": 171.28,
+            "imdb": 40.0,
+            "letterboxd": 61.54,
+            "tmdb": 19.51,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "The Cove",
+            "year": 2009,
+            "imdb_id": "tt1313104",
+            "rank": 497,
+            "score": 171.02,
+            "imdb": 81.87,
+            "letterboxd": 51.15,
+            "tmdb": 29.56,
+            "source_hits": 3,
+            "qualified": true,
+            "routes": [
+              "corroboration"
+            ]
+          },
+          {
+            "title": "Lady Vengeance",
+            "year": 2005,
+            "imdb_id": "tt0451094",
+            "rank": 498,
+            "score": 170.99,
+            "imdb": 49.41,
+            "letterboxd": 84.62,
+            "tmdb": 32.77,
+            "source_hits": 4,
+            "qualified": false,
+            "routes": []
+          },
+          {
+            "title": "Millennium Mambo",
+            "year": 2001,
+            "imdb_id": "tt0283283",
+            "rank": 499,
+            "score": 170.87,
+            "imdb": 9.46,
+            "letterboxd": 59.34,
+            "tmdb": 5.35,
+            "source_hits": 4,
+            "qualified": true,
+            "routes": [
+              "canon"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "controls": {
+    "two_source_200": [
+      {
+        "title": "Melancholia",
+        "year": 2008,
+        "imdb_id": "tt1269566",
+        "rank": 1061,
+        "score": 66.67,
+        "imdb": 0.0,
+        "letterboxd": 16.22,
+        "tmdb": 0.0,
+        "source_hits": 2,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Get Out",
+        "year": 2017,
+        "imdb_id": "tt5052448",
+        "rank": 33,
+        "score": 475.54,
+        "imdb": 65.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "The Tree of Life",
+        "year": 2011,
+        "imdb_id": "tt0478304",
+        "rank": 48,
+        "score": 436.85,
+        "imdb": 15.0,
+        "letterboxd": 61.54,
+        "tmdb": 7.68,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Boyhood",
+        "year": 2014,
+        "imdb_id": "tt1065073",
+        "rank": 4,
+        "score": 671.77,
+        "imdb": 70.0,
+        "letterboxd": 61.54,
+        "tmdb": 39.45,
+        "source_hits": 9,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "The Lives of Others",
+        "year": 2006,
+        "imdb_id": "tt0405094",
+        "rank": 13,
+        "score": 582.05,
+        "imdb": 95.0,
+        "letterboxd": 100.0,
+        "tmdb": 61.23,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Lost in Translation",
+        "year": 2003,
+        "imdb_id": "tt0335266",
+        "rank": 28,
+        "score": 501.27,
+        "imdb": 60.0,
+        "letterboxd": 53.85,
+        "tmdb": 38.44,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "The White Ribbon",
+        "year": 2009,
+        "imdb_id": "tt1149362",
+        "rank": 39,
+        "score": 468.5,
+        "imdb": 62.24,
+        "letterboxd": 90.64,
+        "tmdb": 26.86,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Dogville",
+        "year": 2003,
+        "imdb_id": "tt0276919",
+        "rank": 130,
+        "score": 311.54,
+        "imdb": 75.0,
+        "letterboxd": 92.31,
+        "tmdb": 43.41,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "The Turin Horse",
+        "year": 2011,
+        "imdb_id": "tt1316540",
+        "rank": 232,
+        "score": 253.4,
+        "imdb": 40.17,
+        "letterboxd": 77.51,
+        "tmdb": 17.67,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Arrival",
+        "year": 2016,
+        "imdb_id": "tt2543164",
+        "rank": 64,
+        "score": 412.75,
+        "imdb": 70.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "12 Years a Slave",
+        "year": 2013,
+        "imdb_id": "tt2024544",
+        "rank": 14,
+        "score": 576.82,
+        "imdb": 80.0,
+        "letterboxd": 92.31,
+        "tmdb": 70.0,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "institutional",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Gravity",
+        "year": 2013,
+        "imdb_id": "tt1454468",
+        "rank": 120,
+        "score": 322.99,
+        "imdb": 60.0,
+        "letterboxd": 38.46,
+        "tmdb": 35.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "corroboration"
+        ]
+      },
+      {
+        "title": "The Wolf of Wall Street",
+        "year": 2013,
+        "imdb_id": "tt0993846",
+        "rank": 63,
+        "score": 412.98,
+        "imdb": 85.0,
+        "letterboxd": 76.92,
+        "tmdb": 75.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Fish Tank",
+        "year": 2009,
+        "imdb_id": "tt1232776",
+        "rank": 151,
+        "score": 297.57,
+        "imdb": 36.75,
+        "letterboxd": 61.54,
+        "tmdb": 9.91,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Blue Is the Warmest Colour",
+        "year": 2013,
+        "imdb_id": "tt2278871",
+        "rank": 127,
+        "score": 313.77,
+        "imdb": 55.0,
+        "letterboxd": 15.38,
+        "tmdb": 21.19,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Winter Sleep",
+        "year": 2014,
+        "imdb_id": "tt2758880",
+        "rank": 146,
+        "score": 300.06,
+        "imdb": 66.58,
+        "letterboxd": 81.31,
+        "tmdb": 20.31,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Shame",
+        "year": 2011,
+        "imdb_id": "tt1723811",
+        "rank": 512,
+        "score": 167.63,
+        "imdb": 35.0,
+        "letterboxd": 53.85,
+        "tmdb": 15.48,
+        "source_hits": 5,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Nocturnal Animals",
+        "year": 2016,
+        "imdb_id": "tt4550098",
+        "rank": 534,
+        "score": 163.85,
+        "imdb": 45.0,
+        "letterboxd": 53.85,
+        "tmdb": 43.43,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Once Upon a Time in... Hollywood",
+        "year": 2019,
+        "imdb_id": "tt7131622",
+        "rank": 71,
+        "score": 390.91,
+        "imdb": 55.0,
+        "letterboxd": 61.54,
+        "tmdb": 45.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Donnie Darko",
+        "year": 2001,
+        "imdb_id": "tt0246578",
+        "rank": 231,
+        "score": 253.57,
+        "imdb": 75.0,
+        "letterboxd": 76.92,
+        "tmdb": 60.0,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "There Will Be Blood",
+        "year": 2007,
+        "imdb_id": "tt0469494",
+        "rank": 3,
+        "score": 680.6,
+        "imdb": 85.0,
+        "letterboxd": 100.0,
+        "tmdb": 70.88,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Dune",
+        "year": 2021,
+        "imdb_id": "tt1160419",
+        "rank": 164,
+        "score": 290.82,
+        "imdb": 75.0,
+        "letterboxd": 69.23,
+        "tmdb": 60.0,
+        "source_hits": 5,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Midsommar",
+        "year": 2019,
+        "imdb_id": "tt8772262",
+        "rank": 639,
+        "score": 142.82,
+        "imdb": 30.0,
+        "letterboxd": 53.85,
+        "tmdb": 28.93,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Blade Runner 2049",
+        "year": 2017,
+        "imdb_id": "tt1856101",
+        "rank": 500,
+        "score": 170.53,
+        "imdb": 75.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 3,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Memento",
+        "year": 2000,
+        "imdb_id": "tt0209144",
+        "rank": 44,
+        "score": 452.28,
+        "imdb": 95.0,
+        "letterboxd": 92.31,
+        "tmdb": 85.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "1917",
+        "year": 2019,
+        "imdb_id": "tt8579674",
+        "rank": 134,
+        "score": 309.62,
+        "imdb": 85.0,
+        "letterboxd": 84.62,
+        "tmdb": 70.0,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Mad Max: Fury Road",
+        "year": 2015,
+        "imdb_id": "tt1392190",
+        "rank": 21,
+        "score": 517.53,
+        "imdb": 80.0,
+        "letterboxd": 92.31,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Her",
+        "year": 2013,
+        "imdb_id": "tt1798709",
+        "rank": 62,
+        "score": 418.23,
+        "imdb": 70.0,
+        "letterboxd": 76.92,
+        "tmdb": 65.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Ex Machina",
+        "year": 2014,
+        "imdb_id": "tt0470752",
+        "rank": 435,
+        "score": 187.57,
+        "imdb": 60.0,
+        "letterboxd": 76.92,
+        "tmdb": 50.0,
+        "source_hits": 3,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Manchester by the Sea",
+        "year": 2016,
+        "imdb_id": "tt4034228",
+        "rank": 90,
+        "score": 351.08,
+        "imdb": 65.0,
+        "letterboxd": 84.62,
+        "tmdb": 45.49,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Into the Wild",
+        "year": 2007,
+        "imdb_id": "tt0758758",
+        "rank": 455,
+        "score": 181.62,
+        "imdb": 75.0,
+        "letterboxd": 69.23,
+        "tmdb": 60.0,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Lobster",
+        "year": 2015,
+        "imdb_id": "tt3464902",
+        "rank": 339,
+        "score": 211.56,
+        "imdb": 30.0,
+        "letterboxd": 53.85,
+        "tmdb": 23.15,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Killing of a Sacred Deer",
+        "year": 2017,
+        "imdb_id": "tt5715874",
+        "rank": 734,
+        "score": 126.32,
+        "imdb": 25.0,
+        "letterboxd": 53.85,
+        "tmdb": 20.8,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Past Lives",
+        "year": 2023,
+        "imdb_id": "tt13238346",
+        "rank": 51,
+        "score": 434.38,
+        "imdb": 65.0,
+        "letterboxd": 92.31,
+        "tmdb": 41.91,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Scott Pilgrim vs. the World",
+        "year": 2010,
+        "imdb_id": "tt0446029",
+        "rank": 533,
+        "score": 164.03,
+        "imdb": 50.0,
+        "letterboxd": 69.23,
+        "tmdb": 48.77,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Departed",
+        "year": 2006,
+        "imdb_id": "tt0407887",
+        "rank": 31,
+        "score": 489.64,
+        "imdb": 100.0,
+        "letterboxd": 100.0,
+        "tmdb": 80.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "institutional",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Amores Perros",
+        "year": 2000,
+        "imdb_id": "tt0245712",
+        "rank": 117,
+        "score": 327.1,
+        "imdb": 75.0,
+        "letterboxd": 92.31,
+        "tmdb": 40.72,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "A Prophet",
+        "year": 2009,
+        "imdb_id": "tt1235166",
+        "rank": 40,
+        "score": 467.67,
+        "imdb": 65.0,
+        "letterboxd": 92.31,
+        "tmdb": 31.34,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Caché",
+        "year": 2005,
+        "imdb_id": "tt0387898",
+        "rank": 84,
+        "score": 358.93,
+        "imdb": 39.2,
+        "letterboxd": 76.92,
+        "tmdb": 14.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Phantom Thread",
+        "year": 2017,
+        "imdb_id": "tt5776858",
+        "rank": 80,
+        "score": 375.14,
+        "imdb": 45.0,
+        "letterboxd": 92.31,
+        "tmdb": 31.8,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "La Commune (Paris, 1871)",
+        "year": 2000,
+        "imdb_id": "tt0257497",
+        "rank": 707,
+        "score": 129.62,
+        "imdb": 7.02,
+        "letterboxd": 34.19,
+        "tmdb": 0.0,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      }
+    ],
+    "three_source_300": [
+      {
+        "title": "Melancholia",
+        "year": 2008,
+        "imdb_id": "tt1269566",
+        "rank": 1076,
+        "score": 66.67,
+        "imdb": 0.0,
+        "letterboxd": 16.22,
+        "tmdb": 0.0,
+        "source_hits": 2,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Get Out",
+        "year": 2017,
+        "imdb_id": "tt5052448",
+        "rank": 38,
+        "score": 530.54,
+        "imdb": 65.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "The Tree of Life",
+        "year": 2011,
+        "imdb_id": "tt0478304",
+        "rank": 70,
+        "score": 444.53,
+        "imdb": 15.0,
+        "letterboxd": 61.54,
+        "tmdb": 7.68,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Boyhood",
+        "year": 2014,
+        "imdb_id": "tt1065073",
+        "rank": 5,
+        "score": 711.22,
+        "imdb": 70.0,
+        "letterboxd": 61.54,
+        "tmdb": 39.45,
+        "source_hits": 9,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "The Lives of Others",
+        "year": 2006,
+        "imdb_id": "tt0405094",
+        "rank": 14,
+        "score": 643.28,
+        "imdb": 95.0,
+        "letterboxd": 100.0,
+        "tmdb": 61.23,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Lost in Translation",
+        "year": 2003,
+        "imdb_id": "tt0335266",
+        "rank": 34,
+        "score": 539.71,
+        "imdb": 60.0,
+        "letterboxd": 53.85,
+        "tmdb": 38.44,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "The White Ribbon",
+        "year": 2009,
+        "imdb_id": "tt1149362",
+        "rank": 46,
+        "score": 495.36,
+        "imdb": 62.24,
+        "letterboxd": 90.64,
+        "tmdb": 26.86,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Dogville",
+        "year": 2003,
+        "imdb_id": "tt0276919",
+        "rank": 134,
+        "score": 354.95,
+        "imdb": 75.0,
+        "letterboxd": 92.31,
+        "tmdb": 43.41,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "The Turin Horse",
+        "year": 2011,
+        "imdb_id": "tt1316540",
+        "rank": 268,
+        "score": 271.07,
+        "imdb": 40.17,
+        "letterboxd": 77.51,
+        "tmdb": 17.67,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Arrival",
+        "year": 2016,
+        "imdb_id": "tt2543164",
+        "rank": 61,
+        "score": 467.75,
+        "imdb": 70.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "12 Years a Slave",
+        "year": 2013,
+        "imdb_id": "tt2024544",
+        "rank": 13,
+        "score": 646.82,
+        "imdb": 80.0,
+        "letterboxd": 92.31,
+        "tmdb": 70.0,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "institutional",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Gravity",
+        "year": 2013,
+        "imdb_id": "tt1454468",
+        "rank": 130,
+        "score": 357.99,
+        "imdb": 60.0,
+        "letterboxd": 38.46,
+        "tmdb": 35.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "corroboration"
+        ]
+      },
+      {
+        "title": "The Wolf of Wall Street",
+        "year": 2013,
+        "imdb_id": "tt0993846",
+        "rank": 51,
+        "score": 487.98,
+        "imdb": 85.0,
+        "letterboxd": 76.92,
+        "tmdb": 75.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Fish Tank",
+        "year": 2009,
+        "imdb_id": "tt1232776",
+        "rank": 192,
+        "score": 307.48,
+        "imdb": 36.75,
+        "letterboxd": 61.54,
+        "tmdb": 9.91,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Blue Is the Warmest Colour",
+        "year": 2013,
+        "imdb_id": "tt2278871",
+        "rank": 155,
+        "score": 334.96,
+        "imdb": 55.0,
+        "letterboxd": 15.38,
+        "tmdb": 21.19,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Winter Sleep",
+        "year": 2014,
+        "imdb_id": "tt2758880",
+        "rank": 169,
+        "score": 320.37,
+        "imdb": 66.58,
+        "letterboxd": 81.31,
+        "tmdb": 20.31,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Shame",
+        "year": 2011,
+        "imdb_id": "tt1723811",
+        "rank": 552,
+        "score": 183.11,
+        "imdb": 35.0,
+        "letterboxd": 53.85,
+        "tmdb": 15.48,
+        "source_hits": 5,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Nocturnal Animals",
+        "year": 2016,
+        "imdb_id": "tt4550098",
+        "rank": 458,
+        "score": 207.28,
+        "imdb": 45.0,
+        "letterboxd": 53.85,
+        "tmdb": 43.43,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Once Upon a Time in... Hollywood",
+        "year": 2019,
+        "imdb_id": "tt7131622",
+        "rank": 74,
+        "score": 435.91,
+        "imdb": 55.0,
+        "letterboxd": 61.54,
+        "tmdb": 45.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Donnie Darko",
+        "year": 2001,
+        "imdb_id": "tt0246578",
+        "rank": 180,
+        "score": 313.57,
+        "imdb": 75.0,
+        "letterboxd": 76.92,
+        "tmdb": 60.0,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "There Will Be Blood",
+        "year": 2007,
+        "imdb_id": "tt0469494",
+        "rank": 2,
+        "score": 751.48,
+        "imdb": 85.0,
+        "letterboxd": 100.0,
+        "tmdb": 70.88,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Dune",
+        "year": 2021,
+        "imdb_id": "tt1160419",
+        "rank": 138,
+        "score": 350.82,
+        "imdb": 75.0,
+        "letterboxd": 69.23,
+        "tmdb": 60.0,
+        "source_hits": 5,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Midsommar",
+        "year": 2019,
+        "imdb_id": "tt8772262",
+        "rank": 586,
+        "score": 171.75,
+        "imdb": 30.0,
+        "letterboxd": 53.85,
+        "tmdb": 28.93,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Blade Runner 2049",
+        "year": 2017,
+        "imdb_id": "tt1856101",
+        "rank": 387,
+        "score": 225.53,
+        "imdb": 75.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 3,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Memento",
+        "year": 2000,
+        "imdb_id": "tt0209144",
+        "rank": 36,
+        "score": 537.28,
+        "imdb": 95.0,
+        "letterboxd": 92.31,
+        "tmdb": 85.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "1917",
+        "year": 2019,
+        "imdb_id": "tt8579674",
+        "rank": 108,
+        "score": 379.62,
+        "imdb": 85.0,
+        "letterboxd": 84.62,
+        "tmdb": 70.0,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Mad Max: Fury Road",
+        "year": 2015,
+        "imdb_id": "tt1392190",
+        "rank": 26,
+        "score": 572.53,
+        "imdb": 80.0,
+        "letterboxd": 92.31,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Her",
+        "year": 2013,
+        "imdb_id": "tt1798709",
+        "rank": 54,
+        "score": 483.23,
+        "imdb": 70.0,
+        "letterboxd": 76.92,
+        "tmdb": 65.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Ex Machina",
+        "year": 2014,
+        "imdb_id": "tt0470752",
+        "rank": 346,
+        "score": 237.57,
+        "imdb": 60.0,
+        "letterboxd": 76.92,
+        "tmdb": 50.0,
+        "source_hits": 3,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Manchester by the Sea",
+        "year": 2016,
+        "imdb_id": "tt4034228",
+        "rank": 92,
+        "score": 396.57,
+        "imdb": 65.0,
+        "letterboxd": 84.62,
+        "tmdb": 45.49,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Into the Wild",
+        "year": 2007,
+        "imdb_id": "tt0758758",
+        "rank": 335,
+        "score": 241.62,
+        "imdb": 75.0,
+        "letterboxd": 69.23,
+        "tmdb": 60.0,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Lobster",
+        "year": 2015,
+        "imdb_id": "tt3464902",
+        "rank": 354,
+        "score": 234.71,
+        "imdb": 30.0,
+        "letterboxd": 53.85,
+        "tmdb": 23.15,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Killing of a Sacred Deer",
+        "year": 2017,
+        "imdb_id": "tt5715874",
+        "rank": 687,
+        "score": 147.12,
+        "imdb": 25.0,
+        "letterboxd": 53.85,
+        "tmdb": 20.8,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Past Lives",
+        "year": 2023,
+        "imdb_id": "tt13238346",
+        "rank": 58,
+        "score": 476.29,
+        "imdb": 65.0,
+        "letterboxd": 92.31,
+        "tmdb": 41.91,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Scott Pilgrim vs. the World",
+        "year": 2010,
+        "imdb_id": "tt0446029",
+        "rank": 432,
+        "score": 212.8,
+        "imdb": 50.0,
+        "letterboxd": 69.23,
+        "tmdb": 48.77,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Departed",
+        "year": 2006,
+        "imdb_id": "tt0407887",
+        "rank": 27,
+        "score": 569.64,
+        "imdb": 100.0,
+        "letterboxd": 100.0,
+        "tmdb": 80.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "institutional",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Amores Perros",
+        "year": 2000,
+        "imdb_id": "tt0245712",
+        "rank": 117,
+        "score": 367.82,
+        "imdb": 75.0,
+        "letterboxd": 92.31,
+        "tmdb": 40.72,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "A Prophet",
+        "year": 2009,
+        "imdb_id": "tt1235166",
+        "rank": 45,
+        "score": 499.01,
+        "imdb": 65.0,
+        "letterboxd": 92.31,
+        "tmdb": 31.34,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Caché",
+        "year": 2005,
+        "imdb_id": "tt0387898",
+        "rank": 112,
+        "score": 372.93,
+        "imdb": 39.2,
+        "letterboxd": 76.92,
+        "tmdb": 14.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Phantom Thread",
+        "year": 2017,
+        "imdb_id": "tt5776858",
+        "rank": 87,
+        "score": 406.94,
+        "imdb": 45.0,
+        "letterboxd": 92.31,
+        "tmdb": 31.8,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "La Commune (Paris, 1871)",
+        "year": 2000,
+        "imdb_id": "tt0257497",
+        "rank": 764,
+        "score": 129.62,
+        "imdb": 7.02,
+        "letterboxd": 34.19,
+        "tmdb": 0.0,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      }
+    ],
+    "three_source_200": [
+      {
+        "title": "Melancholia",
+        "year": 2008,
+        "imdb_id": "tt1269566",
+        "rank": 1026,
+        "score": 61.26,
+        "imdb": 0.0,
+        "letterboxd": 16.22,
+        "tmdb": 0.0,
+        "source_hits": 2,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Get Out",
+        "year": 2017,
+        "imdb_id": "tt5052448",
+        "rank": 36,
+        "score": 462.33,
+        "imdb": 65.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "The Tree of Life",
+        "year": 2011,
+        "imdb_id": "tt0478304",
+        "rank": 52,
+        "score": 416.46,
+        "imdb": 15.0,
+        "letterboxd": 61.54,
+        "tmdb": 7.68,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Boyhood",
+        "year": 2014,
+        "imdb_id": "tt1065073",
+        "rank": 4,
+        "score": 654.22,
+        "imdb": 70.0,
+        "letterboxd": 61.54,
+        "tmdb": 39.45,
+        "source_hits": 9,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "The Lives of Others",
+        "year": 2006,
+        "imdb_id": "tt0405094",
+        "rank": 15,
+        "score": 557.87,
+        "imdb": 95.0,
+        "letterboxd": 100.0,
+        "tmdb": 61.23,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Lost in Translation",
+        "year": 2003,
+        "imdb_id": "tt0335266",
+        "rank": 26,
+        "score": 488.95,
+        "imdb": 60.0,
+        "letterboxd": 53.85,
+        "tmdb": 38.44,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "The White Ribbon",
+        "year": 2009,
+        "imdb_id": "tt1149362",
+        "rank": 44,
+        "score": 435.45,
+        "imdb": 62.24,
+        "letterboxd": 90.64,
+        "tmdb": 26.86,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Dogville",
+        "year": 2003,
+        "imdb_id": "tt0276919",
+        "rank": 140,
+        "score": 284.71,
+        "imdb": 75.0,
+        "letterboxd": 92.31,
+        "tmdb": 43.41,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "The Turin Horse",
+        "year": 2011,
+        "imdb_id": "tt1316540",
+        "rank": 246,
+        "score": 225.95,
+        "imdb": 40.17,
+        "letterboxd": 77.51,
+        "tmdb": 17.67,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Arrival",
+        "year": 2016,
+        "imdb_id": "tt2543164",
+        "rank": 64,
+        "score": 397.88,
+        "imdb": 70.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "12 Years a Slave",
+        "year": 2013,
+        "imdb_id": "tt2024544",
+        "rank": 14,
+        "score": 566.05,
+        "imdb": 80.0,
+        "letterboxd": 92.31,
+        "tmdb": 70.0,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "institutional",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Gravity",
+        "year": 2013,
+        "imdb_id": "tt1454468",
+        "rank": 111,
+        "score": 313.5,
+        "imdb": 60.0,
+        "letterboxd": 38.46,
+        "tmdb": 35.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "corroboration"
+        ]
+      },
+      {
+        "title": "The Wolf of Wall Street",
+        "year": 2013,
+        "imdb_id": "tt0993846",
+        "rank": 59,
+        "score": 409.01,
+        "imdb": 85.0,
+        "letterboxd": 76.92,
+        "tmdb": 75.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Fish Tank",
+        "year": 2009,
+        "imdb_id": "tt1232776",
+        "rank": 162,
+        "score": 271.41,
+        "imdb": 36.75,
+        "letterboxd": 61.54,
+        "tmdb": 9.91,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Blue Is the Warmest Colour",
+        "year": 2013,
+        "imdb_id": "tt2278871",
+        "rank": 121,
+        "score": 304.44,
+        "imdb": 55.0,
+        "letterboxd": 15.38,
+        "tmdb": 21.19,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Winter Sleep",
+        "year": 2014,
+        "imdb_id": "tt2758880",
+        "rank": 171,
+        "score": 264.3,
+        "imdb": 66.58,
+        "letterboxd": 81.31,
+        "tmdb": 20.31,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Shame",
+        "year": 2011,
+        "imdb_id": "tt1723811",
+        "rank": 523,
+        "score": 148.33,
+        "imdb": 35.0,
+        "letterboxd": 53.85,
+        "tmdb": 15.48,
+        "source_hits": 5,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Nocturnal Animals",
+        "year": 2016,
+        "imdb_id": "tt4550098",
+        "rank": 470,
+        "score": 159.85,
+        "imdb": 45.0,
+        "letterboxd": 53.85,
+        "tmdb": 43.43,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Once Upon a Time in... Hollywood",
+        "year": 2019,
+        "imdb_id": "tt7131622",
+        "rank": 69,
+        "score": 382.06,
+        "imdb": 55.0,
+        "letterboxd": 61.54,
+        "tmdb": 45.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Donnie Darko",
+        "year": 2001,
+        "imdb_id": "tt0246578",
+        "rank": 212,
+        "score": 242.93,
+        "imdb": 75.0,
+        "letterboxd": 76.92,
+        "tmdb": 60.0,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "There Will Be Blood",
+        "year": 2007,
+        "imdb_id": "tt0469494",
+        "rank": 2,
+        "score": 666.19,
+        "imdb": 85.0,
+        "letterboxd": 100.0,
+        "tmdb": 70.88,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Dune",
+        "year": 2021,
+        "imdb_id": "tt1160419",
+        "rank": 145,
+        "score": 282.74,
+        "imdb": 75.0,
+        "letterboxd": 69.23,
+        "tmdb": 60.0,
+        "source_hits": 5,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Midsommar",
+        "year": 2019,
+        "imdb_id": "tt8772262",
+        "rank": 595,
+        "score": 134.16,
+        "imdb": 30.0,
+        "letterboxd": 53.85,
+        "tmdb": 28.93,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Blade Runner 2049",
+        "year": 2017,
+        "imdb_id": "tt1856101",
+        "rank": 497,
+        "score": 153.99,
+        "imdb": 75.0,
+        "letterboxd": 84.62,
+        "tmdb": 55.0,
+        "source_hits": 3,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Memento",
+        "year": 2000,
+        "imdb_id": "tt0209144",
+        "rank": 40,
+        "score": 446.51,
+        "imdb": 95.0,
+        "letterboxd": 92.31,
+        "tmdb": 85.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "1917",
+        "year": 2019,
+        "imdb_id": "tt8579674",
+        "rank": 122,
+        "score": 299.75,
+        "imdb": 85.0,
+        "letterboxd": 84.62,
+        "tmdb": 70.0,
+        "source_hits": 4,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Mad Max: Fury Road",
+        "year": 2015,
+        "imdb_id": "tt1392190",
+        "rank": 23,
+        "score": 496.76,
+        "imdb": 80.0,
+        "letterboxd": 92.31,
+        "tmdb": 55.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Her",
+        "year": 2013,
+        "imdb_id": "tt1798709",
+        "rank": 54,
+        "score": 412.59,
+        "imdb": 70.0,
+        "letterboxd": 76.92,
+        "tmdb": 65.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Ex Machina",
+        "year": 2014,
+        "imdb_id": "tt0470752",
+        "rank": 405,
+        "score": 175.26,
+        "imdb": 60.0,
+        "letterboxd": 76.92,
+        "tmdb": 50.0,
+        "source_hits": 3,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Manchester by the Sea",
+        "year": 2016,
+        "imdb_id": "tt4034228",
+        "rank": 91,
+        "score": 331.53,
+        "imdb": 65.0,
+        "letterboxd": 84.62,
+        "tmdb": 45.49,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Into the Wild",
+        "year": 2007,
+        "imdb_id": "tt0758758",
+        "rank": 412,
+        "score": 173.54,
+        "imdb": 75.0,
+        "letterboxd": 69.23,
+        "tmdb": 60.0,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Lobster",
+        "year": 2015,
+        "imdb_id": "tt3464902",
+        "rank": 309,
+        "score": 199.04,
+        "imdb": 30.0,
+        "letterboxd": 53.85,
+        "tmdb": 23.15,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Killing of a Sacred Deer",
+        "year": 2017,
+        "imdb_id": "tt5715874",
+        "rank": 717,
+        "score": 113.9,
+        "imdb": 25.0,
+        "letterboxd": 53.85,
+        "tmdb": 20.8,
+        "source_hits": 4,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "Past Lives",
+        "year": 2023,
+        "imdb_id": "tt13238346",
+        "rank": 56,
+        "score": 409.88,
+        "imdb": 65.0,
+        "letterboxd": 92.31,
+        "tmdb": 41.91,
+        "source_hits": 8,
+        "qualified": true,
+        "routes": [
+          "convergence"
+        ]
+      },
+      {
+        "title": "Scott Pilgrim vs. the World",
+        "year": 2010,
+        "imdb_id": "tt0446029",
+        "rank": 481,
+        "score": 156.8,
+        "imdb": 50.0,
+        "letterboxd": 69.23,
+        "tmdb": 48.77,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      },
+      {
+        "title": "The Departed",
+        "year": 2006,
+        "imdb_id": "tt0407887",
+        "rank": 33,
+        "score": 476.31,
+        "imdb": 100.0,
+        "letterboxd": 100.0,
+        "tmdb": 80.0,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "institutional",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Amores Perros",
+        "year": 2000,
+        "imdb_id": "tt0245712",
+        "rank": 123,
+        "score": 298.48,
+        "imdb": 75.0,
+        "letterboxd": 92.31,
+        "tmdb": 40.72,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "A Prophet",
+        "year": 2009,
+        "imdb_id": "tt1235166",
+        "rank": 42,
+        "score": 436.13,
+        "imdb": 65.0,
+        "letterboxd": 92.31,
+        "tmdb": 31.34,
+        "source_hits": 7,
+        "qualified": true,
+        "routes": [
+          "canon",
+          "convergence"
+        ]
+      },
+      {
+        "title": "Caché",
+        "year": 2005,
+        "imdb_id": "tt0387898",
+        "rank": 93,
+        "score": 329.56,
+        "imdb": 39.2,
+        "letterboxd": 76.92,
+        "tmdb": 14.0,
+        "source_hits": 6,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "Phantom Thread",
+        "year": 2017,
+        "imdb_id": "tt5776858",
+        "rank": 79,
+        "score": 350.57,
+        "imdb": 45.0,
+        "letterboxd": 92.31,
+        "tmdb": 31.8,
+        "source_hits": 5,
+        "qualified": true,
+        "routes": [
+          "canon"
+        ]
+      },
+      {
+        "title": "La Commune (Paris, 1871)",
+        "year": 2000,
+        "imdb_id": "tt0257497",
+        "rank": 700,
+        "score": 115.88,
+        "imdb": 7.02,
+        "letterboxd": 34.19,
+        "tmdb": 0.0,
+        "source_hits": 3,
+        "qualified": false,
+        "routes": []
+      }
+    ]
+  },
+  "rank_changes_vs_two_source_200": {
+    "three_source_300": {
+      "up": [
+        {
+          "title": "Raya and the Last Dragon",
+          "year": 2021,
+          "imdb_id": "tt5109280",
+          "rank": 669,
+          "score": 151.26,
+          "imdb": 40.0,
+          "letterboxd": 15.38,
+          "tmdb": 60.88,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 920,
+          "rank_change": 251
+        },
+        {
+          "title": "Luca",
+          "year": 2021,
+          "imdb_id": "tt12801262",
+          "rank": 485,
+          "score": 197.61,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "tmdb": 63.76,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 690,
+          "rank_change": 205
+        },
+        {
+          "title": "Onward",
+          "year": 2020,
+          "imdb_id": "tt7146812",
+          "rank": 681,
+          "score": 148.35,
+          "imdb": 40.0,
+          "letterboxd": 23.08,
+          "tmdb": 50.27,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 884,
+          "rank_change": 203
+        },
+        {
+          "title": "The Notebook",
+          "year": 2004,
+          "imdb_id": "tt0332280",
+          "rank": 416,
+          "score": 217.22,
+          "imdb": 65.0,
+          "letterboxd": 69.23,
+          "tmdb": 70.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 610,
+          "rank_change": 194
+        },
+        {
+          "title": "Elemental",
+          "year": 2023,
+          "imdb_id": "tt15789038",
+          "rank": 743,
+          "score": 134.43,
+          "imdb": 25.0,
+          "letterboxd": 30.77,
+          "tmdb": 43.66,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 916,
+          "rank_change": 173
+        },
+        {
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "rank": 259,
+          "score": 273.26,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "tmdb": 83.64,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 427,
+          "rank_change": 168
+        },
+        {
+          "title": "Wonder Woman",
+          "year": 2017,
+          "imdb_id": "tt0451279",
+          "rank": 913,
+          "score": 97.33,
+          "imdb": 40.0,
+          "letterboxd": 15.38,
+          "tmdb": 35.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1080,
+          "rank_change": 167
+        },
+        {
+          "title": "Harry Potter and the Prisoner of Azkaban",
+          "year": 2004,
+          "imdb_id": "tt0304141",
+          "rank": 311,
+          "score": 250.7,
+          "imdb": 70.0,
+          "letterboxd": 92.31,
+          "tmdb": 75.0,
+          "source_hits": 3,
+          "qualified": true,
+          "routes": [
+            "convergence"
+          ],
+          "rank_two_source_200": 476,
+          "rank_change": 165
+        },
+        {
+          "title": "The Passion of the Christ",
+          "year": 2004,
+          "imdb_id": "tt0335345",
+          "rank": 655,
+          "score": 153.5,
+          "imdb": 40.0,
+          "letterboxd": 46.15,
+          "tmdb": 43.26,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 820,
+          "rank_change": 165
+        },
+        {
+          "title": "How to Train Your Dragon: The Hidden World",
+          "year": 2019,
+          "imdb_id": "tt2386490",
+          "rank": 526,
+          "score": 189.78,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "tmdb": 55.93,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 689,
+          "rank_change": 163
+        },
+        {
+          "title": "The Hateful Eight",
+          "year": 2015,
+          "imdb_id": "tt3460252",
+          "rank": 377,
+          "score": 228.24,
+          "imdb": 65.0,
+          "letterboxd": 76.92,
+          "tmdb": 65.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 536,
+          "rank_change": 159
+        },
+        {
+          "title": "Incredibles 2",
+          "year": 2018,
+          "imdb_id": "tt3606756",
+          "rank": 631,
+          "score": 160.77,
+          "imdb": 50.0,
+          "letterboxd": 30.77,
+          "tmdb": 45.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 789,
+          "rank_change": 158
+        },
+        {
+          "title": "Knives Out",
+          "year": 2019,
+          "imdb_id": "tt8946378",
+          "rank": 388,
+          "score": 225.5,
+          "imdb": 70.0,
+          "letterboxd": 76.92,
+          "tmdb": 65.0,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 545,
+          "rank_change": 157
+        },
+        {
+          "title": "Turning Red",
+          "year": 2022,
+          "imdb_id": "tt8097030",
+          "rank": 832,
+          "score": 113.74,
+          "imdb": 20.0,
+          "letterboxd": 23.08,
+          "tmdb": 35.66,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 988,
+          "rank_change": 156
+        },
+        {
+          "title": "The Best Offer",
+          "year": 2013,
+          "imdb_id": "tt1924396",
+          "rank": 574,
+          "score": 175.63,
+          "imdb": 60.0,
+          "letterboxd": 54.87,
+          "tmdb": 48.76,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 728,
+          "rank_change": 154
+        },
+        {
+          "title": "The Traitor",
+          "year": 2019,
+          "imdb_id": "tt7736478",
+          "rank": 925,
+          "score": 94.86,
+          "imdb": 17.56,
+          "letterboxd": 33.38,
+          "tmdb": 31.92,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1076,
+          "rank_change": 151
+        },
+        {
+          "title": "Ice Age",
+          "year": 2002,
+          "imdb_id": "tt0268380",
+          "rank": 587,
+          "score": 171.15,
+          "imdb": 50.0,
+          "letterboxd": 46.15,
+          "tmdb": 45.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 735,
+          "rank_change": 148
+        },
+        {
+          "title": "Catch Me If You Can",
+          "year": 2002,
+          "imdb_id": "tt0264464",
+          "rank": 315,
+          "score": 249.69,
+          "imdb": 80.0,
+          "letterboxd": 84.62,
+          "tmdb": 70.0,
+          "source_hits": 3,
+          "qualified": true,
+          "routes": [
+            "convergence"
+          ],
+          "rank_two_source_200": 461,
+          "rank_change": 146
+        },
+        {
+          "title": "Dogman",
+          "year": 2018,
+          "imdb_id": "tt6768578",
+          "rank": 810,
+          "score": 117.63,
+          "imdb": 26.34,
+          "letterboxd": 45.12,
+          "tmdb": 34.17,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 956,
+          "rank_change": 146
+        },
+        {
+          "title": "Ralph Breaks the Internet",
+          "year": 2018,
+          "imdb_id": "tt5848272",
+          "rank": 949,
+          "score": 88.8,
+          "imdb": 25.0,
+          "letterboxd": 0.0,
+          "tmdb": 28.8,
+          "source_hits": 2,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1094,
+          "rank_change": 145
+        },
+        {
+          "title": "The Woman King",
+          "year": 2022,
+          "imdb_id": "tt8093700",
+          "rank": 722,
+          "score": 139.19,
+          "imdb": 19.27,
+          "letterboxd": 53.85,
+          "tmdb": 38.12,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 865,
+          "rank_change": 143
+        },
+        {
+          "title": "Hidden Figures",
+          "year": 2016,
+          "imdb_id": "tt4846340",
+          "rank": 247,
+          "score": 279.23,
+          "imdb": 65.0,
+          "letterboxd": 69.23,
+          "tmdb": 80.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 389,
+          "rank_change": 142
+        },
+        {
+          "title": "Spirit: Stallion of the Cimarron",
+          "year": 2002,
+          "imdb_id": "tt0166813",
+          "rank": 545,
+          "score": 184.99,
+          "imdb": 34.67,
+          "letterboxd": 69.23,
+          "tmdb": 51.09,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 687,
+          "rank_change": 142
+        },
+        {
+          "title": "How to Train Your Dragon 2",
+          "year": 2014,
+          "imdb_id": "tt1646971",
+          "rank": 391,
+          "score": 224.23,
+          "imdb": 65.0,
+          "letterboxd": 69.23,
+          "tmdb": 60.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 529,
+          "rank_change": 138
+        },
+        {
+          "title": "The Intouchables",
+          "year": 2011,
+          "imdb_id": "tt1675434",
+          "rank": 226,
+          "score": 289.31,
+          "imdb": 100.0,
+          "letterboxd": 92.31,
+          "tmdb": 85.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 363,
+          "rank_change": 137
+        }
+      ],
+      "down": [
+        {
+          "title": "I'm Not There",
+          "year": 2007,
+          "imdb_id": "tt0368794",
+          "rank": 462,
+          "score": 206.21,
+          "imdb": 13.54,
+          "letterboxd": 48.25,
+          "tmdb": 0.0,
+          "source_hits": 5,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 358,
+          "rank_change": -104
+        },
+        {
+          "title": "The Kids Are All Right",
+          "year": 2010,
+          "imdb_id": "tt0842926",
+          "rank": 477,
+          "score": 201.82,
+          "imdb": 25.0,
+          "letterboxd": 21.96,
+          "tmdb": 0.0,
+          "source_hits": 5,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 377,
+          "rank_change": -100
+        },
+        {
+          "title": "Goodbye to Language",
+          "year": 2014,
+          "imdb_id": "tt2400275",
+          "rank": 441,
+          "score": 209.85,
+          "imdb": 0.0,
+          "letterboxd": 19.54,
+          "tmdb": 0.0,
+          "source_hits": 4,
+          "qualified": true,
+          "routes": [
+            "corroboration"
+          ],
+          "rank_two_source_200": 342,
+          "rank_change": -99
+        },
+        {
+          "title": "Bridesmaids",
+          "year": 2011,
+          "imdb_id": "tt1478338",
+          "rank": 542,
+          "score": 185.54,
+          "imdb": 15.0,
+          "letterboxd": 30.77,
+          "tmdb": 0.0,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 443,
+          "rank_change": -99
+        },
+        {
+          "title": "You Were Never Really Here",
+          "year": 2017,
+          "imdb_id": "tt5742374",
+          "rank": 567,
+          "score": 177.9,
+          "imdb": 10.0,
+          "letterboxd": 53.85,
+          "tmdb": 0.0,
+          "source_hits": 5,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 468,
+          "rank_change": -99
+        },
+        {
+          "title": "The Assassin",
+          "year": 2015,
+          "imdb_id": "tt3508840",
+          "rank": 396,
+          "score": 223.29,
+          "imdb": 0.0,
+          "letterboxd": 29.28,
+          "tmdb": 0.0,
+          "source_hits": 4,
+          "qualified": true,
+          "routes": [
+            "corroboration"
+          ],
+          "rank_two_source_200": 298,
+          "rank_change": -98
+        },
+        {
+          "title": "Margaret",
+          "year": 2011,
+          "imdb_id": "tt0466893",
+          "rank": 428,
+          "score": 214.04,
+          "imdb": 0.0,
+          "letterboxd": 53.75,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 330,
+          "rank_change": -98
+        },
+        {
+          "title": "Saint Omer",
+          "year": 2022,
+          "imdb_id": "tt15376894",
+          "rank": 539,
+          "score": 186.14,
+          "imdb": 4.06,
+          "letterboxd": 47.9,
+          "tmdb": 0.0,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 441,
+          "rank_change": -98
+        },
+        {
+          "title": "The Souvenir",
+          "year": 2019,
+          "imdb_id": "tt6920356",
+          "rank": 560,
+          "score": 179.23,
+          "imdb": 0.0,
+          "letterboxd": 34.79,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 463,
+          "rank_change": -97
+        },
+        {
+          "title": "Under the Skin",
+          "year": 2013,
+          "imdb_id": "tt1441395",
+          "rank": 386,
+          "score": 225.67,
+          "imdb": 0.0,
+          "letterboxd": 46.15,
+          "tmdb": 0.0,
+          "source_hits": 5,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 290,
+          "rank_change": -96
+        },
+        {
+          "title": "The New World",
+          "year": 2005,
+          "imdb_id": "tt0402399",
+          "rank": 404,
+          "score": 220.46,
+          "imdb": 9.87,
+          "letterboxd": 57.41,
+          "tmdb": 0.0,
+          "source_hits": 4,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 308,
+          "rank_change": -96
+        },
+        {
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "rank": 460,
+          "score": 206.52,
+          "imdb": 5.27,
+          "letterboxd": 45.22,
+          "tmdb": 2.33,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 364,
+          "rank_change": -96
+        },
+        {
+          "title": "Goodbye, Dragon Inn",
+          "year": 2003,
+          "imdb_id": "tt0377556",
+          "rank": 527,
+          "score": 189.77,
+          "imdb": 13.02,
+          "letterboxd": 66.12,
+          "tmdb": 2.12,
+          "source_hits": 4,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 433,
+          "rank_change": -94
+        },
+        {
+          "title": "Titane",
+          "year": 2021,
+          "imdb_id": "tt10944760",
+          "rank": 484,
+          "score": 198.76,
+          "imdb": 0.0,
+          "letterboxd": 38.46,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 391,
+          "rank_change": -93
+        },
+        {
+          "title": "EO",
+          "year": 2022,
+          "imdb_id": "tt19652910",
+          "rank": 601,
+          "score": 168.45,
+          "imdb": 6.21,
+          "letterboxd": 45.72,
+          "tmdb": 0.0,
+          "source_hits": 5,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 508,
+          "rank_change": -93
+        },
+        {
+          "title": "Syndromes and a Century",
+          "year": 2006,
+          "imdb_id": "tt0477731",
+          "rank": 492,
+          "score": 196.92,
+          "imdb": 13.93,
+          "letterboxd": 45.56,
+          "tmdb": 0.0,
+          "source_hits": 4,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 400,
+          "rank_change": -92
+        },
+        {
+          "title": "Silent Light",
+          "year": 2007,
+          "imdb_id": "tt0841925",
+          "rank": 512,
+          "score": 192.4,
+          "imdb": 15.07,
+          "letterboxd": 33.52,
+          "tmdb": 1.14,
+          "source_hits": 4,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 420,
+          "rank_change": -92
+        },
+        {
+          "title": "The Swamp",
+          "year": 2001,
+          "imdb_id": "tt0240419",
+          "rank": 565,
+          "score": 178.65,
+          "imdb": 12.38,
+          "letterboxd": 65.82,
+          "tmdb": 1.84,
+          "source_hits": 3,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 473,
+          "rank_change": -92
+        },
+        {
+          "title": "Memoria",
+          "year": 2021,
+          "imdb_id": "tt8399288",
+          "rank": 577,
+          "score": 174.22,
+          "imdb": 0.0,
+          "letterboxd": 56.72,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 485,
+          "rank_change": -92
+        },
+        {
+          "title": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
+          "year": 2000,
+          "imdb_id": "tt0262240",
+          "rank": 617,
+          "score": 164.68,
+          "imdb": 9.76,
+          "letterboxd": 61.26,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": true,
+          "routes": [
+            "canon"
+          ],
+          "rank_two_source_200": 525,
+          "rank_change": -92
+        },
+        {
+          "title": "Evil Does Not Exist",
+          "year": 2023,
+          "imdb_id": "tt28490044",
+          "rank": 464,
+          "score": 206.15,
+          "imdb": 14.27,
+          "letterboxd": 69.23,
+          "tmdb": 3.83,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 374,
+          "rank_change": -90
+        },
+        {
+          "title": "Tabu",
+          "year": 2012,
+          "imdb_id": "tt2153963",
+          "rank": 529,
+          "score": 189.48,
+          "imdb": 18.07,
+          "letterboxd": 38.85,
+          "tmdb": 3.16,
+          "source_hits": 5,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 440,
+          "rank_change": -89
+        },
+        {
+          "title": "The Wonders",
+          "year": 2014,
+          "imdb_id": "tt3044244",
+          "rank": 558,
+          "score": 180.35,
+          "imdb": 4.16,
+          "letterboxd": 38.82,
+          "tmdb": 2.6,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 469,
+          "rank_change": -89
+        },
+        {
+          "title": "Moolaadé",
+          "year": 2003,
+          "imdb_id": "tt0416991",
+          "rank": 605,
+          "score": 166.9,
+          "imdb": 17.76,
+          "letterboxd": 31.01,
+          "tmdb": 0.0,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 517,
+          "rank_change": -88
+        },
+        {
+          "title": "Of Gods and Men",
+          "year": 2010,
+          "imdb_id": "tt1588337",
+          "rank": 522,
+          "score": 190.33,
+          "imdb": 21.48,
+          "letterboxd": 32.28,
+          "tmdb": 3.14,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 436,
+          "rank_change": -86
+        }
+      ]
+    },
+    "three_source_200": {
+      "up": [
+        {
+          "title": "Raya and the Last Dragon",
+          "year": 2021,
+          "imdb_id": "tt5109280",
+          "rank": 721,
+          "score": 112.51,
+          "imdb": 40.0,
+          "letterboxd": 15.38,
+          "tmdb": 60.88,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 920,
+          "rank_change": 199
+        },
+        {
+          "title": "Onward",
+          "year": 2020,
+          "imdb_id": "tt7146812",
+          "rank": 730,
+          "score": 110.57,
+          "imdb": 40.0,
+          "letterboxd": 23.08,
+          "tmdb": 50.27,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 884,
+          "rank_change": 154
+        },
+        {
+          "title": "Luca",
+          "year": 2021,
+          "imdb_id": "tt12801262",
+          "rank": 543,
+          "score": 143.41,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "tmdb": 63.76,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 690,
+          "rank_change": 147
+        },
+        {
+          "title": "Encanto",
+          "year": 2021,
+          "imdb_id": "tt2953050",
+          "rank": 464,
+          "score": 160.64,
+          "imdb": 35.0,
+          "letterboxd": 38.46,
+          "tmdb": 55.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 603,
+          "rank_change": 139
+        },
+        {
+          "title": "Ferdinand",
+          "year": 2017,
+          "imdb_id": "tt3411444",
+          "rank": 1045,
+          "score": 58.72,
+          "imdb": 9.3,
+          "letterboxd": 0.0,
+          "tmdb": 26.28,
+          "source_hits": 2,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1178,
+          "rank_change": 133
+        },
+        {
+          "title": "Elemental",
+          "year": 2023,
+          "imdb_id": "tt15789038",
+          "rank": 784,
+          "score": 101.29,
+          "imdb": 25.0,
+          "letterboxd": 30.77,
+          "tmdb": 43.66,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 916,
+          "rank_change": 132
+        },
+        {
+          "title": "Ralph Breaks the Internet",
+          "year": 2018,
+          "imdb_id": "tt5848272",
+          "rank": 962,
+          "score": 70.87,
+          "imdb": 25.0,
+          "letterboxd": 0.0,
+          "tmdb": 28.8,
+          "source_hits": 2,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1094,
+          "rank_change": 132
+        },
+        {
+          "title": "American Sniper",
+          "year": 2014,
+          "imdb_id": "tt2179136",
+          "rank": 549,
+          "score": 142.18,
+          "imdb": 40.0,
+          "letterboxd": 30.77,
+          "tmdb": 45.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 679,
+          "rank_change": 130
+        },
+        {
+          "title": "Toy Story 4",
+          "year": 2019,
+          "imdb_id": "tt1979376",
+          "rank": 513,
+          "score": 150.39,
+          "imdb": 55.0,
+          "letterboxd": 23.08,
+          "tmdb": 50.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 636,
+          "rank_change": 123
+        },
+        {
+          "title": "Don't Look Up",
+          "year": 2021,
+          "imdb_id": "tt11286314",
+          "rank": 550,
+          "score": 141.71,
+          "imdb": 30.0,
+          "letterboxd": 7.69,
+          "tmdb": 24.88,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 671,
+          "rank_change": 121
+        },
+        {
+          "title": "Turning Red",
+          "year": 2022,
+          "imdb_id": "tt8097030",
+          "rank": 868,
+          "score": 87.49,
+          "imdb": 20.0,
+          "letterboxd": 23.08,
+          "tmdb": 35.66,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 988,
+          "rank_change": 120
+        },
+        {
+          "title": "How to Train Your Dragon: The Hidden World",
+          "year": 2019,
+          "imdb_id": "tt2386490",
+          "rank": 574,
+          "score": 138.19,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "tmdb": 55.93,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 689,
+          "rank_change": 115
+        },
+        {
+          "title": "The Blind Side",
+          "year": 2009,
+          "imdb_id": "tt0878804",
+          "rank": 477,
+          "score": 159.12,
+          "imdb": 55.0,
+          "letterboxd": 30.77,
+          "tmdb": 55.41,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 590,
+          "rank_change": 113
+        },
+        {
+          "title": "Incredibles 2",
+          "year": 2018,
+          "imdb_id": "tt3606756",
+          "rank": 678,
+          "score": 118.85,
+          "imdb": 50.0,
+          "letterboxd": 30.77,
+          "tmdb": 45.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 789,
+          "rank_change": 111
+        },
+        {
+          "title": "Bohemian Rhapsody",
+          "year": 2018,
+          "imdb_id": "tt1727824",
+          "rank": 285,
+          "score": 208.97,
+          "imdb": 70.0,
+          "letterboxd": 38.46,
+          "tmdb": 70.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 393,
+          "rank_change": 108
+        },
+        {
+          "title": "Over the Moon",
+          "year": 2020,
+          "imdb_id": "tt7488208",
+          "rank": 1046,
+          "score": 58.69,
+          "imdb": 0.0,
+          "letterboxd": 15.31,
+          "tmdb": 20.23,
+          "source_hits": 2,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1149,
+          "rank_change": 103
+        },
+        {
+          "title": "Hidden Figures",
+          "year": 2016,
+          "imdb_id": "tt4846340",
+          "rank": 289,
+          "score": 207.82,
+          "imdb": 65.0,
+          "letterboxd": 69.23,
+          "tmdb": 80.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 389,
+          "rank_change": 100
+        },
+        {
+          "title": "Avatar: The Way of Water",
+          "year": 2022,
+          "imdb_id": "tt1630029",
+          "rank": 402,
+          "score": 175.77,
+          "imdb": 50.0,
+          "letterboxd": 46.15,
+          "tmdb": 55.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 496,
+          "rank_change": 94
+        },
+        {
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "rank": 335,
+          "score": 193.84,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "tmdb": 83.64,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 427,
+          "rank_change": 92
+        },
+        {
+          "title": "War Horse",
+          "year": 2011,
+          "imdb_id": "tt1568911",
+          "rank": 561,
+          "score": 139.89,
+          "imdb": 35.0,
+          "letterboxd": 30.77,
+          "tmdb": 31.56,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 653,
+          "rank_change": 92
+        },
+        {
+          "title": "The Notebook",
+          "year": 2004,
+          "imdb_id": "tt0332280",
+          "rank": 520,
+          "score": 149.14,
+          "imdb": 65.0,
+          "letterboxd": 69.23,
+          "tmdb": 70.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 610,
+          "rank_change": 90
+        },
+        {
+          "title": "Wonder Woman",
+          "year": 2017,
+          "imdb_id": "tt0451279",
+          "rank": 990,
+          "score": 67.2,
+          "imdb": 40.0,
+          "letterboxd": 15.38,
+          "tmdb": 35.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1080,
+          "rank_change": 90
+        },
+        {
+          "title": "The Theory of Everything",
+          "year": 2014,
+          "imdb_id": "tt2980516",
+          "rank": 270,
+          "score": 214.1,
+          "imdb": 60.0,
+          "letterboxd": 46.15,
+          "tmdb": 65.0,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 359,
+          "rank_change": 89
+        },
+        {
+          "title": "The Passion of the Christ",
+          "year": 2004,
+          "imdb_id": "tt0335345",
+          "rank": 732,
+          "score": 110.36,
+          "imdb": 40.0,
+          "letterboxd": 46.15,
+          "tmdb": 43.26,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 820,
+          "rank_change": 88
+        },
+        {
+          "title": "The Woman King",
+          "year": 2022,
+          "imdb_id": "tt8093700",
+          "rank": 777,
+          "score": 102.11,
+          "imdb": 19.27,
+          "letterboxd": 53.85,
+          "tmdb": 38.12,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 865,
+          "rank_change": 88
+        }
+      ],
+      "down": [
+        {
+          "title": "David Byrne's American Utopia",
+          "year": 2020,
+          "imdb_id": "tt11874226",
+          "rank": 926,
+          "score": 77.43,
+          "imdb": 33.23,
+          "letterboxd": 74.27,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 800,
+          "rank_change": -126
+        },
+        {
+          "title": "The Voice of Hind Rajab",
+          "year": 2025,
+          "imdb_id": "tt36943034",
+          "rank": 608,
+          "score": 131.08,
+          "imdb": 57.05,
+          "letterboxd": 100.0,
+          "tmdb": 21.57,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 506,
+          "rank_change": -102
+        },
+        {
+          "title": "Gangs of Wasseypur",
+          "year": 2012,
+          "imdb_id": "tt1954470",
+          "rank": 454,
+          "score": 163.98,
+          "imdb": 85.0,
+          "letterboxd": 62.84,
+          "tmdb": 9.97,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 356,
+          "rank_change": -98
+        },
+        {
+          "title": "Sorry, Baby",
+          "year": 2025,
+          "imdb_id": "tt32843349",
+          "rank": 882,
+          "score": 84.39,
+          "imdb": 21.4,
+          "letterboxd": 84.62,
+          "tmdb": 5.56,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 787,
+          "rank_change": -95
+        },
+        {
+          "title": "Beginners",
+          "year": 2010,
+          "imdb_id": "tt1532503",
+          "rank": 718,
+          "score": 113.72,
+          "imdb": 34.85,
+          "letterboxd": 75.19,
+          "tmdb": 8.04,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 625,
+          "rank_change": -93
+        },
+        {
+          "title": "Everybody Wants Some!!",
+          "year": 2016,
+          "imdb_id": "tt2937696",
+          "rank": 1055,
+          "score": 57.99,
+          "imdb": 18.13,
+          "letterboxd": 53.85,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 962,
+          "rank_change": -93
+        },
+        {
+          "title": "Mind Game",
+          "year": 2004,
+          "imdb_id": "tt0452039",
+          "rank": 855,
+          "score": 89.31,
+          "imdb": 32.77,
+          "letterboxd": 85.79,
+          "tmdb": 13.6,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 763,
+          "rank_change": -92
+        },
+        {
+          "title": "Minding the Gap",
+          "year": 2018,
+          "imdb_id": "tt7476236",
+          "rank": 627,
+          "score": 127.45,
+          "imdb": 39.36,
+          "letterboxd": 85.46,
+          "tmdb": 9.35,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 537,
+          "rank_change": -90
+        },
+        {
+          "title": "Train Dreams",
+          "year": 2025,
+          "imdb_id": "tt29768334",
+          "rank": 714,
+          "score": 114.22,
+          "imdb": 50.0,
+          "letterboxd": 84.62,
+          "tmdb": 21.71,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 626,
+          "rank_change": -88
+        },
+        {
+          "title": "All About Lily Chou-Chou",
+          "year": 2001,
+          "imdb_id": "tt0297721",
+          "rank": 681,
+          "score": 118.58,
+          "imdb": 29.18,
+          "letterboxd": 92.31,
+          "tmdb": 12.8,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 594,
+          "rank_change": -87
+        },
+        {
+          "title": "Fire of Love",
+          "year": 2022,
+          "imdb_id": "tt16227014",
+          "rank": 615,
+          "score": 129.23,
+          "imdb": 33.84,
+          "letterboxd": 92.31,
+          "tmdb": 10.7,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 532,
+          "rank_change": -83
+        },
+        {
+          "title": "The Namesake",
+          "year": 2006,
+          "imdb_id": "tt0433416",
+          "rank": 1018,
+          "score": 62.44,
+          "imdb": 34.13,
+          "letterboxd": 42.35,
+          "tmdb": 2.18,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 937,
+          "rank_change": -81
+        },
+        {
+          "title": "Paradise Lost 3: Purgatory",
+          "year": 2011,
+          "imdb_id": "tt2028530",
+          "rank": 1088,
+          "score": 52.59,
+          "imdb": 40.08,
+          "letterboxd": 34.58,
+          "tmdb": 4.22,
+          "source_hits": 2,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1009,
+          "rank_change": -79
+        },
+        {
+          "title": "Maqbool",
+          "year": 2003,
+          "imdb_id": "tt0379370",
+          "rank": 902,
+          "score": 81.4,
+          "imdb": 45.56,
+          "letterboxd": 39.07,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 824,
+          "rank_change": -78
+        },
+        {
+          "title": "Nickel Boys",
+          "year": 2024,
+          "imdb_id": "tt23055660",
+          "rank": 754,
+          "score": 106.55,
+          "imdb": 13.95,
+          "letterboxd": 76.92,
+          "tmdb": 1.46,
+          "source_hits": 4,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 677,
+          "rank_change": -77
+        },
+        {
+          "title": "Oslo, August 31st",
+          "year": 2011,
+          "imdb_id": "tt1736633",
+          "rank": 667,
+          "score": 120.46,
+          "imdb": 42.48,
+          "letterboxd": 84.62,
+          "tmdb": 18.21,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 591,
+          "rank_change": -76
+        },
+        {
+          "title": "It Was Just an Accident",
+          "year": 2025,
+          "imdb_id": "tt36491653",
+          "rank": 814,
+          "score": 97.19,
+          "imdb": 36.06,
+          "letterboxd": 76.92,
+          "tmdb": 14.8,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 739,
+          "rank_change": -75
+        },
+        {
+          "title": "My Life Without Me",
+          "year": 2003,
+          "imdb_id": "tt0314412",
+          "rank": 1082,
+          "score": 53.85,
+          "imdb": 32.12,
+          "letterboxd": 30.65,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1007,
+          "rank_change": -75
+        },
+        {
+          "title": "Turtles Can Fly",
+          "year": 2004,
+          "imdb_id": "tt0424227",
+          "rank": 612,
+          "score": 130.15,
+          "imdb": 51.14,
+          "letterboxd": 67.87,
+          "tmdb": 11.83,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 539,
+          "rank_change": -73
+        },
+        {
+          "title": "Hit the Road",
+          "year": 2021,
+          "imdb_id": "tt14812782",
+          "rank": 948,
+          "score": 72.97,
+          "imdb": 16.93,
+          "letterboxd": 63.43,
+          "tmdb": 0.98,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 876,
+          "rank_change": -72
+        },
+        {
+          "title": "Jesus Camp",
+          "year": 2006,
+          "imdb_id": "tt0486358",
+          "rank": 1074,
+          "score": 55.11,
+          "imdb": 33.11,
+          "letterboxd": 42.13,
+          "tmdb": 7.42,
+          "source_hits": 2,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1002,
+          "rank_change": -72
+        },
+        {
+          "title": "O.J.: Made in America",
+          "year": 2016,
+          "imdb_id": "tt5275892",
+          "rank": 396,
+          "score": 177.03,
+          "imdb": 69.21,
+          "letterboxd": 85.99,
+          "tmdb": 20.34,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 325,
+          "rank_change": -71
+        },
+        {
+          "title": "In the Loop",
+          "year": 2009,
+          "imdb_id": "tt1226774",
+          "rank": 807,
+          "score": 97.76,
+          "imdb": 40.73,
+          "letterboxd": 64.48,
+          "tmdb": 11.39,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 738,
+          "rank_change": -69
+        },
+        {
+          "title": "Trilogia: To livadi pou dakryzei",
+          "year": 2004,
+          "imdb_id": "tt0366721",
+          "rank": 983,
+          "score": 67.98,
+          "imdb": 24.92,
+          "letterboxd": 45.2,
+          "tmdb": 0.92,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 918,
+          "rank_change": -65
+        },
+        {
+          "title": "No End in Sight",
+          "year": 2007,
+          "imdb_id": "tt0912593",
+          "rank": 1139,
+          "score": 44.69,
+          "imdb": 40.41,
+          "letterboxd": 14.63,
+          "tmdb": 0.0,
+          "source_hits": 3,
+          "qualified": false,
+          "routes": [],
+          "rank_two_source_200": 1074,
+          "rank_change": -65
+        }
+      ]
+    }
+  }
+}
