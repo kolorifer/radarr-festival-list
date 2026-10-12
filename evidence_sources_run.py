@@ -3,18 +3,38 @@
 This wrapper preserves true Sight & Sound published positions, feeds complete
 BBC 2016 and NYT 2025 rankings into the ranked-source resolver, prevents
 parallel/technical Cannes prizes from being mistaken for the main Grand Prix,
-and then adds the planned EFA, Gotham and critics-group evidence families.
+adds audience-discovered films to the identity catalog so current awards can
+corroborate them, and then adds EFA, Gotham and critics-group evidence.
 """
 import csv
 import io
+import json
 import re
+from pathlib import Path
 
 import evidence_sources as es
 
 BBC_URL = "https://pt.wikipedia.org/wiki/Os_100_melhores_filmes_do_s%C3%A9culo_XXI_segundo_a_BBC"
 NYT_URL = "https://gist.githubusercontent.com/mvark/2273ae29bfc5d7033016df4b6cebbc6d/raw/b088026b06661cadfcd5386dd13507309140bfb3/NYT-100-Best-Movies.csv"
+DISCOVERY = Path("sources/imdb-audience-discovery.json")
 _ORIGINAL_RANKED_PARSER = es.parse_wikipedia_ranked
 _ORIGINAL_PUT_COMPONENT = es.put_component
+_ORIGINAL_BUILD_CATALOG = es.build_catalog
+
+
+def build_catalog_with_discovery():
+    catalog = _ORIGINAL_BUILD_CATALOG()
+    if not DISCOVERY.exists():
+        return catalog
+    payload = json.loads(DISCOVERY.read_text(encoding="utf-8"))
+    for row in payload.get("films", []):
+        iid = row.get("imdb_id")
+        if not iid:
+            continue
+        current = catalog.setdefault(iid, {"imdb_id": iid})
+        current["title"] = current.get("title") or row.get("title") or row.get("original_title")
+        current["year"] = current.get("year") or row.get("year")
+    return catalog
 
 
 def parse_sight_sound(text):
@@ -64,6 +84,7 @@ def put_component(store, iid, family, component, points, evidence):
 def main():
     es.BBC_URL = BBC_URL
     es.NYT_URL = NYT_URL
+    es.build_catalog = build_catalog_with_discovery
     es.parse_sight_sound = parse_sight_sound
     es.parse_wikipedia_ranked = parse_ranked
     es.put_component = put_component
