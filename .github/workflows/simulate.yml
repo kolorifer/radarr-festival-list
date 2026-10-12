@@ -9,9 +9,11 @@ on:
       - evidence_score.py
       - evidence_sources.py
       - evidence_sources_run.py
+      - evidence_sources_extra.py
       - evidence_calibration.py
       - test_evidence_score.py
       - test_evidence_sources.py
+      - test_evidence_sources_extra.py
       - phase_b_sources.py
       - requirements.txt
       - audience-ratings.json
@@ -52,7 +54,7 @@ jobs:
       - name: Test and build normalized evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
-          python -m unittest -v test_evidence_sources.py test_evidence_score.py
+          python -m unittest -v test_evidence_sources.py test_evidence_sources_extra.py test_evidence_score.py
           python evidence_score.py
       - name: Print calibration controls
         if: github.ref_name == 'simulation-4b-union-universe'
