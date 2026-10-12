@@ -7,6 +7,7 @@ on:
     paths:
       - simulate_scoring.py
       - evidence_score.py
+      - broad_critic_score.py
       - evidence_sources.py
       - evidence_sources_run.py
       - evidence_sources_extra.py
@@ -19,6 +20,7 @@ on:
       - capped_critic_review.py
       - test_audience_discovery.py
       - test_evidence_score.py
+      - test_broad_critic_score.py
       - test_evidence_sources.py
       - test_evidence_sources_extra.py
       - test_score_rule_experiment.py
@@ -64,11 +66,22 @@ jobs:
       - name: Build evidence-family source snapshot
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python evidence_sources_run.py
-      - name: Test and build normalized evidence scores
+      - name: Test and build base evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
-          python -m unittest -v test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_evidence_score.py test_score_rule_experiment.py
+          python -m unittest -v test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_evidence_score.py test_broad_critic_score.py test_score_rule_experiment.py
           python evidence_score.py
+      - name: Audit cached rating sources
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python rating_source_audit.py
+      - name: Compare broad critic variants
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: |
+          python critical_consensus_experiment.py
+          python capped_critic_review.py
+      - name: Apply chosen capped broad critic score
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python broad_critic_score.py
       - name: Print calibration controls
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python evidence_calibration.py
@@ -81,15 +94,6 @@ jobs:
       - name: Build candidate review report
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python candidate_review_report.py
-      - name: Audit cached rating sources
-        if: github.ref_name == 'simulation-4b-union-universe'
-        run: python rating_source_audit.py
-      - name: Test broad critic consensus
-        if: github.ref_name == 'simulation-4b-union-universe'
-        run: python critical_consensus_experiment.py
-      - name: Build capped critic review
-        if: github.ref_name == 'simulation-4b-union-universe'
-        run: python capped_critic_review.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
