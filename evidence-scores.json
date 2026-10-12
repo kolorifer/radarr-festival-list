@@ -62,7 +62,7 @@
     }
   },
   "current_score_ceiling": 900,
-  "count": 1325,
+  "count": 1318,
   "films": [
     {
       "title": "Brokeback Mountain",
@@ -1096,60 +1096,6 @@
       "overall_rank": 20
     },
     {
-      "title": "Pan's Labyrinth",
-      "year": 2006,
-      "imdb_id": "tt0457430",
-      "tspdt_rank": 36,
-      "source_points": {
-        "tspdt_21c": 96.53,
-        "bbc_21c": 84.0,
-        "nyt_21c": 47.0,
-        "us_institutional": 35.0,
-        "european_recognition": 45.0,
-        "independent_cinema": 20.0,
-        "critics_groups_consensus": 35.0,
-        "audience_consensus": 88.65
-      },
-      "source_evidence": {
-        "tspdt_21c": [
-          "TSPDT 21st Century #36"
-        ],
-        "bbc_21c": [
-          "bbc_21c #17"
-        ],
-        "nyt_21c": [
-          "nyt_21c #54"
-        ],
-        "us_institutional": [
-          "Academy: oscar / best foreign language film of the year (nominee)"
-        ],
-        "european_recognition": [
-          "BAFTA: bafta film award / best film not in the english language (winner)",
-          "Cannes: palme d'or / palme d'or (nominee)"
-        ],
-        "independent_cinema": [
-          "Spirit: independent spirit award / best feature (nominee)"
-        ],
-        "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
-        ],
-        "audience_consensus": [
-          "IMDb + Letterboxd quality/breadth convergence"
-        ]
-      },
-      "overall_score": 451.18,
-      "source_hits": 8,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 50.13,
-      "qualified": true,
-      "routes": [
-        "canon",
-        "convergence"
-      ],
-      "overall_rank": 21
-    },
-    {
       "title": "Yi Yi",
       "year": 2000,
       "imdb_id": "tt0244316",
@@ -1196,7 +1142,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 22
+      "overall_rank": 21
     },
     {
       "title": "Lost in Translation",
@@ -1244,7 +1190,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 23
+      "overall_rank": 22
     },
     {
       "title": "A Separation",
@@ -1289,7 +1235,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 24
+      "overall_rank": 23
     },
     {
       "title": "Mad Max: Fury Road",
@@ -1331,7 +1277,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 25
+      "overall_rank": 24
     },
     {
       "title": "Everything Everywhere All at Once",
@@ -1382,7 +1328,7 @@
         "institutional",
         "convergence"
       ],
-      "overall_rank": 26
+      "overall_rank": 25
     },
     {
       "title": "WALL·E",
@@ -1422,6 +1368,56 @@
       "eligible_sources": 9,
       "eligible_max_score": 900,
       "eligible_score_pct": 46.89,
+      "qualified": true,
+      "routes": [
+        "canon",
+        "convergence"
+      ],
+      "overall_rank": 26
+    },
+    {
+      "title": "Pan's Labyrinth",
+      "year": 2006,
+      "imdb_id": "tt0457430",
+      "tspdt_rank": 36,
+      "source_points": {
+        "tspdt_21c": 96.53,
+        "bbc_21c": 84.0,
+        "nyt_21c": 47.0,
+        "us_institutional": 35.0,
+        "european_recognition": 45.0,
+        "independent_cinema": 20.0,
+        "audience_consensus": 88.65
+      },
+      "source_evidence": {
+        "tspdt_21c": [
+          "TSPDT 21st Century #36"
+        ],
+        "bbc_21c": [
+          "bbc_21c #17"
+        ],
+        "nyt_21c": [
+          "nyt_21c #54"
+        ],
+        "us_institutional": [
+          "Academy: oscar / best foreign language film of the year (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (winner)",
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "audience_consensus": [
+          "IMDb + Letterboxd quality/breadth convergence"
+        ]
+      },
+      "overall_score": 416.18,
+      "source_hits": 7,
+      "eligible_sources": 9,
+      "eligible_max_score": 900,
+      "eligible_score_pct": 46.24,
       "qualified": true,
       "routes": [
         "canon",
@@ -2814,48 +2810,6 @@
       "overall_rank": 58
     },
     {
-      "title": "Caché",
-      "year": 2005,
-      "imdb_id": "tt0387898",
-      "tspdt_rank": 13,
-      "source_points": {
-        "tspdt_21c": 98.81,
-        "sight_sound": 26.0,
-        "bbc_21c": 78.0,
-        "european_recognition": 80.0,
-        "audience_consensus": 58.06
-      },
-      "source_evidence": {
-        "tspdt_21c": [
-          "TSPDT 21st Century #13"
-        ],
-        "sight_sound": [
-          "sight_sound #75"
-        ],
-        "bbc_21c": [
-          "bbc_21c #23"
-        ],
-        "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: best director / best director (winner)",
-          "European Film Awards Best Film (winner)"
-        ],
-        "audience_consensus": [
-          "IMDb + Letterboxd quality/breadth convergence"
-        ]
-      },
-      "overall_score": 340.87,
-      "source_hits": 5,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 37.87,
-      "qualified": true,
-      "routes": [
-        "canon"
-      ],
-      "overall_rank": 59
-    },
-    {
       "title": "La La Land",
       "year": 2016,
       "imdb_id": "tt3783958",
@@ -2895,7 +2849,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 60
+      "overall_rank": 59
     },
     {
       "title": "Gladiator",
@@ -2937,7 +2891,7 @@
         "institutional",
         "convergence"
       ],
-      "overall_rank": 61
+      "overall_rank": 60
     },
     {
       "title": "Ida",
@@ -2978,7 +2932,7 @@
       "routes": [
         "corroboration"
       ],
-      "overall_rank": 62
+      "overall_rank": 61
     },
     {
       "title": "Arrival",
@@ -3019,7 +2973,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 63
+      "overall_rank": 62
     },
     {
       "title": "The Dark Knight",
@@ -3056,7 +3010,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 64
+      "overall_rank": 63
     },
     {
       "title": "The Lord of the Rings: The Fellowship of the Ring",
@@ -3098,7 +3052,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 65
+      "overall_rank": 64
     },
     {
       "title": "Once Upon a Time in... Hollywood",
@@ -3140,7 +3094,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 66
+      "overall_rank": 65
     },
     {
       "title": "The Favourite",
@@ -3185,7 +3139,7 @@
       "eligible_score_pct": 41.58,
       "qualified": false,
       "routes": [],
-      "overall_rank": 67
+      "overall_rank": 66
     },
     {
       "title": "The Wolf of Wall Street",
@@ -3225,7 +3179,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 68
+      "overall_rank": 67
     },
     {
       "title": "Oldboy",
@@ -3263,7 +3217,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 69
+      "overall_rank": 68
     },
     {
       "title": "Little Miss Sunshine",
@@ -3307,7 +3261,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 70
+      "overall_rank": 69
     },
     {
       "title": "The Master",
@@ -3351,7 +3305,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 71
+      "overall_rank": 70
     },
     {
       "title": "Carol",
@@ -3405,7 +3359,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 72
+      "overall_rank": 71
     },
     {
       "title": "Oppenheimer",
@@ -3447,7 +3401,7 @@
         "institutional",
         "convergence"
       ],
-      "overall_rank": 73
+      "overall_rank": 72
     },
     {
       "title": "Up",
@@ -3484,7 +3438,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 74
+      "overall_rank": 73
     },
     {
       "title": "Talk to Her",
@@ -3521,7 +3475,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 75
+      "overall_rank": 74
     },
     {
       "title": "Slumdog Millionaire",
@@ -3560,7 +3514,7 @@
         "institutional",
         "convergence"
       ],
-      "overall_rank": 76
+      "overall_rank": 75
     },
     {
       "title": "The Shape of Water",
@@ -3598,7 +3552,7 @@
       "routes": [
         "institutional"
       ],
-      "overall_rank": 77
+      "overall_rank": 76
     },
     {
       "title": "Phantom Thread",
@@ -3634,7 +3588,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 78
+      "overall_rank": 77
     },
     {
       "title": "Toni Erdmann",
@@ -3684,7 +3638,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 79
+      "overall_rank": 78
     },
     {
       "title": "Melancholia",
@@ -3729,7 +3683,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 80
+      "overall_rank": 79
     },
     {
       "title": "The Act of Killing",
@@ -3765,6 +3719,47 @@
       "eligible_sources": 9,
       "eligible_max_score": 900,
       "eligible_score_pct": 33.65,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "overall_rank": 80
+    },
+    {
+      "title": "Caché",
+      "year": 2005,
+      "imdb_id": "tt0387898",
+      "tspdt_rank": 13,
+      "source_points": {
+        "tspdt_21c": 98.81,
+        "sight_sound": 26.0,
+        "bbc_21c": 78.0,
+        "european_recognition": 40.0,
+        "audience_consensus": 58.06
+      },
+      "source_evidence": {
+        "tspdt_21c": [
+          "TSPDT 21st Century #13"
+        ],
+        "sight_sound": [
+          "sight_sound #75"
+        ],
+        "bbc_21c": [
+          "bbc_21c #23"
+        ],
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)",
+          "Cannes: best director / best director (winner)"
+        ],
+        "audience_consensus": [
+          "IMDb + Letterboxd quality/breadth convergence"
+        ]
+      },
+      "overall_score": 300.87,
+      "source_hits": 5,
+      "eligible_sources": 9,
+      "eligible_max_score": 900,
+      "eligible_score_pct": 33.43,
       "qualified": true,
       "routes": [
         "canon"
@@ -5344,48 +5339,6 @@
       "overall_rank": 122
     },
     {
-      "title": "Waltz with Bashir",
-      "year": 2008,
-      "imdb_id": "tt1185616",
-      "tspdt_rank": 197,
-      "source_points": {
-        "tspdt_21c": 80.58,
-        "us_institutional": 35.0,
-        "european_recognition": 37.0,
-        "critics_groups_consensus": 35.0,
-        "audience_consensus": 67.99
-      },
-      "source_evidence": {
-        "tspdt_21c": [
-          "TSPDT 21st Century #197"
-        ],
-        "us_institutional": [
-          "Academy: oscar / best foreign language film of the year (nominee)"
-        ],
-        "european_recognition": [
-          "BAFTA: bafta film award / best film not in the english language (nominee)",
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "European Film Awards Best Film (nominee)"
-        ],
-        "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
-        ],
-        "audience_consensus": [
-          "IMDb + Letterboxd quality/breadth convergence"
-        ]
-      },
-      "overall_score": 255.57,
-      "source_hits": 5,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 28.4,
-      "qualified": true,
-      "routes": [
-        "corroboration"
-      ],
-      "overall_rank": 123
-    },
-    {
       "title": "Marriage Story",
       "year": 2019,
       "imdb_id": "tt7653254",
@@ -5423,7 +5376,7 @@
       "eligible_score_pct": 31.94,
       "qualified": false,
       "routes": [],
-      "overall_rank": 124
+      "overall_rank": 123
     },
     {
       "title": "Spider-Man: Into the Spider-Verse",
@@ -5456,7 +5409,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 125
+      "overall_rank": 124
     },
     {
       "title": "Fish Tank",
@@ -5498,7 +5451,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 126
+      "overall_rank": 125
     },
     {
       "title": "Beasts of the Southern Wild",
@@ -5533,7 +5486,7 @@
       "eligible_score_pct": 27.56,
       "qualified": false,
       "routes": [],
-      "overall_rank": 127
+      "overall_rank": 126
     },
     {
       "title": "The Piano Teacher",
@@ -5568,7 +5521,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 128
+      "overall_rank": 127
     },
     {
       "title": "In the Bedroom",
@@ -5608,7 +5561,7 @@
       "eligible_score_pct": 27.46,
       "qualified": false,
       "routes": [],
-      "overall_rank": 129
+      "overall_rank": 128
     },
     {
       "title": "The Diving Bell and the Butterfly",
@@ -5648,7 +5601,7 @@
       "eligible_score_pct": 27.45,
       "qualified": false,
       "routes": [],
-      "overall_rank": 130
+      "overall_rank": 129
     },
     {
       "title": "Capote",
@@ -5691,7 +5644,7 @@
       "eligible_score_pct": 27.45,
       "qualified": false,
       "routes": [],
-      "overall_rank": 131
+      "overall_rank": 130
     },
     {
       "title": "The Banshees of Inisherin",
@@ -5727,7 +5680,7 @@
       "eligible_score_pct": 30.77,
       "qualified": false,
       "routes": [],
-      "overall_rank": 132
+      "overall_rank": 131
     },
     {
       "title": "The Hours",
@@ -5762,7 +5715,7 @@
       "eligible_score_pct": 27.12,
       "qualified": false,
       "routes": [],
-      "overall_rank": 133
+      "overall_rank": 132
     },
     {
       "title": "Amores Perros",
@@ -5799,7 +5752,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 134
+      "overall_rank": 133
     },
     {
       "title": "The Return",
@@ -5835,7 +5788,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 135
+      "overall_rank": 134
     },
     {
       "title": "The Man Without a Past",
@@ -5873,7 +5826,7 @@
       "routes": [
         "corroboration"
       ],
-      "overall_rank": 136
+      "overall_rank": 135
     },
     {
       "title": "The Aviator",
@@ -5908,7 +5861,7 @@
       "eligible_score_pct": 26.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 137
+      "overall_rank": 136
     },
     {
       "title": "Punch-Drunk Love",
@@ -5945,7 +5898,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 138
+      "overall_rank": 137
     },
     {
       "title": "Holy Motors",
@@ -5981,7 +5934,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 139
+      "overall_rank": 138
     },
     {
       "title": "Django Unchained",
@@ -6014,48 +5967,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 140
-    },
-    {
-      "title": "Goodbye to Language",
-      "year": 2014,
-      "imdb_id": "tt2400275",
-      "tspdt_rank": 119,
-      "source_points": {
-        "tspdt_21c": 88.31,
-        "bbc_21c": 52.0,
-        "european_recognition": 50.0,
-        "critics_groups_consensus": 35.0,
-        "audience_consensus": 9.77
-      },
-      "source_evidence": {
-        "tspdt_21c": [
-          "TSPDT 21st Century #119"
-        ],
-        "bbc_21c": [
-          "bbc_21c #49"
-        ],
-        "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: jury prize / jury prize (winner)"
-        ],
-        "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
-        ],
-        "audience_consensus": [
-          "IMDb + Letterboxd quality/breadth convergence"
-        ]
-      },
-      "overall_score": 235.08,
-      "source_hits": 5,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 26.12,
-      "qualified": true,
-      "routes": [
-        "corroboration"
-      ],
-      "overall_rank": 141
+      "overall_rank": 139
     },
     {
       "title": "The Hunt",
@@ -6093,7 +6005,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 142
+      "overall_rank": 140
     },
     {
       "title": "Mystic River",
@@ -6130,7 +6042,7 @@
       "routes": [
         "corroboration"
       ],
-      "overall_rank": 143
+      "overall_rank": 141
     },
     {
       "title": "Man on Wire",
@@ -6164,7 +6076,7 @@
       "routes": [
         "corroboration"
       ],
-      "overall_rank": 144
+      "overall_rank": 142
     },
     {
       "title": "Letters from Iwo Jima",
@@ -6200,7 +6112,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 145
+      "overall_rank": 143
     },
     {
       "title": "Drive",
@@ -6236,7 +6148,7 @@
       "eligible_score_pct": 25.77,
       "qualified": false,
       "routes": [],
-      "overall_rank": 146
+      "overall_rank": 144
     },
     {
       "title": "Far from Heaven",
@@ -6274,7 +6186,7 @@
       "eligible_score_pct": 25.74,
       "qualified": false,
       "routes": [],
-      "overall_rank": 147
+      "overall_rank": 145
     },
     {
       "title": "The Descendants",
@@ -6318,7 +6230,7 @@
       "eligible_score_pct": 25.62,
       "qualified": false,
       "routes": [],
-      "overall_rank": 148
+      "overall_rank": 146
     },
     {
       "title": "Certified Copy",
@@ -6356,7 +6268,7 @@
       "eligible_score_pct": 25.57,
       "qualified": false,
       "routes": [],
-      "overall_rank": 149
+      "overall_rank": 147
     },
     {
       "title": "Timbuktu",
@@ -6395,7 +6307,7 @@
       "eligible_score_pct": 25.52,
       "qualified": false,
       "routes": [],
-      "overall_rank": 150
+      "overall_rank": 148
     },
     {
       "title": "Adaptation.",
@@ -6425,7 +6337,7 @@
       "eligible_score_pct": 25.49,
       "qualified": false,
       "routes": [],
-      "overall_rank": 151
+      "overall_rank": 149
     },
     {
       "title": "Master and Commander: The Far Side of the World",
@@ -6460,7 +6372,7 @@
       "eligible_score_pct": 25.44,
       "qualified": false,
       "routes": [],
-      "overall_rank": 152
+      "overall_rank": 150
     },
     {
       "title": "Dogville",
@@ -6498,7 +6410,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 153
+      "overall_rank": 151
     },
     {
       "title": "The Secret in Their Eyes",
@@ -6539,7 +6451,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 154
+      "overall_rank": 152
     },
     {
       "title": "Let the Right One In",
@@ -6581,7 +6493,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 155
+      "overall_rank": 153
     },
     {
       "title": "Elephant",
@@ -6614,7 +6526,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 156
+      "overall_rank": 154
     },
     {
       "title": "Winter Sleep",
@@ -6645,7 +6557,7 @@
       "eligible_score_pct": 25.12,
       "qualified": false,
       "routes": [],
-      "overall_rank": 157
+      "overall_rank": 155
     },
     {
       "title": "Another Round",
@@ -6680,7 +6592,7 @@
       "eligible_score_pct": 27.76,
       "qualified": false,
       "routes": [],
-      "overall_rank": 158
+      "overall_rank": 156
     },
     {
       "title": "Finding Nemo",
@@ -6716,7 +6628,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 159
+      "overall_rank": 157
     },
     {
       "title": "The Queen",
@@ -6752,7 +6664,7 @@
       "eligible_score_pct": 24.59,
       "qualified": false,
       "routes": [],
-      "overall_rank": 160
+      "overall_rank": 158
     },
     {
       "title": "Dunkirk",
@@ -6787,7 +6699,7 @@
       "eligible_score_pct": 27.66,
       "qualified": false,
       "routes": [],
-      "overall_rank": 161
+      "overall_rank": 159
     },
     {
       "title": "The Incredibles",
@@ -6819,7 +6731,45 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 162
+      "overall_rank": 160
+    },
+    {
+      "title": "Waltz with Bashir",
+      "year": 2008,
+      "imdb_id": "tt1185616",
+      "tspdt_rank": 197,
+      "source_points": {
+        "tspdt_21c": 80.58,
+        "us_institutional": 35.0,
+        "european_recognition": 37.0,
+        "audience_consensus": 67.99
+      },
+      "source_evidence": {
+        "tspdt_21c": [
+          "TSPDT 21st Century #197"
+        ],
+        "us_institutional": [
+          "Academy: oscar / best foreign language film of the year (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)",
+          "Cannes: palme d'or / palme d'or (nominee)",
+          "European Film Awards Best Film (nominee)"
+        ],
+        "audience_consensus": [
+          "IMDb + Letterboxd quality/breadth convergence"
+        ]
+      },
+      "overall_score": 220.57,
+      "source_hits": 4,
+      "eligible_sources": 9,
+      "eligible_max_score": 900,
+      "eligible_score_pct": 24.51,
+      "qualified": true,
+      "routes": [
+        "corroboration"
+      ],
+      "overall_rank": 161
     },
     {
       "title": "Fruitvale Station",
@@ -6852,7 +6802,7 @@
       "eligible_score_pct": 24.34,
       "qualified": false,
       "routes": [],
-      "overall_rank": 163
+      "overall_rank": 162
     },
     {
       "title": "Dune",
@@ -6887,7 +6837,7 @@
       "eligible_score_pct": 27.34,
       "qualified": false,
       "routes": [],
-      "overall_rank": 164
+      "overall_rank": 163
     },
     {
       "title": "25th Hour",
@@ -6917,7 +6867,7 @@
       "eligible_score_pct": 24.07,
       "qualified": false,
       "routes": [],
-      "overall_rank": 165
+      "overall_rank": 164
     },
     {
       "title": "The Square",
@@ -6952,7 +6902,7 @@
       "eligible_score_pct": 27.06,
       "qualified": false,
       "routes": [],
-      "overall_rank": 166
+      "overall_rank": 165
     },
     {
       "title": "A Beautiful Mind",
@@ -6989,7 +6939,7 @@
       "routes": [
         "institutional"
       ],
-      "overall_rank": 167
+      "overall_rank": 166
     },
     {
       "title": "The Class",
@@ -7024,7 +6974,7 @@
       "eligible_score_pct": 24.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 168
+      "overall_rank": 167
     },
     {
       "title": "Moonrise Kingdom",
@@ -7065,7 +7015,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 169
+      "overall_rank": 168
     },
     {
       "title": "The Rider",
@@ -7100,7 +7050,7 @@
       "eligible_score_pct": 26.84,
       "qualified": false,
       "routes": [],
-      "overall_rank": 170
+      "overall_rank": 169
     },
     {
       "title": "Kill Bill: Vol. 1",
@@ -7132,7 +7082,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 171
+      "overall_rank": 170
     },
     {
       "title": "Traffic",
@@ -7167,7 +7117,7 @@
       "eligible_score_pct": 23.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 172
+      "overall_rank": 171
     },
     {
       "title": "Aftersun",
@@ -7202,7 +7152,7 @@
       "eligible_score_pct": 26.63,
       "qualified": false,
       "routes": [],
-      "overall_rank": 173
+      "overall_rank": 172
     },
     {
       "title": "Volver",
@@ -7238,7 +7188,7 @@
       "eligible_score_pct": 23.66,
       "qualified": false,
       "routes": [],
-      "overall_rank": 174
+      "overall_rank": 173
     },
     {
       "title": "Lust, Caution",
@@ -7269,7 +7219,7 @@
       "eligible_score_pct": 23.66,
       "qualified": false,
       "routes": [],
-      "overall_rank": 175
+      "overall_rank": 174
     },
     {
       "title": "Erin Brockovich",
@@ -7304,7 +7254,7 @@
       "eligible_score_pct": 23.65,
       "qualified": false,
       "routes": [],
-      "overall_rank": 176
+      "overall_rank": 175
     },
     {
       "title": "Milk",
@@ -7342,7 +7292,7 @@
       "eligible_score_pct": 23.61,
       "qualified": false,
       "routes": [],
-      "overall_rank": 177
+      "overall_rank": 176
     },
     {
       "title": "Shrek",
@@ -7377,7 +7327,7 @@
       "eligible_score_pct": 23.61,
       "qualified": false,
       "routes": [],
-      "overall_rank": 178
+      "overall_rank": 177
     },
     {
       "title": "Brooklyn",
@@ -7411,7 +7361,7 @@
       "eligible_score_pct": 23.54,
       "qualified": false,
       "routes": [],
-      "overall_rank": 179
+      "overall_rank": 178
     },
     {
       "title": "A History of Violence",
@@ -7453,7 +7403,7 @@
       "eligible_score_pct": 23.49,
       "qualified": false,
       "routes": [],
-      "overall_rank": 180
+      "overall_rank": 179
     },
     {
       "title": "First Cow",
@@ -7494,7 +7444,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 181
+      "overall_rank": 180
     },
     {
       "title": "The Gleaners & I",
@@ -7534,7 +7484,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 182
+      "overall_rank": 181
     },
     {
       "title": "The Handmaiden",
@@ -7567,7 +7517,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 183
+      "overall_rank": 182
     },
     {
       "title": "Good Night, and Good Luck.",
@@ -7607,7 +7557,7 @@
       "eligible_score_pct": 23.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 184
+      "overall_rank": 183
     },
     {
       "title": "Incendies",
@@ -7643,7 +7593,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 185
+      "overall_rank": 184
     },
     {
       "title": "The Assassin",
@@ -7681,7 +7631,7 @@
       "routes": [
         "corroboration"
       ],
-      "overall_rank": 186
+      "overall_rank": 185
     },
     {
       "title": "Silver Linings Playbook",
@@ -7715,7 +7665,7 @@
       "eligible_score_pct": 23.03,
       "qualified": false,
       "routes": [],
-      "overall_rank": 187
+      "overall_rank": 186
     },
     {
       "title": "Michael Clayton",
@@ -7754,7 +7704,7 @@
       "eligible_score_pct": 22.95,
       "qualified": false,
       "routes": [],
-      "overall_rank": 188
+      "overall_rank": 187
     },
     {
       "title": "Loveless",
@@ -7791,7 +7741,7 @@
       "eligible_score_pct": 25.82,
       "qualified": false,
       "routes": [],
-      "overall_rank": 189
+      "overall_rank": 188
     },
     {
       "title": "Gangs of New York",
@@ -7826,7 +7776,7 @@
       "eligible_score_pct": 22.94,
       "qualified": false,
       "routes": [],
-      "overall_rank": 190
+      "overall_rank": 189
     },
     {
       "title": "Quo Vadis, Aida?",
@@ -7862,7 +7812,7 @@
       "eligible_score_pct": 25.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 191
+      "overall_rank": 190
     },
     {
       "title": "Juno",
@@ -7896,7 +7846,7 @@
       "eligible_score_pct": 22.65,
       "qualified": false,
       "routes": [],
-      "overall_rank": 192
+      "overall_rank": 191
     },
     {
       "title": "Black Panther",
@@ -7933,7 +7883,7 @@
       "routes": [
         "corroboration"
       ],
-      "overall_rank": 193
+      "overall_rank": 192
     },
     {
       "title": "Moneyball",
@@ -7968,7 +7918,7 @@
       "eligible_score_pct": 22.63,
       "qualified": false,
       "routes": [],
-      "overall_rank": 194
+      "overall_rank": 193
     },
     {
       "title": "Under the Skin",
@@ -8008,7 +7958,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 195
+      "overall_rank": 194
     },
     {
       "title": "Pain and Glory",
@@ -8044,7 +7994,7 @@
       "eligible_score_pct": 25.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 196
+      "overall_rank": 195
     },
     {
       "title": "Spring, Summer, Fall, Winter... and Spring",
@@ -8076,7 +8026,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 197
+      "overall_rank": 196
     },
     {
       "title": "The Worst Person in the World",
@@ -8117,7 +8067,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 198
+      "overall_rank": 197
     },
     {
       "title": "Crash",
@@ -8156,6 +8106,43 @@
       "qualified": true,
       "routes": [
         "institutional"
+      ],
+      "overall_rank": 198
+    },
+    {
+      "title": "Goodbye to Language",
+      "year": 2014,
+      "imdb_id": "tt2400275",
+      "tspdt_rank": 119,
+      "source_points": {
+        "tspdt_21c": 88.31,
+        "bbc_21c": 52.0,
+        "european_recognition": 50.0,
+        "audience_consensus": 9.77
+      },
+      "source_evidence": {
+        "tspdt_21c": [
+          "TSPDT 21st Century #119"
+        ],
+        "bbc_21c": [
+          "bbc_21c #49"
+        ],
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)",
+          "Cannes: jury prize / jury prize (winner)"
+        ],
+        "audience_consensus": [
+          "IMDb + Letterboxd quality/breadth convergence"
+        ]
+      },
+      "overall_score": 200.08,
+      "source_hits": 4,
+      "eligible_sources": 9,
+      "eligible_max_score": 900,
+      "eligible_score_pct": 22.23,
+      "qualified": true,
+      "routes": [
+        "corroboration"
       ],
       "overall_rank": 199
     },
@@ -9580,38 +9567,6 @@
       "overall_rank": 242
     },
     {
-      "title": "120 BPM (Beats Per Minute)",
-      "year": 2017,
-      "imdb_id": "tt6135348",
-      "tspdt_rank": 477,
-      "source_points": {
-        "tspdt_21c": 52.83,
-        "european_recognition": 77.0,
-        "audience_consensus": 49.01
-      },
-      "source_evidence": {
-        "tspdt_21c": [
-          "TSPDT 21st Century #477"
-        ],
-        "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: grand prize of the jury / grand prize of the jury (winner)",
-          "European Film Awards Best Film (nominee)"
-        ],
-        "audience_consensus": [
-          "IMDb + Letterboxd quality/breadth convergence"
-        ]
-      },
-      "overall_score": 178.84,
-      "source_hits": 3,
-      "eligible_sources": 8,
-      "eligible_max_score": 800,
-      "eligible_score_pct": 22.36,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 243
-    },
-    {
       "title": "The Kids Are All Right",
       "year": 2010,
       "imdb_id": "tt0842926",
@@ -9644,7 +9599,7 @@
       "eligible_score_pct": 19.82,
       "qualified": false,
       "routes": [],
-      "overall_rank": 244
+      "overall_rank": 243
     },
     {
       "title": "The Kid with a Bike",
@@ -9676,7 +9631,7 @@
       "eligible_score_pct": 19.77,
       "qualified": false,
       "routes": [],
-      "overall_rank": 245
+      "overall_rank": 244
     },
     {
       "title": "Donnie Darko",
@@ -9709,7 +9664,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 246
+      "overall_rank": 245
     },
     {
       "title": "I Am Not Your Negro",
@@ -9741,7 +9696,7 @@
       "routes": [
         "corroboration"
       ],
-      "overall_rank": 247
+      "overall_rank": 246
     },
     {
       "title": "Little Women",
@@ -9773,7 +9728,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 248
+      "overall_rank": 247
     },
     {
       "title": "Borat",
@@ -9803,7 +9758,7 @@
       "eligible_score_pct": 19.56,
       "qualified": false,
       "routes": [],
-      "overall_rank": 249
+      "overall_rank": 248
     },
     {
       "title": "Fallen Leaves",
@@ -9839,7 +9794,7 @@
       "eligible_score_pct": 25.07,
       "qualified": false,
       "routes": [],
-      "overall_rank": 250
+      "overall_rank": 249
     },
     {
       "title": "I'm Not There",
@@ -9875,7 +9830,7 @@
       "eligible_score_pct": 19.48,
       "qualified": false,
       "routes": [],
-      "overall_rank": 251
+      "overall_rank": 250
     },
     {
       "title": "The Farewell",
@@ -9911,7 +9866,7 @@
       "eligible_score_pct": 21.91,
       "qualified": false,
       "routes": [],
-      "overall_rank": 252
+      "overall_rank": 251
     },
     {
       "title": "Birdman or (The Unexpected Virtue of Ignorance)",
@@ -9943,7 +9898,7 @@
       "routes": [
         "institutional"
       ],
-      "overall_rank": 253
+      "overall_rank": 252
     },
     {
       "title": "O Brother, Where Art Thou?",
@@ -9979,7 +9934,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 254
+      "overall_rank": 253
     },
     {
       "title": "The Wind That Shakes the Barley",
@@ -10010,7 +9965,7 @@
       "eligible_score_pct": 19.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 255
+      "overall_rank": 254
     },
     {
       "title": "Lincoln",
@@ -10045,7 +10000,7 @@
       "eligible_score_pct": 19.3,
       "qualified": false,
       "routes": [],
-      "overall_rank": 256
+      "overall_rank": 255
     },
     {
       "title": "The Curious Case of Benjamin Button",
@@ -10080,7 +10035,7 @@
       "eligible_score_pct": 19.3,
       "qualified": false,
       "routes": [],
-      "overall_rank": 257
+      "overall_rank": 256
     },
     {
       "title": "Departures",
@@ -10110,7 +10065,7 @@
       "eligible_score_pct": 19.28,
       "qualified": false,
       "routes": [],
-      "overall_rank": 258
+      "overall_rank": 257
     },
     {
       "title": "All the Beauty and the Bloodshed",
@@ -10144,7 +10099,7 @@
       "eligible_score_pct": 21.6,
       "qualified": false,
       "routes": [],
-      "overall_rank": 259
+      "overall_rank": 258
     },
     {
       "title": "Grizzly Man",
@@ -10181,7 +10136,7 @@
         "canon",
         "convergence"
       ],
-      "overall_rank": 260
+      "overall_rank": 259
     },
     {
       "title": "Petite Maman",
@@ -10214,7 +10169,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 261
+      "overall_rank": 260
     },
     {
       "title": "The Squid and the Whale",
@@ -10246,7 +10201,7 @@
       "eligible_score_pct": 19.05,
       "qualified": false,
       "routes": [],
-      "overall_rank": 262
+      "overall_rank": 261
     },
     {
       "title": "Munich",
@@ -10276,7 +10231,7 @@
       "eligible_score_pct": 18.96,
       "qualified": false,
       "routes": [],
-      "overall_rank": 263
+      "overall_rank": 262
     },
     {
       "title": "Paradise Now",
@@ -10310,7 +10265,7 @@
       "eligible_score_pct": 18.91,
       "qualified": false,
       "routes": [],
-      "overall_rank": 264
+      "overall_rank": 263
     },
     {
       "title": "If Beale Street Could Talk",
@@ -10345,7 +10300,7 @@
       "eligible_score_pct": 21.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 265
+      "overall_rank": 264
     },
     {
       "title": "Like Father, Like Son",
@@ -10376,7 +10331,7 @@
       "eligible_score_pct": 18.85,
       "qualified": false,
       "routes": [],
-      "overall_rank": 266
+      "overall_rank": 265
     },
     {
       "title": "The Lobster",
@@ -10408,7 +10363,7 @@
       "eligible_score_pct": 18.85,
       "qualified": false,
       "routes": [],
-      "overall_rank": 267
+      "overall_rank": 266
     },
     {
       "title": "First Reformed",
@@ -10447,7 +10402,7 @@
       "eligible_score_pct": 21.18,
       "qualified": false,
       "routes": [],
-      "overall_rank": 268
+      "overall_rank": 267
     },
     {
       "title": "Billy Elliot",
@@ -10482,7 +10437,7 @@
       "eligible_score_pct": 18.82,
       "qualified": false,
       "routes": [],
-      "overall_rank": 269
+      "overall_rank": 268
     },
     {
       "title": "The Florida Project",
@@ -10517,7 +10472,7 @@
       "eligible_score_pct": 21.17,
       "qualified": false,
       "routes": [],
-      "overall_rank": 270
+      "overall_rank": 269
     },
     {
       "title": "Syndromes and a Century",
@@ -10549,7 +10504,7 @@
       "routes": [
         "canon"
       ],
-      "overall_rank": 271
+      "overall_rank": 270
     },
     {
       "title": "Primer",
@@ -10581,7 +10536,7 @@
       "eligible_score_pct": 18.56,
       "qualified": false,
       "routes": [],
-      "overall_rank": 272
+      "overall_rank": 271
     },
     {
       "title": "Silent Light",
@@ -10614,6 +10569,37 @@
       "routes": [
         "canon"
       ],
+      "overall_rank": 272
+    },
+    {
+      "title": "120 BPM (Beats Per Minute)",
+      "year": 2017,
+      "imdb_id": "tt6135348",
+      "tspdt_rank": 477,
+      "source_points": {
+        "tspdt_21c": 52.83,
+        "european_recognition": 65.0,
+        "audience_consensus": 49.01
+      },
+      "source_evidence": {
+        "tspdt_21c": [
+          "TSPDT 21st Century #477"
+        ],
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)",
+          "Cannes: grand prize of the jury / grand prize of the jury (winner)"
+        ],
+        "audience_consensus": [
+          "IMDb + Letterboxd quality/breadth convergence"
+        ]
+      },
+      "overall_score": 166.84,
+      "source_hits": 3,
+      "eligible_sources": 8,
+      "eligible_max_score": 800,
+      "eligible_score_pct": 20.86,
+      "qualified": false,
+      "routes": [],
       "overall_rank": 273
     },
     {
@@ -20673,41 +20659,6 @@
       "overall_rank": 616
     },
     {
-      "title": "Compartment Number 6",
-      "year": 2021,
-      "imdb_id": "tt10262648",
-      "tspdt_rank": 723,
-      "source_points": {
-        "tspdt_21c": 28.45,
-        "us_institutional": 5.0,
-        "european_recognition": 22.0,
-        "audience_consensus": 37.68
-      },
-      "source_evidence": {
-        "tspdt_21c": [
-          "TSPDT 21st Century #723"
-        ],
-        "us_institutional": [
-          "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
-        ],
-        "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "European Film Awards Best Film (nominee)"
-        ],
-        "audience_consensus": [
-          "IMDb + Letterboxd quality/breadth convergence"
-        ]
-      },
-      "overall_score": 93.13,
-      "source_hits": 4,
-      "eligible_sources": 8,
-      "eligible_max_score": 800,
-      "eligible_score_pct": 11.64,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 617
-    },
-    {
       "title": "American Factory",
       "year": 2019,
       "imdb_id": "tt9351980",
@@ -20732,7 +20683,7 @@
       "eligible_score_pct": 11.62,
       "qualified": false,
       "routes": [],
-      "overall_rank": 618
+      "overall_rank": 617
     },
     {
       "title": "The Four Times",
@@ -20758,7 +20709,7 @@
       "eligible_score_pct": 10.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 619
+      "overall_rank": 618
     },
     {
       "title": "Martha Marcy May Marlene",
@@ -20790,7 +20741,7 @@
       "eligible_score_pct": 10.28,
       "qualified": false,
       "routes": [],
-      "overall_rank": 620
+      "overall_rank": 619
     },
     {
       "title": "The Hateful Eight",
@@ -20816,7 +20767,7 @@
       "eligible_score_pct": 10.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 621
+      "overall_rank": 620
     },
     {
       "title": "Io Capitano",
@@ -20845,7 +20796,7 @@
       "eligible_score_pct": 13.14,
       "qualified": false,
       "routes": [],
-      "overall_rank": 622
+      "overall_rank": 621
     },
     {
       "title": "Nowhere in Africa",
@@ -20871,7 +20822,7 @@
       "eligible_score_pct": 10.21,
       "qualified": false,
       "routes": [],
-      "overall_rank": 623
+      "overall_rank": 622
     },
     {
       "title": "Black Hawk Down",
@@ -20897,7 +20848,7 @@
       "eligible_score_pct": 10.19,
       "qualified": false,
       "routes": [],
-      "overall_rank": 624
+      "overall_rank": 623
     },
     {
       "title": "Antichrist",
@@ -20927,7 +20878,7 @@
       "eligible_score_pct": 10.18,
       "qualified": false,
       "routes": [],
-      "overall_rank": 625
+      "overall_rank": 624
     },
     {
       "title": "Showing Up",
@@ -20961,7 +20912,7 @@
       "eligible_score_pct": 11.42,
       "qualified": false,
       "routes": [],
-      "overall_rank": 626
+      "overall_rank": 625
     },
     {
       "title": "Things to Come",
@@ -20991,7 +20942,7 @@
       "eligible_score_pct": 10.14,
       "qualified": false,
       "routes": [],
-      "overall_rank": 627
+      "overall_rank": 626
     },
     {
       "title": "Sieranevada",
@@ -21021,7 +20972,7 @@
       "eligible_score_pct": 10.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 628
+      "overall_rank": 627
     },
     {
       "title": "Amy",
@@ -21047,7 +20998,7 @@
       "eligible_score_pct": 10.1,
       "qualified": false,
       "routes": [],
-      "overall_rank": 629
+      "overall_rank": 628
     },
     {
       "title": "The Edge of Heaven",
@@ -21078,7 +21029,7 @@
       "eligible_score_pct": 10.09,
       "qualified": false,
       "routes": [],
-      "overall_rank": 630
+      "overall_rank": 629
     },
     {
       "title": "The Day He Arrives",
@@ -21104,7 +21055,7 @@
       "eligible_score_pct": 10.09,
       "qualified": false,
       "routes": [],
-      "overall_rank": 631
+      "overall_rank": 630
     },
     {
       "title": "Blade Runner 2049",
@@ -21132,7 +21083,7 @@
       "routes": [
         "convergence"
       ],
-      "overall_rank": 632
+      "overall_rank": 631
     },
     {
       "title": "Beyond the Hills",
@@ -21162,7 +21113,7 @@
       "eligible_score_pct": 10.06,
       "qualified": false,
       "routes": [],
-      "overall_rank": 633
+      "overall_rank": 632
     },
     {
       "title": "Moon",
@@ -21188,7 +21139,7 @@
       "eligible_score_pct": 10.06,
       "qualified": false,
       "routes": [],
-      "overall_rank": 634
+      "overall_rank": 633
     },
     {
       "title": "Black Book",
@@ -21218,7 +21169,7 @@
       "eligible_score_pct": 10.05,
       "qualified": false,
       "routes": [],
-      "overall_rank": 635
+      "overall_rank": 634
     },
     {
       "title": "Good Time",
@@ -21252,7 +21203,7 @@
       "eligible_score_pct": 11.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 636
+      "overall_rank": 635
     },
     {
       "title": "Speed Racer",
@@ -21278,7 +21229,7 @@
       "eligible_score_pct": 10.02,
       "qualified": false,
       "routes": [],
-      "overall_rank": 637
+      "overall_rank": 636
     },
     {
       "title": "Horse Money",
@@ -21304,7 +21255,7 @@
       "eligible_score_pct": 10.01,
       "qualified": false,
       "routes": [],
-      "overall_rank": 638
+      "overall_rank": 637
     },
     {
       "title": "All That Breathes",
@@ -21330,7 +21281,7 @@
       "eligible_score_pct": 11.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 639
+      "overall_rank": 638
     },
     {
       "title": "Bridge of Spies",
@@ -21356,7 +21307,7 @@
       "eligible_score_pct": 10.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 640
+      "overall_rank": 639
     },
     {
       "title": "Darkest Hour",
@@ -21382,7 +21333,7 @@
       "eligible_score_pct": 11.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 641
+      "overall_rank": 640
     },
     {
       "title": "Last Men in Aleppo",
@@ -21408,7 +21359,7 @@
       "eligible_score_pct": 11.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 642
+      "overall_rank": 641
     },
     {
       "title": "Of Fathers and Sons",
@@ -21434,7 +21385,7 @@
       "eligible_score_pct": 11.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 643
+      "overall_rank": 642
     },
     {
       "title": "The Eternal Memory",
@@ -21460,7 +21411,7 @@
       "eligible_score_pct": 12.86,
       "qualified": false,
       "routes": [],
-      "overall_rank": 644
+      "overall_rank": 643
     },
     {
       "title": "Bohemian Rhapsody",
@@ -21483,7 +21434,7 @@
       "eligible_score_pct": 11.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 645
+      "overall_rank": 644
     },
     {
       "title": "West Side Story",
@@ -21506,7 +21457,7 @@
       "eligible_score_pct": 11.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 646
+      "overall_rank": 645
     },
     {
       "title": "All About Lily Chou-Chou",
@@ -21532,7 +21483,7 @@
       "eligible_score_pct": 9.98,
       "qualified": false,
       "routes": [],
-      "overall_rank": 647
+      "overall_rank": 646
     },
     {
       "title": "I Saw the Devil",
@@ -21558,7 +21509,7 @@
       "eligible_score_pct": 9.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 648
+      "overall_rank": 647
     },
     {
       "title": "Bamako",
@@ -21584,7 +21535,7 @@
       "eligible_score_pct": 9.88,
       "qualified": false,
       "routes": [],
-      "overall_rank": 649
+      "overall_rank": 648
     },
     {
       "title": "The Five Obstructions",
@@ -21610,7 +21561,7 @@
       "eligible_score_pct": 9.88,
       "qualified": false,
       "routes": [],
-      "overall_rank": 650
+      "overall_rank": 649
     },
     {
       "title": "Dawson City: Frozen Time",
@@ -21636,7 +21587,7 @@
       "eligible_score_pct": 9.86,
       "qualified": false,
       "routes": [],
-      "overall_rank": 651
+      "overall_rank": 650
     },
     {
       "title": "A Girl Walks Home Alone at Night",
@@ -21666,7 +21617,7 @@
       "eligible_score_pct": 9.86,
       "qualified": false,
       "routes": [],
-      "overall_rank": 652
+      "overall_rank": 651
     },
     {
       "title": "Martyrs",
@@ -21692,7 +21643,7 @@
       "eligible_score_pct": 9.83,
       "qualified": false,
       "routes": [],
-      "overall_rank": 653
+      "overall_rank": 652
     },
     {
       "title": "Western",
@@ -21718,7 +21669,7 @@
       "eligible_score_pct": 11.06,
       "qualified": false,
       "routes": [],
-      "overall_rank": 654
+      "overall_rank": 653
     },
     {
       "title": "The Descent",
@@ -21744,7 +21695,7 @@
       "eligible_score_pct": 9.81,
       "qualified": false,
       "routes": [],
-      "overall_rank": 655
+      "overall_rank": 654
     },
     {
       "title": "Climates",
@@ -21774,7 +21725,7 @@
       "eligible_score_pct": 9.8,
       "qualified": false,
       "routes": [],
-      "overall_rank": 656
+      "overall_rank": 655
     },
     {
       "title": "The Clock",
@@ -21800,7 +21751,7 @@
       "eligible_score_pct": 9.79,
       "qualified": false,
       "routes": [],
-      "overall_rank": 657
+      "overall_rank": 656
     },
     {
       "title": "Lovers Rock",
@@ -21822,7 +21773,7 @@
       "eligible_score_pct": 11.01,
       "qualified": false,
       "routes": [],
-      "overall_rank": 658
+      "overall_rank": 657
     },
     {
       "title": "Close Your Eyes",
@@ -21848,7 +21799,7 @@
       "eligible_score_pct": 12.56,
       "qualified": false,
       "routes": [],
-      "overall_rank": 659
+      "overall_rank": 658
     },
     {
       "title": "The Chaser",
@@ -21874,7 +21825,7 @@
       "eligible_score_pct": 9.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 660
+      "overall_rank": 659
     },
     {
       "title": "Evolution of a Filipino Family",
@@ -21900,7 +21851,7 @@
       "eligible_score_pct": 9.73,
       "qualified": false,
       "routes": [],
-      "overall_rank": 661
+      "overall_rank": 660
     },
     {
       "title": "Upstream Color",
@@ -21931,7 +21882,7 @@
       "eligible_score_pct": 9.72,
       "qualified": false,
       "routes": [],
-      "overall_rank": 662
+      "overall_rank": 661
     },
     {
       "title": "Days",
@@ -21961,7 +21912,7 @@
       "eligible_score_pct": 10.93,
       "qualified": false,
       "routes": [],
-      "overall_rank": 663
+      "overall_rank": 662
     },
     {
       "title": "On the Beach at Night Alone",
@@ -21991,7 +21942,7 @@
       "eligible_score_pct": 10.92,
       "qualified": false,
       "routes": [],
-      "overall_rank": 664
+      "overall_rank": 663
     },
     {
       "title": "The Time That Remains",
@@ -22021,7 +21972,7 @@
       "eligible_score_pct": 9.7,
       "qualified": false,
       "routes": [],
-      "overall_rank": 665
+      "overall_rank": 664
     },
     {
       "title": "Oslo, August 31st",
@@ -22047,7 +21998,7 @@
       "eligible_score_pct": 9.68,
       "qualified": false,
       "routes": [],
-      "overall_rank": 666
+      "overall_rank": 665
     },
     {
       "title": "Knives Out",
@@ -22077,7 +22028,7 @@
       "eligible_score_pct": 10.88,
       "qualified": false,
       "routes": [],
-      "overall_rank": 667
+      "overall_rank": 666
     },
     {
       "title": "The Killing of a Sacred Deer",
@@ -22107,7 +22058,7 @@
       "eligible_score_pct": 10.86,
       "qualified": false,
       "routes": [],
-      "overall_rank": 668
+      "overall_rank": 667
     },
     {
       "title": "All of Us Strangers",
@@ -22137,7 +22088,7 @@
       "eligible_score_pct": 12.36,
       "qualified": false,
       "routes": [],
-      "overall_rank": 669
+      "overall_rank": 668
     },
     {
       "title": "No",
@@ -22167,7 +22118,7 @@
       "eligible_score_pct": 9.62,
       "qualified": false,
       "routes": [],
-      "overall_rank": 670
+      "overall_rank": 669
     },
     {
       "title": "The Image Book",
@@ -22197,7 +22148,7 @@
       "eligible_score_pct": 10.8,
       "qualified": false,
       "routes": [],
-      "overall_rank": 671
+      "overall_rank": 670
     },
     {
       "title": "The Twilight Samurai",
@@ -22223,7 +22174,7 @@
       "eligible_score_pct": 9.58,
       "qualified": false,
       "routes": [],
-      "overall_rank": 672
+      "overall_rank": 671
     },
     {
       "title": "Treasure Planet",
@@ -22249,7 +22200,7 @@
       "eligible_score_pct": 9.55,
       "qualified": false,
       "routes": [],
-      "overall_rank": 673
+      "overall_rank": 672
     },
     {
       "title": "Summer Hours",
@@ -22275,7 +22226,7 @@
       "eligible_score_pct": 9.54,
       "qualified": false,
       "routes": [],
-      "overall_rank": 674
+      "overall_rank": 673
     },
     {
       "title": "Fat Girl",
@@ -22301,7 +22252,7 @@
       "eligible_score_pct": 9.54,
       "qualified": false,
       "routes": [],
-      "overall_rank": 675
+      "overall_rank": 674
     },
     {
       "title": "The Wayward Cloud",
@@ -22327,7 +22278,7 @@
       "eligible_score_pct": 9.48,
       "qualified": false,
       "routes": [],
-      "overall_rank": 676
+      "overall_rank": 675
     },
     {
       "title": "Team America: World Police",
@@ -22353,7 +22304,7 @@
       "eligible_score_pct": 9.46,
       "qualified": false,
       "routes": [],
-      "overall_rank": 677
+      "overall_rank": 676
     },
     {
       "title": "127 Hours",
@@ -22379,7 +22330,7 @@
       "eligible_score_pct": 9.44,
       "qualified": false,
       "routes": [],
-      "overall_rank": 678
+      "overall_rank": 677
     },
     {
       "title": "American Fiction",
@@ -22405,7 +22356,7 @@
       "eligible_score_pct": 12.14,
       "qualified": false,
       "routes": [],
-      "overall_rank": 679
+      "overall_rank": 678
     },
     {
       "title": "Maestro",
@@ -22432,7 +22383,7 @@
       "eligible_score_pct": 12.14,
       "qualified": false,
       "routes": [],
-      "overall_rank": 680
+      "overall_rank": 679
     },
     {
       "title": "Tsotsi",
@@ -22458,7 +22409,7 @@
       "eligible_score_pct": 9.44,
       "qualified": false,
       "routes": [],
-      "overall_rank": 681
+      "overall_rank": 680
     },
     {
       "title": "Women Talking",
@@ -22484,7 +22435,7 @@
       "eligible_score_pct": 10.62,
       "qualified": false,
       "routes": [],
-      "overall_rank": 682
+      "overall_rank": 681
     },
     {
       "title": "Martin Eden",
@@ -22515,7 +22466,7 @@
       "eligible_score_pct": 10.61,
       "qualified": false,
       "routes": [],
-      "overall_rank": 683
+      "overall_rank": 682
     },
     {
       "title": "Good Morning, Night",
@@ -22545,7 +22496,7 @@
       "eligible_score_pct": 9.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 684
+      "overall_rank": 683
     },
     {
       "title": "I Am Love",
@@ -22575,7 +22526,7 @@
       "eligible_score_pct": 9.42,
       "qualified": false,
       "routes": [],
-      "overall_rank": 685
+      "overall_rank": 684
     },
     {
       "title": "It Follows",
@@ -22601,7 +22552,7 @@
       "eligible_score_pct": 9.41,
       "qualified": false,
       "routes": [],
-      "overall_rank": 686
+      "overall_rank": 685
     },
     {
       "title": "Extraordinary Stories",
@@ -22627,7 +22578,7 @@
       "eligible_score_pct": 9.4,
       "qualified": false,
       "routes": [],
-      "overall_rank": 687
+      "overall_rank": 686
     },
     {
       "title": "Spring Breakers",
@@ -22653,7 +22604,7 @@
       "eligible_score_pct": 9.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 688
+      "overall_rank": 687
     },
     {
       "title": "Post Tenebras Lux",
@@ -22684,7 +22635,7 @@
       "eligible_score_pct": 9.3,
       "qualified": false,
       "routes": [],
-      "overall_rank": 689
+      "overall_rank": 688
     },
     {
       "title": "John Wick",
@@ -22710,7 +22661,7 @@
       "eligible_score_pct": 9.28,
       "qualified": false,
       "routes": [],
-      "overall_rank": 690
+      "overall_rank": 689
     },
     {
       "title": "Writing with Fire",
@@ -22738,7 +22689,7 @@
       "eligible_score_pct": 10.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 691
+      "overall_rank": 690
     },
     {
       "title": "The Fountain",
@@ -22764,7 +22715,7 @@
       "eligible_score_pct": 9.21,
       "qualified": false,
       "routes": [],
-      "overall_rank": 692
+      "overall_rank": 691
     },
     {
       "title": "A Screaming Man",
@@ -22795,7 +22746,7 @@
       "eligible_score_pct": 9.21,
       "qualified": false,
       "routes": [],
-      "overall_rank": 693
+      "overall_rank": 692
     },
     {
       "title": "Attack the Block",
@@ -22821,7 +22772,7 @@
       "eligible_score_pct": 9.21,
       "qualified": false,
       "routes": [],
-      "overall_rank": 694
+      "overall_rank": 693
     },
     {
       "title": "Bend It Like Beckham",
@@ -22851,7 +22802,7 @@
       "eligible_score_pct": 9.18,
       "qualified": false,
       "routes": [],
-      "overall_rank": 695
+      "overall_rank": 694
     },
     {
       "title": "The Other Side of the Wind",
@@ -22877,7 +22828,7 @@
       "eligible_score_pct": 10.31,
       "qualified": false,
       "routes": [],
-      "overall_rank": 696
+      "overall_rank": 695
     },
     {
       "title": "The Missing Picture",
@@ -22907,7 +22858,7 @@
       "eligible_score_pct": 9.14,
       "qualified": false,
       "routes": [],
-      "overall_rank": 697
+      "overall_rank": 696
     },
     {
       "title": "Mysterious Object at Noon",
@@ -22933,7 +22884,7 @@
       "eligible_score_pct": 9.12,
       "qualified": false,
       "routes": [],
-      "overall_rank": 698
+      "overall_rank": 697
     },
     {
       "title": "In a Better World",
@@ -22959,7 +22910,7 @@
       "eligible_score_pct": 9.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 699
+      "overall_rank": 698
     },
     {
       "title": "Spirit: Stallion of the Cimarron",
@@ -22985,7 +22936,7 @@
       "eligible_score_pct": 9.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 700
+      "overall_rank": 699
     },
     {
       "title": "Sympathy for Mr. Vengeance",
@@ -23011,7 +22962,7 @@
       "eligible_score_pct": 9.04,
       "qualified": false,
       "routes": [],
-      "overall_rank": 701
+      "overall_rank": 700
     },
     {
       "title": "The Orphanage",
@@ -23041,7 +22992,7 @@
       "eligible_score_pct": 9.03,
       "qualified": false,
       "routes": [],
-      "overall_rank": 702
+      "overall_rank": 701
     },
     {
       "title": "Gerry",
@@ -23065,6 +23016,40 @@
       "eligible_sources": 9,
       "eligible_max_score": 900,
       "eligible_score_pct": 9.02,
+      "qualified": false,
+      "routes": [],
+      "overall_rank": 702
+    },
+    {
+      "title": "Compartment Number 6",
+      "year": 2021,
+      "imdb_id": "tt10262648",
+      "tspdt_rank": 723,
+      "source_points": {
+        "tspdt_21c": 28.45,
+        "us_institutional": 5.0,
+        "european_recognition": 10.0,
+        "audience_consensus": 37.68
+      },
+      "source_evidence": {
+        "tspdt_21c": [
+          "TSPDT 21st Century #723"
+        ],
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
+        ],
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "audience_consensus": [
+          "IMDb + Letterboxd quality/breadth convergence"
+        ]
+      },
+      "overall_score": 81.13,
+      "source_hits": 4,
+      "eligible_sources": 8,
+      "eligible_max_score": 800,
+      "eligible_score_pct": 10.14,
       "qualified": false,
       "routes": [],
       "overall_rank": 703
@@ -31785,28 +31770,6 @@
       "overall_rank": 1040
     },
     {
-      "title": "Small Axe",
-      "year": 2020,
-      "imdb_id": "tt3464896",
-      "tspdt_rank": null,
-      "source_points": {
-        "critics_groups_consensus": 35.0
-      },
-      "source_evidence": {
-        "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
-        ]
-      },
-      "overall_score": 35.0,
-      "source_hits": 1,
-      "eligible_sources": 8,
-      "eligible_max_score": 800,
-      "eligible_score_pct": 4.38,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 1041
-    },
-    {
       "title": "Spider-Man: Across the Spider-Verse",
       "year": 2023,
       "imdb_id": "tt9362722",
@@ -31827,7 +31790,7 @@
       "eligible_score_pct": 5.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1042
+      "overall_rank": 1041
     },
     {
       "title": "Tangerines",
@@ -31849,7 +31812,7 @@
       "eligible_score_pct": 3.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1043
+      "overall_rank": 1042
     },
     {
       "title": "Tanna",
@@ -31871,7 +31834,7 @@
       "eligible_score_pct": 3.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1044
+      "overall_rank": 1043
     },
     {
       "title": "The Boss Baby",
@@ -31894,7 +31857,7 @@
       "eligible_score_pct": 4.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1045
+      "overall_rank": 1044
     },
     {
       "title": "The Breadwinner",
@@ -31917,7 +31880,7 @@
       "eligible_score_pct": 4.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1046
+      "overall_rank": 1045
     },
     {
       "title": "The Brutalist",
@@ -31939,7 +31902,7 @@
       "eligible_score_pct": 5.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1047
+      "overall_rank": 1046
     },
     {
       "title": "The Lost Daughter",
@@ -31961,7 +31924,7 @@
       "eligible_score_pct": 4.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1048
+      "overall_rank": 1047
     },
     {
       "title": "The Man Who Sold His Skin",
@@ -31983,7 +31946,7 @@
       "eligible_score_pct": 4.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1049
+      "overall_rank": 1048
     },
     {
       "title": "The Milk of Sorrow",
@@ -32005,7 +31968,7 @@
       "eligible_score_pct": 3.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1050
+      "overall_rank": 1049
     },
     {
       "title": "The Teachers' Lounge",
@@ -32027,7 +31990,7 @@
       "eligible_score_pct": 5.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1051
+      "overall_rank": 1050
     },
     {
       "title": "Turning Red",
@@ -32050,7 +32013,7 @@
       "eligible_score_pct": 4.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1052
+      "overall_rank": 1051
     },
     {
       "title": "Yesterday",
@@ -32072,7 +32035,7 @@
       "eligible_score_pct": 3.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1053
+      "overall_rank": 1052
     },
     {
       "title": "Zus & Zo",
@@ -32094,7 +32057,7 @@
       "eligible_score_pct": 3.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1054
+      "overall_rank": 1053
     },
     {
       "title": "Da 5 Bloods",
@@ -32120,7 +32083,7 @@
       "eligible_score_pct": 4.35,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1055
+      "overall_rank": 1054
     },
     {
       "title": "Wonder Woman",
@@ -32146,7 +32109,7 @@
       "eligible_score_pct": 4.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1056
+      "overall_rank": 1055
     },
     {
       "title": "Archipelago",
@@ -32172,7 +32135,7 @@
       "eligible_score_pct": 3.84,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1057
+      "overall_rank": 1056
     },
     {
       "title": "What Do We See When We Look at the Sky?",
@@ -32202,7 +32165,7 @@
       "eligible_score_pct": 4.31,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1058
+      "overall_rank": 1057
     },
     {
       "title": "Benediction",
@@ -32228,7 +32191,7 @@
       "eligible_score_pct": 4.26,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1059
+      "overall_rank": 1058
     },
     {
       "title": "Enemy",
@@ -32254,7 +32217,7 @@
       "eligible_score_pct": 3.79,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1060
+      "overall_rank": 1059
     },
     {
       "title": "The Duchess of Langeais",
@@ -32280,7 +32243,7 @@
       "eligible_score_pct": 3.78,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1061
+      "overall_rank": 1060
     },
     {
       "title": "I Am Not a Witch",
@@ -32306,7 +32269,7 @@
       "eligible_score_pct": 4.21,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1062
+      "overall_rank": 1061
     },
     {
       "title": "Maps to the Stars",
@@ -32336,7 +32299,7 @@
       "eligible_score_pct": 3.72,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1063
+      "overall_rank": 1062
     },
     {
       "title": "Triple Agent",
@@ -32362,7 +32325,7 @@
       "eligible_score_pct": 3.72,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1064
+      "overall_rank": 1063
     },
     {
       "title": "Appropriate Behavior",
@@ -32388,7 +32351,7 @@
       "eligible_score_pct": 3.72,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1065
+      "overall_rank": 1064
     },
     {
       "title": "5 Broken Cameras",
@@ -32411,7 +32374,7 @@
       "eligible_score_pct": 3.67,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1066
+      "overall_rank": 1065
     },
     {
       "title": "Cartel Land",
@@ -32434,7 +32397,7 @@
       "eligible_score_pct": 3.67,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1067
+      "overall_rank": 1066
     },
     {
       "title": "Cutie and the Boxer",
@@ -32457,7 +32420,7 @@
       "eligible_score_pct": 3.67,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1068
+      "overall_rank": 1067
     },
     {
       "title": "Iraq in Fragments",
@@ -32480,7 +32443,7 @@
       "eligible_score_pct": 3.67,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1069
+      "overall_rank": 1068
     },
     {
       "title": "Super Size Me",
@@ -32503,7 +32466,7 @@
       "eligible_score_pct": 3.67,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1070
+      "overall_rank": 1069
     },
     {
       "title": "Bastards",
@@ -32529,7 +32492,7 @@
       "eligible_score_pct": 3.66,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1071
+      "overall_rank": 1070
     },
     {
       "title": "The Heart of the World",
@@ -32555,7 +32518,7 @@
       "eligible_score_pct": 3.66,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1072
+      "overall_rank": 1071
     },
     {
       "title": "City Hall",
@@ -32581,7 +32544,7 @@
       "eligible_score_pct": 4.09,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1073
+      "overall_rank": 1072
     },
     {
       "title": "Jauja",
@@ -32607,7 +32570,7 @@
       "eligible_score_pct": 3.61,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1074
+      "overall_rank": 1073
     },
     {
       "title": "3 Faces",
@@ -32637,7 +32600,7 @@
       "eligible_score_pct": 4.05,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1075
+      "overall_rank": 1074
     },
     {
       "title": "Winged Migration",
@@ -32659,7 +32622,7 @@
       "eligible_score_pct": 3.6,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1076
+      "overall_rank": 1075
     },
     {
       "title": "Of Time and the City",
@@ -32685,7 +32648,7 @@
       "eligible_score_pct": 3.58,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1077
+      "overall_rank": 1076
     },
     {
       "title": "Yourself and Yours",
@@ -32711,7 +32674,7 @@
       "eligible_score_pct": 3.53,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1078
+      "overall_rank": 1077
     },
     {
       "title": "Asteroid City",
@@ -32741,7 +32704,7 @@
       "eligible_score_pct": 4.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1079
+      "overall_rank": 1078
     },
     {
       "title": "The Ring",
@@ -32767,7 +32730,7 @@
       "eligible_score_pct": 3.45,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1080
+      "overall_rank": 1079
     },
     {
       "title": "Visitor Q",
@@ -32793,7 +32756,7 @@
       "eligible_score_pct": 3.44,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1081
+      "overall_rank": 1080
     },
     {
       "title": "The Saddest Music in the World",
@@ -32819,7 +32782,7 @@
       "eligible_score_pct": 3.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1082
+      "overall_rank": 1081
     },
     {
       "title": "Knocked Up",
@@ -32845,7 +32808,7 @@
       "eligible_score_pct": 3.42,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1083
+      "overall_rank": 1082
     },
     {
       "title": "Aurora",
@@ -32871,7 +32834,7 @@
       "eligible_score_pct": 3.41,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1084
+      "overall_rank": 1083
     },
     {
       "title": "The Lost City of Z",
@@ -32897,7 +32860,7 @@
       "eligible_score_pct": 3.39,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1085
+      "overall_rank": 1084
     },
     {
       "title": "Trash Humpers",
@@ -32919,7 +32882,7 @@
       "eligible_score_pct": 3.38,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1086
+      "overall_rank": 1085
     },
     {
       "title": "Stevie",
@@ -32949,7 +32912,7 @@
       "eligible_score_pct": 3.36,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1087
+      "overall_rank": 1086
     },
     {
       "title": "I'm Going Home",
@@ -32979,7 +32942,7 @@
       "eligible_score_pct": 3.35,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1088
+      "overall_rank": 1087
     },
     {
       "title": "A Cat in Paris",
@@ -33001,7 +32964,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1089
+      "overall_rank": 1088
     },
     {
       "title": "A Shaun the Sheep Movie: Farmageddon",
@@ -33023,7 +32986,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1090
+      "overall_rank": 1089
     },
     {
       "title": "Abacus: Small Enough to Jail",
@@ -33045,7 +33008,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1091
+      "overall_rank": 1090
     },
     {
       "title": "Ascension",
@@ -33067,7 +33030,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1092
+      "overall_rank": 1091
     },
     {
       "title": "Attica",
@@ -33089,7 +33052,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1093
+      "overall_rank": 1092
     },
     {
       "title": "Bobi Wine: The People's President",
@@ -33111,7 +33074,7 @@
       "eligible_score_pct": 4.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1094
+      "overall_rank": 1093
     },
     {
       "title": "Bolt",
@@ -33133,7 +33096,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1095
+      "overall_rank": 1094
     },
     {
       "title": "Cars",
@@ -33155,7 +33118,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1096
+      "overall_rank": 1095
     },
     {
       "title": "Despicable Me 2",
@@ -33177,7 +33140,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1097
+      "overall_rank": 1096
     },
     {
       "title": "Ernest & Celestine",
@@ -33199,7 +33162,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1098
+      "overall_rank": 1097
     },
     {
       "title": "Fire at Sea",
@@ -33221,7 +33184,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1099
+      "overall_rank": 1098
     },
     {
       "title": "Frankenweenie",
@@ -33243,7 +33206,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1100
+      "overall_rank": 1099
     },
     {
       "title": "How to Train Your Dragon",
@@ -33265,7 +33228,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1101
+      "overall_rank": 1100
     },
     {
       "title": "How to Train Your Dragon 2",
@@ -33287,7 +33250,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1102
+      "overall_rank": 1101
     },
     {
       "title": "Jimmy Neutron: Boy Genius",
@@ -33309,7 +33272,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1103
+      "overall_rank": 1102
     },
     {
       "title": "Klaus",
@@ -33331,7 +33294,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1104
+      "overall_rank": 1103
     },
     {
       "title": "Kung Fu Panda",
@@ -33353,7 +33316,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1105
+      "overall_rank": 1104
     },
     {
       "title": "Kung Fu Panda 2",
@@ -33375,7 +33338,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1106
+      "overall_rank": 1105
     },
     {
       "title": "Monster House",
@@ -33397,7 +33360,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1107
+      "overall_rank": 1106
     },
     {
       "title": "Nimona",
@@ -33419,7 +33382,7 @@
       "eligible_score_pct": 4.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1108
+      "overall_rank": 1107
     },
     {
       "title": "Ocean's Eleven",
@@ -33441,7 +33404,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1109
+      "overall_rank": 1108
     },
     {
       "title": "ParaNorman",
@@ -33463,7 +33426,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1110
+      "overall_rank": 1109
     },
     {
       "title": "Puss in Boots",
@@ -33485,7 +33448,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1111
+      "overall_rank": 1110
     },
     {
       "title": "RBG",
@@ -33507,7 +33470,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1112
+      "overall_rank": 1111
     },
     {
       "title": "Robot Dreams",
@@ -33529,7 +33492,7 @@
       "eligible_score_pct": 4.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1113
+      "overall_rank": 1112
     },
     {
       "title": "Shark Tale",
@@ -33551,7 +33514,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1114
+      "overall_rank": 1113
     },
     {
       "title": "Song of the Sea",
@@ -33573,7 +33536,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1115
+      "overall_rank": 1114
     },
     {
       "title": "Surf's Up",
@@ -33595,7 +33558,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1116
+      "overall_rank": 1115
     },
     {
       "title": "The Boxtrolls",
@@ -33617,7 +33580,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1117
+      "overall_rank": 1116
     },
     {
       "title": "The Croods",
@@ -33639,7 +33602,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1118
+      "overall_rank": 1117
     },
     {
       "title": "The Illusionist",
@@ -33661,7 +33624,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1119
+      "overall_rank": 1118
     },
     {
       "title": "The Invisible War",
@@ -33683,7 +33646,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1120
+      "overall_rank": 1119
     },
     {
       "title": "The Mitchells vs. the Machines",
@@ -33705,7 +33668,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1121
+      "overall_rank": 1120
     },
     {
       "title": "The Pirates! Band of Misfits",
@@ -33727,7 +33690,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1122
+      "overall_rank": 1121
     },
     {
       "title": "The Princess and the Frog",
@@ -33749,7 +33712,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1123
+      "overall_rank": 1122
     },
     {
       "title": "The Red Turtle",
@@ -33771,7 +33734,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1124
+      "overall_rank": 1123
     },
     {
       "title": "The Sea Beast",
@@ -33793,7 +33756,7 @@
       "eligible_score_pct": 3.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1125
+      "overall_rank": 1124
     },
     {
       "title": "The Secret of Kells",
@@ -33815,7 +33778,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1126
+      "overall_rank": 1125
     },
     {
       "title": "To Kill a Tiger",
@@ -33837,7 +33800,7 @@
       "eligible_score_pct": 4.29,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1127
+      "overall_rank": 1126
     },
     {
       "title": "When Marnie Was There",
@@ -33859,7 +33822,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1128
+      "overall_rank": 1127
     },
     {
       "title": "Wreck-It Ralph",
@@ -33881,7 +33844,7 @@
       "eligible_score_pct": 3.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1129
+      "overall_rank": 1128
     },
     {
       "title": "The Body Remembers When the World Broke Open",
@@ -33907,7 +33870,7 @@
       "eligible_score_pct": 3.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1130
+      "overall_rank": 1129
     },
     {
       "title": "The Loneliest Planet",
@@ -33937,7 +33900,7 @@
       "eligible_score_pct": 3.23,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1131
+      "overall_rank": 1130
     },
     {
       "title": "Le pont des Arts",
@@ -33963,7 +33926,7 @@
       "eligible_score_pct": 3.22,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1132
+      "overall_rank": 1131
     },
     {
       "title": "We Have a Pope",
@@ -33993,7 +33956,7 @@
       "eligible_score_pct": 3.22,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1133
+      "overall_rank": 1132
     },
     {
       "title": "Let the Bullets Fly",
@@ -34019,7 +33982,7 @@
       "eligible_score_pct": 3.16,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1134
+      "overall_rank": 1133
     },
     {
       "title": "Frownland",
@@ -34045,7 +34008,7 @@
       "eligible_score_pct": 3.12,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1135
+      "overall_rank": 1134
     },
     {
       "title": "Greenberg",
@@ -34075,7 +34038,7 @@
       "eligible_score_pct": 3.08,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1136
+      "overall_rank": 1135
     },
     {
       "title": "The Interrupters",
@@ -34101,7 +34064,7 @@
       "eligible_score_pct": 3.03,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1137
+      "overall_rank": 1136
     },
     {
       "title": "At Berkeley",
@@ -34127,7 +34090,7 @@
       "eligible_score_pct": 3.02,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1138
+      "overall_rank": 1137
     },
     {
       "title": "Bloody Nose, Empty Pockets",
@@ -34157,7 +34120,7 @@
       "eligible_score_pct": 3.35,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1139
+      "overall_rank": 1138
     },
     {
       "title": "A Quiet Passion",
@@ -34183,7 +34146,7 @@
       "eligible_score_pct": 2.96,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1140
+      "overall_rank": 1139
     },
     {
       "title": "¡Vivan las antípodas!",
@@ -34205,7 +34168,7 @@
       "eligible_score_pct": 2.95,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1141
+      "overall_rank": 1140
     },
     {
       "title": "Double Tide",
@@ -34227,7 +34190,7 @@
       "eligible_score_pct": 2.93,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1142
+      "overall_rank": 1141
     },
     {
       "title": "The Isle",
@@ -34253,7 +34216,7 @@
       "eligible_score_pct": 2.82,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1143
+      "overall_rank": 1142
     },
     {
       "title": "Berberian Sound Studio",
@@ -34279,7 +34242,7 @@
       "eligible_score_pct": 2.82,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1144
+      "overall_rank": 1143
     },
     {
       "title": "Woman on the Beach",
@@ -34305,7 +34268,7 @@
       "eligible_score_pct": 2.81,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1145
+      "overall_rank": 1144
     },
     {
       "title": "Anatomy of Hell",
@@ -34331,7 +34294,7 @@
       "eligible_score_pct": 2.77,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1146
+      "overall_rank": 1145
     },
     {
       "title": "Japón",
@@ -34357,7 +34320,7 @@
       "eligible_score_pct": 2.75,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1147
+      "overall_rank": 1146
     },
     {
       "title": "Lantana",
@@ -34383,7 +34346,7 @@
       "eligible_score_pct": 2.63,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1148
+      "overall_rank": 1147
     },
     {
       "title": "My Mother's Smile",
@@ -34413,7 +34376,7 @@
       "eligible_score_pct": 2.61,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1149
+      "overall_rank": 1148
     },
     {
       "title": "Faya Dayi",
@@ -34443,7 +34406,7 @@
       "eligible_score_pct": 2.9,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1150
+      "overall_rank": 1149
     },
     {
       "title": "Opera Jawa",
@@ -34465,7 +34428,7 @@
       "eligible_score_pct": 2.49,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1151
+      "overall_rank": 1150
     },
     {
       "title": "What Goes Up",
@@ -34487,7 +34450,7 @@
       "eligible_score_pct": 2.47,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1152
+      "overall_rank": 1151
     },
     {
       "title": "Whisky",
@@ -34513,7 +34476,7 @@
       "eligible_score_pct": 2.46,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1153
+      "overall_rank": 1152
     },
     {
       "title": "In Jackson Heights",
@@ -34539,7 +34502,7 @@
       "eligible_score_pct": 2.41,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1154
+      "overall_rank": 1153
     },
     {
       "title": "A New Life",
@@ -34565,7 +34528,7 @@
       "eligible_score_pct": 2.31,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1155
+      "overall_rank": 1154
     },
     {
       "title": "Children Underground",
@@ -34591,7 +34554,7 @@
       "eligible_score_pct": 2.27,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1156
+      "overall_rank": 1155
     },
     {
       "title": "Tristram Shandy",
@@ -34617,7 +34580,7 @@
       "eligible_score_pct": 2.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1157
+      "overall_rank": 1156
     },
     {
       "title": "Road to Nowhere",
@@ -34643,7 +34606,7 @@
       "eligible_score_pct": 2.24,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1158
+      "overall_rank": 1157
     },
     {
       "title": "Instructions for a Light and Sound Machine",
@@ -34669,7 +34632,7 @@
       "eligible_score_pct": 2.23,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1159
+      "overall_rank": 1158
     },
     {
       "title": "In Front of Your Face",
@@ -34695,7 +34658,7 @@
       "eligible_score_pct": 2.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1160
+      "overall_rank": 1159
     },
     {
       "title": "The 3 Rooms of Melancholia",
@@ -34721,7 +34684,7 @@
       "eligible_score_pct": 2.22,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1161
+      "overall_rank": 1160
     },
     {
       "title": "Artemis' Knee",
@@ -34747,7 +34710,7 @@
       "eligible_score_pct": 2.2,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1162
+      "overall_rank": 1161
     },
     {
       "title": "Profit Motive and the Whispering Wind",
@@ -34769,7 +34732,7 @@
       "eligible_score_pct": 2.19,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1163
+      "overall_rank": 1162
     },
     {
       "title": "The Weather Underground",
@@ -34795,7 +34758,7 @@
       "eligible_score_pct": 2.19,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1164
+      "overall_rank": 1163
     },
     {
       "title": "By the Time It Gets Dark",
@@ -34821,7 +34784,7 @@
       "eligible_score_pct": 2.17,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1165
+      "overall_rank": 1164
     },
     {
       "title": "Fire Will Come",
@@ -34847,7 +34810,7 @@
       "eligible_score_pct": 2.44,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1166
+      "overall_rank": 1165
     },
     {
       "title": "Paraguayan Hammock",
@@ -34873,7 +34836,7 @@
       "eligible_score_pct": 2.15,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1167
+      "overall_rank": 1166
     },
     {
       "title": "Cow",
@@ -34899,7 +34862,7 @@
       "eligible_score_pct": 2.34,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1168
+      "overall_rank": 1167
     },
     {
       "title": "Murder on a Sunday Morning",
@@ -34921,7 +34884,7 @@
       "eligible_score_pct": 2.08,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1169
+      "overall_rank": 1168
     },
     {
       "title": "You Ain't Seen Nothin' Yet",
@@ -34951,7 +34914,7 @@
       "eligible_score_pct": 2.03,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1170
+      "overall_rank": 1169
     },
     {
       "title": "War Photographer",
@@ -34973,7 +34936,7 @@
       "eligible_score_pct": 1.94,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1171
+      "overall_rank": 1170
     },
     {
       "title": "Workers, Peasants",
@@ -34995,7 +34958,7 @@
       "eligible_score_pct": 1.92,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1172
+      "overall_rank": 1171
     },
     {
       "title": "Season of the Devil",
@@ -35025,7 +34988,7 @@
       "eligible_score_pct": 2.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1173
+      "overall_rank": 1172
     },
     {
       "title": "Black Sun",
@@ -35047,7 +35010,7 @@
       "eligible_score_pct": 1.86,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1174
+      "overall_rank": 1173
     },
     {
       "title": "United Red Army",
@@ -35073,7 +35036,7 @@
       "eligible_score_pct": 1.86,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1175
+      "overall_rank": 1174
     },
     {
       "title": "These Encounters of Theirs",
@@ -35099,7 +35062,7 @@
       "eligible_score_pct": 1.8,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1176
+      "overall_rank": 1175
     },
     {
       "title": "Zidane: A 21st Century Portrait",
@@ -35125,7 +35088,7 @@
       "eligible_score_pct": 1.74,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1177
+      "overall_rank": 1176
     },
     {
       "title": "Unrelated",
@@ -35151,7 +35114,7 @@
       "eligible_score_pct": 1.73,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1178
+      "overall_rank": 1177
     },
     {
       "title": "A Girl at My Door",
@@ -35177,7 +35140,7 @@
       "eligible_score_pct": 1.68,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1179
+      "overall_rank": 1178
     },
     {
       "title": "Mangrove",
@@ -35199,7 +35162,7 @@
       "eligible_score_pct": 1.85,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1180
+      "overall_rank": 1179
     },
     {
       "title": "America",
@@ -35221,7 +35184,7 @@
       "eligible_score_pct": 1.8,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1181
+      "overall_rank": 1180
     },
     {
       "title": "The Portuguese Nun",
@@ -35247,7 +35210,7 @@
       "eligible_score_pct": 1.56,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1182
+      "overall_rank": 1181
     },
     {
       "title": "Oxhide",
@@ -35273,7 +35236,7 @@
       "eligible_score_pct": 1.53,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1183
+      "overall_rank": 1182
     },
     {
       "title": "Closeness",
@@ -35299,7 +35262,7 @@
       "eligible_score_pct": 1.7,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1184
+      "overall_rank": 1183
     },
     {
       "title": "A Thousand Suns",
@@ -35325,7 +35288,7 @@
       "eligible_score_pct": 1.51,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1185
+      "overall_rank": 1184
     },
     {
       "title": "Pontypool",
@@ -35351,7 +35314,7 @@
       "eligible_score_pct": 1.48,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1186
+      "overall_rank": 1185
     },
     {
       "title": "Manakamana",
@@ -35377,7 +35340,7 @@
       "eligible_score_pct": 1.42,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1187
+      "overall_rank": 1186
     },
     {
       "title": "Where Does Your Hidden Smile Lie?",
@@ -35403,7 +35366,7 @@
       "eligible_score_pct": 1.4,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1188
+      "overall_rank": 1187
     },
     {
       "title": "Promises",
@@ -35425,7 +35388,7 @@
       "eligible_score_pct": 1.36,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1189
+      "overall_rank": 1188
     },
     {
       "title": "Ten Canoes",
@@ -35451,7 +35414,7 @@
       "eligible_score_pct": 1.36,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1190
+      "overall_rank": 1189
     },
     {
       "title": "8 Women",
@@ -35473,7 +35436,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1191
+      "overall_rank": 1190
     },
     {
       "title": "A Coffee in Berlin",
@@ -35495,7 +35458,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1192
+      "overall_rank": 1191
     },
     {
       "title": "A Hole in My Heart",
@@ -35517,7 +35480,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1193
+      "overall_rank": 1192
     },
     {
       "title": "Alcarràs",
@@ -35539,7 +35502,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1194
+      "overall_rank": 1193
     },
     {
       "title": "An Officer and a Spy",
@@ -35561,7 +35524,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1195
+      "overall_rank": 1194
     },
     {
       "title": "Berlin Alexanderplatz",
@@ -35583,7 +35546,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1196
+      "overall_rank": 1195
     },
     {
       "title": "Bloody Sunday",
@@ -35605,7 +35568,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1197
+      "overall_rank": 1196
     },
     {
       "title": "Border",
@@ -35627,7 +35590,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1198
+      "overall_rank": 1197
     },
     {
       "title": "Bread and Tulips",
@@ -35649,7 +35612,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1199
+      "overall_rank": 1198
     },
     {
       "title": "Breakfast on Pluto",
@@ -35671,29 +35634,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1200
-    },
-    {
-      "title": "Brothers & Sisters",
-      "year": 2006,
-      "imdb_id": "tt0758737",
-      "tspdt_rank": null,
-      "source_points": {
-        "european_recognition": 12.0
-      },
-      "source_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      },
-      "overall_score": 12.0,
-      "source_hits": 1,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 1.33,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 1201
+      "overall_rank": 1199
     },
     {
       "title": "Caesar Must Die",
@@ -35715,7 +35656,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1202
+      "overall_rank": 1200
     },
     {
       "title": "Corsage",
@@ -35737,7 +35678,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1203
+      "overall_rank": 1201
     },
     {
       "title": "Dirty Pretty Things",
@@ -35759,7 +35700,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1204
+      "overall_rank": 1202
     },
     {
       "title": "Dogman",
@@ -35781,7 +35722,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1205
+      "overall_rank": 1203
     },
     {
       "title": "Don't Come Knocking",
@@ -35803,7 +35744,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1206
+      "overall_rank": 1204
     },
     {
       "title": "Faithless",
@@ -35825,29 +35766,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1207
-    },
-    {
-      "title": "Grbavica",
-      "year": 2006,
-      "imdb_id": "tt0464029",
-      "tspdt_rank": null,
-      "source_points": {
-        "european_recognition": 12.0
-      },
-      "source_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      },
-      "overall_score": 12.0,
-      "source_hits": 1,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 1.33,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 1208
+      "overall_rank": 1205
     },
     {
       "title": "Green Border",
@@ -35869,7 +35788,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1209
+      "overall_rank": 1206
     },
     {
       "title": "Holy Spider",
@@ -35891,7 +35810,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1210
+      "overall_rank": 1207
     },
     {
       "title": "It Was Just an Accident",
@@ -35913,7 +35832,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1211
+      "overall_rank": 1208
     },
     {
       "title": "Italian for Beginners",
@@ -35935,7 +35854,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1212
+      "overall_rank": 1209
     },
     {
       "title": "Julieta",
@@ -35957,29 +35876,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1213
-    },
-    {
-      "title": "La Vie En Rose",
-      "year": 2007,
-      "imdb_id": "tt0450188",
-      "tspdt_rank": null,
-      "source_points": {
-        "european_recognition": 12.0
-      },
-      "source_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      },
-      "overall_score": 12.0,
-      "source_hits": 1,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 1.33,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 1214
+      "overall_rank": 1210
     },
     {
       "title": "Lebanon",
@@ -36001,29 +35898,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1215
-    },
-    {
-      "title": "Mirror Mirror",
-      "year": 2012,
-      "imdb_id": "tt1667353",
-      "tspdt_rank": null,
-      "source_points": {
-        "european_recognition": 12.0
-      },
-      "source_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      },
-      "overall_score": 12.0,
-      "source_hits": 1,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 1.33,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 1216
+      "overall_rank": 1211
     },
     {
       "title": "My Life Without Me",
@@ -36045,7 +35920,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1217
+      "overall_rank": 1212
     },
     {
       "title": "My Summer of Love",
@@ -36067,29 +35942,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1218
-    },
-    {
-      "title": "Nymphomaniac: Vol. II",
-      "year": 2013,
-      "imdb_id": "tt2382009",
-      "tspdt_rank": null,
-      "source_points": {
-        "european_recognition": 12.0
-      },
-      "source_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      },
-      "overall_score": 12.0,
-      "source_hits": 1,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 1.33,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 1219
+      "overall_rank": 1213
     },
     {
       "title": "Rams",
@@ -36111,7 +35964,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1220
+      "overall_rank": 1214
     },
     {
       "title": "Sirat",
@@ -36133,7 +35986,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1221
+      "overall_rank": 1215
     },
     {
       "title": "Soul Kitchen",
@@ -36155,7 +36008,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1222
+      "overall_rank": 1216
     },
     {
       "title": "Sound of Falling",
@@ -36177,7 +36030,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1223
+      "overall_rank": 1217
     },
     {
       "title": "Swimming Pool",
@@ -36199,7 +36052,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1224
+      "overall_rank": 1218
     },
     {
       "title": "System Crasher",
@@ -36221,7 +36074,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1225
+      "overall_rank": 1219
     },
     {
       "title": "The Best Offer",
@@ -36243,7 +36096,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1226
+      "overall_rank": 1220
     },
     {
       "title": "The Chorus",
@@ -36265,7 +36118,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1227
+      "overall_rank": 1221
     },
     {
       "title": "The Experiment",
@@ -36287,7 +36140,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1228
+      "overall_rank": 1222
     },
     {
       "title": "The Intouchables",
@@ -36309,7 +36162,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1229
+      "overall_rank": 1223
     },
     {
       "title": "The Last King of Scotland",
@@ -36331,7 +36184,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1230
+      "overall_rank": 1224
     },
     {
       "title": "The Magdalene Sisters",
@@ -36353,7 +36206,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1231
+      "overall_rank": 1225
     },
     {
       "title": "The Painted Bird",
@@ -36375,7 +36228,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1232
+      "overall_rank": 1226
     },
     {
       "title": "The Road to Guantanamo",
@@ -36397,7 +36250,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1233
+      "overall_rank": 1227
     },
     {
       "title": "The Room Next Door",
@@ -36419,7 +36272,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1234
+      "overall_rank": 1228
     },
     {
       "title": "The Seed of the Sacred Fig",
@@ -36441,7 +36294,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1235
+      "overall_rank": 1229
     },
     {
       "title": "The Substance",
@@ -36463,7 +36316,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1236
+      "overall_rank": 1230
     },
     {
       "title": "The Traitor",
@@ -36485,7 +36338,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1237
+      "overall_rank": 1231
     },
     {
       "title": "The Voice of Hind Rajab",
@@ -36507,7 +36360,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1238
+      "overall_rank": 1232
     },
     {
       "title": "Undine",
@@ -36529,7 +36382,7 @@
       "eligible_score_pct": 1.5,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1239
+      "overall_rank": 1233
     },
     {
       "title": "Vermiglio",
@@ -36551,7 +36404,7 @@
       "eligible_score_pct": 1.71,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1240
+      "overall_rank": 1234
     },
     {
       "title": "Victoria",
@@ -36573,29 +36426,7 @@
       "eligible_score_pct": 1.33,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1241
-    },
-    {
-      "title": "With a Friend Like Harry...",
-      "year": 2000,
-      "imdb_id": "tt0216800",
-      "tspdt_rank": null,
-      "source_points": {
-        "european_recognition": 12.0
-      },
-      "source_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      },
-      "overall_score": 12.0,
-      "source_hits": 1,
-      "eligible_sources": 9,
-      "eligible_max_score": 900,
-      "eligible_score_pct": 1.33,
-      "qualified": false,
-      "routes": [],
-      "overall_rank": 1242
+      "overall_rank": 1235
     },
     {
       "title": "Inheritance",
@@ -36617,7 +36448,7 @@
       "eligible_score_pct": 1.4,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1243
+      "overall_rank": 1236
     },
     {
       "title": "Evolution",
@@ -36643,7 +36474,7 @@
       "eligible_score_pct": 1.23,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1244
+      "overall_rank": 1237
     },
     {
       "title": "My Architect",
@@ -36665,7 +36496,7 @@
       "eligible_score_pct": 1.17,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1245
+      "overall_rank": 1238
     },
     {
       "title": "A Thousand and One",
@@ -36687,7 +36518,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1246
+      "overall_rank": 1239
     },
     {
       "title": "Ain't Them Bodies Saints",
@@ -36709,7 +36540,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1247
+      "overall_rank": 1240
     },
     {
       "title": "Amreeka",
@@ -36731,7 +36562,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1248
+      "overall_rank": 1241
     },
     {
       "title": "Babygirl",
@@ -36753,7 +36584,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1249
+      "overall_rank": 1242
     },
     {
       "title": "Ballast",
@@ -36775,7 +36606,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1250
+      "overall_rank": 1243
     },
     {
       "title": "Bernie",
@@ -36797,7 +36628,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1251
+      "overall_rank": 1244
     },
     {
       "title": "Big Fan",
@@ -36819,7 +36650,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1252
+      "overall_rank": 1245
     },
     {
       "title": "Bugonia",
@@ -36841,7 +36672,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1253
+      "overall_rank": 1246
     },
     {
       "title": "Challengers",
@@ -36863,7 +36694,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1254
+      "overall_rank": 1247
     },
     {
       "title": "Dos estaciones",
@@ -36885,7 +36716,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1255
+      "overall_rank": 1248
     },
     {
       "title": "East of Wall",
@@ -36907,7 +36738,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1256
+      "overall_rank": 1249
     },
     {
       "title": "Everybody Wants Some!!",
@@ -36929,7 +36760,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1257
+      "overall_rank": 1250
     },
     {
       "title": "Familiar Touch",
@@ -36951,7 +36782,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1258
+      "overall_rank": 1251
     },
     {
       "title": "Great World of Sound",
@@ -36973,7 +36804,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1259
+      "overall_rank": 1252
     },
     {
       "title": "Hamnet",
@@ -36995,7 +36826,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1260
+      "overall_rank": 1253
     },
     {
       "title": "Hustlers",
@@ -37017,7 +36848,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1261
+      "overall_rank": 1254
     },
     {
       "title": "I Heart Huckabees",
@@ -37039,7 +36870,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1262
+      "overall_rank": 1255
     },
     {
       "title": "I, Tonya",
@@ -37061,7 +36892,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1263
+      "overall_rank": 1256
     },
     {
       "title": "If I Had Legs I'd Kick You",
@@ -37083,7 +36914,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1264
+      "overall_rank": 1257
     },
     {
       "title": "Keane",
@@ -37105,7 +36936,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1265
+      "overall_rank": 1258
     },
     {
       "title": "Let Me In",
@@ -37127,7 +36958,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1266
+      "overall_rank": 1259
     },
     {
       "title": "Little Children",
@@ -37149,7 +36980,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1267
+      "overall_rank": 1260
     },
     {
       "title": "Love Is Strange",
@@ -37171,7 +37002,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1268
+      "overall_rank": 1261
     },
     {
       "title": "Lurker",
@@ -37193,7 +37024,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1269
+      "overall_rank": 1262
     },
     {
       "title": "Margot at the Wedding",
@@ -37215,7 +37046,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1270
+      "overall_rank": 1263
     },
     {
       "title": "Middle of Nowhere",
@@ -37237,7 +37068,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1271
+      "overall_rank": 1264
     },
     {
       "title": "Passages",
@@ -37259,7 +37090,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1272
+      "overall_rank": 1265
     },
     {
       "title": "Passing",
@@ -37281,7 +37112,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1273
+      "overall_rank": 1266
     },
     {
       "title": "Reality",
@@ -37303,12 +37134,12 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1274
+      "overall_rank": 1267
     },
     {
       "title": "Relic",
       "year": 2020,
-      "imdb_id": "tt14376166",
+      "imdb_id": "tt9072352",
       "tspdt_rank": null,
       "source_points": {
         "independent_cinema": 10.0
@@ -37325,7 +37156,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1275
+      "overall_rank": 1268
     },
     {
       "title": "Sorry, Baby",
@@ -37347,7 +37178,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1276
+      "overall_rank": 1269
     },
     {
       "title": "The Cathedral",
@@ -37369,7 +37200,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1277
+      "overall_rank": 1270
     },
     {
       "title": "The Green Knight",
@@ -37391,7 +37222,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1278
+      "overall_rank": 1271
     },
     {
       "title": "The Maid",
@@ -37413,7 +37244,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1279
+      "overall_rank": 1272
     },
     {
       "title": "The Namesake",
@@ -37435,7 +37266,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1280
+      "overall_rank": 1273
     },
     {
       "title": "The Testament of Ann Lee",
@@ -37457,7 +37288,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1281
+      "overall_rank": 1274
     },
     {
       "title": "The Visitor",
@@ -37479,7 +37310,7 @@
       "eligible_score_pct": 1.11,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1282
+      "overall_rank": 1275
     },
     {
       "title": "Train Dreams",
@@ -37501,7 +37332,7 @@
       "eligible_score_pct": 1.43,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1283
+      "overall_rank": 1276
     },
     {
       "title": "Waves",
@@ -37523,7 +37354,7 @@
       "eligible_score_pct": 1.25,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1284
+      "overall_rank": 1277
     },
     {
       "title": "Sobibór, October 14, 1943, 4 p.m.",
@@ -37545,7 +37376,7 @@
       "eligible_score_pct": 1.07,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1285
+      "overall_rank": 1278
     },
     {
       "title": "Dreams of a Life",
@@ -37571,7 +37402,7 @@
       "eligible_score_pct": 1.06,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1286
+      "overall_rank": 1279
     },
     {
       "title": "Sound and Fury",
@@ -37597,7 +37428,7 @@
       "eligible_score_pct": 1.01,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1287
+      "overall_rank": 1280
     },
     {
       "title": "Material",
@@ -37619,7 +37450,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1288
+      "overall_rank": 1281
     },
     {
       "title": "20 Feet from Stardom",
@@ -37641,7 +37472,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1289
+      "overall_rank": 1282
     },
     {
       "title": "Dirty Wars",
@@ -37663,7 +37494,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1290
+      "overall_rank": 1283
     },
     {
       "title": "Enron: The Smartest Guys in the Room",
@@ -37685,7 +37516,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1291
+      "overall_rank": 1284
     },
     {
       "title": "Gasland",
@@ -37707,7 +37538,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1292
+      "overall_rank": 1285
     },
     {
       "title": "How to Survive a Plague",
@@ -37729,7 +37560,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1293
+      "overall_rank": 1286
     },
     {
       "title": "If a Tree Falls: A Story of the Earth Liberation Front",
@@ -37751,7 +37582,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1294
+      "overall_rank": 1287
     },
     {
       "title": "LaLee's Kin: The Legacy of Cotton",
@@ -37773,7 +37604,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1295
+      "overall_rank": 1288
     },
     {
       "title": "No End in Sight",
@@ -37795,7 +37626,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1296
+      "overall_rank": 1289
     },
     {
       "title": "Scottsboro: An American Tragedy",
@@ -37817,7 +37648,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1297
+      "overall_rank": 1290
     },
     {
       "title": "Twist of Faith",
@@ -37839,7 +37670,7 @@
       "eligible_score_pct": 0.89,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1298
+      "overall_rank": 1291
     },
     {
       "title": "Into the Arms of Strangers: Stories of the Kindertransport",
@@ -37861,7 +37692,7 @@
       "eligible_score_pct": 0.53,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1299
+      "overall_rank": 1292
     },
     {
       "title": "Making Memories of Murder",
@@ -37883,7 +37714,7 @@
       "eligible_score_pct": 0.22,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1300
+      "overall_rank": 1293
     },
     {
       "title": "The Nine Muses",
@@ -37905,7 +37736,7 @@
       "eligible_score_pct": 0.21,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1301
+      "overall_rank": 1294
     },
     {
       "title": "Stuck on You",
@@ -37927,7 +37758,7 @@
       "eligible_score_pct": 0.18,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1302
+      "overall_rank": 1295
     },
     {
       "title": "Balseros",
@@ -37943,7 +37774,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1303
+      "overall_rank": 1296
     },
     {
       "title": "Deliver Us from Evil",
@@ -37959,7 +37790,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1304
+      "overall_rank": 1297
     },
     {
       "title": "Finding Vivian Maier",
@@ -37975,7 +37806,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1305
+      "overall_rank": 1298
     },
     {
       "title": "Food, Inc.",
@@ -37991,7 +37822,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1306
+      "overall_rank": 1299
     },
     {
       "title": "Inside Job",
@@ -38007,7 +37838,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1307
+      "overall_rank": 1300
     },
     {
       "title": "Jesus Camp",
@@ -38023,7 +37854,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1308
+      "overall_rank": 1301
     },
     {
       "title": "Last Days in Vietnam",
@@ -38039,7 +37870,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1309
+      "overall_rank": 1302
     },
     {
       "title": "March of the Penguins",
@@ -38055,7 +37886,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1310
+      "overall_rank": 1303
     },
     {
       "title": "My Country, My Country",
@@ -38071,7 +37902,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1311
+      "overall_rank": 1304
     },
     {
       "title": "Operation Homecoming: Writing the Wartime Experience",
@@ -38087,7 +37918,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1312
+      "overall_rank": 1305
     },
     {
       "title": "Paradise Lost 3: Purgatory",
@@ -38103,7 +37934,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1313
+      "overall_rank": 1306
     },
     {
       "title": "Prisoner of Paradise",
@@ -38119,7 +37950,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1314
+      "overall_rank": 1307
     },
     {
       "title": "Sicko",
@@ -38135,7 +37966,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1315
+      "overall_rank": 1308
     },
     {
       "title": "Taxi to the Dark Side",
@@ -38151,7 +37982,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1316
+      "overall_rank": 1309
     },
     {
       "title": "The Gatekeepers",
@@ -38167,7 +37998,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1317
+      "overall_rank": 1310
     },
     {
       "title": "The Most Dangerous Man in America: Daniel Ellsberg and the Pentagon Papers",
@@ -38183,7 +38014,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1318
+      "overall_rank": 1311
     },
     {
       "title": "The Story of the Weeping Camel",
@@ -38199,7 +38030,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1319
+      "overall_rank": 1312
     },
     {
       "title": "Tupac: Resurrection",
@@ -38215,7 +38046,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1320
+      "overall_rank": 1313
     },
     {
       "title": "Undefeated",
@@ -38231,7 +38062,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1321
+      "overall_rank": 1314
     },
     {
       "title": "Virunga",
@@ -38247,7 +38078,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1322
+      "overall_rank": 1315
     },
     {
       "title": "What Happened, Miss Simone?",
@@ -38263,7 +38094,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1323
+      "overall_rank": 1316
     },
     {
       "title": "Which Way Home",
@@ -38279,7 +38110,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1324
+      "overall_rank": 1317
     },
     {
       "title": "Winter on Fire: Ukraine's Fight for Freedom",
@@ -38295,7 +38126,7 @@
       "eligible_score_pct": 0.0,
       "qualified": false,
       "routes": [],
-      "overall_rank": 1325
+      "overall_rank": 1318
     }
   ]
 }

@@ -1536,13 +1536,12 @@
       "title": "Caché",
       "year": 2005,
       "family_scores": {
-        "european_recognition": 80.0
+        "european_recognition": 40.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: best director / best director (winner)",
-          "European Film Awards Best Film (winner)"
+          "Cannes: best director / best director (winner)"
         ]
       }
     },
@@ -1853,8 +1852,7 @@
       "family_scores": {
         "us_institutional": 35.0,
         "european_recognition": 45.0,
-        "independent_cinema": 20.0,
-        "critics_groups_consensus": 35.0
+        "independent_cinema": 20.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1866,9 +1864,6 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
-        ],
-        "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
         ]
       }
     },
@@ -2987,16 +2982,12 @@
       "title": "Goodbye to Language",
       "year": 2014,
       "family_scores": {
-        "european_recognition": 50.0,
-        "critics_groups_consensus": 35.0
+        "european_recognition": 50.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)",
           "Cannes: jury prize / jury prize (winner)"
-        ],
-        "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
         ]
       }
     },
@@ -3766,8 +3757,7 @@
       "year": 2008,
       "family_scores": {
         "us_institutional": 35.0,
-        "european_recognition": 37.0,
-        "critics_groups_consensus": 35.0
+        "european_recognition": 37.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3777,9 +3767,6 @@
           "BAFTA: bafta film award / best film not in the english language (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)",
           "European Film Awards Best Film (nominee)"
-        ],
-        "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
         ]
       }
     },
@@ -6663,13 +6650,12 @@
       "title": "120 BPM (Beats Per Minute)",
       "year": 2017,
       "family_scores": {
-        "european_recognition": 77.0
+        "european_recognition": 65.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: grand prize of the jury / grand prize of the jury (winner)",
-          "European Film Awards Best Film (nominee)"
+          "Cannes: grand prize of the jury / grand prize of the jury (winner)"
         ]
       }
     },
@@ -8803,13 +8789,12 @@
       "title": "Compartment Number 6",
       "year": 2021,
       "family_scores": {
-        "european_recognition": 22.0,
+        "european_recognition": 10.0,
         "us_institutional": 5.0
       },
       "family_evidence": {
         "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "European Film Awards Best Film (nominee)"
+          "Cannes: palme d'or / palme d'or (nominee)"
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
@@ -14362,18 +14347,6 @@
       "title": "Beau Travail",
       "year": 1999
     },
-    "tt0216800": {
-      "title": "With a Friend Like Harry...",
-      "year": 2000,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt0237539": {
       "title": "Bread and Tulips",
       "year": 2000,
@@ -14518,18 +14491,6 @@
         ]
       }
     },
-    "tt0758737": {
-      "title": "Brothers & Sisters",
-      "year": 2006,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt0377800": {
       "title": "Don't Come Knocking",
       "year": 2005,
@@ -14566,18 +14527,6 @@
         ]
       }
     },
-    "tt0464029": {
-      "title": "Grbavica",
-      "year": 2006,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt0468094": {
       "title": "The Road to Guantanamo",
       "year": 2006,
@@ -14593,18 +14542,6 @@
     "tt0455590": {
       "title": "The Last King of Scotland",
       "year": 2006,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
-    "tt0450188": {
-      "title": "La Vie En Rose",
-      "year": 2007,
       "family_scores": {
         "european_recognition": 12.0
       },
@@ -14662,18 +14599,6 @@
         ]
       }
     },
-    "tt1667353": {
-      "title": "Mirror Mirror",
-      "year": 2012,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt1924396": {
       "title": "The Best Offer",
       "year": 2013,
@@ -14689,18 +14614,6 @@
     "tt1954701": {
       "title": "A Coffee in Berlin",
       "year": 2012,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
-    "tt2382009": {
-      "title": "Nymphomaniac: Vol. II",
-      "year": 2013,
       "family_scores": {
         "european_recognition": 12.0
       },
@@ -15274,7 +15187,7 @@
         ]
       }
     },
-    "tt14376166": {
+    "tt9072352": {
       "title": "Relic",
       "year": 2020,
       "family_scores": {
@@ -15587,18 +15500,6 @@
           "NYFCC Best Film (winner)"
         ]
       }
-    },
-    "tt3464896": {
-      "title": "Small Axe",
-      "year": 2020,
-      "family_scores": {
-        "critics_groups_consensus": 35.0
-      },
-      "family_evidence": {
-        "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
-        ]
-      }
     }
   },
   "unresolved_ranked": {
@@ -15624,8 +15525,8 @@
       "family": "european_recognition",
       "winner_points": 40,
       "nominee_points": 12,
-      "resolved": 150,
-      "unresolved": 2
+      "resolved": 141,
+      "unresolved": 11
     },
     "gotham_best_feature": {
       "url": "https://en.wikipedia.org/wiki/Gotham_Independent_Film_Award_for_Best_Feature",
@@ -15640,8 +15541,8 @@
       "family": "critics_groups_consensus",
       "winner_points": 35,
       "nominee_points": 0,
-      "resolved": 25,
-      "unresolved": 1
+      "resolved": 22,
+      "unresolved": 4
     },
     "nyfcc_best_film": {
       "url": "https://en.wikipedia.org/wiki/New_York_Film_Critics_Circle_Award_for_Best_Film",
@@ -15656,20 +15557,65 @@
       "family": "critics_groups_consensus",
       "winner_points": 35,
       "nominee_points": 0,
-      "resolved": 27,
-      "unresolved": 1
+      "resolved": 26,
+      "unresolved": 2
     }
   },
   "unresolved_extra_awards": {
     "efa_best_film": [
+      {
+        "year": 2000,
+        "title": "Harry, He's Here to Help",
+        "winner": false
+      },
+      {
+        "year": 2005,
+        "title": "Hidden",
+        "winner": true
+      },
+      {
+        "year": 2005,
+        "title": "Brothers",
+        "winner": false
+      },
+      {
+        "year": 2006,
+        "title": "Grbavica: Esma's Secret",
+        "winner": false
+      },
+      {
+        "year": 2007,
+        "title": "La Vie En Rose",
+        "winner": false
+      },
       {
         "year": 2010,
         "title": "Honey",
         "winner": false
       },
       {
+        "year": 2013,
+        "title": "Blancanieves",
+        "winner": false
+      },
+      {
+        "year": 2014,
+        "title": "Nymphomaniac – Director's Cut",
+        "winner": false
+      },
+      {
+        "year": 2017,
+        "title": "BPM (Beats per Minute)",
+        "winner": false
+      },
+      {
         "year": 2018,
         "title": "Girl",
+        "winner": false
+      },
+      {
+        "year": 2021,
+        "title": "Compartment No. 6",
         "winner": false
       }
     ],
@@ -15682,6 +15628,21 @@
     ],
     "nsfc_best_picture": [
       {
+        "year": 2006,
+        "title": "Pan's Labyrinth (El laberinto del fauno)",
+        "winner": true
+      },
+      {
+        "year": 2008,
+        "title": "Waltz with Bashir (Vals im Bashir)",
+        "winner": true
+      },
+      {
+        "year": 2014,
+        "title": "Goodbye to Language (Adieu au Langage)",
+        "winner": true
+      },
+      {
         "year": 2019,
         "title": "Parasite (Gisaengchung)",
         "winner": true
@@ -15692,6 +15653,11 @@
       {
         "year": 2000,
         "title": "Crouching Tiger, Hidden Dragon (Wo hu cang long)",
+        "winner": true
+      },
+      {
+        "year": 2020,
+        "title": "Small Axe",
         "winner": true
       }
     ]
