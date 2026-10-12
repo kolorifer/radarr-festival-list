@@ -6,9 +6,9 @@ Diagnostic only. Metacritic + Rotten Tomatoes critic consensus stays inside the 
 
 | Variant | Top-100 overlap | Mean +critic pts | >=250 selected / promotions | >=225 selected / promotions |
 |---|---:|---:|---:|---:|
-| capped30_conservative | 95/100 | 15.7 | 256 / 89 | 327 / 131 |
-| capped40_conservative | 95/100 | 20.9 | 272 / 97 | 353 / 150 |
-| capped50_conservative | 94/100 | 26.2 | 288 / 106 | 366 / 160 |
+| capped30_conservative | 96/100 | 15.7 | 256 / 88 | 327 / 130 |
+| capped40_conservative | 94/100 | 20.9 | 274 / 97 | 354 / 150 |
+| capped50_conservative | 94/100 | 26.2 | 289 / 106 | 367 / 160 |
 
 ## 40-point cap: films newly crossing 250
 
@@ -39,6 +39,7 @@ Diagnostic only. Metacritic + Rotten Tomatoes critic consensus stays inside the 
 | Captain Phillips (2013) | 227.7 → 258.8 | 127.7 | 31.1 | yes |
 | Marty Supreme (2025) | 221.3 → 258.7 | 121.3 | 37.4 | yes |
 | Never Rarely Sometimes Always (2020) | 219.9 → 257.1 | 86.3 | 37.2 | yes |
+| Certified Copy (2010) | 232.3 → 255.0 | 79.7 | 22.7 | yes |
 | The Trial of the Chicago 7 (2020) | 231.0 → 254.5 | 131.0 | 23.5 | yes |
 | The Wild Robot (2024) | 216.5 → 251.3 | 181.5 | 34.8 | yes |
 | The Square (2017) | 233.6 → 250.5 | 54.6 | 16.9 | yes |
@@ -79,7 +80,6 @@ Diagnostic only. Metacritic + Rotten Tomatoes critic consensus stays inside the 
 | Me and Earl and the Dying Girl (2015) | 219.9 → 234.6 | 119.9 | 14.8 | yes |
 | 13th (2016) | 208.5 → 234.3 | 151.1 | 25.8 | yes |
 | The Odyssey (2026) | 196.7 → 234.3 | 196.7 | 37.6 | no |
-| First Reformed (2017) | 199.1 → 234.0 | 81.9 | 34.9 | yes |
 | Once (2006) | 199.5 → 233.8 | 116.2 | 34.4 | yes |
 | Good Bye Lenin! (2003) | 218.1 → 233.4 | 116.9 | 15.3 | yes |
 | Burning (2018) | 195.7 → 232.0 | 101.4 | 36.3 | yes |
@@ -103,6 +103,7 @@ Diagnostic only. Metacritic + Rotten Tomatoes critic consensus stays inside the 
 | Munich (2005) | 212.1 → 225.3 | 97.2 | 13.2 | yes |
 | Puss in Boots: The Last Wish (2022) | 201.4 → 225.3 | 166.4 | 23.9 | yes |
 | The Motorcycle Diaries (2004) | 209.0 → 225.1 | 112.8 | 16.1 | yes |
+| First Reformed (2017) | 190.1 → 225.0 | 81.9 | 34.9 | yes |
 | The Substance (2024) | 199.6 → 225.0 | 82.6 | 25.4 | yes |
 
 ## 40-point cap: calibration controls

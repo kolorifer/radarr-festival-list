@@ -1,7 +1,7 @@
 {
   "mode": "research-score-band-analysis-v1",
   "qualification_unchanged": true,
-  "film_count": 1910,
+  "film_count": 1909,
   "score_ceiling": 1000,
   "bands": {
     ">=600": {
@@ -19,15 +19,15 @@
       "audience_only": 0
     },
     "450-499.99": {
-      "count": 15,
-      "qualified": 14,
+      "count": 16,
+      "qualified": 15,
       "unqualified": 1,
       "gateway": 12,
       "audience_only": 0
     },
     "400-449.99": {
-      "count": 28,
-      "qualified": 25,
+      "count": 27,
+      "qualified": 24,
       "unqualified": 3,
       "gateway": 15,
       "audience_only": 0
@@ -40,15 +40,15 @@
       "audience_only": 0
     },
     "300-349.99": {
-      "count": 61,
-      "qualified": 37,
+      "count": 60,
+      "qualified": 36,
       "unqualified": 24,
       "gateway": 29,
       "audience_only": 0
     },
     "250-299.99": {
-      "count": 103,
-      "qualified": 43,
+      "count": 106,
+      "qualified": 46,
       "unqualified": 60,
       "gateway": 35,
       "audience_only": 0
@@ -62,14 +62,14 @@
     },
     "150-199.99": {
       "count": 263,
-      "qualified": 22,
-      "unqualified": 241,
+      "qualified": 23,
+      "unqualified": 240,
       "gateway": 63,
       "audience_only": 11
     },
     "100-149.99": {
-      "count": 403,
-      "qualified": 9,
+      "count": 400,
+      "qualified": 6,
       "unqualified": 394,
       "gateway": 10,
       "audience_only": 4
@@ -77,19 +77,19 @@
   },
   "top_cutoffs": {
     "50": {
-      "score_at_cutoff": 446.02,
+      "score_at_cutoff": 446.2,
       "qualified": 49,
-      "gateway": 38
+      "gateway": 37
     },
     "100": {
-      "score_at_cutoff": 359.34,
+      "score_at_cutoff": 359.29,
       "qualified": 90,
       "gateway": 67
     },
     "150": {
-      "score_at_cutoff": 308.56,
+      "score_at_cutoff": 312.34,
       "qualified": 121,
-      "gateway": 91
+      "gateway": 90
     },
     "200": {
       "score_at_cutoff": 285.78,
@@ -97,23 +97,23 @@
       "gateway": 108
     },
     "250": {
-      "score_at_cutoff": 260.83,
-      "qualified": 164,
+      "score_at_cutoff": 260.84,
+      "qualified": 166,
       "gateway": 125
     },
     "300": {
-      "score_at_cutoff": 239.47,
-      "qualified": 187,
-      "gateway": 148
+      "score_at_cutoff": 239.48,
+      "qualified": 188,
+      "gateway": 147
     },
     "400": {
-      "score_at_cutoff": 210.65,
-      "qualified": 216,
-      "gateway": 174
+      "score_at_cutoff": 210.93,
+      "qualified": 217,
+      "gateway": 172
     },
     "500": {
-      "score_at_cutoff": 189.34,
-      "qualified": 230,
+      "score_at_cutoff": 189.41,
+      "qualified": 232,
       "gateway": 198
     }
   },
@@ -125,7 +125,7 @@
     "incomplete_three_source_audience": 288,
     "top_gateway_audience_only": [
       {
-        "rank": 537,
+        "rank": 538,
         "title": "A Silent Voice: The Movie",
         "year": 2016,
         "imdb_id": "tt5323662",
@@ -147,7 +147,7 @@
         ]
       },
       {
-        "rank": 542,
+        "rank": 543,
         "title": "Shutter Island",
         "year": 2010,
         "imdb_id": "tt1130884",
@@ -169,7 +169,7 @@
         ]
       },
       {
-        "rank": 550,
+        "rank": 552,
         "title": "3 Idiots",
         "year": 2009,
         "imdb_id": "tt1187043",
@@ -191,7 +191,7 @@
         ]
       },
       {
-        "rank": 596,
+        "rank": 598,
         "title": "12th Fail",
         "year": 2023,
         "imdb_id": "tt23849204",
@@ -213,7 +213,7 @@
         ]
       },
       {
-        "rank": 635,
+        "rank": 637,
         "title": "Hachi: A Dog's Tale",
         "year": 2009,
         "imdb_id": "tt1028532",
@@ -235,7 +235,7 @@
         ]
       },
       {
-        "rank": 648,
+        "rank": 650,
         "title": "Like Stars on Earth",
         "year": 2007,
         "imdb_id": "tt0986264",
@@ -257,7 +257,7 @@
         ]
       },
       {
-        "rank": 666,
+        "rank": 669,
         "title": "The Pursuit of Happyness",
         "year": 2006,
         "imdb_id": "tt0454921",
@@ -279,7 +279,7 @@
         ]
       },
       {
-        "rank": 680,
+        "rank": 682,
         "title": "About Time",
         "year": 2013,
         "imdb_id": "tt2194499",
@@ -301,7 +301,7 @@
         ]
       },
       {
-        "rank": 681,
+        "rank": 683,
         "title": "The Invisible Guest",
         "year": 2016,
         "imdb_id": "tt4857264",
@@ -323,7 +323,7 @@
         ]
       },
       {
-        "rank": 686,
+        "rank": 688,
         "title": "Dangal",
         "year": 2016,
         "imdb_id": "tt5074352",
@@ -345,7 +345,7 @@
         ]
       },
       {
-        "rank": 706,
+        "rank": 708,
         "title": "Ip Man",
         "year": 2008,
         "imdb_id": "tt1220719",
@@ -627,7 +627,7 @@
       ]
     },
     {
-      "rank": 95,
+      "rank": 94,
       "title": "BlacKkKlansman",
       "year": 2018,
       "imdb_id": "tt7349662",
@@ -652,7 +652,7 @@
       ]
     },
     {
-      "rank": 96,
+      "rank": 95,
       "title": "Marriage Story",
       "year": 2019,
       "imdb_id": "tt7653254",
@@ -677,7 +677,7 @@
       ]
     },
     {
-      "rank": 100,
+      "rank": 99,
       "title": "Atonement",
       "year": 2007,
       "imdb_id": "tt0783233",
@@ -702,7 +702,7 @@
       ]
     },
     {
-      "rank": 104,
+      "rank": 103,
       "title": "Joker",
       "year": 2019,
       "imdb_id": "tt7286456",
@@ -922,7 +922,7 @@
       ]
     },
     {
-      "rank": 133,
+      "rank": 134,
       "title": "Winter's Bone",
       "year": 2010,
       "imdb_id": "tt1399683",
@@ -946,7 +946,7 @@
       ]
     },
     {
-      "rank": 137,
+      "rank": 139,
       "title": "Leviathan",
       "year": 2014,
       "imdb_id": "tt2802154",
@@ -970,7 +970,7 @@
       ]
     },
     {
-      "rank": 139,
+      "rank": 141,
       "title": "Drive",
       "year": 2011,
       "imdb_id": "tt0780504",
@@ -994,7 +994,7 @@
       ]
     },
     {
-      "rank": 140,
+      "rank": 142,
       "title": "Shrek",
       "year": 2001,
       "imdb_id": "tt0126029",
@@ -1019,7 +1019,7 @@
       ]
     },
     {
-      "rank": 141,
+      "rank": 143,
       "title": "Another Round",
       "year": 2020,
       "imdb_id": "tt10288566",
@@ -1044,7 +1044,7 @@
       ]
     },
     {
-      "rank": 142,
+      "rank": 144,
       "title": "Aftersun",
       "year": 2022,
       "imdb_id": "tt19770238",
@@ -1068,7 +1068,7 @@
       ]
     },
     {
-      "rank": 143,
+      "rank": 145,
       "title": "Dunkirk",
       "year": 2017,
       "imdb_id": "tt5013056",
@@ -1093,7 +1093,7 @@
       ]
     },
     {
-      "rank": 145,
+      "rank": 147,
       "title": "Hamnet",
       "year": 2025,
       "imdb_id": "tt14905854",
@@ -1116,7 +1116,7 @@
       ]
     },
     {
-      "rank": 146,
+      "rank": 148,
       "title": "Dune",
       "year": 2021,
       "imdb_id": "tt1160419",
@@ -1141,7 +1141,7 @@
       ]
     },
     {
-      "rank": 147,
+      "rank": 149,
       "title": "Flee",
       "year": 2021,
       "imdb_id": "tt8430054",
@@ -1164,7 +1164,7 @@
       ]
     },
     {
-      "rank": 151,
+      "rank": 152,
       "title": "Adaptation.",
       "year": 2002,
       "imdb_id": "tt0268126",
@@ -1188,7 +1188,7 @@
       ]
     },
     {
-      "rank": 152,
+      "rank": 153,
       "title": "The Aviator",
       "year": 2004,
       "imdb_id": "tt0338751",
@@ -1238,7 +1238,7 @@
       ]
     },
     {
-      "rank": 163,
+      "rank": 162,
       "title": "Beasts of the Southern Wild",
       "year": 2012,
       "imdb_id": "tt2125435",
@@ -1262,7 +1262,7 @@
       ]
     },
     {
-      "rank": 164,
+      "rank": 163,
       "title": "Babel",
       "year": 2006,
       "imdb_id": "tt0449467",
@@ -1287,7 +1287,7 @@
       ]
     },
     {
-      "rank": 166,
+      "rank": 165,
       "title": "The Voice of Hind Rajab",
       "year": 2025,
       "imdb_id": "tt36943034",
@@ -1310,7 +1310,7 @@
       ]
     },
     {
-      "rank": 167,
+      "rank": 166,
       "title": "The Hours",
       "year": 2002,
       "imdb_id": "tt0274558",
@@ -1335,7 +1335,7 @@
       ]
     },
     {
-      "rank": 168,
+      "rank": 167,
       "title": "Dune: Part Two",
       "year": 2024,
       "imdb_id": "tt15239678",
@@ -1358,7 +1358,7 @@
       ]
     },
     {
-      "rank": 172,
+      "rank": 171,
       "title": "Moneyball",
       "year": 2011,
       "imdb_id": "tt1210166",
@@ -1383,7 +1383,7 @@
       ]
     },
     {
-      "rank": 176,
+      "rank": 175,
       "title": "Fruitvale Station",
       "year": 2013,
       "imdb_id": "tt2334649",
@@ -1794,29 +1794,6 @@
     },
     {
       "rank": 210,
-      "title": "Certified Copy",
-      "year": 2010,
-      "imdb_id": "tt1020773",
-      "score": 280.03,
-      "eligible_max": 1000,
-      "audience": 79.67,
-      "audience_raw": {
-        "imdb_audience": 25.69,
-        "letterboxd_audience": 79.3,
-        "trakt_audience": 14.52
-      },
-      "gateway": false,
-      "non_audience": true,
-      "qualified": false,
-      "routes": [],
-      "sources": [
-        "tspdt",
-        "evidence_snapshot",
-        "broad_critic_consensus"
-      ]
-    },
-    {
-      "rank": 211,
       "title": "Quo Vadis, Aida?",
       "year": 2020,
       "imdb_id": "tt8633462",
@@ -1841,7 +1818,7 @@
       ]
     },
     {
-      "rank": 212,
+      "rank": 211,
       "title": "Close",
       "year": 2022,
       "imdb_id": "tt9660502",
@@ -1865,7 +1842,7 @@
       ]
     },
     {
-      "rank": 213,
+      "rank": 212,
       "title": "Uncut Gems",
       "year": 2019,
       "imdb_id": "tt5727208",
@@ -1889,7 +1866,7 @@
       ]
     },
     {
-      "rank": 214,
+      "rank": 213,
       "title": "District 9",
       "year": 2009,
       "imdb_id": "tt1136608",
@@ -1914,7 +1891,7 @@
       ]
     },
     {
-      "rank": 216,
+      "rank": 215,
       "title": "True Grit",
       "year": 2010,
       "imdb_id": "tt1403865",
@@ -1939,7 +1916,7 @@
       ]
     },
     {
-      "rank": 217,
+      "rank": 216,
       "title": "Timbuktu",
       "year": 2014,
       "imdb_id": "tt3409392",
@@ -1963,7 +1940,7 @@
       ]
     },
     {
-      "rank": 218,
+      "rank": 217,
       "title": "Juno",
       "year": 2007,
       "imdb_id": "tt0467406",
@@ -1988,7 +1965,7 @@
       ]
     },
     {
-      "rank": 219,
+      "rank": 218,
       "title": "In the Bedroom",
       "year": 2001,
       "imdb_id": "tt0247425",
@@ -2012,7 +1989,7 @@
       ]
     },
     {
-      "rank": 220,
+      "rank": 219,
       "title": "A History of Violence",
       "year": 2005,
       "imdb_id": "tt0399146",
@@ -2036,7 +2013,7 @@
       ]
     },
     {
-      "rank": 222,
+      "rank": 221,
       "title": "The Imitation Game",
       "year": 2014,
       "imdb_id": "tt2084970",
@@ -2060,7 +2037,7 @@
       ]
     },
     {
-      "rank": 223,
+      "rank": 222,
       "title": "Promising Young Woman",
       "year": 2020,
       "imdb_id": "tt9620292",
@@ -2085,7 +2062,7 @@
       ]
     },
     {
-      "rank": 224,
+      "rank": 223,
       "title": "Hell or High Water",
       "year": 2016,
       "imdb_id": "tt2582782",
@@ -2110,7 +2087,7 @@
       ]
     },
     {
-      "rank": 226,
+      "rank": 225,
       "title": "I, Daniel Blake",
       "year": 2016,
       "imdb_id": "tt5168192",
@@ -2134,7 +2111,7 @@
       ]
     },
     {
-      "rank": 227,
+      "rank": 226,
       "title": "The Class",
       "year": 2008,
       "imdb_id": "tt1068646",
@@ -2158,7 +2135,7 @@
       ]
     },
     {
-      "rank": 228,
+      "rank": 227,
       "title": "Sinners",
       "year": 2025,
       "imdb_id": "tt31193180",
@@ -2181,7 +2158,7 @@
       ]
     },
     {
-      "rank": 230,
+      "rank": 229,
       "title": "25th Hour",
       "year": 2002,
       "imdb_id": "tt0307901",
@@ -2205,7 +2182,7 @@
       ]
     },
     {
-      "rank": 231,
+      "rank": 230,
       "title": "Selma",
       "year": 2014,
       "imdb_id": "tt1020072",
@@ -2229,7 +2206,7 @@
       ]
     },
     {
-      "rank": 233,
+      "rank": 232,
       "title": "Good Night, and Good Luck.",
       "year": 2005,
       "imdb_id": "tt0433383",
@@ -2496,7 +2473,7 @@
       ]
     },
     {
-      "rank": 249,
+      "rank": 250,
       "title": "Far from Heaven",
       "year": 2002,
       "imdb_id": "tt0297884",
@@ -2519,7 +2496,7 @@
       ]
     },
     {
-      "rank": 250,
+      "rank": 251,
       "title": "Traffic",
       "year": 2000,
       "imdb_id": "tt0181865",
@@ -2544,7 +2521,7 @@
       ]
     },
     {
-      "rank": 251,
+      "rank": 252,
       "title": "Nebraska",
       "year": 2013,
       "imdb_id": "tt1821549",
@@ -2569,7 +2546,7 @@
       ]
     },
     {
-      "rank": 253,
+      "rank": 254,
       "title": "Hedwig and the Angry Inch",
       "year": 2001,
       "imdb_id": "tt0248845",
@@ -2592,7 +2569,7 @@
       ]
     },
     {
-      "rank": 254,
+      "rank": 255,
       "title": "Captain Phillips",
       "year": 2013,
       "imdb_id": "tt1535109",
@@ -2616,7 +2593,7 @@
       ]
     },
     {
-      "rank": 255,
+      "rank": 256,
       "title": "Marty Supreme",
       "year": 2025,
       "imdb_id": "tt32916440",
@@ -2662,7 +2639,30 @@
       ]
     },
     {
-      "rank": 262,
+      "rank": 261,
+      "title": "Certified Copy",
+      "year": 2010,
+      "imdb_id": "tt1020773",
+      "score": 255.03,
+      "eligible_max": 1000,
+      "audience": 79.67,
+      "audience_raw": {
+        "imdb_audience": 25.69,
+        "letterboxd_audience": 79.3,
+        "trakt_audience": 14.52
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 263,
       "title": "The Trial of the Chicago 7",
       "year": 2020,
       "imdb_id": "tt1070874",
@@ -2686,7 +2686,7 @@
       ]
     },
     {
-      "rank": 267,
+      "rank": 269,
       "title": "The Wild Robot",
       "year": 2024,
       "imdb_id": "tt29623480",
@@ -2709,7 +2709,7 @@
       ]
     },
     {
-      "rank": 268,
+      "rank": 270,
       "title": "The Square",
       "year": 2017,
       "imdb_id": "tt4995790",
@@ -2733,7 +2733,7 @@
       ]
     },
     {
-      "rank": 269,
+      "rank": 271,
       "title": "You Can Count on Me",
       "year": 2000,
       "imdb_id": "tt0203230",
@@ -2756,7 +2756,7 @@
       ]
     },
     {
-      "rank": 270,
+      "rank": 272,
       "title": "Isle of Dogs",
       "year": 2018,
       "imdb_id": "tt5104604",
@@ -2780,7 +2780,7 @@
       ]
     },
     {
-      "rank": 271,
+      "rank": 273,
       "title": "The Rider",
       "year": 2017,
       "imdb_id": "tt6217608",
@@ -2803,7 +2803,7 @@
       ]
     },
     {
-      "rank": 273,
+      "rank": 275,
       "title": "The Wind Rises",
       "year": 2013,
       "imdb_id": "tt2013293",
@@ -2828,7 +2828,7 @@
       ]
     },
     {
-      "rank": 275,
+      "rank": 277,
       "title": "Lust, Caution",
       "year": 2007,
       "imdb_id": "tt0808357",
@@ -2851,7 +2851,7 @@
       ]
     },
     {
-      "rank": 276,
+      "rank": 278,
       "title": "Billy Elliot",
       "year": 2000,
       "imdb_id": "tt0249462",
@@ -2877,11 +2877,11 @@
   ],
   "qualified_below_200": [
     {
-      "rank": 1061,
+      "rank": 1031,
       "title": "The Intruder",
       "year": 2004,
       "imdb_id": "tt0422491",
-      "score": 105.09,
+      "score": 108.87,
       "eligible_max": 1000,
       "audience": 13.51,
       "audience_raw": {
@@ -2901,11 +2901,11 @@
       ]
     },
     {
-      "rank": 967,
+      "rank": 930,
       "title": "In Vanda's Room",
       "year": 2000,
       "imdb_id": "tt0139500",
-      "score": 117.42,
+      "score": 121.2,
       "eligible_max": 1000,
       "audience": 21.98,
       "audience_raw": {
@@ -2925,7 +2925,7 @@
       ]
     },
     {
-      "rank": 924,
+      "rank": 923,
       "title": "Colossal Youth",
       "year": 2006,
       "imdb_id": "tt0460480",
@@ -2935,30 +2935,6 @@
       "audience_raw": {
         "imdb_audience": 2.09,
         "letterboxd_audience": 25.6,
-        "trakt_audience": 0.0
-      },
-      "gateway": false,
-      "non_audience": true,
-      "qualified": true,
-      "routes": [
-        "canon"
-      ],
-      "sources": [
-        "tspdt",
-        "evidence_snapshot"
-      ]
-    },
-    {
-      "rank": 881,
-      "title": "Tie Xi Qu: West of the Tracks",
-      "year": 2002,
-      "imdb_id": "tt0389448",
-      "score": 127.02,
-      "eligible_max": 1000,
-      "audience": 29.21,
-      "audience_raw": {
-        "imdb_audience": 8.27,
-        "letterboxd_audience": 35.54,
         "trakt_audience": 0.0
       },
       "gateway": false,
@@ -3021,31 +2997,7 @@
       ]
     },
     {
-      "rank": 779,
-      "title": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
-      "year": 2000,
-      "imdb_id": "tt0262240",
-      "score": 141.01,
-      "eligible_max": 1000,
-      "audience": 47.35,
-      "audience_raw": {
-        "imdb_audience": 9.76,
-        "letterboxd_audience": 61.26,
-        "trakt_audience": 0.0
-      },
-      "gateway": false,
-      "non_audience": true,
-      "qualified": true,
-      "routes": [
-        "canon"
-      ],
-      "sources": [
-        "tspdt",
-        "evidence_snapshot"
-      ]
-    },
-    {
-      "rank": 753,
+      "rank": 754,
       "title": "The Circle",
       "year": 2000,
       "imdb_id": "tt0255094",
@@ -3070,16 +3022,16 @@
       ]
     },
     {
-      "rank": 747,
-      "title": "The Headless Woman",
-      "year": 2008,
-      "imdb_id": "tt1221141",
-      "score": 145.37,
+      "rank": 705,
+      "title": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
+      "year": 2000,
+      "imdb_id": "tt0262240",
+      "score": 151.95,
       "eligible_max": 1000,
-      "audience": 21.03,
+      "audience": 47.35,
       "audience_raw": {
-        "imdb_audience": 0.0,
-        "letterboxd_audience": 31.54,
+        "imdb_audience": 9.76,
+        "letterboxd_audience": 61.26,
         "trakt_audience": 0.0
       },
       "gateway": false,
@@ -3090,37 +3042,11 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot",
-        "broad_critic_consensus"
+        "evidence_snapshot"
       ]
     },
     {
-      "rank": 700,
-      "title": "Zama",
-      "year": 2017,
-      "imdb_id": "tt3409848",
-      "score": 152.72,
-      "eligible_max": 900,
-      "audience": 25.76,
-      "audience_raw": {
-        "imdb_audience": 4.48,
-        "letterboxd_audience": 32.35,
-        "trakt_audience": 1.81
-      },
-      "gateway": false,
-      "non_audience": true,
-      "qualified": true,
-      "routes": [
-        "canon"
-      ],
-      "sources": [
-        "tspdt",
-        "evidence_snapshot",
-        "broad_critic_consensus"
-      ]
-    },
-    {
-      "rank": 699,
+      "rank": 701,
       "title": "Millennium Mambo",
       "year": 2001,
       "imdb_id": "tt0283283",
@@ -3144,7 +3070,7 @@
       ]
     },
     {
-      "rank": 698,
+      "rank": 700,
       "title": "Inside Job",
       "year": 2010,
       "imdb_id": "tt1645089",
@@ -3170,7 +3096,7 @@
       ]
     },
     {
-      "rank": 694,
+      "rank": 696,
       "title": "35 Shots of Rum",
       "year": 2008,
       "imdb_id": "tt1100048",
@@ -3195,11 +3121,11 @@
       ]
     },
     {
-      "rank": 673,
+      "rank": 651,
       "title": "Morvern Callar",
       "year": 2002,
       "imdb_id": "tt0300214",
-      "score": 156.93,
+      "score": 160.71,
       "eligible_max": 1000,
       "audience": 46.07,
       "audience_raw": {
@@ -3220,7 +3146,7 @@
       ]
     },
     {
-      "rank": 625,
+      "rank": 627,
       "title": "Inland Empire",
       "year": 2006,
       "imdb_id": "tt0460829",
@@ -3246,16 +3172,40 @@
     },
     {
       "rank": 623,
-      "title": "The Swamp",
-      "year": 2001,
-      "imdb_id": "tt0240419",
-      "score": 164.76,
+      "title": "Tie Xi Qu: West of the Tracks",
+      "year": 2002,
+      "imdb_id": "tt0389448",
+      "score": 165.0,
       "eligible_max": 1000,
-      "audience": 55.97,
+      "audience": 29.21,
       "audience_raw": {
-        "imdb_audience": 12.38,
-        "letterboxd_audience": 65.82,
-        "trakt_audience": 5.76
+        "imdb_audience": 8.27,
+        "letterboxd_audience": 35.54,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 611,
+      "title": "The Headless Woman",
+      "year": 2008,
+      "imdb_id": "tt1221141",
+      "score": 167.84,
+      "eligible_max": 1000,
+      "audience": 21.03,
+      "audience_raw": {
+        "imdb_audience": 0.0,
+        "letterboxd_audience": 31.54,
+        "trakt_audience": 0.0
       },
       "gateway": false,
       "non_audience": true,
@@ -3270,11 +3220,11 @@
       ]
     },
     {
-      "rank": 614,
+      "rank": 592,
       "title": "Nostalgia for the Light",
       "year": 2010,
       "imdb_id": "tt1556190",
-      "score": 167.13,
+      "score": 170.91,
       "eligible_max": 1000,
       "audience": 53.13,
       "audience_raw": {
@@ -3295,7 +3245,7 @@
       ]
     },
     {
-      "rank": 571,
+      "rank": 572,
       "title": "Silent Light",
       "year": 2007,
       "imdb_id": "tt0841925",
@@ -3319,17 +3269,17 @@
       ]
     },
     {
-      "rank": 566,
-      "title": "Goodbye, Dragon Inn",
-      "year": 2003,
-      "imdb_id": "tt0377556",
-      "score": 177.15,
-      "eligible_max": 1000,
-      "audience": 55.28,
+      "rank": 570,
+      "title": "Zama",
+      "year": 2017,
+      "imdb_id": "tt3409848",
+      "score": 175.19,
+      "eligible_max": 900,
+      "audience": 25.76,
       "audience_raw": {
-        "imdb_audience": 13.02,
-        "letterboxd_audience": 66.12,
-        "trakt_audience": 3.78
+        "imdb_audience": 4.48,
+        "letterboxd_audience": 32.35,
+        "trakt_audience": 1.81
       },
       "gateway": false,
       "non_audience": true,
@@ -3344,7 +3294,7 @@
       ]
     },
     {
-      "rank": 565,
+      "rank": 566,
       "title": "Monsoon Wedding",
       "year": 2001,
       "imdb_id": "tt0265343",
@@ -3369,11 +3319,11 @@
       ]
     },
     {
-      "rank": 562,
+      "rank": 544,
       "title": "Syndromes and a Century",
       "year": 2006,
       "imdb_id": "tt0477731",
-      "score": 177.7,
+      "score": 181.48,
       "eligible_max": 1000,
       "audience": 40.27,
       "audience_raw": {
@@ -3393,7 +3343,7 @@
       ]
     },
     {
-      "rank": 539,
+      "rank": 540,
       "title": "The Fog of War",
       "year": 2003,
       "imdb_id": "tt0317910",
@@ -3420,7 +3370,7 @@
       ]
     },
     {
-      "rank": 536,
+      "rank": 537,
       "title": "The Cove",
       "year": 2009,
       "imdb_id": "tt1313104",
@@ -3446,7 +3396,7 @@
       ]
     },
     {
-      "rank": 526,
+      "rank": 527,
       "title": "Russian Ark",
       "year": 2002,
       "imdb_id": "tt0318034",
@@ -3471,7 +3421,7 @@
       ]
     },
     {
-      "rank": 501,
+      "rank": 502,
       "title": "Snatch",
       "year": 2000,
       "imdb_id": "tt0208092",
@@ -3497,7 +3447,7 @@
       ]
     },
     {
-      "rank": 499,
+      "rank": 500,
       "title": "No Man's Land",
       "year": 2001,
       "imdb_id": "tt0283509",
@@ -3523,7 +3473,7 @@
       ]
     },
     {
-      "rank": 498,
+      "rank": 499,
       "title": "The Death of Mr. Lazarescu",
       "year": 2005,
       "imdb_id": "tt0456149",
@@ -3548,7 +3498,7 @@
       ]
     },
     {
-      "rank": 496,
+      "rank": 497,
       "title": "Blade Runner 2049",
       "year": 2017,
       "imdb_id": "tt1856101",
@@ -3574,7 +3524,7 @@
       ]
     },
     {
-      "rank": 489,
+      "rank": 490,
       "title": "Catch Me If You Can",
       "year": 2002,
       "imdb_id": "tt0264464",
@@ -3600,7 +3550,7 @@
       ]
     },
     {
-      "rank": 478,
+      "rank": 479,
       "title": "Icarus",
       "year": 2017,
       "imdb_id": "tt6333060",
@@ -3626,7 +3576,7 @@
       ]
     },
     {
-      "rank": 458,
+      "rank": 460,
       "title": "My Octopus Teacher",
       "year": 2020,
       "imdb_id": "tt12888462",
@@ -3653,7 +3603,7 @@
   ],
   "focus": {
     "Blade Runner 2049": {
-      "rank": 496,
+      "rank": 497,
       "title": "Blade Runner 2049",
       "year": 2017,
       "imdb_id": "tt1856101",
@@ -3679,7 +3629,7 @@
       ]
     },
     "Dune: Part Two": {
-      "rank": 168,
+      "rank": 167,
       "title": "Dune: Part Two",
       "year": 2024,
       "imdb_id": "tt15239678",
@@ -3702,7 +3652,7 @@
       ]
     },
     "Ex Machina": {
-      "rank": 410,
+      "rank": 412,
       "title": "Ex Machina",
       "year": 2014,
       "imdb_id": "tt0470752",
@@ -3728,7 +3678,7 @@
       ]
     },
     "La Commune (Paris, 1871)": {
-      "rank": 980,
+      "rank": 979,
       "title": "La Commune (Paris, 1871)",
       "year": 2000,
       "imdb_id": "tt0257497",
@@ -3750,7 +3700,7 @@
       ]
     },
     "Midsommar": {
-      "rank": 690,
+      "rank": 692,
       "title": "Midsommar",
       "year": 2019,
       "imdb_id": "tt8772262",
@@ -3773,7 +3723,7 @@
       ]
     },
     "Nocturnal Animals": {
-      "rank": 618,
+      "rank": 620,
       "title": "Nocturnal Animals",
       "year": 2016,
       "imdb_id": "tt4550098",
@@ -3797,7 +3747,7 @@
       ]
     },
     "Scott Pilgrim vs. the World": {
-      "rank": 547,
+      "rank": 549,
       "title": "Scott Pilgrim vs. the World",
       "year": 2010,
       "imdb_id": "tt0446029",
@@ -3821,7 +3771,7 @@
       ]
     },
     "Tenet": {
-      "rank": 1192,
+      "rank": 1191,
       "title": "Tenet",
       "year": 2020,
       "imdb_id": "tt6723592",
@@ -3844,7 +3794,7 @@
       ]
     },
     "The Batman": {
-      "rank": 658,
+      "rank": 661,
       "title": "The Batman",
       "year": 2022,
       "imdb_id": "tt1877830",
@@ -3867,7 +3817,7 @@
       ]
     },
     "The Machinist": {
-      "rank": 925,
+      "rank": 924,
       "title": "The Machinist",
       "year": 2004,
       "imdb_id": "tt0361862",
