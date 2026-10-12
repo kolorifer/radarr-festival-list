@@ -57,17 +57,6 @@
       "resolved_year": 2000
     },
     {
-      "title": "Everybody Famous!",
-      "year": 2000,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0209037",
-      "resolved_title": "Everybody's Famous!",
-      "resolved_year": 2000
-    },
-    {
       "title": "Gladiator",
       "year": 2000,
       "signals": [
@@ -233,17 +222,6 @@
       "resolved_year": 2001
     },
     {
-      "title": "Lagaan",
-      "year": 2001,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0169102",
-      "resolved_title": "Lagaan: Once Upon a Time in India",
-      "resolved_year": 2001
-    },
-    {
       "title": "Monsters, Inc.",
       "year": 2001,
       "signals": [
@@ -373,17 +351,6 @@
       "institutional_strength": 1,
       "imdb_id": "tt0303281",
       "resolved_title": "Daughter from Danang",
-      "resolved_year": 2002
-    },
-    {
-      "title": "El Crimen del Padre Amaro",
-      "year": 2002,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0313196",
-      "resolved_title": "The Crime of Padre Amaro",
       "resolved_year": 2002
     },
     {
@@ -596,17 +563,6 @@
       "resolved_year": 2003
     },
     {
-      "title": "Evil",
-      "year": 2003,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0120804",
-      "resolved_title": "Resident Evil",
-      "resolved_year": 2002
-    },
-    {
       "title": "Finding Nemo",
       "year": 2003,
       "signals": [
@@ -772,17 +728,6 @@
       "resolved_year": 2004
     },
     {
-      "title": "Born into Brothels",
-      "year": 2004,
-      "signals": [
-        "Academy Documentary Feature Film winner"
-      ],
-      "institutional_strength": 2,
-      "imdb_id": "tt0388789",
-      "resolved_title": "Born Into Brothels: Calcutta's Red Light Kids",
-      "resolved_year": 2004
-    },
-    {
       "title": "Downfall",
       "year": 2004,
       "signals": [
@@ -879,17 +824,6 @@
       "institutional_strength": 1,
       "imdb_id": "tt0338751",
       "resolved_title": "The Aviator",
-      "resolved_year": 2004
-    },
-    {
-      "title": "The Chorus (Les Choristes)",
-      "year": 2004,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0372824",
-      "resolved_title": "The Chorus",
       "resolved_year": 2004
     },
     {
@@ -1080,17 +1014,6 @@
       "resolved_year": 2005
     },
     {
-      "title": "Murderball",
-      "year": 2005,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0436613",
-      "resolved_title": "Murderball",
-      "resolved_year": 2005
-    },
-    {
       "title": "Paradise Now",
       "year": 2005,
       "signals": [
@@ -1113,17 +1036,6 @@
       "resolved_year": 2005
     },
     {
-      "title": "Tim Burton's Corpse Bride",
-      "year": 2005,
-      "signals": [
-        "Academy Animated Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0121164",
-      "resolved_title": "Corpse Bride",
-      "resolved_year": 2005
-    },
-    {
       "title": "Tsotsi",
       "year": 2005,
       "signals": [
@@ -1132,17 +1044,6 @@
       "institutional_strength": 2,
       "imdb_id": "tt0468565",
       "resolved_title": "Tsotsi",
-      "resolved_year": 2005
-    },
-    {
-      "title": "Wallace & Gromit in The Curse of the Were-Rabbit",
-      "year": 2005,
-      "signals": [
-        "Academy Animated Feature Film winner"
-      ],
-      "institutional_strength": 2,
-      "imdb_id": "tt0312004",
-      "resolved_title": "Wallace & Gromit: The Curse of the Were-Rabbit",
       "resolved_year": 2005
     },
     {
@@ -1187,17 +1088,6 @@
       "institutional_strength": 1,
       "imdb_id": "tt0317219",
       "resolved_title": "Cars",
-      "resolved_year": 2006
-    },
-    {
-      "title": "Days of Glory (Indigènes)",
-      "year": 2006,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0444182",
-      "resolved_title": "Days of Glory",
       "resolved_year": 2006
     },
     {
@@ -1333,17 +1223,6 @@
       "resolved_year": 2006
     },
     {
-      "title": "Water",
-      "year": 2006,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0452637",
-      "resolved_title": "Lady in the Water",
-      "resolved_year": 2006
-    },
-    {
       "title": "Atonement",
       "year": 2007,
       "signals": [
@@ -1396,17 +1275,6 @@
       "institutional_strength": 1,
       "imdb_id": "tt0465538",
       "resolved_title": "Michael Clayton",
-      "resolved_year": 2007
-    },
-    {
-      "title": "Mongol",
-      "year": 2007,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0416044",
-      "resolved_title": "Mongol: The Rise of Genghis Khan",
       "resolved_year": 2007
     },
     {
@@ -1630,17 +1498,6 @@
       "resolved_year": 2008
     },
     {
-      "title": "The Betrayal (Nerakhoon)",
-      "year": 2008,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt1157685",
-      "resolved_title": "The Betrayal",
-      "resolved_year": 2008
-    },
-    {
       "title": "The Class",
       "year": 2008,
       "signals": [
@@ -1660,17 +1517,6 @@
       "institutional_strength": 1,
       "imdb_id": "tt0421715",
       "resolved_title": "The Curious Case of Benjamin Button",
-      "resolved_year": 2008
-    },
-    {
-      "title": "The Garden",
-      "year": 2008,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0961108",
-      "resolved_title": "Fireflies in the Garden",
       "resolved_year": 2008
     },
     {
@@ -1773,17 +1619,6 @@
       "resolved_year": 2009
     },
     {
-      "title": "Burma VJ",
-      "year": 2009,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt1333634",
-      "resolved_title": "Burma VJ: Reporting from a Closed Country",
-      "resolved_year": 2008
-    },
-    {
       "title": "Coraline",
       "year": 2009,
       "signals": [
@@ -1836,17 +1671,6 @@
       "institutional_strength": 1,
       "imdb_id": "tt0361748",
       "resolved_title": "Inglourious Basterds",
-      "resolved_year": 2009
-    },
-    {
-      "title": "Precious: Based on the Novel 'Push' by Sapphire",
-      "year": 2009,
-      "signals": [
-        "Academy Best Picture nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0929632",
-      "resolved_title": "Precious",
       "resolved_year": 2009
     },
     {
@@ -2101,17 +1925,6 @@
       "institutional_strength": 2,
       "imdb_id": "tt1645089",
       "resolved_title": "Inside Job",
-      "resolved_year": 2010
-    },
-    {
-      "title": "Outside the Law (Hors-la-loi)",
-      "year": 2010,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt1229381",
-      "resolved_title": "Outside the Law",
       "resolved_year": 2010
     },
     {
@@ -2590,17 +2403,6 @@
       "resolved_year": 2012
     },
     {
-      "title": "Les Mis_rables",
-      "year": 2012,
-      "signals": [
-        "Academy Best Picture nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt1707386",
-      "resolved_title": "Les Misérables",
-      "resolved_year": 2012
-    },
-    {
       "title": "Life of Pi",
       "year": 2012,
       "signals": [
@@ -2620,6 +2422,17 @@
       "institutional_strength": 1,
       "imdb_id": "tt0443272",
       "resolved_title": "Lincoln",
+      "resolved_year": 2012
+    },
+    {
+      "title": "No",
+      "year": 2012,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2059255",
+      "resolved_title": "No",
       "resolved_year": 2012
     },
     {
@@ -3162,17 +2975,6 @@
       "resolved_year": 2014
     },
     {
-      "title": "The Salt of the Earth",
-      "year": 2014,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt3674140",
-      "resolved_title": "The Salt of the Earth",
-      "resolved_year": 2014
-    },
-    {
       "title": "The Tale of the Princess Kaguya",
       "year": 2014,
       "signals": [
@@ -3247,6 +3049,17 @@
       "institutional_strength": 1,
       "imdb_id": "tt3830162",
       "resolved_title": "A War",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Amy",
+      "year": 2015,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2870648",
+      "resolved_title": "Amy",
       "resolved_year": 2015
     },
     {
@@ -3630,8 +3443,8 @@
         "Academy Best Picture nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt14349610",
-      "resolved_title": "Manchester by the sea?",
+      "imdb_id": "tt4034228",
+      "resolved_title": "Manchester by the Sea",
       "resolved_year": 2016
     },
     {
@@ -4278,7 +4091,7 @@
         "Academy International Feature Film nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt10702624",
+      "imdb_id": "tt8649186",
       "resolved_title": "Corpus Christi",
       "resolved_year": 2019
     },
@@ -4450,17 +4263,6 @@
       "resolved_year": 2019
     },
     {
-      "title": "The Cave",
-      "year": 2019,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt7178226",
-      "resolved_title": "The Cave",
-      "resolved_year": 2019
-    },
-    {
       "title": "The Edge of Democracy",
       "year": 2019,
       "signals": [
@@ -4514,17 +4316,6 @@
       "imdb_id": "tt10288566",
       "resolved_title": "Another Round",
       "resolved_year": 2020
-    },
-    {
-      "title": "Better Days",
-      "year": 2020,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt5979556",
-      "resolved_title": "Better Days",
-      "resolved_year": 2019
     },
     {
       "title": "Collective",
@@ -4611,7 +4402,7 @@
         "Academy Animated Feature Film nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt11749214",
+      "imdb_id": "tt7146812",
       "resolved_title": "Onward",
       "resolved_year": 2020
     },
@@ -4622,7 +4413,7 @@
         "Academy Animated Feature Film nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt12491880",
+      "imdb_id": "tt7488208",
       "resolved_title": "Over the Moon",
       "resolved_year": 2020
     },
@@ -5511,10 +5302,98 @@
       "institutional_strength": 1
     },
     {
+      "title": "Everybody Famous!",
+      "year": 2000,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Lagaan",
+      "year": 2001,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "El Crimen del Padre Amaro",
+      "year": 2002,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Evil",
+      "year": 2003,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Born into Brothels",
+      "year": 2004,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2
+    },
+    {
+      "title": "The Chorus (Les Choristes)",
+      "year": 2004,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Wallace & Gromit in The Curse of the Were-Rabbit",
+      "year": 2005,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2
+    },
+    {
+      "title": "Tim Burton's Corpse Bride",
+      "year": 2005,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Murderball",
+      "year": 2005,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
       "title": "Street Fight",
       "year": 2005,
       "signals": [
         "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Days of Glory (Indigènes)",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Water",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
       ],
       "institutional_strength": 1
     },
@@ -5535,6 +5414,54 @@
       "institutional_strength": 1
     },
     {
+      "title": "Mongol",
+      "year": 2007,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "The Betrayal (Nerakhoon)",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "The Garden",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Precious: Based on the Novel 'Push' by Sapphire",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Burma VJ",
+      "year": 2009,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Outside the Law (Hors-la-loi)",
+      "year": 2010,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
       "title": "Chico & Rita",
       "year": 2011,
       "signals": [
@@ -5543,10 +5470,18 @@
       "institutional_strength": 1
     },
     {
-      "title": "No",
+      "title": "Les Mis_rables",
       "year": 2012,
       "signals": [
-        "Academy International Feature Film nominee"
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "The Salt of the Earth",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
       ],
       "institutional_strength": 1
     },
@@ -5559,12 +5494,20 @@
       "institutional_strength": 1
     },
     {
-      "title": "Amy",
-      "year": 2015,
+      "title": "The Cave",
+      "year": 2019,
       "signals": [
-        "Academy Documentary Feature Film winner"
+        "Academy Documentary Feature Film nominee"
       ],
-      "institutional_strength": 2
+      "institutional_strength": 1
+    },
+    {
+      "title": "Better Days",
+      "year": 2020,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
     },
     {
       "title": "Lunana: A Yak in the Classroom",
@@ -5575,5 +5518,5 @@
       "institutional_strength": 1
     }
   ],
-  "notes": "Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded."
+  "notes": "Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded. Existing TSPDT IDs are preferred before exact-title IMDb resolution."
 }

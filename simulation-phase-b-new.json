@@ -422,20 +422,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "Better Days",
-    "year": 2020,
-    "imdb_id": "tt5979556",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "Big Hero 6",
     "year": 2014,
     "imdb_id": "tt2245084",
@@ -508,20 +494,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "Born into Brothels",
-    "year": 2004,
-    "imdb_id": "tt0388789",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "Brave",
     "year": 2012,
     "imdb_id": "tt1217209",
@@ -571,20 +543,6 @@
     "routes": [],
     "evidence": [
       "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
-    "title": "Burma VJ",
-    "year": 2009,
-    "imdb_id": "tt1333634",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film nominee"
     ],
     "imdb_rating": null,
     "imdb_votes": null,
@@ -739,7 +697,7 @@
   {
     "title": "Corpus Christi",
     "year": 2019,
-    "imdb_id": "tt10702624",
+    "imdb_id": "tt8649186",
     "qualified": false,
     "routes": [],
     "evidence": [
@@ -805,20 +763,6 @@
     "imdb_votes": 643,
     "letterboxd_rating": 3.5,
     "letterboxd_votes": 461
-  },
-  {
-    "title": "Days of Glory (Indigènes)",
-    "year": 2006,
-    "imdb_id": "tt0444182",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
   },
   {
     "title": "Deliver Us from Evil",
@@ -905,20 +849,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "El Crimen del Padre Amaro",
-    "year": 2002,
-    "imdb_id": "tt0313196",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": 6.7,
-    "imdb_votes": 15121,
-    "letterboxd_rating": 3.3,
-    "letterboxd_votes": 24220
-  },
-  {
     "title": "Elemental",
     "year": 2023,
     "imdb_id": "tt15789038",
@@ -987,34 +917,6 @@
     "imdb_votes": null,
     "letterboxd_rating": null,
     "letterboxd_votes": null
-  },
-  {
-    "title": "Everybody Famous!",
-    "year": 2000,
-    "imdb_id": "tt0209037",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": 6.9,
-    "imdb_votes": 3385,
-    "letterboxd_rating": 3.4,
-    "letterboxd_votes": 768
-  },
-  {
-    "title": "Evil",
-    "year": 2003,
-    "imdb_id": "tt0120804",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": 6.6,
-    "imdb_votes": 318585,
-    "letterboxd_rating": 2.9,
-    "letterboxd_votes": 343500
   },
   {
     "title": "Extremely Loud & Incredibly Close",
@@ -1789,20 +1691,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "Les Mis_rables",
-    "year": 2012,
-    "imdb_id": "tt1707386",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "Les Misérables",
     "year": 2019,
     "imdb_id": "tt10199590",
@@ -1916,20 +1804,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "Manchester by the Sea",
-    "year": 2016,
-    "imdb_id": "tt14349610",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "Mank",
     "year": 2020,
     "imdb_id": "tt10618286",
@@ -2028,20 +1902,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "Mongol",
-    "year": 2007,
-    "imdb_id": "tt0416044",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "Monsieur Lazhar",
     "year": 2011,
     "imdb_id": "tt2011971",
@@ -2082,20 +1942,6 @@
     "imdb_votes": 4795,
     "letterboxd_rating": 3.9,
     "letterboxd_votes": 2461
-  },
-  {
-    "title": "Murderball",
-    "year": 2005,
-    "imdb_id": "tt0436613",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
   },
   {
     "title": "My Architect",
@@ -2313,7 +2159,7 @@
   {
     "title": "Onward",
     "year": 2020,
-    "imdb_id": "tt11749214",
+    "imdb_id": "tt7146812",
     "qualified": false,
     "routes": [],
     "evidence": [
@@ -2339,23 +2185,9 @@
     "letterboxd_votes": null
   },
   {
-    "title": "Outside the Law (Hors-la-loi)",
-    "year": 2010,
-    "imdb_id": "tt1229381",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "Over the Moon",
     "year": 2020,
-    "imdb_id": "tt12491880",
+    "imdb_id": "tt7488208",
     "qualified": false,
     "routes": [],
     "evidence": [
@@ -2899,20 +2731,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "The Betrayal (Nerakhoon)",
-    "year": 2008,
-    "imdb_id": "tt1157685",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "The Blind Side",
     "year": 2009,
     "imdb_id": "tt0878804",
@@ -2986,34 +2804,6 @@
     "title": "The Broken Circle Breakdown",
     "year": 2013,
     "imdb_id": "tt2024519",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
-    "title": "The Cave",
-    "year": 2019,
-    "imdb_id": "tt7178226",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
-    "title": "The Chorus (Les Choristes)",
-    "year": 2004,
-    "imdb_id": "tt0372824",
     "qualified": false,
     "routes": [],
     "evidence": [
@@ -3116,20 +2906,6 @@
     "routes": [],
     "evidence": [
       "Academy Best Picture nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
-    "title": "The Garden",
-    "year": 2008,
-    "imdb_id": "tt0961108",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film nominee"
     ],
     "imdb_rating": null,
     "imdb_votes": null,
@@ -3417,20 +3193,6 @@
     "letterboxd_votes": null
   },
   {
-    "title": "The Salt of the Earth",
-    "year": 2014,
-    "imdb_id": "tt3674140",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
     "title": "The Sea Beast",
     "year": 2022,
     "imdb_id": "tt9288046",
@@ -3578,20 +3340,6 @@
     "routes": [],
     "evidence": [
       "Academy Best Picture nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
-    "title": "Tim Burton's Corpse Bride",
-    "year": 2005,
-    "imdb_id": "tt0121164",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film nominee"
     ],
     "imdb_rating": null,
     "imdb_votes": null,
@@ -3831,20 +3579,6 @@
     "routes": [],
     "evidence": [
       "Academy Documentary Feature Film nominee"
-    ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
-  },
-  {
-    "title": "Water",
-    "year": 2006,
-    "imdb_id": "tt0452637",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
     ],
     "imdb_rating": null,
     "imdb_votes": null,

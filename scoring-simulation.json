@@ -12,9 +12,9 @@
     "letterboxd_votes_median": 72905.0
   },
   "counts": {
-    "candidate_universe": 1239,
+    "candidate_universe": 1220,
     "tspdt_candidates": 951,
-    "outside_tspdt_candidates": 288,
+    "outside_tspdt_candidates": 269,
     "production_qualifiers": 109,
     "route_qualifiers": 225,
     "promoted": 116,
@@ -750,30 +750,6 @@
       ]
     },
     {
-      "title": "Better Days",
-      "year": 2020,
-      "imdb_id": "tt5979556",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
-      ]
-    },
-    {
       "title": "Big Hero 6",
       "year": 2014,
       "imdb_id": "tt2245084",
@@ -896,30 +872,6 @@
       ]
     },
     {
-      "title": "Born into Brothels",
-      "year": 2004,
-      "imdb_id": "tt0388789",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 2,
-      "institutional_signal": "Academy Documentary Feature Film winner",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Documentary Feature Film winner"
-      ]
-    },
-    {
       "title": "Brave",
       "year": 2012,
       "imdb_id": "tt1217209",
@@ -1013,30 +965,6 @@
       "qualified": false,
       "evidence": [
         "Academy International Feature Film nominee"
-      ]
-    },
-    {
-      "title": "Burma VJ",
-      "year": 2009,
-      "imdb_id": "tt1333634",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Documentary Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Documentary Feature Film nominee"
       ]
     },
     {
@@ -1287,7 +1215,7 @@
     {
       "title": "Corpus Christi",
       "year": 2019,
-      "imdb_id": "tt10702624",
+      "imdb_id": "tt8649186",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -1402,30 +1330,6 @@
       "qualified": false,
       "evidence": [
         "Academy Documentary Feature Film nominee"
-      ]
-    },
-    {
-      "title": "Days of Glory (Indigènes)",
-      "year": 2006,
-      "imdb_id": "tt0444182",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
       ]
     },
     {
@@ -1573,30 +1477,6 @@
       ]
     },
     {
-      "title": "El Crimen del Padre Amaro",
-      "year": 2002,
-      "imdb_id": "tt0313196",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": 6.7,
-      "imdb_votes": 15121,
-      "letterboxd_rating": 3.3,
-      "letterboxd_votes": 24220,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
-      ]
-    },
-    {
       "title": "Elemental",
       "year": 2023,
       "imdb_id": "tt15789038",
@@ -1714,54 +1594,6 @@
       "qualified": false,
       "evidence": [
         "Academy Animated Feature Film nominee"
-      ]
-    },
-    {
-      "title": "Everybody Famous!",
-      "year": 2000,
-      "imdb_id": "tt0209037",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": 6.9,
-      "imdb_votes": 3385,
-      "letterboxd_rating": 3.4,
-      "letterboxd_votes": 768,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
-      ]
-    },
-    {
-      "title": "Evil",
-      "year": 2003,
-      "imdb_id": "tt0120804",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": 6.6,
-      "imdb_votes": 318585,
-      "letterboxd_rating": 2.9,
-      "letterboxd_votes": 343500,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
       ]
     },
     {
@@ -3087,30 +2919,6 @@
       ]
     },
     {
-      "title": "Les Mis_rables",
-      "year": 2012,
-      "imdb_id": "tt1707386",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Best Picture nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Best Picture nominee"
-      ]
-    },
-    {
       "title": "Les Misérables",
       "year": 2019,
       "imdb_id": "tt10199590",
@@ -3304,30 +3112,6 @@
       ]
     },
     {
-      "title": "Manchester by the Sea",
-      "year": 2016,
-      "imdb_id": "tt14349610",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Best Picture nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Best Picture nominee"
-      ]
-    },
-    {
       "title": "Mank",
       "year": 2020,
       "imdb_id": "tt10618286",
@@ -3496,30 +3280,6 @@
       ]
     },
     {
-      "title": "Mongol",
-      "year": 2007,
-      "imdb_id": "tt0416044",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
-      ]
-    },
-    {
       "title": "Monsieur Lazhar",
       "year": 2011,
       "imdb_id": "tt2011971",
@@ -3589,30 +3349,6 @@
       "qualified": false,
       "evidence": [
         "Academy Documentary Feature Film winner"
-      ]
-    },
-    {
-      "title": "Murderball",
-      "year": 2005,
-      "imdb_id": "tt0436613",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Documentary Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Documentary Feature Film nominee"
       ]
     },
     {
@@ -3981,7 +3717,7 @@
     {
       "title": "Onward",
       "year": 2020,
-      "imdb_id": "tt11749214",
+      "imdb_id": "tt7146812",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -4027,33 +3763,9 @@
       ]
     },
     {
-      "title": "Outside the Law (Hors-la-loi)",
-      "year": 2010,
-      "imdb_id": "tt1229381",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
-      ]
-    },
-    {
       "title": "Over the Moon",
       "year": 2020,
-      "imdb_id": "tt12491880",
+      "imdb_id": "tt7488208",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -4987,30 +4699,6 @@
       ]
     },
     {
-      "title": "The Betrayal (Nerakhoon)",
-      "year": 2008,
-      "imdb_id": "tt1157685",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Documentary Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Documentary Feature Film nominee"
-      ]
-    },
-    {
       "title": "The Blind Side",
       "year": 2009,
       "imdb_id": "tt0878804",
@@ -5134,54 +4822,6 @@
       "title": "The Broken Circle Breakdown",
       "year": 2013,
       "imdb_id": "tt2024519",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
-      ]
-    },
-    {
-      "title": "The Cave",
-      "year": 2019,
-      "imdb_id": "tt7178226",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Documentary Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Documentary Feature Film nominee"
-      ]
-    },
-    {
-      "title": "The Chorus (Les Choristes)",
-      "year": 2004,
-      "imdb_id": "tt0372824",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -5368,30 +5008,6 @@
       "qualified": false,
       "evidence": [
         "Academy Best Picture nominee"
-      ]
-    },
-    {
-      "title": "The Garden",
-      "year": 2008,
-      "imdb_id": "tt0961108",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Documentary Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Documentary Feature Film nominee"
       ]
     },
     {
@@ -5875,30 +5491,6 @@
       ]
     },
     {
-      "title": "The Salt of the Earth",
-      "year": 2014,
-      "imdb_id": "tt3674140",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Documentary Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Documentary Feature Film nominee"
-      ]
-    },
-    {
       "title": "The Sea Beast",
       "year": 2022,
       "imdb_id": "tt9288046",
@@ -6160,30 +5752,6 @@
       "qualified": false,
       "evidence": [
         "Academy Best Picture nominee"
-      ]
-    },
-    {
-      "title": "Tim Burton's Corpse Bride",
-      "year": 2005,
-      "imdb_id": "tt0121164",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy Animated Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy Animated Feature Film nominee"
       ]
     },
     {
@@ -6593,30 +6161,6 @@
       "qualified": false,
       "evidence": [
         "Academy Documentary Feature Film nominee"
-      ]
-    },
-    {
-      "title": "Water",
-      "year": 2006,
-      "imdb_id": "tt0452637",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
       ]
     },
     {
@@ -8682,7 +8226,8 @@
       "letterboxd_rating": 4.1,
       "letterboxd_votes": 1192113,
       "candidate_sources": [
-        "TSPDT"
+        "TSPDT",
+        "institutional"
       ],
       "institutional_strength": 1,
       "institutional_signal": "Academy Best Picture nominee",

@@ -4989,7 +4989,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 30.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5000,7 +5000,8 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "independent_cinema": [
-          "Spirit: independent spirit award / best feature (nominee)"
+          "Spirit: independent spirit award / best feature (nominee)",
+          "Gotham Best Feature (nominee)"
         ]
       }
     },
@@ -10930,18 +10931,6 @@
         ]
       }
     },
-    "tt0209037": {
-      "title": "Everybody Famous!",
-      "year": 2000,
-      "family_scores": {
-        "us_institutional": 35.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best foreign language film (nominee)"
-        ]
-      }
-    },
     "tt0248912": {
       "title": "Into the Arms of Strangers: Stories of the Kindertransport",
       "year": 2000
@@ -11098,18 +11087,6 @@
         ]
       }
     },
-    "tt0313196": {
-      "title": "El Crimen del Padre Amaro",
-      "year": 2002,
-      "family_scores": {
-        "us_institutional": 35.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best foreign language film (nominee)"
-        ]
-      }
-    },
     "tt0268380": {
       "title": "Ice Age",
       "year": 2002,
@@ -11206,10 +11183,6 @@
         ]
       }
     },
-    "tt0120804": {
-      "title": "Evil",
-      "year": 2003
-    },
     "tt0373175": {
       "title": "My Architect",
       "year": 2003
@@ -11287,19 +11260,6 @@
         ]
       }
     },
-    "tt0388789": {
-      "title": "Born into Brothels",
-      "year": 2004,
-      "family_scores": {
-        "independent_cinema": 38.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Sundance: grand jury prize / documentary (nominee)",
-          "Sundance: audience award / documentary (winner)"
-        ]
-      }
-    },
     "tt0308644": {
       "title": "Finding Neverland",
       "year": 2004,
@@ -11367,23 +11327,6 @@
         "independent_cinema": [
           "Sundance: grand jury prize / documentary (nominee)",
           "Sundance: directing award / documentary (winner)"
-        ]
-      }
-    },
-    "tt0372824": {
-      "title": "The Chorus (Les Choristes)",
-      "year": 2004,
-      "family_scores": {
-        "us_institutional": 35.0,
-        "european_recognition": 27.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best foreign language film of the year (nominee)"
-        ],
-        "european_recognition": [
-          "BAFTA: bafta film award / best film not in the english language (nominee)",
-          "European Film Awards Best Film (nominee)"
         ]
       }
     },
@@ -11467,19 +11410,6 @@
       "title": "March of the Penguins",
       "year": 2005
     },
-    "tt0436613": {
-      "title": "Murderball",
-      "year": 2005,
-      "family_scores": {
-        "independent_cinema": 38.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Sundance: grand jury prize / documentary (nominee)",
-          "Sundance: audience award / documentary (winner)"
-        ]
-      }
-    },
     "tt0426578": {
       "title": "Sophie Scholl - The Final Days",
       "year": 2005,
@@ -11494,18 +11424,6 @@
         "european_recognition": [
           "Berlin: silver berlin bear / best director (winner)",
           "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
-    "tt0121164": {
-      "title": "Tim Burton's Corpse Bride",
-      "year": 2005,
-      "family_scores": {
-        "us_institutional": 30.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best animated feature film of the year (nominee)"
         ]
       }
     },
@@ -11546,22 +11464,6 @@
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best animated feature film of the year (nominee)"
-        ]
-      }
-    },
-    "tt0444182": {
-      "title": "Days of Glory (Indigènes)",
-      "year": 2006,
-      "family_scores": {
-        "us_institutional": 35.0,
-        "european_recognition": 10.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best foreign language film of the year (nominee)"
-        ],
-        "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)"
         ]
       }
     },
@@ -11614,10 +11516,6 @@
       "title": "My Country, My Country",
       "year": 2006
     },
-    "tt0452637": {
-      "title": "Water",
-      "year": 2006
-    },
     "tt0758732": {
       "title": "Beaufort",
       "year": 2007,
@@ -11636,18 +11534,6 @@
     },
     "tt0879843": {
       "title": "Katyn",
-      "year": 2007,
-      "family_scores": {
-        "us_institutional": 35.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best foreign language film of the year (nominee)"
-        ]
-      }
-    },
-    "tt0416044": {
-      "title": "Mongol",
       "year": 2007,
       "family_scores": {
         "us_institutional": 35.0
@@ -11775,22 +11661,6 @@
         ]
       }
     },
-    "tt1157685": {
-      "title": "The Betrayal (Nerakhoon)",
-      "year": 2008,
-      "family_scores": {
-        "independent_cinema": 8.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Sundance: grand jury prize / documentary (nominee)"
-        ]
-      }
-    },
-    "tt0961108": {
-      "title": "The Garden",
-      "year": 2008
-    },
     "tt0976051": {
       "title": "The Reader",
       "year": 2008,
@@ -11851,18 +11721,6 @@
         "independent_cinema": [
           "Sundance: grand jury prize / world cinema - dramatic (nominee)",
           "Sundance: audience award / world cinema - dramatic (winner)"
-        ]
-      }
-    },
-    "tt1333634": {
-      "title": "Burma VJ",
-      "year": 2009,
-      "family_scores": {
-        "independent_cinema": 8.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Sundance: grand jury prize / world cinema - documentary (nominee)"
         ]
       }
     },
@@ -12015,22 +11873,6 @@
     "tt1645089": {
       "title": "Inside Job",
       "year": 2010
-    },
-    "tt1229381": {
-      "title": "Outside the Law (Hors-la-loi)",
-      "year": 2010,
-      "family_scores": {
-        "us_institutional": 35.0,
-        "european_recognition": 10.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best foreign language film of the year (nominee)"
-        ],
-        "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)"
-        ]
-      }
     },
     "tt1559549": {
       "title": "Restrepo",
@@ -12347,22 +12189,6 @@
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best foreign language film of the year (nominee)"
-        ]
-      }
-    },
-    "tt1707386": {
-      "title": "Les Mis_rables",
-      "year": 2012,
-      "family_scores": {
-        "us_institutional": 65.0,
-        "european_recognition": 25.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best motion picture of the year (nominee)"
-        ],
-        "european_recognition": [
-          "BAFTA: bafta film award / best film (nominee)"
         ]
       }
     },
@@ -12744,10 +12570,6 @@
         ]
       }
     },
-    "tt3674140": {
-      "title": "The Salt of the Earth",
-      "year": 2014
-    },
     "tt2980516": {
       "title": "The Theory of Everything",
       "year": 2014,
@@ -13001,18 +12823,6 @@
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
-        ]
-      }
-    },
-    "tt14349610": {
-      "title": "Manchester by the Sea",
-      "year": 2016,
-      "family_scores": {
-        "independent_cinema": 10.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (nominee)"
         ]
       }
     },
@@ -13550,13 +13360,17 @@
         ]
       }
     },
-    "tt10702624": {
+    "tt8649186": {
       "title": "Corpus Christi",
       "year": 2019,
       "family_scores": {
+        "us_institutional": 35.0,
         "european_recognition": 12.0
       },
       "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best international feature film (nominee)"
+        ],
         "european_recognition": [
           "European Film Awards Best Film (nominee)"
         ]
@@ -13662,18 +13476,6 @@
         ]
       }
     },
-    "tt7178226": {
-      "title": "The Cave",
-      "year": 2019,
-      "family_scores": {
-        "us_institutional": 30.0
-      },
-      "family_evidence": {
-        "us_institutional": [
-          "Academy: oscar / best documentary feature (nominee)"
-        ]
-      }
-    },
     "tt6016744": {
       "title": "The Edge of Democracy",
       "year": 2019,
@@ -13715,10 +13517,6 @@
         ]
       }
     },
-    "tt5979556": {
-      "title": "Better Days",
-      "year": 2020
-    },
     "tt9784798": {
       "title": "Judas and the Black Messiah",
       "year": 2020,
@@ -13756,13 +13554,31 @@
         ]
       }
     },
-    "tt11749214": {
+    "tt7146812": {
       "title": "Onward",
-      "year": 2020
+      "year": 2020,
+      "family_scores": {
+        "us_institutional": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (nominee)"
+        ]
+      }
     },
-    "tt12491880": {
+    "tt7488208": {
       "title": "Over the Moon",
-      "year": 2020
+      "year": 2020,
+      "family_scores": {
+        "us_institutional": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (nominee)"
+        ]
+      }
     },
     "tt2948372": {
       "title": "Soul",
@@ -14680,6 +14496,18 @@
     },
     "tt0381682": {
       "title": "A Hole in My Heart",
+      "year": 2004,
+      "family_scores": {
+        "european_recognition": 12.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt0372824": {
+      "title": "The Chorus",
       "year": 2004,
       "family_scores": {
         "european_recognition": 12.0
