@@ -26,6 +26,7 @@ ALL_FAMILIES = (
     "us_institutional",
     "european_recognition",
     "independent_cinema",
+    "critics_groups_consensus",
     "audience_consensus",
 )
 
@@ -141,7 +142,12 @@ def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
 
         family_scores = snap.get("family_scores") or {}
         family_evidence = snap.get("family_evidence") or {}
-        for key in ("us_institutional", "european_recognition", "independent_cinema"):
+        for key in (
+            "us_institutional",
+            "european_recognition",
+            "independent_cinema",
+            "critics_groups_consensus",
+        ):
             value = family_scores.get(key)
             if isinstance(value, (int, float)) and value > 0:
                 points[key] = round(min(100.0, float(value)), 2)
@@ -187,7 +193,7 @@ def main():
     rows = build_rows(backcatalog, institutional, qualifiers, audience, snapshot)
 
     payload = {
-        "mode": "research-evidence-score-v2",
+        "mode": "research-evidence-score-v3",
         "qualification_unchanged": True,
         "score_policy": {
             "per_source_family_scale": "0..100",
@@ -199,9 +205,10 @@ def main():
                 "For a 100-item ranked list the mapping is exactly 100,99,...,1.",
                 "TSPDT preserves its full 1000-film depth on the same 1..100 scale.",
                 "US institutional = Academy + Golden Globes, capped at 100.",
-                "European recognition = BAFTA + Cannes + Berlin + Venice, capped at 100; EFA remains a future addition.",
-                "Independent cinema = Sundance + Film Independent Spirit, capped at 100; Gotham remains a future addition.",
-                "Critics-groups consensus remains a future ninth family rather than being approximated from correlated sources.",
+                "European recognition = BAFTA + Cannes + Berlin + Venice + European Film Awards, capped at 100.",
+                "Independent cinema = Sundance + Film Independent Spirit + Gotham, capped at 100.",
+                "Critics-groups consensus = NSFC + NYFCC + LAFCA Best Film wins; 35 points per group, capped at 100.",
+                "Audience remains one 0..100 family for this calibration; its weight is intentionally unchanged until the expanded-source run is evaluated.",
             ],
         },
         "sources": {
@@ -212,16 +219,15 @@ def main():
             "us_institutional": {"type": "family", "max_points": 100},
             "european_recognition": {"type": "family", "max_points": 100},
             "independent_cinema": {"type": "family", "max_points": 100},
+            "critics_groups_consensus": {"type": "family", "max_points": 100},
             "audience_consensus": {"type": "family", "max_points": 100},
         },
-        "current_score_ceiling": 800,
-        "future_family": "critics_groups_consensus",
-        "future_ceiling_after_critics": 900,
+        "current_score_ceiling": 900,
         "count": len(rows),
         "films": rows,
     }
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n")
-    print(json.dumps({"films": len(rows), "score_ceiling": 800, "top": rows[:5]}))
+    print(json.dumps({"films": len(rows), "score_ceiling": 900, "top": rows[:5]}))
 
 
 if __name__ == "__main__":
