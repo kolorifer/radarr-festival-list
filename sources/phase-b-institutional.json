@@ -2975,6 +2975,17 @@
       "resolved_year": 2014
     },
     {
+      "title": "The Salt of the Earth",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3674140",
+      "resolved_title": "The Salt of the Earth",
+      "resolved_year": 2014
+    },
+    {
       "title": "The Tale of the Princess Kaguya",
       "year": 2014,
       "signals": [
@@ -5474,14 +5485,6 @@
       "year": 2012,
       "signals": [
         "Academy Best Picture nominee"
-      ],
-      "institutional_strength": 1
-    },
-    {
-      "title": "The Salt of the Earth",
-      "year": 2014,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
       ],
       "institutional_strength": 1
     },

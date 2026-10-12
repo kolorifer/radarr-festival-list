@@ -1472,6 +1472,47 @@
     ]
   },
   {
+    "title": "1917",
+    "year": 2019,
+    "imdb_id": "tt8579674",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "20 Days in Mariupol",
+    "year": 2023,
+    "imdb_id": "tt24082438",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "All Quiet on the Western Front",
+    "year": 2022,
+    "imdb_id": "tt1016150",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Argo",
     "year": 2012,
     "imdb_id": "tt1024648",
@@ -1480,7 +1521,21 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Big Hero 6",
+    "year": 2014,
+    "imdb_id": "tt2245084",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -1492,7 +1547,9 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ]
   },
   {
@@ -1504,7 +1561,22 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Capernaum",
+    "year": 2018,
+    "imdb_id": "tt8267604",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ]
   },
   {
@@ -1521,6 +1593,48 @@
     ]
   },
   {
+    "title": "Coco",
+    "year": 2017,
+    "imdb_id": "tt2380307",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Ford v Ferrari",
+    "year": 2019,
+    "imdb_id": "tt1950186",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Free Solo",
+    "year": 2018,
+    "imdb_id": "tt7775622",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
     "title": "Green Book",
     "year": 2018,
     "imdb_id": "tt6966692",
@@ -1529,7 +1643,130 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Guillermo del Toro's Pinocchio",
+    "year": 2022,
+    "imdb_id": "tt1488589",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Hacksaw Ridge",
+    "year": 2016,
+    "imdb_id": "tt2119532",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "How to Train Your Dragon",
+    "year": 2010,
+    "imdb_id": "tt0892769",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Icarus",
+    "year": 2017,
+    "imdb_id": "tt6333060",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inside Job",
+    "year": 2010,
+    "imdb_id": "tt1645089",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Klaus",
+    "year": 2019,
+    "imdb_id": "tt4729430",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Lion",
+    "year": 2016,
+    "imdb_id": "tt3741834",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "My Octopus Teacher",
+    "year": 2020,
+    "imdb_id": "tt12888462",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Navalny",
+    "year": 2022,
+    "imdb_id": "tt17041964",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
     ]
   },
   {
@@ -1542,6 +1779,184 @@
     ],
     "evidence": [
       "Academy International Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Searching for Sugar Man",
+    "year": 2012,
+    "imdb_id": "tt2125608",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Society of the Snow",
+    "year": 2023,
+    "imdb_id": "tt16277242",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Song of the Sea",
+    "year": 2014,
+    "imdb_id": "tt1865505",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Soul",
+    "year": 2020,
+    "imdb_id": "tt2948372",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Sound of Metal",
+    "year": 2020,
+    "imdb_id": "tt5363618",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Spider-Man: Across the Spider-Verse",
+    "year": 2023,
+    "imdb_id": "tt9362722",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Cove",
+    "year": 2009,
+    "imdb_id": "tt1313104",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "The Father",
+    "year": 2020,
+    "imdb_id": "tt10272386",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Help",
+    "year": 2011,
+    "imdb_id": "tt1454029",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Salesman",
+    "year": 2016,
+    "imdb_id": "tt5186714",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Three Billboards outside Ebbing, Missouri",
+    "year": 2017,
+    "imdb_id": "tt5027774",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Wild Tales",
+    "year": 2014,
+    "imdb_id": "tt3011894",
+    "rank": null,
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Zootopia",
+    "year": 2016,
+    "imdb_id": "tt2948356",
+    "rank": null,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
       "IMDb strong/broad"
     ]
   }

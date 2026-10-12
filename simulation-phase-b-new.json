@@ -8,38 +8,45 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 428796,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 515426
   },
   {
     "title": "1917",
     "year": 2019,
     "imdb_id": "tt8579674",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.2,
+    "imdb_votes": 788824,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 2016307
   },
   {
     "title": "20 Days in Mariupol",
     "year": 2023,
     "imdb_id": "tt24082438",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 8.6,
+    "imdb_votes": 65858,
+    "letterboxd_rating": 4.3,
+    "letterboxd_votes": 45216
   },
   {
     "title": "20 Feet from Stardom",
@@ -50,10 +57,10 @@
     "evidence": [
       "Academy Documentary Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 14573,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 15050
   },
   {
     "title": "5 Broken Cameras",
@@ -64,10 +71,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 7179,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 11253
   },
   {
     "title": "A Cat in Paris",
@@ -78,10 +85,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.9,
+    "imdb_votes": 12637,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 24365
   },
   {
     "title": "A House Made of Splinters",
@@ -92,10 +99,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 2312,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 6777
   },
   {
     "title": "A Man Called Ove",
@@ -104,12 +111,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy International Feature Film nominee"
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 75859,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 61699
   },
   {
     "title": "A Royal Affair",
@@ -120,10 +128,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 54571,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 40092
   },
   {
     "title": "A Shaun the Sheep Movie: Farmageddon",
@@ -134,10 +142,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.8,
+    "imdb_votes": 17773,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 40413
   },
   {
     "title": "A Star Is Born",
@@ -148,10 +156,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 453751,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 1177067
   },
   {
     "title": "A War",
@@ -162,10 +170,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 11740,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 5968
   },
   {
     "title": "Abacus: Small Enough to Jail",
@@ -176,10 +184,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 3058,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 3862
   },
   {
     "title": "After the Wedding",
@@ -190,10 +198,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 39574,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 19196
   },
   {
     "title": "Ajami",
@@ -204,24 +212,28 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 6794,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 2226
   },
   {
     "title": "All Quiet on the Western Front",
     "year": 2022,
     "imdb_id": "tt1016150",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee + Academy International Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 7.8,
+    "imdb_votes": 347966,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 1274909
   },
   {
     "title": "All That Breathes",
@@ -232,10 +244,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 5524,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 19370
   },
   {
     "title": "American Factory",
@@ -246,10 +258,10 @@
     "evidence": [
       "Academy Documentary Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 25253,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 40835
   },
   {
     "title": "American Fiction",
@@ -260,10 +272,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 157550,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 556220
   },
   {
     "title": "American Hustle",
@@ -274,10 +286,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 522436,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 429264
   },
   {
     "title": "American Sniper",
@@ -288,10 +300,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 577431,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 632862
   },
   {
     "title": "An Education",
@@ -302,10 +314,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 141600,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 90155
   },
   {
     "title": "Argentina, 1985",
@@ -314,12 +326,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy International Feature Film nominee"
+      "Academy International Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 37138,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 172192
   },
   {
     "title": "Argo",
@@ -330,12 +343,13 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 674292,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 542758
   },
   {
     "title": "As It Is in Heaven",
@@ -360,10 +374,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 4488,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 10662
   },
   {
     "title": "Attica",
@@ -374,10 +388,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 3348,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 8811
   },
   {
     "title": "Avatar: The Way of Water",
@@ -388,10 +402,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 649808,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 2809471
   },
   {
     "title": "Balseros",
@@ -416,24 +430,27 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 5059,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 1294
   },
   {
     "title": "Big Hero 6",
     "year": 2014,
     "imdb_id": "tt2245084",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 7.8,
+    "imdb_votes": 563235,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 1872306
   },
   {
     "title": "Birdman or (The Unexpected Virtue of Ignorance)",
@@ -444,12 +461,14 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 704822,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 1274485
   },
   {
     "title": "Bobi Wine: The People's President",
@@ -460,10 +479,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 2016,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 9000
   },
   {
     "title": "Bohemian Rhapsody",
@@ -472,12 +491,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 655894,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 1965538
   },
   {
     "title": "Bolt",
@@ -488,10 +508,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.8,
+    "imdb_votes": 251898,
+    "letterboxd_rating": 3.2,
+    "letterboxd_votes": 747276
   },
   {
     "title": "Brave",
@@ -502,10 +522,10 @@
     "evidence": [
       "Academy Animated Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 486711,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 1408010
   },
   {
     "title": "Bridge of Spies",
@@ -516,10 +536,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 347813,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 240691
   },
   {
     "title": "Brother Bear",
@@ -544,10 +564,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 25294,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 12097
   },
   {
     "title": "CODA",
@@ -558,26 +578,31 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 233584,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 457986
   },
   {
     "title": "Capernaum",
     "year": 2018,
     "imdb_id": "tt8267604",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.4,
+    "imdb_votes": 127434,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 150482
   },
   {
     "title": "Captain Phillips",
@@ -586,12 +611,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 523673,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 406771
   },
   {
     "title": "Cars",
@@ -600,12 +626,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 551577,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 2167278
   },
   {
     "title": "Cartel Land",
@@ -616,10 +643,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 19245,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 12751
   },
   {
     "title": "Chicago",
@@ -673,26 +700,32 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy International Feature Film nominee"
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 49425,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 562814
   },
   {
     "title": "Coco",
     "year": 2017,
     "imdb_id": "tt2380307",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.4,
+    "imdb_votes": 730271,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 3345185
   },
   {
     "title": "Corpus Christi",
@@ -703,10 +736,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 24474,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 59682
   },
   {
     "title": "Cutie and the Boxer",
@@ -717,10 +750,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 4809,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 4763
   },
   {
     "title": "Dallas Buyers Club",
@@ -729,12 +762,14 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 553580,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 695512
   },
   {
     "title": "Darkest Hour",
@@ -745,10 +780,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 246415,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 282781
   },
   {
     "title": "Daughter from Danang",
@@ -773,10 +808,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 11389,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 5115
   },
   {
     "title": "Despicable Me 2",
@@ -787,10 +822,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 466406,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 935970
   },
   {
     "title": "Dirty Wars",
@@ -801,10 +836,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 9571,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 3620
   },
   {
     "title": "Divided We Fall",
@@ -829,10 +864,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 683211,
+    "letterboxd_rating": 3.1,
+    "letterboxd_votes": 2594279
   },
   {
     "title": "Don't Tell",
@@ -843,10 +878,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.4,
+    "imdb_votes": 2678,
+    "letterboxd_rating": 3.2,
+    "letterboxd_votes": 659
   },
   {
     "title": "Elemental",
@@ -857,10 +892,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 170228,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 1171757
   },
   {
     "title": "Elling",
@@ -885,10 +920,10 @@
     "evidence": [
       "Academy Animated Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 302533,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 1697118
   },
   {
     "title": "Enron: The Smartest Guys in the Room",
@@ -899,10 +934,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 21446,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 18091
   },
   {
     "title": "Ernest & Celestine",
@@ -913,10 +948,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 24728,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 71724
   },
   {
     "title": "Extremely Loud & Incredibly Close",
@@ -927,10 +962,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.9,
+    "imdb_votes": 108455,
+    "letterboxd_rating": 3.1,
+    "letterboxd_votes": 57610
   },
   {
     "title": "Fences",
@@ -941,10 +976,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 126719,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 137740
   },
   {
     "title": "Ferdinand",
@@ -955,10 +990,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 72444,
+    "letterboxd_rating": 3.0,
+    "letterboxd_votes": 120403
   },
   {
     "title": "Finding Neverland",
@@ -969,10 +1004,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 218345,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 93990
   },
   {
     "title": "Finding Vivian Maier",
@@ -983,10 +1018,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 15935,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 23016
   },
   {
     "title": "Fire at Sea",
@@ -997,10 +1032,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 6302,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 8491
   },
   {
     "title": "Fire of Love",
@@ -1009,12 +1044,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Documentary Feature Film nominee"
+      "Academy Documentary Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 17009,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 128154
   },
   {
     "title": "Flee",
@@ -1023,12 +1059,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee + Academy Documentary Feature Film nominee + Academy International Feature Film nominee"
+      "Academy Animated Feature Film nominee + Academy Documentary Feature Film nominee + Academy International Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 21422,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 86282
   },
   {
     "title": "Food, Inc.",
@@ -1037,12 +1074,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Documentary Feature Film nominee"
+      "Academy Documentary Feature Film nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 53002,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 21996
   },
   {
     "title": "Footnote",
@@ -1053,24 +1091,28 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 6602,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 3423
   },
   {
     "title": "Ford v Ferrari",
     "year": 2019,
     "imdb_id": "tt1950186",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 589292,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 1143594
   },
   {
     "title": "Four Daughters",
@@ -1081,10 +1123,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 4600,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 30469
   },
   {
     "title": "Frankenweenie",
@@ -1095,24 +1137,28 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.9,
+    "imdb_votes": 128110,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 440437
   },
   {
     "title": "Free Solo",
     "year": 2018,
     "imdb_id": "tt7775622",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 88981,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 255573
   },
   {
     "title": "Frost/Nixon",
@@ -1123,10 +1169,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 116520,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 59309
   },
   {
     "title": "Gasland",
@@ -1137,10 +1183,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 10796,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 3330
   },
   {
     "title": "Green Book",
@@ -1151,40 +1197,48 @@
       "institutional"
     ],
     "evidence": [
-      "Academy Best Picture winner"
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.2,
+    "imdb_votes": 707302,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 1321472
   },
   {
     "title": "Guillermo del Toro's Pinocchio",
     "year": 2022,
     "imdb_id": "tt1488589",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 7.6,
+    "imdb_votes": 167492,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 721166
   },
   {
     "title": "Hacksaw Ridge",
     "year": 2016,
     "imdb_id": "tt2119532",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 699526,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 1261357
   },
   {
     "title": "Hale County This Morning, This Evening",
@@ -1195,10 +1249,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.4,
+    "imdb_votes": 2367,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 10277
   },
   {
     "title": "Happy Feet",
@@ -1209,10 +1263,10 @@
     "evidence": [
       "Academy Animated Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.4,
+    "imdb_votes": 216307,
+    "letterboxd_rating": 3.1,
+    "letterboxd_votes": 507212
   },
   {
     "title": "Hell and Back Again",
@@ -1223,10 +1277,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.4,
+    "imdb_votes": 2398,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 809
   },
   {
     "title": "Hidden Figures",
@@ -1235,12 +1289,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 294933,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 743341
   },
   {
     "title": "Honeyland",
@@ -1251,10 +1306,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee + Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 20698,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 37948
   },
   {
     "title": "How to Survive a Plague",
@@ -1265,24 +1320,28 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 4567,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 7943
   },
   {
     "title": "How to Train Your Dragon",
     "year": 2010,
     "imdb_id": "tt0892769",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 911212,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 2132221
   },
   {
     "title": "How to Train Your Dragon 2",
@@ -1291,12 +1350,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 408193,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 1106302
   },
   {
     "title": "How to Train Your Dragon: The Hidden World",
@@ -1307,24 +1367,28 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 183911,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 754747
   },
   {
     "title": "Icarus",
     "year": 2017,
     "imdb_id": "tt6333060",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 7.9,
+    "imdb_votes": 58750,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 74872
   },
   {
     "title": "Ice Age",
@@ -1349,10 +1413,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 3401,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 2203
   },
   {
     "title": "In Darkness",
@@ -1363,10 +1427,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 11585,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 3574
   },
   {
     "title": "In a Better World",
@@ -1377,10 +1441,10 @@
     "evidence": [
       "Academy International Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 43308,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 12362
   },
   {
     "title": "Incredibles 2",
@@ -1391,24 +1455,27 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 378917,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 1598165
   },
   {
     "title": "Inside Job",
     "year": 2010,
     "imdb_id": "tt1645089",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 8.2,
+    "imdb_votes": 82994,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 33421
   },
   {
     "title": "Into the Arms of Strangers: Stories of the Kindertransport",
@@ -1433,10 +1500,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 18568,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 72660
   },
   {
     "title": "Iraq in Fragments",
@@ -1447,10 +1514,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 1709,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 625
   },
   {
     "title": "Isle of Dogs",
@@ -1459,12 +1526,14 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 215209,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 1317327
   },
   {
     "title": "Jesus Camp",
@@ -1475,10 +1544,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 29608,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 36726
   },
   {
     "title": "Jimmy Neutron: Boy Genius",
@@ -1501,12 +1570,14 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 495799,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 2377000
   },
   {
     "title": "Joyeux Noel",
@@ -1517,10 +1588,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 34551,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 23683
   },
   {
     "title": "Judas and the Black Messiah",
@@ -1529,12 +1600,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 116402,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 346390
   },
   {
     "title": "Katyn",
@@ -1545,10 +1617,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 18420,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 6679
   },
   {
     "title": "King Richard",
@@ -1559,24 +1631,28 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 194061,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 352074
   },
   {
     "title": "Klaus",
     "year": 2019,
     "imdb_id": "tt4729430",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.2,
+    "imdb_votes": 243518,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 709332
   },
   {
     "title": "Kon-Tiki",
@@ -1587,10 +1663,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 55003,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 21436
   },
   {
     "title": "Kubo and the Two Strings",
@@ -1599,12 +1675,14 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 148775,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 374301
   },
   {
     "title": "Kung Fu Panda",
@@ -1615,10 +1693,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 591793,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 1826531
   },
   {
     "title": "Kung Fu Panda 2",
@@ -1629,10 +1707,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 364913,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 935001
   },
   {
     "title": "LaLee's Kin: The Legacy of Cotton",
@@ -1655,12 +1733,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy International Feature Film nominee"
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 49919,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 36611
   },
   {
     "title": "Last Days in Vietnam",
@@ -1671,10 +1750,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 4278,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 2596
   },
   {
     "title": "Last Men in Aleppo",
@@ -1685,10 +1764,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 3118,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 3149
   },
   {
     "title": "Les Misérables",
@@ -1699,10 +1778,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 30940,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 90461
   },
   {
     "title": "Life, Animated",
@@ -1713,10 +1792,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 6392,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 8061
   },
   {
     "title": "Lilo & Stitch",
@@ -1737,15 +1816,19 @@
     "title": "Lion",
     "year": 2016,
     "imdb_id": "tt3741834",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.0,
+    "imdb_votes": 269619,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 411166
   },
   {
     "title": "Long Night's Journey into Day",
@@ -1768,12 +1851,14 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 69081,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 281038
   },
   {
     "title": "Luca",
@@ -1784,10 +1869,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 228853,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 1552770
   },
   {
     "title": "Maestro",
@@ -1798,10 +1883,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.5,
+    "imdb_votes": 70290,
+    "letterboxd_rating": 3.1,
+    "letterboxd_votes": 334507
   },
   {
     "title": "Mank",
@@ -1812,10 +1897,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.8,
+    "imdb_votes": 105949,
+    "letterboxd_rating": 3.3,
+    "letterboxd_votes": 223610
   },
   {
     "title": "Marcel the Shell with Shoes On",
@@ -1824,12 +1909,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 34566,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 384298
   },
   {
     "title": "March of the Penguins",
@@ -1840,10 +1926,10 @@
     "evidence": [
       "Academy Documentary Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 62683,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 50636
   },
   {
     "title": "Minding the Gap",
@@ -1854,10 +1940,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 11209,
+    "letterboxd_rating": 4.3,
+    "letterboxd_votes": 51186
   },
   {
     "title": "Mirai",
@@ -1868,10 +1954,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 20159,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 66038
   },
   {
     "title": "Missing Link",
@@ -1882,10 +1968,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 31328,
+    "letterboxd_rating": 3.3,
+    "letterboxd_votes": 75972
   },
   {
     "title": "Moana",
@@ -1896,10 +1982,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 451639,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 1922060
   },
   {
     "title": "Monsieur Lazhar",
@@ -1910,10 +1996,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 21978,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 14421
   },
   {
     "title": "Monster House",
@@ -1924,10 +2010,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 159079,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 827176
   },
   {
     "title": "Murder on a Sunday Morning",
@@ -1966,10 +2052,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 462,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 712
   },
   {
     "title": "My Life as a Zucchini",
@@ -1978,40 +2064,47 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 33571,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 293263
   },
   {
     "title": "My Octopus Teacher",
     "year": 2020,
     "imdb_id": "tt12888462",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 72878,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 154863
   },
   {
     "title": "Navalny",
     "year": 2022,
     "imdb_id": "tt17041964",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 7.8,
+    "imdb_votes": 69776,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 44097
   },
   {
     "title": "Never Look Away",
@@ -2022,10 +2115,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 28594,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 34126
   },
   {
     "title": "Nightmare Alley",
@@ -2036,10 +2129,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 185109,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 408692
   },
   {
     "title": "Nimona",
@@ -2048,12 +2141,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 63760,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 447901
   },
   {
     "title": "No End in Sight",
@@ -2064,10 +2158,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.2,
+    "imdb_votes": 8931,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 2647
   },
   {
     "title": "No Man's Land",
@@ -2095,10 +2189,10 @@
     "evidence": [
       "Venice Grand Jury Prize"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 345686,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 699864
   },
   {
     "title": "Nowhere in Africa",
@@ -2123,10 +2217,10 @@
     "evidence": [
       "Academy Documentary Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.9,
+    "imdb_votes": 24222,
+    "letterboxd_rating": 4.5,
+    "letterboxd_votes": 52468
   },
   {
     "title": "Of Fathers and Sons",
@@ -2137,10 +2231,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 2903,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 4066
   },
   {
     "title": "Omar",
@@ -2151,10 +2245,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 16383,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 13156
   },
   {
     "title": "Onward",
@@ -2165,10 +2259,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 189856,
+    "letterboxd_rating": 3.3,
+    "letterboxd_votes": 704875
   },
   {
     "title": "Operation Homecoming: Writing the Wartime Experience",
@@ -2179,8 +2273,8 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
+    "imdb_rating": 7.1,
+    "imdb_votes": 455,
     "letterboxd_rating": null,
     "letterboxd_votes": null
   },
@@ -2193,10 +2287,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.3,
+    "imdb_votes": 27520,
+    "letterboxd_rating": 3.2,
+    "letterboxd_votes": 97677
   },
   {
     "title": "ParaNorman",
@@ -2207,10 +2301,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 119414,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 371057
   },
   {
     "title": "Paradise Lost 3: Purgatory",
@@ -2221,10 +2315,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 11717,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 9978
   },
   {
     "title": "Philomena",
@@ -2235,10 +2329,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 107872,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 61664
   },
   {
     "title": "Prisoner of Paradise",
@@ -2277,10 +2371,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.6,
+    "imdb_votes": 215592,
+    "letterboxd_rating": 3.3,
+    "letterboxd_votes": 516812
   },
   {
     "title": "Puss in Boots: The Last Wish",
@@ -2289,12 +2383,14 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 232666,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 1993784
   },
   {
     "title": "RBG",
@@ -2305,10 +2401,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 15718,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 27888
   },
   {
     "title": "Ralph Breaks the Internet",
@@ -2319,10 +2415,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 209872,
+    "letterboxd_rating": 2.9,
+    "letterboxd_votes": 808834
   },
   {
     "title": "Rango",
@@ -2333,10 +2429,10 @@
     "evidence": [
       "Academy Animated Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 325204,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 977646
   },
   {
     "title": "Ray",
@@ -2345,12 +2441,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 167554,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 113437
   },
   {
     "title": "Raya and the Last Dragon",
@@ -2361,10 +2458,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 190559,
+    "letterboxd_rating": 3.2,
+    "letterboxd_votes": 625852
   },
   {
     "title": "Restrepo",
@@ -2375,10 +2472,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 24690,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 14239
   },
   {
     "title": "Revanche",
@@ -2389,10 +2486,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 17436,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 17533
   },
   {
     "title": "Robot Dreams",
@@ -2401,12 +2498,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 26102,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 247874
   },
   {
     "title": "Scottsboro: An American Tragedy",
@@ -2440,15 +2538,19 @@
     "title": "Searching for Sugar Man",
     "year": 2012,
     "imdb_id": "tt2125608",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.2,
+    "imdb_votes": 77011,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 75691
   },
   {
     "title": "Shark Tale",
@@ -2459,10 +2561,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.0,
+    "imdb_votes": 216778,
+    "letterboxd_rating": 3.1,
+    "letterboxd_votes": 674147
   },
   {
     "title": "Shaun the Sheep Movie",
@@ -2473,10 +2575,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 47570,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 106714
   },
   {
     "title": "Shrek 2",
@@ -2485,12 +2587,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 565183,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 2244256
   },
   {
     "title": "Sicko",
@@ -2499,26 +2602,31 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Documentary Feature Film nominee"
+      "Academy Documentary Feature Film nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 78324,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 26885
   },
   {
     "title": "Society of the Snow",
     "year": 2023,
     "imdb_id": "tt16277242",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 7.8,
+    "imdb_votes": 178634,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 1225693
   },
   {
     "title": "Son of the Bride",
@@ -2538,15 +2646,19 @@
     "title": "Song of the Sea",
     "year": 2014,
     "imdb_id": "tt1865505",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.0,
+    "imdb_votes": 69139,
+    "letterboxd_rating": 4.3,
+    "letterboxd_votes": 173223
   },
   {
     "title": "Sophie Scholl - The Final Days",
@@ -2557,24 +2669,27 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 30045,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 11540
   },
   {
     "title": "Soul",
     "year": 2020,
     "imdb_id": "tt2948372",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 8.0,
+    "imdb_votes": 459490,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 2658198
   },
   {
     "title": "Sound and Fury",
@@ -2594,29 +2709,37 @@
     "title": "Sound of Metal",
     "year": 2020,
     "imdb_id": "tt5363618",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 7.7,
+    "imdb_votes": 189646,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 929259
   },
   {
     "title": "Spider-Man: Across the Spider-Verse",
     "year": 2023,
     "imdb_id": "tt9362722",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.5,
+    "imdb_votes": 557653,
+    "letterboxd_rating": 4.4,
+    "letterboxd_votes": 4160546
   },
   {
     "title": "Spirit: Stallion of the Cimarron",
@@ -2641,10 +2764,10 @@
     "evidence": [
       "Academy Documentary Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 15507,
+    "letterboxd_rating": 4.2,
+    "letterboxd_votes": 61822
   },
   {
     "title": "Super Size Me",
@@ -2655,10 +2778,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 115675,
+    "letterboxd_rating": 3.1,
+    "letterboxd_votes": 121831
   },
   {
     "title": "Surf's Up",
@@ -2669,10 +2792,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 104661,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 531713
   },
   {
     "title": "Tangerines",
@@ -2681,12 +2804,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy International Feature Film nominee"
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.1,
+    "imdb_votes": 52160,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 29743
   },
   {
     "title": "Tanna",
@@ -2697,10 +2821,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.9,
+    "imdb_votes": 4912,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 4353
   },
   {
     "title": "Taxi to the Dark Side",
@@ -2711,10 +2835,10 @@
     "evidence": [
       "Academy Documentary Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 17884,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 4646
   },
   {
     "title": "The Baader Meinhof Complex",
@@ -2725,10 +2849,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 41969,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 23291
   },
   {
     "title": "The Blind Side",
@@ -2739,10 +2863,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 393311,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 535294
   },
   {
     "title": "The Boss Baby",
@@ -2753,10 +2877,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.3,
+    "imdb_votes": 162523,
+    "letterboxd_rating": 2.6,
+    "letterboxd_votes": 494342
   },
   {
     "title": "The Boxtrolls",
@@ -2767,10 +2891,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.8,
+    "imdb_votes": 65847,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 148764
   },
   {
     "title": "The Boy and the Heron",
@@ -2781,10 +2905,10 @@
     "evidence": [
       "Academy Animated Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 151977,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 1323276
   },
   {
     "title": "The Breadwinner",
@@ -2793,12 +2917,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 31392,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 109337
   },
   {
     "title": "The Broken Circle Breakdown",
@@ -2809,10 +2934,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 45592,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 37299
   },
   {
     "title": "The Counterfeiters",
@@ -2823,24 +2948,27 @@
     "evidence": [
       "Academy International Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 48870,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 12753
   },
   {
     "title": "The Cove",
     "year": 2009,
     "imdb_id": "tt1313104",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Documentary Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 8.4,
+    "imdb_votes": 52925,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 21371
   },
   {
     "title": "The Croods",
@@ -2851,10 +2979,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 255700,
+    "letterboxd_rating": 3.2,
+    "letterboxd_votes": 573073
   },
   {
     "title": "The Edge of Democracy",
@@ -2865,10 +2993,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 16702,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 44097
   },
   {
     "title": "The Eternal Memory",
@@ -2879,24 +3007,28 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 4171,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 29603
   },
   {
     "title": "The Father",
     "year": 2020,
     "imdb_id": "tt10272386",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.2,
+    "imdb_votes": 250792,
+    "letterboxd_rating": 4.3,
+    "letterboxd_votes": 454102
   },
   {
     "title": "The Fighter",
@@ -2905,12 +3037,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 411891,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 294628
   },
   {
     "title": "The Gatekeepers",
@@ -2921,10 +3054,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 6136,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 2705
   },
   {
     "title": "The Hand of God",
@@ -2935,24 +3068,28 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 55285,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 180103
   },
   {
     "title": "The Help",
     "year": 2011,
     "imdb_id": "tt1454029",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 533958,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 797267
   },
   {
     "title": "The Illusionist",
@@ -2963,10 +3100,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 37879,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 33335
   },
   {
     "title": "The Imitation Game",
@@ -2975,12 +3112,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 886941,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 1198099
   },
   {
     "title": "The Insult",
@@ -2991,10 +3129,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 19273,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 14514
   },
   {
     "title": "The Invisible War",
@@ -3005,10 +3143,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 7515,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 4265
   },
   {
     "title": "The Man Who Sold His Skin",
@@ -3019,10 +3157,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.9,
+    "imdb_votes": 7895,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 14717
   },
   {
     "title": "The Martian",
@@ -3031,12 +3169,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 1033202,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 1970139
   },
   {
     "title": "The Milk of Sorrow",
@@ -3047,10 +3186,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 7724,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 10524
   },
   {
     "title": "The Mitchells vs. the Machines",
@@ -3061,10 +3200,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 145367,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 685577
   },
   {
     "title": "The Mole Agent",
@@ -3075,10 +3214,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 10375,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 34730
   },
   {
     "title": "The Most Dangerous Man in America: Daniel Ellsberg and the Pentagon Papers",
@@ -3089,10 +3228,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 2523,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 1058
   },
   {
     "title": "The Pirates! Band of Misfits",
@@ -3103,10 +3242,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.7,
+    "imdb_votes": 54908,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 91370
   },
   {
     "title": "The Post",
@@ -3117,10 +3256,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 174204,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 245141
   },
   {
     "title": "The Princess and the Frog",
@@ -3129,12 +3268,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 190953,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 1185424
   },
   {
     "title": "The Quiet Girl",
@@ -3143,12 +3283,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy International Feature Film nominee"
+      "Academy International Feature Film nominee",
+      "Letterboxd strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 30092,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 99913
   },
   {
     "title": "The Reader",
@@ -3159,10 +3300,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 275949,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 148181
   },
   {
     "title": "The Red Turtle",
@@ -3173,19 +3314,36 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 42794,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 102761
   },
   {
     "title": "The Salesman",
     "year": 2016,
     "imdb_id": "tt5186714",
+    "qualified": true,
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 7.7,
+    "imdb_votes": 69551,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 64220
+  },
+  {
+    "title": "The Salt of the Earth",
+    "year": 2014,
+    "imdb_id": "tt3674140",
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy International Feature Film winner"
+      "Academy Documentary Feature Film nominee"
     ],
     "imdb_rating": null,
     "imdb_votes": null,
@@ -3201,10 +3359,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 66660,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 189403
   },
   {
     "title": "The Secret of Kells",
@@ -3215,10 +3373,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 41338,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 77612
   },
   {
     "title": "The Square",
@@ -3229,10 +3387,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.0,
+    "imdb_votes": 9604,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 7319
   },
   {
     "title": "The Story of the Weeping Camel",
@@ -3243,10 +3401,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 6624,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 3036
   },
   {
     "title": "The Teachers' Lounge",
@@ -3257,10 +3415,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 31895,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 129024
   },
   {
     "title": "The Theory of Everything",
@@ -3269,12 +3427,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 511379,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 685834
   },
   {
     "title": "The Trial of the Chicago 7",
@@ -3283,12 +3442,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Best Picture nominee"
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 207654,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 433086
   },
   {
     "title": "The Twilight Samurai",
@@ -3327,24 +3487,28 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 12029,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 7176
   },
   {
     "title": "Three Billboards outside Ebbing, Missouri",
     "year": 2017,
     "imdb_id": "tt5027774",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Best Picture nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 617763,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 889900
   },
   {
     "title": "To Kill a Tiger",
@@ -3355,10 +3519,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 3230,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 10010
   },
   {
     "title": "Toy Story 4",
@@ -3369,10 +3533,10 @@
     "evidence": [
       "Academy Animated Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 331672,
+    "letterboxd_rating": 3.3,
+    "letterboxd_votes": 1457923
   },
   {
     "title": "Treasure Planet",
@@ -3398,10 +3562,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 2137,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 1369
   },
   {
     "title": "Tsotsi",
@@ -3412,10 +3576,10 @@
     "evidence": [
       "Academy International Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 32499,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 12891
   },
   {
     "title": "Tupac: Resurrection",
@@ -3426,10 +3590,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.9,
+    "imdb_votes": 10075,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 3249
   },
   {
     "title": "Turning Red",
@@ -3440,10 +3604,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.9,
+    "imdb_votes": 177760,
+    "letterboxd_rating": 3.3,
+    "letterboxd_votes": 1301524
   },
   {
     "title": "Twin Sisters",
@@ -3468,10 +3632,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 1038,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 478
   },
   {
     "title": "Undefeated",
@@ -3482,10 +3646,10 @@
     "evidence": [
       "Academy Documentary Feature Film winner"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 7565,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 4271
   },
   {
     "title": "Up in the Air",
@@ -3496,10 +3660,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.4,
+    "imdb_votes": 363269,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 197090
   },
   {
     "title": "Vice",
@@ -3510,10 +3674,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 177165,
+    "letterboxd_rating": 3.5,
+    "letterboxd_votes": 301567
   },
   {
     "title": "Virunga",
@@ -3524,10 +3688,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.1,
+    "imdb_votes": 12876,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 8697
   },
   {
     "title": "War Horse",
@@ -3538,10 +3702,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.2,
+    "imdb_votes": 174928,
+    "letterboxd_rating": 3.4,
+    "letterboxd_votes": 156142
   },
   {
     "title": "War Photographer",
@@ -3566,10 +3730,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.0,
+    "imdb_votes": 7775,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 3610
   },
   {
     "title": "Waste Land",
@@ -3580,10 +3744,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 9114,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 6668
   },
   {
     "title": "West Side Story",
@@ -3594,10 +3758,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.1,
+    "imdb_votes": 145262,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 500983
   },
   {
     "title": "What Happened, Miss Simone?",
@@ -3608,10 +3772,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 15517,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 28212
   },
   {
     "title": "When Marnie Was There",
@@ -3622,10 +3786,10 @@
     "evidence": [
       "Academy Animated Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.6,
+    "imdb_votes": 56557,
+    "letterboxd_rating": 3.9,
+    "letterboxd_votes": 369443
   },
   {
     "title": "Which Way Home",
@@ -3636,24 +3800,28 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.8,
+    "imdb_votes": 1308,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 3396
   },
   {
     "title": "Wild Tales",
     "year": 2014,
     "imdb_id": "tt3011894",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy International Feature Film nominee"
+    "qualified": true,
+    "routes": [
+      "convergence"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ],
+    "imdb_rating": 8.1,
+    "imdb_votes": 242259,
+    "letterboxd_rating": 4.1,
+    "letterboxd_votes": 286335
   },
   {
     "title": "Winged Migration",
@@ -3678,10 +3846,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 8.3,
+    "imdb_votes": 21625,
+    "letterboxd_rating": 4.0,
+    "letterboxd_votes": 16677
   },
   {
     "title": "Women Talking",
@@ -3692,10 +3860,10 @@
     "evidence": [
       "Academy Best Picture nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 6.9,
+    "imdb_votes": 86198,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 207797
   },
   {
     "title": "Wreck-It Ralph",
@@ -3704,12 +3872,13 @@
     "qualified": false,
     "routes": [],
     "evidence": [
-      "Academy Animated Feature Film nominee"
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.7,
+    "imdb_votes": 506755,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 1368995
   },
   {
     "title": "Writing with Fire",
@@ -3720,10 +3889,10 @@
     "evidence": [
       "Academy Documentary Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.3,
+    "imdb_votes": 1875,
+    "letterboxd_rating": 3.7,
+    "letterboxd_votes": 5266
   },
   {
     "title": "Yesterday",
@@ -3734,10 +3903,10 @@
     "evidence": [
       "Academy International Feature Film nominee"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "imdb_rating": 7.5,
+    "imdb_votes": 2607,
+    "letterboxd_rating": 3.6,
+    "letterboxd_votes": 885
   },
   {
     "title": "Zelary",
@@ -3757,15 +3926,18 @@
     "title": "Zootopia",
     "year": 2016,
     "imdb_id": "tt2948356",
-    "qualified": false,
-    "routes": [],
-    "evidence": [
-      "Academy Animated Feature Film winner"
+    "qualified": true,
+    "routes": [
+      "corroboration"
     ],
-    "imdb_rating": null,
-    "imdb_votes": null,
-    "letterboxd_rating": null,
-    "letterboxd_votes": null
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ],
+    "imdb_rating": 8.0,
+    "imdb_votes": 651403,
+    "letterboxd_rating": 3.8,
+    "letterboxd_votes": 2261935
   },
   {
     "title": "Zus & Zo",

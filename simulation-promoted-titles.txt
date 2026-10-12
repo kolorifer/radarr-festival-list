@@ -108,9 +108,39 @@
 108	900	2017	Blade Runner 2049	convergence
 109	902	2023	Perfect Days	convergence
 110	968	2022	Top Gun: Maverick	convergence
-111	OUT	2012	Argo	institutional
-112	OUT	2014	Birdman or (The Unexpected Virtue of Ignorance)	institutional
-113	OUT	2021	CODA	institutional
-114	OUT	2002	Chicago	institutional
-115	OUT	2018	Green Book	institutional
-116	OUT	2001	No Man's Land	corroboration
+111	OUT	2019	1917	convergence
+112	OUT	2023	20 Days in Mariupol	corroboration
+113	OUT	2022	All Quiet on the Western Front	corroboration
+114	OUT	2012	Argo	institutional
+115	OUT	2014	Big Hero 6	corroboration
+116	OUT	2014	Birdman or (The Unexpected Virtue of Ignorance)	institutional
+117	OUT	2021	CODA	institutional
+118	OUT	2018	Capernaum	convergence
+119	OUT	2002	Chicago	institutional
+120	OUT	2017	Coco	convergence
+121	OUT	2019	Ford v Ferrari	convergence
+122	OUT	2018	Free Solo	convergence
+123	OUT	2018	Green Book	institutional
+124	OUT	2022	Guillermo del Toro's Pinocchio	corroboration
+125	OUT	2016	Hacksaw Ridge	convergence
+126	OUT	2010	How to Train Your Dragon	convergence
+127	OUT	2017	Icarus	corroboration
+128	OUT	2010	Inside Job	corroboration
+129	OUT	2019	Klaus	convergence
+130	OUT	2016	Lion	convergence
+131	OUT	2020	My Octopus Teacher	corroboration
+132	OUT	2022	Navalny	corroboration
+133	OUT	2001	No Man's Land	corroboration
+134	OUT	2012	Searching for Sugar Man	convergence
+135	OUT	2023	Society of the Snow	convergence
+136	OUT	2014	Song of the Sea	convergence
+137	OUT	2020	Soul	corroboration
+138	OUT	2020	Sound of Metal	convergence
+139	OUT	2023	Spider-Man: Across the Spider-Verse	convergence
+140	OUT	2009	The Cove	corroboration
+141	OUT	2020	The Father	convergence
+142	OUT	2011	The Help	convergence
+143	OUT	2016	The Salesman	corroboration
+144	OUT	2017	Three Billboards outside Ebbing, Missouri	convergence
+145	OUT	2014	Wild Tales	convergence
+146	OUT	2016	Zootopia	corroboration
