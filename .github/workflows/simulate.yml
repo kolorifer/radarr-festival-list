@@ -21,6 +21,7 @@ on:
       - ranked_source_correlation.py
       - canon_overlap_experiment.py
       - missing_evidence_audit.py
+      - critics_choice_experiment.py
       - candidate_review_report.py
       - rating_source_audit.py
       - critical_consensus_experiment.py
@@ -35,6 +36,7 @@ on:
       - test_phase_b_sources.py
       - test_score_rule_experiment.py
       - test_hybrid_selection_experiment.py
+      - test_critics_choice_experiment.py
       - phase_b_sources.py
       - requirements.txt
       - audience-ratings.json
@@ -81,7 +83,7 @@ jobs:
       - name: Test and build base evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
-          python -m unittest -v test_phase_b_sources.py test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_sight_sound_official.py test_evidence_score.py test_broad_critic_score.py test_canon_overlap_score.py test_score_rule_experiment.py test_hybrid_selection_experiment.py
+          python -m unittest -v test_phase_b_sources.py test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_sight_sound_official.py test_evidence_score.py test_broad_critic_score.py test_canon_overlap_score.py test_score_rule_experiment.py test_hybrid_selection_experiment.py test_critics_choice_experiment.py
           python evidence_score.py
       - name: Audit cached rating sources
         if: github.ref_name == 'simulation-4b-union-universe'
@@ -121,13 +123,16 @@ jobs:
       - name: Audit missing calibration evidence
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python missing_evidence_audit.py
+      - name: Test Critics Choice Best Picture evidence
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python critics_choice_experiment.py
       - name: Build candidate review report
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python candidate_review_report.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json hybrid-selection-experiment.json hybrid-policy-review.md ranked-source-correlation.json ranked-source-correlation.md canon-overlap-experiment.json missing-evidence-audit.json missing-evidence-audit.md candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json hybrid-selection-experiment.json hybrid-policy-review.md ranked-source-correlation.json ranked-source-correlation.md canon-overlap-experiment.json missing-evidence-audit.json missing-evidence-audit.md critics-choice-experiment.json critics-choice-review.md candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
