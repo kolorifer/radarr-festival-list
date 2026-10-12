@@ -5,6 +5,12 @@ professional-critic populations. They are combined inside the existing critics
 family rather than added as new 100-point families, so the 800+200 architecture
 and 1000-point ceiling remain unchanged.
 
+The full-strength variants are retained as a stress test. The capped variants
+use the conservative critic curve but limit broad aggregate criticism to 30,
+40 or 50 points before merging it with critics-group awards. This tests whether
+broad reviews are better used as coverage/corroboration than as a peer of the
+major canon and institutional families.
+
 No qualification rules or production files are changed by this script.
 """
 
@@ -16,7 +22,7 @@ SCORES = Path("evidence-scores.json")
 RATINGS = Path("audience-ratings.json")
 OUTPUT = Path("critical-consensus-experiment.json")
 
-VARIANTS = {
+CURVES = {
     "balanced": {
         "mc": (60, 90, 10, 50),
         "rt": (60, 95, 30, 200),
@@ -29,6 +35,15 @@ VARIANTS = {
         "mc": (70, 90, 20, 75),
         "rt": (75, 95, 75, 300),
     },
+}
+
+VARIANTS = {
+    "balanced": {"curve": "balanced", "broad_cap": 100},
+    "conservative": {"curve": "conservative", "broad_cap": 100},
+    "strict": {"curve": "strict", "broad_cap": 100},
+    "capped30_conservative": {"curve": "conservative", "broad_cap": 30},
+    "capped40_conservative": {"curve": "conservative", "broad_cap": 40},
+    "capped50_conservative": {"curve": "conservative", "broad_cap": 50},
 }
 
 CONTROLS = (
@@ -82,31 +97,41 @@ def aggregate_score(rr, spec):
     return round(combined, 2), round(mc_score, 2), round(rt_score, 2)
 
 
-def merge_family(existing, aggregate):
+def cap_broad_aggregate(aggregate, broad_cap):
+    """Scale a 0..100 broad consensus score into a smaller family contribution."""
+    return round(float(aggregate or 0) * float(broad_cap) / 100.0, 2)
+
+
+def merge_family(existing, broad_points):
     existing = float(existing or 0)
-    aggregate = float(aggregate or 0)
+    broad_points = float(broad_points or 0)
     if existing <= 0:
-        return round(min(100.0, aggregate), 2)
-    if aggregate <= 0:
+        return round(min(100.0, broad_points), 2)
+    if broad_points <= 0:
         return round(min(100.0, existing), 2)
-    strongest = max(existing, aggregate)
-    corroboration = min(existing, aggregate) * 0.25
+    strongest = max(existing, broad_points)
+    corroboration = min(existing, broad_points) * 0.25
     return round(min(100.0, strongest + corroboration), 2)
 
 
-def summarize_variant(base_rows, ratings, name, spec):
+def summarize_variant(base_rows, ratings, name, variant):
+    spec = CURVES[variant["curve"]]
+    broad_cap = int(variant["broad_cap"])
     experimental = []
     for row in base_rows:
         rr = ((ratings.get(row.get("imdb_id")) or {}).get("reeldb") or {})
         aggregate, mc, rt = aggregate_score(rr, spec)
+        broad_points = cap_broad_aggregate(aggregate, broad_cap)
         old_critics = float((row.get("source_points") or {}).get("critics_groups_consensus") or 0)
-        new_critics = merge_family(old_critics, aggregate)
+        new_critics = merge_family(old_critics, broad_points)
         new_score = round(float(row.get("overall_score") or 0) - old_critics + new_critics, 2)
         exp = dict(row)
         exp.update({
             "experimental_score": new_score,
             "old_critics_family": round(old_critics, 2),
             "aggregate_critics": aggregate,
+            "broad_critic_cap": broad_cap,
+            "broad_critic_points": broad_points,
             "metacritic_component": mc,
             "tomatoes_component": rt,
             "experimental_critics_family": new_critics,
@@ -136,6 +161,7 @@ def summarize_variant(base_rows, ratings, name, spec):
             "metacritic": r.get("metacritic_component"),
             "tomatoes": r.get("tomatoes_component"),
             "aggregate": r.get("aggregate_critics"),
+            "broad_points": r.get("broad_critic_points"),
             "new_critics": r.get("experimental_critics_family"),
         }
 
@@ -165,6 +191,8 @@ def summarize_variant(base_rows, ratings, name, spec):
     deltas = [r["critic_delta"] for r in experimental if r["critic_delta"] > 0]
     return {
         "variant": name,
+        "curve": variant["curve"],
+        "broad_cap": broad_cap,
         "top100_overlap_with_base": len(base_top100 & new_top100),
         "films_with_positive_critic_delta": len(deltas),
         "mean_positive_critic_delta": round(sum(deltas) / len(deltas), 2) if deltas else 0,
@@ -179,6 +207,7 @@ def summarize_variant(base_rows, ratings, name, spec):
                 "new_rank": r.get("experimental_rank"),
                 "audience": r.get("audience_score"),
                 "aggregate_critics": r.get("aggregate_critics"),
+                "broad_critic_points": r.get("broad_critic_points"),
                 "metacritic_component": r.get("metacritic_component"),
                 "tomatoes_component": r.get("tomatoes_component"),
             }
@@ -194,14 +223,14 @@ def main():
     ratings = ratings_payload.get("ratings") or {}
 
     results = {
-        name: summarize_variant(base_rows, ratings, name, spec)
-        for name, spec in VARIANTS.items()
+        name: summarize_variant(base_rows, ratings, name, variant)
+        for name, variant in VARIANTS.items()
     }
     out = {
-        "mode": "research-critical-consensus-experiment-v1",
+        "mode": "research-critical-consensus-experiment-v2-capped",
         "qualification_unchanged": True,
         "score_ceiling_unchanged": 1000,
-        "policy": "Metacritic critics + Rotten Tomatoes critics are merged inside the existing 100-point critics family; they do not create new score families.",
+        "policy": "Metacritic critics + Rotten Tomatoes critics are merged inside the existing 100-point critics family. Capped variants scale broad aggregates to <=30/40/50 before merging; no new score family is created.",
         "cached_ratings": len(ratings),
         "variants": results,
     }
@@ -209,6 +238,8 @@ def main():
 
     print(json.dumps({
         name: {
+            "curve": result["curve"],
+            "cap": result["broad_cap"],
             "top100_overlap": result["top100_overlap_with_base"],
             "positive_deltas": result["films_with_positive_critic_delta"],
             "mean_delta": result["mean_positive_critic_delta"],
