@@ -11,14 +11,15 @@ on:
       - evidence_sources_run.py
       - evidence_sources_extra.py
       - evidence_calibration.py
-      - audience_source_comparison.py
-      - trakt_distribution.py
+      - score_band_analysis.py
+      - test_audience_discovery.py
       - test_evidence_score.py
       - test_evidence_sources.py
       - test_evidence_sources_extra.py
       - phase_b_sources.py
       - requirements.txt
       - audience-ratings.json
+      - sources/imdb-audience-discovery.json
       - sources/phase-b-institutional.json
       - .github/workflows/simulate.yml
 
@@ -60,21 +61,18 @@ jobs:
       - name: Test and build normalized evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
-          python -m unittest -v test_evidence_sources.py test_evidence_sources_extra.py test_evidence_score.py
+          python -m unittest -v test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_evidence_score.py
           python evidence_score.py
       - name: Print calibration controls
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python evidence_calibration.py
-      - name: Compare audience sources
+      - name: Analyze score bands
         if: github.ref_name == 'simulation-4b-union-universe'
-        run: python audience_source_comparison.py
-      - name: Calibrate Trakt distribution
-        if: github.ref_name == 'simulation-4b-union-universe'
-        run: python trakt_distribution.py
+        run: python score_band_analysis.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json audience-source-comparison.json trakt-distribution.json; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
