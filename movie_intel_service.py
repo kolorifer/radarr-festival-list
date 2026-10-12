@@ -1,7 +1,8 @@
 """Small HTTP service for autobrr movie rejection enrichment.
 
-The service intentionally ignores sensitive release fields such as download_url.
-Secrets are read from environment variables only.
+Known movie rejection events are enriched. Unknown/test payloads are forwarded to
+Telegram instead of being silently ignored. Sensitive tracker fields are never
+forwarded from structured payloads. Secrets are read from environment only.
 """
 import html
 import json
@@ -19,6 +20,11 @@ TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 TELEGRAM_TOPIC_ID = os.environ.get("TELEGRAM_TOPIC_ID", "").strip()
 INDEX = build_index()
+
+SENSITIVE_KEYS = {
+    "download_url", "passkey", "api_key", "apikey", "token", "authorization",
+    "cookie", "cookies", "password", "secret",
+}
 
 
 def _fmt_count(value):
@@ -89,13 +95,41 @@ def format_message(payload):
     return "\n".join(lines)
 
 
-def _telegram_payload(text):
+def _sanitize(value):
+    """Remove obvious credentials before forwarding an unknown structured payload."""
+    if isinstance(value, dict):
+        return {
+            k: ("[redacted]" if str(k).lower() in SENSITIVE_KEYS else _sanitize(v))
+            for k, v in value.items()
+        }
+    if isinstance(value, list):
+        return [_sanitize(v) for v in value]
+    return value
+
+
+def passthrough_message(payload):
+    """Prefer autobrr's own human-readable message; otherwise show safe JSON."""
+    if isinstance(payload, dict):
+        for container in (payload, payload.get("data")):
+            if isinstance(container, dict):
+                for key in ("message", "text", "body", "description"):
+                    value = container.get(key)
+                    if isinstance(value, str) and value.strip():
+                        return value[:4000]
+        return json.dumps(_sanitize(payload), ensure_ascii=False, indent=2)[:4000]
+    if isinstance(payload, str):
+        return payload[:4000]
+    return str(payload)[:4000]
+
+
+def _telegram_payload(text, parse_mode="HTML"):
     body = {
         "chat_id": TELEGRAM_CHAT_ID,
         "text": text,
-        "parse_mode": "HTML",
         "disable_web_page_preview": True,
     }
+    if parse_mode:
+        body["parse_mode"] = parse_mode
     if TELEGRAM_TOPIC_ID:
         try:
             body["message_thread_id"] = int(TELEGRAM_TOPIC_ID)
@@ -104,10 +138,10 @@ def _telegram_payload(text):
     return body
 
 
-def send_telegram(text):
+def send_telegram(text, parse_mode="HTML"):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         raise RuntimeError("Telegram credentials are not configured")
-    body = json.dumps(_telegram_payload(text)).encode()
+    body = json.dumps(_telegram_payload(text, parse_mode=parse_mode)).encode()
     req = Request(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", data=body, headers={"Content-Type": "application/json"}, method="POST")
     with urlopen(req, timeout=15) as response:
         return response.status
@@ -138,19 +172,35 @@ class Handler(BaseHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", "0"))
             if length <= 0 or length > 1_000_000:
                 raise ValueError("invalid body size")
-            payload = json.loads(self.rfile.read(length))
-            # autobrr's notification-test payload can be a synthetic non-movie
-            # event. A webhook sink should acknowledge valid test traffic even
-            # when there is nothing useful to notify about.
-            if payload.get("event") != "action.rejected":
-                self._json(200, {"ok": True, "ignored": "event"})
+            raw = self.rfile.read(length)
+            try:
+                payload = json.loads(raw)
+            except json.JSONDecodeError:
+                # Some notification-test implementations send plain text.
+                text = raw.decode("utf-8", errors="replace").strip()
+                if text:
+                    send_telegram(text[:4000], parse_mode=None)
+                self._json(200, {"ok": True, "forwarded": "text"})
                 return
-            release = ((payload.get("data") or {}).get("release") or {})
-            if release.get("type") != "movie":
-                self._json(200, {"ok": True, "ignored": "not_movie"})
-                return
-            send_telegram(format_message(payload))
-            self._json(200, {"ok": True})
+
+            data = payload.get("data") if isinstance(payload, dict) else None
+            release = (data or {}).get("release") if isinstance(data, dict) else None
+            is_movie_rejection = (
+                isinstance(payload, dict)
+                and payload.get("event") == "action.rejected"
+                and isinstance(release, dict)
+                and release.get("type") == "movie"
+            )
+
+            if is_movie_rejection:
+                send_telegram(format_message(payload), parse_mode="HTML")
+                self._json(200, {"ok": True, "mode": "enriched"})
+            else:
+                # Unknown/synthetic autobrr formats are still useful to see.
+                # Forward autobrr's own message verbatim when present, or a
+                # sanitized JSON representation otherwise.
+                send_telegram(passthrough_message(payload), parse_mode=None)
+                self._json(200, {"ok": True, "mode": "passthrough"})
         except Exception as exc:
             # Do not log payloads: they may contain personalized tracker URLs.
             self._json(500, {"ok": False, "error": type(exc).__name__})
