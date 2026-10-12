@@ -13,6 +13,7 @@ on:
       - evidence_calibration.py
       - score_band_analysis.py
       - score_rule_experiment.py
+      - candidate_review_report.py
       - test_audience_discovery.py
       - test_evidence_score.py
       - test_evidence_sources.py
@@ -74,10 +75,13 @@ jobs:
       - name: Compare score-driven selection rules
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python score_rule_experiment.py
+      - name: Build candidate review report
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python candidate_review_report.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json candidate-review.md; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
