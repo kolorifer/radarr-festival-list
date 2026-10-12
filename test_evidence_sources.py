@@ -1,6 +1,7 @@
 import unittest
 
 import evidence_sources as es
+import evidence_sources_run as run
 
 
 class EvidenceSourceTests(unittest.TestCase):
@@ -19,20 +20,18 @@ class EvidenceSourceTests(unittest.TestCase):
         self.assertEqual(rows[-1]["status"], "winner")
         self.assertEqual(rows[-1]["imdb_id"], "tt2")
 
-    def test_sight_sound_parser_filters_pre_2000(self):
+    def test_sight_sound_parser_preserves_published_position(self):
         text = """
 44012 # Old Film (1975) [X]
 843 # In the Mood for Love (2000) [Wong]
 1018 # Mulholland Drive (2001) [Lynch]
 """
-        rows = es.parse_sight_sound(text)
-        self.assertEqual([r["rank"] for r in rows], [1, 2])
+        rows = run.parse_sight_sound(text)
+        self.assertEqual([r["rank"] for r in rows], [2, 3])
         self.assertEqual(rows[0]["title"], "In the Mood for Love")
 
     def test_us_family_caps_and_globes_corrobate(self):
-        records = {
-            key: [] for key in es.EVENTS
-        }
+        records = {key: [] for key in es.EVENTS}
         records["academy"] = [
             {"imdb_id": "tt1", "award": "oscar", "category": "best motion picture of the year", "status": "nominee", "year": 2020},
         ]
