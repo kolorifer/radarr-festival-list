@@ -31,6 +31,17 @@ class Tests(unittest.TestCase):
   self.assertIn('POTENTIAL FALSE NEGATIVE',text)
   self.assertIn('convergence',text)
 
+ def test_routine_release_rejection_is_compact(self):
+  payload={'event':'action.rejected','data':{'release':{'type':'movie','title':'One Night Only','year':2026,'name':'One Night Only 2026 2160p UHD BluRay x265-4KDVS'},'result':{'rejections':['Bluray-2160p is not wanted in profile','Existing file meets cutoff: Remux-2160p []']}}}
+  with patch.object(svc,'INDEX',{}):
+   text=svc.format_message(payload)
+  self.assertIn('RELEASE REJECTED',text)
+  self.assertIn('One Night Only',text)
+  self.assertIn('not wanted in profile',text)
+  self.assertIn('Existing file meets cutoff',text)
+  self.assertNotIn('local intelligence cache',text)
+  self.assertNotIn('Our model:',text)
+
  def test_topic_id_is_added_as_message_thread_id(self):
   with patch.object(svc,'TELEGRAM_CHAT_ID','-100123'), patch.object(svc,'TELEGRAM_TOPIC_ID','42'):
    body=svc._telegram_payload('hello')
