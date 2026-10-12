@@ -1,8 +1,9 @@
 """Runtime corrections layered over the evidence source builder.
 
 This wrapper preserves true Sight & Sound published positions, feeds complete
-BBC 2016 and NYT 2025 rankings into the ranked-source resolver, and prevents
-parallel/technical Cannes prizes from being mistaken for the main Grand Prix.
+BBC 2016 and NYT 2025 rankings into the ranked-source resolver, prevents
+parallel/technical Cannes prizes from being mistaken for the main Grand Prix,
+and then adds the planned EFA, Gotham and critics-group evidence families.
 """
 import csv
 import io
@@ -67,6 +68,11 @@ def main():
     es.parse_wikipedia_ranked = parse_ranked
     es.put_component = put_component
     es.main()
+
+    # Keep the extra awards in a separate module so the original Phase-B builder
+    # remains easy to audit and the added family can be calibrated independently.
+    import evidence_sources_extra
+    evidence_sources_extra.augment_snapshot()
 
 
 if __name__ == "__main__":
