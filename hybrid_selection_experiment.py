@@ -9,16 +9,19 @@ research scores or production qualification.
 import json
 from pathlib import Path
 
+from score_rule_experiment import non_audience_hits
+
 SCORES = Path("evidence-scores.json")
 OUTPUT = Path("hybrid-selection-experiment.json")
 
 POLICIES = {
-    "union250_all_legacy": {"new_floor": 250, "legacy_floor": 0, "protect_multi_route": True},
-    "union225_all_legacy": {"new_floor": 225, "legacy_floor": 0, "protect_multi_route": True},
-    "balanced250_legacy150": {"new_floor": 250, "legacy_floor": 150, "protect_multi_route": True},
-    "balanced225_legacy150": {"new_floor": 225, "legacy_floor": 150, "protect_multi_route": True},
-    "balanced225_legacy175": {"new_floor": 225, "legacy_floor": 175, "protect_multi_route": True},
-    "clean225_legacy200": {"new_floor": 225, "legacy_floor": 200, "protect_multi_route": True},
+    "union250_all_legacy": {"new_floor": 250, "legacy_floor": 0, "protect_multi_route": True, "min_non_audience_families": 1},
+    "union225_all_legacy": {"new_floor": 225, "legacy_floor": 0, "protect_multi_route": True, "min_non_audience_families": 1},
+    "balanced250_legacy150": {"new_floor": 250, "legacy_floor": 150, "protect_multi_route": True, "min_non_audience_families": 1},
+    "balanced225_legacy150": {"new_floor": 225, "legacy_floor": 150, "protect_multi_route": True, "min_non_audience_families": 1},
+    "balanced225_legacy175": {"new_floor": 225, "legacy_floor": 175, "protect_multi_route": True, "min_non_audience_families": 1},
+    "balanced225_legacy175_twofam": {"new_floor": 225, "legacy_floor": 175, "protect_multi_route": True, "min_non_audience_families": 2},
+    "clean225_legacy200": {"new_floor": 225, "legacy_floor": 200, "protect_multi_route": True, "min_non_audience_families": 1},
 }
 
 
@@ -37,8 +40,12 @@ def legacy_keep(row, legacy_floor, protect_multi_route):
     return False
 
 
-def score_keep(row, new_floor):
-    return float(row.get("overall_score") or 0) >= new_floor and has_nonaudience(row)
+def score_keep(row, new_floor, min_non_audience_families=1):
+    return (
+        float(row.get("overall_score") or 0) >= new_floor
+        and has_nonaudience(row)
+        and non_audience_hits(row) >= min_non_audience_families
+    )
 
 
 def compact(row):
@@ -49,6 +56,7 @@ def compact(row):
         "imdb_id": row.get("imdb_id"),
         "score": row.get("overall_score"),
         "audience": row.get("audience_score"),
+        "non_audience_families": non_audience_hits(row),
         "old_qualified": bool(row.get("qualified")),
         "routes": row.get("routes") or [],
     }
@@ -57,9 +65,10 @@ def compact(row):
 def evaluate(rows, policy):
     selected = []
     reasons = {}
+    min_families = int(policy.get("min_non_audience_families") or 1)
     for row in rows:
         iid = row.get("imdb_id")
-        by_score = score_keep(row, policy["new_floor"])
+        by_score = score_keep(row, policy["new_floor"], min_families)
         by_legacy = legacy_keep(row, policy["legacy_floor"], policy["protect_multi_route"])
         if by_score or by_legacy:
             selected.append(row)
@@ -104,10 +113,10 @@ def main():
 
     old_low = [r for r in rows if r.get("qualified") and float(r.get("overall_score") or 0) < 225]
     out = {
-        "mode": "research-hybrid-selection-experiment-v1",
+        "mode": "research-hybrid-selection-experiment-v2-two-family-safeguard",
         "qualification_unchanged": True,
         "score_mode": payload.get("mode"),
-        "policy_note": "Score-based promotion always requires non-audience evidence. Legacy policies may retain old route qualifiers below the score floor; multi-route legacy films are protected in all bounded variants.",
+        "policy_note": "Score-based promotion always requires non-audience evidence. The guarded variant requires two independent non-audience families, with TSPDT + Sight & Sound counted as one correlated canon family. Legacy policies may retain old route qualifiers below the score floor; multi-route legacy films are protected in all bounded variants.",
         "film_count": len(rows),
         "old_qualified_count": sum(bool(r.get("qualified")) for r in rows),
         "old_qualifiers_below_225": len(old_low),
