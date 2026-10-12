@@ -170,7 +170,12 @@ def source_correlations(rows):
 def controls_for(scenarios):
     by_scenario = {}
     for name, rows in scenarios.items():
-        by_title = {r.get("title"): r for r in rows}
+        by_title = {}
+        for row in rows:
+            title = row.get("title")
+            current = by_title.get(title)
+            if current is None or row["scenario_rank"] < current["scenario_rank"]:
+                by_title[title] = row
         by_scenario[name] = [compact(by_title[t]) for t in CONTROLS if t in by_title]
     return by_scenario
 
@@ -230,7 +235,17 @@ def main():
     compact_out = {
         "coverage": output["coverage"],
         "correlations": output["correlations"],
+        "overlap": {
+            name: {n: output["cutoff_deltas_vs_two_source_200"][name][str(n)]["overlap"] for n in (50, 100, 200, 300, 500)}
+            for name in ("three_source_300", "three_source_200")
+        },
         "top100": {name: output["cutoff_deltas_vs_two_source_200"][name]["100"] for name in ("three_source_300", "three_source_200")},
+        "focus_controls": {
+            name: [x for x in output["controls"][name] if x["title"] in {
+                "Melancholia", "The Tree of Life", "Blade Runner 2049", "1917", "Memento", "La Commune (Paris, 1871)"
+            }]
+            for name in ("two_source_200", "three_source_300", "three_source_200")
+        },
     }
     print(json.dumps(compact_out, ensure_ascii=False, separators=(",", ":")))
 
