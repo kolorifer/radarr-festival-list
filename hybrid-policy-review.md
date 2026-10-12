@@ -1,12 +1,12 @@
-# Hybrid policy review — new ≥225, legacy ≥175
+# Hybrid policy review — new ≥225 + two families, legacy ≥175
 
-Diagnostic only. New films still require non-audience evidence; old multi-route qualifiers remain protected below the legacy floor.
+Diagnostic only. New promotions require at least two independent non-audience families; TSPDT + Sight & Sound count as one correlated canon family. Old multi-route qualifiers remain protected below the legacy floor.
 
-Selected **389** films: **150** promotions, **239** legacy retained, **16** legacy dropped.
+Selected **388** films: **149** promotions, **239** legacy retained, **16** legacy dropped.
 
 ## Boundary promotions: 225–249.99
 
-These are the films most likely to determine whether 225 is too permissive.
+These are the films most likely to determine whether 225 is too permissive after the two-family safeguard.
 
 | # | Film | Score | Audience | Non-audience evidence | Old route |
 |---:|---|---:|---:|---|---|
@@ -37,7 +37,6 @@ These are the films most likely to determine whether 225 is too permissive.
 | 314 | American Honey (2016) | 234.9 | 61.6 | Canon 85, Europe 50, Indie 20, Critics 18 | — |
 | 315 | Me and Earl and the Dying Girl (2015) | 234.6 | 119.9 | Indie 100, Critics 15 | — |
 | 316 | 13th (2016) | 234.3 | 151.1 | US 30, Canon 27, Critics 26 | — |
-| 317 | The Odyssey (2026) | 234.3 | 196.7 | Critics 38 | — |
 | 318 | Once (2006) | 233.8 | 116.2 | Canon 45, Indie 38, Critics 34 | — |
 | 321 | Good Bye Lenin! (2003) | 233.4 | 116.9 | Europe 55, Canon 46, Critics 15 | — |
 | 324 | Burning (2018) | 232.0 | 101.4 | Canon 84, Critics 36, Europe 10 | — |
@@ -109,7 +108,7 @@ These survive only because the old route system still supplies useful historical
 
 ## Legacy dropped below 175
 
-These are the films the balanced policy would deliberately stop carrying forward.
+These are the films the guarded balanced policy would deliberately stop carrying forward.
 
 | # | Film | Score | Audience | Non-audience evidence | Old route |
 |---:|---|---:|---:|---|---|
