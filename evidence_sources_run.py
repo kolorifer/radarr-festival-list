@@ -1,14 +1,17 @@
 """Runtime corrections layered over the evidence source builder.
 
-Kept separate so the research pipeline can be corrected without rewriting the
-larger source-family policy module. This preserves true Sight & Sound positions
-when pre-2000 films are filtered and uses the canonical 2025 NYT Wikipedia page.
+This wrapper preserves true Sight & Sound published positions when pre-2000 films
+are filtered and feeds the complete 2025 NYT top-100 CSV into the generic ranked
+source resolver.
 """
+import csv
+import io
 import re
 
 import evidence_sources as es
 
-NYT_URL = "https://en.wikipedia.org/wiki/NYT%27s_100_Best_Movies_of_the_21st_Century_%28June_2025%29"
+NYT_URL = "https://gist.githubusercontent.com/mvark/2273ae29bfc5d7033016df4b6cebbc6d/raw/b088026b06661cadfcd5386dd13507309140bfb3/NYT-100-Best-Movies.csv"
+_ORIGINAL_RANKED_PARSER = es.parse_wikipedia_ranked
 
 
 def parse_sight_sound(text):
@@ -26,9 +29,27 @@ def parse_sight_sound(text):
     return rows
 
 
+def parse_ranked(text):
+    first = text.splitlines()[0].casefold() if text.splitlines() else ""
+    if "moviename" not in first or "director" not in first:
+        return _ORIGINAL_RANKED_PARSER(text)
+    rows = []
+    for row in csv.DictReader(io.StringIO(text)):
+        try:
+            rank = int(str(row.get("rating", "")).strip())
+            year = int(str(row.get("year", "")).strip())
+        except ValueError:
+            continue
+        title = str(row.get("moviename", "")).strip()
+        if title and year >= es.MIN_YEAR:
+            rows.append({"rank": rank, "title": title, "year": year})
+    return sorted(rows, key=lambda x: x["rank"])
+
+
 def main():
     es.NYT_URL = NYT_URL
     es.parse_sight_sound = parse_sight_sound
+    es.parse_wikipedia_ranked = parse_ranked
     es.main()
 
 
