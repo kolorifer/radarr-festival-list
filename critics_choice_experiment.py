@@ -90,7 +90,6 @@ def archive_links(html):
         if not m or href in seen:
             continue
         ceremony_year = int(m.group(1))
-        # 2000 ceremony primarily honors 1999 films, outside this project's 2000+ scope.
         if ceremony_year < 2001:
             continue
         seen.add(href)
@@ -99,8 +98,9 @@ def archive_links(html):
 
 
 def _winner_marked_text(root):
-    # Official pages mark winners in bold. Prefix those DOM nodes before flattening
-    # so the parser remains independent of visual CSS.
+    # Official pages use bold for both category headings and winners. Prefix all
+    # bold nodes, then strip the marker when matching headings while preserving it
+    # on candidate lines for winner detection.
     clone = BeautifulSoup(str(root), "html.parser")
     for tag in clone.find_all(["strong", "b"]):
         text = tag.get_text(" ", strip=True)
@@ -120,7 +120,10 @@ def parse_best_picture_page(html, ceremony_year, source_url=None):
         or soup
     )
     lines = _winner_marked_text(root)
-    start = next((i for i, line in enumerate(lines) if line.upper() == "BEST PICTURE"), None)
+    start = next(
+        (i for i, line in enumerate(lines) if line.lstrip("*").strip().upper() == "BEST PICTURE"),
+        None,
+    )
     if start is None:
         return []
 
@@ -140,7 +143,6 @@ def parse_best_picture_page(html, ceremony_year, source_url=None):
     for line in block:
         winner = line.startswith("**")
         title = line[2:].strip() if winner else line.strip()
-        # Defensive cleanup for stray winner labels sometimes embedded in copied archive text.
         title = re.sub(r"\s+\(WINNER\)\s*$", "", title, flags=re.I).strip()
         if not title:
             continue
@@ -175,8 +177,6 @@ def resolve_record(record, index):
     candidates = []
     for candidate_key in keys:
         candidates.extend(index.get(candidate_key, []))
-    # Critics Choice ceremony year normally follows the film year; Dec-2016 is the
-    # known exception and therefore the ±1 window intentionally accepts same-year films.
     hint = int(record.get("film_year_hint") or 0)
     candidates = [
         row for row in candidates
@@ -292,7 +292,6 @@ def main():
             continue
         iid = row.get("imdb_id")
         current = resolved_by_id.get(iid)
-        # Keep the strongest CCA result if a film appears in more than one ceremony.
         if current is None or (record["winner"] and not current["winner"]):
             resolved_by_id[iid] = {**record, "resolved_title": row.get("title"), "resolved_year": row.get("year")}
 
@@ -326,7 +325,6 @@ def main():
         row["experimental_rank"] = rank
 
     base_hybrid = evaluate(rows, GUARDED_POLICY)
-    # evaluate expects overall_score, so make a shallow experimental view using the new score.
     hybrid_rows = []
     for row in experimental:
         tmp = dict(row)
@@ -361,7 +359,7 @@ def main():
         }
 
     output = {
-        "mode": "research-critics-choice-best-picture-v1",
+        "mode": "research-critics-choice-best-picture-v2-bold-headings",
         "qualification_unchanged": True,
         "active_score_unchanged": True,
         "source": "Critics Choice Awards official archive",
