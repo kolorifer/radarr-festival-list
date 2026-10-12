@@ -15,10 +15,10 @@ OUTPUT = Path("audience-ratings.json")
 API_BASE = "https://api.reeldb.io"
 
 # ReelDB documents 60 requests/minute and 1000/day for this account tier.
-# Stay comfortably below the minute limit while allowing one research run to
-# expand the 2000+ union universe with audience-discovery seeds.
+# Use a conservative cadence because the service can enforce a tighter rolling
+# window than the headline limit. Cache all successes so retries are cheap.
 MAX_REQUESTS_PER_RUN = 400
-REQUEST_INTERVAL_SECONDS = 1.35
+REQUEST_INTERVAL_SECONDS = 1.60
 RATE_LIMIT_RETRY_SECONDS = 65
 
 
