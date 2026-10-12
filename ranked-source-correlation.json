@@ -1,0 +1,90 @@
+{
+  "mode": "research-ranked-source-correlation-v1",
+  "qualification_unchanged": true,
+  "sources": {
+    "tspdt_21c": {
+      "label": "TSPDT 21C",
+      "films": 951
+    },
+    "sight_sound": {
+      "label": "Sight & Sound 2022",
+      "films": 29
+    },
+    "bbc_21c": {
+      "label": "BBC 2016",
+      "films": 101
+    },
+    "nyt_21c": {
+      "label": "NYT 2025",
+      "films": 99
+    }
+  },
+  "pairs": [
+    {
+      "source_a": "tspdt_21c",
+      "source_b": "sight_sound",
+      "size_a": 951,
+      "size_b": 29,
+      "common_films": 29,
+      "jaccard": 0.0305,
+      "smaller_source_containment": 1.0,
+      "spearman_common_films": 0.8274,
+      "assessment": "high-redundancy-signal"
+    },
+    {
+      "source_a": "tspdt_21c",
+      "source_b": "bbc_21c",
+      "size_a": 951,
+      "size_b": 101,
+      "common_films": 101,
+      "jaccard": 0.1062,
+      "smaller_source_containment": 1.0,
+      "spearman_common_films": 0.5351,
+      "assessment": "moderate-redundancy-signal"
+    },
+    {
+      "source_a": "tspdt_21c",
+      "source_b": "nyt_21c",
+      "size_a": 951,
+      "size_b": 99,
+      "common_films": 97,
+      "jaccard": 0.1018,
+      "smaller_source_containment": 0.9798,
+      "spearman_common_films": 0.498,
+      "assessment": "limited-redundancy-signal"
+    },
+    {
+      "source_a": "sight_sound",
+      "source_b": "bbc_21c",
+      "size_a": 29,
+      "size_b": 101,
+      "common_films": 15,
+      "jaccard": 0.1304,
+      "smaller_source_containment": 0.5172,
+      "spearman_common_films": 0.4599,
+      "assessment": "limited-redundancy-signal"
+    },
+    {
+      "source_a": "sight_sound",
+      "source_b": "nyt_21c",
+      "size_a": 29,
+      "size_b": 99,
+      "common_films": 14,
+      "jaccard": 0.1228,
+      "smaller_source_containment": 0.4828,
+      "spearman_common_films": 0.4361,
+      "assessment": "limited-redundancy-signal"
+    },
+    {
+      "source_a": "bbc_21c",
+      "source_b": "nyt_21c",
+      "size_a": 101,
+      "size_b": 99,
+      "common_films": 49,
+      "jaccard": 0.3245,
+      "smaller_source_containment": 0.4949,
+      "spearman_common_films": 0.4815,
+      "assessment": "limited-redundancy-signal"
+    }
+  ]
+}
