@@ -122,14 +122,26 @@ def apply(payload, ratings_payload):
     for rank, row in enumerate(rows, 1):
         row["overall_rank"] = rank
 
-    payload["mode"] = "research-evidence-score-v7-audience200-broadcritics40"
+    payload["mode"] = "research-evidence-score-v8-audience200-broadcritics40-officialss250"
     payload["qualification_unchanged"] = True
     policy = payload.setdefault("score_policy", {})
     policy["broad_critic_policy"] = (
         "Metacritic critic + Rotten Tomatoes critic consensus uses conservative review-count confidence, "
         "scaled to max 40 and merged inside the existing 100-point critics family; strongest signal + 25% corroboration"
     )
+    policy["sight_sound_policy"] = (
+        "Sight & Sound uses the official BFI 2022 critics' poll top 250, with published tie positions and a 250-entry rank scale; "
+        "sources published before a film existed remain ineligible rather than zero."
+    )
     sources_meta = payload.setdefault("sources", {})
+    sources_meta.setdefault("sight_sound", {}).update({
+        "type": "ranked",
+        "depth": 250,
+        "max_points": 100,
+        "eligible_through_year": 2022,
+        "source": "BFI Sight and Sound 2022 Critics' Poll",
+        "source_url": "https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time",
+    })
     critics_meta = sources_meta.setdefault("critics_groups_consensus", {"type": "family", "max_points": 100})
     critics_meta.update({
         "max_points": 100,
