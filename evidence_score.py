@@ -1,9 +1,9 @@
 """Research-only normalized multi-source evidence scoring.
 
 Each active source family contributes at most 100 points. IMDb and Letterboxd
-are now separate audience families (100 points each). TMDb audience evidence is
-calculated alongside them but kept experimental until the three audience-source
-modes are compared.
+are separate active audience families (100 points each). TMDb and Trakt audience
+evidence are calculated alongside them but kept experimental while audience-source
+architecture is evaluated.
 """
 
 import json
@@ -88,8 +88,19 @@ def tmdb_points(reeldb):
     return _rating_component(tmdb.get("rating"), tmdb.get("votes"), 65.0, 85.0, 100, 10000)
 
 
+def trakt_points(reeldb):
+    """Experimental Trakt audience score, 0..100.
+
+    ReelDB exposes Trakt rating on a 0..100 scale. Like TMDb, Trakt has a smaller
+    voting population than IMDb/Letterboxd, so the same 100..10k breadth window
+    is used initially. This keeps the TMDb-vs-Trakt comparison symmetric.
+    """
+    trakt = (reeldb or {}).get("trakt") or {}
+    return _rating_component(trakt.get("rating"), trakt.get("votes"), 65.0, 85.0, 100, 10000)
+
+
 def audience_points(reeldb):
-    """Legacy helper: mean of IMDb and Letterboxd component scores."""
+    """Legacy helper: mean of active IMDb and Letterboxd component scores."""
     components = [x for x in (imdb_points(reeldb), letterboxd_points(reeldb)) if x > 0]
     return round(sum(components) / len(components), 2) if components else 0.0
 
@@ -183,6 +194,10 @@ def build_rows(backcatalog, institutional, qualifiers, audience, snapshot):
         if tmdb_score:
             experimental_points["tmdb_audience"] = tmdb_score
             experimental_evidence["tmdb_audience"] = ["TMDb rating + vote breadth (experimental)"]
+        trakt_score = trakt_points(rr)
+        if trakt_score:
+            experimental_points["trakt_audience"] = trakt_score
+            experimental_evidence["trakt_audience"] = ["Trakt rating + vote breadth (experimental)"]
 
         eligible_sources = [k for k, ok in eligibility.items() if ok]
         eligible_max = 100 * len(eligible_sources)
@@ -220,14 +235,14 @@ def main():
     rows = build_rows(backcatalog, institutional, qualifiers, audience, snapshot)
 
     payload = {
-        "mode": "research-evidence-score-v4-split-audience",
+        "mode": "research-evidence-score-v5-split-audience",
         "qualification_unchanged": True,
         "score_policy": {
             "per_source_family_scale": "0..100",
             "ranked_formula": "100 - 99 * (rank - 1) / (depth - 1)",
             "raw_score": "sum of independent eligible family points; not rescaled to 1000",
             "late_film_policy": "sources published before a film existed are ineligible, not zero",
-            "audience_policy": "IMDb and Letterboxd are independent active 0..100 sources; TMDb is calculated as an experimental third 0..100 source",
+            "audience_policy": "IMDb and Letterboxd are independent active 0..100 sources; TMDb and Trakt are experimental 0..100 audience sources",
             "notes": [
                 "For a 100-item ranked list the mapping is exactly 100,99,...,1.",
                 "TSPDT preserves its full 1000-film depth on the same 1..100 scale.",
@@ -236,7 +251,7 @@ def main():
                 "Independent cinema = Sundance + Film Independent Spirit + Gotham, capped at 100.",
                 "Critics-groups consensus = NSFC + NYFCC + LAFCA Best Film wins; 35 points per group, capped at 100.",
                 "IMDb and Letterboxd each contribute up to 100 active points.",
-                "TMDb is present in ReelDB's cached payload already; no extra API calls are required for the comparison.",
+                "TMDb and Trakt are already present in ReelDB's cached payload; no extra API calls are required for comparison.",
             ],
         },
         "sources": {
@@ -251,9 +266,10 @@ def main():
             "imdb_audience": {"type": "audience", "max_points": 100, "active": True},
             "letterboxd_audience": {"type": "audience", "max_points": 100, "active": True},
             "tmdb_audience": {"type": "audience", "max_points": 100, "active": False, "experimental": True},
+            "trakt_audience": {"type": "audience", "max_points": 100, "active": False, "experimental": True},
         },
         "current_score_ceiling": 1000,
-        "experimental_three_source_ceiling": 1100,
+        "experimental_audience_sources": ["tmdb_audience", "trakt_audience"],
         "count": len(rows),
         "films": rows,
     }
