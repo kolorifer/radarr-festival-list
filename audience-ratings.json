@@ -1,7 +1,7 @@
 {
   "source": "ReelDB",
   "purpose": "audience-rating research; not yet part of production scoring",
-  "ratings_count": 1317,
+  "ratings_count": 1318,
   "unavailable_count": 4,
   "ratings": {
     "tt4975722": {
@@ -62233,6 +62233,55 @@
         "myanimelist": null,
         "mdblist": {
           "rating": 81,
+          "votes": null
+        }
+      }
+    },
+    "tt3674140": {
+      "title": "The Salt of the Earth",
+      "year": 2014,
+      "tspdt_rank": null,
+      "reeldb": {
+        "imdb": {
+          "rating": 8.4,
+          "votes": 25577
+        },
+        "metacritic": {
+          "rating": 83,
+          "votes": 29
+        },
+        "metacritic_user": {
+          "rating": 8.3,
+          "votes": 44
+        },
+        "trakt": {
+          "rating": 82,
+          "votes": 695
+        },
+        "tomatoes": {
+          "rating": 94,
+          "votes": 95,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 90,
+          "votes": 118
+        },
+        "tmdb": {
+          "rating": 81,
+          "votes": 698
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 36462
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "myanimelist": null,
+        "mdblist": {
+          "rating": 85,
           "votes": null
         }
       }
