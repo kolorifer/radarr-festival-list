@@ -12,6 +12,7 @@ from urllib.request import Request, urlopen
 from urllib.parse import quote
 
 OUT=Path('sources/phase-b-institutional.json')
+BACKCATALOG=Path('backcatalog-details.json')
 MIN_FILM_YEAR=2000; MAX_FILM_YEAR=2023
 UA={'User-Agent':'Mozilla/5.0 (radarr-festival-list research)'}
 ACADEMY_CSV='https://raw.githubusercontent.com/mauraanish/Oscars-Data/main/oscars-data.csv'
@@ -20,19 +21,46 @@ def get(url):
     with urlopen(Request(url,headers=UA),timeout=30) as r: return r.read()
 
 def norm(s):
-    s=unicodedata.normalize('NFKD',s.casefold())
+    s=unicodedata.normalize('NFKD',str(s).casefold())
     return re.sub(r'[^a-z0-9]+','', ''.join(c for c in s if not unicodedata.combining(c)))
 
+def canonical_index():
+    """Known TSPDT movies are authoritative for title/year -> IMDb identity."""
+    if not BACKCATALOG.exists(): return {}
+    data=json.loads(BACKCATALOG.read_text(encoding='utf-8'))
+    idx={}
+    for row in data.get('candidates',[]):
+        iid=row.get('imdb_id'); title=row.get('title'); year=row.get('year')
+        if not iid or not title or not isinstance(year,int): continue
+        idx.setdefault(norm(title),[]).append((iid,title,year))
+    return idx
+
+def canonical_lookup(title,year,index):
+    hits=[x for x in index.get(norm(title),[]) if abs(x[2]-year)<=1]
+    return hits[0] if len(hits)==1 else None
+
 def imdb_lookup(title,year):
+    """Resolve only plausible movie suggestions; never accept a loose title hit."""
     data=json.loads(get('https://v2.sg.media-imdb.com/suggestion/x/'+quote(title)+'.json'))
     cand=[]
     for x in data.get('d',[]):
         iid=x.get('id',''); y=x.get('y'); t=x.get('l','')
         if not iid.startswith('tt') or not isinstance(y,int) or abs(y-year)>1: continue
-        score=(0 if norm(t)==norm(title) else 1, abs(y-year))
-        cand.append((score,iid,t,y))
+        if norm(t)!=norm(title): continue
+        # IMDb suggestions commonly expose q/qid as feature/movie. Reject known
+        # non-film entity types but tolerate missing type metadata.
+        kind=' '.join(str(x.get(k) or '').casefold() for k in ('q','qid'))
+        blocked=('tv series','tv mini','episode','podcast','video game','music video','short')
+        if any(token in kind for token in blocked): continue
+        cand.append((abs(y-year),iid,t,y))
     if not cand:return None
-    _,iid,t,y=min(cand); return iid,t,y
+    # Same title/year can still be ambiguous. Prefer the exact film year but do
+    # not guess between multiple equally good IDs.
+    cand.sort()
+    best_distance=cand[0][0]
+    best=[x for x in cand if x[0]==best_distance]
+    if len(best)!=1:return None
+    _,iid,t,y=best[0]; return iid,t,y
 
 def academy():
     # The historical mirror contains mixed legacy bytes. latin-1 maps every byte
@@ -67,19 +95,25 @@ def academy():
     return list(films.values())
 
 def main():
-    films=academy(); resolved=[]; unresolved=[]
+    films=academy(); resolved=[]; unresolved=[]; known=canonical_index()
     for i,f in enumerate(films,1):
-        try: m=imdb_lookup(f['title'],f['year'])
-        except Exception as e:
-            print('IMDb lookup error',f['title'],e); m=None
+        m=canonical_lookup(f['title'],f['year'],known)
+        if not m:
+            try: m=imdb_lookup(f['title'],f['year'])
+            except Exception as e:
+                print('IMDb lookup error',f['title'],type(e).__name__); m=None
         if m:
-            iid,title,year=m; f.update(imdb_id=iid,resolved_title=title,resolved_year=year); resolved.append(f)
+            iid,title,year=m
+            if MIN_FILM_YEAR<=year<=MAX_FILM_YEAR:
+                f.update(imdb_id=iid,resolved_title=title,resolved_year=year); resolved.append(f)
+            else:
+                unresolved.append(f)
         else: unresolved.append(f)
         if i%50==0: print('resolved',i,'/',len(films))
     seed={'title':'Nocturnal Animals','year':2016,'imdb_id':'tt4550098','institutional_strength':2,'signals':['Venice Grand Jury Prize']}
     if not any(x['imdb_id']==seed['imdb_id'] for x in resolved): resolved.append(seed)
     resolved.sort(key=lambda x:(x['year'],x['title']))
     OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text(json.dumps({'films':resolved,'unresolved':unresolved,'notes':'Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded.'},ensure_ascii=False,indent=2)+'\n')
+    OUT.write_text(json.dumps({'films':resolved,'unresolved':unresolved,'notes':'Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded. Existing TSPDT IDs are preferred before exact-title IMDb resolution.'},ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'source_candidates':len(films),'resolved':len(resolved),'unresolved':len(unresolved)}))
 if __name__=='__main__': main()
