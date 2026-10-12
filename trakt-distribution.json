@@ -1,0 +1,1169 @@
+{
+  "mode": "trakt-distribution-v1",
+  "production_unchanged": true,
+  "qualification_unchanged": true,
+  "film_count": 1319,
+  "raw_trakt": {
+    "rating_0_100": {
+      "n": 1314,
+      "min": 40.0,
+      "p05": 59.0,
+      "p10": 62.3,
+      "p25": 68.0,
+      "median": 73.0,
+      "p75": 77.0,
+      "p90": 80.0,
+      "p95": 82.0,
+      "p99": 86.0,
+      "max": 94.0,
+      "mean": 71.942
+    },
+    "votes": {
+      "n": 1314,
+      "min": 1.0,
+      "p05": 23.0,
+      "p10": 51.6,
+      "p25": 240.25,
+      "median": 1408.0,
+      "p75": 7280.5,
+      "p90": 20024.4,
+      "p95": 30517.1,
+      "p99": 49271.77,
+      "max": 85876.0,
+      "mean": 6286.199
+    },
+    "vote_threshold_counts": {
+      "ge_100": 1105,
+      "ge_250": 978,
+      "ge_1000": 720,
+      "ge_5000": 404,
+      "ge_10000": 266,
+      "ge_25000": 92,
+      "ge_50000": 13
+    }
+  },
+  "active_audience_point_distributions": {
+    "imdb_audience_positive": {
+      "n": 1123,
+      "min": 0.05,
+      "p05": 3.781,
+      "p10": 5.944,
+      "p25": 15.65,
+      "median": 35.0,
+      "p75": 55.0,
+      "p90": 70.0,
+      "p95": 80.162,
+      "p99": 100.0,
+      "max": 100.0,
+      "mean": 37.858
+    },
+    "letterboxd_audience_positive": {
+      "n": 1262,
+      "min": 0.43,
+      "p05": 8.001,
+      "p10": 15.344,
+      "p25": 29.767,
+      "median": 48.72,
+      "p75": 69.23,
+      "p90": 84.62,
+      "p95": 92.31,
+      "p99": 100.0,
+      "max": 100.0,
+      "mean": 50.337
+    }
+  },
+  "curves": {
+    "current_65_85_v100_10k": {
+      "parameters": {
+        "rating_floor": 65.0,
+        "rating_full": 85.0,
+        "vote_low": 100,
+        "vote_full": 10000
+      },
+      "point_distribution": {
+        "n": 979,
+        "min": 0.04,
+        "p05": 2.192,
+        "p10": 4.708,
+        "p25": 12.755,
+        "median": 30.0,
+        "p75": 55.0,
+        "p90": 75.0,
+        "p95": 85.0,
+        "p99": 100.0,
+        "max": 100.0,
+        "mean": 35.456,
+        "zero_count": 335,
+        "positive_count": 979,
+        "ge_50": 284,
+        "ge_75": 112,
+        "ge_90": 44,
+        "eq_100": 21
+      },
+      "corr_with_mean_imdb_letterboxd_points": 0.822,
+      "correlation_n": 977,
+      "top_overlap_vs_two_source_baseline": {
+        "50": 46,
+        "100": 95,
+        "200": 191,
+        "300": 287,
+        "500": 481
+      },
+      "focus_controls": [
+        {
+          "title": "1917",
+          "year": 2019,
+          "imdb_id": "tt8579674",
+          "score": 313.08,
+          "audience": 173.08,
+          "imdb": 85.0,
+          "letterboxd": 84.62,
+          "trakt": 90.0,
+          "rank": 118
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "imdb_id": "tt2543164",
+          "score": 411.21,
+          "audience": 153.08,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "trakt": 75.0,
+          "rank": 59
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "imdb_id": "tt1856101",
+          "score": 163.99,
+          "audience": 153.08,
+          "imdb": 75.0,
+          "letterboxd": 84.62,
+          "trakt": 70.0,
+          "rank": 491
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "imdb_id": "tt0470752",
+          "score": 181.93,
+          "audience": 131.28,
+          "imdb": 60.0,
+          "letterboxd": 76.92,
+          "trakt": 60.0,
+          "rank": 416
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "imdb_id": "tt0758758",
+          "score": 180.21,
+          "audience": 142.82,
+          "imdb": 75.0,
+          "letterboxd": 69.23,
+          "trakt": 70.0,
+          "rank": 424
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "imdb_id": "tt0257497",
+          "score": 115.88,
+          "audience": 27.47,
+          "imdb": 7.02,
+          "letterboxd": 34.19,
+          "trakt": 0.0,
+          "rank": 728
+        },
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186",
+          "score": 333.35,
+          "audience": 75.33,
+          "imdb": 30.0,
+          "letterboxd": 61.54,
+          "trakt": 21.46,
+          "rank": 102
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "imdb_id": "tt0209144",
+          "score": 449.84,
+          "audience": 184.87,
+          "imdb": 95.0,
+          "letterboxd": 92.31,
+          "trakt": 90.0,
+          "rank": 41
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "imdb_id": "tt8772262",
+          "score": 138.2,
+          "audience": 79.23,
+          "imdb": 30.0,
+          "letterboxd": 53.85,
+          "trakt": 35.0,
+          "rank": 613
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "imdb_id": "tt4550098",
+          "score": 160.9,
+          "audience": 95.9,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "trakt": 45.0,
+          "rank": 500
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "imdb_id": "tt0446029",
+          "score": 167.62,
+          "audience": 122.82,
+          "imdb": 50.0,
+          "letterboxd": 69.23,
+          "trakt": 65.0,
+          "rank": 475
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "imdb_id": "tt0407887",
+          "score": 486.31,
+          "audience": 196.67,
+          "imdb": 100.0,
+          "letterboxd": 100.0,
+          "trakt": 95.0,
+          "rank": 32
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304",
+          "score": 411.34,
+          "audience": 51.03,
+          "imdb": 15.0,
+          "letterboxd": 61.54,
+          "trakt": 0.0,
+          "rank": 58
+        }
+      ]
+    },
+    "rating_60_85_v100_10k": {
+      "parameters": {
+        "rating_floor": 60.0,
+        "rating_full": 85.0,
+        "vote_low": 100,
+        "vote_full": 10000
+      },
+      "point_distribution": {
+        "n": 1065,
+        "min": 0.05,
+        "p05": 2.386,
+        "p10": 5.17,
+        "p25": 15.52,
+        "median": 34.93,
+        "p75": 60.0,
+        "p90": 80.0,
+        "p95": 88.0,
+        "p99": 100.0,
+        "max": 100.0,
+        "mean": 38.902,
+        "zero_count": 249,
+        "positive_count": 1065,
+        "ge_50": 351,
+        "ge_75": 141,
+        "ge_90": 45,
+        "eq_100": 21
+      },
+      "corr_with_mean_imdb_letterboxd_points": 0.814,
+      "correlation_n": 1061,
+      "top_overlap_vs_two_source_baseline": {
+        "50": 47,
+        "100": 96,
+        "200": 191,
+        "300": 286,
+        "500": 480
+      },
+      "focus_controls": [
+        {
+          "title": "1917",
+          "year": 2019,
+          "imdb_id": "tt8579674",
+          "score": 314.41,
+          "audience": 174.41,
+          "imdb": 85.0,
+          "letterboxd": 84.62,
+          "trakt": 92.0,
+          "rank": 119
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "imdb_id": "tt2543164",
+          "score": 414.54,
+          "audience": 156.41,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "trakt": 80.0,
+          "rank": 61
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "imdb_id": "tt1856101",
+          "score": 167.99,
+          "audience": 157.08,
+          "imdb": 75.0,
+          "letterboxd": 84.62,
+          "trakt": 76.0,
+          "rank": 492
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "imdb_id": "tt0470752",
+          "score": 187.26,
+          "audience": 136.61,
+          "imdb": 60.0,
+          "letterboxd": 76.92,
+          "trakt": 68.0,
+          "rank": 407
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "imdb_id": "tt0758758",
+          "score": 184.21,
+          "audience": 146.82,
+          "imdb": 75.0,
+          "letterboxd": 69.23,
+          "trakt": 76.0,
+          "rank": 425
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "imdb_id": "tt0257497",
+          "score": 115.88,
+          "audience": 27.47,
+          "imdb": 7.02,
+          "letterboxd": 34.19,
+          "trakt": 0.0,
+          "rank": 748
+        },
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186",
+          "score": 341.94,
+          "audience": 83.92,
+          "imdb": 30.0,
+          "letterboxd": 61.54,
+          "trakt": 34.34,
+          "rank": 96
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "imdb_id": "tt0209144",
+          "score": 451.18,
+          "audience": 186.21,
+          "imdb": 95.0,
+          "letterboxd": 92.31,
+          "trakt": 92.0,
+          "rank": 41
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "imdb_id": "tt8772262",
+          "score": 146.87,
+          "audience": 87.9,
+          "imdb": 30.0,
+          "letterboxd": 53.85,
+          "trakt": 48.0,
+          "rank": 590
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "imdb_id": "tt4550098",
+          "score": 168.23,
+          "audience": 103.23,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "trakt": 56.0,
+          "rank": 491
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "imdb_id": "tt0446029",
+          "score": 172.29,
+          "audience": 127.49,
+          "imdb": 50.0,
+          "letterboxd": 69.23,
+          "trakt": 72.0,
+          "rank": 473
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "imdb_id": "tt0407887",
+          "score": 486.97,
+          "audience": 197.33,
+          "imdb": 100.0,
+          "letterboxd": 100.0,
+          "trakt": 96.0,
+          "rank": 32
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304",
+          "score": 422.02,
+          "audience": 61.71,
+          "imdb": 15.0,
+          "letterboxd": 61.54,
+          "trakt": 16.02,
+          "rank": 54
+        }
+      ]
+    },
+    "rating_65_90_v100_10k": {
+      "parameters": {
+        "rating_floor": 65.0,
+        "rating_full": 90.0,
+        "vote_low": 100,
+        "vote_full": 10000
+      },
+      "point_distribution": {
+        "n": 979,
+        "min": 0.03,
+        "p05": 1.753,
+        "p10": 3.77,
+        "p25": 10.205,
+        "median": 24.0,
+        "p75": 44.0,
+        "p90": 60.0,
+        "p95": 68.0,
+        "p99": 84.88,
+        "max": 100.0,
+        "mean": 28.509,
+        "zero_count": 335,
+        "positive_count": 979,
+        "ge_50": 189,
+        "ge_75": 28,
+        "ge_90": 6,
+        "eq_100": 1
+      },
+      "corr_with_mean_imdb_letterboxd_points": 0.823,
+      "correlation_n": 977,
+      "top_overlap_vs_two_source_baseline": {
+        "50": 47,
+        "100": 97,
+        "200": 193,
+        "300": 290,
+        "500": 484
+      },
+      "focus_controls": [
+        {
+          "title": "1917",
+          "year": 2019,
+          "imdb_id": "tt8579674",
+          "score": 301.08,
+          "audience": 161.08,
+          "imdb": 85.0,
+          "letterboxd": 84.62,
+          "trakt": 72.0,
+          "rank": 120
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "imdb_id": "tt2543164",
+          "score": 401.21,
+          "audience": 143.08,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "trakt": 60.0,
+          "rank": 61
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "imdb_id": "tt1856101",
+          "score": 154.66,
+          "audience": 143.75,
+          "imdb": 75.0,
+          "letterboxd": 84.62,
+          "trakt": 56.0,
+          "rank": 511
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "imdb_id": "tt0470752",
+          "score": 173.93,
+          "audience": 123.28,
+          "imdb": 60.0,
+          "letterboxd": 76.92,
+          "trakt": 48.0,
+          "rank": 424
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "imdb_id": "tt0758758",
+          "score": 170.88,
+          "audience": 133.49,
+          "imdb": 75.0,
+          "letterboxd": 69.23,
+          "trakt": 56.0,
+          "rank": 438
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "imdb_id": "tt0257497",
+          "score": 115.88,
+          "audience": 27.47,
+          "imdb": 7.02,
+          "letterboxd": 34.19,
+          "trakt": 0.0,
+          "rank": 713
+        },
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186",
+          "score": 330.49,
+          "audience": 72.47,
+          "imdb": 30.0,
+          "letterboxd": 61.54,
+          "trakt": 17.17,
+          "rank": 97
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "imdb_id": "tt0209144",
+          "score": 437.84,
+          "audience": 172.87,
+          "imdb": 95.0,
+          "letterboxd": 92.31,
+          "trakt": 72.0,
+          "rank": 42
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "imdb_id": "tt8772262",
+          "score": 133.54,
+          "audience": 74.57,
+          "imdb": 30.0,
+          "letterboxd": 53.85,
+          "trakt": 28.0,
+          "rank": 614
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "imdb_id": "tt4550098",
+          "score": 154.9,
+          "audience": 89.9,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "trakt": 36.0,
+          "rank": 510
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "imdb_id": "tt0446029",
+          "score": 158.95,
+          "audience": 114.15,
+          "imdb": 50.0,
+          "letterboxd": 69.23,
+          "trakt": 52.0,
+          "rank": 484
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "imdb_id": "tt0407887",
+          "score": 473.64,
+          "audience": 184.0,
+          "imdb": 100.0,
+          "letterboxd": 100.0,
+          "trakt": 76.0,
+          "rank": 32
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304",
+          "score": 411.34,
+          "audience": 51.03,
+          "imdb": 15.0,
+          "letterboxd": 61.54,
+          "trakt": 0.0,
+          "rank": 54
+        }
+      ]
+    },
+    "rating_60_90_v100_10k": {
+      "parameters": {
+        "rating_floor": 60.0,
+        "rating_full": 90.0,
+        "vote_low": 100,
+        "vote_full": 10000
+      },
+      "point_distribution": {
+        "n": 1065,
+        "min": 0.04,
+        "p05": 1.986,
+        "p10": 4.308,
+        "p25": 12.93,
+        "median": 29.11,
+        "p75": 50.0,
+        "p90": 66.67,
+        "p95": 73.33,
+        "p99": 86.67,
+        "max": 100.0,
+        "mean": 32.529,
+        "zero_count": 249,
+        "positive_count": 1065,
+        "ge_50": 270,
+        "ge_75": 45,
+        "ge_90": 10,
+        "eq_100": 1
+      },
+      "corr_with_mean_imdb_letterboxd_points": 0.816,
+      "correlation_n": 1061,
+      "top_overlap_vs_two_source_baseline": {
+        "50": 47,
+        "100": 97,
+        "200": 193,
+        "300": 289,
+        "500": 482
+      },
+      "focus_controls": [
+        {
+          "title": "1917",
+          "year": 2019,
+          "imdb_id": "tt8579674",
+          "score": 304.19,
+          "audience": 164.19,
+          "imdb": 85.0,
+          "letterboxd": 84.62,
+          "trakt": 76.67,
+          "rank": 122
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "imdb_id": "tt2543164",
+          "score": 405.66,
+          "audience": 147.53,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "trakt": 66.67,
+          "rank": 62
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "imdb_id": "tt1856101",
+          "score": 159.54,
+          "audience": 148.63,
+          "imdb": 75.0,
+          "letterboxd": 84.62,
+          "trakt": 63.33,
+          "rank": 507
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "imdb_id": "tt0470752",
+          "score": 179.71,
+          "audience": 129.06,
+          "imdb": 60.0,
+          "letterboxd": 76.92,
+          "trakt": 56.67,
+          "rank": 420
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "imdb_id": "tt0758758",
+          "score": 175.76,
+          "audience": 138.37,
+          "imdb": 75.0,
+          "letterboxd": 69.23,
+          "trakt": 63.33,
+          "rank": 433
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "imdb_id": "tt0257497",
+          "score": 115.88,
+          "audience": 27.47,
+          "imdb": 7.02,
+          "letterboxd": 34.19,
+          "trakt": 0.0,
+          "rank": 733
+        },
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186",
+          "score": 338.13,
+          "audience": 80.11,
+          "imdb": 30.0,
+          "letterboxd": 61.54,
+          "trakt": 28.62,
+          "rank": 93
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "imdb_id": "tt0209144",
+          "score": 440.96,
+          "audience": 175.99,
+          "imdb": 95.0,
+          "letterboxd": 92.31,
+          "trakt": 76.67,
+          "rank": 43
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "imdb_id": "tt8772262",
+          "score": 141.54,
+          "audience": 82.57,
+          "imdb": 30.0,
+          "letterboxd": 53.85,
+          "trakt": 40.0,
+          "rank": 594
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "imdb_id": "tt4550098",
+          "score": 162.01,
+          "audience": 97.01,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "trakt": 46.67,
+          "rank": 494
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "imdb_id": "tt0446029",
+          "score": 164.29,
+          "audience": 119.49,
+          "imdb": 50.0,
+          "letterboxd": 69.23,
+          "trakt": 60.0,
+          "rank": 480
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "imdb_id": "tt0407887",
+          "score": 476.31,
+          "audience": 186.67,
+          "imdb": 100.0,
+          "letterboxd": 100.0,
+          "trakt": 80.0,
+          "rank": 31
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304",
+          "score": 420.24,
+          "audience": 59.93,
+          "imdb": 15.0,
+          "letterboxd": 61.54,
+          "trakt": 13.35,
+          "rank": 53
+        }
+      ]
+    },
+    "current_rating_v250_25k": {
+      "parameters": {
+        "rating_floor": 65.0,
+        "rating_full": 85.0,
+        "vote_low": 250,
+        "vote_full": 25000
+      },
+      "point_distribution": {
+        "n": 887,
+        "min": 0.04,
+        "p05": 1.624,
+        "p10": 3.198,
+        "p25": 10.08,
+        "median": 24.07,
+        "p75": 49.15,
+        "p90": 71.564,
+        "p95": 85.0,
+        "p99": 100.0,
+        "max": 100.0,
+        "mean": 31.593,
+        "zero_count": 427,
+        "positive_count": 887,
+        "ge_50": 215,
+        "ge_75": 77,
+        "ge_90": 34,
+        "eq_100": 16
+      },
+      "corr_with_mean_imdb_letterboxd_points": 0.745,
+      "correlation_n": 885,
+      "top_overlap_vs_two_source_baseline": {
+        "50": 47,
+        "100": 96,
+        "200": 190,
+        "300": 286,
+        "500": 477
+      },
+      "focus_controls": [
+        {
+          "title": "1917",
+          "year": 2019,
+          "imdb_id": "tt8579674",
+          "score": 313.08,
+          "audience": 173.08,
+          "imdb": 85.0,
+          "letterboxd": 84.62,
+          "trakt": 90.0,
+          "rank": 115
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "imdb_id": "tt2543164",
+          "score": 411.21,
+          "audience": 153.08,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "trakt": 75.0,
+          "rank": 59
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "imdb_id": "tt1856101",
+          "score": 163.99,
+          "audience": 153.08,
+          "imdb": 75.0,
+          "letterboxd": 84.62,
+          "trakt": 70.0,
+          "rank": 471
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "imdb_id": "tt0470752",
+          "score": 181.93,
+          "audience": 131.28,
+          "imdb": 60.0,
+          "letterboxd": 76.92,
+          "trakt": 60.0,
+          "rank": 388
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "imdb_id": "tt0758758",
+          "score": 174.67,
+          "audience": 137.28,
+          "imdb": 75.0,
+          "letterboxd": 69.23,
+          "trakt": 61.69,
+          "rank": 420
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "imdb_id": "tt0257497",
+          "score": 115.88,
+          "audience": 27.47,
+          "imdb": 7.02,
+          "letterboxd": 34.19,
+          "trakt": 0.0,
+          "rank": 709
+        },
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186",
+          "score": 330.04,
+          "audience": 72.02,
+          "imdb": 30.0,
+          "letterboxd": 61.54,
+          "trakt": 16.49,
+          "rank": 100
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "imdb_id": "tt0209144",
+          "score": 449.84,
+          "audience": 184.87,
+          "imdb": 95.0,
+          "letterboxd": 92.31,
+          "trakt": 90.0,
+          "rank": 40
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "imdb_id": "tt8772262",
+          "score": 138.2,
+          "audience": 79.23,
+          "imdb": 30.0,
+          "letterboxd": 53.85,
+          "trakt": 35.0,
+          "rank": 584
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "imdb_id": "tt4550098",
+          "score": 157.37,
+          "audience": 92.37,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "trakt": 39.7,
+          "rank": 495
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "imdb_id": "tt0446029",
+          "score": 166.41,
+          "audience": 121.61,
+          "imdb": 50.0,
+          "letterboxd": 69.23,
+          "trakt": 63.18,
+          "rank": 461
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "imdb_id": "tt0407887",
+          "score": 486.31,
+          "audience": 196.67,
+          "imdb": 100.0,
+          "letterboxd": 100.0,
+          "trakt": 95.0,
+          "rank": 31
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304",
+          "score": 411.34,
+          "audience": 51.03,
+          "imdb": 15.0,
+          "letterboxd": 61.54,
+          "trakt": 0.0,
+          "rank": 58
+        }
+      ]
+    },
+    "conservative_65_90_v250_25k": {
+      "parameters": {
+        "rating_floor": 65.0,
+        "rating_full": 90.0,
+        "vote_low": 250,
+        "vote_full": 25000
+      },
+      "point_distribution": {
+        "n": 887,
+        "min": 0.03,
+        "p05": 1.298,
+        "p10": 2.556,
+        "p25": 8.06,
+        "median": 19.25,
+        "p75": 39.32,
+        "p90": 57.254,
+        "p95": 68.0,
+        "p99": 88.0,
+        "max": 100.0,
+        "mean": 25.43,
+        "zero_count": 427,
+        "positive_count": 887,
+        "ge_50": 140,
+        "ge_75": 24,
+        "ge_90": 6,
+        "eq_100": 1
+      },
+      "corr_with_mean_imdb_letterboxd_points": 0.746,
+      "correlation_n": 885,
+      "top_overlap_vs_two_source_baseline": {
+        "50": 47,
+        "100": 97,
+        "200": 192,
+        "300": 287,
+        "500": 483
+      },
+      "focus_controls": [
+        {
+          "title": "1917",
+          "year": 2019,
+          "imdb_id": "tt8579674",
+          "score": 301.08,
+          "audience": 161.08,
+          "imdb": 85.0,
+          "letterboxd": 84.62,
+          "trakt": 72.0,
+          "rank": 119
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "imdb_id": "tt2543164",
+          "score": 401.21,
+          "audience": 143.08,
+          "imdb": 70.0,
+          "letterboxd": 84.62,
+          "trakt": 60.0,
+          "rank": 60
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "imdb_id": "tt1856101",
+          "score": 154.66,
+          "audience": 143.75,
+          "imdb": 75.0,
+          "letterboxd": 84.62,
+          "trakt": 56.0,
+          "rank": 490
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "imdb_id": "tt0470752",
+          "score": 173.93,
+          "audience": 123.28,
+          "imdb": 60.0,
+          "letterboxd": 76.92,
+          "trakt": 48.0,
+          "rank": 409
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "imdb_id": "tt0758758",
+          "score": 166.44,
+          "audience": 129.05,
+          "imdb": 75.0,
+          "letterboxd": 69.23,
+          "trakt": 49.35,
+          "rank": 444
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "imdb_id": "tt0257497",
+          "score": 115.88,
+          "audience": 27.47,
+          "imdb": 7.02,
+          "letterboxd": 34.19,
+          "trakt": 0.0,
+          "rank": 698
+        },
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186",
+          "score": 327.84,
+          "audience": 69.82,
+          "imdb": 30.0,
+          "letterboxd": 61.54,
+          "trakt": 13.19,
+          "rank": 98
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "imdb_id": "tt0209144",
+          "score": 437.84,
+          "audience": 172.87,
+          "imdb": 95.0,
+          "letterboxd": 92.31,
+          "trakt": 72.0,
+          "rank": 41
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "imdb_id": "tt8772262",
+          "score": 133.54,
+          "audience": 74.57,
+          "imdb": 30.0,
+          "letterboxd": 53.85,
+          "trakt": 28.0,
+          "rank": 592
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "imdb_id": "tt4550098",
+          "score": 152.07,
+          "audience": 87.07,
+          "imdb": 45.0,
+          "letterboxd": 53.85,
+          "trakt": 31.76,
+          "rank": 497
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "imdb_id": "tt0446029",
+          "score": 157.98,
+          "audience": 113.18,
+          "imdb": 50.0,
+          "letterboxd": 69.23,
+          "trakt": 50.54,
+          "rank": 476
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "imdb_id": "tt0407887",
+          "score": 473.64,
+          "audience": 184.0,
+          "imdb": 100.0,
+          "letterboxd": 100.0,
+          "trakt": 76.0,
+          "rank": 32
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304",
+          "score": 411.34,
+          "audience": 51.03,
+          "imdb": 15.0,
+          "letterboxd": 61.54,
+          "trakt": 0.0,
+          "rank": 53
+        }
+      ]
+    }
+  }
+}
