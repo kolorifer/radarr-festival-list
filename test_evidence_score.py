@@ -7,6 +7,7 @@ from evidence_score import (
     letterboxd_points,
     ranked_points,
     tmdb_points,
+    trakt_points,
 )
 
 
@@ -31,18 +32,22 @@ class EvidenceScoreTests(unittest.TestCase):
             "imdb": {"rating": 8.4, "votes": 1500},
             "letterboxd": {"rating": 4.2, "votes": 4800},
             "tmdb": {"rating": 84, "votes": 150},
+            "trakt": {"rating": 84, "votes": 150},
         }
         broad = {
             "imdb": {"rating": 8.4, "votes": 500000},
             "letterboxd": {"rating": 4.2, "votes": 500000},
             "tmdb": {"rating": 84, "votes": 50000},
+            "trakt": {"rating": 84, "votes": 50000},
         }
         self.assertLess(imdb_points(tiny), 10)
         self.assertLess(letterboxd_points(tiny), 40)
         self.assertLess(tmdb_points(tiny), 15)
+        self.assertLess(trakt_points(tiny), 15)
         self.assertGreater(imdb_points(broad), 90)
         self.assertGreater(letterboxd_points(broad), 90)
         self.assertGreater(tmdb_points(broad), 90)
+        self.assertGreater(trakt_points(broad), 90)
         self.assertGreater(audience_points(broad), 90)
 
     def test_sources_add_without_changing_qualification(self):
@@ -53,6 +58,7 @@ class EvidenceScoreTests(unittest.TestCase):
             "imdb": {"rating": 8.5, "votes": 200000},
             "letterboxd": {"rating": 4.3, "votes": 200000},
             "tmdb": {"rating": 85, "votes": 20000},
+            "trakt": {"rating": 85, "votes": 20000},
         }}}}
         snapshot = {
             "ranked_sources": {
@@ -72,7 +78,9 @@ class EvidenceScoreTests(unittest.TestCase):
         self.assertEqual(row["source_points"]["imdb_audience"], 100.0)
         self.assertEqual(row["source_points"]["letterboxd_audience"], 100.0)
         self.assertEqual(row["experimental_source_points"]["tmdb_audience"], 100.0)
+        self.assertEqual(row["experimental_source_points"]["trakt_audience"], 100.0)
         self.assertNotIn("tmdb_audience", row["source_points"])
+        self.assertNotIn("trakt_audience", row["source_points"])
         self.assertTrue(row["qualified"])
         self.assertEqual(row["routes"], ["convergence"])
 
