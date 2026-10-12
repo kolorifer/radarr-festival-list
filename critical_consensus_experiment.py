@@ -23,18 +23,9 @@ RATINGS = Path("audience-ratings.json")
 OUTPUT = Path("critical-consensus-experiment.json")
 
 CURVES = {
-    "balanced": {
-        "mc": (60, 90, 10, 50),
-        "rt": (60, 95, 30, 200),
-    },
-    "conservative": {
-        "mc": (65, 90, 15, 60),
-        "rt": (70, 95, 50, 250),
-    },
-    "strict": {
-        "mc": (70, 90, 20, 75),
-        "rt": (75, 95, 75, 300),
-    },
+    "balanced": {"mc": (60, 90, 10, 50), "rt": (60, 95, 30, 200)},
+    "conservative": {"mc": (65, 90, 15, 60), "rt": (70, 95, 50, 250)},
+    "strict": {"mc": (70, 90, 20, 75), "rt": (75, 95, 75, 300)},
 }
 
 VARIANTS = {
@@ -47,18 +38,9 @@ VARIANTS = {
 }
 
 CONTROLS = (
-    "Blade Runner 2049",
-    "Ex Machina",
-    "Prisoners",
-    "Shutter Island",
-    "The Batman",
-    "Tenet",
-    "The Machinist",
-    "Dune: Part Two",
-    "Midsommar",
-    "Nocturnal Animals",
-    "Scott Pilgrim vs. the World",
-    "La Commune (Paris, 1871)",
+    "Blade Runner 2049", "Ex Machina", "Prisoners", "Shutter Island",
+    "The Batman", "Tenet", "The Machinist", "Dune: Part Two", "Midsommar",
+    "Nocturnal Animals", "Scott Pilgrim vs. the World", "La Commune (Paris, 1871)",
 )
 
 
@@ -98,7 +80,6 @@ def aggregate_score(rr, spec):
 
 
 def cap_broad_aggregate(aggregate, broad_cap):
-    """Scale a 0..100 broad consensus score into a smaller family contribution."""
     return round(float(aggregate or 0) * float(broad_cap) / 100.0, 2)
 
 
@@ -112,6 +93,21 @@ def merge_family(existing, broad_points):
     strongest = max(existing, broad_points)
     corroboration = min(existing, broad_points) * 0.25
     return round(min(100.0, strongest + corroboration), 2)
+
+
+def compact_cross(row):
+    return {
+        "title": row.get("title"),
+        "year": row.get("year"),
+        "base_score": row.get("overall_score"),
+        "new_score": row.get("experimental_score"),
+        "base_rank": row.get("overall_rank"),
+        "new_rank": row.get("experimental_rank"),
+        "audience": row.get("audience_score"),
+        "aggregate_critics": row.get("aggregate_critics"),
+        "broad_critic_points": row.get("broad_critic_points"),
+        "had_non_audience_before": bool(row.get("has_non_audience_evidence")),
+    }
 
 
 def summarize_variant(base_rows, ratings, name, variant):
@@ -153,38 +149,35 @@ def summarize_variant(base_rows, ratings, name, variant):
         if not r:
             continue
         controls[title] = {
-            "base_score": r.get("overall_score"),
-            "new_score": r.get("experimental_score"),
-            "base_rank": r.get("overall_rank"),
-            "new_rank": r.get("experimental_rank"),
-            "old_critics": r.get("old_critics_family"),
-            "metacritic": r.get("metacritic_component"),
-            "tomatoes": r.get("tomatoes_component"),
-            "aggregate": r.get("aggregate_critics"),
-            "broad_points": r.get("broad_critic_points"),
-            "new_critics": r.get("experimental_critics_family"),
+            "base_score": r.get("overall_score"), "new_score": r.get("experimental_score"),
+            "base_rank": r.get("overall_rank"), "new_rank": r.get("experimental_rank"),
+            "old_critics": r.get("old_critics_family"), "metacritic": r.get("metacritic_component"),
+            "tomatoes": r.get("tomatoes_component"), "aggregate": r.get("aggregate_critics"),
+            "broad_points": r.get("broad_critic_points"), "new_critics": r.get("experimental_critics_family"),
         }
 
     thresholds = {}
+    threshold_crossers = {}
     for floor in (300, 275, 250, 225, 200):
         selected = [
             r for r in experimental
             if r["experimental_score"] >= floor
-            and (
-                bool(r.get("has_non_audience_evidence"))
-                or r.get("experimental_critics_family", 0) > 0
-            )
+            and (bool(r.get("has_non_audience_evidence")) or r.get("experimental_critics_family", 0) > 0)
         ]
         thresholds[str(floor)] = {
             "selected": len(selected),
             "promotions_vs_old": sum(not bool(r.get("qualified")) for r in selected),
             "old_qualified_retained": sum(bool(r.get("qualified")) for r in selected),
         }
+        crossers = [
+            r for r in selected
+            if not r.get("qualified") and float(r.get("overall_score") or 0) < floor
+        ]
+        threshold_crossers[str(floor)] = [compact_cross(r) for r in crossers[:80]]
 
     newly_covered = [
         r for r in experimental
-        if not r.get("has_non_audience_evidence")
-        and r.get("experimental_critics_family", 0) > 0
+        if not r.get("has_non_audience_evidence") and r.get("experimental_critics_family", 0) > 0
     ]
     newly_covered.sort(key=lambda r: (-r["experimental_score"], r.get("title") or ""))
 
@@ -197,15 +190,13 @@ def summarize_variant(base_rows, ratings, name, variant):
         "films_with_positive_critic_delta": len(deltas),
         "mean_positive_critic_delta": round(sum(deltas) / len(deltas), 2) if deltas else 0,
         "thresholds": thresholds,
+        "threshold_crossers_vs_base_unqualified": threshold_crossers,
         "controls": controls,
         "newly_non_audience_covered_top40": [
             {
-                "title": r.get("title"),
-                "year": r.get("year"),
-                "base_score": r.get("overall_score"),
-                "new_score": r.get("experimental_score"),
-                "new_rank": r.get("experimental_rank"),
-                "audience": r.get("audience_score"),
+                "title": r.get("title"), "year": r.get("year"),
+                "base_score": r.get("overall_score"), "new_score": r.get("experimental_score"),
+                "new_rank": r.get("experimental_rank"), "audience": r.get("audience_score"),
                 "aggregate_critics": r.get("aggregate_critics"),
                 "broad_critic_points": r.get("broad_critic_points"),
                 "metacritic_component": r.get("metacritic_component"),
@@ -221,13 +212,9 @@ def main():
     base_rows = scores.get("films") or []
     ratings_payload = json.loads(RATINGS.read_text(encoding="utf-8"))
     ratings = ratings_payload.get("ratings") or {}
-
-    results = {
-        name: summarize_variant(base_rows, ratings, name, variant)
-        for name, variant in VARIANTS.items()
-    }
+    results = {name: summarize_variant(base_rows, ratings, name, variant) for name, variant in VARIANTS.items()}
     out = {
-        "mode": "research-critical-consensus-experiment-v2-capped",
+        "mode": "research-critical-consensus-experiment-v3-crossers",
         "qualification_unchanged": True,
         "score_ceiling_unchanged": 1000,
         "policy": "Metacritic critics + Rotten Tomatoes critics are merged inside the existing 100-point critics family. Capped variants scale broad aggregates to <=30/40/50 before merging; no new score family is created.",
@@ -235,16 +222,13 @@ def main():
         "variants": results,
     }
     OUTPUT.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-
     print(json.dumps({
         name: {
-            "curve": result["curve"],
-            "cap": result["broad_cap"],
+            "curve": result["curve"], "cap": result["broad_cap"],
             "top100_overlap": result["top100_overlap_with_base"],
             "positive_deltas": result["films_with_positive_critic_delta"],
             "mean_delta": result["mean_positive_critic_delta"],
-            "thresholds": result["thresholds"],
-            "controls": result["controls"],
+            "thresholds": result["thresholds"], "controls": result["controls"],
         }
         for name, result in results.items()
     }, ensure_ascii=False, separators=(",", ":")))
