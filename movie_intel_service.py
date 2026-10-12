@@ -17,6 +17,7 @@ PORT = int(os.environ.get("MOVIE_INTEL_PORT", "40714"))
 WEBHOOK_SECRET = os.environ.get("MOVIE_INTEL_WEBHOOK_SECRET", "")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
+TELEGRAM_TOPIC_ID = os.environ.get("TELEGRAM_TOPIC_ID", "").strip()
 INDEX = build_index()
 
 
@@ -88,10 +89,25 @@ def format_message(payload):
     return "\n".join(lines)
 
 
+def _telegram_payload(text):
+    body = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": text,
+        "parse_mode": "HTML",
+        "disable_web_page_preview": True,
+    }
+    if TELEGRAM_TOPIC_ID:
+        try:
+            body["message_thread_id"] = int(TELEGRAM_TOPIC_ID)
+        except ValueError as exc:
+            raise RuntimeError("TELEGRAM_TOPIC_ID must be an integer") from exc
+    return body
+
+
 def send_telegram(text):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         raise RuntimeError("Telegram credentials are not configured")
-    body = json.dumps({"chat_id": TELEGRAM_CHAT_ID, "text": text, "parse_mode": "HTML", "disable_web_page_preview": True}).encode()
+    body = json.dumps(_telegram_payload(text)).encode()
     req = Request(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", data=body, headers={"Content-Type": "application/json"}, method="POST")
     with urlopen(req, timeout=15) as response:
         return response.status
