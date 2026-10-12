@@ -22,8 +22,8 @@
   },
   "watch_policy": "watched films remain candidates but recommended_monitored=false",
   "universe_count": 951,
-  "resolved_count": 951,
-  "unresolved_count": 0,
+  "resolved_count": 948,
+  "unresolved_count": 3,
   "candidates": [
     {
       "title": "Moonlight",
@@ -1887,22 +1887,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "The Son",
-      "year": 2002,
-      "imdb_id": "tt0291172",
-      "tspdt_rank": 106,
-      "score": 2.0,
-      "signals": [
-        "TSPDT 21st-century #106"
-      ],
-      "director": "Dardenne, Jean-Pierre & Luc Dardenne",
-      "country": "Belgium",
-      "runtime": 103,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "Trouble Every Day",
       "year": 2001,
       "imdb_id": "tt0204700",
@@ -3359,22 +3343,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "Ten",
-      "year": 2002,
-      "imdb_id": "tt0301978",
-      "tspdt_rank": 209,
-      "score": 2.0,
-      "signals": [
-        "TSPDT 21st-century #209"
-      ],
-      "director": "Kiarostami, Abbas",
-      "country": "France",
-      "runtime": 92,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "Fantastic Mr. Fox",
       "year": 2009,
       "imdb_id": "tt0432283",
@@ -4250,23 +4218,6 @@
       "director": "Loach, Ken",
       "country": "UK",
       "runtime": 127,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "Fahrenheit 9/11",
-      "year": 2004,
-      "imdb_id": "tt0361596",
-      "tspdt_rank": 741,
-      "score": 1.5,
-      "signals": [
-        "TSPDT 21st-century #741",
-        "Cannes Palme d'Or"
-      ],
-      "director": "Moore, Michael",
-      "country": "USA",
-      "runtime": 122,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -13750,9 +13701,9 @@
       "recommended_monitored": true
     },
     {
-      "title": "Inheritance",
+      "title": "The Inheritance",
       "year": 2020,
-      "imdb_id": "tt7923220",
+      "imdb_id": "tt10204512",
       "tspdt_rank": 897,
       "score": 0.5,
       "signals": [
@@ -15318,5 +15269,21 @@
       "recommended_monitored": true
     }
   ],
-  "unresolved": []
+  "unresolved": [
+    {
+      "title": "The Son",
+      "year": 2002,
+      "tspdt_rank": 106
+    },
+    {
+      "title": "Ten",
+      "year": 2002,
+      "tspdt_rank": 209
+    },
+    {
+      "title": "Fahrenheit 9/11",
+      "year": 2004,
+      "tspdt_rank": 741
+    }
+  ]
 }
