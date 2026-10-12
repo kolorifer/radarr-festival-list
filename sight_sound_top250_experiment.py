@@ -29,13 +29,14 @@ CONTROLS = {
     "Mad Max: Fury Road": 2015,
     "Parasite": 2019,
     "Moonlight": 2016,
+    "Yi Yi": 2000,
     "Caché": 2005,
     "Certified Copy": 2010,
     "First Reformed": 2017,
     "Goodbye, Dragon Inn": 2003,
     "Zama": 2017,
     "The Gleaners & I": 2000,
-    "La Ciénaga": 2001,
+    "The Swamp": 2001,
 }
 
 
@@ -63,7 +64,10 @@ def build_index(rows):
     return out
 
 
-def resolve(source_row, index):
+def resolve(source_row, index, by_id):
+    exact_id = source_row.get("imdb_id")
+    if exact_id and exact_id in by_id:
+        return by_id[exact_id]
     key = norm(source_row.get("title"))
     keys = (key,) + ALIASES.get(key, ())
     candidates = []
@@ -101,17 +105,6 @@ def control_lookup(rows, title, year):
         if norm(r.get("title")) == title_key
         and (not str(r.get("year") or "").isdigit() or abs(int(r.get("year")) - int(year)) <= 1)
     ]
-    if len(matches) == 1:
-        return matches[0]
-    # Some repository titles use translated/alternate names. Prefer an official
-    # Sight & Sound hit in the requested year if the display title is different.
-    matches = [
-        r for r in rows
-        if r.get("official_sight_sound_rank") is not None
-        and str(r.get("year") or "").isdigit()
-        and abs(int(r.get("year")) - int(year)) <= 1
-        and any(norm(alias) == norm(r.get("title")) for alias in ALIASES.get(title_key, ()))
-    ]
     return matches[0] if len(matches) == 1 else None
 
 
@@ -121,11 +114,12 @@ def main():
     rows = payload.get("films") or []
     depth = int(source.get("published_depth") or 250)
     index = build_index(rows)
+    by_id = {r.get("imdb_id"): r for r in rows if r.get("imdb_id")}
 
     resolved = {}
     unresolved = []
     for item in source.get("films", []):
-        hit = resolve(item, index)
+        hit = resolve(item, index, by_id)
         if not hit:
             unresolved.append(item)
             continue
@@ -173,7 +167,7 @@ def main():
             controls[title] = compact(row)
 
     out = {
-        "mode": "research-sight-sound-official-top250-v2-matching",
+        "mode": "research-sight-sound-official-top250-v3-exact-ids",
         "qualification_unchanged": True,
         "source": source.get("source"),
         "source_url": source.get("source_url"),
