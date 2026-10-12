@@ -12,10 +12,12 @@ on:
       - evidence_sources_extra.py
       - evidence_calibration.py
       - score_band_analysis.py
+      - score_rule_experiment.py
       - test_audience_discovery.py
       - test_evidence_score.py
       - test_evidence_sources.py
       - test_evidence_sources_extra.py
+      - test_score_rule_experiment.py
       - phase_b_sources.py
       - requirements.txt
       - audience-ratings.json
@@ -61,7 +63,7 @@ jobs:
       - name: Test and build normalized evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
-          python -m unittest -v test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_evidence_score.py
+          python -m unittest -v test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_evidence_score.py test_score_rule_experiment.py
           python evidence_score.py
       - name: Print calibration controls
         if: github.ref_name == 'simulation-4b-union-universe'
@@ -69,10 +71,13 @@ jobs:
       - name: Analyze score bands
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python score_band_analysis.py
+      - name: Compare score-driven selection rules
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python score_rule_experiment.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
