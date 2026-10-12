@@ -1,6 +1,13 @@
 import unittest
 
-from evidence_score import audience_points, build_rows, ranked_points
+from evidence_score import (
+    audience_points,
+    build_rows,
+    imdb_points,
+    letterboxd_points,
+    ranked_points,
+    tmdb_points,
+)
 
 
 class EvidenceScoreTests(unittest.TestCase):
@@ -19,17 +26,34 @@ class EvidenceScoreTests(unittest.TestCase):
         self.assertEqual(ranked_points(101, 100), 0.0)
         self.assertEqual(ranked_points(None, 100), 0.0)
 
-    def test_tiny_audience_is_discounted(self):
-        tiny = {"imdb": {"rating": 8.4, "votes": 1500}, "letterboxd": {"rating": 4.2, "votes": 4800}}
-        broad = {"imdb": {"rating": 8.4, "votes": 500000}, "letterboxd": {"rating": 4.2, "votes": 500000}}
-        self.assertLess(audience_points(tiny), 30)
-        self.assertGreater(audience_points(broad), 85)
+    def test_tiny_audience_is_discounted_per_source(self):
+        tiny = {
+            "imdb": {"rating": 8.4, "votes": 1500},
+            "letterboxd": {"rating": 4.2, "votes": 4800},
+            "tmdb": {"rating": 84, "votes": 150},
+        }
+        broad = {
+            "imdb": {"rating": 8.4, "votes": 500000},
+            "letterboxd": {"rating": 4.2, "votes": 500000},
+            "tmdb": {"rating": 84, "votes": 50000},
+        }
+        self.assertLess(imdb_points(tiny), 10)
+        self.assertLess(letterboxd_points(tiny), 40)
+        self.assertLess(tmdb_points(tiny), 15)
+        self.assertGreater(imdb_points(broad), 90)
+        self.assertGreater(letterboxd_points(broad), 90)
+        self.assertGreater(tmdb_points(broad), 90)
+        self.assertGreater(audience_points(broad), 90)
 
     def test_sources_add_without_changing_qualification(self):
         back = {"candidates": [{"imdb_id": "tt1", "title": "Film", "year": 2015, "tspdt_rank": 1000}]}
         inst = {"films": []}
         quals = [{"imdb_id": "tt1", "title": "Film", "year": 2015, "routes": ["convergence"]}]
-        audience = {"ratings": {"tt1": {"reeldb": {"imdb": {"rating": 8.5, "votes": 200000}, "letterboxd": {"rating": 4.3, "votes": 200000}}}}}
+        audience = {"ratings": {"tt1": {"reeldb": {
+            "imdb": {"rating": 8.5, "votes": 200000},
+            "letterboxd": {"rating": 4.3, "votes": 200000},
+            "tmdb": {"rating": 85, "votes": 20000},
+        }}}}
         snapshot = {
             "ranked_sources": {
                 "sight_sound": {"published_depth": 100, "eligible_through_year": 2022, "films": [{"imdb_id": "tt1", "rank": 50}]},
@@ -45,7 +69,10 @@ class EvidenceScoreTests(unittest.TestCase):
         self.assertEqual(row["source_points"]["us_institutional"], 65.0)
         self.assertEqual(row["source_points"]["european_recognition"], 40.0)
         self.assertEqual(row["source_points"]["critics_groups_consensus"], 70.0)
-        self.assertEqual(row["source_points"]["audience_consensus"], 100.0)
+        self.assertEqual(row["source_points"]["imdb_audience"], 100.0)
+        self.assertEqual(row["source_points"]["letterboxd_audience"], 100.0)
+        self.assertEqual(row["experimental_source_points"]["tmdb_audience"], 100.0)
+        self.assertNotIn("tmdb_audience", row["source_points"])
         self.assertTrue(row["qualified"])
         self.assertEqual(row["routes"], ["convergence"])
 
@@ -57,8 +84,8 @@ class EvidenceScoreTests(unittest.TestCase):
             "nyt_21c": {"published_depth": 100, "eligible_through_year": 2025, "films": []},
         }, "films": {}}
         row = build_rows(back, {"films": []}, [], {"ratings": {}}, snapshot)[0]
-        self.assertEqual(row["eligible_sources"], 7)
-        self.assertEqual(row["eligible_max_score"], 700)
+        self.assertEqual(row["eligible_sources"], 8)
+        self.assertEqual(row["eligible_max_score"], 800)
 
 
 if __name__ == "__main__":
