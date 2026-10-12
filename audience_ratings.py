@@ -9,9 +9,16 @@ from urllib.request import Request, urlopen
 API_KEY = os.environ["REELDB_API_KEY"]
 SOURCE = Path("backcatalog-details.json")
 PHASE_B = Path("sources/phase-b-institutional.json")
+EVIDENCE = Path("sources/evidence-families.json")
 OUTPUT = Path("audience-ratings.json")
 API_BASE = "https://api.reeldb.io"
-MAX_REQUESTS_PER_RUN = 40
+
+# ReelDB documents 60 requests/minute and 1000/day for this account tier.
+# Stay comfortably below the minute limit while allowing one research run to
+# finish the current union universe without repeated manual dispatches.
+MAX_REQUESTS_PER_RUN = 400
+REQUEST_INTERVAL_SECONDS = 1.35
+RATE_LIMIT_RETRY_SECONDS = 65
 
 
 def fetch_rating(imdb_id):
@@ -22,19 +29,61 @@ def fetch_rating(imdb_id):
         return json.load(response)
 
 
-def main():
+def append_unique_movie(movies, seen, imdb_id, title, year, tspdt_rank=None):
+    if not imdb_id or imdb_id in seen:
+        return
+    movies.append({"imdb_id": imdb_id, "title": title, "year": year, "tspdt_rank": tspdt_rank})
+    seen.add(imdb_id)
+
+
+def build_movie_universe():
     source = json.loads(SOURCE.read_text(encoding="utf-8"))
     movies = list(source["candidates"])
-    # Research branch only: extend the collection universe with independently
-    # sourced Phase-B films. Deduplicate by IMDb ID so the TSPDT cache is preserved.
+    seen = {m.get("imdb_id") for m in movies if m.get("imdb_id")}
+
+    # Research branch only: independently sourced Phase-B films.
     if PHASE_B.exists():
         phase_b = json.loads(PHASE_B.read_text(encoding="utf-8"))
-        seen = {m.get("imdb_id") for m in movies}
-        for f in phase_b.get("films", []):
-            iid = f.get("imdb_id")
-            if iid and iid not in seen:
-                movies.append({"imdb_id": iid, "title": f["title"], "year": f["year"], "tspdt_rank": None})
-                seen.add(iid)
+        for film in phase_b.get("films", []):
+            append_unique_movie(
+                movies,
+                seen,
+                film.get("imdb_id"),
+                film.get("title"),
+                film.get("year"),
+            )
+
+    # The expanded evidence snapshot may add EFA/Gotham/critics-group films that
+    # were outside the earlier TSPDT + institutional candidate universe. Include
+    # them so audience coverage is evaluated on exactly the same film universe as
+    # evidence_score.py.
+    if EVIDENCE.exists():
+        snapshot = json.loads(EVIDENCE.read_text(encoding="utf-8"))
+        for imdb_id, film in (snapshot.get("films") or {}).items():
+            append_unique_movie(
+                movies,
+                seen,
+                imdb_id,
+                film.get("title"),
+                film.get("year"),
+            )
+
+    return movies
+
+
+def fetch_with_single_rate_limit_retry(imdb_id):
+    try:
+        return fetch_rating(imdb_id)
+    except HTTPError as exc:
+        if exc.code != 429:
+            raise
+        print(f"Rate limit reached; waiting {RATE_LIMIT_RETRY_SECONDS}s before one retry.")
+        time.sleep(RATE_LIMIT_RETRY_SECONDS)
+        return fetch_rating(imdb_id)
+
+
+def main():
+    movies = build_movie_universe()
     if OUTPUT.exists():
         existing = json.loads(OUTPUT.read_text(encoding="utf-8"))
         results = existing.get("ratings", {})
@@ -43,7 +92,7 @@ def main():
 
     pending_all = [m for m in movies if m.get("imdb_id") and m["imdb_id"] not in results]
     pending = pending_all[:MAX_REQUESTS_PER_RUN]
-    print(f"{len(movies)} resolved movies in union universe")
+    print(f"{len(movies)} resolved movies in expanded evidence universe")
     print(f"{len(results)} already cached")
     print(f"{len(pending_all)} total missing; attempting at most {len(pending)} this run")
     failures = []
@@ -51,22 +100,28 @@ def main():
     for index, movie in enumerate(pending, 1):
         imdb_id = movie["imdb_id"]
         try:
-            data = fetch_rating(imdb_id)
-            results[imdb_id] = {"title": movie["title"], "year": movie["year"],
-                                "tspdt_rank": movie.get("tspdt_rank"), "reeldb": data}
-            print(f"[{index}/{len(pending)}] {movie['title']} ({movie['year']}) OK")
+            data = fetch_with_single_rate_limit_retry(imdb_id)
+            results[imdb_id] = {
+                "title": movie.get("title"),
+                "year": movie.get("year"),
+                "tspdt_rank": movie.get("tspdt_rank"),
+                "reeldb": data,
+            }
+            print(f"[{index}/{len(pending)}] {movie.get('title')} ({movie.get('year')}) OK")
         except HTTPError as exc:
-            print(f"[{index}/{len(pending)}] {movie['title']} HTTP {exc.code}")
-            failures.append({"imdb_id": imdb_id, "title": movie["title"], "error": f"HTTP {exc.code}"})
+            print(f"[{index}/{len(pending)}] {movie.get('title')} HTTP {exc.code}")
+            failures.append({"imdb_id": imdb_id, "title": movie.get("title"), "error": f"HTTP {exc.code}"})
             if exc.code == 429:
-                print("Rate limit reached; stopping cleanly.")
+                print("Rate limit still active after retry; stopping cleanly.")
                 break
         except (URLError, TimeoutError) as exc:
-            print(f"[{index}/{len(pending)}] {movie['title']} ERROR: {exc}")
-            failures.append({"imdb_id": imdb_id, "title": movie["title"], "error": str(exc)})
-        time.sleep(1.2)
+            print(f"[{index}/{len(pending)}] {movie.get('title')} ERROR: {exc}")
+            failures.append({"imdb_id": imdb_id, "title": movie.get("title"), "error": str(exc)})
+
         if index % 25 == 0:
             write_output(results, failures)
+        if index < len(pending):
+            time.sleep(REQUEST_INTERVAL_SECONDS)
 
     write_output(results, failures)
     print(f"Ratings collected: {len(results)}")
@@ -74,8 +129,13 @@ def main():
 
 
 def write_output(results, failures):
-    payload = {"source": "ReelDB", "purpose": "audience-rating research; not yet part of production scoring",
-               "ratings_count": len(results), "ratings": results, "failures": failures}
+    payload = {
+        "source": "ReelDB",
+        "purpose": "audience-rating research; not yet part of production scoring",
+        "ratings_count": len(results),
+        "ratings": results,
+        "failures": failures,
+    }
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
