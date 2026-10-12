@@ -1357,13 +1357,12 @@
       "title": "In the Mood for Love",
       "year": 2000,
       "family_scores": {
-        "european_recognition": 80.0
+        "european_recognition": 25.0
       },
       "family_evidence": {
         "european_recognition": [
           "BAFTA: bafta film award / best film not in the english language (nominee)",
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: technical grand prize / technical grand prize (winner)"
+          "Cannes: palme d'or / palme d'or (nominee)"
         ]
       }
     },
@@ -2281,12 +2280,11 @@
       "title": "Millennium Mambo",
       "year": 2001,
       "family_scores": {
-        "european_recognition": 65.0
+        "european_recognition": 10.0
       },
       "family_evidence": {
         "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: technical grand prize / technical grand prize (winner)"
+          "Cannes: palme d'or / palme d'or (nominee)"
         ]
       }
     },
@@ -2499,15 +2497,14 @@
       "year": 2000,
       "family_scores": {
         "us_institutional": 35.0,
-        "european_recognition": 90.0
+        "european_recognition": 35.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best foreign language film (nominee)"
         ],
         "european_recognition": [
-          "BAFTA: bafta film award / best film not in the english language (winner)",
-          "Cannes: critics week grand prize / critics week grand prize (winner)"
+          "BAFTA: bafta film award / best film not in the english language (winner)"
         ]
       }
     },
@@ -5222,12 +5219,11 @@
       "title": "Last Days",
       "year": 2005,
       "family_scores": {
-        "european_recognition": 65.0
+        "european_recognition": 10.0
       },
       "family_evidence": {
         "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: technical grand prize / technical grand prize (winner)"
+          "Cannes: palme d'or / palme d'or (nominee)"
         ]
       }
     },
@@ -5858,13 +5854,9 @@
       "title": "Me and You and Everyone We Know",
       "year": 2005,
       "family_scores": {
-        "european_recognition": 55.0,
         "independent_cinema": 18.0
       },
       "family_evidence": {
-        "european_recognition": [
-          "Cannes: critics week grand prize / critics week grand prize (winner)"
-        ],
         "independent_cinema": [
           "Spirit: independent spirit award / best first feature (nominee)",
           "Sundance: grand jury prize / dramatic (nominee)"
@@ -5954,7 +5946,7 @@
       "year": 2006,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 100.0
+        "european_recognition": 65.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5964,8 +5956,7 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: best director / best director (winner)",
-          "Cannes: technical grand prize / technical grand prize (winner)"
+          "Cannes: best director / best director (winner)"
         ]
       }
     },
@@ -7678,12 +7669,11 @@
       "title": "Sin City",
       "year": 2005,
       "family_scores": {
-        "european_recognition": 65.0
+        "european_recognition": 10.0
       },
       "family_evidence": {
         "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: technical grand prize / technical grand prize (winner)"
+          "Cannes: palme d'or / palme d'or (nominee)"
         ]
       }
     },
@@ -8011,13 +8001,9 @@
       "title": "Take Shelter",
       "year": 2011,
       "family_scores": {
-        "european_recognition": 55.0,
         "independent_cinema": 28.0
       },
       "family_evidence": {
-        "european_recognition": [
-          "Cannes: critics week grand prize / critics week grand prize (winner)"
-        ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)",
           "Sundance: grand jury prize / dramatic (nominee)"
@@ -8134,15 +8120,7 @@
     },
     "tt1745787": {
       "title": "The Tribe",
-      "year": 2014,
-      "family_scores": {
-        "european_recognition": 55.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "Cannes: critics week grand prize / critics week grand prize (winner)"
-        ]
-      }
+      "year": 2014
     },
     "tt0461795": {
       "title": "Tale of Cinema",
@@ -8495,14 +8473,13 @@
       "title": "The Motorcycle Diaries",
       "year": 2004,
       "family_scores": {
-        "european_recognition": 100.0
+        "european_recognition": 70.0
       },
       "family_evidence": {
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "BAFTA: bafta film award / best film not in the english language (winner)",
-          "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: technical grand prize / technical grand prize (winner)"
+          "Cannes: palme d'or / palme d'or (nominee)"
         ]
       }
     },
@@ -9276,15 +9253,11 @@
       "title": "I Lost My Body",
       "year": 2019,
       "family_scores": {
-        "us_institutional": 30.0,
-        "european_recognition": 55.0
+        "us_institutional": 30.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best animated feature film (nominee)"
-        ],
-        "european_recognition": [
-          "Cannes: critics' week grand prize / critics' week grand prize (winner)"
         ]
       }
     },
@@ -12158,6 +12131,10 @@
           "BAFTA: bafta film award / best film (nominee)"
         ]
       }
+    },
+    "tt3674140": {
+      "title": "The Salt of the Earth",
+      "year": 2014
     },
     "tt2980516": {
       "title": "The Theory of Everything",

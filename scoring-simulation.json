@@ -12,9 +12,9 @@
     "letterboxd_votes_median": 72905.0
   },
   "counts": {
-    "candidate_universe": 1238,
+    "candidate_universe": 1239,
     "tspdt_candidates": 951,
-    "outside_tspdt_candidates": 287,
+    "outside_tspdt_candidates": 288,
     "production_qualifiers": 109,
     "route_qualifiers": 225,
     "promoted": 116,
@@ -5872,6 +5872,30 @@
       "qualified": false,
       "evidence": [
         "Academy International Feature Film winner"
+      ]
+    },
+    {
+      "title": "The Salt of the Earth",
+      "year": 2014,
+      "imdb_id": "tt3674140",
+      "rank": null,
+      "production_score": 0,
+      "existing_bonus": 0,
+      "imdb_rating": null,
+      "imdb_votes": null,
+      "letterboxd_rating": null,
+      "letterboxd_votes": null,
+      "candidate_sources": [
+        "institutional"
+      ],
+      "institutional_strength": 1,
+      "institutional_signal": "Academy Documentary Feature Film nominee",
+      "imdb_strong_broad": false,
+      "letterboxd_strong_broad": false,
+      "routes": [],
+      "qualified": false,
+      "evidence": [
+        "Academy Documentary Feature Film nominee"
       ]
     },
     {
