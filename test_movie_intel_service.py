@@ -42,4 +42,22 @@ class Tests(unittest.TestCase):
    body=svc._telegram_payload('hello')
   self.assertNotIn('message_thread_id',body)
 
+ def test_plain_passthrough_has_no_html_parse_mode(self):
+  with patch.object(svc,'TELEGRAM_CHAT_ID','-100123'), patch.object(svc,'TELEGRAM_TOPIC_ID',''):
+   body=svc._telegram_payload('<test>', parse_mode=None)
+  self.assertEqual(body['text'],'<test>')
+  self.assertNotIn('parse_mode',body)
+
+ def test_passthrough_prefers_original_message(self):
+  payload={'event':'test','message':'autobrr webhook test <unchanged>'}
+  self.assertEqual(svc.passthrough_message(payload),'autobrr webhook test <unchanged>')
+
+ def test_passthrough_sanitizes_structured_secrets(self):
+  payload={'event':'test','data':{'download_url':'https://tracker.invalid/SECRET','token':'abc','name':'safe'}}
+  text=svc.passthrough_message(payload)
+  self.assertIn('[redacted]',text)
+  self.assertIn('safe',text)
+  self.assertNotIn('SECRET',text)
+  self.assertNotIn('abc',text)
+
 if __name__=='__main__':unittest.main()
