@@ -1333,17 +1333,6 @@
       "resolved_year": 2006
     },
     {
-      "title": "Water",
-      "year": 2006,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1,
-      "imdb_id": "tt0452637",
-      "resolved_title": "Lady in the Water",
-      "resolved_year": 2006
-    },
-    {
       "title": "Atonement",
       "year": 2007,
       "signals": [
@@ -1660,6 +1649,17 @@
       "institutional_strength": 1,
       "imdb_id": "tt0421715",
       "resolved_title": "The Curious Case of Benjamin Button",
+      "resolved_year": 2008
+    },
+    {
+      "title": "The Garden",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0961108",
+      "resolved_title": "Fireflies in the Garden",
       "resolved_year": 2008
     },
     {
@@ -2860,9 +2860,9 @@
         "Academy International Feature Film nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt2063241",
-      "resolved_title": "Farouk Omar",
-      "resolved_year": 2012
+      "imdb_id": "tt2852406",
+      "resolved_title": "Omar",
+      "resolved_year": 2013
     },
     {
       "title": "Philomena",
@@ -4256,7 +4256,7 @@
         "Academy International Feature Film nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt8649186",
+      "imdb_id": "tt10702624",
       "resolved_title": "Corpus Christi",
       "resolved_year": 2019
     },
@@ -4500,9 +4500,9 @@
         "Academy International Feature Film nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt13416176",
+      "imdb_id": "tt5979556",
       "resolved_title": "Better Days",
-      "resolved_year": 2020
+      "resolved_year": 2019
     },
     {
       "title": "Collective",
@@ -4600,7 +4600,7 @@
         "Academy Animated Feature Film nominee"
       ],
       "institutional_strength": 1,
-      "imdb_id": "tt7488208",
+      "imdb_id": "tt12491880",
       "resolved_title": "Over the Moon",
       "resolved_year": 2020
     },
@@ -5497,6 +5497,14 @@
       "institutional_strength": 1
     },
     {
+      "title": "Water",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
       "title": "War/Dance",
       "year": 2007,
       "signals": [
@@ -5509,14 +5517,6 @@
       "year": 2007,
       "signals": [
         "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1
-    },
-    {
-      "title": "The Garden",
-      "year": 2008,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
       ],
       "institutional_strength": 1
     },

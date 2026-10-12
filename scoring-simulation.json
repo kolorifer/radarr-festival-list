@@ -16,15 +16,15 @@
     "tspdt_candidates": 951,
     "outside_tspdt_candidates": 286,
     "production_qualifiers": 109,
-    "route_qualifiers": 224,
-    "promoted": 115,
-    "outside_tspdt_qualifiers": 5
+    "route_qualifiers": 225,
+    "promoted": 116,
+    "outside_tspdt_qualifiers": 6
   },
   "route_counts": {
     "canon": 109,
     "institutional": 24,
     "convergence": 121,
-    "corroboration": 23
+    "corroboration": 24
   },
   "phase_b_new": [
     {
@@ -612,10 +612,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.5,
+      "imdb_votes": 19420,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 5745,
       "candidate_sources": [
         "institutional"
       ],
@@ -708,10 +708,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.2,
+      "imdb_votes": 655,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 312,
       "candidate_sources": [
         "institutional"
       ],
@@ -752,7 +752,7 @@
     {
       "title": "Better Days",
       "year": 2020,
-      "imdb_id": "tt13416176",
+      "imdb_id": "tt5979556",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -974,10 +974,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 6.9,
+      "imdb_votes": 138924,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 551005,
       "candidate_sources": [
         "institutional"
       ],
@@ -1168,23 +1168,24 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.2,
+      "imdb_votes": 258996,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 541874,
       "candidate_sources": [
         "institutional"
       ],
       "institutional_strength": 3,
       "institutional_signal": "Academy Best Picture winner",
       "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
+      "letterboxd_strong_broad": true,
       "routes": [
         "institutional"
       ],
       "qualified": true,
       "evidence": [
-        "Academy Best Picture winner"
+        "Academy Best Picture winner",
+        "Letterboxd strong/broad"
       ]
     },
     {
@@ -1194,10 +1195,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 8.2,
+      "imdb_votes": 2596,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 1538,
       "candidate_sources": [
         "institutional"
       ],
@@ -1218,10 +1219,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.2,
+      "imdb_votes": 211888,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 121657,
       "candidate_sources": [
         "institutional"
       ],
@@ -1286,7 +1287,7 @@
     {
       "title": "Corpus Christi",
       "year": 2019,
-      "imdb_id": "tt8649186",
+      "imdb_id": "tt10702624",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -1386,10 +1387,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.4,
+      "imdb_votes": 643,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 461,
       "candidate_sources": [
         "institutional"
       ],
@@ -1506,10 +1507,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.6,
+      "imdb_votes": 5587,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 1459,
       "candidate_sources": [
         "institutional"
       ],
@@ -1578,10 +1579,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 6.7,
+      "imdb_votes": 15121,
+      "letterboxd_rating": 3.3,
+      "letterboxd_votes": 24220,
       "candidate_sources": [
         "institutional"
       ],
@@ -1626,10 +1627,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.4,
+      "imdb_votes": 16824,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 7058,
       "candidate_sources": [
         "institutional"
       ],
@@ -1722,10 +1723,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 6.9,
+      "imdb_votes": 3385,
+      "letterboxd_rating": 3.4,
+      "letterboxd_votes": 768,
       "candidate_sources": [
         "institutional"
       ],
@@ -1746,10 +1747,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 6.6,
+      "imdb_votes": 318585,
+      "letterboxd_rating": 2.9,
+      "letterboxd_votes": 343500,
       "candidate_sources": [
         "institutional"
       ],
@@ -2468,10 +2469,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.5,
+      "imdb_votes": 573594,
+      "letterboxd_rating": 3.6,
+      "letterboxd_votes": 1289878,
       "candidate_sources": [
         "institutional"
       ],
@@ -2612,10 +2613,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.7,
+      "imdb_votes": 2082,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 723,
       "candidate_sources": [
         "institutional"
       ],
@@ -2732,10 +2733,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 6.1,
+      "imdb_votes": 41049,
+      "letterboxd_rating": 3.0,
+      "letterboxd_votes": 100574,
       "candidate_sources": [
         "institutional"
       ],
@@ -2996,8 +2997,8 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
+      "imdb_rating": 7.6,
+      "imdb_votes": 262,
       "letterboxd_rating": null,
       "letterboxd_votes": null,
       "candidate_sources": [
@@ -3164,21 +3165,22 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.4,
+      "imdb_votes": 247718,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 1141566,
       "candidate_sources": [
         "institutional"
       ],
       "institutional_strength": 1,
       "institutional_signal": "Academy Animated Feature Film nominee",
       "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
+      "letterboxd_strong_broad": true,
       "routes": [],
       "qualified": false,
       "evidence": [
-        "Academy Animated Feature Film nominee"
+        "Academy Animated Feature Film nominee",
+        "Letterboxd strong/broad"
       ]
     },
     {
@@ -3212,10 +3214,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.5,
+      "imdb_votes": 498,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 212,
       "candidate_sources": [
         "institutional"
       ],
@@ -3572,10 +3574,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.9,
+      "imdb_votes": 4795,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 2461,
       "candidate_sources": [
         "institutional"
       ],
@@ -3620,10 +3622,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.4,
+      "imdb_votes": 3469,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 2144,
       "candidate_sources": [
         "institutional"
       ],
@@ -3836,21 +3838,24 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.9,
+      "imdb_votes": 50974,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 16846,
       "candidate_sources": [
         "institutional"
       ],
       "institutional_strength": 2,
       "institutional_signal": "Academy International Feature Film winner",
-      "imdb_strong_broad": false,
+      "imdb_strong_broad": true,
       "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
+      "routes": [
+        "corroboration"
+      ],
+      "qualified": true,
       "evidence": [
-        "Academy International Feature Film winner"
+        "Academy International Feature Film winner",
+        "IMDb strong/broad"
       ]
     },
     {
@@ -3884,10 +3889,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.5,
+      "imdb_votes": 14903,
+      "letterboxd_rating": 3.6,
+      "letterboxd_votes": 4220,
       "candidate_sources": [
         "institutional"
       ],
@@ -3952,7 +3957,7 @@
     {
       "title": "Omar",
       "year": 2013,
-      "imdb_id": "tt2063241",
+      "imdb_id": "tt2852406",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -4048,7 +4053,7 @@
     {
       "title": "Over the Moon",
       "year": 2020,
-      "imdb_id": "tt7488208",
+      "imdb_id": "tt12491880",
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
@@ -4148,8 +4153,8 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
+      "imdb_rating": 7.5,
+      "imdb_votes": 446,
       "letterboxd_rating": null,
       "letterboxd_votes": null,
       "candidate_sources": [
@@ -4172,10 +4177,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 8.3,
+      "imdb_votes": 2795,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 1343,
       "candidate_sources": [
         "institutional"
       ],
@@ -4436,10 +4441,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.5,
+      "imdb_votes": 390,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 216,
       "candidate_sources": [
         "institutional"
       ],
@@ -4460,10 +4465,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.3,
+      "imdb_votes": 79575,
+      "letterboxd_rating": 3.4,
+      "letterboxd_votes": 37400,
       "candidate_sources": [
         "institutional"
       ],
@@ -4628,10 +4633,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.8,
+      "imdb_votes": 18107,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 29595,
       "candidate_sources": [
         "institutional"
       ],
@@ -4724,10 +4729,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.8,
+      "imdb_votes": 1125,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 1074,
       "candidate_sources": [
         "institutional"
       ],
@@ -4796,10 +4801,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.2,
+      "imdb_votes": 95767,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 330525,
       "candidate_sources": [
         "institutional"
       ],
@@ -5363,6 +5368,30 @@
       "qualified": false,
       "evidence": [
         "Academy Best Picture nominee"
+      ]
+    },
+    {
+      "title": "The Garden",
+      "year": 2008,
+      "imdb_id": "tt0961108",
+      "rank": null,
+      "production_score": 0,
+      "existing_bonus": 0,
+      "imdb_rating": null,
+      "imdb_votes": null,
+      "letterboxd_rating": null,
+      "letterboxd_votes": null,
+      "candidate_sources": [
+        "institutional"
+      ],
+      "institutional_strength": 1,
+      "institutional_signal": "Academy Documentary Feature Film nominee",
+      "imdb_strong_broad": false,
+      "letterboxd_strong_broad": false,
+      "routes": [],
+      "qualified": false,
+      "evidence": [
+        "Academy Documentary Feature Film nominee"
       ]
     },
     {
@@ -6020,10 +6049,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 8.0,
+      "imdb_votes": 27350,
+      "letterboxd_rating": 4.1,
+      "letterboxd_votes": 14008,
       "candidate_sources": [
         "institutional"
       ],
@@ -6044,10 +6073,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.4,
+      "imdb_votes": 3883,
+      "letterboxd_rating": 3.6,
+      "letterboxd_votes": 2744,
       "candidate_sources": [
         "institutional"
       ],
@@ -6188,21 +6217,22 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.2,
+      "imdb_votes": 151054,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 449002,
       "candidate_sources": [
         "institutional"
       ],
       "institutional_strength": 1,
       "institutional_signal": "Academy Animated Feature Film nominee",
       "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
+      "letterboxd_strong_broad": true,
       "routes": [],
       "qualified": false,
       "evidence": [
-        "Academy Animated Feature Film nominee"
+        "Academy Animated Feature Film nominee",
+        "Letterboxd strong/broad"
       ]
     },
     {
@@ -6308,10 +6338,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.4,
+      "imdb_votes": 7727,
+      "letterboxd_rating": 3.5,
+      "letterboxd_votes": 2231,
       "candidate_sources": [
         "institutional"
       ],
@@ -6476,10 +6506,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.9,
+      "imdb_votes": 4462,
+      "letterboxd_rating": 3.8,
+      "letterboxd_votes": 2476,
       "candidate_sources": [
         "institutional"
       ],
@@ -6539,30 +6569,6 @@
       "qualified": false,
       "evidence": [
         "Academy Documentary Feature Film nominee"
-      ]
-    },
-    {
-      "title": "Water",
-      "year": 2006,
-      "imdb_id": "tt0452637",
-      "rank": null,
-      "production_score": 0,
-      "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
-      "candidate_sources": [
-        "institutional"
-      ],
-      "institutional_strength": 1,
-      "institutional_signal": "Academy International Feature Film nominee",
-      "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
-      "routes": [],
-      "qualified": false,
-      "evidence": [
-        "Academy International Feature Film nominee"
       ]
     },
     {
@@ -6692,10 +6698,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.9,
+      "imdb_votes": 12750,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 5678,
       "candidate_sources": [
         "institutional"
       ],
@@ -6836,10 +6842,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.5,
+      "imdb_votes": 3930,
+      "letterboxd_rating": 3.7,
+      "letterboxd_votes": 1177,
       "candidate_sources": [
         "institutional"
       ],
@@ -6884,10 +6890,10 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 6.1,
+      "imdb_votes": 1741,
+      "letterboxd_rating": 3.1,
+      "letterboxd_votes": 327,
       "candidate_sources": [
         "institutional"
       ],
@@ -10073,23 +10079,24 @@
       "rank": null,
       "production_score": 0,
       "existing_bonus": 0,
-      "imdb_rating": null,
-      "imdb_votes": null,
-      "letterboxd_rating": null,
-      "letterboxd_votes": null,
+      "imdb_rating": 7.2,
+      "imdb_votes": 258996,
+      "letterboxd_rating": 4.0,
+      "letterboxd_votes": 541874,
       "candidate_sources": [
         "institutional"
       ],
       "institutional_strength": 3,
       "institutional_signal": "Academy Best Picture winner",
       "imdb_strong_broad": false,
-      "letterboxd_strong_broad": false,
+      "letterboxd_strong_broad": true,
       "routes": [
         "institutional"
       ],
       "qualified": true,
       "evidence": [
-        "Academy Best Picture winner"
+        "Academy Best Picture winner",
+        "Letterboxd strong/broad"
       ]
     },
     {
@@ -10116,6 +10123,33 @@
       "qualified": true,
       "evidence": [
         "Academy Best Picture winner"
+      ]
+    },
+    {
+      "title": "No Man's Land",
+      "year": 2001,
+      "imdb_id": "tt0283509",
+      "rank": null,
+      "production_score": 0,
+      "existing_bonus": 0,
+      "imdb_rating": 7.9,
+      "imdb_votes": 50974,
+      "letterboxd_rating": 3.9,
+      "letterboxd_votes": 16846,
+      "candidate_sources": [
+        "institutional"
+      ],
+      "institutional_strength": 2,
+      "institutional_signal": "Academy International Feature Film winner",
+      "imdb_strong_broad": true,
+      "letterboxd_strong_broad": false,
+      "routes": [
+        "corroboration"
+      ],
+      "qualified": true,
+      "evidence": [
+        "Academy International Feature Film winner",
+        "IMDb strong/broad"
       ]
     }
   ]
