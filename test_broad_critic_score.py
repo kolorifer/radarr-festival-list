@@ -49,7 +49,8 @@ class BroadCriticScoreTests(unittest.TestCase):
         self.assertFalse(row["audience_only_candidate"])
         self.assertFalse(row["qualified"])
         self.assertEqual(row["routes"], [])
-        self.assertEqual(out["mode"], "research-evidence-score-v7-audience200-broadcritics40")
+        self.assertEqual(out["mode"], "research-evidence-score-v8-audience200-broadcritics40-officialss250")
+        self.assertEqual(out["sources"]["sight_sound"]["depth"], 250)
 
 
 if __name__ == "__main__":
