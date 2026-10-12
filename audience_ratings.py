@@ -87,13 +87,19 @@ def main():
     if OUTPUT.exists():
         existing = json.loads(OUTPUT.read_text(encoding="utf-8"))
         results = existing.get("ratings", {})
+        unavailable = existing.get("unavailable", {})
     else:
         results = {}
+        unavailable = {}
 
-    pending_all = [m for m in movies if m.get("imdb_id") and m["imdb_id"] not in results]
+    pending_all = [
+        m for m in movies
+        if m.get("imdb_id") and m["imdb_id"] not in results and m["imdb_id"] not in unavailable
+    ]
     pending = pending_all[:MAX_REQUESTS_PER_RUN]
     print(f"{len(movies)} resolved movies in expanded evidence universe")
     print(f"{len(results)} already cached")
+    print(f"{len(unavailable)} known unavailable")
     print(f"{len(pending_all)} total missing; attempting at most {len(pending)} this run")
     failures = []
 
@@ -110,30 +116,41 @@ def main():
             print(f"[{index}/{len(pending)}] {movie.get('title')} ({movie.get('year')}) OK")
         except HTTPError as exc:
             print(f"[{index}/{len(pending)}] {movie.get('title')} HTTP {exc.code}")
-            failures.append({"imdb_id": imdb_id, "title": movie.get("title"), "error": f"HTTP {exc.code}"})
+            if exc.code == 404:
+                unavailable[imdb_id] = {
+                    "title": movie.get("title"),
+                    "year": movie.get("year"),
+                    "error": "HTTP 404",
+                }
+                print("Cached as unavailable; future runs will not spend another request on this ID.")
+            else:
+                failures.append({"imdb_id": imdb_id, "title": movie.get("title"), "error": f"HTTP {exc.code}"})
             if exc.code == 429:
                 print("Rate limit still active after retry; stopping cleanly.")
                 break
         except (URLError, TimeoutError) as exc:
-            print(f"[{index}/{len(pending)}] {movie.get('title')} ERROR: {exc}")
-            failures.append({"imdb_id": imdb_id, "title": movie.get("title"), "error": str(exc)})
+            print(f"[{index}/{len(pending)}] {movie.get('title')} ERROR: {type(exc).__name__}")
+            failures.append({"imdb_id": imdb_id, "title": movie.get("title"), "error": type(exc).__name__})
 
         if index % 25 == 0:
-            write_output(results, failures)
+            write_output(results, unavailable, failures)
         if index < len(pending):
             time.sleep(REQUEST_INTERVAL_SECONDS)
 
-    write_output(results, failures)
+    write_output(results, unavailable, failures)
     print(f"Ratings collected: {len(results)}")
-    print(f"Failures this run: {len(failures)}")
+    print(f"Unavailable IDs: {len(unavailable)}")
+    print(f"Transient failures this run: {len(failures)}")
 
 
-def write_output(results, failures):
+def write_output(results, unavailable, failures):
     payload = {
         "source": "ReelDB",
         "purpose": "audience-rating research; not yet part of production scoring",
         "ratings_count": len(results),
+        "unavailable_count": len(unavailable),
         "ratings": results,
+        "unavailable": unavailable,
         "failures": failures,
     }
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
