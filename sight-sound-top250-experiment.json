@@ -1,17 +1,12 @@
 {
-  "mode": "research-sight-sound-official-top250-v1",
+  "mode": "research-sight-sound-official-top250-v2-matching",
   "qualification_unchanged": true,
   "source": "BFI Sight and Sound 2022 Critics' Poll",
   "source_url": "https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time",
   "published_depth": 250,
   "official_modern_entries": 28,
-  "resolved_entries": 26,
+  "resolved_entries": 27,
   "unresolved_entries": [
-    {
-      "rank": 67,
-      "title": "The Gleaners and I",
-      "year": 2000
-    },
     {
       "rank": 136,
       "title": "La ciénaga",
@@ -26,19 +21,19 @@
       "old_qualified_retained": 131
     },
     "275": {
-      "selected": 218,
+      "selected": 219,
       "promotions_vs_old": 64,
-      "old_qualified_retained": 154
+      "old_qualified_retained": 155
     },
     "250": {
-      "selected": 273,
+      "selected": 274,
       "promotions_vs_old": 97,
-      "old_qualified_retained": 176
+      "old_qualified_retained": 177
     },
     "225": {
-      "selected": 353,
+      "selected": 354,
       "promotions_vs_old": 150,
-      "old_qualified_retained": 203
+      "old_qualified_retained": 204
     },
     "200": {
       "selected": 452,
@@ -49,16 +44,16 @@
   "controls": {
     "Melancholia": {
       "title": "Melancholia",
-      "year": 2008,
-      "imdb_id": "tt1269566",
-      "base_rank": 1424,
-      "base_score": 61.26,
-      "new_rank": 1424,
-      "new_score": 61.26,
+      "year": 2011,
+      "imdb_id": "tt1527186",
+      "base_rank": 123,
+      "base_score": 338.12,
+      "new_rank": 105,
+      "new_score": 354.63,
       "old_sight_sound": 0.0,
-      "new_sight_sound": 0.0,
-      "delta": 0.0,
-      "qualified": false
+      "new_sight_sound": 16.51,
+      "delta": 16.51,
+      "qualified": true
     },
     "Get Out": {
       "title": "Get Out",
@@ -157,7 +152,7 @@
       "imdb_id": "tt1020773",
       "base_rank": 210,
       "base_score": 280.03,
-      "new_rank": 260,
+      "new_rank": 261,
       "new_score": 255.03,
       "old_sight_sound": 25.0,
       "new_sight_sound": 0.0,
@@ -170,7 +165,7 @@
       "imdb_id": "tt6053438",
       "base_rank": 318,
       "base_score": 234.03,
-      "new_rank": 352,
+      "new_rank": 353,
       "new_score": 225.03,
       "old_sight_sound": 9.0,
       "new_sight_sound": 0.0,
@@ -183,7 +178,7 @@
       "imdb_id": "tt0377556",
       "base_rank": 566,
       "base_score": 177.15,
-      "new_rank": 315,
+      "new_rank": 316,
       "new_score": 234.61,
       "old_sight_sound": 0.0,
       "new_sight_sound": 57.46,
@@ -201,6 +196,19 @@
       "old_sight_sound": 0.0,
       "new_sight_sound": 22.47,
       "delta": 22.47,
+      "qualified": true
+    },
+    "The Gleaners & I": {
+      "title": "The Gleaners & I",
+      "year": 2000,
+      "imdb_id": "tt0247380",
+      "base_rank": 257,
+      "base_score": 257.47,
+      "new_rank": 178,
+      "new_score": 296.23,
+      "old_sight_sound": 35.0,
+      "new_sight_sound": 73.76,
+      "delta": 38.76,
       "qualified": true
     }
   },
@@ -263,7 +271,7 @@
       "imdb_id": "tt0377556",
       "base_rank": 566,
       "base_score": 177.15,
-      "new_rank": 315,
+      "new_rank": 316,
       "new_score": 234.61,
       "old_sight_sound": 0.0,
       "new_sight_sound": 57.46,
@@ -289,7 +297,7 @@
       "imdb_id": "tt0249241",
       "base_rank": 150,
       "base_score": 308.56,
-      "new_rank": 248,
+      "new_rank": 249,
       "new_score": 261.34,
       "old_sight_sound": 51.0,
       "new_sight_sound": 3.78,
@@ -310,6 +318,19 @@
       "qualified": true
     },
     {
+      "title": "The Gleaners & I",
+      "year": 2000,
+      "imdb_id": "tt0247380",
+      "base_rank": 257,
+      "base_score": 257.47,
+      "new_rank": 178,
+      "new_score": 296.23,
+      "old_sight_sound": 35.0,
+      "new_sight_sound": 73.76,
+      "delta": 38.76,
+      "qualified": true
+    },
+    {
       "title": "Tie Xi Qu: West of the Tracks",
       "year": 2002,
       "imdb_id": "tt0389448",
@@ -323,25 +344,12 @@
       "qualified": true
     },
     {
-      "title": "The Gleaners & I",
-      "year": 2000,
-      "imdb_id": "tt0247380",
-      "base_rank": 257,
-      "base_score": 257.47,
-      "new_rank": 358,
-      "new_score": 222.47,
-      "old_sight_sound": 35.0,
-      "new_sight_sound": 0.0,
-      "delta": -35.0,
-      "qualified": true
-    },
-    {
       "title": "Under the Skin",
       "year": 2013,
       "imdb_id": "tt1441395",
       "base_rank": 317,
       "base_score": 234.25,
-      "new_rank": 232,
+      "new_rank": 233,
       "new_score": 267.45,
       "old_sight_sound": 0.0,
       "new_sight_sound": 33.2,
@@ -380,7 +388,7 @@
       "imdb_id": "tt1020773",
       "base_rank": 210,
       "base_score": 280.03,
-      "new_rank": 260,
+      "new_rank": 261,
       "new_score": 255.03,
       "old_sight_sound": 25.0,
       "new_sight_sound": 0.0,
@@ -510,7 +518,7 @@
       "imdb_id": "tt13204490",
       "base_rank": 293,
       "base_score": 241.98,
-      "new_rank": 266,
+      "new_rank": 267,
       "new_score": 252.92,
       "old_sight_sound": 0.0,
       "new_sight_sound": 10.94,
@@ -536,7 +544,7 @@
       "imdb_id": "tt6053438",
       "base_rank": 318,
       "base_score": 234.03,
-      "new_rank": 352,
+      "new_rank": 353,
       "new_score": 225.03,
       "old_sight_sound": 9.0,
       "new_sight_sound": 0.0,
