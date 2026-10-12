@@ -16,6 +16,7 @@ on:
       - candidate_review_report.py
       - rating_source_audit.py
       - critical_consensus_experiment.py
+      - capped_critic_review.py
       - test_audience_discovery.py
       - test_evidence_score.py
       - test_evidence_sources.py
@@ -86,10 +87,13 @@ jobs:
       - name: Test broad critic consensus
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python critical_consensus_experiment.py
+      - name: Build capped critic review
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python capped_critic_review.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json candidate-review.md rating-source-audit.json critical-consensus-experiment.json; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
