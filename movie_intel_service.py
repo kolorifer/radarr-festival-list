@@ -1,8 +1,9 @@
 """Small HTTP service for autobrr movie rejection enrichment.
 
-Known movie rejection events are enriched. Unknown/test payloads are forwarded to
-Telegram instead of being silently ignored. Sensitive tracker fields are never
-forwarded from structured payloads. Secrets are read from environment only.
+Unknown-movie and unusual movie rejection events are enriched. Routine release-only
+rejections stay compact. Unknown/test payloads are forwarded to Telegram instead
+of being silently ignored. Sensitive tracker fields are never forwarded from
+structured payloads. Secrets are read from environment only.
 """
 import html
 import json
@@ -25,6 +26,7 @@ SENSITIVE_KEYS = {
     "download_url", "passkey", "api_key", "apikey", "token", "authorization",
     "cookie", "cookies", "password", "secret",
 }
+ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
 
 
 def _fmt_count(value):
@@ -47,6 +49,17 @@ def _rating(obj):
     return f"{score}" + (f" ({_fmt_count(count)})" if _fmt_count(count) else "")
 
 
+def _append_rejection_details(lines, rejections, release_name):
+    if rejections:
+        if len(rejections) == 1:
+            lines += ["", "<b>Radarr:</b> " + html.escape(str(rejections[0]))]
+        else:
+            lines += ["", "<b>Radarr:</b>"]
+            lines.extend("• " + html.escape(str(reason)) for reason in rejections if str(reason).strip())
+    if release_name:
+        lines.append("<b>Release:</b> " + html.escape(str(release_name)))
+
+
 def format_message(payload):
     data = payload.get("data") or {}
     release = data.get("release") or {}
@@ -55,8 +68,19 @@ def format_message(payload):
     year = release.get("year")
     rejections = result.get("rejections") or []
     category = rejection_class(rejections)
-    movie = find_local(title, year, INDEX)
+    release_name = release.get("name")
 
+    if category in ROUTINE_RELEASE_REJECTIONS:
+        # Radarr already knows the movie. The rejection is about this specific
+        # release/profile/file state, so model/cache enrichment adds noise.
+        lines = [
+            "⏭️ RELEASE REJECTED",
+            f"<b>{html.escape(str(title))}</b>" + (f" ({year})" if year else ""),
+        ]
+        _append_rejection_details(lines, rejections, release_name)
+        return "\n".join(lines)
+
+    movie = find_local(title, year, INDEX)
     heading = "❌ UNKNOWN MOVIE" if category == "unknown_movie" else "❌ RADARR REJECTED"
     lines = [heading, f"<b>{html.escape(str(title))}</b>" + (f" ({year})" if year else "")]
 
@@ -87,11 +111,7 @@ def format_message(payload):
     else:
         lines += ["", "ℹ️ Not found unambiguously in the local intelligence cache."]
 
-    if rejections:
-        lines += ["", "<b>Radarr:</b> " + html.escape("; ".join(map(str, rejections)))]
-    release_name = release.get("name")
-    if release_name:
-        lines.append("<b>Release:</b> " + html.escape(str(release_name)))
+    _append_rejection_details(lines, rejections, release_name)
     return "\n".join(lines)
 
 
@@ -176,7 +196,6 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 payload = json.loads(raw)
             except json.JSONDecodeError:
-                # Some notification-test implementations send plain text.
                 text = raw.decode("utf-8", errors="replace").strip()
                 if text:
                     send_telegram(text[:4000], parse_mode=None)
@@ -196,9 +215,6 @@ class Handler(BaseHTTPRequestHandler):
                 send_telegram(format_message(payload), parse_mode="HTML")
                 self._json(200, {"ok": True, "mode": "enriched"})
             else:
-                # Unknown/synthetic autobrr formats are still useful to see.
-                # Forward autobrr's own message verbatim when present, or a
-                # sanitized JSON representation otherwise.
                 send_telegram(passthrough_message(payload), parse_mode=None)
                 self._json(200, {"ok": True, "mode": "passthrough"})
         except Exception as exc:
