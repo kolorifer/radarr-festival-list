@@ -14,6 +14,7 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
+from urllib.parse import quote
 
 import requests
 from bs4 import BeautifulSoup
@@ -21,6 +22,8 @@ from bs4 import BeautifulSoup
 import evidence_sources as es
 
 SNAPSHOT = Path("sources/evidence-families.json")
+BACKCATALOG = Path("backcatalog-details.json")
+MAX_FILM_YEAR = 2025
 
 EXTRA_SOURCES = {
     "efa_best_film": {
@@ -75,7 +78,6 @@ def clean_text(value):
 def extract_title(cell):
     if cell is None:
         return None
-    # Film-title cells normally link the film before any ancillary references.
     for a in cell.find_all("a"):
         title = clean_text(a.get_text(" ", strip=True))
         if title:
@@ -129,19 +131,87 @@ def parse_wikipedia_award_rows(html_text, winners_only=False):
     return out
 
 
-def resolve_rows(rows, catalog):
+def canonical_ids():
+    try:
+        data = json.loads(BACKCATALOG.read_text())
+    except (OSError, json.JSONDecodeError):
+        return set()
+    return {x.get("imdb_id") for x in data.get("candidates", []) if x.get("imdb_id")}
+
+
+def local_lookup(title, year, catalog, preferred_ids):
+    """Resolve a unique local title/year, preferring the canonical TSPDT ID."""
+    key = es.norm(title)
+    hits = []
+    for iid, item in catalog.items():
+        if not item.get("title") or es.norm(item["title"]) != key:
+            continue
+        item_year = item.get("year")
+        if item_year and abs(int(item_year) - int(year)) <= 1:
+            hits.append((iid, item))
+    if len(hits) == 1:
+        return hits[0][0]
+    preferred = [iid for iid, _ in hits if iid in preferred_ids]
+    return preferred[0] if len(preferred) == 1 else None
+
+
+def strict_imdb_lookup(title, year):
+    """Resolve an exact movie suggestion and reject TV/short-form lookalikes."""
+    try:
+        data = requests.get(
+            "https://v2.sg.media-imdb.com/suggestion/x/" + quote(title) + ".json",
+            headers=es.UA,
+            timeout=20,
+        ).json()
+    except Exception:
+        return None
+
+    candidates = []
+    for item in data.get("d", []):
+        iid = item.get("id", "")
+        iy = item.get("y")
+        it = item.get("l", "")
+        if not iid.startswith("tt") or not isinstance(iy, int):
+            continue
+        if not (es.MIN_YEAR <= iy <= MAX_FILM_YEAR):
+            continue
+        if abs(iy - int(year)) > 1 or es.norm(it) != es.norm(title):
+            continue
+        kind = " ".join(str(item.get(k) or "").casefold() for k in ("q", "qid"))
+        blocked = ("tv series", "tv mini", "episode", "podcast", "video game", "music video", "short")
+        if any(token in kind for token in blocked):
+            continue
+        candidates.append((abs(iy - int(year)), iid, it, iy))
+
+    if not candidates:
+        return None
+    candidates.sort()
+    distance = candidates[0][0]
+    best = [x for x in candidates if x[0] == distance]
+    if len(best) != 1:
+        return None
+    _, iid, resolved_title, resolved_year = best[0]
+    return iid, resolved_title, resolved_year
+
+
+def resolve_rows(rows, catalog, preferred_ids=None):
+    preferred_ids = preferred_ids or set()
     resolved = []
     unresolved = []
     for row in rows:
-        iid = es.local_match(row["title"], row["year"], catalog)
+        iid = local_lookup(row["title"], row["year"], catalog, preferred_ids)
         title = row["title"]
         year = row["year"]
-        if not iid:
-            hit = es.imdb_lookup(title, year)
+        if iid:
+            local = catalog.get(iid, {})
+            title = local.get("title") or title
+            year = local.get("year") or year
+        else:
+            hit = strict_imdb_lookup(title, year)
             if hit:
                 iid, title, year = hit
                 catalog.setdefault(iid, {"imdb_id": iid, "title": title, "year": year})
-        if iid:
+        if iid and es.MIN_YEAR <= int(year) <= MAX_FILM_YEAR:
             resolved.append({**row, "imdb_id": iid, "resolved_title": title, "resolved_year": year})
         else:
             unresolved.append(row)
@@ -200,13 +270,14 @@ def augment_snapshot():
     catalog = es.build_catalog()
     for iid, row in (snapshot.get("films") or {}).items():
         catalog.setdefault(iid, {"imdb_id": iid, "title": row.get("title"), "year": row.get("year")})
+    preferred_ids = canonical_ids()
 
     resolved_by_source = {}
     unresolved = {}
     for key, spec in EXTRA_SOURCES.items():
         html = es.get_text(spec["url"])
         rows = parse_wikipedia_award_rows(html, winners_only=spec["winners_only"])
-        resolved, missing = resolve_rows(rows, catalog)
+        resolved, missing = resolve_rows(rows, catalog, preferred_ids)
         resolved_by_source[key] = resolved
         unresolved[key] = missing
 
