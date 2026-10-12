@@ -34,6 +34,7 @@ on:
       - test_sight_sound_official.py
       - test_phase_b_sources.py
       - test_score_rule_experiment.py
+      - test_hybrid_selection_experiment.py
       - phase_b_sources.py
       - requirements.txt
       - audience-ratings.json
@@ -80,7 +81,7 @@ jobs:
       - name: Test and build base evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
-          python -m unittest -v test_phase_b_sources.py test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_sight_sound_official.py test_evidence_score.py test_broad_critic_score.py test_canon_overlap_score.py test_score_rule_experiment.py
+          python -m unittest -v test_phase_b_sources.py test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_sight_sound_official.py test_evidence_score.py test_broad_critic_score.py test_canon_overlap_score.py test_score_rule_experiment.py test_hybrid_selection_experiment.py
           python evidence_score.py
       - name: Audit cached rating sources
         if: github.ref_name == 'simulation-4b-union-universe'
