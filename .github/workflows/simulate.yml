@@ -7,8 +7,11 @@ on:
     paths:
       - simulate_scoring.py
       - evidence_score.py
+      - evidence_sources.py
       - test_evidence_score.py
+      - test_evidence_sources.py
       - phase_b_sources.py
+      - requirements.txt
       - audience-ratings.json
       - sources/phase-b-institutional.json
       - .github/workflows/simulate.yml
@@ -24,9 +27,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install Phase B dependency
+      - name: Install Phase B dependencies
         if: github.ref_name == 'simulation-4b-union-universe'
-        run: python -m pip install beautifulsoup4
+        run: python -m pip install -r requirements.txt
       - name: Build Phase B institutional universe
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python phase_b_sources.py
@@ -41,15 +44,18 @@ jobs:
                   rank = r['rank'] if r['rank'] is not None else 'OUT'
                   f.write(f"{i:02d}\t{rank}\t{r['year']}\t{r['title']}\t{','.join(r['routes'])}\n")
           PY
+      - name: Build evidence-family source snapshot
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python evidence_sources.py
       - name: Test and build normalized evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
-          python -m unittest -v test_evidence_score.py
+          python -m unittest -v test_evidence_sources.py test_evidence_score.py
           python evidence_score.py
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json evidence-scores.json; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
