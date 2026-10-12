@@ -1,4 +1,8 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 
 import evidence_sources as es
 import evidence_sources_run as run
@@ -19,6 +23,20 @@ class EvidenceSourceTests(unittest.TestCase):
         self.assertEqual(rows[0]["category"], "best film")
         self.assertEqual(rows[-1]["status"], "winner")
         self.assertEqual(rows[-1]["imdb_id"], "tt2")
+
+    def test_discovery_films_enter_award_identity_catalog(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "discovery.json"
+            path.write_text(json.dumps({"films": [{
+                "imdb_id": "tt9", "title": "New Film", "year": 2024
+            }]}), encoding="utf-8")
+            with patch.object(run, "DISCOVERY", path), patch.object(run, "_ORIGINAL_BUILD_CATALOG", lambda: {
+                "tt1": {"imdb_id": "tt1", "title": "Old Film", "year": 2020}
+            }):
+                catalog = run.build_catalog_with_discovery()
+        self.assertIn("tt1", catalog)
+        self.assertEqual(catalog["tt9"]["title"], "New Film")
+        self.assertEqual(catalog["tt9"]["year"], 2024)
 
     def test_sight_sound_parser_preserves_published_position(self):
         text = """
