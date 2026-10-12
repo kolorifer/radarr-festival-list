@@ -139,12 +139,15 @@ class Handler(BaseHTTPRequestHandler):
             if length <= 0 or length > 1_000_000:
                 raise ValueError("invalid body size")
             payload = json.loads(self.rfile.read(length))
+            # autobrr's notification-test payload can be a synthetic non-movie
+            # event. A webhook sink should acknowledge valid test traffic even
+            # when there is nothing useful to notify about.
             if payload.get("event") != "action.rejected":
-                self._json(202, {"ok": True, "ignored": "event"})
+                self._json(200, {"ok": True, "ignored": "event"})
                 return
             release = ((payload.get("data") or {}).get("release") or {})
             if release.get("type") != "movie":
-                self._json(202, {"ok": True, "ignored": "not_movie"})
+                self._json(200, {"ok": True, "ignored": "not_movie"})
                 return
             send_telegram(format_message(payload))
             self._json(200, {"ok": True})
