@@ -4,8 +4,615 @@
     "bbc_21c": {
       "published_depth": 100,
       "eligible_through_year": 2016,
-      "source_url": "https://en.wikipedia.org/wiki/BBC%27s_100_Greatest_Films_of_the_21st_Century",
-      "films": []
+      "source_url": "https://pt.wikipedia.org/wiki/Os_100_melhores_filmes_do_s%C3%A9culo_XXI_segundo_a_BBC",
+      "films": [
+        {
+          "rank": 1,
+          "title": "Mulholland Dr",
+          "year": 2001,
+          "imdb_id": "tt0166924"
+        },
+        {
+          "rank": 2,
+          "title": "In the Mood for Love",
+          "year": 2000,
+          "imdb_id": "tt0118694"
+        },
+        {
+          "rank": 3,
+          "title": "There Will Be Blood",
+          "year": 2007,
+          "imdb_id": "tt0469494"
+        },
+        {
+          "rank": 4,
+          "title": "Spirited Away",
+          "year": 2001,
+          "imdb_id": "tt0245429"
+        },
+        {
+          "rank": 5,
+          "title": "Boyhood",
+          "year": 2014,
+          "imdb_id": "tt1065073"
+        },
+        {
+          "rank": 6,
+          "title": "Eternal Sunshine of the Spotless Mind",
+          "year": 2004,
+          "imdb_id": "tt0338013"
+        },
+        {
+          "rank": 7,
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304"
+        },
+        {
+          "rank": 8,
+          "title": "Yi Yi: A One and a Two",
+          "year": 2000,
+          "imdb_id": "tt0244316"
+        },
+        {
+          "rank": 9,
+          "title": "Jodaeiye Nader az Simin",
+          "year": 2011,
+          "imdb_id": "tt1832382"
+        },
+        {
+          "rank": 10,
+          "title": "No Country for Old Men",
+          "year": 2007,
+          "imdb_id": "tt0477348"
+        },
+        {
+          "rank": 11,
+          "title": "Inside Llewyn Davis",
+          "year": 2013,
+          "imdb_id": "tt2042568"
+        },
+        {
+          "rank": 12,
+          "title": "Zodiac",
+          "year": 2007,
+          "imdb_id": "tt0443706"
+        },
+        {
+          "rank": 13,
+          "title": "Children of Men",
+          "year": 2006,
+          "imdb_id": "tt0206634"
+        },
+        {
+          "rank": 14,
+          "title": "The Act of Killing",
+          "year": 2012,
+          "imdb_id": "tt2375605"
+        },
+        {
+          "rank": 15,
+          "title": "4 Meses, 3 Semanas e 2 Dias",
+          "year": 2007,
+          "imdb_id": "tt1032846"
+        },
+        {
+          "rank": 16,
+          "title": "Holy Motors",
+          "year": 2012,
+          "imdb_id": "tt2076220"
+        },
+        {
+          "rank": 17,
+          "title": "Pan's Labyrinth",
+          "year": 2006,
+          "imdb_id": "tt0457430"
+        },
+        {
+          "rank": 18,
+          "title": "Das weiße Band",
+          "year": 2009,
+          "imdb_id": "tt1149362"
+        },
+        {
+          "rank": 19,
+          "title": "Mad Max: Fury Road",
+          "year": 2015,
+          "imdb_id": "tt1392190"
+        },
+        {
+          "rank": 20,
+          "title": "Synecdoche, New York",
+          "year": 2008,
+          "imdb_id": "tt0383028"
+        },
+        {
+          "rank": 21,
+          "title": "The Grand Budapest Hotel",
+          "year": 2014,
+          "imdb_id": "tt2278388"
+        },
+        {
+          "rank": 22,
+          "title": "Lost in Translation",
+          "year": 2003,
+          "imdb_id": "tt0335266"
+        },
+        {
+          "rank": 23,
+          "title": "Caché",
+          "year": 2005,
+          "imdb_id": "tt0387898"
+        },
+        {
+          "rank": 24,
+          "title": "The Master",
+          "year": 2012,
+          "imdb_id": "tt1560747"
+        },
+        {
+          "rank": 25,
+          "title": "Memento",
+          "year": 2001,
+          "imdb_id": "tt0209144"
+        },
+        {
+          "rank": 26,
+          "title": "25th Hour",
+          "year": 2002,
+          "imdb_id": "tt0307901"
+        },
+        {
+          "rank": 27,
+          "title": "A Rede Social",
+          "year": 2010,
+          "imdb_id": "tt1285016"
+        },
+        {
+          "rank": 28,
+          "title": "Talk to Her",
+          "year": 2002,
+          "imdb_id": "tt0287467"
+        },
+        {
+          "rank": 29,
+          "title": "WALL-E",
+          "year": 2008,
+          "imdb_id": "tt0910970"
+        },
+        {
+          "rank": 30,
+          "title": "Oldboy",
+          "year": 2003,
+          "imdb_id": "tt0364569"
+        },
+        {
+          "rank": 31,
+          "title": "Margaret",
+          "year": 2011,
+          "imdb_id": "tt0466893"
+        },
+        {
+          "rank": 32,
+          "title": "Das Leben der Anderen",
+          "year": 2006,
+          "imdb_id": "tt0405094"
+        },
+        {
+          "rank": 33,
+          "title": "The Dark Knight",
+          "year": 2008,
+          "imdb_id": "tt0468569"
+        },
+        {
+          "rank": 34,
+          "title": "Saul fia",
+          "year": 2015,
+          "imdb_id": "tt3808342"
+        },
+        {
+          "rank": 35,
+          "title": "O Tigre e o Dragão",
+          "year": 2000,
+          "imdb_id": "tt0190332"
+        },
+        {
+          "rank": 36,
+          "title": "Timbuktu",
+          "year": 2014,
+          "imdb_id": "tt3409392"
+        },
+        {
+          "rank": 37,
+          "title": "Uncle Boonmee Who Can Recall His Past Lives",
+          "year": 2010,
+          "imdb_id": "tt1588895"
+        },
+        {
+          "rank": 38,
+          "title": "Cidade de Deus",
+          "year": 2002,
+          "imdb_id": "tt0317248"
+        },
+        {
+          "rank": 39,
+          "title": "O Novo Mundo",
+          "year": 2005,
+          "imdb_id": "tt0402399"
+        },
+        {
+          "rank": 40,
+          "title": "Brokeback Mountain",
+          "year": 2005,
+          "imdb_id": "tt0388795"
+        },
+        {
+          "rank": 41,
+          "title": "Inside Out",
+          "year": 2015,
+          "imdb_id": "tt2096673"
+        },
+        {
+          "rank": 42,
+          "title": "Amour",
+          "year": 2012,
+          "imdb_id": "tt1602620"
+        },
+        {
+          "rank": 43,
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186"
+        },
+        {
+          "rank": 44,
+          "title": "12 Years a Slave",
+          "year": 2013,
+          "imdb_id": "tt2024544"
+        },
+        {
+          "rank": 45,
+          "title": "La vie d'Adèle",
+          "year": 2013,
+          "imdb_id": "tt2278871"
+        },
+        {
+          "rank": 46,
+          "title": "Copie Conforme",
+          "year": 2010,
+          "imdb_id": "tt1020773"
+        },
+        {
+          "rank": 47,
+          "title": "Leviathan",
+          "year": 2014,
+          "imdb_id": "tt2802154"
+        },
+        {
+          "rank": 48,
+          "title": "Brooklyn",
+          "year": 2015,
+          "imdb_id": "tt2381111"
+        },
+        {
+          "rank": 49,
+          "title": "Adeus à Linguagem",
+          "year": 2014,
+          "imdb_id": "tt2400275"
+        },
+        {
+          "rank": 50,
+          "title": "Nie Yinniang",
+          "year": 2015,
+          "imdb_id": "tt3508840"
+        },
+        {
+          "rank": 51,
+          "title": "A Origem",
+          "year": 2010,
+          "imdb_id": "tt1375666"
+        },
+        {
+          "rank": 52,
+          "title": "Tropical Malady",
+          "year": 2004,
+          "imdb_id": "tt0381668"
+        },
+        {
+          "rank": 53,
+          "title": "Moulin Rouge!",
+          "year": 2001,
+          "imdb_id": "tt0203009"
+        },
+        {
+          "rank": 54,
+          "title": "Once Upon a Time in Anatolia",
+          "year": 2011,
+          "imdb_id": "tt1827487"
+        },
+        {
+          "rank": 55,
+          "title": "Ida",
+          "year": 2013,
+          "imdb_id": "tt2718492"
+        },
+        {
+          "rank": 56,
+          "title": "Werckmeister Harmonies",
+          "year": 2000,
+          "imdb_id": "tt0249241"
+        },
+        {
+          "rank": 57,
+          "title": "Zero Dark Thirty",
+          "year": 2012,
+          "imdb_id": "tt1790885"
+        },
+        {
+          "rank": 58,
+          "title": "Moolaadé",
+          "year": 2004,
+          "imdb_id": "tt0416991"
+        },
+        {
+          "rank": 59,
+          "title": "A History of Violence",
+          "year": 2005,
+          "imdb_id": "tt0399146"
+        },
+        {
+          "rank": 60,
+          "title": "Syndromes and a Century",
+          "year": 2006,
+          "imdb_id": "tt0477731"
+        },
+        {
+          "rank": 61,
+          "title": "Under the Skin",
+          "year": 2013,
+          "imdb_id": "tt1441395"
+        },
+        {
+          "rank": 62,
+          "title": "Inglourious Basterds",
+          "year": 2009,
+          "imdb_id": "tt0361748"
+        },
+        {
+          "rank": 63,
+          "title": "The Turin Horse",
+          "year": 2011,
+          "imdb_id": "tt1316540"
+        },
+        {
+          "rank": 64,
+          "title": "A Grande Beleza",
+          "year": 2013,
+          "imdb_id": "tt2358891"
+        },
+        {
+          "rank": 65,
+          "title": "Fish Tank",
+          "year": 2009,
+          "imdb_id": "tt1232776"
+        },
+        {
+          "rank": 66,
+          "title": "Primavera, Verão, Outono, Inverno... e Primavera",
+          "year": 2003,
+          "imdb_id": "tt0374546"
+        },
+        {
+          "rank": 67,
+          "title": "The Hurt Locker",
+          "year": 2008,
+          "imdb_id": "tt0887912"
+        },
+        {
+          "rank": 68,
+          "title": "The Royal Tenenbaums",
+          "year": 2001,
+          "imdb_id": "tt0265666"
+        },
+        {
+          "rank": 69,
+          "title": "Carol",
+          "year": 2015,
+          "imdb_id": "tt2402927"
+        },
+        {
+          "rank": 70,
+          "title": "Stories We Tell",
+          "year": 2012,
+          "imdb_id": "tt2366450"
+        },
+        {
+          "rank": 71,
+          "title": "Tabu",
+          "year": 2012,
+          "imdb_id": "tt2153963"
+        },
+        {
+          "rank": 72,
+          "title": "Only Lovers Left Alive",
+          "year": 2013,
+          "imdb_id": "tt1714915"
+        },
+        {
+          "rank": 73,
+          "title": "Before Sunset",
+          "year": 2004,
+          "imdb_id": "tt0381681"
+        },
+        {
+          "rank": 74,
+          "title": "Spring Breakers",
+          "year": 2012,
+          "imdb_id": "tt2101441"
+        },
+        {
+          "rank": 75,
+          "title": "Inherent Vice",
+          "year": 2014,
+          "imdb_id": "tt1791528"
+        },
+        {
+          "rank": 76,
+          "title": "Dogville",
+          "year": 2003,
+          "imdb_id": "tt0276919"
+        },
+        {
+          "rank": 77,
+          "title": "O Escafandro e a Borboleta (filme)",
+          "year": 2007,
+          "imdb_id": "tt0401383"
+        },
+        {
+          "rank": 78,
+          "title": "O Lobo de Wall Street",
+          "year": 2013,
+          "imdb_id": "tt0993846"
+        },
+        {
+          "rank": 79,
+          "title": "Quase Famosos",
+          "year": 2000,
+          "imdb_id": "tt0181875"
+        },
+        {
+          "rank": 80,
+          "title": "The Return",
+          "year": 2003,
+          "imdb_id": "tt0376968"
+        },
+        {
+          "rank": 81,
+          "title": "Shame",
+          "year": 2011,
+          "imdb_id": "tt1723811"
+        },
+        {
+          "rank": 82,
+          "title": "Um Homem Sério",
+          "year": 2009,
+          "imdb_id": "tt1019452"
+        },
+        {
+          "rank": 83,
+          "title": "A.I. - Inteligência Artificial",
+          "year": 2001,
+          "imdb_id": "tt0212720"
+        },
+        {
+          "rank": 84,
+          "title": "Her",
+          "year": 2013,
+          "imdb_id": "tt1798709"
+        },
+        {
+          "rank": 85,
+          "title": "Un prophète",
+          "year": 2009,
+          "imdb_id": "tt1235166"
+        },
+        {
+          "rank": 86,
+          "title": "Longe do Paraíso",
+          "year": 2002,
+          "imdb_id": "tt0297884"
+        },
+        {
+          "rank": 87,
+          "title": "Le fabuleux destin d'Amélie Poulain",
+          "year": 2001,
+          "imdb_id": "tt0211915"
+        },
+        {
+          "rank": 88,
+          "title": "Spotlight",
+          "year": 2015,
+          "imdb_id": "tt1895587"
+        },
+        {
+          "rank": 89,
+          "title": "La mujer sin cabeza",
+          "year": 2008,
+          "imdb_id": "tt1221141"
+        },
+        {
+          "rank": 90,
+          "title": "O Pianista",
+          "year": 2002,
+          "imdb_id": "tt0253474"
+        },
+        {
+          "rank": 91,
+          "title": "O Segredo dos Seus Olhos",
+          "year": 2009,
+          "imdb_id": "tt1305806"
+        },
+        {
+          "rank": 92,
+          "title": "The Assassination of Jesse James by the Coward Robert Ford",
+          "year": 2007,
+          "imdb_id": "tt0443680"
+        },
+        {
+          "rank": 93,
+          "title": "Ratatouille",
+          "year": 2007,
+          "imdb_id": "tt0382932"
+        },
+        {
+          "rank": 94,
+          "title": "Låt den rätte komma in",
+          "year": 2008,
+          "imdb_id": "tt1139797"
+        },
+        {
+          "rank": 95,
+          "title": "Moonrise Kingdom",
+          "year": 2012,
+          "imdb_id": "tt1748122"
+        },
+        {
+          "rank": 96,
+          "title": "Finding Nemo",
+          "year": 2003,
+          "imdb_id": "tt0266543"
+        },
+        {
+          "rank": 97,
+          "title": "White Material",
+          "year": 2009,
+          "imdb_id": "tt1135952"
+        },
+        {
+          "rank": 99,
+          "title": "Les glaneurs et la glaneuse",
+          "year": 2000,
+          "imdb_id": "tt0247380"
+        },
+        {
+          "rank": 100,
+          "title": "Carlos",
+          "year": 2010,
+          "imdb_id": "tt1321865"
+        },
+        {
+          "rank": 100,
+          "title": "Requiem for a Dream",
+          "year": 2000,
+          "imdb_id": "tt0180093"
+        },
+        {
+          "rank": 100,
+          "title": "Toni Erdmann",
+          "year": 2016,
+          "imdb_id": "tt4048272"
+        }
+      ]
     },
     "nyt_21c": {
       "published_depth": 100,
@@ -11552,10 +12159,6 @@
         ]
       }
     },
-    "tt3674140": {
-      "title": "The Salt of the Earth",
-      "year": 2014
-    },
     "tt2980516": {
       "title": "The Theory of Everything",
       "year": 2014,
@@ -13335,7 +13938,13 @@
     }
   },
   "unresolved_ranked": {
-    "bbc_21c": [],
+    "bbc_21c": [
+      {
+        "rank": 98,
+        "title": "Dez",
+        "year": 2002
+      }
+    ],
     "nyt_21c": [
       {
         "rank": 43,
