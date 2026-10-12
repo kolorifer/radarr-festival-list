@@ -16,25 +16,27 @@ SOURCE = Path("sources/sight-sound-2022-top250-modern.json")
 OUTPUT = Path("sight-sound-top250-experiment.json")
 
 ALIASES = {
-    "mulhollanddr": "mulhollanddrive",
-    "lacinaga": "theswamp",
-    "westofthetracks": "tiexiquwestofthetracks",
+    "mulhollanddr": ("mulhollanddrive",),
+    "thegleanersandi": ("thegleanersi",),
+    "westofthetracks": ("tiexiquwestofthetracks",),
 }
 
-CONTROLS = (
-    "Melancholia",
-    "Get Out",
-    "The Tree of Life",
-    "There Will Be Blood",
-    "Mad Max: Fury Road",
-    "Parasite",
-    "Moonlight",
-    "Caché",
-    "Certified Copy",
-    "First Reformed",
-    "Goodbye, Dragon Inn",
-    "Zama",
-)
+CONTROLS = {
+    "Melancholia": 2011,
+    "Get Out": 2017,
+    "The Tree of Life": 2011,
+    "There Will Be Blood": 2007,
+    "Mad Max: Fury Road": 2015,
+    "Parasite": 2019,
+    "Moonlight": 2016,
+    "Caché": 2005,
+    "Certified Copy": 2010,
+    "First Reformed": 2017,
+    "Goodbye, Dragon Inn": 2003,
+    "Zama": 2017,
+    "The Gleaners & I": 2000,
+    "La Ciénaga": 2001,
+}
 
 
 def norm(value):
@@ -63,14 +65,17 @@ def build_index(rows):
 
 def resolve(source_row, index):
     key = norm(source_row.get("title"))
-    key = ALIASES.get(key, key)
-    candidates = index.get(key, [])
+    keys = (key,) + ALIASES.get(key, ())
+    candidates = []
+    for candidate_key in keys:
+        candidates.extend(index.get(candidate_key, []))
     year = int(source_row.get("year") or 0)
     candidates = [
         r for r in candidates
         if not year or not str(r.get("year") or "").isdigit() or abs(int(r.get("year")) - year) <= 1
     ]
-    return candidates[0] if len(candidates) == 1 else None
+    unique = {r.get("imdb_id"): r for r in candidates if r.get("imdb_id")}
+    return next(iter(unique.values())) if len(unique) == 1 else None
 
 
 def compact(row):
@@ -87,6 +92,27 @@ def compact(row):
         "delta": row.get("sight_sound_delta"),
         "qualified": bool(row.get("qualified")),
     }
+
+
+def control_lookup(rows, title, year):
+    title_key = norm(title)
+    matches = [
+        r for r in rows
+        if norm(r.get("title")) == title_key
+        and (not str(r.get("year") or "").isdigit() or abs(int(r.get("year")) - int(year)) <= 1)
+    ]
+    if len(matches) == 1:
+        return matches[0]
+    # Some repository titles use translated/alternate names. Prefer an official
+    # Sight & Sound hit in the requested year if the display title is different.
+    matches = [
+        r for r in rows
+        if r.get("official_sight_sound_rank") is not None
+        and str(r.get("year") or "").isdigit()
+        and abs(int(r.get("year")) - int(year)) <= 1
+        and any(norm(alias) == norm(r.get("title")) for alias in ALIASES.get(title_key, ()))
+    ]
+    return matches[0] if len(matches) == 1 else None
 
 
 def main():
@@ -127,7 +153,6 @@ def main():
 
     base_top100 = {r.get("imdb_id") for r in rows[:100]}
     new_top100 = {r.get("imdb_id") for r in experimental[:100]}
-    by_title = {r.get("title"): r for r in experimental}
 
     threshold_summary = {}
     for floor in (300, 275, 250, 225, 200):
@@ -141,8 +166,14 @@ def main():
     changed = [r for r in experimental if abs(float(r.get("sight_sound_delta") or 0)) > 0.001]
     changed.sort(key=lambda r: (-abs(float(r.get("sight_sound_delta") or 0)), r.get("title") or ""))
 
+    controls = {}
+    for title, year in CONTROLS.items():
+        row = control_lookup(experimental, title, year)
+        if row:
+            controls[title] = compact(row)
+
     out = {
-        "mode": "research-sight-sound-official-top250-v1",
+        "mode": "research-sight-sound-official-top250-v2-matching",
         "qualification_unchanged": True,
         "source": source.get("source"),
         "source_url": source.get("source_url"),
@@ -152,7 +183,7 @@ def main():
         "unresolved_entries": unresolved,
         "top100_overlap_with_base": len(base_top100 & new_top100),
         "thresholds": threshold_summary,
-        "controls": {title: compact(by_title[title]) for title in CONTROLS if title in by_title},
+        "controls": controls,
         "largest_changes": [compact(r) for r in changed[:80]],
     }
     OUTPUT.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -162,7 +193,7 @@ def main():
         "unresolved": len(unresolved),
         "top100_overlap": out["top100_overlap_with_base"],
         "thresholds": threshold_summary,
-        "controls": out["controls"],
+        "controls": controls,
     }, ensure_ascii=False, separators=(",", ":")))
 
 
