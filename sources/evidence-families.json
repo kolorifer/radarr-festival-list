@@ -10,7 +10,7 @@
     "nyt_21c": {
       "published_depth": 100,
       "eligible_through_year": 2025,
-      "source_url": "https://en.wikipedia.org/wiki/NYT%27s_100_Best_Movies_of_the_21st_Century_%28June_2025%29",
+      "source_url": "https://gist.githubusercontent.com/mvark/2273ae29bfc5d7033016df4b6cebbc6d/raw/b088026b06661cadfcd5386dd13507309140bfb3/NYT-100-Best-Movies.csv",
       "films": [
         {
           "rank": 1,
@@ -33,7 +33,7 @@
         {
           "rank": 4,
           "title": "In the Mood for Love",
-          "year": 2000,
+          "year": 2001,
           "imdb_id": "tt0118694"
         },
         {
@@ -63,7 +63,7 @@
         {
           "rank": 9,
           "title": "Spirited Away",
-          "year": 2001,
+          "year": 2002,
           "imdb_id": "tt0245429"
         },
         {
@@ -116,7 +116,7 @@
         },
         {
           "rank": 18,
-          "title": "Y tu mama tambien",
+          "title": "Y tu mamá también",
           "year": 2002,
           "imdb_id": "tt0245574"
         },
@@ -265,14 +265,8 @@
           "imdb_id": "tt1560747"
         },
         {
-          "rank": 43,
-          "title": "Oldboy",
-          "year": 2003,
-          "imdb_id": "tt0364569"
-        },
-        {
           "rank": 44,
-          "title": "Once Upon a Time in Hollywood",
+          "title": "Once Upon a Time ... in Hollywood",
           "year": 2019,
           "imdb_id": "tt7131622"
         },
@@ -311,6 +305,306 @@
           "title": "Up",
           "year": 2009,
           "imdb_id": "tt1049413"
+        },
+        {
+          "rank": 51,
+          "title": "12 Years a Slave",
+          "year": 2013,
+          "imdb_id": "tt2024544"
+        },
+        {
+          "rank": 52,
+          "title": "The Favourite",
+          "year": 2018,
+          "imdb_id": "tt5083738"
+        },
+        {
+          "rank": 53,
+          "title": "Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan",
+          "year": 2006,
+          "imdb_id": "tt0443453"
+        },
+        {
+          "rank": 54,
+          "title": "Pan’s Labyrinth",
+          "year": 2006,
+          "imdb_id": "tt0457430"
+        },
+        {
+          "rank": 55,
+          "title": "Inception",
+          "year": 2010,
+          "imdb_id": "tt1375666"
+        },
+        {
+          "rank": 56,
+          "title": "Punch-Drunk Love",
+          "year": 2002,
+          "imdb_id": "tt0272338"
+        },
+        {
+          "rank": 57,
+          "title": "Best in Show",
+          "year": 2000,
+          "imdb_id": "tt0218839"
+        },
+        {
+          "rank": 58,
+          "title": "Uncut Gems",
+          "year": 2019,
+          "imdb_id": "tt5727208"
+        },
+        {
+          "rank": 59,
+          "title": "Toni Erdmann",
+          "year": 2016,
+          "imdb_id": "tt4048272"
+        },
+        {
+          "rank": 60,
+          "title": "Whiplash",
+          "year": 2014,
+          "imdb_id": "tt2582802"
+        },
+        {
+          "rank": 61,
+          "title": "Kill Bill: Vol. 1",
+          "year": 2003,
+          "imdb_id": "tt0266697"
+        },
+        {
+          "rank": 62,
+          "title": "Memento",
+          "year": 2001,
+          "imdb_id": "tt0209144"
+        },
+        {
+          "rank": 63,
+          "title": "Little Miss Sunshine",
+          "year": 2006,
+          "imdb_id": "tt0449059"
+        },
+        {
+          "rank": 64,
+          "title": "Gone Girl",
+          "year": 2014,
+          "imdb_id": "tt2267998"
+        },
+        {
+          "rank": 65,
+          "title": "Oppenheimer",
+          "year": 2023,
+          "imdb_id": "tt15398776"
+        },
+        {
+          "rank": 66,
+          "title": "Spotlight",
+          "year": 2015,
+          "imdb_id": "tt1895587"
+        },
+        {
+          "rank": 67,
+          "title": "Tár",
+          "year": 2022,
+          "imdb_id": "tt14444726"
+        },
+        {
+          "rank": 68,
+          "title": "The Hurt Locker",
+          "year": 2009,
+          "imdb_id": "tt0887912"
+        },
+        {
+          "rank": 69,
+          "title": "Under the Skin",
+          "year": 2014,
+          "imdb_id": "tt1441395"
+        },
+        {
+          "rank": 70,
+          "title": "Let the Right One In",
+          "year": 2008,
+          "imdb_id": "tt1139797"
+        },
+        {
+          "rank": 71,
+          "title": "Ocean’s Eleven",
+          "year": 2001,
+          "imdb_id": "tt0240772"
+        },
+        {
+          "rank": 72,
+          "title": "Carol",
+          "year": 2015,
+          "imdb_id": "tt2402927"
+        },
+        {
+          "rank": 73,
+          "title": "Ratatouille",
+          "year": 2007,
+          "imdb_id": "tt0382932"
+        },
+        {
+          "rank": 74,
+          "title": "The Florida Project",
+          "year": 2017,
+          "imdb_id": "tt5649144"
+        },
+        {
+          "rank": 75,
+          "title": "Amour",
+          "year": 2012,
+          "imdb_id": "tt1602620"
+        },
+        {
+          "rank": 76,
+          "title": "O Brother, Where Art Thou?",
+          "year": 2000,
+          "imdb_id": "tt0190590"
+        },
+        {
+          "rank": 77,
+          "title": "Everything Everywhere All at Once",
+          "year": 2022,
+          "imdb_id": "tt6710474"
+        },
+        {
+          "rank": 78,
+          "title": "Aftersun",
+          "year": 2022,
+          "imdb_id": "tt19770238"
+        },
+        {
+          "rank": 79,
+          "title": "The Tree of Life",
+          "year": 2011,
+          "imdb_id": "tt0478304"
+        },
+        {
+          "rank": 80,
+          "title": "Volver",
+          "year": 2006,
+          "imdb_id": "tt0441909"
+        },
+        {
+          "rank": 81,
+          "title": "Black Swan",
+          "year": 2010,
+          "imdb_id": "tt0947798"
+        },
+        {
+          "rank": 82,
+          "title": "The Act of Killing",
+          "year": 2013,
+          "imdb_id": "tt2375605"
+        },
+        {
+          "rank": 83,
+          "title": "Inside Llewyn Davis",
+          "year": 2013,
+          "imdb_id": "tt2042568"
+        },
+        {
+          "rank": 84,
+          "title": "Melancholia",
+          "year": 2011,
+          "imdb_id": "tt1527186"
+        },
+        {
+          "rank": 85,
+          "title": "Anchorman: The Legend of Ron Burgundy",
+          "year": 2004,
+          "imdb_id": "tt0357413"
+        },
+        {
+          "rank": 86,
+          "title": "Past Lives",
+          "year": 2023,
+          "imdb_id": "tt13238346"
+        },
+        {
+          "rank": 87,
+          "title": "The Lord of the Rings: The Fellowship of the Ring",
+          "year": 2001,
+          "imdb_id": "tt0120737"
+        },
+        {
+          "rank": 88,
+          "title": "The Gleaners & I",
+          "year": 2001,
+          "imdb_id": "tt0247380"
+        },
+        {
+          "rank": 89,
+          "title": "Interstellar",
+          "year": 2014,
+          "imdb_id": "tt0816692"
+        },
+        {
+          "rank": 90,
+          "title": "Frances Ha",
+          "year": 2013,
+          "imdb_id": "tt2347569"
+        },
+        {
+          "rank": 91,
+          "title": "Fish Tank",
+          "year": 2010,
+          "imdb_id": "tt1232776"
+        },
+        {
+          "rank": 92,
+          "title": "Gladiator",
+          "year": 2000,
+          "imdb_id": "tt0172495"
+        },
+        {
+          "rank": 93,
+          "title": "Michael Clayton",
+          "year": 2007,
+          "imdb_id": "tt0465538"
+        },
+        {
+          "rank": 94,
+          "title": "Minority Report",
+          "year": 2002,
+          "imdb_id": "tt0181689"
+        },
+        {
+          "rank": 95,
+          "title": "The Worst Person in the World",
+          "year": 2021,
+          "imdb_id": "tt10370710"
+        },
+        {
+          "rank": 96,
+          "title": "Black Panther",
+          "year": 2018,
+          "imdb_id": "tt1825683"
+        },
+        {
+          "rank": 97,
+          "title": "Gravity",
+          "year": 2013,
+          "imdb_id": "tt1454468"
+        },
+        {
+          "rank": 98,
+          "title": "Grizzly Man",
+          "year": 2005,
+          "imdb_id": "tt0427312"
+        },
+        {
+          "rank": 99,
+          "title": "Memories of Murder",
+          "year": 2005,
+          "imdb_id": "tt31113046"
+        },
+        {
+          "rank": 100,
+          "title": "Superbad",
+          "year": 2007,
+          "imdb_id": "tt0829482"
         }
       ]
     },
@@ -13027,6 +13321,14 @@
         ]
       }
     },
+    "tt0240772": {
+      "title": "Ocean's Eleven",
+      "year": 2001
+    },
+    "tt31113046": {
+      "title": "Making Memories of Murder",
+      "year": 2004
+    },
     "tt0209933": {
       "title": "Beau Travail",
       "year": 1999
@@ -13034,7 +13336,13 @@
   },
   "unresolved_ranked": {
     "bbc_21c": [],
-    "nyt_21c": [],
+    "nyt_21c": [
+      {
+        "rank": 43,
+        "title": "Oldboy",
+        "year": 2005
+      }
+    ],
     "sight_sound": []
   }
 }
