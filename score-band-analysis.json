@@ -1,77 +1,77 @@
 {
   "mode": "research-score-band-analysis-v1",
   "qualification_unchanged": true,
-  "film_count": 1319,
+  "film_count": 1910,
   "score_ceiling": 1000,
   "bands": {
     ">=600": {
       "count": 8,
       "qualified": 8,
       "unqualified": 0,
-      "gateway": 0,
+      "gateway": 6,
       "audience_only": 0
     },
     "500-599.99": {
       "count": 18,
       "qualified": 18,
       "unqualified": 0,
-      "gateway": 0,
+      "gateway": 14,
       "audience_only": 0
     },
     "450-499.99": {
       "count": 14,
       "qualified": 13,
       "unqualified": 1,
-      "gateway": 0,
+      "gateway": 11,
       "audience_only": 0
     },
     "400-449.99": {
       "count": 26,
       "qualified": 25,
       "unqualified": 1,
-      "gateway": 0,
+      "gateway": 17,
       "audience_only": 0
     },
     "350-399.99": {
       "count": 21,
       "qualified": 19,
       "unqualified": 2,
-      "gateway": 0,
+      "gateway": 11,
       "audience_only": 0
     },
     "300-349.99": {
       "count": 42,
       "qualified": 31,
       "unqualified": 11,
-      "gateway": 0,
+      "gateway": 22,
       "audience_only": 0
     },
     "250-299.99": {
       "count": 85,
       "qualified": 42,
       "unqualified": 43,
-      "gateway": 0,
+      "gateway": 31,
       "audience_only": 0
     },
     "200-249.99": {
       "count": 125,
       "qualified": 52,
       "unqualified": 73,
-      "gateway": 0,
+      "gateway": 46,
       "audience_only": 0
     },
     "150-199.99": {
       "count": 216,
       "qualified": 32,
       "unqualified": 184,
-      "gateway": 0,
+      "gateway": 34,
       "audience_only": 0
     },
     "100-149.99": {
       "count": 266,
       "qualified": 15,
       "unqualified": 251,
-      "gateway": 0,
+      "gateway": 1,
       "audience_only": 0
     }
   },
@@ -79,50 +79,50 @@
     "50": {
       "score_at_cutoff": 431.62,
       "qualified": 48,
-      "gateway": 0
+      "gateway": 37
     },
     "100": {
       "score_at_cutoff": 334.08,
       "qualified": 92,
-      "gateway": 0
+      "gateway": 67
     },
     "150": {
       "score_at_cutoff": 285.11,
       "qualified": 125,
-      "gateway": 0
+      "gateway": 92
     },
     "200": {
       "score_at_cutoff": 256.16,
       "qualified": 151,
-      "gateway": 0
+      "gateway": 106
     },
     "250": {
       "score_at_cutoff": 233.19,
       "qualified": 171,
-      "gateway": 0
+      "gateway": 122
     },
     "300": {
       "score_at_cutoff": 211.37,
       "qualified": 194,
-      "gateway": 0
+      "gateway": 146
     },
     "400": {
       "score_at_cutoff": 184.67,
       "qualified": 222,
-      "gateway": 0
+      "gateway": 164
     },
     "500": {
       "score_at_cutoff": 160.9,
       "qualified": 234,
-      "gateway": 0
+      "gateway": 186
     }
   },
   "discovery": {
-    "seeds": 0,
-    "gateway_pass": 0,
-    "gateway_with_non_audience_evidence": 0,
+    "seeds": 1047,
+    "gateway_pass": 193,
+    "gateway_with_non_audience_evidence": 193,
     "gateway_audience_only": 0,
-    "incomplete_three_source_audience": 0,
+    "incomplete_three_source_audience": 592,
     "top_gateway_audience_only": []
   },
   "high_score_unqualified": [
@@ -139,14 +139,15 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 60.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -169,7 +170,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -192,7 +194,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -208,14 +211,15 @@
         "letterboxd_audience": 69.23,
         "trakt_audience": 90.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -238,7 +242,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -261,7 +266,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -284,7 +290,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -300,14 +307,15 @@
         "letterboxd_audience": 76.92,
         "trakt_audience": 67.12
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -330,7 +338,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -353,7 +362,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -369,14 +379,15 @@
         "letterboxd_audience": 76.92,
         "trakt_audience": 70.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -392,14 +403,15 @@
         "letterboxd_audience": 69.23,
         "trakt_audience": 60.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -422,7 +434,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -444,7 +457,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -467,7 +481,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -490,7 +505,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -512,7 +528,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -528,14 +545,15 @@
         "letterboxd_audience": 69.23,
         "trakt_audience": 80.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -557,7 +575,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -596,14 +615,15 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 80.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -642,14 +662,15 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 65.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -672,7 +693,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -695,7 +717,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -718,7 +741,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -741,7 +765,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -786,7 +811,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -802,13 +828,14 @@
         "letterboxd_audience": 92.31,
         "trakt_audience": 61.47
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -830,7 +857,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -875,7 +903,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -921,7 +950,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -943,7 +973,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1033,7 +1064,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1056,7 +1088,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1079,7 +1112,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1100,7 +1134,8 @@
       "qualified": false,
       "routes": [],
       "sources": [
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1122,7 +1157,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1144,7 +1180,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1167,7 +1204,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1212,7 +1250,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1235,7 +1274,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1273,13 +1313,14 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 66.06
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1302,7 +1343,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1325,7 +1367,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1341,13 +1384,14 @@
         "letterboxd_audience": 69.23,
         "trakt_audience": 85.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1370,7 +1414,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1393,7 +1438,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1416,7 +1462,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1439,7 +1486,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1461,7 +1509,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1484,7 +1533,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1506,7 +1556,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1529,7 +1580,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1574,7 +1626,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1642,7 +1695,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1687,7 +1741,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1710,7 +1765,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1733,7 +1789,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1802,7 +1859,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1871,7 +1929,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1909,13 +1968,14 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 59.59
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1953,13 +2013,14 @@
         "letterboxd_audience": 61.54,
         "trakt_audience": 75.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -1982,7 +2043,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2004,7 +2066,8 @@
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2042,13 +2105,14 @@
         "letterboxd_audience": 76.92,
         "trakt_audience": 80.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2070,7 +2134,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2086,14 +2151,15 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 66.75
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2116,7 +2182,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2161,7 +2228,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2177,13 +2245,14 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 69.55
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2243,13 +2312,14 @@
         "letterboxd_audience": 69.23,
         "trakt_audience": 65.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2271,7 +2341,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2293,7 +2364,8 @@
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2337,7 +2409,8 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2359,7 +2432,8 @@
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2375,13 +2449,14 @@
         "letterboxd_audience": 100.0,
         "trakt_audience": 44.14
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": false,
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     }
   ],
@@ -2479,7 +2554,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2744,7 +2820,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2840,7 +2917,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2936,7 +3014,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -2976,7 +3055,7 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 70.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -2984,7 +3063,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3048,7 +3128,7 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 85.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3056,7 +3136,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3072,7 +3153,7 @@
         "letterboxd_audience": 92.31,
         "trakt_audience": 90.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3080,7 +3161,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3096,7 +3178,7 @@
         "letterboxd_audience": 76.92,
         "trakt_audience": 60.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3104,7 +3186,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3120,7 +3203,7 @@
         "letterboxd_audience": 100.0,
         "trakt_audience": 60.66
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3128,7 +3211,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3169,7 +3253,7 @@
         "letterboxd_audience": 86.73,
         "trakt_audience": 53.03
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3177,7 +3261,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3193,7 +3278,7 @@
         "letterboxd_audience": 76.92,
         "trakt_audience": 85.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3201,7 +3286,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3265,7 +3351,7 @@
         "letterboxd_audience": 92.31,
         "trakt_audience": 62.36
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3273,7 +3359,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3297,7 +3384,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3321,7 +3409,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3370,7 +3459,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3419,7 +3509,8 @@
       "sources": [
         "tspdt",
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3483,7 +3574,7 @@
         "letterboxd_audience": 69.23,
         "trakt_audience": 63.76
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3491,7 +3582,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     {
@@ -3507,7 +3599,7 @@
         "letterboxd_audience": 69.23,
         "trakt_audience": 75.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3515,7 +3607,8 @@
       ],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     }
   ],
@@ -3533,7 +3626,7 @@
         "letterboxd_audience": 84.62,
         "trakt_audience": 70.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3541,10 +3634,31 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
-    "Dune: Part Two": null,
+    "Dune: Part Two": {
+      "rank": 1047,
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "imdb_id": "tt15239678",
+      "score": 63.33,
+      "eligible_max": 800,
+      "audience": 63.33,
+      "audience_raw": {
+        "imdb_audience": 95.0,
+        "letterboxd_audience": 0.0,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": false,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "audience_discovery"
+      ]
+    },
     "Ex Machina": {
       "rank": 416,
       "title": "Ex Machina",
@@ -3558,7 +3672,7 @@
         "letterboxd_audience": 76.92,
         "trakt_audience": 60.0
       },
-      "gateway": false,
+      "gateway": true,
       "non_audience": true,
       "qualified": true,
       "routes": [
@@ -3566,7 +3680,8 @@
       ],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     "La Commune (Paris, 1871)": {
@@ -3632,7 +3747,8 @@
       "routes": [],
       "sources": [
         "institutional",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
     "Scott Pilgrim vs. the World": {
@@ -3654,11 +3770,72 @@
       "routes": [],
       "sources": [
         "tspdt",
-        "evidence_snapshot"
+        "evidence_snapshot",
+        "audience_discovery"
       ]
     },
-    "Tenet": null,
-    "The Batman": null,
-    "The Machinist": null
+    "Tenet": {
+      "rank": 1743,
+      "title": "Tenet",
+      "year": 2020,
+      "imdb_id": "tt6723592",
+      "score": 26.67,
+      "eligible_max": 900,
+      "audience": 26.67,
+      "audience_raw": {
+        "imdb_audience": 40.0,
+        "letterboxd_audience": 0.0,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": false,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "audience_discovery"
+      ]
+    },
+    "The Batman": {
+      "rank": 1317,
+      "title": "The Batman",
+      "year": 2022,
+      "imdb_id": "tt1877830",
+      "score": 43.33,
+      "eligible_max": 900,
+      "audience": 43.33,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 0.0,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": false,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "audience_discovery"
+      ]
+    },
+    "The Machinist": {
+      "rank": 1484,
+      "title": "The Machinist",
+      "year": 2004,
+      "imdb_id": "tt0361862",
+      "score": 36.67,
+      "eligible_max": 1000,
+      "audience": 36.67,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 0.0,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": false,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "audience_discovery"
+      ]
+    }
   }
 }
