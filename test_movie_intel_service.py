@@ -31,4 +31,15 @@ class Tests(unittest.TestCase):
   self.assertIn('POTENTIAL FALSE NEGATIVE',text)
   self.assertIn('convergence',text)
 
+ def test_topic_id_is_added_as_message_thread_id(self):
+  with patch.object(svc,'TELEGRAM_CHAT_ID','-100123'), patch.object(svc,'TELEGRAM_TOPIC_ID','42'):
+   body=svc._telegram_payload('hello')
+  self.assertEqual(body['message_thread_id'],42)
+  self.assertEqual(body['chat_id'],'-100123')
+
+ def test_topic_is_optional(self):
+  with patch.object(svc,'TELEGRAM_CHAT_ID','-100123'), patch.object(svc,'TELEGRAM_TOPIC_ID',''):
+   body=svc._telegram_payload('hello')
+  self.assertNotIn('message_thread_id',body)
+
 if __name__=='__main__':unittest.main()
