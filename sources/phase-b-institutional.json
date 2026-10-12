@@ -1333,6 +1333,17 @@
       "resolved_year": 2006
     },
     {
+      "title": "Water",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0452637",
+      "resolved_title": "Lady in the Water",
+      "resolved_year": 2006
+    },
+    {
       "title": "Atonement",
       "year": 2007,
       "signals": [
@@ -3148,6 +3159,17 @@
       "institutional_strength": 1,
       "imdb_id": "tt2084970",
       "resolved_title": "The Imitation Game",
+      "resolved_year": 2014
+    },
+    {
+      "title": "The Salt of the Earth",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3674140",
+      "resolved_title": "The Salt of the Earth",
       "resolved_year": 2014
     },
     {
@@ -5497,14 +5519,6 @@
       "institutional_strength": 1
     },
     {
-      "title": "Water",
-      "year": 2006,
-      "signals": [
-        "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1
-    },
-    {
       "title": "War/Dance",
       "year": 2007,
       "signals": [
@@ -5533,14 +5547,6 @@
       "year": 2012,
       "signals": [
         "Academy International Feature Film nominee"
-      ],
-      "institutional_strength": 1
-    },
-    {
-      "title": "The Salt of the Earth",
-      "year": 2014,
-      "signals": [
-        "Academy Documentary Feature Film nominee"
       ],
       "institutional_strength": 1
     },
