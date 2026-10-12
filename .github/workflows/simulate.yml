@@ -8,6 +8,7 @@ on:
       - simulate_scoring.py
       - evidence_score.py
       - evidence_sources.py
+      - evidence_sources_run.py
       - test_evidence_score.py
       - test_evidence_sources.py
       - phase_b_sources.py
@@ -46,7 +47,7 @@ jobs:
           PY
       - name: Build evidence-family source snapshot
         if: github.ref_name == 'simulation-4b-union-universe'
-        run: python evidence_sources.py
+        run: python evidence_sources_run.py
       - name: Test and build normalized evidence scores
         if: github.ref_name == 'simulation-4b-union-universe'
         run: |
