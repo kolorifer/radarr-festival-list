@@ -1,0 +1,4 @@
+tmdb-cache.json
+.env
+__pycache__/
+*.pyc
