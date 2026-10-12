@@ -14339,9 +14339,3159 @@
         ]
       }
     },
+    "tt1345836": {
+      "title": "The Dark Knight Rises",
+      "year": 2012
+    },
+    "tt0372784": {
+      "title": "Batman Begins",
+      "year": 2005
+    },
+    "tt1130884": {
+      "title": "Shutter Island",
+      "year": 2010
+    },
+    "tt0848228": {
+      "title": "The Avengers",
+      "year": 2012
+    },
+    "tt4154796": {
+      "title": "Avengers: Endgame",
+      "year": 2019
+    },
+    "tt4154756": {
+      "title": "Avengers: Infinity War",
+      "year": 2018
+    },
+    "tt2015381": {
+      "title": "Guardians of the Galaxy",
+      "year": 2014
+    },
+    "tt0325980": {
+      "title": "Pirates of the Caribbean: The Curse of the Black Pearl",
+      "year": 2003
+    },
+    "tt1431045": {
+      "title": "Deadpool",
+      "year": 2016,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt0434409": {
+      "title": "V for Vendetta",
+      "year": 2005
+    },
+    "tt0371746": {
+      "title": "Iron Man",
+      "year": 2008
+    },
+    "tt1392170": {
+      "title": "The Hunger Games",
+      "year": 2012
+    },
+    "tt10872600": {
+      "title": "Spider-Man: No Way Home",
+      "year": 2021
+    },
+    "tt1201607": {
+      "title": "Harry Potter and the Deathly Hallows: Part 2",
+      "year": 2011
+    },
+    "tt1675434": {
+      "title": "The Intouchables",
+      "year": 2011,
+      "family_scores": {
+        "european_recognition": 27.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)",
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt2488496": {
+      "title": "Star Wars: Episode VII - The Force Awakens",
+      "year": 2015
+    },
+    "tt2395427": {
+      "title": "Avengers: Age of Ultron",
+      "year": 2015
+    },
+    "tt1843866": {
+      "title": "Captain America: The Winter Soldier",
+      "year": 2014
+    },
+    "tt0241527": {
+      "title": "Harry Potter and the Sorcerer's Stone",
+      "year": 2001
+    },
+    "tt1392214": {
+      "title": "Prisoners",
+      "year": 2013
+    },
+    "tt1877830": {
+      "title": "The Batman",
+      "year": 2022
+    },
+    "tt3498820": {
+      "title": "Captain America: Civil War",
+      "year": 2016
+    },
+    "tt1119646": {
+      "title": "The Hangover",
+      "year": 2009
+    },
+    "tt3315342": {
+      "title": "Logan",
+      "year": 2017
+    },
+    "tt0903624": {
+      "title": "The Hobbit: An Unexpected Journey",
+      "year": 2012
+    },
+    "tt0416449": {
+      "title": "300",
+      "year": 2006
+    },
+    "tt3501632": {
+      "title": "Thor: Ragnarok",
+      "year": 2017
+    },
+    "tt1211837": {
+      "title": "Doctor Strange",
+      "year": 2016
+    },
+    "tt0480249": {
+      "title": "I Am Legend",
+      "year": 2007
+    },
+    "tt3896198": {
+      "title": "Guardians of the Galaxy: Vol. 2",
+      "year": 2017
+    },
+    "tt2250912": {
+      "title": "Spider-Man: Homecoming",
+      "year": 2017
+    },
+    "tt0383574": {
+      "title": "Pirates of the Caribbean: Dead Man's Chest",
+      "year": 2006
+    },
+    "tt1877832": {
+      "title": "X-Men: Days of Future Past",
+      "year": 2014
+    },
+    "tt15239678": {
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 75.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt0478970": {
+      "title": "Ant-Man",
+      "year": 2015
+    },
+    "tt2802144": {
+      "title": "Kingsman: The Secret Service",
+      "year": 2014
+    },
+    "tt1951264": {
+      "title": "The Hunger Games: Catching Fire",
+      "year": 2013
+    },
+    "tt1074638": {
+      "title": "Skyfall",
+      "year": 2012
+    },
+    "tt1670345": {
+      "title": "Now You See Me",
+      "year": 2013
+    },
+    "tt0295297": {
+      "title": "Harry Potter and the Chamber of Secrets",
+      "year": 2002
+    },
+    "tt1270798": {
+      "title": "X-Men: First Class",
+      "year": 2011
+    },
+    "tt3748528": {
+      "title": "Rogue One: A Star Wars Story",
+      "year": 2016
+    },
+    "tt0330373": {
+      "title": "Harry Potter and the Goblet of Fire",
+      "year": 2005
+    },
+    "tt1170358": {
+      "title": "The Hobbit: The Desolation of Smaug",
+      "year": 2013
+    },
+    "tt5463162": {
+      "title": "Deadpool 2",
+      "year": 2018
+    },
+    "tt0449088": {
+      "title": "Pirates of the Caribbean: At World's End",
+      "year": 2007
+    },
+    "tt0373889": {
+      "title": "Harry Potter and the Order of the Phoenix",
+      "year": 2007
+    },
+    "tt6723592": {
+      "title": "Tenet",
+      "year": 2020
+    },
+    "tt0988045": {
+      "title": "Sherlock Holmes",
+      "year": 2009
+    },
+    "tt1396484": {
+      "title": "It",
+      "year": 2017
+    },
+    "tt0120903": {
+      "title": "X-Men",
+      "year": 2000
+    },
+    "tt0162222": {
+      "title": "Cast Away",
+      "year": 2000
+    },
+    "tt3890160": {
+      "title": "Baby Driver",
+      "year": 2017
+    },
     "tt0240772": {
       "title": "Ocean's Eleven",
       "year": 2001
+    },
+    "tt6320628": {
+      "title": "Spider-Man: Far from Home",
+      "year": 2019
+    },
+    "tt0936501": {
+      "title": "Taken",
+      "year": 2008
+    },
+    "tt0234215": {
+      "title": "The Matrix Reloaded",
+      "year": 2003
+    },
+    "tt0926084": {
+      "title": "Harry Potter and the Deathly Hallows: Part 1",
+      "year": 2010
+    },
+    "tt1156398": {
+      "title": "Zombieland",
+      "year": 2009
+    },
+    "tt0417741": {
+      "title": "Harry Potter and the Half-Blood Prince",
+      "year": 2009
+    },
+    "tt6644200": {
+      "title": "A Quiet Place",
+      "year": 2018
+    },
+    "tt1232829": {
+      "title": "21 Jump Street",
+      "year": 2012
+    },
+    "tt1219289": {
+      "title": "Limitless",
+      "year": 2011
+    },
+    "tt0332452": {
+      "title": "Troy",
+      "year": 2004
+    },
+    "tt1343092": {
+      "title": "The Great Gatsby",
+      "year": 2013
+    },
+    "tt1323594": {
+      "title": "Despicable Me",
+      "year": 2010
+    },
+    "tt0796366": {
+      "title": "Star Trek",
+      "year": 2009
+    },
+    "tt1457767": {
+      "title": "The Conjuring",
+      "year": 2013
+    },
+    "tt0454921": {
+      "title": "The Pursuit of Happyness",
+      "year": 2006
+    },
+    "tt4972582": {
+      "title": "Split",
+      "year": 2016
+    },
+    "tt0450259": {
+      "title": "Blood Diamond",
+      "year": 2006
+    },
+    "tt1570728": {
+      "title": "Crazy, Stupid, Love.",
+      "year": 2011
+    },
+    "tt2310332": {
+      "title": "The Hobbit: The Battle of the Five Armies",
+      "year": 2014
+    },
+    "tt1250777": {
+      "title": "Kick-Ass",
+      "year": 2010
+    },
+    "tt0258463": {
+      "title": "The Bourne Identity",
+      "year": 2002
+    },
+    "tt0290334": {
+      "title": "X2: X-Men United",
+      "year": 2003
+    },
+    "tt2713180": {
+      "title": "Fury",
+      "year": 2014
+    },
+    "tt0409459": {
+      "title": "Watchmen",
+      "year": 2009
+    },
+    "tt1318514": {
+      "title": "Rise of the Planet of the Apes",
+      "year": 2011
+    },
+    "tt1659337": {
+      "title": "The Perks of Being a Wallflower",
+      "year": 2012,
+      "family_scores": {
+        "independent_cinema": 30.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Spirit: independent spirit award / best first feature (winner)"
+        ]
+      }
+    },
+    "tt6263850": {
+      "title": "Deadpool & Wolverine",
+      "year": 2024
+    },
+    "tt0945513": {
+      "title": "Source Code",
+      "year": 2011
+    },
+    "tt4425200": {
+      "title": "John Wick: Chapter 2",
+      "year": 2017
+    },
+    "tt10811166": {
+      "title": "The Kashmir Files",
+      "year": 2022
+    },
+    "tt12042730": {
+      "title": "Project Hail Mary",
+      "year": 2026
+    },
+    "tt1229238": {
+      "title": "Mission: Impossible - Ghost Protocol",
+      "year": 2011
+    },
+    "tt1979320": {
+      "title": "Rush",
+      "year": 2013,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt0289879": {
+      "title": "The Butterfly Effect",
+      "year": 2004
+    },
+    "tt0398286": {
+      "title": "Tangled",
+      "year": 2010
+    },
+    "tt1677720": {
+      "title": "Ready Player One",
+      "year": 2018
+    },
+    "tt12593682": {
+      "title": "Bullet Train",
+      "year": 2022
+    },
+    "tt3183660": {
+      "title": "Fantastic Beasts and Where to Find Them",
+      "year": 2016
+    },
+    "tt0362227": {
+      "title": "The Terminal",
+      "year": 2004
+    },
+    "tt1568346": {
+      "title": "The Girl with the Dragon Tattoo",
+      "year": 2011
+    },
+    "tt1291584": {
+      "title": "Warrior",
+      "year": 2011
+    },
+    "tt31193180": {
+      "title": "Sinners",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 25.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ]
+      }
+    },
+    "tt0139654": {
+      "title": "Training Day",
+      "year": 2001
+    },
+    "tt33764258": {
+      "title": "The Odyssey",
+      "year": 2026
+    },
+    "tt0372183": {
+      "title": "The Bourne Supremacy",
+      "year": 2004
+    },
+    "tt0387564": {
+      "title": "Saw",
+      "year": 2004
+    },
+    "tt2103281": {
+      "title": "Dawn of the Planet of the Apes",
+      "year": 2014
+    },
+    "tt1408101": {
+      "title": "Star Trek Into Darkness",
+      "year": 2013
+    },
+    "tt0325710": {
+      "title": "The Last Samurai",
+      "year": 2003
+    },
+    "tt1515091": {
+      "title": "Sherlock Holmes: A Game of Shadows",
+      "year": 2011
+    },
+    "tt9376612": {
+      "title": "Shang-Chi and the Legend of the Ten Rings",
+      "year": 2021
+    },
+    "tt2382320": {
+      "title": "No Time to Die",
+      "year": 2021
+    },
+    "tt0765429": {
+      "title": "American Gangster",
+      "year": 2007,
+      "family_scores": {
+        "european_recognition": 25.0,
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt1187043": {
+      "title": "3 Idiots",
+      "year": 2009
+    },
+    "tt6791350": {
+      "title": "Guardians of the Galaxy Vol. 3",
+      "year": 2023
+    },
+    "tt6146586": {
+      "title": "John Wick: Chapter 3 - Parabellum",
+      "year": 2019
+    },
+    "tt12361974": {
+      "title": "Zack Snyder's Justice League",
+      "year": 2021
+    },
+    "tt0455944": {
+      "title": "The Equalizer",
+      "year": 2014
+    },
+    "tt8367814": {
+      "title": "The Gentlemen",
+      "year": 2019
+    },
+    "tt17526714": {
+      "title": "The Substance",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 22.0,
+        "independent_cinema": 20.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)",
+          "European Film Awards Best Film (nominee)"
+        ],
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (nominee)"
+        ]
+      }
+    },
+    "tt6334354": {
+      "title": "The Suicide Squad",
+      "year": 2021
+    },
+    "tt0840361": {
+      "title": "The Town",
+      "year": 2010
+    },
+    "tt30144839": {
+      "title": "One Battle After Another",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 100.0,
+        "european_recognition": 50.0,
+        "independent_cinema": 35.0,
+        "critics_groups_consensus": 100.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (winner)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (winner)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (winner)"
+        ],
+        "independent_cinema": [
+          "Gotham Best Feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "NSFC Best Picture (winner)",
+          "NYFCC Best Film (winner)",
+          "LAFCA Best Film (winner)"
+        ]
+      }
+    },
+    "tt2381249": {
+      "title": "Mission: Impossible - Rogue Nation",
+      "year": 2015
+    },
+    "tt0361862": {
+      "title": "The Machinist",
+      "year": 2004
+    },
+    "tt2194499": {
+      "title": "About Time",
+      "year": 2013
+    },
+    "tt1596343": {
+      "title": "Fast Five",
+      "year": 2011
+    },
+    "tt1453405": {
+      "title": "Monsters University",
+      "year": 2013
+    },
+    "tt0454848": {
+      "title": "Inside Man",
+      "year": 2006
+    },
+    "tt2582846": {
+      "title": "The Fault in Our Stars",
+      "year": 2014
+    },
+    "tt3799694": {
+      "title": "The Nice Guys",
+      "year": 2016
+    },
+    "tt4912910": {
+      "title": "Mission: Impossible - Fallout",
+      "year": 2018
+    },
+    "tt10366206": {
+      "title": "John Wick: Chapter 4",
+      "year": 2023
+    },
+    "tt26581740": {
+      "title": "Weapons",
+      "year": 2025
+    },
+    "tt0443543": {
+      "title": "The Illusionist",
+      "year": 2006
+    },
+    "tt5311514": {
+      "title": "Your Name.",
+      "year": 2016
+    },
+    "tt7888964": {
+      "title": "Nobody",
+      "year": 2021
+    },
+    "tt2140479": {
+      "title": "The Accountant",
+      "year": 2016
+    },
+    "tt1907668": {
+      "title": "Flight",
+      "year": 2012
+    },
+    "tt37287335": {
+      "title": "Obsession",
+      "year": 2025
+    },
+    "tt16311594": {
+      "title": "F1: The Movie",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 65.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)"
+        ]
+      }
+    },
+    "tt0395169": {
+      "title": "Hotel Rwanda",
+      "year": 2004,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt1179933": {
+      "title": "10 Cloverfield Lane",
+      "year": 2016
+    },
+    "tt0822854": {
+      "title": "Shooter",
+      "year": 2007
+    },
+    "tt0359950": {
+      "title": "The Secret Life of Walter Mitty",
+      "year": 2013
+    },
+    "tt0462538": {
+      "title": "The Simpsons Movie",
+      "year": 2007
+    },
+    "tt0238380": {
+      "title": "Equilibrium",
+      "year": 2002
+    },
+    "tt1707386": {
+      "title": "Les Misérables",
+      "year": 2012,
+      "family_scores": {
+        "us_institutional": 65.0,
+        "european_recognition": 25.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ]
+      }
+    },
+    "tt0399295": {
+      "title": "Lord of War",
+      "year": 2005
+    },
+    "tt0320661": {
+      "title": "Kingdom of Heaven",
+      "year": 2005
+    },
+    "tt1638355": {
+      "title": "The Man from U.N.C.L.E.",
+      "year": 2015
+    },
+    "tt1306980": {
+      "title": "50/50",
+      "year": 2011,
+      "family_scores": {
+        "independent_cinema": 20.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (nominee)"
+        ]
+      }
+    },
+    "tt0298203": {
+      "title": "8 Mile",
+      "year": 2002
+    },
+    "tt1485796": {
+      "title": "The Greatest Showman",
+      "year": 2017,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt0381849": {
+      "title": "3:10 to Yuma",
+      "year": 2007
+    },
+    "tt9243946": {
+      "title": "El Camino",
+      "year": 2019
+    },
+    "tt0278504": {
+      "title": "Insomnia",
+      "year": 2002
+    },
+    "tt3065204": {
+      "title": "The Conjuring 2",
+      "year": 2016
+    },
+    "tt1197624": {
+      "title": "Law Abiding Citizen",
+      "year": 2009
+    },
+    "tt1028532": {
+      "title": "Hachi: A Dog's Tale",
+      "year": 2009
+    },
+    "tt2674426": {
+      "title": "Me Before You",
+      "year": 2016
+    },
+    "tt0425210": {
+      "title": "Lucky Number Slevin",
+      "year": 2006
+    },
+    "tt2397535": {
+      "title": "Predestination",
+      "year": 2014
+    },
+    "tt1312221": {
+      "title": "Frankenstein",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "european_recognition": [
+          "Venice: golden lion / best film (nominee)"
+        ]
+      }
+    },
+    "tt22084616": {
+      "title": "Spider-Man: Brand New Day",
+      "year": 2026
+    },
+    "tt2277860": {
+      "title": "Finding Dory",
+      "year": 2016
+    },
+    "tt9603212": {
+      "title": "Mission: Impossible - Dead Reckoning Part One",
+      "year": 2023
+    },
+    "tt0121164": {
+      "title": "Corpse Bride",
+      "year": 2005,
+      "family_scores": {
+        "us_institutional": 30.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film of the year (nominee)"
+        ]
+      }
+    },
+    "tt1001526": {
+      "title": "Megamind",
+      "year": 2010
+    },
+    "tt3450958": {
+      "title": "War for the Planet of the Apes",
+      "year": 2017
+    },
+    "tt8332922": {
+      "title": "A Quiet Place Part II",
+      "year": 2020
+    },
+    "tt12037194": {
+      "title": "Furiosa: A Mad Max Saga",
+      "year": 2024
+    },
+    "tt0814314": {
+      "title": "Seven Pounds",
+      "year": 2008
+    },
+    "tt0437086": {
+      "title": "Alita: Battle Angel",
+      "year": 2019
+    },
+    "tt3263904": {
+      "title": "Sully",
+      "year": 2016
+    },
+    "tt1091191": {
+      "title": "Lone Survivor",
+      "year": 2013
+    },
+    "tt5362988": {
+      "title": "Wind River",
+      "year": 2017
+    },
+    "tt0379786": {
+      "title": "Serenity",
+      "year": 2005
+    },
+    "tt0187393": {
+      "title": "The Patriot",
+      "year": 2000
+    },
+    "tt0289765": {
+      "title": "Red Dragon",
+      "year": 2002
+    },
+    "tt0452623": {
+      "title": "Gone Baby Gone",
+      "year": 2007
+    },
+    "tt1817273": {
+      "title": "The Place Beyond the Pines",
+      "year": 2012
+    },
+    "tt13833688": {
+      "title": "The Whale",
+      "year": 2022,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Venice: golden lion / best film (nominee)"
+        ]
+      }
+    },
+    "tt28607951": {
+      "title": "Anora",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 100.0,
+        "european_recognition": 95.0,
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (winner)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)",
+          "Cannes: palme d'or / palme d'or (winner)"
+        ],
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (winner)",
+          "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "LAFCA Best Film (winner)"
+        ]
+      }
+    },
+    "tt3040964": {
+      "title": "The Jungle Book",
+      "year": 2016
+    },
+    "tt3228774": {
+      "title": "Cruella",
+      "year": 2021
+    },
+    "tt0486655": {
+      "title": "Stardust",
+      "year": 2007
+    },
+    "tt0309698": {
+      "title": "Identity",
+      "year": 2003
+    },
+    "tt1855199": {
+      "title": "End of Watch",
+      "year": 2012
+    },
+    "tt0215750": {
+      "title": "Enemy at the Gates",
+      "year": 2001
+    },
+    "tt0363547": {
+      "title": "Dawn of the Dead",
+      "year": 2004
+    },
+    "tt0448134": {
+      "title": "Sunshine",
+      "year": 2007
+    },
+    "tt0221027": {
+      "title": "Blow",
+      "year": 2001
+    },
+    "tt20215234": {
+      "title": "Conclave",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 50.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (winner)"
+        ]
+      }
+    },
+    "tt1798684": {
+      "title": "Southpaw",
+      "year": 2015
+    },
+    "tt0358273": {
+      "title": "Walk the Line",
+      "year": 2005
+    },
+    "tt0396171": {
+      "title": "Perfume: The Story of a Murderer",
+      "year": 2006
+    },
+    "tt2906216": {
+      "title": "Dungeons & Dragons: Honor Among Thieves",
+      "year": 2023
+    },
+    "tt0914798": {
+      "title": "The Boy in the Striped Pajamas",
+      "year": 2008
+    },
+    "tt1032755": {
+      "title": "RocknRolla",
+      "year": 2008
+    },
+    "tt0824747": {
+      "title": "Changeling",
+      "year": 2008,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
+    },
+    "tt0825232": {
+      "title": "The Bucket List",
+      "year": 2007
+    },
+    "tt0898367": {
+      "title": "The Road",
+      "year": 2009
+    },
+    "tt1189340": {
+      "title": "The Lincoln Lawyer",
+      "year": 2011
+    },
+    "tt1649419": {
+      "title": "The Impossible",
+      "year": 2012
+    },
+    "tt1212450": {
+      "title": "Lawless",
+      "year": 2012,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
+    },
+    "tt5580036": {
+      "title": "I, Tonya",
+      "year": 2017,
+      "family_scores": {
+        "us_institutional": 10.0,
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt14364480": {
+      "title": "Wake Up Dead Man",
+      "year": 2025
+    },
+    "tt22022452": {
+      "title": "Inside Out 2",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (nominee)"
+        ]
+      }
+    },
+    "tt0485947": {
+      "title": "Mr. Nobody",
+      "year": 2009
+    },
+    "tt1262426": {
+      "title": "Wicked",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 75.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt0983193": {
+      "title": "The Adventures of Tintin",
+      "year": 2011
+    },
+    "tt2883512": {
+      "title": "Chef",
+      "year": 2014
+    },
+    "tt0210945": {
+      "title": "Remember the Titans",
+      "year": 2000
+    },
+    "tt3553976": {
+      "title": "Captain Fantastic",
+      "year": 2016
+    },
+    "tt0120917": {
+      "title": "The Emperor's New Groove",
+      "year": 2000
+    },
+    "tt5606664": {
+      "title": "Doctor Sleep",
+      "year": 2019
+    },
+    "tt5074352": {
+      "title": "Dangal",
+      "year": 2016
+    },
+    "tt0420223": {
+      "title": "Stranger Than Fiction",
+      "year": 2006
+    },
+    "tt1220719": {
+      "title": "Ip Man",
+      "year": 2008
+    },
+    "tt29623480": {
+      "title": "The Wild Robot",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (nominee)"
+        ]
+      }
+    },
+    "tt0488120": {
+      "title": "Fracture",
+      "year": 2007
+    },
+    "tt6499752": {
+      "title": "Upgrade",
+      "year": 2018
+    },
+    "tt0959337": {
+      "title": "Revolutionary Road",
+      "year": 2008,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt3532216": {
+      "title": "American Made",
+      "year": 2017
+    },
+    "tt0427944": {
+      "title": "Thank You for Smoking",
+      "year": 2005
+    },
+    "tt0986264": {
+      "title": "Like Stars on Earth",
+      "year": 2007
+    },
+    "tt15097216": {
+      "title": "Jai Bhim",
+      "year": 2021
+    },
+    "tt1398426": {
+      "title": "Straight Outta Compton",
+      "year": 2015
+    },
+    "tt0281358": {
+      "title": "A Walk to Remember",
+      "year": 2002
+    },
+    "tt1655441": {
+      "title": "The Age of Adaline",
+      "year": 2015
+    },
+    "tt1132620": {
+      "title": "The Girl with the Dragon Tattoo",
+      "year": 2009,
+      "family_scores": {
+        "european_recognition": 35.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (winner)"
+        ]
+      }
+    },
+    "tt23289160": {
+      "title": "Godzilla Minus One",
+      "year": 2023
+    },
+    "tt12300742": {
+      "title": "Bugonia",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 10.0,
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "european_recognition": [
+          "Venice: golden lion / best film (nominee)"
+        ],
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt0333766": {
+      "title": "Garden State",
+      "year": 2004,
+      "family_scores": {
+        "independent_cinema": 38.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Spirit: independent spirit award / best first feature (winner)",
+          "Sundance: grand jury prize / dramatic (nominee)"
+        ]
+      }
+    },
+    "tt2338151": {
+      "title": "PK",
+      "year": 2014
+    },
+    "tt32916440": {
+      "title": "Marty Supreme",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 25.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ]
+      }
+    },
+    "tt1872194": {
+      "title": "The Judge",
+      "year": 2014
+    },
+    "tt0756683": {
+      "title": "The Man from Earth",
+      "year": 2007
+    },
+    "tt2334873": {
+      "title": "Blue Jasmine",
+      "year": 2013
+    },
+    "tt1213641": {
+      "title": "First Man",
+      "year": 2018,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Venice: golden lion / best film (nominee)"
+        ]
+      }
+    },
+    "tt9484998": {
+      "title": "Palm Springs",
+      "year": 2020,
+      "family_scores": {
+        "us_institutional": 10.0,
+        "independent_cinema": 8.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "independent_cinema": [
+          "Sundance: grand jury prize / dramatic (nominee)"
+        ]
+      }
+    },
+    "tt4857264": {
+      "title": "The Invisible Guest",
+      "year": 2016
+    },
+    "tt4873118": {
+      "title": "The Covenant",
+      "year": 2023
+    },
+    "tt1458175": {
+      "title": "The Next Three Days",
+      "year": 2010
+    },
+    "tt7405458": {
+      "title": "A Man Called Otto",
+      "year": 2022
+    },
+    "tt1757678": {
+      "title": "Avatar: Fire and Ash",
+      "year": 2025
+    },
+    "tt2066051": {
+      "title": "Rocketman",
+      "year": 2019,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt1446192": {
+      "title": "Rise of the Guardians",
+      "year": 2012
+    },
+    "tt1465522": {
+      "title": "Tucker and Dale vs Evil",
+      "year": 2010
+    },
+    "tt0352248": {
+      "title": "Cinderella Man",
+      "year": 2005
+    },
+    "tt4244994": {
+      "title": "The Last Duel",
+      "year": 2021
+    },
+    "tt4276820": {
+      "title": "The Founder",
+      "year": 2016
+    },
+    "tt0375912": {
+      "title": "Layer Cake",
+      "year": 2004
+    },
+    "tt0455590": {
+      "title": "The Last King of Scotland",
+      "year": 2006,
+      "family_scores": {
+        "european_recognition": 37.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)",
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt4209788": {
+      "title": "Molly's Game",
+      "year": 2017
+    },
+    "tt0272152": {
+      "title": "K-PAX",
+      "year": 2001
+    },
+    "tt1935179": {
+      "title": "Mud",
+      "year": 2012,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
+    },
+    "tt1809398": {
+      "title": "Unbroken",
+      "year": 2014
+    },
+    "tt2543472": {
+      "title": "Wonder",
+      "year": 2017
+    },
+    "tt16419074": {
+      "title": "Air",
+      "year": 2023
+    },
+    "tt0200465": {
+      "title": "The Bank Job",
+      "year": 2008
+    },
+    "tt4116284": {
+      "title": "The Lego Batman Movie",
+      "year": 2017
+    },
+    "tt0462322": {
+      "title": "Grindhouse",
+      "year": 2007
+    },
+    "tt0393162": {
+      "title": "Coach Carter",
+      "year": 2005
+    },
+    "tt7668870": {
+      "title": "Searching",
+      "year": 2018,
+      "family_scores": {
+        "independent_cinema": 30.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Sundance: audience award / best of next! (winner)"
+        ]
+      }
+    },
+    "tt0398808": {
+      "title": "Bridge to Terabithia",
+      "year": 2007
+    },
+    "tt11378946": {
+      "title": "Michael",
+      "year": 2026
+    },
+    "tt0876563": {
+      "title": "Ponyo",
+      "year": 2008
+    },
+    "tt2080374": {
+      "title": "Steve Jobs",
+      "year": 2015
+    },
+    "tt6412452": {
+      "title": "The Ballad of Buster Scruggs",
+      "year": 2018,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Venice: golden lion / best film (nominee)"
+        ]
+      }
+    },
+    "tt7984766": {
+      "title": "The King",
+      "year": 2019
+    },
+    "tt4172430": {
+      "title": "13 Hours",
+      "year": 2016
+    },
+    "tt5971474": {
+      "title": "The Little Mermaid",
+      "year": 2023
+    },
+    "tt1980929": {
+      "title": "Begin Again",
+      "year": 2013
+    },
+    "tt23849204": {
+      "title": "12th Fail",
+      "year": 2023
+    },
+    "tt2140373": {
+      "title": "Saving Mr. Banks",
+      "year": 2013
+    },
+    "tt1057500": {
+      "title": "Invictus",
+      "year": 2009
+    },
+    "tt3774114": {
+      "title": "Snowden",
+      "year": 2016
+    },
+    "tt0397535": {
+      "title": "Memoirs of a Geisha",
+      "year": 2005
+    },
+    "tt0385002": {
+      "title": "Green Street Hooligans",
+      "year": 2005
+    },
+    "tt10698680": {
+      "title": "K.G.F: Chapter 2",
+      "year": 2022
+    },
+    "tt3521126": {
+      "title": "The Disaster Artist",
+      "year": 2017,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt14961016": {
+      "title": "I'm Still Here",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 100.0,
+        "european_recognition": 25.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best international feature film (winner)",
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)",
+          "Venice: golden lion / best film (nominee)"
+        ]
+      }
+    },
+    "tt31227572": {
+      "title": "Predator: Badlands",
+      "year": 2025
+    },
+    "tt0805564": {
+      "title": "Lars and the Real Girl",
+      "year": 2007
+    },
+    "tt8009428": {
+      "title": "Hustle",
+      "year": 2022
+    },
+    "tt0159365": {
+      "title": "Cold Mountain",
+      "year": 2003,
+      "family_scores": {
+        "european_recognition": 25.0,
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt1727388": {
+      "title": "The Way Way Back",
+      "year": 2013
+    },
+    "tt8999762": {
+      "title": "The Brutalist",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 90.0,
+        "european_recognition": 65.0,
+        "critics_groups_consensus": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (winner)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)",
+          "Venice: golden lion / best film (nominee)",
+          "Venice: silver lion / best director (winner)"
+        ],
+        "critics_groups_consensus": [
+          "NYFCC Best Film (winner)"
+        ]
+      }
+    },
+    "tt0780571": {
+      "title": "Mr. Brooks",
+      "year": 2007
+    },
+    "tt0277027": {
+      "title": "I Am Sam",
+      "year": 2001
+    },
+    "tt4481414": {
+      "title": "Gifted",
+      "year": 2017
+    },
+    "tt0245844": {
+      "title": "The Count of Monte Cristo",
+      "year": 2002
+    },
+    "tt9411972": {
+      "title": "Where the Crawdads Sing",
+      "year": 2022
+    },
+    "tt0277434": {
+      "title": "We Were Soldiers",
+      "year": 2002
+    },
+    "tt2631186": {
+      "title": "Baahubali: The Beginning",
+      "year": 2015
+    },
+    "tt26443597": {
+      "title": "Zootopia 2",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (nominee)"
+        ]
+      }
+    },
+    "tt0387131": {
+      "title": "The Constant Gardener",
+      "year": 2005,
+      "family_scores": {
+        "european_recognition": 35.0,
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)",
+          "Venice: golden lion / best film (nominee)"
+        ],
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt4772188": {
+      "title": "Flow",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 100.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (winner)",
+          "Academy: oscar / best international feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (winner)"
+        ]
+      }
+    },
+    "tt1878870": {
+      "title": "The Edge of Seventeen",
+      "year": 2016
+    },
+    "tt33014583": {
+      "title": "Dhurandhar",
+      "year": 2025
+    },
+    "tt3316960": {
+      "title": "Still Alice",
+      "year": 2014
+    },
+    "tt5462602": {
+      "title": "The Big Sick",
+      "year": 2017
+    },
+    "tt5323662": {
+      "title": "A Silent Voice: The Movie",
+      "year": 2016
+    },
+    "tt0918927": {
+      "title": "Doubt",
+      "year": 2008
+    },
+    "tt0816442": {
+      "title": "The Book Thief",
+      "year": 2013
+    },
+    "tt8404614": {
+      "title": "The Two Popes",
+      "year": 2019,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ]
+      }
+    },
+    "tt0325805": {
+      "title": "Matchstick Men",
+      "year": 2003
+    },
+    "tt2582496": {
+      "title": "Me and Earl and the Dying Girl",
+      "year": 2015,
+      "family_scores": {
+        "independent_cinema": 100.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Sundance: grand jury prize / dramatic (winner)",
+          "Sundance: audience award / dramatic (winner)",
+          "Sundance: Grand Jury + Audience convergence bonus"
+        ]
+      }
+    },
+    "tt0424345": {
+      "title": "Clerks II",
+      "year": 2006
+    },
+    "tt14205554": {
+      "title": "KPop Demon Hunters",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 75.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (winner)",
+          "Golden Globes: golden globe / best motion picture - animated (winner)"
+        ]
+      }
+    },
+    "tt3967856": {
+      "title": "Okja",
+      "year": 2017,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
+    },
+    "tt8503618": {
+      "title": "Hamilton",
+      "year": 2020,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt2884206": {
+      "title": "I Origins",
+      "year": 2014
+    },
+    "tt26743210": {
+      "title": "How to Train Your Dragon",
+      "year": 2025
+    },
+    "tt3488710": {
+      "title": "The Walk",
+      "year": 2015
+    },
+    "tt0293508": {
+      "title": "The Phantom of the Opera",
+      "year": 2004
+    },
+    "tt7599146": {
+      "title": "Sound of Freedom",
+      "year": 2023
+    },
+    "tt1924396": {
+      "title": "The Best Offer",
+      "year": 2013,
+      "family_scores": {
+        "european_recognition": 12.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt8110330": {
+      "title": "Dil Bechara",
+      "year": 2020
+    },
+    "tt14905854": {
+      "title": "Hamnet",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 90.0,
+        "european_recognition": 25.0,
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (winner)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt7401588": {
+      "title": "Instant Family",
+      "year": 2018
+    },
+    "tt10295212": {
+      "title": "Shershaah",
+      "year": 2021
+    },
+    "tt4849438": {
+      "title": "Baahubali 2: The Conclusion",
+      "year": 2017
+    },
+    "tt5164432": {
+      "title": "Love, Simon",
+      "year": 2018
+    },
+    "tt0289992": {
+      "title": "The Life of David Gale",
+      "year": 2003
+    },
+    "tt1226837": {
+      "title": "Beautiful Boy",
+      "year": 2018
+    },
+    "tt10189514": {
+      "title": "Soorarai Pottru",
+      "year": 2020
+    },
+    "tt0460791": {
+      "title": "The Fall",
+      "year": 2006
+    },
+    "tt0203019": {
+      "title": "Men of Honor",
+      "year": 2000
+    },
+    "tt32141377": {
+      "title": "28 Years Later: The Bone Temple",
+      "year": 2026
+    },
+    "tt8721424": {
+      "title": "tick, tick... BOOM!",
+      "year": 2021,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt11233960": {
+      "title": "The Unforgivable",
+      "year": 2021
+    },
+    "tt0795368": {
+      "title": "Death at a Funeral",
+      "year": 2007
+    },
+    "tt0223897": {
+      "title": "Pay It Forward",
+      "year": 2000
+    },
+    "tt1023114": {
+      "title": "The Way Back",
+      "year": 2010
+    },
+    "tt0405508": {
+      "title": "Rang De Basanti",
+      "year": 2006,
+      "family_scores": {
+        "european_recognition": 15.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)"
+        ]
+      }
+    },
+    "tt0213847": {
+      "title": "Malena",
+      "year": 2000,
+      "family_scores": {
+        "european_recognition": 15.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)"
+        ]
+      }
+    },
+    "tt0186151": {
+      "title": "Frequency",
+      "year": 2000
+    },
+    "tt1327773": {
+      "title": "The Butler",
+      "year": 2013
+    },
+    "tt1188996": {
+      "title": "My Name Is Khan",
+      "year": 2010
+    },
+    "tt0292963": {
+      "title": "Before the Devil Knows You're Dead",
+      "year": 2007
+    },
+    "tt9071322": {
+      "title": "Dark Waters",
+      "year": 2019
+    },
+    "tt4572514": {
+      "title": "Patriots Day",
+      "year": 2016
+    },
+    "tt1063669": {
+      "title": "The Wave",
+      "year": 2008,
+      "family_scores": {
+        "independent_cinema": 8.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Sundance: grand jury prize / world cinema - dramatic (nominee)"
+        ]
+      }
+    },
+    "tt11563598": {
+      "title": "A Complete Unknown",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 25.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ]
+      }
+    },
+    "tt0404203": {
+      "title": "Little Children",
+      "year": 2006,
+      "family_scores": {
+        "us_institutional": 10.0,
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt21064584": {
+      "title": "The Iron Claw",
+      "year": 2023
+    },
+    "tt4364194": {
+      "title": "The Peanut Butter Falcon",
+      "year": 2019
+    },
+    "tt0861739": {
+      "title": "Elite Squad",
+      "year": 2007
+    },
+    "tt1131729": {
+      "title": "Pirate Radio",
+      "year": 2009
+    },
+    "tt29567915": {
+      "title": "Nuremberg",
+      "year": 2025
+    },
+    "tt32565993": {
+      "title": "The Sheep Detectives",
+      "year": 2026
+    },
+    "tt1568921": {
+      "title": "The Secret World of Arrietty",
+      "year": 2010
+    },
+    "tt15327088": {
+      "title": "Kantara",
+      "year": 2022
+    },
+    "tt8108198": {
+      "title": "Andhadhun",
+      "year": 2018
+    },
+    "tt0445922": {
+      "title": "Across the Universe",
+      "year": 2007
+    },
+    "tt1386932": {
+      "title": "Ip Man 2",
+      "year": 2010
+    },
+    "tt0462504": {
+      "title": "Rescue Dawn",
+      "year": 2006
+    },
+    "tt29768334": {
+      "title": "Train Dreams",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 65.0,
+        "independent_cinema": 60.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (winner)",
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt4633690": {
+      "title": "Shot Caller",
+      "year": 2017
+    },
+    "tt0426931": {
+      "title": "August Rush",
+      "year": 2007
+    },
+    "tt2170593": {
+      "title": "St. Vincent",
+      "year": 2014
+    },
+    "tt1683526": {
+      "title": "Detachment",
+      "year": 2011
+    },
+    "tt7838252": {
+      "title": "K.G.F: Chapter 1",
+      "year": 2018
+    },
+    "tt3863552": {
+      "title": "Bajrangi Bhaijaan",
+      "year": 2015
+    },
+    "tt0345950": {
+      "title": "The SpongeBob SquarePants Movie",
+      "year": 2004
+    },
+    "tt5813916": {
+      "title": "The Mountain II",
+      "year": 2016
+    },
+    "tt1614989": {
+      "title": "Headhunters",
+      "year": 2011,
+      "family_scores": {
+        "european_recognition": 15.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)"
+        ]
+      }
+    },
+    "tt4430212": {
+      "title": "Drishyam",
+      "year": 2015
+    },
+    "tt12758060": {
+      "title": "Tetris",
+      "year": 2023
+    },
+    "tt0453562": {
+      "title": "42",
+      "year": 2013
+    },
+    "tt1839492": {
+      "title": "Ruby Sparks",
+      "year": 2012
+    },
+    "tt0817177": {
+      "title": "Flipped",
+      "year": 2010
+    },
+    "tt5478478": {
+      "title": "Hostiles",
+      "year": 2017
+    },
+    "tt3544112": {
+      "title": "Sing Street",
+      "year": 2016,
+      "family_scores": {
+        "us_institutional": 10.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ]
+      }
+    },
+    "tt3513548": {
+      "title": "Richard Jewell",
+      "year": 2019
+    },
+    "tt1083452": {
+      "title": "Eddie the Eagle",
+      "year": 2015
+    },
+    "tt0367110": {
+      "title": "Swades",
+      "year": 2004
+    },
+    "tt0404390": {
+      "title": "Running Scared",
+      "year": 2006
+    },
+    "tt28089784": {
+      "title": "Punjab '95",
+      "year": 2026
+    },
+    "tt0490204": {
+      "title": "Reign Over Me",
+      "year": 2007
+    },
+    "tt1412386": {
+      "title": "The Best Exotic Marigold Hotel",
+      "year": 2011
+    },
+    "tt6467266": {
+      "title": "Sing 2",
+      "year": 2021
+    },
+    "tt11032374": {
+      "title": "Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train",
+      "year": 2020
+    },
+    "tt1078588": {
+      "title": "My Sister's Keeper",
+      "year": 2009
+    },
+    "tt5215952": {
+      "title": "The Wailing",
+      "year": 2016
+    },
+    "tt1540133": {
+      "title": "The Guard",
+      "year": 2011,
+      "family_scores": {
+        "independent_cinema": 8.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Sundance: grand jury prize / world cinema - dramatic (nominee)"
+        ]
+      }
+    },
+    "tt0476735": {
+      "title": "My Father and My Son",
+      "year": 2005
+    },
+    "tt0264616": {
+      "title": "Frailty",
+      "year": 2001
+    },
+    "tt0120679": {
+      "title": "Frida",
+      "year": 2002
+    },
+    "tt9389998": {
+      "title": "Pushpa: The Rise - Part 1",
+      "year": 2021
+    },
+    "tt1440292": {
+      "title": "Submarine",
+      "year": 2010
+    },
+    "tt0446755": {
+      "title": "The Painted Veil",
+      "year": 2006
+    },
+    "tt1322269": {
+      "title": "August: Osage County",
+      "year": 2013
+    },
+    "tt3416532": {
+      "title": "A Monster Calls",
+      "year": 2016
+    },
+    "tt0374887": {
+      "title": "Munna Bhai M.B.B.S.",
+      "year": 2003
+    },
+    "tt1562872": {
+      "title": "Zindagi Na Milegi Dobara",
+      "year": 2011
+    },
+    "tt2370248": {
+      "title": "Short Term 12",
+      "year": 2013
+    },
+    "tt2082197": {
+      "title": "Barfi!",
+      "year": 2012
+    },
+    "tt1555149": {
+      "title": "Elite Squad 2: The Enemy Within",
+      "year": 2010
+    },
+    "tt0871510": {
+      "title": "Chak De! India",
+      "year": 2007
+    },
+    "tt9179430": {
+      "title": "Vikram",
+      "year": 2022
+    },
+    "tt11555492": {
+      "title": "Farha",
+      "year": 2021
+    },
+    "tt32820897": {
+      "title": "Demon Slayer: Kimetsu No Yaiba Infinity Castle",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 5.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Golden Globes: golden globe / best motion picture - animated (nominee)"
+        ]
+      }
+    },
+    "tt1280558": {
+      "title": "A Wednesday",
+      "year": 2008
+    },
+    "tt26548265": {
+      "title": "Maharaja",
+      "year": 2024
+    },
+    "tt20850406": {
+      "title": "Sita Ramam",
+      "year": 2022
+    },
+    "tt8291224": {
+      "title": "Uri: The Surgical Strike",
+      "year": 2019
+    },
+    "tt0347304": {
+      "title": "Kal Ho Naa Ho",
+      "year": 2003
+    },
+    "tt10554232": {
+      "title": "Dara of Jasenovac",
+      "year": 2020
+    },
+    "tt0242519": {
+      "title": "Hera Pheri",
+      "year": 2000
+    },
+    "tt12262116": {
+      "title": "Thirteen Lives",
+      "year": 2022
+    },
+    "tt0292490": {
+      "title": "Dil Chahta Hai",
+      "year": 2001
+    },
+    "tt2356180": {
+      "title": "Bhaag Milkha Bhaag",
+      "year": 2013
+    },
+    "tt8239946": {
+      "title": "Tumbbad",
+      "year": 2018
+    },
+    "tt4169250": {
+      "title": "M.S. Dhoni: The Untold Story",
+      "year": 2016
+    },
+    "tt2545118": {
+      "title": "Blackfish",
+      "year": 2013,
+      "family_scores": {
+        "independent_cinema": 8.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Sundance: grand jury prize / documentary (nominee)"
+        ]
+      }
+    },
+    "tt9052870": {
+      "title": "Chhichhore",
+      "year": 2019
+    },
+    "tt39139925": {
+      "title": "Dhurandhar: The Revenge",
+      "year": 2026
+    },
+    "tt0372824": {
+      "title": "The Chorus",
+      "year": 2004,
+      "family_scores": {
+        "us_institutional": 35.0,
+        "european_recognition": 27.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best foreign language film of the year (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)",
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt0384116": {
+      "title": "G.O.R.A.",
+      "year": 2004
+    },
+    "tt2283748": {
+      "title": "OMG: Oh My God!",
+      "year": 2012
+    },
+    "tt3322420": {
+      "title": "Queen",
+      "year": 2013
+    },
+    "tt30472557": {
+      "title": "Chainsaw Man - The Movie: Reze Arc",
+      "year": 2025
+    },
+    "tt1821480": {
+      "title": "Kahaani",
+      "year": 2012
+    },
+    "tt2350496": {
+      "title": "The Lunchbox",
+      "year": 2013,
+      "family_scores": {
+        "european_recognition": 15.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)"
+        ]
+      }
+    },
+    "tt31514146": {
+      "title": "I Swear",
+      "year": 2025
+    },
+    "tt10083340": {
+      "title": "Gangubai Kathiawadi",
+      "year": 2022
+    },
+    "tt14331144": {
+      "title": "Jujutsu Kaisen 0",
+      "year": 2021
+    },
+    "tt0420332": {
+      "title": "Veer Zaara",
+      "year": 2004
+    },
+    "tt1093370": {
+      "title": "Jab We Met",
+      "year": 2007
+    },
+    "tt3169706": {
+      "title": "Pride",
+      "year": 2014
+    },
+    "tt13664684": {
+      "title": "Karthikeya 2",
+      "year": 2022
+    },
+    "tt10431500": {
+      "title": "Miracle in Cell No. 7",
+      "year": 2019
+    },
+    "tt3848892": {
+      "title": "Baby",
+      "year": 2015
+    },
+    "tt6019206": {
+      "title": "Kill Bill: The Whole Bloody Affair",
+      "year": 2004
+    },
+    "tt5116302": {
+      "title": "Togo",
+      "year": 2019
+    },
+    "tt2377938": {
+      "title": "Special 26",
+      "year": 2013
+    },
+    "tt9263550": {
+      "title": "Rocketry: The Nambi Effect",
+      "year": 2022
+    },
+    "tt21626284": {
+      "title": "Lost Ladies",
+      "year": 2023
+    },
+    "tt4387040": {
+      "title": "Airlift",
+      "year": 2016
+    },
+    "tt3390572": {
+      "title": "Haider",
+      "year": 2014
+    },
+    "tt7060344": {
+      "title": "Ratsasan",
+      "year": 2018
+    },
+    "tt26439764": {
+      "title": "Kantara: A Legend - Chapter 1",
+      "year": 2025
+    },
+    "tt0275277": {
+      "title": "Cowboy Bebop: The Movie",
+      "year": 2001
+    },
+    "tt30953759": {
+      "title": "No Other Land",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 60.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best documentary feature (winner)"
+        ]
+      }
+    },
+    "tt1839596": {
+      "title": "Rockstar",
+      "year": 2011
+    },
+    "tt6148156": {
+      "title": "Vikram Vedha",
+      "year": 2017
+    },
+    "tt0388473": {
+      "title": "Tokyo Godfathers",
+      "year": 2003
+    },
+    "tt2140203": {
+      "title": "Wolf Children",
+      "year": 2012
+    },
+    "tt0456144": {
+      "title": "Lage Raho Munna Bhai",
+      "year": 2006
+    },
+    "tt15501640": {
+      "title": "Drishyam 2",
+      "year": 2022
+    },
+    "tt0293715": {
+      "title": "My Sassy Girl",
+      "year": 2001
+    },
+    "tt9900782": {
+      "title": "Kaithi",
+      "year": 2019
+    },
+    "tt5571734": {
+      "title": "Pink",
+      "year": 2016
+    },
+    "tt10280296": {
+      "title": "Sardar Udham",
+      "year": 2021
+    },
+    "tt1639426": {
+      "title": "Udaan",
+      "year": 2010
+    },
+    "tt3417422": {
+      "title": "Drishyam",
+      "year": 2013
+    },
+    "tt6316138": {
+      "title": "Ayla: The Daughter of War",
+      "year": 2017
+    },
+    "tt34365591": {
+      "title": "Mahavatar Narsimha",
+      "year": 2024
+    },
+    "tt7466810": {
+      "title": "777 Charlie",
+      "year": 2022
+    },
+    "tt2395469": {
+      "title": "Gully Boy",
+      "year": 2019
+    },
+    "tt2375559": {
+      "title": "1: Nenokkadine",
+      "year": 2014
+    },
+    "tt20256528": {
+      "title": "What Is a Woman?",
+      "year": 2022
+    },
+    "tt1152758": {
+      "title": "Dear Zachary: A Letter to a Son About His Father",
+      "year": 2008
+    },
+    "tt7019842": {
+      "title": "96",
+      "year": 2018
+    },
+    "tt10895576": {
+      "title": "Mimi",
+      "year": 2021
+    },
+    "tt12361178": {
+      "title": "Drishyam 2",
+      "year": 2021
+    },
+    "tt2181931": {
+      "title": "English Vinglish",
+      "year": 2012
+    },
+    "tt4934950": {
+      "title": "Talvar",
+      "year": 2015
+    },
+    "tt27540542": {
+      "title": "Lucky Baskhar",
+      "year": 2024
+    },
+    "tt23736044": {
+      "title": "Monster",
+      "year": 2023,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
+    },
+    "tt2199711": {
+      "title": "Vishwaroopam",
+      "year": 2013
+    },
+    "tt7485048": {
+      "title": "Super 30",
+      "year": 2019
+    },
+    "tt4257858": {
+      "title": "Going Clear: Scientology & the Prison of Belief",
+      "year": 2015
+    },
+    "tt0386064": {
+      "title": "Tae Guk Gi: The Brotherhood of War",
+      "year": 2004
+    },
+    "tt4573394": {
+      "title": "Endless Corridor",
+      "year": 2014
+    },
+    "tt10324144": {
+      "title": "Article 15",
+      "year": 2019
+    },
+    "tt2187153": {
+      "title": "Thuppakki",
+      "year": 2012
+    },
+    "tt0270053": {
+      "title": "Vizontele",
+      "year": 2001
+    },
+    "tt7725596": {
+      "title": "Badhaai Ho",
+      "year": 2018
+    },
+    "tt7905466": {
+      "title": "They Shall Not Grow Old",
+      "year": 2018
+    },
+    "tt1620933": {
+      "title": "Paan Singh Tomar",
+      "year": 2012
+    },
+    "tt2213054": {
+      "title": "Kai Po Che",
+      "year": 2013
+    },
+    "tt0770802": {
+      "title": "Samsara",
+      "year": 2011
+    },
+    "tt1772925": {
+      "title": "Jiro Dreams of Sushi",
+      "year": 2011
+    },
+    "tt8108268": {
+      "title": "The Tashkent Files",
+      "year": 2019
+    },
+    "tt6878038": {
+      "title": "A Taxi Driver",
+      "year": 2017
+    },
+    "tt7236034": {
+      "title": "I Want to Eat Your Pancreas",
+      "year": 2018
+    },
+    "tt0923752": {
+      "title": "The King of Kong: A Fistful of Quarters",
+      "year": 2007
+    },
+    "tt33175825": {
+      "title": "Attack on Titan: The Last Attack",
+      "year": 2024
+    },
+    "tt9477520": {
+      "title": "Asuran",
+      "year": 2019
+    },
+    "tt0375611": {
+      "title": "Black",
+      "year": 2005
+    },
+    "tt1171701": {
+      "title": "The Breath",
+      "year": 2009
+    },
+    "tt16492678": {
+      "title": "Demon Slayer: Kimetsu no Yaiba - Tsuzumi Mansion Arc",
+      "year": 2021
+    },
+    "tt27470893": {
+      "title": "Chandu Champion",
+      "year": 2024
+    },
+    "tt5764096": {
+      "title": "Hindi Medium",
+      "year": 2017
+    },
+    "tt11989890": {
+      "title": "David Attenborough: A Life on Our Planet",
+      "year": 2020
+    },
+    "tt4635372": {
+      "title": "Masaan",
+      "year": 2015
+    },
+    "tt14152756": {
+      "title": "Seaspiracy",
+      "year": 2021
+    },
+    "tt7268738": {
+      "title": "Minnal Murali",
+      "year": 2021
+    },
+    "tt28459771": {
+      "title": "Oficina do Diabo",
+      "year": 2025
+    },
+    "tt26458038": {
+      "title": "Manjummel Boys",
+      "year": 2024
+    },
+    "tt8130968": {
+      "title": "Badla",
+      "year": 2019
+    },
+    "tt0401085": {
+      "title": "C.R.A.Z.Y.",
+      "year": 2005
+    },
+    "tt1327035": {
+      "title": "Dev.D",
+      "year": 2009
+    },
+    "tt9851854": {
+      "title": "Major",
+      "year": 2022
+    },
+    "tt26660021": {
+      "title": "Aavesham",
+      "year": 2024
+    },
+    "tt3801314": {
+      "title": "Kaththi",
+      "year": 2014
+    },
+    "tt7218518": {
+      "title": "Pad Man",
+      "year": 2018
+    },
+    "tt7392212": {
+      "title": "Rangasthalam",
+      "year": 2018
+    },
+    "tt6628102": {
+      "title": "The Wild Pear Tree",
+      "year": 2018,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
+    },
+    "tt24485052": {
+      "title": "Sirf Ek Bandaa Kaafi Hai",
+      "year": 2023
+    },
+    "tt3461252": {
+      "title": "The Blue Elephant",
+      "year": 2014
+    },
+    "tt5354160": {
+      "title": "Mirror Game",
+      "year": 2016
+    },
+    "tt11382384": {
+      "title": "The Dissident",
+      "year": 2020
+    },
+    "tt8948790": {
+      "title": "Jersey",
+      "year": 2019
+    },
+    "tt7294534": {
+      "title": "Arjun Reddy",
+      "year": 2017
+    },
+    "tt1702014": {
+      "title": "The Way He Looks",
+      "year": 2014
+    },
+    "tt5929776": {
+      "title": "Before the Flood",
+      "year": 2016
+    },
+    "tt0860906": {
+      "title": "Evangelion: 2.0 You Can (Not) Advance",
+      "year": 2009
+    },
+    "tt1935156": {
+      "title": "Jodorowsky's Dune",
+      "year": 2013
+    },
+    "tt4679210": {
+      "title": "Premam",
+      "year": 2015
+    },
+    "tt11580854": {
+      "title": "Sarpatta Parambarai",
+      "year": 2021
+    },
+    "tt8760684": {
+      "title": "Apollo 11",
+      "year": 2019,
+      "family_scores": {
+        "independent_cinema": 8.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Sundance: grand jury prize / documentary (nominee)"
+        ]
+      }
+    },
+    "tt30970235": {
+      "title": "Article 370",
+      "year": 2024
+    },
+    "tt3668162": {
+      "title": "Bangalore Days",
+      "year": 2014
+    },
+    "tt0367495": {
+      "title": "Anbe Sivam",
+      "year": 2003
+    },
+    "tt2070649": {
+      "title": "Silenced",
+      "year": 2011
+    },
+    "tt0323013": {
+      "title": "Lakshya",
+      "year": 2004
+    },
+    "tt7681902": {
+      "title": "Won't You Be My Neighbor?",
+      "year": 2018
+    },
+    "tt4983780": {
+      "title": "Maanaadu",
+      "year": 2021
+    },
+    "tt25433734": {
+      "title": "Hi Nanna",
+      "year": 2023
+    },
+    "tt0428870": {
+      "title": "A Moment to Remember",
+      "year": 2004
+    },
+    "tt0466460": {
+      "title": "Khosla Ka Ghosla!",
+      "year": 2006
+    },
+    "tt3302820": {
+      "title": "Cowspiracy: The Sustainability Secret",
+      "year": 2014
+    },
+    "tt4981966": {
+      "title": "24",
+      "year": 2016
+    },
+    "tt0376127": {
+      "title": "Anniyan",
+      "year": 2005
+    },
+    "tt23770030": {
+      "title": "Memoir of a Snail",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 35.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (nominee)"
+        ]
+      }
+    },
+    "tt0400234": {
+      "title": "Black Friday",
+      "year": 2004
+    },
+    "tt2659414": {
+      "title": "Miracle in Cell No. 7",
+      "year": 2013
+    },
+    "tt1051907": {
+      "title": "For Love and Honor",
+      "year": 2007
+    },
+    "tt28814949": {
+      "title": "Taylor Swift: The Eras Tour",
+      "year": 2023
+    },
+    "tt34956443": {
+      "title": "Ne Zha 2",
+      "year": 2025
+    },
+    "tt2061702": {
+      "title": "To the Forest of Firefly Lights",
+      "year": 2011
+    },
+    "tt2882328": {
+      "title": "Ugly",
+      "year": 2013
+    },
+    "tt11581174": {
+      "title": "Karnan",
+      "year": 2021
+    },
+    "tt28288786": {
+      "title": "Premalu",
+      "year": 2024
+    },
+    "tt5959980": {
+      "title": "Vada Chennai",
+      "year": 2018
+    },
+    "tt0416960": {
+      "title": "The Lizard",
+      "year": 2004
+    },
+    "tt4987556": {
+      "title": "Thani Oruvan",
+      "year": 2015
+    },
+    "tt26758372": {
+      "title": "Meiyazhagan",
+      "year": 2024
+    },
+    "tt9098872": {
+      "title": "The Rescue",
+      "year": 2021
+    },
+    "tt1014762": {
+      "title": "Home",
+      "year": 2009
+    },
+    "tt10214826": {
+      "title": "Agent Sai Srinivasa Athreya",
+      "year": 2019
+    },
+    "tt13391710": {
+      "title": "Jana Gana Mana",
+      "year": 2022
+    },
+    "tt8413338": {
+      "title": "Kumbalangi Nights",
+      "year": 2019
+    },
+    "tt0271383": {
+      "title": "A Dog's Will",
+      "year": 2000
+    },
+    "tt36943034": {
+      "title": "The Voice of Hind Rajab",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 40.0,
+        "european_recognition": 92.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best international feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)",
+          "Venice: golden lion / best film (nominee)",
+          "Venice: silver lion / grand jury prize (winner)",
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt2181831": {
+      "title": "Shahid",
+      "year": 2012
+    },
+    "tt8176054": {
+      "title": "Pariyerum Perumal",
+      "year": 2018
+    },
+    "tt0358456": {
+      "title": "Earthlings",
+      "year": 2005
+    },
+    "tt7019942": {
+      "title": "Super Deluxe",
+      "year": 2019
+    },
+    "tt10534500": {
+      "title": "#Home",
+      "year": 2021
+    },
+    "tt7060460": {
+      "title": "Theeran Adhigaram Ondru",
+      "year": 2017
+    },
+    "tt0422320": {
+      "title": "Ghilli",
+      "year": 2004
+    },
+    "tt2218988": {
+      "title": "Ustad Hotel",
+      "year": 2012
+    },
+    "tt14888874": {
+      "title": "Demon Slayer: Kimetsu no Yaiba - Mt. Natagumo Arc",
+      "year": 2020
+    },
+    "tt7738784": {
+      "title": "Resurrection",
+      "year": 2018
+    },
+    "tt0319736": {
+      "title": "The Legend of Bhagat Singh",
+      "year": 2002
+    },
+    "tt33428606": {
+      "title": "Solo Leveling: ReAwakening",
+      "year": 2024
+    },
+    "tt43383343": {
+      "title": "BLEACH: Thousand-Year Blood War - The Calamity",
+      "year": 2026
+    },
+    "tt9006564": {
+      "title": "2018",
+      "year": 2023
+    },
+    "tt7465992": {
+      "title": "Mahanati",
+      "year": 2018
+    },
+    "tt0471571": {
+      "title": "Athadu",
+      "year": 2005
+    },
+    "tt5312232": {
+      "title": "Sairat",
+      "year": 2016
+    },
+    "tt1180583": {
+      "title": "Vaaranam Aayiram",
+      "year": 2008
+    },
+    "tt4991384": {
+      "title": "Interrogation",
+      "year": 2015
+    },
+    "tt9500372": {
+      "title": "Pocket Hercules: Naim Süleymanoglu",
+      "year": 2019
+    },
+    "tt8652818": {
+      "title": "Violet Evergarden: The Movie",
+      "year": 2020
+    },
+    "tt5867800": {
+      "title": "Aruvi",
+      "year": 2016
+    },
+    "tt3569782": {
+      "title": "Jigarthanda",
+      "year": 2014
+    },
+    "tt0314067": {
+      "title": "Philanthropy",
+      "year": 2002
+    },
+    "tt17592606": {
+      "title": "Daman",
+      "year": 2022
+    },
+    "tt2358592": {
+      "title": "Lucia",
+      "year": 2013
+    },
+    "tt2877108": {
+      "title": "Soodhu Kavvum",
+      "year": 2013
+    },
+    "tt8737152": {
+      "title": "Toma",
+      "year": 2021
+    },
+    "tt12415546": {
+      "title": "Attack on Titan: Chronicle",
+      "year": 2020
+    },
+    "tt5824826": {
+      "title": "Pelli Choopulu",
+      "year": 2016
+    },
+    "tt0383846": {
+      "title": "When I Grow Up, I'll Be a Kangaroo",
+      "year": 2004
+    },
+    "tt3153634": {
+      "title": "Hope",
+      "year": 2013
+    },
+    "tt39390582": {
+      "title": "Hanuman Ansh",
+      "year": 2026
+    },
+    "tt4851630": {
+      "title": "Maheshinte Prathikaaram",
+      "year": 2016
+    },
+    "tt18568902": {
+      "title": "Kaun Pravin Tambe?",
+      "year": 2022
+    },
+    "tt4139928": {
+      "title": "The Legend of Maula Jatt",
+      "year": 2022
+    },
+    "tt10300570": {
+      "title": "Kadaisi Vivasayi",
+      "year": 2021
+    },
+    "tt7391996": {
+      "title": "C/o Kancharapalem",
+      "year": 2018
+    },
+    "tt0843326": {
+      "title": "Bommarillu",
+      "year": 2006
+    },
+    "tt0301634": {
+      "title": "Frozen Stiff",
+      "year": 2002
+    },
+    "tt9881586": {
+      "title": "Rascal Does Not Dream of a Dreaming Girl",
+      "year": 2019
+    },
+    "tt2077886": {
+      "title": "The Phantom of the Opera at the Royal Albert Hall",
+      "year": 2011
+    },
+    "tt0312859": {
+      "title": "Kannathil Muthamittal",
+      "year": 2002
+    },
+    "tt38063392": {
+      "title": "Mission Muh Dikhayi",
+      "year": 2025
+    },
+    "tt16747572": {
+      "title": "The Silence of Swastika",
+      "year": 2021
+    },
+    "tt11992424": {
+      "title": "Saptha Sagaradaache Ello - Side A",
+      "year": 2023
+    },
+    "tt36596965": {
+      "title": "Mandaadi",
+      "year": 2026
+    },
+    "tt3394420": {
+      "title": "Ulidavaru Kandanthe",
+      "year": 2014
+    },
+    "tt10687070": {
+      "title": "Mandela",
+      "year": 2021
+    },
+    "tt1621830": {
+      "title": "Monpura",
+      "year": 2009
+    },
+    "tt15176374": {
+      "title": "Unpaarvayil",
+      "year": 2025
     },
     "tt31113046": {
       "title": "Making Memories of Murder",
@@ -14483,18 +17633,6 @@
         ]
       }
     },
-    "tt0372824": {
-      "title": "The Chorus",
-      "year": 2004,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt0377800": {
       "title": "Don't Come Knocking",
       "year": 2005,
@@ -14543,18 +17681,6 @@
         ]
       }
     },
-    "tt0455590": {
-      "title": "The Last King of Scotland",
-      "year": 2006,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt1483831": {
       "title": "Lebanon",
       "year": 2009,
@@ -14579,33 +17705,9 @@
         ]
       }
     },
-    "tt1675434": {
-      "title": "The Intouchables",
-      "year": 2011,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt2177511": {
       "title": "Caesar Must Die",
       "year": 2012,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
-    "tt1924396": {
-      "title": "The Best Offer",
-      "year": 2013,
       "family_scores": {
         "european_recognition": 12.0
       },
@@ -14855,18 +17957,6 @@
         ]
       }
     },
-    "tt17526714": {
-      "title": "The Substance",
-      "year": 2024,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt28618488": {
       "title": "Vermiglio",
       "year": 2024,
@@ -14927,18 +18017,6 @@
         ]
       }
     },
-    "tt36943034": {
-      "title": "The Voice of Hind Rajab",
-      "year": 2025,
-      "family_scores": {
-        "european_recognition": 12.0
-      },
-      "family_evidence": {
-        "european_recognition": [
-          "European Film Awards Best Film (nominee)"
-        ]
-      }
-    },
     "tt0356721": {
       "title": "I Heart Huckabees",
       "year": 2004,
@@ -14954,18 +18032,6 @@
     "tt0420291": {
       "title": "Keane",
       "year": 2004,
-      "family_scores": {
-        "independent_cinema": 10.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (nominee)"
-        ]
-      }
-    },
-    "tt0404203": {
-      "title": "Little Children",
-      "year": 2006,
       "family_scores": {
         "independent_cinema": 10.0
       },
@@ -15155,18 +18221,6 @@
         ]
       }
     },
-    "tt5580036": {
-      "title": "I, Tonya",
-      "year": 2017,
-      "family_scores": {
-        "independent_cinema": 10.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (nominee)"
-        ]
-      }
-    },
     "tt5503686": {
       "title": "Hustlers",
       "year": 2019,
@@ -15311,22 +18365,6 @@
         ]
       }
     },
-    "tt28607951": {
-      "title": "Anora",
-      "year": 2024,
-      "family_scores": {
-        "independent_cinema": 10.0,
-        "critics_groups_consensus": 35.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (nominee)"
-        ],
-        "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
-        ]
-      }
-    },
     "tt30057084": {
       "title": "Babygirl",
       "year": 2024,
@@ -15367,36 +18405,6 @@
         ]
       }
     },
-    "tt30144839": {
-      "title": "One Battle After Another",
-      "year": 2025,
-      "family_scores": {
-        "independent_cinema": 35.0,
-        "critics_groups_consensus": 100.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (winner)"
-        ],
-        "critics_groups_consensus": [
-          "NSFC Best Picture (winner)",
-          "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
-        ]
-      }
-    },
-    "tt12300742": {
-      "title": "Bugonia",
-      "year": 2025,
-      "family_scores": {
-        "independent_cinema": 10.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (nominee)"
-        ]
-      }
-    },
     "tt21349688": {
       "title": "East of Wall",
       "year": 2025,
@@ -15412,18 +18420,6 @@
     "tt32928666": {
       "title": "Familiar Touch",
       "year": 2024,
-      "family_scores": {
-        "independent_cinema": 10.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (nominee)"
-        ]
-      }
-    },
-    "tt14905854": {
-      "title": "Hamnet",
-      "year": 2025,
       "family_scores": {
         "independent_cinema": 10.0
       },
@@ -15478,30 +18474,6 @@
       "family_evidence": {
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
-        ]
-      }
-    },
-    "tt29768334": {
-      "title": "Train Dreams",
-      "year": 2025,
-      "family_scores": {
-        "independent_cinema": 10.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (nominee)"
-        ]
-      }
-    },
-    "tt8999762": {
-      "title": "The Brutalist",
-      "year": 2024,
-      "family_scores": {
-        "critics_groups_consensus": 35.0
-      },
-      "family_evidence": {
-        "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
         ]
       }
     }
