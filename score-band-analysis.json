@@ -130,7 +130,7 @@
         "year": 2016,
         "imdb_id": "tt5323662",
         "score": 183.22,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 183.21,
         "audience_raw": {
           "imdb_audience": 85.0,
@@ -152,7 +152,7 @@
         "year": 2010,
         "imdb_id": "tt1130884",
         "score": 181.54,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 181.54,
         "audience_raw": {
           "imdb_audience": 85.0,
@@ -174,7 +174,7 @@
         "year": 2009,
         "imdb_id": "tt1187043",
         "score": 180.46,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 180.46,
         "audience_raw": {
           "imdb_audience": 95.0,
@@ -218,7 +218,7 @@
         "year": 2009,
         "imdb_id": "tt1028532",
         "score": 162.81,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 162.82,
         "audience_raw": {
           "imdb_audience": 80.0,
@@ -240,7 +240,7 @@
         "year": 2007,
         "imdb_id": "tt0986264",
         "score": 160.73,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 160.73,
         "audience_raw": {
           "imdb_audience": 90.0,
@@ -262,7 +262,7 @@
         "year": 2006,
         "imdb_id": "tt0454921",
         "score": 157.95,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 157.95,
         "audience_raw": {
           "imdb_audience": 75.0,
@@ -284,7 +284,7 @@
         "year": 2013,
         "imdb_id": "tt2194499",
         "score": 156.41,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 156.41,
         "audience_raw": {
           "imdb_audience": 65.0,
@@ -306,7 +306,7 @@
         "year": 2016,
         "imdb_id": "tt4857264",
         "score": 155.63,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 155.63,
         "audience_raw": {
           "imdb_audience": 75.0,
@@ -328,7 +328,7 @@
         "year": 2016,
         "imdb_id": "tt5074352",
         "score": 154.38,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 154.38,
         "audience_raw": {
           "imdb_audience": 90.0,
@@ -350,7 +350,7 @@
         "year": 2008,
         "imdb_id": "tt1220719",
         "score": 151.71,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 151.71,
         "audience_raw": {
           "imdb_audience": 75.0,
@@ -372,7 +372,7 @@
         "year": 2006,
         "imdb_id": "tt0450259",
         "score": 134.36,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 134.36,
         "audience_raw": {
           "imdb_audience": 75.0,
@@ -394,7 +394,7 @@
         "year": 2016,
         "imdb_id": "tt3748528",
         "score": 134.36,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 134.36,
         "audience_raw": {
           "imdb_audience": 65.0,
@@ -416,7 +416,7 @@
         "year": 2014,
         "imdb_id": "tt2338151",
         "score": 131.58,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 131.59,
         "audience_raw": {
           "imdb_audience": 80.0,
@@ -438,7 +438,7 @@
         "year": 2003,
         "imdb_id": "tt0325710",
         "score": 131.03,
-        "eligible_max": 1000,
+        "eligible_max": 950,
         "audience": 131.03,
         "audience_raw": {
           "imdb_audience": 65.0,
@@ -488,7 +488,7 @@
       "year": 2022,
       "imdb_id": "tt14444726",
       "score": 431.62,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 96.67,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -512,7 +512,7 @@
       "year": 2018,
       "imdb_id": "tt5083738",
       "score": 421.45,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 114.61,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -607,7 +607,7 @@
       "year": 2020,
       "imdb_id": "tt10633456",
       "score": 370.42,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 119.23,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -632,7 +632,7 @@
       "year": 2018,
       "imdb_id": "tt7349662",
       "score": 367.63,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 124.61,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -657,7 +657,7 @@
       "year": 2019,
       "imdb_id": "tt7653254",
       "score": 365.93,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 144.61,
       "audience_raw": {
         "imdb_audience": 70.0,
@@ -682,7 +682,7 @@
       "year": 2007,
       "imdb_id": "tt0783233",
       "score": 359.34,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 139.36,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -707,7 +707,7 @@
       "year": 2019,
       "imdb_id": "tt7286456",
       "score": 357.17,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 166.15,
       "audience_raw": {
         "imdb_audience": 90.0,
@@ -731,7 +731,7 @@
       "year": 2012,
       "imdb_id": "tt1790885",
       "score": 352.69,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 95.9,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -756,7 +756,7 @@
       "year": 2019,
       "imdb_id": "tt1302006",
       "score": 352.66,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 129.49,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -781,7 +781,7 @@
       "year": 2022,
       "imdb_id": "tt11813216",
       "score": 343.69,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 129.75,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -829,7 +829,7 @@
       "year": 2015,
       "imdb_id": "tt1663202",
       "score": 339.66,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 136.15,
       "audience_raw": {
         "imdb_audience": 75.0,
@@ -854,7 +854,7 @@
       "year": 2009,
       "imdb_id": "tt0929632",
       "score": 338.29,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 86.83,
       "audience_raw": {
         "imdb_audience": 40.0,
@@ -903,7 +903,7 @@
       "year": 2007,
       "imdb_id": "tt0401383",
       "score": 330.78,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 123.66,
       "audience_raw": {
         "imdb_audience": 75.0,
@@ -927,7 +927,7 @@
       "year": 2010,
       "imdb_id": "tt1399683",
       "score": 327.71,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 53.47,
       "audience_raw": {
         "imdb_audience": 30.0,
@@ -951,7 +951,7 @@
       "year": 2014,
       "imdb_id": "tt2802154",
       "score": 325.1,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 91.11,
       "audience_raw": {
         "imdb_audience": 49.04,
@@ -975,7 +975,7 @@
       "year": 2011,
       "imdb_id": "tt0780504",
       "score": 322.78,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 129.49,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -999,7 +999,7 @@
       "year": 2001,
       "imdb_id": "tt0126029",
       "score": 318.87,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 156.41,
       "audience_raw": {
         "imdb_audience": 70.0,
@@ -1024,7 +1024,7 @@
       "year": 2020,
       "imdb_id": "tt10288566",
       "score": 316.97,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 139.75,
       "audience_raw": {
         "imdb_audience": 60.0,
@@ -1049,7 +1049,7 @@
       "year": 2022,
       "imdb_id": "tt19770238",
       "score": 316.96,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 139.19,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -1073,7 +1073,7 @@
       "year": 2017,
       "imdb_id": "tt5013056",
       "score": 315.89,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 121.03,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -1121,7 +1121,7 @@
       "year": 2021,
       "imdb_id": "tt1160419",
       "score": 313.67,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 149.49,
       "audience_raw": {
         "imdb_audience": 75.0,
@@ -1146,7 +1146,7 @@
       "year": 2021,
       "imdb_id": "tt8430054",
       "score": 312.73,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 117.34,
       "audience_raw": {
         "imdb_audience": 46.58,
@@ -1169,7 +1169,7 @@
       "year": 2002,
       "imdb_id": "tt0268126",
       "score": 306.26,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 118.63,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -1193,7 +1193,7 @@
       "year": 2004,
       "imdb_id": "tt0338751",
       "score": 306.13,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 100.51,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -1218,7 +1218,7 @@
       "year": 2003,
       "imdb_id": "tt0311113",
       "score": 303.98,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 115.28,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -1243,7 +1243,7 @@
       "year": 2012,
       "imdb_id": "tt2125435",
       "score": 302.13,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 71.6,
       "audience_raw": {
         "imdb_audience": 33.95,
@@ -1267,7 +1267,7 @@
       "year": 2006,
       "imdb_id": "tt0449467",
       "score": 302.06,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 86.59,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -1315,7 +1315,7 @@
       "year": 2002,
       "imdb_id": "tt0274558",
       "score": 300.57,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 98.75,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -1363,7 +1363,7 @@
       "year": 2011,
       "imdb_id": "tt1210166",
       "score": 299.32,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 122.82,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -1388,7 +1388,7 @@
       "year": 2013,
       "imdb_id": "tt2334649",
       "score": 297.69,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 108.5,
       "audience_raw": {
         "imdb_audience": 49.24,
@@ -1411,7 +1411,7 @@
       "year": 2015,
       "imdb_id": "tt2381111",
       "score": 293.03,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 100.1,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -1436,7 +1436,7 @@
       "year": 2021,
       "imdb_id": "tt7378922",
       "score": 293.0,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 106.96,
       "audience_raw": {
         "imdb_audience": 44.64,
@@ -1459,7 +1459,7 @@
       "year": 2014,
       "imdb_id": "tt2758880",
       "score": 292.66,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 116.33,
       "audience_raw": {
         "imdb_audience": 66.58,
@@ -1483,7 +1483,7 @@
       "year": 2012,
       "imdb_id": "tt1045658",
       "score": 292.3,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 112.57,
       "audience_raw": {
         "imdb_audience": 60.0,
@@ -1531,7 +1531,7 @@
       "year": 2022,
       "imdb_id": "tt7322224",
       "score": 289.68,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 75.9,
       "audience_raw": {
         "imdb_audience": 35.0,
@@ -1556,7 +1556,7 @@
       "year": 2006,
       "imdb_id": "tt0441909",
       "score": 289.4,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 117.85,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -1580,7 +1580,7 @@
       "year": 2003,
       "imdb_id": "tt0305206",
       "score": 289.11,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 68.73,
       "audience_raw": {
         "imdb_audience": 39.19,
@@ -1603,7 +1603,7 @@
       "year": 2000,
       "imdb_id": "tt0195685",
       "score": 289.1,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 117.63,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -1651,7 +1651,7 @@
       "year": 2006,
       "imdb_id": "tt0436697",
       "score": 285.78,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 64.7,
       "audience_raw": {
         "imdb_audience": 40.0,
@@ -1676,7 +1676,7 @@
       "year": 2022,
       "imdb_id": "tt14208870",
       "score": 285.2,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 122.85,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -1701,7 +1701,7 @@
       "year": 2005,
       "imdb_id": "tt0379725",
       "score": 284.73,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 76.97,
       "audience_raw": {
         "imdb_audience": 40.0,
@@ -1726,7 +1726,7 @@
       "year": 2012,
       "imdb_id": "tt0454876",
       "score": 284.7,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 127.69,
       "audience_raw": {
         "imdb_audience": 70.0,
@@ -1751,7 +1751,7 @@
       "year": 2019,
       "imdb_id": "tt8291806",
       "score": 281.33,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 108.3,
       "audience_raw": {
         "imdb_audience": 45.79,
@@ -1798,7 +1798,7 @@
       "year": 2020,
       "imdb_id": "tt8633462",
       "score": 279.63,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 118.21,
       "audience_raw": {
         "imdb_audience": 61.07,
@@ -1823,7 +1823,7 @@
       "year": 2022,
       "imdb_id": "tt9660502",
       "score": 279.6,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 137.15,
       "audience_raw": {
         "imdb_audience": 55.05,
@@ -1847,7 +1847,7 @@
       "year": 2019,
       "imdb_id": "tt5727208",
       "score": 278.9,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 107.95,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -1871,7 +1871,7 @@
       "year": 2009,
       "imdb_id": "tt1136608",
       "score": 277.69,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 127.69,
       "audience_raw": {
         "imdb_audience": 70.0,
@@ -1896,7 +1896,7 @@
       "year": 2010,
       "imdb_id": "tt1403865",
       "score": 276.64,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 116.01,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -1921,7 +1921,7 @@
       "year": 2014,
       "imdb_id": "tt3409392",
       "score": 275.79,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 42.9,
       "audience_raw": {
         "imdb_audience": 19.22,
@@ -1945,7 +1945,7 @@
       "year": 2007,
       "imdb_id": "tt0467406",
       "score": 275.78,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 92.57,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -1970,7 +1970,7 @@
       "year": 2001,
       "imdb_id": "tt0247425",
       "score": 275.31,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 65.25,
       "audience_raw": {
         "imdb_audience": 37.15,
@@ -1994,7 +1994,7 @@
       "year": 2005,
       "imdb_id": "tt0399146",
       "score": 275.3,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 87.63,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -2018,7 +2018,7 @@
       "year": 2014,
       "imdb_id": "tt2084970",
       "score": 273.34,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 152.82,
       "audience_raw": {
         "imdb_audience": 75.0,
@@ -2042,7 +2042,7 @@
       "year": 2020,
       "imdb_id": "tt9620292",
       "score": 273.29,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 109.23,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -2067,7 +2067,7 @@
       "year": 2016,
       "imdb_id": "tt2582782",
       "score": 272.56,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 116.15,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -2092,7 +2092,7 @@
       "year": 2016,
       "imdb_id": "tt5168192",
       "score": 271.72,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 122.67,
       "audience_raw": {
         "imdb_audience": 59.75,
@@ -2116,7 +2116,7 @@
       "year": 2008,
       "imdb_id": "tt1068646",
       "score": 271.41,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 60.93,
       "audience_raw": {
         "imdb_audience": 39.4,
@@ -2163,7 +2163,7 @@
       "year": 2002,
       "imdb_id": "tt0307901",
       "score": 270.08,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 106.2,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -2187,7 +2187,7 @@
       "year": 2014,
       "imdb_id": "tt1020072",
       "score": 269.62,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 98.88,
       "audience_raw": {
         "imdb_audience": 49.98,
@@ -2211,7 +2211,7 @@
       "year": 2005,
       "imdb_id": "tt0433383",
       "score": 268.78,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 76.36,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -2259,7 +2259,7 @@
       "year": 2017,
       "imdb_id": "tt6304162",
       "score": 266.96,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 78.9,
       "audience_raw": {
         "imdb_audience": 43.48,
@@ -2283,7 +2283,7 @@
       "year": 2007,
       "imdb_id": "tt0465538",
       "score": 265.77,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 80.7,
       "audience_raw": {
         "imdb_audience": 35.0,
@@ -2308,7 +2308,7 @@
       "year": 2011,
       "imdb_id": "tt1033575",
       "score": 265.69,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 71.31,
       "audience_raw": {
         "imdb_audience": 40.0,
@@ -2333,7 +2333,7 @@
       "year": 2011,
       "imdb_id": "tt0970179",
       "score": 264.46,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 85.53,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -2358,7 +2358,7 @@
       "year": 2002,
       "imdb_id": "tt0217505",
       "score": 264.43,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 102.57,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -2383,7 +2383,7 @@
       "year": 2019,
       "imdb_id": "tt8637428",
       "score": 264.39,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 117.07,
       "audience_raw": {
         "imdb_audience": 47.05,
@@ -2406,7 +2406,7 @@
       "year": 2017,
       "imdb_id": "tt5649144",
       "score": 263.84,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 126.11,
       "audience_raw": {
         "imdb_audience": 55.0,
@@ -2430,7 +2430,7 @@
       "year": 2019,
       "imdb_id": "tt8991268",
       "score": 262.21,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 93.23,
       "audience_raw": {
         "imdb_audience": 49.35,
@@ -2453,7 +2453,7 @@
       "year": 2008,
       "imdb_id": "tt1013753",
       "score": 261.75,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 97.31,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -2478,7 +2478,7 @@
       "year": 2002,
       "imdb_id": "tt0297884",
       "score": 260.84,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 66.56,
       "audience_raw": {
         "imdb_audience": 34.32,
@@ -2501,7 +2501,7 @@
       "year": 2000,
       "imdb_id": "tt0181865",
       "score": 260.83,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 91.0,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -2526,7 +2526,7 @@
       "year": 2013,
       "imdb_id": "tt1821549",
       "score": 260.34,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 113.11,
       "audience_raw": {
         "imdb_audience": 60.0,
@@ -2551,7 +2551,7 @@
       "year": 2001,
       "imdb_id": "tt0248845",
       "score": 258.82,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 105.89,
       "audience_raw": {
         "imdb_audience": 47.49,
@@ -2574,7 +2574,7 @@
       "year": 2013,
       "imdb_id": "tt1535109",
       "score": 258.81,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 127.69,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -2621,7 +2621,7 @@
       "year": 2020,
       "imdb_id": "tt7772582",
       "score": 257.12,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 86.35,
       "audience_raw": {
         "imdb_audience": 29.55,
@@ -2644,7 +2644,7 @@
       "year": 2010,
       "imdb_id": "tt1020773",
       "score": 255.03,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 79.67,
       "audience_raw": {
         "imdb_audience": 25.69,
@@ -2667,7 +2667,7 @@
       "year": 2020,
       "imdb_id": "tt1070874",
       "score": 254.52,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 131.03,
       "audience_raw": {
         "imdb_audience": 60.0,
@@ -2714,7 +2714,7 @@
       "year": 2017,
       "imdb_id": "tt4995790",
       "score": 250.47,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 54.6,
       "audience_raw": {
         "imdb_audience": 28.84,
@@ -2738,7 +2738,7 @@
       "year": 2000,
       "imdb_id": "tt0203230",
       "score": 250.39,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 68.01,
       "audience_raw": {
         "imdb_audience": 38.25,
@@ -2761,7 +2761,7 @@
       "year": 2018,
       "imdb_id": "tt5104604",
       "score": 250.37,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 146.11,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -2785,7 +2785,7 @@
       "year": 2017,
       "imdb_id": "tt6217608",
       "score": 250.34,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 75.19,
       "audience_raw": {
         "imdb_audience": 30.38,
@@ -2808,7 +2808,7 @@
       "year": 2013,
       "imdb_id": "tt2013293",
       "score": 249.88,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 144.25,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -2833,7 +2833,7 @@
       "year": 2007,
       "imdb_id": "tt0808357",
       "score": 249.14,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 85.96,
       "audience_raw": {
         "imdb_audience": 42.13,
@@ -2856,7 +2856,7 @@
       "year": 2000,
       "imdb_id": "tt0249462",
       "score": 249.02,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 136.14,
       "audience_raw": {
         "imdb_audience": 60.0,
@@ -2930,7 +2930,7 @@
       "year": 2006,
       "imdb_id": "tt0460480",
       "score": 121.62,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 18.46,
       "audience_raw": {
         "imdb_audience": 2.09,
@@ -2954,7 +2954,7 @@
       "year": 2000,
       "imdb_id": "tt0258885",
       "score": 132.69,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 37.15,
       "audience_raw": {
         "imdb_audience": 12.31,
@@ -2978,7 +2978,7 @@
       "year": 2006,
       "imdb_id": "tt0859765",
       "score": 139.22,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 48.73,
       "audience_raw": {
         "imdb_audience": 18.24,
@@ -3002,7 +3002,7 @@
       "year": 2000,
       "imdb_id": "tt0255094",
       "score": 144.44,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 36.45,
       "audience_raw": {
         "imdb_audience": 19.75,
@@ -3075,7 +3075,7 @@
       "year": 2001,
       "imdb_id": "tt0283283",
       "score": 152.89,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 50.82,
       "audience_raw": {
         "imdb_audience": 9.46,
@@ -3099,7 +3099,7 @@
       "year": 2010,
       "imdb_id": "tt1645089",
       "score": 152.96,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 121.41,
       "audience_raw": {
         "imdb_audience": 81.56,
@@ -3125,7 +3125,7 @@
       "year": 2008,
       "imdb_id": "tt1100048",
       "score": 153.54,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 35.52,
       "audience_raw": {
         "imdb_audience": 11.38,
@@ -3225,7 +3225,7 @@
       "year": 2006,
       "imdb_id": "tt0460829",
       "score": 164.71,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 63.49,
       "audience_raw": {
         "imdb_audience": 13.84,
@@ -3275,7 +3275,7 @@
       "year": 2007,
       "imdb_id": "tt0841925",
       "score": 175.07,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 32.39,
       "audience_raw": {
         "imdb_audience": 15.07,
@@ -3299,7 +3299,7 @@
       "year": 2001,
       "imdb_id": "tt0265343",
       "score": 177.41,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 56.35,
       "audience_raw": {
         "imdb_audience": 28.56,
@@ -3348,7 +3348,7 @@
       "year": 2003,
       "imdb_id": "tt0317910",
       "score": 182.02,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 85.67,
       "audience_raw": {
         "imdb_audience": 53.35,
@@ -3375,7 +3375,7 @@
       "year": 2009,
       "imdb_id": "tt1313104",
       "score": 183.23,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 116.84,
       "audience_raw": {
         "imdb_audience": 81.87,
@@ -3401,7 +3401,7 @@
       "year": 2002,
       "imdb_id": "tt0318034",
       "score": 184.21,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 53.72,
       "audience_raw": {
         "imdb_audience": 23.91,
@@ -3451,7 +3451,7 @@
       "year": 2000,
       "imdb_id": "tt0208092",
       "score": 189.06,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 164.61,
       "audience_raw": {
         "imdb_audience": 85.0,
@@ -3477,7 +3477,7 @@
       "year": 2001,
       "imdb_id": "tt0283509",
       "score": 189.41,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 83.33,
       "audience_raw": {
         "imdb_audience": 59.76,
@@ -3503,7 +3503,7 @@
       "year": 2005,
       "imdb_id": "tt0456149",
       "score": 190.22,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 66.93,
       "audience_raw": {
         "imdb_audience": 40.14,
@@ -3528,7 +3528,7 @@
       "year": 2017,
       "imdb_id": "tt1856101",
       "score": 190.8,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 153.08,
       "audience_raw": {
         "imdb_audience": 75.0,
@@ -3554,7 +3554,7 @@
       "year": 2002,
       "imdb_id": "tt0264464",
       "score": 191.99,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 166.41,
       "audience_raw": {
         "imdb_audience": 80.0,
@@ -3580,7 +3580,7 @@
       "year": 2017,
       "imdb_id": "tt6333060",
       "score": 193.63,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 123.41,
       "audience_raw": {
         "imdb_audience": 61.92,
@@ -3606,7 +3606,7 @@
       "year": 2020,
       "imdb_id": "tt12888462",
       "score": 198.33,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 138.33,
       "audience_raw": {
         "imdb_audience": 74.5,
@@ -3633,7 +3633,7 @@
       "year": 2017,
       "imdb_id": "tt1856101",
       "score": 190.8,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 153.08,
       "audience_raw": {
         "imdb_audience": 75.0,
@@ -3682,7 +3682,7 @@
       "year": 2014,
       "imdb_id": "tt0470752",
       "score": 208.86,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 131.28,
       "audience_raw": {
         "imdb_audience": 60.0,
@@ -3708,7 +3708,7 @@
       "year": 2000,
       "imdb_id": "tt0257497",
       "score": 115.88,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 27.47,
       "audience_raw": {
         "imdb_audience": 7.02,
@@ -3730,7 +3730,7 @@
       "year": 2019,
       "imdb_id": "tt8772262",
       "score": 154.03,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 79.23,
       "audience_raw": {
         "imdb_audience": 30.0,
@@ -3753,7 +3753,7 @@
       "year": 2016,
       "imdb_id": "tt4550098",
       "score": 165.57,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 95.9,
       "audience_raw": {
         "imdb_audience": 45.0,
@@ -3777,7 +3777,7 @@
       "year": 2010,
       "imdb_id": "tt0446029",
       "score": 180.79,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 122.82,
       "audience_raw": {
         "imdb_audience": 50.0,
@@ -3801,7 +3801,7 @@
       "year": 2020,
       "imdb_id": "tt6723592",
       "score": 90.19,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 85.64,
       "audience_raw": {
         "imdb_audience": 40.0,
@@ -3824,7 +3824,7 @@
       "year": 2022,
       "imdb_id": "tt1877830",
       "score": 158.88,
-      "eligible_max": 900,
+      "eligible_max": 850,
       "audience": 141.28,
       "audience_raw": {
         "imdb_audience": 65.0,
@@ -3847,7 +3847,7 @@
       "year": 2004,
       "imdb_id": "tt0361862",
       "score": 121.57,
-      "eligible_max": 1000,
+      "eligible_max": 950,
       "audience": 114.36,
       "audience_raw": {
         "imdb_audience": 55.0,

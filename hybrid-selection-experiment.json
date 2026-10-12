@@ -1,7 +1,7 @@
 {
   "mode": "research-hybrid-selection-experiment-v1",
   "qualification_unchanged": true,
-  "score_mode": "research-evidence-score-v9-canon150-audience200-broadcritics40",
+  "score_mode": "research-evidence-score-v10-canon150-audience200-broadcritics40",
   "policy_note": "Score-based promotion always requires non-audience evidence. Legacy policies may retain old route qualifiers below the score floor; multi-route legacy films are protected in all bounded variants.",
   "film_count": 1909,
   "old_qualified_count": 255,
