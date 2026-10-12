@@ -5521,5 +5521,11 @@
       "institutional_strength": 1
     }
   ],
-  "notes": "Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded. Existing TSPDT IDs are preferred before exact-title IMDb resolution."
+  "resolution_counts": {
+    "canonical": 211,
+    "cached": 269,
+    "live_imdb": 0,
+    "unresolved": 27
+  },
+  "notes": "Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded. Existing TSPDT IDs are preferred, then previously verified Phase-B identities are reused, and only unresolved identities use exact-title IMDb suggestions."
 }
