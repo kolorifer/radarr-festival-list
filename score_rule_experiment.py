@@ -3,6 +3,10 @@
 Research-only. Reads evidence-scores.json and reports how alternative thresholds
 would behave versus the frozen Phase-4 routes. Audience alone is never allowed
 to select a film: every simulated rule requires non-audience evidence.
+
+TSPDT and Sight & Sound are counted as one independent canon family for the
+multi-family safeguard because the ranked-source audit found strong correlation
+and full containment of the current modern Sight & Sound subset in TSPDT.
 """
 
 import json
@@ -11,28 +15,33 @@ from pathlib import Path
 SCORES = Path("evidence-scores.json")
 OUTPUT = Path("score-rule-experiment.json")
 
-NON_AUDIENCE_FAMILIES = {
-    "tspdt_21c",
-    "sight_sound",
-    "bbc_21c",
-    "nyt_21c",
-    "us_institutional",
-    "european_recognition",
-    "independent_cinema",
-    "critics_groups_consensus",
+INDEPENDENT_NON_AUDIENCE_GROUPS = {
+    "long_term_canon": ("tspdt_21c", "sight_sound"),
+    "bbc_21c": ("bbc_21c",),
+    "nyt_21c": ("nyt_21c",),
+    "us_institutional": ("us_institutional",),
+    "european_recognition": ("european_recognition",),
+    "independent_cinema": ("independent_cinema",),
+    "critics_groups_consensus": ("critics_groups_consensus",),
 }
 
 FLOORS = (400, 350, 325, 300, 275, 250, 225, 200)
 
 
-def non_audience_hits(row):
+def group_points(row):
     points = row.get("source_points") or {}
-    return sum(1 for key in NON_AUDIENCE_FAMILIES if float(points.get(key) or 0) > 0)
+    return {
+        group: sum(float(points.get(key) or 0) for key in keys)
+        for group, keys in INDEPENDENT_NON_AUDIENCE_GROUPS.items()
+    }
+
+
+def non_audience_hits(row):
+    return sum(1 for value in group_points(row).values() if value > 0)
 
 
 def strongest_non_audience(row):
-    points = row.get("source_points") or {}
-    return max((float(points.get(key) or 0) for key in NON_AUDIENCE_FAMILIES), default=0.0)
+    return max(group_points(row).values(), default=0.0)
 
 
 def compact(row):
@@ -91,9 +100,9 @@ def main():
     ]
 
     out = {
-        "mode": "research-score-rule-experiment-v1",
+        "mode": "research-score-rule-experiment-v2-correlated-canon",
         "qualification_unchanged": True,
-        "policy": "diagnostic only; all simulated score rules require non-audience evidence",
+        "policy": "diagnostic only; all simulated score rules require non-audience evidence; TSPDT + Sight & Sound count as one independent canon family",
         "film_count": len(rows),
         "old_qualified_count": sum(bool(r.get("qualified")) for r in rows),
         "grid": grid,
