@@ -115,6 +115,63 @@ Universe: **1910** films · currently route-qualified: **255**.
 | 272 | Jojo Rabbit (2019) | 226.3 | 151.3 | US inst. 75 |
 | 274 | The Florida Project (2017) | 225.6 | 126.1 | TSPDT 43, Indie 30, NYT 27 |
 
+## Exploratory lower band (200–224.99)
+
+This is the key stress-test band for deciding whether 225 is a useful promotion floor or still too conservative.
+
+| # | Film | Score | Audience /200 | Non-audience evidence |
+|---:|---|---:|---:|---|
+| 276 | The Wind Rises (2013) | 223.8 | 144.2 | TSPDT 50, US inst. 30 |
+| 278 | Departures (2008) | 222.4 | 114.8 | US inst. 70, TSPDT 38 |
+| 280 | The Intouchables (2011) | 221.9 | 194.9 | Europe 27 |
+| 281 | You Can Count on Me (2000) | 221.7 | 68.0 | Indie 90, TSPDT 64 |
+| 282 | The Big Short (2015) | 221.5 | 129.5 | US inst. 65, Europe 25, TSPDT 2 |
+| 284 | Marty Supreme (2025) | 221.3 | 121.3 | US inst. 75, Europe 25 |
+| 286 | Isle of Dogs (2018) | 221.1 | 146.1 | Europe 40, US inst. 35 |
+| 289 | The Hand of God (2021) | 220.0 | 88.0 | Europe 92, US inst. 40 |
+| 290 | Never Rarely Sometimes Always (2020) | 219.9 | 86.3 | TSPDT 71, Indie 53, Europe 10 |
+| 291 | Me and Earl and the Dying Girl (2015) | 219.9 | 119.9 | Indie 100 |
+| 292 | Shaun of the Dead (2004) | 219.8 | 132.8 | TSPDT 87 |
+| 295 | Good Bye Lenin! (2003) | 218.1 | 116.9 | Europe 55, TSPDT 46 |
+| 296 | The Theory of Everything (2014) | 217.4 | 117.4 | US inst. 75, Europe 25 |
+| 297 | The Wild Robot (2024) | 216.5 | 181.5 | US inst. 35 |
+| 298 | American Honey (2016) | 216.4 | 61.6 | TSPDT 85, Europe 50, Indie 20 |
+| 300 | Borat (2006) | 215.8 | 89.2 | TSPDT 79, NYT 48 |
+| 301 | Bohemian Rhapsody (2018) | 215.6 | 125.6 | US inst. 90 |
+| 302 | Nobody Knows (2004) | 215.4 | 135.1 | TSPDT 70, Europe 10 |
+| 304 | Hidden Figures (2016) | 214.5 | 149.5 | US inst. 65 |
+| 305 | The Child (2005) | 214.0 | 52.8 | Europe 82, TSPDT 79 |
+| 306 | Like Father, Like Son (2013) | 213.9 | 111.2 | TSPDT 53, Europe 50 |
+| 310 | Dallas Buyers Club (2013) | 212.9 | 147.9 | US inst. 65 |
+| 311 | Munich (2005) | 212.1 | 97.2 | US inst. 65, TSPDT 50 |
+| 314 | Wolfwalkers (2020) | 211.4 | 151.8 | US inst. 35, TSPDT 25 |
+| 315 | The Wind That Shakes the Barley (2006) | 211.3 | 96.8 | Europe 82, TSPDT 33 |
+| 316 | A Star Is Born (2018) | 210.8 | 110.8 | US inst. 75, Europe 25 |
+| 318 | Wallace & Gromit: The Curse of the Were-Rabbit (2005) | 209.7 | 108.0 | US inst. 60, TSPDT 42 |
+| 320 | The Martian (2015) | 209.4 | 144.4 | US inst. 65 |
+| 322 | The Motorcycle Diaries (2004) | 209.0 | 112.8 | Europe 70, TSPDT 26 |
+| 323 | Lincoln (2012) | 208.9 | 78.2 | US inst. 75, TSPDT 31, Europe 25 |
+| 324 | 13th (2016) | 208.5 | 151.1 | US inst. 30, TSPDT 27 |
+| 325 | The Reader (2008) | 207.1 | 95.0 | US inst. 75, Europe 37 |
+| 326 | Mustang (2015) | 206.3 | 110.8 | US inst. 35, TSPDT 34, Europe 27 |
+| 329 | On Body and Soul (2017) | 205.5 | 68.0 | Europe 82, US inst. 35, TSPDT 20 |
+| 331 | Gran Torino (2008) | 205.3 | 152.8 | TSPDT 53 |
+| 334 | Licorice Pizza (2021) | 204.5 | 55.1 | US inst. 75, TSPDT 49, Europe 25 |
+| 335 | The Assassination of Jesse James by the Coward Robert Ford (2007) | 203.4 | 104.2 | TSPDT 80, Europe 10, BBC 9 |
+| 337 | Frances Ha (2012) | 203.0 | 106.6 | TSPDT 65, Indie 20, NYT 11 |
+| 338 | 120 BPM (Beats Per Minute) (2017) | 202.4 | 84.5 | Europe 65, TSPDT 53 |
+| 343 | The Son's Room (2001) | 201.4 | 55.9 | Europe 82, TSPDT 64 |
+| 344 | Puss in Boots: The Last Wish (2022) | 201.4 | 166.4 | US inst. 35 |
+| 345 | All the Beauty and the Bloodshed (2022) | 201.2 | 82.6 | Europe 70, US inst. 30, TSPDT 19 |
+| 346 | Bacurau (2019) | 200.8 | 107.2 | Europe 50, TSPDT 44 |
+| 347 | Hamilton (2020) | 200.7 | 190.7 | US inst. 10 |
+| 349 | Fallen Leaves (2023) | 200.5 | 69.6 | TSPDT 64, Europe 62, US inst. 5 |
+| 350 | The Skin I Live In (2011) | 200.5 | 107.2 | TSPDT 48, Europe 45 |
+| 351 | The Chorus (2004) | 200.3 | 138.3 | US inst. 35, Europe 27 |
+| 352 | The Lobster (2015) | 200.3 | 72.6 | TSPDT 66, Europe 62 |
+| 353 | Still Walking (2008) | 200.1 | 114.3 | TSPDT 86 |
+| 354 | Happy as Lazzaro (2018) | 200.0 | 93.1 | TSPDT 85, Europe 22 |
+
 ## Old-route qualifiers below 200
 
 These reveal where the previous route model is much more canon/niche-friendly than the continuous score.
