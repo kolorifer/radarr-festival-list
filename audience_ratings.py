@@ -10,12 +10,13 @@ API_KEY = os.environ["REELDB_API_KEY"]
 SOURCE = Path("backcatalog-details.json")
 PHASE_B = Path("sources/phase-b-institutional.json")
 EVIDENCE = Path("sources/evidence-families.json")
+DISCOVERY = Path("sources/imdb-audience-discovery.json")
 OUTPUT = Path("audience-ratings.json")
 API_BASE = "https://api.reeldb.io"
 
 # ReelDB documents 60 requests/minute and 1000/day for this account tier.
 # Stay comfortably below the minute limit while allowing one research run to
-# finish the current union universe without repeated manual dispatches.
+# expand the current union universe without repeated manual dispatches.
 MAX_REQUESTS_PER_RUN = 400
 REQUEST_INTERVAL_SECONDS = 1.35
 RATE_LIMIT_RETRY_SECONDS = 65
@@ -45,28 +46,23 @@ def build_movie_universe():
     if PHASE_B.exists():
         phase_b = json.loads(PHASE_B.read_text(encoding="utf-8"))
         for film in phase_b.get("films", []):
-            append_unique_movie(
-                movies,
-                seen,
-                film.get("imdb_id"),
-                film.get("title"),
-                film.get("year"),
-            )
+            append_unique_movie(movies, seen, film.get("imdb_id"), film.get("title"), film.get("year"))
 
-    # The expanded evidence snapshot may add EFA/Gotham/critics-group films that
-    # were outside the earlier TSPDT + institutional candidate universe. Include
-    # them so audience coverage is evaluated on exactly the same film universe as
-    # evidence_score.py.
+    # EFA/Gotham/critics-group films can sit outside the earlier TSPDT +
+    # institutional seed. Include them so audience coverage matches evidence.py.
     if EVIDENCE.exists():
         snapshot = json.loads(EVIDENCE.read_text(encoding="utf-8"))
         for imdb_id, film in (snapshot.get("films") or {}).items():
-            append_unique_movie(
-                movies,
-                seen,
-                imdb_id,
-                film.get("title"),
-                film.get("year"),
-            )
+            append_unique_movie(movies, seen, imdb_id, film.get("title"), film.get("year"))
+
+    # Broad IMDb audience discovery is only a candidate gateway. ReelDB coverage
+    # is collected here so IMDb/Letterboxd/Trakt can later determine whether the
+    # seed has genuinely broad cross-audience support. Audience alone still does
+    # not qualify a film.
+    if DISCOVERY.exists():
+        discovery = json.loads(DISCOVERY.read_text(encoding="utf-8"))
+        for film in discovery.get("films", []):
+            append_unique_movie(movies, seen, film.get("imdb_id"), film.get("title"), film.get("year"))
 
     return movies
 
