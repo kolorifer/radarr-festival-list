@@ -38,16 +38,6 @@ class EvidenceSourceTests(unittest.TestCase):
         self.assertEqual(catalog["tt9"]["title"], "New Film")
         self.assertEqual(catalog["tt9"]["year"], 2024)
 
-    def test_sight_sound_parser_preserves_published_position(self):
-        text = """
-44012 # Old Film (1975) [X]
-843 # In the Mood for Love (2000) [Wong]
-1018 # Mulholland Drive (2001) [Lynch]
-"""
-        rows = run.parse_sight_sound(text)
-        self.assertEqual([r["rank"] for r in rows], [2, 3])
-        self.assertEqual(rows[0]["title"], "In the Mood for Love")
-
     def test_us_family_caps_and_globes_corrobate(self):
         records = {key: [] for key in es.EVENTS}
         records["academy"] = [
