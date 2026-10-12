@@ -1,17 +1,27 @@
 """HTTP service for enriched autobrr/Radarr Telegram notifications.
 
-Movie rejection events get conservative local/TMDb enrichment. Routine release
-rejections stay compact. Unknown/test payloads pass through to Telegram. Sensitive
-tracker fields are never forwarded from structured payloads.
+Unknown-movie rejections can be approved from Telegram. Approval adds the movie
+without searching and re-pushes the exact autobrr release to Radarr. Private
+tracker URLs stay server-side and are never placed in Telegram messages, action
+URLs, or logs.
 """
 import html
 import json
 import os
+import re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, quote, urlparse
 from urllib.request import Request, urlopen
 
 from movie_intel import build_index, find_local, rejection_class
+from pending_actions import create_action, delete_action, get_action, update_action
+from radarr_client import (
+    RadarrError,
+    configured as radarr_configured,
+    ensure_movie,
+    push_release,
+    selection_context,
+)
 from tmdb_resolver import resolve_movie
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
@@ -20,6 +30,11 @@ WEBHOOK_SECRET = os.environ.get("MOVIE_INTEL_WEBHOOK_SECRET", "")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 TELEGRAM_TOPIC_ID = os.environ.get("TELEGRAM_TOPIC_ID", "").strip()
+PUBLIC_BASE_URL = os.environ.get("MOVIE_INTEL_PUBLIC_BASE_URL", "").strip().rstrip("/")
+PUBLIC_PATH = os.environ.get("MOVIE_INTEL_PUBLIC_PATH", "/movie-intel").strip() or "/movie-intel"
+if not PUBLIC_PATH.startswith("/"):
+    PUBLIC_PATH = "/" + PUBLIC_PATH
+PUBLIC_PATH = PUBLIC_PATH.rstrip("/")
 INDEX = build_index()
 
 SENSITIVE_KEYS = {
@@ -27,6 +42,7 @@ SENSITIVE_KEYS = {
     "cookie", "cookies", "password", "secret",
 }
 ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
+ACTION_TOKEN_RE = re.compile(r"^[A-Za-z0-9_-]{20,128}$")
 
 
 def _fmt_count(value):
@@ -46,7 +62,8 @@ def _rating(obj):
     count = obj.get("votes") or obj.get("vote_count") or obj.get("ratings") or obj.get("rating_count")
     if score is None:
         return None
-    return f"{score}" + (f" ({_fmt_count(count)})" if _fmt_count(count) else "")
+    count_text = _fmt_count(count)
+    return f"{score}" + (f" ({count_text})" if count_text else "")
 
 
 def _runtime(minutes):
@@ -158,7 +175,7 @@ def format_message(payload, movie=None, meta=None):
     return "\n".join(lines)
 
 
-def build_movie_notification(payload):
+def build_movie_context(payload):
     data = payload.get("data") or {}
     release = data.get("release") or {}
     title = release.get("title") or release.get("name") or "Unknown movie"
@@ -167,7 +184,62 @@ def build_movie_notification(payload):
     imdb_id = movie.get("imdb_id") if movie else None
     meta = resolve_movie(title, year, imdb_id=imdb_id)
     text = format_message(payload, movie=movie, meta=meta)
-    return text, (meta or {}).get("poster_url")
+    return {
+        "text": text,
+        "poster_url": (meta or {}).get("poster_url"),
+        "movie": movie,
+        "meta": meta,
+        "category": rejection_class(((data.get("result") or {}).get("rejections") or [])),
+    }
+
+
+def build_movie_notification(payload):
+    context = build_movie_context(payload)
+    return context["text"], context["poster_url"]
+
+
+def _pick(obj, *keys):
+    for key in keys:
+        value = (obj or {}).get(key)
+        if value not in (None, "", [], {}):
+            return value
+    return None
+
+
+def create_pending_action(payload, meta):
+    """Persist only what is needed to add the movie and re-push this release."""
+    if not radarr_configured() or not meta or not meta.get("tmdb_id"):
+        return None
+    data = payload.get("data") or {}
+    result = data.get("result") or {}
+    if rejection_class(result.get("rejections") or []) != "unknown_movie":
+        return None
+    release = data.get("release") or {}
+    if not _pick(release, "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url"):
+        return None
+
+    release_keys = (
+        "protocol", "timestamp", "name", "title", "year", "size", "seeders", "leechers",
+        "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url",
+        "info_url", "infoUrl", "link",
+    )
+    stored_release = {key: release[key] for key in release_keys if key in release}
+    indexer = data.get("indexer") or {}
+    stored_indexer = {key: indexer[key] for key in ("name", "protocol") if key in indexer}
+    movie_title = meta.get("title") or release.get("title") or release.get("name")
+    action = {
+        "movie": {
+            "title": movie_title,
+            "year": meta.get("year") or release.get("year"),
+            "tmdb_id": meta.get("tmdb_id"),
+            "imdb_id": meta.get("imdb_id"),
+            "poster_url": meta.get("poster_url"),
+        },
+        "release": stored_release,
+        "indexer": stored_indexer,
+        "event_timestamp": payload.get("timestamp"),
+    }
+    return create_action(action)
 
 
 def _sanitize(value):
@@ -204,7 +276,18 @@ def _topic_fields():
         raise RuntimeError("TELEGRAM_TOPIC_ID must be an integer") from exc
 
 
-def _telegram_payload(text, parse_mode="HTML"):
+def _reply_markup(action_url):
+    if not action_url:
+        return None
+    return {
+        "inline_keyboard": [[{
+            "text": "➕ Add to Radarr & grab this release",
+            "url": action_url,
+        }]]
+    }
+
+
+def _telegram_payload(text, parse_mode="HTML", action_url=None):
     body = {
         "chat_id": TELEGRAM_CHAT_ID,
         "text": text,
@@ -213,11 +296,14 @@ def _telegram_payload(text, parse_mode="HTML"):
     }
     if parse_mode:
         body["parse_mode"] = parse_mode
+    markup = _reply_markup(action_url)
+    if markup:
+        body["reply_markup"] = markup
     return body
 
 
-def _telegram_photo_payload(photo, caption):
-    return {
+def _telegram_photo_payload(photo, caption, action_url=None):
+    body = {
         "chat_id": TELEGRAM_CHAT_ID,
         "photo": photo,
         "caption": caption,
@@ -225,6 +311,10 @@ def _telegram_photo_payload(photo, caption):
         "show_caption_above_media": False,
         **_topic_fields(),
     }
+    markup = _reply_markup(action_url)
+    if markup:
+        body["reply_markup"] = markup
+    return body
 
 
 def _telegram_request(method, body):
@@ -241,20 +331,100 @@ def _telegram_request(method, body):
         return response.status
 
 
-def send_telegram(text, parse_mode="HTML"):
-    return _telegram_request("sendMessage", _telegram_payload(text, parse_mode=parse_mode))
+def send_telegram(text, parse_mode="HTML", action_url=None):
+    return _telegram_request("sendMessage", _telegram_payload(text, parse_mode=parse_mode, action_url=action_url))
 
 
-def send_movie_notification(text, poster_url=None):
+def send_movie_notification(text, poster_url=None, action_url=None):
     # Telegram photo captions are limited to 1024 characters after parsing.
-    # Keep a safety margin; long intelligence reports fall back to text.
     if poster_url and len(text) <= 950:
         try:
-            return _telegram_request("sendPhoto", _telegram_photo_payload(poster_url, text))
+            return _telegram_request("sendPhoto", _telegram_photo_payload(poster_url, text, action_url=action_url))
         except Exception:
             # Metadata/image delivery must never suppress the actual notification.
             pass
-    return send_telegram(text, parse_mode="HTML")
+    return send_telegram(text, parse_mode="HTML", action_url=action_url)
+
+
+def public_action_url(headers, token):
+    if not token:
+        return None
+    if PUBLIC_BASE_URL:
+        return f"{PUBLIC_BASE_URL}/action/{quote(token)}"
+    forwarded_host = headers.get("X-Forwarded-Host")
+    host = forwarded_host or headers.get("Host")
+    if not host:
+        return None
+    proto = headers.get("X-Forwarded-Proto") or ("https" if forwarded_host else "http")
+    return f"{proto}://{host}{PUBLIC_PATH}/action/{quote(token)}"
+
+
+def _page(title, body):
+    return f"""<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{html.escape(title)}</title>
+<style>
+body{{font-family:system-ui,-apple-system,sans-serif;max-width:680px;margin:36px auto;padding:0 18px;background:#111;color:#eee}}
+.card{{background:#1d1d1f;border-radius:14px;padding:20px}} img{{max-width:180px;border-radius:8px;float:right;margin:0 0 16px 18px}}
+label{{display:block;margin:16px 0 6px;font-weight:600}} select,button{{width:100%;font:inherit;padding:11px;border-radius:8px;border:1px solid #555}}
+select{{background:#202124;color:#eee}} button{{margin-top:20px;background:#eee;color:#111;font-weight:700;cursor:pointer}}
+.muted{{color:#aaa}} .ok{{color:#9bd69b}} .err{{color:#ff9a9a}} code{{overflow-wrap:anywhere}} .clear{{clear:both}}
+</style></head><body><div class="card">{body}<div class="clear"></div></div></body></html>"""
+
+
+def render_confirmation(action, context):
+    movie = action.get("movie") or {}
+    release = action.get("release") or {}
+    title = movie.get("title") or "Movie"
+    year = movie.get("year")
+    poster = movie.get("poster_url")
+    poster_html = f'<img src="{html.escape(str(poster), quote=True)}" alt="poster">' if poster else ""
+
+    root_options = []
+    for row in context["roots"]:
+        path = row.get("path")
+        if not path:
+            continue
+        selected = " selected" if path == context.get("root_default") else ""
+        esc = html.escape(str(path), quote=True)
+        root_options.append(f'<option value="{esc}"{selected}>{html.escape(str(path))}</option>')
+
+    profile_options = []
+    for row in context["profiles"]:
+        if row.get("id") is None:
+            continue
+        profile_id = int(row["id"])
+        selected = " selected" if profile_id == context.get("profile_default") else ""
+        name = html.escape(str(row.get("name") or profile_id))
+        profile_options.append(f'<option value="{profile_id}"{selected}>{name}</option>')
+
+    body = [
+        poster_html,
+        f"<h2>Add {html.escape(str(title))}" + (f" ({html.escape(str(year))})" if year else "") + "</h2>",
+        "<p class=\"muted\">This creates the movie in Radarr without an indexer search, then re-pushes the exact release autobrr announced.</p>",
+        f"<p><b>Release</b><br><code>{html.escape(str(release.get('name') or release.get('title') or 'Unknown release'))}</code></p>",
+        "<form method=\"post\">",
+        "<label for=\"root\">Root folder</label>",
+        f'<select id="root" name="root_folder" required>{"".join(root_options)}</select>',
+        "<label for=\"profile\">Quality profile</label>",
+        f'<select id="profile" name="quality_profile" required>{"".join(profile_options)}</select>',
+        "<button type=\"submit\">Add movie & grab this release</button>",
+        "</form>",
+    ]
+    return _page("Add to Radarr", "".join(body))
+
+
+def render_result(action, success, message):
+    movie = action.get("movie") or {}
+    title = movie.get("title") or "Movie"
+    klass = "ok" if success else "err"
+    heading = "Added and sent to downloader" if success else "Radarr could not complete the action"
+    body = (
+        f'<h2 class="{klass}">{html.escape(heading)}</h2>'
+        f'<p><b>{html.escape(str(title))}</b></p>'
+        f'<p>{html.escape(str(message))}</p>'
+    )
+    return _page("Radarr action", body)
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -266,13 +436,98 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(raw)
 
+    def _html(self, status, page):
+        raw = page.encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(raw)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Referrer-Policy", "no-referrer")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.end_headers()
+        self.wfile.write(raw)
+
+    def _action_token(self):
+        path = urlparse(self.path).path
+        parts = path.strip("/").split("/")
+        if len(parts) == 2 and parts[0] == "action" and ACTION_TOKEN_RE.fullmatch(parts[1]):
+            return parts[1]
+        return None
+
     def do_GET(self):
-        if urlparse(self.path).path == "/health":
-            self._json(200, {"ok": True, "movies": len(INDEX)})
-        else:
-            self._json(404, {"ok": False})
+        path = urlparse(self.path).path
+        if path == "/health":
+            self._json(200, {"ok": True, "movies": len(INDEX), "radarr": radarr_configured()})
+            return
+
+        token = self._action_token()
+        if token:
+            action = get_action(token)
+            if not action:
+                self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
+                return
+            try:
+                context = selection_context()
+                self._html(200, render_confirmation(action, context))
+            except RadarrError as exc:
+                self._html(502, render_result(action, False, str(exc)))
+            return
+
+        self._json(404, {"ok": False})
+
+    def _handle_action_post(self, token):
+        action = get_action(token)
+        if not action:
+            self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
+            return
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+            if length <= 0 or length > 16_384:
+                raise ValueError("invalid form size")
+            params = parse_qs(self.rfile.read(length).decode("utf-8", errors="strict"))
+            root_folder = (params.get("root_folder") or [""])[0]
+            profile_raw = (params.get("quality_profile") or [""])[0]
+            profile_id = int(profile_raw)
+
+            context = selection_context()
+            valid_roots = {str(row.get("path")) for row in context["roots"] if row.get("path")}
+            valid_profiles = {int(row["id"]) for row in context["profiles"] if row.get("id") is not None}
+            if root_folder not in valid_roots or profile_id not in valid_profiles:
+                raise RadarrError("Invalid Radarr root folder or quality profile")
+
+            movie_info = action.get("movie") or {}
+            tmdb_id = movie_info.get("tmdb_id")
+            if not tmdb_id:
+                raise RadarrError("TMDb ID is unavailable for this movie")
+
+            movie, created = ensure_movie(
+                tmdb_id,
+                profile_id,
+                root_folder,
+                title=movie_info.get("title"),
+            )
+            update_action(token, movie_id=movie.get("id"), movie_created=created)
+            push_release(
+                action.get("release") or {},
+                indexer=action.get("indexer") or {},
+                event_timestamp=action.get("event_timestamp"),
+                tmdb_id=tmdb_id,
+            )
+            delete_action(token)
+            message = "Movie created in Radarr and the exact announced release was re-pushed. No indexer search was run."
+            self._html(200, render_result(action, True, message))
+        except (ValueError, UnicodeDecodeError):
+            self._html(400, render_result(action, False, "Invalid confirmation form"))
+        except RadarrError as exc:
+            update_action(token, last_error=str(exc)[:500])
+            self._html(502, render_result(action, False, str(exc)))
 
     def do_POST(self):
+        token = self._action_token()
+        if token:
+            self._handle_action_post(token)
+            return
+
         path = urlparse(self.path).path
         expected = "/webhook" + (f"/{WEBHOOK_SECRET}" if WEBHOOK_SECRET else "")
         if path != expected:
@@ -302,17 +557,28 @@ class Handler(BaseHTTPRequestHandler):
             )
 
             if is_movie_rejection:
-                text, poster_url = build_movie_notification(payload)
-                send_movie_notification(text, poster_url)
-                self._json(200, {"ok": True, "mode": "enriched", "poster": bool(poster_url)})
+                context = build_movie_context(payload)
+                token = create_pending_action(payload, context.get("meta"))
+                action_url = public_action_url(self.headers, token) if token else None
+                if token and not action_url:
+                    delete_action(token)
+                    token = None
+                send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
+                self._json(200, {
+                    "ok": True,
+                    "mode": "enriched",
+                    "poster": bool(context["poster_url"]),
+                    "action": bool(action_url),
+                })
             else:
                 send_telegram(passthrough_message(payload), parse_mode=None)
                 self._json(200, {"ok": True, "mode": "passthrough"})
         except Exception as exc:
+            # Never log payloads or request paths: both can contain secrets.
             self._json(500, {"ok": False, "error": type(exc).__name__})
 
     def log_message(self, fmt, *args):
-        # Request paths can contain the webhook secret, so do not log them.
+        # Request paths can contain webhook/action secrets, so do not log them.
         print(f"http {getattr(self, 'command', '?')} {args[1] if len(args) > 1 else ''}")
 
 
