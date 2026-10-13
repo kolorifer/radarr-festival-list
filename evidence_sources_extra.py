@@ -19,6 +19,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 import requests
+import film_identity as fi
 from bs4 import BeautifulSoup
 
 import evidence_sources as es
@@ -152,6 +153,9 @@ def canonical_ids():
 
 def local_lookup(title, year, catalog, preferred_ids):
     """Resolve a unique local title/year, preferring the canonical TSPDT ID."""
+    verified = fi.verified_award(title, year) or fi.verified_identity(title, year)
+    if verified and verified["imdb_id"] in catalog:
+        return verified["imdb_id"]
     key = es.norm(title)
     hits = []
     for iid, item in catalog.items():
@@ -168,6 +172,9 @@ def local_lookup(title, year, catalog, preferred_ids):
 
 def strict_imdb_lookup(title, year):
     """Resolve an exact movie suggestion and reject TV/short-form lookalikes."""
+    verified = fi.verified_award(title, year) or fi.verified_identity(title, year)
+    if verified:
+        return verified["imdb_id"], verified["title"], verified["year"]
     try:
         data = requests.get(
             "https://v2.sg.media-imdb.com/suggestion/x/" + quote(title) + ".json",

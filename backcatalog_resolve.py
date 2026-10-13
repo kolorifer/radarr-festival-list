@@ -2,11 +2,11 @@
 import json
 import threading
 import time
-from difflib import SequenceMatcher
 from urllib.error import HTTPError
 from urllib.parse import quote
 
 import backcatalog as bc
+import film_identity as fi
 
 PRIMARY_TITLE_ALIASES = {
     ("La Ciénaga", 2001): "The Swamp",
@@ -67,16 +67,6 @@ _NEXT_REQUEST_AT = 0.0
 REQUEST_INTERVAL = 0.40
 
 
-def similarity(a, b):
-    a = bc.normalized_title(a)
-    b = bc.normalized_title(b)
-    if not a or not b:
-        return 0.0
-    if a == b:
-        return 1.0
-    return SequenceMatcher(None, a, b).ratio()
-
-
 def _rate_limited_fetch(url):
     global _NEXT_REQUEST_AT
     with _REQUEST_LOCK:
@@ -100,31 +90,24 @@ def fetch_json_with_retry(url, attempts=8):
     raise RuntimeError("unreachable")
 
 
-def imdb_lookup(title, year):
-    verified = VERIFIED_IMDB.get((title, year))
+def imdb_lookup(title, year, source_metadata=None):
+    verified = fi.verified_identity(title, year)
     if verified:
-        return verified
-
+        return verified["imdb_id"], verified["title"], verified["year"]
+    source = {**(source_metadata or {}), "title": title, "year": year}
     query_title = PRIMARY_TITLE_ALIASES.get((title, year), title)
     url = f"https://v2.sg.media-imdb.com/suggestion/x/{quote(query_title)}.json"
     data = fetch_json_with_retry(url)
     candidates = []
-    for position, item in enumerate(data.get("d", [])):
-        imdb_id = item.get("id", "")
-        item_title = item.get("l", "")
-        item_year = item.get("y")
-        if not imdb_id.startswith("tt"):
+    for item in data.get("d", []):
+        iid = item.get("id", "")
+        if not iid.startswith("tt"):
             continue
-        if not isinstance(item_year, int) or abs(item_year - year) > 1:
-            continue
-        sim = similarity(query_title, item_title)
-        if sim < 0.78:
-            continue
-        candidates.append((abs(item_year - year), -sim, position, imdb_id, item_title, item_year))
-    if not candidates:
-        return None
-    _, _, _, imdb_id, item_title, item_year = min(candidates)
-    return imdb_id, item_title, item_year
+        metadata = fi.cached_metadata(iid)
+        aliases = (query_title,) if query_title != title else ()
+        if fi.accepts(source, item, metadata, aliases):
+            candidates.append((iid, item["l"], item["y"]))
+    return candidates[0] if len(candidates) == 1 else None
 
 
 bc.imdb_lookup = imdb_lookup

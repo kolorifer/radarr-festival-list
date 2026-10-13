@@ -161,18 +161,9 @@ def normalized_title(title):
     return re.sub(r"[^a-z0-9]+", "", text)
 
 
-def imdb_lookup(title, year):
-    url = f"https://v2.sg.media-imdb.com/suggestion/x/{quote(title)}.json"
-    data = json.loads(fetch(url)); norm = normalized_title(title); matches = []
-    for item in data.get("d", []):
-        imdb_id = item.get("id", ""); item_title = item.get("l", ""); item_year = item.get("y")
-        if not imdb_id.startswith("tt"): continue
-        if not isinstance(item_year, int) or abs(item_year - year) > 1: continue
-        if normalized_title(item_title) != norm: continue
-        matches.append((abs(item_year - year), imdb_id, item_title, item_year))
-    if not matches: return None
-    _, imdb_id, item_title, item_year = min(matches)
-    return imdb_id, item_title, item_year
+def imdb_lookup(title, year, source_metadata=None):
+    from backcatalog_resolve import imdb_lookup as deterministic_lookup
+    return deterministic_lookup(title, year, source_metadata=source_metadata)
 
 
 def score_row(row):
@@ -190,10 +181,11 @@ def score_row(row):
 
 def resolve_one(row):
     title, score, signals, watched = score_row(row)
-    match = imdb_lookup(title, row["year"])
+    match = imdb_lookup(title, row["year"], source_metadata=row)
     if not match: return None, {"title": title, "year": row["year"], "tspdt_rank": row["rank"]}
     imdb_id, resolved_title, resolved_year = match
     return {"title": resolved_title, "year": resolved_year, "imdb_id": imdb_id,
+            "source_title": row["title"], "source_year": row["year"],
             "tspdt_rank": row["rank"], "score": score, "signals": signals,
             "director": row["director"], "country": row["country"], "runtime": row["runtime"],
             "status": "candidate", "watch_state": "watched" if watched else "unknown",

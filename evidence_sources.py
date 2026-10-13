@@ -14,6 +14,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 import requests
+import film_identity as fi
 from bs4 import BeautifulSoup
 
 BACKCATALOG = Path("backcatalog-details.json")
@@ -82,28 +83,27 @@ def local_match(title, year, catalog):
 
 
 def imdb_lookup(title, year):
+    verified = fi.verified_award(title, year) or fi.verified_identity(title, year)
+    if verified:
+        return verified["imdb_id"], verified["title"], verified["year"]
     try:
         data = requests.get(
             "https://v2.sg.media-imdb.com/suggestion/x/" + quote(title) + ".json",
-            headers=UA,
-            timeout=20,
-        ).json()
+            headers=UA, timeout=20).json()
     except Exception:
         return None
+    source = {"title":title,"year":year}
     candidates = []
-    for item in data.get("d", []):
-        iid = item.get("id", "")
-        iy = item.get("y")
-        it = item.get("l", "")
-        if not iid.startswith("tt") or not isinstance(iy, int):
+    for item in data.get("d",[]):
+        iid=item.get("id","")
+        if not iid.startswith("tt"):
             continue
-        if year and abs(iy - int(year)) > 1:
+        kind=" ".join(str(item.get(k) or "").casefold() for k in ("q","qid"))
+        if any(token in kind for token in ("tv series","tv mini","episode","podcast","video game","music video","short")):
             continue
-        candidates.append(((0 if norm(it) == norm(title) else 1, abs(iy - int(year or iy))), iid, it, iy))
-    if not candidates:
-        return None
-    _, iid, resolved_title, resolved_year = min(candidates)
-    return iid, resolved_title, resolved_year
+        if fi.accepts(source,item,fi.cached_metadata(iid)):
+            candidates.append((iid,item["l"],item["y"]))
+    return candidates[0] if len(candidates)==1 else None
 
 
 def parse_wikipedia_ranked(html_text):

@@ -1,0 +1,86 @@
+{
+  "mode": "existing-award-evidence-for-corrected-identities",
+  "repository": "Kometa-Team/IMDb-Awards",
+  "source_commit": "8056d2d124b35cc897d1c60673d91eeaffe00dd4",
+  "scope_imdb_ids": [
+    "tt0278731",
+    "tt0806125",
+    "tt11416746",
+    "tt12913444"
+  ],
+  "event_sources": {
+    "academy": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000003.yml",
+    "berlin": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000091.yml",
+    "bafta": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000123.yml",
+    "cannes": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000147.yml",
+    "golden_globes": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000292.yml",
+    "spirit": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000349.yml",
+    "sundance": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000631.yml",
+    "venice": "https://github.com/Kometa-Team/IMDb-Awards/blob/8056d2d124b35cc897d1c60673d91eeaffe00dd4/events/ev0000681.yml"
+  },
+  "primary_verification": {
+    "tt11416746": [
+      "https://www.oscars.org/oscars/ceremonies/2021",
+      "https://www.sundance.org/blogs/2020-sundance-film-festival-awards-announced-3/"
+    ],
+    "tt0278731": [
+      "https://www.festival-cannes.com/f/spider/"
+    ]
+  },
+  "event_records": {
+    "academy": [
+      {
+        "year": 2021,
+        "award": "oscar",
+        "category": "best documentary feature",
+        "status": "nominee",
+        "imdb_id": "tt11416746"
+      }
+    ],
+    "cannes": [
+      {
+        "year": 2002,
+        "award": "palme d'or",
+        "category": "palme d'or",
+        "status": "nominee",
+        "imdb_id": "tt0278731"
+      }
+    ],
+    "berlin": [],
+    "bafta": [],
+    "golden_globes": [],
+    "spirit": [
+      {
+        "year": 2021,
+        "award": "independent spirit award",
+        "category": "best documentary",
+        "status": "nominee",
+        "imdb_id": "tt11416746"
+      }
+    ],
+    "sundance": [
+      {
+        "year": 2020,
+        "award": "grand jury prize",
+        "category": "documentary",
+        "status": "nominee",
+        "imdb_id": "tt11416746"
+      },
+      {
+        "year": 2020,
+        "award": "directing award",
+        "category": "documentary",
+        "status": "nominee",
+        "imdb_id": "tt11416746"
+      },
+      {
+        "year": 2020,
+        "award": "directing award",
+        "category": "documentary",
+        "status": "winner",
+        "imdb_id": "tt11416746"
+      }
+    ],
+    "venice": []
+  }
+}

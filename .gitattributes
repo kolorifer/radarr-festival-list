@@ -1,1 +1,2 @@
 simulations/audience-cap-comparison/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+simulations/data-identity-integrity/*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

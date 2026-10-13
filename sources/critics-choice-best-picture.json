@@ -9,7 +9,7 @@
   },
   "pages_discovered": 26,
   "records_parsed": 263,
-  "resolved": 234,
+  "resolved": 241,
   "unresolved": [
     {
       "title": "Quills",
@@ -33,13 +33,6 @@
       "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
     },
     {
-      "title": "Lord of the Rings: The Fellowship of the Ring",
-      "winner": false,
-      "ceremony_year": 2002,
-      "film_year_hint": 2001,
-      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
-    },
-    {
       "title": "The Shipping News",
       "winner": false,
       "ceremony_year": 2002,
@@ -47,28 +40,7 @@
       "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
     },
     {
-      "title": "Lord of the Rings: The Two Towers",
-      "winner": false,
-      "ceremony_year": 2003,
-      "film_year_hint": 2002,
-      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
-    },
-    {
       "title": "In America",
-      "winner": false,
-      "ceremony_year": 2004,
-      "film_year_hint": 2003,
-      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
-    },
-    {
-      "title": "Lord of the Rings: The Return of the King",
-      "winner": true,
-      "ceremony_year": 2004,
-      "film_year_hint": 2003,
-      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
-    },
-    {
-      "title": "Master and Commander",
       "winner": false,
       "ceremony_year": 2004,
       "film_year_hint": 2003,
@@ -96,13 +68,6 @@
       "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
     },
     {
-      "title": "Sweeney Todd",
-      "winner": false,
-      "ceremony_year": 2008,
-      "film_year_hint": 2007,
-      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
-    },
-    {
       "title": "The Kite Runner",
       "winner": false,
       "ceremony_year": 2008,
@@ -115,20 +80,6 @@
       "ceremony_year": 2010,
       "film_year_hint": 2009,
       "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
-    },
-    {
-      "title": "Birdman",
-      "winner": false,
-      "ceremony_year": 2015,
-      "film_year_hint": 2014,
-      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
-    },
-    {
-      "title": "Star Wars: The Force Awakens",
-      "winner": false,
-      "ceremony_year": 2016,
-      "film_year_hint": 2015,
-      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
     },
     {
       "title": "Loving",
@@ -337,6 +288,14 @@
       "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
     },
     {
+      "imdb_id": "tt0120737",
+      "title": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": 2001,
+      "winner": false,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
       "imdb_id": "tt0243133",
       "title": "The Man Who Wasn't There",
       "year": 2001,
@@ -409,6 +368,14 @@
       "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
     },
     {
+      "imdb_id": "tt0167261",
+      "title": "The Lord of the Rings: The Two Towers",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
       "imdb_id": "tt0253474",
       "title": "The Pianist",
       "year": 2002,
@@ -449,6 +416,14 @@
       "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
     },
     {
+      "imdb_id": "tt0311113",
+      "title": "Master and Commander: The Far Side of the World",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
       "imdb_id": "tt0327056",
       "title": "Mystic River",
       "year": 2003,
@@ -469,6 +444,14 @@
       "title": "The Last Samurai",
       "year": 2003,
       "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0167260",
+      "title": "The Lord of the Rings: The Return of the King",
+      "year": 2003,
+      "winner": true,
       "ceremony_year": 2004,
       "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
     },
@@ -733,6 +716,14 @@
       "title": "No Country for Old Men",
       "year": 2007,
       "winner": true,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0408236",
+      "title": "Sweeney Todd: The Demon Barber of Fleet Street",
+      "year": 2007,
+      "winner": false,
       "ceremony_year": 2008,
       "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
     },
@@ -1233,6 +1224,14 @@
       "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
     },
     {
+      "imdb_id": "tt2562232",
+      "title": "Birdman or (The Unexpected Virtue of Ignorance)",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
       "imdb_id": "tt1065073",
       "title": "Boyhood",
       "year": 2014,
@@ -1349,6 +1348,14 @@
       "title": "Spotlight",
       "year": 2015,
       "winner": true,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt2488496",
+      "title": "Star Wars: Episode VII - The Force Awakens",
+      "year": 2015,
+      "winner": false,
       "ceremony_year": 2016,
       "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
     },

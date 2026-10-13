@@ -1,12 +1,15 @@
 # Current Codex task
 
-**Status:** Idle — the audience-cap calibration task is complete.
+Status: Idle — the assigned identity-integrity cleanup is completed.
 
-Ready for user/ChatGPT product review:
-[engineering report](reports/2026-10-13-audience-caps.md),
-[agreed brief](reports/2026-10-13-audience-caps-brief.md), and
-[comparison artifacts](../simulations/audience-cap-comparison/README.md).
+[Completed brief](reports/2026-10-13-identity-integrity-brief.md) ·
+[Engineering report](reports/2026-10-13-identity-integrity.md) ·
+[Comparison artifacts](../simulations/data-identity-integrity/README.md) ·
+[Draft PR#3](https://github.com/kolorifer/radarr-festival-list/pull/3).
 
-No preferred cap, threshold, production merge or deployment is selected.
-Use [the task template](templates/CODEX_TASK.md) for the next agreed change.
-Known data/operational gaps are findings, not independently assigned tasks.
+The report distinguishes completed audit/repair/scoring verification from nine
+remaining Letterboxd gaps, ReelDB 403 access failure and32 unresolved award-source
+records. No production deployment, main merge or new threshold was performed.
+
+No next implementation task is independently selected. The user and ChatGPT
+review the evidence and provide the next agreed brief.

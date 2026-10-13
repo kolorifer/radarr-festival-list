@@ -1438,7 +1438,7 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 100.0,
-        "critics_groups_consensus": 43.0
+        "critics_groups_consensus": 78.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1452,7 +1452,8 @@
         ],
         "critics_groups_consensus": [
           "LAFCA Best Film (winner)",
-          "Critics Choice Best Picture (nominee)"
+          "Critics Choice Best Picture (nominee)",
+          "NSFC Best Picture (winner)"
         ]
       }
     },
@@ -1641,12 +1642,13 @@
       "title": "Caché",
       "year": 2005,
       "family_scores": {
-        "european_recognition": 40.0
+        "european_recognition": 80.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: best director / best director (winner)"
+          "Cannes: best director / best director (winner)",
+          "European Film Awards Best Film (winner)"
         ]
       }
     },
@@ -1968,7 +1970,8 @@
       "family_scores": {
         "us_institutional": 35.0,
         "european_recognition": 45.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 35.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1980,6 +1983,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "NSFC Best Picture (winner)"
         ]
       }
     },
@@ -2252,7 +2258,7 @@
         "us_institutional": 100.0,
         "european_recognition": 60.0,
         "independent_cinema": 50.0,
-        "critics_groups_consensus": 8.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2267,7 +2273,8 @@
           "Spirit: independent spirit award / best feature (winner)"
         ],
         "critics_groups_consensus": [
-          "Critics Choice Best Picture (nominee)"
+          "Critics Choice Best Picture (nominee)",
+          "LAFCA Best Film (winner)"
         ]
       }
     },
@@ -2343,7 +2350,8 @@
       "year": 2001,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2352,6 +2360,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3117,7 +3128,7 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 50.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 60.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3128,7 +3139,8 @@
           "BAFTA: bafta film award / best film (winner)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -3144,12 +3156,16 @@
       "title": "Goodbye to Language",
       "year": 2014,
       "family_scores": {
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 35.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)",
           "Cannes: jury prize / jury prize (winner)"
+        ],
+        "critics_groups_consensus": [
+          "NSFC Best Picture (winner)"
         ]
       }
     },
@@ -3753,7 +3769,8 @@
       "year": 2002,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3762,6 +3779,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3976,7 +3996,8 @@
       "year": 2008,
       "family_scores": {
         "us_institutional": 35.0,
-        "european_recognition": 37.0
+        "european_recognition": 37.0,
+        "critics_groups_consensus": 35.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3986,6 +4007,9 @@
           "BAFTA: bafta film award / best film not in the english language (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)",
           "European Film Awards Best Film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "NSFC Best Picture (winner)"
         ]
       }
     },
@@ -5291,10 +5315,6 @@
         ]
       }
     },
-    "tt13138834": {
-      "title": "Time",
-      "year": 2021
-    },
     "tt0190590": {
       "title": "O Brother, Where Art Thou?",
       "year": 2000,
@@ -5710,18 +5730,6 @@
         ]
       }
     },
-    "tt5130912": {
-      "title": "Birdman",
-      "year": 2014,
-      "family_scores": {
-        "independent_cinema": 35.0
-      },
-      "family_evidence": {
-        "independent_cinema": [
-          "Gotham Best Feature (winner)"
-        ]
-      }
-    },
     "tt0289043": {
       "title": "28 Days Later",
       "year": 2002
@@ -5789,7 +5797,8 @@
       "year": 2003,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5798,6 +5807,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7009,12 +7021,13 @@
       "title": "120 BPM (Beats Per Minute)",
       "year": 2017,
       "family_scores": {
-        "european_recognition": 65.0
+        "european_recognition": 77.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)",
-          "Cannes: grand prize of the jury / grand prize of the jury (winner)"
+          "Cannes: grand prize of the jury / grand prize of the jury (winner)",
+          "European Film Awards Best Film (nominee)"
         ]
       }
     },
@@ -7310,10 +7323,6 @@
     },
     "tt0826711": {
       "title": "Flight of the Red Balloon",
-      "year": 2007
-    },
-    "tt4698742": {
-      "title": "La Porte Rouge",
       "year": 2007
     },
     "tt2013293": {
@@ -8173,10 +8182,6 @@
     "tt0499138": {
       "title": "Wolff von Amerongen: Did He Commit Bankruptcy Offences?",
       "year": 2004
-    },
-    "tt0145487": {
-      "title": "Spider-Man",
-      "year": 2002
     },
     "tt1951181": {
       "title": "The Immigrant",
@@ -9278,18 +9283,27 @@
     },
     "tt0408236": {
       "title": "Sweeney Todd: The Demon Barber of Fleet Street",
-      "year": 2007
+      "year": 2007,
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      },
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      }
     },
     "tt10262648": {
       "title": "Compartment Number 6",
       "year": 2021,
       "family_scores": {
-        "european_recognition": 10.0,
+        "european_recognition": 22.0,
         "us_institutional": 5.0
       },
       "family_evidence": {
         "european_recognition": [
-          "Cannes: palme d'or / palme d'or (nominee)"
+          "Cannes: palme d'or / palme d'or (nominee)",
+          "European Film Awards Best Film (nominee)"
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
@@ -10565,10 +10579,6 @@
     "tt0310313": {
       "title": "A New Life",
       "year": 2002
-    },
-    "tt7923220": {
-      "title": "Inheritance",
-      "year": 2020
     },
     "tt0393109": {
       "title": "Brick",
@@ -13142,7 +13152,8 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 25.0,
-        "independent_cinema": 50.0
+        "independent_cinema": 85.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13152,7 +13163,11 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "independent_cinema": [
-          "Spirit: independent spirit award / best feature (winner)"
+          "Spirit: independent spirit award / best feature (winner)",
+          "Gotham Best Feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15200,7 +15215,15 @@
     },
     "tt2488496": {
       "title": "Star Wars: Episode VII - The Force Awakens",
-      "year": 2015
+      "year": 2015,
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      },
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      }
     },
     "tt2395427": {
       "title": "Avengers: Age of Ultron",
@@ -19450,6 +19473,43 @@
           "Gotham Best Feature (nominee)"
         ]
       }
+    },
+    "tt11416746": {
+      "title": "Time",
+      "year": 2020,
+      "family_scores": {
+        "us_institutional": 30.0,
+        "independent_cinema": 33.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best documentary feature (nominee)"
+        ],
+        "independent_cinema": [
+          "Sundance: grand jury prize / documentary (nominee)",
+          "Sundance: directing award / documentary (winner)"
+        ]
+      }
+    },
+    "tt0806125": {
+      "title": "La Morte rouge",
+      "year": 2006
+    },
+    "tt0278731": {
+      "title": "Spider",
+      "year": 2002,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
+    },
+    "tt12913444": {
+      "title": "The Inheritance",
+      "year": 2020
     }
   },
   "unresolved_ranked": {
@@ -19477,8 +19537,8 @@
       "family": "european_recognition",
       "winner_points": 40,
       "nominee_points": 12,
-      "resolved": 141,
-      "unresolved": 11
+      "resolved": 144,
+      "unresolved": 8
     },
     "gotham_best_feature": {
       "url": "https://en.wikipedia.org/wiki/Gotham_Independent_Film_Award_for_Best_Feature",
@@ -19495,8 +19555,8 @@
       "family": "critics_groups_consensus",
       "winner_points": 35,
       "nominee_points": 0,
-      "resolved": 22,
-      "unresolved": 4
+      "resolved": 26,
+      "unresolved": 0
     },
     "nyfcc_best_film": {
       "url": "https://en.wikipedia.org/wiki/New_York_Film_Critics_Circle_Award_for_Best_Film",
@@ -19513,8 +19573,8 @@
       "family": "critics_groups_consensus",
       "winner_points": 35,
       "nominee_points": 0,
-      "resolved": 26,
-      "unresolved": 2
+      "resolved": 27,
+      "unresolved": 1
     },
     "critics_choice_best_picture": {
       "url": "https://www.criticschoice.com/critics-choice-awards-archives/",
@@ -19522,8 +19582,8 @@
       "family": "critics_groups_consensus",
       "winner_points": 25,
       "nominee_points": 8,
-      "resolved": 234,
-      "unresolved": 29,
+      "resolved": 241,
+      "unresolved": 22,
       "records_parsed": 263,
       "pages_discovered": 26
     }
@@ -19534,11 +19594,6 @@
         "year": 2000,
         "title": "Harry, He's Here to Help",
         "winner": false
-      },
-      {
-        "year": 2005,
-        "title": "Hidden",
-        "winner": true
       },
       {
         "year": 2005,
@@ -19571,18 +19626,8 @@
         "winner": false
       },
       {
-        "year": 2017,
-        "title": "BPM (Beats per Minute)",
-        "winner": false
-      },
-      {
         "year": 2018,
         "title": "Girl",
-        "winner": false
-      },
-      {
-        "year": 2021,
-        "title": "Compartment No. 6",
         "winner": false
       }
     ],
@@ -19593,35 +19638,9 @@
         "winner": false
       }
     ],
-    "nsfc_best_picture": [
-      {
-        "year": 2006,
-        "title": "Pan's Labyrinth (El laberinto del fauno)",
-        "winner": true
-      },
-      {
-        "year": 2008,
-        "title": "Waltz with Bashir (Vals im Bashir)",
-        "winner": true
-      },
-      {
-        "year": 2014,
-        "title": "Goodbye to Language (Adieu au Langage)",
-        "winner": true
-      },
-      {
-        "year": 2019,
-        "title": "Parasite (Gisaengchung)",
-        "winner": true
-      }
-    ],
+    "nsfc_best_picture": [],
     "nyfcc_best_film": [],
     "lafca_best_film": [
-      {
-        "year": 2000,
-        "title": "Crouching Tiger, Hidden Dragon (Wo hu cang long)",
-        "winner": true
-      },
       {
         "year": 2020,
         "title": "Small Axe",
@@ -19651,13 +19670,6 @@
         "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
       },
       {
-        "title": "Lord of the Rings: The Fellowship of the Ring",
-        "winner": false,
-        "ceremony_year": 2002,
-        "film_year_hint": 2001,
-        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
-      },
-      {
         "title": "The Shipping News",
         "winner": false,
         "ceremony_year": 2002,
@@ -19665,28 +19677,7 @@
         "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
       },
       {
-        "title": "Lord of the Rings: The Two Towers",
-        "winner": false,
-        "ceremony_year": 2003,
-        "film_year_hint": 2002,
-        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
-      },
-      {
         "title": "In America",
-        "winner": false,
-        "ceremony_year": 2004,
-        "film_year_hint": 2003,
-        "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
-      },
-      {
-        "title": "Lord of the Rings: The Return of the King",
-        "winner": true,
-        "ceremony_year": 2004,
-        "film_year_hint": 2003,
-        "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
-      },
-      {
-        "title": "Master and Commander",
         "winner": false,
         "ceremony_year": 2004,
         "film_year_hint": 2003,
@@ -19714,13 +19705,6 @@
         "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
       },
       {
-        "title": "Sweeney Todd",
-        "winner": false,
-        "ceremony_year": 2008,
-        "film_year_hint": 2007,
-        "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
-      },
-      {
         "title": "The Kite Runner",
         "winner": false,
         "ceremony_year": 2008,
@@ -19733,20 +19717,6 @@
         "ceremony_year": 2010,
         "film_year_hint": 2009,
         "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
-      },
-      {
-        "title": "Birdman",
-        "winner": false,
-        "ceremony_year": 2015,
-        "film_year_hint": 2014,
-        "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
-      },
-      {
-        "title": "Star Wars: The Force Awakens",
-        "winner": false,
-        "ceremony_year": 2016,
-        "film_year_hint": 2015,
-        "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
       },
       {
         "title": "Loving",
@@ -19833,5 +19803,42 @@
         "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
       }
     ]
+  },
+  "corrected_identity_award_provenance": {
+    "source_commit": "8056d2d124b35cc897d1c60673d91eeaffe00dd4",
+    "scope_imdb_ids": [
+      "tt0278731",
+      "tt0806125",
+      "tt11416746",
+      "tt12913444"
+    ],
+    "source_file": "simulations/data-identity-integrity/inputs/corrected-award-evidence.json",
+    "scored": {
+      "tt11416746": {
+        "family_scores": {
+          "us_institutional": 30.0,
+          "independent_cinema": 33.0
+        },
+        "family_evidence": {
+          "us_institutional": [
+            "Academy: oscar / best documentary feature (nominee)"
+          ],
+          "independent_cinema": [
+            "Sundance: grand jury prize / documentary (nominee)",
+            "Sundance: directing award / documentary (winner)"
+          ]
+        }
+      },
+      "tt0278731": {
+        "family_scores": {
+          "european_recognition": 10.0
+        },
+        "family_evidence": {
+          "european_recognition": [
+            "Cannes: palme d'or / palme d'or (nominee)"
+          ]
+        }
+      }
+    }
   }
 }
