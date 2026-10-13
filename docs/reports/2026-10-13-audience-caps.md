@@ -37,7 +37,7 @@ broad-critic component. No new critics-source approach was invented.
 | .github/workflows/audience-cap-enrichment.yml | Branch-scoped use of the existing repository secret; research-only collection and artifact publication. |
 | simulations/audience-cap-comparison/ | Full variant JSON/CSV, comparison JSON/CSV/Markdown, manifest, coverage, IMDb fallback, collection history and validation evidence. |
 | AGENTS.md, PROJECT.md, docs/ | Persistent engineering instructions, accepted experiment, state, active-task closure, brief/report templates and completed handoff. |
-| .gitignore | Ignore virtual environments, Python cache and private .env files. |
+| .gitignore, .gitattributes | Ignore private/cache files; retain normal whitespace checks while allowing standard CRLF in the generated CSV tables. |
 
 Existing production feed files, qualification logic, and legacy scoring modules
 are unchanged. The previous temporary comparison and v10 artifact remain
@@ -102,7 +102,9 @@ On the seedbox, using the existing Python virtual environment:
   published frozen inputs and matched byte for byte, including both JSON/CSV
   variants and comparison outputs.
 - Configured-secret absence, changed-file scope, relative documentation links
-  and git diff --check were verified before the final handoff.
+  and git diff --check were verified before the final handoff. A scoped CSV
+  attribute recognizes its standard CRLF endings; all three CSVs parse to the
+  same 1,909 IDs and match their JSON score values.
 - Both isolated enrichment/publication Actions runs completed successfully.
 
 The prior deployment's 53 service tests are earlier evidence; the 63 tests above
