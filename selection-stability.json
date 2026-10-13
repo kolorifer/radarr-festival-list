@@ -1,0 +1,3761 @@
+{
+  "mode": "research-selection-stability-v1",
+  "qualification_unchanged": true,
+  "score_unchanged": true,
+  "score_mode": "research-evidence-score-v10-canon150-audience200-broadcritics40",
+  "anchor_policy": {
+    "new_floor": 225,
+    "legacy_floor": 175,
+    "protect_multi_route": true,
+    "min_non_audience_families": 2
+  },
+  "anchor": {
+    "selected": 389,
+    "promotions_vs_old": 150,
+    "legacy_retained": 239,
+    "legacy_dropped": 16
+  },
+  "grid": {
+    "new215_legacy165": {
+      "policy": {
+        "new_floor": 215,
+        "legacy_floor": 165,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 407,
+      "promotions_vs_old": 167,
+      "legacy_retained": 240,
+      "legacy_dropped": 15,
+      "delta_selected_vs_anchor": 18,
+      "added_vs_anchor": 18,
+      "removed_vs_anchor": 0,
+      "added_titles": [
+        {
+          "rank": 356,
+          "title": "The Squid and the Whale",
+          "year": 2005,
+          "imdb_id": "tt0367089",
+          "score": 223.95,
+          "audience": 72.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 357,
+          "title": "Frankenstein",
+          "year": 2025,
+          "imdb_id": "tt1312221",
+          "score": 223.66,
+          "audience": 114.36,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 358,
+          "title": "On Body and Soul",
+          "year": 2017,
+          "imdb_id": "tt5607714",
+          "score": 222.53,
+          "audience": 68.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 360,
+          "title": "Les Misérables",
+          "year": 2019,
+          "imdb_id": "tt10199590",
+          "score": 222.19,
+          "audience": 87.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 362,
+          "title": "American Fiction",
+          "year": 2023,
+          "imdb_id": "tt23561236",
+          "score": 222.09,
+          "audience": 104.28,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 363,
+          "title": "Bridge of Spies",
+          "year": 2015,
+          "imdb_id": "tt3682448",
+          "score": 221.55,
+          "audience": 100.77,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 366,
+          "title": "King Richard",
+          "year": 2021,
+          "imdb_id": "tt9620288",
+          "score": 220.29,
+          "audience": 118.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 367,
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "score": 220.12,
+          "audience": 35.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 369,
+          "title": "Capturing the Friedmans",
+          "year": 2003,
+          "imdb_id": "tt0342172",
+          "score": 219.88,
+          "audience": 58.73,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 372,
+          "title": "Lagaan: Once Upon a Time in India",
+          "year": 2001,
+          "imdb_id": "tt0169102",
+          "score": 218.98,
+          "audience": 113.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 375,
+          "title": "Bugonia",
+          "year": 2025,
+          "imdb_id": "tt12300742",
+          "score": 217.23,
+          "audience": 101.03,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 377,
+          "title": "Hot Fuzz",
+          "year": 2007,
+          "imdb_id": "tt0425112",
+          "score": 217.09,
+          "audience": 143.08,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 379,
+          "title": "Philomena",
+          "year": 2013,
+          "imdb_id": "tt2431286",
+          "score": 216.25,
+          "audience": 91.78,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 381,
+          "title": "The Son's Room",
+          "year": 2001,
+          "imdb_id": "tt0208990",
+          "score": 215.58,
+          "audience": 55.91,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 382,
+          "title": "Sentimental Value",
+          "year": 2025,
+          "imdb_id": "tt27714581",
+          "score": 215.47,
+          "audience": 138.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 383,
+          "title": "Judas and the Black Messiah",
+          "year": 2020,
+          "imdb_id": "tt9784798",
+          "score": 215.24,
+          "audience": 115.93,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 384,
+          "title": "The Reader",
+          "year": 2008,
+          "imdb_id": "tt0976051",
+          "score": 215.05,
+          "audience": 95.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 600,
+          "title": "Nostalgia for the Light",
+          "year": 2010,
+          "imdb_id": "tt1556190",
+          "score": 169.02,
+          "audience": 53.13,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ],
+      "removed_titles": []
+    },
+    "new220_legacy165": {
+      "policy": {
+        "new_floor": 220,
+        "legacy_floor": 165,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 398,
+      "promotions_vs_old": 158,
+      "legacy_retained": 240,
+      "legacy_dropped": 15,
+      "delta_selected_vs_anchor": 9,
+      "added_vs_anchor": 9,
+      "removed_vs_anchor": 0,
+      "added_titles": [
+        {
+          "rank": 356,
+          "title": "The Squid and the Whale",
+          "year": 2005,
+          "imdb_id": "tt0367089",
+          "score": 223.95,
+          "audience": 72.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 357,
+          "title": "Frankenstein",
+          "year": 2025,
+          "imdb_id": "tt1312221",
+          "score": 223.66,
+          "audience": 114.36,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 358,
+          "title": "On Body and Soul",
+          "year": 2017,
+          "imdb_id": "tt5607714",
+          "score": 222.53,
+          "audience": 68.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 360,
+          "title": "Les Misérables",
+          "year": 2019,
+          "imdb_id": "tt10199590",
+          "score": 222.19,
+          "audience": 87.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 362,
+          "title": "American Fiction",
+          "year": 2023,
+          "imdb_id": "tt23561236",
+          "score": 222.09,
+          "audience": 104.28,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 363,
+          "title": "Bridge of Spies",
+          "year": 2015,
+          "imdb_id": "tt3682448",
+          "score": 221.55,
+          "audience": 100.77,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 366,
+          "title": "King Richard",
+          "year": 2021,
+          "imdb_id": "tt9620288",
+          "score": 220.29,
+          "audience": 118.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 367,
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "score": 220.12,
+          "audience": 35.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 600,
+          "title": "Nostalgia for the Light",
+          "year": 2010,
+          "imdb_id": "tt1556190",
+          "score": 169.02,
+          "audience": 53.13,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ],
+      "removed_titles": []
+    },
+    "new225_legacy165": {
+      "policy": {
+        "new_floor": 225,
+        "legacy_floor": 165,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 390,
+      "promotions_vs_old": 150,
+      "legacy_retained": 240,
+      "legacy_dropped": 15,
+      "delta_selected_vs_anchor": 1,
+      "added_vs_anchor": 1,
+      "removed_vs_anchor": 0,
+      "added_titles": [
+        {
+          "rank": 600,
+          "title": "Nostalgia for the Light",
+          "year": 2010,
+          "imdb_id": "tt1556190",
+          "score": 169.02,
+          "audience": 53.13,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ],
+      "removed_titles": []
+    },
+    "new230_legacy165": {
+      "policy": {
+        "new_floor": 230,
+        "legacy_floor": 165,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 373,
+      "promotions_vs_old": 133,
+      "legacy_retained": 240,
+      "legacy_dropped": 15,
+      "delta_selected_vs_anchor": -16,
+      "added_vs_anchor": 1,
+      "removed_vs_anchor": 17,
+      "added_titles": [
+        {
+          "rank": 600,
+          "title": "Nostalgia for the Light",
+          "year": 2010,
+          "imdb_id": "tt1556190",
+          "score": 169.02,
+          "audience": 53.13,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ],
+      "removed_titles": [
+        {
+          "rank": 354,
+          "title": "First Reformed",
+          "year": 2017,
+          "imdb_id": "tt6053438",
+          "score": 225.03,
+          "audience": 81.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 353,
+          "title": "The Motorcycle Diaries",
+          "year": 2004,
+          "imdb_id": "tt0318462",
+          "score": 225.07,
+          "audience": 112.79,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 352,
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "score": 225.26,
+          "audience": 166.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 350,
+          "title": "The Kids Are All Right",
+          "year": 2010,
+          "imdb_id": "tt0842926",
+          "score": 225.57,
+          "audience": 38.2,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 349,
+          "title": "Happy as Lazzaro",
+          "year": 2018,
+          "imdb_id": "tt6752992",
+          "score": 226.19,
+          "audience": 93.09,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 347,
+          "title": "The Lobster",
+          "year": 2015,
+          "imdb_id": "tt3464902",
+          "score": 226.26,
+          "audience": 72.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 346,
+          "title": "Frost/Nixon",
+          "year": 2008,
+          "imdb_id": "tt0870111",
+          "score": 226.27,
+          "audience": 95.45,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 345,
+          "title": "The Intouchables",
+          "year": 2011,
+          "imdb_id": "tt1675434",
+          "score": 226.87,
+          "audience": 194.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 344,
+          "title": "Still Walking",
+          "year": 2008,
+          "imdb_id": "tt1087578",
+          "score": 226.88,
+          "audience": 114.3,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 342,
+          "title": "The Substance",
+          "year": 2024,
+          "imdb_id": "tt17526714",
+          "score": 227.0,
+          "audience": 82.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 341,
+          "title": "Munich",
+          "year": 2005,
+          "imdb_id": "tt0408306",
+          "score": 227.28,
+          "audience": 97.23,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 340,
+          "title": "The Boy and the Heron",
+          "year": 2023,
+          "imdb_id": "tt6587046",
+          "score": 227.32,
+          "audience": 112.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 339,
+          "title": "Decision to Leave",
+          "year": 2022,
+          "imdb_id": "tt12477480",
+          "score": 227.55,
+          "audience": 94.71,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 337,
+          "title": "Bacurau",
+          "year": 2019,
+          "imdb_id": "tt2762506",
+          "score": 227.83,
+          "audience": 107.15,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 336,
+          "title": "The Fighter",
+          "year": 2010,
+          "imdb_id": "tt0964517",
+          "score": 228.24,
+          "audience": 124.48,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 335,
+          "title": "An Education",
+          "year": 2009,
+          "imdb_id": "tt1174732",
+          "score": 228.32,
+          "audience": 66.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 334,
+          "title": "Like Father, Like Son",
+          "year": 2013,
+          "imdb_id": "tt2331143",
+          "score": 229.16,
+          "audience": 111.19,
+          "qualified_old": false,
+          "routes": []
+        }
+      ]
+    },
+    "new235_legacy165": {
+      "policy": {
+        "new_floor": 235,
+        "legacy_floor": 165,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 361,
+      "promotions_vs_old": 121,
+      "legacy_retained": 240,
+      "legacy_dropped": 15,
+      "delta_selected_vs_anchor": -28,
+      "added_vs_anchor": 1,
+      "removed_vs_anchor": 29,
+      "added_titles": [
+        {
+          "rank": 600,
+          "title": "Nostalgia for the Light",
+          "year": 2010,
+          "imdb_id": "tt1556190",
+          "score": 169.02,
+          "audience": 53.13,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ],
+      "removed_titles": [
+        {
+          "rank": 354,
+          "title": "First Reformed",
+          "year": 2017,
+          "imdb_id": "tt6053438",
+          "score": 225.03,
+          "audience": 81.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 353,
+          "title": "The Motorcycle Diaries",
+          "year": 2004,
+          "imdb_id": "tt0318462",
+          "score": 225.07,
+          "audience": 112.79,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 352,
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "score": 225.26,
+          "audience": 166.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 350,
+          "title": "The Kids Are All Right",
+          "year": 2010,
+          "imdb_id": "tt0842926",
+          "score": 225.57,
+          "audience": 38.2,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 349,
+          "title": "Happy as Lazzaro",
+          "year": 2018,
+          "imdb_id": "tt6752992",
+          "score": 226.19,
+          "audience": 93.09,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 347,
+          "title": "The Lobster",
+          "year": 2015,
+          "imdb_id": "tt3464902",
+          "score": 226.26,
+          "audience": 72.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 346,
+          "title": "Frost/Nixon",
+          "year": 2008,
+          "imdb_id": "tt0870111",
+          "score": 226.27,
+          "audience": 95.45,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 345,
+          "title": "The Intouchables",
+          "year": 2011,
+          "imdb_id": "tt1675434",
+          "score": 226.87,
+          "audience": 194.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 344,
+          "title": "Still Walking",
+          "year": 2008,
+          "imdb_id": "tt1087578",
+          "score": 226.88,
+          "audience": 114.3,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 342,
+          "title": "The Substance",
+          "year": 2024,
+          "imdb_id": "tt17526714",
+          "score": 227.0,
+          "audience": 82.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 341,
+          "title": "Munich",
+          "year": 2005,
+          "imdb_id": "tt0408306",
+          "score": 227.28,
+          "audience": 97.23,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 340,
+          "title": "The Boy and the Heron",
+          "year": 2023,
+          "imdb_id": "tt6587046",
+          "score": 227.32,
+          "audience": 112.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 339,
+          "title": "Decision to Leave",
+          "year": 2022,
+          "imdb_id": "tt12477480",
+          "score": 227.55,
+          "audience": 94.71,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 337,
+          "title": "Bacurau",
+          "year": 2019,
+          "imdb_id": "tt2762506",
+          "score": 227.83,
+          "audience": 107.15,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 336,
+          "title": "The Fighter",
+          "year": 2010,
+          "imdb_id": "tt0964517",
+          "score": 228.24,
+          "audience": 124.48,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 335,
+          "title": "An Education",
+          "year": 2009,
+          "imdb_id": "tt1174732",
+          "score": 228.32,
+          "audience": 66.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 334,
+          "title": "Like Father, Like Son",
+          "year": 2013,
+          "imdb_id": "tt2331143",
+          "score": 229.16,
+          "audience": 111.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 332,
+          "title": "Departures",
+          "year": 2008,
+          "imdb_id": "tt1069238",
+          "score": 230.63,
+          "audience": 114.78,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 331,
+          "title": "The Theory of Everything",
+          "year": 2014,
+          "imdb_id": "tt2980516",
+          "score": 230.7,
+          "audience": 117.43,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 329,
+          "title": "120 BPM (Beats Per Minute)",
+          "year": 2017,
+          "imdb_id": "tt6135348",
+          "score": 230.91,
+          "audience": 84.53,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 328,
+          "title": "Frances Ha",
+          "year": 2012,
+          "imdb_id": "tt2347569",
+          "score": 230.91,
+          "audience": 106.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 326,
+          "title": "The Kid with a Bike",
+          "year": 2011,
+          "imdb_id": "tt1827512",
+          "score": 231.41,
+          "audience": 62.52,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 325,
+          "title": "Fallen Leaves",
+          "year": 2023,
+          "imdb_id": "tt21027780",
+          "score": 231.98,
+          "audience": 69.56,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 324,
+          "title": "Burning",
+          "year": 2018,
+          "imdb_id": "tt7282468",
+          "score": 232.04,
+          "audience": 101.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 322,
+          "title": "Good Bye Lenin!",
+          "year": 2003,
+          "imdb_id": "tt0301357",
+          "score": 233.37,
+          "audience": 116.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 319,
+          "title": "Once",
+          "year": 2006,
+          "imdb_id": "tt0907657",
+          "score": 233.85,
+          "audience": 116.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 317,
+          "title": "13th",
+          "year": 2016,
+          "imdb_id": "tt5895028",
+          "score": 234.28,
+          "audience": 151.12,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 316,
+          "title": "Me and Earl and the Dying Girl",
+          "year": 2015,
+          "imdb_id": "tt2582496",
+          "score": 234.62,
+          "audience": 119.86,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 315,
+          "title": "American Honey",
+          "year": 2016,
+          "imdb_id": "tt3721936",
+          "score": 234.89,
+          "audience": 61.59,
+          "qualified_old": false,
+          "routes": []
+        }
+      ]
+    },
+    "new215_legacy175": {
+      "policy": {
+        "new_floor": 215,
+        "legacy_floor": 175,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 406,
+      "promotions_vs_old": 167,
+      "legacy_retained": 239,
+      "legacy_dropped": 16,
+      "delta_selected_vs_anchor": 17,
+      "added_vs_anchor": 17,
+      "removed_vs_anchor": 0,
+      "added_titles": [
+        {
+          "rank": 356,
+          "title": "The Squid and the Whale",
+          "year": 2005,
+          "imdb_id": "tt0367089",
+          "score": 223.95,
+          "audience": 72.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 357,
+          "title": "Frankenstein",
+          "year": 2025,
+          "imdb_id": "tt1312221",
+          "score": 223.66,
+          "audience": 114.36,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 358,
+          "title": "On Body and Soul",
+          "year": 2017,
+          "imdb_id": "tt5607714",
+          "score": 222.53,
+          "audience": 68.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 360,
+          "title": "Les Misérables",
+          "year": 2019,
+          "imdb_id": "tt10199590",
+          "score": 222.19,
+          "audience": 87.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 362,
+          "title": "American Fiction",
+          "year": 2023,
+          "imdb_id": "tt23561236",
+          "score": 222.09,
+          "audience": 104.28,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 363,
+          "title": "Bridge of Spies",
+          "year": 2015,
+          "imdb_id": "tt3682448",
+          "score": 221.55,
+          "audience": 100.77,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 366,
+          "title": "King Richard",
+          "year": 2021,
+          "imdb_id": "tt9620288",
+          "score": 220.29,
+          "audience": 118.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 367,
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "score": 220.12,
+          "audience": 35.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 369,
+          "title": "Capturing the Friedmans",
+          "year": 2003,
+          "imdb_id": "tt0342172",
+          "score": 219.88,
+          "audience": 58.73,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 372,
+          "title": "Lagaan: Once Upon a Time in India",
+          "year": 2001,
+          "imdb_id": "tt0169102",
+          "score": 218.98,
+          "audience": 113.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 375,
+          "title": "Bugonia",
+          "year": 2025,
+          "imdb_id": "tt12300742",
+          "score": 217.23,
+          "audience": 101.03,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 377,
+          "title": "Hot Fuzz",
+          "year": 2007,
+          "imdb_id": "tt0425112",
+          "score": 217.09,
+          "audience": 143.08,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 379,
+          "title": "Philomena",
+          "year": 2013,
+          "imdb_id": "tt2431286",
+          "score": 216.25,
+          "audience": 91.78,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 381,
+          "title": "The Son's Room",
+          "year": 2001,
+          "imdb_id": "tt0208990",
+          "score": 215.58,
+          "audience": 55.91,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 382,
+          "title": "Sentimental Value",
+          "year": 2025,
+          "imdb_id": "tt27714581",
+          "score": 215.47,
+          "audience": 138.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 383,
+          "title": "Judas and the Black Messiah",
+          "year": 2020,
+          "imdb_id": "tt9784798",
+          "score": 215.24,
+          "audience": 115.93,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 384,
+          "title": "The Reader",
+          "year": 2008,
+          "imdb_id": "tt0976051",
+          "score": 215.05,
+          "audience": 95.05,
+          "qualified_old": false,
+          "routes": []
+        }
+      ],
+      "removed_titles": []
+    },
+    "new220_legacy175": {
+      "policy": {
+        "new_floor": 220,
+        "legacy_floor": 175,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 397,
+      "promotions_vs_old": 158,
+      "legacy_retained": 239,
+      "legacy_dropped": 16,
+      "delta_selected_vs_anchor": 8,
+      "added_vs_anchor": 8,
+      "removed_vs_anchor": 0,
+      "added_titles": [
+        {
+          "rank": 356,
+          "title": "The Squid and the Whale",
+          "year": 2005,
+          "imdb_id": "tt0367089",
+          "score": 223.95,
+          "audience": 72.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 357,
+          "title": "Frankenstein",
+          "year": 2025,
+          "imdb_id": "tt1312221",
+          "score": 223.66,
+          "audience": 114.36,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 358,
+          "title": "On Body and Soul",
+          "year": 2017,
+          "imdb_id": "tt5607714",
+          "score": 222.53,
+          "audience": 68.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 360,
+          "title": "Les Misérables",
+          "year": 2019,
+          "imdb_id": "tt10199590",
+          "score": 222.19,
+          "audience": 87.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 362,
+          "title": "American Fiction",
+          "year": 2023,
+          "imdb_id": "tt23561236",
+          "score": 222.09,
+          "audience": 104.28,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 363,
+          "title": "Bridge of Spies",
+          "year": 2015,
+          "imdb_id": "tt3682448",
+          "score": 221.55,
+          "audience": 100.77,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 366,
+          "title": "King Richard",
+          "year": 2021,
+          "imdb_id": "tt9620288",
+          "score": 220.29,
+          "audience": 118.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 367,
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "score": 220.12,
+          "audience": 35.87,
+          "qualified_old": false,
+          "routes": []
+        }
+      ],
+      "removed_titles": []
+    },
+    "new225_legacy175": {
+      "policy": {
+        "new_floor": 225,
+        "legacy_floor": 175,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 389,
+      "promotions_vs_old": 150,
+      "legacy_retained": 239,
+      "legacy_dropped": 16,
+      "delta_selected_vs_anchor": 0,
+      "added_vs_anchor": 0,
+      "removed_vs_anchor": 0,
+      "added_titles": [],
+      "removed_titles": []
+    },
+    "new230_legacy175": {
+      "policy": {
+        "new_floor": 230,
+        "legacy_floor": 175,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 372,
+      "promotions_vs_old": 133,
+      "legacy_retained": 239,
+      "legacy_dropped": 16,
+      "delta_selected_vs_anchor": -17,
+      "added_vs_anchor": 0,
+      "removed_vs_anchor": 17,
+      "added_titles": [],
+      "removed_titles": [
+        {
+          "rank": 354,
+          "title": "First Reformed",
+          "year": 2017,
+          "imdb_id": "tt6053438",
+          "score": 225.03,
+          "audience": 81.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 353,
+          "title": "The Motorcycle Diaries",
+          "year": 2004,
+          "imdb_id": "tt0318462",
+          "score": 225.07,
+          "audience": 112.79,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 352,
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "score": 225.26,
+          "audience": 166.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 350,
+          "title": "The Kids Are All Right",
+          "year": 2010,
+          "imdb_id": "tt0842926",
+          "score": 225.57,
+          "audience": 38.2,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 349,
+          "title": "Happy as Lazzaro",
+          "year": 2018,
+          "imdb_id": "tt6752992",
+          "score": 226.19,
+          "audience": 93.09,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 347,
+          "title": "The Lobster",
+          "year": 2015,
+          "imdb_id": "tt3464902",
+          "score": 226.26,
+          "audience": 72.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 346,
+          "title": "Frost/Nixon",
+          "year": 2008,
+          "imdb_id": "tt0870111",
+          "score": 226.27,
+          "audience": 95.45,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 345,
+          "title": "The Intouchables",
+          "year": 2011,
+          "imdb_id": "tt1675434",
+          "score": 226.87,
+          "audience": 194.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 344,
+          "title": "Still Walking",
+          "year": 2008,
+          "imdb_id": "tt1087578",
+          "score": 226.88,
+          "audience": 114.3,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 342,
+          "title": "The Substance",
+          "year": 2024,
+          "imdb_id": "tt17526714",
+          "score": 227.0,
+          "audience": 82.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 341,
+          "title": "Munich",
+          "year": 2005,
+          "imdb_id": "tt0408306",
+          "score": 227.28,
+          "audience": 97.23,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 340,
+          "title": "The Boy and the Heron",
+          "year": 2023,
+          "imdb_id": "tt6587046",
+          "score": 227.32,
+          "audience": 112.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 339,
+          "title": "Decision to Leave",
+          "year": 2022,
+          "imdb_id": "tt12477480",
+          "score": 227.55,
+          "audience": 94.71,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 337,
+          "title": "Bacurau",
+          "year": 2019,
+          "imdb_id": "tt2762506",
+          "score": 227.83,
+          "audience": 107.15,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 336,
+          "title": "The Fighter",
+          "year": 2010,
+          "imdb_id": "tt0964517",
+          "score": 228.24,
+          "audience": 124.48,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 335,
+          "title": "An Education",
+          "year": 2009,
+          "imdb_id": "tt1174732",
+          "score": 228.32,
+          "audience": 66.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 334,
+          "title": "Like Father, Like Son",
+          "year": 2013,
+          "imdb_id": "tt2331143",
+          "score": 229.16,
+          "audience": 111.19,
+          "qualified_old": false,
+          "routes": []
+        }
+      ]
+    },
+    "new235_legacy175": {
+      "policy": {
+        "new_floor": 235,
+        "legacy_floor": 175,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 360,
+      "promotions_vs_old": 121,
+      "legacy_retained": 239,
+      "legacy_dropped": 16,
+      "delta_selected_vs_anchor": -29,
+      "added_vs_anchor": 0,
+      "removed_vs_anchor": 29,
+      "added_titles": [],
+      "removed_titles": [
+        {
+          "rank": 354,
+          "title": "First Reformed",
+          "year": 2017,
+          "imdb_id": "tt6053438",
+          "score": 225.03,
+          "audience": 81.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 353,
+          "title": "The Motorcycle Diaries",
+          "year": 2004,
+          "imdb_id": "tt0318462",
+          "score": 225.07,
+          "audience": 112.79,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 352,
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "score": 225.26,
+          "audience": 166.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 350,
+          "title": "The Kids Are All Right",
+          "year": 2010,
+          "imdb_id": "tt0842926",
+          "score": 225.57,
+          "audience": 38.2,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 349,
+          "title": "Happy as Lazzaro",
+          "year": 2018,
+          "imdb_id": "tt6752992",
+          "score": 226.19,
+          "audience": 93.09,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 347,
+          "title": "The Lobster",
+          "year": 2015,
+          "imdb_id": "tt3464902",
+          "score": 226.26,
+          "audience": 72.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 346,
+          "title": "Frost/Nixon",
+          "year": 2008,
+          "imdb_id": "tt0870111",
+          "score": 226.27,
+          "audience": 95.45,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 345,
+          "title": "The Intouchables",
+          "year": 2011,
+          "imdb_id": "tt1675434",
+          "score": 226.87,
+          "audience": 194.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 344,
+          "title": "Still Walking",
+          "year": 2008,
+          "imdb_id": "tt1087578",
+          "score": 226.88,
+          "audience": 114.3,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 342,
+          "title": "The Substance",
+          "year": 2024,
+          "imdb_id": "tt17526714",
+          "score": 227.0,
+          "audience": 82.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 341,
+          "title": "Munich",
+          "year": 2005,
+          "imdb_id": "tt0408306",
+          "score": 227.28,
+          "audience": 97.23,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 340,
+          "title": "The Boy and the Heron",
+          "year": 2023,
+          "imdb_id": "tt6587046",
+          "score": 227.32,
+          "audience": 112.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 339,
+          "title": "Decision to Leave",
+          "year": 2022,
+          "imdb_id": "tt12477480",
+          "score": 227.55,
+          "audience": 94.71,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 337,
+          "title": "Bacurau",
+          "year": 2019,
+          "imdb_id": "tt2762506",
+          "score": 227.83,
+          "audience": 107.15,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 336,
+          "title": "The Fighter",
+          "year": 2010,
+          "imdb_id": "tt0964517",
+          "score": 228.24,
+          "audience": 124.48,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 335,
+          "title": "An Education",
+          "year": 2009,
+          "imdb_id": "tt1174732",
+          "score": 228.32,
+          "audience": 66.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 334,
+          "title": "Like Father, Like Son",
+          "year": 2013,
+          "imdb_id": "tt2331143",
+          "score": 229.16,
+          "audience": 111.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 332,
+          "title": "Departures",
+          "year": 2008,
+          "imdb_id": "tt1069238",
+          "score": 230.63,
+          "audience": 114.78,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 331,
+          "title": "The Theory of Everything",
+          "year": 2014,
+          "imdb_id": "tt2980516",
+          "score": 230.7,
+          "audience": 117.43,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 329,
+          "title": "120 BPM (Beats Per Minute)",
+          "year": 2017,
+          "imdb_id": "tt6135348",
+          "score": 230.91,
+          "audience": 84.53,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 328,
+          "title": "Frances Ha",
+          "year": 2012,
+          "imdb_id": "tt2347569",
+          "score": 230.91,
+          "audience": 106.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 326,
+          "title": "The Kid with a Bike",
+          "year": 2011,
+          "imdb_id": "tt1827512",
+          "score": 231.41,
+          "audience": 62.52,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 325,
+          "title": "Fallen Leaves",
+          "year": 2023,
+          "imdb_id": "tt21027780",
+          "score": 231.98,
+          "audience": 69.56,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 324,
+          "title": "Burning",
+          "year": 2018,
+          "imdb_id": "tt7282468",
+          "score": 232.04,
+          "audience": 101.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 322,
+          "title": "Good Bye Lenin!",
+          "year": 2003,
+          "imdb_id": "tt0301357",
+          "score": 233.37,
+          "audience": 116.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 319,
+          "title": "Once",
+          "year": 2006,
+          "imdb_id": "tt0907657",
+          "score": 233.85,
+          "audience": 116.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 317,
+          "title": "13th",
+          "year": 2016,
+          "imdb_id": "tt5895028",
+          "score": 234.28,
+          "audience": 151.12,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 316,
+          "title": "Me and Earl and the Dying Girl",
+          "year": 2015,
+          "imdb_id": "tt2582496",
+          "score": 234.62,
+          "audience": 119.86,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 315,
+          "title": "American Honey",
+          "year": 2016,
+          "imdb_id": "tt3721936",
+          "score": 234.89,
+          "audience": 61.59,
+          "qualified_old": false,
+          "routes": []
+        }
+      ]
+    },
+    "new215_legacy185": {
+      "policy": {
+        "new_floor": 215,
+        "legacy_floor": 185,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 400,
+      "promotions_vs_old": 167,
+      "legacy_retained": 233,
+      "legacy_dropped": 22,
+      "delta_selected_vs_anchor": 11,
+      "added_vs_anchor": 17,
+      "removed_vs_anchor": 6,
+      "added_titles": [
+        {
+          "rank": 356,
+          "title": "The Squid and the Whale",
+          "year": 2005,
+          "imdb_id": "tt0367089",
+          "score": 223.95,
+          "audience": 72.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 357,
+          "title": "Frankenstein",
+          "year": 2025,
+          "imdb_id": "tt1312221",
+          "score": 223.66,
+          "audience": 114.36,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 358,
+          "title": "On Body and Soul",
+          "year": 2017,
+          "imdb_id": "tt5607714",
+          "score": 222.53,
+          "audience": 68.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 360,
+          "title": "Les Misérables",
+          "year": 2019,
+          "imdb_id": "tt10199590",
+          "score": 222.19,
+          "audience": 87.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 362,
+          "title": "American Fiction",
+          "year": 2023,
+          "imdb_id": "tt23561236",
+          "score": 222.09,
+          "audience": 104.28,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 363,
+          "title": "Bridge of Spies",
+          "year": 2015,
+          "imdb_id": "tt3682448",
+          "score": 221.55,
+          "audience": 100.77,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 366,
+          "title": "King Richard",
+          "year": 2021,
+          "imdb_id": "tt9620288",
+          "score": 220.29,
+          "audience": 118.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 367,
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "score": 220.12,
+          "audience": 35.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 369,
+          "title": "Capturing the Friedmans",
+          "year": 2003,
+          "imdb_id": "tt0342172",
+          "score": 219.88,
+          "audience": 58.73,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 372,
+          "title": "Lagaan: Once Upon a Time in India",
+          "year": 2001,
+          "imdb_id": "tt0169102",
+          "score": 218.98,
+          "audience": 113.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 375,
+          "title": "Bugonia",
+          "year": 2025,
+          "imdb_id": "tt12300742",
+          "score": 217.23,
+          "audience": 101.03,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 377,
+          "title": "Hot Fuzz",
+          "year": 2007,
+          "imdb_id": "tt0425112",
+          "score": 217.09,
+          "audience": 143.08,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 379,
+          "title": "Philomena",
+          "year": 2013,
+          "imdb_id": "tt2431286",
+          "score": 216.25,
+          "audience": 91.78,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 381,
+          "title": "The Son's Room",
+          "year": 2001,
+          "imdb_id": "tt0208990",
+          "score": 215.58,
+          "audience": 55.91,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 382,
+          "title": "Sentimental Value",
+          "year": 2025,
+          "imdb_id": "tt27714581",
+          "score": 215.47,
+          "audience": 138.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 383,
+          "title": "Judas and the Black Messiah",
+          "year": 2020,
+          "imdb_id": "tt9784798",
+          "score": 215.24,
+          "audience": 115.93,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 384,
+          "title": "The Reader",
+          "year": 2008,
+          "imdb_id": "tt0976051",
+          "score": 215.05,
+          "audience": 95.05,
+          "qualified_old": false,
+          "routes": []
+        }
+      ],
+      "removed_titles": [
+        {
+          "rank": 571,
+          "title": "Silent Light",
+          "year": 2007,
+          "imdb_id": "tt0841925",
+          "score": 175.07,
+          "audience": 32.39,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 566,
+          "title": "Monsoon Wedding",
+          "year": 2001,
+          "imdb_id": "tt0265343",
+          "score": 177.41,
+          "audience": 56.35,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 559,
+          "title": "Syndromes and a Century",
+          "year": 2006,
+          "imdb_id": "tt0477731",
+          "score": 179.59,
+          "audience": 40.27,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 541,
+          "title": "The Fog of War",
+          "year": 2003,
+          "imdb_id": "tt0317910",
+          "score": 182.02,
+          "audience": 85.67,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 538,
+          "title": "The Cove",
+          "year": 2009,
+          "imdb_id": "tt1313104",
+          "score": 183.23,
+          "audience": 116.84,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 528,
+          "title": "Russian Ark",
+          "year": 2002,
+          "imdb_id": "tt0318034",
+          "score": 184.21,
+          "audience": 53.72,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ]
+    },
+    "new220_legacy185": {
+      "policy": {
+        "new_floor": 220,
+        "legacy_floor": 185,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 391,
+      "promotions_vs_old": 158,
+      "legacy_retained": 233,
+      "legacy_dropped": 22,
+      "delta_selected_vs_anchor": 2,
+      "added_vs_anchor": 8,
+      "removed_vs_anchor": 6,
+      "added_titles": [
+        {
+          "rank": 356,
+          "title": "The Squid and the Whale",
+          "year": 2005,
+          "imdb_id": "tt0367089",
+          "score": 223.95,
+          "audience": 72.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 357,
+          "title": "Frankenstein",
+          "year": 2025,
+          "imdb_id": "tt1312221",
+          "score": 223.66,
+          "audience": 114.36,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 358,
+          "title": "On Body and Soul",
+          "year": 2017,
+          "imdb_id": "tt5607714",
+          "score": 222.53,
+          "audience": 68.05,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 360,
+          "title": "Les Misérables",
+          "year": 2019,
+          "imdb_id": "tt10199590",
+          "score": 222.19,
+          "audience": 87.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 362,
+          "title": "American Fiction",
+          "year": 2023,
+          "imdb_id": "tt23561236",
+          "score": 222.09,
+          "audience": 104.28,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 363,
+          "title": "Bridge of Spies",
+          "year": 2015,
+          "imdb_id": "tt3682448",
+          "score": 221.55,
+          "audience": 100.77,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 366,
+          "title": "King Richard",
+          "year": 2021,
+          "imdb_id": "tt9620288",
+          "score": 220.29,
+          "audience": 118.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 367,
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "score": 220.12,
+          "audience": 35.87,
+          "qualified_old": false,
+          "routes": []
+        }
+      ],
+      "removed_titles": [
+        {
+          "rank": 571,
+          "title": "Silent Light",
+          "year": 2007,
+          "imdb_id": "tt0841925",
+          "score": 175.07,
+          "audience": 32.39,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 566,
+          "title": "Monsoon Wedding",
+          "year": 2001,
+          "imdb_id": "tt0265343",
+          "score": 177.41,
+          "audience": 56.35,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 559,
+          "title": "Syndromes and a Century",
+          "year": 2006,
+          "imdb_id": "tt0477731",
+          "score": 179.59,
+          "audience": 40.27,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 541,
+          "title": "The Fog of War",
+          "year": 2003,
+          "imdb_id": "tt0317910",
+          "score": 182.02,
+          "audience": 85.67,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 538,
+          "title": "The Cove",
+          "year": 2009,
+          "imdb_id": "tt1313104",
+          "score": 183.23,
+          "audience": 116.84,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 528,
+          "title": "Russian Ark",
+          "year": 2002,
+          "imdb_id": "tt0318034",
+          "score": 184.21,
+          "audience": 53.72,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ]
+    },
+    "new225_legacy185": {
+      "policy": {
+        "new_floor": 225,
+        "legacy_floor": 185,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 383,
+      "promotions_vs_old": 150,
+      "legacy_retained": 233,
+      "legacy_dropped": 22,
+      "delta_selected_vs_anchor": -6,
+      "added_vs_anchor": 0,
+      "removed_vs_anchor": 6,
+      "added_titles": [],
+      "removed_titles": [
+        {
+          "rank": 571,
+          "title": "Silent Light",
+          "year": 2007,
+          "imdb_id": "tt0841925",
+          "score": 175.07,
+          "audience": 32.39,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 566,
+          "title": "Monsoon Wedding",
+          "year": 2001,
+          "imdb_id": "tt0265343",
+          "score": 177.41,
+          "audience": 56.35,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 559,
+          "title": "Syndromes and a Century",
+          "year": 2006,
+          "imdb_id": "tt0477731",
+          "score": 179.59,
+          "audience": 40.27,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 541,
+          "title": "The Fog of War",
+          "year": 2003,
+          "imdb_id": "tt0317910",
+          "score": 182.02,
+          "audience": 85.67,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 538,
+          "title": "The Cove",
+          "year": 2009,
+          "imdb_id": "tt1313104",
+          "score": 183.23,
+          "audience": 116.84,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 528,
+          "title": "Russian Ark",
+          "year": 2002,
+          "imdb_id": "tt0318034",
+          "score": 184.21,
+          "audience": 53.72,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        }
+      ]
+    },
+    "new230_legacy185": {
+      "policy": {
+        "new_floor": 230,
+        "legacy_floor": 185,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 366,
+      "promotions_vs_old": 133,
+      "legacy_retained": 233,
+      "legacy_dropped": 22,
+      "delta_selected_vs_anchor": -23,
+      "added_vs_anchor": 0,
+      "removed_vs_anchor": 23,
+      "added_titles": [],
+      "removed_titles": [
+        {
+          "rank": 571,
+          "title": "Silent Light",
+          "year": 2007,
+          "imdb_id": "tt0841925",
+          "score": 175.07,
+          "audience": 32.39,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 566,
+          "title": "Monsoon Wedding",
+          "year": 2001,
+          "imdb_id": "tt0265343",
+          "score": 177.41,
+          "audience": 56.35,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 559,
+          "title": "Syndromes and a Century",
+          "year": 2006,
+          "imdb_id": "tt0477731",
+          "score": 179.59,
+          "audience": 40.27,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 541,
+          "title": "The Fog of War",
+          "year": 2003,
+          "imdb_id": "tt0317910",
+          "score": 182.02,
+          "audience": 85.67,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 538,
+          "title": "The Cove",
+          "year": 2009,
+          "imdb_id": "tt1313104",
+          "score": 183.23,
+          "audience": 116.84,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 528,
+          "title": "Russian Ark",
+          "year": 2002,
+          "imdb_id": "tt0318034",
+          "score": 184.21,
+          "audience": 53.72,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 354,
+          "title": "First Reformed",
+          "year": 2017,
+          "imdb_id": "tt6053438",
+          "score": 225.03,
+          "audience": 81.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 353,
+          "title": "The Motorcycle Diaries",
+          "year": 2004,
+          "imdb_id": "tt0318462",
+          "score": 225.07,
+          "audience": 112.79,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 352,
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "score": 225.26,
+          "audience": 166.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 350,
+          "title": "The Kids Are All Right",
+          "year": 2010,
+          "imdb_id": "tt0842926",
+          "score": 225.57,
+          "audience": 38.2,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 349,
+          "title": "Happy as Lazzaro",
+          "year": 2018,
+          "imdb_id": "tt6752992",
+          "score": 226.19,
+          "audience": 93.09,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 347,
+          "title": "The Lobster",
+          "year": 2015,
+          "imdb_id": "tt3464902",
+          "score": 226.26,
+          "audience": 72.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 346,
+          "title": "Frost/Nixon",
+          "year": 2008,
+          "imdb_id": "tt0870111",
+          "score": 226.27,
+          "audience": 95.45,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 345,
+          "title": "The Intouchables",
+          "year": 2011,
+          "imdb_id": "tt1675434",
+          "score": 226.87,
+          "audience": 194.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 344,
+          "title": "Still Walking",
+          "year": 2008,
+          "imdb_id": "tt1087578",
+          "score": 226.88,
+          "audience": 114.3,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 342,
+          "title": "The Substance",
+          "year": 2024,
+          "imdb_id": "tt17526714",
+          "score": 227.0,
+          "audience": 82.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 341,
+          "title": "Munich",
+          "year": 2005,
+          "imdb_id": "tt0408306",
+          "score": 227.28,
+          "audience": 97.23,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 340,
+          "title": "The Boy and the Heron",
+          "year": 2023,
+          "imdb_id": "tt6587046",
+          "score": 227.32,
+          "audience": 112.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 339,
+          "title": "Decision to Leave",
+          "year": 2022,
+          "imdb_id": "tt12477480",
+          "score": 227.55,
+          "audience": 94.71,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 337,
+          "title": "Bacurau",
+          "year": 2019,
+          "imdb_id": "tt2762506",
+          "score": 227.83,
+          "audience": 107.15,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 336,
+          "title": "The Fighter",
+          "year": 2010,
+          "imdb_id": "tt0964517",
+          "score": 228.24,
+          "audience": 124.48,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 335,
+          "title": "An Education",
+          "year": 2009,
+          "imdb_id": "tt1174732",
+          "score": 228.32,
+          "audience": 66.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 334,
+          "title": "Like Father, Like Son",
+          "year": 2013,
+          "imdb_id": "tt2331143",
+          "score": 229.16,
+          "audience": 111.19,
+          "qualified_old": false,
+          "routes": []
+        }
+      ]
+    },
+    "new235_legacy185": {
+      "policy": {
+        "new_floor": 235,
+        "legacy_floor": 185,
+        "protect_multi_route": true,
+        "min_non_audience_families": 2
+      },
+      "selected": 354,
+      "promotions_vs_old": 121,
+      "legacy_retained": 233,
+      "legacy_dropped": 22,
+      "delta_selected_vs_anchor": -35,
+      "added_vs_anchor": 0,
+      "removed_vs_anchor": 35,
+      "added_titles": [],
+      "removed_titles": [
+        {
+          "rank": 571,
+          "title": "Silent Light",
+          "year": 2007,
+          "imdb_id": "tt0841925",
+          "score": 175.07,
+          "audience": 32.39,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 566,
+          "title": "Monsoon Wedding",
+          "year": 2001,
+          "imdb_id": "tt0265343",
+          "score": 177.41,
+          "audience": 56.35,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 559,
+          "title": "Syndromes and a Century",
+          "year": 2006,
+          "imdb_id": "tt0477731",
+          "score": 179.59,
+          "audience": 40.27,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 541,
+          "title": "The Fog of War",
+          "year": 2003,
+          "imdb_id": "tt0317910",
+          "score": 182.02,
+          "audience": 85.67,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 538,
+          "title": "The Cove",
+          "year": 2009,
+          "imdb_id": "tt1313104",
+          "score": 183.23,
+          "audience": 116.84,
+          "qualified_old": true,
+          "routes": [
+            "corroboration"
+          ]
+        },
+        {
+          "rank": 528,
+          "title": "Russian Ark",
+          "year": 2002,
+          "imdb_id": "tt0318034",
+          "score": 184.21,
+          "audience": 53.72,
+          "qualified_old": true,
+          "routes": [
+            "canon"
+          ]
+        },
+        {
+          "rank": 354,
+          "title": "First Reformed",
+          "year": 2017,
+          "imdb_id": "tt6053438",
+          "score": 225.03,
+          "audience": 81.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 353,
+          "title": "The Motorcycle Diaries",
+          "year": 2004,
+          "imdb_id": "tt0318462",
+          "score": 225.07,
+          "audience": 112.79,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 352,
+          "title": "Puss in Boots: The Last Wish",
+          "year": 2022,
+          "imdb_id": "tt3915174",
+          "score": 225.26,
+          "audience": 166.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 350,
+          "title": "The Kids Are All Right",
+          "year": 2010,
+          "imdb_id": "tt0842926",
+          "score": 225.57,
+          "audience": 38.2,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 349,
+          "title": "Happy as Lazzaro",
+          "year": 2018,
+          "imdb_id": "tt6752992",
+          "score": 226.19,
+          "audience": 93.09,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 347,
+          "title": "The Lobster",
+          "year": 2015,
+          "imdb_id": "tt3464902",
+          "score": 226.26,
+          "audience": 72.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 346,
+          "title": "Frost/Nixon",
+          "year": 2008,
+          "imdb_id": "tt0870111",
+          "score": 226.27,
+          "audience": 95.45,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 345,
+          "title": "The Intouchables",
+          "year": 2011,
+          "imdb_id": "tt1675434",
+          "score": 226.87,
+          "audience": 194.87,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 344,
+          "title": "Still Walking",
+          "year": 2008,
+          "imdb_id": "tt1087578",
+          "score": 226.88,
+          "audience": 114.3,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 342,
+          "title": "The Substance",
+          "year": 2024,
+          "imdb_id": "tt17526714",
+          "score": 227.0,
+          "audience": 82.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 341,
+          "title": "Munich",
+          "year": 2005,
+          "imdb_id": "tt0408306",
+          "score": 227.28,
+          "audience": 97.23,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 340,
+          "title": "The Boy and the Heron",
+          "year": 2023,
+          "imdb_id": "tt6587046",
+          "score": 227.32,
+          "audience": 112.82,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 339,
+          "title": "Decision to Leave",
+          "year": 2022,
+          "imdb_id": "tt12477480",
+          "score": 227.55,
+          "audience": 94.71,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 337,
+          "title": "Bacurau",
+          "year": 2019,
+          "imdb_id": "tt2762506",
+          "score": 227.83,
+          "audience": 107.15,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 336,
+          "title": "The Fighter",
+          "year": 2010,
+          "imdb_id": "tt0964517",
+          "score": 228.24,
+          "audience": 124.48,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 335,
+          "title": "An Education",
+          "year": 2009,
+          "imdb_id": "tt1174732",
+          "score": 228.32,
+          "audience": 66.81,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 334,
+          "title": "Like Father, Like Son",
+          "year": 2013,
+          "imdb_id": "tt2331143",
+          "score": 229.16,
+          "audience": 111.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 332,
+          "title": "Departures",
+          "year": 2008,
+          "imdb_id": "tt1069238",
+          "score": 230.63,
+          "audience": 114.78,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 331,
+          "title": "The Theory of Everything",
+          "year": 2014,
+          "imdb_id": "tt2980516",
+          "score": 230.7,
+          "audience": 117.43,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 329,
+          "title": "120 BPM (Beats Per Minute)",
+          "year": 2017,
+          "imdb_id": "tt6135348",
+          "score": 230.91,
+          "audience": 84.53,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 328,
+          "title": "Frances Ha",
+          "year": 2012,
+          "imdb_id": "tt2347569",
+          "score": 230.91,
+          "audience": 106.57,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 326,
+          "title": "The Kid with a Bike",
+          "year": 2011,
+          "imdb_id": "tt1827512",
+          "score": 231.41,
+          "audience": 62.52,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 325,
+          "title": "Fallen Leaves",
+          "year": 2023,
+          "imdb_id": "tt21027780",
+          "score": 231.98,
+          "audience": 69.56,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 324,
+          "title": "Burning",
+          "year": 2018,
+          "imdb_id": "tt7282468",
+          "score": 232.04,
+          "audience": 101.41,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 322,
+          "title": "Good Bye Lenin!",
+          "year": 2003,
+          "imdb_id": "tt0301357",
+          "score": 233.37,
+          "audience": 116.92,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 319,
+          "title": "Once",
+          "year": 2006,
+          "imdb_id": "tt0907657",
+          "score": 233.85,
+          "audience": 116.19,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 317,
+          "title": "13th",
+          "year": 2016,
+          "imdb_id": "tt5895028",
+          "score": 234.28,
+          "audience": 151.12,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 316,
+          "title": "Me and Earl and the Dying Girl",
+          "year": 2015,
+          "imdb_id": "tt2582496",
+          "score": 234.62,
+          "audience": 119.86,
+          "qualified_old": false,
+          "routes": []
+        },
+        {
+          "rank": 315,
+          "title": "American Honey",
+          "year": 2016,
+          "imdb_id": "tt3721936",
+          "score": 234.89,
+          "audience": 61.59,
+          "qualified_old": false,
+          "routes": []
+        }
+      ]
+    }
+  },
+  "promotion_boundary_210_240": [
+    {
+      "rank": 301,
+      "title": "Hidden Figures",
+      "year": 2016,
+      "imdb_id": "tt4846340",
+      "score": 239.57,
+      "audience": 149.49,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 302,
+      "title": "The Martian",
+      "year": 2015,
+      "imdb_id": "tt3659388",
+      "score": 239.24,
+      "audience": 144.36,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 305,
+      "title": "If Beale Street Could Talk",
+      "year": 2018,
+      "imdb_id": "tt7125860",
+      "score": 238.26,
+      "audience": 76.96,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 306,
+      "title": "The Child",
+      "year": 2005,
+      "imdb_id": "tt0456396",
+      "score": 237.68,
+      "audience": 52.78,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 307,
+      "title": "The Hand of God",
+      "year": 2021,
+      "imdb_id": "tt12680684",
+      "score": 236.68,
+      "audience": 88.0,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 309,
+      "title": "Hamilton",
+      "year": 2020,
+      "imdb_id": "tt8503618",
+      "score": 236.24,
+      "audience": 190.73,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 312,
+      "title": "Mustang",
+      "year": 2015,
+      "imdb_id": "tt3966404",
+      "score": 235.37,
+      "audience": 110.8,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 313,
+      "title": "All the Beauty and the Bloodshed",
+      "year": 2022,
+      "imdb_id": "tt21374850",
+      "score": 235.18,
+      "audience": 82.63,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 314,
+      "title": "The Wind That Shakes the Barley",
+      "year": 2006,
+      "imdb_id": "tt0460989",
+      "score": 235.1,
+      "audience": 96.77,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 315,
+      "title": "American Honey",
+      "year": 2016,
+      "imdb_id": "tt3721936",
+      "score": 234.89,
+      "audience": 61.59,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 316,
+      "title": "Me and Earl and the Dying Girl",
+      "year": 2015,
+      "imdb_id": "tt2582496",
+      "score": 234.62,
+      "audience": 119.86,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 317,
+      "title": "13th",
+      "year": 2016,
+      "imdb_id": "tt5895028",
+      "score": 234.28,
+      "audience": 151.12,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 318,
+      "title": "The Odyssey",
+      "year": 2026,
+      "imdb_id": "tt33764258",
+      "score": 234.27,
+      "audience": 196.67,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 319,
+      "title": "Once",
+      "year": 2006,
+      "imdb_id": "tt0907657",
+      "score": 233.85,
+      "audience": 116.19,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 322,
+      "title": "Good Bye Lenin!",
+      "year": 2003,
+      "imdb_id": "tt0301357",
+      "score": 233.37,
+      "audience": 116.92,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 324,
+      "title": "Burning",
+      "year": 2018,
+      "imdb_id": "tt7282468",
+      "score": 232.04,
+      "audience": 101.41,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 325,
+      "title": "Fallen Leaves",
+      "year": 2023,
+      "imdb_id": "tt21027780",
+      "score": 231.98,
+      "audience": 69.56,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 326,
+      "title": "The Kid with a Bike",
+      "year": 2011,
+      "imdb_id": "tt1827512",
+      "score": 231.41,
+      "audience": 62.52,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 329,
+      "title": "120 BPM (Beats Per Minute)",
+      "year": 2017,
+      "imdb_id": "tt6135348",
+      "score": 230.91,
+      "audience": 84.53,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 328,
+      "title": "Frances Ha",
+      "year": 2012,
+      "imdb_id": "tt2347569",
+      "score": 230.91,
+      "audience": 106.57,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 331,
+      "title": "The Theory of Everything",
+      "year": 2014,
+      "imdb_id": "tt2980516",
+      "score": 230.7,
+      "audience": 117.43,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 332,
+      "title": "Departures",
+      "year": 2008,
+      "imdb_id": "tt1069238",
+      "score": 230.63,
+      "audience": 114.78,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 334,
+      "title": "Like Father, Like Son",
+      "year": 2013,
+      "imdb_id": "tt2331143",
+      "score": 229.16,
+      "audience": 111.19,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 335,
+      "title": "An Education",
+      "year": 2009,
+      "imdb_id": "tt1174732",
+      "score": 228.32,
+      "audience": 66.81,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 336,
+      "title": "The Fighter",
+      "year": 2010,
+      "imdb_id": "tt0964517",
+      "score": 228.24,
+      "audience": 124.48,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 337,
+      "title": "Bacurau",
+      "year": 2019,
+      "imdb_id": "tt2762506",
+      "score": 227.83,
+      "audience": 107.15,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 339,
+      "title": "Decision to Leave",
+      "year": 2022,
+      "imdb_id": "tt12477480",
+      "score": 227.55,
+      "audience": 94.71,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 340,
+      "title": "The Boy and the Heron",
+      "year": 2023,
+      "imdb_id": "tt6587046",
+      "score": 227.32,
+      "audience": 112.82,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 341,
+      "title": "Munich",
+      "year": 2005,
+      "imdb_id": "tt0408306",
+      "score": 227.28,
+      "audience": 97.23,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 342,
+      "title": "The Substance",
+      "year": 2024,
+      "imdb_id": "tt17526714",
+      "score": 227.0,
+      "audience": 82.57,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 344,
+      "title": "Still Walking",
+      "year": 2008,
+      "imdb_id": "tt1087578",
+      "score": 226.88,
+      "audience": 114.3,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 345,
+      "title": "The Intouchables",
+      "year": 2011,
+      "imdb_id": "tt1675434",
+      "score": 226.87,
+      "audience": 194.87,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 346,
+      "title": "Frost/Nixon",
+      "year": 2008,
+      "imdb_id": "tt0870111",
+      "score": 226.27,
+      "audience": 95.45,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 347,
+      "title": "The Lobster",
+      "year": 2015,
+      "imdb_id": "tt3464902",
+      "score": 226.26,
+      "audience": 72.57,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 349,
+      "title": "Happy as Lazzaro",
+      "year": 2018,
+      "imdb_id": "tt6752992",
+      "score": 226.19,
+      "audience": 93.09,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 350,
+      "title": "The Kids Are All Right",
+      "year": 2010,
+      "imdb_id": "tt0842926",
+      "score": 225.57,
+      "audience": 38.2,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 352,
+      "title": "Puss in Boots: The Last Wish",
+      "year": 2022,
+      "imdb_id": "tt3915174",
+      "score": 225.26,
+      "audience": 166.41,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 353,
+      "title": "The Motorcycle Diaries",
+      "year": 2004,
+      "imdb_id": "tt0318462",
+      "score": 225.07,
+      "audience": 112.79,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 354,
+      "title": "First Reformed",
+      "year": 2017,
+      "imdb_id": "tt6053438",
+      "score": 225.03,
+      "audience": 81.92,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 356,
+      "title": "The Squid and the Whale",
+      "year": 2005,
+      "imdb_id": "tt0367089",
+      "score": 223.95,
+      "audience": 72.82,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 357,
+      "title": "Frankenstein",
+      "year": 2025,
+      "imdb_id": "tt1312221",
+      "score": 223.66,
+      "audience": 114.36,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 358,
+      "title": "On Body and Soul",
+      "year": 2017,
+      "imdb_id": "tt5607714",
+      "score": 222.53,
+      "audience": 68.05,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 360,
+      "title": "Les Misérables",
+      "year": 2019,
+      "imdb_id": "tt10199590",
+      "score": 222.19,
+      "audience": 87.92,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 362,
+      "title": "American Fiction",
+      "year": 2023,
+      "imdb_id": "tt23561236",
+      "score": 222.09,
+      "audience": 104.28,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 363,
+      "title": "Bridge of Spies",
+      "year": 2015,
+      "imdb_id": "tt3682448",
+      "score": 221.55,
+      "audience": 100.77,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 366,
+      "title": "King Richard",
+      "year": 2021,
+      "imdb_id": "tt9620288",
+      "score": 220.29,
+      "audience": 118.81,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 367,
+      "title": "Atlantics",
+      "year": 2019,
+      "imdb_id": "tt10199586",
+      "score": 220.12,
+      "audience": 35.87,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 369,
+      "title": "Capturing the Friedmans",
+      "year": 2003,
+      "imdb_id": "tt0342172",
+      "score": 219.88,
+      "audience": 58.73,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 371,
+      "title": "Project Hail Mary",
+      "year": 2026,
+      "imdb_id": "tt12042730",
+      "score": 219.61,
+      "audience": 190.0,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 372,
+      "title": "Lagaan: Once Upon a Time in India",
+      "year": 2001,
+      "imdb_id": "tt0169102",
+      "score": 218.98,
+      "audience": 113.19,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 374,
+      "title": "Your Name.",
+      "year": 2016,
+      "imdb_id": "tt5311514",
+      "score": 217.73,
+      "audience": 191.54,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 375,
+      "title": "Bugonia",
+      "year": 2025,
+      "imdb_id": "tt12300742",
+      "score": 217.23,
+      "audience": 101.03,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 377,
+      "title": "Hot Fuzz",
+      "year": 2007,
+      "imdb_id": "tt0425112",
+      "score": 217.09,
+      "audience": 143.08,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 379,
+      "title": "Philomena",
+      "year": 2013,
+      "imdb_id": "tt2431286",
+      "score": 216.25,
+      "audience": 91.78,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 380,
+      "title": "Bohemian Rhapsody",
+      "year": 2018,
+      "imdb_id": "tt1727824",
+      "score": 215.64,
+      "audience": 125.64,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 381,
+      "title": "The Son's Room",
+      "year": 2001,
+      "imdb_id": "tt0208990",
+      "score": 215.58,
+      "audience": 55.91,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 382,
+      "title": "Sentimental Value",
+      "year": 2025,
+      "imdb_id": "tt27714581",
+      "score": 215.47,
+      "audience": 138.05,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 383,
+      "title": "Judas and the Black Messiah",
+      "year": 2020,
+      "imdb_id": "tt9784798",
+      "score": 215.24,
+      "audience": 115.93,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 384,
+      "title": "The Reader",
+      "year": 2008,
+      "imdb_id": "tt0976051",
+      "score": 215.05,
+      "audience": 95.05,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 385,
+      "title": "Paterson",
+      "year": 2016,
+      "imdb_id": "tt5247022",
+      "score": 214.57,
+      "audience": 87.56,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 386,
+      "title": "Anomalisa",
+      "year": 2015,
+      "imdb_id": "tt2401878",
+      "score": 214.22,
+      "audience": 75.17,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 387,
+      "title": "About Elly",
+      "year": 2009,
+      "imdb_id": "tt1360860",
+      "score": 214.08,
+      "audience": 112.25,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 388,
+      "title": "Gomorrah",
+      "year": 2008,
+      "imdb_id": "tt0929425",
+      "score": 213.58,
+      "audience": 53.58,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 389,
+      "title": "Gosford Park",
+      "year": 2001,
+      "imdb_id": "tt0280707",
+      "score": 213.55,
+      "audience": 65.95,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 390,
+      "title": "Gran Torino",
+      "year": 2008,
+      "imdb_id": "tt1205489",
+      "score": 213.37,
+      "audience": 152.82,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 392,
+      "title": "The Sea Inside",
+      "year": 2004,
+      "imdb_id": "tt0369702",
+      "score": 213.26,
+      "audience": 105.09,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 393,
+      "title": "Up in the Air",
+      "year": 2009,
+      "imdb_id": "tt1193138",
+      "score": 213.22,
+      "audience": 82.94,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 394,
+      "title": "For Sama",
+      "year": 2019,
+      "imdb_id": "tt9617456",
+      "score": 212.98,
+      "audience": 113.39,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 395,
+      "title": "The Witch",
+      "year": 2015,
+      "imdb_id": "tt4263482",
+      "score": 212.42,
+      "audience": 74.36,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 396,
+      "title": "The Last Black Man in San Francisco",
+      "year": 2019,
+      "imdb_id": "tt4353250",
+      "score": 212.01,
+      "audience": 86.47,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 397,
+      "title": "The Skin I Live In",
+      "year": 2011,
+      "imdb_id": "tt1189073",
+      "score": 211.97,
+      "audience": 107.19,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 398,
+      "title": "Waking Life",
+      "year": 2001,
+      "imdb_id": "tt0243017",
+      "score": 211.73,
+      "audience": 100.08,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 399,
+      "title": "Midnight in Paris",
+      "year": 2011,
+      "imdb_id": "tt1605783",
+      "score": 211.15,
+      "audience": 105.9,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 401,
+      "title": "Avengers: Endgame",
+      "year": 2019,
+      "imdb_id": "tt4154796",
+      "score": 210.72,
+      "audience": 181.28,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 403,
+      "title": "The Station Agent",
+      "year": 2003,
+      "imdb_id": "tt0340377",
+      "score": 210.62,
+      "audience": 92.57,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 404,
+      "title": "2046",
+      "year": 2004,
+      "imdb_id": "tt0212712",
+      "score": 210.55,
+      "audience": 93.54,
+      "qualified_old": false,
+      "routes": []
+    },
+    {
+      "rank": 405,
+      "title": "Argentina, 1985",
+      "year": 2022,
+      "imdb_id": "tt15301048",
+      "score": 210.36,
+      "audience": 114.85,
+      "qualified_old": false,
+      "routes": []
+    }
+  ],
+  "legacy_boundary_160_190": [
+    {
+      "rank": 501,
+      "title": "No Man's Land",
+      "year": 2001,
+      "imdb_id": "tt0283509",
+      "score": 189.41,
+      "audience": 83.33,
+      "qualified_old": true,
+      "routes": [
+        "corroboration"
+      ]
+    },
+    {
+      "rank": 503,
+      "title": "Snatch",
+      "year": 2000,
+      "imdb_id": "tt0208092",
+      "score": 189.06,
+      "audience": 164.61,
+      "qualified_old": true,
+      "routes": [
+        "convergence"
+      ]
+    },
+    {
+      "rank": 508,
+      "title": "The Swamp",
+      "year": 2001,
+      "imdb_id": "tt0240419",
+      "score": 187.92,
+      "audience": 55.97,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    },
+    {
+      "rank": 528,
+      "title": "Russian Ark",
+      "year": 2002,
+      "imdb_id": "tt0318034",
+      "score": 184.21,
+      "audience": 53.72,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    },
+    {
+      "rank": 538,
+      "title": "The Cove",
+      "year": 2009,
+      "imdb_id": "tt1313104",
+      "score": 183.23,
+      "audience": 116.84,
+      "qualified_old": true,
+      "routes": [
+        "corroboration"
+      ]
+    },
+    {
+      "rank": 541,
+      "title": "The Fog of War",
+      "year": 2003,
+      "imdb_id": "tt0317910",
+      "score": 182.02,
+      "audience": 85.67,
+      "qualified_old": true,
+      "routes": [
+        "corroboration"
+      ]
+    },
+    {
+      "rank": 559,
+      "title": "Syndromes and a Century",
+      "year": 2006,
+      "imdb_id": "tt0477731",
+      "score": 179.59,
+      "audience": 40.27,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    },
+    {
+      "rank": 566,
+      "title": "Monsoon Wedding",
+      "year": 2001,
+      "imdb_id": "tt0265343",
+      "score": 177.41,
+      "audience": 56.35,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    },
+    {
+      "rank": 571,
+      "title": "Silent Light",
+      "year": 2007,
+      "imdb_id": "tt0841925",
+      "score": 175.07,
+      "audience": 32.39,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    },
+    {
+      "rank": 600,
+      "title": "Nostalgia for the Light",
+      "year": 2010,
+      "imdb_id": "tt1556190",
+      "score": 169.02,
+      "audience": 53.13,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    },
+    {
+      "rank": 625,
+      "title": "Inland Empire",
+      "year": 2006,
+      "imdb_id": "tt0460829",
+      "score": 164.71,
+      "audience": 63.49,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    },
+    {
+      "rank": 633,
+      "title": "Zama",
+      "year": 2017,
+      "imdb_id": "tt3409848",
+      "score": 163.95,
+      "audience": 25.76,
+      "qualified_old": true,
+      "routes": [
+        "canon"
+      ]
+    }
+  ]
+}
