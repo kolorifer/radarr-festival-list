@@ -64,6 +64,27 @@ class ExtraEvidenceSourceTests(unittest.TestCase):
         self.assertEqual(film["family_scores"]["critics_groups_consensus"], 70.0)
         self.assertIn("Existing", film["family_evidence"]["european_recognition"])
 
+    def test_critics_choice_is_modest_corroboration_inside_critics_family(self):
+        snapshot = {
+            "films": {
+                "tt1": {"title": "Winner", "year": 2020, "family_scores": {}, "family_evidence": {}},
+                "tt2": {"title": "Nominee", "year": 2020, "family_scores": {}, "family_evidence": {}},
+            }
+        }
+        resolved = {
+            "critics_choice_best_picture": [
+                {"imdb_id": "tt1", "title": "Winner", "year": 2020, "winner": True},
+                {"imdb_id": "tt2", "title": "Nominee", "year": 2020, "winner": False},
+            ]
+        }
+        extra.merge_contributions(snapshot, resolved)
+        self.assertEqual(snapshot["films"]["tt1"]["family_scores"]["critics_groups_consensus"], 25.0)
+        self.assertEqual(snapshot["films"]["tt2"]["family_scores"]["critics_groups_consensus"], 8.0)
+        self.assertIn(
+            "Critics Choice Best Picture (winner)",
+            snapshot["films"]["tt1"]["family_evidence"]["critics_groups_consensus"],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
