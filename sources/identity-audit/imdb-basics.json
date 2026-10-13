@@ -1,0 +1,6700 @@
+{
+  "source_url": "https://datasets.imdbws.com/title.basics.tsv.gz",
+  "observed_at": "2026-10-13T15:36:32.210917+00:00",
+  "download_sha256": "e196630006a3f4022a42c9519a0dbc6ac510bc0825a90e81be67bc77d040013e",
+  "films": {
+    "tt0069049": {
+      "titleType": "movie",
+      "primaryTitle": "The Other Side of the Wind",
+      "originalTitle": "The Other Side of the Wind",
+      "startYear": "2018",
+      "runtimeMinutes": "122"
+    },
+    "tt0118694": {
+      "titleType": "movie",
+      "primaryTitle": "In the Mood for Love",
+      "originalTitle": "Fa yeung nin wah",
+      "startYear": "2000",
+      "runtimeMinutes": "98"
+    },
+    "tt0120263": {
+      "titleType": "movie",
+      "primaryTitle": "Songs from the Second Floor",
+      "originalTitle": "Sånger från andra våningen",
+      "startYear": "2000",
+      "runtimeMinutes": "98"
+    },
+    "tt0120630": {
+      "titleType": "movie",
+      "primaryTitle": "Chicken Run",
+      "originalTitle": "Chicken Run",
+      "startYear": "2000",
+      "runtimeMinutes": "84"
+    },
+    "tt0120737": {
+      "titleType": "movie",
+      "primaryTitle": "The Lord of the Rings: The Fellowship of the Ring",
+      "originalTitle": "The Lord of the Rings: The Fellowship of the Ring",
+      "startYear": "2001",
+      "runtimeMinutes": "178"
+    },
+    "tt0121766": {
+      "titleType": "movie",
+      "primaryTitle": "Star Wars: Episode III - Revenge of the Sith",
+      "originalTitle": "Star Wars: Episode III - Revenge of the Sith",
+      "startYear": "2005",
+      "runtimeMinutes": "140"
+    },
+    "tt0126029": {
+      "titleType": "movie",
+      "primaryTitle": "Shrek",
+      "originalTitle": "Shrek",
+      "startYear": "2001",
+      "runtimeMinutes": "90"
+    },
+    "tt0139500": {
+      "titleType": "movie",
+      "primaryTitle": "In Vanda's Room",
+      "originalTitle": "No Quarto da Vanda",
+      "startYear": "2000",
+      "runtimeMinutes": "171"
+    },
+    "tt0144084": {
+      "titleType": "movie",
+      "primaryTitle": "American Psycho",
+      "originalTitle": "American Psycho",
+      "startYear": "2000",
+      "runtimeMinutes": "102"
+    },
+    "tt0145487": {
+      "titleType": "movie",
+      "primaryTitle": "Spider-Man",
+      "originalTitle": "Spider-Man",
+      "startYear": "2002",
+      "runtimeMinutes": "121"
+    },
+    "tt0146882": {
+      "titleType": "movie",
+      "primaryTitle": "High Fidelity",
+      "originalTitle": "High Fidelity",
+      "startYear": "2000",
+      "runtimeMinutes": "113"
+    },
+    "tt0162346": {
+      "titleType": "movie",
+      "primaryTitle": "Ghost World",
+      "originalTitle": "Ghost World",
+      "startYear": "2001",
+      "runtimeMinutes": "111"
+    },
+    "tt0166924": {
+      "titleType": "movie",
+      "primaryTitle": "Mulholland Drive",
+      "originalTitle": "Mulholland Dr.",
+      "startYear": "2001",
+      "runtimeMinutes": "147"
+    },
+    "tt0167260": {
+      "titleType": "movie",
+      "primaryTitle": "The Lord of the Rings: The Return of the King",
+      "originalTitle": "The Lord of the Rings: The Return of the King",
+      "startYear": "2003",
+      "runtimeMinutes": "201"
+    },
+    "tt0167261": {
+      "titleType": "movie",
+      "primaryTitle": "The Lord of the Rings: The Two Towers",
+      "originalTitle": "The Lord of the Rings: The Two Towers",
+      "startYear": "2002",
+      "runtimeMinutes": "179"
+    },
+    "tt0168629": {
+      "titleType": "movie",
+      "primaryTitle": "Dancer in the Dark",
+      "originalTitle": "Dancer in the Dark",
+      "startYear": "2000",
+      "runtimeMinutes": "135"
+    },
+    "tt0169102": {
+      "titleType": "movie",
+      "primaryTitle": "Lagaan: Once Upon a Time in India",
+      "originalTitle": "Lagaan: Once Upon a Time in India",
+      "startYear": "2001",
+      "runtimeMinutes": "224"
+    },
+    "tt0172495": {
+      "titleType": "movie",
+      "primaryTitle": "Gladiator",
+      "originalTitle": "Gladiator",
+      "startYear": "2000",
+      "runtimeMinutes": "155"
+    },
+    "tt0180093": {
+      "titleType": "movie",
+      "primaryTitle": "Requiem for a Dream",
+      "originalTitle": "Requiem for a Dream",
+      "startYear": "2000",
+      "runtimeMinutes": "102"
+    },
+    "tt0181689": {
+      "titleType": "movie",
+      "primaryTitle": "Minority Report",
+      "originalTitle": "Minority Report",
+      "startYear": "2002",
+      "runtimeMinutes": "145"
+    },
+    "tt0181865": {
+      "titleType": "movie",
+      "primaryTitle": "Traffic",
+      "originalTitle": "Traffic",
+      "startYear": "2000",
+      "runtimeMinutes": "147"
+    },
+    "tt0181875": {
+      "titleType": "movie",
+      "primaryTitle": "Almost Famous",
+      "originalTitle": "Almost Famous",
+      "startYear": "2000",
+      "runtimeMinutes": "122"
+    },
+    "tt0181912": {
+      "titleType": "movie",
+      "primaryTitle": "In Praise of Love",
+      "originalTitle": "Éloge de l'amour",
+      "startYear": "2001",
+      "runtimeMinutes": "97"
+    },
+    "tt0185014": {
+      "titleType": "movie",
+      "primaryTitle": "Wonder Boys",
+      "originalTitle": "Wonder Boys",
+      "startYear": "2000",
+      "runtimeMinutes": "107"
+    },
+    "tt0190332": {
+      "titleType": "movie",
+      "primaryTitle": "Crouching Tiger, Hidden Dragon",
+      "originalTitle": "Wo hu cang long",
+      "startYear": "2000",
+      "runtimeMinutes": "120"
+    },
+    "tt0190590": {
+      "titleType": "movie",
+      "primaryTitle": "O Brother, Where Art Thou?",
+      "originalTitle": "O Brother, Where Art Thou?",
+      "startYear": "2000",
+      "runtimeMinutes": "107"
+    },
+    "tt0195685": {
+      "titleType": "movie",
+      "primaryTitle": "Erin Brockovich",
+      "originalTitle": "Erin Brockovich",
+      "startYear": "2000",
+      "runtimeMinutes": "131"
+    },
+    "tt0196229": {
+      "titleType": "movie",
+      "primaryTitle": "Zoolander",
+      "originalTitle": "Zoolander",
+      "startYear": "2001",
+      "runtimeMinutes": "90"
+    },
+    "tt0198781": {
+      "titleType": "movie",
+      "primaryTitle": "Monsters, Inc.",
+      "originalTitle": "Monsters, Inc.",
+      "startYear": "2001",
+      "runtimeMinutes": "92"
+    },
+    "tt0199626": {
+      "titleType": "movie",
+      "primaryTitle": "In the Cut",
+      "originalTitle": "In the Cut",
+      "startYear": "2003",
+      "runtimeMinutes": "119"
+    },
+    "tt0199725": {
+      "titleType": "movie",
+      "primaryTitle": "Love & Basketball",
+      "originalTitle": "Love & Basketball",
+      "startYear": "2000",
+      "runtimeMinutes": "125"
+    },
+    "tt0200720": {
+      "titleType": "movie",
+      "primaryTitle": "The House of Mirth",
+      "originalTitle": "The House of Mirth",
+      "startYear": "2000",
+      "runtimeMinutes": "135"
+    },
+    "tt0203009": {
+      "titleType": "movie",
+      "primaryTitle": "Moulin Rouge!",
+      "originalTitle": "Moulin Rouge!",
+      "startYear": "2001",
+      "runtimeMinutes": "127"
+    },
+    "tt0203119": {
+      "titleType": "movie",
+      "primaryTitle": "Sexy Beast",
+      "originalTitle": "Sexy Beast",
+      "startYear": "2000",
+      "runtimeMinutes": "89"
+    },
+    "tt0203166": {
+      "titleType": "movie",
+      "primaryTitle": "Together",
+      "originalTitle": "Tillsammans",
+      "startYear": "2000",
+      "runtimeMinutes": "106"
+    },
+    "tt0203230": {
+      "titleType": "movie",
+      "primaryTitle": "You Can Count on Me",
+      "originalTitle": "You Can Count on Me",
+      "startYear": "2000",
+      "runtimeMinutes": "111"
+    },
+    "tt0204700": {
+      "titleType": "movie",
+      "primaryTitle": "Trouble Every Day",
+      "originalTitle": "Trouble Every Day",
+      "startYear": "2001",
+      "runtimeMinutes": "101"
+    },
+    "tt0206634": {
+      "titleType": "movie",
+      "primaryTitle": "Children of Men",
+      "originalTitle": "Children of Men",
+      "startYear": "2006",
+      "runtimeMinutes": "109"
+    },
+    "tt0208092": {
+      "titleType": "movie",
+      "primaryTitle": "Snatch",
+      "originalTitle": "Snatch",
+      "startYear": "2000",
+      "runtimeMinutes": "102"
+    },
+    "tt0208990": {
+      "titleType": "movie",
+      "primaryTitle": "The Son's Room",
+      "originalTitle": "La stanza del figlio",
+      "startYear": "2001",
+      "runtimeMinutes": "99"
+    },
+    "tt0209144": {
+      "titleType": "movie",
+      "primaryTitle": "Memento",
+      "originalTitle": "Memento",
+      "startYear": "2000",
+      "runtimeMinutes": "113"
+    },
+    "tt0210070": {
+      "titleType": "movie",
+      "primaryTitle": "Ginger Snaps",
+      "originalTitle": "Ginger Snaps",
+      "startYear": "2000",
+      "runtimeMinutes": "108"
+    },
+    "tt0211915": {
+      "titleType": "movie",
+      "primaryTitle": "Amélie",
+      "originalTitle": "Le fabuleux destin d'Amélie Poulain",
+      "startYear": "2001",
+      "runtimeMinutes": "122"
+    },
+    "tt0212712": {
+      "titleType": "movie",
+      "primaryTitle": "2046",
+      "originalTitle": "2046",
+      "startYear": "2004",
+      "runtimeMinutes": "129"
+    },
+    "tt0212720": {
+      "titleType": "movie",
+      "primaryTitle": "A.I. Artificial Intelligence",
+      "originalTitle": "A.I. Artificial Intelligence",
+      "startYear": "2001",
+      "runtimeMinutes": "146"
+    },
+    "tt0215545": {
+      "titleType": "movie",
+      "primaryTitle": "Bamboozled",
+      "originalTitle": "Bamboozled",
+      "startYear": "2000",
+      "runtimeMinutes": "135"
+    },
+    "tt0216605": {
+      "titleType": "movie",
+      "primaryTitle": "The Captive",
+      "originalTitle": "La Captive",
+      "startYear": "2000",
+      "runtimeMinutes": "118"
+    },
+    "tt0216625": {
+      "titleType": "movie",
+      "primaryTitle": "Code Unknown",
+      "originalTitle": "Code inconnu: Récit incomplet de divers voyages",
+      "startYear": "2000",
+      "runtimeMinutes": "118"
+    },
+    "tt0216787": {
+      "titleType": "movie",
+      "primaryTitle": "The Taste of Others",
+      "originalTitle": "Le goût des autres",
+      "startYear": "2000",
+      "runtimeMinutes": "112"
+    },
+    "tt0217505": {
+      "titleType": "movie",
+      "primaryTitle": "Gangs of New York",
+      "originalTitle": "Gangs of New York",
+      "startYear": "2002",
+      "runtimeMinutes": "167"
+    },
+    "tt0217869": {
+      "titleType": "movie",
+      "primaryTitle": "Unbreakable",
+      "originalTitle": "Unbreakable",
+      "startYear": "2000",
+      "runtimeMinutes": "106"
+    },
+    "tt0218839": {
+      "titleType": "movie",
+      "primaryTitle": "Best in Show",
+      "originalTitle": "Best in Show",
+      "startYear": "2000",
+      "runtimeMinutes": "90"
+    },
+    "tt0221073": {
+      "titleType": "movie",
+      "primaryTitle": "Chopper",
+      "originalTitle": "Chopper",
+      "startYear": "2000",
+      "runtimeMinutes": "94"
+    },
+    "tt0230600": {
+      "titleType": "movie",
+      "primaryTitle": "The Others",
+      "originalTitle": "The Others",
+      "startYear": "2001",
+      "runtimeMinutes": "104"
+    },
+    "tt0238936": {
+      "titleType": "movie",
+      "primaryTitle": "Devdas",
+      "originalTitle": "Devdas",
+      "startYear": "2002",
+      "runtimeMinutes": "185"
+    },
+    "tt0239381": {
+      "titleType": "movie",
+      "primaryTitle": "O Fantasma",
+      "originalTitle": "O Fantasma",
+      "startYear": "2000",
+      "runtimeMinutes": "87"
+    },
+    "tt0240419": {
+      "titleType": "movie",
+      "primaryTitle": "The Swamp",
+      "originalTitle": "La Ciénaga",
+      "startYear": "2001",
+      "runtimeMinutes": "103"
+    },
+    "tt0241663": {
+      "titleType": "movie",
+      "primaryTitle": "To the Left of the Father",
+      "originalTitle": "Lavoura Arcaica",
+      "startYear": "2001",
+      "runtimeMinutes": "163"
+    },
+    "tt0243017": {
+      "titleType": "movie",
+      "primaryTitle": "Waking Life",
+      "originalTitle": "Waking Life",
+      "startYear": "2001",
+      "runtimeMinutes": "99"
+    },
+    "tt0243133": {
+      "titleType": "movie",
+      "primaryTitle": "The Man Who Wasn't There",
+      "originalTitle": "The Man Who Wasn't There",
+      "startYear": "2001",
+      "runtimeMinutes": "116"
+    },
+    "tt0243155": {
+      "titleType": "movie",
+      "primaryTitle": "Bridget Jones's Diary",
+      "originalTitle": "Bridget Jones's Diary",
+      "startYear": "2001",
+      "runtimeMinutes": "97"
+    },
+    "tt0243255": {
+      "titleType": "movie",
+      "primaryTitle": "Fat Girl",
+      "originalTitle": "À ma soeur !",
+      "startYear": "2001",
+      "runtimeMinutes": "86"
+    },
+    "tt0243655": {
+      "titleType": "movie",
+      "primaryTitle": "Wet Hot American Summer",
+      "originalTitle": "Wet Hot American Summer",
+      "startYear": "2001",
+      "runtimeMinutes": "97"
+    },
+    "tt0243889": {
+      "titleType": "movie",
+      "primaryTitle": "Eureka",
+      "originalTitle": "Yurîka",
+      "startYear": "2000",
+      "runtimeMinutes": "217"
+    },
+    "tt0244316": {
+      "titleType": "movie",
+      "primaryTitle": "Yi Yi",
+      "originalTitle": "Yi yi",
+      "startYear": "2000",
+      "runtimeMinutes": "173"
+    },
+    "tt0245429": {
+      "titleType": "movie",
+      "primaryTitle": "Spirited Away",
+      "originalTitle": "Sen to Chihiro no kamikakushi",
+      "startYear": "2001",
+      "runtimeMinutes": "124"
+    },
+    "tt0245574": {
+      "titleType": "movie",
+      "primaryTitle": "Y tu mamá también",
+      "originalTitle": "Y tu mamá también",
+      "startYear": "2001",
+      "runtimeMinutes": "106"
+    },
+    "tt0245712": {
+      "titleType": "movie",
+      "primaryTitle": "Amores Perros",
+      "originalTitle": "Amores perros",
+      "startYear": "2000",
+      "runtimeMinutes": "154"
+    },
+    "tt0245837": {
+      "titleType": "movie",
+      "primaryTitle": "Chunhyang",
+      "originalTitle": "Chunhyangdyun",
+      "startYear": "2000",
+      "runtimeMinutes": "137"
+    },
+    "tt0245929": {
+      "titleType": "movie",
+      "primaryTitle": "Devils on the Doorstep",
+      "originalTitle": "Guizi lai le",
+      "startYear": "2000",
+      "runtimeMinutes": "139"
+    },
+    "tt0246266": {
+      "titleType": "movie",
+      "primaryTitle": "Blackboards",
+      "originalTitle": "Takhté siah",
+      "startYear": "2000",
+      "runtimeMinutes": "88"
+    },
+    "tt0246578": {
+      "titleType": "movie",
+      "primaryTitle": "Donnie Darko",
+      "originalTitle": "Donnie Darko",
+      "startYear": "2001",
+      "runtimeMinutes": "113"
+    },
+    "tt0246765": {
+      "titleType": "movie",
+      "primaryTitle": "Lumumba",
+      "originalTitle": "Lumumba",
+      "startYear": "2000",
+      "runtimeMinutes": "115"
+    },
+    "tt0246866": {
+      "titleType": "short",
+      "primaryTitle": "Origins of the 21st Century",
+      "originalTitle": "De l'origine du XXIe siècle",
+      "startYear": "2000",
+      "runtimeMinutes": "13"
+    },
+    "tt0247196": {
+      "titleType": "movie",
+      "primaryTitle": "Before Night Falls",
+      "originalTitle": "Before Night Falls",
+      "startYear": "2000",
+      "runtimeMinutes": "133"
+    },
+    "tt0247380": {
+      "titleType": "movie",
+      "primaryTitle": "The Gleaners & I",
+      "originalTitle": "Les glaneurs et la glaneuse",
+      "startYear": "2000",
+      "runtimeMinutes": "82"
+    },
+    "tt0247425": {
+      "titleType": "movie",
+      "primaryTitle": "In the Bedroom",
+      "originalTitle": "In the Bedroom",
+      "startYear": "2001",
+      "runtimeMinutes": "131"
+    },
+    "tt0247586": {
+      "titleType": "movie",
+      "primaryTitle": "Nine Queens",
+      "originalTitle": "Nueve reinas",
+      "startYear": "2000",
+      "runtimeMinutes": "114"
+    },
+    "tt0248845": {
+      "titleType": "movie",
+      "primaryTitle": "Hedwig and the Angry Inch",
+      "originalTitle": "Hedwig and the Angry Inch",
+      "startYear": "2001",
+      "runtimeMinutes": "95"
+    },
+    "tt0249241": {
+      "titleType": "movie",
+      "primaryTitle": "Werckmeister Harmonies",
+      "originalTitle": "Werckmeister harmóniák",
+      "startYear": "2000",
+      "runtimeMinutes": "145"
+    },
+    "tt0249462": {
+      "titleType": "movie",
+      "primaryTitle": "Billy Elliot",
+      "originalTitle": "Billy Elliot",
+      "startYear": "2000",
+      "runtimeMinutes": "110"
+    },
+    "tt0252444": {
+      "titleType": "movie",
+      "primaryTitle": "Rabbit-Proof Fence",
+      "originalTitle": "Rabbit-Proof Fence",
+      "startYear": "2002",
+      "runtimeMinutes": "94"
+    },
+    "tt0253474": {
+      "titleType": "movie",
+      "primaryTitle": "The Pianist",
+      "originalTitle": "The Pianist",
+      "startYear": "2002",
+      "runtimeMinutes": "150"
+    },
+    "tt0254686": {
+      "titleType": "movie",
+      "primaryTitle": "The Piano Teacher",
+      "originalTitle": "La pianiste",
+      "startYear": "2001",
+      "runtimeMinutes": "131"
+    },
+    "tt0255094": {
+      "titleType": "movie",
+      "primaryTitle": "The Circle",
+      "originalTitle": "Dayereh",
+      "startYear": "2000",
+      "runtimeMinutes": "90"
+    },
+    "tt0255589": {
+      "titleType": "movie",
+      "primaryTitle": "The Isle",
+      "originalTitle": "Seom",
+      "startYear": "2000",
+      "runtimeMinutes": "90"
+    },
+    "tt0256009": {
+      "titleType": "movie",
+      "primaryTitle": "The Devil's Backbone",
+      "originalTitle": "The Devil's Backbone",
+      "startYear": "2001",
+      "runtimeMinutes": "106"
+    },
+    "tt0256103": {
+      "titleType": "movie",
+      "primaryTitle": "Intimacy",
+      "originalTitle": "Intimacy",
+      "startYear": "2001",
+      "runtimeMinutes": "119"
+    },
+    "tt0257044": {
+      "titleType": "movie",
+      "primaryTitle": "Road to Perdition",
+      "originalTitle": "Road to Perdition",
+      "startYear": "2002",
+      "runtimeMinutes": "117"
+    },
+    "tt0257360": {
+      "titleType": "movie",
+      "primaryTitle": "About Schmidt",
+      "originalTitle": "About Schmidt",
+      "startYear": "2002",
+      "runtimeMinutes": "125"
+    },
+    "tt0257497": {
+      "titleType": "movie",
+      "primaryTitle": "La Commune (Paris, 1871)",
+      "originalTitle": "La commune (Paris, 1871)",
+      "startYear": "2000",
+      "runtimeMinutes": "345"
+    },
+    "tt0258885": {
+      "titleType": "movie",
+      "primaryTitle": "Platform",
+      "originalTitle": "Zhantai",
+      "startYear": "2000",
+      "runtimeMinutes": "154"
+    },
+    "tt0259072": {
+      "titleType": "movie",
+      "primaryTitle": "A Time for Drunken Horses",
+      "originalTitle": "Zamani baray-e masti-e asbha",
+      "startYear": "2000",
+      "runtimeMinutes": "80"
+    },
+    "tt0259393": {
+      "titleType": "movie",
+      "primaryTitle": "Lantana",
+      "originalTitle": "Lantana",
+      "startYear": "2001",
+      "runtimeMinutes": "121"
+    },
+    "tt0260332": {
+      "titleType": "movie",
+      "primaryTitle": "The Day I Became a Woman",
+      "originalTitle": "Roozi ke zan shodam",
+      "startYear": "2000",
+      "runtimeMinutes": "74"
+    },
+    "tt0260948": {
+      "titleType": "short",
+      "primaryTitle": "The Heart of the World",
+      "originalTitle": "The Heart of the World",
+      "startYear": "2000",
+      "runtimeMinutes": "6"
+    },
+    "tt0262240": {
+      "titleType": "movie",
+      "primaryTitle": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
+      "originalTitle": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
+      "startYear": "2000",
+      "runtimeMinutes": "288"
+    },
+    "tt0262432": {
+      "titleType": "movie",
+      "primaryTitle": "George Washington",
+      "originalTitle": "George Washington",
+      "startYear": "2000",
+      "runtimeMinutes": "89"
+    },
+    "tt0264464": {
+      "titleType": "movie",
+      "primaryTitle": "Catch Me If You Can",
+      "originalTitle": "Catch Me If You Can",
+      "startYear": "2002",
+      "runtimeMinutes": "141"
+    },
+    "tt0265086": {
+      "titleType": "movie",
+      "primaryTitle": "Black Hawk Down",
+      "originalTitle": "Black Hawk Down",
+      "startYear": "2001",
+      "runtimeMinutes": "144"
+    },
+    "tt0265343": {
+      "titleType": "movie",
+      "primaryTitle": "Monsoon Wedding",
+      "originalTitle": "Monsoon Wedding",
+      "startYear": "2001",
+      "runtimeMinutes": "114"
+    },
+    "tt0265666": {
+      "titleType": "movie",
+      "primaryTitle": "The Royal Tenenbaums",
+      "originalTitle": "The Royal Tenenbaums",
+      "startYear": "2001",
+      "runtimeMinutes": "110"
+    },
+    "tt0266308": {
+      "titleType": "movie",
+      "primaryTitle": "Battle Royale",
+      "originalTitle": "Batoru rowaiaru",
+      "startYear": "2000",
+      "runtimeMinutes": "114"
+    },
+    "tt0266543": {
+      "titleType": "movie",
+      "primaryTitle": "Finding Nemo",
+      "originalTitle": "Finding Nemo",
+      "startYear": "2003",
+      "runtimeMinutes": "100"
+    },
+    "tt0266697": {
+      "titleType": "movie",
+      "primaryTitle": "Kill Bill: Vol. 1",
+      "originalTitle": "Kill Bill: Vol. 1",
+      "startYear": "2003",
+      "runtimeMinutes": "111"
+    },
+    "tt0268126": {
+      "titleType": "movie",
+      "primaryTitle": "Adaptation.",
+      "originalTitle": "Adaptation.",
+      "startYear": "2002",
+      "runtimeMinutes": "115"
+    },
+    "tt0268978": {
+      "titleType": "movie",
+      "primaryTitle": "A Beautiful Mind",
+      "originalTitle": "A Beautiful Mind",
+      "startYear": "2001",
+      "runtimeMinutes": "135"
+    },
+    "tt0269587": {
+      "titleType": "movie",
+      "primaryTitle": "Mysterious Object at Noon",
+      "originalTitle": "Dokfa nai meuman",
+      "startYear": "2000",
+      "runtimeMinutes": "89"
+    },
+    "tt0269746": {
+      "titleType": "movie",
+      "primaryTitle": "What Time Is It There?",
+      "originalTitle": "Ni na bian ji dian",
+      "startYear": "2001",
+      "runtimeMinutes": "116"
+    },
+    "tt0272338": {
+      "titleType": "movie",
+      "primaryTitle": "Punch-Drunk Love",
+      "originalTitle": "Punch-Drunk Love",
+      "startYear": "2002",
+      "runtimeMinutes": "95"
+    },
+    "tt0274309": {
+      "titleType": "movie",
+      "primaryTitle": "24 Hour Party People",
+      "originalTitle": "24 Hour Party People",
+      "startYear": "2002",
+      "runtimeMinutes": "117"
+    },
+    "tt0274428": {
+      "titleType": "movie",
+      "primaryTitle": "Divine Intervention",
+      "originalTitle": "Yadon ilaheyya",
+      "startYear": "2002",
+      "runtimeMinutes": "92"
+    },
+    "tt0274558": {
+      "titleType": "movie",
+      "primaryTitle": "The Hours",
+      "originalTitle": "The Hours",
+      "startYear": "2002",
+      "runtimeMinutes": "114"
+    },
+    "tt0274812": {
+      "titleType": "movie",
+      "primaryTitle": "Secretary",
+      "originalTitle": "Secretary",
+      "startYear": "2002",
+      "runtimeMinutes": "107"
+    },
+    "tt0275491": {
+      "titleType": "movie",
+      "primaryTitle": "Bad Education",
+      "originalTitle": "La mala educación",
+      "startYear": "2004",
+      "runtimeMinutes": "106"
+    },
+    "tt0276919": {
+      "titleType": "movie",
+      "primaryTitle": "Dogville",
+      "originalTitle": "Dogville",
+      "startYear": "2003",
+      "runtimeMinutes": "171"
+    },
+    "tt0278731": {
+      "titleType": "movie",
+      "primaryTitle": "Spider",
+      "originalTitle": "Spider",
+      "startYear": "2002",
+      "runtimeMinutes": "98"
+    },
+    "tt0279065": {
+      "titleType": "movie",
+      "primaryTitle": "Time Out",
+      "originalTitle": "L'emploi du temps",
+      "startYear": "2001",
+      "runtimeMinutes": "134"
+    },
+    "tt0279079": {
+      "titleType": "short",
+      "primaryTitle": "Father and Daughter",
+      "originalTitle": "Father and Daughter",
+      "startYear": "2000",
+      "runtimeMinutes": "8"
+    },
+    "tt0280665": {
+      "titleType": "movie",
+      "primaryTitle": "Femme Fatale",
+      "originalTitle": "Femme Fatale",
+      "startYear": "2002",
+      "runtimeMinutes": "114"
+    },
+    "tt0280707": {
+      "titleType": "movie",
+      "primaryTitle": "Gosford Park",
+      "originalTitle": "Gosford Park",
+      "startYear": "2001",
+      "runtimeMinutes": "137"
+    },
+    "tt0283283": {
+      "titleType": "movie",
+      "primaryTitle": "Millennium Mambo",
+      "originalTitle": "Qian xi man bo",
+      "startYear": "2001",
+      "runtimeMinutes": "119"
+    },
+    "tt0283422": {
+      "titleType": "movie",
+      "primaryTitle": "I'm Going Home",
+      "originalTitle": "Je rentre à la maison",
+      "startYear": "2001",
+      "runtimeMinutes": "90"
+    },
+    "tt0284034": {
+      "titleType": "movie",
+      "primaryTitle": "Demonlover",
+      "originalTitle": "Demonlover",
+      "startYear": "2002",
+      "runtimeMinutes": "129"
+    },
+    "tt0285441": {
+      "titleType": "movie",
+      "primaryTitle": "Atanarjuat: The Fast Runner",
+      "originalTitle": "Atanarjuat",
+      "startYear": "2001",
+      "runtimeMinutes": "172"
+    },
+    "tt0286106": {
+      "titleType": "movie",
+      "primaryTitle": "Signs",
+      "originalTitle": "Signs",
+      "startYear": "2002",
+      "runtimeMinutes": "106"
+    },
+    "tt0286244": {
+      "titleType": "movie",
+      "primaryTitle": "The Triplets of Belleville",
+      "originalTitle": "Les triplettes de Belleville",
+      "startYear": "2003",
+      "runtimeMinutes": "80"
+    },
+    "tt0286499": {
+      "titleType": "movie",
+      "primaryTitle": "Bend It Like Beckham",
+      "originalTitle": "Bend It Like Beckham",
+      "startYear": "2002",
+      "runtimeMinutes": "112"
+    },
+    "tt0286751": {
+      "titleType": "movie",
+      "primaryTitle": "Pulse",
+      "originalTitle": "Kairo",
+      "startYear": "2001",
+      "runtimeMinutes": "119"
+    },
+    "tt0286978": {
+      "titleType": "movie",
+      "primaryTitle": "Sobibór, October 14, 1943, 4 p.m.",
+      "originalTitle": "Sobibór, 14 octobre 1943, 16 heures",
+      "startYear": "2001",
+      "runtimeMinutes": "95"
+    },
+    "tt0287467": {
+      "titleType": "movie",
+      "primaryTitle": "Talk to Her",
+      "originalTitle": "Hable con ella",
+      "startYear": "2002",
+      "runtimeMinutes": "112"
+    },
+    "tt0289043": {
+      "titleType": "movie",
+      "primaryTitle": "28 Days Later",
+      "originalTitle": "28 Days Later",
+      "startYear": "2002",
+      "runtimeMinutes": "113"
+    },
+    "tt0290329": {
+      "titleType": "movie",
+      "primaryTitle": "Visitor Q",
+      "originalTitle": "Bijitâ Q",
+      "startYear": "2001",
+      "runtimeMinutes": "84"
+    },
+    "tt0290673": {
+      "titleType": "movie",
+      "primaryTitle": "Irreversible",
+      "originalTitle": "Irréversible",
+      "startYear": "2002",
+      "runtimeMinutes": "97"
+    },
+    "tt0291172": {
+      "titleType": "movie",
+      "primaryTitle": "The Son",
+      "originalTitle": "Le fils",
+      "startYear": "2002",
+      "runtimeMinutes": "103"
+    },
+    "tt0291183": {
+      "titleType": "movie",
+      "primaryTitle": "Fragile as the World",
+      "originalTitle": "Frágil Como o Mundo",
+      "startYear": "2001",
+      "runtimeMinutes": "90"
+    },
+    "tt0291310": {
+      "titleType": "movie",
+      "primaryTitle": "La libertad",
+      "originalTitle": "La libertad",
+      "startYear": "2001",
+      "runtimeMinutes": "73"
+    },
+    "tt0291350": {
+      "titleType": "movie",
+      "primaryTitle": "Millennium Actress",
+      "originalTitle": "Sennen joyû",
+      "startYear": "2001",
+      "runtimeMinutes": "87"
+    },
+    "tt0295743": {
+      "titleType": "movie",
+      "primaryTitle": "Friday Night",
+      "originalTitle": "Vendredi soir",
+      "startYear": "2002",
+      "runtimeMinutes": "90"
+    },
+    "tt0297721": {
+      "titleType": "movie",
+      "primaryTitle": "All About Lily Chou-Chou",
+      "originalTitle": "Riri Shushu no subete",
+      "startYear": "2001",
+      "runtimeMinutes": "146"
+    },
+    "tt0297884": {
+      "titleType": "movie",
+      "primaryTitle": "Far from Heaven",
+      "originalTitle": "Far from Heaven",
+      "startYear": "2002",
+      "runtimeMinutes": "107"
+    },
+    "tt0298130": {
+      "titleType": "movie",
+      "primaryTitle": "The Ring",
+      "originalTitle": "The Ring",
+      "startYear": "2002",
+      "runtimeMinutes": "115"
+    },
+    "tt0298228": {
+      "titleType": "movie",
+      "primaryTitle": "Whale Rider",
+      "originalTitle": "Whale Rider",
+      "startYear": "2002",
+      "runtimeMinutes": "101"
+    },
+    "tt0299478": {
+      "titleType": "tvMovie",
+      "primaryTitle": "Saraband",
+      "originalTitle": "Saraband",
+      "startYear": "2003",
+      "runtimeMinutes": "107"
+    },
+    "tt0299977": {
+      "titleType": "movie",
+      "primaryTitle": "Hero",
+      "originalTitle": "Ying xiong",
+      "startYear": "2002",
+      "runtimeMinutes": "94"
+    },
+    "tt0300140": {
+      "titleType": "movie",
+      "primaryTitle": "Lilya 4-Ever",
+      "originalTitle": "Lilja 4-ever",
+      "startYear": "2002",
+      "runtimeMinutes": "109"
+    },
+    "tt0300214": {
+      "titleType": "movie",
+      "primaryTitle": "Morvern Callar",
+      "originalTitle": "Morvern Callar",
+      "startYear": "2002",
+      "runtimeMinutes": "97"
+    },
+    "tt0300270": {
+      "titleType": "movie",
+      "primaryTitle": "The Holy Girl",
+      "originalTitle": "La niña santa",
+      "startYear": "2004",
+      "runtimeMinutes": "106"
+    },
+    "tt0301357": {
+      "titleType": "movie",
+      "primaryTitle": "Good Bye Lenin!",
+      "originalTitle": "Good Bye Lenin!",
+      "startYear": "2003",
+      "runtimeMinutes": "121"
+    },
+    "tt0301978": {
+      "titleType": "movie",
+      "primaryTitle": "Ten",
+      "originalTitle": "Dah",
+      "startYear": "2002",
+      "runtimeMinutes": "94"
+    },
+    "tt0302674": {
+      "titleType": "movie",
+      "primaryTitle": "Gerry",
+      "originalTitle": "Gerry",
+      "startYear": "2002",
+      "runtimeMinutes": "103"
+    },
+    "tt0303325": {
+      "titleType": "movie",
+      "primaryTitle": "Decasia",
+      "originalTitle": "Decasia",
+      "startYear": "2002",
+      "runtimeMinutes": "70"
+    },
+    "tt0304141": {
+      "titleType": "movie",
+      "primaryTitle": "Harry Potter and the Prisoner of Azkaban",
+      "originalTitle": "Harry Potter and the Prisoner of Azkaban",
+      "startYear": "2004",
+      "runtimeMinutes": "142"
+    },
+    "tt0305206": {
+      "titleType": "movie",
+      "primaryTitle": "American Splendor",
+      "originalTitle": "American Splendor",
+      "startYear": "2003",
+      "runtimeMinutes": "101"
+    },
+    "tt0305923": {
+      "titleType": "movie",
+      "primaryTitle": "Workers, Peasants",
+      "originalTitle": "Operai, contadini",
+      "startYear": "2001",
+      "runtimeMinutes": "123"
+    },
+    "tt0307479": {
+      "titleType": "movie",
+      "primaryTitle": "Solaris",
+      "originalTitle": "Solaris",
+      "startYear": "2002",
+      "runtimeMinutes": "99"
+    },
+    "tt0307901": {
+      "titleType": "movie",
+      "primaryTitle": "25th Hour",
+      "originalTitle": "25th Hour",
+      "startYear": "2002",
+      "runtimeMinutes": "135"
+    },
+    "tt0308363": {
+      "titleType": "movie",
+      "primaryTitle": "Waiting for Happiness",
+      "originalTitle": "Heremakono",
+      "startYear": "2002",
+      "runtimeMinutes": "90"
+    },
+    "tt0309987": {
+      "titleType": "movie",
+      "primaryTitle": "The Dreamers",
+      "originalTitle": "The Dreamers",
+      "startYear": "2003",
+      "runtimeMinutes": "115"
+    },
+    "tt0310154": {
+      "titleType": "movie",
+      "primaryTitle": "In This World",
+      "originalTitle": "In This World",
+      "startYear": "2002",
+      "runtimeMinutes": "88"
+    },
+    "tt0310313": {
+      "titleType": "movie",
+      "primaryTitle": "A New Life",
+      "originalTitle": "La Vie nouvelle",
+      "startYear": "2002",
+      "runtimeMinutes": "102"
+    },
+    "tt0310775": {
+      "titleType": "movie",
+      "primaryTitle": "Sympathy for Mr. Vengeance",
+      "originalTitle": "Boksuneun naui geot",
+      "startYear": "2002",
+      "runtimeMinutes": "129"
+    },
+    "tt0310793": {
+      "titleType": "movie",
+      "primaryTitle": "Bowling for Columbine",
+      "originalTitle": "Bowling for Columbine",
+      "startYear": "2002",
+      "runtimeMinutes": "120"
+    },
+    "tt0311113": {
+      "titleType": "movie",
+      "primaryTitle": "Master and Commander: The Far Side of the World",
+      "originalTitle": "Master and Commander: The Far Side of the World",
+      "startYear": "2003",
+      "runtimeMinutes": "138"
+    },
+    "tt0311519": {
+      "titleType": "movie",
+      "primaryTitle": "The Man Without a Past",
+      "originalTitle": "Mies vailla menneisyyttä",
+      "startYear": "2002",
+      "runtimeMinutes": "97"
+    },
+    "tt0312004": {
+      "titleType": "movie",
+      "primaryTitle": "Wallace & Gromit: The Curse of the Were-Rabbit",
+      "originalTitle": "The Curse of the Were-Rabbit",
+      "startYear": "2005",
+      "runtimeMinutes": "85"
+    },
+    "tt0313670": {
+      "titleType": "movie",
+      "primaryTitle": "Sweet Sixteen",
+      "originalTitle": "Sweet Sixteen",
+      "startYear": "2002",
+      "runtimeMinutes": "106"
+    },
+    "tt0314331": {
+      "titleType": "movie",
+      "primaryTitle": "Love Actually",
+      "originalTitle": "Love Actually",
+      "startYear": "2003",
+      "runtimeMinutes": "135"
+    },
+    "tt0315110": {
+      "titleType": "movie",
+      "primaryTitle": "Twentynine Palms",
+      "originalTitle": "Twentynine Palms",
+      "startYear": "2003",
+      "runtimeMinutes": "119"
+    },
+    "tt0315733": {
+      "titleType": "movie",
+      "primaryTitle": "21 Grams",
+      "originalTitle": "21 Grams",
+      "startYear": "2003",
+      "runtimeMinutes": "124"
+    },
+    "tt0316654": {
+      "titleType": "movie",
+      "primaryTitle": "Spider-Man 2",
+      "originalTitle": "Spider-Man 2",
+      "startYear": "2004",
+      "runtimeMinutes": "127"
+    },
+    "tt0317171": {
+      "titleType": "movie",
+      "primaryTitle": "Blissfully Yours",
+      "originalTitle": "Sud sanaeha",
+      "startYear": "2002",
+      "runtimeMinutes": "125"
+    },
+    "tt0317248": {
+      "titleType": "movie",
+      "primaryTitle": "City of God",
+      "originalTitle": "Cidade de Deus",
+      "startYear": "2002",
+      "runtimeMinutes": "130"
+    },
+    "tt0317705": {
+      "titleType": "movie",
+      "primaryTitle": "The Incredibles",
+      "originalTitle": "The Incredibles",
+      "startYear": "2004",
+      "runtimeMinutes": "115"
+    },
+    "tt0317910": {
+      "titleType": "movie",
+      "primaryTitle": "The Fog of War",
+      "originalTitle": "The Fog of War: Eleven Lessons from the Life of Robert S. McNamara",
+      "startYear": "2003",
+      "runtimeMinutes": "107"
+    },
+    "tt0317965": {
+      "titleType": "movie",
+      "primaryTitle": "My Mother's Smile",
+      "originalTitle": "L'ora di religione (Il sorriso di mia madre)",
+      "startYear": "2002",
+      "runtimeMinutes": "105"
+    },
+    "tt0318025": {
+      "titleType": "movie",
+      "primaryTitle": "Unknown Pleasures",
+      "originalTitle": "Ren xiao yao",
+      "startYear": "2002",
+      "runtimeMinutes": "112"
+    },
+    "tt0318034": {
+      "titleType": "movie",
+      "primaryTitle": "Russian Ark",
+      "originalTitle": "Russkiy kovcheg",
+      "startYear": "2002",
+      "runtimeMinutes": "99"
+    },
+    "tt0318202": {
+      "titleType": "movie",
+      "primaryTitle": "To Be and to Have",
+      "originalTitle": "Être et avoir",
+      "startYear": "2002",
+      "runtimeMinutes": "104"
+    },
+    "tt0318462": {
+      "titleType": "movie",
+      "primaryTitle": "The Motorcycle Diaries",
+      "originalTitle": "Diarios de motocicleta",
+      "startYear": "2004",
+      "runtimeMinutes": "126"
+    },
+    "tt0319061": {
+      "titleType": "movie",
+      "primaryTitle": "Big Fish",
+      "originalTitle": "Big Fish",
+      "startYear": "2003",
+      "runtimeMinutes": "125"
+    },
+    "tt0319343": {
+      "titleType": "movie",
+      "primaryTitle": "Elf",
+      "originalTitle": "Elf",
+      "startYear": "2003",
+      "runtimeMinutes": "97"
+    },
+    "tt0320193": {
+      "titleType": "movie",
+      "primaryTitle": "Oasis",
+      "originalTitle": "Oasiseu",
+      "startYear": "2002",
+      "runtimeMinutes": "133"
+    },
+    "tt0322824": {
+      "titleType": "movie",
+      "primaryTitle": "Japón",
+      "originalTitle": "Japón",
+      "startYear": "2002",
+      "runtimeMinutes": "122"
+    },
+    "tt0327056": {
+      "titleType": "movie",
+      "primaryTitle": "Mystic River",
+      "originalTitle": "Mystic River",
+      "startYear": "2003",
+      "runtimeMinutes": "138"
+    },
+    "tt0327597": {
+      "titleType": "movie",
+      "primaryTitle": "Coraline",
+      "originalTitle": "Coraline",
+      "startYear": "2009",
+      "runtimeMinutes": "100"
+    },
+    "tt0328107": {
+      "titleType": "movie",
+      "primaryTitle": "Man on Fire",
+      "originalTitle": "Man on Fire",
+      "startYear": "2004",
+      "runtimeMinutes": "146"
+    },
+    "tt0330099": {
+      "titleType": "movie",
+      "primaryTitle": "The Brown Bunny",
+      "originalTitle": "The Brown Bunny",
+      "startYear": "2003",
+      "runtimeMinutes": "93"
+    },
+    "tt0331370": {
+      "titleType": "movie",
+      "primaryTitle": "Whisky",
+      "originalTitle": "Whisky",
+      "startYear": "2004",
+      "runtimeMinutes": "94"
+    },
+    "tt0332280": {
+      "titleType": "movie",
+      "primaryTitle": "The Notebook",
+      "originalTitle": "The Notebook",
+      "startYear": "2004",
+      "runtimeMinutes": "123"
+    },
+    "tt0332379": {
+      "titleType": "movie",
+      "primaryTitle": "School of Rock",
+      "originalTitle": "School of Rock",
+      "startYear": "2003",
+      "runtimeMinutes": "109"
+    },
+    "tt0334405": {
+      "titleType": "movie",
+      "primaryTitle": "Spellbound",
+      "originalTitle": "Spellbound",
+      "startYear": "2002",
+      "runtimeMinutes": "97"
+    },
+    "tt0334416": {
+      "titleType": "movie",
+      "primaryTitle": "Stevie",
+      "originalTitle": "Stevie",
+      "startYear": "2002",
+      "runtimeMinutes": "140"
+    },
+    "tt0335266": {
+      "titleType": "movie",
+      "primaryTitle": "Lost in Translation",
+      "originalTitle": "Lost in Translation",
+      "startYear": "2003",
+      "runtimeMinutes": "102"
+    },
+    "tt0335345": {
+      "titleType": "movie",
+      "primaryTitle": "The Passion of the Christ",
+      "originalTitle": "The Passion of the Christ",
+      "startYear": "2004",
+      "runtimeMinutes": "127"
+    },
+    "tt0337876": {
+      "titleType": "movie",
+      "primaryTitle": "Birth",
+      "originalTitle": "Birth",
+      "startYear": "2004",
+      "runtimeMinutes": "100"
+    },
+    "tt0338013": {
+      "titleType": "movie",
+      "primaryTitle": "Eternal Sunshine of the Spotless Mind",
+      "originalTitle": "Eternal Sunshine of the Spotless Mind",
+      "startYear": "2004",
+      "runtimeMinutes": "108"
+    },
+    "tt0338135": {
+      "titleType": "movie",
+      "primaryTitle": "The Barbarian Invasions",
+      "originalTitle": "Les invasions barbares",
+      "startYear": "2003",
+      "runtimeMinutes": "99"
+    },
+    "tt0338466": {
+      "titleType": "movie",
+      "primaryTitle": "Stuck on You",
+      "originalTitle": "Stuck on You",
+      "startYear": "2003",
+      "runtimeMinutes": "118"
+    },
+    "tt0338564": {
+      "titleType": "movie",
+      "primaryTitle": "Infernal Affairs",
+      "originalTitle": "Mou gaan dou",
+      "startYear": "2002",
+      "runtimeMinutes": "101"
+    },
+    "tt0338751": {
+      "titleType": "movie",
+      "primaryTitle": "The Aviator",
+      "originalTitle": "The Aviator",
+      "startYear": "2004",
+      "runtimeMinutes": "170"
+    },
+    "tt0340377": {
+      "titleType": "movie",
+      "primaryTitle": "The Station Agent",
+      "originalTitle": "The Station Agent",
+      "startYear": "2003",
+      "runtimeMinutes": "89"
+    },
+    "tt0340468": {
+      "titleType": "movie",
+      "primaryTitle": "Bus 174",
+      "originalTitle": "Ônibus 174",
+      "startYear": "2002",
+      "runtimeMinutes": "122"
+    },
+    "tt0340855": {
+      "titleType": "movie",
+      "primaryTitle": "Monster",
+      "originalTitle": "Monster",
+      "startYear": "2003",
+      "runtimeMinutes": "109"
+    },
+    "tt0342172": {
+      "titleType": "movie",
+      "primaryTitle": "Capturing the Friedmans",
+      "originalTitle": "Capturing the Friedmans",
+      "startYear": "2003",
+      "runtimeMinutes": "107"
+    },
+    "tt0342866": {
+      "titleType": "tvEpisode",
+      "primaryTitle": "Where Does Your Hidden Smile Lie?",
+      "originalTitle": "Où gît votre sourire enfoui?",
+      "startYear": "2001",
+      "runtimeMinutes": "104"
+    },
+    "tt0344273": {
+      "titleType": "movie",
+      "primaryTitle": "Kings and Queen",
+      "originalTitle": "Rois et reine",
+      "startYear": "2004",
+      "runtimeMinutes": "150"
+    },
+    "tt0346094": {
+      "titleType": "movie",
+      "primaryTitle": "Distant",
+      "originalTitle": "Uzak",
+      "startYear": "2002",
+      "runtimeMinutes": "110"
+    },
+    "tt0346336": {
+      "titleType": "movie",
+      "primaryTitle": "The Best of Youth",
+      "originalTitle": "La meglio gioventù",
+      "startYear": "2003",
+      "runtimeMinutes": "374"
+    },
+    "tt0347048": {
+      "titleType": "movie",
+      "primaryTitle": "Head-On",
+      "originalTitle": "Gegen die Wand",
+      "startYear": "2004",
+      "runtimeMinutes": "121"
+    },
+    "tt0347149": {
+      "titleType": "movie",
+      "primaryTitle": "Howl's Moving Castle",
+      "originalTitle": "Hauru no ugoku shiro",
+      "startYear": "2004",
+      "runtimeMinutes": "119"
+    },
+    "tt0347246": {
+      "titleType": "movie",
+      "primaryTitle": "Ghost in the Shell 2: Innocence",
+      "originalTitle": "Innocence",
+      "startYear": "2004",
+      "runtimeMinutes": "100"
+    },
+    "tt0348529": {
+      "titleType": "movie",
+      "primaryTitle": "Anatomy of Hell",
+      "originalTitle": "Anatomie de l'enfer",
+      "startYear": "2004",
+      "runtimeMinutes": "77"
+    },
+    "tt0353969": {
+      "titleType": "movie",
+      "primaryTitle": "Memories of Murder",
+      "originalTitle": "Salinui chueok",
+      "startYear": "2003",
+      "runtimeMinutes": "131"
+    },
+    "tt0354575": {
+      "titleType": "movie",
+      "primaryTitle": "The Five Obstructions",
+      "originalTitle": "De fem benspænd",
+      "startYear": "2003",
+      "runtimeMinutes": "90"
+    },
+    "tt0357413": {
+      "titleType": "movie",
+      "primaryTitle": "Anchorman: The Legend of Ron Burgundy",
+      "originalTitle": "Anchorman: The Legend of Ron Burgundy",
+      "startYear": "2004",
+      "runtimeMinutes": "94"
+    },
+    "tt0360717": {
+      "titleType": "movie",
+      "primaryTitle": "King Kong",
+      "originalTitle": "King Kong",
+      "startYear": "2005",
+      "runtimeMinutes": "187"
+    },
+    "tt0360845": {
+      "titleType": "movie",
+      "primaryTitle": "Our Music",
+      "originalTitle": "Notre musique",
+      "startYear": "2004",
+      "runtimeMinutes": "80"
+    },
+    "tt0361596": {
+      "titleType": "movie",
+      "primaryTitle": "Fahrenheit 9/11",
+      "originalTitle": "Fahrenheit 9/11",
+      "startYear": "2004",
+      "runtimeMinutes": "122"
+    },
+    "tt0361748": {
+      "titleType": "movie",
+      "primaryTitle": "Inglourious Basterds",
+      "originalTitle": "Inglourious Basterds",
+      "startYear": "2009",
+      "runtimeMinutes": "153"
+    },
+    "tt0362270": {
+      "titleType": "movie",
+      "primaryTitle": "The Life Aquatic with Steve Zissou",
+      "originalTitle": "The Life Aquatic with Steve Zissou",
+      "startYear": "2004",
+      "runtimeMinutes": "119"
+    },
+    "tt0363060": {
+      "titleType": "movie",
+      "primaryTitle": "Shara",
+      "originalTitle": "Sharasôju",
+      "startYear": "2003",
+      "runtimeMinutes": "100"
+    },
+    "tt0363163": {
+      "titleType": "movie",
+      "primaryTitle": "Downfall",
+      "originalTitle": "Der Untergang",
+      "startYear": "2004",
+      "runtimeMinutes": "156"
+    },
+    "tt0363589": {
+      "titleType": "movie",
+      "primaryTitle": "Elephant",
+      "originalTitle": "Elephant",
+      "startYear": "2003",
+      "runtimeMinutes": "81"
+    },
+    "tt0364093": {
+      "titleType": "movie",
+      "primaryTitle": "A Talking Picture",
+      "originalTitle": "Um Filme Falado",
+      "startYear": "2003",
+      "runtimeMinutes": "96"
+    },
+    "tt0364569": {
+      "titleType": "movie",
+      "primaryTitle": "Oldboy",
+      "originalTitle": "Oldeuboi",
+      "startYear": "2003",
+      "runtimeMinutes": "120"
+    },
+    "tt0365376": {
+      "titleType": "movie",
+      "primaryTitle": "A Tale of Two Sisters",
+      "originalTitle": "Janghwa, Hongryeon",
+      "startYear": "2003",
+      "runtimeMinutes": "114"
+    },
+    "tt0365748": {
+      "titleType": "movie",
+      "primaryTitle": "Shaun of the Dead",
+      "originalTitle": "Shaun of the Dead",
+      "startYear": "2004",
+      "runtimeMinutes": "99"
+    },
+    "tt0366721": {
+      "titleType": "movie",
+      "primaryTitle": "Trilogy: The Weeping Meadow",
+      "originalTitle": "Trilogia: To livadi pou dakryzei",
+      "startYear": "2004",
+      "runtimeMinutes": "170"
+    },
+    "tt0366996": {
+      "titleType": "movie",
+      "primaryTitle": "The Saddest Music in the World",
+      "originalTitle": "The Saddest Music in the World",
+      "startYear": "2003",
+      "runtimeMinutes": "100"
+    },
+    "tt0367027": {
+      "titleType": "movie",
+      "primaryTitle": "Shortbus",
+      "originalTitle": "Shortbus",
+      "startYear": "2006",
+      "runtimeMinutes": "101"
+    },
+    "tt0367089": {
+      "titleType": "movie",
+      "primaryTitle": "The Squid and the Whale",
+      "originalTitle": "The Squid and the Whale",
+      "startYear": "2005",
+      "runtimeMinutes": "81"
+    },
+    "tt0367195": {
+      "titleType": "movie",
+      "primaryTitle": "Come and Go",
+      "originalTitle": "Vai~E~Vem",
+      "startYear": "2003",
+      "runtimeMinutes": "175"
+    },
+    "tt0368447": {
+      "titleType": "movie",
+      "primaryTitle": "The Village",
+      "originalTitle": "The Village",
+      "startYear": "2004",
+      "runtimeMinutes": "108"
+    },
+    "tt0368794": {
+      "titleType": "movie",
+      "primaryTitle": "I'm Not There",
+      "originalTitle": "I'm Not There",
+      "startYear": "2007",
+      "runtimeMinutes": "135"
+    },
+    "tt0368954": {
+      "titleType": "movie",
+      "primaryTitle": "S21: The Khmer Rouge Killing Machine",
+      "originalTitle": "S21, la machine de mort khmère rouge",
+      "startYear": "2003",
+      "runtimeMinutes": "101"
+    },
+    "tt0369339": {
+      "titleType": "movie",
+      "primaryTitle": "Collateral",
+      "originalTitle": "Collateral",
+      "startYear": "2004",
+      "runtimeMinutes": "120"
+    },
+    "tt0369702": {
+      "titleType": "movie",
+      "primaryTitle": "The Sea Inside",
+      "originalTitle": "Mar adentro",
+      "startYear": "2004",
+      "runtimeMinutes": "126"
+    },
+    "tt0370986": {
+      "titleType": "movie",
+      "primaryTitle": "Mysterious Skin",
+      "originalTitle": "Mysterious Skin",
+      "startYear": "2004",
+      "runtimeMinutes": "105"
+    },
+    "tt0371280": {
+      "titleType": "movie",
+      "primaryTitle": "Crimson Gold",
+      "originalTitle": "Talaye sorkh",
+      "startYear": "2003",
+      "runtimeMinutes": "95"
+    },
+    "tt0372588": {
+      "titleType": "movie",
+      "primaryTitle": "Team America: World Police",
+      "originalTitle": "Team America: World Police",
+      "startYear": "2004",
+      "runtimeMinutes": "98"
+    },
+    "tt0373074": {
+      "titleType": "movie",
+      "primaryTitle": "Kung Fu Hustle",
+      "originalTitle": "Kung Fu Hustle",
+      "startYear": "2004",
+      "runtimeMinutes": "99"
+    },
+    "tt0373469": {
+      "titleType": "movie",
+      "primaryTitle": "Kiss Kiss Bang Bang",
+      "originalTitle": "Kiss Kiss Bang Bang",
+      "startYear": "2005",
+      "runtimeMinutes": "103"
+    },
+    "tt0374294": {
+      "titleType": "movie",
+      "primaryTitle": "Triple Agent",
+      "originalTitle": "Triple agent",
+      "startYear": "2004",
+      "runtimeMinutes": "115"
+    },
+    "tt0374546": {
+      "titleType": "movie",
+      "primaryTitle": "Spring, Summer, Fall, Winter... and Spring",
+      "originalTitle": "Bom yeoreum gaeul gyeoul geurigo bom",
+      "startYear": "2003",
+      "runtimeMinutes": "103"
+    },
+    "tt0374900": {
+      "titleType": "movie",
+      "primaryTitle": "Napoleon Dynamite",
+      "originalTitle": "Napoleon Dynamite",
+      "startYear": "2004",
+      "runtimeMinutes": "96"
+    },
+    "tt0375063": {
+      "titleType": "movie",
+      "primaryTitle": "Sideways",
+      "originalTitle": "Sideways",
+      "startYear": "2004",
+      "runtimeMinutes": "127"
+    },
+    "tt0375233": {
+      "titleType": "movie",
+      "primaryTitle": "Innocence",
+      "originalTitle": "Innocence",
+      "startYear": "2004",
+      "runtimeMinutes": "122"
+    },
+    "tt0375679": {
+      "titleType": "movie",
+      "primaryTitle": "Crash",
+      "originalTitle": "Crash",
+      "startYear": "2004",
+      "runtimeMinutes": "112"
+    },
+    "tt0376968": {
+      "titleType": "movie",
+      "primaryTitle": "The Return",
+      "originalTitle": "Vozvrashchenie",
+      "startYear": "2003",
+      "runtimeMinutes": "110"
+    },
+    "tt0377092": {
+      "titleType": "movie",
+      "primaryTitle": "Mean Girls",
+      "originalTitle": "Mean Girls",
+      "startYear": "2004",
+      "runtimeMinutes": "97"
+    },
+    "tt0377556": {
+      "titleType": "movie",
+      "primaryTitle": "Goodbye, Dragon Inn",
+      "originalTitle": "Bu san",
+      "startYear": "2003",
+      "runtimeMinutes": "82"
+    },
+    "tt0377569": {
+      "titleType": "movie",
+      "primaryTitle": "Good Morning, Night",
+      "originalTitle": "Buongiorno, notte",
+      "startYear": "2003",
+      "runtimeMinutes": "106"
+    },
+    "tt0378194": {
+      "titleType": "movie",
+      "primaryTitle": "Kill Bill: Vol. 2",
+      "originalTitle": "Kill Bill: Vol. 2",
+      "startYear": "2004",
+      "runtimeMinutes": "137"
+    },
+    "tt0379357": {
+      "titleType": "movie",
+      "primaryTitle": "Los Angeles Plays Itself",
+      "originalTitle": "Los Angeles Plays Itself",
+      "startYear": "2003",
+      "runtimeMinutes": "169"
+    },
+    "tt0379370": {
+      "titleType": "movie",
+      "primaryTitle": "Maqbool",
+      "originalTitle": "Maqbool",
+      "startYear": "2003",
+      "runtimeMinutes": "132"
+    },
+    "tt0379557": {
+      "titleType": "movie",
+      "primaryTitle": "Touching the Void",
+      "originalTitle": "Touching the Void",
+      "startYear": "2003",
+      "runtimeMinutes": "106"
+    },
+    "tt0379725": {
+      "titleType": "movie",
+      "primaryTitle": "Capote",
+      "originalTitle": "Capote",
+      "startYear": "2005",
+      "runtimeMinutes": "114"
+    },
+    "tt0381061": {
+      "titleType": "movie",
+      "primaryTitle": "Casino Royale",
+      "originalTitle": "Casino Royale",
+      "startYear": "2006",
+      "runtimeMinutes": "144"
+    },
+    "tt0381668": {
+      "titleType": "movie",
+      "primaryTitle": "Tropical Malady",
+      "originalTitle": "Sud pralad",
+      "startYear": "2004",
+      "runtimeMinutes": "118"
+    },
+    "tt0381681": {
+      "titleType": "movie",
+      "primaryTitle": "Before Sunset",
+      "originalTitle": "Before Sunset",
+      "startYear": "2004",
+      "runtimeMinutes": "80"
+    },
+    "tt0382932": {
+      "titleType": "movie",
+      "primaryTitle": "Ratatouille",
+      "originalTitle": "Ratatouille",
+      "startYear": "2007",
+      "runtimeMinutes": "111"
+    },
+    "tt0383028": {
+      "titleType": "movie",
+      "primaryTitle": "Synecdoche, New York",
+      "originalTitle": "Synecdoche, New York",
+      "startYear": "2008",
+      "runtimeMinutes": "124"
+    },
+    "tt0383694": {
+      "titleType": "movie",
+      "primaryTitle": "Vera Drake",
+      "originalTitle": "Vera Drake",
+      "startYear": "2004",
+      "runtimeMinutes": "125"
+    },
+    "tt0385004": {
+      "titleType": "movie",
+      "primaryTitle": "House of Flying Daggers",
+      "originalTitle": "Shi mian mai fu",
+      "startYear": "2004",
+      "runtimeMinutes": "119"
+    },
+    "tt0387055": {
+      "titleType": "movie",
+      "primaryTitle": "Battle in Heaven",
+      "originalTitle": "Batalla en el cielo",
+      "startYear": "2005",
+      "runtimeMinutes": "98"
+    },
+    "tt0387412": {
+      "titleType": "movie",
+      "primaryTitle": "Metallica: Some Kind of Monster",
+      "originalTitle": "Metallica: Some Kind of Monster",
+      "startYear": "2004",
+      "runtimeMinutes": "84"
+    },
+    "tt0387808": {
+      "titleType": "movie",
+      "primaryTitle": "Idiocracy",
+      "originalTitle": "Idiocracy",
+      "startYear": "2006",
+      "runtimeMinutes": "84"
+    },
+    "tt0387898": {
+      "titleType": "movie",
+      "primaryTitle": "Caché",
+      "originalTitle": "Caché",
+      "startYear": "2005",
+      "runtimeMinutes": "117"
+    },
+    "tt0388795": {
+      "titleType": "movie",
+      "primaryTitle": "Brokeback Mountain",
+      "originalTitle": "Brokeback Mountain",
+      "startYear": "2005",
+      "runtimeMinutes": "134"
+    },
+    "tt0388888": {
+      "titleType": "movie",
+      "primaryTitle": "Dig!",
+      "originalTitle": "Dig!",
+      "startYear": "2004",
+      "runtimeMinutes": "107"
+    },
+    "tt0389448": {
+      "titleType": "movie",
+      "primaryTitle": "Tie Xi Qu: West of the Tracks",
+      "originalTitle": "Tiexi qu",
+      "startYear": "2002",
+      "runtimeMinutes": "551"
+    },
+    "tt0389557": {
+      "titleType": "movie",
+      "primaryTitle": "Black Book",
+      "originalTitle": "Zwartboek",
+      "startYear": "2006",
+      "runtimeMinutes": "145"
+    },
+    "tt0390384": {
+      "titleType": "movie",
+      "primaryTitle": "Primer",
+      "originalTitle": "Primer",
+      "startYear": "2004",
+      "runtimeMinutes": "77"
+    },
+    "tt0390538": {
+      "titleType": "movie",
+      "primaryTitle": "Tarnation",
+      "originalTitle": "Tarnation",
+      "startYear": "2003",
+      "runtimeMinutes": "88"
+    },
+    "tt0393109": {
+      "titleType": "movie",
+      "primaryTitle": "Brick",
+      "originalTitle": "Brick",
+      "startYear": "2005",
+      "runtimeMinutes": "110"
+    },
+    "tt0399146": {
+      "titleType": "movie",
+      "primaryTitle": "A History of Violence",
+      "originalTitle": "A History of Violence",
+      "startYear": "2005",
+      "runtimeMinutes": "96"
+    },
+    "tt0401383": {
+      "titleType": "movie",
+      "primaryTitle": "The Diving Bell and the Butterfly",
+      "originalTitle": "Le scaphandre et le papillon",
+      "startYear": "2007",
+      "runtimeMinutes": "112"
+    },
+    "tt0401792": {
+      "titleType": "movie",
+      "primaryTitle": "Sin City",
+      "originalTitle": "Sin City",
+      "startYear": "2005",
+      "runtimeMinutes": "124"
+    },
+    "tt0402399": {
+      "titleType": "movie",
+      "primaryTitle": "The New World",
+      "originalTitle": "The New World",
+      "startYear": "2005",
+      "runtimeMinutes": "135"
+    },
+    "tt0403217": {
+      "titleType": "movie",
+      "primaryTitle": "Last Days",
+      "originalTitle": "Last Days",
+      "startYear": "2005",
+      "runtimeMinutes": "97"
+    },
+    "tt0405094": {
+      "titleType": "movie",
+      "primaryTitle": "The Lives of Others",
+      "originalTitle": "Das Leben der Anderen",
+      "startYear": "2006",
+      "runtimeMinutes": "137"
+    },
+    "tt0405159": {
+      "titleType": "movie",
+      "primaryTitle": "Million Dollar Baby",
+      "originalTitle": "Million Dollar Baby",
+      "startYear": "2004",
+      "runtimeMinutes": "132"
+    },
+    "tt0405336": {
+      "titleType": "movie",
+      "primaryTitle": "Southland Tales",
+      "originalTitle": "Southland Tales",
+      "startYear": "2006",
+      "runtimeMinutes": "145"
+    },
+    "tt0405418": {
+      "titleType": "movie",
+      "primaryTitle": "A Visit to the Louvre",
+      "originalTitle": "Une visite au Louvre",
+      "startYear": "2004",
+      "runtimeMinutes": "49"
+    },
+    "tt0405422": {
+      "titleType": "movie",
+      "primaryTitle": "The 40-Year-Old Virgin",
+      "originalTitle": "The 40 Year Old Virgin",
+      "startYear": "2005",
+      "runtimeMinutes": "116"
+    },
+    "tt0407021": {
+      "titleType": "movie",
+      "primaryTitle": "Los Muertos",
+      "originalTitle": "Los muertos",
+      "startYear": "2004",
+      "runtimeMinutes": "78"
+    },
+    "tt0407304": {
+      "titleType": "movie",
+      "primaryTitle": "War of the Worlds",
+      "originalTitle": "War of the Worlds",
+      "startYear": "2005",
+      "runtimeMinutes": "117"
+    },
+    "tt0407887": {
+      "titleType": "movie",
+      "primaryTitle": "The Departed",
+      "originalTitle": "The Departed",
+      "startYear": "2006",
+      "runtimeMinutes": "151"
+    },
+    "tt0408236": {
+      "titleType": "movie",
+      "primaryTitle": "Sweeney Todd: The Demon Barber of Fleet Street",
+      "originalTitle": "Sweeney Todd: The Demon Barber of Fleet Street",
+      "startYear": "2007",
+      "runtimeMinutes": "116"
+    },
+    "tt0408306": {
+      "titleType": "movie",
+      "primaryTitle": "Munich",
+      "originalTitle": "Munich",
+      "startYear": "2005",
+      "runtimeMinutes": "164"
+    },
+    "tt0408664": {
+      "titleType": "movie",
+      "primaryTitle": "Nobody Knows",
+      "originalTitle": "Dare mo shiranai",
+      "startYear": "2004",
+      "runtimeMinutes": "141"
+    },
+    "tt0409965": {
+      "titleType": "movie",
+      "primaryTitle": "Five Dedicated to Ozu",
+      "originalTitle": "Five Dedicated to Ozu",
+      "startYear": "2003",
+      "runtimeMinutes": "74"
+    },
+    "tt0410466": {
+      "titleType": "movie",
+      "primaryTitle": "Le pont des Arts",
+      "originalTitle": "Le pont des Arts",
+      "startYear": "2004",
+      "runtimeMinutes": "126"
+    },
+    "tt0411270": {
+      "titleType": "movie",
+      "primaryTitle": "The Beat That My Heart Skipped",
+      "originalTitle": "De battre mon coeur s'est arrêté",
+      "startYear": "2005",
+      "runtimeMinutes": "108"
+    },
+    "tt0412596": {
+      "titleType": "movie",
+      "primaryTitle": "Café Lumière",
+      "originalTitle": "Kôhî jikô",
+      "startYear": "2003",
+      "runtimeMinutes": "108"
+    },
+    "tt0414387": {
+      "titleType": "movie",
+      "primaryTitle": "Pride & Prejudice",
+      "originalTitle": "Pride & Prejudice",
+      "startYear": "2005",
+      "runtimeMinutes": "129"
+    },
+    "tt0414993": {
+      "titleType": "movie",
+      "primaryTitle": "The Fountain",
+      "originalTitle": "The Fountain",
+      "startYear": "2006",
+      "runtimeMinutes": "97"
+    },
+    "tt0415288": {
+      "titleType": "movie",
+      "primaryTitle": "Star Spangled to Death",
+      "originalTitle": "Star Spangled to Death",
+      "startYear": "2004",
+      "runtimeMinutes": "402"
+    },
+    "tt0415380": {
+      "titleType": "movie",
+      "primaryTitle": "Throw Down",
+      "originalTitle": "Yau doh lung fu bong",
+      "startYear": "2004",
+      "runtimeMinutes": "95"
+    },
+    "tt0415978": {
+      "titleType": "movie",
+      "primaryTitle": "Me and You and Everyone We Know",
+      "originalTitle": "Me and You and Everyone We Know",
+      "startYear": "2005",
+      "runtimeMinutes": "85"
+    },
+    "tt0416320": {
+      "titleType": "movie",
+      "primaryTitle": "Match Point",
+      "originalTitle": "Match Point",
+      "startYear": "2005",
+      "runtimeMinutes": "124"
+    },
+    "tt0416991": {
+      "titleType": "movie",
+      "primaryTitle": "Moolaadé",
+      "originalTitle": "Moolaadé",
+      "startYear": "2003",
+      "runtimeMinutes": "124"
+    },
+    "tt0418689": {
+      "titleType": "movie",
+      "primaryTitle": "Flags of Our Fathers",
+      "originalTitle": "Flags of Our Fathers",
+      "startYear": "2006",
+      "runtimeMinutes": "135"
+    },
+    "tt0419294": {
+      "titleType": "movie",
+      "primaryTitle": "The Three Burials of Melquiades Estrada",
+      "originalTitle": "The Three Burials of Melquiades Estrada",
+      "startYear": "2005",
+      "runtimeMinutes": "121"
+    },
+    "tt0420087": {
+      "titleType": "movie",
+      "primaryTitle": "A Prairie Home Companion",
+      "originalTitle": "A Prairie Home Companion",
+      "startYear": "2006",
+      "runtimeMinutes": "105"
+    },
+    "tt0421082": {
+      "titleType": "movie",
+      "primaryTitle": "Control",
+      "originalTitle": "Control",
+      "startYear": "2007",
+      "runtimeMinutes": "122"
+    },
+    "tt0421715": {
+      "titleType": "movie",
+      "primaryTitle": "The Curious Case of Benjamin Button",
+      "originalTitle": "The Curious Case of Benjamin Button",
+      "startYear": "2008",
+      "runtimeMinutes": "166"
+    },
+    "tt0422491": {
+      "titleType": "movie",
+      "primaryTitle": "The Intruder",
+      "originalTitle": "L'Intruso",
+      "startYear": "2004",
+      "runtimeMinutes": "130"
+    },
+    "tt0422720": {
+      "titleType": "movie",
+      "primaryTitle": "Marie Antoinette",
+      "originalTitle": "Marie Antoinette",
+      "startYear": "2006",
+      "runtimeMinutes": "123"
+    },
+    "tt0423176": {
+      "titleType": "movie",
+      "primaryTitle": "The World",
+      "originalTitle": "Shijie",
+      "startYear": "2004",
+      "runtimeMinutes": "143"
+    },
+    "tt0423409": {
+      "titleType": "movie",
+      "primaryTitle": "Tristram Shandy",
+      "originalTitle": "A Cock and Bull Story",
+      "startYear": "2005",
+      "runtimeMinutes": "94"
+    },
+    "tt0423866": {
+      "titleType": "movie",
+      "primaryTitle": "3-Iron",
+      "originalTitle": "Binjip",
+      "startYear": "2004",
+      "runtimeMinutes": "88"
+    },
+    "tt0424024": {
+      "titleType": "movie",
+      "primaryTitle": "Darwin's Nightmare",
+      "originalTitle": "Darwin's Nightmare",
+      "startYear": "2004",
+      "runtimeMinutes": "107"
+    },
+    "tt0424062": {
+      "titleType": "movie",
+      "primaryTitle": "Evolution of a Filipino Family",
+      "originalTitle": "Ebolusyon ng isang pamilyang Pilipino",
+      "startYear": "2004",
+      "runtimeMinutes": "625"
+    },
+    "tt0424227": {
+      "titleType": "movie",
+      "primaryTitle": "Turtles Can Fly",
+      "originalTitle": "Lakposhtha parvaz mikonand",
+      "startYear": "2004",
+      "runtimeMinutes": "98"
+    },
+    "tt0424272": {
+      "titleType": "movie",
+      "primaryTitle": "Melancholian 3 huonetta",
+      "originalTitle": "Melancholian 3 huonetta",
+      "startYear": "2004",
+      "runtimeMinutes": "106"
+    },
+    "tt0425112": {
+      "titleType": "movie",
+      "primaryTitle": "Hot Fuzz",
+      "originalTitle": "Hot Fuzz",
+      "startYear": "2007",
+      "runtimeMinutes": "121"
+    },
+    "tt0427312": {
+      "titleType": "movie",
+      "primaryTitle": "Grizzly Man",
+      "originalTitle": "Grizzly Man",
+      "startYear": "2005",
+      "runtimeMinutes": "103"
+    },
+    "tt0430357": {
+      "titleType": "movie",
+      "primaryTitle": "Miami Vice",
+      "originalTitle": "Miami Vice",
+      "startYear": "2006",
+      "runtimeMinutes": "132"
+    },
+    "tt0431958": {
+      "titleType": "movie",
+      "primaryTitle": "Oh! Man",
+      "originalTitle": "Oh! Uomo",
+      "startYear": "2004",
+      "runtimeMinutes": "71"
+    },
+    "tt0432283": {
+      "titleType": "movie",
+      "primaryTitle": "Fantastic Mr. Fox",
+      "originalTitle": "Fantastic Mr. Fox",
+      "startYear": "2009",
+      "runtimeMinutes": "87"
+    },
+    "tt0433383": {
+      "titleType": "movie",
+      "primaryTitle": "Good Night, and Good Luck.",
+      "originalTitle": "Good Night, and Good Luck.",
+      "startYear": "2005",
+      "runtimeMinutes": "93"
+    },
+    "tt0435625": {
+      "titleType": "movie",
+      "primaryTitle": "The Descent",
+      "originalTitle": "The Descent",
+      "startYear": "2005",
+      "runtimeMinutes": "99"
+    },
+    "tt0435761": {
+      "titleType": "movie",
+      "primaryTitle": "Toy Story 3",
+      "originalTitle": "Toy Story 3",
+      "startYear": "2010",
+      "runtimeMinutes": "103"
+    },
+    "tt0436697": {
+      "titleType": "movie",
+      "primaryTitle": "The Queen",
+      "originalTitle": "The Queen",
+      "startYear": "2006",
+      "runtimeMinutes": "103"
+    },
+    "tt0439817": {
+      "titleType": "movie",
+      "primaryTitle": "The Sun",
+      "originalTitle": "Solntse",
+      "startYear": "2005",
+      "runtimeMinutes": "110"
+    },
+    "tt0440963": {
+      "titleType": "movie",
+      "primaryTitle": "The Bourne Ultimatum",
+      "originalTitle": "The Bourne Ultimatum",
+      "startYear": "2007",
+      "runtimeMinutes": "115"
+    },
+    "tt0441909": {
+      "titleType": "movie",
+      "primaryTitle": "Volver",
+      "originalTitle": "Volver",
+      "startYear": "2006",
+      "runtimeMinutes": "121"
+    },
+    "tt0443272": {
+      "titleType": "movie",
+      "primaryTitle": "Lincoln",
+      "originalTitle": "Lincoln",
+      "startYear": "2012",
+      "runtimeMinutes": "150"
+    },
+    "tt0443453": {
+      "titleType": "movie",
+      "primaryTitle": "Borat",
+      "originalTitle": "Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan",
+      "startYear": "2006",
+      "runtimeMinutes": "84"
+    },
+    "tt0443680": {
+      "titleType": "movie",
+      "primaryTitle": "The Assassination of Jesse James by the Coward Robert Ford",
+      "originalTitle": "The Assassination of Jesse James by the Coward Robert Ford",
+      "startYear": "2007",
+      "runtimeMinutes": "160"
+    },
+    "tt0443706": {
+      "titleType": "movie",
+      "primaryTitle": "Zodiac",
+      "originalTitle": "Zodiac",
+      "startYear": "2007",
+      "runtimeMinutes": "157"
+    },
+    "tt0443844": {
+      "titleType": "movie",
+      "primaryTitle": "Regular Lovers",
+      "originalTitle": "Les amants réguliers",
+      "startYear": "2005",
+      "runtimeMinutes": "183"
+    },
+    "tt0445158": {
+      "titleType": "movie",
+      "primaryTitle": "13 Lakes",
+      "originalTitle": "13 Lakes",
+      "startYear": "2004",
+      "runtimeMinutes": "135"
+    },
+    "tt0445336": {
+      "titleType": "movie",
+      "primaryTitle": "You, the Living",
+      "originalTitle": "Du levande",
+      "startYear": "2007",
+      "runtimeMinutes": "95"
+    },
+    "tt0445620": {
+      "titleType": "movie",
+      "primaryTitle": "Paradise Now",
+      "originalTitle": "Paradise Now",
+      "startYear": "2005",
+      "runtimeMinutes": "91"
+    },
+    "tt0445760": {
+      "titleType": "movie",
+      "primaryTitle": "The Wayward Cloud",
+      "originalTitle": "Tian bian yi duo yun",
+      "startYear": "2005",
+      "runtimeMinutes": "112"
+    },
+    "tt0446029": {
+      "titleType": "movie",
+      "primaryTitle": "Scott Pilgrim vs. the World",
+      "originalTitle": "Scott Pilgrim vs. the World",
+      "startYear": "2010",
+      "runtimeMinutes": "112"
+    },
+    "tt0449059": {
+      "titleType": "movie",
+      "primaryTitle": "Little Miss Sunshine",
+      "originalTitle": "Little Miss Sunshine",
+      "startYear": "2006",
+      "runtimeMinutes": "101"
+    },
+    "tt0449467": {
+      "titleType": "movie",
+      "primaryTitle": "Babel",
+      "originalTitle": "Babel",
+      "startYear": "2006",
+      "runtimeMinutes": "143"
+    },
+    "tt0451094": {
+      "titleType": "movie",
+      "primaryTitle": "Sympathy for Lady Vengeance",
+      "originalTitle": "Chinjeolhan Geumjassi",
+      "startYear": "2005",
+      "runtimeMinutes": "115"
+    },
+    "tt0451279": {
+      "titleType": "movie",
+      "primaryTitle": "Wonder Woman",
+      "originalTitle": "Wonder Woman",
+      "startYear": "2017",
+      "runtimeMinutes": "141"
+    },
+    "tt0452039": {
+      "titleType": "movie",
+      "primaryTitle": "Mind Game",
+      "originalTitle": "Maindo gêmu",
+      "startYear": "2004",
+      "runtimeMinutes": "103"
+    },
+    "tt0453795": {
+      "titleType": "movie",
+      "primaryTitle": "Oxhide",
+      "originalTitle": "Niu pi",
+      "startYear": "2005",
+      "runtimeMinutes": "110"
+    },
+    "tt0454876": {
+      "titleType": "movie",
+      "primaryTitle": "Life of Pi",
+      "originalTitle": "Life of Pi",
+      "startYear": "2012",
+      "runtimeMinutes": "127"
+    },
+    "tt0456149": {
+      "titleType": "movie",
+      "primaryTitle": "The Death of Mr. Lazarescu",
+      "originalTitle": "Moartea domnului Lazarescu",
+      "startYear": "2005",
+      "runtimeMinutes": "153"
+    },
+    "tt0456396": {
+      "titleType": "movie",
+      "primaryTitle": "The Child",
+      "originalTitle": "L'enfant",
+      "startYear": "2005",
+      "runtimeMinutes": "95"
+    },
+    "tt0457430": {
+      "titleType": "movie",
+      "primaryTitle": "Pan's Labyrinth",
+      "originalTitle": "El laberinto del fauno",
+      "startYear": "2006",
+      "runtimeMinutes": "118"
+    },
+    "tt0459102": {
+      "titleType": "movie",
+      "primaryTitle": "Import Export",
+      "originalTitle": "Import Export",
+      "startYear": "2007",
+      "runtimeMinutes": "141"
+    },
+    "tt0459666": {
+      "titleType": "movie",
+      "primaryTitle": "Three Times",
+      "originalTitle": "Zui hao de shi guang",
+      "startYear": "2005",
+      "runtimeMinutes": "120"
+    },
+    "tt0459880": {
+      "titleType": "movie",
+      "primaryTitle": "Lady Chatterley",
+      "originalTitle": "Lady Chatterley",
+      "startYear": "2006",
+      "runtimeMinutes": "168"
+    },
+    "tt0460480": {
+      "titleType": "movie",
+      "primaryTitle": "Colossal Youth",
+      "originalTitle": "Juventude em Marcha",
+      "startYear": "2006",
+      "runtimeMinutes": "156"
+    },
+    "tt0460829": {
+      "titleType": "movie",
+      "primaryTitle": "Inland Empire",
+      "originalTitle": "Inland Empire",
+      "startYear": "2006",
+      "runtimeMinutes": "180"
+    },
+    "tt0460989": {
+      "titleType": "movie",
+      "primaryTitle": "The Wind That Shakes the Barley",
+      "originalTitle": "The Wind That Shakes the Barley",
+      "startYear": "2006",
+      "runtimeMinutes": "127"
+    },
+    "tt0461795": {
+      "titleType": "movie",
+      "primaryTitle": "Tale of Cinema",
+      "originalTitle": "Geuk-jang-jeon",
+      "startYear": "2005",
+      "runtimeMinutes": "89"
+    },
+    "tt0464141": {
+      "titleType": "movie",
+      "primaryTitle": "The Orphanage",
+      "originalTitle": "El orfanato",
+      "startYear": "2007",
+      "runtimeMinutes": "105"
+    },
+    "tt0465538": {
+      "titleType": "movie",
+      "primaryTitle": "Michael Clayton",
+      "originalTitle": "Michael Clayton",
+      "startYear": "2007",
+      "runtimeMinutes": "119"
+    },
+    "tt0466399": {
+      "titleType": "movie",
+      "primaryTitle": "Ten Canoes",
+      "originalTitle": "Ten Canoes",
+      "startYear": "2006",
+      "runtimeMinutes": "90"
+    },
+    "tt0466893": {
+      "titleType": "movie",
+      "primaryTitle": "Margaret",
+      "originalTitle": "Margaret",
+      "startYear": "2011",
+      "runtimeMinutes": "150"
+    },
+    "tt0467406": {
+      "titleType": "movie",
+      "primaryTitle": "Juno",
+      "originalTitle": "Juno",
+      "startYear": "2007",
+      "runtimeMinutes": "96"
+    },
+    "tt0468489": {
+      "titleType": "movie",
+      "primaryTitle": "Half Nelson",
+      "originalTitle": "Half Nelson",
+      "startYear": "2006",
+      "runtimeMinutes": "106"
+    },
+    "tt0468492": {
+      "titleType": "movie",
+      "primaryTitle": "The Host",
+      "originalTitle": "Goemool",
+      "startYear": "2006",
+      "runtimeMinutes": "120"
+    },
+    "tt0468526": {
+      "titleType": "movie",
+      "primaryTitle": "Old Joy",
+      "originalTitle": "Old Joy",
+      "startYear": "2006",
+      "runtimeMinutes": "76"
+    },
+    "tt0468569": {
+      "titleType": "movie",
+      "primaryTitle": "The Dark Knight",
+      "originalTitle": "The Dark Knight",
+      "startYear": "2008",
+      "runtimeMinutes": "152"
+    },
+    "tt0469494": {
+      "titleType": "movie",
+      "primaryTitle": "There Will Be Blood",
+      "originalTitle": "There Will Be Blood",
+      "startYear": "2007",
+      "runtimeMinutes": "158"
+    },
+    "tt0470752": {
+      "titleType": "movie",
+      "primaryTitle": "Ex Machina",
+      "originalTitle": "Ex Machina",
+      "startYear": "2014",
+      "runtimeMinutes": "108"
+    },
+    "tt0471030": {
+      "titleType": "movie",
+      "primaryTitle": "Red Road",
+      "originalTitle": "Red Road",
+      "startYear": "2006",
+      "runtimeMinutes": "113"
+    },
+    "tt0472043": {
+      "titleType": "movie",
+      "primaryTitle": "Apocalypto",
+      "originalTitle": "Apocalypto",
+      "startYear": "2006",
+      "runtimeMinutes": "139"
+    },
+    "tt0475276": {
+      "titleType": "movie",
+      "primaryTitle": "United 93",
+      "originalTitle": "United 93",
+      "startYear": "2006",
+      "runtimeMinutes": "111"
+    },
+    "tt0477348": {
+      "titleType": "movie",
+      "primaryTitle": "No Country for Old Men",
+      "originalTitle": "No Country for Old Men",
+      "startYear": "2007",
+      "runtimeMinutes": "122"
+    },
+    "tt0477731": {
+      "titleType": "movie",
+      "primaryTitle": "Syndromes and a Century",
+      "originalTitle": "Sang sattawat",
+      "startYear": "2006",
+      "runtimeMinutes": "105"
+    },
+    "tt0478101": {
+      "titleType": "movie",
+      "primaryTitle": "Black Sun",
+      "originalTitle": "Black Sun",
+      "startYear": "2005",
+      "runtimeMinutes": "75"
+    },
+    "tt0478304": {
+      "titleType": "movie",
+      "primaryTitle": "The Tree of Life",
+      "originalTitle": "The Tree of Life",
+      "startYear": "2011",
+      "runtimeMinutes": "139"
+    },
+    "tt0478311": {
+      "titleType": "movie",
+      "primaryTitle": "Knocked Up",
+      "originalTitle": "Knocked Up",
+      "startYear": "2007",
+      "runtimeMinutes": "129"
+    },
+    "tt0478337": {
+      "titleType": "movie",
+      "primaryTitle": "Zidane: A 21st Century Portrait",
+      "originalTitle": "Zidane, un portrait du 21e siècle",
+      "startYear": "2006",
+      "runtimeMinutes": "90"
+    },
+    "tt0480025": {
+      "titleType": "movie",
+      "primaryTitle": "This Is England",
+      "originalTitle": "This Is England",
+      "startYear": "2006",
+      "runtimeMinutes": "101"
+    },
+    "tt0482571": {
+      "titleType": "movie",
+      "primaryTitle": "The Prestige",
+      "originalTitle": "The Prestige",
+      "startYear": "2006",
+      "runtimeMinutes": "130"
+    },
+    "tt0482987": {
+      "titleType": "movie",
+      "primaryTitle": "Paraguayan Hammock",
+      "originalTitle": "Hamaca paraguaya",
+      "startYear": "2006",
+      "runtimeMinutes": "78"
+    },
+    "tt0487419": {
+      "titleType": "movie",
+      "primaryTitle": "The Secret of the Grain",
+      "originalTitle": "La Graine et le Mulet",
+      "startYear": "2007",
+      "runtimeMinutes": "151"
+    },
+    "tt0490215": {
+      "titleType": "movie",
+      "primaryTitle": "Silence",
+      "originalTitle": "Silence",
+      "startYear": "2016",
+      "runtimeMinutes": "161"
+    },
+    "tt0493428": {
+      "titleType": "short",
+      "primaryTitle": "Instructions for a Light and Sound Machine",
+      "originalTitle": "Instructions for a Light and Sound Machine",
+      "startYear": "2005",
+      "runtimeMinutes": "17"
+    },
+    "tt0497116": {
+      "titleType": "movie",
+      "primaryTitle": "An Inconvenient Truth",
+      "originalTitle": "An Inconvenient Truth",
+      "startYear": "2006",
+      "runtimeMinutes": "96"
+    },
+    "tt0497465": {
+      "titleType": "movie",
+      "primaryTitle": "Vicky Cristina Barcelona",
+      "originalTitle": "Vicky Cristina Barcelona",
+      "startYear": "2008",
+      "runtimeMinutes": "96"
+    },
+    "tt0498097": {
+      "titleType": "movie",
+      "primaryTitle": "Climates",
+      "originalTitle": "Iklimler",
+      "startYear": "2006",
+      "runtimeMinutes": "98"
+    },
+    "tt0498380": {
+      "titleType": "movie",
+      "primaryTitle": "Letters from Iwo Jima",
+      "originalTitle": "Letters from Iwo Jima",
+      "startYear": "2006",
+      "runtimeMinutes": "141"
+    },
+    "tt0499138": {
+      "titleType": "movie",
+      "primaryTitle": "Wolff von Amerongen: Did He Commit Bankruptcy Offences?",
+      "originalTitle": "Hat Wolff von Amerongen Konkursdelikte begangen?",
+      "startYear": "2004",
+      "runtimeMinutes": "73"
+    },
+    "tt0499537": {
+      "titleType": "movie",
+      "primaryTitle": "Offside",
+      "originalTitle": "Afsaid",
+      "startYear": "2006",
+      "runtimeMinutes": "93"
+    },
+    "tt0499549": {
+      "titleType": "movie",
+      "primaryTitle": "Avatar",
+      "originalTitle": "Avatar",
+      "startYear": "2009",
+      "runtimeMinutes": "162"
+    },
+    "tt0758758": {
+      "titleType": "movie",
+      "primaryTitle": "Into the Wild",
+      "originalTitle": "Into the Wild",
+      "startYear": "2007",
+      "runtimeMinutes": "148"
+    },
+    "tt0765443": {
+      "titleType": "movie",
+      "primaryTitle": "Eastern Promises",
+      "originalTitle": "Eastern Promises",
+      "startYear": "2007",
+      "runtimeMinutes": "100"
+    },
+    "tt0765849": {
+      "titleType": "movie",
+      "primaryTitle": "Our Daily Bread",
+      "originalTitle": "Unser täglich Brot",
+      "startYear": "2005",
+      "runtimeMinutes": "92"
+    },
+    "tt0780504": {
+      "titleType": "movie",
+      "primaryTitle": "Drive",
+      "originalTitle": "Drive",
+      "startYear": "2011",
+      "runtimeMinutes": "100"
+    },
+    "tt0780536": {
+      "titleType": "movie",
+      "primaryTitle": "In Bruges",
+      "originalTitle": "In Bruges",
+      "startYear": "2008",
+      "runtimeMinutes": "107"
+    },
+    "tt0781435": {
+      "titleType": "movie",
+      "primaryTitle": "The Duchess of Langeais",
+      "originalTitle": "Ne touchez pas la hache",
+      "startYear": "2007",
+      "runtimeMinutes": "137"
+    },
+    "tt0783233": {
+      "titleType": "movie",
+      "primaryTitle": "Atonement",
+      "originalTitle": "Atonement",
+      "startYear": "2007",
+      "runtimeMinutes": "123"
+    },
+    "tt0794374": {
+      "titleType": "movie",
+      "primaryTitle": "Summer Palace",
+      "originalTitle": "Yi He Yuan",
+      "startYear": "2006",
+      "runtimeMinutes": "158"
+    },
+    "tt0806125": {
+      "titleType": "short",
+      "primaryTitle": "The Red Death",
+      "originalTitle": "La morte rouge",
+      "startYear": "2006",
+      "runtimeMinutes": "32"
+    },
+    "tt0808357": {
+      "titleType": "movie",
+      "primaryTitle": "Lust, Caution",
+      "originalTitle": "Se, jie",
+      "startYear": "2007",
+      "runtimeMinutes": "157"
+    },
+    "tt0808417": {
+      "titleType": "movie",
+      "primaryTitle": "Persepolis",
+      "originalTitle": "Persepolis",
+      "startYear": "2007",
+      "runtimeMinutes": "96"
+    },
+    "tt0809407": {
+      "titleType": "movie",
+      "primaryTitle": "12:08 East of Bucharest",
+      "originalTitle": "A fost sau n-a fost?",
+      "startYear": "2006",
+      "runtimeMinutes": "89"
+    },
+    "tt0809425": {
+      "titleType": "movie",
+      "primaryTitle": "In the City of Sylvia",
+      "originalTitle": "Dans la ville de Sylvia",
+      "startYear": "2007",
+      "runtimeMinutes": "84"
+    },
+    "tt0810784": {
+      "titleType": "movie",
+      "primaryTitle": "Bright Star",
+      "originalTitle": "Bright Star",
+      "startYear": "2009",
+      "runtimeMinutes": "119"
+    },
+    "tt0811080": {
+      "titleType": "movie",
+      "primaryTitle": "Speed Racer",
+      "originalTitle": "Speed Racer",
+      "startYear": "2008",
+      "runtimeMinutes": "135"
+    },
+    "tt0814666": {
+      "titleType": "movie",
+      "primaryTitle": "Bamako",
+      "originalTitle": "Bamako",
+      "startYear": "2006",
+      "runtimeMinutes": "115"
+    },
+    "tt0815227": {
+      "titleType": "movie",
+      "primaryTitle": "These Encounters of Theirs",
+      "originalTitle": "Quei loro incontri",
+      "startYear": "2006",
+      "runtimeMinutes": "68"
+    },
+    "tt0816692": {
+      "titleType": "movie",
+      "primaryTitle": "Interstellar",
+      "originalTitle": "Interstellar",
+      "startYear": "2014",
+      "runtimeMinutes": "169"
+    },
+    "tt0817225": {
+      "titleType": "movie",
+      "primaryTitle": "Secret Sunshine",
+      "originalTitle": "Miryang",
+      "startYear": "2007",
+      "runtimeMinutes": "142"
+    },
+    "tt0825241": {
+      "titleType": "movie",
+      "primaryTitle": "Dry Season",
+      "originalTitle": "Daratt",
+      "startYear": "2006",
+      "runtimeMinutes": "96"
+    },
+    "tt0826711": {
+      "titleType": "movie",
+      "primaryTitle": "Flight of the Red Balloon",
+      "originalTitle": "Le voyage du ballon rouge",
+      "startYear": "2007",
+      "runtimeMinutes": "115"
+    },
+    "tt0829482": {
+      "titleType": "movie",
+      "primaryTitle": "Superbad",
+      "originalTitle": "Superbad",
+      "startYear": "2007",
+      "runtimeMinutes": "113"
+    },
+    "tt0835787": {
+      "titleType": "movie",
+      "primaryTitle": "Woman on the Beach",
+      "originalTitle": "Haebyeonui yeoin",
+      "startYear": "2006",
+      "runtimeMinutes": "127"
+    },
+    "tt0836700": {
+      "titleType": "movie",
+      "primaryTitle": "Summer Hours",
+      "originalTitle": "L'heure d'été",
+      "startYear": "2008",
+      "runtimeMinutes": "103"
+    },
+    "tt0838221": {
+      "titleType": "movie",
+      "primaryTitle": "The Darjeeling Limited",
+      "originalTitle": "The Darjeeling Limited",
+      "startYear": "2007",
+      "runtimeMinutes": "91"
+    },
+    "tt0838283": {
+      "titleType": "movie",
+      "primaryTitle": "Step Brothers",
+      "originalTitle": "Step Brothers",
+      "startYear": "2008",
+      "runtimeMinutes": "98"
+    },
+    "tt0841925": {
+      "titleType": "movie",
+      "primaryTitle": "Silent Light",
+      "originalTitle": "Stellet Licht",
+      "startYear": "2007",
+      "runtimeMinutes": "136"
+    },
+    "tt0842926": {
+      "titleType": "movie",
+      "primaryTitle": "The Kids Are All Right",
+      "originalTitle": "The Kids Are All Right",
+      "startYear": "2010",
+      "runtimeMinutes": "106"
+    },
+    "tt0842929": {
+      "titleType": "movie",
+      "primaryTitle": "Paranoid Park",
+      "originalTitle": "Paranoid Park",
+      "startYear": "2007",
+      "runtimeMinutes": "85"
+    },
+    "tt0843515": {
+      "titleType": "movie",
+      "primaryTitle": "Heremias, Book One: The Legend of the Lizard Princess",
+      "originalTitle": "Heremias: Unang aklat - Ang alamat ng prinsesang bayawak",
+      "startYear": "2006",
+      "runtimeMinutes": "519"
+    },
+    "tt0844742": {
+      "titleType": "movie",
+      "primaryTitle": "Opera Jawa",
+      "originalTitle": "Opera Jawa",
+      "startYear": "2006",
+      "runtimeMinutes": "120"
+    },
+    "tt0846668": {
+      "titleType": "movie",
+      "primaryTitle": "Before I Forget",
+      "originalTitle": "Avant que j'oublie",
+      "startYear": "2007",
+      "runtimeMinutes": "108"
+    },
+    "tt0847880": {
+      "titleType": "movie",
+      "primaryTitle": "Cargo 200",
+      "originalTitle": "Gruz 200",
+      "startYear": "2007",
+      "runtimeMinutes": "89"
+    },
+    "tt0851578": {
+      "titleType": "movie",
+      "primaryTitle": "Paprika",
+      "originalTitle": "Paprika",
+      "startYear": "2006",
+      "runtimeMinutes": "90"
+    },
+    "tt0855824": {
+      "titleType": "movie",
+      "primaryTitle": "I Don't Want to Sleep Alone",
+      "originalTitle": "Hei yan quan",
+      "startYear": "2006",
+      "runtimeMinutes": "115"
+    },
+    "tt0859765": {
+      "titleType": "movie",
+      "primaryTitle": "Still Life",
+      "originalTitle": "San xia hao ren",
+      "startYear": "2006",
+      "runtimeMinutes": "111"
+    },
+    "tt0869977": {
+      "titleType": "movie",
+      "primaryTitle": "Water Lilies",
+      "originalTitle": "Naissance des pieuvres",
+      "startYear": "2007",
+      "runtimeMinutes": "85"
+    },
+    "tt0870984": {
+      "titleType": "movie",
+      "primaryTitle": "Antichrist",
+      "originalTitle": "Antichrist",
+      "startYear": "2009",
+      "runtimeMinutes": "108"
+    },
+    "tt0880502": {
+      "titleType": "movie",
+      "primaryTitle": "The Edge of Heaven",
+      "originalTitle": "Auf der anderen Seite",
+      "startYear": "2007",
+      "runtimeMinutes": "116"
+    },
+    "tt0881310": {
+      "titleType": "movie",
+      "primaryTitle": "Modern Life",
+      "originalTitle": "Profils paysans: La vie moderne",
+      "startYear": "2008",
+      "runtimeMinutes": "88"
+    },
+    "tt0884328": {
+      "titleType": "movie",
+      "primaryTitle": "The Mist",
+      "originalTitle": "The Mist",
+      "startYear": "2007",
+      "runtimeMinutes": "126"
+    },
+    "tt0887883": {
+      "titleType": "movie",
+      "primaryTitle": "Burn After Reading",
+      "originalTitle": "Burn After Reading",
+      "startYear": "2008",
+      "runtimeMinutes": "96"
+    },
+    "tt0887912": {
+      "titleType": "movie",
+      "primaryTitle": "The Hurt Locker",
+      "originalTitle": "The Hurt Locker",
+      "startYear": "2008",
+      "runtimeMinutes": "131"
+    },
+    "tt0907657": {
+      "titleType": "movie",
+      "primaryTitle": "Once",
+      "originalTitle": "Once",
+      "startYear": "2006",
+      "runtimeMinutes": "86"
+    },
+    "tt0910970": {
+      "titleType": "movie",
+      "primaryTitle": "WALL·E",
+      "originalTitle": "WALL·E",
+      "startYear": "2008",
+      "runtimeMinutes": "98"
+    },
+    "tt0922605": {
+      "titleType": "movie",
+      "primaryTitle": "Serras da desordem",
+      "originalTitle": "Serras da desordem",
+      "startYear": "2006",
+      "runtimeMinutes": "135"
+    },
+    "tt0923869": {
+      "titleType": "movie",
+      "primaryTitle": "United Red Army",
+      "originalTitle": "Jitsuroku Rengo Sekigun: Asama sanso e no michi",
+      "startYear": "2007",
+      "runtimeMinutes": "190"
+    },
+    "tt0929425": {
+      "titleType": "movie",
+      "primaryTitle": "Gomorrah",
+      "originalTitle": "Gomorra",
+      "startYear": "2008",
+      "runtimeMinutes": "137"
+    },
+    "tt0929632": {
+      "titleType": "movie",
+      "primaryTitle": "Precious",
+      "originalTitle": "Precious",
+      "startYear": "2009",
+      "runtimeMinutes": "110"
+    },
+    "tt0947798": {
+      "titleType": "movie",
+      "primaryTitle": "Black Swan",
+      "originalTitle": "Black Swan",
+      "startYear": "2010",
+      "runtimeMinutes": "108"
+    },
+    "tt0970179": {
+      "titleType": "movie",
+      "primaryTitle": "Hugo",
+      "originalTitle": "Hugo",
+      "startYear": "2011",
+      "runtimeMinutes": "126"
+    },
+    "tt0970935": {
+      "titleType": "movie",
+      "primaryTitle": "Frownland",
+      "originalTitle": "Frownland",
+      "startYear": "2007",
+      "runtimeMinutes": "106"
+    },
+    "tt0978759": {
+      "titleType": "movie",
+      "primaryTitle": "Frozen River",
+      "originalTitle": "Frozen River",
+      "startYear": "2008",
+      "runtimeMinutes": "97"
+    },
+    "tt0978762": {
+      "titleType": "movie",
+      "primaryTitle": "Mary and Max",
+      "originalTitle": "Mary and Max.",
+      "startYear": "2009",
+      "runtimeMinutes": "92"
+    },
+    "tt0986233": {
+      "titleType": "movie",
+      "primaryTitle": "Hunger",
+      "originalTitle": "Hunger",
+      "startYear": "2008",
+      "runtimeMinutes": "96"
+    },
+    "tt0993789": {
+      "titleType": "movie",
+      "primaryTitle": "A Christmas Tale",
+      "originalTitle": "Un conte de Noël",
+      "startYear": "2008",
+      "runtimeMinutes": "150"
+    },
+    "tt0993846": {
+      "titleType": "movie",
+      "primaryTitle": "The Wolf of Wall Street",
+      "originalTitle": "The Wolf of Wall Street",
+      "startYear": "2013",
+      "runtimeMinutes": "180"
+    },
+    "tt1002543": {
+      "titleType": "movie",
+      "primaryTitle": "Santiago",
+      "originalTitle": "Santiago",
+      "startYear": "2007",
+      "runtimeMinutes": "80"
+    },
+    "tt1010048": {
+      "titleType": "movie",
+      "primaryTitle": "Slumdog Millionaire",
+      "originalTitle": "Slumdog Millionaire",
+      "startYear": "2008",
+      "runtimeMinutes": "120"
+    },
+    "tt1013753": {
+      "titleType": "movie",
+      "primaryTitle": "Milk",
+      "originalTitle": "Milk",
+      "startYear": "2008",
+      "runtimeMinutes": "128"
+    },
+    "tt1016205": {
+      "titleType": "movie",
+      "primaryTitle": "The Mourning Forest",
+      "originalTitle": "Mogari no mori",
+      "startYear": "2007",
+      "runtimeMinutes": "97"
+    },
+    "tt1019452": {
+      "titleType": "movie",
+      "primaryTitle": "A Serious Man",
+      "originalTitle": "A Serious Man",
+      "startYear": "2009",
+      "runtimeMinutes": "106"
+    },
+    "tt10199586": {
+      "titleType": "movie",
+      "primaryTitle": "Atlantics",
+      "originalTitle": "Atlantique",
+      "startYear": "2019",
+      "runtimeMinutes": "106"
+    },
+    "tt10199640": {
+      "titleType": "movie",
+      "primaryTitle": "Beanpole",
+      "originalTitle": "Dylda",
+      "startYear": "2019",
+      "runtimeMinutes": "130"
+    },
+    "tt1020072": {
+      "titleType": "movie",
+      "primaryTitle": "Selma",
+      "originalTitle": "Selma",
+      "startYear": "2014",
+      "runtimeMinutes": "128"
+    },
+    "tt1020773": {
+      "titleType": "movie",
+      "primaryTitle": "Certified Copy",
+      "originalTitle": "Copie conforme",
+      "startYear": "2010",
+      "runtimeMinutes": "106"
+    },
+    "tt1022603": {
+      "titleType": "movie",
+      "primaryTitle": "500 Days of Summer",
+      "originalTitle": "(500) Days of Summer",
+      "startYear": "2009",
+      "runtimeMinutes": "95"
+    },
+    "tt1023490": {
+      "titleType": "movie",
+      "primaryTitle": "Il Divo",
+      "originalTitle": "Il divo",
+      "startYear": "2008",
+      "runtimeMinutes": "110"
+    },
+    "tt1024943": {
+      "titleType": "movie",
+      "primaryTitle": "Om Shanti Om",
+      "originalTitle": "Om Shanti Om",
+      "startYear": "2007",
+      "runtimeMinutes": "162"
+    },
+    "tt10262648": {
+      "titleType": "movie",
+      "primaryTitle": "Compartment Number 6",
+      "originalTitle": "Hytti nro 6",
+      "startYear": "2021",
+      "runtimeMinutes": "107"
+    },
+    "tt1028528": {
+      "titleType": "movie",
+      "primaryTitle": "Death Proof",
+      "originalTitle": "Death Proof",
+      "startYear": "2007",
+      "runtimeMinutes": "127"
+    },
+    "tt10288566": {
+      "titleType": "movie",
+      "primaryTitle": "Another Round",
+      "originalTitle": "Druk",
+      "startYear": "2020",
+      "runtimeMinutes": "117"
+    },
+    "tt1029234": {
+      "titleType": "movie",
+      "primaryTitle": "Martyrs",
+      "originalTitle": "Martyrs",
+      "startYear": "2008",
+      "runtimeMinutes": "99"
+    },
+    "tt10293406": {
+      "titleType": "movie",
+      "primaryTitle": "The Power of the Dog",
+      "originalTitle": "The Power of the Dog",
+      "startYear": "2021",
+      "runtimeMinutes": "126"
+    },
+    "tt1032846": {
+      "titleType": "movie",
+      "primaryTitle": "4 Months, 3 Weeks and 2 Days",
+      "originalTitle": "4 luni, 3 saptamâni si 2 zile",
+      "startYear": "2007",
+      "runtimeMinutes": "113"
+    },
+    "tt1033575": {
+      "titleType": "movie",
+      "primaryTitle": "The Descendants",
+      "originalTitle": "The Descendants",
+      "startYear": "2011",
+      "runtimeMinutes": "115"
+    },
+    "tt10370710": {
+      "titleType": "movie",
+      "primaryTitle": "The Worst Person in the World",
+      "originalTitle": "Verdens verste menneske",
+      "startYear": "2021",
+      "runtimeMinutes": "128"
+    },
+    "tt1037163": {
+      "titleType": "movie",
+      "primaryTitle": "The Time That Remains",
+      "originalTitle": "The Time That Remains",
+      "startYear": "2009",
+      "runtimeMinutes": "109"
+    },
+    "tt1038988": {
+      "titleType": "movie",
+      "primaryTitle": "REC",
+      "originalTitle": "[Rec]",
+      "startYear": "2007",
+      "runtimeMinutes": "78"
+    },
+    "tt1045658": {
+      "titleType": "movie",
+      "primaryTitle": "Silver Linings Playbook",
+      "originalTitle": "Silver Linings Playbook",
+      "startYear": "2012",
+      "runtimeMinutes": "122"
+    },
+    "tt1045670": {
+      "titleType": "movie",
+      "primaryTitle": "Happy-Go-Lucky",
+      "originalTitle": "Happy-Go-Lucky",
+      "startYear": "2008",
+      "runtimeMinutes": "118"
+    },
+    "tt1049413": {
+      "titleType": "movie",
+      "primaryTitle": "Up",
+      "originalTitle": "Up",
+      "startYear": "2009",
+      "runtimeMinutes": "96"
+    },
+    "tt10551100": {
+      "titleType": "tvEpisode",
+      "primaryTitle": "Mangrove",
+      "originalTitle": "Mangrove",
+      "startYear": "2020",
+      "runtimeMinutes": "127"
+    },
+    "tt10551102": {
+      "titleType": "tvEpisode",
+      "primaryTitle": "Lovers Rock",
+      "originalTitle": "Lovers Rock",
+      "startYear": "2020",
+      "runtimeMinutes": "70"
+    },
+    "tt10633456": {
+      "titleType": "movie",
+      "primaryTitle": "Minari",
+      "originalTitle": "Minari",
+      "startYear": "2020",
+      "runtimeMinutes": "115"
+    },
+    "tt1065073": {
+      "titleType": "movie",
+      "primaryTitle": "Boyhood",
+      "originalTitle": "Boyhood",
+      "startYear": "2014",
+      "runtimeMinutes": "165"
+    },
+    "tt1068646": {
+      "titleType": "movie",
+      "primaryTitle": "The Class",
+      "originalTitle": "Entre les murs",
+      "startYear": "2008",
+      "runtimeMinutes": "128"
+    },
+    "tt1069238": {
+      "titleType": "movie",
+      "primaryTitle": "Departures",
+      "originalTitle": "Okuribito",
+      "startYear": "2008",
+      "runtimeMinutes": "130"
+    },
+    "tt10706602": {
+      "titleType": "movie",
+      "primaryTitle": "Collective",
+      "originalTitle": "Colectiv",
+      "startYear": "2019",
+      "runtimeMinutes": "109"
+    },
+    "tt1081929": {
+      "titleType": "movie",
+      "primaryTitle": "Our Beloved Month of August",
+      "originalTitle": "Aquele Querido Mês de Agosto",
+      "startYear": "2008",
+      "runtimeMinutes": "147"
+    },
+    "tt1084950": {
+      "titleType": "movie",
+      "primaryTitle": "Rachel Getting Married",
+      "originalTitle": "Rachel Getting Married",
+      "startYear": "2008",
+      "runtimeMinutes": "113"
+    },
+    "tt10849514": {
+      "titleType": "movie",
+      "primaryTitle": "This Is Not a Burial, It's a Resurrection",
+      "originalTitle": "This Is Not a Burial, It's a Resurrection",
+      "startYear": "2019",
+      "runtimeMinutes": "120"
+    },
+    "tt1087578": {
+      "titleType": "movie",
+      "primaryTitle": "Still Walking",
+      "originalTitle": "Aruitemo aruitemo",
+      "startYear": "2008",
+      "runtimeMinutes": "115"
+    },
+    "tt1093824": {
+      "titleType": "movie",
+      "primaryTitle": "Encounters at the End of the World",
+      "originalTitle": "Encounters at the End of the World",
+      "startYear": "2007",
+      "runtimeMinutes": "99"
+    },
+    "tt1093842": {
+      "titleType": "movie",
+      "primaryTitle": "My Winnipeg",
+      "originalTitle": "My Winnipeg",
+      "startYear": "2007",
+      "runtimeMinutes": "80"
+    },
+    "tt10944760": {
+      "titleType": "movie",
+      "primaryTitle": "Titane",
+      "originalTitle": "Titane",
+      "startYear": "2021",
+      "runtimeMinutes": "108"
+    },
+    "tt10954984": {
+      "titleType": "movie",
+      "primaryTitle": "Nope",
+      "originalTitle": "Nope",
+      "startYear": "2022",
+      "runtimeMinutes": "130"
+    },
+    "tt1100048": {
+      "titleType": "movie",
+      "primaryTitle": "35 Shots of Rum",
+      "originalTitle": "35 rhums",
+      "startYear": "2008",
+      "runtimeMinutes": "100"
+    },
+    "tt1100089": {
+      "titleType": "movie",
+      "primaryTitle": "Foxcatcher",
+      "originalTitle": "Foxcatcher",
+      "startYear": "2014",
+      "runtimeMinutes": "134"
+    },
+    "tt11003218": {
+      "titleType": "movie",
+      "primaryTitle": "Pig",
+      "originalTitle": "Pig",
+      "startYear": "2021",
+      "runtimeMinutes": "92"
+    },
+    "tt1103275": {
+      "titleType": "movie",
+      "primaryTitle": "Two Lovers",
+      "originalTitle": "Two Lovers",
+      "startYear": "2008",
+      "runtimeMinutes": "110"
+    },
+    "tt1103963": {
+      "titleType": "movie",
+      "primaryTitle": "24 City",
+      "originalTitle": "Er shi si cheng ji",
+      "startYear": "2008",
+      "runtimeMinutes": "112"
+    },
+    "tt1107850": {
+      "titleType": "movie",
+      "primaryTitle": "Unrelated",
+      "originalTitle": "Unrelated",
+      "startYear": "2007",
+      "runtimeMinutes": "100"
+    },
+    "tt1109624": {
+      "titleType": "movie",
+      "primaryTitle": "Paddington",
+      "originalTitle": "Paddington",
+      "startYear": "2014",
+      "runtimeMinutes": "95"
+    },
+    "tt1120985": {
+      "titleType": "movie",
+      "primaryTitle": "Blue Valentine",
+      "originalTitle": "Blue Valentine",
+      "startYear": "2010",
+      "runtimeMinutes": "112"
+    },
+    "tt1124052": {
+      "titleType": "movie",
+      "primaryTitle": "City of Life and Death",
+      "originalTitle": "Nanjing! Nanjing!",
+      "startYear": "2009",
+      "runtimeMinutes": "133"
+    },
+    "tt1125849": {
+      "titleType": "movie",
+      "primaryTitle": "The Wrestler",
+      "originalTitle": "The Wrestler",
+      "startYear": "2008",
+      "runtimeMinutes": "109"
+    },
+    "tt11271038": {
+      "titleType": "movie",
+      "primaryTitle": "Licorice Pizza",
+      "originalTitle": "Licorice Pizza",
+      "startYear": "2021",
+      "runtimeMinutes": "133"
+    },
+    "tt1129435": {
+      "titleType": "movie",
+      "primaryTitle": "The Beaches of Agnès",
+      "originalTitle": "Les plages d'Agnès",
+      "startYear": "2008",
+      "runtimeMinutes": "112"
+    },
+    "tt1135952": {
+      "titleType": "movie",
+      "primaryTitle": "White Material",
+      "originalTitle": "White Material",
+      "startYear": "2009",
+      "runtimeMinutes": "106"
+    },
+    "tt1136608": {
+      "titleType": "movie",
+      "primaryTitle": "District 9",
+      "originalTitle": "District 9",
+      "startYear": "2009",
+      "runtimeMinutes": "112"
+    },
+    "tt11392114": {
+      "titleType": "movie",
+      "primaryTitle": "Bloody Nose, Empty Pockets",
+      "originalTitle": "Bloody Nose, Empty Pockets",
+      "startYear": "2020",
+      "runtimeMinutes": "98"
+    },
+    "tt1139328": {
+      "titleType": "movie",
+      "primaryTitle": "The Ghost Writer",
+      "originalTitle": "The Ghost Writer",
+      "startYear": "2010",
+      "runtimeMinutes": "128"
+    },
+    "tt11394180": {
+      "titleType": "movie",
+      "primaryTitle": "Dick Johnson Is Dead",
+      "originalTitle": "Dick Johnson Is Dead",
+      "startYear": "2020",
+      "runtimeMinutes": "89"
+    },
+    "tt1139797": {
+      "titleType": "movie",
+      "primaryTitle": "Let the Right One In",
+      "originalTitle": "Låt den rätte komma in",
+      "startYear": "2008",
+      "runtimeMinutes": "114"
+    },
+    "tt11416746": {
+      "titleType": "movie",
+      "primaryTitle": "Time",
+      "originalTitle": "Time",
+      "startYear": "2020",
+      "runtimeMinutes": "81"
+    },
+    "tt1149362": {
+      "titleType": "movie",
+      "primaryTitle": "The White Ribbon",
+      "originalTitle": "Das weiße Band - Eine deutsche Kindergeschichte",
+      "startYear": "2009",
+      "runtimeMinutes": "144"
+    },
+    "tt1152850": {
+      "titleType": "movie",
+      "primaryTitle": "Wendy and Lucy",
+      "originalTitle": "Wendy and Lucy",
+      "startYear": "2008",
+      "runtimeMinutes": "80"
+    },
+    "tt11548822": {
+      "titleType": "movie",
+      "primaryTitle": "Cow",
+      "originalTitle": "Cow",
+      "startYear": "2021",
+      "runtimeMinutes": "94"
+    },
+    "tt1155592": {
+      "titleType": "movie",
+      "primaryTitle": "Man on Wire",
+      "originalTitle": "Man on Wire",
+      "startYear": "2008",
+      "runtimeMinutes": "94"
+    },
+    "tt1156143": {
+      "titleType": "movie",
+      "primaryTitle": "Wild Grass",
+      "originalTitle": "Les herbes folles",
+      "startYear": "2009",
+      "runtimeMinutes": "104"
+    },
+    "tt1156173": {
+      "titleType": "movie",
+      "primaryTitle": "Vincere",
+      "originalTitle": "Vincere",
+      "startYear": "2009",
+      "runtimeMinutes": "128"
+    },
+    "tt1157605": {
+      "titleType": "movie",
+      "primaryTitle": "Anvil: The Story of Anvil",
+      "originalTitle": "Anvil: The Story of Anvil",
+      "startYear": "2008",
+      "runtimeMinutes": "80"
+    },
+    "tt1158308": {
+      "titleType": "movie",
+      "primaryTitle": "Profit Motive and the Whispering Wind",
+      "originalTitle": "Profit Motive and the Whispering Wind",
+      "startYear": "2007",
+      "runtimeMinutes": "58"
+    },
+    "tt1160419": {
+      "titleType": "movie",
+      "primaryTitle": "Dune",
+      "originalTitle": "Dune: Part One",
+      "startYear": "2021",
+      "runtimeMinutes": "155"
+    },
+    "tt1164999": {
+      "titleType": "movie",
+      "primaryTitle": "Biutiful",
+      "originalTitle": "Biutiful",
+      "startYear": "2010",
+      "runtimeMinutes": "148"
+    },
+    "tt1165293": {
+      "titleType": "movie",
+      "primaryTitle": "Playing",
+      "originalTitle": "Jogo de cena",
+      "startYear": "2007",
+      "runtimeMinutes": "100"
+    },
+    "tt11697690": {
+      "titleType": "movie",
+      "primaryTitle": "The Woman Who Ran",
+      "originalTitle": "Do-mang-chin yeo-ja",
+      "startYear": "2020",
+      "runtimeMinutes": "77"
+    },
+    "tt11697820": {
+      "titleType": "movie",
+      "primaryTitle": "Days",
+      "originalTitle": "Rizi",
+      "startYear": "2020",
+      "runtimeMinutes": "127"
+    },
+    "tt11813216": {
+      "titleType": "movie",
+      "primaryTitle": "The Banshees of Inisherin",
+      "originalTitle": "The Banshees of Inisherin",
+      "startYear": "2022",
+      "runtimeMinutes": "114"
+    },
+    "tt1181614": {
+      "titleType": "movie",
+      "primaryTitle": "Wuthering Heights",
+      "originalTitle": "Wuthering Heights",
+      "startYear": "2011",
+      "runtimeMinutes": "129"
+    },
+    "tt1182345": {
+      "titleType": "movie",
+      "primaryTitle": "Moon",
+      "originalTitle": "Moon",
+      "startYear": "2009",
+      "runtimeMinutes": "97"
+    },
+    "tt1185616": {
+      "titleType": "movie",
+      "primaryTitle": "Waltz with Bashir",
+      "originalTitle": "Vals Im Bashir",
+      "startYear": "2008",
+      "runtimeMinutes": "90"
+    },
+    "tt11874226": {
+      "titleType": "movie",
+      "primaryTitle": "David Byrne's American Utopia",
+      "originalTitle": "American Utopia",
+      "startYear": "2020",
+      "runtimeMinutes": "105"
+    },
+    "tt1189073": {
+      "titleType": "movie",
+      "primaryTitle": "The Skin I Live In",
+      "originalTitle": "La piel que habito",
+      "startYear": "2011",
+      "runtimeMinutes": "120"
+    },
+    "tt1190539": {
+      "titleType": "movie",
+      "primaryTitle": "The Chaser",
+      "originalTitle": "Chugyeokja",
+      "startYear": "2008",
+      "runtimeMinutes": "125"
+    },
+    "tt1191111": {
+      "titleType": "movie",
+      "primaryTitle": "Enter the Void",
+      "originalTitle": "Enter the Void",
+      "startYear": "2009",
+      "runtimeMinutes": "161"
+    },
+    "tt1204773": {
+      "titleType": "movie",
+      "primaryTitle": "Everyone Else",
+      "originalTitle": "Alle Anderen",
+      "startYear": "2009",
+      "runtimeMinutes": "119"
+    },
+    "tt1205489": {
+      "titleType": "movie",
+      "primaryTitle": "Gran Torino",
+      "originalTitle": "Gran Torino",
+      "startYear": "2008",
+      "runtimeMinutes": "116"
+    },
+    "tt12094720": {
+      "titleType": "movie",
+      "primaryTitle": "City Hall",
+      "originalTitle": "City Hall",
+      "startYear": "2020",
+      "runtimeMinutes": "272"
+    },
+    "tt1210166": {
+      "titleType": "movie",
+      "primaryTitle": "Moneyball",
+      "originalTitle": "Moneyball",
+      "startYear": "2011",
+      "runtimeMinutes": "133"
+    },
+    "tt1212428": {
+      "titleType": "movie",
+      "primaryTitle": "The Lost City of Z",
+      "originalTitle": "The Lost City of Z",
+      "startYear": "2016",
+      "runtimeMinutes": "141"
+    },
+    "tt1216496": {
+      "titleType": "movie",
+      "primaryTitle": "Mother",
+      "originalTitle": "Madeo",
+      "startYear": "2009",
+      "runtimeMinutes": "129"
+    },
+    "tt1221141": {
+      "titleType": "movie",
+      "primaryTitle": "The Headless Woman",
+      "originalTitle": "La mujer sin cabeza",
+      "startYear": "2008",
+      "runtimeMinutes": "87"
+    },
+    "tt1225831": {
+      "titleType": "movie",
+      "primaryTitle": "Extraordinary Stories",
+      "originalTitle": "Historias extraordinarias",
+      "startYear": "2008",
+      "runtimeMinutes": "245"
+    },
+    "tt1226236": {
+      "titleType": "movie",
+      "primaryTitle": "I Am Love",
+      "originalTitle": "Io sono l'amore",
+      "startYear": "2009",
+      "runtimeMinutes": "120"
+    },
+    "tt1226681": {
+      "titleType": "movie",
+      "primaryTitle": "Pontypool",
+      "originalTitle": "Pontypool",
+      "startYear": "2008",
+      "runtimeMinutes": "93"
+    },
+    "tt1226774": {
+      "titleType": "movie",
+      "primaryTitle": "In the Loop",
+      "originalTitle": "In the Loop",
+      "startYear": "2009",
+      "runtimeMinutes": "106"
+    },
+    "tt1232776": {
+      "titleType": "movie",
+      "primaryTitle": "Fish Tank",
+      "originalTitle": "Fish Tank",
+      "startYear": "2009",
+      "runtimeMinutes": "123"
+    },
+    "tt1232790": {
+      "titleType": "movie",
+      "primaryTitle": "Of Time and the City",
+      "originalTitle": "Of Time and the City",
+      "startYear": "2008",
+      "runtimeMinutes": "74"
+    },
+    "tt1233334": {
+      "titleType": "movie",
+      "primaryTitle": "Pariah",
+      "originalTitle": "Pariah",
+      "startYear": "2011",
+      "runtimeMinutes": "86"
+    },
+    "tt1233381": {
+      "titleType": "movie",
+      "primaryTitle": "Three Monkeys",
+      "originalTitle": "Üç Maymun",
+      "startYear": "2008",
+      "runtimeMinutes": "109"
+    },
+    "tt1234654": {
+      "titleType": "movie",
+      "primaryTitle": "Greenberg",
+      "originalTitle": "Greenberg",
+      "startYear": "2010",
+      "runtimeMinutes": "107"
+    },
+    "tt1235166": {
+      "titleType": "movie",
+      "primaryTitle": "A Prophet",
+      "originalTitle": "Un prophète",
+      "startYear": "2009",
+      "runtimeMinutes": "155"
+    },
+    "tt1242460": {
+      "titleType": "movie",
+      "primaryTitle": "We Need to Talk About Kevin",
+      "originalTitle": "We Need to Talk About Kevin",
+      "startYear": "2011",
+      "runtimeMinutes": "112"
+    },
+    "tt1242742": {
+      "titleType": "short",
+      "primaryTitle": "Artemis' Knee",
+      "originalTitle": "Le genou d'Artémide",
+      "startYear": "2008",
+      "runtimeMinutes": "26"
+    },
+    "tt12477480": {
+      "titleType": "movie",
+      "primaryTitle": "Decision to Leave",
+      "originalTitle": "He-eo-jil gyeol-sim",
+      "startYear": "2022",
+      "runtimeMinutes": "139"
+    },
+    "tt1255953": {
+      "titleType": "movie",
+      "primaryTitle": "Incendies",
+      "originalTitle": "Incendies",
+      "startYear": "2010",
+      "runtimeMinutes": "131"
+    },
+    "tt1259521": {
+      "titleType": "movie",
+      "primaryTitle": "The Cabin in the Woods",
+      "originalTitle": "The Cabin in the Woods",
+      "startYear": "2011",
+      "runtimeMinutes": "95"
+    },
+    "tt1261422": {
+      "titleType": "movie",
+      "primaryTitle": "RR",
+      "originalTitle": "RR",
+      "startYear": "2007",
+      "runtimeMinutes": "111"
+    },
+    "tt1269566": {
+      "titleType": "movie",
+      "primaryTitle": "Melancholia",
+      "originalTitle": "Melancholia",
+      "startYear": "2008",
+      "runtimeMinutes": "450"
+    },
+    "tt1276104": {
+      "titleType": "movie",
+      "primaryTitle": "Looper",
+      "originalTitle": "Looper",
+      "startYear": "2012",
+      "runtimeMinutes": "119"
+    },
+    "tt12789558": {
+      "titleType": "movie",
+      "primaryTitle": "Belfast",
+      "originalTitle": "Belfast",
+      "startYear": "2021",
+      "runtimeMinutes": "98"
+    },
+    "tt1282153": {
+      "titleType": "movie",
+      "primaryTitle": "The Strange Case of Angelica",
+      "originalTitle": "O Estranho Caso de Angélica",
+      "startYear": "2010",
+      "runtimeMinutes": "97"
+    },
+    "tt1284587": {
+      "titleType": "movie",
+      "primaryTitle": "Shirin",
+      "originalTitle": "Shirin",
+      "startYear": "2008",
+      "runtimeMinutes": "92"
+    },
+    "tt1285016": {
+      "titleType": "movie",
+      "primaryTitle": "The Social Network",
+      "originalTitle": "The Social Network",
+      "startYear": "2010",
+      "runtimeMinutes": "120"
+    },
+    "tt1287878": {
+      "titleType": "movie",
+      "primaryTitle": "Poetry",
+      "originalTitle": "Si",
+      "startYear": "2010",
+      "runtimeMinutes": "139"
+    },
+    "tt12913444": {
+      "titleType": "movie",
+      "primaryTitle": "The Inheritance",
+      "originalTitle": "The Inheritance",
+      "startYear": "2020",
+      "runtimeMinutes": "100"
+    },
+    "tt1302006": {
+      "titleType": "movie",
+      "primaryTitle": "The Irishman",
+      "originalTitle": "The Irishman",
+      "startYear": "2019",
+      "runtimeMinutes": "209"
+    },
+    "tt1305806": {
+      "titleType": "movie",
+      "primaryTitle": "The Secret in Their Eyes",
+      "originalTitle": "El secreto de sus ojos",
+      "startYear": "2009",
+      "runtimeMinutes": "129"
+    },
+    "tt1313092": {
+      "titleType": "movie",
+      "primaryTitle": "Animal Kingdom",
+      "originalTitle": "Animal Kingdom",
+      "startYear": "2010",
+      "runtimeMinutes": "113"
+    },
+    "tt13138834": {
+      "titleType": "tvSeries",
+      "primaryTitle": "Time",
+      "originalTitle": "Time",
+      "startYear": "2021",
+      "runtimeMinutes": "59"
+    },
+    "tt1315981": {
+      "titleType": "movie",
+      "primaryTitle": "A Single Man",
+      "originalTitle": "A Single Man",
+      "startYear": "2009",
+      "runtimeMinutes": "99"
+    },
+    "tt1316540": {
+      "titleType": "movie",
+      "primaryTitle": "The Turin Horse",
+      "originalTitle": "A torinói ló",
+      "startYear": "2011",
+      "runtimeMinutes": "155"
+    },
+    "tt1319744": {
+      "titleType": "movie",
+      "primaryTitle": "The Interrupters",
+      "originalTitle": "The Interrupters",
+      "startYear": "2011",
+      "runtimeMinutes": "125"
+    },
+    "tt13204490": {
+      "titleType": "movie",
+      "primaryTitle": "Petite Maman",
+      "originalTitle": "Petite maman",
+      "startYear": "2021",
+      "runtimeMinutes": "73"
+    },
+    "tt1321865": {
+      "titleType": "tvMiniSeries",
+      "primaryTitle": "Carlos",
+      "originalTitle": "Carlos",
+      "startYear": "2010",
+      "runtimeMinutes": "111"
+    },
+    "tt13238346": {
+      "titleType": "movie",
+      "primaryTitle": "Past Lives",
+      "originalTitle": "Past Lives",
+      "startYear": "2023",
+      "runtimeMinutes": "105"
+    },
+    "tt1329269": {
+      "titleType": "short",
+      "primaryTitle": "What Goes Up",
+      "originalTitle": "What Goes Up",
+      "startYear": "2003",
+      "runtimeMinutes": "5"
+    },
+    "tt1337051": {
+      "titleType": "movie",
+      "primaryTitle": "Police, Adjective",
+      "originalTitle": "Politist, adjectiv",
+      "startYear": "2009",
+      "runtimeMinutes": "113"
+    },
+    "tt1340123": {
+      "titleType": "movie",
+      "primaryTitle": "Samson & Delilah",
+      "originalTitle": "Samson & Delilah",
+      "startYear": "2009",
+      "runtimeMinutes": "101"
+    },
+    "tt1340800": {
+      "titleType": "movie",
+      "primaryTitle": "Tinker Tailor Soldier Spy",
+      "originalTitle": "Tinker Tailor Soldier Spy",
+      "startYear": "2011",
+      "runtimeMinutes": "127"
+    },
+    "tt1360860": {
+      "titleType": "movie",
+      "primaryTitle": "About Elly",
+      "originalTitle": "Darbareye Elly",
+      "startYear": "2009",
+      "runtimeMinutes": "119"
+    },
+    "tt13648216": {
+      "titleType": "movie",
+      "primaryTitle": "Faya Dayi",
+      "originalTitle": "Faya Dayi",
+      "startYear": "2021",
+      "runtimeMinutes": "120"
+    },
+    "tt13651794": {
+      "titleType": "movie",
+      "primaryTitle": "May December",
+      "originalTitle": "May December",
+      "startYear": "2023",
+      "runtimeMinutes": "117"
+    },
+    "tt13702796": {
+      "titleType": "movie",
+      "primaryTitle": "Pacifiction",
+      "originalTitle": "Pacifiction",
+      "startYear": "2022",
+      "runtimeMinutes": "165"
+    },
+    "tt1371111": {
+      "titleType": "movie",
+      "primaryTitle": "Cloud Atlas",
+      "originalTitle": "Cloud Atlas",
+      "startYear": "2012",
+      "runtimeMinutes": "172"
+    },
+    "tt1375666": {
+      "titleType": "movie",
+      "primaryTitle": "Inception",
+      "originalTitle": "Inception",
+      "startYear": "2010",
+      "runtimeMinutes": "148"
+    },
+    "tt1379182": {
+      "titleType": "movie",
+      "primaryTitle": "Dogtooth",
+      "originalTitle": "Kynodontas",
+      "startYear": "2009",
+      "runtimeMinutes": "97"
+    },
+    "tt1380807": {
+      "titleType": "movie",
+      "primaryTitle": "Material",
+      "originalTitle": "Material",
+      "startYear": "2009",
+      "runtimeMinutes": "166"
+    },
+    "tt1392190": {
+      "titleType": "movie",
+      "primaryTitle": "Mad Max: Fury Road",
+      "originalTitle": "Mad Max: Fury Road",
+      "startYear": "2015",
+      "runtimeMinutes": "120"
+    },
+    "tt13923216": {
+      "titleType": "movie",
+      "primaryTitle": "Showing Up",
+      "originalTitle": "Showing Up",
+      "startYear": "2022",
+      "runtimeMinutes": "107"
+    },
+    "tt1399683": {
+      "titleType": "movie",
+      "primaryTitle": "Winter's Bone",
+      "originalTitle": "Winter's Bone",
+      "startYear": "2010",
+      "runtimeMinutes": "100"
+    },
+    "tt1403047": {
+      "titleType": "movie",
+      "primaryTitle": "Aurora",
+      "originalTitle": "Aurora",
+      "startYear": "2010",
+      "runtimeMinutes": "181"
+    },
+    "tt1403214": {
+      "titleType": "movie",
+      "primaryTitle": "Paradise: Love",
+      "originalTitle": "Paradies: Liebe",
+      "startYear": "2012",
+      "runtimeMinutes": "120"
+    },
+    "tt14034966": {
+      "titleType": "movie",
+      "primaryTitle": "Wheel of Fortune and Fantasy",
+      "originalTitle": "Gûzen to sôzô",
+      "startYear": "2021",
+      "runtimeMinutes": "121"
+    },
+    "tt14035154": {
+      "titleType": "movie",
+      "primaryTitle": "What Do We See When We Look at the Sky?",
+      "originalTitle": "Ras vkhedavt, rodesac cas vukurebt?",
+      "startYear": "2021",
+      "runtimeMinutes": "150"
+    },
+    "tt1403865": {
+      "titleType": "movie",
+      "primaryTitle": "True Grit",
+      "originalTitle": "True Grit",
+      "startYear": "2010",
+      "runtimeMinutes": "110"
+    },
+    "tt14039582": {
+      "titleType": "movie",
+      "primaryTitle": "Drive My Car",
+      "originalTitle": "Doraibu mai kâ",
+      "startYear": "2021",
+      "runtimeMinutes": "179"
+    },
+    "tt14208870": {
+      "titleType": "movie",
+      "primaryTitle": "The Fabelmans",
+      "originalTitle": "The Fabelmans",
+      "startYear": "2022",
+      "runtimeMinutes": "151"
+    },
+    "tt1421051": {
+      "titleType": "movie",
+      "primaryTitle": "Somewhere",
+      "originalTitle": "Somewhere",
+      "startYear": "2010",
+      "runtimeMinutes": "97"
+    },
+    "tt14230388": {
+      "titleType": "movie",
+      "primaryTitle": "Asteroid City",
+      "originalTitle": "Asteroid City",
+      "startYear": "2023",
+      "runtimeMinutes": "105"
+    },
+    "tt14230458": {
+      "titleType": "movie",
+      "primaryTitle": "Poor Things",
+      "originalTitle": "Poor Things",
+      "startYear": "2023",
+      "runtimeMinutes": "141"
+    },
+    "tt1424432": {
+      "titleType": "movie",
+      "primaryTitle": "Senna",
+      "originalTitle": "Senna",
+      "startYear": "2010",
+      "runtimeMinutes": "106"
+    },
+    "tt1426380": {
+      "titleType": "movie",
+      "primaryTitle": "Oxhide II",
+      "originalTitle": "Niupi er",
+      "startYear": "2009",
+      "runtimeMinutes": "132"
+    },
+    "tt1431181": {
+      "titleType": "movie",
+      "primaryTitle": "Another Year",
+      "originalTitle": "Another Year",
+      "startYear": "2010",
+      "runtimeMinutes": "129"
+    },
+    "tt1437357": {
+      "titleType": "movie",
+      "primaryTitle": "Faust",
+      "originalTitle": "Faust",
+      "startYear": "2011",
+      "runtimeMinutes": "140"
+    },
+    "tt1438535": {
+      "titleType": "movie",
+      "primaryTitle": "Film socialisme",
+      "originalTitle": "Film socialisme",
+      "startYear": "2010",
+      "runtimeMinutes": "102"
+    },
+    "tt1440266": {
+      "titleType": "movie",
+      "primaryTitle": "Pina",
+      "originalTitle": "Pina",
+      "startYear": "2011",
+      "runtimeMinutes": "103"
+    },
+    "tt14407336": {
+      "titleType": "movie",
+      "primaryTitle": "The Beast",
+      "originalTitle": "La bête",
+      "startYear": "2023",
+      "runtimeMinutes": "146"
+    },
+    "tt1441326": {
+      "titleType": "movie",
+      "primaryTitle": "Martha Marcy May Marlene",
+      "originalTitle": "Martha Marcy May Marlene",
+      "startYear": "2011",
+      "runtimeMinutes": "102"
+    },
+    "tt1441395": {
+      "titleType": "movie",
+      "primaryTitle": "Under the Skin",
+      "originalTitle": "Under the Skin",
+      "startYear": "2013",
+      "runtimeMinutes": "108"
+    },
+    "tt14444726": {
+      "titleType": "movie",
+      "primaryTitle": "Tár",
+      "originalTitle": "Tár",
+      "startYear": "2022",
+      "runtimeMinutes": "158"
+    },
+    "tt1454468": {
+      "titleType": "movie",
+      "primaryTitle": "Gravity",
+      "originalTitle": "Gravity",
+      "startYear": "2013",
+      "runtimeMinutes": "91"
+    },
+    "tt14550346": {
+      "titleType": "movie",
+      "primaryTitle": "Last Summer",
+      "originalTitle": "L'Été dernier",
+      "startYear": "2023",
+      "runtimeMinutes": "104"
+    },
+    "tt14561712": {
+      "titleType": "movie",
+      "primaryTitle": "La Chimera",
+      "originalTitle": "La chimera",
+      "startYear": "2023",
+      "runtimeMinutes": "131"
+    },
+    "tt1456472": {
+      "titleType": "movie",
+      "primaryTitle": "We Have a Pope",
+      "originalTitle": "Habemus Papam",
+      "startYear": "2011",
+      "runtimeMinutes": "102"
+    },
+    "tt1462900": {
+      "titleType": "movie",
+      "primaryTitle": "The Grandmaster",
+      "originalTitle": "Yi dai zong shi",
+      "startYear": "2013",
+      "runtimeMinutes": "130"
+    },
+    "tt14776918": {
+      "titleType": "movie",
+      "primaryTitle": "In Front of Your Face",
+      "originalTitle": "Dangsin-eolgul-apeseo",
+      "startYear": "2021",
+      "runtimeMinutes": "85"
+    },
+    "tt1478338": {
+      "titleType": "movie",
+      "primaryTitle": "Bridesmaids",
+      "originalTitle": "Bridesmaids",
+      "startYear": "2011",
+      "runtimeMinutes": "125"
+    },
+    "tt1478964": {
+      "titleType": "movie",
+      "primaryTitle": "Attack the Block",
+      "originalTitle": "Attack the Block",
+      "startYear": "2011",
+      "runtimeMinutes": "88"
+    },
+    "tt1480656": {
+      "titleType": "movie",
+      "primaryTitle": "Cosmopolis",
+      "originalTitle": "Cosmopolis",
+      "startYear": "2012",
+      "runtimeMinutes": "109"
+    },
+    "tt14812782": {
+      "titleType": "movie",
+      "primaryTitle": "Hit the Road",
+      "originalTitle": "Jaddeh khaki",
+      "startYear": "2021",
+      "runtimeMinutes": "93"
+    },
+    "tt14812784": {
+      "titleType": "movie",
+      "primaryTitle": "A Night of Knowing Nothing",
+      "originalTitle": "A Night of Knowing Nothing",
+      "startYear": "2021",
+      "runtimeMinutes": "99"
+    },
+    "tt1483735": {
+      "titleType": "movie",
+      "primaryTitle": "The Portuguese Nun",
+      "originalTitle": "A Religiosa Portuguesa",
+      "startYear": "2009",
+      "runtimeMinutes": "127"
+    },
+    "tt14849194": {
+      "titleType": "movie",
+      "primaryTitle": "The Holdovers",
+      "originalTitle": "The Holdovers",
+      "startYear": "2023",
+      "runtimeMinutes": "133"
+    },
+    "tt1488163": {
+      "titleType": "movie",
+      "primaryTitle": "Trash Humpers",
+      "originalTitle": "Trash Humpers",
+      "startYear": "2009",
+      "runtimeMinutes": "78"
+    },
+    "tt1489887": {
+      "titleType": "movie",
+      "primaryTitle": "Booksmart",
+      "originalTitle": "Booksmart",
+      "startYear": "2019",
+      "runtimeMinutes": "102"
+    },
+    "tt1490017": {
+      "titleType": "movie",
+      "primaryTitle": "The Lego Movie",
+      "originalTitle": "The LEGO Movie",
+      "startYear": "2014",
+      "runtimeMinutes": "100"
+    },
+    "tt1504319": {
+      "titleType": "movie",
+      "primaryTitle": "Road to Nowhere",
+      "originalTitle": "Road to Nowhere",
+      "startYear": "2010",
+      "runtimeMinutes": "121"
+    },
+    "tt1504320": {
+      "titleType": "movie",
+      "primaryTitle": "The King's Speech",
+      "originalTitle": "The King's Speech",
+      "startYear": "2010",
+      "runtimeMinutes": "118"
+    },
+    "tt1508675": {
+      "titleType": "movie",
+      "primaryTitle": "Le Havre",
+      "originalTitle": "Le Havre",
+      "startYear": "2011",
+      "runtimeMinutes": "93"
+    },
+    "tt1517268": {
+      "titleType": "movie",
+      "primaryTitle": "Barbie",
+      "originalTitle": "Barbie",
+      "startYear": "2023",
+      "runtimeMinutes": "114"
+    },
+    "tt1518812": {
+      "titleType": "movie",
+      "primaryTitle": "Meek's Cutoff",
+      "originalTitle": "Meek's Cutoff",
+      "startYear": "2010",
+      "runtimeMinutes": "104"
+    },
+    "tt1527186": {
+      "titleType": "movie",
+      "primaryTitle": "Melancholia",
+      "originalTitle": "Melancholia",
+      "startYear": "2011",
+      "runtimeMinutes": "135"
+    },
+    "tt1527835": {
+      "titleType": "movie",
+      "primaryTitle": "Archipelago",
+      "originalTitle": "Archipelago",
+      "startYear": "2010",
+      "runtimeMinutes": "114"
+    },
+    "tt1533117": {
+      "titleType": "movie",
+      "primaryTitle": "Let the Bullets Fly",
+      "originalTitle": "Rang zi dan fei",
+      "startYear": "2010",
+      "runtimeMinutes": "132"
+    },
+    "tt15376894": {
+      "titleType": "movie",
+      "primaryTitle": "Saint Omer",
+      "originalTitle": "Saint Omer",
+      "startYear": "2022",
+      "runtimeMinutes": "122"
+    },
+    "tt15398776": {
+      "titleType": "movie",
+      "primaryTitle": "Oppenheimer",
+      "originalTitle": "Oppenheimer",
+      "startYear": "2023",
+      "runtimeMinutes": "180"
+    },
+    "tt1556190": {
+      "titleType": "movie",
+      "primaryTitle": "Nostalgia for the Light",
+      "originalTitle": "Nostalgia de la luz",
+      "startYear": "2010",
+      "runtimeMinutes": "90"
+    },
+    "tt1560747": {
+      "titleType": "movie",
+      "primaryTitle": "The Master",
+      "originalTitle": "The Master",
+      "startYear": "2012",
+      "runtimeMinutes": "138"
+    },
+    "tt1587707": {
+      "titleType": "movie",
+      "primaryTitle": "Exit Through the Gift Shop",
+      "originalTitle": "Exit Through the Gift Shop",
+      "startYear": "2010",
+      "runtimeMinutes": "87"
+    },
+    "tt1588170": {
+      "titleType": "movie",
+      "primaryTitle": "I Saw the Devil",
+      "originalTitle": "Angmareul boatda",
+      "startYear": "2010",
+      "runtimeMinutes": "144"
+    },
+    "tt1588337": {
+      "titleType": "movie",
+      "primaryTitle": "Of Gods and Men",
+      "originalTitle": "Des hommes et des dieux",
+      "startYear": "2010",
+      "runtimeMinutes": "122"
+    },
+    "tt1588895": {
+      "titleType": "movie",
+      "primaryTitle": "Uncle Boonmee Who Can Recall His Past Lives",
+      "originalTitle": "Loong Boonmee raleuk chat",
+      "startYear": "2010",
+      "runtimeMinutes": "114"
+    },
+    "tt1596363": {
+      "titleType": "movie",
+      "primaryTitle": "The Big Short",
+      "originalTitle": "The Big Short",
+      "startYear": "2015",
+      "runtimeMinutes": "130"
+    },
+    "tt1602620": {
+      "titleType": "movie",
+      "primaryTitle": "Amour",
+      "originalTitle": "Amour",
+      "startYear": "2012",
+      "runtimeMinutes": "127"
+    },
+    "tt1603480": {
+      "titleType": "movie",
+      "primaryTitle": "The Mouth of the Wolf",
+      "originalTitle": "La bocca del lupo",
+      "startYear": "2009",
+      "runtimeMinutes": "68"
+    },
+    "tt1605783": {
+      "titleType": "movie",
+      "primaryTitle": "Midnight in Paris",
+      "originalTitle": "Midnight in Paris",
+      "startYear": "2011",
+      "runtimeMinutes": "94"
+    },
+    "tt1619029": {
+      "titleType": "movie",
+      "primaryTitle": "Jackie",
+      "originalTitle": "Jackie",
+      "startYear": "2016",
+      "runtimeMinutes": "100"
+    },
+    "tt1623008": {
+      "titleType": "movie",
+      "primaryTitle": "The Arbor",
+      "originalTitle": "The Arbor",
+      "startYear": "2010",
+      "runtimeMinutes": "94"
+    },
+    "tt1631867": {
+      "titleType": "movie",
+      "primaryTitle": "Edge of Tomorrow",
+      "originalTitle": "Edge of Tomorrow",
+      "startYear": "2014",
+      "runtimeMinutes": "113"
+    },
+    "tt1639901": {
+      "titleType": "movie",
+      "primaryTitle": "A Screaming Man",
+      "originalTitle": "Un homme qui crie",
+      "startYear": "2010",
+      "runtimeMinutes": "92"
+    },
+    "tt1646958": {
+      "titleType": "movie",
+      "primaryTitle": "The Autobiography of Nicolae Ceausescu",
+      "originalTitle": "Autobiografia lui Nicolae Ceausescu",
+      "startYear": "2010",
+      "runtimeMinutes": "180"
+    },
+    "tt1646975": {
+      "titleType": "movie",
+      "primaryTitle": "The Four Times",
+      "originalTitle": "Le quattro volte",
+      "startYear": "2010",
+      "runtimeMinutes": "88"
+    },
+    "tt1655442": {
+      "titleType": "movie",
+      "primaryTitle": "The Artist",
+      "originalTitle": "The Artist",
+      "startYear": "2011",
+      "runtimeMinutes": "100"
+    },
+    "tt1660379": {
+      "titleType": "movie",
+      "primaryTitle": "House of Tolerance",
+      "originalTitle": "L'Apollonide (Souvenirs de la maison close)",
+      "startYear": "2011",
+      "runtimeMinutes": "122"
+    },
+    "tt1663202": {
+      "titleType": "movie",
+      "primaryTitle": "The Revenant",
+      "originalTitle": "The Revenant",
+      "startYear": "2015",
+      "runtimeMinutes": "156"
+    },
+    "tt1664894": {
+      "titleType": "movie",
+      "primaryTitle": "Cave of Forgotten Dreams",
+      "originalTitle": "Cave of Forgotten Dreams",
+      "startYear": "2010",
+      "runtimeMinutes": "90"
+    },
+    "tt1667905": {
+      "titleType": "movie",
+      "primaryTitle": "This Is Not a Film",
+      "originalTitle": "In film nist",
+      "startYear": "2011",
+      "runtimeMinutes": "75"
+    },
+    "tt1675192": {
+      "titleType": "movie",
+      "primaryTitle": "Take Shelter",
+      "originalTitle": "Take Shelter",
+      "startYear": "2011",
+      "runtimeMinutes": "120"
+    },
+    "tt1690389": {
+      "titleType": "movie",
+      "primaryTitle": "You Ain't Seen Nothin' Yet",
+      "originalTitle": "Vous n'avez encore rien vu",
+      "startYear": "2012",
+      "runtimeMinutes": "115"
+    },
+    "tt1691323": {
+      "titleType": "movie",
+      "primaryTitle": "Attenberg",
+      "originalTitle": "Attenberg",
+      "startYear": "2010",
+      "runtimeMinutes": "97"
+    },
+    "tt1695405": {
+      "titleType": "movie",
+      "primaryTitle": "The Loneliest Planet",
+      "originalTitle": "The Loneliest Planet",
+      "startYear": "2011",
+      "runtimeMinutes": "113"
+    },
+    "tt1700844": {
+      "titleType": "movie",
+      "primaryTitle": "The Deep Blue Sea",
+      "originalTitle": "The Deep Blue Sea",
+      "startYear": "2011",
+      "runtimeMinutes": "98"
+    },
+    "tt17009710": {
+      "titleType": "movie",
+      "primaryTitle": "Anatomy of a Fall",
+      "originalTitle": "Anatomie d'une chute",
+      "startYear": "2023",
+      "runtimeMinutes": "151"
+    },
+    "tt1706620": {
+      "titleType": "movie",
+      "primaryTitle": "Snowpiercer",
+      "originalTitle": "Snowpiercer",
+      "startYear": "2013",
+      "runtimeMinutes": "126"
+    },
+    "tt1706701": {
+      "titleType": "movie",
+      "primaryTitle": "The Nine Muses",
+      "originalTitle": "The Nine Muses",
+      "startYear": "2010",
+      "runtimeMinutes": "90"
+    },
+    "tt1714210": {
+      "titleType": "movie",
+      "primaryTitle": "Weekend",
+      "originalTitle": "Weekend",
+      "startYear": "2011",
+      "runtimeMinutes": "97"
+    },
+    "tt17146978": {
+      "titleType": "movie",
+      "primaryTitle": "The Novelist's Film",
+      "originalTitle": "So-seol-ga-ui yeong-hwa",
+      "startYear": "2022",
+      "runtimeMinutes": "92"
+    },
+    "tt1714878": {
+      "titleType": "movie",
+      "primaryTitle": "Oki's Movie",
+      "originalTitle": "Ok-hui-ui yeonghwa",
+      "startYear": "2010",
+      "runtimeMinutes": "80"
+    },
+    "tt1714915": {
+      "titleType": "movie",
+      "primaryTitle": "Only Lovers Left Alive",
+      "originalTitle": "Only Lovers Left Alive",
+      "startYear": "2013",
+      "runtimeMinutes": "123"
+    },
+    "tt1723811": {
+      "titleType": "movie",
+      "primaryTitle": "Shame",
+      "originalTitle": "Shame",
+      "startYear": "2011",
+      "runtimeMinutes": "101"
+    },
+    "tt1736633": {
+      "titleType": "movie",
+      "primaryTitle": "Oslo, August 31st",
+      "originalTitle": "Oslo, 31. august",
+      "startYear": "2011",
+      "runtimeMinutes": "95"
+    },
+    "tt1745787": {
+      "titleType": "movie",
+      "primaryTitle": "The Tribe",
+      "originalTitle": "Plemya",
+      "startYear": "2014",
+      "runtimeMinutes": "126"
+    },
+    "tt1745960": {
+      "titleType": "movie",
+      "primaryTitle": "Top Gun: Maverick",
+      "originalTitle": "Top Gun: Maverick",
+      "startYear": "2022",
+      "runtimeMinutes": "130"
+    },
+    "tt1748122": {
+      "titleType": "movie",
+      "primaryTitle": "Moonrise Kingdom",
+      "originalTitle": "Moonrise Kingdom",
+      "startYear": "2012",
+      "runtimeMinutes": "94"
+    },
+    "tt1754367": {
+      "titleType": "movie",
+      "primaryTitle": "Post Tenebras Lux",
+      "originalTitle": "Post tenebras lux",
+      "startYear": "2012",
+      "runtimeMinutes": "115"
+    },
+    "tt1757733": {
+      "titleType": "movie",
+      "primaryTitle": "Double Tide",
+      "originalTitle": "Double Tide",
+      "startYear": "2009",
+      "runtimeMinutes": "99"
+    },
+    "tt1757939": {
+      "titleType": "movie",
+      "primaryTitle": "¡Vivan las antípodas!",
+      "originalTitle": "¡Vivan las antípodas!",
+      "startYear": "2011",
+      "runtimeMinutes": "108"
+    },
+    "tt1788391": {
+      "titleType": "movie",
+      "primaryTitle": "Kill List",
+      "originalTitle": "Kill List",
+      "startYear": "2011",
+      "runtimeMinutes": "95"
+    },
+    "tt1790885": {
+      "titleType": "movie",
+      "primaryTitle": "Zero Dark Thirty",
+      "originalTitle": "Zero Dark Thirty",
+      "startYear": "2012",
+      "runtimeMinutes": "157"
+    },
+    "tt1791528": {
+      "titleType": "movie",
+      "primaryTitle": "Inherent Vice",
+      "originalTitle": "Inherent Vice",
+      "startYear": "2014",
+      "runtimeMinutes": "148"
+    },
+    "tt1798709": {
+      "titleType": "movie",
+      "primaryTitle": "Her",
+      "originalTitle": "Her",
+      "startYear": "2013",
+      "runtimeMinutes": "126"
+    },
+    "tt18162096": {
+      "titleType": "movie",
+      "primaryTitle": "Do Not Expect Too Much from the End of the World",
+      "originalTitle": "Nu astepta prea mult de la sfârsitul lumii",
+      "startYear": "2023",
+      "runtimeMinutes": "163"
+    },
+    "tt1819513": {
+      "titleType": "movie",
+      "primaryTitle": "Dreams of a Life",
+      "originalTitle": "Dreams of a Life",
+      "startYear": "2011",
+      "runtimeMinutes": "95"
+    },
+    "tt1821549": {
+      "titleType": "movie",
+      "primaryTitle": "Nebraska",
+      "originalTitle": "Nebraska",
+      "startYear": "2013",
+      "runtimeMinutes": "115"
+    },
+    "tt1825683": {
+      "titleType": "movie",
+      "primaryTitle": "Black Panther",
+      "originalTitle": "Black Panther",
+      "startYear": "2018",
+      "runtimeMinutes": "134"
+    },
+    "tt1827487": {
+      "titleType": "movie",
+      "primaryTitle": "Once Upon a Time in Anatolia",
+      "originalTitle": "Bir Zamanlar Anadolu'da",
+      "startYear": "2011",
+      "runtimeMinutes": "157"
+    },
+    "tt1827512": {
+      "titleType": "movie",
+      "primaryTitle": "The Kid with a Bike",
+      "originalTitle": "Le gamin au vélo",
+      "startYear": "2011",
+      "runtimeMinutes": "87"
+    },
+    "tt1829648": {
+      "titleType": "movie",
+      "primaryTitle": "At Sea",
+      "originalTitle": "At Sea",
+      "startYear": "2007",
+      "runtimeMinutes": "60"
+    },
+    "tt1832382": {
+      "titleType": "movie",
+      "primaryTitle": "A Separation",
+      "originalTitle": "Jodaeiye Nader az Simin",
+      "startYear": "2011",
+      "runtimeMinutes": "123"
+    },
+    "tt1833844": {
+      "titleType": "movie",
+      "primaryTitle": "Berberian Sound Studio",
+      "originalTitle": "Berberian Sound Studio",
+      "startYear": "2012",
+      "runtimeMinutes": "92"
+    },
+    "tt1843287": {
+      "titleType": "movie",
+      "primaryTitle": "Like Someone in Love",
+      "originalTitle": "Like Someone in Love",
+      "startYear": "2012",
+      "runtimeMinutes": "109"
+    },
+    "tt1847731": {
+      "titleType": "movie",
+      "primaryTitle": "Tomboy",
+      "originalTitle": "Tomboy",
+      "startYear": "2011",
+      "runtimeMinutes": "82"
+    },
+    "tt1853728": {
+      "titleType": "movie",
+      "primaryTitle": "Django Unchained",
+      "originalTitle": "Django Unchained",
+      "startYear": "2012",
+      "runtimeMinutes": "165"
+    },
+    "tt18558306": {
+      "titleType": "movie",
+      "primaryTitle": "The Delinquents",
+      "originalTitle": "Los delincuentes",
+      "startYear": "2023",
+      "runtimeMinutes": "189"
+    },
+    "tt1856101": {
+      "titleType": "movie",
+      "primaryTitle": "Blade Runner 2049",
+      "originalTitle": "Blade Runner 2049",
+      "startYear": "2017",
+      "runtimeMinutes": "164"
+    },
+    "tt1883180": {
+      "titleType": "movie",
+      "primaryTitle": "A Pigeon Sat on a Branch Reflecting on Existence",
+      "originalTitle": "En duva satt på en gren och funderade på tillvaron",
+      "startYear": "2014",
+      "runtimeMinutes": "101"
+    },
+    "tt1895587": {
+      "titleType": "movie",
+      "primaryTitle": "Spotlight",
+      "originalTitle": "Spotlight",
+      "startYear": "2015",
+      "runtimeMinutes": "129"
+    },
+    "tt1899353": {
+      "titleType": "movie",
+      "primaryTitle": "The Raid: Redemption",
+      "originalTitle": "Serbuan maut",
+      "startYear": "2011",
+      "runtimeMinutes": "101"
+    },
+    "tt1922561": {
+      "titleType": "movie",
+      "primaryTitle": "The Day He Arrives",
+      "originalTitle": "Book-chon bang-hyang",
+      "startYear": "2011",
+      "runtimeMinutes": "79"
+    },
+    "tt1925421": {
+      "titleType": "movie",
+      "primaryTitle": "Elena",
+      "originalTitle": "Elena",
+      "startYear": "2011",
+      "runtimeMinutes": "109"
+    },
+    "tt1951181": {
+      "titleType": "movie",
+      "primaryTitle": "The Immigrant",
+      "originalTitle": "The Immigrant",
+      "startYear": "2013",
+      "runtimeMinutes": "120"
+    },
+    "tt1954470": {
+      "titleType": "movie",
+      "primaryTitle": "Gangs of Wasseypur",
+      "originalTitle": "Gangs of Wasseypur",
+      "startYear": "2012",
+      "runtimeMinutes": "321"
+    },
+    "tt19652910": {
+      "titleType": "movie",
+      "primaryTitle": "EO",
+      "originalTitle": "Eo",
+      "startYear": "2022",
+      "runtimeMinutes": "88"
+    },
+    "tt19770238": {
+      "titleType": "movie",
+      "primaryTitle": "Aftersun",
+      "originalTitle": "Aftersun",
+      "startYear": "2022",
+      "runtimeMinutes": "102"
+    },
+    "tt2007360": {
+      "titleType": "movie",
+      "primaryTitle": "Computer Chess",
+      "originalTitle": "Computer Chess",
+      "startYear": "2013",
+      "runtimeMinutes": "92"
+    },
+    "tt2008009": {
+      "titleType": "movie",
+      "primaryTitle": "The Clock",
+      "originalTitle": "The Clock",
+      "startYear": "2010",
+      "runtimeMinutes": "1440"
+    },
+    "tt2013293": {
+      "titleType": "movie",
+      "primaryTitle": "The Wind Rises",
+      "originalTitle": "Kaze tachinu",
+      "startYear": "2013",
+      "runtimeMinutes": "126"
+    },
+    "tt2024544": {
+      "titleType": "movie",
+      "primaryTitle": "12 Years a Slave",
+      "originalTitle": "12 Years a Slave",
+      "startYear": "2013",
+      "runtimeMinutes": "134"
+    },
+    "tt20259142": {
+      "titleType": "movie",
+      "primaryTitle": "Mysteries of Lisbon",
+      "originalTitle": "Mistérios de Lisboa",
+      "startYear": "2010",
+      "runtimeMinutes": "266"
+    },
+    "tt2042568": {
+      "titleType": "movie",
+      "primaryTitle": "Inside Llewyn Davis",
+      "originalTitle": "Inside Llewyn Davis",
+      "startYear": "2013",
+      "runtimeMinutes": "104"
+    },
+    "tt2053425": {
+      "titleType": "movie",
+      "primaryTitle": "Rust and Bone",
+      "originalTitle": "De rouille et d'os",
+      "startYear": "2012",
+      "runtimeMinutes": "120"
+    },
+    "tt2059255": {
+      "titleType": "movie",
+      "primaryTitle": "No",
+      "originalTitle": "No",
+      "startYear": "2012",
+      "runtimeMinutes": "118"
+    },
+    "tt2076220": {
+      "titleType": "movie",
+      "primaryTitle": "Holy Motors",
+      "originalTitle": "Holy Motors",
+      "startYear": "2012",
+      "runtimeMinutes": "115"
+    },
+    "tt2084989": {
+      "titleType": "movie",
+      "primaryTitle": "Upstream Color",
+      "originalTitle": "Upstream Color",
+      "startYear": "2013",
+      "runtimeMinutes": "96"
+    },
+    "tt2096673": {
+      "titleType": "movie",
+      "primaryTitle": "Inside Out",
+      "originalTitle": "Inside Out",
+      "startYear": "2015",
+      "runtimeMinutes": "95"
+    },
+    "tt2101441": {
+      "titleType": "movie",
+      "primaryTitle": "Spring Breakers",
+      "originalTitle": "Spring Breakers",
+      "startYear": "2012",
+      "runtimeMinutes": "94"
+    },
+    "tt21027780": {
+      "titleType": "movie",
+      "primaryTitle": "Fallen Leaves",
+      "originalTitle": "Kuolleet lehdet",
+      "startYear": "2023",
+      "runtimeMinutes": "81"
+    },
+    "tt2106476": {
+      "titleType": "movie",
+      "primaryTitle": "The Hunt",
+      "originalTitle": "Jagten",
+      "startYear": "2012",
+      "runtimeMinutes": "115"
+    },
+    "tt21192142": {
+      "titleType": "movie",
+      "primaryTitle": "All of Us Strangers",
+      "originalTitle": "All of Us Strangers",
+      "startYear": "2023",
+      "runtimeMinutes": "105"
+    },
+    "tt2121382": {
+      "titleType": "movie",
+      "primaryTitle": "Force Majeure",
+      "originalTitle": "Turist",
+      "startYear": "2014",
+      "runtimeMinutes": "120"
+    },
+    "tt2125435": {
+      "titleType": "movie",
+      "primaryTitle": "Beasts of the Southern Wild",
+      "originalTitle": "Beasts of the Southern Wild",
+      "startYear": "2012",
+      "runtimeMinutes": "93"
+    },
+    "tt21284358": {
+      "titleType": "movie",
+      "primaryTitle": "Close Your Eyes",
+      "originalTitle": "Cerrar los ojos",
+      "startYear": "2023",
+      "runtimeMinutes": "169"
+    },
+    "tt21374850": {
+      "titleType": "movie",
+      "primaryTitle": "All the Beauty and the Bloodshed",
+      "originalTitle": "All the Beauty and the Bloodshed",
+      "startYear": "2022",
+      "runtimeMinutes": "113"
+    },
+    "tt21378968": {
+      "titleType": "movie",
+      "primaryTitle": "Trenque Lauquen",
+      "originalTitle": "Trenque Lauquen",
+      "startYear": "2022",
+      "runtimeMinutes": "262"
+    },
+    "tt2153963": {
+      "titleType": "movie",
+      "primaryTitle": "Tabu",
+      "originalTitle": "Tabu",
+      "startYear": "2012",
+      "runtimeMinutes": "118"
+    },
+    "tt2165735": {
+      "titleType": "movie",
+      "primaryTitle": "Drug War",
+      "originalTitle": "Du zhan",
+      "startYear": "2012",
+      "runtimeMinutes": "107"
+    },
+    "tt2172584": {
+      "titleType": "movie",
+      "primaryTitle": "Maps to the Stars",
+      "originalTitle": "Maps to the Stars",
+      "startYear": "2014",
+      "runtimeMinutes": "111"
+    },
+    "tt2178941": {
+      "titleType": "movie",
+      "primaryTitle": "Barbara",
+      "originalTitle": "Barbara",
+      "startYear": "2012",
+      "runtimeMinutes": "105"
+    },
+    "tt2190367": {
+      "titleType": "movie",
+      "primaryTitle": "Neighboring Sounds",
+      "originalTitle": "O Som ao Redor",
+      "startYear": "2012",
+      "runtimeMinutes": "131"
+    },
+    "tt2209418": {
+      "titleType": "movie",
+      "primaryTitle": "Before Midnight",
+      "originalTitle": "Before Midnight",
+      "startYear": "2013",
+      "runtimeMinutes": "109"
+    },
+    "tt2258281": {
+      "titleType": "movie",
+      "primaryTitle": "Beyond the Hills",
+      "originalTitle": "Dupa dealuri",
+      "startYear": "2012",
+      "runtimeMinutes": "152"
+    },
+    "tt2258858": {
+      "titleType": "movie",
+      "primaryTitle": "Wadjda",
+      "originalTitle": "Wadjda",
+      "startYear": "2012",
+      "runtimeMinutes": "98"
+    },
+    "tt2265171": {
+      "titleType": "movie",
+      "primaryTitle": "The Raid 2",
+      "originalTitle": "Serbuan maut 2: Berandal",
+      "startYear": "2014",
+      "runtimeMinutes": "150"
+    },
+    "tt2267998": {
+      "titleType": "movie",
+      "primaryTitle": "Gone Girl",
+      "originalTitle": "Gone Girl",
+      "startYear": "2014",
+      "runtimeMinutes": "149"
+    },
+    "tt2268016": {
+      "titleType": "movie",
+      "primaryTitle": "Magic Mike XXL",
+      "originalTitle": "Magic Mike XXL",
+      "startYear": "2015",
+      "runtimeMinutes": "115"
+    },
+    "tt2268732": {
+      "titleType": "movie",
+      "primaryTitle": "Museum Hours",
+      "originalTitle": "Museum Hours",
+      "startYear": "2012",
+      "runtimeMinutes": "107"
+    },
+    "tt2278388": {
+      "titleType": "movie",
+      "primaryTitle": "The Grand Budapest Hotel",
+      "originalTitle": "The Grand Budapest Hotel",
+      "startYear": "2014",
+      "runtimeMinutes": "99"
+    },
+    "tt2278871": {
+      "titleType": "movie",
+      "primaryTitle": "Blue Is the Warmest Colour",
+      "originalTitle": "La Vie d'Adèle: Chapitres 1 et 2",
+      "startYear": "2013",
+      "runtimeMinutes": "180"
+    },
+    "tt2294629": {
+      "titleType": "movie",
+      "primaryTitle": "Frozen",
+      "originalTitle": "Frozen",
+      "startYear": "2013",
+      "runtimeMinutes": "102"
+    },
+    "tt2316411": {
+      "titleType": "movie",
+      "primaryTitle": "Enemy",
+      "originalTitle": "Enemy",
+      "startYear": "2013",
+      "runtimeMinutes": "91"
+    },
+    "tt2321549": {
+      "titleType": "movie",
+      "primaryTitle": "The Babadook",
+      "originalTitle": "The Babadook",
+      "startYear": "2014",
+      "runtimeMinutes": "94"
+    },
+    "tt2326554": {
+      "titleType": "movie",
+      "primaryTitle": "A Girl Walks Home Alone at Night",
+      "originalTitle": "A Girl Walks Home Alone at Night",
+      "startYear": "2014",
+      "runtimeMinutes": "101"
+    },
+    "tt2328813": {
+      "titleType": "movie",
+      "primaryTitle": "Hard to Be a God",
+      "originalTitle": "Trudno byt bogom",
+      "startYear": "2013",
+      "runtimeMinutes": "177"
+    },
+    "tt2331143": {
+      "titleType": "movie",
+      "primaryTitle": "Like Father, Like Son",
+      "originalTitle": "Soshite chichi ni naru",
+      "startYear": "2013",
+      "runtimeMinutes": "121"
+    },
+    "tt2332522": {
+      "titleType": "movie",
+      "primaryTitle": "Leviathan",
+      "originalTitle": "Leviathan",
+      "startYear": "2012",
+      "runtimeMinutes": "87"
+    },
+    "tt2334649": {
+      "titleType": "movie",
+      "primaryTitle": "Fruitvale Station",
+      "originalTitle": "Fruitvale Station",
+      "startYear": "2013",
+      "runtimeMinutes": "85"
+    },
+    "tt2347569": {
+      "titleType": "movie",
+      "primaryTitle": "Frances Ha",
+      "originalTitle": "Frances Ha",
+      "startYear": "2012",
+      "runtimeMinutes": "86"
+    },
+    "tt2358891": {
+      "titleType": "movie",
+      "primaryTitle": "The Great Beauty",
+      "originalTitle": "La grande bellezza",
+      "startYear": "2013",
+      "runtimeMinutes": "141"
+    },
+    "tt2366450": {
+      "titleType": "movie",
+      "primaryTitle": "Stories We Tell",
+      "originalTitle": "Stories We Tell",
+      "startYear": "2012",
+      "runtimeMinutes": "108"
+    },
+    "tt2368749": {
+      "titleType": "movie",
+      "primaryTitle": "After Lucia",
+      "originalTitle": "Después de Lucía",
+      "startYear": "2012",
+      "runtimeMinutes": "103"
+    },
+    "tt2375605": {
+      "titleType": "movie",
+      "primaryTitle": "The Act of Killing",
+      "originalTitle": "The Act of Killing",
+      "startYear": "2012",
+      "runtimeMinutes": "117"
+    },
+    "tt2381111": {
+      "titleType": "movie",
+      "primaryTitle": "Brooklyn",
+      "originalTitle": "Brooklyn",
+      "startYear": "2015",
+      "runtimeMinutes": "117"
+    },
+    "tt2392830": {
+      "titleType": "movie",
+      "primaryTitle": "A Quiet Passion",
+      "originalTitle": "A Quiet Passion",
+      "startYear": "2016",
+      "runtimeMinutes": "125"
+    },
+    "tt2396224": {
+      "titleType": "movie",
+      "primaryTitle": "It's Such a Beautiful Day",
+      "originalTitle": "It's Such a Beautiful Day",
+      "startYear": "2012",
+      "runtimeMinutes": "62"
+    },
+    "tt2400275": {
+      "titleType": "movie",
+      "primaryTitle": "Goodbye to Language",
+      "originalTitle": "Adieu au langage",
+      "startYear": "2014",
+      "runtimeMinutes": "70"
+    },
+    "tt2401878": {
+      "titleType": "movie",
+      "primaryTitle": "Anomalisa",
+      "originalTitle": "Anomalisa",
+      "startYear": "2015",
+      "runtimeMinutes": "90"
+    },
+    "tt2402927": {
+      "titleType": "movie",
+      "primaryTitle": "Carol",
+      "originalTitle": "Carol",
+      "startYear": "2015",
+      "runtimeMinutes": "118"
+    },
+    "tt2452254": {
+      "titleType": "movie",
+      "primaryTitle": "Clouds of Sils Maria",
+      "originalTitle": "Clouds of Sils Maria",
+      "startYear": "2014",
+      "runtimeMinutes": "124"
+    },
+    "tt2473794": {
+      "titleType": "movie",
+      "primaryTitle": "Mr. Turner",
+      "originalTitle": "Mr. Turner",
+      "startYear": "2014",
+      "runtimeMinutes": "150"
+    },
+    "tt2514338": {
+      "titleType": "movie",
+      "primaryTitle": "Jauja",
+      "originalTitle": "Jauja",
+      "startYear": "2014",
+      "runtimeMinutes": "109"
+    },
+    "tt2543164": {
+      "titleType": "movie",
+      "primaryTitle": "Arrival",
+      "originalTitle": "Arrival",
+      "startYear": "2016",
+      "runtimeMinutes": "116"
+    },
+    "tt2562232": {
+      "titleType": "movie",
+      "primaryTitle": "Birdman or (The Unexpected Virtue of Ignorance)",
+      "originalTitle": "Birdman or (The Unexpected Virtue of Ignorance)",
+      "startYear": "2014",
+      "runtimeMinutes": "119"
+    },
+    "tt2570858": {
+      "titleType": "movie",
+      "primaryTitle": "The Duke of Burgundy",
+      "originalTitle": "The Duke of Burgundy",
+      "startYear": "2014",
+      "runtimeMinutes": "104"
+    },
+    "tt2576852": {
+      "titleType": "movie",
+      "primaryTitle": "The Tale of The Princess Kaguya",
+      "originalTitle": "Kaguya-hime no monogatari",
+      "startYear": "2013",
+      "runtimeMinutes": "137"
+    },
+    "tt2582782": {
+      "titleType": "movie",
+      "primaryTitle": "Hell or High Water",
+      "originalTitle": "Hell or High Water",
+      "startYear": "2016",
+      "runtimeMinutes": "102"
+    },
+    "tt2582802": {
+      "titleType": "movie",
+      "primaryTitle": "Whiplash",
+      "originalTitle": "Whiplash",
+      "startYear": "2014",
+      "runtimeMinutes": "106"
+    },
+    "tt26440619": {
+      "titleType": "movie",
+      "primaryTitle": "Afire",
+      "originalTitle": "Roter Himmel",
+      "startYear": "2023",
+      "runtimeMinutes": "102"
+    },
+    "tt2718492": {
+      "titleType": "movie",
+      "primaryTitle": "Ida",
+      "originalTitle": "Ida",
+      "startYear": "2013",
+      "runtimeMinutes": "82"
+    },
+    "tt2737050": {
+      "titleType": "movie",
+      "primaryTitle": "Two Days, One Night",
+      "originalTitle": "Deux jours, une nuit",
+      "startYear": "2014",
+      "runtimeMinutes": "95"
+    },
+    "tt27503384": {
+      "titleType": "movie",
+      "primaryTitle": "Perfect Days",
+      "originalTitle": "Perfect Days",
+      "startYear": "2023",
+      "runtimeMinutes": "124"
+    },
+    "tt2758880": {
+      "titleType": "movie",
+      "primaryTitle": "Winter Sleep",
+      "originalTitle": "Kis Uykusu",
+      "startYear": "2014",
+      "runtimeMinutes": "196"
+    },
+    "tt2762506": {
+      "titleType": "movie",
+      "primaryTitle": "Bacurau",
+      "originalTitle": "Bacurau",
+      "startYear": "2019",
+      "runtimeMinutes": "131"
+    },
+    "tt2764784": {
+      "titleType": "movie",
+      "primaryTitle": "Phoenix",
+      "originalTitle": "Phoenix",
+      "startYear": "2014",
+      "runtimeMinutes": "98"
+    },
+    "tt2798920": {
+      "titleType": "movie",
+      "primaryTitle": "Annihilation",
+      "originalTitle": "Annihilation",
+      "startYear": "2018",
+      "runtimeMinutes": "115"
+    },
+    "tt2802154": {
+      "titleType": "movie",
+      "primaryTitle": "Leviathan",
+      "originalTitle": "Leviathan",
+      "startYear": "2014",
+      "runtimeMinutes": "140"
+    },
+    "tt2818654": {
+      "titleType": "movie",
+      "primaryTitle": "Cemetery of Splendor",
+      "originalTitle": "Rak ti Khon Kaen",
+      "startYear": "2015",
+      "runtimeMinutes": "122"
+    },
+    "tt2821088": {
+      "titleType": "movie",
+      "primaryTitle": "Bastards",
+      "originalTitle": "Les salauds",
+      "startYear": "2013",
+      "runtimeMinutes": "100"
+    },
+    "tt28490044": {
+      "titleType": "movie",
+      "primaryTitle": "Evil Does Not Exist",
+      "originalTitle": "Aku wa sonzai shinai",
+      "startYear": "2023",
+      "runtimeMinutes": "106"
+    },
+    "tt2852400": {
+      "titleType": "movie",
+      "primaryTitle": "A Touch of Sin",
+      "originalTitle": "Tian zhu ding",
+      "startYear": "2013",
+      "runtimeMinutes": "130"
+    },
+    "tt2852432": {
+      "titleType": "movie",
+      "primaryTitle": "Norte, the End of History",
+      "originalTitle": "Norte, Hangganan ng Kasaysayan",
+      "startYear": "2013",
+      "runtimeMinutes": "250"
+    },
+    "tt2852458": {
+      "titleType": "movie",
+      "primaryTitle": "Stranger by the Lake",
+      "originalTitle": "L'Inconnu du lac",
+      "startYear": "2013",
+      "runtimeMinutes": "100"
+    },
+    "tt2852470": {
+      "titleType": "movie",
+      "primaryTitle": "The Missing Picture",
+      "originalTitle": "L'image manquante",
+      "startYear": "2013",
+      "runtimeMinutes": "92"
+    },
+    "tt2870648": {
+      "titleType": "movie",
+      "primaryTitle": "Amy",
+      "originalTitle": "Amy",
+      "startYear": "2015",
+      "runtimeMinutes": "128"
+    },
+    "tt2872718": {
+      "titleType": "movie",
+      "primaryTitle": "Nightcrawler",
+      "originalTitle": "Nightcrawler",
+      "startYear": "2014",
+      "runtimeMinutes": "117"
+    },
+    "tt2911666": {
+      "titleType": "movie",
+      "primaryTitle": "John Wick",
+      "originalTitle": "John Wick",
+      "startYear": "2014",
+      "runtimeMinutes": "101"
+    },
+    "tt3013610": {
+      "titleType": "movie",
+      "primaryTitle": "My Mother",
+      "originalTitle": "Mia madre",
+      "startYear": "2015",
+      "runtimeMinutes": "106"
+    },
+    "tt3044244": {
+      "titleType": "movie",
+      "primaryTitle": "The Wonders",
+      "originalTitle": "Le meraviglie",
+      "startYear": "2014",
+      "runtimeMinutes": "110"
+    },
+    "tt3076658": {
+      "titleType": "movie",
+      "primaryTitle": "Creed",
+      "originalTitle": "Creed",
+      "startYear": "2015",
+      "runtimeMinutes": "133"
+    },
+    "tt3077108": {
+      "titleType": "movie",
+      "primaryTitle": "Appropriate Behavior",
+      "originalTitle": "Appropriate Behavior",
+      "startYear": "2014",
+      "runtimeMinutes": "86"
+    },
+    "tt3090634": {
+      "titleType": "movie",
+      "primaryTitle": "Eden",
+      "originalTitle": "Eden",
+      "startYear": "2014",
+      "runtimeMinutes": "131"
+    },
+    "tt3091552": {
+      "titleType": "movie",
+      "primaryTitle": "At Berkeley",
+      "originalTitle": "At Berkeley",
+      "startYear": "2013",
+      "runtimeMinutes": "244"
+    },
+    "tt3103326": {
+      "titleType": "movie",
+      "primaryTitle": "Manakamana",
+      "originalTitle": "Manakamana",
+      "startYear": "2013",
+      "runtimeMinutes": "118"
+    },
+    "tt3118566": {
+      "titleType": "movie",
+      "primaryTitle": "A Thousand Suns",
+      "originalTitle": "Mille soleils",
+      "startYear": "2013",
+      "runtimeMinutes": "45"
+    },
+    "tt3119416": {
+      "titleType": "movie",
+      "primaryTitle": "Stray Dogs",
+      "originalTitle": "Jiao you",
+      "startYear": "2013",
+      "runtimeMinutes": "138"
+    },
+    "tt3170832": {
+      "titleType": "movie",
+      "primaryTitle": "Room",
+      "originalTitle": "Room",
+      "startYear": "2015",
+      "runtimeMinutes": "118"
+    },
+    "tt3172532": {
+      "titleType": "movie",
+      "primaryTitle": "The Diary of a Teenage Girl",
+      "originalTitle": "The Diary of a Teenage Girl",
+      "startYear": "2015",
+      "runtimeMinutes": "102"
+    },
+    "tt3235888": {
+      "titleType": "movie",
+      "primaryTitle": "It Follows",
+      "originalTitle": "It Follows",
+      "startYear": "2014",
+      "runtimeMinutes": "100"
+    },
+    "tt3281548": {
+      "titleType": "movie",
+      "primaryTitle": "Little Women",
+      "originalTitle": "Little Women",
+      "startYear": "2019",
+      "runtimeMinutes": "135"
+    },
+    "tt3397884": {
+      "titleType": "movie",
+      "primaryTitle": "Sicario",
+      "originalTitle": "Sicario",
+      "startYear": "2015",
+      "runtimeMinutes": "121"
+    },
+    "tt3409392": {
+      "titleType": "movie",
+      "primaryTitle": "Timbuktu",
+      "originalTitle": "Timbuktu",
+      "startYear": "2014",
+      "runtimeMinutes": "96"
+    },
+    "tt3409848": {
+      "titleType": "movie",
+      "primaryTitle": "Zama",
+      "originalTitle": "Zama",
+      "startYear": "2017",
+      "runtimeMinutes": "115"
+    },
+    "tt3416742": {
+      "titleType": "movie",
+      "primaryTitle": "What We Do in the Shadows",
+      "originalTitle": "What We Do in the Shadows",
+      "startYear": "2014",
+      "runtimeMinutes": "86"
+    },
+    "tt3460252": {
+      "titleType": "movie",
+      "primaryTitle": "The Hateful Eight",
+      "originalTitle": "The Hateful Eight",
+      "startYear": "2015",
+      "runtimeMinutes": "168"
+    },
+    "tt3464902": {
+      "titleType": "movie",
+      "primaryTitle": "The Lobster",
+      "originalTitle": "The Lobster",
+      "startYear": "2015",
+      "runtimeMinutes": "119"
+    },
+    "tt3508840": {
+      "titleType": "movie",
+      "primaryTitle": "The Assassin",
+      "originalTitle": "Cike Nie Yinniang",
+      "startYear": "2015",
+      "runtimeMinutes": "105"
+    },
+    "tt3521134": {
+      "titleType": "movie",
+      "primaryTitle": "The Look of Silence",
+      "originalTitle": "The Look of Silence",
+      "startYear": "2014",
+      "runtimeMinutes": "103"
+    },
+    "tt3544082": {
+      "titleType": "movie",
+      "primaryTitle": "45 Years",
+      "originalTitle": "45 Years",
+      "startYear": "2015",
+      "runtimeMinutes": "95"
+    },
+    "tt3612616": {
+      "titleType": "movie",
+      "primaryTitle": "Mommy",
+      "originalTitle": "Mommy",
+      "startYear": "2014",
+      "runtimeMinutes": "139"
+    },
+    "tt3655522": {
+      "titleType": "movie",
+      "primaryTitle": "Girlhood",
+      "originalTitle": "Bande de filles",
+      "startYear": "2014",
+      "runtimeMinutes": "113"
+    },
+    "tt3661798": {
+      "titleType": "movie",
+      "primaryTitle": "A Girl at My Door",
+      "originalTitle": "Dohee-ya",
+      "startYear": "2014",
+      "runtimeMinutes": "119"
+    },
+    "tt3687186": {
+      "titleType": "movie",
+      "primaryTitle": "Heaven Knows What",
+      "originalTitle": "Heaven Knows What",
+      "startYear": "2014",
+      "runtimeMinutes": "97"
+    },
+    "tt3704428": {
+      "titleType": "movie",
+      "primaryTitle": "Elvis",
+      "originalTitle": "Elvis",
+      "startYear": "2022",
+      "runtimeMinutes": "159"
+    },
+    "tt3716530": {
+      "titleType": "movie",
+      "primaryTitle": "Elle",
+      "originalTitle": "Elle",
+      "startYear": "2016",
+      "runtimeMinutes": "130"
+    },
+    "tt3721936": {
+      "titleType": "movie",
+      "primaryTitle": "American Honey",
+      "originalTitle": "American Honey",
+      "startYear": "2016",
+      "runtimeMinutes": "163"
+    },
+    "tt3783958": {
+      "titleType": "movie",
+      "primaryTitle": "La La Land",
+      "originalTitle": "La La Land",
+      "startYear": "2016",
+      "runtimeMinutes": "128"
+    },
+    "tt3808342": {
+      "titleType": "movie",
+      "primaryTitle": "Son of Saul",
+      "originalTitle": "Saul fia",
+      "startYear": "2015",
+      "runtimeMinutes": "107"
+    },
+    "tt3824458": {
+      "titleType": "movie",
+      "primaryTitle": "Tangerine",
+      "originalTitle": "Tangerine",
+      "startYear": "2015",
+      "runtimeMinutes": "88"
+    },
+    "tt3892172": {
+      "titleType": "movie",
+      "primaryTitle": "Leave No Trace",
+      "originalTitle": "Leave No Trace",
+      "startYear": "2018",
+      "runtimeMinutes": "109"
+    },
+    "tt3907156": {
+      "titleType": "movie",
+      "primaryTitle": "Horse Money",
+      "originalTitle": "Cavalo Dinheiro",
+      "startYear": "2014",
+      "runtimeMinutes": "103"
+    },
+    "tt3908142": {
+      "titleType": "movie",
+      "primaryTitle": "The Love Witch",
+      "originalTitle": "The Love Witch",
+      "startYear": "2016",
+      "runtimeMinutes": "120"
+    },
+    "tt3966404": {
+      "titleType": "movie",
+      "primaryTitle": "Mustang",
+      "originalTitle": "Mustang",
+      "startYear": "2015",
+      "runtimeMinutes": "97"
+    },
+    "tt4016934": {
+      "titleType": "movie",
+      "primaryTitle": "The Handmaiden",
+      "originalTitle": "Ah-ga-ssi",
+      "startYear": "2016",
+      "runtimeMinutes": "145"
+    },
+    "tt4034228": {
+      "titleType": "movie",
+      "primaryTitle": "Manchester by the Sea",
+      "originalTitle": "Manchester by the Sea",
+      "startYear": "2016",
+      "runtimeMinutes": "137"
+    },
+    "tt4044364": {
+      "titleType": "movie",
+      "primaryTitle": "Citizenfour",
+      "originalTitle": "Citizenfour",
+      "startYear": "2014",
+      "runtimeMinutes": "114"
+    },
+    "tt4048272": {
+      "titleType": "movie",
+      "primaryTitle": "Toni Erdmann",
+      "originalTitle": "Toni Erdmann",
+      "startYear": "2016",
+      "runtimeMinutes": "162"
+    },
+    "tt4062536": {
+      "titleType": "movie",
+      "primaryTitle": "Green Room",
+      "originalTitle": "Green Room",
+      "startYear": "2015",
+      "runtimeMinutes": "95"
+    },
+    "tt4120176": {
+      "titleType": "movie",
+      "primaryTitle": "Things to Come",
+      "originalTitle": "L'avenir",
+      "startYear": "2016",
+      "runtimeMinutes": "102"
+    },
+    "tt4263482": {
+      "titleType": "movie",
+      "primaryTitle": "The Witch",
+      "originalTitle": "The VVitch: A New-England Folktale",
+      "startYear": "2015",
+      "runtimeMinutes": "92"
+    },
+    "tt4285496": {
+      "titleType": "movie",
+      "primaryTitle": "Embrace of the Serpent",
+      "originalTitle": "El abrazo de la serpiente",
+      "startYear": "2015",
+      "runtimeMinutes": "125"
+    },
+    "tt4291590": {
+      "titleType": "movie",
+      "primaryTitle": "Evolution",
+      "originalTitle": "Évolution",
+      "startYear": "2015",
+      "runtimeMinutes": "81"
+    },
+    "tt4353250": {
+      "titleType": "movie",
+      "primaryTitle": "The Last Black Man in San Francisco",
+      "originalTitle": "The Last Black Man in San Francisco",
+      "startYear": "2019",
+      "runtimeMinutes": "121"
+    },
+    "tt4385888": {
+      "titleType": "movie",
+      "primaryTitle": "20th Century Women",
+      "originalTitle": "20th Century Women",
+      "startYear": "2016",
+      "runtimeMinutes": "119"
+    },
+    "tt4413794": {
+      "titleType": "movie",
+      "primaryTitle": "Homeland (Iraq Year Zero)",
+      "originalTitle": "Homeland (Iraq Year Zero)",
+      "startYear": "2015",
+      "runtimeMinutes": "334"
+    },
+    "tt4466490": {
+      "titleType": "movie",
+      "primaryTitle": "Sieranevada",
+      "originalTitle": "Sieranevada",
+      "startYear": "2016",
+      "runtimeMinutes": "173"
+    },
+    "tt4468634": {
+      "titleType": "movie",
+      "primaryTitle": "Certain Women",
+      "originalTitle": "Certain Women",
+      "startYear": "2016",
+      "runtimeMinutes": "107"
+    },
+    "tt4468740": {
+      "titleType": "movie",
+      "primaryTitle": "Paddington 2",
+      "originalTitle": "Paddington 2",
+      "startYear": "2017",
+      "runtimeMinutes": "103"
+    },
+    "tt4516162": {
+      "titleType": "movie",
+      "primaryTitle": "Martin Eden",
+      "originalTitle": "Martin Eden",
+      "startYear": "2019",
+      "runtimeMinutes": "129"
+    },
+    "tt4613272": {
+      "titleType": "movie",
+      "primaryTitle": "Kaili Blues",
+      "originalTitle": "Lu bian ye can",
+      "startYear": "2015",
+      "runtimeMinutes": "113"
+    },
+    "tt4633694": {
+      "titleType": "movie",
+      "primaryTitle": "Spider-Man: Into the Spider-Verse",
+      "originalTitle": "Spider-Man: Into the Spider-Verse",
+      "startYear": "2018",
+      "runtimeMinutes": "117"
+    },
+    "tt4686844": {
+      "titleType": "movie",
+      "primaryTitle": "The Death of Stalin",
+      "originalTitle": "The Death of Stalin",
+      "startYear": "2017",
+      "runtimeMinutes": "107"
+    },
+    "tt4698684": {
+      "titleType": "movie",
+      "primaryTitle": "Hunt for the Wilderpeople",
+      "originalTitle": "Hunt for the Wilderpeople",
+      "startYear": "2016",
+      "runtimeMinutes": "101"
+    },
+    "tt4698742": {
+      "titleType": "short",
+      "primaryTitle": "La Porte Rouge",
+      "originalTitle": "La Porte Rouge",
+      "startYear": "2007",
+      "runtimeMinutes": "4"
+    },
+    "tt4714782": {
+      "titleType": "movie",
+      "primaryTitle": "Personal Shopper",
+      "originalTitle": "Personal Shopper",
+      "startYear": "2016",
+      "runtimeMinutes": "105"
+    },
+    "tt4768776": {
+      "titleType": "movie",
+      "primaryTitle": "Right Now, Wrong Then",
+      "originalTitle": "Ji-geum-eun mat-go geu-ttae-neun teul-li-da",
+      "startYear": "2015",
+      "runtimeMinutes": "121"
+    },
+    "tt4780662": {
+      "titleType": "movie",
+      "primaryTitle": "Happy Hour",
+      "originalTitle": "Happî awâ",
+      "startYear": "2015",
+      "runtimeMinutes": "317"
+    },
+    "tt4827558": {
+      "titleType": "movie",
+      "primaryTitle": "High Life",
+      "originalTitle": "High Life",
+      "startYear": "2018",
+      "runtimeMinutes": "113"
+    },
+    "tt4842296": {
+      "titleType": "movie",
+      "primaryTitle": "A Lullaby to the Sorrowful Mystery",
+      "originalTitle": "Hele sa hiwagang hapis",
+      "startYear": "2016",
+      "runtimeMinutes": "485"
+    },
+    "tt4846232": {
+      "titleType": "movie",
+      "primaryTitle": "Good Time",
+      "originalTitle": "Good Time",
+      "startYear": "2017",
+      "runtimeMinutes": "102"
+    },
+    "tt4881016": {
+      "titleType": "movie",
+      "primaryTitle": "No Home Movie",
+      "originalTitle": "No Home Movie",
+      "startYear": "2015",
+      "runtimeMinutes": "115"
+    },
+    "tt4925292": {
+      "titleType": "movie",
+      "primaryTitle": "Lady Bird",
+      "originalTitle": "Lady Bird",
+      "startYear": "2017",
+      "runtimeMinutes": "94"
+    },
+    "tt4936064": {
+      "titleType": "movie",
+      "primaryTitle": "In Jackson Heights",
+      "originalTitle": "In Jackson Heights",
+      "startYear": "2015",
+      "runtimeMinutes": "190"
+    },
+    "tt4954522": {
+      "titleType": "movie",
+      "primaryTitle": "Raw",
+      "originalTitle": "Grave",
+      "startYear": "2016",
+      "runtimeMinutes": "99"
+    },
+    "tt4975722": {
+      "titleType": "movie",
+      "primaryTitle": "Moonlight",
+      "originalTitle": "Moonlight",
+      "startYear": "2016",
+      "runtimeMinutes": "111"
+    },
+    "tt4995790": {
+      "titleType": "movie",
+      "primaryTitle": "The Square",
+      "originalTitle": "The Square",
+      "startYear": "2017",
+      "runtimeMinutes": "151"
+    },
+    "tt5013056": {
+      "titleType": "movie",
+      "primaryTitle": "Dunkirk",
+      "originalTitle": "Dunkirk",
+      "startYear": "2017",
+      "runtimeMinutes": "106"
+    },
+    "tt5025550": {
+      "titleType": "movie",
+      "primaryTitle": "The Dreamed Path",
+      "originalTitle": "Der traumhafte Weg",
+      "startYear": "2016",
+      "runtimeMinutes": "86"
+    },
+    "tt5052448": {
+      "titleType": "movie",
+      "primaryTitle": "Get Out",
+      "originalTitle": "Get Out",
+      "startYear": "2017",
+      "runtimeMinutes": "104"
+    },
+    "tt5083738": {
+      "titleType": "movie",
+      "primaryTitle": "The Favourite",
+      "originalTitle": "The Favourite",
+      "startYear": "2018",
+      "runtimeMinutes": "119"
+    },
+    "tt5129510": {
+      "titleType": "movie",
+      "primaryTitle": "The Death of Louis XIV",
+      "originalTitle": "La mort de Louis XIV",
+      "startYear": "2016",
+      "runtimeMinutes": "115"
+    },
+    "tt5130912": {
+      "titleType": "video",
+      "primaryTitle": "Birdman",
+      "originalTitle": "Birdman",
+      "startYear": "2014",
+      "runtimeMinutes": "13"
+    },
+    "tt5157326": {
+      "titleType": "movie",
+      "primaryTitle": "Western",
+      "originalTitle": "Western",
+      "startYear": "2017",
+      "runtimeMinutes": "121"
+    },
+    "tt5168192": {
+      "titleType": "movie",
+      "primaryTitle": "I, Daniel Blake",
+      "originalTitle": "I, Daniel Blake",
+      "startYear": "2016",
+      "runtimeMinutes": "100"
+    },
+    "tt5198068": {
+      "titleType": "movie",
+      "primaryTitle": "Wolfwalkers",
+      "originalTitle": "WolfWalkers",
+      "startYear": "2020",
+      "runtimeMinutes": "103"
+    },
+    "tt5215486": {
+      "titleType": "movie",
+      "primaryTitle": "Dawson City: Frozen Time",
+      "originalTitle": "Dawson City: Frozen Time",
+      "startYear": "2016",
+      "runtimeMinutes": "120"
+    },
+    "tt5221584": {
+      "titleType": "movie",
+      "primaryTitle": "Aquarius",
+      "originalTitle": "Aquarius",
+      "startYear": "2016",
+      "runtimeMinutes": "146"
+    },
+    "tt5222918": {
+      "titleType": "movie",
+      "primaryTitle": "The Other Side of Hope",
+      "originalTitle": "Toivon tuolla puolen",
+      "startYear": "2017",
+      "runtimeMinutes": "100"
+    },
+    "tt5247022": {
+      "titleType": "movie",
+      "primaryTitle": "Paterson",
+      "originalTitle": "Paterson",
+      "startYear": "2016",
+      "runtimeMinutes": "118"
+    },
+    "tt5375040": {
+      "titleType": "movie",
+      "primaryTitle": "Cameraperson",
+      "originalTitle": "Cameraperson",
+      "startYear": "2016",
+      "runtimeMinutes": "102"
+    },
+    "tt5537002": {
+      "titleType": "movie",
+      "primaryTitle": "Killers of the Flower Moon",
+      "originalTitle": "Killers of the Flower Moon",
+      "startYear": "2023",
+      "runtimeMinutes": "206"
+    },
+    "tt5580390": {
+      "titleType": "movie",
+      "primaryTitle": "The Shape of Water",
+      "originalTitle": "The Shape of Water",
+      "startYear": "2017",
+      "runtimeMinutes": "123"
+    },
+    "tt5598102": {
+      "titleType": "movie",
+      "primaryTitle": "Faces Places",
+      "originalTitle": "Visages villages",
+      "startYear": "2017",
+      "runtimeMinutes": "94"
+    },
+    "tt5607714": {
+      "titleType": "movie",
+      "primaryTitle": "On Body and Soul",
+      "originalTitle": "Teströl és lélekröl",
+      "startYear": "2017",
+      "runtimeMinutes": "116"
+    },
+    "tt5635086": {
+      "titleType": "movie",
+      "primaryTitle": "God's Own Country",
+      "originalTitle": "God's Own Country",
+      "startYear": "2017",
+      "runtimeMinutes": "104"
+    },
+    "tt5639354": {
+      "titleType": "movie",
+      "primaryTitle": "A Fantastic Woman",
+      "originalTitle": "Una mujer fantástica",
+      "startYear": "2017",
+      "runtimeMinutes": "104"
+    },
+    "tt5649144": {
+      "titleType": "movie",
+      "primaryTitle": "The Florida Project",
+      "originalTitle": "The Florida Project",
+      "startYear": "2017",
+      "runtimeMinutes": "111"
+    },
+    "tt5688932": {
+      "titleType": "movie",
+      "primaryTitle": "Sorry to Bother You",
+      "originalTitle": "Sorry to Bother You",
+      "startYear": "2018",
+      "runtimeMinutes": "112"
+    },
+    "tt5700672": {
+      "titleType": "movie",
+      "primaryTitle": "Train to Busan",
+      "originalTitle": "Busanhaeng",
+      "startYear": "2016",
+      "runtimeMinutes": "118"
+    },
+    "tt5715874": {
+      "titleType": "movie",
+      "primaryTitle": "The Killing of a Sacred Deer",
+      "originalTitle": "The Killing of a Sacred Deer",
+      "startYear": "2017",
+      "runtimeMinutes": "121"
+    },
+    "tt5726616": {
+      "titleType": "movie",
+      "primaryTitle": "Call Me by Your Name",
+      "originalTitle": "Call Me by Your Name",
+      "startYear": "2017",
+      "runtimeMinutes": "132"
+    },
+    "tt5727208": {
+      "titleType": "movie",
+      "primaryTitle": "Uncut Gems",
+      "originalTitle": "Uncut Gems",
+      "startYear": "2019",
+      "runtimeMinutes": "135"
+    },
+    "tt5742374": {
+      "titleType": "movie",
+      "primaryTitle": "You Were Never Really Here",
+      "originalTitle": "You Were Never Really Here",
+      "startYear": "2017",
+      "runtimeMinutes": "89"
+    },
+    "tt5749596": {
+      "titleType": "movie",
+      "primaryTitle": "The Image Book",
+      "originalTitle": "Le Livre d'image",
+      "startYear": "2018",
+      "runtimeMinutes": "88"
+    },
+    "tt5776858": {
+      "titleType": "movie",
+      "primaryTitle": "Phantom Thread",
+      "originalTitle": "Phantom Thread",
+      "startYear": "2017",
+      "runtimeMinutes": "130"
+    },
+    "tt5804038": {
+      "titleType": "movie",
+      "primaryTitle": "I Am Not Your Negro",
+      "originalTitle": "I Am Not Your Negro",
+      "startYear": "2016",
+      "runtimeMinutes": "93"
+    },
+    "tt5827916": {
+      "titleType": "movie",
+      "primaryTitle": "A Hidden Life",
+      "originalTitle": "A Hidden Life",
+      "startYear": "2019",
+      "runtimeMinutes": "174"
+    },
+    "tt5843990": {
+      "titleType": "movie",
+      "primaryTitle": "The Woman Who Left",
+      "originalTitle": "Ang babaeng humayo",
+      "startYear": "2016",
+      "runtimeMinutes": "226"
+    },
+    "tt5873150": {
+      "titleType": "movie",
+      "primaryTitle": "Strong Island",
+      "originalTitle": "Strong Island",
+      "startYear": "2017",
+      "runtimeMinutes": "107"
+    },
+    "tt5895028": {
+      "titleType": "movie",
+      "primaryTitle": "13th",
+      "originalTitle": "13th",
+      "startYear": "2016",
+      "runtimeMinutes": "100"
+    },
+    "tt5907916": {
+      "titleType": "movie",
+      "primaryTitle": "Yourself and Yours",
+      "originalTitle": "Dang-sin-ja-sing-wa dang-sin-ui geot",
+      "startYear": "2016",
+      "runtimeMinutes": "86"
+    },
+    "tt6024768": {
+      "titleType": "movie",
+      "primaryTitle": "By the Time It Gets Dark",
+      "originalTitle": "Dao khanong",
+      "startYear": "2016",
+      "runtimeMinutes": "105"
+    },
+    "tt6041312": {
+      "titleType": "movie",
+      "primaryTitle": "Human Surge",
+      "originalTitle": "El auge del humano",
+      "startYear": "2016",
+      "runtimeMinutes": "99"
+    },
+    "tt6053438": {
+      "titleType": "movie",
+      "primaryTitle": "First Reformed",
+      "originalTitle": "First Reformed",
+      "startYear": "2017",
+      "runtimeMinutes": "113"
+    },
+    "tt6062774": {
+      "titleType": "movie",
+      "primaryTitle": "Monos",
+      "originalTitle": "Monos",
+      "startYear": "2019",
+      "runtimeMinutes": "102"
+    },
+    "tt6101602": {
+      "titleType": "movie",
+      "primaryTitle": "Madeline's Madeline",
+      "originalTitle": "Madeline's Madeline",
+      "startYear": "2018",
+      "runtimeMinutes": "93"
+    },
+    "tt6135348": {
+      "titleType": "movie",
+      "primaryTitle": "120 BPM (Beats Per Minute)",
+      "originalTitle": "120 battements par minute",
+      "startYear": "2017",
+      "runtimeMinutes": "143"
+    },
+    "tt6155172": {
+      "titleType": "movie",
+      "primaryTitle": "Roma",
+      "originalTitle": "Roma",
+      "startYear": "2018",
+      "runtimeMinutes": "135"
+    },
+    "tt6209282": {
+      "titleType": "movie",
+      "primaryTitle": "Ex Libris",
+      "originalTitle": "Ex Libris",
+      "startYear": "2017",
+      "runtimeMinutes": "197"
+    },
+    "tt6213284": {
+      "titleType": "movie",
+      "primaryTitle": "I Am Not a Witch",
+      "originalTitle": "I Am Not a Witch",
+      "startYear": "2017",
+      "runtimeMinutes": "93"
+    },
+    "tt6217608": {
+      "titleType": "movie",
+      "primaryTitle": "The Rider",
+      "originalTitle": "The Rider",
+      "startYear": "2017",
+      "runtimeMinutes": "104"
+    },
+    "tt6217698": {
+      "titleType": "short",
+      "primaryTitle": "America",
+      "originalTitle": "America",
+      "startYear": "2019",
+      "runtimeMinutes": "27"
+    },
+    "tt6217926": {
+      "titleType": "movie",
+      "primaryTitle": "Annette",
+      "originalTitle": "Annette",
+      "startYear": "2021",
+      "runtimeMinutes": "141"
+    },
+    "tt6265828": {
+      "titleType": "movie",
+      "primaryTitle": "A Ghost Story",
+      "originalTitle": "A Ghost Story",
+      "startYear": "2017",
+      "runtimeMinutes": "92"
+    },
+    "tt6304162": {
+      "titleType": "movie",
+      "primaryTitle": "Loveless",
+      "originalTitle": "Nelyubov",
+      "startYear": "2017",
+      "runtimeMinutes": "127"
+    },
+    "tt6381052": {
+      "titleType": "movie",
+      "primaryTitle": "Sleep Has Her House",
+      "originalTitle": "Sleep Has Her House",
+      "startYear": "2017",
+      "runtimeMinutes": "90"
+    },
+    "tt6412864": {
+      "titleType": "movie",
+      "primaryTitle": "On the Beach at Night Alone",
+      "originalTitle": "Bamui haebyun-eoseo honja",
+      "startYear": "2017",
+      "runtimeMinutes": "101"
+    },
+    "tt6423776": {
+      "titleType": "movie",
+      "primaryTitle": "Let the Sunshine In",
+      "originalTitle": "Un beau soleil intérieur",
+      "startYear": "2017",
+      "runtimeMinutes": "94"
+    },
+    "tt6462506": {
+      "titleType": "movie",
+      "primaryTitle": "The Day After",
+      "originalTitle": "Geu hu",
+      "startYear": "2017",
+      "runtimeMinutes": "92"
+    },
+    "tt6543652": {
+      "titleType": "movie",
+      "primaryTitle": "Cold War",
+      "originalTitle": "Zimna wojna",
+      "startYear": "2018",
+      "runtimeMinutes": "89"
+    },
+    "tt6675244": {
+      "titleType": "movie",
+      "primaryTitle": "Transit",
+      "originalTitle": "Transit",
+      "startYear": "2018",
+      "runtimeMinutes": "101"
+    },
+    "tt6710474": {
+      "titleType": "movie",
+      "primaryTitle": "Everything Everywhere All at Once",
+      "originalTitle": "Everything Everywhere All at Once",
+      "startYear": "2022",
+      "runtimeMinutes": "139"
+    },
+    "tt6751668": {
+      "titleType": "movie",
+      "primaryTitle": "Parasite",
+      "originalTitle": "Gisaengchung",
+      "startYear": "2019",
+      "runtimeMinutes": "132"
+    },
+    "tt6752992": {
+      "titleType": "movie",
+      "primaryTitle": "Happy as Lazzaro",
+      "originalTitle": "Lazzaro felice",
+      "startYear": "2018",
+      "runtimeMinutes": "128"
+    },
+    "tt6777056": {
+      "titleType": "movie",
+      "primaryTitle": "Closeness",
+      "originalTitle": "Tesnota",
+      "startYear": "2017",
+      "runtimeMinutes": "118"
+    },
+    "tt6852178": {
+      "titleType": "movie",
+      "primaryTitle": "Benediction",
+      "originalTitle": "Benediction",
+      "startYear": "2021",
+      "runtimeMinutes": "137"
+    },
+    "tt6857112": {
+      "titleType": "movie",
+      "primaryTitle": "Us",
+      "originalTitle": "Us",
+      "startYear": "2019",
+      "runtimeMinutes": "116"
+    },
+    "tt6910282": {
+      "titleType": "movie",
+      "primaryTitle": "Bergman Island",
+      "originalTitle": "Bergman Island",
+      "startYear": "2021",
+      "runtimeMinutes": "112"
+    },
+    "tt6920356": {
+      "titleType": "movie",
+      "primaryTitle": "The Souvenir",
+      "originalTitle": "The Souvenir",
+      "startYear": "2019",
+      "runtimeMinutes": "120"
+    },
+    "tt6992978": {
+      "titleType": "movie",
+      "primaryTitle": "The Souvenir: Part II",
+      "originalTitle": "The Souvenir: Part II",
+      "startYear": "2021",
+      "runtimeMinutes": "107"
+    },
+    "tt7014006": {
+      "titleType": "movie",
+      "primaryTitle": "Eighth Grade",
+      "originalTitle": "Eighth Grade",
+      "startYear": "2018",
+      "runtimeMinutes": "93"
+    },
+    "tt7125860": {
+      "titleType": "movie",
+      "primaryTitle": "If Beale Street Could Talk",
+      "originalTitle": "If Beale Street Could Talk",
+      "startYear": "2018",
+      "runtimeMinutes": "119"
+    },
+    "tt7131622": {
+      "titleType": "movie",
+      "primaryTitle": "Once Upon a Time in... Hollywood",
+      "originalTitle": "Once Upon a Time in... Hollywood",
+      "startYear": "2019",
+      "runtimeMinutes": "161"
+    },
+    "tt7160372": {
+      "titleType": "movie",
+      "primaryTitle": "The Zone of Interest",
+      "originalTitle": "The Zone of Interest",
+      "startYear": "2023",
+      "runtimeMinutes": "105"
+    },
+    "tt7200370": {
+      "titleType": "movie",
+      "primaryTitle": "Season of the Devil",
+      "originalTitle": "Ang panahon ng halimaw",
+      "startYear": "2018",
+      "runtimeMinutes": "234"
+    },
+    "tt7282468": {
+      "titleType": "movie",
+      "primaryTitle": "Burning",
+      "originalTitle": "Beoning",
+      "startYear": "2018",
+      "runtimeMinutes": "148"
+    },
+    "tt7286456": {
+      "titleType": "movie",
+      "primaryTitle": "Joker",
+      "originalTitle": "Joker",
+      "startYear": "2019",
+      "runtimeMinutes": "122"
+    },
+    "tt7298400": {
+      "titleType": "movie",
+      "primaryTitle": "Ash Is Purest White",
+      "originalTitle": "Jiang hu er nü",
+      "startYear": "2018",
+      "runtimeMinutes": "136"
+    },
+    "tt7322224": {
+      "titleType": "movie",
+      "primaryTitle": "Triangle of Sadness",
+      "originalTitle": "Triangle of Sadness",
+      "startYear": "2022",
+      "runtimeMinutes": "147"
+    },
+    "tt7349662": {
+      "titleType": "movie",
+      "primaryTitle": "BlacKkKlansman",
+      "originalTitle": "BlacKkKlansman",
+      "startYear": "2018",
+      "runtimeMinutes": "135"
+    },
+    "tt7472352": {
+      "titleType": "movie",
+      "primaryTitle": "Shirkers",
+      "originalTitle": "Shirkers",
+      "startYear": "2018",
+      "runtimeMinutes": "97"
+    },
+    "tt7557108": {
+      "titleType": "movie",
+      "primaryTitle": "Saint Maud",
+      "originalTitle": "Saint Maud",
+      "startYear": "2019",
+      "runtimeMinutes": "84"
+    },
+    "tt7653254": {
+      "titleType": "movie",
+      "primaryTitle": "Marriage Story",
+      "originalTitle": "Marriage Story",
+      "startYear": "2019",
+      "runtimeMinutes": "137"
+    },
+    "tt7772582": {
+      "titleType": "movie",
+      "primaryTitle": "Never Rarely Sometimes Always",
+      "originalTitle": "Never Rarely Sometimes Always",
+      "startYear": "2020",
+      "runtimeMinutes": "101"
+    },
+    "tt7778656": {
+      "titleType": "short",
+      "primaryTitle": "Love Is the Message, the Message Is Death",
+      "originalTitle": "Love Is the Message, the Message Is Death",
+      "startYear": "2016",
+      "runtimeMinutes": "8"
+    },
+    "tt7784604": {
+      "titleType": "movie",
+      "primaryTitle": "Hereditary",
+      "originalTitle": "Hereditary",
+      "startYear": "2018",
+      "runtimeMinutes": "127"
+    },
+    "tt7923220": {
+      "titleType": "movie",
+      "primaryTitle": "Inheritance",
+      "originalTitle": "Inheritance",
+      "startYear": "2020",
+      "runtimeMinutes": "111"
+    },
+    "tt7939766": {
+      "titleType": "movie",
+      "primaryTitle": "I'm Thinking of Ending Things",
+      "originalTitle": "I'm Thinking of Ending Things",
+      "startYear": "2020",
+      "runtimeMinutes": "134"
+    },
+    "tt7984734": {
+      "titleType": "movie",
+      "primaryTitle": "The Lighthouse",
+      "originalTitle": "The Lighthouse",
+      "startYear": "2019",
+      "runtimeMinutes": "109"
+    },
+    "tt8020896": {
+      "titleType": "movie",
+      "primaryTitle": "An Elephant Sitting Still",
+      "originalTitle": "Da xiang xi di er zuo",
+      "startYear": "2018",
+      "runtimeMinutes": "230"
+    },
+    "tt8075192": {
+      "titleType": "movie",
+      "primaryTitle": "Shoplifters",
+      "originalTitle": "Manbiki kazoku",
+      "startYear": "2018",
+      "runtimeMinutes": "121"
+    },
+    "tt8093700": {
+      "titleType": "movie",
+      "primaryTitle": "The Woman King",
+      "originalTitle": "The Woman King",
+      "startYear": "2022",
+      "runtimeMinutes": "135"
+    },
+    "tt8178634": {
+      "titleType": "movie",
+      "primaryTitle": "RRR",
+      "originalTitle": "RRR (Rise Roar Revolt)",
+      "startYear": "2022",
+      "runtimeMinutes": "187"
+    },
+    "tt8185182": {
+      "titleType": "movie",
+      "primaryTitle": "Long Day's Journey Into Night",
+      "originalTitle": "Di qiu zui hou de ye wan",
+      "startYear": "2018",
+      "runtimeMinutes": "138"
+    },
+    "tt8212958": {
+      "titleType": "movie",
+      "primaryTitle": "Fire Will Come",
+      "originalTitle": "O que arde",
+      "startYear": "2019",
+      "runtimeMinutes": "86"
+    },
+    "tt8230872": {
+      "titleType": "movie",
+      "primaryTitle": "The Body Remembers When the World Broke Open",
+      "originalTitle": "The Body Remembers When the World Broke Open",
+      "startYear": "2019",
+      "runtimeMinutes": "105"
+    },
+    "tt8241872": {
+      "titleType": "movie",
+      "primaryTitle": "Vitalina Varela",
+      "originalTitle": "Vitalina Varela",
+      "startYear": "2019",
+      "runtimeMinutes": "124"
+    },
+    "tt8269552": {
+      "titleType": "movie",
+      "primaryTitle": "3 Faces",
+      "originalTitle": "Se rokh",
+      "startYear": "2018",
+      "runtimeMinutes": "100"
+    },
+    "tt8291806": {
+      "titleType": "movie",
+      "primaryTitle": "Pain and Glory",
+      "originalTitle": "Dolor y gloria",
+      "startYear": "2019",
+      "runtimeMinutes": "113"
+    },
+    "tt8399288": {
+      "titleType": "movie",
+      "primaryTitle": "Memoria",
+      "originalTitle": "Memoria",
+      "startYear": "2021",
+      "runtimeMinutes": "136"
+    },
+    "tt8430598": {
+      "titleType": "movie",
+      "primaryTitle": "Shirley",
+      "originalTitle": "Shirley",
+      "startYear": "2020",
+      "runtimeMinutes": "107"
+    },
+    "tt8613070": {
+      "titleType": "movie",
+      "primaryTitle": "Portrait of a Lady on Fire",
+      "originalTitle": "Portrait de la jeune fille en feu",
+      "startYear": "2019",
+      "runtimeMinutes": "122"
+    },
+    "tt8633462": {
+      "titleType": "movie",
+      "primaryTitle": "Quo Vadis, Aida?",
+      "originalTitle": "Quo Vadis, Aida?",
+      "startYear": "2020",
+      "runtimeMinutes": "101"
+    },
+    "tt8637428": {
+      "titleType": "movie",
+      "primaryTitle": "The Farewell",
+      "originalTitle": "The Farewell",
+      "startYear": "2019",
+      "runtimeMinutes": "100"
+    },
+    "tt8772262": {
+      "titleType": "movie",
+      "primaryTitle": "Midsommar",
+      "originalTitle": "Midsommar",
+      "startYear": "2019",
+      "runtimeMinutes": "148"
+    },
+    "tt8923484": {
+      "titleType": "movie",
+      "primaryTitle": "Crip Camp",
+      "originalTitle": "Crip Camp",
+      "startYear": "2020",
+      "runtimeMinutes": "106"
+    },
+    "tt8946378": {
+      "titleType": "movie",
+      "primaryTitle": "Knives Out",
+      "originalTitle": "Knives Out",
+      "startYear": "2019",
+      "runtimeMinutes": "130"
+    },
+    "tt9000224": {
+      "titleType": "movie",
+      "primaryTitle": "The Assistant",
+      "originalTitle": "The Assistant",
+      "startYear": "2019",
+      "runtimeMinutes": "87"
+    },
+    "tt9047474": {
+      "titleType": "movie",
+      "primaryTitle": "La Flor",
+      "originalTitle": "La flor",
+      "startYear": "2018",
+      "runtimeMinutes": "808"
+    },
+    "tt9067182": {
+      "titleType": "movie",
+      "primaryTitle": "Rocks",
+      "originalTitle": "Rocks",
+      "startYear": "2019",
+      "runtimeMinutes": "93"
+    },
+    "tt9231040": {
+      "titleType": "movie",
+      "primaryTitle": "First Cow",
+      "originalTitle": "First Cow",
+      "startYear": "2019",
+      "runtimeMinutes": "122"
+    },
+    "tt9617456": {
+      "titleType": "movie",
+      "primaryTitle": "For Sama",
+      "originalTitle": "For Sama",
+      "startYear": "2019",
+      "runtimeMinutes": "100"
+    },
+    "tt9620292": {
+      "titleType": "movie",
+      "primaryTitle": "Promising Young Woman",
+      "originalTitle": "Promising Young Woman",
+      "startYear": "2020",
+      "runtimeMinutes": "113"
+    },
+    "tt9770150": {
+      "titleType": "movie",
+      "primaryTitle": "Nomadland",
+      "originalTitle": "Nomadland",
+      "startYear": "2020",
+      "runtimeMinutes": "107"
+    },
+    "tt9777644": {
+      "titleType": "movie",
+      "primaryTitle": "Da 5 Bloods",
+      "originalTitle": "Da 5 Bloods",
+      "startYear": "2020",
+      "runtimeMinutes": "154"
+    },
+    "tt9806192": {
+      "titleType": "movie",
+      "primaryTitle": "I Lost My Body",
+      "originalTitle": "J'ai perdu mon corps",
+      "startYear": "2019",
+      "runtimeMinutes": "81"
+    }
+  },
+  "unavailable_ids": []
+}

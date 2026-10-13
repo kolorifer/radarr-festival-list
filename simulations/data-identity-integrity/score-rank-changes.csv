@@ -1,0 +1,1914 @@
+imdb_id,title,year,status,score_before,score_after,score_change,rank_before,rank_after,rank_change,family_changes
+tt0069049,The Other Side of the Wind,2018,retained,109.39,109.39,0.0,1000,998,2,{}
+tt0118694,In the Mood for Love,2000,retained,556.65,556.65,0.0,22,22,0,{}
+tt0120263,Songs from the Second Floor,2000,retained,273.17,273.17,0.0,227,228,-1,{}
+tt0120630,Chicken Run,2000,retained,130.3,130.3,0.0,790,789,1,{}
+tt0120679,Frida,2002,retained,77.85,77.85,0.0,1372,1372,0,{}
+tt0120737,The Lord of the Rings: The Fellowship of the Ring,2001,retained,457.84,459.84,2.0,54,54,0,"{""critics_groups_consensus"": 2.0}"
+tt0120903,X-Men,2000,retained,60.45,60.45,0.0,1625,1626,-1,{}
+tt0120917,The Emperor's New Groove,2000,retained,99.61,99.61,0.0,1085,1084,1,{}
+tt0121164,Corpse Bride,2005,retained,139.16,139.16,0.0,722,722,0,{}
+tt0121766,Star Wars: Episode III - Revenge of the Sith,2005,retained,140.59,140.59,0.0,707,707,0,{}
+tt0126029,Shrek,2001,retained,315.43,315.43,0.0,165,165,0,{}
+tt0133240,Treasure Planet,2002,retained,113.94,113.94,0.0,937,936,1,{}
+tt0139500,In Vanda's Room,2000,retained,122.06,122.06,0.0,861,860,1,{}
+tt0139654,Training Day,2001,retained,119.2,119.2,0.0,888,887,1,{}
+tt0144084,American Psycho,2000,retained,163.53,163.53,0.0,567,567,0,{}
+tt0145487,Spider-Man,2002,retained,147.57,107.23,-40.34,665,1013,-348,"{""tspdt_21c"": -40.34}"
+tt0146882,High Fidelity,2000,retained,110.53,110.53,0.0,980,978,2,{}
+tt0157122,Faithless,2000,retained,56.93,56.93,0.0,1664,1665,-1,{}
+tt0159365,Cold Mountain,2003,retained,123.04,123.04,0.0,852,851,1,{}
+tt0161860,Nowhere in Africa,2002,retained,109.62,109.62,0.0,994,992,2,{}
+tt0162222,Cast Away,2000,retained,121.28,121.28,0.0,864,863,1,{}
+tt0162346,Ghost World,2001,retained,186.3,186.3,0.0,471,471,0,{}
+tt0166813,Spirit: Stallion of the Cimarron,2002,retained,107.92,107.92,0.0,1009,1007,2,{}
+tt0166924,Mulholland Drive,2001,retained,649.43,649.43,0.0,11,11,0,{}
+tt0167260,The Lord of the Rings: The Return of the King,2003,retained,480.27,505.27,25.0,44,40,4,"{""critics_groups_consensus"": 25.0}"
+tt0167261,The Lord of the Rings: The Two Towers,2002,retained,393.17,395.17,2.0,90,91,-1,"{""critics_groups_consensus"": 2.0}"
+tt0168629,Dancer in the Dark,2000,retained,413.9,413.9,0.0,82,84,-2,{}
+tt0169102,Lagaan: Once Upon a Time in India,2001,retained,207.81,207.81,0.0,390,390,0,{}
+tt0172495,Gladiator,2000,retained,463.06,463.06,0.0,53,53,0,{}
+tt0180093,Requiem for a Dream,2000,retained,253.86,253.86,0.0,279,279,0,{}
+tt0181689,Minority Report,2002,retained,177.61,177.61,0.0,499,499,0,{}
+tt0181865,Traffic,2000,retained,255.72,255.72,0.0,272,272,0,{}
+tt0181875,Almost Famous,2000,retained,358.25,358.25,0.0,118,119,-1,{}
+tt0181912,In Praise of Love,2001,retained,119.11,119.11,0.0,890,889,1,{}
+tt0185014,Wonder Boys,2000,retained,127.6,127.6,0.0,815,814,1,{}
+tt0186151,Frequency,2000,retained,64.8,64.8,0.0,1576,1576,0,{}
+tt0187393,The Patriot,2000,retained,55.09,55.09,0.0,1698,1699,-1,{}
+tt0190332,"Crouching Tiger, Hidden Dragon",2000,retained,665.52,679.78,14.26,7,6,1,"{""critics_groups_consensus"": 14.26}"
+tt0190590,"O Brother, Where Art Thou?",2000,retained,227.16,227.16,0.0,334,334,0,{}
+tt0195685,Erin Brockovich,2000,retained,287.9,287.9,0.0,206,208,-2,{}
+tt0196229,Zoolander,2001,retained,63.92,63.92,0.0,1589,1590,-1,{}
+tt0198781,"Monsters, Inc.",2001,retained,207.36,207.36,0.0,392,392,0,{}
+tt0199626,In the Cut,2003,retained,84.1,84.1,0.0,1279,1279,0,{}
+tt0199725,Love & Basketball,2000,retained,132.4,132.4,0.0,774,773,1,{}
+tt0200465,The Bank Job,2008,retained,44.73,44.73,0.0,1776,1777,-1,{}
+tt0200720,The House of Mirth,2000,retained,91.84,91.84,0.0,1185,1184,1,{}
+tt0203009,Moulin Rouge!,2001,retained,367.31,367.31,0.0,108,109,-1,{}
+tt0203019,Men of Honor,2000,retained,56.48,56.48,0.0,1674,1675,-1,{}
+tt0203119,Sexy Beast,2000,retained,176.29,176.29,0.0,504,504,0,{}
+tt0203166,Together,2000,retained,143.19,143.19,0.0,688,688,0,{}
+tt0203230,You Can Count on Me,2000,retained,252.4,252.4,0.0,282,282,0,{}
+tt0204700,Trouble Every Day,2001,retained,109.54,109.54,0.0,996,994,2,{}
+tt0206634,Children of Men,2006,retained,429.94,429.94,0.0,72,74,-2,{}
+tt0208092,Snatch,2000,retained,145.88,145.88,0.0,675,675,0,{}
+tt0208990,The Son's Room,2001,retained,298.17,298.17,0.0,187,188,-1,{}
+tt0209144,Memento,2000,retained,437.28,437.28,0.0,66,68,-2,{}
+tt0210070,Ginger Snaps,2000,retained,95.95,95.95,0.0,1130,1129,1,{}
+tt0210945,Remember the Titans,2000,retained,102.72,102.72,0.0,1052,1052,0,{}
+tt0211915,Amélie,2001,retained,514.85,514.85,0.0,37,37,0,{}
+tt0212712,2046,2004,retained,215.31,215.31,0.0,361,361,0,{}
+tt0212720,A.I. Artificial Intelligence,2001,retained,188.09,188.09,0.0,465,465,0,{}
+tt0213847,Malena,2000,retained,98.36,98.36,0.0,1099,1098,1,{}
+tt0215545,Bamboozled,2000,retained,85.13,85.13,0.0,1267,1266,1,{}
+tt0215750,Enemy at the Gates,2001,retained,72.11,72.11,0.0,1466,1466,0,{}
+tt0216605,The Captive,2000,retained,74.43,74.43,0.0,1422,1423,-1,{}
+tt0216625,Code Unknown,2000,retained,161.78,161.78,0.0,581,581,0,{}
+tt0216787,The Taste of Others,2000,retained,177.48,177.48,0.0,500,500,0,{}
+tt0217505,Gangs of New York,2002,retained,267.24,267.24,0.0,241,241,0,{}
+tt0217869,Unbreakable,2000,retained,136.4,136.4,0.0,739,739,0,{}
+tt0218839,Best in Show,2000,retained,194.24,194.24,0.0,441,441,0,{}
+tt0221027,Blow,2001,retained,72.11,72.11,0.0,1465,1465,0,{}
+tt0221073,Chopper,2000,retained,72.63,72.63,0.0,1452,1452,0,{}
+tt0223897,Pay It Forward,2000,retained,36.69,36.69,0.0,1823,1823,0,{}
+tt0230600,The Others,2001,retained,158.86,158.86,0.0,598,598,0,{}
+tt0234215,The Matrix Reloaded,2003,retained,55.09,55.09,0.0,1697,1698,-1,{}
+tt0234288,Divided We Fall,2000,retained,66.5,66.5,0.0,1556,1556,0,{}
+tt0236447,Long Night's Journey into Day,2000,retained,60.0,60.0,0.0,1632,1633,-1,{}
+tt0237539,Bread and Tulips,2000,retained,57.63,57.63,0.0,1657,1658,-1,{}
+tt0238380,Equilibrium,2002,retained,53.08,53.08,0.0,1718,1719,-1,{}
+tt0238936,Devdas,2002,retained,118.37,118.37,0.0,896,895,1,{}
+tt0239381,O Fantasma,2000,retained,71.7,71.7,0.0,1477,1477,0,{}
+tt0240419,The Swamp,2001,retained,190.6,190.6,0.0,456,456,0,{}
+tt0240772,Ocean's Eleven,2001,retained,148.43,148.43,0.0,662,662,0,{}
+tt0240885,Scottsboro: An American Tragedy,2000,retained,8.0,8.0,0.0,1902,1902,0,{}
+tt0240912,Sound and Fury,2000,retained,24.96,24.96,0.0,1865,1865,0,{}
+tt0241303,Chocolat,2000,retained,120.09,120.09,0.0,876,875,1,{}
+tt0241527,Harry Potter and the Sorcerer's Stone,2001,retained,102.51,102.51,0.0,1053,1053,0,{}
+tt0241663,To the Left of the Father,2001,retained,49.62,49.62,0.0,1741,1742,-1,{}
+tt0242519,Hera Pheri,2000,retained,95.75,95.75,0.0,1132,1131,1,{}
+tt0243017,Waking Life,2001,retained,199.38,199.38,0.0,418,418,0,{}
+tt0243133,The Man Who Wasn't There,2001,retained,216.25,216.25,0.0,357,357,0,{}
+tt0243155,Bridget Jones's Diary,2001,retained,105.17,105.17,0.0,1032,1032,0,{}
+tt0243255,Fat Girl,2001,retained,101.08,101.08,0.0,1072,1072,0,{}
+tt0243655,Wet Hot American Summer,2001,retained,48.77,48.77,0.0,1743,1744,-1,{}
+tt0243862,Italian for Beginners,2000,retained,66.05,66.05,0.0,1563,1563,0,{}
+tt0243889,Eureka,2000,retained,146.86,146.86,0.0,672,672,0,{}
+tt0244316,Yi Yi,2000,retained,530.01,530.01,0.0,29,29,0,{}
+tt0245157,Zus & Zo,2002,retained,35.0,35.0,0.0,1831,1831,0,{}
+tt0245429,Spirited Away,2001,retained,601.29,601.29,0.0,15,15,0,{}
+tt0245574,Y tu mamá también,2001,retained,345.25,345.25,0.0,134,135,-1,{}
+tt0245712,Amores Perros,2000,retained,347.19,347.19,0.0,133,134,-1,{}
+tt0245837,Chunhyang,2000,retained,70.37,70.37,0.0,1495,1495,0,{}
+tt0245844,The Count of Monte Cristo,2002,retained,95.28,95.28,0.0,1137,1136,1,{}
+tt0245929,Devils on the Doorstep,2000,retained,240.3,240.3,0.0,309,309,0,{}
+tt0246266,Blackboards,2000,retained,146.42,146.42,0.0,673,673,0,{}
+tt0246578,Donnie Darko,2001,retained,230.85,230.85,0.0,330,330,0,{}
+tt0246765,Lumumba,2000,retained,76.8,76.8,0.0,1390,1390,0,{}
+tt0246866,Origins of the 21st Century,2000,retained,38.87,38.87,0.0,1811,1812,-1,{}
+tt0247196,Before Night Falls,2000,retained,79.24,79.24,0.0,1354,1354,0,{}
+tt0247380,The Gleaners & I,2000,retained,259.55,259.55,0.0,264,264,0,{}
+tt0247425,In the Bedroom,2001,retained,284.68,284.68,0.0,213,214,-1,{}
+tt0247586,Nine Queens,2000,retained,168.39,168.39,0.0,543,543,0,{}
+tt0248845,Hedwig and the Angry Inch,2001,retained,248.83,248.83,0.0,290,290,0,{}
+tt0248912,Into the Arms of Strangers: Stories of the Kindertransport,2000,retained,19.72,19.72,0.0,1879,1879,0,{}
+tt0249241,Werckmeister Harmonies,2000,retained,260.83,260.83,0.0,259,259,0,{}
+tt0249462,Billy Elliot,2000,retained,260.35,260.35,0.0,261,261,0,{}
+tt0250258,The Experiment,2001,retained,100.16,100.16,0.0,1079,1078,1,{}
+tt0252444,Rabbit-Proof Fence,2002,retained,87.48,87.48,0.0,1235,1234,1,{}
+tt0253474,The Pianist,2002,retained,573.98,573.98,0.0,19,19,0,{}
+tt0254686,The Piano Teacher,2001,retained,382.59,382.59,0.0,97,99,-2,{}
+tt0255094,The Circle,2000,retained,148.85,148.85,0.0,661,661,0,{}
+tt0255589,The Isle,2000,retained,35.39,35.39,0.0,1828,1828,0,{}
+tt0256009,The Devil's Backbone,2001,retained,171.71,171.71,0.0,524,524,0,{}
+tt0256103,Intimacy,2001,retained,63.25,63.25,0.0,1597,1598,-1,{}
+tt0257044,Road to Perdition,2002,retained,115.51,115.51,0.0,928,926,2,{}
+tt0257360,About Schmidt,2002,retained,197.46,197.46,0.0,425,425,0,{}
+tt0257497,"La Commune (Paris, 1871)",2000,retained,119.32,119.32,0.0,884,883,1,{}
+tt0258463,The Bourne Identity,2002,retained,101.69,101.69,0.0,1062,1062,0,{}
+tt0258885,Platform,2000,retained,137.33,137.33,0.0,736,736,0,{}
+tt0259072,A Time for Drunken Horses,2000,retained,92.78,92.78,0.0,1170,1169,1,{}
+tt0259393,Lantana,2001,retained,58.97,58.97,0.0,1640,1641,-1,{}
+tt0260332,The Day I Became a Woman,2000,retained,97.9,97.9,0.0,1104,1103,1,{}
+tt0260948,The Heart of the World,2000,retained,43.68,43.68,0.0,1782,1783,-1,{}
+tt0262240,As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty,2000,retained,152.4,152.4,0.0,641,641,0,{}
+tt0262432,George Washington,2000,retained,137.36,137.36,0.0,735,735,0,{}
+tt0264464,Catch Me If You Can,2002,retained,151.05,151.05,0.0,648,648,0,{}
+tt0264476,Children Underground,2001,retained,26.6,26.6,0.0,1858,1858,0,{}
+tt0264616,Frailty,2001,retained,60.13,60.13,0.0,1629,1630,-1,{}
+tt0265086,Black Hawk Down,2001,retained,131.22,131.22,0.0,780,779,1,{}
+tt0265343,Monsoon Wedding,2001,retained,189.67,189.67,0.0,459,459,0,{}
+tt0265666,The Royal Tenenbaums,2001,retained,326.65,326.65,0.0,153,154,-1,{}
+tt0266308,Battle Royale,2000,retained,165.49,165.49,0.0,559,559,0,{}
+tt0266543,Finding Nemo,2003,retained,301.12,301.12,0.0,182,183,-1,{}
+tt0266697,Kill Bill: Vol. 1,2003,retained,262.75,262.75,0.0,255,255,0,{}
+tt0268126,Adaptation.,2002,retained,294.35,294.35,0.0,194,195,-1,{}
+tt0268380,Ice Age,2002,retained,108.56,108.56,0.0,1007,1005,2,{}
+tt0268397,Jimmy Neutron: Boy Genius,2001,retained,33.38,33.38,0.0,1839,1839,0,{}
+tt0268978,A Beautiful Mind,2001,retained,306.68,306.68,0.0,175,176,-1,{}
+tt0269587,Mysterious Object at Noon,2000,retained,88.74,88.74,0.0,1215,1214,1,{}
+tt0269746,What Time Is It There?,2001,retained,162.85,162.85,0.0,575,575,0,{}
+tt0270053,Vizontele,2001,retained,72.77,72.77,0.0,1451,1451,0,{}
+tt0271383,A Dog's Will,2000,retained,119.74,119.74,0.0,879,878,1,{}
+tt0272152,K-PAX,2001,retained,54.46,54.46,0.0,1707,1708,-1,{}
+tt0272338,Punch-Drunk Love,2002,retained,323.7,323.7,0.0,158,158,0,{}
+tt0274309,24 Hour Party People,2002,retained,161.49,161.49,0.0,584,584,0,{}
+tt0274428,Divine Intervention,2002,retained,210.81,210.81,0.0,379,379,0,{}
+tt0274558,The Hours,2002,retained,318.24,318.24,0.0,163,163,0,{}
+tt0274622,LaLee's Kin: The Legacy of Cotton,2001,retained,8.0,8.0,0.0,1901,1901,0,{}
+tt0274812,Secretary,2002,retained,90.98,90.98,0.0,1192,1191,1,{}
+tt0275277,Cowboy Bebop: The Movie,2001,retained,106.44,106.44,0.0,1019,1019,0,{}
+tt0275491,Bad Education,2004,retained,228.49,228.49,0.0,333,333,0,{}
+tt0275847,Lilo & Stitch,2002,retained,144.96,144.96,0.0,680,680,0,{}
+tt0276919,Dogville,2003,retained,291.71,291.71,0.0,200,202,-2,{}
+tt0277027,I Am Sam,2001,retained,70.09,70.09,0.0,1501,1501,0,{}
+tt0277434,We Were Soldiers,2002,retained,51.7,51.7,0.0,1732,1733,-1,{}
+tt0278504,Insomnia,2002,retained,80.79,80.79,0.0,1325,1325,0,{}
+tt0278731,Spider,2002,added_by_identity_correction,,64.48,,,1584,,{}
+tt0279064,Elling,2001,retained,83.3,83.3,0.0,1292,1292,0,{}
+tt0279065,Time Out,2001,retained,114.5,114.5,0.0,934,933,1,{}
+tt0279079,Father and Daughter,2000,retained,79.65,79.65,0.0,1347,1347,0,{}
+tt0280491,Bloody Sunday,2002,retained,111.91,111.91,0.0,964,962,2,{}
+tt0280665,Femme Fatale,2002,retained,73.52,73.52,0.0,1440,1440,0,{}
+tt0280707,Gosford Park,2001,retained,214.24,214.24,0.0,366,366,0,{}
+tt0281358,A Walk to Remember,2002,retained,58.84,58.84,0.0,1642,1643,-1,{}
+tt0282864,Promises,2001,retained,29.53,29.53,0.0,1850,1850,0,{}
+tt0283283,Millennium Mambo,2001,retained,163.67,163.67,0.0,566,566,0,{}
+tt0283422,I'm Going Home,2001,retained,67.46,67.46,0.0,1544,1544,0,{}
+tt0283509,No Man's Land,2001,retained,192.75,192.75,0.0,445,445,0,{}
+tt0283832,8 Women,2002,retained,87.96,87.96,0.0,1229,1228,1,{}
+tt0284034,Demonlover,2002,retained,86.08,86.08,0.0,1250,1249,1,{}
+tt0285441,Atanarjuat: The Fast Runner,2001,retained,141.89,141.89,0.0,696,696,0,{}
+tt0286106,Signs,2002,retained,59.52,59.52,0.0,1635,1636,-1,{}
+tt0286244,The Triplets of Belleville,2003,retained,260.9,260.9,0.0,258,258,0,{}
+tt0286499,Bend It Like Beckham,2002,retained,118.01,118.01,0.0,901,900,1,{}
+tt0286751,Pulse,2001,retained,122.09,122.09,0.0,860,859,1,{}
+tt0286978,"Sobibór, October 14, 1943, 4 p.m.",2001,retained,9.62,9.62,0.0,1898,1898,0,{}
+tt0287467,Talk to Her,2002,retained,451.84,451.84,0.0,59,60,-1,{}
+tt0288330,Zelary,2003,retained,50.05,50.05,0.0,1737,1739,-2,{}
+tt0289043,28 Days Later,2002,retained,163.45,163.45,0.0,570,570,0,{}
+tt0289765,Red Dragon,2002,retained,55.09,55.09,0.0,1693,1694,-1,{}
+tt0289879,The Butterfly Effect,2004,retained,75.86,75.86,0.0,1408,1409,-1,{}
+tt0289992,The Life of David Gale,2003,retained,62.6,62.6,0.0,1602,1603,-1,{}
+tt0290329,Visitor Q,2001,retained,33.85,33.85,0.0,1834,1834,0,{}
+tt0290334,X2: X-Men United,2003,retained,70.88,70.88,0.0,1485,1485,0,{}
+tt0290673,Irreversible,2002,retained,173.61,173.61,0.0,519,519,0,{}
+tt0291172,The Son,2002,retained,178.85,178.85,0.0,498,498,0,{}
+tt0291183,Fragile as the World,2001,retained,39.54,39.54,0.0,1807,1808,-1,{}
+tt0291310,La libertad,2001,retained,69.16,69.16,0.0,1518,1518,0,{}
+tt0291350,Millennium Actress,2001,retained,179.75,179.75,0.0,495,495,0,{}
+tt0292490,Dil Chahta Hai,2001,retained,82.78,82.78,0.0,1297,1297,0,{}
+tt0292542,Son of the Bride,2001,retained,113.91,113.91,0.0,942,941,1,{}
+tt0292963,Before the Devil Knows You're Dead,2007,retained,98.81,98.81,0.0,1092,1091,1,{}
+tt0293508,The Phantom of the Opera,2004,retained,74.64,74.64,0.0,1417,1418,-1,{}
+tt0293715,My Sassy Girl,2001,retained,83.7,83.7,0.0,1285,1285,0,{}
+tt0295297,Harry Potter and the Chamber of Secrets,2002,retained,92.08,92.08,0.0,1180,1179,1,{}
+tt0295743,Friday Night,2002,retained,56.53,56.53,0.0,1673,1674,-1,{}
+tt0297721,All About Lily Chou-Chou,2001,retained,126.43,126.43,0.0,826,825,1,{}
+tt0297884,Far from Heaven,2002,retained,268.25,268.25,0.0,239,239,0,{}
+tt0298130,The Ring,2002,retained,46.59,46.59,0.0,1760,1761,-1,{}
+tt0298148,Shrek 2,2004,retained,169.31,169.31,0.0,537,537,0,{}
+tt0298203,8 Mile,2002,retained,73.78,73.78,0.0,1437,1437,0,{}
+tt0298228,Whale Rider,2002,retained,174.34,174.34,0.0,513,513,0,{}
+tt0299478,Saraband,2003,retained,135.91,135.91,0.0,742,742,0,{}
+tt0299658,Chicago,2002,retained,265.14,265.14,0.0,246,246,0,{}
+tt0299977,Hero,2002,retained,259.68,259.68,0.0,262,262,0,{}
+tt0300140,Lilya 4-Ever,2002,retained,213.88,213.88,0.0,367,367,0,{}
+tt0300214,Morvern Callar,2002,retained,162.18,162.18,0.0,578,578,0,{}
+tt0300270,The Holy Girl,2004,retained,144.11,144.11,0.0,684,684,0,{}
+tt0301199,Dirty Pretty Things,2002,retained,92.41,92.41,0.0,1177,1176,1,{}
+tt0301357,Good Bye Lenin!,2003,retained,268.37,268.37,0.0,238,238,0,{}
+tt0301634,Frozen Stiff,2002,retained,51.94,51.94,0.0,1729,1730,-1,{}
+tt0301727,Winged Migration,2002,retained,76.72,76.72,0.0,1393,1393,0,{}
+tt0301978,Ten,2002,retained,165.75,165.75,0.0,556,556,0,{}
+tt0302674,Gerry,2002,retained,86.44,86.44,0.0,1243,1242,1,{}
+tt0303281,Daughter from Danang,2002,retained,60.0,60.0,0.0,1631,1632,-1,{}
+tt0303325,Decasia,2002,retained,61.56,61.56,0.0,1615,1616,-1,{}
+tt0304141,Harry Potter and the Prisoner of Azkaban,2004,retained,163.13,163.13,0.0,572,572,0,{}
+tt0305206,American Splendor,2003,retained,287.18,287.18,0.0,207,209,-2,{}
+tt0305923,"Workers, Peasants",2001,retained,17.25,17.25,0.0,1885,1885,0,{}
+tt0307197,Murder on a Sunday Morning,2001,retained,28.03,28.03,0.0,1852,1852,0,{}
+tt0307453,Shark Tale,2004,retained,35.77,35.77,0.0,1826,1826,0,{}
+tt0307479,Solaris,2002,retained,46.56,46.56,0.0,1762,1763,-1,{}
+tt0307901,25th Hour,2002,retained,257.05,257.05,0.0,267,267,0,{}
+tt0308363,Waiting for Happiness,2002,retained,74.66,74.66,0.0,1416,1417,-1,{}
+tt0308644,Finding Neverland,2004,retained,207.96,207.96,0.0,389,389,0,{}
+tt0309061,War Photographer,2001,retained,26.14,26.14,0.0,1861,1861,0,{}
+tt0309698,Identity,2003,retained,58.84,58.84,0.0,1644,1645,-1,{}
+tt0309987,The Dreamers,2003,retained,57.59,57.59,0.0,1658,1659,-1,{}
+tt0310154,In This World,2002,retained,143.0,143.0,0.0,690,690,0,{}
+tt0310313,A New Life,2002,retained,25.53,25.53,0.0,1864,1864,0,{}
+tt0310775,Sympathy for Mr. Vengeance,2002,retained,112.61,112.61,0.0,957,955,2,{}
+tt0310793,Bowling for Columbine,2002,retained,217.73,217.73,0.0,354,354,0,{}
+tt0311113,Master and Commander: The Far Side of the World,2003,retained,308.89,310.89,2.0,172,170,2,"{""critics_groups_consensus"": 2.0}"
+tt0311519,The Man Without a Past,2002,retained,372.26,372.26,0.0,102,104,-2,{}
+tt0312004,Wallace & Gromit: The Curse of the Were-Rabbit,2005,retained,224.91,224.91,0.0,337,337,0,{}
+tt0312859,Kannathil Muthamittal,2002,retained,67.23,67.23,0.0,1548,1548,0,{}
+tt0313670,Sweet Sixteen,2002,retained,123.07,123.07,0.0,851,850,1,{}
+tt0314067,Philanthropy,2002,retained,62.35,62.35,0.0,1604,1605,-1,{}
+tt0314331,Love Actually,2003,retained,124.52,124.52,0.0,840,839,1,{}
+tt0314412,My Life Without Me,2003,retained,71.08,71.08,0.0,1484,1484,0,{}
+tt0315110,Twentynine Palms,2003,retained,69.17,69.17,0.0,1517,1517,0,{}
+tt0315733,21 Grams,2003,retained,186.19,186.19,0.0,474,474,0,{}
+tt0316013,Prisoner of Paradise,2002,retained,0.0,0.0,0.0,1909,1909,0,{}
+tt0316654,Spider-Man 2,2004,retained,138.21,138.21,0.0,728,728,0,{}
+tt0317171,Blissfully Yours,2002,retained,117.5,117.5,0.0,907,906,1,{}
+tt0317219,Cars,2006,retained,127.08,127.08,0.0,820,819,1,{}
+tt0317248,City of God,2002,retained,451.58,451.58,0.0,60,61,-1,{}
+tt0317705,The Incredibles,2004,retained,298.85,298.85,0.0,186,187,-1,{}
+tt0317910,The Fog of War,2003,retained,174.71,174.71,0.0,512,512,0,{}
+tt0317965,My Mother's Smile,2002,retained,37.06,37.06,0.0,1820,1821,-1,{}
+tt0318025,Unknown Pleasures,2002,retained,98.2,98.2,0.0,1102,1101,1,{}
+tt0318034,Russian Ark,2002,retained,195.53,195.53,0.0,435,435,0,{}
+tt0318202,To Be and to Have,2002,retained,175.2,175.2,0.0,510,510,0,{}
+tt0318411,The Magdalene Sisters,2002,retained,115.84,115.84,0.0,924,922,2,{}
+tt0318462,The Motorcycle Diaries,2004,retained,284.97,284.97,0.0,211,213,-2,{}
+tt0319061,Big Fish,2003,retained,226.43,226.43,0.0,336,336,0,{}
+tt0319343,Elf,2003,retained,97.33,97.33,0.0,1108,1107,1,{}
+tt0319736,The Legend of Bhagat Singh,2002,retained,48.68,48.68,0.0,1744,1745,-1,{}
+tt0320193,Oasis,2002,retained,215.39,215.39,0.0,360,360,0,{}
+tt0320661,Kingdom of Heaven,2005,retained,70.39,70.39,0.0,1494,1494,0,{}
+tt0321376,Balseros,2003,retained,0.0,0.0,0.0,1907,1907,0,{}
+tt0322674,Twin Sisters,2003,retained,55.01,55.01,0.0,1699,1700,-1,{}
+tt0322824,Japón,2002,retained,31.91,31.91,0.0,1843,1843,0,{}
+tt0323013,Lakshya,2004,retained,50.02,50.02,0.0,1738,1740,-2,{}
+tt0324133,Swimming Pool,2003,retained,67.26,67.26,0.0,1546,1546,0,{}
+tt0325710,The Last Samurai,2003,retained,102.91,102.91,0.0,1050,1050,0,{}
+tt0325805,Matchstick Men,2003,retained,72.37,72.37,0.0,1458,1458,0,{}
+tt0325980,Pirates of the Caribbean: The Curse of the Black Pearl,2003,retained,128.1,128.1,0.0,809,808,1,{}
+tt0327056,Mystic River,2003,retained,307.97,307.97,0.0,173,174,-1,{}
+tt0327597,Coraline,2009,retained,198.58,198.58,0.0,422,422,0,{}
+tt0328107,Man on Fire,2004,retained,131.21,131.21,0.0,781,780,1,{}
+tt0328880,Brother Bear,2003,retained,96.92,96.92,0.0,1112,1111,1,{}
+tt0329575,Seabiscuit,2003,retained,134.05,134.05,0.0,758,757,1,{}
+tt0330099,The Brown Bunny,2003,retained,88.63,88.63,0.0,1219,1218,1,{}
+tt0330373,Harry Potter and the Goblet of Fire,2005,retained,122.43,122.43,0.0,857,856,1,{}
+tt0331370,Whisky,2004,retained,29.81,29.81,0.0,1847,1847,0,{}
+tt0332280,The Notebook,2004,retained,113.66,113.66,0.0,946,945,1,{}
+tt0332379,School of Rock,2003,retained,168.91,168.91,0.0,540,540,0,{}
+tt0332452,Troy,2004,retained,58.84,58.84,0.0,1646,1647,-1,{}
+tt0333766,Garden State,2004,retained,113.87,113.87,0.0,944,943,1,{}
+tt0334405,Spellbound,2002,retained,109.52,109.52,0.0,997,995,2,{}
+tt0334416,Stevie,2002,retained,52.28,52.28,0.0,1725,1726,-1,{}
+tt0335266,Lost in Translation,2003,retained,537.71,537.71,0.0,27,27,0,{}
+tt0335345,The Passion of the Christ,2004,retained,88.7,88.7,0.0,1216,1215,1,{}
+tt0337876,Birth,2004,retained,108.78,108.78,0.0,1005,1003,2,{}
+tt0338013,Eternal Sunshine of the Spotless Mind,2004,retained,522.13,522.13,0.0,33,33,0,{}
+tt0338135,The Barbarian Invasions,2003,retained,184.46,184.46,0.0,479,479,0,{}
+tt0338466,Stuck on You,2003,retained,1.59,1.59,0.0,1906,1906,0,{}
+tt0338564,Infernal Affairs,2002,retained,199.6,199.6,0.0,417,417,0,{}
+tt0338751,The Aviator,2004,retained,341.28,341.28,0.0,140,141,-1,{}
+tt0340377,The Station Agent,2003,retained,200.53,200.53,0.0,414,414,0,{}
+tt0340468,Bus 174,2002,retained,121.15,121.15,0.0,867,866,1,{}
+tt0340855,Monster,2003,retained,144.97,144.97,0.0,679,679,0,{}
+tt0342172,Capturing the Friedmans,2003,retained,214.97,214.97,0.0,362,362,0,{}
+tt0342866,Where Does Your Hidden Smile Lie?,2001,retained,16.42,16.42,0.0,1888,1888,0,{}
+tt0343121,Tupac: Resurrection,2004,retained,42.94,42.94,0.0,1789,1790,-1,{}
+tt0343168,The Weather Underground,2003,retained,43.77,43.77,0.0,1780,1781,-1,{}
+tt0344273,Kings and Queen,2004,retained,104.39,104.39,0.0,1037,1037,0,{}
+tt0345950,The SpongeBob SquarePants Movie,2004,retained,85.9,85.9,0.0,1254,1253,1,{}
+tt0346094,Distant,2002,retained,301.78,301.78,0.0,179,180,-1,{}
+tt0346336,The Best of Youth,2003,retained,191.66,191.66,0.0,451,451,0,{}
+tt0347048,Head-On,2004,retained,289.34,289.34,0.0,203,205,-2,{}
+tt0347149,Howl's Moving Castle,2004,retained,262.96,262.96,0.0,252,252,0,{}
+tt0347246,Ghost in the Shell 2: Innocence,2004,retained,98.88,98.88,0.0,1090,1089,1,{}
+tt0347304,Kal Ho Naa Ho,2003,retained,96.19,96.19,0.0,1126,1125,1,{}
+tt0348529,Anatomy of Hell,2004,retained,26.11,26.11,0.0,1862,1862,0,{}
+tt0350258,Ray,2004,retained,171.42,171.42,0.0,526,526,0,{}
+tt0351817,The Twilight Samurai,2003,retained,135.55,135.55,0.0,744,744,0,{}
+tt0352248,Cinderella Man,2005,retained,120.64,120.64,0.0,872,871,1,{}
+tt0353969,Memories of Murder,2003,retained,252.96,252.96,0.0,281,281,0,{}
+tt0354575,The Five Obstructions,2003,retained,119.71,119.71,0.0,880,879,1,{}
+tt0356721,I Heart Huckabees,2004,retained,28.97,28.97,0.0,1851,1851,0,{}
+tt0357413,Anchorman: The Legend of Ron Burgundy,2004,retained,130.57,130.57,0.0,787,786,1,{}
+tt0358273,Walk the Line,2005,retained,111.74,111.74,0.0,965,963,2,{}
+tt0358456,Earthlings,2005,retained,82.58,82.58,0.0,1299,1299,0,{}
+tt0359950,The Secret Life of Walter Mitty,2013,retained,81.92,81.92,0.0,1311,1311,0,{}
+tt0360717,King Kong,2005,retained,96.64,96.64,0.0,1121,1120,1,{}
+tt0360845,Our Music,2004,retained,93.41,93.41,0.0,1159,1158,1,{}
+tt0361596,Fahrenheit 9/11,2004,retained,247.19,247.19,0.0,293,293,0,{}
+tt0361748,Inglourious Basterds,2009,retained,478.26,478.26,0.0,46,46,0,{}
+tt0361862,The Machinist,2004,retained,94.61,94.61,0.0,1147,1146,1,{}
+tt0362227,The Terminal,2004,retained,74.14,74.14,0.0,1429,1430,-1,{}
+tt0362270,The Life Aquatic with Steve Zissou,2004,retained,130.69,130.69,0.0,786,785,1,{}
+tt0363060,Sharasôju,2003,retained,112.42,112.42,0.0,958,956,2,{}
+tt0363163,Downfall,2004,retained,233.3,233.3,0.0,322,322,0,{}
+tt0363547,Dawn of the Dead,2004,retained,57.19,57.19,0.0,1660,1661,-1,{}
+tt0363589,Elephant,2003,retained,347.82,347.82,0.0,132,133,-1,{}
+tt0364093,A Talking Picture,2003,retained,47.65,47.65,0.0,1750,1751,-1,{}
+tt0364569,Oldboy,2003,retained,455.98,455.98,0.0,56,56,0,{}
+tt0365376,A Tale of Two Sisters,2003,retained,83.02,83.02,0.0,1295,1295,0,{}
+tt0365748,Shaun of the Dead,2004,retained,212.12,212.12,0.0,374,374,0,{}
+tt0366548,Happy Feet,2006,retained,77.79,77.79,0.0,1374,1374,0,{}
+tt0366721,Trilogia: To livadi pou dakryzei,2004,retained,73.21,73.21,0.0,1443,1443,0,{}
+tt0366996,The Saddest Music in the World,2003,retained,54.09,54.09,0.0,1711,1712,-1,{}
+tt0367027,Shortbus,2006,retained,64.22,64.22,0.0,1586,1587,-1,{}
+tt0367089,The Squid and the Whale,2005,retained,221.19,221.19,0.0,345,345,0,{}
+tt0367110,Swades,2004,retained,109.47,109.47,0.0,999,997,2,{}
+tt0367195,Vai~E~Vem,2003,retained,64.61,64.61,0.0,1583,1583,0,{}
+tt0367495,Anbe Sivam,2003,retained,97.31,97.31,0.0,1109,1108,1,{}
+tt0368447,The Village,2004,retained,82.53,82.53,0.0,1300,1300,0,{}
+tt0368794,I'm Not There,2007,retained,250.44,250.44,0.0,288,288,0,{}
+tt0368954,S21: The Khmer Rouge Killing Machine,2003,retained,57.66,57.66,0.0,1656,1657,-1,{}
+tt0369339,Collateral,2004,retained,143.05,143.05,0.0,689,689,0,{}
+tt0369702,The Sea Inside,2004,retained,213.7,213.7,0.0,369,369,0,{}
+tt0370986,Mysterious Skin,2004,retained,180.75,180.75,0.0,492,492,0,{}
+tt0371280,Crimson Gold,2003,retained,130.87,130.87,0.0,785,784,1,{}
+tt0371746,Iron Man,2008,retained,127.58,127.58,0.0,816,815,1,{}
+tt0372183,The Bourne Supremacy,2004,retained,93.46,93.46,0.0,1157,1156,1,{}
+tt0372588,Team America: World Police,2004,retained,111.35,111.35,0.0,968,966,2,{}
+tt0372784,Batman Begins,2005,retained,131.23,131.23,0.0,779,778,1,{}
+tt0372824,The Chorus,2004,retained,195.61,195.61,0.0,434,434,0,{}
+tt0373074,Kung Fu Hustle,2004,retained,239.64,239.64,0.0,312,312,0,{}
+tt0373175,My Architect,2003,retained,39.69,39.69,0.0,1806,1807,-1,{}
+tt0373469,Kiss Kiss Bang Bang,2005,retained,98.54,98.54,0.0,1098,1097,1,{}
+tt0373861,The Story of the Weeping Camel,2004,retained,50.11,50.11,0.0,1736,1738,-2,{}
+tt0373889,Harry Potter and the Order of the Phoenix,2007,retained,88.42,88.42,0.0,1224,1223,1,{}
+tt0374294,Triple Agent,2004,retained,34.18,34.18,0.0,1833,1833,0,{}
+tt0374546,"Spring, Summer, Fall, Winter... and Spring",2003,retained,269.2,269.2,0.0,235,235,0,{}
+tt0374887,Munna Bhai M.B.B.S.,2003,retained,94.78,94.78,0.0,1145,1144,1,{}
+tt0374900,Napoleon Dynamite,2004,retained,128.38,128.38,0.0,806,805,1,{}
+tt0375063,Sideways,2004,retained,424.34,424.34,0.0,77,79,-2,{}
+tt0375233,Innocence,2004,retained,73.04,73.04,0.0,1446,1446,0,{}
+tt0375611,Black,2005,retained,67.65,67.65,0.0,1538,1538,0,{}
+tt0375679,Crash,2004,retained,249.73,249.73,0.0,289,289,0,{}
+tt0375912,Layer Cake,2004,retained,67.77,67.77,0.0,1536,1536,0,{}
+tt0376127,Anniyan,2005,retained,80.97,80.97,0.0,1323,1323,0,{}
+tt0376968,The Return,2003,retained,372.26,372.26,0.0,103,105,-2,{}
+tt0377092,Mean Girls,2004,retained,131.64,131.64,0.0,777,776,1,{}
+tt0377556,"Goodbye, Dragon Inn",2003,retained,219.95,219.95,0.0,347,347,0,{}
+tt0377569,"Good Morning, Night",2003,retained,102.06,102.06,0.0,1058,1058,0,{}
+tt0377800,Don't Come Knocking,2005,retained,30.84,30.84,0.0,1845,1845,0,{}
+tt0378194,Kill Bill: Vol. 2,2004,retained,208.63,208.63,0.0,387,387,0,{}
+tt0379357,Los Angeles Plays Itself,2003,retained,140.69,140.69,0.0,705,705,0,{}
+tt0379370,Maqbool,2003,retained,88.45,88.45,0.0,1223,1222,1,{}
+tt0379557,Touching the Void,2003,retained,110.46,110.46,0.0,982,980,2,{}
+tt0379725,Capote,2005,retained,311.14,311.14,0.0,169,169,0,{}
+tt0379786,Serenity,2005,retained,103.77,103.77,0.0,1041,1041,0,{}
+tt0381061,Casino Royale,2006,retained,194.97,194.97,0.0,438,438,0,{}
+tt0381668,Tropical Malady,2004,retained,348.09,348.09,0.0,131,132,-1,{}
+tt0381681,Before Sunset,2004,retained,353.41,353.41,0.0,124,125,-1,{}
+tt0381682,A Hole in My Heart,2004,retained,24.0,24.0,0.0,1866,1866,0,{}
+tt0381849,3:10 to Yuma,2007,retained,109.82,109.82,0.0,992,990,2,{}
+tt0382189,My Summer of Love,2004,retained,65.36,65.36,0.0,1573,1573,0,{}
+tt0382330,As It Is in Heaven,2004,retained,74.49,74.49,0.0,1421,1422,-1,{}
+tt0382932,Ratatouille,2007,retained,337.07,337.07,0.0,144,145,-1,{}
+tt0383028,"Synecdoche, New York",2008,retained,342.7,342.7,0.0,137,138,-1,{}
+tt0383574,Pirates of the Caribbean: Dead Man's Chest,2006,retained,79.91,79.91,0.0,1343,1343,0,{}
+tt0383694,Vera Drake,2004,retained,202.61,202.61,0.0,412,412,0,{}
+tt0383846,"When I Grow Up, I'll Be a Kangaroo",2004,retained,63.42,63.42,0.0,1594,1595,-1,{}
+tt0384116,G.O.R.A.,2004,retained,97.62,97.62,0.0,1105,1104,1,{}
+tt0385002,Green Street Hooligans,2005,retained,68.36,68.36,0.0,1530,1530,0,{}
+tt0385004,House of Flying Daggers,2004,retained,191.79,191.79,0.0,450,450,0,{}
+tt0385880,Monster House,2006,retained,71.86,71.86,0.0,1473,1473,0,{}
+tt0386032,Sicko,2007,retained,104.61,104.61,0.0,1035,1035,0,{}
+tt0386064,Tae Guk Gi: The Brotherhood of War,2004,retained,71.95,71.95,0.0,1472,1472,0,{}
+tt0387055,Battle in Heaven,2005,retained,87.39,87.39,0.0,1237,1236,1,{}
+tt0387131,The Constant Gardener,2005,retained,164.52,164.52,0.0,562,562,0,{}
+tt0387412,Metallica: Some Kind of Monster,2004,retained,89.34,89.34,0.0,1210,1209,1,{}
+tt0387564,Saw,2004,retained,81.64,81.64,0.0,1314,1314,0,{}
+tt0387808,Idiocracy,2006,retained,59.1,59.1,0.0,1639,1640,-1,{}
+tt0387898,Caché,2005,retained,372.0,452.0,80.0,104,59,45,"{""european_recognition"": 80.0}"
+tt0388473,Tokyo Godfathers,2003,retained,136.05,136.05,0.0,741,741,0,{}
+tt0388795,Brokeback Mountain,2005,retained,803.78,803.78,0.0,1,1,0,{}
+tt0388888,Dig!,2004,retained,144.48,144.48,0.0,681,681,0,{}
+tt0389448,Tie Xi Qu: West of the Tracks,2002,retained,149.67,149.67,0.0,655,655,0,{}
+tt0389557,Black Book,2006,retained,140.63,140.63,0.0,706,706,0,{}
+tt0390384,Primer,2004,retained,184.21,184.21,0.0,481,481,0,{}
+tt0390521,Super Size Me,2004,retained,86.39,86.39,0.0,1246,1245,1,{}
+tt0390538,Tarnation,2003,retained,105.22,105.22,0.0,1031,1031,0,{}
+tt0393109,Brick,2005,retained,92.86,92.86,0.0,1169,1168,1,{}
+tt0393162,Coach Carter,2005,retained,85.67,85.67,0.0,1259,1258,1,{}
+tt0395169,Hotel Rwanda,2004,retained,149.42,149.42,0.0,657,657,0,{}
+tt0396171,Perfume: The Story of a Murderer,2006,retained,72.11,72.11,0.0,1467,1467,0,{}
+tt0397535,Memoirs of a Geisha,2005,retained,72.61,72.61,0.0,1453,1453,0,{}
+tt0397892,Bolt,2008,retained,68.94,68.94,0.0,1522,1522,0,{}
+tt0398286,Tangled,2010,retained,127.3,127.3,0.0,818,817,1,{}
+tt0398808,Bridge to Terabithia,2007,retained,88.5,88.5,0.0,1222,1221,1,{}
+tt0399146,A History of Violence,2005,retained,271.81,271.81,0.0,229,230,-1,{}
+tt0399295,Lord of War,2005,retained,75.86,75.86,0.0,1407,1408,-1,{}
+tt0400234,Black Friday,2004,retained,76.29,76.29,0.0,1399,1399,0,{}
+tt0401085,C.R.A.Z.Y.,2005,retained,76.16,76.16,0.0,1401,1401,0,{}
+tt0401383,The Diving Bell and the Butterfly,2007,retained,375.94,375.94,0.0,101,103,-2,{}
+tt0401792,Sin City,2005,retained,164.48,164.48,0.0,563,563,0,{}
+tt0402399,The New World,2005,retained,211.98,211.98,0.0,375,375,0,{}
+tt0403217,Last Days,2005,retained,96.13,96.13,0.0,1127,1126,1,{}
+tt0404203,Little Children,2006,retained,110.56,110.56,0.0,979,977,2,{}
+tt0404390,Running Scared,2006,retained,46.32,46.32,0.0,1764,1765,-1,{}
+tt0405094,The Lives of Others,2006,retained,665.79,665.79,0.0,6,7,-1,{}
+tt0405159,Million Dollar Baby,2004,retained,354.1,354.1,0.0,121,122,-1,{}
+tt0405336,Southland Tales,2006,retained,84.79,84.79,0.0,1272,1271,1,{}
+tt0405418,A Visit to the Louvre,2004,retained,37.36,37.36,0.0,1819,1820,-1,{}
+tt0405422,The 40-Year-Old Virgin,2005,retained,104.58,104.58,0.0,1036,1036,0,{}
+tt0405508,Rang De Basanti,2006,retained,123.3,123.3,0.0,848,847,1,{}
+tt0407021,Los Muertos,2004,retained,52.23,52.23,0.0,1726,1727,-1,{}
+tt0407304,War of the Worlds,2005,retained,74.55,74.55,0.0,1420,1421,-1,{}
+tt0407887,The Departed,2006,retained,501.7,501.7,0.0,40,41,-1,{}
+tt0408236,Sweeney Todd: The Demon Barber of Fleet Street,2007,retained,112.75,114.75,2.0,955,930,25,"{""critics_groups_consensus"": 2.0}"
+tt0408306,Munich,2005,retained,213.71,213.71,0.0,368,368,0,{}
+tt0408664,Nobody Knows,2004,retained,237.31,237.31,0.0,316,316,0,{}
+tt0409459,Watchmen,2009,retained,81.64,81.64,0.0,1315,1315,0,{}
+tt0409965,Five Dedicated to Ozu,2003,retained,55.95,55.95,0.0,1677,1678,-1,{}
+tt0410466,Le pont des Arts,2004,retained,31.92,31.92,0.0,1842,1842,0,{}
+tt0411195,Breakfast on Pluto,2005,retained,83.91,83.91,0.0,1281,1281,0,{}
+tt0411270,The Beat That My Heart Skipped,2005,retained,191.96,191.96,0.0,449,449,0,{}
+tt0412596,Café Lumière,2003,retained,103.62,103.62,0.0,1044,1044,0,{}
+tt0414387,Pride & Prejudice,2005,retained,190.02,190.02,0.0,457,457,0,{}
+tt0414993,The Fountain,2006,retained,100.01,100.01,0.0,1081,1080,1,{}
+tt0415288,Star Spangled to Death,2004,retained,66.9,66.9,0.0,1552,1552,0,{}
+tt0415380,Throw Down,2004,retained,73.57,73.57,0.0,1438,1438,0,{}
+tt0415978,Me and You and Everyone We Know,2005,retained,155.99,155.99,0.0,615,615,0,{}
+tt0416320,Match Point,2005,retained,156.85,156.85,0.0,609,609,0,{}
+tt0416449,300,2006,retained,70.09,70.09,0.0,1500,1500,0,{}
+tt0416960,The Lizard,2004,retained,68.69,68.69,0.0,1527,1527,0,{}
+tt0416991,Moolaadé,2003,retained,183.83,183.83,0.0,485,485,0,{}
+tt0417741,Harry Potter and the Half-Blood Prince,2009,retained,106.68,106.68,0.0,1017,1017,0,{}
+tt0418689,Flags of Our Fathers,2006,retained,73.56,73.56,0.0,1439,1439,0,{}
+tt0419279,Yesterday,2004,retained,42.8,42.8,0.0,1790,1791,-1,{}
+tt0419294,The Three Burials of Melquiades Estrada,2005,retained,145.51,145.51,0.0,678,678,0,{}
+tt0420087,A Prairie Home Companion,2006,retained,67.63,67.63,0.0,1540,1540,0,{}
+tt0420223,Stranger Than Fiction,2006,retained,81.43,81.43,0.0,1317,1317,0,{}
+tt0420291,Keane,2004,retained,39.47,39.47,0.0,1808,1809,-1,{}
+tt0420332,Veer Zaara,2004,retained,88.62,88.62,0.0,1221,1220,1,{}
+tt0421082,Control,2007,retained,112.7,112.7,0.0,956,954,2,{}
+tt0421715,The Curious Case of Benjamin Button,2008,retained,237.71,237.71,0.0,314,314,0,{}
+tt0422320,Ghilli,2004,retained,74.38,74.38,0.0,1423,1424,-1,{}
+tt0422491,The Intruder,2004,retained,108.67,108.67,0.0,1006,1004,2,{}
+tt0422720,Marie Antoinette,2006,retained,152.75,152.75,0.0,638,638,0,{}
+tt0423176,The World,2004,retained,126.47,126.47,0.0,825,824,1,{}
+tt0423294,Surf's Up,2007,retained,91.94,91.94,0.0,1183,1182,1,{}
+tt0423409,Tristram Shandy,2005,retained,48.34,48.34,0.0,1745,1746,-1,{}
+tt0423866,3-Iron,2004,retained,239.78,239.78,0.0,311,311,0,{}
+tt0424024,Darwin's Nightmare,2004,retained,68.63,68.63,0.0,1528,1528,0,{}
+tt0424062,Evolution of a Filipino Family,2004,retained,92.05,92.05,0.0,1181,1180,1,{}
+tt0424205,Joyeux Noel,2005,retained,130.08,130.08,0.0,794,793,1,{}
+tt0424227,Turtles Can Fly,2004,retained,154.48,154.48,0.0,627,627,0,{}
+tt0424272,The 3 Rooms of Melancholia,2004,retained,20.0,20.0,0.0,1876,1876,0,{}
+tt0424345,Clerks II,2006,retained,46.52,46.52,0.0,1763,1764,-1,{}
+tt0425112,Hot Fuzz,2007,retained,186.24,186.24,0.0,473,473,0,{}
+tt0425210,Lucky Number Slevin,2006,retained,79.61,79.61,0.0,1348,1348,0,{}
+tt0426578,Sophie Scholl - The Final Days,2005,retained,185.2,185.2,0.0,476,476,0,{}
+tt0426931,August Rush,2007,retained,54.85,54.85,0.0,1704,1705,-1,{}
+tt0427312,Grizzly Man,2005,retained,237.41,237.41,0.0,315,315,0,{}
+tt0427944,Thank You for Smoking,2005,retained,87.99,87.99,0.0,1228,1227,1,{}
+tt0428803,March of the Penguins,2005,retained,90.67,90.67,0.0,1195,1194,1,{}
+tt0428870,A Moment to Remember,2004,retained,80.98,80.98,0.0,1322,1322,0,{}
+tt0430357,Miami Vice,2006,retained,114.61,114.61,0.0,933,932,1,{}
+tt0431958,Oh! Man,2004,retained,55.8,55.8,0.0,1681,1682,-1,{}
+tt0432283,Fantastic Mr. Fox,2009,retained,267.14,267.14,0.0,242,242,0,{}
+tt0433383,"Good Night, and Good Luck.",2005,retained,298.07,298.07,0.0,188,189,-1,{}
+tt0433416,The Namesake,2006,retained,88.8,88.8,0.0,1214,1213,1,{}
+tt0434409,V for Vendetta,2005,retained,115.52,115.52,0.0,927,925,2,{}
+tt0435625,The Descent,2005,retained,125.05,125.05,0.0,836,835,1,{}
+tt0435761,Toy Story 3,2010,retained,353.73,353.73,0.0,122,123,-1,{}
+tt0436697,The Queen,2006,retained,339.83,339.83,0.0,143,144,-1,{}
+tt0436857,Twist of Faith,2004,retained,8.21,8.21,0.0,1899,1899,0,{}
+tt0437086,Alita: Battle Angel,2019,retained,41.53,41.53,0.0,1794,1795,-1,{}
+tt0439817,The Sun,2005,retained,68.88,68.88,0.0,1524,1524,0,{}
+tt0440963,The Bourne Ultimatum,2007,retained,165.1,165.1,0.0,560,560,0,{}
+tt0441773,Kung Fu Panda,2008,retained,141.98,141.98,0.0,695,695,0,{}
+tt0441909,Volver,2006,retained,313.27,313.27,0.0,166,166,0,{}
+tt0443272,Lincoln,2012,retained,254.38,254.38,0.0,277,277,0,{}
+tt0443446,Don't Tell,2005,retained,55.0,55.0,0.0,1700,1701,-1,{}
+tt0443453,Borat,2006,retained,232.87,232.87,0.0,325,325,0,{}
+tt0443543,The Illusionist,2006,retained,71.4,71.4,0.0,1479,1479,0,{}
+tt0443680,The Assassination of Jesse James by the Coward Robert Ford,2007,retained,207.32,207.32,0.0,393,393,0,{}
+tt0443706,Zodiac,2007,retained,414.03,414.03,0.0,81,83,-2,{}
+tt0443844,Regular Lovers,2005,retained,159.13,159.13,0.0,597,596,1,{}
+tt0445158,13 Lakes,2004,retained,62.8,62.8,0.0,1599,1600,-1,{}
+tt0445336,"You, the Living",2007,retained,149.52,149.52,0.0,656,656,0,{}
+tt0445620,Paradise Now,2005,retained,274.18,274.18,0.0,225,226,-1,{}
+tt0445760,The Wayward Cloud,2005,retained,92.6,92.6,0.0,1174,1173,1,{}
+tt0445922,Across the Universe,2007,retained,58.84,58.84,0.0,1643,1644,-1,{}
+tt0446029,Scott Pilgrim vs. the World,2010,retained,147.4,147.4,0.0,666,666,0,{}
+tt0446755,The Painted Veil,2006,retained,66.34,66.34,0.0,1558,1558,0,{}
+tt0448134,Sunshine,2007,retained,74.26,74.26,0.0,1427,1428,-1,{}
+tt0448694,Puss in Boots,2011,retained,51.06,51.06,0.0,1735,1736,-1,{}
+tt0449059,Little Miss Sunshine,2006,retained,417.89,417.89,0.0,80,82,-2,{}
+tt0449088,Pirates of the Caribbean: At World's End,2007,retained,60.86,60.86,0.0,1620,1621,-1,{}
+tt0449467,Babel,2006,retained,359.48,359.48,0.0,116,117,-1,{}
+tt0450259,Blood Diamond,2006,retained,110.41,110.41,0.0,983,981,2,{}
+tt0451094,Lady Vengeance,2005,retained,156.8,156.8,0.0,611,611,0,{}
+tt0451279,Wonder Woman,2017,retained,75.22,75.22,0.0,1411,1412,-1,{}
+tt0452039,Mind Game,2004,retained,90.12,90.12,0.0,1202,1201,1,{}
+tt0452623,Gone Baby Gone,2007,retained,109.75,109.75,0.0,993,991,2,{}
+tt0453562,42,2013,retained,90.29,90.29,0.0,1200,1199,1,{}
+tt0453795,Oxhide,2005,retained,14.83,14.83,0.0,1889,1889,0,{}
+tt0454848,Inside Man,2006,retained,101.58,101.58,0.0,1066,1066,0,{}
+tt0454876,Life of Pi,2012,retained,282.66,282.66,0.0,216,217,-1,{}
+tt0454921,The Pursuit of Happyness,2006,retained,113.94,113.94,0.0,941,940,1,{}
+tt0455590,The Last King of Scotland,2006,retained,173.72,173.72,0.0,518,518,0,{}
+tt0455944,The Equalizer,2014,retained,58.84,58.84,0.0,1645,1646,-1,{}
+tt0456144,Lage Raho Munna Bhai,2006,retained,64.02,64.02,0.0,1588,1589,-1,{}
+tt0456149,The Death of Mr. Lazarescu,2005,retained,191.44,191.44,0.0,453,453,0,{}
+tt0456396,The Child,2005,retained,321.26,321.26,0.0,160,160,0,{}
+tt0457430,Pan's Labyrinth,2006,retained,542.52,551.27,8.75,26,24,2,"{""critics_groups_consensus"": 8.75}"
+tt0457655,After the Wedding,2006,retained,116.35,116.35,0.0,918,916,2,{}
+tt0459102,Import Export,2007,retained,87.8,87.8,0.0,1231,1230,1,{}
+tt0459666,Three Times,2005,retained,141.87,141.87,0.0,697,697,0,{}
+tt0459880,Lady Chatterley,2006,retained,56.75,56.75,0.0,1671,1672,-1,{}
+tt0460480,Colossal Youth,2006,retained,133.93,133.93,0.0,760,759,1,{}
+tt0460791,The Fall,2006,retained,123.75,123.75,0.0,845,844,1,{}
+tt0460829,Inland Empire,2006,retained,163.52,163.52,0.0,568,568,0,{}
+tt0460989,The Wind That Shakes the Barley,2006,retained,310.16,310.16,0.0,170,171,-1,{}
+tt0461795,Tale of Cinema,2005,retained,79.0,79.0,0.0,1356,1356,0,{}
+tt0462322,Grindhouse,2007,retained,96.06,96.06,0.0,1128,1127,1,{}
+tt0462504,Rescue Dawn,2006,retained,77.13,77.13,0.0,1385,1385,0,{}
+tt0462538,The Simpsons Movie,2007,retained,82.24,82.24,0.0,1304,1304,0,{}
+tt0464141,The Orphanage,2007,retained,134.5,134.5,0.0,750,749,1,{}
+tt0465538,Michael Clayton,2007,retained,269.48,269.48,0.0,234,234,0,{}
+tt0466399,Ten Canoes,2006,retained,40.18,40.18,0.0,1802,1803,-1,{}
+tt0466460,Khosla Ka Ghosla!,2006,retained,65.87,65.87,0.0,1566,1566,0,{}
+tt0466893,Margaret,2011,retained,205.28,205.28,0.0,402,402,0,{}
+tt0467406,Juno,2007,retained,259.35,259.35,0.0,266,266,0,{}
+tt0468094,The Road to Guantanamo,2006,retained,62.12,62.12,0.0,1608,1609,-1,{}
+tt0468489,Half Nelson,2006,retained,154.34,154.34,0.0,628,628,0,{}
+tt0468492,The Host,2006,retained,184.41,184.41,0.0,480,480,0,{}
+tt0468526,Old Joy,2006,retained,155.61,155.61,0.0,620,620,0,{}
+tt0468565,Tsotsi,2005,retained,147.28,147.28,0.0,667,667,0,{}
+tt0468569,The Dark Knight,2008,retained,419.01,419.01,0.0,79,81,-2,{}
+tt0469494,There Will Be Blood,2007,retained,731.95,731.95,0.0,4,4,0,{}
+tt0470752,Ex Machina,2014,retained,180.27,180.27,0.0,493,493,0,{}
+tt0471030,Red Road,2006,retained,208.13,208.13,0.0,388,388,0,{}
+tt0471571,Athadu,2005,retained,67.57,67.57,0.0,1541,1541,0,{}
+tt0472043,Apocalypto,2006,retained,171.12,171.12,0.0,529,529,0,{}
+tt0475276,United 93,2006,retained,191.98,191.98,0.0,448,448,0,{}
+tt0476735,My Father and My Son,2005,retained,117.14,117.14,0.0,911,910,1,{}
+tt0477302,Extremely Loud & Incredibly Close,2011,retained,93.08,93.08,0.0,1166,1165,1,{}
+tt0477348,No Country for Old Men,2007,retained,660.66,660.66,0.0,8,8,0,{}
+tt0477731,Syndromes and a Century,2006,retained,183.94,183.94,0.0,483,483,0,{}
+tt0478101,Black Sun,2005,retained,16.76,16.76,0.0,1886,1886,0,{}
+tt0478304,The Tree of Life,2011,retained,523.69,523.69,0.0,32,32,0,{}
+tt0478311,Knocked Up,2007,retained,65.7,65.7,0.0,1569,1569,0,{}
+tt0478337,Zidane: A 21st Century Portrait,2006,retained,17.92,17.92,0.0,1883,1883,0,{}
+tt0478970,Ant-Man,2015,retained,53.38,53.38,0.0,1715,1716,-1,{}
+tt0480025,This Is England,2006,retained,198.48,198.48,0.0,423,423,0,{}
+tt0480249,I Am Legend,2007,retained,55.09,55.09,0.0,1691,1692,-1,{}
+tt0481499,The Croods,2013,retained,65.06,65.06,0.0,1574,1574,0,{}
+tt0482571,The Prestige,2006,retained,212.82,212.82,0.0,371,371,0,{}
+tt0482987,Paraguayan Hammock,2006,retained,20.07,20.07,0.0,1875,1875,0,{}
+tt0485601,The Secret of Kells,2009,retained,129.73,129.73,0.0,795,794,1,{}
+tt0485947,Mr. Nobody,2009,retained,85.39,85.39,0.0,1263,1262,1,{}
+tt0486358,Jesus Camp,2006,retained,74.31,74.31,0.0,1426,1427,-1,{}
+tt0486655,Stardust,2007,retained,87.56,87.56,0.0,1234,1233,1,{}
+tt0487419,The Secret of the Grain,2007,retained,192.34,192.34,0.0,447,447,0,{}
+tt0488120,Fracture,2007,retained,52.8,52.8,0.0,1724,1725,-1,{}
+tt0489342,Which Way Home,2009,retained,19.69,19.69,0.0,1880,1880,0,{}
+tt0490204,Reign Over Me,2007,retained,58.62,58.62,0.0,1647,1648,-1,{}
+tt0490215,Silence,2016,retained,153.98,153.98,0.0,631,631,0,{}
+tt0492466,Iraq in Fragments,2006,retained,58.33,58.33,0.0,1649,1650,-1,{}
+tt0493428,Instructions for a Light and Sound Machine,2005,retained,23.31,23.31,0.0,1867,1867,0,{}
+tt0497116,An Inconvenient Truth,2006,retained,89.77,89.77,0.0,1204,1203,1,{}
+tt0497465,Vicky Cristina Barcelona,2008,retained,71.33,71.33,0.0,1480,1480,0,{}
+tt0498097,Climates,2006,retained,115.99,115.99,0.0,922,920,2,{}
+tt0498380,Letters from Iwo Jima,2006,retained,282.79,282.79,0.0,215,216,-1,{}
+tt0499138,Wolff von Amerongen: Did He Commit Bankruptcy Offences?,2004,retained,40.54,40.54,0.0,1800,1801,-1,{}
+tt0499537,Offside,2006,retained,118.82,118.82,0.0,893,892,1,{}
+tt0499549,Avatar,2009,retained,349.77,349.77,0.0,129,130,-1,{}
+tt0756683,The Man from Earth,2007,retained,94.91,94.91,0.0,1144,1143,1,{}
+tt0757361,Margot at the Wedding,2007,retained,19.57,19.57,0.0,1881,1881,0,{}
+tt0758732,Beaufort,2007,retained,111.1,111.1,0.0,971,969,2,{}
+tt0758758,Into the Wild,2007,retained,162.92,162.92,0.0,574,574,0,{}
+tt0765429,American Gangster,2007,retained,184.53,184.53,0.0,477,477,0,{}
+tt0765432,The Baader Meinhof Complex,2008,retained,128.47,128.47,0.0,805,804,1,{}
+tt0765443,Eastern Promises,2007,retained,175.46,175.46,0.0,507,507,0,{}
+tt0765849,Our Daily Bread,2005,retained,54.87,54.87,0.0,1703,1704,-1,{}
+tt0770802,Samsara,2011,retained,117.4,117.4,0.0,908,907,1,{}
+tt0775489,The Illusionist,2010,retained,120.7,120.7,0.0,871,870,1,{}
+tt0780504,Drive,2011,retained,360.97,360.97,0.0,112,113,-1,{}
+tt0780521,The Princess and the Frog,2009,retained,131.09,131.09,0.0,782,781,1,{}
+tt0780536,In Bruges,2008,retained,171.25,171.25,0.0,528,528,0,{}
+tt0780571,Mr. Brooks,2007,retained,35.65,35.65,0.0,1827,1827,0,{}
+tt0781435,The Duchess of Langeais,2007,retained,43.53,43.53,0.0,1785,1786,-1,{}
+tt0783233,Atonement,2007,retained,388.42,388.42,0.0,95,97,-2,{}
+tt0787474,The Boxtrolls,2014,retained,72.03,72.03,0.0,1469,1469,0,{}
+tt0790636,Dallas Buyers Club,2013,retained,203.71,203.71,0.0,408,408,0,{}
+tt0794374,Summer Palace,2006,retained,85.46,85.46,0.0,1260,1259,1,{}
+tt0795368,Death at a Funeral,2007,retained,65.92,65.92,0.0,1565,1565,0,{}
+tt0796366,Star Trek,2009,retained,124.65,124.65,0.0,837,836,1,{}
+tt0805564,Lars and the Real Girl,2007,retained,92.68,92.68,0.0,1171,1170,1,{}
+tt0806125,La Morte rouge,2006,added_by_identity_correction,,50.68,,,1737,,{}
+tt0808357,"Lust, Caution",2007,retained,327.5,327.5,0.0,152,153,-1,{}
+tt0808417,Persepolis,2007,retained,432.72,432.72,0.0,68,70,-2,{}
+tt0809407,12:08 East of Bucharest,2006,retained,76.69,76.69,0.0,1394,1394,0,{}
+tt0809425,In the City of Sylvia,2007,retained,111.26,111.26,0.0,969,967,2,{}
+tt0810784,Bright Star,2009,retained,144.36,144.36,0.0,683,683,0,{}
+tt0811080,Speed Racer,2008,retained,101.71,101.71,0.0,1061,1061,0,{}
+tt0813547,The Counterfeiters,2007,retained,149.98,149.98,0.0,654,654,0,{}
+tt0814075,Deliver Us from Evil,2006,retained,69.99,69.99,0.0,1504,1504,0,{}
+tt0814314,Seven Pounds,2008,retained,70.09,70.09,0.0,1502,1502,0,{}
+tt0814666,Bamako,2006,retained,109.03,109.03,0.0,1003,1001,2,{}
+tt0815227,These Encounters of Theirs,2006,retained,16.58,16.58,0.0,1887,1887,0,{}
+tt0816442,The Book Thief,2013,retained,72.11,72.11,0.0,1468,1468,0,{}
+tt0816692,Interstellar,2014,retained,255.52,255.52,0.0,274,274,0,{}
+tt0817177,Flipped,2010,retained,87.41,87.41,0.0,1236,1235,1,{}
+tt0817225,Secret Sunshine,2007,retained,165.67,165.67,0.0,557,557,0,{}
+tt0822854,Shooter,2007,retained,37.78,37.78,0.0,1815,1816,-1,{}
+tt0824747,Changeling,2008,retained,113.39,113.39,0.0,952,951,1,{}
+tt0825232,The Bucket List,2007,retained,53.08,53.08,0.0,1720,1721,-1,{}
+tt0825241,Dry Season,2006,retained,121.28,121.28,0.0,863,862,1,{}
+tt0826547,Great World of Sound,2007,retained,10.49,10.49,0.0,1896,1896,0,{}
+tt0826711,Flight of the Red Balloon,2007,retained,78.8,78.8,0.0,1358,1358,0,{}
+tt0829482,Superbad,2007,retained,170.69,170.69,0.0,532,532,0,{}
+tt0835787,Woman on the Beach,2006,retained,29.54,29.54,0.0,1849,1849,0,{}
+tt0836700,Summer Hours,2008,retained,126.36,126.36,0.0,827,826,1,{}
+tt0838221,The Darjeeling Limited,2007,retained,115.47,115.47,0.0,929,927,2,{}
+tt0838283,Step Brothers,2008,retained,113.91,113.91,0.0,943,942,1,{}
+tt0840361,The Town,2010,retained,103.68,103.68,0.0,1043,1043,0,{}
+tt0841925,Silent Light,2007,retained,229.11,229.11,0.0,332,332,0,{}
+tt0842926,The Kids Are All Right,2010,retained,222.59,222.59,0.0,340,340,0,{}
+tt0842929,Paranoid Park,2007,retained,139.06,139.06,0.0,724,724,0,{}
+tt0843326,Bommarillu,2006,retained,54.13,54.13,0.0,1710,1711,-1,{}
+tt0843515,"Heremias, Book One: The Legend of the Lizard Princess",2006,retained,41.04,41.04,0.0,1796,1797,-1,{}
+tt0844742,Opera Jawa,2006,retained,22.41,22.41,0.0,1868,1868,0,{}
+tt0846668,Before I Forget,2007,retained,35.98,35.98,0.0,1825,1825,0,{}
+tt0847880,Cargo 200,2007,retained,91.7,91.7,0.0,1186,1185,1,{}
+tt0848228,The Avengers,2012,retained,122.1,122.1,0.0,859,858,1,{}
+tt0851578,Paprika,2006,retained,195.71,195.71,0.0,432,432,0,{}
+tt0854678,Taxi to the Dark Side,2007,retained,61.78,61.78,0.0,1614,1615,-1,{}
+tt0855824,I Don't Want to Sleep Alone,2006,retained,72.58,72.58,0.0,1454,1454,0,{}
+tt0857191,The Visitor,2007,retained,89.62,89.62,0.0,1206,1205,1,{}
+tt0859765,Still Life,2006,retained,141.16,141.16,0.0,700,700,0,{}
+tt0860906,Evangelion: 2.0 You Can (Not) Advance,2009,retained,96.31,96.31,0.0,1124,1123,1,{}
+tt0861739,Elite Squad,2007,retained,113.94,113.94,0.0,938,937,1,{}
+tt0869977,Water Lilies,2007,retained,62.26,62.26,0.0,1606,1607,-1,{}
+tt0870111,Frost/Nixon,2008,retained,237.99,237.99,0.0,313,313,0,{}
+tt0870984,Antichrist,2009,retained,109.29,109.29,0.0,1001,999,2,{}
+tt0871510,Chak De! India,2007,retained,94.39,94.39,0.0,1149,1148,1,{}
+tt0876563,Ponyo,2008,retained,133.31,133.31,0.0,765,764,1,{}
+tt0878804,The Blind Side,2009,retained,129.33,129.33,0.0,798,797,1,{}
+tt0879843,Katyn,2007,retained,78.27,78.27,0.0,1367,1367,0,{}
+tt0880502,The Edge of Heaven,2007,retained,161.81,161.81,0.0,580,580,0,{}
+tt0881310,Modern Life,2008,retained,43.72,43.72,0.0,1781,1782,-1,{}
+tt0884328,The Mist,2007,retained,68.74,68.74,0.0,1526,1526,0,{}
+tt0887883,Burn After Reading,2008,retained,79.23,79.23,0.0,1355,1355,0,{}
+tt0887912,The Hurt Locker,2008,retained,575.75,575.75,0.0,18,18,0,{}
+tt0892769,How to Train Your Dragon,2010,retained,185.25,185.25,0.0,475,475,0,{}
+tt0898367,The Road,2009,retained,71.26,71.26,0.0,1482,1482,0,{}
+tt0903624,The Hobbit: An Unexpected Journey,2012,retained,83.36,83.36,0.0,1290,1290,0,{}
+tt0907657,Once,2006,retained,218.33,218.33,0.0,351,351,0,{}
+tt0910970,WALL·E,2008,retained,486.21,486.21,0.0,42,43,-1,{}
+tt0912593,No End in Sight,2007,retained,79.55,79.55,0.0,1351,1351,0,{}
+tt0914798,The Boy in the Striped Pajamas,2008,retained,85.39,85.39,0.0,1264,1263,1,{}
+tt0918927,Doubt,2008,retained,107.61,107.61,0.0,1014,1012,2,{}
+tt0922605,Serras da desordem,2006,retained,65.61,65.61,0.0,1570,1570,0,{}
+tt0923752,The King of Kong: A Fistful of Quarters,2007,retained,116.13,116.13,0.0,921,919,2,{}
+tt0923869,United Red Army,2007,retained,17.59,17.59,0.0,1884,1884,0,{}
+tt0926084,Harry Potter and the Deathly Hallows: Part 1,2010,retained,99.56,99.56,0.0,1086,1085,1,{}
+tt0929425,Gomorrah,2008,retained,309.68,309.68,0.0,171,172,-1,{}
+tt0929632,Precious,2009,retained,354.61,354.61,0.0,120,121,-1,{}
+tt0936501,Taken,2008,retained,79.61,79.61,0.0,1349,1349,0,{}
+tt0945513,Source Code,2011,retained,90.35,90.35,0.0,1199,1198,1,{}
+tt0947798,Black Swan,2010,retained,432.13,432.13,0.0,69,71,-2,{}
+tt0959337,Revolutionary Road,2008,retained,78.78,78.78,0.0,1359,1359,0,{}
+tt0964517,The Fighter,2010,retained,204.44,204.44,0.0,404,404,0,{}
+tt0970179,Hugo,2011,retained,247.27,247.27,0.0,292,292,0,{}
+tt0970184,Operation Homecoming: Writing the Wartime Experience,2007,retained,0.0,0.0,0.0,1908,1908,0,{}
+tt0970935,Frownland,2007,retained,33.7,33.7,0.0,1835,1835,0,{}
+tt0976051,The Reader,2008,retained,232.86,232.86,0.0,326,326,0,{}
+tt0978759,Frozen River,2008,retained,173.97,173.97,0.0,516,516,0,{}
+tt0978762,Mary and Max,2009,retained,193.34,193.34,0.0,443,443,0,{}
+tt0983193,The Adventures of Tintin,2011,retained,76.44,76.44,0.0,1398,1398,0,{}
+tt0986233,Hunger,2008,retained,206.99,206.99,0.0,395,395,0,{}
+tt0986264,Like Stars on Earth,2007,retained,130.97,130.97,0.0,783,782,1,{}
+tt0988045,Sherlock Holmes,2009,retained,66.34,66.34,0.0,1559,1559,0,{}
+tt0993789,A Christmas Tale,2008,retained,140.8,140.8,0.0,703,703,0,{}
+tt0993846,The Wolf of Wall Street,2013,retained,389.14,389.14,0.0,94,96,-2,{}
+tt1001526,Megamind,2010,retained,79.46,79.46,0.0,1352,1352,0,{}
+tt1002543,Santiago,2007,retained,55.81,55.81,0.0,1680,1681,-1,{}
+tt10083340,Gangubai Kathiawadi,2022,retained,92.19,92.19,0.0,1178,1177,1,{}
+tt1010048,Slumdog Millionaire,2008,retained,447.2,447.2,0.0,62,63,-1,{}
+tt1013753,Milk,2008,retained,281.1,281.1,0.0,219,220,-1,{}
+tt1014762,Home,2009,retained,69.14,69.14,0.0,1519,1519,0,{}
+tt1016150,All Quiet on the Western Front,2022,retained,404.4,404.4,0.0,85,87,-2,{}
+tt1016205,The Mourning Forest,2007,retained,150.4,150.4,0.0,651,651,0,{}
+tt1016268,Enron: The Smartest Guys in the Room,2005,retained,86.28,86.28,0.0,1248,1247,1,{}
+tt10189514,Soorarai Pottru,2020,retained,110.06,110.06,0.0,987,985,2,{}
+tt1019452,A Serious Man,2009,retained,348.8,348.8,0.0,130,131,-1,{}
+tt10199586,Atlantics,2019,retained,287.12,287.12,0.0,209,211,-2,{}
+tt10199590,Les Misérables,2019,retained,287.16,287.16,0.0,208,210,-2,{}
+tt10199640,Beanpole,2019,retained,96.7,96.7,0.0,1120,1119,1,{}
+tt1020072,Selma,2014,retained,256.38,256.38,0.0,270,270,0,{}
+tt1020773,Certified Copy,2010,retained,264.09,264.09,0.0,249,249,0,{}
+tt10214826,Agent Sai Srinivasa Athreya,2019,retained,69.77,69.77,0.0,1508,1508,0,{}
+tt1022603,500 Days of Summer,2009,retained,151.95,151.95,0.0,643,643,0,{}
+tt1023114,The Way Back,2010,retained,55.71,55.71,0.0,1682,1683,-1,{}
+tt1023490,Il Divo,2008,retained,194.2,194.2,0.0,442,442,0,{}
+tt1024648,Argo,2012,retained,332.82,332.82,0.0,149,150,-1,{}
+tt1024943,Om Shanti Om,2007,retained,125.17,125.17,0.0,835,834,1,{}
+tt10262648,Compartment Number 6,2021,retained,134.96,158.96,24.0,748,597,151,"{""european_recognition"": 24.0}"
+tt10272386,The Father,2020,retained,325.29,325.29,0.0,156,156,0,{}
+tt10280296,Sardar Udham,2021,retained,93.68,93.68,0.0,1154,1153,1,{}
+tt1028528,Death Proof,2007,retained,142.74,142.74,0.0,692,692,0,{}
+tt1028532,Hachi: A Dog's Tale,2009,retained,111.92,111.92,0.0,963,961,2,{}
+tt10288566,Another Round,2020,retained,360.7,360.7,0.0,113,114,-1,{}
+tt1029234,Martyrs,2008,retained,106.29,106.29,0.0,1020,1020,0,{}
+tt10293406,The Power of the Dog,2021,retained,449.25,449.25,0.0,61,62,-1,{}
+tt10295212,Shershaah,2021,retained,85.78,85.78,0.0,1258,1257,1,{}
+tt10300570,Kadaisi Vivasayi,2021,retained,82.13,82.13,0.0,1307,1307,0,{}
+tt10324144,Article 15,2019,retained,73.19,73.19,0.0,1444,1444,0,{}
+tt1032755,RocknRolla,2008,retained,55.09,55.09,0.0,1694,1695,-1,{}
+tt1032846,"4 Months, 3 Weeks and 2 Days",2007,retained,524.14,524.14,0.0,31,31,0,{}
+tt1033575,The Descendants,2011,retained,291.99,291.99,0.0,198,200,-2,{}
+tt10360862,The Man Who Sold His Skin,2020,retained,71.74,71.74,0.0,1474,1474,0,{}
+tt10366206,John Wick: Chapter 4,2023,retained,122.67,122.67,0.0,855,854,1,{}
+tt10366460,CODA,2021,retained,334.54,334.54,0.0,147,148,-1,{}
+tt10370710,The Worst Person in the World,2021,retained,301.47,301.47,0.0,180,181,-1,{}
+tt1037163,The Time That Remains,2009,retained,110.78,110.78,0.0,975,973,2,{}
+tt1038988,REC,2007,retained,82.08,82.08,0.0,1310,1310,0,{}
+tt10431500,Miracle in Cell No. 7,2019,retained,109.6,109.6,0.0,995,993,2,{}
+tt1045658,Silver Linings Playbook,2012,retained,267.12,267.12,0.0,243,243,0,{}
+tt1045670,Happy-Go-Lucky,2008,retained,164.76,164.76,0.0,561,561,0,{}
+tt1049413,Up,2009,retained,399.4,399.4,0.0,87,89,-2,{}
+tt1051907,For Love and Honor,2007,retained,53.7,53.7,0.0,1714,1715,-1,{}
+tt10534500,#Home,2021,retained,78.59,78.59,0.0,1363,1363,0,{}
+tt10551100,Mangrove,2020,retained,37.04,84.65,47.61,1821,1273,548,"{""audience"": 47.61}"
+tt10551102,Lovers Rock,2020,retained,100.78,147.77,46.99,1074,665,409,"{""audience"": 46.99}"
+tt10554232,Dara of Jasenovac,2020,retained,62.14,62.14,0.0,1607,1608,-1,{}
+tt1057500,Invictus,2009,retained,65.84,65.84,0.0,1568,1568,0,{}
+tt10618286,Mank,2020,retained,126.7,126.7,0.0,823,822,1,{}
+tt10633456,Minari,2020,retained,365.41,365.41,0.0,109,110,-1,{}
+tt1063669,The Wave,2008,retained,83.86,83.86,0.0,1282,1282,0,{}
+tt1065073,Boyhood,2014,retained,748.89,748.89,0.0,2,3,-1,{}
+tt1068646,The Class,2008,retained,351.65,351.65,0.0,126,127,-1,{}
+tt10687070,Mandela,2021,retained,58.16,58.16,0.0,1650,1651,-1,{}
+tt1069238,Departures,2008,retained,214.68,214.68,0.0,363,363,0,{}
+tt10698680,K.G.F: Chapter 2,2022,retained,85.97,85.97,0.0,1253,1252,1,{}
+tt10706602,Collective,2019,retained,196.83,196.83,0.0,427,427,0,{}
+tt1070874,The Trial of the Chicago 7,2020,retained,241.65,241.65,0.0,304,304,0,{}
+tt1074638,Skyfall,2012,retained,136.09,136.09,0.0,740,740,0,{}
+tt1077262,Ajami,2009,retained,75.12,75.12,0.0,1412,1413,-1,{}
+tt1078588,My Sister's Keeper,2009,retained,47.31,47.31,0.0,1753,1754,-1,{}
+tt10811166,The Kashmir Files,2022,retained,71.25,71.25,0.0,1483,1483,0,{}
+tt1081929,Our Beloved Month of August,2008,retained,66.79,66.79,0.0,1554,1554,0,{}
+tt1083452,Eddie the Eagle,2015,retained,72.44,72.44,0.0,1456,1456,0,{}
+tt1084950,Rachel Getting Married,2008,retained,85.41,85.41,0.0,1262,1261,1,{}
+tt10849514,"This Is Not a Burial, It's a Resurrection",2019,retained,92.13,92.13,0.0,1179,1178,1,{}
+tt10872600,Spider-Man: No Way Home,2021,retained,135.12,135.12,0.0,746,746,0,{}
+tt1087578,Still Walking,2008,retained,217.13,217.13,0.0,355,355,0,{}
+tt10895576,Mimi,2021,retained,48.15,48.15,0.0,1749,1750,-1,{}
+tt1091191,Lone Survivor,2013,retained,72.17,72.17,0.0,1462,1462,0,{}
+tt1093370,Jab We Met,2007,retained,93.15,93.15,0.0,1164,1163,1,{}
+tt1093824,Encounters at the End of the World,2007,retained,103.99,103.99,0.0,1039,1039,0,{}
+tt1093842,My Winnipeg,2007,retained,150.39,150.39,0.0,652,652,0,{}
+tt10944760,Titane,2021,retained,294.53,294.53,0.0,193,194,-1,{}
+tt10954984,Nope,2022,retained,131.7,131.7,0.0,776,775,1,{}
+tt1100048,35 Shots of Rum,2008,retained,157.98,157.98,0.0,605,605,0,{}
+tt1100089,Foxcatcher,2014,retained,189.66,189.66,0.0,460,460,0,{}
+tt11003218,Pig,2021,retained,105.04,105.04,0.0,1033,1033,0,{}
+tt11032374,Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train,2020,retained,121.44,121.44,0.0,862,861,1,{}
+tt1103275,Two Lovers,2008,retained,162.76,162.76,0.0,576,576,0,{}
+tt1103963,24 City,2008,retained,54.64,54.64,0.0,1705,1706,-1,{}
+tt1107850,Unrelated,2007,retained,20.38,20.38,0.0,1873,1873,0,{}
+tt1109624,Paddington,2014,retained,132.6,132.6,0.0,773,772,1,{}
+tt1119646,The Hangover,2009,retained,103.44,103.44,0.0,1045,1045,0,{}
+tt1120985,Blue Valentine,2010,retained,170.41,170.41,0.0,534,534,0,{}
+tt11233960,The Unforgivable,2021,retained,37.78,37.78,0.0,1816,1817,-1,{}
+tt1124052,City of Life and Death,2009,retained,80.17,80.17,0.0,1340,1340,0,{}
+tt1125849,The Wrestler,2008,retained,263.32,263.32,0.0,250,250,0,{}
+tt11271038,Licorice Pizza,2021,retained,263.2,263.2,0.0,251,251,0,{}
+tt11286314,Don't Look Up,2021,retained,161.27,161.27,0.0,585,585,0,{}
+tt1129435,The Beaches of Agnès,2008,retained,184.11,184.11,0.0,482,482,0,{}
+tt1130884,Shutter Island,2010,retained,132.98,132.98,0.0,771,770,1,{}
+tt1131729,Pirate Radio,2009,retained,62.8,62.8,0.0,1600,1601,-1,{}
+tt1132620,The Girl with the Dragon Tattoo,2009,retained,188.06,188.06,0.0,466,466,0,{}
+tt1135952,White Material,2009,retained,139.1,139.1,0.0,723,723,0,{}
+tt1136608,District 9,2009,retained,248.65,248.65,0.0,291,291,0,{}
+tt11378946,Michael,2026,retained,64.61,64.61,0.0,1582,1582,0,{}
+tt11382384,The Dissident,2020,retained,80.73,80.73,0.0,1326,1326,0,{}
+tt11392114,"Bloody Nose, Empty Pockets",2020,retained,59.79,59.79,0.0,1634,1635,-1,{}
+tt1139328,The Ghost Writer,2010,retained,267.7,267.7,0.0,240,240,0,{}
+tt11394180,Dick Johnson Is Dead,2020,retained,119.19,119.19,0.0,889,888,1,{}
+tt11394298,The Mole Agent,2020,retained,118.27,118.27,0.0,897,896,1,{}
+tt1139797,Let the Right One In,2008,retained,319.04,319.04,0.0,161,161,0,{}
+tt11416746,Time,2020,added_by_identity_correction,,107.08,,,1014,,{}
+tt1142977,Frankenweenie,2012,retained,93.29,93.29,0.0,1162,1161,1,{}
+tt1149362,The White Ribbon,2009,retained,553.38,553.38,0.0,23,23,0,{}
+tt1149405,Trouble the Water,2008,retained,93.04,93.04,0.0,1167,1166,1,{}
+tt1152758,Dear Zachary: A Letter to a Son About His Father,2008,retained,155.1,155.1,0.0,623,623,0,{}
+tt1152850,Wendy and Lucy,2008,retained,189.63,189.63,0.0,461,461,0,{}
+tt1153690,Ballast,2008,retained,40.83,40.83,0.0,1798,1799,-1,{}
+tt11548822,Cow,2021,retained,51.86,51.86,0.0,1731,1732,-1,{}
+tt11555492,Farha,2021,retained,89.45,89.45,0.0,1208,1207,1,{}
+tt1155592,Man on Wire,2008,retained,294.25,294.25,0.0,195,196,-1,{}
+tt1156143,Wild Grass,2009,retained,78.88,78.88,0.0,1357,1357,0,{}
+tt1156173,Vincere,2009,retained,84.68,84.68,0.0,1273,1272,1,{}
+tt11563598,A Complete Unknown,2024,retained,204.39,204.39,0.0,405,405,0,{}
+tt1156398,Zombieland,2009,retained,86.72,86.72,0.0,1240,1239,1,{}
+tt1157605,Anvil: The Story of Anvil,2008,retained,128.07,128.07,0.0,810,809,1,{}
+tt11580854,Sarpatta Parambarai,2021,retained,94.45,94.45,0.0,1148,1147,1,{}
+tt11581174,Karnan,2021,retained,66.93,66.93,0.0,1551,1551,0,{}
+tt1158308,Profit Motive and the Whispering Wind,2007,retained,19.73,19.73,0.0,1878,1878,0,{}
+tt1160419,Dune,2021,retained,299.36,299.36,0.0,184,185,-1,{}
+tt11617052,Undine,2020,retained,74.09,74.09,0.0,1430,1431,-1,{}
+tt1164999,Biutiful,2010,retained,214.28,214.28,0.0,364,364,0,{}
+tt1165293,Jogo de cena,2007,retained,118.88,118.88,0.0,892,891,1,{}
+tt11697690,The Woman Who Ran,2020,retained,127.51,127.51,0.0,817,816,1,{}
+tt11697820,Days,2020,retained,124.44,124.44,0.0,842,841,1,{}
+tt1170358,The Hobbit: The Desolation of Smaug,2013,retained,87.29,87.29,0.0,1238,1237,1,{}
+tt1171701,The Breath,2009,retained,65.87,65.87,0.0,1567,1567,0,{}
+tt1173745,Revanche,2008,retained,119.42,119.42,0.0,882,881,1,{}
+tt1174732,An Education,2009,retained,246.6,246.6,0.0,295,295,0,{}
+tt1179933,10 Cloverfield Lane,2016,retained,79.85,79.85,0.0,1344,1344,0,{}
+tt1180583,Vaaranam Aayiram,2008,retained,77.96,77.96,0.0,1370,1370,0,{}
+tt11813216,The Banshees of Inisherin,2022,retained,355.66,355.66,0.0,119,120,-1,{}
+tt1181614,Wuthering Heights,2011,retained,45.72,45.72,0.0,1770,1771,-1,{}
+tt1182345,Moon,2009,retained,138.43,138.43,0.0,726,726,0,{}
+tt1185616,Waltz with Bashir,2008,retained,325.64,335.08,9.44,155,147,8,"{""critics_groups_consensus"": 9.44}"
+tt1187043,3 Idiots,2009,retained,140.48,140.48,0.0,709,709,0,{}
+tt1187044,The Maid,2009,retained,64.66,64.66,0.0,1579,1579,0,{}
+tt11874226,David Byrne's American Utopia,2020,retained,119.24,119.24,0.0,887,886,1,{}
+tt1188996,My Name Is Khan,2010,retained,92.57,92.57,0.0,1175,1174,1,{}
+tt1189073,The Skin I Live In,2011,retained,237.18,237.18,0.0,318,318,0,{}
+tt1189340,The Lincoln Lawyer,2011,retained,78.76,78.76,0.0,1360,1360,0,{}
+tt1190539,The Chaser,2008,retained,122.6,122.6,0.0,856,855,1,{}
+tt1190858,Amreeka,2009,retained,33.59,33.59,0.0,1837,1837,0,{}
+tt1191111,Enter the Void,2009,retained,174.13,174.13,0.0,514,514,0,{}
+tt1192628,Rango,2011,retained,156.91,156.91,0.0,607,607,0,{}
+tt11930126,Alcarràs,2022,retained,88.4,88.4,0.0,1225,1224,1,{}
+tt1193138,Up in the Air,2009,retained,223.64,223.64,0.0,339,339,0,{}
+tt1197624,Law Abiding Citizen,2009,retained,56.83,56.83,0.0,1666,1667,-1,{}
+tt11989890,David Attenborough: A Life on Our Planet,2020,retained,111.47,111.47,0.0,967,965,2,{}
+tt11992424,Saptha Sagaradaache Ello - Side A,2023,retained,67.64,67.64,0.0,1539,1539,0,{}
+tt11992694,Corsage,2022,retained,65.44,65.44,0.0,1572,1572,0,{}
+tt1201607,Harry Potter and the Deathly Hallows: Part 2,2011,retained,151.93,151.93,0.0,644,644,0,{}
+tt12037194,Furiosa: A Mad Max Saga,2024,retained,96.71,96.71,0.0,1119,1118,1,{}
+tt12042730,Project Hail Mary,2026,retained,168.35,168.35,0.0,544,544,0,{}
+tt1204773,Everyone Else,2009,retained,46.98,46.98,0.0,1757,1758,-1,{}
+tt1205489,Gran Torino,2008,retained,172.48,172.48,0.0,522,522,0,{}
+tt1206488,The Milk of Sorrow,2009,retained,58.97,58.97,0.0,1641,1642,-1,{}
+tt12094720,City Hall,2020,retained,63.25,63.25,0.0,1596,1597,-1,{}
+tt1210166,Moneyball,2011,retained,271.67,271.67,0.0,230,231,-1,{}
+tt1211837,Doctor Strange,2016,retained,86.81,86.81,0.0,1239,1238,1,{}
+tt1211890,Middle of Nowhere,2012,retained,30.9,30.9,0.0,1844,1844,0,{}
+tt1212428,The Lost City of Z,2016,retained,60.89,60.89,0.0,1619,1620,-1,{}
+tt1212450,Lawless,2012,retained,69.33,69.33,0.0,1516,1516,0,{}
+tt1213641,First Man,2018,retained,120.89,120.89,0.0,869,868,1,{}
+tt1216496,Mother,2009,retained,214.27,214.27,0.0,365,365,0,{}
+tt1217209,Brave,2012,retained,120.49,120.49,0.0,874,873,1,{}
+tt1219289,Limitless,2011,retained,56.83,56.83,0.0,1667,1668,-1,{}
+tt1220719,Ip Man,2008,retained,113.94,113.94,0.0,939,938,1,{}
+tt1221141,The Headless Woman,2008,retained,169.23,169.23,0.0,538,538,0,{}
+tt1225831,Extraordinary Stories,2008,retained,93.87,93.87,0.0,1153,1152,1,{}
+tt12262116,Thirteen Lives,2022,retained,103.34,103.34,0.0,1047,1047,0,{}
+tt1226236,I Am Love,2009,retained,133.09,133.09,0.0,769,768,1,{}
+tt1226681,Pontypool,2008,retained,29.79,29.79,0.0,1848,1848,0,{}
+tt1226774,In the Loop,2009,retained,128.18,128.18,0.0,808,807,1,{}
+tt1226837,Beautiful Boy,2018,retained,97.22,97.22,0.0,1110,1109,1,{}
+tt1228953,Big Fan,2009,retained,34.41,34.41,0.0,1832,1832,0,{}
+tt1228987,Let Me In,2010,retained,78.44,78.44,0.0,1364,1364,0,{}
+tt1229238,Mission: Impossible - Ghost Protocol,2011,retained,105.0,105.0,0.0,1034,1034,0,{}
+tt12300742,Bugonia,2025,retained,206.11,206.11,0.0,399,399,0,{}
+tt1232776,Fish Tank,2009,retained,360.06,360.06,0.0,114,115,-1,{}
+tt1232790,Of Time and the City,2008,retained,55.51,55.51,0.0,1684,1685,-1,{}
+tt1232829,21 Jump Street,2012,retained,75.38,75.38,0.0,1409,1410,-1,{}
+tt1233334,Pariah,2011,retained,146.96,146.96,0.0,671,671,0,{}
+tt1233381,Three Monkeys,2008,retained,141.44,141.44,0.0,699,699,0,{}
+tt1234654,Greenberg,2010,retained,42.95,42.95,0.0,1787,1788,-1,{}
+tt1235166,A Prophet,2009,retained,562.43,562.43,0.0,21,21,0,{}
+tt12361178,Drishyam 2,2021,retained,86.25,86.25,0.0,1249,1248,1,{}
+tt12361974,Zack Snyder's Justice League,2021,retained,76.78,76.78,0.0,1391,1391,0,{}
+tt12415546,Attack on Titan: Chronicle,2020,retained,110.09,110.09,0.0,986,984,2,{}
+tt1242460,We Need to Talk About Kevin,2011,retained,180.96,180.96,0.0,491,491,0,{}
+tt12427158,A Thousand and One,2023,retained,80.6,80.6,0.0,1328,1328,0,{}
+tt1242742,Artemis' Knee,2008,retained,21.69,21.69,0.0,1871,1871,0,{}
+tt1244668,Soul Kitchen,2009,retained,79.28,79.28,0.0,1353,1353,0,{}
+tt12477480,Decision to Leave,2022,retained,269.89,269.89,0.0,233,233,0,{}
+tt12482898,Attica,2021,retained,80.5,80.5,0.0,1330,1330,0,{}
+tt1250777,Kick-Ass,2010,retained,77.18,77.18,0.0,1384,1384,0,{}
+tt1255953,Incendies,2010,retained,296.66,296.66,0.0,191,192,-1,{}
+tt12593682,Bullet Train,2022,retained,64.61,64.61,0.0,1581,1581,0,{}
+tt1259521,The Cabin in the Woods,2011,retained,83.41,83.41,0.0,1289,1289,0,{}
+tt1261422,RR,2007,retained,40.07,40.07,0.0,1803,1804,-1,{}
+tt1262426,Wicked,2024,retained,168.19,168.19,0.0,546,546,0,{}
+tt12680684,The Hand of God,2021,retained,312.97,312.97,0.0,167,167,0,{}
+tt1268204,Waste Land,2010,retained,98.88,98.88,0.0,1091,1090,1,{}
+tt1269566,Melancholia,2008,retained,62.61,62.61,0.0,1601,1602,-1,{}
+tt1270798,X-Men: First Class,2011,retained,79.61,79.61,0.0,1350,1350,0,{}
+tt12758060,Tetris,2023,retained,74.85,74.85,0.0,1413,1414,-1,{}
+tt1276104,Looper,2012,retained,130.44,130.44,0.0,789,788,1,{}
+tt1276419,A Royal Affair,2012,retained,137.64,137.64,0.0,733,733,0,{}
+tt12789558,Belfast,2021,retained,212.91,212.91,0.0,370,370,0,{}
+tt12801262,Luca,2021,retained,130.54,130.54,0.0,788,787,1,{}
+tt1280558,A Wednesday,2008,retained,78.07,78.07,0.0,1369,1369,0,{}
+tt1282153,The Strange Case of Angelica,2010,retained,76.15,76.15,0.0,1404,1404,0,{}
+tt1284587,Shirin,2008,retained,45.56,45.56,0.0,1773,1774,-1,{}
+tt1285016,The Social Network,2010,retained,599.23,599.23,0.0,16,16,0,{}
+tt1286537,"Food, Inc.",2009,retained,90.69,90.69,0.0,1194,1193,1,{}
+tt1287878,Poetry,2010,retained,211.78,211.78,0.0,376,376,0,{}
+tt12888462,My Octopus Teacher,2020,retained,167.8,167.8,0.0,547,547,0,{}
+tt12913444,The Inheritance,2020,added_by_identity_correction,,13.29,,,1893,,{}
+tt1291584,Warrior,2011,retained,137.97,137.97,0.0,731,731,0,{}
+tt1302006,The Irishman,2019,retained,353.48,353.48,0.0,123,124,-1,{}
+tt1302011,Kung Fu Panda 2,2011,retained,116.38,116.38,0.0,917,915,2,{}
+tt1305806,The Secret in Their Eyes,2009,retained,321.6,321.6,0.0,159,159,0,{}
+tt1306980,50/50,2011,retained,118.12,118.12,0.0,900,899,1,{}
+tt1312221,Frankenstein,2025,retained,199.21,199.21,0.0,420,420,0,{}
+tt1313092,Animal Kingdom,2010,retained,155.97,155.97,0.0,616,616,0,{}
+tt1313104,The Cove,2009,retained,166.16,166.16,0.0,553,553,0,{}
+tt13138834,Time,2021,removed_false_identity,159.52,,,596,,,{}
+tt1315981,A Single Man,2009,retained,128.86,128.86,0.0,799,798,1,{}
+tt1316540,The Turin Horse,2011,retained,240.12,240.12,0.0,310,310,0,{}
+tt1318514,Rise of the Planet of the Apes,2011,retained,93.34,93.34,0.0,1161,1160,1,{}
+tt1319726,The Most Dangerous Man in America: Daniel Ellsberg and the Pentagon Papers,2009,retained,27.34,27.34,0.0,1856,1856,0,{}
+tt1319744,The Interrupters,2011,retained,61.93,61.93,0.0,1610,1611,-1,{}
+tt13204490,Petite Maman,2021,retained,266.29,266.29,0.0,245,245,0,{}
+tt1321865,Carlos,2010,retained,139.39,139.39,0.0,718,718,0,{}
+tt1322269,August: Osage County,2013,retained,57.99,57.99,0.0,1653,1654,-1,{}
+tt1323594,Despicable Me,2010,retained,93.92,93.92,0.0,1152,1151,1,{}
+tt13238346,Past Lives,2023,retained,437.85,437.85,0.0,65,67,-2,{}
+tt1327035,Dev.D,2009,retained,70.48,70.48,0.0,1490,1490,0,{}
+tt1327773,The Butler,2013,retained,54.44,54.44,0.0,1708,1709,-1,{}
+tt1329269,What Goes Up,2003,retained,22.21,22.21,0.0,1869,1869,0,{}
+tt1337051,"Police, Adjective",2009,retained,91.03,91.03,0.0,1191,1190,1,{}
+tt13391710,Jana Gana Mana,2022,retained,70.45,70.45,0.0,1492,1492,0,{}
+tt1340107,In a Better World,2010,retained,156.66,156.66,0.0,613,613,0,{}
+tt1340123,Samson & Delilah,2009,retained,92.47,92.47,0.0,1176,1175,1,{}
+tt1340800,Tinker Tailor Soldier Spy,2011,retained,173.8,173.8,0.0,517,517,0,{}
+tt13429870,Robot Dreams,2023,retained,153.85,153.85,0.0,632,632,0,{}
+tt1343092,The Great Gatsby,2013,retained,55.09,55.09,0.0,1695,1696,-1,{}
+tt1345836,The Dark Knight Rises,2012,retained,140.55,140.55,0.0,708,708,0,{}
+tt1360860,About Elly,2009,retained,233.39,233.39,0.0,321,321,0,{}
+tt13630174,Writing with Fire,2021,retained,119.95,119.95,0.0,877,876,1,{}
+tt13648216,Faya Dayi,2021,retained,27.52,27.52,0.0,1855,1855,0,{}
+tt13651462,Lurker,2025,retained,70.3,70.3,0.0,1497,1497,0,{}
+tt13651794,May December,2023,retained,167.05,167.05,0.0,550,550,0,{}
+tt13664684,Karthikeya 2,2022,retained,44.25,44.25,0.0,1778,1779,-1,{}
+tt13669038,Women Talking,2022,retained,172.59,172.59,0.0,521,521,0,{}
+tt13702796,Pacifiction,2022,retained,96.02,96.02,0.0,1129,1128,1,{}
+tt1371111,Cloud Atlas,2012,retained,63.8,63.8,0.0,1592,1593,-1,{}
+tt1375666,Inception,2010,retained,471.72,471.72,0.0,50,50,0,{}
+tt1379182,Dogtooth,2009,retained,199.37,199.37,0.0,419,419,0,{}
+tt1380807,Material,2009,retained,8.04,8.04,0.0,1900,1900,0,{}
+tt13833688,The Whale,2022,retained,101.64,101.64,0.0,1065,1065,0,{}
+tt1386932,Ip Man 2,2010,retained,70.33,70.33,0.0,1496,1496,0,{}
+tt1392170,The Hunger Games,2012,retained,85.87,85.87,0.0,1256,1255,1,{}
+tt1392190,Mad Max: Fury Road,2015,retained,526.74,526.74,0.0,30,30,0,{}
+tt1392214,Prisoners,2013,retained,151.39,151.39,0.0,645,645,0,{}
+tt13923216,Showing Up,2022,retained,138.05,138.05,0.0,730,730,0,{}
+tt1396484,It,2017,retained,73.85,73.85,0.0,1434,1434,0,{}
+tt1398426,Straight Outta Compton,2015,retained,115.0,115.0,0.0,931,929,2,{}
+tt1399683,Winter's Bone,2010,retained,327.58,327.58,0.0,151,152,-1,{}
+tt1403047,Aurora,2010,retained,32.15,32.15,0.0,1840,1840,0,{}
+tt1403214,Paradise: Love,2012,retained,97.59,97.59,0.0,1106,1105,1,{}
+tt14034966,Wheel of Fortune and Fantasy,2021,retained,161.54,161.54,0.0,583,583,0,{}
+tt14035154,What Do We See When We Look at the Sky?,2021,retained,70.41,70.41,0.0,1493,1493,0,{}
+tt1403865,True Grit,2010,retained,280.8,280.8,0.0,220,221,-1,{}
+tt14039582,Drive My Car,2021,retained,474.73,474.73,0.0,48,48,0,{}
+tt1408101,Star Trek Into Darkness,2013,retained,84.34,84.34,0.0,1274,1274,0,{}
+tt1412386,The Best Exotic Marigold Hotel,2011,retained,52.85,52.85,0.0,1721,1722,-1,{}
+tt14152756,Seaspiracy,2021,retained,74.33,74.33,0.0,1424,1425,-1,{}
+tt1417075,In Darkness,2011,retained,78.27,78.27,0.0,1366,1366,0,{}
+tt14205554,KPop Demon Hunters,2025,retained,158.42,158.42,0.0,601,601,0,{}
+tt14208870,The Fabelmans,2022,retained,259.55,259.55,0.0,265,265,0,{}
+tt1421051,Somewhere,2010,retained,57.16,57.16,0.0,1661,1662,-1,{}
+tt14225838,Io Capitano,2023,retained,242.87,242.87,0.0,302,302,0,{}
+tt14230388,Asteroid City,2023,retained,64.73,64.73,0.0,1577,1577,0,{}
+tt14230458,Poor Things,2023,retained,437.2,437.2,0.0,67,69,-2,{}
+tt1424432,Senna,2010,retained,219.65,219.65,0.0,349,349,0,{}
+tt1426380,Oxhide II,2009,retained,67.99,67.99,0.0,1533,1533,0,{}
+tt1430626,The Pirates! Band of Misfits,2012,retained,76.23,76.23,0.0,1400,1400,0,{}
+tt1431045,Deadpool,2016,retained,124.64,124.64,0.0,838,837,1,{}
+tt1431181,Another Year,2010,retained,172.75,172.75,0.0,520,520,0,{}
+tt14331144,Jujutsu Kaisen 0,2021,retained,115.25,115.25,0.0,930,928,2,{}
+tt14364480,Wake Up Dead Man,2025,retained,105.7,105.7,0.0,1026,1026,0,{}
+tt1437357,Faust,2011,retained,69.6,69.6,0.0,1512,1512,0,{}
+tt1438535,Film socialisme,2010,retained,83.2,83.2,0.0,1294,1294,0,{}
+tt1440266,Pina,2011,retained,159.77,159.77,0.0,595,595,0,{}
+tt1440292,Submarine,2010,retained,102.18,102.18,0.0,1057,1057,0,{}
+tt14407336,The Beast,2023,retained,106.25,106.25,0.0,1022,1022,0,{}
+tt1441326,Martha Marcy May Marlene,2011,retained,128.49,128.49,0.0,804,803,1,{}
+tt1441395,Under the Skin,2013,retained,254.69,254.69,0.0,275,275,0,{}
+tt14444726,Tár,2022,retained,455.62,455.62,0.0,58,58,0,{}
+tt1445520,Footnote,2011,retained,96.76,96.76,0.0,1116,1115,1,{}
+tt1446192,Rise of the Guardians,2012,retained,71.96,71.96,0.0,1471,1471,0,{}
+tt14505430,Ascension,2021,retained,53.9,53.9,0.0,1713,1714,-1,{}
+tt1453405,Monsters University,2013,retained,66.44,66.44,0.0,1557,1557,0,{}
+tt1454029,The Help,2011,retained,252.16,252.16,0.0,283,283,0,{}
+tt1454468,Gravity,2013,retained,341.08,341.08,0.0,141,142,-1,{}
+tt14550346,Last Summer,2023,retained,73.78,73.78,0.0,1436,1436,0,{}
+tt14561712,La Chimera,2023,retained,207.04,207.04,0.0,394,394,0,{}
+tt1456472,We Have a Pope,2011,retained,46.57,46.57,0.0,1761,1762,-1,{}
+tt1457767,The Conjuring,2013,retained,86.63,86.63,0.0,1241,1240,1,{}
+tt1458175,The Next Three Days,2010,retained,45.02,45.02,0.0,1774,1775,-1,{}
+tt1462900,The Grandmaster,2013,retained,91.2,91.2,0.0,1187,1186,1,{}
+tt1465522,Tucker and Dale vs Evil,2010,retained,93.43,93.43,0.0,1158,1157,1,{}
+tt14776918,In Front of Your Face,2021,retained,27.22,27.22,0.0,1857,1857,0,{}
+tt1478338,Bridesmaids,2011,retained,196.31,196.31,0.0,430,430,0,{}
+tt1478964,Attack the Block,2011,retained,117.37,117.37,0.0,910,909,1,{}
+tt1480656,Cosmopolis,2012,retained,67.54,67.54,0.0,1542,1542,0,{}
+tt14812782,Hit the Road,2021,retained,110.01,110.01,0.0,988,986,2,{}
+tt14812784,A Night of Knowing Nothing,2021,retained,60.21,60.21,0.0,1628,1629,-1,{}
+tt1483735,The Portuguese Nun,2009,retained,14.44,14.44,0.0,1890,1890,0,{}
+tt1483831,Lebanon,2009,retained,69.33,69.33,0.0,1515,1515,0,{}
+tt14849194,The Holdovers,2023,retained,294.66,294.66,0.0,192,193,-1,{}
+tt1485796,The Greatest Showman,2017,retained,82.11,82.11,0.0,1308,1308,0,{}
+tt1488163,Trash Humpers,2009,retained,30.43,30.43,0.0,1846,1846,0,{}
+tt1488589,Guillermo del Toro's Pinocchio,2022,retained,189.76,189.76,0.0,458,458,0,{}
+tt14888874,Demon Slayer: Kimetsu no Yaiba - Mt. Natagumo Arc,2020,retained,77.39,77.39,0.0,1380,1380,0,{}
+tt1489887,Booksmart,2019,retained,160.47,160.47,0.0,590,590,0,{}
+tt1490017,The Lego Movie,2014,retained,132.92,132.92,0.0,772,771,1,{}
+tt14905854,Hamnet,2025,retained,297.52,297.52,0.0,189,190,-1,{}
+tt14961016,I'm Still Here,2024,retained,318.48,318.48,0.0,162,162,0,{}
+tt1504319,Road to Nowhere,2010,retained,21.64,21.64,0.0,1872,1872,0,{}
+tt1504320,The King's Speech,2010,retained,391.05,391.05,0.0,92,94,-2,{}
+tt1508675,Le Havre,2011,retained,210.46,210.46,0.0,381,381,0,{}
+tt15097216,Jai Bhim,2021,retained,107.79,107.79,0.0,1012,1010,2,{}
+tt15109082,The Quiet Girl,2022,retained,194.27,194.27,0.0,440,440,0,{}
+tt1515091,Sherlock Holmes: A Game of Shadows,2011,retained,56.83,56.83,0.0,1668,1669,-1,{}
+tt1517268,Barbie,2023,retained,175.37,175.37,0.0,508,508,0,{}
+tt1517451,A Star Is Born,2018,retained,237.26,237.26,0.0,317,317,0,{}
+tt15176374,Unpaarvayil,2025,retained,37.58,37.58,0.0,1818,1819,-1,{}
+tt1518812,Meek's Cutoff,2010,retained,155.15,155.15,0.0,622,622,0,{}
+tt15239678,Dune: Part Two,2024,retained,252.05,252.05,0.0,284,284,0,{}
+tt1527186,Melancholia,2011,retained,389.7,389.7,0.0,93,95,-2,{}
+tt1527835,Archipelago,2010,retained,38.35,38.35,0.0,1814,1815,-1,{}
+tt15301048,"Argentina, 1985",2022,retained,210.58,210.58,0.0,380,380,0,{}
+tt1532503,Beginners,2010,retained,139.77,139.77,0.0,714,714,0,{}
+tt15327088,Kantara,2022,retained,82.09,82.09,0.0,1309,1309,0,{}
+tt1533117,Let the Bullets Fly,2010,retained,42.3,42.3,0.0,1792,1793,-1,{}
+tt15339456,Marcel the Shell with Shoes On,2022,retained,165.58,165.58,0.0,558,558,0,{}
+tt1535109,Captain Phillips,2013,retained,253.03,253.03,0.0,280,280,0,{}
+tt15376894,Saint Omer,2022,retained,272.33,272.33,0.0,228,229,-1,{}
+tt15398776,Oppenheimer,2023,retained,457.04,457.04,0.0,55,55,0,{}
+tt1540133,The Guard,2011,retained,99.1,99.1,0.0,1089,1088,1,{}
+tt1542344,127 Hours,2010,retained,183.3,183.3,0.0,487,487,0,{}
+tt15501640,Drishyam 2,2022,retained,82.25,82.25,0.0,1303,1303,0,{}
+tt1555149,Elite Squad 2: The Enemy Within,2010,retained,117.81,117.81,0.0,903,902,1,{}
+tt1556190,Nostalgia for the Light,2010,retained,168.54,168.54,0.0,542,542,0,{}
+tt1558250,Gasland,2010,retained,38.35,38.35,0.0,1813,1814,-1,{}
+tt1559549,Restrepo,2010,retained,139.57,139.57,0.0,717,717,0,{}
+tt1560747,The Master,2012,retained,410.33,410.33,0.0,84,86,-2,{}
+tt1562872,Zindagi Na Milegi Dobara,2011,retained,117.39,117.39,0.0,909,908,1,{}
+tt1568346,The Girl with the Dragon Tattoo,2011,retained,117.74,117.74,0.0,906,905,1,{}
+tt1568911,War Horse,2011,retained,134.44,134.44,0.0,754,753,1,{}
+tt1568921,The Secret World of Arrietty,2010,retained,119.29,119.29,0.0,885,884,1,{}
+tt1570728,"Crazy, Stupid, Love.",2011,retained,83.34,83.34,0.0,1291,1291,0,{}
+tt15789038,Elemental,2023,retained,80.43,80.43,0.0,1332,1332,0,{}
+tt1587707,Exit Through the Gift Shop,2010,retained,187.23,187.23,0.0,469,469,0,{}
+tt1588170,I Saw the Devil,2010,retained,133.2,133.2,0.0,768,767,1,{}
+tt1588337,Of Gods and Men,2010,retained,293.79,293.79,0.0,196,198,-2,{}
+tt1588895,Uncle Boonmee Who Can Recall His Past Lives,2010,retained,391.67,391.67,0.0,91,93,-2,{}
+tt1596343,Fast Five,2011,retained,64.88,64.88,0.0,1575,1575,0,{}
+tt1596363,The Big Short,2015,retained,246.6,246.6,0.0,296,296,0,{}
+tt1602620,Amour,2012,retained,679.91,679.91,0.0,5,5,0,{}
+tt1603480,The Mouth of the Wolf,2009,retained,46.32,46.32,0.0,1765,1766,-1,{}
+tt1605783,Midnight in Paris,2011,retained,186.89,186.89,0.0,470,470,0,{}
+tt1613750,Kon-Tiki,2012,retained,84.96,84.96,0.0,1269,1268,1,{}
+tt1614989,Headhunters,2011,retained,117.79,117.79,0.0,904,903,1,{}
+tt1619029,Jackie,2016,retained,99.43,99.43,0.0,1088,1087,1,{}
+tt1620933,Paan Singh Tomar,2012,retained,68.75,68.75,0.0,1525,1525,0,{}
+tt1621830,Monpura,2009,retained,45.78,45.78,0.0,1768,1769,-1,{}
+tt16227014,Fire of Love,2022,retained,164.34,164.34,0.0,565,565,0,{}
+tt1623008,The Arbor,2010,retained,103.17,103.17,0.0,1048,1048,0,{}
+tt1623288,ParaNorman,2012,retained,113.71,113.71,0.0,945,944,1,{}
+tt16252698,Passages,2023,retained,69.47,69.47,0.0,1513,1513,0,{}
+tt16277242,Society of the Snow,2023,retained,206.82,206.82,0.0,397,397,0,{}
+tt16279390,Dos estaciones,2022,retained,11.46,11.46,0.0,1894,1895,-1,{}
+tt1630029,Avatar: The Way of Water,2022,retained,156.71,156.71,0.0,612,612,0,{}
+tt16311594,F1: The Movie,2025,retained,152.82,152.82,0.0,637,637,0,{}
+tt1631867,Edge of Tomorrow,2014,retained,160.44,160.44,0.0,591,591,0,{}
+tt16377862,All That Breathes,2022,retained,145.8,145.8,0.0,676,676,0,{}
+tt16377920,A House Made of Splinters,2022,retained,82.16,82.16,0.0,1306,1306,0,{}
+tt1638355,The Man from U.N.C.L.E.,2015,retained,55.09,55.09,0.0,1696,1697,-1,{}
+tt1639426,Udaan,2010,retained,94.12,94.12,0.0,1151,1150,1,{}
+tt1639901,A Screaming Man,2010,retained,135.19,135.19,0.0,745,745,0,{}
+tt16419074,Air,2023,retained,93.13,93.13,0.0,1165,1164,1,{}
+tt16426418,Challengers,2024,retained,102.91,102.91,0.0,1049,1049,0,{}
+tt1645089,Inside Job,2010,retained,132.28,132.28,0.0,775,774,1,{}
+tt1646958,The Autobiography of Nicolae Ceausescu,2010,retained,54.98,54.98,0.0,1701,1702,-1,{}
+tt1646971,How to Train Your Dragon 2,2014,retained,155.91,155.91,0.0,618,618,0,{}
+tt1646975,The Four Times,2010,retained,121.09,121.09,0.0,868,867,1,{}
+tt16492678,Demon Slayer: Kimetsu no Yaiba - Tsuzumi Mansion Arc,2021,retained,87.69,87.69,0.0,1233,1232,1,{}
+tt1649419,The Impossible,2012,retained,91.91,91.91,0.0,1184,1183,1,{}
+tt1655441,The Age of Adaline,2015,retained,43.56,43.56,0.0,1784,1785,-1,{}
+tt1655442,The Artist,2011,retained,521.91,521.91,0.0,34,34,0,{}
+tt1659337,The Perks of Being a Wallflower,2012,retained,152.41,152.41,0.0,640,640,0,{}
+tt1660379,House of Tolerance,2011,retained,67.85,67.85,0.0,1535,1535,0,{}
+tt1663202,The Revenant,2015,retained,363.68,363.68,0.0,111,112,-1,{}
+tt1664894,Cave of Forgotten Dreams,2010,retained,119.34,119.34,0.0,883,882,1,{}
+tt1667354,The Painted Bird,2019,retained,68.52,68.52,0.0,1529,1529,0,{}
+tt1667905,This Is Not a Film,2011,retained,160.61,160.61,0.0,589,589,0,{}
+tt1670345,Now You See Me,2013,retained,55.09,55.09,0.0,1692,1693,-1,{}
+tt1673702,A Cat in Paris,2011,retained,66.27,66.27,0.0,1561,1561,0,{}
+tt16747572,The Silence of Swastika,2021,retained,38.62,38.62,0.0,1812,1813,-1,{}
+tt1675192,Take Shelter,2011,retained,176.01,176.01,0.0,505,505,0,{}
+tt1675434,The Intouchables,2011,retained,203.22,203.22,0.0,410,410,0,{}
+tt1677720,Ready Player One,2018,retained,58.03,58.03,0.0,1651,1652,-1,{}
+tt1683526,Detachment,2011,retained,96.92,96.92,0.0,1113,1112,1,{}
+tt1690389,You Ain't Seen Nothin' Yet,2012,retained,33.63,33.63,0.0,1836,1836,0,{}
+tt1690953,Despicable Me 2,2013,retained,88.62,88.62,0.0,1220,1219,1,{}
+tt1691323,Attenberg,2010,retained,61.05,61.05,0.0,1617,1618,-1,{}
+tt1695405,The Loneliest Planet,2011,retained,39.81,39.81,0.0,1805,1806,-1,{}
+tt1700844,The Deep Blue Sea,2011,retained,66.08,66.08,0.0,1562,1562,0,{}
+tt17009710,Anatomy of a Fall,2023,retained,571.43,571.43,0.0,20,20,0,{}
+tt1702014,The Way He Looks,2014,retained,95.15,95.15,0.0,1141,1140,1,{}
+tt17041964,Navalny,2022,retained,210.84,210.84,0.0,378,378,0,{}
+tt1704573,Bernie,2011,retained,67.17,67.17,0.0,1549,1549,0,{}
+tt1706620,Snowpiercer,2013,retained,123.44,123.44,0.0,847,846,1,{}
+tt1706701,The Nine Muses,2010,retained,1.89,1.89,0.0,1905,1905,0,{}
+tt1707386,Les Misérables,2012,retained,195.11,195.11,0.0,437,437,0,{}
+tt1714210,Weekend,2011,retained,177.24,177.24,0.0,501,501,0,{}
+tt17146978,The Novelist's Film,2022,retained,173.98,173.98,0.0,515,515,0,{}
+tt1714878,Oki's Movie,2010,retained,64.62,64.62,0.0,1580,1580,0,{}
+tt1714915,Only Lovers Left Alive,2013,retained,199.63,199.63,0.0,416,416,0,{}
+tt1723811,Shame,2011,retained,169.41,169.41,0.0,536,536,0,{}
+tt1727388,The Way Way Back,2013,retained,85.88,85.88,0.0,1255,1254,1,{}
+tt1727824,Bohemian Rhapsody,2018,retained,171.34,171.34,0.0,527,527,0,{}
+tt1736633,"Oslo, August 31st",2011,retained,143.8,143.8,0.0,686,686,0,{}
+tt1745787,The Tribe,2014,retained,80.2,80.2,0.0,1338,1338,0,{}
+tt1745960,Top Gun: Maverick,2022,retained,233.01,233.01,0.0,324,324,0,{}
+tt1748043,Hell and Back Again,2011,retained,72.21,72.21,0.0,1461,1461,0,{}
+tt1748122,Moonrise Kingdom,2012,retained,293.35,293.35,0.0,197,199,-2,{}
+tt17526714,The Substance,2024,retained,233.08,233.08,0.0,323,323,0,{}
+tt1754367,Post Tenebras Lux,2012,retained,134.45,134.45,0.0,752,751,1,{}
+tt1757678,Avatar: Fire and Ash,2025,retained,55.09,55.09,0.0,1690,1691,-1,{}
+tt1757733,Double Tide,2009,retained,26.37,26.37,0.0,1860,1860,0,{}
+tt1757939,¡Vivan las antípodas!,2011,retained,26.57,26.57,0.0,1859,1859,0,{}
+tt17592606,Daman,2022,retained,43.35,43.35,0.0,1786,1787,-1,{}
+tt1772341,Wreck-It Ralph,2012,retained,127.1,127.1,0.0,819,818,1,{}
+tt1772925,Jiro Dreams of Sushi,2011,retained,113.51,113.51,0.0,950,949,1,{}
+tt1787725,If a Tree Falls: A Story of the Earth Liberation Front,2011,retained,19.92,19.92,0.0,1877,1877,0,{}
+tt1788391,Kill List,2011,retained,80.58,80.58,0.0,1329,1329,0,{}
+tt1790885,Zero Dark Thirty,2012,retained,363.73,363.73,0.0,110,111,-1,{}
+tt1791528,Inherent Vice,2014,retained,151.97,151.97,0.0,642,642,0,{}
+tt1798684,Southpaw,2015,retained,76.16,76.16,0.0,1403,1403,0,{}
+tt1798709,Her,2013,retained,399.21,399.21,0.0,88,90,-2,{}
+tt1800241,American Hustle,2013,retained,216.38,216.38,0.0,356,356,0,{}
+tt1809398,Unbroken,2014,retained,60.86,60.86,0.0,1621,1622,-1,{}
+tt18162096,Do Not Expect Too Much from the End of the World,2023,retained,153.17,153.17,0.0,634,634,0,{}
+tt1816518,Ernest & Celestine,2013,retained,154.53,154.53,0.0,626,626,0,{}
+tt1817273,The Place Beyond the Pines,2012,retained,85.34,85.34,0.0,1265,1264,1,{}
+tt1819513,Dreams of a Life,2011,retained,12.14,12.14,0.0,1893,1894,-1,{}
+tt1820488,War Witch,2012,retained,95.02,95.02,0.0,1142,1141,1,{}
+tt1821480,Kahaani,2012,retained,86.53,86.53,0.0,1242,1241,1,{}
+tt1821549,Nebraska,2013,retained,261.92,261.92,0.0,256,256,0,{}
+tt1821593,Bullhead,2011,retained,89.29,89.29,0.0,1212,1211,1,{}
+tt1825683,Black Panther,2018,retained,267.04,267.04,0.0,244,244,0,{}
+tt1827487,Once Upon a Time in Anatolia,2011,retained,387.57,387.57,0.0,96,98,-2,{}
+tt1827512,The Kid with a Bike,2011,retained,306.53,306.53,0.0,176,177,-1,{}
+tt1829648,At Sea,2007,retained,57.27,57.27,0.0,1659,1660,-1,{}
+tt1832382,A Separation,2011,retained,537.0,537.0,0.0,28,28,0,{}
+tt1833844,Berberian Sound Studio,2012,retained,47.39,47.39,0.0,1752,1753,-1,{}
+tt18382850,If I Had Legs I'd Kick You,2025,retained,79.82,79.82,0.0,1345,1345,0,{}
+tt1839492,Ruby Sparks,2012,retained,68.92,68.92,0.0,1523,1523,0,{}
+tt1839596,Rockstar,2011,retained,76.89,76.89,0.0,1387,1387,0,{}
+tt1843287,Like Someone in Love,2012,retained,116.7,116.7,0.0,913,912,1,{}
+tt1843866,Captain America: The Winter Soldier,2014,retained,110.9,110.9,0.0,973,971,2,{}
+tt1847731,Tomboy,2011,retained,166.57,166.57,0.0,552,552,0,{}
+tt1853728,Django Unchained,2012,retained,312.84,312.84,0.0,168,168,0,{}
+tt18550140,Holy Spider,2022,retained,95.45,95.45,0.0,1133,1132,1,{}
+tt1855199,End of Watch,2012,retained,100.51,100.51,0.0,1078,1077,1,{}
+tt18558306,The Delinquents,2023,retained,69.72,69.72,0.0,1509,1509,0,{}
+tt1856101,Blade Runner 2049,2017,retained,157.44,157.44,0.0,606,606,0,{}
+tt18568902,Kaun Pravin Tambe?,2022,retained,39.28,39.28,0.0,1809,1810,-1,{}
+tt1860355,Undefeated,2011,retained,55.38,55.38,0.0,1686,1687,-1,{}
+tt1865505,Song of the Sea,2014,retained,183.7,183.7,0.0,486,486,0,{}
+tt1872194,The Judge,2014,retained,56.83,56.83,0.0,1670,1671,-1,{}
+tt1877830,The Batman,2022,retained,124.04,124.04,0.0,844,843,1,{}
+tt1877832,X-Men: Days of Future Past,2014,retained,116.17,116.17,0.0,920,918,2,{}
+tt1878870,The Edge of Seventeen,2016,retained,85.81,85.81,0.0,1257,1256,1,{}
+tt1883180,A Pigeon Sat on a Branch Reflecting on Existence,2014,retained,158.68,158.68,0.0,599,599,0,{}
+tt1895587,Spotlight,2015,retained,550.97,550.97,0.0,24,25,-1,{}
+tt1899353,The Raid: Redemption,2011,retained,128.72,128.72,0.0,800,799,1,{}
+tt1907668,Flight,2012,retained,72.15,72.15,0.0,1464,1464,0,{}
+tt1922561,The Day He Arrives,2011,retained,100.57,100.57,0.0,1076,1075,1,{}
+tt1924396,The Best Offer,2013,retained,110.15,110.15,0.0,985,983,2,{}
+tt1925421,Elena,2011,retained,95.21,95.21,0.0,1138,1137,1,{}
+tt1935156,Jodorowsky's Dune,2013,retained,118.98,118.98,0.0,891,890,1,{}
+tt1935179,Mud,2012,retained,116.27,116.27,0.0,919,917,2,{}
+tt19500164,Nimona,2023,retained,140.33,140.33,0.0,711,711,0,{}
+tt1950186,Ford v Ferrari,2019,retained,219.97,219.97,0.0,346,346,0,{}
+tt1951181,The Immigrant,2013,retained,102.83,102.83,0.0,1051,1051,0,{}
+tt1951264,The Hunger Games: Catching Fire,2013,retained,107.62,107.62,0.0,1013,1011,2,{}
+tt1954470,Gangs of Wasseypur,2012,retained,169.65,169.65,0.0,535,535,0,{}
+tt1954701,A Coffee in Berlin,2012,retained,70.45,70.45,0.0,1491,1491,0,{}
+tt19652910,EO,2022,retained,236.05,236.05,0.0,319,319,0,{}
+tt19770238,Aftersun,2022,retained,288.25,288.25,0.0,205,207,-2,{}
+tt1979320,Rush,2013,retained,142.59,142.59,0.0,694,694,0,{}
+tt1979376,Toy Story 4,2019,retained,158.54,158.54,0.0,600,600,0,{}
+tt19799096,The Cathedral,2022,retained,10.0,10.0,0.0,1897,1897,0,{}
+tt1980929,Begin Again,2013,retained,82.4,82.4,0.0,1301,1301,0,{}
+tt2007360,Computer Chess,2013,retained,84.2,84.2,0.0,1276,1276,0,{}
+tt2008009,The Clock,2010,retained,93.25,93.25,0.0,1163,1162,1,{}
+tt2011971,Monsieur Lazhar,2011,retained,114.01,114.01,0.0,936,935,1,{}
+tt2013293,The Wind Rises,2013,retained,217.86,217.86,0.0,353,353,0,{}
+tt2015381,Guardians of the Galaxy,2014,retained,133.46,133.46,0.0,763,762,1,{}
+tt20215234,Conclave,2024,retained,291.93,291.93,0.0,199,201,-2,{}
+tt20221436,Emilia Pérez,2024,retained,89.46,89.46,0.0,1207,1206,1,{}
+tt2024519,The Broken Circle Breakdown,2013,retained,148.4,148.4,0.0,663,663,0,{}
+tt2024544,12 Years a Slave,2013,retained,629.69,629.69,0.0,13,13,0,{}
+tt20256528,What Is a Woman?,2022,retained,57.16,57.16,0.0,1662,1663,-1,{}
+tt20259142,Mysteries of Lisbon,2010,retained,126.26,126.26,0.0,828,827,1,{}
+tt2028530,Paradise Lost 3: Purgatory,2011,retained,55.99,55.99,0.0,1676,1677,-1,{}
+tt2042568,Inside Llewyn Davis,2013,retained,521.79,521.79,0.0,35,35,0,{}
+tt2053425,Rust and Bone,2012,retained,179.83,179.83,0.0,494,494,0,{}
+tt2059255,No,2012,retained,133.55,133.55,0.0,762,761,1,{}
+tt2061702,To the Forest of Firefly Lights,2011,retained,85.45,85.45,0.0,1261,1260,1,{}
+tt2066051,Rocketman,2019,retained,98.6,98.6,0.0,1097,1096,1,{}
+tt2070649,Silenced,2011,retained,109.52,109.52,0.0,998,996,2,{}
+tt2076220,Holy Motors,2012,retained,299.17,299.17,0.0,185,186,-1,{}
+tt2077886,The Phantom of the Opera at the Royal Albert Hall,2011,retained,96.73,96.73,0.0,1118,1117,1,{}
+tt2080374,Steve Jobs,2015,retained,85.33,85.33,0.0,1266,1265,1,{}
+tt2082197,Barfi!,2012,retained,102.34,102.34,0.0,1056,1056,0,{}
+tt2084970,The Imitation Game,2014,retained,255.69,255.69,0.0,273,273,0,{}
+tt2084989,Upstream Color,2013,retained,119.26,119.26,0.0,886,885,1,{}
+tt20850406,Sita Ramam,2022,retained,107.92,107.92,0.0,1011,1009,2,{}
+tt2096673,Inside Out,2015,retained,359.55,359.55,0.0,115,116,-1,{}
+tt2101441,Spring Breakers,2012,retained,83.99,83.99,0.0,1280,1280,0,{}
+tt21027780,Fallen Leaves,2023,retained,291.25,291.25,0.0,201,203,-2,{}
+tt2103281,Dawn of the Planet of the Apes,2014,retained,120.45,120.45,0.0,875,874,1,{}
+tt21064584,The Iron Claw,2023,retained,122.41,122.41,0.0,858,857,1,{}
+tt2106476,The Hunt,2012,retained,341.65,341.65,0.0,138,139,-1,{}
+tt21097228,A Different Man,2024,retained,116.83,116.83,0.0,912,911,1,{}
+tt21192142,All of Us Strangers,2023,retained,156.28,156.28,0.0,614,614,0,{}
+tt2119532,Hacksaw Ridge,2016,retained,216.13,216.13,0.0,358,358,0,{}
+tt2120152,The Invisible War,2012,retained,83.58,83.58,0.0,1287,1287,0,{}
+tt2121382,Force Majeure,2014,retained,234.21,234.21,0.0,320,320,0,{}
+tt2124803,How to Survive a Plague,2012,retained,74.05,74.05,0.0,1432,1432,0,{}
+tt2125423,5 Broken Cameras,2012,retained,101.22,101.22,0.0,1069,1069,0,{}
+tt2125435,Beasts of the Southern Wild,2012,retained,301.31,301.31,0.0,181,182,-1,{}
+tt2125608,Searching for Sugar Man,2012,retained,189.21,189.21,0.0,463,463,0,{}
+tt21284358,Close Your Eyes,2023,retained,128.7,128.7,0.0,801,800,1,{}
+tt21349688,East of Wall,2025,retained,33.38,33.38,0.0,1838,1838,0,{}
+tt21374850,All the Beauty and the Bloodshed,2022,retained,303.92,303.92,0.0,177,178,-1,{}
+tt21376900,Bobi Wine: The People's President,2023,retained,47.19,47.19,0.0,1755,1756,-1,{}
+tt21378968,Trenque Lauquen,2022,retained,68.17,68.17,0.0,1532,1532,0,{}
+tt2140203,Wolf Children,2012,retained,115.9,115.9,0.0,923,921,2,{}
+tt2140373,Saving Mr. Banks,2013,retained,84.91,84.91,0.0,1271,1270,1,{}
+tt2140479,The Accountant,2016,retained,53.08,53.08,0.0,1719,1720,-1,{}
+tt2153963,Tabu,2012,retained,198.05,198.05,0.0,424,424,0,{}
+tt21626284,Lost Ladies,2023,retained,115.67,115.67,0.0,926,924,2,{}
+tt2165735,Drug War,2012,retained,72.22,72.22,0.0,1460,1460,0,{}
+tt21688772,To Kill a Tiger,2023,retained,67.43,67.43,0.0,1545,1545,0,{}
+tt2170593,St. Vincent,2014,retained,56.27,56.27,0.0,1675,1676,-1,{}
+tt2172584,Maps to the Stars,2014,retained,51.95,51.95,0.0,1728,1729,-1,{}
+tt2177511,Caesar Must Die,2012,retained,70.25,70.25,0.0,1498,1498,0,{}
+tt2178941,Barbara,2012,retained,205.82,205.82,0.0,400,400,0,{}
+tt2179136,American Sniper,2014,retained,127.78,127.78,0.0,814,813,1,{}
+tt2181831,Shahid,2012,retained,57.04,57.04,0.0,1663,1664,-1,{}
+tt2181931,English Vinglish,2012,retained,74.16,74.16,0.0,1428,1429,-1,{}
+tt2187153,Thuppakki,2012,retained,81.17,81.17,0.0,1320,1320,0,{}
+tt2190367,Neighboring Sounds,2012,retained,109.96,109.96,0.0,989,987,2,{}
+tt2194499,About Time,2013,retained,112.22,112.22,0.0,961,959,2,{}
+tt2199711,Vishwaroopam,2013,retained,60.71,60.71,0.0,1622,1623,-1,{}
+tt22022452,Inside Out 2,2024,retained,124.51,124.51,0.0,841,840,1,{}
+tt22084616,Spider-Man: Brand New Day,2026,retained,126.97,126.97,0.0,822,821,1,{}
+tt2209418,Before Midnight,2013,retained,212.34,212.34,0.0,372,372,0,{}
+tt2213054,Kai Po Che,2013,retained,60.07,60.07,0.0,1630,1631,-1,{}
+tt2218988,Ustad Hotel,2012,retained,76.53,76.53,0.0,1396,1396,0,{}
+tt2245084,Big Hero 6,2014,retained,182.59,182.59,0.0,488,488,0,{}
+tt2250912,Spider-Man: Homecoming,2017,retained,71.74,71.74,0.0,1476,1476,0,{}
+tt2258281,Beyond the Hills,2012,retained,139.33,139.33,0.0,720,720,0,{}
+tt2258858,Wadjda,2012,retained,163.49,163.49,0.0,569,569,0,{}
+tt2265171,The Raid 2,2014,retained,144.41,144.41,0.0,682,682,0,{}
+tt2267998,Gone Girl,2014,retained,264.42,264.42,0.0,247,247,0,{}
+tt2268016,Magic Mike XXL,2015,retained,45.57,45.57,0.0,1772,1773,-1,{}
+tt2268732,Museum Hours,2012,retained,71.98,71.98,0.0,1470,1470,0,{}
+tt2277860,Finding Dory,2016,retained,71.74,71.74,0.0,1475,1475,0,{}
+tt2278388,The Grand Budapest Hotel,2014,retained,648.95,648.95,0.0,12,12,0,{}
+tt2278871,Blue Is the Warmest Colour,2013,retained,426.65,426.65,0.0,75,77,-2,{}
+tt2283748,OMG: Oh My God!,2012,retained,73.83,73.83,0.0,1435,1435,0,{}
+tt2294629,Frozen,2013,retained,158.35,158.35,0.0,603,603,0,{}
+tt23055660,Nickel Boys,2024,retained,130.09,130.09,0.0,792,791,1,{}
+tt2309788,The Gatekeepers,2012,retained,56.91,56.91,0.0,1665,1666,-1,{}
+tt2310332,The Hobbit: The Battle of the Five Armies,2014,retained,56.83,56.83,0.0,1669,1670,-1,{}
+tt2316411,Enemy,2013,retained,51.33,51.33,0.0,1733,1734,-1,{}
+tt2321405,My Life as a Zucchini,2016,retained,170.88,170.88,0.0,530,530,0,{}
+tt2321549,The Babadook,2014,retained,139.72,139.72,0.0,716,716,0,{}
+tt2326554,A Girl Walks Home Alone at Night,2014,retained,135.08,135.08,0.0,747,747,0,{}
+tt2328813,Hard to Be a God,2013,retained,112.91,112.91,0.0,953,952,1,{}
+tt23289160,Godzilla Minus One,2023,retained,134.63,134.63,0.0,749,748,1,{}
+tt2331143,"Like Father, Like Son",2013,retained,268.39,268.39,0.0,237,237,0,{}
+tt2332522,Leviathan,2012,retained,124.24,124.24,0.0,843,842,1,{}
+tt2334649,Fruitvale Station,2013,retained,283.81,283.81,0.0,214,215,-1,{}
+tt2334873,Blue Jasmine,2013,retained,95.75,95.75,0.0,1131,1130,1,{}
+tt2338151,PK,2014,retained,106.12,106.12,0.0,1024,1024,0,{}
+tt2347569,Frances Ha,2012,retained,215.78,215.78,0.0,359,359,0,{}
+tt2350496,The Lunchbox,2013,retained,161.04,161.04,0.0,587,587,0,{}
+tt2355540,Cutie and the Boxer,2013,retained,80.35,80.35,0.0,1334,1334,0,{}
+tt23561236,American Fiction,2023,retained,195.7,195.7,0.0,433,433,0,{}
+tt2356180,Bhaag Milkha Bhaag,2013,retained,90.18,90.18,0.0,1201,1200,1,{}
+tt2358592,Lucia,2013,retained,47.04,47.04,0.0,1756,1757,-1,{}
+tt2358891,The Great Beauty,2013,retained,505.62,505.62,0.0,39,39,0,{}
+tt2366450,Stories We Tell,2012,retained,205.42,205.42,0.0,401,401,0,{}
+tt2368749,After Lucia,2012,retained,52.84,52.84,0.0,1722,1723,-1,{}
+tt2370248,Short Term 12,2013,retained,151.12,151.12,0.0,646,646,0,{}
+tt23736044,Monster,2023,retained,163.0,163.0,0.0,573,573,0,{}
+tt2375559,1: Nenokkadine,2014,retained,58.4,58.4,0.0,1648,1649,-1,{}
+tt2375605,The Act of Killing,2012,retained,395.0,395.0,0.0,89,92,-3,{}
+tt23770030,Memoir of a Snail,2024,retained,166.0,166.0,0.0,554,554,0,{}
+tt2377938,Special 26,2013,retained,69.12,69.12,0.0,1520,1520,0,{}
+tt2380307,Coco,2017,retained,241.7,241.7,0.0,303,303,0,{}
+tt2381111,Brooklyn,2015,retained,278.59,278.59,0.0,221,222,-1,{}
+tt2381249,Mission: Impossible - Rogue Nation,2015,retained,106.5,106.5,0.0,1018,1018,0,{}
+tt2382320,No Time to Die,2021,retained,77.41,77.41,0.0,1378,1378,0,{}
+tt23849204,12th Fail,2023,retained,140.36,140.36,0.0,710,710,0,{}
+tt2386490,How to Train Your Dragon: The Hidden World,2019,retained,129.45,129.45,0.0,797,796,1,{}
+tt2388637,Ain't Them Bodies Saints,2013,retained,36.44,36.44,0.0,1824,1824,0,{}
+tt2392830,A Quiet Passion,2016,retained,55.39,55.39,0.0,1685,1686,-1,{}
+tt2395427,Avengers: Age of Ultron,2015,retained,52.06,52.06,0.0,1727,1728,-1,{}
+tt2395469,Gully Boy,2019,retained,74.56,74.56,0.0,1419,1420,-1,{}
+tt2396224,It's Such a Beautiful Day,2012,retained,172.08,172.08,0.0,523,523,0,{}
+tt2396566,20 Feet from Stardom,2013,retained,82.17,82.17,0.0,1305,1305,0,{}
+tt2397535,Predestination,2014,retained,79.72,79.72,0.0,1346,1346,0,{}
+tt2398149,An Officer and a Spy,2019,retained,65.45,65.45,0.0,1571,1571,0,{}
+tt2400275,Goodbye to Language,2014,retained,271.43,294.08,22.65,231,197,34,"{""critics_groups_consensus"": 22.65}"
+tt2401878,Anomalisa,2015,retained,210.13,210.13,0.0,383,383,0,{}
+tt2402927,Carol,2015,retained,403.84,403.84,0.0,86,88,-2,{}
+tt24068064,Reality,2023,retained,53.24,53.24,0.0,1716,1717,-1,{}
+tt24082438,20 Days in Mariupol,2023,retained,281.63,281.63,0.0,217,218,-1,{}
+tt24082488,The Eternal Memory,2023,retained,161.63,161.63,0.0,582,582,0,{}
+tt2431286,Philomena,2013,retained,226.85,226.85,0.0,335,335,0,{}
+tt24485052,Sirf Ek Bandaa Kaafi Hai,2023,retained,54.59,54.59,0.0,1706,1707,-1,{}
+tt2452254,Clouds of Sils Maria,2014,retained,154.16,154.16,0.0,629,629,0,{}
+tt2473794,Mr. Turner,2014,retained,98.15,98.15,0.0,1103,1102,1,{}
+tt2486682,The Square,2013,retained,112.34,112.34,0.0,959,957,2,{}
+tt2488496,Star Wars: Episode VII - The Force Awakens,2015,retained,74.08,76.08,2.0,1431,1406,25,"{""critics_groups_consensus"": 2.0}"
+tt2514338,Jauja,2014,retained,53.94,53.94,0.0,1712,1713,-1,{}
+tt2532528,Dirty Wars,2013,retained,46.01,46.01,0.0,1767,1768,-1,{}
+tt2543164,Arrival,2016,retained,442.57,442.57,0.0,63,64,-1,{}
+tt25433734,Hi Nanna,2023,retained,83.72,83.72,0.0,1284,1284,0,{}
+tt2543472,Wonder,2017,retained,99.68,99.68,0.0,1084,1083,1,{}
+tt2545118,Blackfish,2013,retained,151.05,151.05,0.0,647,647,0,{}
+tt2562232,Birdman or (The Unexpected Virtue of Ignorance),2014,retained,336.92,440.52,103.6,145,65,80,"{""critics_groups_consensus"": 2.0, ""tspdt_21c"": 66.6, ""independent_cinema"": 35.0}"
+tt2570858,The Duke of Burgundy,2014,retained,110.71,110.71,0.0,976,974,2,{}
+tt2576852,The Tale of The Princess Kaguya,2013,retained,255.72,255.72,0.0,271,271,0,{}
+tt2582496,Me and Earl and the Dying Girl,2015,retained,211.68,211.68,0.0,377,377,0,{}
+tt2582782,Hell or High Water,2016,retained,251.58,251.58,0.0,285,285,0,{}
+tt2582802,Whiplash,2014,retained,466.55,466.55,0.0,52,52,0,{}
+tt2582846,The Fault in Our Stars,2014,retained,64.26,64.26,0.0,1585,1586,-1,{}
+tt2584384,Jojo Rabbit,2019,retained,200.39,200.39,0.0,415,415,0,{}
+tt2631186,Baahubali: The Beginning,2015,retained,87.75,87.75,0.0,1232,1231,1,{}
+tt2639344,Love Is Strange,2014,retained,61.81,61.81,0.0,1613,1614,-1,{}
+tt26439764,Kantara: A Legend - Chapter 1,2025,retained,76.46,76.46,0.0,1397,1397,0,{}
+tt26440619,Afire,2023,retained,209.82,209.82,0.0,384,384,0,{}
+tt26443597,Zootopia 2,2025,retained,128.21,128.21,0.0,807,806,1,{}
+tt26458038,Manjummel Boys,2024,retained,99.74,99.74,0.0,1083,1082,1,{}
+tt26548265,Maharaja,2024,retained,116.41,116.41,0.0,916,914,2,{}
+tt26581740,Weapons,2025,retained,98.74,98.74,0.0,1094,1093,1,{}
+tt2659414,Miracle in Cell No. 7,2013,retained,96.36,96.36,0.0,1123,1122,1,{}
+tt26612950,The Teachers' Lounge,2023,retained,133.34,133.34,0.0,764,763,1,{}
+tt26660021,Aavesham,2024,retained,83.53,83.53,0.0,1288,1288,0,{}
+tt2671706,Fences,2016,retained,155.94,155.94,0.0,617,617,0,{}
+tt26743210,How to Train Your Dragon,2025,retained,100.76,100.76,0.0,1075,1074,1,{}
+tt2674426,Me Before You,2016,retained,68.36,68.36,0.0,1531,1531,0,{}
+tt26758372,Meiyazhagan,2024,retained,113.52,113.52,0.0,949,948,1,{}
+tt2713180,Fury,2014,retained,93.41,93.41,0.0,1160,1159,1,{}
+tt2714900,Finding Vivian Maier,2014,retained,80.03,80.03,0.0,1341,1341,0,{}
+tt2718492,Ida,2013,retained,474.93,474.93,0.0,47,47,0,{}
+tt2737050,"Two Days, One Night",2014,retained,196.07,196.07,0.0,431,431,0,{}
+tt27470893,Chandu Champion,2024,retained,48.18,48.18,0.0,1748,1749,-1,{}
+tt27502426,Four Daughters,2023,retained,126.98,126.98,0.0,821,820,1,{}
+tt27503384,Perfect Days,2023,retained,222.16,222.16,0.0,341,341,0,{}
+tt27540542,Lucky Baskhar,2024,retained,86.08,86.08,0.0,1251,1250,1,{}
+tt2758880,Winter Sleep,2014,retained,369.24,369.24,0.0,105,106,-1,{}
+tt2762506,Bacurau,2019,retained,245.87,245.87,0.0,298,298,0,{}
+tt2764784,Phoenix,2014,retained,164.39,164.39,0.0,564,564,0,{}
+tt27714581,Sentimental Value,2025,retained,230.77,230.77,0.0,331,331,0,{}
+tt27722543,Green Border,2023,retained,88.99,88.99,0.0,1213,1212,1,{}
+tt2798920,Annihilation,2018,retained,91.17,91.17,0.0,1189,1188,1,{}
+tt2802144,Kingsman: The Secret Service,2014,retained,91.16,91.16,0.0,1190,1189,1,{}
+tt2802154,Leviathan,2014,retained,358.85,358.85,0.0,117,118,-1,{}
+tt28089784,Punjab '95,2026,retained,107.92,107.92,0.0,1010,1008,2,{}
+tt2818654,Cemetery of Splendor,2015,retained,153.09,153.09,0.0,635,635,0,{}
+tt2821088,Bastards,2013,retained,40.36,40.36,0.0,1801,1802,-1,{}
+tt28288786,Premalu,2024,retained,72.99,72.99,0.0,1448,1448,0,{}
+tt28459771,Oficina do Diabo,2025,retained,41.32,41.32,0.0,1795,1796,-1,{}
+tt28490044,Evil Does Not Exist,2023,retained,274.22,274.22,0.0,224,225,-1,{}
+tt2852400,A Touch of Sin,2013,retained,133.64,133.64,0.0,761,760,1,{}
+tt2852406,Omar,2013,retained,101.68,101.68,0.0,1063,1063,0,{}
+tt2852432,"Norte, the End of History",2013,retained,80.25,80.25,0.0,1337,1337,0,{}
+tt2852458,Stranger by the Lake,2013,retained,150.27,150.27,0.0,653,653,0,{}
+tt2852470,The Missing Picture,2013,retained,118.51,118.51,0.0,895,894,1,{}
+tt28607951,Anora,2024,retained,499.51,499.51,0.0,41,42,-1,{}
+tt28618488,Vermiglio,2024,retained,80.19,80.19,0.0,1339,1339,0,{}
+tt28690468,Sound of Falling,2025,retained,97.56,97.56,0.0,1107,1106,1,{}
+tt2870648,Amy,2015,retained,158.29,158.29,0.0,604,604,0,{}
+tt2872718,Nightcrawler,2014,retained,169.0,169.0,0.0,539,539,0,{}
+tt2872750,Shaun the Sheep Movie,2015,retained,123.12,123.12,0.0,850,849,1,{}
+tt2877108,Soodhu Kavvum,2013,retained,66.04,66.04,0.0,1564,1564,0,{}
+tt28814949,Taylor Swift: The Eras Tour,2023,retained,141.05,141.05,0.0,701,701,0,{}
+tt2882328,Ugly,2013,retained,60.63,60.63,0.0,1623,1624,-1,{}
+tt2883512,Chef,2014,retained,85.07,85.07,0.0,1268,1267,1,{}
+tt2884206,I Origins,2014,retained,76.16,76.16,0.0,1402,1402,0,{}
+tt2906216,Dungeons & Dragons: Honor Among Thieves,2023,retained,77.41,77.41,0.0,1377,1377,0,{}
+tt2911666,John Wick,2014,retained,128.64,128.64,0.0,802,801,1,{}
+tt2937696,Everybody Wants Some!!,2016,retained,92.66,92.66,0.0,1172,1171,1,{}
+tt29439114,The Room Next Door,2024,retained,63.83,63.83,0.0,1591,1592,-1,{}
+tt2948356,Zootopia,2016,retained,191.51,191.51,0.0,452,452,0,{}
+tt2948372,Soul,2020,retained,204.23,204.23,0.0,406,406,0,{}
+tt2953050,Encanto,2021,retained,154.03,154.03,0.0,630,630,0,{}
+tt29567915,Nuremberg,2025,retained,66.89,66.89,0.0,1553,1553,0,{}
+tt29623480,The Wild Robot,2024,retained,199.01,199.01,0.0,421,421,0,{}
+tt29768334,Train Dreams,2025,retained,262.91,262.91,0.0,253,253,0,{}
+tt2980516,The Theory of Everything,2014,retained,217.87,217.87,0.0,352,352,0,{}
+tt2991224,Tangerines,2014,retained,146.97,146.97,0.0,670,670,0,{}
+tt30057084,Babygirl,2024,retained,25.72,25.72,0.0,1863,1863,0,{}
+tt3011894,Wild Tales,2014,retained,273.33,273.33,0.0,226,227,-1,{}
+tt3013610,My Mother,2015,retained,78.74,78.74,0.0,1361,1361,0,{}
+tt30144839,One Battle After Another,2025,retained,439.72,439.72,0.0,64,66,-2,{}
+tt3040964,The Jungle Book,2016,retained,69.77,69.77,0.0,1507,1507,0,{}
+tt3044244,The Wonders,2014,retained,251.34,251.34,0.0,287,287,0,{}
+tt30472557,Chainsaw Man - The Movie: Reze Arc,2025,retained,137.41,137.41,0.0,734,734,0,{}
+tt3065204,The Conjuring 2,2016,retained,70.84,70.84,0.0,1487,1487,0,{}
+tt3076658,Creed,2015,retained,137.16,137.16,0.0,737,737,0,{}
+tt3077108,Appropriate Behavior,2014,retained,55.27,55.27,0.0,1688,1689,-1,{}
+tt3090634,Eden,2014,retained,81.03,81.03,0.0,1321,1321,0,{}
+tt3091552,At Berkeley,2013,retained,48.26,48.26,0.0,1747,1748,-1,{}
+tt30953759,No Other Land,2024,retained,221.31,221.31,0.0,344,344,0,{}
+tt30970235,Article 370,2024,retained,40.96,40.96,0.0,1797,1798,-1,{}
+tt3103326,Manakamana,2013,retained,37.59,37.59,0.0,1817,1818,-1,{}
+tt31113046,Making Memories of Murder,2004,retained,2.0,2.0,0.0,1904,1904,0,{}
+tt3118566,A Thousand Suns,2013,retained,14.16,14.16,0.0,1892,1892,0,{}
+tt31193180,Sinners,2025,retained,262.79,262.79,0.0,254,254,0,{}
+tt3119416,Stray Dogs,2013,retained,106.86,106.86,0.0,1016,1016,0,{}
+tt31227572,Predator: Badlands,2025,retained,72.23,72.23,0.0,1459,1459,0,{}
+tt31514146,I Swear,2025,retained,141.72,141.72,0.0,698,698,0,{}
+tt3153634,Hope,2013,retained,96.76,96.76,0.0,1117,1116,1,{}
+tt3169706,Pride,2014,retained,139.32,139.32,0.0,721,721,0,{}
+tt3170832,Room,2015,retained,270.62,270.62,0.0,232,232,0,{}
+tt3170902,Theeb,2015,retained,113.6,113.6,0.0,948,947,1,{}
+tt3172532,The Diary of a Teenage Girl,2015,retained,143.97,143.97,0.0,685,685,0,{}
+tt3183660,Fantastic Beasts and Where to Find Them,2016,retained,41.74,41.74,0.0,1793,1794,-1,{}
+tt32141377,28 Years Later: The Bone Temple,2026,retained,101.89,101.89,0.0,1060,1060,0,{}
+tt32178949,The Seed of the Sacred Fig,2024,retained,136.58,136.58,0.0,738,738,0,{}
+tt3228774,Cruella,2021,retained,70.61,70.61,0.0,1489,1489,0,{}
+tt32298285,Sirat,2025,retained,101.52,101.52,0.0,1067,1067,0,{}
+tt3235888,It Follows,2014,retained,128.57,128.57,0.0,803,802,1,{}
+tt32565993,The Sheep Detectives,2026,retained,104.03,104.03,0.0,1038,1038,0,{}
+tt3262342,Loving Vincent,2017,retained,152.47,152.47,0.0,639,639,0,{}
+tt3263904,Sully,2016,retained,83.24,83.24,0.0,1293,1293,0,{}
+tt3279124,Last Days in Vietnam,2014,retained,46.79,46.79,0.0,1759,1760,-1,{}
+tt3281548,Little Women,2019,retained,256.61,256.61,0.0,268,268,0,{}
+tt32820897,Demon Slayer: Kimetsu No Yaiba Infinity Castle,2025,retained,153.71,153.71,0.0,633,633,0,{}
+tt32843349,"Sorry, Baby",2025,retained,125.46,125.46,0.0,831,830,1,{}
+tt32916440,Marty Supreme,2025,retained,259.6,259.6,0.0,263,263,0,{}
+tt32928666,Familiar Touch,2024,retained,61.88,61.88,0.0,1611,1612,-1,{}
+tt3296658,Rams,2015,retained,88.63,88.63,0.0,1218,1217,1,{}
+tt33014583,Dhurandhar,2025,retained,98.36,98.36,0.0,1101,1100,1,{}
+tt3302820,Cowspiracy: The Sustainability Secret,2014,retained,69.85,69.85,0.0,1505,1505,0,{}
+tt3312830,Youth,2015,retained,153.06,153.06,0.0,636,636,0,{}
+tt3315342,Logan,2017,retained,151.02,151.02,0.0,649,649,0,{}
+tt3316960,Still Alice,2014,retained,100.04,100.04,0.0,1080,1079,1,{}
+tt33175825,Attack on Titan: The Last Attack,2024,retained,134.5,134.5,0.0,751,750,1,{}
+tt3322420,Queen,2013,retained,89.93,89.93,0.0,1203,1202,1,{}
+tt33428606,Solo Leveling: ReAwakening,2024,retained,81.39,81.39,0.0,1318,1318,0,{}
+tt33764258,The Odyssey,2026,retained,183.85,183.85,0.0,484,484,0,{}
+tt3390572,Haider,2014,retained,96.78,96.78,0.0,1115,1114,1,{}
+tt3394420,Ulidavaru Kandanthe,2014,retained,44.87,44.87,0.0,1775,1776,-1,{}
+tt3397884,Sicario,2015,retained,181.97,181.97,0.0,489,489,0,{}
+tt3398268,When Marnie Was There,2015,retained,135.58,135.58,0.0,743,743,0,{}
+tt3409392,Timbuktu,2014,retained,302.12,302.12,0.0,178,179,-1,{}
+tt3409848,Zama,2017,retained,165.8,165.8,0.0,555,555,0,{}
+tt3411444,Ferdinand,2017,retained,42.95,42.95,0.0,1788,1789,-1,{}
+tt3416532,A Monster Calls,2016,retained,94.71,94.71,0.0,1146,1145,1,{}
+tt3416742,What We Do in the Shadows,2014,retained,139.77,139.77,0.0,715,715,0,{}
+tt3417422,Drishyam,2013,retained,101.22,101.22,0.0,1070,1070,0,{}
+tt34365591,Mahavatar Narsimha,2024,retained,76.88,76.88,0.0,1388,1388,0,{}
+tt3450958,War for the Planet of the Apes,2017,retained,111.99,111.99,0.0,962,960,2,{}
+tt3455224,Virunga,2014,retained,60.39,60.39,0.0,1626,1627,-1,{}
+tt3460252,The Hateful Eight,2015,retained,133.25,133.25,0.0,767,766,1,{}
+tt3461252,The Blue Elephant,2014,retained,61.85,61.85,0.0,1612,1613,-1,{}
+tt3464902,The Lobster,2015,retained,278.58,278.58,0.0,222,223,-1,{}
+tt34819091,The Testament of Ann Lee,2025,retained,55.54,55.54,0.0,1683,1684,-1,{}
+tt3488710,The Walk,2015,retained,67.04,67.04,0.0,1550,1550,0,{}
+tt34956443,Ne Zha 2,2025,retained,102.06,102.06,0.0,1059,1059,0,{}
+tt3498820,Captain America: Civil War,2016,retained,112.81,112.81,0.0,954,953,1,{}
+tt3501632,Thor: Ragnarok,2017,retained,118.15,118.15,0.0,898,897,1,{}
+tt3508840,The Assassin,2015,retained,288.37,288.37,0.0,204,206,-2,{}
+tt3513548,Richard Jewell,2019,retained,79.93,79.93,0.0,1342,1342,0,{}
+tt3521126,The Disaster Artist,2017,retained,98.62,98.62,0.0,1096,1095,1,{}
+tt3521134,The Look of Silence,2014,retained,187.75,187.75,0.0,468,468,0,{}
+tt3521164,Moana,2016,retained,148.3,148.3,0.0,664,664,0,{}
+tt3532216,American Made,2017,retained,73.09,73.09,0.0,1445,1445,0,{}
+tt3544082,45 Years,2015,retained,149.4,149.4,0.0,658,658,0,{}
+tt3544112,Sing Street,2016,retained,154.9,154.9,0.0,625,625,0,{}
+tt3553976,Captain Fantastic,2016,retained,120.58,120.58,0.0,873,872,1,{}
+tt3569782,Jigarthanda,2014,retained,74.8,74.8,0.0,1414,1415,-1,{}
+tt3581652,West Side Story,2021,retained,181.91,181.91,0.0,490,490,0,{}
+tt3606756,Incredibles 2,2018,retained,125.42,125.42,0.0,832,831,1,{}
+tt3612616,Mommy,2014,retained,290.41,290.41,0.0,202,204,-2,{}
+tt36491653,It Was Just an Accident,2025,retained,145.92,145.92,0.0,674,674,0,{}
+tt3652526,Fire at Sea,2016,retained,73.49,73.49,0.0,1441,1441,0,{}
+tt3655522,Girlhood,2014,retained,146.97,146.97,0.0,669,669,0,{}
+tt3659388,The Martian,2015,retained,197.29,197.29,0.0,426,426,0,{}
+tt36596965,Mandaadi,2026,retained,52.84,52.84,0.0,1723,1724,-1,{}
+tt3661798,A Girl at My Door,2014,retained,20.26,20.26,0.0,1874,1874,0,{}
+tt3666024,The Red Turtle,2016,retained,142.9,142.9,0.0,691,691,0,{}
+tt3668162,Bangalore Days,2014,retained,91.19,91.19,0.0,1188,1187,1,{}
+tt3674140,The Salt of the Earth,2014,retained,130.17,130.17,0.0,791,790,1,{}
+tt3682448,Bridge of Spies,2015,retained,221.64,221.64,0.0,343,343,0,{}
+tt3687186,Heaven Knows What,2014,retained,84.26,84.26,0.0,1275,1275,0,{}
+tt36943034,The Voice of Hind Rajab,2025,retained,367.42,367.42,0.0,107,108,-1,{}
+tt3704428,Elvis,2022,retained,194.43,194.43,0.0,439,439,0,{}
+tt3716530,Elle,2016,retained,241.3,241.3,0.0,305,305,0,{}
+tt3721936,American Honey,2016,retained,285.41,285.41,0.0,210,212,-2,{}
+tt37287335,Obsession,2025,retained,138.96,138.96,0.0,725,725,0,{}
+tt3741834,Lion,2016,retained,205.08,205.08,0.0,403,403,0,{}
+tt3748528,Rogue One: A Star Wars Story,2016,retained,94.91,94.91,0.0,1143,1142,1,{}
+tt3774114,Snowden,2016,retained,47.31,47.31,0.0,1754,1755,-1,{}
+tt3783958,La La Land,2016,retained,473.5,473.5,0.0,49,49,0,{}
+tt3799694,The Nice Guys,2016,retained,100.52,100.52,0.0,1077,1076,1,{}
+tt3801314,Kaththi,2014,retained,72.83,72.83,0.0,1450,1450,0,{}
+tt38063392,Mission Muh Dikhayi,2025,retained,36.98,36.98,0.0,1822,1822,0,{}
+tt3808342,Son of Saul,2015,retained,545.79,545.79,0.0,25,26,-1,{}
+tt3824458,Tangerine,2015,retained,196.69,196.69,0.0,428,428,0,{}
+tt3830162,A War,2015,retained,80.93,80.93,0.0,1324,1324,0,{}
+tt3841424,Land of Mine,2016,retained,140.75,140.75,0.0,704,704,0,{}
+tt3848892,Baby,2015,retained,59.31,59.31,0.0,1638,1639,-1,{}
+tt3863552,Bajrangi Bhaijaan,2015,retained,105.32,105.32,0.0,1030,1030,0,{}
+tt3874544,The Boss Baby,2017,retained,35.0,35.0,0.0,1830,1830,0,{}
+tt3890160,Baby Driver,2017,retained,111.69,111.69,0.0,966,964,2,{}
+tt3892172,Leave No Trace,2018,retained,155.75,155.75,0.0,619,619,0,{}
+tt3896198,Guardians of the Galaxy: Vol. 2,2017,retained,89.35,89.35,0.0,1209,1208,1,{}
+tt3901826,The Breadwinner,2017,retained,154.98,154.98,0.0,624,624,0,{}
+tt3907156,Horse Money,2014,retained,98.63,98.63,0.0,1095,1094,1,{}
+tt3908142,The Love Witch,2016,retained,72.85,72.85,0.0,1449,1449,0,{}
+tt39139925,Dhurandhar: The Revenge,2026,retained,88.33,88.33,0.0,1226,1225,1,{}
+tt3915174,Puss in Boots: The Last Wish,2022,retained,174.82,174.82,0.0,511,511,0,{}
+tt3917210,"Life, Animated",2016,retained,116.42,116.42,0.0,915,913,2,{}
+tt39390582,Hanuman Ansh,2026,retained,42.46,42.46,0.0,1791,1792,-1,{}
+tt3966404,Mustang,2015,retained,254.59,254.59,0.0,276,276,0,{}
+tt3967856,Okja,2017,retained,110.65,110.65,0.0,977,975,2,{}
+tt4016934,The Handmaiden,2016,retained,333.41,333.41,0.0,148,149,-1,{}
+tt4034228,Manchester by the Sea,2016,retained,379.96,379.96,0.0,99,101,-2,{}
+tt4044364,Citizenfour,2014,retained,168.24,168.24,0.0,545,545,0,{}
+tt4048272,Toni Erdmann,2016,retained,421.36,421.36,0.0,78,80,-2,{}
+tt4062536,Green Room,2015,retained,82.9,82.9,0.0,1296,1296,0,{}
+tt4080728,A Man Called Ove,2016,retained,140.27,140.27,0.0,713,713,0,{}
+tt4116284,The Lego Batman Movie,2017,retained,110.37,110.37,0.0,984,982,2,{}
+tt4120176,Things to Come,2016,retained,167.13,167.13,0.0,549,549,0,{}
+tt4126304,Cartel Land,2015,retained,96.83,96.83,0.0,1114,1113,1,{}
+tt4139928,The Legend of Maula Jatt,2022,retained,46.22,46.22,0.0,1766,1767,-1,{}
+tt4154756,Avengers: Infinity War,2018,retained,149.05,149.05,0.0,660,660,0,{}
+tt4154796,Avengers: Endgame,2019,retained,158.38,158.38,0.0,602,602,0,{}
+tt4169250,M.S. Dhoni: The Untold Story,2016,retained,77.56,77.56,0.0,1375,1375,0,{}
+tt4172430,13 Hours,2016,retained,53.08,53.08,0.0,1717,1718,-1,{}
+tt4209788,Molly's Game,2017,retained,82.39,82.39,0.0,1302,1302,0,{}
+tt4226388,Victoria,2015,retained,125.84,125.84,0.0,829,828,1,{}
+tt4239726,Tanna,2016,retained,51.24,51.24,0.0,1734,1735,-1,{}
+tt4244994,The Last Duel,2021,retained,89.68,89.68,0.0,1205,1204,1,{}
+tt4257858,Going Clear: Scientology & the Prison of Belief,2015,retained,106.15,106.15,0.0,1023,1023,0,{}
+tt4263482,The Witch,2015,retained,202.96,202.96,0.0,411,411,0,{}
+tt4276820,The Founder,2016,retained,58.03,58.03,0.0,1652,1653,-1,{}
+tt4284010,"What Happened, Miss Simone?",2015,retained,76.74,76.74,0.0,1392,1392,0,{}
+tt4285496,Embrace of the Serpent,2015,retained,193.03,193.03,0.0,444,444,0,{}
+tt4291590,Evolution,2015,retained,27.64,27.64,0.0,1854,1854,0,{}
+tt4302938,Kubo and the Two Strings,2016,retained,170.45,170.45,0.0,533,533,0,{}
+tt4326444,Julieta,2016,retained,86.41,86.41,0.0,1245,1244,1,{}
+tt43383343,BLEACH: Thousand-Year Blood War - The Calamity,2026,retained,70.0,70.0,0.0,1503,1503,0,{}
+tt4353250,The Last Black Man in San Francisco,2019,retained,206.95,206.95,0.0,396,396,0,{}
+tt4364194,The Peanut Butter Falcon,2019,retained,115.77,115.77,0.0,925,923,2,{}
+tt4385888,20th Century Women,2016,retained,123.13,123.13,0.0,849,848,1,{}
+tt4387040,Airlift,2016,retained,55.27,55.27,0.0,1689,1690,-1,{}
+tt4413794,Homeland (Iraq Year Zero),2015,retained,72.17,72.17,0.0,1463,1463,0,{}
+tt4425200,John Wick: Chapter 2,2017,retained,96.57,96.57,0.0,1122,1121,1,{}
+tt4425258,"My Country, My Country",2006,retained,7.05,7.05,0.0,1903,1903,0,{}
+tt4430212,Drishyam,2015,retained,103.44,103.44,0.0,1046,1046,0,{}
+tt4466490,Sieranevada,2016,retained,112.24,112.24,0.0,960,958,2,{}
+tt4468634,Certain Women,2016,retained,161.87,161.87,0.0,579,579,0,{}
+tt4468740,Paddington 2,2017,retained,224.22,224.22,0.0,338,338,0,{}
+tt4481414,Gifted,2017,retained,84.95,84.95,0.0,1270,1269,1,{}
+tt4516162,Martin Eden,2019,retained,138.41,138.41,0.0,727,727,0,{}
+tt4550098,Nocturnal Animals,2016,retained,208.81,208.81,0.0,386,386,0,{}
+tt4555426,Darkest Hour,2017,retained,204.14,204.14,0.0,407,407,0,{}
+tt4572514,Patriots Day,2016,retained,69.34,69.34,0.0,1514,1514,0,{}
+tt4573394,Endless Corridor,2014,retained,45.74,45.74,0.0,1769,1770,-1,{}
+tt4613272,Kaili Blues,2015,retained,93.02,93.02,0.0,1168,1167,1,{}
+tt4633690,Shot Caller,2017,retained,64.06,64.06,0.0,1587,1588,-1,{}
+tt4633694,Spider-Man: Into the Spider-Verse,2018,retained,336.13,336.13,0.0,146,146,0,{}
+tt4635372,Masaan,2015,retained,95.2,95.2,0.0,1139,1138,1,{}
+tt4679210,Premam,2015,retained,95.17,95.17,0.0,1140,1139,1,{}
+tt4686844,The Death of Stalin,2017,retained,134.0,134.0,0.0,759,758,1,{}
+tt4698684,Hunt for the Wilderpeople,2016,retained,167.2,167.2,0.0,548,548,0,{}
+tt4698742,La Porte Rouge,2007,removed_false_identity,49.66,,,1740,,,{}
+tt4714782,Personal Shopper,2016,retained,176.91,176.91,0.0,502,502,0,{}
+tt4729430,Klaus,2019,retained,184.48,184.48,0.0,478,478,0,{}
+tt4768776,"Right Now, Wrong Then",2015,retained,130.91,130.91,0.0,784,783,1,{}
+tt4772188,Flow,2024,retained,240.4,240.4,0.0,308,308,0,{}
+tt4780662,Happy Hour,2015,retained,125.2,125.2,0.0,833,832,1,{}
+tt4827558,High Life,2018,retained,91.97,91.97,0.0,1182,1181,1,{}
+tt4842296,A Lullaby to the Sorrowful Mystery,2016,retained,47.52,47.52,0.0,1751,1752,-1,{}
+tt4846232,Good Time,2017,retained,156.85,156.85,0.0,608,608,0,{}
+tt4846340,Hidden Figures,2016,retained,190.76,190.76,0.0,454,454,0,{}
+tt4849438,Baahubali 2: The Conclusion,2017,retained,109.21,109.21,0.0,1002,1000,2,{}
+tt4851630,Maheshinte Prathikaaram,2016,retained,67.24,67.24,0.0,1547,1547,0,{}
+tt4857264,The Invisible Guest,2016,retained,113.94,113.94,0.0,940,939,1,{}
+tt4873118,The Covenant,2023,retained,83.82,83.82,0.0,1283,1283,0,{}
+tt4881016,No Home Movie,2015,retained,106.1,106.1,0.0,1025,1025,0,{}
+tt4908644,Winter on Fire: Ukraine's Fight for Freedom,2015,retained,80.3,80.3,0.0,1335,1335,0,{}
+tt4912910,Mission: Impossible - Fallout,2018,retained,140.29,140.29,0.0,712,712,0,{}
+tt4925292,Lady Bird,2017,retained,427.62,427.62,0.0,74,76,-2,{}
+tt4934950,Talvar,2015,retained,77.83,77.83,0.0,1373,1373,0,{}
+tt4936064,In Jackson Heights,2015,retained,44.64,44.64,0.0,1777,1778,-1,{}
+tt4954522,Raw,2016,retained,149.32,149.32,0.0,659,659,0,{}
+tt4972582,Split,2016,retained,69.64,69.64,0.0,1510,1510,0,{}
+tt4975722,Moonlight,2016,retained,659.18,659.18,0.0,9,9,0,{}
+tt4981966,24,2016,retained,59.33,59.33,0.0,1637,1638,-1,{}
+tt4983780,Maanaadu,2021,retained,67.76,67.76,0.0,1537,1537,0,{}
+tt4987556,Thani Oruvan,2015,retained,74.33,74.33,0.0,1425,1426,-1,{}
+tt4991384,Interrogation,2015,retained,77.51,77.51,0.0,1376,1376,0,{}
+tt4995790,The Square,2017,retained,352.1,352.1,0.0,125,126,-1,{}
+tt5013056,Dunkirk,2017,retained,316.77,316.77,0.0,164,164,0,{}
+tt5025550,The Dreamed Path,2016,retained,48.27,48.27,0.0,1746,1747,-1,{}
+tt5027774,"Three Billboards outside Ebbing, Missouri",2017,retained,368.9,368.9,0.0,106,107,-1,{}
+tt5052448,Get Out,2017,retained,506.43,506.43,0.0,38,38,0,{}
+tt5074352,Dangal,2016,retained,125.19,125.19,0.0,834,833,1,{}
+tt5083738,The Favourite,2018,retained,479.03,479.03,0.0,45,45,0,{}
+tt5104604,Isle of Dogs,2018,retained,256.48,256.48,0.0,269,269,0,{}
+tt5109280,Raya and the Last Dragon,2021,retained,101.67,101.67,0.0,1064,1064,0,{}
+tt5116302,Togo,2019,retained,81.53,81.53,0.0,1316,1316,0,{}
+tt5129510,The Death of Louis XIV,2016,retained,86.37,86.37,0.0,1247,1246,1,{}
+tt5130912,Birdman,2014,removed_false_identity,116.67,,,914,,,{}
+tt5157326,Western,2017,retained,117.96,117.96,0.0,902,901,1,{}
+tt5164432,"Love, Simon",2018,retained,71.26,71.26,0.0,1481,1481,0,{}
+tt5168192,"I, Daniel Blake",2016,retained,350.77,350.77,0.0,127,128,-1,{}
+tt5186714,The Salesman,2016,retained,240.81,240.81,0.0,306,306,0,{}
+tt5198068,Wolfwalkers,2020,retained,207.53,207.53,0.0,391,391,0,{}
+tt5215486,Dawson City: Frozen Time,2016,retained,117.74,117.74,0.0,905,904,1,{}
+tt5215952,The Wailing,2016,retained,114.75,114.75,0.0,932,931,1,{}
+tt5221584,Aquarius,2016,retained,130.08,130.08,0.0,793,792,1,{}
+tt5222918,The Other Side of Hope,2017,retained,206.64,206.64,0.0,398,398,0,{}
+tt5247022,Paterson,2016,retained,218.72,218.72,0.0,350,350,0,{}
+tt5275892,O.J.: Made in America,2016,retained,195.25,195.25,0.0,436,436,0,{}
+tt5311514,Your Name.,2016,retained,166.67,166.67,0.0,551,551,0,{}
+tt5311542,Never Look Away,2018,retained,134.23,134.23,0.0,757,756,1,{}
+tt5312232,Sairat,2016,retained,60.52,60.52,0.0,1624,1625,-1,{}
+tt5323662,A Silent Voice: The Movie,2016,retained,132.98,132.98,0.0,770,769,1,{}
+tt5354160,Mirror Game,2016,retained,63.77,63.77,0.0,1593,1594,-1,{}
+tt5362988,Wind River,2017,retained,110.59,110.59,0.0,978,976,2,{}
+tt5363618,Sound of Metal,2020,retained,242.93,242.93,0.0,301,301,0,{}
+tt5375040,Cameraperson,2016,retained,160.04,160.04,0.0,593,593,0,{}
+tt5462602,The Big Sick,2017,retained,121.28,121.28,0.0,865,864,1,{}
+tt5463162,Deadpool 2,2018,retained,81.25,81.25,0.0,1319,1319,0,{}
+tt5478478,Hostiles,2017,retained,62.03,62.03,0.0,1609,1610,-1,{}
+tt5501104,Border,2018,retained,93.53,93.53,0.0,1156,1155,1,{}
+tt5503686,Hustlers,2019,retained,51.91,51.91,0.0,1730,1731,-1,{}
+tt5535276,Maestro,2023,retained,118.77,118.77,0.0,894,893,1,{}
+tt5537002,Killers of the Flower Moon,2023,retained,340.18,340.18,0.0,142,143,-1,{}
+tt5571734,Pink,2016,retained,73.89,73.89,0.0,1433,1433,0,{}
+tt5580036,"I, Tonya",2017,retained,134.34,134.34,0.0,755,754,1,{}
+tt5580390,The Shape of Water,2017,retained,469.5,469.5,0.0,51,51,0,{}
+tt5598102,Faces Places,2017,retained,219.69,219.69,0.0,348,348,0,{}
+tt5606664,Doctor Sleep,2019,retained,63.88,63.88,0.0,1590,1591,-1,{}
+tt5607714,On Body and Soul,2017,retained,301.01,301.01,0.0,183,184,-1,{}
+tt5635086,God's Own Country,2017,retained,159.91,159.91,0.0,594,594,0,{}
+tt5639354,A Fantastic Woman,2017,retained,175.24,175.24,0.0,509,509,0,{}
+tt5649144,The Florida Project,2017,retained,244.45,244.45,0.0,299,299,0,{}
+tt5688932,Sorry to Bother You,2018,retained,186.28,186.28,0.0,472,472,0,{}
+tt5700672,Train to Busan,2016,retained,160.99,160.99,0.0,588,588,0,{}
+tt5715874,The Killing of a Sacred Deer,2017,retained,129.68,129.68,0.0,796,795,1,{}
+tt5726616,Call Me by Your Name,2017,retained,481.63,481.63,0.0,43,44,-1,{}
+tt5727208,Uncut Gems,2019,retained,264.39,264.39,0.0,248,248,0,{}
+tt5742374,You Were Never Really Here,2017,retained,200.67,200.67,0.0,413,413,0,{}
+tt5749596,The Image Book,2018,retained,118.13,118.13,0.0,899,898,1,{}
+tt5764096,Hindi Medium,2017,retained,61.5,61.5,0.0,1616,1617,-1,{}
+tt5776858,Phantom Thread,2017,retained,376.67,376.67,0.0,100,102,-2,{}
+tt5804038,I Am Not Your Negro,2016,retained,246.43,246.43,0.0,297,297,0,{}
+tt5813916,The Mountain II,2016,retained,77.33,77.33,0.0,1381,1381,0,{}
+tt5824826,Pelli Choopulu,2016,retained,62.85,62.85,0.0,1598,1599,-1,{}
+tt5827916,A Hidden Life,2019,retained,171.43,171.43,0.0,525,525,0,{}
+tt5843990,The Woman Who Left,2016,retained,175.87,175.87,0.0,506,506,0,{}
+tt5848272,Ralph Breaks the Internet,2018,retained,72.49,72.49,0.0,1455,1455,0,{}
+tt5867800,Aruvi,2016,retained,57.9,57.9,0.0,1655,1656,-1,{}
+tt5873150,Strong Island,2017,retained,70.76,70.76,0.0,1488,1488,0,{}
+tt5895028,13th,2016,retained,209.11,209.11,0.0,385,385,0,{}
+tt5907916,Yourself and Yours,2016,retained,38.96,38.96,0.0,1810,1811,-1,{}
+tt5929776,Before the Flood,2016,retained,70.17,70.17,0.0,1499,1499,0,{}
+tt5952382,Abacus: Small Enough to Jail,2017,retained,62.35,62.35,0.0,1603,1604,-1,{}
+tt5959980,Vada Chennai,2018,retained,101.42,101.42,0.0,1068,1068,0,{}
+tt5971474,The Little Mermaid,2023,retained,32.02,32.02,0.0,1841,1841,0,{}
+tt6016744,The Edge of Democracy,2019,retained,94.3,94.3,0.0,1150,1149,1,{}
+tt6019206,Kill Bill: The Whole Bloody Affair,2004,retained,142.63,142.63,0.0,693,693,0,{}
+tt6024768,By the Time It Gets Dark,2016,retained,22.04,22.04,0.0,1870,1870,0,{}
+tt6041312,Human Surge,2016,retained,49.95,49.95,0.0,1739,1741,-2,{}
+tt6053438,First Reformed,2017,retained,231.46,231.46,0.0,328,328,0,{}
+tt6062774,Monos,2019,retained,96.95,96.95,0.0,1111,1110,1,{}
+tt6101602,Madeline's Madeline,2018,retained,83.66,83.66,0.0,1286,1286,0,{}
+tt6135348,120 BPM (Beats Per Minute),2017,retained,284.89,308.89,24.0,212,173,39,"{""european_recognition"": 24.0}"
+tt6146586,John Wick: Chapter 3 - Parabellum,2019,retained,95.4,95.4,0.0,1134,1133,1,{}
+tt6148156,Vikram Vedha,2017,retained,90.81,90.81,0.0,1193,1192,1,{}
+tt6155172,Roma,2018,retained,652.58,652.58,0.0,10,10,0,{}
+tt6193408,A Shaun the Sheep Movie: Farmageddon,2020,retained,77.4,77.4,0.0,1379,1379,0,{}
+tt6209282,Ex Libris,2017,retained,86.43,86.43,0.0,1244,1243,1,{}
+tt6213284,I Am Not a Witch,2017,retained,69.79,69.79,0.0,1506,1506,0,{}
+tt6217608,The Rider,2017,retained,246.86,246.86,0.0,294,294,0,{}
+tt6217698,America,2019,retained,14.38,14.38,0.0,1891,1891,0,{}
+tt6217926,Annette,2021,retained,128.01,128.01,0.0,811,810,1,{}
+tt6263850,Deadpool & Wolverine,2024,retained,74.74,74.74,0.0,1415,1416,-1,{}
+tt6265828,A Ghost Story,2017,retained,162.26,162.26,0.0,577,577,0,{}
+tt6266538,Vice,2018,retained,138.09,138.09,0.0,729,729,0,{}
+tt6294822,The Post,2017,retained,160.21,160.21,0.0,592,592,0,{}
+tt6304162,Loveless,2017,retained,341.3,341.3,0.0,139,140,-1,{}
+tt6316138,Ayla: The Daughter of War,2017,retained,99.8,99.8,0.0,1082,1081,1,{}
+tt6320628,Spider-Man: Far from Home,2019,retained,73.0,73.0,0.0,1447,1447,0,{}
+tt6333060,Icarus,2017,retained,170.73,170.73,0.0,531,531,0,{}
+tt6333074,Last Men in Aleppo,2017,retained,109.83,109.83,0.0,991,989,2,{}
+tt6334354,The Suicide Squad,2021,retained,76.55,76.55,0.0,1395,1395,0,{}
+tt6348138,Missing Link,2019,retained,81.85,81.85,0.0,1312,1312,0,{}
+tt6381052,Sleep Has Her House,2017,retained,54.26,54.26,0.0,1709,1710,-1,{}
+tt6412452,The Ballad of Buster Scruggs,2018,retained,107.07,107.07,0.0,1015,1015,0,{}
+tt6412864,On the Beach at Night Alone,2017,retained,127.85,127.85,0.0,812,811,1,{}
+tt6423776,Let the Sunshine In,2017,retained,67.52,67.52,0.0,1543,1543,0,{}
+tt6462506,The Day After,2017,retained,78.64,78.64,0.0,1362,1362,0,{}
+tt6467266,Sing 2,2021,retained,43.56,43.56,0.0,1783,1784,-1,{}
+tt6470924,Berlin Alexanderplatz,2020,retained,43.98,43.98,0.0,1779,1780,-1,{}
+tt6499752,Upgrade,2018,retained,92.63,92.63,0.0,1173,1172,1,{}
+tt6543652,Cold War,2018,retained,428.19,428.19,0.0,73,75,-2,{}
+tt6587046,The Boy and the Heron,2023,retained,196.42,196.42,0.0,429,429,0,{}
+tt6628102,The Wild Pear Tree,2018,retained,127.85,127.85,0.0,813,812,1,{}
+tt6634646,"Hale County This Morning, This Evening",2018,retained,76.13,76.13,0.0,1405,1405,0,{}
+tt6644200,A Quiet Place,2018,retained,105.37,105.37,0.0,1028,1028,0,{}
+tt6675244,Transit,2018,retained,122.94,122.94,0.0,853,852,1,{}
+tt6710474,Everything Everywhere All at Once,2022,retained,518.45,518.45,0.0,36,36,0,{}
+tt6723592,Tenet,2020,retained,63.39,63.39,0.0,1595,1596,-1,{}
+tt6751668,Parasite,2019,retained,734.21,769.21,35.0,3,2,1,"{""critics_groups_consensus"": 35.0}"
+tt6752992,Happy as Lazzaro,2018,retained,243.08,243.08,0.0,300,300,0,{}
+tt6768578,Dogman,2018,retained,90.45,90.45,0.0,1197,1196,1,{}
+tt6777056,Closeness,2017,retained,18.99,18.99,0.0,1882,1882,0,{}
+tt6791350,Guardians of the Galaxy Vol. 3,2023,retained,124.59,124.59,0.0,839,838,1,{}
+tt6852178,Benediction,2021,retained,66.56,66.56,0.0,1555,1555,0,{}
+tt6857112,Us,2019,retained,145.78,145.78,0.0,677,677,0,{}
+tt6878038,A Taxi Driver,2017,retained,111.13,111.13,0.0,970,968,2,{}
+tt6900448,Mirai,2018,retained,98.75,98.75,0.0,1093,1092,1,{}
+tt6910282,Bergman Island,2021,retained,80.67,80.67,0.0,1327,1327,0,{}
+tt6920356,The Souvenir,2019,retained,203.67,203.67,0.0,409,409,0,{}
+tt6966692,Green Book,2018,retained,276.34,276.34,0.0,223,224,-1,{}
+tt6992978,The Souvenir: Part II,2021,retained,113.64,113.64,0.0,947,946,1,{}
+tt7014006,Eighth Grade,2018,retained,134.28,134.28,0.0,756,755,1,{}
+tt7019842,96,2018,retained,102.49,102.49,0.0,1054,1054,0,{}
+tt7019942,Super Deluxe,2019,retained,87.86,87.86,0.0,1230,1229,1,{}
+tt7048622,The Insult,2017,retained,122.86,122.86,0.0,854,853,1,{}
+tt7060344,Ratsasan,2018,retained,95.29,95.29,0.0,1136,1135,1,{}
+tt7060460,Theeran Adhigaram Ondru,2017,retained,64.67,64.67,0.0,1578,1578,0,{}
+tt7125860,If Beale Street Could Talk,2018,retained,232.85,232.85,0.0,327,327,0,{}
+tt7131622,Once Upon a Time in... Hollywood,2019,retained,431.03,431.03,0.0,70,72,-2,{}
+tt7146812,Onward,2020,retained,103.91,103.91,0.0,1040,1040,0,{}
+tt7160372,The Zone of Interest,2023,retained,591.21,591.21,0.0,17,17,0,{}
+tt7200370,Season of the Devil,2018,retained,27.98,27.98,0.0,1853,1853,0,{}
+tt7218518,Pad Man,2018,retained,55.32,55.32,0.0,1687,1688,-1,{}
+tt7236034,I Want to Eat Your Pancreas,2018,retained,105.37,105.37,0.0,1029,1029,0,{}
+tt7268738,Minnal Murali,2021,retained,62.34,62.34,0.0,1605,1606,-1,{}
+tt7282468,Burning,2018,retained,231.13,231.13,0.0,329,329,0,{}
+tt7286456,Joker,2019,retained,413.44,413.44,0.0,83,85,-2,{}
+tt7294534,Arjun Reddy,2017,retained,45.71,45.71,0.0,1771,1772,-1,{}
+tt7298400,Ash Is Purest White,2018,retained,119.43,119.43,0.0,881,880,1,{}
+tt7322224,Triangle of Sadness,2022,retained,380.42,380.42,0.0,98,100,-2,{}
+tt7349662,BlacKkKlansman,2018,retained,430.21,430.21,0.0,71,73,-2,{}
+tt7378922,"Summer of Soul (...Or, When the Revolution Could Not Be Televised)",2021,retained,281.52,281.52,0.0,218,219,-1,{}
+tt7391996,C/o Kancharapalem,2018,retained,67.88,67.88,0.0,1534,1534,0,{}
+tt7392212,Rangasthalam,2018,retained,78.39,78.39,0.0,1365,1365,0,{}
+tt7401588,Instant Family,2018,retained,71.53,71.53,0.0,1478,1478,0,{}
+tt7405458,A Man Called Otto,2022,retained,77.89,77.89,0.0,1371,1371,0,{}
+tt7465992,Mahanati,2018,retained,76.04,76.04,0.0,1406,1407,-1,{}
+tt7466810,777 Charlie,2022,retained,88.65,88.65,0.0,1217,1216,1,{}
+tt7472352,Shirkers,2018,retained,123.45,123.45,0.0,846,845,1,{}
+tt7476236,Minding the Gap,2018,retained,163.34,163.34,0.0,571,571,0,{}
+tt7485048,Super 30,2019,retained,61.01,61.01,0.0,1618,1619,-1,{}
+tt7488208,Over the Moon,2020,retained,56.74,56.74,0.0,1672,1673,-1,{}
+tt7519174,Of Fathers and Sons,2018,retained,111.0,111.0,0.0,972,970,2,{}
+tt7557108,Saint Maud,2019,retained,90.56,90.56,0.0,1196,1195,1,{}
+tt7599146,Sound of Freedom,2023,retained,64.33,64.33,0.0,1584,1585,-1,{}
+tt7653254,Marriage Story,2019,retained,343.5,343.5,0.0,136,137,-1,{}
+tt7668870,Searching,2018,retained,133.25,133.25,0.0,766,765,1,{}
+tt7681902,Won't You Be My Neighbor?,2018,retained,150.52,150.52,0.0,650,650,0,{}
+tt7689964,RBG,2018,retained,108.78,108.78,0.0,1004,1002,2,{}
+tt7725596,Badhaai Ho,2018,retained,59.45,59.45,0.0,1636,1637,-1,{}
+tt7736478,The Traitor,2019,retained,77.3,77.3,0.0,1382,1382,0,{}
+tt7738784,Resurrection,2018,retained,77.11,77.11,0.0,1386,1386,0,{}
+tt7740496,Nightmare Alley,2021,retained,126.49,126.49,0.0,824,823,1,{}
+tt7772582,Never Rarely Sometimes Always,2020,retained,260.62,260.62,0.0,260,260,0,{}
+tt7775622,Free Solo,2018,retained,210.45,210.45,0.0,382,382,0,{}
+tt7778656,"Love Is the Message, the Message Is Death",2016,retained,77.27,77.27,0.0,1383,1383,0,{}
+tt7784604,Hereditary,2018,retained,179.5,179.5,0.0,496,496,0,{}
+tt7838252,K.G.F: Chapter 1,2018,retained,81.84,81.84,0.0,1313,1313,0,{}
+tt7888964,Nobody,2021,retained,78.19,78.19,0.0,1368,1368,0,{}
+tt7905466,They Shall Not Grow Old,2018,retained,141.05,141.05,0.0,702,702,0,{}
+tt7923220,Inheritance,2020,removed_false_identity,11.21,,,1895,,,{}
+tt7939766,I'm Thinking of Ending Things,2020,retained,80.26,80.26,0.0,1336,1336,0,{}
+tt7979580,The Mitchells vs. the Machines,2021,retained,147.13,147.13,0.0,668,668,0,{}
+tt7984734,The Lighthouse,2019,retained,155.18,155.18,0.0,621,621,0,{}
+tt7984766,The King,2019,retained,59.88,59.88,0.0,1633,1634,-1,{}
+tt8009428,Hustle,2022,retained,84.16,84.16,0.0,1277,1277,0,{}
+tt8020896,An Elephant Sitting Still,2018,retained,189.46,189.46,0.0,462,462,0,{}
+tt8075192,Shoplifters,2018,retained,455.64,455.64,0.0,57,57,0,{}
+tt8093700,The Woman King,2022,retained,110.48,110.48,0.0,981,979,2,{}
+tt8097030,Turning Red,2022,retained,88.13,88.13,0.0,1227,1226,1,{}
+tt8108198,Andhadhun,2018,retained,109.91,109.91,0.0,990,988,2,{}
+tt8108268,The Tashkent Files,2019,retained,46.87,46.87,0.0,1758,1759,-1,{}
+tt8110330,Dil Bechara,2020,retained,74.62,74.62,0.0,1418,1419,-1,{}
+tt8130968,Badla,2019,retained,60.34,60.34,0.0,1627,1628,-1,{}
+tt8176054,Pariyerum Perumal,2018,retained,89.33,89.33,0.0,1211,1210,1,{}
+tt8178634,RRR,2022,retained,188.34,188.34,0.0,464,464,0,{}
+tt8185182,Long Day's Journey Into Night,2018,retained,161.12,161.12,0.0,586,586,0,{}
+tt8212958,Fire Will Come,2019,retained,40.73,40.73,0.0,1799,1800,-1,{}
+tt8230872,The Body Remembers When the World Broke Open,2019,retained,35.09,35.09,0.0,1829,1829,0,{}
+tt8239946,Tumbbad,2018,retained,95.33,95.33,0.0,1135,1134,1,{}
+tt8241872,Vitalina Varela,2019,retained,134.45,134.45,0.0,753,752,1,{}
+tt8267604,Capernaum,2018,retained,326.06,326.06,0.0,154,155,-1,{}
+tt8269552,3 Faces,2018,retained,73.29,73.29,0.0,1442,1442,0,{}
+tt8291224,Uri: The Surgical Strike,2019,retained,80.42,80.42,0.0,1333,1333,0,{}
+tt8291806,Pain and Glory,2019,retained,307.84,307.84,0.0,174,175,-1,{}
+tt8332922,A Quiet Place Part II,2020,retained,70.86,70.86,0.0,1486,1486,0,{}
+tt8367814,The Gentlemen,2019,retained,100.91,100.91,0.0,1073,1073,0,{}
+tt8399288,Memoria,2021,retained,240.43,240.43,0.0,307,307,0,{}
+tt8404614,The Two Popes,2019,retained,113.48,113.48,0.0,951,950,1,{}
+tt8413338,Kumbalangi Nights,2019,retained,103.76,103.76,0.0,1042,1042,0,{}
+tt8430054,Flee,2021,retained,297.34,297.34,0.0,190,191,-1,{}
+tt8430598,Shirley,2020,retained,69.05,69.05,0.0,1521,1521,0,{}
+tt8503618,Hamilton,2020,retained,188.0,188.0,0.0,467,467,0,{}
+tt8535968,System Crasher,2019,retained,101.19,101.19,0.0,1071,1071,0,{}
+tt8579674,1917,2019,retained,343.86,343.86,0.0,135,136,-1,{}
+tt8613070,Portrait of a Lady on Fire,2019,retained,426.6,426.6,0.0,76,78,-2,{}
+tt8633462,"Quo Vadis, Aida?",2020,retained,330.53,330.53,0.0,150,151,-1,{}
+tt8637428,The Farewell,2019,retained,261.07,261.07,0.0,257,257,0,{}
+tt8649186,Corpus Christi,2019,retained,168.79,168.79,0.0,541,541,0,{}
+tt8652728,Waves,2019,retained,119.8,119.8,0.0,878,877,1,{}
+tt8652818,Violet Evergarden: The Movie,2020,retained,96.22,96.22,0.0,1125,1124,1,{}
+tt8721424,"tick, tick... BOOM!",2021,retained,121.16,121.16,0.0,866,865,1,{}
+tt8737152,Toma,2021,retained,55.84,55.84,0.0,1679,1680,-1,{}
+tt8760684,Apollo 11,2019,retained,139.39,139.39,0.0,719,719,0,{}
+tt8772262,Midsommar,2019,retained,137.69,137.69,0.0,732,732,0,{}
+tt8893974,Passing,2021,retained,69.6,69.6,0.0,1511,1511,0,{}
+tt8923484,Crip Camp,2020,retained,192.74,192.74,0.0,446,446,0,{}
+tt8946378,Knives Out,2019,retained,156.81,156.81,0.0,610,610,0,{}
+tt8948790,Jersey,2019,retained,99.47,99.47,0.0,1087,1086,1,{}
+tt8991268,Honeyland,2019,retained,251.56,251.56,0.0,286,286,0,{}
+tt8999762,The Brutalist,2024,retained,350.72,350.72,0.0,128,129,-1,{}
+tt9000224,The Assistant,2019,retained,86.01,86.01,0.0,1252,1251,1,{}
+tt9006564,2018,2023,retained,66.3,66.3,0.0,1560,1560,0,{}
+tt9047474,La Flor,2018,retained,106.27,106.27,0.0,1021,1021,0,{}
+tt9052870,Chhichhore,2019,retained,98.36,98.36,0.0,1100,1099,1,{}
+tt9067182,Rocks,2019,retained,120.83,120.83,0.0,870,869,1,{}
+tt9071322,Dark Waters,2019,retained,107.95,107.95,0.0,1008,1006,2,{}
+tt9072352,Relic,2020,retained,40.06,40.06,0.0,1804,1805,-1,{}
+tt9098872,The Rescue,2021,retained,125.57,125.57,0.0,830,829,1,{}
+tt9100054,The Lost Daughter,2021,retained,102.37,102.37,0.0,1055,1055,0,{}
+tt9179430,Vikram,2022,retained,110.86,110.86,0.0,974,972,2,{}
+tt9231040,First Cow,2019,retained,254.29,254.29,0.0,278,278,0,{}
+tt9243804,The Green Knight,2021,retained,80.47,80.47,0.0,1331,1331,0,{}
+tt9243946,El Camino,2019,retained,84.13,84.13,0.0,1278,1278,0,{}
+tt9263550,Rocketry: The Nambi Effect,2022,retained,82.73,82.73,0.0,1298,1298,0,{}
+tt9288046,The Sea Beast,2022,retained,90.38,90.38,0.0,1198,1197,1,{}
+tt9351980,American Factory,2019,retained,176.43,176.43,0.0,503,503,0,{}
+tt9362722,Spider-Man: Across the Spider-Verse,2023,retained,221.8,221.8,0.0,342,342,0,{}
+tt9376612,Shang-Chi and the Legend of the Ten Rings,2021,retained,75.28,75.28,0.0,1410,1411,-1,{}
+tt9389998,Pushpa: The Rise - Part 1,2021,retained,54.92,54.92,0.0,1702,1703,-1,{}
+tt9411972,Where the Crawdads Sing,2022,retained,49.33,49.33,0.0,1742,1743,-1,{}
+tt9477520,Asuran,2019,retained,93.67,93.67,0.0,1155,1154,1,{}
+tt9484998,Palm Springs,2020,retained,131.38,131.38,0.0,778,777,1,{}
+tt9500372,Pocket Hercules: Naim Süleymanoglu,2019,retained,55.94,55.94,0.0,1678,1679,-1,{}
+tt9603212,Mission: Impossible - Dead Reckoning Part One,2023,retained,114.44,114.44,0.0,935,934,1,{}
+tt9617456,For Sama,2019,retained,212.33,212.33,0.0,373,373,0,{}
+tt9620288,King Richard,2021,retained,179.38,179.38,0.0,497,497,0,{}
+tt9620292,Promising Young Woman,2020,retained,268.95,268.95,0.0,236,236,0,{}
+tt9660502,Close,2022,retained,324.2,324.2,0.0,157,157,0,{}
+tt9770150,Nomadland,2020,retained,618.9,618.9,0.0,14,14,0,{}
+tt9777644,Da 5 Bloods,2020,retained,76.82,76.82,0.0,1389,1389,0,{}
+tt9784798,Judas and the Black Messiah,2020,retained,190.75,190.75,0.0,455,455,0,{}
+tt9806192,I Lost My Body,2019,retained,143.75,143.75,0.0,687,687,0,{}
+tt9851854,Major,2022,retained,57.98,57.98,0.0,1654,1655,-1,{}
+tt9881586,Rascal Does Not Dream of a Dreaming Girl,2019,retained,72.41,72.41,0.0,1457,1457,0,{}
+tt9900782,Kaithi,2019,retained,105.45,105.45,0.0,1027,1027,0,{}

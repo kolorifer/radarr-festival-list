@@ -1,0 +1,47 @@
+{
+  "source_url": "https://datasets.imdbws.com/title.ratings.tsv.gz",
+  "baseline_fallback_preserved": true,
+  "ratings": {
+    "tt10551100": {
+      "rating": 8.0,
+      "votes": 6189
+    },
+    "tt10551102": {
+      "rating": 7.4,
+      "votes": 5630
+    },
+    "tt31113046": {
+      "rating": 7.7,
+      "votes": 22
+    },
+    "tt38063392": {
+      "rating": 8.4,
+      "votes": 10912
+    },
+    "tt0278731": {
+      "rating": 6.7,
+      "votes": 42345
+    },
+    "tt0806125": {
+      "rating": 7.2,
+      "votes": 402
+    },
+    "tt11416746": {
+      "rating": 6.8,
+      "votes": 6604
+    },
+    "tt12913444": {
+      "rating": 6.7,
+      "votes": 157
+    }
+  },
+  "observed_at": "2026-10-13T16:43:31.720346+00:00",
+  "additional_download_sha256": "01f30fe54c7476238e5181dd591f8b54f3b0f6f93bae694989b1b634aae05cef",
+  "requested_ids": [
+    "tt0278731",
+    "tt0806125",
+    "tt11416746",
+    "tt12913444"
+  ],
+  "unavailable_ids": []
+}

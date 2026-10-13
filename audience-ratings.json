@@ -1,8 +1,8 @@
 {
   "source": "ReelDB",
   "purpose": "audience-rating research; not yet part of production scoring",
-  "ratings_count": 1908,
-  "unavailable_count": 5,
+  "ratings_count": 1911,
+  "unavailable_count": 4,
   "ratings": {
     "tt4975722": {
       "title": "Moonlight",
@@ -14340,52 +14340,6 @@
         }
       }
     },
-    "tt13138834": {
-      "title": "Time",
-      "year": 2021,
-      "tspdt_rank": 290,
-      "reeldb": {
-        "imdb": {
-          "rating": 8.1,
-          "votes": 32552
-        },
-        "metacritic": {
-          "rating": 81,
-          "votes": 16
-        },
-        "metacritic_user": {
-          "rating": 7.3,
-          "votes": 19
-        },
-        "trakt": {
-          "rating": 77,
-          "votes": 1189
-        },
-        "tomatoes": {
-          "rating": 96,
-          "votes": 38,
-          "certified_fresh": true
-        },
-        "tomatoes_audience": {
-          "rating": 89,
-          "votes": null
-        },
-        "tmdb": {
-          "rating": 76,
-          "votes": 282
-        },
-        "letterboxd": {
-          "rating": 4.1,
-          "votes": 9413
-        },
-        "roger_ebert": null,
-        "myanimelist": null,
-        "mdblist": {
-          "rating": 83,
-          "votes": null
-        }
-      }
-    },
     "tt0190590": {
       "title": "O Brother, Where Art Thou?",
       "year": 2000,
@@ -16416,39 +16370,6 @@
         "myanimelist": null,
         "mdblist": {
           "rating": 84,
-          "votes": null
-        }
-      }
-    },
-    "tt5130912": {
-      "title": "Birdman",
-      "year": 2014,
-      "tspdt_rank": 338,
-      "reeldb": {
-        "imdb": {
-          "rating": 5.1,
-          "votes": 199
-        },
-        "metacritic": null,
-        "metacritic_user": null,
-        "trakt": {
-          "rating": 76,
-          "votes": 1131
-        },
-        "tomatoes": null,
-        "tomatoes_audience": null,
-        "tmdb": {
-          "rating": 45,
-          "votes": 11
-        },
-        "letterboxd": {
-          "rating": 3.7,
-          "votes": 5581
-        },
-        "roger_ebert": null,
-        "myanimelist": null,
-        "mdblist": {
-          "rating": 30,
           "votes": null
         }
       }
@@ -27862,10 +27783,20 @@
           "rating": 57,
           "votes": 6
         },
-        "letterboxd": null,
+        "letterboxd": {
+          "rating": 3.55,
+          "votes": 207
+        },
         "roger_ebert": null,
         "myanimelist": null,
         "mdblist": null
+      },
+      "rating_provenance": {
+        "letterboxd": {
+          "provider": "Letterboxd public JSON-LD",
+          "source_url": "https://letterboxd.com/film/wolff-von-amerongen-did-he-commit-bankruptcy-offences/",
+          "observed_at": "2026-10-13T16:33:47.035262+00:00"
+        }
       }
     },
     "tt0145487": {
@@ -43359,55 +43290,6 @@
         "myanimelist": null,
         "mdblist": {
           "rating": 72,
-          "votes": null
-        }
-      }
-    },
-    "tt7923220": {
-      "title": "Inheritance",
-      "year": 2020,
-      "tspdt_rank": 897,
-      "reeldb": {
-        "imdb": {
-          "rating": 5.6,
-          "votes": 23934
-        },
-        "metacritic": {
-          "rating": 31,
-          "votes": 19
-        },
-        "metacritic_user": {
-          "rating": 5.3,
-          "votes": 23
-        },
-        "trakt": {
-          "rating": 63,
-          "votes": 2576
-        },
-        "tomatoes": {
-          "rating": 25,
-          "votes": 56,
-          "certified_fresh": false
-        },
-        "tomatoes_audience": {
-          "rating": 26,
-          "votes": 100
-        },
-        "tmdb": {
-          "rating": 63,
-          "votes": 764
-        },
-        "letterboxd": {
-          "rating": 2.6,
-          "votes": 44787
-        },
-        "roger_ebert": {
-          "rating": 2.0,
-          "votes": null
-        },
-        "myanimelist": null,
-        "mdblist": {
-          "rating": 43,
           "votes": null
         }
       }
@@ -87426,17 +87308,102 @@
           "votes": null
         }
       }
+    },
+    "tt0278731": {
+      "reeldb": {
+        "letterboxd": {
+          "rating": 3.4,
+          "votes": 36618
+        }
+      },
+      "rating_provenance": {
+        "letterboxd": {
+          "provider": "Letterboxd public JSON-LD",
+          "source_url": "https://letterboxd.com/film/spider/",
+          "observed_at": "2026-10-13T16:33:47.035262+00:00"
+        }
+      }
+    },
+    "tt0806125": {
+      "reeldb": {
+        "letterboxd": {
+          "rating": 3.73,
+          "votes": 1118
+        }
+      },
+      "rating_provenance": {
+        "letterboxd": {
+          "provider": "Letterboxd public JSON-LD",
+          "source_url": "https://letterboxd.com/film/la-morte-rouge/",
+          "observed_at": "2026-10-13T16:33:47.035262+00:00"
+        }
+      }
+    },
+    "tt10551100": {
+      "reeldb": {
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 31659
+        }
+      },
+      "rating_provenance": {
+        "letterboxd": {
+          "provider": "Letterboxd public JSON-LD",
+          "source_url": "https://letterboxd.com/film/mangrove-2020/",
+          "observed_at": "2026-10-13T16:33:47.035262+00:00"
+        }
+      }
+    },
+    "tt10551102": {
+      "reeldb": {
+        "letterboxd": {
+          "rating": 4.03,
+          "votes": 38145
+        }
+      },
+      "rating_provenance": {
+        "letterboxd": {
+          "provider": "Letterboxd public JSON-LD",
+          "source_url": "https://letterboxd.com/film/lovers-rock-2020/",
+          "observed_at": "2026-10-13T16:33:47.035262+00:00"
+        }
+      }
+    },
+    "tt11416746": {
+      "reeldb": {
+        "letterboxd": {
+          "rating": 3.75,
+          "votes": 27394
+        }
+      },
+      "rating_provenance": {
+        "letterboxd": {
+          "provider": "Letterboxd public JSON-LD",
+          "source_url": "https://letterboxd.com/film/time-2020/",
+          "observed_at": "2026-10-13T16:33:47.035262+00:00"
+        }
+      }
+    },
+    "tt12913444": {
+      "reeldb": {
+        "letterboxd": {
+          "rating": 3.52,
+          "votes": 1376
+        }
+      },
+      "rating_provenance": {
+        "letterboxd": {
+          "provider": "Letterboxd public JSON-LD",
+          "source_url": "https://letterboxd.com/film/the-inheritance-2020/",
+          "observed_at": "2026-10-13T16:33:47.035262+00:00"
+        }
+      }
     }
   },
   "unavailable": {
     "tt10551102": {
       "title": "Lovers Rock",
       "year": 2020,
-      "error": "HTTP 404"
-    },
-    "tt4698742": {
-      "title": "La Porte Rouge",
-      "year": 2007,
       "error": "HTTP 404"
     },
     "tt10551100": {
