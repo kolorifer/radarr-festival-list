@@ -1,7 +1,7 @@
 {
   "source": "ReelDB",
   "purpose": "audience-rating research; not yet part of production scoring",
-  "ratings_count": 1907,
+  "ratings_count": 1908,
   "unavailable_count": 5,
   "ratings": {
     "tt4975722": {
@@ -87379,6 +87379,53 @@
           "votes": null
         }
       }
+    },
+    "tt23770030": {
+      "title": "Memoir of a Snail",
+      "year": 2024,
+      "reeldb": {
+        "imdb": {
+          "rating": 7.8,
+          "votes": 26959
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 315161
+        },
+        "trakt": {
+          "rating": 80,
+          "votes": 2504
+        },
+        "tmdb": {
+          "rating": 80,
+          "votes": 839
+        },
+        "metacritic": {
+          "rating": 81,
+          "votes": 25
+        },
+        "metacritic_user": {
+          "rating": 8.1,
+          "votes": 76
+        },
+        "tomatoes": {
+          "rating": 95,
+          "votes": 146,
+          "certified_fresh": true
+        },
+        "tomatoes_audience": {
+          "rating": 82,
+          "votes": 21
+        },
+        "roger_ebert": {
+          "rating": 3.5,
+          "votes": null
+        },
+        "mdblist": {
+          "rating": 83,
+          "votes": null
+        }
+      }
     }
   },
   "unavailable": {
@@ -87409,14 +87456,5 @@
       "error": "HTTP 404"
     }
   },
-  "failures": [
-    {
-      "imdb_id": "tt23770030",
-      "error": "TimeoutError"
-    },
-    {
-      "imdb_id": "tt38063392",
-      "error": "HTTP 404"
-    }
-  ]
+  "failures": []
 }
