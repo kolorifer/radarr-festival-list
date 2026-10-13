@@ -6,55 +6,55 @@ Official archive pages parsed: **26** / **26** · Best Picture records: **263** 
 
 ## Guarded hybrid-policy impact
 
-Baseline selected **388**, experimental **389**; promotions 149 → 150.
+Baseline selected **389**, experimental **390**; promotions 150 → 151.
 
 ## Newly selected by Critics Choice evidence
 
 | Film | Base → new | Critics Choice |
 |---|---:|---|
-| Frost/Nixon (2008) | 224.3 → 226.3 | nominee, +8 |
+| Frankenstein (2025) | 223.7 → 225.7 | nominee, +8 |
 
 ## Largest score changes
 
 | Film | Base → new | CCA |
 |---|---:|---|
-| Everything Everywhere All at Once (2022) | 509.1 → 534.1 | winner |
-| Nomadland (2020) | 512.4 → 536.9 | winner |
-| No Country for Old Men (2007) | 635.9 → 660.2 | winner |
-| La La Land (2016) | 419.4 → 443.5 | winner |
-| The Artist (2011) | 446.2 → 469.6 | winner |
-| Brokeback Mountain (2005) | 711.9 → 734.4 | winner |
-| Anora (2024) | 396.5 → 419.0 | winner |
-| Sideways (2004) | 410.2 → 430.8 | winner |
-| Spotlight (2015) | 541.8 → 562.2 | winner |
-| Boyhood (2014) | 673.5 → 693.8 | winner |
-| Roma (2018) | 546.5 → 566.8 | winner |
-| A Beautiful Mind (2001) | 302.9 → 322.2 | winner |
-| Gladiator (2000) | 445.8 → 463.7 | winner |
-| Changeling (2008) | 121.7 → 129.7 | nominee |
-| About Schmidt (2002) | 179.8 → 187.8 | nominee |
-| Blood Diamond (2006) | 134.4 → 142.4 | nominee |
-| Capote (2005) | 284.7 → 292.7 | nominee |
-| Don't Look Up (2021) | 148.5 → 156.5 | nominee |
-| Extremely Loud & Incredibly Close (2011) | 101.9 → 109.9 | nominee |
-| Far from Heaven (2002) | 260.8 → 268.8 | nominee |
-| In the Bedroom (2001) | 275.3 → 283.3 | nominee |
-| Inside Llewyn Davis (2013) | 457.8 → 465.8 | nominee |
-| Joker (2019) | 357.2 → 365.2 | nominee |
-| Lady Bird (2017) | 437.4 → 445.4 | nominee |
-| Les Misérables (2012) | 187.0 → 195.0 | nominee |
-| Letters from Iwo Jima (2006) | 292.0 → 300.0 | nominee |
-| Memoirs of a Geisha (2005) | 92.2 → 100.2 | nominee |
-| Milk (2008) | 261.8 → 269.8 | nominee |
-| Million Dollar Baby (2004) | 386.4 → 394.4 | nominee |
-| Moonlight (2016) | 644.7 → 652.7 | nominee |
-| Mulholland Drive (2001) | 623.9 → 631.9 | nominee |
-| The Descendants (2011) | 265.7 → 273.7 | nominee |
-| The Last Samurai (2003) | 131.0 → 139.0 | nominee |
-| The Phantom of the Opera (2004) | 85.3 → 93.3 | nominee |
-| The Pianist (2002) | 516.0 → 524.0 | nominee |
-| The Reader (2008) | 207.1 → 215.1 | nominee |
-| There Will Be Blood (2007) | 706.9 → 714.9 | nominee |
-| Traffic (2000) | 260.8 → 268.8 | nominee |
-| United 93 (2006) | 194.3 → 202.3 | nominee |
-| Vice (2018) | 142.3 → 150.3 | nominee |
+| A Beautiful Mind (2001) | 322.2 → 347.2 | winner |
+| Anora (2024) | 419.0 → 444.0 | winner |
+| Chicago (2002) | 260.7 → 285.7 | winner |
+| Everything Everywhere All at Once (2022) | 534.1 → 559.1 | winner |
+| Gladiator (2000) | 463.7 → 488.7 | winner |
+| La La Land (2016) | 443.5 → 468.5 | winner |
+| No Country for Old Men (2007) | 660.2 → 685.2 | winner |
+| Nomadland (2020) | 536.9 → 561.9 | winner |
+| The Artist (2011) | 469.6 → 494.6 | winner |
+| Once Upon a Time in... Hollywood (2019) | 416.3 → 439.1 | winner |
+| Slumdog Millionaire (2008) | 419.2 → 440.0 | winner |
+| The Departed (2006) | 523.4 → 544.0 | winner |
+| The Shape of Water (2017) | 393.4 → 411.2 | winner |
+| Argo (2012) | 309.4 → 326.6 | winner |
+| The Power of the Dog (2021) | 360.1 → 375.2 | winner |
+| Oppenheimer (2023) | 452.3 → 467.2 | winner |
+| 12 Years a Slave (2013) | 618.7 → 632.6 | winner |
+| The Curious Case of Benjamin Button (2008) | 249.5 → 257.5 | nominee |
+| A Complete Unknown (2024) | 134.7 → 142.7 | nominee |
+| About Schmidt (2002) | 187.8 → 195.8 | nominee |
+| American Hustle (2013) | 202.6 → 210.6 | nominee |
+| American Sniper (2014) | 151.9 → 159.9 | nominee |
+| Avatar: The Way of Water (2022) | 195.4 → 203.4 | nominee |
+| Babel (2006) | 306.9 → 314.9 | nominee |
+| Big Fish (2003) | 235.9 → 243.9 | nominee |
+| Blood Diamond (2006) | 142.4 → 150.4 | nominee |
+| Call Me by Your Name (2017) | 488.8 → 496.8 | nominee |
+| Capote (2005) | 292.7 → 300.7 | nominee |
+| Carol (2015) | 391.7 → 399.7 | nominee |
+| Changeling (2008) | 129.7 → 137.7 | nominee |
+| Crash (2004) | 251.0 → 259.0 | nominee |
+| Don't Look Up (2021) | 156.5 → 164.5 | nominee |
+| Emilia Pérez (2024) | 49.5 → 57.5 | nominee |
+| Extremely Loud & Incredibly Close (2011) | 109.9 → 117.9 | nominee |
+| Far from Heaven (2002) | 268.8 → 276.8 | nominee |
+| Gangs of New York (2002) | 266.9 → 274.9 | nominee |
+| Gravity (2013) | 341.2 → 349.2 | nominee |
+| Her (2013) | 433.6 → 441.6 | nominee |
+| In the Bedroom (2001) | 283.3 → 291.3 | nominee |
+| Inside Llewyn Davis (2013) | 465.8 → 473.8 | nominee |

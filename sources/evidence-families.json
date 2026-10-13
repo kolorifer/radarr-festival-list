@@ -1401,7 +1401,7 @@
     "us_institutional": "Academy + Golden Globes, capped at 100",
     "european_recognition": "BAFTA + Cannes + Berlin + Venice + European Film Awards, capped at 100",
     "independent_cinema": "Sundance + Film Independent Spirit + Gotham, capped at 100",
-    "critics_groups_consensus": "NSFC + NYFCC + LAFCA Best Film wins; 35 points per group, capped at 100"
+    "critics_groups_consensus": "NSFC + NYFCC + LAFCA Best Film wins (35 each) plus Critics Choice Best Picture winner/nominee corroboration (25/8); family capped at 100"
   },
   "films": {
     "tt4975722": {
@@ -1411,7 +1411,7 @@
         "us_institutional": 100.0,
         "european_recognition": 25.0,
         "independent_cinema": 85.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 78.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1427,7 +1427,8 @@
         ],
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1437,7 +1438,7 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 100.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1450,7 +1451,8 @@
           "Cannes: palme d'or / palme d'or (winner)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1473,7 +1475,7 @@
       "family_scores": {
         "european_recognition": 40.0,
         "us_institutional": 10.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 78.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -1485,7 +1487,8 @@
         ],
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1523,7 +1526,8 @@
       "year": 2017,
       "family_scores": {
         "us_institutional": 75.0,
-        "independent_cinema": 60.0
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1533,6 +1537,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1592,7 +1599,8 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 70.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1603,6 +1611,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1611,7 +1622,8 @@
       "year": 2004,
       "family_scores": {
         "european_recognition": 25.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -1619,6 +1631,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1696,7 +1711,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 55.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 78.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1709,7 +1724,8 @@
         ],
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1741,12 +1757,16 @@
       "title": "Mad Max: Fury Road",
       "year": 2015,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1764,7 +1784,8 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 25.0,
-        "independent_cinema": 50.0
+        "independent_cinema": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1775,6 +1796,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -1798,7 +1822,7 @@
         "us_institutional": 90.0,
         "european_recognition": 80.0,
         "independent_cinema": 30.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 95.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1815,7 +1839,8 @@
         ],
         "critics_groups_consensus": [
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -1892,7 +1917,7 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 35.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 60.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -1904,7 +1929,8 @@
           "Cannes: palme d'or / palme d'or (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -2075,7 +2101,7 @@
         "us_institutional": 90.0,
         "european_recognition": 100.0,
         "independent_cinema": 60.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 95.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2092,7 +2118,8 @@
         ],
         "critics_groups_consensus": [
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -2126,7 +2153,7 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 100.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 95.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2140,7 +2167,8 @@
         ],
         "critics_groups_consensus": [
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -2198,7 +2226,8 @@
       "year": 2012,
       "family_scores": {
         "european_recognition": 30.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -2206,6 +2235,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2219,7 +2251,8 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 60.0,
-        "independent_cinema": 50.0
+        "independent_cinema": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2232,6 +2265,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2252,14 +2288,15 @@
       "year": 2008,
       "family_scores": {
         "us_institutional": 60.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best animated feature film of the year (winner)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2341,7 +2378,8 @@
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -2412,7 +2450,7 @@
         "european_recognition": 35.0,
         "us_institutional": 10.0,
         "independent_cinema": 30.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -2427,7 +2465,8 @@
           "Gotham Best Feature (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2446,7 +2485,15 @@
     },
     "tt0468569": {
       "title": "The Dark Knight",
-      "year": 2008
+      "year": 2008,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0381681": {
       "title": "Before Sunset",
@@ -2465,7 +2512,8 @@
       "year": 2019,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 35.0
+        "european_recognition": 35.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2475,6 +2523,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -2494,12 +2545,16 @@
       "title": "Memento",
       "year": 2000,
       "family_scores": {
-        "independent_cinema": 58.0
+        "independent_cinema": 58.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)",
           "Sundance: grand jury prize / dramatic (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2538,7 +2593,8 @@
       "year": 2001,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 35.0
+        "european_recognition": 35.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2547,6 +2603,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2586,7 +2645,8 @@
       "year": 2009,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2595,6 +2655,9 @@
         ],
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2642,7 +2705,7 @@
       "family_scores": {
         "us_institutional": 65.0,
         "independent_cinema": 85.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 95.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2654,7 +2717,8 @@
         ],
         "critics_groups_consensus": [
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -2732,7 +2796,7 @@
         "us_institutional": 100.0,
         "european_recognition": 100.0,
         "independent_cinema": 85.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 60.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2748,7 +2812,8 @@
           "Gotham Best Feature (winner)"
         ],
         "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
+          "NSFC Best Picture (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -2758,7 +2823,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 100.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2771,7 +2836,8 @@
           "European Film Awards Best Film (nominee)"
         ],
         "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
+          "NSFC Best Picture (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2823,7 +2889,7 @@
         "us_institutional": 75.0,
         "european_recognition": 25.0,
         "independent_cinema": 55.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -2838,7 +2904,8 @@
           "Gotham Best Feature (winner)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -2894,7 +2961,8 @@
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -3011,7 +3079,8 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 80.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3023,6 +3092,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3117,7 +3189,7 @@
       "family_scores": {
         "us_institutional": 90.0,
         "independent_cinema": 20.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 78.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3129,7 +3201,8 @@
         ],
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3138,7 +3211,8 @@
       "year": 2009,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3147,6 +3221,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3155,14 +3232,15 @@
       "year": 2002,
       "family_scores": {
         "independent_cinema": 50.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3184,7 +3262,8 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 50.0,
-        "independent_cinema": 60.0
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3197,6 +3276,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -3226,7 +3308,7 @@
       "family_scores": {
         "european_recognition": 65.0,
         "independent_cinema": 55.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -3238,7 +3320,8 @@
           "Gotham Best Feature (winner)"
         ],
         "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
+          "NSFC Best Picture (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3263,7 +3346,8 @@
       "year": 2009,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3271,6 +3355,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3283,7 +3370,8 @@
       "year": 2016,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 35.0
+        "european_recognition": 35.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3292,6 +3380,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3325,7 +3416,7 @@
       "year": 2004,
       "family_scores": {
         "us_institutional": 100.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3333,13 +3424,22 @@
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
         ],
         "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
+          "NSFC Best Picture (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
     "tt0268126": {
       "title": "Adaptation.",
-      "year": 2002
+      "year": 2002,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt1454468": {
       "title": "Gravity",
@@ -3347,7 +3447,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3358,7 +3458,8 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3371,7 +3472,8 @@
       "year": 2010,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3380,6 +3482,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3441,7 +3546,8 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 25.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3453,6 +3559,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -3583,12 +3692,16 @@
       "title": "Toy Story 3",
       "year": 2010,
       "family_scores": {
-        "us_institutional": 100.0
+        "us_institutional": 100.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best animated feature film of the year (winner)",
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3597,7 +3710,8 @@
       "year": 2021,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 90.0
+        "european_recognition": 90.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3608,6 +3722,9 @@
           "BAFTA: bafta film award / best film (winner)",
           "Venice: golden lion / best film (nominee)",
           "Venice: silver lion / best director (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -3665,7 +3782,8 @@
       "year": 2000,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3674,6 +3792,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -3713,11 +3834,15 @@
       "title": "The Wolf of Wall Street",
       "year": 2013,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3796,7 +3921,8 @@
       "year": 2014,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 100.0
+        "independent_cinema": 100.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -3807,6 +3933,9 @@
           "Sundance: grand jury prize / dramatic (winner)",
           "Sundance: audience award / dramatic (winner)",
           "Sundance: Grand Jury + Audience convergence bonus"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3864,11 +3993,15 @@
       "title": "Almost Famous",
       "year": 2000,
       "family_scores": {
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3934,7 +4067,8 @@
       "year": 2011,
       "family_scores": {
         "european_recognition": 65.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -3944,6 +4078,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -3955,12 +4092,16 @@
       "title": "Up",
       "year": 2009,
       "family_scores": {
-        "us_institutional": 100.0
+        "us_institutional": 100.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best animated feature film of the year (winner)",
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4051,7 +4192,8 @@
       "year": 2003,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4060,6 +4202,9 @@
         ],
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4132,7 +4277,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "independent_cinema": 60.0
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4145,6 +4291,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4155,7 +4304,7 @@
         "us_institutional": 100.0,
         "european_recognition": 25.0,
         "independent_cinema": 85.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 60.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4170,7 +4319,8 @@
           "Gotham Best Feature (winner)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -4191,14 +4341,15 @@
       "year": 2013,
       "family_scores": {
         "us_institutional": 65.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4212,7 +4363,15 @@
     },
     "tt2267998": {
       "title": "Gone Girl",
-      "year": 2014
+      "year": 2014,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt6217608": {
       "title": "The Rider",
@@ -4249,12 +4408,16 @@
       "title": "Black Panther",
       "year": 2018,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4352,7 +4515,8 @@
       "year": 2012,
       "family_scores": {
         "european_recognition": 10.0,
-        "independent_cinema": 55.0
+        "independent_cinema": 55.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -4361,6 +4525,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)",
           "Gotham Best Feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4387,11 +4554,15 @@
       "title": "Finding Nemo",
       "year": 2003,
       "family_scores": {
-        "us_institutional": 60.0
+        "us_institutional": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best animated feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4426,7 +4597,8 @@
       "year": 2017,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 95.0
+        "european_recognition": 95.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4436,6 +4608,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Venice: golden lion / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -4510,12 +4685,16 @@
       "title": "The Wrestler",
       "year": 2008,
       "family_scores": {
-        "independent_cinema": 60.0
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4524,7 +4703,8 @@
       "year": 2023,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 95.0
+        "european_recognition": 95.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4533,6 +4713,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Venice: golden lion / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4644,7 +4827,8 @@
       "year": 2019,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 95.0
+        "european_recognition": 95.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4654,6 +4838,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Venice: golden lion / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4742,7 +4929,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4753,7 +4940,8 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4776,7 +4964,7 @@
       "family_scores": {
         "us_institutional": 90.0,
         "european_recognition": 60.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 60.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4788,7 +4976,8 @@
           "Venice: golden lion / best film (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -4813,7 +5002,8 @@
       "year": 2010,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 100.0
+        "independent_cinema": 100.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -4823,6 +5013,9 @@
           "Spirit: independent spirit award / best feature (nominee)",
           "Sundance: grand jury prize / dramatic (winner)",
           "Gotham Best Feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4873,7 +5066,8 @@
       "year": 2007,
       "family_scores": {
         "european_recognition": 55.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -4883,6 +5077,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4936,12 +5133,16 @@
       "title": "Hugo",
       "year": 2011,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -4992,7 +5193,8 @@
       "year": 2008,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 62.0
+        "european_recognition": 62.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5002,6 +5204,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)",
           "European Film Awards Best Film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -5066,7 +5271,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "independent_cinema": 30.0
+        "independent_cinema": 30.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5079,6 +5285,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5215,7 +5424,8 @@
       "year": 2002,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5224,6 +5434,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5302,7 +5515,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5313,7 +5526,8 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5339,7 +5553,8 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 25.0,
-        "independent_cinema": 50.0
+        "independent_cinema": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5350,6 +5565,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5422,7 +5640,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5433,7 +5651,8 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5599,7 +5818,8 @@
       "year": 2007,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5608,6 +5828,9 @@
         ],
         "european_recognition": [
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5778,7 +6001,7 @@
         "us_institutional": 100.0,
         "european_recognition": 72.0,
         "independent_cinema": 50.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 60.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -5793,7 +6016,8 @@
           "Spirit: independent spirit award / best feature (winner)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -5801,12 +6025,16 @@
       "title": "You Can Count on Me",
       "year": 2000,
       "family_scores": {
-        "independent_cinema": 90.0
+        "independent_cinema": 90.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Spirit: independent spirit award / best first feature (winner)",
           "Sundance: grand jury prize / dramatic (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5832,14 +6060,15 @@
       "year": 2006,
       "family_scores": {
         "us_institutional": 65.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5962,12 +6191,16 @@
       "title": "Uncut Gems",
       "year": 2019,
       "family_scores": {
-        "independent_cinema": 30.0
+        "independent_cinema": 30.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -5981,7 +6214,7 @@
       "family_scores": {
         "european_recognition": 10.0,
         "us_institutional": 10.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -5991,7 +6224,8 @@
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6020,7 +6254,8 @@
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6032,12 +6267,16 @@
       "title": "Django Unchained",
       "year": 2012,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6101,7 +6340,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 75.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6115,6 +6355,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6289,7 +6532,8 @@
       "year": 2017,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6298,6 +6542,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6352,7 +6599,8 @@
       "year": 2012,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 80.0
+        "independent_cinema": 80.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6361,6 +6609,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)",
           "Sundance: grand jury prize / dramatic (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6376,11 +6627,12 @@
       "title": "United 93",
       "year": 2006,
       "family_scores": {
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6409,11 +6661,15 @@
       "title": "Big Fish",
       "year": 2003,
       "family_scores": {
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6426,7 +6682,8 @@
       "year": 2006,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 65.0
+        "european_recognition": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6437,6 +6694,9 @@
           "BAFTA: bafta film award / best film (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)",
           "Cannes: best director / best director (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6545,7 +6805,7 @@
       "family_scores": {
         "us_institutional": 75.0,
         "independent_cinema": 38.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6557,7 +6817,8 @@
           "Sundance: grand jury prize / dramatic (nominee)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6578,7 +6839,8 @@
       "year": 2002,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6587,6 +6849,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6712,7 +6977,8 @@
       "year": 2000,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6721,6 +6987,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6791,7 +7060,8 @@
       "year": 2018,
       "family_scores": {
         "us_institutional": 10.0,
-        "independent_cinema": 60.0
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6800,6 +7070,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6833,7 +7106,7 @@
       "year": 2000,
       "family_scores": {
         "us_institutional": 75.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6841,7 +7114,8 @@
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6871,7 +7145,8 @@
       "year": 2022,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 35.0
+        "european_recognition": 35.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -6881,6 +7156,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6916,11 +7194,15 @@
       "title": "Wonder Boys",
       "year": 2000,
       "family_scores": {
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -6981,7 +7263,8 @@
       "year": 2000,
       "family_scores": {
         "european_recognition": 37.0,
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -6990,6 +7273,9 @@
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7010,11 +7296,15 @@
       "title": "Munich",
       "year": 2005,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7060,7 +7350,8 @@
       "year": 2021,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7069,6 +7360,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7134,7 +7428,8 @@
       "year": 2015,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7143,6 +7438,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7212,7 +7510,8 @@
       "year": 2006,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 62.0
+        "european_recognition": 62.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7222,6 +7521,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)",
           "European Film Awards Best Film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7307,7 +7609,8 @@
       "year": 2021,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7316,6 +7619,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7340,7 +7646,8 @@
       "year": 2007,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 60.0
+        "european_recognition": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7350,6 +7657,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)",
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7454,7 +7764,8 @@
       "year": 2014,
       "family_scores": {
         "us_institutional": 75.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7463,6 +7774,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7479,7 +7793,8 @@
       "year": 2004,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7488,6 +7803,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7498,7 +7816,7 @@
         "us_institutional": 100.0,
         "european_recognition": 25.0,
         "independent_cinema": 85.0,
-        "critics_groups_consensus": 70.0
+        "critics_groups_consensus": 95.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7514,7 +7832,8 @@
         ],
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -7526,12 +7845,16 @@
       "title": "Hell or High Water",
       "year": 2016,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7566,7 +7889,8 @@
       "year": 2018,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 90.0
+        "european_recognition": 90.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7577,6 +7901,9 @@
           "BAFTA: bafta film award / best film (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)",
           "Cannes: grand prize of the jury / grand prize of the jury (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7625,7 +7952,8 @@
       "year": 2023,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7634,6 +7962,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -7669,7 +8000,8 @@
       "year": 2020,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7678,6 +8010,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7697,12 +8032,16 @@
       "title": "The Florida Project",
       "year": 2017,
       "family_scores": {
-        "independent_cinema": 30.0
+        "independent_cinema": 30.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7732,7 +8071,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "independent_cinema": 55.0,
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7745,6 +8085,9 @@
         ],
         "european_recognition": [
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7852,7 +8195,8 @@
       "year": 2001,
       "family_scores": {
         "us_institutional": 60.0,
-        "european_recognition": 35.0
+        "european_recognition": 35.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7861,6 +8205,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7873,7 +8220,8 @@
       "year": 2010,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7881,6 +8229,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7930,7 +8281,8 @@
       "year": 2007,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 50.0
+        "independent_cinema": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -7938,6 +8290,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -7999,12 +8354,16 @@
       "title": "The Fabelmans",
       "year": 2022,
       "family_scores": {
-        "us_institutional": 90.0
+        "us_institutional": 90.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8012,11 +8371,15 @@
       "title": "RRR",
       "year": 2022,
       "family_scores": {
-        "us_institutional": 5.0
+        "us_institutional": 5.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8069,11 +8432,15 @@
       "title": "Brooklyn",
       "year": 2015,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8175,7 +8542,7 @@
         "us_institutional": 80.0,
         "european_recognition": 25.0,
         "independent_cinema": 85.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8192,7 +8559,8 @@
           "Gotham Best Feature (winner)"
         ],
         "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
+          "NSFC Best Picture (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8280,11 +8648,15 @@
       "title": "Little Women",
       "year": 2019,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8305,7 +8677,8 @@
       "year": 2012,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 50.0
+        "independent_cinema": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8313,6 +8686,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8350,7 +8726,15 @@
     },
     "tt0369339": {
       "title": "Collateral",
-      "year": 2004
+      "year": 2004,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt8633462": {
       "title": "Quo Vadis, Aida?",
@@ -8413,7 +8797,8 @@
       "year": 2012,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8422,6 +8807,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8435,7 +8823,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 35.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8448,6 +8837,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8514,7 +8906,8 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 15.0,
-        "independent_cinema": 100.0
+        "independent_cinema": 100.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8528,6 +8921,9 @@
           "Sundance: grand jury prize / dramatic (winner)",
           "Sundance: audience award / dramatic (winner)",
           "Sundance: Grand Jury + Audience convergence bonus"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8636,7 +9032,7 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 25.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8646,7 +9042,8 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8750,7 +9147,8 @@
       "year": 2012,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8759,6 +9157,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8783,11 +9184,15 @@
       "title": "Barbie",
       "year": 2023,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8942,11 +9347,15 @@
       "title": "Sicario",
       "year": 2015,
       "family_scores": {
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -8983,7 +9392,8 @@
       "year": 2010,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 62.0
+        "european_recognition": 62.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -8993,6 +9403,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)",
           "European Film Awards Best Film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9170,7 +9583,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 25.0,
-        "independent_cinema": 100.0
+        "independent_cinema": 100.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9185,6 +9599,9 @@
           "Sundance: grand jury prize / dramatic (winner)",
           "Sundance: audience award / dramatic (winner)",
           "Sundance: Grand Jury + Audience convergence bonus"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9331,7 +9748,15 @@
     },
     "tt0360717": {
       "title": "King Kong",
-      "year": 2005
+      "year": 2005,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0121766": {
       "title": "Star Wars: Episode III - Revenge of the Sith",
@@ -9409,7 +9834,8 @@
       "year": 2001,
       "family_scores": {
         "european_recognition": 40.0,
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -9418,6 +9844,9 @@
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9475,7 +9904,8 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 10.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9486,6 +9916,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9512,7 +9945,7 @@
         "us_institutional": 65.0,
         "european_recognition": 25.0,
         "independent_cinema": 55.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9526,7 +9959,8 @@
           "Gotham Best Feature (winner)"
         ],
         "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
+          "NSFC Best Picture (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9587,7 +10021,8 @@
       "year": 2015,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 12.0
+        "european_recognition": 12.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9596,6 +10031,9 @@
         ],
         "european_recognition": [
           "European Film Awards Best Film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9630,7 +10068,8 @@
       "year": 2014,
       "family_scores": {
         "european_recognition": 40.0,
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -9639,6 +10078,9 @@
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9713,7 +10155,8 @@
       "year": 2023,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9721,6 +10164,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9766,7 +10212,8 @@
       "family_scores": {
         "us_institutional": 100.0,
         "european_recognition": 25.0,
-        "independent_cinema": 30.0
+        "independent_cinema": 30.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9777,6 +10224,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best first feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9794,7 +10244,15 @@
     },
     "tt9777644": {
       "title": "Da 5 Bloods",
-      "year": 2020
+      "year": 2020,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0815227": {
       "title": "These Encounters of Theirs",
@@ -9839,7 +10297,15 @@
     },
     "tt0264464": {
       "title": "Catch Me If You Can",
-      "year": 2002
+      "year": 2002,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0923869": {
       "title": "United Red Army",
@@ -9870,7 +10336,8 @@
       "year": 2008,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9879,6 +10346,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -9899,7 +10369,8 @@
       "year": 2001,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -9908,6 +10379,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -10022,7 +10496,15 @@
     },
     "tt0257044": {
       "title": "Road to Perdition",
-      "year": 2002
+      "year": 2002,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0424272": {
       "title": "The 3 Rooms of Melancholia",
@@ -10144,12 +10626,16 @@
       "title": "Moneyball",
       "year": 2011,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10174,7 +10660,8 @@
       "year": 2021,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -10183,6 +10670,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10305,11 +10795,15 @@
       "title": "Midnight in Paris",
       "year": 2011,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10418,7 +10912,7 @@
         "us_institutional": 90.0,
         "european_recognition": 25.0,
         "independent_cinema": 30.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -10433,7 +10927,8 @@
           "Gotham Best Feature (nominee)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10541,7 +11036,8 @@
       "year": 2022,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -10550,6 +11046,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10699,12 +11198,16 @@
       "title": "Top Gun: Maverick",
       "year": 2022,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10844,11 +11347,15 @@
       "title": "Nightcrawler",
       "year": 2014,
       "family_scores": {
-        "independent_cinema": 30.0
+        "independent_cinema": 30.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Spirit: independent spirit award / best first feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10856,11 +11363,15 @@
       "title": "Into the Wild",
       "year": 2007,
       "family_scores": {
-        "independent_cinema": 35.0
+        "independent_cinema": 35.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Gotham Best Feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -10889,7 +11400,8 @@
       "year": 2015,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -10897,6 +11409,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11139,7 +11654,8 @@
       "year": 2002,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -11147,6 +11663,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -11266,12 +11785,16 @@
       "title": "Seabiscuit",
       "year": 2003,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best picture (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11340,7 +11863,8 @@
       "year": 2004,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -11349,6 +11873,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11356,11 +11883,15 @@
       "title": "Ray",
       "year": 2004,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11684,7 +12215,8 @@
       "year": 2008,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -11693,6 +12225,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11741,7 +12276,8 @@
       "year": 2008,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 37.0
+        "european_recognition": 37.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -11751,6 +12287,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)",
           "European Film Awards Best Film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11784,7 +12323,8 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 25.0,
-        "independent_cinema": 38.0
+        "independent_cinema": 38.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -11796,6 +12336,9 @@
         "independent_cinema": [
           "Sundance: grand jury prize / world cinema - dramatic (nominee)",
           "Sundance: audience award / world cinema - dramatic (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11873,7 +12416,8 @@
       "year": 2009,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -11882,6 +12426,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11894,7 +12441,8 @@
       "year": 2010,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -11902,6 +12450,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -11965,12 +12516,16 @@
       "title": "The Fighter",
       "year": 2010,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12027,11 +12582,15 @@
       "title": "Extremely Loud & Incredibly Close",
       "year": 2011,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12144,7 +12703,8 @@
       "year": 2011,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -12153,6 +12713,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12164,12 +12727,16 @@
       "title": "War Horse",
       "year": 2011,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12207,7 +12774,8 @@
       "year": 2012,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 25.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -12216,6 +12784,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -12366,7 +12937,7 @@
       "family_scores": {
         "us_institutional": 65.0,
         "european_recognition": 25.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -12376,7 +12947,8 @@
           "BAFTA: bafta film award / best film (nominee)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12385,7 +12957,8 @@
       "year": 2013,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -12394,6 +12967,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12414,11 +12990,15 @@
       "title": "Dallas Buyers Club",
       "year": 2013,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12532,11 +13112,15 @@
       "title": "American Sniper",
       "year": 2014,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12633,7 +13217,8 @@
       "year": 2014,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -12642,6 +13227,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12704,7 +13292,8 @@
       "year": 2015,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -12712,6 +13301,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12745,11 +13337,15 @@
       "title": "The Martian",
       "year": 2015,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12805,11 +13401,15 @@
       "title": "Fences",
       "year": 2016,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12829,12 +13429,16 @@
       "title": "Hacksaw Ridge",
       "year": 2016,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -12896,12 +13500,16 @@
       "title": "Lion",
       "year": 2016,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13040,7 +13648,8 @@
       "year": 2017,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13048,6 +13657,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13155,12 +13767,16 @@
       "title": "The Post",
       "year": 2017,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13169,7 +13785,8 @@
       "year": 2017,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 60.0
+        "european_recognition": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13179,6 +13796,9 @@
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)",
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13187,7 +13807,8 @@
       "year": 2018,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13196,6 +13817,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13247,7 +13871,8 @@
       "year": 2018,
       "family_scores": {
         "us_institutional": 100.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13256,6 +13881,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13396,12 +14024,16 @@
       "title": "Vice",
       "year": 2018,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13410,7 +14042,8 @@
       "year": 2019,
       "family_scores": {
         "us_institutional": 90.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13419,6 +14052,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13459,11 +14095,15 @@
       "title": "Ford v Ferrari",
       "year": 2019,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13502,12 +14142,16 @@
       "title": "Jojo Rabbit",
       "year": 2019,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13612,12 +14256,16 @@
       "title": "Mank",
       "year": 2020,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13677,7 +14325,8 @@
       "year": 2020,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 30.0
+        "independent_cinema": 30.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13685,6 +14334,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best first feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13739,7 +14391,8 @@
       "year": 2020,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13748,6 +14401,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13780,7 +14436,8 @@
       "year": 2021,
       "family_scores": {
         "us_institutional": 100.0,
-        "independent_cinema": 100.0
+        "independent_cinema": 100.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13793,6 +14450,9 @@
           "Sundance: audience award / dramatic (winner)",
           "Sundance: u.s. dramatic special jury award / best ensemble (winner)",
           "Sundance: Grand Jury + Audience convergence bonus"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13801,7 +14461,8 @@
       "year": 2021,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -13810,6 +14471,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13849,12 +14513,16 @@
       "title": "King Richard",
       "year": 2021,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13875,11 +14543,15 @@
       "title": "Nightmare Alley",
       "year": 2021,
       "family_scores": {
-        "us_institutional": 65.0
+        "us_institutional": 65.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -13950,12 +14622,16 @@
       "title": "West Side Story",
       "year": 2021,
       "family_scores": {
-        "us_institutional": 90.0
+        "us_institutional": 90.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - musical or comedy (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14051,12 +14727,16 @@
       "title": "Avatar: The Way of Water",
       "year": 2022,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14197,7 +14877,8 @@
       "year": 2022,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -14205,6 +14886,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14234,7 +14918,8 @@
       "year": 2023,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -14242,6 +14927,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14310,7 +14998,8 @@
       "year": 2023,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -14319,6 +15008,9 @@
         ],
         "european_recognition": [
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14582,12 +15274,16 @@
       "title": "Dune: Part Two",
       "year": 2024,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14661,7 +15357,15 @@
     },
     "tt0162222": {
       "title": "Cast Away",
-      "year": 2000
+      "year": 2000,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt3890160": {
       "title": "Baby Driver",
@@ -14737,7 +15441,15 @@
     },
     "tt0450259": {
       "title": "Blood Diamond",
-      "year": 2006
+      "year": 2006,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt1570728": {
       "title": "Crazy, Stupid, Love.",
@@ -14856,7 +15568,8 @@
       "year": 2025,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -14865,6 +15578,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14894,7 +15610,15 @@
     },
     "tt0325710": {
       "title": "The Last Samurai",
-      "year": 2003
+      "year": 2003,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt1515091": {
       "title": "Sherlock Holmes: A Game of Shadows",
@@ -14913,7 +15637,8 @@
       "year": 2007,
       "family_scores": {
         "european_recognition": 25.0,
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -14921,6 +15646,9 @@
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14954,7 +15682,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 22.0,
-        "independent_cinema": 20.0
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -14967,6 +15696,9 @@
         ],
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -14976,7 +15708,15 @@
     },
     "tt0840361": {
       "title": "The Town",
-      "year": 2010
+      "year": 2010,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt30144839": {
       "title": "One Battle After Another",
@@ -15001,7 +15741,8 @@
         "critics_groups_consensus": [
           "NSFC Best Picture (winner)",
           "NYFCC Best Film (winner)",
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -15089,11 +15830,15 @@
       "title": "Hotel Rwanda",
       "year": 2004,
       "family_scores": {
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15122,7 +15867,8 @@
       "year": 2012,
       "family_scores": {
         "us_institutional": 65.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -15130,6 +15876,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15214,7 +15963,8 @@
       "year": 2025,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -15223,6 +15973,9 @@
         ],
         "european_recognition": [
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15276,7 +16029,15 @@
     },
     "tt3263904": {
       "title": "Sully",
-      "year": 2016
+      "year": 2016,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt1091191": {
       "title": "Lone Survivor",
@@ -15325,7 +16086,7 @@
         "us_institutional": 100.0,
         "european_recognition": 95.0,
         "independent_cinema": 60.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 60.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -15341,7 +16102,8 @@
           "Gotham Best Feature (nominee)"
         ],
         "critics_groups_consensus": [
-          "LAFCA Best Film (winner)"
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
         ]
       }
     },
@@ -15386,7 +16148,8 @@
       "year": 2024,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 50.0
+        "european_recognition": 50.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -15395,6 +16158,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15404,7 +16170,15 @@
     },
     "tt0358273": {
       "title": "Walk the Line",
-      "year": 2005
+      "year": 2005,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0396171": {
       "title": "Perfume: The Story of a Murderer",
@@ -15426,11 +16200,15 @@
       "title": "Changeling",
       "year": 2008,
       "family_scores": {
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
           "Cannes: palme d'or / palme d'or (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15503,12 +16281,16 @@
       "title": "Wicked",
       "year": 2024,
       "family_scores": {
-        "us_institutional": 75.0
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Academy: oscar / best motion picture of the year (nominee)",
           "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15631,7 +16413,8 @@
       "family_scores": {
         "us_institutional": 75.0,
         "european_recognition": 10.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -15643,6 +16426,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15668,7 +16454,8 @@
       "year": 2025,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -15677,6 +16464,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15696,11 +16486,15 @@
       "title": "First Man",
       "year": 2018,
       "family_scores": {
-        "european_recognition": 10.0
+        "european_recognition": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
           "Venice: golden lion / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15762,7 +16556,15 @@
     },
     "tt0352248": {
       "title": "Cinderella Man",
-      "year": 2005
+      "year": 2005,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt4244994": {
       "title": "The Last Duel",
@@ -15899,11 +16701,27 @@
     },
     "tt2140373": {
       "title": "Saving Mr. Banks",
-      "year": 2013
+      "year": 2013,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt1057500": {
       "title": "Invictus",
-      "year": 2009
+      "year": 2009,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt3774114": {
       "title": "Snowden",
@@ -15911,7 +16729,15 @@
     },
     "tt0397535": {
       "title": "Memoirs of a Geisha",
-      "year": 2005
+      "year": 2005,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0385002": {
       "title": "Green Street Hooligans",
@@ -15969,7 +16795,8 @@
       "year": 2003,
       "family_scores": {
         "european_recognition": 25.0,
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -15977,6 +16804,9 @@
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -15990,7 +16820,7 @@
       "family_scores": {
         "us_institutional": 90.0,
         "european_recognition": 65.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -16003,7 +16833,8 @@
           "Venice: silver lion / best director (winner)"
         ],
         "critics_groups_consensus": [
-          "NYFCC Best Film (winner)"
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -16053,7 +16884,8 @@
       "year": 2005,
       "family_scores": {
         "european_recognition": 35.0,
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
@@ -16062,6 +16894,9 @@
         ],
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -16093,7 +16928,15 @@
     },
     "tt5462602": {
       "title": "The Big Sick",
-      "year": 2017
+      "year": 2017,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt5323662": {
       "title": "A Silent Voice: The Movie",
@@ -16101,7 +16944,15 @@
     },
     "tt0918927": {
       "title": "Doubt",
-      "year": 2008
+      "year": 2008,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt0816442": {
       "title": "The Book Thief",
@@ -16192,7 +17043,15 @@
     },
     "tt0293508": {
       "title": "The Phantom of the Opera",
-      "year": 2004
+      "year": 2004,
+      "family_scores": {
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
     },
     "tt7599146": {
       "title": "Sound of Freedom",
@@ -16220,7 +17079,8 @@
       "family_scores": {
         "us_institutional": 90.0,
         "european_recognition": 25.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -16232,6 +17092,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -16279,11 +17142,15 @@
       "title": "tick, tick... BOOM!",
       "year": 2021,
       "family_scores": {
-        "us_institutional": 10.0
+        "us_institutional": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
           "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -16368,7 +17235,8 @@
       "year": 2024,
       "family_scores": {
         "us_institutional": 75.0,
-        "european_recognition": 25.0
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -16377,6 +17245,9 @@
         ],
         "european_recognition": [
           "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -16385,7 +17256,8 @@
       "year": 2006,
       "family_scores": {
         "us_institutional": 10.0,
-        "independent_cinema": 10.0
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -16393,6 +17265,9 @@
         ],
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -16449,7 +17324,8 @@
       "year": 2025,
       "family_scores": {
         "us_institutional": 65.0,
-        "independent_cinema": 60.0
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "us_institutional": [
@@ -16458,6 +17334,9 @@
         "independent_cinema": [
           "Spirit: independent spirit award / best feature (winner)",
           "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -18011,11 +18890,15 @@
       "title": "Emilia Pérez",
       "year": 2024,
       "family_scores": {
-        "european_recognition": 40.0
+        "european_recognition": 40.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
           "European Film Awards Best Film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -18059,11 +18942,15 @@
       "title": "Sentimental Value",
       "year": 2025,
       "family_scores": {
-        "european_recognition": 40.0
+        "european_recognition": 40.0,
+        "critics_groups_consensus": 8.0
       },
       "family_evidence": {
         "european_recognition": [
           "European Film Awards Best Film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -18480,14 +19367,15 @@
       "year": 2024,
       "family_scores": {
         "independent_cinema": 10.0,
-        "critics_groups_consensus": 35.0
+        "critics_groups_consensus": 43.0
       },
       "family_evidence": {
         "independent_cinema": [
           "Gotham Best Feature (nominee)"
         ],
         "critics_groups_consensus": [
-          "NSFC Best Picture (winner)"
+          "NSFC Best Picture (winner)",
+          "Critics Choice Best Picture (nominee)"
         ]
       }
     },
@@ -18585,6 +19473,7 @@
   "extra_award_sources": {
     "efa_best_film": {
       "url": "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film",
+      "static_path": null,
       "family": "european_recognition",
       "winner_points": 40,
       "nominee_points": 12,
@@ -18593,6 +19482,7 @@
     },
     "gotham_best_feature": {
       "url": "https://en.wikipedia.org/wiki/Gotham_Independent_Film_Award_for_Best_Feature",
+      "static_path": null,
       "family": "independent_cinema",
       "winner_points": 35,
       "nominee_points": 10,
@@ -18601,6 +19491,7 @@
     },
     "nsfc_best_picture": {
       "url": "https://en.wikipedia.org/wiki/National_Society_of_Film_Critics_Award_for_Best_Picture",
+      "static_path": null,
       "family": "critics_groups_consensus",
       "winner_points": 35,
       "nominee_points": 0,
@@ -18609,6 +19500,7 @@
     },
     "nyfcc_best_film": {
       "url": "https://en.wikipedia.org/wiki/New_York_Film_Critics_Circle_Award_for_Best_Film",
+      "static_path": null,
       "family": "critics_groups_consensus",
       "winner_points": 35,
       "nominee_points": 0,
@@ -18617,11 +19509,23 @@
     },
     "lafca_best_film": {
       "url": "https://en.wikipedia.org/wiki/Los_Angeles_Film_Critics_Association_Award_for_Best_Film",
+      "static_path": null,
       "family": "critics_groups_consensus",
       "winner_points": 35,
       "nominee_points": 0,
       "resolved": 26,
       "unresolved": 2
+    },
+    "critics_choice_best_picture": {
+      "url": "https://www.criticschoice.com/critics-choice-awards-archives/",
+      "static_path": "sources/critics-choice-best-picture.json",
+      "family": "critics_groups_consensus",
+      "winner_points": 25,
+      "nominee_points": 8,
+      "resolved": 234,
+      "unresolved": 29,
+      "records_parsed": 263,
+      "pages_discovered": 26
     }
   },
   "unresolved_extra_awards": {
@@ -18722,6 +19626,211 @@
         "year": 2020,
         "title": "Small Axe",
         "winner": true
+      }
+    ],
+    "critics_choice_best_picture": [
+      {
+        "title": "Quills",
+        "winner": false,
+        "ceremony_year": 2001,
+        "film_year_hint": 2000,
+        "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+      },
+      {
+        "title": "Thirteen Days",
+        "winner": false,
+        "ceremony_year": 2001,
+        "film_year_hint": 2000,
+        "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+      },
+      {
+        "title": "Ali",
+        "winner": false,
+        "ceremony_year": 2002,
+        "film_year_hint": 2001,
+        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+      },
+      {
+        "title": "Lord of the Rings: The Fellowship of the Ring",
+        "winner": false,
+        "ceremony_year": 2002,
+        "film_year_hint": 2001,
+        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+      },
+      {
+        "title": "The Shipping News",
+        "winner": false,
+        "ceremony_year": 2002,
+        "film_year_hint": 2001,
+        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+      },
+      {
+        "title": "Lord of the Rings: The Two Towers",
+        "winner": false,
+        "ceremony_year": 2003,
+        "film_year_hint": 2002,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+      },
+      {
+        "title": "In America",
+        "winner": false,
+        "ceremony_year": 2004,
+        "film_year_hint": 2003,
+        "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+      },
+      {
+        "title": "Lord of the Rings: The Return of the King",
+        "winner": true,
+        "ceremony_year": 2004,
+        "film_year_hint": 2003,
+        "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+      },
+      {
+        "title": "Master and Commander",
+        "winner": false,
+        "ceremony_year": 2004,
+        "film_year_hint": 2003,
+        "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+      },
+      {
+        "title": "Kinsey",
+        "winner": false,
+        "ceremony_year": 2005,
+        "film_year_hint": 2004,
+        "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+      },
+      {
+        "title": "Dreamgirls",
+        "winner": false,
+        "ceremony_year": 2007,
+        "film_year_hint": 2006,
+        "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+      },
+      {
+        "title": "Notes on a Scandal",
+        "winner": false,
+        "ceremony_year": 2007,
+        "film_year_hint": 2006,
+        "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+      },
+      {
+        "title": "Sweeney Todd",
+        "winner": false,
+        "ceremony_year": 2008,
+        "film_year_hint": 2007,
+        "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+      },
+      {
+        "title": "The Kite Runner",
+        "winner": false,
+        "ceremony_year": 2008,
+        "film_year_hint": 2007,
+        "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+      },
+      {
+        "title": "Nine",
+        "winner": false,
+        "ceremony_year": 2010,
+        "film_year_hint": 2009,
+        "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+      },
+      {
+        "title": "Birdman",
+        "winner": false,
+        "ceremony_year": 2015,
+        "film_year_hint": 2014,
+        "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+      },
+      {
+        "title": "Star Wars: The Force Awakens",
+        "winner": false,
+        "ceremony_year": 2016,
+        "film_year_hint": 2015,
+        "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+      },
+      {
+        "title": "Loving",
+        "winner": false,
+        "ceremony_year": 2016,
+        "film_year_hint": 2015,
+        "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+      },
+      {
+        "title": "Mary Poppins Returns",
+        "winner": false,
+        "ceremony_year": 2019,
+        "film_year_hint": 2018,
+        "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+      },
+      {
+        "title": "Ma Rainey’s Black Bottom",
+        "winner": false,
+        "ceremony_year": 2021,
+        "film_year_hint": 2020,
+        "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+      },
+      {
+        "title": "News of the World",
+        "winner": false,
+        "ceremony_year": 2021,
+        "film_year_hint": 2020,
+        "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+      },
+      {
+        "title": "One Night in Miami",
+        "winner": false,
+        "ceremony_year": 2021,
+        "film_year_hint": 2020,
+        "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+      },
+      {
+        "title": "Babylon",
+        "winner": false,
+        "ceremony_year": 2023,
+        "film_year_hint": 2022,
+        "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+      },
+      {
+        "title": "Glass Onion: A Knives Out Mystery",
+        "winner": false,
+        "ceremony_year": 2023,
+        "film_year_hint": 2022,
+        "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+      },
+      {
+        "title": "Saltburn",
+        "winner": false,
+        "ceremony_year": 2024,
+        "film_year_hint": 2023,
+        "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+      },
+      {
+        "title": "The Color Purple",
+        "winner": false,
+        "ceremony_year": 2024,
+        "film_year_hint": 2023,
+        "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+      },
+      {
+        "title": "Sing Sing",
+        "winner": false,
+        "ceremony_year": 2025,
+        "film_year_hint": 2024,
+        "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+      },
+      {
+        "title": "Jay Kelly",
+        "winner": false,
+        "ceremony_year": 2026,
+        "film_year_hint": 2025,
+        "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+      },
+      {
+        "title": "Wicked: For Good",
+        "winner": false,
+        "ceremony_year": 2026,
+        "film_year_hint": 2025,
+        "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
       }
     ]
   }
