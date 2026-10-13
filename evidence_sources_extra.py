@@ -3,11 +3,13 @@
 This layer intentionally stays separate from the original source builder. It adds:
 - European Film Awards Best Film to European recognition.
 - Gotham Best Feature to independent cinema.
-- NSFC, NYFCC and LAFCA Best Film winners as a separate critics consensus family.
+- NSFC, NYFCC and LAFCA Best Film winners to critics consensus.
+- Critics Choice Best Picture from a reproducible static snapshot of the official
+  archive, as modest corroboration inside the same critics family.
 
 All families remain capped at 100. Critics consensus requires agreement across
-multiple groups: each Best Film win contributes 35 points, so one group alone
-cannot dominate the score.
+multiple sources; Critics Choice is deliberately weaker than the three critics-
+group wins and is not a separate 100-point family.
 """
 
 import json
@@ -23,6 +25,7 @@ import evidence_sources as es
 
 SNAPSHOT = Path("sources/evidence-families.json")
 BACKCATALOG = Path("backcatalog-details.json")
+CRITICS_CHOICE_SOURCE = Path("sources/critics-choice-best-picture.json")
 MAX_FILM_YEAR = 2025
 
 EXTRA_SOURCES = {
@@ -65,6 +68,14 @@ EXTRA_SOURCES = {
         "nominee_points": 0,
         "winners_only": True,
         "label": "LAFCA Best Film",
+    },
+    "critics_choice_best_picture": {
+        "url": "https://www.criticschoice.com/critics-choice-awards-archives/",
+        "static_path": str(CRITICS_CHOICE_SOURCE),
+        "family": "critics_groups_consensus",
+        "winner_points": 25,
+        "nominee_points": 8,
+        "label": "Critics Choice Best Picture",
     },
 }
 
@@ -218,6 +229,13 @@ def resolve_rows(rows, catalog, preferred_ids=None):
     return resolved, unresolved
 
 
+def load_static_rows(path):
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    rows = payload.get("films") or []
+    unresolved = payload.get("unresolved") or []
+    return rows, unresolved, payload
+
+
 def add_contribution(contrib, iid, family, source_key, points, evidence):
     if points <= 0:
         return
@@ -274,7 +292,19 @@ def augment_snapshot():
 
     resolved_by_source = {}
     unresolved = {}
+    static_metadata = {}
     for key, spec in EXTRA_SOURCES.items():
+        if spec.get("static_path"):
+            resolved, missing, metadata = load_static_rows(spec["static_path"])
+            resolved_by_source[key] = resolved
+            unresolved[key] = missing
+            static_metadata[key] = {
+                "records_parsed": metadata.get("records_parsed"),
+                "resolved": metadata.get("resolved"),
+                "pages_discovered": metadata.get("pages_discovered"),
+            }
+            continue
+
         html = es.get_text(spec["url"])
         rows = parse_wikipedia_award_rows(html, winners_only=spec["winners_only"])
         resolved, missing = resolve_rows(rows, catalog, preferred_ids)
@@ -285,11 +315,13 @@ def augment_snapshot():
     snapshot["extra_award_sources"] = {
         key: {
             "url": spec["url"],
+            "static_path": spec.get("static_path"),
             "family": spec["family"],
             "winner_points": spec["winner_points"],
             "nominee_points": spec["nominee_points"],
             "resolved": len(resolved_by_source[key]),
             "unresolved": len(unresolved[key]),
+            **(static_metadata.get(key) or {}),
         }
         for key, spec in EXTRA_SOURCES.items()
     }
@@ -297,7 +329,10 @@ def augment_snapshot():
         "us_institutional": "Academy + Golden Globes, capped at 100",
         "european_recognition": "BAFTA + Cannes + Berlin + Venice + European Film Awards, capped at 100",
         "independent_cinema": "Sundance + Film Independent Spirit + Gotham, capped at 100",
-        "critics_groups_consensus": "NSFC + NYFCC + LAFCA Best Film wins; 35 points per group, capped at 100",
+        "critics_groups_consensus": (
+            "NSFC + NYFCC + LAFCA Best Film wins (35 each) plus Critics Choice Best Picture "
+            "winner/nominee corroboration (25/8); family capped at 100"
+        ),
     }
     snapshot["unresolved_extra_awards"] = unresolved
     SNAPSHOT.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n")
