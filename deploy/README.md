@@ -3,9 +3,12 @@
 The deployment target is the user's seedbox, where Radarr is the provider's
 preinstalled application. These instructions install only movie-intel.
 Python 3.13.5 and a running user systemd manager have been confirmed on that host.
-Cloud SSH access, the Radarr base URL, and the public HTTPS route have not yet
-been verified. Cloud SSH DNS and HTTPS proxy access failed during preparation;
-no files or settings were changed on the seedbox.
+Deployment at the tested commit completed on 2026-10-13. Preflight, installation,
+53 unit tests, service startup, HTTPS health, and read-only integration checks
+passed. One natural live rejection notification was subsequently verified;
+unknown-movie approval and download remain untested. See the dated evidence and
+remaining logging gaps in [project state](../docs/PROJECT_STATE.md). These commands
+are a runbook, not a request to repeat installation on an already running host.
 
 ## Install on the host
 
@@ -29,9 +32,10 @@ test -e ~/.config/movie-intel/environment || install -m 600 deploy/environment.e
 ```
 
 Edit the private environment file on the host. Set every blank required value.
-Generate a webhook secret locally with `python3 -c 'import secrets;
-print(secrets.token_urlsafe(32))'`; paste it only into private configuration and
-the autobrr webhook settings, never chat, logs, or a public file.
+Reuse existing credentials privately. Generate a missing webhook secret directly
+into the mode-600 private environment file without printing it; transfer it
+privately to autobrr's webhook settings. Never put it in chat, command output,
+logs, or a public file. Back up private configuration before replacing it.
 `TELEGRAM_TOPIC_ID` is optional. `TMDB_API_TOKEN` is a TMDb read access token.
 `RADARR_URL` is the actual Radarr application base URL, including its provider
 prefix if present. `RADARR_API_KEY` comes from Radarr settings.
