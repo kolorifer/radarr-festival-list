@@ -106,7 +106,14 @@ class FrozenCalibrationTests(unittest.TestCase):
 
     def test_cleaned_inputs_model_universe_and_routes_are_frozen(self):
         hashes=qc.validate_baseline(self.root,self.config,self.payload,self.frozen)
-        self.assertEqual(len(qc.FIXED),len(hashes))
+        self.assertEqual(len(qc.FIXED)+1,len(hashes))
+
+    def test_deployed_diagnostic_is_distinct_without_replacing_requested_baseline(self):
+        deployed=json.loads((self.root/self.config["deployed_snapshot"]["path"]).read_text())
+        self.assertEqual(224,len(deployed))
+        self.assertEqual(255,len(self.frozen))
+        self.assertEqual(31,len({r["imdb_id"] for r in self.frozen}-{r["imdb_id"] for r in deployed}))
+        self.assertEqual(255,sum(r["qualified"] for r in self.payload["films"]))
 
     def test_route_change_is_rejected(self):
         frozen=copy.deepcopy(self.frozen)

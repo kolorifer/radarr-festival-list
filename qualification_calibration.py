@@ -111,7 +111,17 @@ def validate_baseline(root, config, payload, frozen):
             raise ValueError("Frozen routes mismatch")
     if set(current)-set(ids):
         raise ValueError("Qualified film absent from frozen universe")
-    return {str(path):digest(root/path) for path in FIXED}
+    spec=config["deployed_snapshot"]
+    deployed_path=root/spec["path"]
+    if digest(deployed_path)!=spec["sha256"]:
+        raise ValueError("Pinned deployed snapshot changed")
+    deployed=json.loads(deployed_path.read_text())
+    if len(deployed)!=spec["count"] or not {r["imdb_id"] for r in deployed}<=set(current):
+        raise ValueError("Deployed snapshot diagnostic mismatch")
+    if any(r["routes"]!=current[r["imdb_id"]]["routes"] for r in deployed):
+        raise ValueError("Shared deployed routes mismatch")
+    return {**{str(path):digest(root/path) for path in FIXED},
+            spec["path"]:digest(deployed_path)}
 
 def annotate(rows, back):
     """Only existing published taste/watch annotations; never change score or decisions."""
@@ -305,11 +315,12 @@ def markdown(result,config):
         "Audience 150, effective ceiling 1000, all other weights and canon correlation unchanged.",
         "No policy/threshold is selected; no production change or Radarr action.","",
         "## Definitions and limits","",
+        "Baseline discrepancy: the requested cleaned PR #3 set has 255 qualification records; the deployed c7a4582 snapshot has 224. All 224 are a subset of 255 with identical routes. Every Current/Retained/Lost/New column below is relative to the requested 255 comparator, not the live 224 snapshot. The pinned deployed input is retained for diagnosis; production is unchanged. See inputs/deployed-qualifiers.json and the engineering report. This distinction must be reviewed before future production adoption.","",
         "Thresholds use the published absolute score and inclusive >=. Family contribution means positive points. TSPDT/Sight&Sound count together as canon for B/C/E; raw counts remain available. Critics Groups remains its existing merged award/broad-critic family; a small positive broad-critic contribution counts, so family count is not evidence strength.","",
         "Existing qualification is a comparison label, not ground truth for quality. Overlap%=existing-qualified selected / all selected; retention%=selected baseline /255. These are agreement metrics, not validated precision/recall of user taste.","",
         "Recent=2020 onward; borderline=within 10 points, diagnostics only. Known watched films retain their qualification; annotations describe existing monitoring context. Current Radarr library and live addability were not queried.","",
         "No taste value affects scores/decisions; unknown films are unlabelled, not negative examples. The thirteen existing positive signals are all baseline-qualified; the 33 watched annotations are also all baseline-qualified. This small positive-only sample cannot validate newly admitted films or estimate taste precision. No anthology/combined-work award is allocated to components.","",
-        "Nine Letterboxd gaps and 32 unresolved award-source records remain from PR#3. ReelDB HTTP 403 is unchanged; no live enrichment in this task. Scores with missing data remain observed lower evidence; upper bounds never fabricate ratings. Recent films have fewer historical-poll eligibility opportunities; thresholds are not renormalized.","",
+        "Nine Letterboxd gaps and 32 unresolved award-source records remain from PR #3. ReelDB HTTP 403 is unchanged; no live enrichment in this task. Scores with missing data remain observed lower evidence; upper bounds never fabricate ratings. Recent films have fewer historical-poll eligibility opportunities; thresholds are not renormalized.","",
         table(["Code","Research predicate"],POLICIES.items()),"",
         "## Distribution",""]
     cohorts=result["distribution"]
@@ -381,6 +392,8 @@ def run(root):
         "audience_cap":150,"effective_ceiling":1000,"production_changed":False,
         "final_policy":None,"final_threshold":None,"config":config,
         "baseline_qualified":frozen,
+        "comparison_baseline_semantics":"Requested255-film cleaned PR#3 frozen baseline; deployed snapshot has 224 and is diagnostic only",
+        "deployed_snapshot":config["deployed_snapshot"],
         "distribution":{
             "all":population(rows,config),
             "currently_qualified":population([r for r in rows if r["qualified"]],config),
@@ -422,6 +435,7 @@ def run(root):
         "candidate_ids":[r["imdb_id"] for r in rows],"baseline_ids":[r["imdb_id"] for r in frozen],
         "family_weights":payload["family_weights"],"audience_cap":150,"effective_ceiling":1000,
         "policy_count":len(policies),"thresholds":config["thresholds"],
+        "deployed_snapshot":config["deployed_snapshot"],
         "qualification_routes_preserved":True,"production_changed":False,
         "anthology_combined_work_allocation":False,"score_input_not_modified":True,
         "final_policy":None,"final_threshold":None}

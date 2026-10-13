@@ -45,5 +45,12 @@
   "recent_year_start": 2020,
   "borderline_window": 10,
   "example_limit": 10,
-  "negative_taste_labels_available": false
+  "negative_taste_labels_available": false,
+  "deployed_snapshot": {
+    "commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "path": "simulations/qualification-calibration/inputs/deployed-qualifiers.json",
+    "sha256": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4",
+    "count": 224,
+    "role": "Diagnostic only. Primary comparison remains the explicitly requested255-film PR#3 baseline."
+  }
 }
