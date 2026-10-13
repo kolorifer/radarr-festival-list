@@ -21,8 +21,29 @@ the explicitly requested 255 research comparator.
 
 Stable architecture and earlier operational/privacy findings:
 [stable snapshot](https://github.com/kolorifer/radarr-festival-list/blob/7e9c32f7ac5d8c9a310e69a706731a272f23c003/docs/PROJECT_STATE.md).
-This task does not retest live notification/download integration or resolve
-those earlier operational findings.
+
+## Live Telegram add-and-grab integration verified
+
+On 2026-10-13 the real production path was successfully tested end to end using
+an autobrr/Radarr `Unknown Movie` rejection for **Marty Supreme (2025)**.
+The Telegram notification exposed the live **Add to Radarr & grab this release**
+action for the exact announced TRiToN 2160p UHD BluRay Hybrid REMUX release.
+
+Opening the action loaded the confirmation page with the resolved movie/poster,
+exact release, Radarr root-folder selector and quality-profile selector. The live
+test used `/home/kolorifer/movies` and `Ultra-HD-Remux`. Submission returned
+**Added and sent to downloader** and reported that the exact announced release was
+re-pushed with no indexer search. The user then confirmed successful completion in
+the real Radarr/downloader flow.
+
+Therefore this path is now live-verified, not merely synthetic/test-suite coverage:
+
+`real autobrr rejection -> movie-intel webhook -> enriched Telegram notification -> approval page -> Radarr movie add -> exact release re-push -> downloader`
+
+The single-use replay/HTTP 410 behavior was not separately re-demonstrated in this
+live test; it remains covered by the automated service tests. No private tracker
+URL, API key, webhook secret or action token is recorded in project documentation.
+See [live integration report](reports/2026-10-13-live-add-grab-test.md).
 
 ## Fixed research model
 
