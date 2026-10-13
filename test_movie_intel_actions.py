@@ -66,11 +66,23 @@ class MovieIntelActionTests(unittest.TestCase):
         self.assertEqual(button["url"], url)
         self.assertNotIn("PRIVATE", str(body))
 
-    def test_public_action_url_uses_existing_nginx_prefix(self):
+    def test_public_action_url_requires_configured_origin(self):
         headers = {"X-Forwarded-Host": "example.invalid"}
-        with patch.object(svc, "PUBLIC_BASE_URL", ""), patch.object(svc, "PUBLIC_PATH", "/movie-intel"):
+        with patch.object(svc, "PUBLIC_BASE_URL", ""):
+            url = svc.public_action_url(headers, "abcDEF_12345678901234567890")
+        self.assertIsNone(url)
+
+    def test_public_action_url_ignores_forwarded_host(self):
+        headers = {"X-Forwarded-Host": "attacker.invalid"}
+        with patch.object(svc, "PUBLIC_BASE_URL", "https://example.invalid/movie-intel"):
             url = svc.public_action_url(headers, "abcDEF_12345678901234567890")
         self.assertEqual(url, "https://example.invalid/movie-intel/action/abcDEF_12345678901234567890")
+
+    def test_incomplete_release_is_not_offered_for_approval(self):
+        payload = {"data": {"release": {"download_url": "https://tracker.invalid/private"}, "result": {"rejections": ["Unknown Movie"]}}}
+        with patch.object(svc, "radarr_configured", return_value=True), patch.object(svc, "create_action") as create:
+            self.assertIsNone(svc.create_pending_action(payload, META))
+        create.assert_not_called()
 
     def test_confirmation_page_never_contains_private_download_url(self):
         action = {

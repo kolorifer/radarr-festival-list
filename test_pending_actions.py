@@ -27,6 +27,17 @@ class PendingActionTests(unittest.TestCase):
                 mode = os.stat(path).st_mode & 0o777
                 self.assertEqual(mode, 0o600)
 
+    def test_existing_temporary_file_is_private_before_writing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "actions.json"
+            temporary = Path(tmp) / "actions.json.tmp"
+            temporary.touch(mode=0o644)
+            with patch.object(pa, "STORE_PATH", path), patch.object(pa.json, "dump") as dump:
+                def check_mode(*args, **kwargs):
+                    self.assertEqual(temporary.stat().st_mode & 0o777, 0o600)
+                dump.side_effect = check_mode
+                pa.create_action({"movie": {"tmdb_id": 1}})
+
     def test_expired_action_is_removed(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "actions.json"

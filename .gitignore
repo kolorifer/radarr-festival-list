@@ -3,3 +3,4 @@ movie-intel-actions.json
 .env
 __pycache__/
 *.pyc
+.venv/

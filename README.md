@@ -1,5 +1,9 @@
 # Radarr Festival List
 
+The `movie-intel` branch also contains the autobrr/Telegram/Radarr approval
+service. See [PROJECT.md](PROJECT.md) for project decisions and
+[deployment instructions](deploy/README.md) for setup, preflight, and validation.
+
 A free bridge from IMDb Editors' annual **Festival Films You Need to Know** list to Radarr.
 
 The repository checks IMDb twice a day and generates `festival.json` in the StevenLu Custom format understood by Radarr. It uses IMDb's website GraphQL query rather than scraping HTML, and retrieves every page before publishing.

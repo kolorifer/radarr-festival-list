@@ -5,18 +5,24 @@ without searching and re-pushes the exact autobrr release to Radarr. Private
 tracker URLs stay server-side and are never placed in Telegram messages, action
 URLs, or logs.
 """
+import argparse
 import html
 import json
 import os
 import re
+import sys
+import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlparse
 from urllib.request import Request, urlopen
 
 from movie_intel import build_index, find_local, rejection_class
+from deployment_config import configuration_errors
+from private_text import redact_text, sanitize
 from pending_actions import create_action, delete_action, get_action, update_action
 from radarr_client import (
     RadarrError,
+    build_release_push,
     configured as radarr_configured,
     ensure_movie,
     push_release,
@@ -25,22 +31,17 @@ from radarr_client import (
 from tmdb_resolver import resolve_movie
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
-PORT = int(os.environ.get("MOVIE_INTEL_PORT", "40714"))
+PORT = os.environ.get("MOVIE_INTEL_PORT", "40714")
 WEBHOOK_SECRET = os.environ.get("MOVIE_INTEL_WEBHOOK_SECRET", "")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 TELEGRAM_TOPIC_ID = os.environ.get("TELEGRAM_TOPIC_ID", "").strip()
 PUBLIC_BASE_URL = os.environ.get("MOVIE_INTEL_PUBLIC_BASE_URL", "").strip().rstrip("/")
-PUBLIC_PATH = os.environ.get("MOVIE_INTEL_PUBLIC_PATH", "/movie-intel").strip() or "/movie-intel"
-if not PUBLIC_PATH.startswith("/"):
-    PUBLIC_PATH = "/" + PUBLIC_PATH
-PUBLIC_PATH = PUBLIC_PATH.rstrip("/")
 INDEX = build_index()
 
-SENSITIVE_KEYS = {
-    "download_url", "passkey", "api_key", "apikey", "token", "authorization",
-    "cookie", "cookies", "password", "secret",
-}
+# One process owns the store; serialize approvals through their complete Radarr
+# transaction so simultaneous browser submissions cannot re-push a release.
+_APPROVAL_LOCK = threading.Lock()
 ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
 ACTION_TOKEN_RE = re.compile(r"^[A-Za-z0-9_-]{20,128}$")
 
@@ -101,6 +102,7 @@ def _append_rejection_details(lines, rejections, release_name):
 
 
 def format_message(payload, movie=None, meta=None):
+    payload = sanitize(payload)
     data = payload.get("data") or {}
     release = data.get("release") or {}
     result = data.get("result") or {}
@@ -217,14 +219,19 @@ def create_pending_action(payload, meta):
     release = data.get("release") or {}
     if not _pick(release, "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url"):
         return None
+    indexer = data.get("indexer") or {}
+    try:
+        build_release_push(release, indexer=indexer, event_timestamp=payload.get("timestamp"), tmdb_id=meta["tmdb_id"])
+    except (RadarrError, TypeError, ValueError):
+        # Do not offer an action that would create a movie but cannot re-push.
+        return None
 
     release_keys = (
-        "protocol", "timestamp", "name", "title", "year", "size", "seeders", "leechers",
+        "protocol", "timestamp", "publishDate", "publish_date", "name", "title", "year", "size", "seeders", "leechers",
         "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url",
         "info_url", "infoUrl", "link",
     )
     stored_release = {key: release[key] for key in release_keys if key in release}
-    indexer = data.get("indexer") or {}
     stored_indexer = {key: indexer[key] for key in ("name", "protocol") if key in indexer}
     movie_title = meta.get("title") or release.get("title") or release.get("name")
     action = {
@@ -243,14 +250,7 @@ def create_pending_action(payload, meta):
 
 
 def _sanitize(value):
-    if isinstance(value, dict):
-        return {
-            k: ("[redacted]" if str(k).lower() in SENSITIVE_KEYS else _sanitize(v))
-            for k, v in value.items()
-        }
-    if isinstance(value, list):
-        return [_sanitize(v) for v in value]
-    return value
+    return sanitize(value)
 
 
 def passthrough_message(payload):
@@ -260,11 +260,11 @@ def passthrough_message(payload):
                 for key in ("message", "text", "body", "description"):
                     value = container.get(key)
                     if isinstance(value, str) and value.strip():
-                        return value[:4000]
+                        return redact_text(value)[:4000]
         return json.dumps(_sanitize(payload), ensure_ascii=False, indent=2)[:4000]
     if isinstance(payload, str):
-        return payload[:4000]
-    return str(payload)[:4000]
+        return redact_text(payload)[:4000]
+    return redact_text(payload)[:4000]
 
 
 def _topic_fields():
@@ -328,6 +328,9 @@ def _telegram_request(method, body):
         method="POST",
     )
     with urlopen(req, timeout=15) as response:
+        result = json.load(response)
+        if not isinstance(result, dict) or result.get("ok") is not True:
+            raise RuntimeError("Telegram did not accept the notification")
         return response.status
 
 
@@ -351,12 +354,8 @@ def public_action_url(headers, token):
         return None
     if PUBLIC_BASE_URL:
         return f"{PUBLIC_BASE_URL}/action/{quote(token)}"
-    forwarded_host = headers.get("X-Forwarded-Host")
-    host = forwarded_host or headers.get("Host")
-    if not host:
-        return None
-    proto = headers.get("X-Forwarded-Proto") or ("https" if forwarded_host else "http")
-    return f"{proto}://{host}{PUBLIC_PATH}/action/{quote(token)}"
+    # Use an explicitly configured origin/path, never caller-controlled headers.
+    return None
 
 
 def _page(title, body):
@@ -375,7 +374,7 @@ select{{background:#202124;color:#eee}} button{{margin-top:20px;background:#eee;
 def render_confirmation(action, context):
     movie = action.get("movie") or {}
     release = action.get("release") or {}
-    title = movie.get("title") or "Movie"
+    title = redact_text(movie.get("title") or "Movie")
     year = movie.get("year")
     poster = movie.get("poster_url")
     poster_html = f'<img src="{html.escape(str(poster), quote=True)}" alt="poster">' if poster else ""
@@ -402,7 +401,7 @@ def render_confirmation(action, context):
         poster_html,
         f"<h2>Add {html.escape(str(title))}" + (f" ({html.escape(str(year))})" if year else "") + "</h2>",
         "<p class=\"muted\">This creates the movie in Radarr without an indexer search, then re-pushes the exact release autobrr announced.</p>",
-        f"<p><b>Release</b><br><code>{html.escape(str(release.get('name') or release.get('title') or 'Unknown release'))}</code></p>",
+        f"<p><b>Release</b><br><code>{html.escape(redact_text(release.get('name') or release.get('title') or 'Unknown release'))}</code></p>",
         "<form method=\"post\">",
         "<label for=\"root\">Root folder</label>",
         f'<select id="root" name="root_folder" required>{"".join(root_options)}</select>',
@@ -416,13 +415,13 @@ def render_confirmation(action, context):
 
 def render_result(action, success, message):
     movie = action.get("movie") or {}
-    title = movie.get("title") or "Movie"
+    title = redact_text(movie.get("title") or "Movie")
     klass = "ok" if success else "err"
     heading = "Added and sent to downloader" if success else "Radarr could not complete the action"
     body = (
         f'<h2 class="{klass}">{html.escape(heading)}</h2>'
         f'<p><b>{html.escape(str(title))}</b></p>'
-        f'<p>{html.escape(str(message))}</p>'
+        f'<p>{html.escape(redact_text(message))}</p>'
     )
     return _page("Radarr action", body)
 
@@ -476,6 +475,10 @@ class Handler(BaseHTTPRequestHandler):
         self._json(404, {"ok": False})
 
     def _handle_action_post(self, token):
+        with _APPROVAL_LOCK:
+            self._handle_action_post_locked(token)
+
+    def _handle_action_post_locked(self, token):
         action = get_action(token)
         if not action:
             self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
@@ -514,7 +517,7 @@ class Handler(BaseHTTPRequestHandler):
                 tmdb_id=tmdb_id,
             )
             delete_action(token)
-            message = "Movie created in Radarr and the exact announced release was re-pushed. No indexer search was run."
+            message = "Movie is available in Radarr and the exact announced release was re-pushed. No indexer search was run."
             self._html(200, render_result(action, True, message))
         except (ValueError, UnicodeDecodeError):
             self._html(400, render_result(action, False, "Invalid confirmation form"))
@@ -529,6 +532,9 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         path = urlparse(self.path).path
+        if not WEBHOOK_SECRET:
+            self._json(503, {"ok": False, "error": "webhook_not_configured"})
+            return
         expected = "/webhook" + (f"/{WEBHOOK_SECRET}" if WEBHOOK_SECRET else "")
         if path != expected:
             self._json(404, {"ok": False})
@@ -543,7 +549,7 @@ class Handler(BaseHTTPRequestHandler):
             except json.JSONDecodeError:
                 text = raw.decode("utf-8", errors="replace").strip()
                 if text:
-                    send_telegram(text[:4000], parse_mode=None)
+                    send_telegram(redact_text(text)[:4000], parse_mode=None)
                 self._json(200, {"ok": True, "forwarded": "text"})
                 return
 
@@ -582,11 +588,34 @@ class Handler(BaseHTTPRequestHandler):
         print(f"http {getattr(self, 'command', '?')} {args[1] if len(args) > 1 else ''}")
 
 
-def main():
-    server = ThreadingHTTPServer((HOST, PORT), Handler)
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check-config", action="store_true", help="Check deployment settings offline; do not start the service")
+    parser.add_argument("--allow-unconfigured", action="store_true", help="Allow local development without integration credentials (loopback only)")
+    args = parser.parse_args(argv)
+    errors = configuration_errors()
+    if args.check_config or not args.allow_unconfigured:
+        if errors:
+            for error in errors:
+                print(error, file=sys.stderr)
+            return 1
+        if args.check_config:
+            print("Deployment configuration is valid (connectivity has not been checked)")
+            return 0
+    elif HOST not in ("127.0.0.1", "::1", "localhost"):
+        print("--allow-unconfigured requires a loopback MOVIE_INTEL_HOST", file=sys.stderr)
+        return 1
+    try:
+        port = int(PORT)
+        if not 1 <= port <= 65535:
+            raise ValueError
+    except ValueError:
+        print("MOVIE_INTEL_PORT must be an integer between 1 and 65535", file=sys.stderr)
+        return 1
+    server = ThreadingHTTPServer((HOST, port), Handler)
     print(f"movie-intel listening on {HOST}:{PORT}")
     server.serve_forever()
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

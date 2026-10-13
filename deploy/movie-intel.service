@@ -1,0 +1,19 @@
+[Unit]
+Description=Movie intelligence autobrr notification and Radarr approval service
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/radarr-festival-list
+EnvironmentFile=%h/.config/movie-intel/environment
+Environment=MOVIE_INTEL_ACTION_STORE=%h/.local/state/movie-intel/actions.json
+Environment=TMDB_CACHE_PATH=%h/.local/state/movie-intel/tmdb-cache.json
+ExecStartPre=%h/radarr-festival-list/.venv/bin/python movie_intel_service.py --check-config
+ExecStart=%h/radarr-festival-list/.venv/bin/python -u movie_intel_service.py
+Restart=on-failure
+RestartSec=5
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

@@ -104,6 +104,16 @@ The `movie-intel` branch implements the core of an enriched autobrr/Radarr notif
 - Sensitive tracker/release credentials are intended to remain server-side.
 - Health endpoint and explicit configuration checks exist.
 
+Deployment preparation now includes `deploy/README.md`, a private environment
+template, a user systemd unit, an HTTPS proxy fragment, and a launcher that reads
+the environment file without executing shell expressions. `--check-config`
+validates required settings offline. Production startup fails on missing/invalid
+settings; local development uses `--allow-unconfigured` on loopback only.
+Webhook delivery fails closed without its secret. Approval URLs require an
+explicit HTTPS public base URL; request headers cannot choose their origin.
+Approval submissions are serialized within a single process to prevent replay.
+Notification/error text redacts private URLs and configured credentials.
+
 ### 7. Tests / CI
 
 The `movie-intel` branch contains focused tests for:
@@ -113,6 +123,11 @@ The `movie-intel` branch contains focused tests for:
 - pending actions,
 - Radarr client behavior,
 - TMDb resolver behavior.
+
+`test_movie_intel_http.py` additionally exercises the webhook → notification →
+confirmation → exact-release flow over real local HTTP with synthetic external
+services. This verifies service wiring without production side effects; actual
+autobrr payload compatibility and seedbox integration remain unverified.
 
 `.github/workflows/movie-intel-test.yml` runs the movie-intel tests.
 
@@ -134,6 +149,16 @@ These are intentional and should not be changed casually:
 ### A. Finish real deployment/integration of `movie-intel`
 
 The code and tests exist, but the remaining work is operational integration on the actual environment:
+
+Cloud SSH access to the user's seedbox failed during preparation. No seedbox
+deployment was performed. Python 3.13.5 and a running user systemd manager were
+confirmed; service CI now covers Python 3.12 and 3.13. Confirm SSH access, the
+actual Radarr URL, and a provider-supported HTTPS movie-intel route; enter credentials only in
+the private host configuration. Use `deploy/README.md` for the prepared procedure.
+Autobrr upstream webhook fields have been checked; the installed version still
+needs a real payload check. Radarr itself logs pushed URLs and cleans only known
+credential patterns; verify provider log controls before claiming the complete
+deployment preserves secret-handling guarantees.
 
 1. Reconcile `movie-intel` with the latest `main` generated-list commit before merge.
 2. Decide how/where the HTTP service will run on the seedbox or another always-on host.

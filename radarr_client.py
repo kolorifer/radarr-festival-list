@@ -9,6 +9,7 @@ from collections import Counter
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from private_text import redact_text
 
 RADARR_URL = os.environ.get("RADARR_URL", "").strip().rstrip("/")
 RADARR_API_KEY = os.environ.get("RADARR_API_KEY", "").strip()
@@ -224,9 +225,13 @@ def push_release(release, indexer=None, event_timestamp=None, tmdb_id=None):
 
     # Radarr returns one release decision. A 200 can still represent a normal
     # rejection by the decision engine, so surface that instead of claiming grab.
-    row = result[0] if isinstance(result, list) and result else result
-    if isinstance(row, dict) and row.get("rejected"):
+    if isinstance(result, list) and len(result) != 1:
+        raise RadarrError("Radarr did not return one release decision")
+    row = result[0] if isinstance(result, list) else result
+    if isinstance(row, dict) and (row.get("rejected") or row.get("temporarilyRejected")):
         reasons = [str(x) for x in (row.get("rejections") or []) if str(x).strip()]
-        message = "; ".join(reasons[:3]) or "Radarr rejected the release"
+        message = redact_text("; ".join(reasons[:3])) or "Radarr rejected the release"
         raise RadarrError(message)
+    if not isinstance(row, dict) or row.get("approved") is not True or row.get("rejected") is not False:
+        raise RadarrError("Radarr did not confirm release approval; check Radarr history before retrying")
     return result

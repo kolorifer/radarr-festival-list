@@ -74,6 +74,15 @@ class RadarrClientTests(unittest.TestCase):
             with self.assertRaisesRegex(rc.RadarrError, "Quality is not wanted"):
                 rc.push_release(release, tmdb_id=329865)
 
+    def test_push_requires_one_confirmed_approval(self):
+        release = {"name": "Arrival.2016.2160p", "protocol": "torrent", "timestamp": "2026-10-12T10:00:00Z", "download_url": "https://tracker.invalid/PRIVATE"}
+        for response in (None, [], {}, [{"rejected": False}], [{"approved": False, "rejected": False}], [{"approved": True, "rejected": False}] * 2):
+            with self.subTest(response=response), patch.object(rc, "_request", return_value=response):
+                with self.assertRaises(rc.RadarrError):
+                    rc.push_release(release)
+        with patch.object(rc, "_request", return_value=[{"approved": True, "rejected": False}]):
+            self.assertEqual(len(rc.push_release(release)), 1)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -12,7 +12,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 STORE_PATH = Path(os.environ.get("MOVIE_INTEL_ACTION_STORE", ROOT / "movie-intel-actions.json"))
-TTL_SECONDS = int(os.environ.get("MOVIE_INTEL_ACTION_TTL_SECONDS", "86400"))
+try:
+    TTL_SECONDS = int(os.environ.get("MOVIE_INTEL_ACTION_TTL_SECONDS", "86400"))
+except ValueError:
+    # Startup preflight reports invalid configuration without echoing its value.
+    TTL_SECONDS = 86400
 _LOCK = threading.Lock()
 
 
@@ -29,6 +33,7 @@ def _save_unlocked(data):
     tmp = STORE_PATH.with_name(STORE_PATH.name + ".tmp")
     fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
     with os.fdopen(fd, "w", encoding="utf-8") as handle:
+        os.fchmod(handle.fileno(), 0o600)
         json.dump(data, handle, ensure_ascii=False, indent=2, sort_keys=True)
     os.replace(tmp, STORE_PATH)
     try:
