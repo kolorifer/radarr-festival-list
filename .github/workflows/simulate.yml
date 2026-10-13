@@ -17,6 +17,7 @@ on:
       - score_rule_experiment.py
       - hybrid_selection_experiment.py
       - hybrid_policy_review.py
+      - selection_stability.py
       - sight_sound_top250_experiment.py
       - ranked_source_correlation.py
       - canon_overlap_experiment.py
@@ -121,6 +122,9 @@ jobs:
       - name: Build focused hybrid policy review
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python hybrid_policy_review.py
+      - name: Audit guarded selection stability
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python selection_stability.py
       - name: Audit missing calibration evidence
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python missing_evidence_audit.py
@@ -130,7 +134,7 @@ jobs:
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json sources/critics-choice-best-picture.json evidence-scores.json score-band-analysis.json score-rule-experiment.json hybrid-selection-experiment.json hybrid-policy-review.md ranked-source-correlation.json ranked-source-correlation.md canon-overlap-experiment.json missing-evidence-audit.json missing-evidence-audit.md candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json sources/critics-choice-best-picture.json evidence-scores.json score-band-analysis.json score-rule-experiment.json hybrid-selection-experiment.json hybrid-policy-review.md selection-stability.json selection-stability.md ranked-source-correlation.json ranked-source-correlation.md canon-overlap-experiment.json missing-evidence-audit.json missing-evidence-audit.md candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
