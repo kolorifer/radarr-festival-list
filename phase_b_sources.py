@@ -1,3 +1,4 @@
+import film_identity as fi
 """Research-only Phase B source builder.
 Builds a reproducible union-universe seed from film-level Academy recognition.
 Production feeds/scoring are untouched.
@@ -74,6 +75,8 @@ def canonical_lookup(title,year,index):
 
 def imdb_lookup(title,year):
     """Resolve only plausible movie suggestions; never accept a loose title hit."""
+    verified=fi.verified_award(title,year) or fi.verified_identity(title,year)
+    if verified:return verified["imdb_id"],verified["title"],verified["year"]
     data=json.loads(get('https://v2.sg.media-imdb.com/suggestion/x/'+quote(title)+'.json'))
     cand=[]
     for x in data.get('d',[]):

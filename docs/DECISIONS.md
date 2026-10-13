@@ -146,3 +146,15 @@ the workflow documentation task.
   Qualification, production feeds, runtime deployment and main are unchanged.
 - **Review boundary:** Diagnostic bands and dominance examples provide evidence
   for discussion; they do not introduce qualification rules.
+
+## D012 — Final research Evidence Score model
+
+- **Status/source:** Accepted user/ChatGPT decision, current integrity brief, 2026-10-13.
+- **Decision:** Audience uses IMDb + Letterboxd at 150 points, proportionally
+  weighted 0.75 × their existing calibrated component sum. The effective fully
+  eligible Evidence Score ceiling is 1000.
+- **Preserved:** All other family weights, existing canon correlation, and
+  qualification logic remain unchanged. No threshold is selected in this task.
+- **Rationale:** Product review has selected the model; identity/data quality is
+  audited before threshold calibration. D011 remains the historical comparison.
+- **Boundary:** Research-only until explicit production merge/deployment approval.

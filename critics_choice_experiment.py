@@ -18,6 +18,7 @@ from pathlib import Path
 from urllib.parse import urljoin
 
 import requests
+import film_identity as fi
 from bs4 import BeautifulSoup
 
 from broad_critic_score import merge_critics_family
@@ -172,6 +173,11 @@ def build_index(rows):
 
 
 def resolve_record(record, index):
+    verified=fi.verified_award(record.get("title"),int(record.get("film_year_hint") or 0))
+    if verified:
+        exact={r["imdb_id"]:r for group in index.values() for r in group
+               if r.get("imdb_id")==verified["imdb_id"]}
+        if len(exact)==1:return next(iter(exact.values()))
     key = norm(record.get("title"))
     keys = (key,) + ALIASES.get(key, ())
     candidates = []
