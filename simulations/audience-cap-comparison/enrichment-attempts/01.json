@@ -1,0 +1,22 @@
+{
+  "candidate_count": 1909,
+  "pending_before": 291,
+  "max_requests": 400,
+  "attempted": 291,
+  "succeeded": 289,
+  "failures": [
+    {
+      "imdb_id": "tt23770030",
+      "error": "TimeoutError"
+    },
+    {
+      "imdb_id": "tt38063392",
+      "error": "HTTP 404"
+    }
+  ],
+  "status": "complete",
+  "network_requests": 291,
+  "observed_at": "2026-10-13T13:30:43.896852+00:00",
+  "complete_pair_after": 1895,
+  "known_404_in_universe": 5
+}

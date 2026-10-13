@@ -1,0 +1,39 @@
+{
+  "verified_on": "2026-10-13",
+  "environment": "seedbox Python 3.13.5",
+  "source_commit": "5ac99d98fc989533ae37fc1f04b9e475ae3e205f",
+  "artifact_commit": "47d6adc6ba7ce68634f57f45313c3aa0943bbcd3",
+  "unittest": {
+    "command": "python -m unittest -v",
+    "tests": 63,
+    "result": "passed"
+  },
+  "pip_check": "No broken requirements found.",
+  "artifact_invariants": "passed",
+  "configured_secret_scan": "passed",
+  "same_qualified_films": 255,
+  "replication": {
+    "result": "byte-identical",
+    "artifacts": 9,
+    "sha256": {
+      "coverage.json": "75ffe567f36019b719525b15bdf877f5c3ef6a783cdf93f2179398297dc5a9ae",
+      "audience_cap_150.json": "2fa11a02fcf1fd393429b1a0c545956cbd2ec6142ac1e6c505c7548d3a4a20a0",
+      "audience_cap_200.json": "020b2d3873b637b55cd12725111aa130d185c662c8ca0d886eaebad9ac8cb4cd",
+      "manifest.json": "65bfd0911e9d81a80ecf643bab35a510ff04357abf925c017d89e9387b6976b0",
+      "comparison.csv": "68cf902d9f4ce1ab66166a346d54fc76718d9d1de84928cf3e29e09e171980c0",
+      "audience_cap_200.csv": "2e32b675268019ff3e48229afcaa6600f3aab5c093991e9d7b10218d86525e42",
+      "comparison.md": "ded34a26dc0d8aab09e021567d9a90f5a2078fe50217f4e670fff7b5f6f35482",
+      "comparison.json": "2ac692ee9385075503e9688b0d5e316631e1d166596ee11105ff2023ddc6508f",
+      "audience_cap_150.csv": "3dd8cbb9db99b0b1955b0c5d290e5bbdb2b37b127b678a81999326a311f8f3e6"
+    }
+  },
+  "universe_sha256": "bcb725ca4577ea8a7cca8043e33e29090aaab0963b5fad45a108b24556d3518d",
+  "production": {
+    "commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "source": "clean",
+    "service": "NRestarts=0\nActiveState=active\nSubState=running",
+    "local_health_status": 200
+  },
+  "production_scoring_changed": false,
+  "preferred_cap": null
+}
