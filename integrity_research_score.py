@@ -68,6 +68,7 @@ def run(root):
     for path in ("sources/tspdt-21c.json","sources/identity-overrides.json",
                  "sources/identity-audit/tmdb.json","sources/identity-audit/imdb-basics.json",
                  "film_identity.py","identity_integrity.py","award_identity_cleanup.py",
+                 str(OUT/"inputs/corrected-award-evidence.json"),
                  "integrity_rating_enrichment.py","integrity_research_score.py",
                  "audience_cap_simulation.py","evidence_score.py","broad_critic_score.py","canon_overlap_score.py"):
         hashes[path]=hashlib.sha256((root/path).read_bytes()).hexdigest()
@@ -86,7 +87,9 @@ def run(root):
                 "coverage_before":coverage(before),"coverage_after":coverage(rows),
                 "critics_gaps_before":awards["before"],"critics_gaps_after":awards["after"],
                 "same_film_score_changes":len(changed),"same_film_rank_changes":len(ranks),
-                "identity_substitutions":pairs,"top_50":top_change(before,rows,50),
+                "identity_substitutions":pairs,
+                "restored_award_evidence":inputs["sources/evidence-families.json"].get("corrected_identity_award_provenance"),
+                "top_50":top_change(before,rows,50),
                 "top_100":top_change(before,rows,100),
                 "biggest_score_changes":sorted(changed,key=lambda r:-abs(r["score_change"])),
                 "biggest_rank_changes":sorted(ranks,key=lambda r:-abs(r["rank_change"])),
@@ -112,7 +115,7 @@ def markdown(c,identity,awards):
     def table(headers,rows):
         return sim.table(headers,rows)
     lines=["# Research data integrity: before and after","",
-           "Audience=150 (0.75 × IMDb + Letterboxd), effective ceiling1000. Other family weights, canon correlation and qualification are unchanged. Research only; no production rollout.","",
+           "Audience=150 (0.75 × (IMDb + Letterboxd)), effective ceiling1000. Other family weights, canon correlation and qualification are unchanged. Research only; no production rollout.","",
            "## Identity audit",f"Audited {identity['audited']} TSPDT/backcatalog records; {identity['suspicious_count']} flagged for closer inspection. Counts: {identity['counts']}.","",
            "### Corrected identities",table(["TSPDT rank","Source film","Wrong ID","Correct ID"],[
                [r["tspdt_rank"],r["source"]["title"],r["before"]["imdb_id"],r["after"]["imdb_id"]]

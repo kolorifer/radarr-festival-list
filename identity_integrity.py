@@ -3,6 +3,7 @@ import copy, json, subprocess
 from pathlib import Path
 import audience_calibration_enrichment as ace
 import film_identity as fi
+import evidence_sources as es
 
 BASELINE = "4d7943b6f4a2cff3b4ddc38fb8ff096747efc3bf"
 OUT = Path("simulations/data-identity-integrity")
@@ -96,6 +97,29 @@ def audit(root):
     ace.write_json(root / OUT / "identity-audit.json", result)
     return result
 
+def restore_corrected_awards(snapshot, frozen, corrected_ids):
+    """Reuse existing award rules only for newly admitted, verified identities."""
+    scope = set(frozen["scope_imdb_ids"])
+    if scope != set(corrected_ids):
+        raise ValueError("Frozen award scope does not match new corrected identities")
+    records = frozen["event_records"]
+    if any(r["imdb_id"] not in scope for group in records.values() for r in group):
+        raise ValueError("Award evidence contains an unrelated identity")
+    scored = es.score_events(records)
+    for iid in scope:
+        target = snapshot["films"][iid]
+        if target.get("family_scores"):
+            raise ValueError("Refusing to overwrite existing award evidence: " + iid)
+        if iid in scored:
+            target.update(scored[iid])
+    snapshot["corrected_identity_award_provenance"] = {
+        "source_commit": frozen["source_commit"],
+        "scope_imdb_ids": sorted(scope),
+        "source_file": str(OUT / "inputs/corrected-award-evidence.json"),
+        "scored": scored,
+    }
+    return scored
+
 def repair(root, result):
     before = baseline(root, "backcatalog-details.json")
     records = {r["tspdt_rank"]:r for r in result["records"]}
@@ -120,6 +144,7 @@ def repair(root, result):
     ratings = baseline(root, "audience-ratings.json")
     discovery = baseline(root, "sources/imdb-audience-discovery.json")
     independent_ids = {r["imdb_id"] for r in discovery["films"]} | {r["imdb_id"] for r in baseline(root,"simulation-qualifiers.json")}
+    original_snapshot_ids = set(snap["films"])
     replacements = []
     for r in result["records"]:
         old, new = r["before"]["imdb_id"], r["after"]["imdb_id"]
@@ -152,6 +177,9 @@ def repair(root, result):
         if old not in independent_ids:
             ratings["ratings"].pop(old,None)
             ratings.get("unavailable",{}).pop(old,None)
+    new_corrected_ids = {r["imdb_id"] for r in replacements} - original_snapshot_ids
+    frozen_awards = json.loads((root/OUT/"inputs/corrected-award-evidence.json").read_text())
+    restore_corrected_awards(snap, frozen_awards, new_corrected_ids)
     ratings["ratings_count"]=len(ratings["ratings"])
     ratings["unavailable_count"]=len(ratings.get("unavailable",{}))
     ace.write_json(root/"sources/evidence-families.json",snap)
