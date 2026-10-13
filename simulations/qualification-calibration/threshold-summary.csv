@@ -1,0 +1,11 @@
+policy,threshold,total_qualifying,newly_qualifying,current_retained,current_lost,current_lost_due_score,current_lost_due_guard,new_excluded_by_guard,overlap_selected_pct,baseline_retention_pct,selected_audience_only,selected_audience_dominant,new_audience_only,new_audience_dominant,selected_incomplete_audience,recent_selected,recent_new,new_known_positive_taste,lost_known_positive_taste,selected_known_positive_taste,positive_taste_retention_pct,selected_known_watched,new_known_watched
+score_only,100,1080,825,255,0,0,0,0,23.61,100.0,48,388,48,339,0,184,159,0,0,13,100.0,33,0
+score_only,125,836,583,253,2,2,0,0,30.26,99.22,9,229,9,180,0,141,116,0,0,13,100.0,33,0
+score_only,150,654,408,246,9,9,0,0,37.61,96.47,0,129,0,82,0,111,86,0,0,13,100.0,32,0
+score_only,175,510,279,231,24,24,0,0,45.29,90.59,0,66,0,25,0,87,63,0,0,13,100.0,32,0
+score_only,200,415,208,207,48,48,0,0,49.88,81.18,0,34,0,9,0,72,50,0,0,13,100.0,30,0
+score_only,225,336,152,184,71,71,0,0,54.76,72.16,0,10,0,2,0,59,42,0,0,13,100.0,29,0
+score_only,250,288,119,169,86,86,0,0,58.68,66.27,0,6,0,1,0,50,35,0,1,12,92.31,28,0
+score_only,300,184,54,130,125,125,0,0,70.65,50.98,0,0,0,0,0,28,17,0,2,11,84.62,26,0
+score_only,350,129,27,102,153,153,0,0,79.07,40.0,0,0,0,0,0,19,11,0,3,10,76.92,24,0
+score_only,400,88,8,80,175,175,0,0,90.91,31.37,0,0,0,0,0,13,5,0,4,9,69.23,18,0
