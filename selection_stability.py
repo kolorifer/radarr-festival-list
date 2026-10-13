@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 
 from hybrid_selection_experiment import evaluate, legacy_keep, score_keep
+from score_rule_experiment import group_points, non_audience_hits
 
 SCORES = Path("evidence-scores.json")
 OUTPUT_JSON = Path("selection-stability.json")
@@ -24,6 +25,16 @@ ANCHOR = {
     "min_non_audience_families": 2,
 }
 
+GROUP_LABELS = {
+    "long_term_canon": "Canon",
+    "bbc_21c": "BBC",
+    "nyt_21c": "NYT",
+    "us_institutional": "US",
+    "european_recognition": "Europe",
+    "independent_cinema": "Indie",
+    "critics_groups_consensus": "Critics",
+}
+
 
 def selected_ids(rows, policy):
     out = set()
@@ -36,6 +47,11 @@ def selected_ids(rows, policy):
 
 
 def compact(row):
+    groups = {
+        key: round(value, 2)
+        for key, value in group_points(row).items()
+        if value > 0
+    }
     return {
         "rank": row.get("overall_rank"),
         "title": row.get("title"),
@@ -43,9 +59,21 @@ def compact(row):
         "imdb_id": row.get("imdb_id"),
         "score": row.get("overall_score"),
         "audience": row.get("audience_score"),
+        "non_audience_families": non_audience_hits(row),
+        "non_audience_points": groups,
         "qualified_old": bool(row.get("qualified")),
         "routes": row.get("routes") or [],
     }
+
+
+def evidence_text(row):
+    return ", ".join(
+        f"{GROUP_LABELS.get(key, key)} {value:.0f}"
+        for key, value in sorted(
+            (row.get("non_audience_points") or {}).items(),
+            key=lambda item: -item[1],
+        )
+    ) or "—"
 
 
 def policy(new_floor, legacy_floor):
@@ -104,7 +132,7 @@ def main():
     legacy_boundary.sort(key=lambda row: (-float(row["score"] or 0), row["title"]))
 
     out = {
-        "mode": "research-selection-stability-v1",
+        "mode": "research-selection-stability-v2-family-detail",
         "qualification_unchanged": True,
         "score_unchanged": True,
         "score_mode": payload.get("mode"),
@@ -141,21 +169,27 @@ def main():
         "",
         "## Score-promotion boundary (unqualified films, 210–239.99)",
         "",
-        "| Film | Score | Audience |",
-        "|---|---:|---:|",
+        "| Film | Score | Audience | Independent non-audience evidence |",
+        "|---|---:|---:|---|",
     ])
     for row in score_boundary:
-        lines.append(f"| {row['title']} ({row['year']}) | {row['score']:.1f} | {float(row['audience'] or 0):.1f} |")
+        lines.append(
+            f"| {row['title']} ({row['year']}) | {row['score']:.1f} | {float(row['audience'] or 0):.1f} | "
+            f"{evidence_text(row)} |"
+        )
 
     lines.extend([
         "",
         "## Legacy-retention boundary (old qualifiers, 160–189.99)",
         "",
-        "| Film | Score | Routes |",
-        "|---|---:|---|",
+        "| Film | Score | Non-audience evidence | Routes |",
+        "|---|---:|---|---|",
     ])
     for row in legacy_boundary:
-        lines.append(f"| {row['title']} ({row['year']}) | {row['score']:.1f} | {', '.join(row['routes']) or '—'} |")
+        lines.append(
+            f"| {row['title']} ({row['year']}) | {row['score']:.1f} | {evidence_text(row)} | "
+            f"{', '.join(row['routes']) or '—'} |"
+        )
 
     OUTPUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps({
