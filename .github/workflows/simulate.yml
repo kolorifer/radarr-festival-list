@@ -22,6 +22,7 @@ on:
       - canon_overlap_experiment.py
       - missing_evidence_audit.py
       - critics_choice_experiment.py
+      - critics_choice_snapshot.py
       - candidate_review_report.py
       - rating_source_audit.py
       - critical_consensus_experiment.py
@@ -43,6 +44,7 @@ on:
       - sources/imdb-audience-discovery.json
       - sources/phase-b-institutional.json
       - sources/sight-sound-2022-top250-modern.json
+      - sources/critics-choice-best-picture.json
       - .github/workflows/simulate.yml
 
 permissions:
@@ -77,6 +79,9 @@ jobs:
                   rank = r['rank'] if r['rank'] is not None else 'OUT'
                   f.write(f"{i:02d}\t{rank}\t{r['year']}\t{r['title']}\t{','.join(r['routes'])}\n")
           PY
+      - name: Refresh Critics Choice static snapshot
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python critics_choice_snapshot.py
       - name: Build evidence-family source snapshot
         if: github.ref_name == 'simulation-4b-union-universe'
         run: python evidence_sources_run.py
@@ -132,7 +137,7 @@ jobs:
       - name: Commit simulation
         run: |
           git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
-          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json evidence-scores.json score-band-analysis.json score-rule-experiment.json hybrid-selection-experiment.json hybrid-policy-review.md ranked-source-correlation.json ranked-source-correlation.md canon-overlap-experiment.json missing-evidence-audit.json missing-evidence-audit.md critics-choice-experiment.json critics-choice-review.md candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json sources/critics-choice-best-picture.json evidence-scores.json score-band-analysis.json score-rule-experiment.json hybrid-selection-experiment.json hybrid-policy-review.md ranked-source-correlation.json ranked-source-correlation.md canon-overlap-experiment.json missing-evidence-audit.json missing-evidence-audit.md critics-choice-experiment.json critics-choice-review.md candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
           if git diff --cached --quiet; then exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions-bot@users.noreply.github.com"
