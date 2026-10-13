@@ -158,3 +158,15 @@ the workflow documentation task.
 - **Rationale:** Product review has selected the model; identity/data quality is
   audited before threshold calibration. D011 remains the historical comparison.
 - **Boundary:** Research-only until explicit production merge/deployment approval.
+
+## D013 — Standing authorization for routine engineering
+
+- **Status/source:** Accepted explicit user instruction,2026-10-13.
+- **Decision:** Codex completes agreed engineering work autonomously, including
+  repository edits, scripts/tests, Git operations, SSH, log/service inspection,
+  API queries and non-destructive debugging.
+- **Rationale:** Avoid unnecessary repeated command confirmations.
+- **Boundary:** Ask for missing credentials/access or uncovered product choices,
+  and before destructive/difficult-to-reverse actions, important data deletion,
+  meaningful external cost, or production behavior beyond the agreed task.
+  The existing specific live-test and production boundaries still apply.

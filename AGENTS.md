@@ -26,6 +26,13 @@ Historical reports and archived briefs are context, not new work assignments.
   update the task brief and execute its engineering scope. Do not make the user
   restate an already agreed task or approve it again solely because a document
   is idle or has not caught up.
+- The user grants standing authorization for routine repository reads/edits,
+  scripts, tests, Git operations, SSH, service/log inspection, API queries and
+  non-destructive debugging required by an agreed task. Carry that scope through
+  implementation and verification; do not ask for command-by-command approval.
+  Ask only before destructive/difficult-to-reverse work, important data deletion,
+  production behavior outside the brief, meaningful external cost, missing
+  credentials/access, or an uncovered product/design decision.
 - Choose routine technical details needed for implementation; explain material
   tradeoffs in the engineering report.
 - Prefer a conservative interpretation when the specification is ambiguous.
