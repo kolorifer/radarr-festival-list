@@ -1,4 +1,8 @@
 import unittest
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 import integrity_rating_enrichment as enrich
 
 class RatingIntegrityTests(unittest.TestCase):
@@ -9,6 +13,21 @@ class RatingIntegrityTests(unittest.TestCase):
         self.assertEqual(existing["imdb"],merged["imdb"])
         self.assertEqual(["letterboxd"],added)
         self.assertNotIn("letterboxd",existing)
+
+    def test_metadata_access_denial_does_not_block_publicly_supported_ratings_route(self):
+        with TemporaryDirectory() as directory:
+            root=Path(directory)
+            path=root/"sources/identity-audit/tmdb.json"
+            path.parent.mkdir(parents=True)
+            path.write_text(json.dumps({"films":{}}))
+            inputs={str(enrich.ace.es.AUDIENCE):{"ratings":{},"unavailable":{}}}
+            movies=[{"imdb_id":"tt0806125","title":"La Morte rouge","year":2006}]
+            with patch.object(enrich.ace,"load_inputs",return_value=inputs), patch.object(enrich.ace,"universe",return_value=movies), patch.object(enrich,"fetch",side_effect=[(None,"HTTP 403"),({"imdb":{"rating":7.2,"votes":2000},"letterboxd":{"rating":3.7,"votes":1200}},None)]), patch.object(enrich.time,"sleep"):
+                result=enrich.enrich(root,"private-key")
+            self.assertEqual("complete",result["status"])
+            saved=json.loads((root/enrich.ace.es.AUDIENCE).read_text())
+            self.assertEqual(3.7,saved["ratings"]["tt0806125"]["reeldb"]["letterboxd"]["rating"])
+            self.assertNotIn("private-key",(root/enrich.OUT/"rating-enrichment.json").read_text())
 
     def test_invalid_ratings_are_not_invented(self):
         merged,added=enrich.safe_merge({},{"letterboxd":{"rating":4.1,"votes":None}})

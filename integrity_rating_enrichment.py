@@ -61,7 +61,7 @@ def enrich(root, key):
         (ratings.get(r["imdb_id"],{}).get("reeldb") or {}).get(source),source)
         for source in ("imdb","letterboxd"))]
     report={"observed_at":datetime.now(timezone.utc).isoformat(),"records":[],
-            "requests":0,"request_budget":100,"existing_valid_values_preserved":True}
+            "requests":0,"request_budget":100,"existing_valid_values_preserved":True,"status":"complete"}
     if pending and not key:
         raise RuntimeError("Missing repository ReelDB key")
     for movie in sorted(pending,key=lambda r:r["imdb_id"]):
@@ -83,8 +83,9 @@ def enrich(root, key):
             attempt={"selector_type":kind,"selector":selector,"metadata_status":error or "ok",
                      "metadata":safe,"rating_status":None}
             record["attempts"].append(attempt)
-            if error in ("HTTP 401","HTTP 403","HTTP 429"):
-                raise RuntimeError("Provider stopped: "+error)
+            if error in ("HTTP 401","HTTP 429"):
+                report["status"]="stopped_metadata_"+error.replace(" ","_")
+                break
             if safe.get("imdb_ids") and iid not in safe["imdb_ids"]:
                 attempt["rating_status"]="rejected_imdb_identity_conflict"
                 continue
@@ -96,7 +97,8 @@ def enrich(root, key):
             report["requests"]+=1
             attempt["rating_status"]=rating_error or "ok"
             if rating_error in ("HTTP 401","HTTP 403","HTTP 429"):
-                raise RuntimeError("Provider stopped: "+rating_error)
+                report["status"]="stopped_ratings_"+rating_error.replace(" ","_")
+                break
             if isinstance(rd,dict):
                 try: incoming.update(ace.safe_ratings(rd))
                 except ValueError: pass
@@ -116,6 +118,8 @@ def enrich(root, key):
             payload.get("unavailable",{}).pop(iid,None)
         record["complete_after"]=all(ace.valid_provider(rr.get(s),s) for s in ("imdb","letterboxd"))
         report["records"].append(record)
+        if report["status"]!="complete":
+            break
         print(json.dumps({"completed":len(report["records"]),"requested":len(pending),
                           "new_components":len(record["added"])}),flush=True)
     payload["ratings_count"]=len(ratings)
@@ -123,7 +127,7 @@ def enrich(root, key):
     ace.write_json(root/ace.es.AUDIENCE,payload)
     ace.write_json(root/OUT/"rating-enrichment.json",report)
     return {"requested":len(pending),"requests":report["requests"],
-            "complete_after":sum(r["complete_after"] for r in report["records"])}
+            "complete_after":sum(r["complete_after"] for r in report["records"]),"status":report["status"]}
 
 def fallback(root):
     inputs=ace.load_inputs(root)
