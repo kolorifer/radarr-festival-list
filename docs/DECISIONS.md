@@ -170,3 +170,13 @@ the workflow documentation task.
   and before destructive/difficult-to-reverse actions, important data deletion,
   meaningful external cost, or production behavior beyond the agreed task.
   The existing specific live-test and production boundaries still apply.
+
+## D014 — Anthology and combined-work attribution
+
+- **Status/source:** Accepted explicit user/ChatGPT qualification-calibration brief,2026-10-13.
+- **Decision:** An award given to an anthology or combined work is not allocated
+  to individual component films unless the awarding body explicitly attributes
+  it to that component.
+- **Consequence:** No arbitrary allocation of Small Axe or combined Nymphomaniac
+  recognition. Existing unresolved records remain explicit. This task simulates
+  qualification policies without altering score weights or production behavior.
