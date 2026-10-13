@@ -93,7 +93,7 @@ def fetch_reeldb(imdb_id, api_key):
 
 
 def collect_reeldb(root, api_key, max_requests=400, interval=1.6,
-                   fetch=fetch_reeldb, sleep=time.sleep):
+                   fetch=fetch_reeldb, sleep=time.sleep, only_ids=None):
     inputs = load_inputs(root)
     movies = sorted(universe(inputs), key=lambda r: r["imdb_id"])
     payload = copy.deepcopy(inputs[str(es.AUDIENCE)])
@@ -103,7 +103,11 @@ def collect_reeldb(root, api_key, max_requests=400, interval=1.6,
                and any(not valid_provider(
                    (ratings.get(m["imdb_id"], {}).get("reeldb") or {}).get(src), src)
                    for src in ("imdb", "letterboxd"))]
+    pending_universe = len(pending)
+    if only_ids is not None:
+        pending = [m for m in pending if m["imdb_id"] in only_ids]
     report = {"candidate_count": len(movies), "pending_before": len(pending),
+              "pending_universe_before": pending_universe,
               "max_requests": max_requests, "attempted": 0, "succeeded": 0,
               "failures": [], "status": "complete", "network_requests": 0,
               "observed_at": datetime.now(timezone.utc).isoformat()}
@@ -204,6 +208,7 @@ def main():
     parser.add_argument("--reeldb", action="store_true")
     parser.add_argument("--imdb", action="store_true")
     parser.add_argument("--max-requests", type=int, default=400)
+    parser.add_argument("--only-id", action="append", default=None)
     args = parser.parse_args()
     if not (args.reeldb or args.imdb):
         parser.error("Choose --reeldb and/or --imdb")
@@ -212,7 +217,7 @@ def main():
     if args.reeldb:
         print(json.dumps(collect_reeldb(args.root,
                          os.environ.get("REELDB_API_KEY", ""),
-                         args.max_requests)), flush=True)
+                         args.max_requests, only_ids=set(args.only_id) if args.only_id else None)), flush=True)
     if args.imdb:
         print(json.dumps(collect_imdb(args.root)), flush=True)
 

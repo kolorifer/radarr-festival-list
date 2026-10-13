@@ -81,5 +81,21 @@ class EnrichmentTests(unittest.TestCase):
             self.assertEqual(report["status"], "request_budget_exhausted")
 
 
+    def test_targeted_retry_preserves_full_universe(self):
+        seen = []
+        def fetch(iid, key):
+            seen.append(iid)
+            return {"imdb": {"rating": 8, "votes": 200000},
+                    "letterboxd": {"rating": 4, "votes": 200000}}
+        with tempfile.TemporaryDirectory() as d, patch.object(
+                ace, "load_inputs", return_value=self.inputs()):
+            report = ace.collect_reeldb(Path(d), "private", fetch=fetch,
+                          sleep=lambda _: None, only_ids={"tt2"})
+            self.assertEqual(seen, ["tt2"])
+            self.assertEqual(report["candidate_count"], 2)
+            self.assertEqual(report["pending_universe_before"], 2)
+            self.assertEqual(report["pending_before"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()
