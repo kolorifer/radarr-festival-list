@@ -19476,7 +19476,20 @@
     },
     "tt11416746": {
       "title": "Time",
-      "year": 2020
+      "year": 2020,
+      "family_scores": {
+        "us_institutional": 30.0,
+        "independent_cinema": 33.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best documentary feature (nominee)"
+        ],
+        "independent_cinema": [
+          "Sundance: grand jury prize / documentary (nominee)",
+          "Sundance: directing award / documentary (winner)"
+        ]
+      }
     },
     "tt0806125": {
       "title": "La Morte rouge",
@@ -19484,7 +19497,15 @@
     },
     "tt0278731": {
       "title": "Spider",
-      "year": 2002
+      "year": 2002,
+      "family_scores": {
+        "european_recognition": 10.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)"
+        ]
+      }
     },
     "tt12913444": {
       "title": "The Inheritance",
@@ -19782,5 +19803,42 @@
         "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
       }
     ]
+  },
+  "corrected_identity_award_provenance": {
+    "source_commit": "8056d2d124b35cc897d1c60673d91eeaffe00dd4",
+    "scope_imdb_ids": [
+      "tt0278731",
+      "tt0806125",
+      "tt11416746",
+      "tt12913444"
+    ],
+    "source_file": "simulations/data-identity-integrity/inputs/corrected-award-evidence.json",
+    "scored": {
+      "tt11416746": {
+        "family_scores": {
+          "us_institutional": 30.0,
+          "independent_cinema": 33.0
+        },
+        "family_evidence": {
+          "us_institutional": [
+            "Academy: oscar / best documentary feature (nominee)"
+          ],
+          "independent_cinema": [
+            "Sundance: grand jury prize / documentary (nominee)",
+            "Sundance: directing award / documentary (winner)"
+          ]
+        }
+      },
+      "tt0278731": {
+        "family_scores": {
+          "european_recognition": 10.0
+        },
+        "family_evidence": {
+          "european_recognition": [
+            "Cannes: palme d'or / palme d'or (nominee)"
+          ]
+        }
+      }
+    }
   }
 }

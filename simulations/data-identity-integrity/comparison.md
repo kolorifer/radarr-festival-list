@@ -1,6 +1,6 @@
 # Research data integrity: before and after
 
-Audience=150 (0.75 × IMDb + Letterboxd), effective ceiling1000. Other family weights, canon correlation and qualification are unchanged. Research only; no production rollout.
+Audience=150 (0.75 × (IMDb + Letterboxd)), effective ceiling1000. Other family weights, canon correlation and qualification are unchanged. Research only; no production rollout.
 
 ## Identity audit
 Audited 951 TSPDT/backcatalog records; 227 flagged for closer inspection. Counts: {'confirmed_correct': 946, 'corrected': 5, 'unresolved': 0}.
@@ -334,18 +334,18 @@ Missing components remain zero without renormalization. Missing data is not a cl
 | critics_choice_best_picture | Wicked: For Good | unresolved | Not an obvious alias for an existing candidate; retained outside-universe/identity review |
 
 ## Score and rank changes
-18 retained films change score; 903 change ordinal rank. Substituted identities are shown separately because their before/after scores refer to different works.
+18 retained films change score; 1208 change ordinal rank. Substituted identities are shown separately because their before/after scores refer to different works.
 
 | Film | Score before | After | Delta | Rank before | After |
 | --- | --- | --- | --- | --- | --- |
 | Birdman or (The Unexpected Virtue of Ignorance) | 336.92 | 440.52 | 103.6 | 145 | 65 |
 | Caché | 372.0 | 452.0 | 80.0 | 104 | 59 |
 | Mangrove | 37.04 | 84.65 | 47.61 | 1821 | 1273 |
-| Lovers Rock | 100.78 | 147.77 | 46.99 | 1074 | 665 |
-| Spider-Man | 147.57 | 107.23 | -40.34 | 665 | 1013 |
+| Lovers Rock | 100.78 | 147.77 | 46.99 | 1074 | 666 |
+| Spider-Man | 147.57 | 107.23 | -40.34 | 665 | 1014 |
 | Parasite | 734.21 | 769.21 | 35.0 | 3 | 2 |
 | The Lord of the Rings: The Return of the King | 480.27 | 505.27 | 25.0 | 44 | 40 |
-| Compartment Number 6 | 134.96 | 158.96 | 24.0 | 748 | 597 |
+| Compartment Number 6 | 134.96 | 158.96 | 24.0 | 748 | 598 |
 | 120 BPM (Beats Per Minute) | 284.89 | 308.89 | 24.0 | 212 | 173 |
 | Goodbye to Language | 271.43 | 294.08 | 22.65 | 231 | 197 |
 | Crouching Tiger, Hidden Dragon | 665.52 | 679.78 | 14.26 | 7 | 6 |
@@ -354,42 +354,42 @@ Missing components remain zero without renormalization. Missing data is not a cl
 | The Lord of the Rings: The Fellowship of the Ring | 457.84 | 459.84 | 2.0 | 54 | 54 |
 | The Lord of the Rings: The Two Towers | 393.17 | 395.17 | 2.0 | 90 | 91 |
 | Master and Commander: The Far Side of the World | 308.89 | 310.89 | 2.0 | 172 | 170 |
-| Sweeney Todd: The Demon Barber of Fleet Street | 112.75 | 114.75 | 2.0 | 955 | 930 |
-| Star Wars: Episode VII - The Force Awakens | 74.08 | 76.08 | 2.0 | 1431 | 1406 |
+| Sweeney Todd: The Demon Barber of Fleet Street | 112.75 | 114.75 | 2.0 | 955 | 931 |
+| Star Wars: Episode VII - The Force Awakens | 74.08 | 76.08 | 2.0 | 1431 | 1407 |
 
 ### Largest ranking movements
 | Film | Rank before | After | Movement | Score delta |
 | --- | --- | --- | --- | --- |
 | Mangrove | 1821 | 1273 | 548 | 47.61 |
-| Lovers Rock | 1074 | 665 | 409 | 46.99 |
-| Spider-Man | 665 | 1013 | -348 | -40.34 |
-| Compartment Number 6 | 748 | 597 | 151 | 24.0 |
+| Lovers Rock | 1074 | 666 | 408 | 46.99 |
+| Spider-Man | 665 | 1014 | -349 | -40.34 |
+| Compartment Number 6 | 748 | 598 | 150 | 24.0 |
 | Birdman or (The Unexpected Virtue of Ignorance) | 145 | 65 | 80 | 103.6 |
 | Caché | 104 | 59 | 45 | 80.0 |
 | 120 BPM (Beats Per Minute) | 212 | 173 | 39 | 24.0 |
 | Goodbye to Language | 231 | 197 | 34 | 22.65 |
-| Sweeney Todd: The Demon Barber of Fleet Street | 955 | 930 | 25 | 2.0 |
-| Star Wars: Episode VII - The Force Awakens | 1431 | 1406 | 25 | 2.0 |
+| Sweeney Todd: The Demon Barber of Fleet Street | 955 | 931 | 24 | 2.0 |
+| Star Wars: Episode VII - The Force Awakens | 1431 | 1407 | 24 | 2.0 |
 | Waltz with Bashir | 155 | 147 | 8 | 9.44 |
 | The Lord of the Rings: The Return of the King | 44 | 40 | 4 | 25.0 |
 | The Act of Killing | 89 | 92 | -3 | 0.0 |
-| The Other Side of the Wind | 1000 | 998 | 2 | 0.0 |
-| High Fidelity | 980 | 978 | 2 | 0.0 |
-| Nowhere in Africa | 994 | 992 | 2 | 0.0 |
-| Spirit: Stallion of the Cimarron | 1009 | 1007 | 2 | 0.0 |
 | Dancer in the Dark | 82 | 84 | -2 | 0.0 |
 | Erin Brockovich | 206 | 208 | -2 | 0.0 |
-| Trouble Every Day | 996 | 994 | 2 | 0.0 |
 | Children of Men | 72 | 74 | -2 | 0.0 |
 | Memento | 66 | 68 | -2 | 0.0 |
+| The Captive | 1422 | 1424 | -2 | 0.0 |
 | The Piano Teacher | 97 | 99 | -2 | 0.0 |
-| Road to Perdition | 928 | 926 | 2 | 0.0 |
-| Ice Age | 1007 | 1005 | 2 | 0.0 |
 | Dogville | 200 | 202 | -2 | 0.0 |
-| Bloody Sunday | 964 | 962 | 2 | 0.0 |
 | Zelary | 1737 | 1739 | -2 | 0.0 |
+| The Butterfly Effect | 1408 | 1410 | -2 | 0.0 |
+| The Phantom of the Opera | 1417 | 1419 | -2 | 0.0 |
 | American Splendor | 207 | 209 | -2 | 0.0 |
-| Sympathy for Mr. Vengeance | 957 | 955 | 2 | 0.0 |
+| Waiting for Happiness | 1416 | 1418 | -2 | 0.0 |
+| Master and Commander: The Far Side of the World | 172 | 170 | 2 | 2.0 |
+| The Man Without a Past | 102 | 104 | -2 | 0.0 |
+| The Motorcycle Diaries | 211 | 213 | -2 | 0.0 |
+| Lakshya | 1738 | 1740 | -2 | 0.0 |
+| Head-On | 203 | 205 | -2 | 0.0 |
 
 ### Top50 / top100
 | Set | Membership changes | Common ranks changed | Largest rank change |
@@ -404,9 +404,9 @@ The report gives numerical membership/order effects; materiality remains a produ
 | --- | --- | --- |
 | min | 0.0 | 0.0 |
 | max | 803.78 | 803.78 |
-| mean | 148.32 | 148.48 |
-| median | 112.75 | 112.61 |
-| stddev_population | 113.95 | 114.38 |
+| mean | 148.32 | 148.52 |
+| median | 112.75 | 112.7 |
+| stddev_population | 113.95 | 114.37 |
 
 Score percentiles and diagnostic-band counts are in comparison.json.
 
