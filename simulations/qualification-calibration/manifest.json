@@ -2170,8 +2170,15 @@
     "tt0970184",
     "tt0316013"
   ],
-  "code_sha256": "5ca3c0d6b2cd5ab3cd491259b07cc03b2c1c52b4f57b8687c1c913afd0b550d1",
-  "config_sha256": "2dec0b63d50a06a6f875eeddf9294e16b66772c745763a191899abfe1a3a51aa",
+  "code_sha256": "c5df26062861adbf6a820aea0d66700e3ec999a9d7e63a12dcafaf797b95ebcd",
+  "config_sha256": "eee4821db35806ac9db7a1a969b1ad332fbea0350504ac238531c518f1554d9a",
+  "deployed_snapshot": {
+    "commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "count": 224,
+    "path": "simulations/qualification-calibration/inputs/deployed-qualifiers.json",
+    "role": "Diagnostic only. Primary comparison remains the explicitly requested255-film PR#3 baseline.",
+    "sha256": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4"
+  },
   "effective_ceiling": 1000,
   "family_weights": {
     "bbc_21c": 100,
@@ -2195,6 +2202,7 @@
     "simulation-qualifiers.json": "24dd1a05cf2fcc8cc0f018a384efeca4f01ac9b8e17ebacfe1f3fa59d780ca79",
     "simulations/data-identity-integrity/award-identity-audit.json": "2e805057e4754f6f9cc15cd7cd701b11017eddcbad43da31a10fd8ea083a6e66",
     "simulations/data-identity-integrity/evidence-score-150.json": "074e422a74ed43d364ef8daea69522356592f4afc74a728dbff3072179d3770b",
+    "simulations/qualification-calibration/inputs/deployed-qualifiers.json": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4",
     "sources/critics-choice-best-picture.json": "a464d3ba6261713bc5104542d5a5a47eecdbba36ac2044e46909550df0083142",
     "sources/evidence-families.json": "73e6ade1d4d17ba2397c40276b4644a0f5b8ce09850e370740442bc271db6522",
     "sources/identity-overrides.json": "d7f8d80df8ece4f1175921b8946a90df854b2bfc8577e4bdc3cd40751aa50a07",

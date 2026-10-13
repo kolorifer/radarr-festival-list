@@ -4182,9 +4182,17 @@
       "year": 2023
     }
   ],
+  "comparison_baseline_semantics": "Requested255-film cleaned PR#3 frozen baseline; deployed snapshot has 224 and is diagnostic only",
   "config": {
     "baseline_commit": "762d6af242c84e26e2007d2a175b08c7e9c3b2a8",
     "borderline_window": 10,
+    "deployed_snapshot": {
+      "commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+      "count": 224,
+      "path": "simulations/qualification-calibration/inputs/deployed-qualifiers.json",
+      "role": "Diagnostic only. Primary comparison remains the explicitly requested255-film PR#3 baseline.",
+      "sha256": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4"
+    },
     "example_limit": 10,
     "negative_taste_labels_available": false,
     "policies": [
@@ -4230,6 +4238,13 @@
       350,
       400
     ]
+  },
+  "deployed_snapshot": {
+    "commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "count": 224,
+    "path": "simulations/qualification-calibration/inputs/deployed-qualifiers.json",
+    "role": "Diagnostic only. Primary comparison remains the explicitly requested255-film PR#3 baseline.",
+    "sha256": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4"
   },
   "distribution": {
     "all": {

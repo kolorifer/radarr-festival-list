@@ -6,6 +6,8 @@ No policy/threshold is selected; no production change or Radarr action.
 
 ## Definitions and limits
 
+Baseline discrepancy: the requested cleaned PR #3 set has 255 qualification records; the deployed c7a4582 snapshot has 224. All 224 are a subset of 255 with identical routes. Every Current/Retained/Lost/New column below is relative to the requested 255 comparator, not the live 224 snapshot. The pinned deployed input is retained for diagnosis; production is unchanged. See inputs/deployed-qualifiers.json and the engineering report. This distinction must be reviewed before future production adoption.
+
 Thresholds use the published absolute score and inclusive >=. Family contribution means positive points. TSPDT/Sight&Sound count together as canon for B/C/E; raw counts remain available. Critics Groups remains its existing merged award/broad-critic family; a small positive broad-critic contribution counts, so family count is not evidence strength.
 
 Existing qualification is a comparison label, not ground truth for quality. Overlap%=existing-qualified selected / all selected; retention%=selected baseline /255. These are agreement metrics, not validated precision/recall of user taste.
@@ -14,7 +16,7 @@ Recent=2020 onward; borderline=within 10 points, diagnostics only. Known watched
 
 No taste value affects scores/decisions; unknown films are unlabelled, not negative examples. The thirteen existing positive signals are all baseline-qualified; the 33 watched annotations are also all baseline-qualified. This small positive-only sample cannot validate newly admitted films or estimate taste precision. No anthology/combined-work award is allocated to components.
 
-Nine Letterboxd gaps and 32 unresolved award-source records remain from PR#3. ReelDB HTTP 403 is unchanged; no live enrichment in this task. Scores with missing data remain observed lower evidence; upper bounds never fabricate ratings. Recent films have fewer historical-poll eligibility opportunities; thresholds are not renormalized.
+Nine Letterboxd gaps and 32 unresolved award-source records remain from PR #3. ReelDB HTTP 403 is unchanged; no live enrichment in this task. Scores with missing data remain observed lower evidence; upper bounds never fabricate ratings. Recent films have fewer historical-poll eligibility opportunities; thresholds are not renormalized.
 
 | Code | Research predicate |
 | --- | --- |
