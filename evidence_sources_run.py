@@ -5,7 +5,8 @@ resolver, replaces the old third-party Sight & Sound seed with a static snapshot
 of the official BFI 2022 critics' poll top 250, prevents parallel/technical
 Cannes prizes from being mistaken for the main Grand Prix, adds audience-
 discovered films to the identity catalog so current awards can corroborate them,
-and then adds EFA, Gotham and critics-group evidence.
+and then adds EFA, Gotham, critics-group evidence and the static official-derived
+Critics Choice Best Picture snapshot.
 """
 import csv
 import io
