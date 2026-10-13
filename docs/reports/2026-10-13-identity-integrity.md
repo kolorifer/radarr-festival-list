@@ -7,6 +7,15 @@ Product acceptance and Evidence Score thresholds remain with the user/ChatGPT.
 **PR:** [Draft #3](https://github.com/kolorifer/radarr-festival-list/pull/3), targeting research/audience-cap-calibration.
 **Verification:** 2026-10-13, seedbox through SSH and GitHub Actions.
 
+## Qualification baseline correction
+
+The next calibration verified 224 qualified lookup records in deployed c7a4582,
+whereas this research branch's frozen comparison file contains 255. All 224 are
+included in the 255 with identical routes. References in this report to 255
+qualification records concern the research comparator, not the deployed lookup.
+No production change occurred. See the
+[calibration report](2026-10-13-qualification-calibration.md).
+
 ## What changed
 
 A full audit of the cached TSPDT/backcatalog resolutions found five confirmed
@@ -307,7 +316,7 @@ the remaining provider mappings cannot be fully verified.
 - Provider-denial fix/regression: [ae364a0](https://github.com/kolorifer/radarr-festival-list/commit/ae364a0a6ca77b8e0125d37248dc7a32aae86cab).
 - Corrected award restoration: [87279b4](https://github.com/kolorifer/radarr-festival-list/commit/87279b4f448b1ba2d3c362d27d62ed52e7a892d3).
 - Final generated data: [1451d54](https://github.com/kolorifer/radarr-festival-list/commit/1451d54d67a5cb82b1a814d640866fe30a5a088d).
-- [Draft PR#3](https://github.com/kolorifer/radarr-festival-list/pull/3); no merge. This report's containing commit
+- [Draft PR #3](https://github.com/kolorifer/radarr-festival-list/pull/3); no merge. This report's containing commit
   supplies the final documentation/handoff revision.
 
 ## Project context updates

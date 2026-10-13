@@ -1,0 +1,246 @@
+{
+  "date": "2026-10-13",
+  "baseline_commit": "762d6af242c84e26e2007d2a175b08c7e9c3b2a8",
+  "implementation_commit": "ee50fa96f5b63986793187598f991d793dfbb70d",
+  "baseline_diagnostic_commit": "7861c963623ec096d21a11ae442488300f4ef8f6",
+  "data_commit": "f93c21dc006686b2209ca3e3c5acbb6406376b9b",
+  "tests_passed": 105,
+  "new_regressions": 19,
+  "test_command": "~/radarr-festival-list/.venv/bin/python -m unittest -v",
+  "pip_check": "passed",
+  "frozen_inputs_verified": 15,
+  "candidates": 1909,
+  "policy_count": 60,
+  "requested_baseline_count": 255,
+  "production_lookup_count": 224,
+  "production_snapshot_comparison": {
+    "research_count": 255,
+    "production_count": 224,
+    "only_research": [
+      {
+        "id": "tt0283509",
+        "title": "No Man's Land"
+      },
+      {
+        "id": "tt0892769",
+        "title": "How to Train Your Dragon"
+      },
+      {
+        "id": "tt1016150",
+        "title": "All Quiet on the Western Front"
+      },
+      {
+        "id": "tt10272386",
+        "title": "The Father"
+      },
+      {
+        "id": "tt12888462",
+        "title": "My Octopus Teacher"
+      },
+      {
+        "id": "tt1313104",
+        "title": "The Cove"
+      },
+      {
+        "id": "tt1454029",
+        "title": "The Help"
+      },
+      {
+        "id": "tt1488589",
+        "title": "Guillermo del Toro's Pinocchio"
+      },
+      {
+        "id": "tt16277242",
+        "title": "Society of the Snow"
+      },
+      {
+        "id": "tt1645089",
+        "title": "Inside Job"
+      },
+      {
+        "id": "tt17041964",
+        "title": "Navalny"
+      },
+      {
+        "id": "tt1865505",
+        "title": "Song of the Sea"
+      },
+      {
+        "id": "tt1950186",
+        "title": "Ford v Ferrari"
+      },
+      {
+        "id": "tt2119532",
+        "title": "Hacksaw Ridge"
+      },
+      {
+        "id": "tt2125608",
+        "title": "Searching for Sugar Man"
+      },
+      {
+        "id": "tt2245084",
+        "title": "Big Hero 6"
+      },
+      {
+        "id": "tt2380307",
+        "title": "Coco"
+      },
+      {
+        "id": "tt24082438",
+        "title": "20 Days in Mariupol"
+      },
+      {
+        "id": "tt2948356",
+        "title": "Zootopia"
+      },
+      {
+        "id": "tt2948372",
+        "title": "Soul"
+      },
+      {
+        "id": "tt3011894",
+        "title": "Wild Tales"
+      },
+      {
+        "id": "tt3741834",
+        "title": "Lion"
+      },
+      {
+        "id": "tt4729430",
+        "title": "Klaus"
+      },
+      {
+        "id": "tt5027774",
+        "title": "Three Billboards outside Ebbing, Missouri"
+      },
+      {
+        "id": "tt5186714",
+        "title": "The Salesman"
+      },
+      {
+        "id": "tt5363618",
+        "title": "Sound of Metal"
+      },
+      {
+        "id": "tt6333060",
+        "title": "Icarus"
+      },
+      {
+        "id": "tt7775622",
+        "title": "Free Solo"
+      },
+      {
+        "id": "tt8267604",
+        "title": "Capernaum"
+      },
+      {
+        "id": "tt8579674",
+        "title": "1917"
+      },
+      {
+        "id": "tt9362722",
+        "title": "Spider-Man: Across the Spider-Verse"
+      }
+    ],
+    "only_production": [],
+    "routes_different": [],
+    "other_fields": [
+      {
+        "imdb_id": "tt6966692",
+        "fields": [
+          "evidence"
+        ]
+      },
+      {
+        "imdb_id": "tt10366460",
+        "fields": [
+          "evidence"
+        ]
+      },
+      {
+        "imdb_id": "tt0299658",
+        "fields": [
+          "evidence"
+        ]
+      },
+      {
+        "imdb_id": "tt4034228",
+        "fields": [
+          "sources"
+        ]
+      },
+      {
+        "imdb_id": "tt2562232",
+        "fields": [
+          "evidence"
+        ]
+      },
+      {
+        "imdb_id": "tt1024648",
+        "fields": [
+          "evidence"
+        ]
+      }
+    ],
+    "other_field_count": 6
+  },
+  "production": {
+    "head": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "clean": true,
+    "service": "NRestarts=0\nActiveState=active\nSubState=running",
+    "health": {
+      "local": 200,
+      "public": 200
+    },
+    "qualification_file_matches": false,
+    "lookup_qualified_count": 224,
+    "snapshot_sha256": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4"
+  },
+  "reproducibility": {
+    "generated_artifacts_matched": 19,
+    "pinned_deployed_input_matched": true,
+    "sha256": {
+      "calibration.json": "c36ad134bed5c13f38b3a09ad00522c5766d3a1c870c9cbe045ac07ddf72ac8e",
+      "candidates/A_keep_existing_250-borderline.csv": "70a0da79afef391a5b6b618a508fcfd3566b6e0d1fc09c217599ee1aa090a889",
+      "candidates/A_keep_existing_250-lost.csv": "440485f5c33c642a4d7921420dd7a405f7b96390c398b23dfa1482bef2efb960",
+      "candidates/A_keep_existing_250-new.csv": "d0b2065d84ae3641ef3c0c94f5f56f3188021c95b18f8c7dd71c6a21e833f488",
+      "candidates/A_keep_existing_300-borderline.csv": "bdb67acf7f632d3349dabdb0aeecc266da83f0104b108a4010f0a233191f653e",
+      "candidates/A_keep_existing_300-lost.csv": "440485f5c33c642a4d7921420dd7a405f7b96390c398b23dfa1482bef2efb960",
+      "candidates/A_keep_existing_300-new.csv": "5b1a107aa0d8d1d1aaf70a67e9de1e23fa460d2c0bc31de108fd7432709041df",
+      "candidates/D_audience_half_200-borderline.csv": "b26922f45fdf1e8230993061ff0e8dc06ccc79bfb26f5cb1f2b4409c7f4ee3ca",
+      "candidates/D_audience_half_200-lost.csv": "9b93f60657a1270d029297f19f9f271201783318d977d5f8da2fa1622c0842ad",
+      "candidates/D_audience_half_200-new.csv": "885ef18360f9db49a70fb0f78684dac88d04a3fb3f63698e4daf19a551af0af4",
+      "candidates/E_low_evidence_guard_125-borderline.csv": "8731a79a27ccc7d089d7b3cefd49e58494df6f160700e6ab9b3212599ce9a713",
+      "candidates/E_low_evidence_guard_125-lost.csv": "dfa3996afc0dd1a4cbff65431b31781a68e4bd5dbcd014a64f43d720c5ac88bd",
+      "candidates/E_low_evidence_guard_125-new.csv": "002d1e34637ce7ae30e48deda10d8751e580f062e5395b6f0ddf6755991e042a",
+      "inputs/deployed-qualifiers.json": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4",
+      "manifest.json": "59b20973e435dff1a8bcbc3f2f18c29129912966ac0b619811253ecb73d06c8f",
+      "per-film-policies.csv": "488c91d730d535dd3de9beea74469105558f2e15fd48164197fc8d9a9676d8f9",
+      "policy-comparison.csv": "18fe51d70d4f404b013448050686d221b11bb3fb24f0f78de50e67c6a07ffa2f",
+      "score-only-losses.csv": "82720ab5f70e6acfdaad06c55b290289ac85e72270c6d6cc0b84a61972453d0d",
+      "summary.md": "4a906da9429a7f9a7958a565a481308ebf0e0e064c0e16b9f5cd9fac65b462aa",
+      "threshold-summary.csv": "17088be746ea52a0c5b92e8833659cc7fa04feea87dea4f378647e9cf94805b6"
+    }
+  },
+  "csv_json_consistency": "passed",
+  "configured_secret_scan": "passed",
+  "github_actions": {
+    "run": 38444911888,
+    "result": "success",
+    "url": "https://github.com/kolorifer/radarr-festival-list/actions/runs/38444911888"
+  },
+  "production_changed": false,
+  "radarr_calls": false,
+  "deployed": false,
+  "final_policy": null,
+  "final_threshold": null,
+  "final_handoff_checks": {
+    "configured_secret_scan": "passed",
+    "private_url_pattern_scan": "passed",
+    "changed_paths_scanned": 33,
+    "json_parse": "passed",
+    "relative_links": "passed",
+    "full_diff_whitespace": "passed",
+    "generated_artifact_hashes_preserved": true
+  }
+}
