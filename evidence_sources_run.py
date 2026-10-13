@@ -11,6 +11,7 @@ Critics Choice Best Picture snapshot.
 import csv
 import io
 import json
+import time
 from pathlib import Path
 
 import evidence_sources as es
@@ -52,7 +53,20 @@ def get_text(url):
     # the old third-party top-100 seed merely to overwrite it later.
     if url == SIGHT_SOUND_SENTINEL:
         return ""
-    return _ORIGINAL_GET_TEXT(url)
+
+    # External evidence archives occasionally reset a CI connection. Retry a few
+    # times, but never swallow a persistent failure: reproducibility is preferable
+    # to silently generating a partial score snapshot.
+    last_error = None
+    for attempt in range(4):
+        try:
+            return _ORIGINAL_GET_TEXT(url)
+        except Exception as exc:
+            last_error = exc
+            if attempt == 3:
+                raise
+            time.sleep(1.5 * (attempt + 1))
+    raise last_error
 
 
 def parse_ranked(text):
