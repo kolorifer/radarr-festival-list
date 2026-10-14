@@ -2,7 +2,9 @@
 
 **Specification:** [Assigned brief](2026-10-14-radarr-snapshot-bridge-brief.md).
 **Result:** Implemented and tested; deployment/publication pending private seedbox GitHub credential.
-**Branch:** production/radarr-snapshot-bridge, based on main 65d1b8b.
+**Branch:** production/radarr-snapshot-bridge, based on main65d1b8b.
+**Implementation:** 9e69bc2937d02dd1e7eef56af689c089e1bff58e.
+**Draft PR:** [#8](https://github.com/kolorifer/radarr-festival-list/pull/8).
 **Verification:** 2026-10-14, existing seedbox Python 3.13.5.
 
 ## What changed
@@ -54,7 +56,10 @@ movie_file_id, date_added, tags. No Overview, filesystem/root paths, queue,
 releases, downloader details or server/credential fields are exported.
 
 The existing GitHub connection can access kolorifer/radarr-state; its visibility
-was independently verified private. File read/publication still needs live proof.
+was independently verified private. The initial sanitized file was published through the GitHub connection at
+8a4fca6891e985b8fdf9ff6709159e22a5ec0881. Connector fetch returned identical
+bytes and all990 rows. Seedbox publisher authentication remains pending.
+PR #8 CI run38579787562 passed on Python3.12 and3.13.
 
 ## Deployment and remaining access
 
@@ -65,8 +70,8 @@ requires a repository-limited Contents read/write token entered privately throug
 deploy/setup-github-state.py. The repository connector itself cannot supply a
 credential to an unattended seedbox process.
 
-After private credentials are available: live snapshot-only --publish, verify
-connector file access/content, merge validated implementation, back up current
+After private credentials are available: test seedbox snapshot-only --publish,
+reverify connector file access/content, merge validated implementation, back up current
 revision and private sync configuration, switch the clean deployed checkout,
 verify unchanged scheduler and movie-intel health. Do not manually trigger an
 apply or a real download to validate snapshot export.
