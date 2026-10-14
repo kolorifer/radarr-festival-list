@@ -18,6 +18,9 @@ def main():
     if args and args[0] == "--snapshot-only":
         script = "radarr_snapshot.py"
         args = args[1:]
+    elif args and args[0] == "--watched-only":
+        script = "radarr_watched_tags.py"
+        args = args[1:]
     os.execv(sys.executable, [sys.executable, "-u", str(root / script), *args])
 
 if __name__ == "__main__":
