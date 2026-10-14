@@ -3,6 +3,33 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Private Radarr read-only snapshot bridge
+
+D018 implemented on production/radarr-snapshot-bridge, PR #8 merged at93a5761.
+Deployed runtime is the validated merge; the subsequent documentation handoff
+preserves runtime bytes. The same daily Movie List sync exports/publishes only
+after successful reconciliation, with no second timer or Radarr credential store.
+
+Private kolorifer/radarr-state/radarr-current.json has990 records. Live seedbox
+publication and GitHub-connection readback are verified; all IDs/flags/tag labels
+match, repeat exports are deterministic except timestamp, and generation made
+zero Radarr writes. Snapshot/config/GitHub credential stay private with mode600.
+One pre-existing missing IMDb ID remains null. Only schema-v1 allowlisted library
+fields are exported; no Overview, paths, queue/releases or connection credentials.
+
+133 tests (26 new), Python3.12/3.13 CI, pip check, preflight and frozen-catalog
+validation pass. Existing timer/unit bytes are unchanged. movie-intel remains
+active/running, same PID, zero restarts, local/public health200.
+No manual reconciliation/apply or real download was triggered.
+The first naturally scheduled hook run has not yet elapsed; its actual CLI
+integration is tested and the deployed publisher is separately live-verified.
+No access blocker remains. Keep the state repository private; token expiry can
+cause stale snapshots without stopping/repeating reconciliation.
+
+[Runbook](../deploy/RADARR_SNAPSHOT.md) ·
+[Engineering report](reports/2026-10-14-radarr-snapshot-bridge.md).
+Current implementation task is idle.
+
 ## D017 Radarr Movie List membership and score-band sync
 
 Implemented on production/radarr-movie-list-sync, PR #7 merged at

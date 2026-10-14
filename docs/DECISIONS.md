@@ -261,3 +261,20 @@ the workflow documentation task.
 - **Scheduler:** movie-list-sync.timer, daily 03:43 UTC + up to 15min delay, one
   user-systemd path with a private overlap lock. Installed oneshot completed
   successfully with zero additional writes.
+
+## D018 — Private read-only Radarr snapshot bridge
+
+- **Status/source:** Explicit assigned brief on main65d1b8b, implemented/deployed2026-10-14.
+- **Decision:** Reuse the existing successful daily reconciliation and private
+  Radarr credentials to publish one sanitized current-state file in private
+  kolorifer/radarr-state; no additional scheduler or Radarr integration.
+- **Boundary:** Snapshot generation makes only read requests. Strict schema
+  excludes credentials, server details, filesystem paths, Overview and
+  queue/release/downloader information. Never publish it in the public project.
+- **Failure behavior:** Failed export/publication is reported separately, never
+  repeats reconciliation or changes Radarr as an export side effect.
+- **Verified:** PR #8 merged at93a5761;133 tests. Live990-row private snapshot,
+  deterministic content except generation time, zero Radarr writes, seedbox
+  publisher and existing GitHub connection readback verified. Normal GitHub
+  commit versions remain; only one current-state file is maintained.
+- **Report:** [Implementation/deployment](reports/2026-10-14-radarr-snapshot-bridge.md).
