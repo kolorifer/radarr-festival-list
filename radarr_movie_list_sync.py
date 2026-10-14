@@ -77,7 +77,7 @@ class API:
                    or method == "PUT" and path == "/movie/editor")
         if method != "GET" and not allowed:
             raise SyncError("Unsupported Radarr write operation")
-        if method == "PUT" and set(payload) != {"movieIds", "tags", "applyTags"}:
+        if method == "PUT" and (set(payload) != {"movieIds", "tags", "applyTags"} or payload.get("applyTags") not in ("add","remove")):
             raise SyncError("Movie editor must change tags only")
         if method == "POST" and path == "/movie":
             if payload.get("addOptions") != {"searchForMovie":False} or payload.get("monitored") is not True:

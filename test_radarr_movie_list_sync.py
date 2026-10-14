@@ -177,6 +177,9 @@ class SyncTests(unittest.TestCase):
         with self.assertRaises(sync.SyncError):
             self.api.request("/movie/editor","PUT",{"movieIds":[1],"tags":[1],"applyTags":"add","monitored":True})
 
+        with self.assertRaises(sync.SyncError):
+            self.api.request("/movie/editor","PUT",{"movieIds":[1],"tags":[1],"applyTags":"replace"})
+
     def test_root_profile_single_library_convention(self):
         snap,_=self.plan();settings=sync.choose_settings(snap)
         self.assertEqual(settings["quality_profile_id"],7)
