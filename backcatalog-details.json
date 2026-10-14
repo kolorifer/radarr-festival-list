@@ -288,8 +288,8 @@
       "country": "Argentina",
       "runtime": 103,
       "status": "candidate",
-      "watch_state": "watched",
-      "recommended_monitored": false
+      "watch_state": "unknown",
+      "recommended_monitored": true
     },
     {
       "title": "The White Ribbon",
@@ -323,8 +323,8 @@
       "country": "Thailand",
       "runtime": 114,
       "status": "candidate",
-      "watch_state": "watched",
-      "recommended_monitored": false
+      "watch_state": "unknown",
+      "recommended_monitored": true
     },
     {
       "title": "Melancholia",
