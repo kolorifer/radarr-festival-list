@@ -1,0 +1,42 @@
+name: Final production-baseline threshold comparison
+on:
+  push:
+    branches: [research/p225-vs-p250]
+    paths:
+      - .github/workflows/p225-vs-p250.yml
+      - production_threshold_calibration.py
+      - production-threshold-config.json
+      - test_production_threshold_calibration.py
+      - simulations/p225-vs-p250/inputs/research31-history.json
+permissions:
+  contents: write
+concurrency:
+  group: p225-vs-p250-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -r requirements.txt
+      - name: Verify production baseline and frozen-score invariants
+        run: |
+          python -m unittest -v
+          python -m pip check
+      - name: Generate offline P225/P250 artifacts
+        run: python production_threshold_calibration.py
+      - name: Commit only final research comparison artifacts
+        run: |
+          git add simulations/p225-vs-p250
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions-bot@users.noreply.github.com"
+          git commit -m "Generate P225/P250 research comparison using deployed224 baseline"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

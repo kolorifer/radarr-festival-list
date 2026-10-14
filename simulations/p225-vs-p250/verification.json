@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-14",
+  "starting_commit": "64d1f61a547de1e8330646a104656e1072720782",
+  "source_commit": "539b751d4cae9752320e5d555d66a7acdf14c88b",
+  "data_commit": "9e9c528007948b1c79d328a09a08d06e4814faa1",
+  "deployed_commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+  "authoritative_baseline_count": 224,
+  "research_diagnostic_count": 255,
+  "research_only_count": 31,
+  "tests_passed": 120,
+  "new_regressions": 15,
+  "pip_check": "passed",
+  "reproducibility": {
+    "generated_artifacts": 15,
+    "frozen_history_input_matches": true,
+    "sha256": {
+      "P225-new.csv": "7cae5ea3cf8aed2296b25509a2431985416497f904dfd3e7c82717bbad442d2d",
+      "P225-only-vs-P250.csv": "081fa9f9fda4e96606002d09b7550c32cf96f9e29549cfedb85f4083d6bbf086",
+      "P250-new.csv": "6e29d1aca81aa3203a6e1604aee457fa7a5dc2ce94a80f170955d3e808a1f176",
+      "baseline-reconciliation.csv": "078ae08b9e35f59743658d2f618886d0fb307a9069a3ef736dc0bdf3a45c6d5a",
+      "borderline-P225.csv": "adf237421cbdeb5764598c396c09256e5c76479b0e64de5c89910817fbdc30d9",
+      "borderline-P250.csv": "c37cf43c1d22d0922d9aa0179922b5500de88463831769ff382737390cc1d29e",
+      "borderline-band-210-225.csv": "72e5995cae0fb3c677ce2dde8aacbc40f748973ddc249b13262f1be92328f0fb",
+      "borderline-band-225-240.csv": "6fc057593afed1a90ecd6ddbe22be61d2357caf80396ff9b1f1ff1f7a76970b2",
+      "borderline-band-240-250.csv": "d613e740dc15f3d35cded656618cc3db7c4505490339e049564b12ccb4d8c51a",
+      "borderline-band-250-265.csv": "1df7fae830fd965ec786413d367ce0ecf8781a678773da5bacdeb9a37a6f9047",
+      "comparison.json": "1ceb46130053fc156b7e8ca9c078a8587e2bda9768b3aa0d2e89135217fb083d",
+      "inputs/research31-history.json": "296ee62e8bf1347999d1779ac4a0966441ae4f9cc486369d1eff86ae6dae23ce",
+      "manifest.json": "b1d36847224aace88dc9042b66d2953f37c14f2ccc0950e3e601718cb612b0e3",
+      "per-film.csv": "0095f25dd493b3ed39a414ec207c2344d121f00e642ba74f0e02516ee7a3c8f5",
+      "research-31-review.csv": "9d1a14f4f52ac675f268cf2d39609fb5e9f05b43a1ed68fe2a1c7e7b327ee0b6",
+      "summary.md": "75ff850ae9d9263b16e835447d2526f90d5219ba10c629066c011f15d6b9afa8"
+    }
+  },
+  "csv_json_consistency": "passed",
+  "production": {
+    "head": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "clean": true,
+    "service": "NRestarts=0\nActiveState=active\nSubState=running",
+    "health": {
+      "local": 200,
+      "public": 200
+    },
+    "snapshot_matches": true
+  },
+  "policies": {
+    "P225": {
+      "total": 387,
+      "production_retained": 224,
+      "new": 163,
+      "audience_dominant_new": 3,
+      "recent_selected": 61,
+      "recent_new": 46,
+      "audience_only_new": 0,
+      "fewer_than_two_non_audience_families_new": 0
+    },
+    "P250": {
+      "total": 351,
+      "production_retained": 224,
+      "new": 127,
+      "audience_dominant_new": 1,
+      "recent_selected": 53,
+      "recent_new": 38,
+      "audience_only_new": 0,
+      "fewer_than_two_non_audience_families_new": 0
+    }
+  },
+  "research31_classification": {
+    "naturally_ge250": 8,
+    "naturally_ge225_lt250": 3,
+    "neither_threshold": 20
+  },
+  "P225_only_count": 36,
+  "github_actions": {
+    "id": 38520319747,
+    "status": "success",
+    "url": "https://github.com/kolorifer/radarr-festival-list/actions/runs/38520319747"
+  },
+  "score_changed": false,
+  "production_changed": false,
+  "radarr_calls": false,
+  "final_threshold": null,
+  "final_handoff_checks": {
+    "changed_paths": 28,
+    "configured_secret_scan": "passed",
+    "private_url_scan": "passed",
+    "json_parse": "passed",
+    "all_artifact_hashes_match": true,
+    "live_integration_section_unchanged": true,
+    "diff_check": "passed",
+    "relative_links": "passed",
+    "product_review_summary_is_last_section": true
+  }
+}
