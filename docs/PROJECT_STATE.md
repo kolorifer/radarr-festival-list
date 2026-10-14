@@ -1,6 +1,6 @@
 # Movie List project state
 
-Last verified: 2026-10-13. Read [decisions](DECISIONS.md),
+Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 The user/ChatGPT decide product behavior; Codex executes agreed engineering work.
 
@@ -16,8 +16,8 @@ All 224 belong to 255 with identical routes; 31 additional research entries are
 absent from deployment. Earlier references calling 255 production-qualified were
 inaccurate. The production loader and read-only build_index() verify 224.
 [Verification](../simulations/qualification-calibration/verification.json)
-records exact differences. All primary calibration New/Lost/Retained labels use
-the explicitly requested 255 research comparator.
+records exact differences. The earlier calibration used 255 as requested then.
+D015 now makes 224 deployed films authoritative; 255 remains diagnostic only.
 
 Stable architecture and earlier operational/privacy findings:
 [stable snapshot](https://github.com/kolorifer/radarr-festival-list/blob/7e9c32f7ac5d8c9a310e69a706731a272f23c003/docs/PROJECT_STATE.md).
@@ -58,7 +58,52 @@ D014: anthology/combined-work awards are not allocated to individual components
 without explicit awarding-body attribution. Small Axe and combined Nymphomaniac
 remain unallocated. D013 preserves routine engineering authorization.
 
-## Completed qualification calibration
+## Completed final P225/P250 comparison
+
+D015: deployed 224 at c7a4582 is the authoritative existing baseline.
+No implicit grandfathering of the 31 research-only entries. Only compare
+deployed qualification OR Evidence Score>=225 and >=250; no new guards.
+[Draft PR #5](https://github.com/kolorifer/radarr-festival-list/pull/5), research/p225-vs-p250,
+targets the latest research/qualification-calibration starting at 64d1f61.
+
+[Brief](reports/2026-10-14-p225-vs-p250-brief.md) ·
+[Engineering report](reports/2026-10-14-p225-vs-p250.md) ·
+[Artifact index](../simulations/p225-vs-p250/README.md) ·
+[Detailed comparison](../simulations/p225-vs-p250/summary.md).
+Generated data: 9e9c528007948b1c79d328a09a08d06e4814faa1.
+Seedbox checkout: ~/radarr-festival-list-p225-vs-p250.
+
+P225 selects 387: 224 retained, 163 new,three audience-dominant newcomers;
+61 recent selected/46 recent new.
+P250 selects 351: 224 retained, 127 new,one audience-dominant newcomer;
+53 recent selected/38 recent new.
+The practical difference is 36 non-production films in 225–<250.
+All have>=106.98 non-Audience points and at least two positive independent
+non-Audience families; no Audience-only newcomers. All scores/identities,
+Audience 150/ceiling 1000, source weights/canon correlation and D014 remain fixed.
+
+Research31: 8 naturally>=250; 3 in 225–<250(Sound of Metal, Coco, The Salesman);
+20 under 225 and excluded from both. History: all 31 already institutional seeds;
+new IMDb/Letterboxd cache values activated unchanged Phase B convergence/
+corroboration routes. No Man's Land first introduced at 0e0c822; other 30 at 0c3b8f7.
+Neither is an ancestor of deployed c7. No automatic promotion to production.
+
+Exact reconciliation:A225407/152 new -> P225387/163(-20 legacy-only,+11 natural
+research newcomers);A250374/119 -> P250351/127(-23,+8).
+The delta grows 33->36 because three middle research-only entries were previously
+grandfathered at both thresholds.
+
+120 full research tests pass, including 15 new regressions; pip check passes.
+15 generated files plus frozen history input reproduce byte for byte through SSH
+and match Actions publication. Per-film flags and family columns agree in CSV/JSON.
+Deployed224 IDs/routes and snapshot bytes verify; production remains clean/active,
+zero restarts, local/public health 200. No Radarr call/action or deployment.
+
+No final threshold selected. The user/ChatGPT review 36 differences and any explicit
+exceptions for 20 excluded research-only records, then choose 225 or 250.
+The active implementation task is idle.
+
+## Earlier qualification calibration (255 diagnostic)
 
 Branch: research/qualification-calibration; seedbox checkout:
 ~/radarr-festival-list-qualification-calibration.
@@ -114,6 +159,6 @@ No enrichment in the qualification task. Scores/data from PR #3 are unchanged.
 [Historical150/200 comparison](reports/2026-10-13-audience-caps.md) remains historical;
 legacy evidence-scores.json is not replaced with the finalized research model.
 
-The user/ChatGPT review candidate lists, losses, dominance and recent-film coverage,
-resolve the 255/224 adoption distinction and choose a future policy/threshold.
-No next implementation task is selected; the active task is idle.
+The user/ChatGPT review the final P225/P250 evidence and choose the threshold.
+D015 resolves baseline authority: 224 deployed,255 diagnostic. No next implementation
+task is selected; the active task is idle.

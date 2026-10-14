@@ -173,7 +173,7 @@ the workflow documentation task.
 
 ## D014 — Anthology and combined-work attribution
 
-- **Status/source:** Accepted explicit user/ChatGPT qualification-calibration brief,2026-10-13.
+- **Status/source:** Accepted explicit user/ChatGPT qualification-calibration brief, 2026-10-13.
 - **Decision:** An award given to an anthology or combined work is not allocated
   to individual component films unless the awarding body explicitly attributes
   it to that component.
@@ -181,12 +181,12 @@ the workflow documentation task.
   recognition. Existing unresolved records remain explicit. This task simulates
   qualification policies without altering score weights or production behavior.
 
-## D015 — Deployed224 is the authoritative qualification baseline
+## D015 — Deployed 224 is the authoritative qualification baseline
 
 - **Status/source:** Accepted explicit user/ChatGPT final calibration brief,2026-10-14.
-- **Decision:** The224 deployed qualifiers atc7a458241b4a8a2acbd4d4f5a957d71e5198adc1
-  are authoritative for existing-production retention. The255 research set
-  remains diagnostic; its31 additional records are not implicitly grandfathered.
+- **Decision:** The 224 deployed qualifiers at c7a458241b4a8a2acbd4d4f5a957d71e5198adc1
+  are authoritative for existing-production retention. The 255 research set
+  remains diagnostic; its 31 additional records are not implicitly grandfathered.
 - **Scope:** Compare only deployed qualification OR Evidence Score>=225 and
   deployed qualification OR Evidence Score>=250. Preserve D012/D014, score
   values and production behavior. No final threshold chosen in this experiment.
