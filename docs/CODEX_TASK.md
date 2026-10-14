@@ -1,14 +1,21 @@
 # Current Codex task
 
-Status: **Idle — additive watched tagging completed and verified.**
+Status: **Assigned — apply watched state to the 2026-10-14 Movie List import.**
 
-[Engineering/deployment report](reports/2026-10-14-watched-tagging.md)
+[Implementation brief](reports/2026-10-14-watched-new-import-brief.md)
 
-PR #9 merged/deployed. All271 private-manifest targets matched exactly and received
-the additive watched tag. All monitoring/files/settings/metadata and unrelated
-tags are unchanged. Second dry-run:zero changes/missing/ambiguous.
-Private current-state snapshot refreshed and verified through GitHub.
-151 tests and CI pass; no acquisition/search/delete operations.
-Existing scheduler, Movie List sync and Telegram behavior remain unchanged.
+Authoritative private cohort manifest:
+`kolorifer/radarr-state/watched-targets-2026-10-14-import.json`
 
-No implementation task is currently assigned.
+Expected cohort: 87 exact IMDb-ID targets.
+
+Required end state for every target:
+- additive `watched` tag;
+- `monitored=false`;
+- preserve Movie List/score-band/unrelated tags, files and settings.
+
+Use a fresh live snapshot and exact IMDb matching. If clean, dry-run then apply without another routine approval. Verify idempotence, refresh the private Radarr snapshot, merge the cohort into the private canonical watched manifest after successful verification, and prove the normal Movie List sync does not re-monitor existing watched movies.
+
+No movie/file deletion, search, grab, download, import-list refresh or acquisition command. Existing scheduler unchanged.
+
+On completion, publish an aggregate-only engineering report and return this file to Idle.
