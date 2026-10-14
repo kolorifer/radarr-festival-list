@@ -3,6 +3,29 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## One-time watched tagging
+
+D019 completed on production/watched-tagging, PR #9 merged at35dcdf0.
+The validated private manifest contains271 unique exact IMDb targets, all matching
+one current Radarr movie. Initial dry-run:0 already tagged,271 to-tag,0 missing/
+ambiguous. Created watched tag9 and applied it additively to all271 movies.
+Monitoring/files/settings/path/metadata and every unrelated tag are unchanged;
+all non-target movies are unchanged. No movie-add/delete/acquisition commands.
+
+Second independent live dry-run:271 already tagged,0 changes/missing/ambiguous.
+Private radarr-current.json refreshed immediately (990 movies); GitHub connection
+confirms all targets tagged and identical blob. No private target list is public.
+
+151 tests (18 new), Python3.12/3.13 CI, pip check/preflight/frozen catalog/privacy
+checks pass. Existing timer/unit hashes unchanged, active/waiting. Movie-intel
+same active/running process, zero restarts, local/public health200.
+One-time operation only; no new recurring watched rule or scoring/watch schema
+change. Existing daily Movie List sync preserves watched as an unrelated tag.
+The implementation task is idle.
+
+[Runbook](../deploy/WATCHED_TAGGING.md) ·
+[Aggregate engineering report](reports/2026-10-14-watched-tagging.md).
+
 ## Private Radarr read-only snapshot bridge
 
 D018 implemented on production/radarr-snapshot-bridge, PR #8 merged at93a5761.

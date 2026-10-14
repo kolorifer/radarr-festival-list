@@ -278,3 +278,20 @@ the workflow documentation task.
   publisher and existing GitHub connection readback verified. Normal GitHub
   commit versions remain; only one current-state file is maintained.
 - **Report:** [Implementation/deployment](reports/2026-10-14-radarr-snapshot-bridge.md).
+
+## D019 — One-time additive watched annotations in Radarr
+
+- **Status/source:** Explicit assigned brief on main00cb386;implemented/applied2026-10-14.
+- **Decision:** Apply watched additively to the user's exact private IMDb target
+  manifest. No title matching, removals, monitoring changes or acquisition.
+- **Safety:** Require unique exact live matches, clean recorded dry-run, fresh
+  state checks and preservation of all other movie data/tags. This is a one-time
+  user-state operation, not a new recurring sync or qualification rule.
+- **Privacy:** Authoritative manifest and all per-film audits remain private.
+  Public reports contain aggregate counts only.
+- **Verified:** 271 targets tagged,0 missing/ambiguous,0 second-run changes;
+  1 tag creation +1 additive editor request; no other writes/acquisition commands.
+  All settings/files/metadata and unrelated tags preserved. Private snapshot
+  refreshed and verified through existing GitHub connection. PR #9 merged;
+  151 tests (18 new) and CI pass.
+- **Report:** [Aggregate implementation/deployment](reports/2026-10-14-watched-tagging.md).
