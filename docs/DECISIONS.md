@@ -180,3 +180,13 @@ the workflow documentation task.
 - **Consequence:** No arbitrary allocation of Small Axe or combined Nymphomaniac
   recognition. Existing unresolved records remain explicit. This task simulates
   qualification policies without altering score weights or production behavior.
+
+## D015 — Deployed224 is the authoritative qualification baseline
+
+- **Status/source:** Accepted explicit user/ChatGPT final calibration brief,2026-10-14.
+- **Decision:** The224 deployed qualifiers atc7a458241b4a8a2acbd4d4f5a957d71e5198adc1
+  are authoritative for existing-production retention. The255 research set
+  remains diagnostic; its31 additional records are not implicitly grandfathered.
+- **Scope:** Compare only deployed qualification OR Evidence Score>=225 and
+  deployed qualification OR Evidence Score>=250. Preserve D012/D014, score
+  values and production behavior. No final threshold chosen in this experiment.

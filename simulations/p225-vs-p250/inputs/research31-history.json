@@ -1,0 +1,3397 @@
+{
+  "deployed_commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+  "records": {
+    "tt0283509": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T13:29:43Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy International Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt0283509",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "No Man's Land",
+        "year": 2001
+      },
+      "first_usable_audience_cache_commit": "4aaacb7a88e6a346278d7d03f20b813261567e4d",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 50974
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 16846
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt0283509",
+        "institutional_strength": 2,
+        "resolved_title": "No Man's Land",
+        "resolved_year": 2001,
+        "signals": [
+          "Academy International Feature Film winner"
+        ],
+        "title": "No Man's Land",
+        "year": 2001
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0e0c82261e6b3b364523d0f4d955b0901dc224c7",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt0283509",
+        "imdb_rating": 7.9,
+        "imdb_strong_broad": true,
+        "imdb_votes": 50974,
+        "institutional_signal": "Academy International Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.9,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 16846,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "No Man's Land",
+        "year": 2001
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt0283509",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy International Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "No Man's Land",
+        "year": 2001
+      },
+      "source_sha256": "8dd956ed5fbb8f196f2998a79a8be955b8d0f781d65bc6cf15abee06724a168b",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt0892769": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt0892769",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "How to Train Your Dragon",
+        "year": 2010
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 911212
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 2132221
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt0892769",
+        "institutional_strength": 1,
+        "resolved_title": "How to Train Your Dragon",
+        "resolved_year": 2010,
+        "signals": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "title": "How to Train Your Dragon",
+        "year": 2010
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt0892769",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 911212,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.2,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 2132221,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "How to Train Your Dragon",
+        "year": 2010
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt0892769",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "How to Train Your Dragon",
+        "year": 2010
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt1016150": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee + Academy International Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt1016150",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "All Quiet on the Western Front",
+        "year": 2022
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.8,
+          "votes": 347966
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 1274909
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt1016150",
+        "institutional_strength": 2,
+        "resolved_title": "All Quiet on the Western Front",
+        "resolved_year": 2022,
+        "signals": [
+          "Academy Best Picture nominee",
+          "Academy International Feature Film winner"
+        ],
+        "title": "All Quiet on the Western Front",
+        "year": 2022
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee + Academy International Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1016150",
+        "imdb_rating": 7.8,
+        "imdb_strong_broad": true,
+        "imdb_votes": 347966,
+        "institutional_signal": "Academy Best Picture nominee + Academy International Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 1274909,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "All Quiet on the Western Front",
+        "year": 2022
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee + Academy International Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1016150",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee + Academy International Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "All Quiet on the Western Front",
+        "year": 2022
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt10272386": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt10272386",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "The Father",
+        "year": 2020
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.2,
+          "votes": 250792
+        },
+        "letterboxd": {
+          "rating": 4.3,
+          "votes": 454102
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt10272386",
+        "institutional_strength": 1,
+        "resolved_title": "The Father",
+        "resolved_year": 2020,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "The Father",
+        "year": 2020
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt10272386",
+        "imdb_rating": 8.2,
+        "imdb_strong_broad": true,
+        "imdb_votes": 250792,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.3,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 454102,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "The Father",
+        "year": 2020
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt10272386",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "The Father",
+        "year": 2020
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt12888462": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt12888462",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "My Octopus Teacher",
+        "year": 2020
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 72878
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 154863
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt12888462",
+        "institutional_strength": 2,
+        "resolved_title": "My Octopus Teacher",
+        "resolved_year": 2020,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "My Octopus Teacher",
+        "year": 2020
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt12888462",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 72878,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.9,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 154863,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "My Octopus Teacher",
+        "year": 2020
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt12888462",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "My Octopus Teacher",
+        "year": 2020
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt1313104": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt1313104",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "The Cove",
+        "year": 2009
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.4,
+          "votes": 52925
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 21371
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt1313104",
+        "institutional_strength": 2,
+        "resolved_title": "The Cove",
+        "resolved_year": 2009,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "The Cove",
+        "year": 2009
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1313104",
+        "imdb_rating": 8.4,
+        "imdb_strong_broad": true,
+        "imdb_votes": 52925,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.0,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 21371,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "The Cove",
+        "year": 2009
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1313104",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "The Cove",
+        "year": 2009
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt1454029": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt1454029",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "The Help",
+        "year": 2011
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 533958
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 797267
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt1454029",
+        "institutional_strength": 1,
+        "resolved_title": "The Help",
+        "resolved_year": 2011,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "The Help",
+        "year": 2011
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1454029",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 533958,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.0,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 797267,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "The Help",
+        "year": 2011
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1454029",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "The Help",
+        "year": 2011
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt1488589": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt1488589",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Guillermo del Toro's Pinocchio",
+        "year": 2022
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.6,
+          "votes": 167492
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 721166
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt1488589",
+        "institutional_strength": 2,
+        "resolved_title": "Guillermo del Toro's Pinocchio",
+        "resolved_year": 2022,
+        "signals": [
+          "Academy Animated Feature Film winner"
+        ],
+        "title": "Guillermo del Toro's Pinocchio",
+        "year": 2022
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1488589",
+        "imdb_rating": 7.6,
+        "imdb_strong_broad": false,
+        "imdb_votes": 167492,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.0,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 721166,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "Guillermo del Toro's Pinocchio",
+        "year": 2022
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1488589",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Guillermo del Toro's Pinocchio",
+        "year": 2022
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt16277242": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy International Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt16277242",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Society of the Snow",
+        "year": 2023
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.8,
+          "votes": 178634
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 1225693
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt16277242",
+        "institutional_strength": 1,
+        "resolved_title": "Society of the Snow",
+        "resolved_year": 2023,
+        "signals": [
+          "Academy International Feature Film nominee"
+        ],
+        "title": "Society of the Snow",
+        "year": 2023
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt16277242",
+        "imdb_rating": 7.8,
+        "imdb_strong_broad": true,
+        "imdb_votes": 178634,
+        "institutional_signal": "Academy International Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.2,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 1225693,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Society of the Snow",
+        "year": 2023
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt16277242",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy International Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Society of the Snow",
+        "year": 2023
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt1645089": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt1645089",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Inside Job",
+        "year": 2010
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.2,
+          "votes": 82994
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 33421
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt1645089",
+        "institutional_strength": 2,
+        "resolved_title": "Inside Job",
+        "resolved_year": 2010,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "Inside Job",
+        "year": 2010
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1645089",
+        "imdb_rating": 8.2,
+        "imdb_strong_broad": true,
+        "imdb_votes": 82994,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.9,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 33421,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "Inside Job",
+        "year": 2010
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1645089",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Inside Job",
+        "year": 2010
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt17041964": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt17041964",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Navalny",
+        "year": 2022
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.8,
+          "votes": 69776
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 44097
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt17041964",
+        "institutional_strength": 2,
+        "resolved_title": "Navalny",
+        "resolved_year": 2022,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "Navalny",
+        "year": 2022
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt17041964",
+        "imdb_rating": 7.8,
+        "imdb_strong_broad": true,
+        "imdb_votes": 69776,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.9,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 44097,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "Navalny",
+        "year": 2022
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt17041964",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Navalny",
+        "year": 2022
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt1865505": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt1865505",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Song of the Sea",
+        "year": 2014
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.0,
+          "votes": 69139
+        },
+        "letterboxd": {
+          "rating": 4.3,
+          "votes": 173223
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt1865505",
+        "institutional_strength": 1,
+        "resolved_title": "Song of the Sea",
+        "resolved_year": 2014,
+        "signals": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "title": "Song of the Sea",
+        "year": 2014
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1865505",
+        "imdb_rating": 8.0,
+        "imdb_strong_broad": true,
+        "imdb_votes": 69139,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.3,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 173223,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Song of the Sea",
+        "year": 2014
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1865505",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Song of the Sea",
+        "year": 2014
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt1950186": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt1950186",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Ford v Ferrari",
+        "year": 2019
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 589292
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 1143594
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt1950186",
+        "institutional_strength": 1,
+        "resolved_title": "Ford v Ferrari",
+        "resolved_year": 2019,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "Ford v Ferrari",
+        "year": 2019
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1950186",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 589292,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 1143594,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Ford v Ferrari",
+        "year": 2019
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt1950186",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Ford v Ferrari",
+        "year": 2019
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt2119532": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt2119532",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Hacksaw Ridge",
+        "year": 2016
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 699526
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 1261357
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt2119532",
+        "institutional_strength": 1,
+        "resolved_title": "Hacksaw Ridge",
+        "resolved_year": 2016,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "Hacksaw Ridge",
+        "year": 2016
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2119532",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 699526,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 1261357,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Hacksaw Ridge",
+        "year": 2016
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2119532",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Hacksaw Ridge",
+        "year": 2016
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt2125608": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt2125608",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Searching for Sugar Man",
+        "year": 2012
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.2,
+          "votes": 77011
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 75691
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt2125608",
+        "institutional_strength": 2,
+        "resolved_title": "Searching for Sugar Man",
+        "resolved_year": 2012,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "Searching for Sugar Man",
+        "year": 2012
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2125608",
+        "imdb_rating": 8.2,
+        "imdb_strong_broad": true,
+        "imdb_votes": 77011,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.2,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 75691,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Searching for Sugar Man",
+        "year": 2012
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2125608",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Searching for Sugar Man",
+        "year": 2012
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt2245084": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt2245084",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Big Hero 6",
+        "year": 2014
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.8,
+          "votes": 563235
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 1872306
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt2245084",
+        "institutional_strength": 2,
+        "resolved_title": "Big Hero 6",
+        "resolved_year": 2014,
+        "signals": [
+          "Academy Animated Feature Film winner"
+        ],
+        "title": "Big Hero 6",
+        "year": 2014
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2245084",
+        "imdb_rating": 7.8,
+        "imdb_strong_broad": true,
+        "imdb_votes": 563235,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.9,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 1872306,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "Big Hero 6",
+        "year": 2014
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2245084",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Big Hero 6",
+        "year": 2014
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt2380307": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt2380307",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Coco",
+        "year": 2017
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.4,
+          "votes": 730271
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 3345185
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt2380307",
+        "institutional_strength": 2,
+        "resolved_title": "Coco",
+        "resolved_year": 2017,
+        "signals": [
+          "Academy Animated Feature Film winner"
+        ],
+        "title": "Coco",
+        "year": 2017
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2380307",
+        "imdb_rating": 8.4,
+        "imdb_strong_broad": true,
+        "imdb_votes": 730271,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 3345185,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Coco",
+        "year": 2017
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2380307",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Coco",
+        "year": 2017
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt24082438": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt24082438",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "20 Days in Mariupol",
+        "year": 2023
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.6,
+          "votes": 65858
+        },
+        "letterboxd": {
+          "rating": 4.3,
+          "votes": 45216
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt24082438",
+        "institutional_strength": 2,
+        "resolved_title": "20 Days in Mariupol",
+        "resolved_year": 2023,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "20 Days in Mariupol",
+        "year": 2023
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt24082438",
+        "imdb_rating": 8.6,
+        "imdb_strong_broad": true,
+        "imdb_votes": 65858,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.3,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 45216,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "20 Days in Mariupol",
+        "year": 2023
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt24082438",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "20 Days in Mariupol",
+        "year": 2023
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt2948356": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt2948356",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Zootopia",
+        "year": 2016
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.0,
+          "votes": 651403
+        },
+        "letterboxd": {
+          "rating": 3.8,
+          "votes": 2261935
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt2948356",
+        "institutional_strength": 2,
+        "resolved_title": "Zootopia",
+        "resolved_year": 2016,
+        "signals": [
+          "Academy Animated Feature Film winner"
+        ],
+        "title": "Zootopia",
+        "year": 2016
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2948356",
+        "imdb_rating": 8.0,
+        "imdb_strong_broad": true,
+        "imdb_votes": 651403,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.8,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 2261935,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "Zootopia",
+        "year": 2016
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2948356",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Zootopia",
+        "year": 2016
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt2948372": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt2948372",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Soul",
+        "year": 2020
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.0,
+          "votes": 459490
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 2658198
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt2948372",
+        "institutional_strength": 2,
+        "resolved_title": "Soul",
+        "resolved_year": 2020,
+        "signals": [
+          "Academy Animated Feature Film winner"
+        ],
+        "title": "Soul",
+        "year": 2020
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2948372",
+        "imdb_rating": 8.0,
+        "imdb_strong_broad": true,
+        "imdb_votes": 459490,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.9,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 2658198,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "Soul",
+        "year": 2020
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt2948372",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Soul",
+        "year": 2020
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt3011894": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy International Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt3011894",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Wild Tales",
+        "year": 2014
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 242259
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 286335
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt3011894",
+        "institutional_strength": 1,
+        "resolved_title": "Wild Tales",
+        "resolved_year": 2014,
+        "signals": [
+          "Academy International Feature Film nominee"
+        ],
+        "title": "Wild Tales",
+        "year": 2014
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt3011894",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 242259,
+        "institutional_signal": "Academy International Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 286335,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Wild Tales",
+        "year": 2014
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt3011894",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy International Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Wild Tales",
+        "year": 2014
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt3741834": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt3741834",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Lion",
+        "year": 2016
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.0,
+          "votes": 269619
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 411166
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt3741834",
+        "institutional_strength": 1,
+        "resolved_title": "Lion",
+        "resolved_year": 2016,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "Lion",
+        "year": 2016
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt3741834",
+        "imdb_rating": 8.0,
+        "imdb_strong_broad": true,
+        "imdb_votes": 269619,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.0,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 411166,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Lion",
+        "year": 2016
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt3741834",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Lion",
+        "year": 2016
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt4729430": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt4729430",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Klaus",
+        "year": 2019
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.2,
+          "votes": 243518
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 709332
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt4729430",
+        "institutional_strength": 1,
+        "resolved_title": "Klaus",
+        "resolved_year": 2019,
+        "signals": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "title": "Klaus",
+        "year": 2019
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt4729430",
+        "imdb_rating": 8.2,
+        "imdb_strong_broad": true,
+        "imdb_votes": 243518,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.2,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 709332,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Klaus",
+        "year": 2019
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt4729430",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Klaus",
+        "year": 2019
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt5027774": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt5027774",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Three Billboards outside Ebbing, Missouri",
+        "year": 2017
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 617763
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 889900
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt5027774",
+        "institutional_strength": 1,
+        "resolved_title": "Three Billboards Outside Ebbing, Missouri",
+        "resolved_year": 2017,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "Three Billboards outside Ebbing, Missouri",
+        "year": 2017
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt5027774",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 617763,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 889900,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Three Billboards outside Ebbing, Missouri",
+        "year": 2017
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt5027774",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Three Billboards outside Ebbing, Missouri",
+        "year": 2017
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt5186714": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy International Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "imdb_id": "tt5186714",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "The Salesman",
+        "year": 2016
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.7,
+          "votes": 69551
+        },
+        "letterboxd": {
+          "rating": 3.9,
+          "votes": 64220
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt5186714",
+        "institutional_strength": 2,
+        "resolved_title": "The Salesman",
+        "resolved_year": 2016,
+        "signals": [
+          "Academy International Feature Film winner"
+        ],
+        "title": "The Salesman",
+        "year": 2016
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film winner",
+          "IMDb strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt5186714",
+        "imdb_rating": 7.7,
+        "imdb_strong_broad": true,
+        "imdb_votes": 69551,
+        "institutional_signal": "Academy International Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 3.9,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": 64220,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "The Salesman",
+        "year": 2016
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt5186714",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy International Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "The Salesman",
+        "year": 2016
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt5363618": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt5363618",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Sound of Metal",
+        "year": 2020
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.7,
+          "votes": 189646
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 929259
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt5363618",
+        "institutional_strength": 1,
+        "resolved_title": "Sound of Metal",
+        "resolved_year": 2019,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "Sound of Metal",
+        "year": 2020
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt5363618",
+        "imdb_rating": 7.7,
+        "imdb_strong_broad": true,
+        "imdb_votes": 189646,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.2,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 929259,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Sound of Metal",
+        "year": 2020
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt5363618",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Sound of Metal",
+        "year": 2020
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt6333060": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt6333060",
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Icarus",
+        "year": 2017
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 7.9,
+          "votes": 58750
+        },
+        "letterboxd": {
+          "rating": 4.0,
+          "votes": 74872
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt6333060",
+        "institutional_strength": 2,
+        "resolved_title": "Icarus",
+        "resolved_year": 2017,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "Icarus",
+        "year": 2017
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt6333060",
+        "imdb_rating": 7.9,
+        "imdb_strong_broad": true,
+        "imdb_votes": 58750,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.0,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 74872,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "corroboration"
+        ],
+        "title": "Icarus",
+        "year": 2017
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt6333060",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Icarus",
+        "year": 2017
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt7775622": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt7775622",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Free Solo",
+        "year": 2018
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.1,
+          "votes": 88981
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 255573
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt7775622",
+        "institutional_strength": 2,
+        "resolved_title": "Free Solo",
+        "resolved_year": 2018,
+        "signals": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "title": "Free Solo",
+        "year": 2018
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt7775622",
+        "imdb_rating": 8.1,
+        "imdb_strong_broad": true,
+        "imdb_votes": 88981,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 255573,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Free Solo",
+        "year": 2018
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Documentary Feature Film winner"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt7775622",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Documentary Feature Film winner",
+        "institutional_strength": 2,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Free Solo",
+        "year": 2018
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt8267604": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy International Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt8267604",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Capernaum",
+        "year": 2018
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.4,
+          "votes": 127434
+        },
+        "letterboxd": {
+          "rating": 4.2,
+          "votes": 150482
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt8267604",
+        "institutional_strength": 1,
+        "resolved_title": "Capernaum",
+        "resolved_year": 2018,
+        "signals": [
+          "Academy International Feature Film nominee"
+        ],
+        "title": "Capernaum",
+        "year": 2018
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt8267604",
+        "imdb_rating": 8.4,
+        "imdb_strong_broad": true,
+        "imdb_votes": 127434,
+        "institutional_signal": "Academy International Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.2,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 150482,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Capernaum",
+        "year": 2018
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy International Feature Film nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt8267604",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy International Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Capernaum",
+        "year": 2018
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt8579674": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt8579674",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "1917",
+        "year": 2019
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.2,
+          "votes": 788824
+        },
+        "letterboxd": {
+          "rating": 4.1,
+          "votes": 2016307
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt8579674",
+        "institutional_strength": 1,
+        "resolved_title": "1917",
+        "resolved_year": 2019,
+        "signals": [
+          "Academy Best Picture nominee"
+        ],
+        "title": "1917",
+        "year": 2019
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt8579674",
+        "imdb_rating": 8.2,
+        "imdb_strong_broad": true,
+        "imdb_votes": 788824,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.1,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 2016307,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "1917",
+        "year": 2019
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Best Picture nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt8579674",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Best Picture nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "1917",
+        "year": 2019
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    },
+    "tt9362722": {
+      "ancestor_of_deployed_commit": false,
+      "commit_date": "2026-10-12T15:55:57Z",
+      "commit_subject": "Update Phase B simulation",
+      "first_qualification_record": {
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "imdb_id": "tt9362722",
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "sources": [
+          "institutional"
+        ],
+        "title": "Spider-Man: Across the Spider-Verse",
+        "year": 2023
+      },
+      "first_usable_audience_cache_commit": "662de6d63644cab6caeaef65057112812124bca4",
+      "first_usable_audience_cache_values": {
+        "imdb": {
+          "rating": 8.5,
+          "votes": 557653
+        },
+        "letterboxd": {
+          "rating": 4.4,
+          "votes": 4160546
+        }
+      },
+      "generator_sha256": "99078d8eeb63ff9cc63b3dbb147b9a7789fa2efc83184aa81350f557665bc32a",
+      "generator_unchanged_from_parent": true,
+      "institutional_seed": {
+        "imdb_id": "tt9362722",
+        "institutional_strength": 1,
+        "resolved_title": "Spider-Man: Across the Spider-Verse",
+        "resolved_year": 2023,
+        "signals": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "title": "Spider-Man: Across the Spider-Verse",
+        "year": 2023
+      },
+      "institutional_seed_already_present_before_introduction": true,
+      "introduction_commit": "0c3b8f70e7a500c73ca601e494c2ef74542b3908",
+      "phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee",
+          "IMDb strong/broad",
+          "Letterboxd strong/broad"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt9362722",
+        "imdb_rating": 8.5,
+        "imdb_strong_broad": true,
+        "imdb_votes": 557653,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": 4.4,
+        "letterboxd_strong_broad": true,
+        "letterboxd_votes": 4160546,
+        "production_score": 0,
+        "qualified": true,
+        "rank": null,
+        "routes": [
+          "convergence"
+        ],
+        "title": "Spider-Man: Across the Spider-Verse",
+        "year": 2023
+      },
+      "prior_generated_phase_b_record": {
+        "candidate_sources": [
+          "institutional"
+        ],
+        "evidence": [
+          "Academy Animated Feature Film nominee"
+        ],
+        "existing_bonus": 0,
+        "imdb_id": "tt9362722",
+        "imdb_rating": null,
+        "imdb_strong_broad": false,
+        "imdb_votes": null,
+        "institutional_signal": "Academy Animated Feature Film nominee",
+        "institutional_strength": 1,
+        "letterboxd_rating": null,
+        "letterboxd_strong_broad": false,
+        "letterboxd_votes": null,
+        "production_score": 0,
+        "qualified": false,
+        "rank": null,
+        "routes": [],
+        "title": "Spider-Man: Across the Spider-Verse",
+        "year": 2023
+      },
+      "source_sha256": "5d6d0dc77e2575ee0948baeb20d92b26c52eab89bbd724cc631e5fabf480c929",
+      "thresholds_used": {
+        "imdb_p75": 7.7,
+        "imdb_p90": 8.0,
+        "imdb_votes_median": 48754.5,
+        "letterboxd_p75": 4.0,
+        "letterboxd_p90": 4.2,
+        "letterboxd_votes_median": 72905.0
+      }
+    }
+  },
+  "research_baseline_commit": "64d1f61a547de1e8330646a104656e1072720782",
+  "research_only_ids": [
+    "tt0283509",
+    "tt0892769",
+    "tt1016150",
+    "tt10272386",
+    "tt12888462",
+    "tt1313104",
+    "tt1454029",
+    "tt1488589",
+    "tt16277242",
+    "tt1645089",
+    "tt17041964",
+    "tt1865505",
+    "tt1950186",
+    "tt2119532",
+    "tt2125608",
+    "tt2245084",
+    "tt2380307",
+    "tt24082438",
+    "tt2948356",
+    "tt2948372",
+    "tt3011894",
+    "tt3741834",
+    "tt4729430",
+    "tt5027774",
+    "tt5186714",
+    "tt5363618",
+    "tt6333060",
+    "tt7775622",
+    "tt8267604",
+    "tt8579674",
+    "tt9362722"
+  ]
+}
