@@ -50,3 +50,9 @@ movie/editor add/remove, preserving current unrelated tags and fields.
 Added movie records remain; deleting them is outside this brief's safety boundary.
 Never replay whole movie records or overwrite new private state over later activity.
 No rollback was executed when deployment succeeds.
+
+## Private read-only snapshot
+
+After successful reconciliation, the same daily run exports/publishes the
+allowlisted current state to a verified private GitHub repository. Publication
+failure never repeats reconciliation. See [snapshot runbook](RADARR_SNAPSHOT.md).
