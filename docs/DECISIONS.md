@@ -230,3 +230,26 @@ the workflow documentation task.
   163 naturally admitted = 387 qualified. PR #6 merged; runtime activated at
   8e357b9edc90307c6af3e64f1c334527a11a5227. No acquisition/list refresh.
 - **Verification/report:** [Production engineering report](reports/2026-10-14-d016-production.md).
+
+## D017 — Radarr Movie List membership and score-band synchronization
+
+- **Status/source:** Accepted implementation brief on main a4c9066, 2026-10-14;
+  implemented, initial live reconciliation pending.
+- **Decision:** Every D016-qualified film has movie-list and exactly one managed
+  score-band tag. Existing matching movies receive tags retroactively; missing
+  movies are added monitored with movie search disabled.
+- **Bands:** ml-below-225, ml-225-249, ml-250-299, ml-300-399, ml-400-plus.
+  Use the full Evidence Score at inclusive 225/250/300/400 boundaries.
+- **Preserved:** Existing monitoring/profile/root/files/Overview and unrelated
+  tags. Numeric scores remain in the catalog; no exact-score tags. D012/D014/D016
+  formulas, identities, qualification and public feeds are unchanged.
+- **Future reconciliation:** Replace only stale managed bands; remove only
+  managed tags from films that cease qualifying. Never delete/unmonitor them.
+- **Authorization:** The assigned brief authorizes the initial apply after a
+  clean live dry-run, provided identities, write plan and root/profile are
+  unambiguous. No search/grab/download/import-list-refresh commands are authorized.
+- **Implementation:** radarr_movie_list_sync.py; private credential launcher;
+  a single daily user-systemd timer. Run dry-run before first writes; require
+  idempotence and zero acquisition commands before activating the timer.
+- **Evidence:** [Assigned brief](reports/2026-10-14-radarr-movie-list-sync-brief.md);
+  [engineering report](reports/2026-10-14-radarr-movie-list-sync.md).

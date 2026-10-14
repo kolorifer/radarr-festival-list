@@ -1,7 +1,7 @@
 name: Test production movie intel
 on:
   push:
-    branches: [main, movie-intel, production/d016-qualification]
+    branches: [main, movie-intel, production/d016-qualification, production/radarr-movie-list-sync]
   pull_request:
     branches: [main]
   workflow_dispatch:
