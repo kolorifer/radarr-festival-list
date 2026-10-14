@@ -1,12 +1,22 @@
 # Current Codex task
 
-Status: **Idle — Radarr read-only snapshot bridge completed and deployed.**
+Status: **Assigned — apply additive `watched` tags in Radarr.**
 
-[Engineering/deployment report](reports/2026-10-14-radarr-snapshot-bridge.md)
+[Implementation brief](reports/2026-10-14-watched-tagging-brief.md)
 
-PR #8 merged; private radarr-current.json contains990 current movies and is readable
-through the user's GitHub connection. The deployed seedbox publisher is verified.
-133 tests and CI pass; zero snapshot-generation Radarr writes. Existing daily
-timer, qualification and Telegram/add-grab flow remain unchanged.
+Use the private authoritative target manifest at `kolorifer/radarr-state/watched-targets.json`.
 
-No implementation task is currently assigned.
+Requirements:
+
+- exact IMDb-ID matching only;
+- validate every target against a fresh live Radarr snapshot before writes;
+- create/reuse only the `watched` tag and add it to targets;
+- preserve monitored state, files, settings and all existing unrelated tags;
+- no movie add/delete, search, grab, download, move or import-list refresh;
+- clean dry-run before apply and zero-change dry-run after apply;
+- refresh the private `radarr-current.json` snapshot immediately after completion;
+- keep the existing scheduler and Movie List sync behavior unchanged.
+
+Do not copy the private watched list into this public repository or public reports. Aggregate counts only.
+
+Implement/deploy on the seedbox now. If the private manifest cannot be read or any target is missing/ambiguous, stop before writes and report that single blocker. Otherwise apply without another routine approval, verify, publish the refreshed snapshot, write the aggregate completion report, and return this file to idle.
