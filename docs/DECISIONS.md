@@ -234,7 +234,7 @@ the workflow documentation task.
 ## D017 — Radarr Movie List membership and score-band synchronization
 
 - **Status/source:** Accepted implementation brief on main a4c9066, 2026-10-14;
-  implemented, initial live reconciliation pending.
+  implemented and deployed; initial reconciliation verified.
 - **Decision:** Every D016-qualified film has movie-list and exactly one managed
   score-band tag. Existing matching movies receive tags retroactively; missing
   movies are added monitored with movie search disabled.
@@ -253,3 +253,11 @@ the workflow documentation task.
   idempotence and zero acquisition commands before activating the timer.
 - **Evidence:** [Assigned brief](reports/2026-10-14-radarr-movie-list-sync-brief.md);
   [engineering report](reports/2026-10-14-radarr-movie-list-sync.md).
+
+- **Verified implementation:** PR #7 merged at a587e25; 107 tests (25 new).
+  152 existing movies tagged, 235 missing records added, 387 correctly tagged,
+  zero unresolved and zero second-run changes. All original settings/files/
+  Overview/unrelated tags preserved. Search disabled on every addition.
+- **Scheduler:** movie-list-sync.timer, daily 03:43 UTC + up to 15min delay, one
+  user-systemd path with a private overlap lock. Installed oneshot completed
+  successfully with zero additional writes.

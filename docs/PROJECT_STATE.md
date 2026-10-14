@@ -3,6 +3,42 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## D017 Radarr Movie List membership and score-band sync
+
+Implemented on production/radarr-movie-list-sync, PR #7 merged at
+a587e25ff32820cc5da6bf5bbbd07f3c2ad238b5. Source 34c0bdc passes 107 tests
+(25 new), pip check, frozen-catalog validation and configuration preflight.
+Main's subsequent handoff keeps runtime/scoring/catalog bytes unchanged.
+
+Live dry-run: 387 qualified; 152 existing to tag; 235 missing; 0 unresolved.
+Applied:152 existing tagged and 235 monitored records added with searchForMovie=false.
+All 387 have movie-list and exactly one score band:
+below225: 51; 225–249: 48; 250–299: 104; 300–399: 96; 400+: 88.
+Membership tag 3; band tags 4–8. No exact-score tags/Overview changes.
+Root /home/kolorifer/movies and profile 7 Ultra-HD-Remux were the single conventions
+used by all 755 existing movies; they are frozen in private sync configuration.
+
+Radarr has 990 movie records. All original 755 retain monitoring/profile/root/path/
+file IDs/Overview and unrelated tags. A second live dry-run has 387 correct and
+zero changes/unresolved; the installed oneshot repeats with zero writes.
+No search/grab/download/import-list-refresh command was issued by this sync.
+Queue remained 0 and no new grab/download history events occurred during apply.
+Radarr's existing scheduled ImportListSync and normal monitored-download
+bookkeeping ran independently; they are documented separately.
+
+One unrelated existing record (Cativeiro, Radarr 675, no IMDb ID) was already
+incomplete and remains untouched. All 387 qualified identities are exact/unique.
+
+One user-systemd timer: movie-list-sync.timer, daily 03:43 UTC with up to 15min jitter,
+Persistent=true. Shared private flock prevents overlapping CLI/timer runs.
+Movie-intel remains active/running with the same PID and 0 restarts; health 200.
+
+[Runbook](../deploy/RADARR_SYNC.md) ·
+[Engineering/deployment report](reports/2026-10-14-radarr-movie-list-sync.md) ·
+[Machine verification](reports/2026-10-14-radarr-movie-list-sync-verification.json) ·
+[Applied members CSV](reports/2026-10-14-radarr-movie-list-members.csv).
+The implementation task is idle. D012/D014/D016 and public feeds remain unchanged.
+
 ## D016 production implementation
 
 Implementation branch: production/d016-qualification, based on main 696420a.
@@ -45,7 +81,8 @@ the deployed implementation, with automated HTTP integration coverage.
 
 Read-only Radarr inspection found no import list consuming qualification,
 research outputs or backcatalog. Existing festival lists are independent.
-No bulk additions, searches, downloads or list refresh are part of this rollout.
+The D016 score promotion performed no movie additions/searches/downloads or
+list refresh. D017 above separately authorizes monitored record reconciliation.
 Public festival/curated/backcatalog list IDs/order remain unchanged.
 
 ## Watch annotations and data limitations

@@ -1,6 +1,8 @@
 # Radarr Movie List membership + score-band sync brief
 
-Status: **Assigned for implementation.**
+Status: **Completed — implementation/live reconciliation verified.**
+See [engineering report](2026-10-14-radarr-movie-list-sync.md).
+The assigned requirements below are retained as the task specification.
 
 ## Product decision
 

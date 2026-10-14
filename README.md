@@ -42,7 +42,9 @@ The production model qualifies a film when its IMDb ID belongs to the frozen
 See [production data](production/README.md), [project state](docs/PROJECT_STATE.md)
 and [deployment runbook](deploy/README.md).
 
-Qualification informs enriched Telegram notifications. It does not automatically
-add films to Radarr. The existing confirmation action adds without a general
-search and pushes only the approved release. The public festival list remains
+Qualification informs enriched Telegram notifications. The separate
+[Movie List reconciliation](deploy/RADARR_SYNC.md) adds missing monitored records
+with search disabled and keeps membership/score-band tags current.
+The existing confirmation action adds without a general search and pushes only
+the approved release. The public festival list remains
 independent of the qualification catalog.

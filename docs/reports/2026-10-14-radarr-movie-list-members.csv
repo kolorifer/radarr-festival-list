@@ -1,0 +1,388 @@
+imdb_id,title,year,score,grandfathered,radarr_id,tmdb_id,band,newly_added
+tt0388795,Brokeback Mountain,2005,803.78,True,857,142,ml-400-plus,True
+tt6751668,Parasite,2019,769.21,True,426,496243,ml-400-plus,False
+tt1065073,Boyhood,2014,748.89,True,918,85350,ml-400-plus,True
+tt0469494,There Will Be Blood,2007,731.95,True,368,7345,ml-400-plus,False
+tt1602620,Amour,2012,679.91,True,959,86837,ml-400-plus,True
+tt0190332,"Crouching Tiger, Hidden Dragon",2000,679.78,True,787,146,ml-400-plus,True
+tt0405094,The Lives of Others,2006,665.79,True,362,582,ml-400-plus,False
+tt0477348,No Country for Old Men,2007,660.66,True,370,6977,ml-400-plus,False
+tt4975722,Moonlight,2016,659.18,True,1003,376867,ml-400-plus,True
+tt6155172,Roma,2018,652.58,True,509,426426,ml-400-plus,False
+tt0166924,Mulholland Drive,2001,649.43,True,783,1018,ml-400-plus,True
+tt2278388,The Grand Budapest Hotel,2014,648.95,True,406,120467,ml-400-plus,False
+tt2024544,12 Years a Slave,2013,629.69,True,401,76203,ml-400-plus,False
+tt9770150,Nomadland,2020,618.9,True,558,581734,ml-400-plus,False
+tt0245429,Spirited Away,2001,601.29,True,341,129,ml-400-plus,False
+tt1285016,The Social Network,2010,599.23,True,937,37799,ml-400-plus,True
+tt7160372,The Zone of Interest,2023,591.21,True,523,467244,ml-400-plus,False
+tt0887912,The Hurt Locker,2008,575.75,True,901,12162,ml-400-plus,True
+tt0253474,The Pianist,2002,573.98,True,343,423,ml-400-plus,False
+tt17009710,Anatomy of a Fall,2023,571.43,False,620,915935,ml-400-plus,False
+tt1235166,A Prophet,2009,562.43,True,936,21575,ml-400-plus,True
+tt0118694,In the Mood for Love,2000,556.65,True,779,843,ml-400-plus,True
+tt1149362,The White Ribbon,2009,553.38,True,927,37903,ml-400-plus,True
+tt0457430,Pan's Labyrinth,2006,551.27,True,367,1417,ml-400-plus,False
+tt1895587,Spotlight,2015,550.97,True,398,314365,ml-400-plus,False
+tt3808342,Son of Saul,2015,545.79,True,998,336050,ml-400-plus,True
+tt0335266,Lost in Translation,2003,537.71,True,838,153,ml-400-plus,True
+tt1832382,A Separation,2011,537.0,True,396,60243,ml-400-plus,False
+tt0244316,Yi Yi,2000,530.01,True,797,25538,ml-400-plus,True
+tt1392190,Mad Max: Fury Road,2015,526.74,True,389,76341,ml-400-plus,False
+tt1032846,"4 Months, 3 Weeks and 2 Days",2007,524.14,True,915,2009,ml-400-plus,True
+tt0478304,The Tree of Life,2011,523.69,True,889,8967,ml-400-plus,True
+tt0338013,Eternal Sunshine of the Spotless Mind,2004,522.13,True,351,38,ml-400-plus,False
+tt1655442,The Artist,2011,521.91,True,960,74643,ml-400-plus,True
+tt2042568,Inside Llewyn Davis,2013,521.79,True,776,86829,ml-400-plus,False
+tt6710474,Everything Everywhere All at Once,2022,518.45,True,554,545611,ml-400-plus,False
+tt0211915,Amélie,2001,514.85,True,340,194,ml-400-plus,False
+tt5052448,Get Out,2017,506.43,True,1005,419430,ml-400-plus,True
+tt2358891,The Great Beauty,2013,505.62,True,977,179144,ml-400-plus,True
+tt0167260,The Lord of the Rings: The Return of the King,2003,505.27,True,331,122,ml-400-plus,False
+tt0407887,The Departed,2006,501.7,True,364,1422,ml-400-plus,False
+tt28607951,Anora,2024,499.51,False,642,1064213,ml-400-plus,False
+tt0910970,WALL·E,2008,486.21,True,372,10681,ml-400-plus,False
+tt5726616,Call Me by Your Name,2017,481.63,True,499,398818,ml-400-plus,False
+tt5083738,The Favourite,2018,479.03,False,490,375262,ml-400-plus,False
+tt0361748,Inglourious Basterds,2009,478.26,True,355,16869,ml-400-plus,False
+tt2718492,Ida,2013,474.93,True,987,209274,ml-400-plus,True
+tt14039582,Drive My Car,2021,474.73,True,609,758866,ml-400-plus,False
+tt3783958,La La Land,2016,473.5,True,475,313369,ml-400-plus,False
+tt1375666,Inception,2010,471.72,True,138,27205,ml-400-plus,False
+tt5580390,The Shape of Water,2017,469.5,True,501,399055,ml-400-plus,False
+tt2582802,Whiplash,2014,466.55,True,409,244786,ml-400-plus,False
+tt0172495,Gladiator,2000,463.06,True,335,98,ml-400-plus,False
+tt0120737,The Lord of the Rings: The Fellowship of the Ring,2001,459.84,True,326,120,ml-400-plus,False
+tt15398776,Oppenheimer,2023,457.04,True,393,872585,ml-400-plus,False
+tt0364569,Oldboy,2003,455.98,True,357,670,ml-400-plus,False
+tt8075192,Shoplifters,2018,455.64,True,549,505192,ml-400-plus,False
+tt14444726,Tár,2022,455.62,False,606,817758,ml-400-plus,False
+tt0387898,Caché,2005,452.0,True,856,445,ml-400-plus,True
+tt0287467,Talk to Her,2002,451.84,True,820,64,ml-400-plus,True
+tt0317248,City of God,2002,451.58,True,348,598,ml-400-plus,False
+tt10293406,The Power of the Dog,2021,449.25,True,563,600583,ml-400-plus,False
+tt1010048,Slumdog Millionaire,2008,447.2,True,908,12405,ml-400-plus,True
+tt2543164,Arrival,2016,442.57,True,477,329865,ml-400-plus,False
+tt2562232,Birdman or (The Unexpected Virtue of Ignorance),2014,440.52,True,984,194662,ml-400-plus,True
+tt30144839,One Battle After Another,2025,439.72,False,152,1054867,ml-400-plus,False
+tt13238346,Past Lives,2023,437.85,True,575,666277,ml-400-plus,False
+tt0209144,Memento,2000,437.28,True,339,77,ml-400-plus,False
+tt14230458,Poor Things,2023,437.2,False,600,792307,ml-400-plus,False
+tt0808417,Persepolis,2007,432.72,True,896,2011,ml-400-plus,True
+tt0947798,Black Swan,2010,432.13,True,904,44214,ml-400-plus,True
+tt7131622,Once Upon a Time in... Hollywood,2019,431.03,True,521,466272,ml-400-plus,False
+tt7349662,BlacKkKlansman,2018,430.21,False,531,487558,ml-400-plus,False
+tt0206634,Children of Men,2006,429.94,True,792,9693,ml-400-plus,True
+tt6543652,Cold War,2018,428.19,True,515,440298,ml-400-plus,False
+tt4925292,Lady Bird,2017,427.62,True,1002,391713,ml-400-plus,True
+tt2278871,Blue Is the Warmest Colour,2013,426.65,True,974,152584,ml-400-plus,True
+tt8613070,Portrait of a Lady on Fire,2019,426.6,True,550,531428,ml-400-plus,False
+tt0375063,Sideways,2004,424.34,True,847,9675,ml-400-plus,True
+tt4048272,Toni Erdmann,2016,421.36,True,489,374475,ml-400-plus,False
+tt0468569,The Dark Knight,2008,419.01,True,126,155,ml-400-plus,False
+tt0449059,Little Miss Sunshine,2006,417.89,True,876,773,ml-400-plus,True
+tt0443706,Zodiac,2007,414.03,True,874,1949,ml-400-plus,True
+tt0168629,Dancer in the Dark,2000,413.9,True,784,16,ml-400-plus,True
+tt7286456,Joker,2019,413.44,False,428,475557,ml-400-plus,False
+tt1560747,The Master,2012,410.33,True,955,68722,ml-400-plus,True
+tt1016150,All Quiet on the Western Front,2022,404.4,False,910,49046,ml-400-plus,True
+tt2402927,Carol,2015,403.84,True,981,258480,ml-400-plus,True
+tt1049413,Up,2009,399.4,True,378,14160,ml-300-399,False
+tt1798709,Her,2013,399.21,True,964,152601,ml-300-399,True
+tt0167261,The Lord of the Rings: The Two Towers,2002,395.17,True,332,121,ml-300-399,False
+tt2375605,The Act of Killing,2012,395.0,True,978,123678,ml-300-399,True
+tt1588895,Uncle Boonmee Who Can Recall His Past Lives,2010,391.67,True,957,38368,ml-300-399,True
+tt1504320,The King's Speech,2010,391.05,True,950,45269,ml-300-399,True
+tt1527186,Melancholia,2011,389.7,True,952,62215,ml-300-399,True
+tt0993846,The Wolf of Wall Street,2013,389.14,True,375,106646,ml-300-399,False
+tt0783233,Atonement,2007,388.42,False,894,4347,ml-300-399,True
+tt1827487,Once Upon a Time in Anatolia,2011,387.57,True,967,74879,ml-300-399,True
+tt0254686,The Piano Teacher,2001,382.59,True,807,1791,ml-300-399,True
+tt7322224,Triangle of Sadness,2022,380.42,False,537,497828,ml-300-399,False
+tt4034228,Manchester by the Sea,2016,379.96,True,1000,334541,ml-300-399,True
+tt5776858,Phantom Thread,2017,376.67,True,1007,400617,ml-300-399,True
+tt0401383,The Diving Bell and the Butterfly,2007,375.94,False,860,2013,ml-300-399,True
+tt0311519,The Man Without a Past,2002,372.26,True,832,7294,ml-300-399,True
+tt0376968,The Return,2003,372.26,True,849,11190,ml-300-399,True
+tt2758880,Winter Sleep,2014,369.24,False,988,265169,ml-300-399,True
+tt5027774,"Three Billboards outside Ebbing, Missouri",2017,368.9,False,421,359940,ml-300-399,False
+tt36943034,The Voice of Hind Rajab,2025,367.42,False,997,1480382,ml-300-399,True
+tt0203009,Moulin Rouge!,2001,367.31,True,790,824,ml-300-399,True
+tt10633456,Minari,2020,365.41,False,564,615643,ml-300-399,False
+tt1790885,Zero Dark Thirty,2012,363.73,False,963,97630,ml-300-399,True
+tt1663202,The Revenant,2015,363.68,False,961,281957,ml-300-399,True
+tt0780504,Drive,2011,360.97,False,893,64690,ml-300-399,True
+tt10288566,Another Round,2020,360.7,False,557,580175,ml-300-399,False
+tt1232776,Fish Tank,2009,360.06,True,935,24469,ml-300-399,True
+tt2096673,Inside Out,2015,359.55,True,402,150540,ml-300-399,False
+tt0449467,Babel,2006,359.48,False,877,1164,ml-300-399,True
+tt2802154,Leviathan,2014,358.85,False,989,265180,ml-300-399,True
+tt0181875,Almost Famous,2000,358.25,True,786,786,ml-300-399,True
+tt11813216,The Banshees of Inisherin,2022,355.66,False,577,674324,ml-300-399,False
+tt0929632,Precious,2009,354.61,False,903,25793,ml-300-399,True
+tt0405159,Million Dollar Baby,2004,354.1,True,363,70,ml-300-399,False
+tt0435761,Toy Story 3,2010,353.73,True,366,10193,ml-300-399,False
+tt1302006,The Irishman,2019,353.48,False,938,398978,ml-300-399,True
+tt0381681,Before Sunset,2004,353.41,True,359,80,ml-300-399,False
+tt4995790,The Square,2017,352.1,False,505,401246,ml-300-399,False
+tt1068646,The Class,2008,351.65,False,919,8841,ml-300-399,True
+tt5168192,"I, Daniel Blake",2016,350.77,False,488,374473,ml-300-399,False
+tt8999762,The Brutalist,2024,350.72,False,555,549509,ml-300-399,False
+tt0499549,Avatar,2009,349.77,True,892,19995,ml-300-399,True
+tt1019452,A Serious Man,2009,348.8,True,911,12573,ml-300-399,True
+tt0381668,Tropical Malady,2004,348.09,True,854,11534,ml-300-399,True
+tt0363589,Elephant,2003,347.82,True,473,1807,ml-300-399,False
+tt0245712,Amores Perros,2000,347.19,True,799,55,ml-300-399,True
+tt0245574,Y tu mamá también,2001,345.25,True,798,1391,ml-300-399,True
+tt8579674,1917,2019,343.86,False,431,530915,ml-300-399,False
+tt7653254,Marriage Story,2019,343.5,False,534,492188,ml-300-399,False
+tt0383028,"Synecdoche, New York",2008,342.7,True,855,4960,ml-300-399,True
+tt2106476,The Hunt,2012,341.65,True,403,103663,ml-300-399,False
+tt6304162,Loveless,2017,341.3,False,510,429174,ml-300-399,False
+tt0338751,The Aviator,2004,341.28,False,840,2567,ml-300-399,True
+tt1454468,Gravity,2013,341.08,True,948,49047,ml-300-399,True
+tt5537002,Killers of the Flower Moon,2023,340.18,False,522,466420,ml-300-399,False
+tt0436697,The Queen,2006,339.83,False,870,1165,ml-300-399,True
+tt0382932,Ratatouille,2007,337.07,True,360,2062,ml-300-399,False
+tt4633694,Spider-Man: Into the Spider-Verse,2018,336.13,True,419,324857,ml-300-399,False
+tt1185616,Waltz with Bashir,2008,335.08,True,930,8885,ml-300-399,True
+tt10366460,CODA,2021,334.54,True,592,776503,ml-300-399,False
+tt4016934,The Handmaiden,2016,333.41,True,474,290098,ml-300-399,False
+tt1024648,Argo,2012,332.82,True,914,68734,ml-300-399,True
+tt8633462,"Quo Vadis, Aida?",2020,330.53,False,585,728118,ml-300-399,False
+tt1399683,Winter's Bone,2010,327.58,False,942,39013,ml-300-399,True
+tt0808357,"Lust, Caution",2007,327.5,False,895,4588,ml-300-399,True
+tt0265666,The Royal Tenenbaums,2001,326.65,True,812,9428,ml-300-399,True
+tt8267604,Capernaum,2018,326.06,False,429,517814,ml-300-399,False
+tt10272386,The Father,2020,325.29,False,376,600354,ml-300-399,False
+tt9660502,Close,2022,324.2,False,616,901563,ml-300-399,False
+tt0272338,Punch-Drunk Love,2002,323.7,True,814,8051,ml-300-399,True
+tt1305806,The Secret in Their Eyes,2009,321.6,True,387,25376,ml-300-399,False
+tt0456396,The Child,2005,321.26,False,880,11490,ml-300-399,True
+tt1139797,Let the Right One In,2008,319.04,True,926,13310,ml-300-399,True
+tt14961016,I'm Still Here,2024,318.48,False,949,1000837,ml-300-399,True
+tt0274558,The Hours,2002,318.24,False,815,590,ml-300-399,True
+tt5013056,Dunkirk,2017,316.77,False,1004,374720,ml-300-399,True
+tt0126029,Shrek,2001,315.43,False,781,808,ml-300-399,True
+tt0441909,Volver,2006,313.27,False,871,219,ml-300-399,True
+tt12680684,The Hand of God,2021,312.97,False,584,722778,ml-300-399,False
+tt1853728,Django Unchained,2012,312.84,True,397,68718,ml-300-399,False
+tt0379725,Capote,2005,311.14,False,852,398,ml-300-399,True
+tt0311113,Master and Commander: The Far Side of the World,2003,310.89,False,831,8619,ml-300-399,True
+tt0460989,The Wind That Shakes the Barley,2006,310.16,False,883,1116,ml-300-399,True
+tt0929425,Gomorrah,2008,309.68,False,902,8882,ml-300-399,True
+tt6135348,120 BPM (Beats Per Minute),2017,308.89,False,518,451945,ml-300-399,False
+tt0327056,Mystic River,2003,307.97,True,837,322,ml-300-399,True
+tt8291806,Pain and Glory,2019,307.84,False,548,519010,ml-300-399,False
+tt0268978,A Beautiful Mind,2001,306.68,True,347,453,ml-300-399,False
+tt1827512,The Kid with a Bike,2011,306.53,False,968,63831,ml-300-399,True
+tt21374850,All the Beauty and the Bloodshed,2022,303.92,False,634,1004663,ml-300-399,False
+tt3409392,Timbuktu,2014,302.12,False,993,265228,ml-300-399,True
+tt0346094,Distant,2002,301.78,True,841,31026,ml-300-399,True
+tt10370710,The Worst Person in the World,2021,301.47,True,573,660120,ml-300-399,False
+tt2125435,Beasts of the Southern Wild,2012,301.31,False,972,84175,ml-300-399,True
+tt0266543,Finding Nemo,2003,301.12,True,345,12,ml-300-399,False
+tt5607714,On Body and Soul,2017,301.01,False,514,436343,ml-300-399,False
+tt1160419,Dune,2021,299.36,False,465,438631,ml-250-299,False
+tt2076220,Holy Motors,2012,299.17,True,969,103328,ml-250-299,True
+tt0317705,The Incredibles,2004,298.85,True,349,9806,ml-250-299,False
+tt0208990,The Son's Room,2001,298.17,False,793,11447,ml-250-299,True
+tt0433383,"Good Night, and Good Luck.",2005,298.07,False,869,3291,ml-250-299,True
+tt14905854,Hamnet,2025,297.52,False,614,858024,ml-250-299,False
+tt8430054,Flee,2021,297.34,False,578,680813,ml-250-299,False
+tt1255953,Incendies,2010,296.66,True,385,46738,ml-250-299,False
+tt14849194,The Holdovers,2023,294.66,True,612,840430,ml-250-299,False
+tt10944760,Titane,2021,294.53,True,567,630240,ml-250-299,False
+tt0268126,Adaptation.,2002,294.35,False,813,2757,ml-250-299,True
+tt1155592,Man on Wire,2008,294.25,True,928,14048,ml-250-299,True
+tt2400275,Goodbye to Language,2014,294.08,True,980,114982,ml-250-299,True
+tt1588337,Of Gods and Men,2010,293.79,False,956,46332,ml-250-299,True
+tt1748122,Moonrise Kingdom,2012,293.35,True,962,83666,ml-250-299,True
+tt1033575,The Descendants,2011,291.99,False,916,65057,ml-250-299,True
+tt20215234,Conclave,2024,291.93,False,627,974576,ml-250-299,False
+tt0276919,Dogville,2003,291.71,True,817,553,ml-250-299,True
+tt21027780,Fallen Leaves,2023,291.25,False,631,986280,ml-250-299,False
+tt3612616,Mommy,2014,290.41,True,996,265177,ml-250-299,True
+tt0347048,Head-On,2004,289.34,True,842,363,ml-250-299,True
+tt3508840,The Assassin,2015,288.37,True,995,253450,ml-250-299,True
+tt19770238,Aftersun,2022,288.25,False,625,965150,ml-250-299,False
+tt0195685,Erin Brockovich,2000,287.9,False,789,462,ml-250-299,True
+tt0305206,American Splendor,2003,287.18,False,828,2771,ml-250-299,True
+tt10199590,Les Misérables,2019,287.16,False,561,586863,ml-250-299,False
+tt10199586,Atlantics,2019,287.12,False,536,496967,ml-250-299,False
+tt3721936,American Honey,2016,285.41,False,478,340485,ml-250-299,False
+tt0318462,The Motorcycle Diaries,2004,284.97,False,835,1653,ml-250-299,True
+tt0247425,In the Bedroom,2001,284.68,False,803,1999,ml-250-299,True
+tt2334649,Fruitvale Station,2013,283.81,False,976,157354,ml-250-299,True
+tt0498380,Letters from Iwo Jima,2006,282.79,True,891,1251,ml-250-299,True
+tt0454876,Life of Pi,2012,282.66,False,878,87827,ml-250-299,True
+tt24082438,20 Days in Mariupol,2023,281.63,False,982,1058616,ml-250-299,True
+tt7378922,"Summer of Soul (...Or, When the Revolution Could Not Be Televised)",2021,281.52,False,593,776527,ml-250-299,False
+tt1013753,Milk,2008,281.1,False,909,10139,ml-250-299,True
+tt1403865,True Grit,2010,280.8,False,943,44264,ml-250-299,True
+tt2381111,Brooklyn,2015,278.59,False,979,167073,ml-250-299,True
+tt3464902,The Lobster,2015,278.58,False,994,254320,ml-250-299,True
+tt6966692,Green Book,2018,276.34,True,427,490132,ml-250-299,False
+tt28490044,Evil Does Not Exist,2023,274.22,False,651,1156125,ml-250-299,False
+tt0445620,Paradise Now,2005,274.18,False,875,67,ml-250-299,True
+tt3011894,Wild Tales,2014,273.33,False,412,265195,ml-250-299,False
+tt0120263,Songs from the Second Floor,2000,273.17,True,780,34070,ml-250-299,True
+tt15376894,Saint Omer,2022,272.33,False,621,925943,ml-250-299,False
+tt0399146,A History of Violence,2005,271.81,False,859,59,ml-250-299,True
+tt1210166,Moneyball,2011,271.67,False,932,60308,ml-250-299,True
+tt3170832,Room,2015,270.62,True,415,264644,ml-250-299,False
+tt12477480,Decision to Leave,2022,269.89,False,582,705996,ml-250-299,False
+tt0465538,Michael Clayton,2007,269.48,False,884,4566,ml-250-299,True
+tt0374546,"Spring, Summer, Fall, Winter... and Spring",2003,269.2,True,846,113,ml-250-299,True
+tt9620292,Promising Young Woman,2020,268.95,False,559,582014,ml-250-299,False
+tt2331143,"Like Father, Like Son",2013,268.39,False,975,177945,ml-250-299,True
+tt0301357,Good Bye Lenin!,2003,268.37,False,826,338,ml-250-299,True
+tt0297884,Far from Heaven,2002,268.25,False,821,10712,ml-250-299,True
+tt1139328,The Ghost Writer,2010,267.7,False,925,11439,ml-250-299,True
+tt0217505,Gangs of New York,2002,267.24,False,795,3131,ml-250-299,True
+tt0432283,Fantastic Mr. Fox,2009,267.14,True,868,10315,ml-250-299,True
+tt1045658,Silver Linings Playbook,2012,267.12,False,917,82693,ml-250-299,True
+tt1825683,Black Panther,2018,267.04,True,966,284054,ml-250-299,True
+tt13204490,Petite Maman,2021,266.29,True,587,749004,ml-250-299,False
+tt0299658,Chicago,2002,265.14,True,822,1574,ml-250-299,True
+tt2267998,Gone Girl,2014,264.42,True,405,210577,ml-250-299,False
+tt5727208,Uncut Gems,2019,264.39,False,1006,473033,ml-250-299,True
+tt1020773,Certified Copy,2010,264.09,False,913,48303,ml-250-299,True
+tt1125849,The Wrestler,2008,263.32,True,922,12163,ml-250-299,True
+tt11271038,Licorice Pizza,2021,263.2,False,923,718032,ml-250-299,True
+tt0347149,Howl's Moving Castle,2004,262.96,True,353,4935,ml-250-299,False
+tt29768334,Train Dreams,2025,262.91,False,990,1241983,ml-250-299,True
+tt31193180,Sinners,2025,262.79,False,154,1233413,ml-250-299,False
+tt0266697,Kill Bill: Vol. 1,2003,262.75,True,346,24,ml-250-299,False
+tt1821549,Nebraska,2013,261.92,False,965,129670,ml-250-299,True
+tt8637428,The Farewell,2019,261.07,False,1012,565310,ml-250-299,True
+tt0286244,The Triplets of Belleville,2003,260.9,True,819,9662,ml-250-299,True
+tt0249241,Werckmeister Harmonies,2000,260.83,True,805,23160,ml-250-299,True
+tt7772582,Never Rarely Sometimes Always,2020,260.62,False,562,595671,ml-250-299,False
+tt0249462,Billy Elliot,2000,260.35,False,806,71,ml-250-299,True
+tt0299977,Hero,2002,259.68,True,823,79,ml-250-299,True
+tt32916440,Marty Supreme,2025,259.6,False,778,1317288,ml-250-299,False
+tt0247380,The Gleaners & I,2000,259.55,True,802,44379,ml-250-299,True
+tt14208870,The Fabelmans,2022,259.55,False,605,804095,ml-250-299,False
+tt0467406,Juno,2007,259.35,False,886,7326,ml-250-299,True
+tt0307901,25th Hour,2002,257.05,False,829,1429,ml-250-299,True
+tt3281548,Little Women,2019,256.61,True,992,331482,ml-250-299,True
+tt5104604,Isle of Dogs,2018,256.48,False,504,399174,ml-250-299,False
+tt1020072,Selma,2014,256.38,False,912,273895,ml-250-299,True
+tt0181865,Traffic,2000,255.72,False,785,1900,ml-250-299,True
+tt2576852,The Tale of The Princess Kaguya,2013,255.72,True,985,149871,ml-250-299,True
+tt2084970,The Imitation Game,2014,255.69,False,970,205596,ml-250-299,True
+tt0816692,Interstellar,2014,255.52,True,110,157336,ml-250-299,False
+tt1441395,Under the Skin,2013,254.69,True,946,97370,ml-250-299,True
+tt3966404,Mustang,2015,254.59,False,999,336804,ml-250-299,True
+tt0443272,Lincoln,2012,254.38,False,872,72976,ml-250-299,True
+tt9231040,First Cow,2019,254.29,True,556,558582,ml-250-299,False
+tt0180093,Requiem for a Dream,2000,253.86,True,336,641,ml-250-299,False
+tt1535109,Captain Phillips,2013,253.03,False,953,109424,ml-250-299,True
+tt0353969,Memories of Murder,2003,252.96,True,354,11423,ml-250-299,False
+tt0203230,You Can Count on Me,2000,252.4,False,791,14295,ml-250-299,True
+tt1454029,The Help,2011,252.16,False,947,50014,ml-250-299,True
+tt15239678,Dune: Part Two,2024,252.05,False,392,693134,ml-250-299,False
+tt2582782,Hell or High Water,2016,251.58,False,986,338766,ml-250-299,True
+tt8991268,Honeyland,2019,251.56,False,1013,566213,ml-250-299,True
+tt3044244,The Wonders,2014,251.34,False,991,265226,ml-250-299,True
+tt0368794,I'm Not There,2007,250.44,False,844,3902,ml-250-299,True
+tt0375679,Crash,2004,249.73,True,848,1640,ml-225-249,True
+tt0248845,Hedwig and the Angry Inch,2001,248.83,False,804,13403,ml-225-249,True
+tt1136608,District 9,2009,248.65,False,924,17654,ml-225-249,True
+tt0970179,Hugo,2011,247.27,False,905,44826,ml-225-249,True
+tt0361596,Fahrenheit 9/11,2004,247.19,False,843,1777,ml-225-249,True
+tt6217608,The Rider,2017,246.86,False,1009,453278,ml-225-249,True
+tt1174732,An Education,2009,246.6,False,929,24684,ml-225-249,True
+tt1596363,The Big Short,2015,246.6,False,958,318846,ml-225-249,True
+tt5804038,I Am Not Your Negro,2016,246.43,True,1008,411019,ml-225-249,True
+tt2762506,Bacurau,2019,245.87,False,517,446159,ml-225-249,False
+tt5649144,The Florida Project,2017,244.45,False,497,394117,ml-225-249,False
+tt6752992,Happy as Lazzaro,2018,243.08,False,529,481432,ml-225-249,False
+tt5363618,Sound of Metal,2020,242.93,False,539,502033,ml-225-249,False
+tt14225838,Io Capitano,2023,242.87,False,944,937746,ml-225-249,True
+tt2380307,Coco,2017,241.7,False,407,354912,ml-225-249,False
+tt1070874,The Trial of the Chicago 7,2020,241.65,False,920,556984,ml-225-249,True
+tt3716530,Elle,2016,241.3,False,492,337674,ml-225-249,False
+tt5186714,The Salesman,2016,240.81,False,491,375315,ml-225-249,False
+tt8399288,Memoria,2021,240.43,False,544,511819,ml-225-249,False
+tt4772188,Flow,2024,240.4,False,608,823219,ml-225-249,False
+tt0245929,Devils on the Doorstep,2000,240.3,False,800,25838,ml-225-249,True
+tt1316540,The Turin Horse,2011,240.12,True,939,81401,ml-225-249,True
+tt0423866,3-Iron,2004,239.78,True,866,1280,ml-225-249,True
+tt0373074,Kung Fu Hustle,2004,239.64,True,845,9470,ml-225-249,True
+tt0870111,Frost/Nixon,2008,237.99,False,900,11499,ml-225-249,True
+tt0421715,The Curious Case of Benjamin Button,2008,237.71,False,864,4922,ml-225-249,True
+tt0427312,Grizzly Man,2005,237.41,True,867,501,ml-225-249,True
+tt0408664,Nobody Knows,2004,237.31,False,862,2517,ml-225-249,True
+tt1517451,A Star Is Born,2018,237.26,False,951,332562,ml-225-249,True
+tt1189073,The Skin I Live In,2011,237.18,False,931,63311,ml-225-249,True
+tt19652910,EO,2022,236.05,False,597,785398,ml-225-249,False
+tt2121382,Force Majeure,2014,234.21,False,971,265189,ml-225-249,True
+tt1360860,About Elly,2009,233.39,False,940,37181,ml-225-249,True
+tt0363163,Downfall,2004,233.3,True,356,613,ml-225-249,False
+tt17526714,The Substance,2024,233.08,False,624,933260,ml-225-249,False
+tt1745960,Top Gun: Maverick,2022,233.01,True,395,361743,ml-225-249,False
+tt0443453,Borat,2006,232.87,False,873,496,ml-225-249,True
+tt0976051,The Reader,2008,232.86,False,906,8055,ml-225-249,True
+tt7125860,If Beale Street Could Talk,2018,232.85,False,1010,465914,ml-225-249,True
+tt6053438,First Reformed,2017,231.46,False,520,458737,ml-225-249,False
+tt7282468,Burning,2018,231.13,False,532,491584,ml-225-249,False
+tt0246578,Donnie Darko,2001,230.85,True,801,141,ml-225-249,True
+tt27714581,Sentimental Value,2025,230.77,False,648,1124566,ml-225-249,False
+tt0841925,Silent Light,2007,229.11,True,897,2012,ml-225-249,True
+tt0275491,Bad Education,2004,228.49,False,816,140,ml-225-249,True
+tt0190590,"O Brother, Where Art Thou?",2000,227.16,True,788,134,ml-225-249,True
+tt2431286,Philomena,2013,226.85,False,983,205220,ml-225-249,True
+tt0319061,Big Fish,2003,226.43,True,836,587,ml-225-249,True
+tt4468740,Paddington 2,2017,224.22,True,1001,346648,ml-below-225,True
+tt27503384,Perfect Days,2023,222.16,True,630,976893,ml-below-225,False
+tt0377556,"Goodbye, Dragon Inn",2003,219.95,True,850,56616,ml-below-225,True
+tt5598102,Faces Places,2017,219.69,True,519,451995,ml-below-225,False
+tt1424432,Senna,2010,219.65,True,945,58496,ml-below-225,True
+tt0310793,Bowling for Columbine,2002,217.73,True,830,1430,ml-below-225,True
+tt1216496,Mother,2009,214.27,True,933,30018,ml-below-225,True
+tt0300140,Lilya 4-Ever,2002,213.88,True,824,12093,ml-below-225,True
+tt0482571,The Prestige,2006,212.82,True,132,1124,ml-below-225,False
+tt2209418,Before Midnight,2013,212.34,True,973,132344,ml-below-225,True
+tt0402399,The New World,2005,211.98,True,861,11400,ml-below-225,True
+tt0378194,Kill Bill: Vol. 2,2004,208.63,True,851,393,ml-below-225,True
+tt0198781,"Monsters, Inc.",2001,207.36,True,337,585,ml-below-225,False
+tt0986233,Hunger,2008,206.99,True,907,10360,ml-below-225,True
+tt0466893,Margaret,2011,205.28,True,885,44754,ml-below-225,True
+tt0338564,Infernal Affairs,2002,199.6,True,839,10775,ml-below-225,True
+tt1379182,Dogtooth,2009,199.37,True,941,38810,ml-below-225,True
+tt0327597,Coraline,2009,198.58,True,727,14836,ml-below-225,False
+tt0480025,This Is England,2006,198.48,True,890,11798,ml-below-225,True
+tt0851578,Paprika,2006,195.71,True,898,4977,ml-below-225,True
+tt0318034,Russian Ark,2002,195.53,True,834,16646,ml-below-225,True
+tt0381061,Casino Royale,2006,194.97,True,853,36557,ml-below-225,True
+tt0978762,Mary and Max,2009,193.34,True,373,24238,ml-below-225,False
+tt0456149,The Death of Mr. Lazarescu,2005,191.44,True,879,31032,ml-below-225,True
+tt0240419,The Swamp,2001,190.6,True,796,58429,ml-below-225,True
+tt0414387,Pride & Prejudice,2005,190.02,True,863,4348,ml-below-225,True
+tt0265343,Monsoon Wedding,2001,189.67,True,811,480,ml-below-225,True
+tt8178634,RRR,2022,188.34,True,1011,579974,ml-below-225,True
+tt0212720,A.I. Artificial Intelligence,2001,188.09,True,794,644,ml-below-225,True
+tt0477731,Syndromes and a Century,2006,183.94,True,888,27904,ml-below-225,True
+tt0470752,Ex Machina,2014,180.27,True,887,264660,ml-below-225,True
+tt0317910,The Fog of War,2003,174.71,True,833,12698,ml-below-225,True
+tt1221141,The Headless Woman,2008,169.23,True,934,8898,ml-below-225,True
+tt1556190,Nostalgia for the Light,2010,168.54,True,954,72721,ml-below-225,True
+tt3409848,Zama,2017,165.8,True,476,326382,ml-below-225,False
+tt0283283,Millennium Mambo,2001,163.67,True,818,11553,ml-below-225,True
+tt0460829,Inland Empire,2006,163.52,True,882,1730,ml-below-225,True
+tt0304141,Harry Potter and the Prisoner of Azkaban,2004,163.13,True,827,673,ml-below-225,True
+tt0300214,Morvern Callar,2002,162.18,True,825,18602,ml-below-225,True
+tt1100048,35 Shots of Rum,2008,157.98,True,921,26191,ml-below-225,True
+tt1856101,Blade Runner 2049,2017,157.44,True,99,335984,ml-below-225,False
+tt0262240,As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty,2000,152.4,True,810,130824,ml-below-225,True
+tt0264464,Catch Me If You Can,2002,151.05,True,344,640,ml-below-225,False
+tt0389448,Tie Xi Qu: West of the Tracks,2002,149.67,True,858,86282,ml-below-225,True
+tt0255094,The Circle,2000,148.85,True,808,13898,ml-below-225,True
+tt0208092,Snatch,2000,145.88,True,338,107,ml-below-225,False
+tt0859765,Still Life,2006,141.16,True,899,2346,ml-below-225,True
+tt0258885,Platform,2000,137.33,True,809,80427,ml-below-225,True
+tt0460480,Colossal Youth,2006,133.93,True,881,82404,ml-below-225,True
+tt0139500,In Vanda's Room,2000,122.06,True,782,87063,ml-below-225,True
+tt0422491,The Intruder,2004,108.67,True,865,47143,ml-below-225,True

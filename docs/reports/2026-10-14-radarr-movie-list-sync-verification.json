@@ -1,0 +1,265 @@
+{
+  "qualified": 387,
+  "initial_existing_to_tag": 152,
+  "movies_tagged": 152,
+  "movies_added": 235,
+  "unresolved": 0,
+  "after_movie_count": 990,
+  "band_distribution": {
+    "ml-400-plus": 88,
+    "ml-300-399": 96,
+    "ml-250-299": 104,
+    "ml-225-249": 48,
+    "ml-below-225": 51
+  },
+  "tags": {
+    "ml-225-249": 5,
+    "ml-250-299": 6,
+    "ml-300-399": 7,
+    "ml-400-plus": 8,
+    "ml-below-225": 4,
+    "movie-list": 3
+  },
+  "root_folder": "/home/kolorifer/movies",
+  "profile_id": 7,
+  "profile_name": "Ultra-HD-Remux",
+  "all_original_755_settings_tags_files_overview_preserved": true,
+  "new_records_monitored_search_disabled": true,
+  "second_plan": {
+    "qualified": 387,
+    "already_correct": 387,
+    "existing_to_tag": 0,
+    "missing_to_add": 0,
+    "unresolved": 0,
+    "managed_removals": 0
+  },
+  "operation_counts": {
+    "POST /tag": 6,
+    "PUT /movie/editor": 152,
+    "POST /movie": 235
+  },
+  "queue_before": 0,
+  "queue_after": 0,
+  "new_grab_or_download_history_events": 0,
+  "existing_background_jobs_during_apply": [
+    {
+      "id": 43483,
+      "name": "RefreshMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43485,
+      "name": "ProcessMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43522,
+      "name": "RefreshMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43523,
+      "name": "ProcessMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43560,
+      "name": "RefreshMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43561,
+      "name": "ProcessMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43595,
+      "name": "RefreshMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43596,
+      "name": "ProcessMonitoredDownloads",
+      "status": "completed"
+    },
+    {
+      "id": 43548,
+      "name": "ImportListSync",
+      "status": "completed"
+    }
+  ],
+  "background_import_list_trigger": "scheduled (verified via read-only command API)",
+  "preexisting_unrelated_missing_imdb_ids": [
+    675
+  ],
+  "backup": "/home/kolorifer/.local/state/movie-intel/radarr-sync/backups/20261014T124727Z",
+  "sync_search_grab_download_importlist_commands": 0,
+  "scheduler": {
+    "service": "Result=success\nExecMainStatus=0\n",
+    "timer": "NextElapseUSecRealtime=Thu 2026-10-15 05:51:13 CEST\nLastTriggerUSec=\nActiveState=active\nSubState=waiting\n",
+    "scheduled_wrapper_added": 0,
+    "scheduled_wrapper_tagged": 0,
+    "scheduled_wrapper_post": {
+      "qualified": 387,
+      "already_correct": 387,
+      "existing_to_tag": 0,
+      "missing_to_add": 0,
+      "unresolved": 0,
+      "managed_removals": 0
+    }
+  },
+  "tests": 107,
+  "new_tests": 25,
+  "implementation_branch": "production/radarr-movie-list-sync",
+  "implementation_commit": "34c0bdc9da80353107267c84f2d69e732bb0d07a",
+  "merge_revision": "a587e25ff32820cc5da6bf5bbbd07f3c2ad238b5",
+  "pr": "https://github.com/kolorifer/radarr-festival-list/pull/7",
+  "ci_runs": [
+    38566311723,
+    38566304944
+  ],
+  "initial_apply_completed": true,
+  "rollback_prepared": "~/.local/state/movie-intel/radarr-sync/predeployment/rollback.py",
+  "rollback_executed": false,
+  "configuration_private_mode": 600,
+  "movie_intel_service": "MainPID=3062372\nNRestarts=0\nActiveState=active\nSubState=running\n",
+  "representatives": [
+    {
+      "imdb_id": "tt0388795",
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "score": 803.78,
+      "grandfathered": true,
+      "radarr_id": 857,
+      "tmdb_id": 142,
+      "band": "ml-400-plus",
+      "newly_added": true,
+      "tag_ids": [
+        3,
+        8
+      ]
+    },
+    {
+      "imdb_id": "tt5649144",
+      "title": "The Florida Project",
+      "year": 2017,
+      "score": 244.45,
+      "grandfathered": false,
+      "radarr_id": 497,
+      "tmdb_id": 394117,
+      "band": "ml-225-249",
+      "newly_added": false,
+      "tag_ids": [
+        3,
+        5
+      ]
+    },
+    {
+      "imdb_id": "tt5363618",
+      "title": "Sound of Metal",
+      "year": 2020,
+      "score": 242.93,
+      "grandfathered": false,
+      "radarr_id": 539,
+      "tmdb_id": 502033,
+      "band": "ml-225-249",
+      "newly_added": false,
+      "tag_ids": [
+        3,
+        5
+      ]
+    },
+    {
+      "imdb_id": "tt2380307",
+      "title": "Coco",
+      "year": 2017,
+      "score": 241.7,
+      "grandfathered": false,
+      "radarr_id": 407,
+      "tmdb_id": 354912,
+      "band": "ml-225-249",
+      "newly_added": false,
+      "tag_ids": [
+        3,
+        5
+      ]
+    },
+    {
+      "imdb_id": "tt5186714",
+      "title": "The Salesman",
+      "year": 2016,
+      "score": 240.81,
+      "grandfathered": false,
+      "radarr_id": 491,
+      "tmdb_id": 375315,
+      "band": "ml-225-249",
+      "newly_added": false,
+      "tag_ids": [
+        3,
+        5
+      ]
+    },
+    {
+      "imdb_id": "tt4468740",
+      "title": "Paddington 2",
+      "year": 2017,
+      "score": 224.22,
+      "grandfathered": true,
+      "radarr_id": 1001,
+      "tmdb_id": 346648,
+      "band": "ml-below-225",
+      "newly_added": true,
+      "tag_ids": [
+        3,
+        4
+      ]
+    }
+  ],
+  "representative_new_high_score": [
+    {
+      "imdb_id": "tt0388795",
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "score": 803.78,
+      "grandfathered": true,
+      "radarr_id": 857,
+      "tmdb_id": 142,
+      "band": "ml-400-plus",
+      "newly_added": true,
+      "tag_ids": [
+        3,
+        8
+      ]
+    },
+    {
+      "imdb_id": "tt1065073",
+      "title": "Boyhood",
+      "year": 2014,
+      "score": 748.89,
+      "grandfathered": true,
+      "radarr_id": 918,
+      "tmdb_id": 85350,
+      "band": "ml-400-plus",
+      "newly_added": true,
+      "tag_ids": [
+        3,
+        8
+      ]
+    },
+    {
+      "imdb_id": "tt1602620",
+      "title": "Amour",
+      "year": 2012,
+      "score": 679.91,
+      "grandfathered": true,
+      "radarr_id": 959,
+      "tmdb_id": 86837,
+      "band": "ml-400-plus",
+      "newly_added": true,
+      "tag_ids": [
+        3,
+        8
+      ]
+    }
+  ]
+}

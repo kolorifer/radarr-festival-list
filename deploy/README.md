@@ -18,7 +18,9 @@ Do not reinstall its unit/proxy/environment for a code/data-only update.
 The production catalog is loaded at startup; invalid/missing qualification data
 fails preflight. Check local/public health200, active/running and NRestarts after
 startup, then perform read-only representative lookups. Preserve all existing
-Radarr import-list settings. Do not trigger list refresh, searches or bulk adds.
+Radarr import-list settings. Do not trigger list refresh or searches. The separately authorized D017
+[Radarr sync](RADARR_SYNC.md) adds missing monitored records with search disabled
+after a verified dry-run; it is not part of movie-intel startup.
 
 Rollback code/data by stopping movie-intel, checking out the recorded prior
 revision and starting movie-intel. Preserve current private action/cache state;

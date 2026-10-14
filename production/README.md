@@ -58,3 +58,8 @@ Evidence history:
 [PR #3](https://github.com/kolorifer/radarr-festival-list/pull/3),
 [PR #4](https://github.com/kolorifer/radarr-festival-list/pull/4),
 [PR #5](https://github.com/kolorifer/radarr-festival-list/pull/5).
+
+D017's separate [sync command/timer](../deploy/RADARR_SYNC.md) consumes the
+catalog for authorized monitored record additions and managed tags. It does not
+issue acquisition commands. Movie-intel startup/regeneration remain read-only
+with respect to Radarr.
