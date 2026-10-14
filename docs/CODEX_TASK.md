@@ -1,16 +1,21 @@
 # Current Codex task
 
-Status: **Idle — watched-state pass for the October 14 import completed.**
+Status: **Assigned — apply watched-state correction for Rambo III (1988).**
 
-[Aggregate implementation/deployment report](reports/2026-10-14-watched-new-import.md)
+User confirmed that **Rambo III (1988), IMDb `tt0095956`**, was watched and was missed during the previous watched classification.
 
-PR #10 merged/deployed. All87 private-cohort targets were proven exact newly imported
-Movie List records, tagged watched and set monitored=false.
-All other movie fields/tags and non-target movies are preserved.
-Second cohort dry-run:zero pending changes. Normal Movie List dry-run:all387 correct,
-zero changes; watched existing films remain unmonitored.
-Private canonical watched manifest:271 +87 −0 overlap =358 targets.
-Private current Radarr snapshot refreshed/verified (992 records).
-167 tests and CI pass; no acquisition/add/delete commands; scheduler unchanged.
+Private source of truth for this correction:
+- `kolorifer/radarr-state/watched-corrections.json`
 
-No implementation task is currently assigned.
+Required actions:
+1. Verify the current Radarr record resolves exactly to IMDb `tt0095956` / Rambo III (1988). Do not use title-only matching.
+2. Add the existing `watched` tag to this exact movie.
+3. Set `monitored=false` for this exact movie.
+4. Preserve the movie file, quality/profile/root-folder settings, all unrelated fields, and any existing tags.
+5. Merge `tt0095956` into the canonical private `watched-targets.json` manifest, updating its target count from 358 to 359 and preserving exact-IMDb-only semantics.
+6. Run a second dry-run/idempotency check proving zero pending changes for this correction.
+7. Refresh the sanitized private Radarr snapshot and verify Rambo III is `watched` + unmonitored afterward.
+8. Do not add/delete movies, search/grab/download, delete files, or modify unrelated movies.
+9. Add/update the implementation report and return this task file to Idle after completion.
+
+Expected result: canonical watched count = **359**.
