@@ -190,3 +190,29 @@ the workflow documentation task.
 - **Scope:** Compare only deployed qualification OR Evidence Score>=225 and
   deployed qualification OR Evidence Score>=250. Preserve D012/D014, score
   values and production behavior. No final threshold chosen in this experiment.
+
+## D016 — Final qualification policy for the current iteration
+
+- **Status/source:** Accepted user/ChatGPT product decision, 2026-10-14.
+- **Decision:** Future qualification uses the current deployed 224 films as a
+  grandfathered set, plus any new film with Evidence Score >=225. The threshold
+  is inclusive.
+- **Rule:** `qualified = grandfathered_production_224 OR evidence_score >= 225`.
+- **No extra guards:** Do not add an Audience-share cap, family-count minimum,
+  age normalization, or other qualification rule on top of the 225 threshold.
+- **Legacy rules:** Existing convergence/corroboration qualification rules are
+  not a continuing admission path for new films once this policy is implemented.
+  They may remain as historical provenance/diagnostic metadata, but must not
+  independently qualify future additions.
+- **Rationale:** The final P225/P250 comparison showed that 225 adds 36 supported
+  films beyond 250, with no Audience-only newcomers. The additional cohort has
+  substantial non-Audience evidence and includes the festival/cinephile discovery
+  profile the project is intended to capture; 250 mainly reduces discovery
+  without demonstrating better taste precision.
+- **Grandfathering:** The 31 research-only comparator additions are not
+  grandfathered. They qualify only if they independently satisfy Evidence Score
+  >=225. The authoritative grandfathered set remains the actual deployed 224 from
+  D015.
+- **Boundary:** This records the product decision only. No deployment, Radarr
+  change, production merge, or generated-feed change is authorized by this
+  documentation update. A separate implementation/deployment task is required.
