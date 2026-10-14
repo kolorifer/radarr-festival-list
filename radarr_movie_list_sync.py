@@ -390,9 +390,12 @@ def main(argv=None):
                     "activity_before":before_activity,"activity_after":after_activity,
                     "backup":str(backup),"completed_at":datetime.now(timezone.utc).isoformat()}
             write_private(backup/"after.json",after)
+            from radarr_snapshot import after_success
+            report["snapshot_publication"] = after_success(after)
             write_private(args.report,report)
             print(json.dumps({"mode":"apply",**{k:v for k,v in result.items() if k!="write_operations"},"remaining_changes":remaining,
-                              "unresolved":post["counts"]["unresolved"],"report":str(args.report)}))
+                              "unresolved":post["counts"]["unresolved"],"report":str(args.report),
+                              "snapshot_publication":report["snapshot_publication"]}))
             return 0
     except (SyncError,radarr.RadarrError,OSError,ValueError) as exc:
         # No exception chain/HTTP payload is exposed by the client.
