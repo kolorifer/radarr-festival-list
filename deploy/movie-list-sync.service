@@ -1,0 +1,11 @@
+[Unit]
+Description=Reconcile Movie List membership and score bands in Radarr
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/radarr-festival-list
+ExecStart=%h/radarr-festival-list/.venv/bin/python deploy/radarr-sync.py --apply
+TimeoutStartSec=45min
+UMask=0077
+NoNewPrivileges=true
