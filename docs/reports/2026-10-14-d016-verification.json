@@ -1,0 +1,182 @@
+{
+  "tests": 82,
+  "new_tests": 29,
+  "pip_check": "passed",
+  "configuration_preflight": "passed",
+  "frozen_candidates": 1909,
+  "grandfathered": 224,
+  "new": 163,
+  "qualified": 387,
+  "exact_pr5_scores_and_family_points": true,
+  "exact_c7_ids_routes": true,
+  "public_feed_bytes_unchanged": [
+    "festival.json",
+    "curated.json",
+    "curated-details.json",
+    "backcatalog.json"
+  ],
+  "watch_annotation_only_root_diff": true,
+  "live_test_report_preserved": true,
+  "privacy_scan": "passed; reserved .invalid test fixtures excluded from URL-pattern check; actual secret values scanned everywhere",
+  "relative_doc_links": "passed",
+  "artifact_sha256": "394edcfa72a04803c103c4532d6ecb5e396591eba15ca00924c85996632a1a95",
+  "deterministic_regeneration": "byte-identical",
+  "changed_file_count": 44,
+  "deployment": "passed",
+  "implementation_branch": "production/d016-qualification",
+  "implementation_commit": "87873dafe2c08d8f1ce13163cb57efd15c2b7b50",
+  "pr": "https://github.com/kolorifer/radarr-festival-list/pull/6",
+  "runtime_activation_revision": "8e357b9edc90307c6af3e64f1c334527a11a5227",
+  "rollback_revision": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+  "backup": "/home/kolorifer/.local/state/movie-intel/deploy-backups/20261014T112917Z-d016",
+  "ci_runs": [
+    38533617053,
+    38533564625
+  ],
+  "ci_python_versions": [
+    "3.12",
+    "3.13"
+  ],
+  "service": {
+    "active": true,
+    "running": true,
+    "restarts": 0,
+    "same_process_since_activation": true
+  },
+  "local_health": {
+    "http": 200,
+    "ok": true,
+    "movies": 1909,
+    "radarr_configured": true
+  },
+  "public_health": {
+    "http": 200,
+    "ok": true,
+    "movies": 1909,
+    "radarr_configured": true
+  },
+  "public_health_from_mac": true,
+  "integrations": {
+    "radarr_status": {
+      "http": 200,
+      "version": "6.4.4.10685"
+    },
+    "radarr_roots": {
+      "http": 200,
+      "count": 1
+    },
+    "radarr_profiles": {
+      "http": 200,
+      "count": 7
+    },
+    "radarr_import_lists": {
+      "http": 200
+    },
+    "telegram_getMe": {
+      "http": 200,
+      "ok": true
+    },
+    "telegram_getChat": {
+      "http": 200,
+      "ok": true
+    },
+    "tmdb_configuration": {
+      "http": 200
+    }
+  },
+  "autobrr_notification": {
+    "webhook_target_matches": true,
+    "notification_id": 2,
+    "enabled": 1,
+    "type": "WEBHOOK",
+    "rejected_event_configured": true
+  },
+  "environment_and_unit_unchanged": true,
+  "lookups": [
+    {
+      "imdb_id": "tt4468740",
+      "title": "Paddington 2",
+      "year": 2017,
+      "overall_score": 224.22,
+      "qualified": true,
+      "routes": [
+        "grandfathered_production"
+      ],
+      "grandfathered": true
+    },
+    {
+      "imdb_id": "tt5363618",
+      "title": "Sound of Metal",
+      "year": 2020,
+      "overall_score": 242.93,
+      "qualified": true,
+      "routes": [
+        "evidence_score_225"
+      ],
+      "grandfathered": false
+    },
+    {
+      "imdb_id": "tt2380307",
+      "title": "Coco",
+      "year": 2017,
+      "overall_score": 241.7,
+      "qualified": true,
+      "routes": [
+        "evidence_score_225"
+      ],
+      "grandfathered": false
+    },
+    {
+      "imdb_id": "tt5186714",
+      "title": "The Salesman",
+      "year": 2016,
+      "overall_score": 240.81,
+      "qualified": true,
+      "routes": [
+        "evidence_score_225"
+      ],
+      "grandfathered": false
+    },
+    {
+      "imdb_id": "tt0388795",
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "overall_score": 803.78,
+      "qualified": true,
+      "routes": [
+        "grandfathered_production",
+        "evidence_score_225"
+      ],
+      "grandfathered": true
+    },
+    {
+      "imdb_id": "tt9362722",
+      "title": "Spider-Man: Across the Spider-Verse",
+      "year": 2023,
+      "overall_score": 221.8,
+      "qualified": false,
+      "routes": [],
+      "grandfathered": false
+    },
+    {
+      "imdb_id": "tt15239678",
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "overall_score": 252.05,
+      "qualified": true,
+      "routes": [
+        "evidence_score_225"
+      ],
+      "grandfathered": false
+    }
+  ],
+  "radarr_writes": 0,
+  "deliberate_live_notifications": 0,
+  "import_list_refreshes": 0,
+  "new_qualification_import_list": false,
+  "remaining_gaps": {
+    "letterboxd": 9,
+    "award_source": 32
+  },
+  "new_product_task_selected": false
+}

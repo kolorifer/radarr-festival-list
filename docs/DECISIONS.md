@@ -193,7 +193,7 @@ the workflow documentation task.
 
 ## D016 — Final qualification policy for the current iteration
 
-- **Status/source:** Implemented; production deployment validation in progress, 2026-10-14.
+- **Status/source:** Implemented and deployed, 2026-10-14.
 - **Decision:** Future qualification uses the current deployed 224 films as a
   grandfathered set, plus any new film with Evidence Score >=225. The threshold
   is inclusive.
@@ -226,4 +226,7 @@ the workflow documentation task.
 - **Annotation correction:** La Ciénaga, Uncle Boonmee and Elephant were selected
   to watch, not watched. Their existing-schema state is unknown; this has no
   score/qualification effect.
+- **Verified result:** All 1,909 frozen scores unchanged; 224 grandfathered +
+  163 naturally admitted = 387 qualified. PR #6 merged; runtime activated at
+  8e357b9edc90307c6af3e64f1c334527a11a5227. No acquisition/list refresh.
 - **Verification/report:** [Production engineering report](reports/2026-10-14-d016-production.md).

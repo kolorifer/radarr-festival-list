@@ -5,9 +5,24 @@ Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 
 ## D016 production implementation
 
-Implementation branch: production/d016-qualification, based on main696420a.
-Deployment validation is in progress; live checkout remains c7a4582 until the
-engineering report records activation and health checks.
+Implementation branch: production/d016-qualification, based on main 696420a.
+[PR #6](https://github.com/kolorifer/radarr-festival-list/pull/6) merged.
+Implementation: 87873dafe2c08d8f1ce13163cb57efd15c2b7b50.
+Runtime activated: 8e357b9edc90307c6af3e64f1c334527a11a5227.
+The main handoff adds documentation/audit clarification without changing runtime
+code, scoring inputs, frozen baseline, expected scores or generated catalog.
+
+movie-intel.service is active/running, with the same process since activation
+and NRestarts=0. Local and public HTTPS health return 200 and 1,909 movies.
+Read-only Radarr status/roots/profiles, Telegram getMe/getChat and TMDb
+configuration checks return 200. Autobrr notification 2 remains enabled WEBHOOK,
+matches the private movie-intel target and includes PUSH_REJECTED.
+No real notification/add/search/download was deliberately triggered.
+
+82 tests pass, including 29 new regressions, on seedbox and Python 3.12/3.13 CI.
+pip check and configuration preflight pass. Artifact regeneration is byte-identical;
+all 1,909 score/family/rank values and the exact 224 deployed IDs/routes verify.
+Privacy/doc/scope checks pass. The current task is idle.
 
 The authoritative rule is exactly:
 `qualified = grandfathered_deployed_224 OR Evidence Score >=225`.
