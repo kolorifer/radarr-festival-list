@@ -3,6 +3,32 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Watched state for the newly imported Movie List cohort
+
+D020 implemented/applied on production/watched-import-state, PR #10 merged45c3311.
+All87 private-cohort exact IMDb IDs matched unique existing movies and were proven
+against the original235-film import audit, qualification and Movie List/band tags.
+Added watched tag9 and set monitored=false for all87; all other fields/tags and
+non-target movies are unchanged. No scoring/qualification or acquisition change.
+
+Second independent cohort dry-run:0 pending/missing/ambiguous. Normal Movie List
+dry-run:387 already correct,0 changes/unresolved, no re-monitoring. The normal
+sync runtime/write restrictions are unchanged; an explicit regression proves
+existing qualified watched/unmonitored films remain unmonitored.
+
+Canonical private watched manifest:271 prior +87 cohort −0 overlap =358 unique
+targets. Cohort preserved as provenance. Private snapshot refreshed immediately,
+992 records, all87 watched/unmonitored confirmed through GitHub. Count was992
+before/after apply; two additions since prior iteration predate this operation.
+
+167 tests (16 new), Python3.12/3.13 CI, pip/preflight/frozen catalog/privacy checks
+pass. Unit hashes/cadence unchanged, timer active; same active movie-intel PID,
+NRestarts0, local/public health200. No new recurring watched enforcement rule.
+No blocker remains; task idle.
+
+[Runbook](../deploy/WATCHED_IMPORT.md) ·
+[Aggregate engineering report](reports/2026-10-14-watched-new-import.md).
+
 ## One-time watched tagging
 
 D019 completed on production/watched-tagging, PR #9 merged at35dcdf0.

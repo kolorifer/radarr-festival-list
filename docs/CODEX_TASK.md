@@ -1,21 +1,16 @@
 # Current Codex task
 
-Status: **Assigned — apply watched state to the 2026-10-14 Movie List import.**
+Status: **Idle — watched-state pass for the October 14 import completed.**
 
-[Implementation brief](reports/2026-10-14-watched-new-import-brief.md)
+[Aggregate implementation/deployment report](reports/2026-10-14-watched-new-import.md)
 
-Authoritative private cohort manifest:
-`kolorifer/radarr-state/watched-targets-2026-10-14-import.json`
+PR #10 merged/deployed. All87 private-cohort targets were proven exact newly imported
+Movie List records, tagged watched and set monitored=false.
+All other movie fields/tags and non-target movies are preserved.
+Second cohort dry-run:zero pending changes. Normal Movie List dry-run:all387 correct,
+zero changes; watched existing films remain unmonitored.
+Private canonical watched manifest:271 +87 −0 overlap =358 targets.
+Private current Radarr snapshot refreshed/verified (992 records).
+167 tests and CI pass; no acquisition/add/delete commands; scheduler unchanged.
 
-Expected cohort: 87 exact IMDb-ID targets.
-
-Required end state for every target:
-- additive `watched` tag;
-- `monitored=false`;
-- preserve Movie List/score-band/unrelated tags, files and settings.
-
-Use a fresh live snapshot and exact IMDb matching. If clean, dry-run then apply without another routine approval. Verify idempotence, refresh the private Radarr snapshot, merge the cohort into the private canonical watched manifest after successful verification, and prove the normal Movie List sync does not re-monitor existing watched movies.
-
-No movie/file deletion, search, grab, download, import-list refresh or acquisition command. Existing scheduler unchanged.
-
-On completion, publish an aggregate-only engineering report and return this file to Idle.
+No implementation task is currently assigned.

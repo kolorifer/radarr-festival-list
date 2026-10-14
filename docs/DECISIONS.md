@@ -295,3 +295,22 @@ the workflow documentation task.
   refreshed and verified through existing GitHub connection. PR #9 merged;
   151 tests (18 new) and CI pass.
 - **Report:** [Aggregate implementation/deployment](reports/2026-10-14-watched-tagging.md).
+
+## D020 — Watched/unmonitored state for the new Movie List import cohort
+
+- **Status/source:** Explicit assigned87-film private cohort brief on main70c9312;
+  implemented/applied2026-10-14.
+- **Decision:** Exact verified cohort targets remain qualified/in Radarr with
+  Movie List and band tags, receive watched additively and become unmonitored.
+  Watched is user state and does not affect score/rank/qualification.
+- **Boundary:** Cohort-only guarded true-to-false monitoring transition.
+  Preserve all files/settings/metadata/unrelated tags and non-target movies.
+  No acquisition/add/delete commands, monitoring-on support or scheduler change.
+  General sync API restrictions remain unchanged.
+- **Persistence:** Merge the verified cohort into the private canonical manifest
+  after apply verification; retain cohort provenance and refresh private snapshot.
+- **Verified:** All87 tagged/unmonitored;0 second-run changes/missing/ambiguous.
+  Canonical271 +87 −0 overlap =358. Normal sync387 already correct with0 changes;
+  existing watched/unmonitored preservation regression passes. PR #10 merged;
+  167 tests (16 new), CI and deployed health checks pass.
+- **Report:** [Aggregate implementation/deployment](reports/2026-10-14-watched-new-import.md).
