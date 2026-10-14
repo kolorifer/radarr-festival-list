@@ -94,6 +94,17 @@ class SyncTests(unittest.TestCase):
         snapshot,plan=self.plan()
         return sync.apply_plan(self.api,self.catalog,snapshot,plan)
 
+    def test_existing_qualified_watched_unmonitored_stays_unmonitored(self):
+        self.fake.tags.append({"id":11,"label":"watched"})
+        self.fake.movies[0]["tags"].append(11)
+        self.fake.movies[0]["monitored"]=False
+        self.apply()
+        row=next(m for m in self.fake.movies if m["imdbId"]=="tt1")
+        self.assertIs(row["monitored"],False)
+        self.assertIn(11,row["tags"])
+        self.assertTrue(all("monitored" not in body for path,method,body in self.fake.writes
+                            if path=="/movie/editor"))
+
     def test_dry_run_zero_writes(self):
         snap,plan=self.plan()
         self.assertEqual(self.fake.writes,[])
