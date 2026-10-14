@@ -34,3 +34,15 @@ GitHub Actions runs twice per day, and when the script or workflow changes. Use 
 A failed request, empty list, invalid ID, duplicate entry, changing count, or incomplete pagination fails the build and preserves the previous feed. All configured lists must succeed before the file is replaced.
 
 IMDb's website API is undocumented and may change. The verified persisted query hash is pinned in `LIST_QUERY_HASH`; if IMDb retires it, check https://github.com/Kometa-Team/IMDb-Hash/blob/master/LIST_HASH and verify the new response before updating it. No subscription, API key, or browser automation is required.
+
+## Movie-intel qualification service
+
+The production model qualifies a film when its IMDb ID belongs to the frozen
+224 deployed legacy films or its final Evidence Score is at least 225.
+See [production data](production/README.md), [project state](docs/PROJECT_STATE.md)
+and [deployment runbook](deploy/README.md).
+
+Qualification informs enriched Telegram notifications. It does not automatically
+add films to Radarr. The existing confirmation action adds without a general
+search and pushes only the approved release. The public festival list remains
+independent of the qualification catalog.
