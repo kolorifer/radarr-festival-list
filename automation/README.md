@@ -24,6 +24,24 @@ commit name/email. Verify that the Codex account has access to `gpt-6.1-sol`.
 Credentials stay in each CLI's private credential store, never in task comments.
 Do not use a seedbox/production checkout or load media service credentials.
 
+## Operator smoke test
+
+From the dedicated clone root, check CLI availability/authentication and confirm
+the repository is clean before previewing:
+
+```sh
+gh --version
+gh auth status
+codex --version
+codex login status
+git status --short --branch
+test -z "$(git status --porcelain)" && python3 automation/github_worker.py --dry-run --once
+```
+
+Resolve any failed preflight check before proceeding. `--dry-run --once` must not
+launch Codex, claim a task, create commits/branches/comments, or consume task
+numbers. It only previews an eligible task (or reports that none is pending).
+
 ## Preview, start and stop
 
 From the clone root:
