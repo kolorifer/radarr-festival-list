@@ -177,4 +177,18 @@ launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.example.github-codex-w
 
 Nothing in this repository installs, enables or invokes this example.
 
+### LaunchAgent verification
+
+For an enabled agent using the example label and logs configured under
+`~/Library/Logs/github-codex-worker/`, inspect its status and recent output:
+
+```sh
+launchctl print gui/$(id -u)/com.example.github-codex-worker
+tail -n 50 ~/Library/Logs/github-codex-worker/worker.stdout.log
+tail -n 50 ~/Library/Logs/github-codex-worker/worker.stderr.log
+```
+
+Substitute the installed label and log filenames if different. The healthy idle
+result is no pending `READY_FOR_CODEX` task and empty stderr.
+
 Codex command/output-schema details: [official non-interactive documentation](https://learn.chatgpt.com/docs/non-interactive-mode).
