@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.example.github-codex-worker</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/ABSOLUTE/PATH/TO/python3</string>
+    <string>/ABSOLUTE/PATH/TO/clone/automation/github_worker.py</string>
+    <string>--repo</string><string>/ABSOLUTE/PATH/TO/clone</string>
+    <string>--once</string>
+  </array>
+  <key>WorkingDirectory</key><string>/ABSOLUTE/PATH/TO/clone</string>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>/ABSOLUTE/PATH/TO/cli-bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin</string></dict>
+  <key>StartInterval</key><integer>60</integer>
+  <key>StandardOutPath</key><string>/ABSOLUTE/PRIVATE/LOG/PATH/worker.stdout.log</string>
+  <key>StandardErrorPath</key><string>/ABSOLUTE/PRIVATE/LOG/PATH/worker.stderr.log</string>
+</dict>
+</plist>
