@@ -3,6 +3,24 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## GitHub supervisor / fresh local Codex worker — 2026-10-15
+
+Issue #11 / SUPERVISOR_TASK 1 implemented on automation/issue-11-worker for
+supervisor review. The local Python runner uses fresh GPT-6.1 Sol / Medium Codex
+processes, GitHub issue state, atomic claim refs, durable duplicate protection,
+flock, an eight-iteration limit, and a <=15% 5h-quota pause. Dry-run and once modes,
+28 offline tests and macOS auth/start/stop docs are included. No daemon enabled,
+no deployment, and no Radarr/seedbox/media operation performed.
+
+Local runner tests pass; the full local suite has the baseline sandbox/socket
+and missing-dependency limits documented in the report. CI verifies supported
+Python versions separately. Existing unrelated CODEX_TASK.md is preserved and
+was not executed or cleared by this issue. No production behavior change.
+
+[Setup](../automation/README.md) ·
+[Brief](reports/2026-10-15-github-worker-brief.md) ·
+[Engineering report](reports/2026-10-15-github-worker.md).
+
 ## Watched state for the newly imported Movie List cohort
 
 D020 implemented/applied on production/watched-import-state, PR #10 merged45c3311.
