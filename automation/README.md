@@ -22,7 +22,8 @@ The GitHub identity needs repository contents/branch/PR and issue-comment write
 access. `origin` must identify the selected GitHub repository. Configure Git's
 commit name/email. Verify that the Codex account has access to `gpt-6.1-sol`.
 Credentials stay in each CLI's private credential store, never in task comments.
-Do not use a seedbox/production checkout or load media service credentials.
+Do not use a seedbox/production checkout. Seedbox tasks may use existing private
+SSH authentication; never copy credentials into prompts, logs or the repository.
 
 ## Operator smoke test
 
@@ -95,7 +96,31 @@ Workers use GPT-6.1 Sol with Medium reasoning. An explicit task field such as
 resume/fork command or prior transcript is supplied. The compact prompt includes
 the issue body, latest task, repository `AGENTS.md` instructions and current git
 status/three commits. Other task briefs are explicitly not execution authority.
-The hard v1 boundary excludes Radarr/seedbox/media mutations and daemons.
+Daemons remain forbidden. Network and seedbox access default to denied. Only the
+latest numbered task from the issue owner can opt in with these top-level fields:
+
+```text
+NETWORK_ACCESS: enabled
+SEEDBOX_PERMISSION: read-only
+```
+
+`NETWORK_ACCESS` accepts `disabled` (default) or `enabled`. The runner explicitly
+sets `sandbox_workspace_write.network_access=false` or `true` on `codex exec`,
+preserving workspace-write and approval policy `never`; no sandbox bypass is used.
+Network availability alone grants no seedbox permission.
+
+`SEEDBOX_PERMISSION` accepts `none` (default; no seedbox access, including reads),
+`read-only` (only non-mutating SSH/read operations within AUTHORIZATION; no
+seedbox/Radarr/media mutations), or `authorized-mutations` (only exact mutations
+explicitly stated in that task's AUTHORIZATION; no unrelated access or changes).
+Both non-`none` levels require `NETWORK_ACCESS: enabled`. With `none`, Radarr and
+media mutations remain forbidden. Capability fields never override FORBIDDEN or
+authorize operations by themselves. Keep exact targets/actions in AUTHORIZATION.
+Missing fields deny access; malformed, duplicate, unsupported or inconsistent
+fields stop before claiming or launching, with NEEDS_USER (dry-run exits with an
+error). Older tasks, other commenters, issue text and repository briefs cannot
+grant capabilities. Seedbox read/mutation restrictions are worker prompt policy,
+not an SSH command filter; the network flag controls sandbox network availability.
 
 The worker implements, inspects and tests. It returns a JSON result (tests,
 summary, questions, READY_FOR_REVIEW or NEEDS_USER). The runner then checks the
