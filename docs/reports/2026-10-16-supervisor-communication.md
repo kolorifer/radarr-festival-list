@@ -1,5 +1,10 @@
 # Engineering report: issue #30 / task 1 — supervisor communication
 
+Task-2 review corrections supersede the claim-failure publication and recovery
+behavior described here. See the [task-2 report](2026-10-16-supervisor-communication-task2.md)
+for local retention/ownership regressions and the owner-supplied schedule update.
+Task-1 test counts and observations below remain historical evidence.
+
 **Specification:** [Archived trusted task](2026-10-16-supervisor-communication-brief.md).
 **Result:** implemented and locally verified; READY_FOR_REVIEW. Live deployment,
 private fixture creation, sandbox acceptance and cloud schedule activation pending.

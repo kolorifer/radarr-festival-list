@@ -125,9 +125,13 @@ parent-owned repository validation, destination divergence check, blob CAS,
 identical-byte idempotency and exact readback protect each independent write.
 An expected existing blob must be explicitly authorized by a new task.
 
-After reservation, READY_FOR_REVIEW, NEEDS_USER and caught FAILED paths attempt
-the authorized receipt once. Claim failures also yield NEEDS_USER/CLAIM_FAILED
-without launching the child. A process kill, interpreter/host crash, unusable
+After confirmed successful atomic claim creation, READY_FOR_REVIEW, NEEDS_USER
+and caught FAILED paths attempt the authorized receipt once. Reservation alone
+does not establish ownership. Claim conflicts and ambiguous responses keep the
+task consumed locally and record only bounded local CLAIM_FAILED diagnostics;
+they never launch a child, publish task-private outputs/receipts, or post an
+authoritative WORKER_RESULT. This avoids preempting the winning host's absent
+receipt destination. A process kill, interpreter/host crash, unusable
 state storage or total network outage can prevent receipts; absence is never
 success. Preflight refusals and quota pauses do not consume or publish receipts.
 
@@ -157,7 +161,7 @@ diagnostic keys and duplicate JSON keys are rejected, never forwarded.
 | --- | --- |
 | OK | review |
 | WORKER_BLOCKED | new_task (only after resolving the blocker) |
-| CLAIM_FAILED, EXECUTION_FAILED, CHECKOUT_FAILED | inspect_local |
+| EXECUTION_FAILED, CHECKOUT_FAILED | inspect_local |
 | CHILD_FAILED, INVALID_RESULT, INPUT_CHANGED | inspect_local |
 | PUBLIC_CHANGE_REFUSED, ARTIFACT_INVALID | inspect_local |
 | PUBLIC_CODE_PUBLICATION_FAILED, RECEIPT_PUBLICATION_FAILED | inspect_local |
@@ -169,6 +173,10 @@ input integrity failure, child failure, blocker or publication failure, but
 missing credentials, exact subjective questions, raw test failures, crash causes,
 damaged checkout/snapshot and uncertain API delivery still need local inspection.
 No arbitrary diagnostic text is permitted by version 1.
+CLAIM_FAILED remains accepted by the version-1 reader for historical receipts;
+the corrected runner records it only in local claim-failure-N.json, with
+ownership=unconfirmed and consumed=true. It emits no public claim warning or
+terminal result on an unconfirmed claim.
 
 The normal order is: child -> input/checkout checks -> optional artifact write
 and readback -> receipt write and readback -> fixed public result. Public results
@@ -207,6 +215,14 @@ untracked bytes. Symlinks are fingerprinted by their link text. Ignored caches a
 outside this fingerprint. A private tar plus index patch preserves partial work.
 No parent reset, clean, stash, force-push or automatic retry is performed.
 
+Recovery retains the exact validated execution checkout even after the parent
+restores its launcher context. A receipt failure preserves already captured
+current-task retention, including its original state, snapshot, tar and index
+patch. When a successful child has no prior capture, receipt failure records
+FAILED retention from that execution checkout. A checkout that was never
+established has no usable continuation or backup; its receipt snapshot is null.
+The launcher is never substituted as an issue continuation baseline.
+
 A NEW task can explicitly authorize reconciliation:
 
 ```text
@@ -229,6 +245,13 @@ create-only claim refs supply cross-machine at-most-once execution. Never delete
 or edit claims. Local reservation precedes the remote claim: ambiguous failures
 burn a task number. Each --once invocation selects at most one eligible latest
 owner task, ordered by GitHub comment ID. Eight consumed iterations is the limit.
+Two hosts may both discover before either claims. Only a successful atomic
+create response establishes ownership for publication. An existing ref, even
+at the same SHA, cannot establish which host created it. A lost create response
+may leave a permanent ref with no executing/publishing host; keep local consumed
+state, inspect the exact claim and host records, and authorize a NEW task if
+needed. There is no claim retry, deletion, consumed-number reuse or automatic
+execution. The losing host cannot publish a competing terminal state.
 
 Fresh 300-minute telemetry >15% permits work. <=15% pauses without consuming.
 Missing/stale telemetry triggers one fixed read-only, tool-disabled low-reasoning
@@ -248,6 +271,12 @@ No local automation.toml entry was present during the initial audit. That does
 not establish whether a cloud ChatGPT schedule exists. The available desktop
 schedule tool cannot enumerate the original ChatGPT account schedules; the
 original cloud schedule must be inspected there before creating a duplicate.
+
+Task-2 owner update: the user enabled an hourly supervisor heartbeat in the
+current Work/Codex chat; creation returned ACTIVE. This is supplied account-side
+status, not a worker observation. No scheduled wakeup has yet been observed,
+and the original cloud ChatGPT schedules remain unverified. This worker has
+not inspected, activated or altered any schedule.
 
 Suggested hourly supervisor prompt: inspect the latest trusted terminal worker
 results and PR state for the public control repository; remain quiet while state
@@ -277,4 +306,5 @@ The installed LaunchAgent file/cadence stayed unchanged. See the
 
 Official scheduled-task documentation: [Scheduled tasks](https://learn.chatgpt.com/docs/automations).
 Saved schedules provide recurring wakeups; this is distinct from the local worker
-poll. Account-specific activation and an observed supervisor run are still pending.
+poll. The current-chat heartbeat is reported ACTIVE; an observed scheduled
+wakeup and verification of the original cloud schedules are still pending.

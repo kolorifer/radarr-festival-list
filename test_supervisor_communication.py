@@ -11,6 +11,7 @@ import shutil
 import stat
 import subprocess
 import sys
+import tarfile
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -138,7 +139,7 @@ class BoundaryRunner(w.Runner):
         if '/matching-refs/' in endpoint:
             return []
         if endpoint.endswith('/git/refs'):
-            assert json.loads(self.state_file.read_text())['consumed'] == [1]
+            assert int(data['ref'].rsplit('-', 1)[1]) in json.loads(self.state_file.read_text())['consumed']
             if self.inputs:
                 assert self.verification['inputs_verified']
             if self.fail_claim:
@@ -285,6 +286,242 @@ class IntegrationTests(unittest.TestCase):
         self.assertFalse(any(k == 'git-public' for k, v in self.runner.events))
         return public
 
+    def separate_launcher(self):
+        """Keep the issue branch older than main, as on a real host launcher."""
+        git = self.runner.git
+        git('branch', '-m', 'main')
+        git('branch', self.runner.branch)
+        (self.root/'launcher-only.txt').write_text('synthetic launcher revision')
+        git('add', 'launcher-only.txt'); git('commit', '-m', 'Synthetic launcher')
+        git('update-ref', 'refs/remotes/origin/main', git('rev-parse', 'HEAD').strip())
+        self.runner.events.clear()
+
+    def edit_child_checkout(self):
+        original = self.runner.child
+        def child(command, **kwargs):
+            if command[0] == 'codex':
+                checkout = self.runner.repo
+                (checkout/'base.txt').write_text('synthetic staged bytes')
+                self.runner.real_run(['git', 'add', 'base.txt'], cwd=checkout, check=True,
+                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                (checkout/'base.txt').write_text('synthetic unstaged bytes')
+                (checkout/'partial.txt').write_text('synthetic untracked bytes')
+            return original(command, **kwargs)
+        self.runner.child = child
+
+    def assert_issue_retention(self, expected_state, partial=False):
+        runner = self.runner
+        checkout = runner.state_dir/'checkout'
+        self.assertEqual(runner.repo, self.root)
+        self.assertEqual(runner.git('branch', '--show-current').strip(), 'main')
+        self.assertEqual(runner.git('status', '--porcelain').strip(), '')
+        retained = runner.state['retained']
+        self.assertEqual(retained['checkout'], str(checkout))
+        self.assertEqual(retained['state'], expected_state)
+        self.assertEqual(retained['snapshot'], p.snapshot(checkout))
+        self.assertNotEqual(retained['snapshot'], p.snapshot(self.root))
+        self.assertEqual(json.loads(runner.state_file.read_text())['retained'], retained)
+        with tarfile.open(runner.state_dir/'retained-1.tar') as backup:
+            expected = set(runner.git('-C', str(checkout), 'ls-files', '-z').split('\0')) - {''}
+            expected.update(runner.git('-C', str(checkout), 'ls-files', '--others', '--exclude-standard', '-z').split('\0'))
+            expected.discard('')
+            self.assertEqual(set(backup.getnames()), expected)
+            self.assertNotIn('launcher-only.txt', backup.getnames())
+            for name in expected:
+                self.assertEqual(backup.extractfile(name).read(), (checkout/name).read_bytes())
+        index_patch = (runner.state_dir/'retained-1-index.patch').read_text()
+        self.assertEqual(index_patch, runner.git('-C', str(checkout), 'diff', '--cached', '--binary'))
+        if partial:
+            self.assertIn('+synthetic staged bytes', index_patch)
+            self.assertEqual((checkout/'partial.txt').read_text(), 'synthetic untracked bytes')
+        public = self.assert_no_leak()
+        self.assertIn('RETAINED_SNAPSHOT: '+retained['snapshot'], public)
+        self.assertEqual(runner.events.count(('write', DIAGNOSTIC['path'])), 1)
+        follow = comment(TASK.replace('SUPERVISOR_TASK: 1', 'SUPERVISOR_TASK: 2') +
+                         'CONTINUE_FROM: '+json.dumps({'task': 1, 'snapshot': retained['snapshot']}))
+        self.assertTrue(runner.retained(follow, checkout))
+        self.assertEqual(runner.git('stash', 'list'), '')
+        return follow
+
+    def test_separate_launcher_child_and_receipt_failure_preserve_exact_backup_and_continuation(self):
+        self.separate_launcher()
+        self.edit_child_checkout()
+        self.runner.child_mode = 'FAILED'
+        self.runner.fail_write = DIAGNOSTIC['path']
+        with self.assertRaises(subprocess.CalledProcessError): self.run_task()
+        follow = self.assert_issue_retention('FAILED', partial=True)
+        checkout = self.runner.state_dir/'checkout'
+        before = p.snapshot(checkout)
+        backup = (self.runner.state_dir/'retained-1.tar').read_bytes()
+        self.assertEqual(json.loads((self.runner.state_dir/'terminal-1.json').read_text())['retained_snapshot'], before)
+        self.assertEqual(json.loads((self.runner.state_dir/'delivery-1.json').read_text())['code'],
+                         'RECEIPT_PUBLICATION_FAILED')
+        # Actually enter the next authorized child with the exact bytes/index;
+        # do not stash, reset, or manufacture a clean continuation checkout.
+        self.runner.body = follow['body']
+        def next_child(command, **kwargs):
+            if command[0] != 'codex':
+                return self.runner.real_run(command, **kwargs)
+            self.assertEqual(self.runner.repo, checkout)
+            self.assertEqual(p.snapshot(checkout), before)
+            self.runner.child_count += 1
+            Path(command[command.index('--output-last-message')+1]).write_text(json.dumps(
+                dict(state='NEEDS_USER', tests='', summary='', questions='')))
+            return subprocess.CompletedProcess(command, 0)
+        self.runner.child = next_child
+        self.run_task()
+        self.assertEqual(self.runner.child_count, 2)
+        self.assertEqual(self.runner.state['consumed'], [1, 2])
+        self.assertEqual((self.runner.state_dir/'retained-1.tar').read_bytes(), backup)
+        self.assertEqual(p.snapshot(checkout), before)
+        self.assertEqual(self.runner.git('stash', 'list'), '')
+
+    def test_separate_launcher_ready_receipt_failure_retains_issue_checkout(self):
+        self.separate_launcher()
+        self.runner.fail_write = DIAGNOSTIC['path']
+        self.run_task()
+        self.assert_issue_retention('FAILED')
+        self.assertIn('STATE: FAILED', self.assert_no_leak())
+
+    def test_separate_launcher_blocked_receipt_failure_preserves_captured_retention(self):
+        self.separate_launcher()
+        self.runner.body = task_body(artifact=False)
+        self.edit_child_checkout()
+        self.runner.child_mode = 'NEEDS_USER'
+        self.runner.fail_write = DIAGNOSTIC['path']
+        self.run_task()
+        # NEEDS_USER was already captured before receipt publication failed.
+        self.assert_issue_retention('NEEDS_USER', partial=True)
+        self.assertIn('STATE: FAILED', self.assert_no_leak())
+
+    def test_checkout_creation_and_receipt_failure_never_snapshot_launcher(self):
+        self.separate_launcher()
+        real_git = self.runner.git
+        def git(*args):
+            if args[:2] == ('worktree', 'add'):
+                raise subprocess.CalledProcessError(1, ['synthetic-checkout'], stderr=CANARY.decode())
+            return real_git(*args)
+        self.runner.git = git
+        self.runner.fail_write = DIAGNOSTIC['path']
+        with self.assertRaises(subprocess.CalledProcessError): self.run_task()
+        self.assertEqual(self.runner.child_count, 0)
+        self.assertEqual(self.runner.repo, self.root)
+        self.assertNotIn('retained', self.runner.state)
+        self.assertFalse((self.runner.state_dir/'retained-1.tar').exists())
+        self.assertFalse((self.runner.state_dir/'checkout').exists())
+        receipt = json.loads((self.runner.state_dir/'terminal-1.json').read_text())
+        self.assertEqual(receipt['code'], 'CHECKOUT_FAILED')
+        self.assertIsNone(receipt['retained_snapshot'])
+        self.assertIsNone(receipt['runtime']['checkout_revision'])
+        self.assertNotIn('RETAINED_SNAPSHOT:', self.assert_no_leak())
+
+    def test_terminal_requires_confirmed_ownership(self):
+        with self.assertRaisesRegex(w.Stop, 'confirmed task ownership'):
+            self.runner.terminal(comment(self.runner.body), 1, 'NEEDS_USER', 'CLAIM_FAILED')
+        self.assertEqual(self.runner.events, [])
+        self.assertEqual(self.runner.remote_files, {})
+
+    def other_host(self):
+        temporary = tempfile.TemporaryDirectory(); self.addCleanup(temporary.cleanup)
+        root = Path(temporary.name).resolve()
+        self.runner.real_run(['git', 'clone', '--no-local', str(self.root), str(root)],
+                             check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        self.runner.real_run(['git', 'remote', 'set-url', 'origin', 'https://github.com/owner/project.git'],
+                             cwd=root, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        runner = BoundaryRunner(root)
+        self.addCleanup(self.clean_staging, runner)
+        runner.remote_files = self.runner.remote_files
+        return runner
+
+    def run_selection(self, runner, selection):
+        runner.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+        with patch.object(w, 'quota_remaining', return_value=80), \
+                patch.object(w.subprocess, 'run', side_effect=runner.child), \
+                contextlib.redirect_stdout(io.StringIO()) as stdout, \
+                w.lock(runner.dispatch_dir/'dispatcher.lock') as runner.global_lock_fd, \
+                w.lock(runner.state_dir/'runner.lock') as runner.lock_fd:
+            runner.run_selected(*selection)
+        self.assertNotIn(CANARY.decode(), stdout.getvalue())
+
+    def assert_unowned_consumed(self, runner):
+        self.assertEqual(runner.child_count, 0)
+        self.assertEqual(runner.state['consumed'], [1])
+        self.assertEqual(json.loads(runner.state_file.read_text())['consumed'], [1])
+        self.assertTrue((runner.state_dir/'claim-failure-1.json').exists())
+        self.assertFalse((runner.state_dir/'terminal-1.json').exists())
+        self.assertFalse((runner.state_dir/'delivery-1.json').exists())
+        self.assertFalse(any(k in ('write', 'post') for k, v in runner.events))
+        # No supervisor parser may consume this host's warning as a result.
+        public = [comment(v) for k, v in runner.events if k == 'post']
+        self.assertEqual(w.remote_consumed(public, {'owner'}), set())
+
+    def race_claim(self, ambiguous_loser=False, lost_winner_response=False):
+        first = self.runner
+        second = self.other_host()
+        claims = {}
+        attempts = {first: 0, second: 0}
+        nested = None
+        for runner in (first, second):
+            original = runner.api
+            def api(endpoint, _runner=runner, _original=original, **data):
+                if '/matching-refs/' in endpoint:
+                    return [{'ref': ref} for ref in claims]
+                if endpoint.endswith('/git/refs'):
+                    attempts[_runner] += 1
+                    self.assertEqual(json.loads(_runner.state_file.read_text())['consumed'], [1])
+                    self.assertTrue(_runner.verification['inputs_verified'])
+                    if data['ref'] in claims:
+                        if ambiguous_loser:
+                            raise subprocess.TimeoutExpired(['synthetic-claim'], 1, stderr=CANARY.decode())
+                        raise subprocess.CalledProcessError(422, ['synthetic-claim'], stderr=CANARY.decode())
+                    claims[data['ref']] = data['sha']
+                    # Winner owns the ref, but has not posted RUNNING or written
+                    # a receipt. The loser must not occupy the absent destination.
+                    if nested:
+                        self.assertEqual(first.remote_files, {})
+                        nested()
+                        self.assertEqual(first.remote_files, {})
+                    if lost_winner_response:
+                        raise subprocess.TimeoutExpired(['synthetic-claim'], 1, stderr=CANARY.decode())
+                    return {'ref': data['ref']}
+                return _original(endpoint, **data)
+            runner.api = api
+        # Both independent hosts discover before the atomic create. Their
+        # consumed sets are stale when the second host attempts its claim.
+        selected_first = first.eligible(ISSUE, 'owner')
+        selected_second = second.eligible(ISSUE, 'owner')
+        self.assertIsNotNone(selected_first); self.assertIsNotNone(selected_second)
+        nested = lambda: self.run_selection(second, selected_second)
+        self.run_selection(first, selected_first)
+        self.assert_unowned_consumed(second)
+        self.assertEqual(attempts, {first: 1, second: 1})
+        self.assertEqual(len(claims), 1)
+        if lost_winner_response:
+            self.assert_unowned_consumed(first)
+            self.assertEqual(first.remote_files, {})
+        else:
+            self.assertEqual(first.child_count, 1)
+            self.assertEqual(self.receipt()['state'], 'READY_FOR_REVIEW')
+            self.assertEqual(first.events.count(('write', DIAGNOSTIC['path'])), 1)
+            self.assertEqual(first.events.count(('write', AUTH['path'])), 1)
+        # Re-polling either host cannot consume again or retry claim/publication.
+        before = dict(attempts)
+        for runner in (first, second):
+            with contextlib.redirect_stdout(io.StringIO()): runner.start()
+        self.assertEqual(attempts, before)
+        self.assertEqual(first.child_count + second.child_count, 0 if lost_winner_response else 1)
+        self.assertEqual(first.events.count(('write', DIAGNOSTIC['path'])), 0 if lost_winner_response else 1)
+        self.assert_no_leak()
+
+    def test_two_hosts_discover_then_existing_claim_loser_cannot_publish(self):
+        self.race_claim()
+
+    def test_two_hosts_ambiguous_claim_loser_cannot_publish(self):
+        self.race_claim(ambiguous_loser=True)
+
+    def test_lost_successful_claim_response_neither_host_can_publish_or_rerun(self):
+        self.race_claim(lost_winner_response=True)
+
     def test_end_to_end_pinned_input_external_child_output_receipt_public_order(self):
         self.runner.external_child = True
         self.run_task()
@@ -366,11 +603,15 @@ class IntegrationTests(unittest.TestCase):
         self.assertNotIn(CANARY.decode(), json.dumps(self.receipt()))
         self.assert_no_leak()
 
-    def test_claim_failure_receipt_no_child_and_task_consumed(self):
+    def test_claim_failure_is_local_only_no_child_and_task_consumed(self):
         self.runner.fail_claim = True
         self.run_task()
         self.assertEqual(self.runner.child_count, 0)
-        self.assertEqual(self.receipt()['code'], 'CLAIM_FAILED')
+        self.assertEqual(self.runner.remote_files, {})
+        self.assertFalse(any(k == 'post' for k, v in self.runner.events))
+        self.assertFalse((self.runner.state_dir/'terminal-1.json').exists())
+        self.assertEqual(json.loads((self.runner.state_dir/'claim-failure-1.json').read_text()),
+                         {'code': 'CLAIM_FAILED', 'ownership': 'unconfirmed', 'consumed': True})
         self.assertEqual(self.runner.state['consumed'], [1])
         self.assert_no_leak()
 

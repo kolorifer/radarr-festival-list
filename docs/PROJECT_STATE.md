@@ -5,6 +5,34 @@ Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 
 ## Supervisor communication extension — 2026-10-16 (local review)
 
+Issue #30 / supervisor task 2 corrects both PR #31 review findings locally on
+automation/issue-30-worker from cde534ae5e34da13a4de6ac44484cfa3c01a61ae.
+Initial checkout was clean; read-only remote branch inspection matched that SHA.
+Receipt failure now preserves existing task retention and captures any new
+failure baseline only from the exact validated execution checkout. A checkout
+creation failure cannot generate launcher-based continuation. Terminal publication
+requires confirmed atomic claim ownership; conflicts/ambiguous responses retain
+local consumption and bounded diagnostics without private writes or public
+WORKER_RESULT. Claims and task numbers are never retried or reused.
+
+TESTED locally: 105 focused / 272 full tests pass in the existing isolated Python 3.9.6
+environment. Separate launcher/issue worktrees exercise matching tar/index
+backups and actual next-task continuation; two synthetic hosts exercise stale
+discovery, claim conflicts and lost responses. Full-suite results are recorded
+in the [task-2 report](reports/2026-10-16-supervisor-communication-task2.md).
+No Git publication, launcher/LaunchAgent changes, merge, deployment, live private
+fixtures/services or schedule access by this worker. Prior live evidence below
+is preserved; acceptance of these fixes remains pending review and later live work.
+
+Schedule context supplied by the task-2 owner: user enabled an hourly supervisor
+heartbeat in the current Work/Codex chat; creation returned ACTIVE. No scheduled
+wakeup has yet been observed. Original cloud ChatGPT schedules remain unverified.
+This is supplied account-side status, not a local test or worker observation.
+[Task-2 brief](reports/2026-10-16-supervisor-communication-task2-brief.md) ·
+[Corrected protocol](../automation/SUPERVISOR_PROTOCOL.md).
+
+Task-1 implementation and evidence (historical; corrected as above):
+
 Issue #30 / supervisor task 1 implemented locally on automation/issue-30-worker,
 from b294cec (initial checkout and read-only public main agree). Parent-owned
 PRIVATE_INPUTS now requires exact commit/blob/SHA256/path/alias, validates before

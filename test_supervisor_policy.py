@@ -158,6 +158,7 @@ class PrivateExecutionTests(unittest.TestCase):
         for state in ('READY_FOR_REVIEW', 'NEEDS_USER'):
             with self.subTest(state=state), tempfile.TemporaryDirectory() as directory:
                 runner = FakeRunner(Path(directory)); actions = []; old_git = runner.git
+                runner.claimed_task = 1  # Exercise the already-owned execution boundary.
                 runner.git = lambda *args: actions.append(args) or old_git(*args)
                 runner.publish_private = lambda *args: {'verified': True, 'blob': 'a'*40, 'sha256': 'b'*64}
                 sentinel = 'SYNTHETIC_PRIVATE_IDENTITY_AND_EVIDENCE'

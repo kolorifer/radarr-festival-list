@@ -263,6 +263,8 @@ class Runner:
         self.preflight_code = 'PREFLIGHT_REFUSED'
         self.terminal_attempted = False
         self.execution_commit = None
+        self.execution_checkout = None
+        self.claimed_task = None
         if self.state_file.exists():
             self.state = json.loads(self.state_file.read_text())
 
@@ -313,19 +315,22 @@ class Runner:
             raise Stop('Continuation does not match the immediately preceding retained state')
         return True
 
-    def record_retained(self, n, state):
-        fingerprint = snapshot(self.repo)
+    def record_retained(self, n, state, checkout=None):
+        checkout = checkout if checkout is not None else self.repo
+        fingerprint = snapshot(checkout)
         backup = self.state_dir / f'retained-{n}.tar'
         if not backup.exists():
-            names = set((self.git('ls-files', '-z') + self.git('ls-files', '--others', '--exclude-standard', '-z')).split('\0')) - {''}
+            names = set((self.git('-C', str(checkout), 'ls-files', '-z') +
+                         self.git('-C', str(checkout), 'ls-files', '--others', '--exclude-standard', '-z')).split('\0')) - {''}
             with tarfile.open(backup, 'w', dereference=False) as archive:
                 for name in sorted(names):
-                    path = self.repo / name
+                    path = checkout / name
                     if path.exists() or path.is_symlink():
                         archive.add(path, arcname=name, recursive=False)
-            (self.state_dir / f'retained-{n}-index.patch').write_text(self.git('diff', '--cached', '--binary'))
+            (self.state_dir / f'retained-{n}-index.patch').write_text(
+                self.git('-C', str(checkout), 'diff', '--cached', '--binary'))
         self.state['retained'] = {'task': n, 'state': state, 'snapshot': fingerprint,
-                                  'checkout': str(self.repo.resolve())}
+                                  'checkout': str(checkout.resolve())}
         save(self.state_file, self.state)
         return fingerprint
 
@@ -483,12 +488,14 @@ class Runner:
 
     def terminal(self, task, n, state, code, pr='none'):
         """One bounded receipt attempt, then fixed public result; never replay work."""
+        if self.claimed_task != n:
+            raise Stop('Terminal publication requires confirmed task ownership')
         self.terminal_attempted = True
         authorization = private_diagnostic(task['body'])
         revision = getattr(self, 'execution_commit', None)
-        if not revision:
+        if not revision and self.execution_checkout is not None:
             try:
-                revision = self.git('rev-parse', 'HEAD').strip()
+                revision = self.git('-C', str(self.execution_checkout), 'rev-parse', 'HEAD').strip()
             except (OSError, subprocess.SubprocessError):
                 revision = 'unknown'
         retained = self.state.get('retained', {})
@@ -722,8 +729,15 @@ class Runner:
                      ref=f"refs/heads/automation/issue-{self.args.issue}-claim-{n}",
                      sha=self.git("rev-parse", "HEAD").strip())
         except Exception:
-            self.terminal(task, n, 'NEEDS_USER', 'CLAIM_FAILED')
+            # A conflict and a lost response are both unowned locally. Even an
+            # existing ref at our SHA cannot identify which host created it.
+            # Keep consumption, but never compete for the winner's receipt or
+            # publish a supervisor-parsed authoritative terminal result.
+            save(self.state_dir / f'claim-failure-{n}.json',
+                 {'code': 'CLAIM_FAILED', 'ownership': 'unconfirmed', 'consumed': True})
+            print('Claim not confirmed; local reservation preserved; no terminal result published', flush=True)
             return
+        self.claimed_task = n
         self.execution_commit = None
         try:
             self.failure_code = 'RESULT_PUBLICATION_FAILED'
@@ -743,10 +757,12 @@ class Runner:
         # Never switch the launcher checkout to another issue's older runner.
         # Retain worktrees, including blocked/dirty partial work, for inspection.
         launcher = self.repo
+        self.execution_checkout = None
         current = self.git("branch", "--show-current").strip()
         if not current:
             raise Stop("Launcher must be on a branch")
         if current == self.branch:
+            self.execution_checkout = self.repo
             try:
                 return self.execute_in_checkout(issue, task, n)
             except Exception:
@@ -768,6 +784,7 @@ class Runner:
                 raise Stop("Retained worktree branch mismatch; inspect local checkout")
             if self.git("status", "--porcelain").strip() and not self.retained(task, self.repo):
                 raise Stop("Retained worktree has partial changes; preserve/reconcile before running")
+            self.execution_checkout = self.repo
             self.execute_in_checkout(issue, task, n)
         except Exception:
             self.preserve_failure(n)
@@ -781,8 +798,14 @@ class Runner:
             self.repo = launcher
 
     def preserve_failure(self, n):
+        # execute() may already have restored self.repo to the launcher. Never
+        # resnapshot that checkout, or replace metadata for an existing backup.
+        if self.state.get('retained', {}).get('task') == n:
+            return
+        if self.execution_checkout is None:
+            return
         try:
-            self.record_retained(n, 'FAILED')
+            self.record_retained(n, 'FAILED', self.execution_checkout)
         except Exception:
             # A damaged checkout must not prevent a bounded terminal receipt.
             save(self.state_dir / f'retention-failure-{n}.json', {'code': 'SNAPSHOT_UNAVAILABLE'})

@@ -1,6 +1,10 @@
 # Account-side supervisor handoff and later live acceptance
 
-Status: **prepared only**. Issue #30 task 1 authorizes implementation and local
+Status: **implementation handoff prepared; current-chat heartbeat reported ACTIVE**.
+The task-2 owner reports that the user enabled an hourly supervisor heartbeat in
+the current Work/Codex chat and creation returned ACTIVE. No scheduled wakeup
+has yet been observed; the original cloud ChatGPT schedules remain unverified.
+This worker has not accessed or changed schedules. Issue #30 authorizes local
 synthetic verification. It does not authorize deployment, private fixture creation
 on GitHub, running the unmerged runner, or creating/enabling a cloud schedule.
 The existing LaunchAgent only polls for tasks; it cannot wake ChatGPT.
@@ -151,6 +155,7 @@ evidence. Do not edit/reload/install the LaunchAgent or change its cadence.
 
 Pass evidence must distinguish TESTED synthetic boundaries, OBSERVED LIVE
 launcher/CLI/private publication, and OBSERVED LIVE account-side scheduled wakeup.
-Until those later observations exist, input sandbox access, live receipts and
-cloud activation are EXPECTED BY DESIGN only. No local test or prepared handoff
-can supply that live evidence.
+Until those later observations exist, input sandbox access and live receipts are
+EXPECTED BY DESIGN only. Current-chat heartbeat creation is reported ACTIVE;
+scheduled wakeup and original cloud schedule verification remain pending. No
+local test or prepared handoff can supply that live evidence.
