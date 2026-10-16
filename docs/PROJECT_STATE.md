@@ -3,6 +3,21 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Supervisor infrastructure stabilization — 2026-10-16
+
+Implementation and verification in progress on infra/supervisor-stabilization.
+Live inspection confirmed main 226bdbb, launcher still on issue-24 at 8259f3b,
+and installed --once discovery every 60 seconds. Parent authentication can access
+both repositories. Issue-26 retained worktree is currently clean; its existing
+stash, task journal and permanent claims are preserved.
+
+Exact-path private output authorization, host CAS/readback verification,
+snapshot-bound continuation with private backups, fixed public result text,
+filtered child credentials/config, high reasoning default and local heartbeat
+are implemented. Deployment and live smoke evidence will be recorded in the
+[engineering report](reports/2026-10-16-supervisor-stabilization.md).
+[Protocol](../automation/SUPERVISOR_PROTOCOL.md). No movie/service access authorized.
+
 ## Local GitHub worker dispatcher-v2 — 2026-10-16
 
 Issue #24 / supervisor task 1 implemented locally on automation/issue-24-worker.
