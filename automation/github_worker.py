@@ -20,13 +20,18 @@ import subprocess
 import sys
 import time
 import tempfile
+import stat
 
 try:
-    from automation.supervisor_policy import (private_artifact, continuation, snapshot,
-                                              worker_environment, PolicyError)
+    from automation.supervisor_policy import (private_artifact, private_inputs, private_diagnostic,
+                                              continuation, snapshot, worker_environment, PolicyError,
+                                              MAX_PRIVATE_BYTES, PRIVATE_REPOSITORY, hex_value, unique_object)
+    from automation.terminal_receipt import validate_receipt, NEXT_ACTION, FLAGS
 except ModuleNotFoundError:
-    from supervisor_policy import (private_artifact, continuation, snapshot,
-                                   worker_environment, PolicyError)
+    from supervisor_policy import (private_artifact, private_inputs, private_diagnostic,
+                                   continuation, snapshot, worker_environment, PolicyError,
+                                   MAX_PRIVATE_BYTES, PRIVATE_REPOSITORY, hex_value, unique_object)
+    from terminal_receipt import validate_receipt, NEXT_ACTION, FLAGS
 
 MODEL = "gpt-6.1-sol"
 PROBE_COOLDOWN = 30 * 60
@@ -97,6 +102,8 @@ def choose_task(comments, supervisor, consumed):
     capabilities(latest, supervisor)
     try:
         private_artifact(latest["body"])
+        private_inputs(latest['body'])
+        private_diagnostic(latest['body'])
         continuation(latest["body"])
     except PolicyError as exc:
         raise Stop(str(exc)) from None
@@ -239,6 +246,8 @@ class Runner:
         self.lock_fd = None
         self.global_lock_fd = None
         self.discovery = args.issue is None
+        revision = self.git('rev-parse', 'HEAD').strip()
+        self.runner_revision = revision if hex_value(revision, 40) else None
         self.select_issue(args.issue)
 
     def select_issue(self, number):
@@ -247,6 +256,13 @@ class Runner:
         self.state_dir = self.dispatch_dir / str(number)
         self.state_file = self.state_dir / "state.json"
         self.state = {"consumed": [], "notifications": {}}
+        self.inputs = []
+        self.verification = dict.fromkeys(FLAGS, False)
+        self.artifact_reference = None
+        self.failure_code = 'EXECUTION_FAILED'
+        self.preflight_code = 'PREFLIGHT_REFUSED'
+        self.terminal_attempted = False
+        self.execution_commit = None
         if self.state_file.exists():
             self.state = json.loads(self.state_file.read_text())
 
@@ -315,15 +331,125 @@ class Runner:
 
     def artifact_bytes(self, authorization, staging):
         source = staging / authorization['source']
-        if source.is_symlink() or not source.is_file() or source.stat().st_size > 900000:
-            raise Stop('Missing, linked or oversized private artifact')
-        return source.read_bytes()
+        return self.regular_bytes(source)
+
+    @staticmethod
+    def regular_bytes(path):
+        # O_NOFOLLOW and fstat close the usual symlink/size TOCTOU window.
+        try:
+            descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        except OSError:
+            raise Stop('Private file unavailable or linked') from None
+        with os.fdopen(descriptor, 'rb') as stream:
+            info = os.fstat(stream.fileno())
+            if not stat.S_ISREG(info.st_mode) or info.st_size > MAX_PRIVATE_BYTES or info.st_nlink != 1:
+                raise Stop('Missing, linked or oversized private file')
+            data = stream.read(MAX_PRIVATE_BYTES + 1)
+            if len(data) > MAX_PRIVATE_BYTES:
+                raise Stop('Oversized private file')
+            return data
+
+    def private_repository(self, repository):
+        if repository != PRIVATE_REPOSITORY:
+            raise Stop('Private repository outside allowlist')
+        metadata = self.api(f'repos/{repository}')  # Authenticated host boundary; no token retrieval.
+        if (metadata.get('full_name') != repository or metadata.get('private') is not True
+                or metadata.get('default_branch') != 'main'):
+            raise Stop('Destination must be the allowlisted private repository on main')
+
+    @staticmethod
+    def decode_private(item):
+        if (not isinstance(item, dict) or item.get('type') != 'file' or item.get('encoding') != 'base64'
+                or 'target' in item or 'submodule_git_url' in item
+                or not hex_value(item.get('sha'), 40)
+                or not isinstance(item.get('content'), str)
+                or len(item['content']) > 2 * MAX_PRIVATE_BYTES):
+            raise Stop('Private file format mismatch')
+        try:
+            content = base64.b64decode(''.join(item['content'].split()), validate=True)
+        except ValueError:
+            raise Stop('Private file encoding mismatch') from None
+        if len(content) > MAX_PRIVATE_BYTES:
+            raise Stop('Oversized private file')
+        return content
+
+    def stage_inputs(self, task, n):
+        authorized = private_inputs(task['body'])
+        self.inputs = []
+        if not authorized:
+            return
+        verified = []  # At most 8 x 900000 bytes; no partial stage on remote failure.
+        for entry in authorized:
+            repository = entry['repository']
+            self.private_repository(repository)
+            commit = self.api(f"repos/{repository}/git/commits/{entry['commit']}")
+            if commit.get('sha') != entry['commit'] or not hex_value(commit.get('tree', {}).get('sha'), 40):
+                raise Stop('Input commit identity mismatch')
+            tree_sha = commit['tree']['sha']
+            # Walk only the exact path, never a recursive tree or mutable ref.
+            # Contents API alone may dereference a symlink to a regular file.
+            parts = entry['path'].split('/')
+            for index, part in enumerate(parts):
+                tree = self.api(f'repos/{repository}/git/trees/{tree_sha}')
+                matches = [v for v in tree.get('tree', []) if v.get('path') == part]
+                if tree.get('sha') != tree_sha or tree.get('truncated') or len(matches) != 1:
+                    raise Stop('Input tree identity mismatch')
+                node = matches[0]
+                if index < len(parts) - 1:
+                    if node.get('mode') != '040000' or node.get('type') != 'tree' or not hex_value(node.get('sha'), 40):
+                        raise Stop('Input parent is not a regular tree')
+                    tree_sha = node['sha']
+                elif (node.get('mode') not in ('100644', '100755') or node.get('type') != 'blob'
+                      or node.get('sha') != entry['blob'] or type(node.get('size')) is not int
+                      or not 0 <= node['size'] <= MAX_PRIVATE_BYTES):
+                    raise Stop('Input blob identity, mode or size mismatch')
+            endpoint = f"repos/{repository}/contents/{quote(entry['path'], safe='/')}?ref={entry['commit']}"
+            source = self.api(endpoint)
+            data = self.decode_private(source)
+            blob = hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
+            if (source['sha'] != entry['blob'] or blob != entry['blob'] or len(data) != node['size']
+                    or hashlib.sha256(data).hexdigest() != entry['sha256']):
+                raise Stop('Input content integrity mismatch')
+            verified.append((entry, data))
+        # The input directory receives no --add-dir writable sandbox grant.
+        directory = Path(tempfile.mkdtemp(prefix='codex-input-')).resolve()
+        directory.chmod(0o700)
+        if directory.is_relative_to(self.repo.resolve()):
+            raise Stop('Private inputs must be outside public checkout')
+        self.state.setdefault('input_staging', {})[str(n)] = str(directory)
+        save(self.state_file, self.state)
+        for entry, data in verified:
+            path = directory / entry['alias']
+            with path.open('xb') as stream:
+                stream.write(data)
+            path.chmod(0o400)
+            self.inputs.append({'path': path, 'sha256': entry['sha256'], 'stat': path.lstat()})
+        directory.chmod(0o500)
+        self.input_directory_stat = directory.lstat()
+        self.verify_inputs()
+        self.verification['inputs_verified'] = True
+
+    def verify_inputs(self):
+        if not self.inputs:
+            return
+        directory = self.inputs[0]['path'].parent
+        info = directory.lstat()
+        expected = self.input_directory_stat
+        if (info.st_dev, info.st_ino, info.st_mode) != (expected.st_dev, expected.st_ino, expected.st_mode):
+            raise Stop('Input directory changed')
+        if set(directory.iterdir()) != {v['path'] for v in self.inputs}:
+            raise Stop('Input directory entries changed')
+        for entry in self.inputs:
+            info, expected = entry['path'].lstat(), entry['stat']
+            if ((info.st_dev, info.st_ino, info.st_mode, info.st_size, info.st_mtime_ns, info.st_ctime_ns)
+                    != (expected.st_dev, expected.st_ino, expected.st_mode, expected.st_size,
+                        expected.st_mtime_ns, expected.st_ctime_ns)
+                    or hashlib.sha256(self.regular_bytes(entry['path'])).hexdigest() != entry['sha256']):
+                raise Stop('Staged input changed')
 
     def publish_private(self, authorization, content):
         repository = authorization['repository']
-        metadata = self.api(f'repos/{repository}')
-        if metadata.get('private') is not True or metadata.get('default_branch') != 'main':
-            raise Stop('Destination must be the allowlisted private repository on main')
+        self.private_repository(repository)
         endpoint = f"repos/{repository}/contents/{quote(authorization['path'], safe='/')}"
         def read():
             # Only a proven 404 means absent; auth/network failures fail closed.
@@ -333,10 +459,7 @@ class Runner:
                 if 'HTTP 404' in (exc.stderr or ''):
                     return None
                 raise Stop('Private destination read failed') from None
-        def decode(item):
-            if not item or item.get('type') != 'file' or item.get('encoding') != 'base64':
-                raise Stop('Private readback format mismatch')
-            return base64.b64decode(item['content'])
+        decode = self.decode_private
         before = read()
         expected = authorization['expected_blob']
         if before is not None and decode(before) == content:
@@ -357,6 +480,65 @@ class Runner:
         receipt = {'sha256': digest, 'blob': after['sha'], 'verified': True}
         save(self.state_dir / 'private-receipt.json', receipt)
         return receipt
+
+    def terminal(self, task, n, state, code, pr='none'):
+        """One bounded receipt attempt, then fixed public result; never replay work."""
+        self.terminal_attempted = True
+        authorization = private_diagnostic(task['body'])
+        revision = getattr(self, 'execution_commit', None)
+        if not revision:
+            try:
+                revision = self.git('rev-parse', 'HEAD').strip()
+            except (OSError, subprocess.SubprocessError):
+                revision = 'unknown'
+        retained = self.state.get('retained', {})
+        fingerprint = retained.get('snapshot') if retained.get('task') == n else None
+        receipt = validate_receipt({
+            'schema_version': 1,
+            'identity': {'repository': self.args.github_repo, 'issue': self.args.issue, 'task': n},
+            'state': state, 'code': code, 'next_action': NEXT_ACTION[code],
+            'runtime': {'python': '.'.join(map(str, sys.version_info[:3])),
+                        'runner_revision': self.runner_revision,
+                        'checkout_revision': revision if hex_value(revision, 40) else None},
+            'retained_snapshot': fingerprint,
+            'verification': dict(self.verification),
+            'artifacts': [self.artifact_reference] if self.artifact_reference else [],
+        })
+        # Keep the intended receipt and delivery journal even when the API fails.
+        save(self.state_dir / f'terminal-{n}.json', receipt)
+        delivery = {'receipt': 'unavailable' if authorization else 'not_authorized',
+                    'public_result': False, 'code': code}
+        save(self.state_dir / f'delivery-{n}.json', delivery)
+        if authorization:
+            try:
+                published = self.publish_private(authorization, json.dumps(receipt, sort_keys=True).encode())
+            except Exception:
+                state, code = 'FAILED', 'RECEIPT_PUBLICATION_FAILED'
+                # It may already exist remotely. Do not retry or overwrite it.
+                delivery['code'] = code
+                self.preserve_failure(n)
+            else:
+                delivery['receipt'] = 'verified'
+                delivery['receipt_hashes'] = published
+            save(self.state_dir / f'delivery-{n}.json', delivery)
+        private = bool(private_artifact(task['body']) or private_inputs(task['body']))
+        tests = ('Parent checks recorded privately' if private else
+                 'Parent diff checks passed; worker checks retained privately'
+                 if state == 'READY_FOR_REVIEW' else 'Worker checks retained privately')
+        retained = self.state.get('retained', {})
+        retained_field = ('\nRETAINED_SNAPSHOT: ' + retained['snapshot']
+                          if retained.get('task') == n and state != 'READY_FOR_REVIEW' else '')
+        try:
+            self.post(f"WORKER_RESULT: {n}\nSTATE: {state}\nBRANCH: {self.branch}\nCOMMIT: {revision}\nPR: {pr}"
+                      f"\nTESTS: {tests}\nSUMMARY: Parent terminal checks: {code}"
+                      f"\nREASON_CODE: {code}\nPRIVATE_RECEIPT: {delivery['receipt']}"
+                      f"\nQUESTIONS: {'none' if state == 'READY_FOR_REVIEW' else 'Supervisor inspection required; use a NEW task number'}{retained_field}")
+        except Exception:
+            delivery['code'] = 'RESULT_PUBLICATION_FAILED'
+            save(self.state_dir / f'delivery-{n}.json', delivery)
+            raise
+        delivery['public_result'] = True
+        save(self.state_dir / f'delivery-{n}.json', delivery)
 
     @contextlib.contextmanager
     def heartbeat(self, n):
@@ -400,8 +582,9 @@ class Runner:
     def post(self, body):
         self.api(f"repos/{self.args.github_repo}/issues/{self.args.issue}/comments", body=body)
 
-    def notify(self, n, state, reason):
-        body = f"SUPERVISOR_TASK: {n}\nSTATE: {state}\nSUMMARY: {reason}"
+    def notify(self, n, state, reason, code='PREFLIGHT_REFUSED'):
+        body = (f"SUPERVISOR_TASK: {n}\nSTATE: {state}\nSUMMARY: {reason}"
+                f"\nREASON_CODE: {code}\nPRIVATE_RECEIPT: not_attempted")
         if self.state["notifications"].get(str(n)) != body:
             self.post(body)
             self.state["notifications"][str(n)] = body
@@ -431,14 +614,14 @@ class Runner:
                           and task_number(c["body"]) is not None
                           and fields(c["body"]).get("STATE") == "READY_FOR_CODEX"]
             self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
-            self.notify(task_number(max(candidates, key=lambda c: c["id"])["body"]), "NEEDS_USER", str(exc))
+            self.notify(task_number(max(candidates, key=lambda c: c["id"])["body"]), "NEEDS_USER", str(exc), 'INVALID_TASK')
             return None
         if task is not None and len(consumed) >= 8:
             print(f"Issue {self.args.issue}: maximum iterations reached", flush=True)
             if not self.discovery and not self.args.dry_run:
                 self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
                 self.notify(task_number(task["body"]), "NEEDS_USER",
-                            "Maximum 8 worker iterations reached for this control issue; use supervisor review to resolve convergence")
+                            "Maximum 8 worker iterations reached for this control issue; use supervisor review to resolve convergence", 'ITERATION_LIMIT')
             return None
         return (issue, task, consumed) if task is not None else None
 
@@ -483,7 +666,7 @@ class Runner:
             except Stop:
                 if task_number(task['body']) not in self.state['consumed']:
                     self.notify(task_number(task['body']), 'NEEDS_USER',
-                                'Preflight refused; inspect private retained state/configuration; task not consumed')
+                                'Preflight refused; inspect local state; task not consumed', self.preflight_code)
                 raise
 
     def run_selected(self, issue, task, consumed):
@@ -514,12 +697,21 @@ class Runner:
             remaining = self.refresh_quota()
         except Stop as exc:
             print("Quota refresh NEEDS_USER; task not consumed", flush=True)
-            self.notify(n, "NEEDS_USER", str(exc))
+            self.notify(n, "NEEDS_USER", str(exc), 'QUOTA_UNAVAILABLE')
             return
         if remaining <= 15:
             print("Quota paused (<=15%); task not consumed", flush=True)
-            self.notify(n, "PAUSED_QUOTA", f"5-hour allowance remaining: {remaining:g}% (<=15%); task not consumed")
+            self.notify(n, "PAUSED_QUOTA", f"5-hour allowance remaining: {remaining:g}% (<=15%); task not consumed", 'QUOTA_PAUSED')
             return
+        # All private inputs must validate before reservation/claim or child launch.
+        # A failed/partial stage is retained locally and never supplied to a child.
+        try:
+            self.stage_inputs(task, n)
+            self.verify_inputs()
+        except Exception:
+            self.preflight_code = 'INPUT_VALIDATION_FAILED'
+            save(self.state_dir / f'input-failure-{n}.json', {'code': 'INPUT_VALIDATION_FAILED', 'consumed': False})
+            raise Stop('INPUT_VALIDATION_FAILED; task not consumed; inspect local staging') from None
         # Reserve locally before any network claim: ambiguous failures never rerun.
         self.state["consumed"] = sorted(consumed | {n})
         save(self.state_file, self.state)
@@ -529,20 +721,22 @@ class Runner:
             self.api(f"repos/{self.args.github_repo}/git/refs",
                      ref=f"refs/heads/automation/issue-{self.args.issue}-claim-{n}",
                      sha=self.git("rev-parse", "HEAD").strip())
-        except subprocess.CalledProcessError:
-            self.notify(n, "NEEDS_USER", "Atomic claim failed or already exists; task consumed locally, no worker launched. Inspect claim/API access; use a NEW task number")
+        except Exception:
+            self.terminal(task, n, 'NEEDS_USER', 'CLAIM_FAILED')
             return
-        self.post(f"SUPERVISOR_TASK: {n}\nSTATE: RUNNING\nBRANCH: {self.branch}")
         self.execution_commit = None
         try:
+            self.failure_code = 'RESULT_PUBLICATION_FAILED'
+            self.post(f"SUPERVISOR_TASK: {n}\nSTATE: RUNNING\nBRANCH: {self.branch}"
+                      f"\nCLAIMED_AT: {dt.datetime.now(dt.timezone.utc).isoformat()}"
+                      "\nSUMMARY: Historical claim; not process liveness")
+            self.failure_code = 'CHECKOUT_FAILED'
             with self.heartbeat(n):
                 self.execute(issue, task, n)
-        except Exception as exc:
+        except Exception:
             # Do not publish captured stderr, which may contain credentials.
-            commit = self.execution_commit or self.git("rev-parse", "HEAD").strip()
-            retained = self.state.get('retained', {})
-            retained_field = ('\nRETAINED_SNAPSHOT: ' + retained['snapshot']) if retained.get('task') == n else ''
-            self.post(f"WORKER_RESULT: {n}\nSTATE: FAILED\nBRANCH: {self.branch}\nCOMMIT: {commit}\nPR: none\nTESTS: incomplete\nSUMMARY: {type(exc).__name__}; inspect private local logs and working tree. Task will not retry.\nQUESTIONS: supervisor must inspect and issue a new task number{retained_field}")
+            if not self.terminal_attempted:
+                self.terminal(task, n, 'FAILED', self.failure_code)
             raise
 
     def execute(self, issue, task, n):
@@ -556,7 +750,7 @@ class Runner:
             try:
                 return self.execute_in_checkout(issue, task, n)
             except Exception:
-                self.record_retained(n, 'FAILED')
+                self.preserve_failure(n)
                 raise
         checkout = self.state_dir / "checkout"
         self.git("fetch", "origin")
@@ -576,7 +770,7 @@ class Runner:
                 raise Stop("Retained worktree has partial changes; preserve/reconcile before running")
             self.execute_in_checkout(issue, task, n)
         except Exception:
-            self.record_retained(n, "FAILED")
+            self.preserve_failure(n)
             raise
         finally:
             # Error reports must identify the task checkout, not the launcher HEAD.
@@ -585,6 +779,13 @@ class Runner:
             except (subprocess.CalledProcessError, OSError):
                 pass
             self.repo = launcher
+
+    def preserve_failure(self, n):
+        try:
+            self.record_retained(n, 'FAILED')
+        except Exception:
+            # A damaged checkout must not prevent a bounded terminal receipt.
+            save(self.state_dir / f'retention-failure-{n}.json', {'code': 'SNAPSHOT_UNAVAILABLE'})
 
     def execute_in_checkout(self, issue, task, n):
         network, _ = capabilities(task, issue["user"]["login"])
@@ -616,10 +817,15 @@ class Runner:
         prompt = prompt_for(issue, task, self.repo,
                             self.git("status", "--short", "--branch") + self.git("log", "-3", "--oneline"), self.branch)
         authorization = private_artifact(task['body'])
+        private = bool(authorization or private_inputs(task['body']))
+        if private_inputs(task['body']) and (not self.verification['inputs_verified']
+                or len(self.inputs) != len(private_inputs(task['body']))):
+            raise Stop('Private input staging is required before child launch')
         staging = None
         command = codex_command(self.repo, output, schema, effort, network)
         if authorization:
             staging = Path(tempfile.mkdtemp(prefix=f'codex-private-{self.args.issue}-{n}-'))
+            staging.chmod(0o700)
             self.state.setdefault('staging', {})[str(n)] = str(staging)
             save(self.state_file, self.state)
             command[-1:-1] = ['--add-dir', str(staging)]
@@ -629,24 +835,58 @@ class Runner:
                        "Finish with no public repository changes or commits. If CONTINUE_FROM is authorized, "
                        "reconcile only its exact retained files as instructed; the parent holds a private backup. "
                        "Never put private contents in result fields.\n")
+        if self.inputs:
+            prompt += "\nPRIVATE INPUTS (read-only local aliases; no direct GitHub access authorized by these capabilities):\n"
+            prompt += "\n".join(str(v['path']) for v in self.inputs)
+        if private:
+            prompt += ("\nThis private-input/output task must finish without public checkout/history changes. "
+                       "Keep all private identities, paths, evidence and contents out of result prose.\n")
         before_head = self.git("rev-parse", "HEAD").strip()
-        with (self.state_dir / f"worker-{n}.log").open("w") as log:
-            subprocess.run(command, input=prompt, env=worker_environment(),
-                           cwd=self.repo, text=True, check=True, stdout=log, stderr=log,
-                           pass_fds=self.inherited_locks())
+        self.failure_code = 'INPUT_CHANGED'
+        self.verify_inputs()
+        self.failure_code = 'CHILD_FAILED'
+        try:
+            with (self.state_dir / f"worker-{n}.log").open("w") as log:
+                subprocess.run(command, input=prompt, env=worker_environment(),
+                               cwd=self.repo, text=True, check=True, stdout=log, stderr=log,
+                               pass_fds=self.inherited_locks())
+        finally:
+            # Also check immutability after a failing child, before any publication.
+            self.failure_code = 'INPUT_CHANGED'
+            self.verify_inputs()
+            if self.inputs:
+                self.verification['inputs_unchanged'] = True
+            self.failure_code = 'CHILD_FAILED'
+        self.failure_code = 'ARTIFACT_INVALID'
         if authorization and (staging / authorization['source']).exists():
             (self.state_dir / f'artifact-{n}.bin').write_bytes(self.artifact_bytes(authorization, staging))
-        result = json.loads(output.read_text())
-        if result["state"] not in ("READY_FOR_REVIEW", "NEEDS_USER"):
+        self.failure_code = 'INVALID_RESULT'
+        raw_result = self.regular_bytes(output)
+        if len(raw_result) > 64000:
+            raise Stop('Oversized worker result')
+        result = json.loads(raw_result, object_pairs_hook=unique_object)
+        if (not isinstance(result, dict) or set(result) != {'state', 'tests', 'summary', 'questions'}
+                or not all(isinstance(v, str) for v in result.values())
+                or result['state'] not in ('READY_FOR_REVIEW', 'NEEDS_USER')):
             raise Stop("Invalid worker result")
         pr = "none"
         if result['state'] == 'NEEDS_USER':
             self.record_retained(n, 'NEEDS_USER')
-        if authorization and result['state'] == 'READY_FOR_REVIEW':
+        if private:
+            self.failure_code = 'PUBLIC_CHANGE_REFUSED'
             if self.git('status', '--porcelain').strip() or self.git('rev-parse', 'HEAD').strip() != before_head:
                 raise Stop('Private task changed public files or history; publication refused')
-            self.publish_private(authorization, self.artifact_bytes(authorization, staging))
-        if result["state"] == "READY_FOR_REVIEW" and not authorization:
+            self.verification['public_checkout_unchanged'] = True
+        if authorization and result['state'] == 'READY_FOR_REVIEW':
+            self.failure_code = 'ARTIFACT_INVALID'
+            content = self.artifact_bytes(authorization, staging)
+            self.failure_code = 'ARTIFACT_PUBLICATION_FAILED'
+            published = self.publish_private(authorization, content)
+            self.verification['artifact_readback'] = True
+            self.artifact_reference = {k: authorization[k] for k in ('repository', 'path')}
+            self.artifact_reference.update({k: published.get(k) for k in ('blob', 'sha256')})
+        self.failure_code = 'PUBLIC_CODE_PUBLICATION_FAILED'
+        if result["state"] == "READY_FOR_REVIEW" and not private:
             self.git("diff", "--check")
             self.git("add", "--all")
             # Preserve the actual inspected diff privately before committing.
@@ -666,24 +906,8 @@ class Runner:
                 pr = self.gh("pr", "create", "--repo", self.args.github_repo, "--head", self.branch,
                              "--base", self.args.base, "--title", f"GitHub worker loop (issue #{self.args.issue})",
                              "--body-file", str(body_file)).strip()
-        if authorization:
-            # Never reflect worker prose, paths, private identities or evidence publicly.
-            result = dict(result, tests='Parent checks recorded privately',
-                          summary=('Authorized private artifact published and readback verified'
-                                   if result['state'] == 'READY_FOR_REVIEW' else 'Private task requires supervisor inspection'),
-                          questions='none' if result['state'] == 'READY_FOR_REVIEW' else 'Inspect private local result')
-        else:
-            result = dict(result, tests='Parent diff checks passed; worker checks retained privately'
-                          if result['state'] == 'READY_FOR_REVIEW' else 'Worker checks retained privately',
-                          summary='Scoped worker result ready for supervisor review'
-                          if result['state'] == 'READY_FOR_REVIEW' else 'Worker requires supervisor inspection',
-                          questions='none' if result['state'] == 'READY_FOR_REVIEW' else 'Inspect private local result')
-        retained_field = ''
-        if result['state'] == 'NEEDS_USER':
-            retained_field = '\nRETAINED_SNAPSHOT: ' + self.state['retained']['snapshot']
-        # Keep each protocol field on one line; arbitrary worker text cannot add states.
-        clean = lambda s: " ".join(str(s).split())
-        self.post(f"WORKER_RESULT: {n}\nSTATE: {result['state']}\nBRANCH: {self.branch}\nCOMMIT: {self.git('rev-parse', 'HEAD').strip()}\nPR: {pr}\nTESTS: {clean(result['tests'])}\nSUMMARY: {clean(result['summary'])}\nQUESTIONS: {clean(result['questions'])}{retained_field}")
+        self.terminal(task, n, result['state'],
+                      'OK' if result['state'] == 'READY_FOR_REVIEW' else 'WORKER_BLOCKED', pr)
 
     def start(self):
         if self.args.dry_run:
