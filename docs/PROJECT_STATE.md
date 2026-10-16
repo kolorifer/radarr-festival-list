@@ -3,6 +3,21 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Approved private review batch 2 — 2026-10-16
+
+Issue #20 / SUPERVISOR_TASK 4 completed 7/7 authorized record removals after
+fresh exact identity and protection checks; skipped: 0. All 8 KEEP records and
+all unrelated full movie rows remain unchanged. Media deletions: 0; import
+exclusions created: 0. Configuration hashes and independent final live readback
+passed. Private before/after evidence and execution report are retained privately.
+
+Technical execution is complete; product acceptance remains with the
+user/supervisor. No deployment, runtime, service or recurring policy changes.
+Runner owns publication. The unrelated active task remains untouched.
+
+[Brief](reports/2026-10-16-review-batch-2-task4-brief.md) ·
+[Engineering report](reports/2026-10-16-review-batch-2-task4.md).
+
 ## Approved private review batch reconciliation — 2026-10-16
 
 Issue #20 / SUPERVISOR_TASK 2 reconciled all 15 exact private targets through the
