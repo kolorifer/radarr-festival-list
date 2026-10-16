@@ -3,6 +3,23 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Approved private review batch reconciliation — 2026-10-16
+
+Issue #20 / SUPERVISOR_TASK 2 reconciled all 15 exact private targets through the
+existing unattended SSH path. Fourteen end states already satisfied: 13 removal
+targets absent and the preserved target present, watched-tagged and unmonitored.
+One removal target failed the identity safeguard and remains untouched. Newly
+completed: 0; skipped/blocked: 1; media deletions: 0. No Radarr mutations occurred.
+Repeated full collection readbacks and configuration hashes show no unrelated
+state changes during Task 2. Exact original/current/final evidence is private.
+
+Safely partial and ready for supervisor review; the full 14-removal end state is
+not achieved. No deployment, service changes or publication. Product acceptance
+remains with the user/supervisor. Existing unrelated task brief is unchanged.
+
+[Brief](reports/2026-10-16-review-batch-1-task2-brief.md) ·
+[Engineering report](reports/2026-10-16-review-batch-1-task2.md).
+
 ## GitHub supervisor / fresh local Codex worker — 2026-10-15
 
 Issue #11 / SUPERVISOR_TASK 1 implemented on automation/issue-11-worker for
