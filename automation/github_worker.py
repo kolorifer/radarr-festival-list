@@ -14,8 +14,10 @@ import re
 import subprocess
 import sys
 import time
+import tempfile
 
 MODEL = "gpt-6.1-sol"
+PROBE_COOLDOWN = 30 * 60
 FIELDS = re.compile(r"^([A-Z_]+):[ \t]*(.*)$", re.M)
 
 
@@ -68,6 +70,12 @@ def choose_task(comments, supervisor, consumed):
     if n in consumed or fields(latest["body"]).get("STATE") != "READY_FOR_CODEX":
         return None
     headings = list(FIELDS.finditer(latest["body"]))
+    names = [match[1] for match in headings]
+    if len(names) != len(set(names)):
+        raise Stop(f"Task {n} has duplicate protocol fields")
+    effort = fields(latest["body"]).get("REASONING", "medium").lower()
+    if effort not in ("low", "medium", "high", "xhigh", "max"):
+        raise Stop("Unsupported explicit REASONING override")
     sections = {match[1]: (match[2] + latest["body"][match.end():
                 headings[i + 1].start() if i + 1 < len(headings) else len(latest["body"])])
                 for i, match in enumerate(headings)}
@@ -122,7 +130,7 @@ def quota_remaining(root, now=None):
                 except (ValueError, KeyError, TypeError, AttributeError):
                     continue
     if newest is None or now - newest[0] > 5 * 3600 or newest[2] <= now:
-        raise Stop("No current 5-hour quota telemetry; open a fresh authenticated Codex session to refresh it")
+        raise Stop("No current 5-hour quota telemetry")
     return 100 - newest[1]
 
 
@@ -193,23 +201,76 @@ def codex_command(repo, output, schema, effort="medium", network_access=False):
             "--cd", str(repo), "--output-schema", str(schema), "--output-last-message", str(output), "-"]
 
 
+def quota_probe_command(directory):
+    # Ignore local integrations/hooks/config; persist the fresh session's quota events.
+    return ["codex", "-c", 'approval_policy="never"',
+            "exec", "--ignore-user-config", "--ignore-rules", "--model", MODEL,
+            "--sandbox", "read-only", "--skip-git-repo-check",
+            "--cd", str(directory), "-c", 'model_reasoning_effort="low"',
+            "-c", 'web_search="disabled"', "-c", "features.shell_tool=false",
+            "-c", "features.shell_snapshot=false", "-c", "project_doc_max_bytes=0",
+            "-c", "sandbox_workspace_write.network_access=false", "-"]
+
+
 class Runner:
     def __init__(self, args):
         self.args = args
         self.repo = args.repo.resolve()
-        self.branch = f"automation/issue-{args.issue}-worker"
         common = Path(self.git("rev-parse", "--git-common-dir").strip())
-        self.state_dir = (self.repo / common).resolve() / "github-worker" / str(args.issue)
+        self.dispatch_dir = (self.repo / common).resolve() / "github-worker"
+        self.probe_file = self.dispatch_dir / "quota-refresh.json"
+        self.lock_fd = None
+        self.global_lock_fd = None
+        self.discovery = args.issue is None
+        self.select_issue(args.issue)
+
+    def select_issue(self, number):
+        self.args.issue = number
+        self.branch = f"automation/issue-{number}-worker"
+        self.state_dir = self.dispatch_dir / str(number)
         self.state_file = self.state_dir / "state.json"
         self.state = {"consumed": [], "notifications": {}}
-        self.lock_fd = None
+        if self.state_file.exists():
+            self.state = json.loads(self.state_file.read_text())
+
+    def inherited_locks(self):
+        return tuple(fd for fd in (self.global_lock_fd, self.lock_fd) if fd is not None)
+
+    def refresh_quota(self):
+        try:
+            remaining = quota_remaining(self.args.sessions)
+        except Stop:
+            pass
+        else:
+            self.probe_file.unlink(missing_ok=True)
+            return remaining
+        if self.probe_file.exists():
+            retry_at = json.loads(self.probe_file.read_text())["retry_at"]
+            if time.time() < retry_at:
+                raise Stop("Quota refresh cooldown active; task not consumed")
+        # Persist before spawning: failures/crashes also back off, across all issues.
+        save(self.probe_file, {"retry_at": time.time() + PROBE_COOLDOWN})
+        print("Quota refresh attempted", flush=True)
+        try:
+            with tempfile.TemporaryDirectory(prefix="codex-quota-") as directory:
+                subprocess.run(quota_probe_command(directory), cwd=directory,
+                               input="Reply only OK. Do not use tools, read files, or access the network.",
+                               text=True, check=True, stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL, timeout=60, pass_fds=self.inherited_locks())
+            remaining = quota_remaining(self.args.sessions)
+        except (Stop, OSError, subprocess.SubprocessError):
+            raise Stop("Quota refresh failed or no current telemetry; check local Codex authentication; task not consumed") from None
+        self.probe_file.unlink(missing_ok=True)
+        print("Quota refresh succeeded", flush=True)
+        return remaining
 
     def run(self, command, **kwargs):
         return subprocess.run(command, cwd=self.repo, text=True, check=True,
                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs).stdout
 
     def git(self, *args):
-        return self.run(["git", *args])
+        options = ["--no-optional-locks"] if self.args.dry_run else []
+        return self.run(["git", *options, *args])
 
     def gh(self, *args):
         return self.run(["gh", *args])
@@ -236,17 +297,14 @@ class Runner:
             self.state["notifications"][str(n)] = body
             save(self.state_file, self.state)
 
-    def poll(self):
-        issue = self.api(f"repos/{self.args.github_repo}/issues/{self.args.issue}")
-        if issue["state"] != "open":
-            return
+    def eligible(self, issue, login):
+        if issue["state"] != "open" or "pull_request" in issue:
+            return None
         comments = self.comments()
-        login = self.api("user")["login"]
         trusted = {login, issue["user"]["login"]}
-        # An explicit supervisor stop applies even while the issue stays open.
         trusted_comments = [c for c in comments if c["user"]["login"] in trusted]
         if trusted_comments and fields(max(trusted_comments, key=lambda c: c["id"])["body"]).get("STATE") == "DONE":
-            return
+            return None
         refs = self.api(f"repos/{self.args.github_repo}/git/matching-refs/heads/automation/issue-{self.args.issue}-claim-")
         claimed = {int(r["ref"].rsplit("-", 1)[1]) for r in refs
                    if r["ref"].rsplit("-", 1)[1].isdecimal()}
@@ -254,16 +312,65 @@ class Runner:
         try:
             task = choose_task(comments, issue["user"]["login"], consumed)
         except Stop as exc:
+            if self.discovery:
+                print(f"Issue {self.args.issue}: invalid task ignored", flush=True)
+                return None
             if self.args.dry_run:
                 raise
             candidates = [c for c in comments if c["user"]["login"] == issue["user"]["login"]
                           and task_number(c["body"]) is not None
                           and fields(c["body"]).get("STATE") == "READY_FOR_CODEX"]
+            self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
             self.notify(task_number(max(candidates, key=lambda c: c["id"])["body"]), "NEEDS_USER", str(exc))
+            return None
+        if task is not None and len(consumed) >= 8:
+            print(f"Issue {self.args.issue}: maximum iterations reached", flush=True)
+            if not self.discovery and not self.args.dry_run:
+                self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+                self.notify(task_number(task["body"]), "NEEDS_USER",
+                            "Maximum 8 worker iterations reached for this control issue; use supervisor review to resolve convergence")
+            return None
+        return (issue, task, consumed) if task is not None else None
+
+    def poll(self):
+        # Re-read durable state after acquiring the dispatcher lock, including overrides.
+        if not self.discovery:
+            self.select_issue(self.args.issue)
+        login = self.api("user")["login"]
+        choices = []
+        if self.discovery:
+            pages = json.loads(self.gh("api", "--paginate", "--slurp",
+                f"repos/{self.args.github_repo}/issues?state=open&creator={login}&per_page=100"))
+            issues = [i for page in pages for i in page
+                      if i["state"] == "open" and "pull_request" not in i
+                      and i["user"]["login"] == login]
+            print(f"Discovery: {len(issues)} candidate issues", flush=True)
+            for issue in issues:
+                self.select_issue(issue["number"])
+                candidate = self.eligible(issue, login)
+                if candidate:
+                    choices.append(candidate)
+        else:
+            issue = self.api(f"repos/{self.args.github_repo}/issues/{self.args.issue}")
+            candidate = self.eligible(issue, login)
+            if candidate:
+                choices.append(candidate)
+        if not choices:
+            print("No eligible READY_FOR_CODEX task", flush=True)
             return
-        if task is None:
-            print("No unprocessed READY_FOR_CODEX task", flush=True)
+        # GitHub comment IDs increase globally; oldest outstanding latest task wins.
+        issue, task, consumed = min(choices, key=lambda c: (c[1]["id"], c[0].get("number", self.args.issue)))
+        if self.discovery:
+            self.select_issue(issue["number"])
+        print(f"Selected issue {self.args.issue} task {task_number(task['body'])}", flush=True)
+        if self.args.dry_run:
+            self.run_selected(issue, task, consumed)
             return
+        self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+        with lock(self.state_dir / "runner.lock") as self.lock_fd:
+            self.run_selected(issue, task, consumed)
+
+    def run_selected(self, issue, task, consumed):
         n = task_number(task["body"])
         if self.git("status", "--porcelain").strip():
             raise Stop("Working tree is dirty; preserve/reconcile it before running")
@@ -274,18 +381,24 @@ class Runner:
                           f"git@github.com:{self.args.github_repo}.git"):
             raise Stop("origin does not match --github-repo")
         if self.args.dry_run:
-            print(prompt_for(issue, task, self.repo, self.git("status", "--short", "--branch"), self.branch))
             print("DRY RUN: no claim, journal, branch change, Codex or publication. Quota is checked on a real run.")
             return
-        if len(consumed) >= 8:
-            self.notify(n, "NEEDS_USER", "Maximum 8 worker iterations reached for this control issue; use supervisor review to resolve convergence")
-            return
+        if not self.git("branch", "--show-current").strip():
+            raise Stop("Launcher must be on a branch")
+        checkout = self.state_dir / "checkout"
+        if checkout.exists():
+            if self.git("-C", str(checkout), "status", "--porcelain").strip():
+                raise Stop("Retained worktree has partial changes; preserve/reconcile before running")
+            if self.git("-C", str(checkout), "branch", "--show-current").strip() != self.branch:
+                raise Stop("Retained worktree branch mismatch; inspect local checkout")
         try:
-            remaining = quota_remaining(self.args.sessions)
+            remaining = self.refresh_quota()
         except Stop as exc:
+            print("Quota refresh NEEDS_USER; task not consumed", flush=True)
             self.notify(n, "NEEDS_USER", str(exc))
             return
         if remaining <= 15:
+            print("Quota paused (<=15%); task not consumed", flush=True)
             self.notify(n, "PAUSED_QUOTA", f"5-hour allowance remaining: {remaining:g}% (<=15%); task not consumed")
             return
         # Reserve locally before any network claim: ambiguous failures never rerun.
@@ -301,14 +414,50 @@ class Runner:
             self.notify(n, "NEEDS_USER", "Atomic claim failed or already exists; task consumed locally, no worker launched. Inspect claim/API access; use a NEW task number")
             return
         self.post(f"SUPERVISOR_TASK: {n}\nSTATE: RUNNING\nBRANCH: {self.branch}")
+        self.execution_commit = None
         try:
             self.execute(issue, task, n)
         except Exception as exc:
             # Do not publish captured stderr, which may contain credentials.
-            self.post(f"WORKER_RESULT: {n}\nSTATE: FAILED\nBRANCH: {self.branch}\nCOMMIT: {self.git('rev-parse', 'HEAD').strip()}\nPR: none\nTESTS: incomplete\nSUMMARY: {type(exc).__name__}; inspect private local logs and working tree. Task will not retry.\nQUESTIONS: supervisor must inspect and issue a new task number")
+            commit = self.execution_commit or self.git("rev-parse", "HEAD").strip()
+            self.post(f"WORKER_RESULT: {n}\nSTATE: FAILED\nBRANCH: {self.branch}\nCOMMIT: {commit}\nPR: none\nTESTS: incomplete\nSUMMARY: {type(exc).__name__}; inspect private local logs and working tree. Task will not retry.\nQUESTIONS: supervisor must inspect and issue a new task number")
             raise
 
     def execute(self, issue, task, n):
+        # Never switch the launcher checkout to another issue's older runner.
+        # Retain worktrees, including blocked/dirty partial work, for inspection.
+        launcher = self.repo
+        current = self.git("branch", "--show-current").strip()
+        if not current:
+            raise Stop("Launcher must be on a branch")
+        if current == self.branch:
+            return self.execute_in_checkout(issue, task, n)
+        checkout = self.state_dir / "checkout"
+        self.git("fetch", "origin")
+        if not checkout.exists():
+            local = self.git("branch", "--list", self.branch).strip()
+            remote = self.git("branch", "-r", "--list", f"origin/{self.branch}").strip()
+            if local:
+                self.git("worktree", "add", str(checkout), self.branch)
+            else:
+                self.git("worktree", "add", "-b", self.branch, str(checkout),
+                         f"origin/{self.branch}" if remote else f"origin/{self.args.base}")
+        self.repo = checkout
+        try:
+            if self.git("branch", "--show-current").strip() != self.branch:
+                raise Stop("Retained worktree branch mismatch; inspect local checkout")
+            if self.git("status", "--porcelain").strip():
+                raise Stop("Retained worktree has partial changes; preserve/reconcile before running")
+            self.execute_in_checkout(issue, task, n)
+        finally:
+            # Error reports must identify the task checkout, not the launcher HEAD.
+            try:
+                self.execution_commit = self.git("rev-parse", "HEAD").strip()
+            except (subprocess.CalledProcessError, OSError):
+                pass
+            self.repo = launcher
+
+    def execute_in_checkout(self, issue, task, n):
         network, _ = capabilities(task, issue["user"]["login"])
         self.git("fetch", "origin")
         local = self.git("branch", "--list", self.branch).strip()
@@ -337,7 +486,7 @@ class Runner:
         with (self.state_dir / f"worker-{n}.log").open("w") as log:
             subprocess.run(codex_command(self.repo, output, schema, effort, network), input=prompt,
                            cwd=self.repo, text=True, check=True, stdout=log, stderr=log,
-                           pass_fds=(self.lock_fd,))
+                           pass_fds=self.inherited_locks())
         result = json.loads(output.read_text())
         if result["state"] not in ("READY_FOR_REVIEW", "NEEDS_USER"):
             raise Stop("Invalid worker result")
@@ -369,14 +518,10 @@ class Runner:
     def start(self):
         if self.args.dry_run:
             # Read-only mode does not even create a lock/state directory.
-            if self.state_file.exists():
-                self.state = json.loads(self.state_file.read_text())
             self.poll()
             return
-        self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
-        with lock(self.state_dir / "runner.lock") as self.lock_fd:
-            if self.state_file.exists():
-                self.state = json.loads(self.state_file.read_text())
+        self.dispatch_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+        with lock(self.dispatch_dir / "dispatcher.lock") as self.global_lock_fd:
             while True:
                 self.poll()
                 if self.args.once:
@@ -388,14 +533,14 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", type=Path, default=Path.cwd())
     parser.add_argument("--github-repo", default="kolorifer/radarr-festival-list")
-    parser.add_argument("--issue", type=int, default=11)
+    parser.add_argument("--issue", type=int, help="operator override; omitted means discovery")
     parser.add_argument("--base", default="main")
     parser.add_argument("--sessions", type=Path, default=Path.home() / ".codex/sessions")
     parser.add_argument("--interval", type=int, default=60)
     parser.add_argument("--once", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
-    if args.issue < 1 or args.interval < 10 or not re.fullmatch(r"[\w.-]+/[\w.-]+", args.github_repo):
+    if (args.issue is not None and args.issue < 1) or args.interval < 10 or not re.fullmatch(r"[\w.-]+/[\w.-]+", args.github_repo):
         parser.error("invalid issue, interval (<10s), or repository")
     os.umask(0o077)
     try:

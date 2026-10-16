@@ -1,8 +1,8 @@
 # GitHub supervisor / fresh Codex worker
 
-The control plane is [issue #11](https://github.com/kolorifer/radarr-festival-list/issues/11).
-Normal ChatGPT posts supervisor tasks and reviews the PR through GitHub. This
-runner does not invoke ChatGPT Work or depend on a long conversation.
+The control plane is an open control issue owned by the authenticated runner
+identity. Normal ChatGPT posts supervisor tasks and reviews the PR through
+GitHub. This runner does not invoke ChatGPT Work or depend on a long conversation.
 
 ## Requirements and authentication
 
@@ -54,10 +54,18 @@ python3 automation/github_worker.py --once
 python3 automation/github_worker.py --interval 60
 ```
 
-`--dry-run` reads GitHub and git state, prints the newest eligible task's prompt,
-and exits. It creates no claim, lock, journal, branch, comment, or Codex process;
-quota is checked only on a real run. If task 1 has already been reported, it prints
-that there is no unprocessed task. Preview tests use a synthetic pending task.
+Omitting `--issue` enables discovery: paginate open issues created by the
+authenticated GitHub identity, exclude PRs, and validate only issue-owner tasks.
+Closed/DONE issues, malformed/untrusted tasks, consumed/claimed numbers and
+issues with eight consumed iterations are ineligible. Each poll selects at most
+one task: the oldest outstanding valid latest READY task by GitHub comment ID,
+with issue number as a deterministic tie-breaker. `--issue N` keeps the explicit
+operator/debug override, including the existing issue-owner trust policy.
+
+`--dry-run` reads GitHub and git state, prints only candidate counts and selected
+issue/task numbers, and exits. Task bodies/prompts are never printed. It creates
+no claim, lock, journal, branch, comment, quota probe or Codex process; quota is
+checked only on a real run. Preview tests use synthetic pending tasks.
 `--once` polls once and executes at most one task; otherwise polling continues
 until Ctrl-C (or SIGTERM). A failure exits; restart manually after inspection.
 No service is installed or started by any of these commands.
@@ -151,16 +159,35 @@ prompt, nor used to resume a session.
 
 At <=15% remaining it posts `STATE: PAUSED_QUOTA` with the percentage, does not
 consume the task, and checks again on a later poll. Identical notifications are
-suppressed. Missing, malformed, expired or >5h-old observations fail closed with
-`STATE: NEEDS_USER`. Refresh telemetry through a fresh authenticated interactive
-Codex run, without resuming prior work. A later poll with valid telemetry can
-proceed. An expired window is not assumed to mean 100% available.
+suppressed. Fresh observations are used without a probe. Missing, malformed,
+expired or >5h-old observations trigger one minimal fresh non-interactive quota probe, only
+when an eligible task exists and before local reservation or GitHub claim.
+The probe runs outside the repository in an empty temporary directory, using
+GPT-6.1 Sol / Low, read-only sandbox, approval policy `never`, disabled sandbox
+network and web search, disabled shell tools/snapshots, zero project instruction
+bytes, and ignored user config/rules. Its fixed prompt contains no project/task
+content; stdout/stderr are discarded. Authentication/model transport still needs
+the Codex service; the agent receives no network-enabled execution sandbox.
+Session persistence stays enabled so token-count telemetry can be refreshed.
+These flags require a current Codex CLI supporting `--ignore-user-config` and
+`--ignore-rules` (the installed CLI parser was checked during implementation).
 
-A kernel `flock` on the common Git directory's
-`github-worker/11/runner.lock` excludes local instances across linked worktrees.
-The lock inode is never removed: stale PID contents are harmless, and the kernel
-releases the lock after exit/crash. The worker inherits the lock descriptor so
-an orphaned worker still prevents a replacement runner from overlapping it.
+After the probe, re-read telemetry: >15% proceeds, <=15% posts/retains PAUSED_QUOTA,
+and failure/no trustworthy refresh posts a generic NEEDS_USER without consuming
+the task. A clone-wide private cooldown journal is written before probing and
+backs off for 30 minutes after failure/crash (probe timeout: 60 seconds). Fresh
+usable telemetry clears the cooldown immediately, even during that interval.
+Expired windows are never assumed to mean 100% available. No eligible task or
+`--dry-run` means no probe. Logs contain selection and quota outcomes, never raw
+Codex output or telemetry records.
+
+A clone-wide kernel `flock` at the common Git directory's
+`github-worker/dispatcher.lock` excludes explicit and discovery invocations across
+issues and linked worktrees. The existing per-issue `github-worker/N/runner.lock`
+is also retained. Lock contention stops with a concise message. Lock inodes are
+never removed: stale PID contents are harmless, and the kernel releases locks
+after exit/crash. Workers and quota probes inherit both descriptors so an
+orphaned child still prevents a replacement runner from overlapping it.
 Stop that worker and inspect its changes before restarting after an interruption.
 
 Before launch the runner durably records the number locally, then atomically
@@ -178,14 +205,21 @@ in `github-worker/11/`, private to the local account and excluded from commits.
 Do not publish these logs: they may contain worker tool output. A dirty checkout
 stops the runner before any claim. Preserve/reconcile partial work manually;
 there is no reset, clean, force-push, automatic retry or media operation.
-Use a dedicated clone per control issue; avoid manual edits while it is active.
+Use a dedicated launcher clone; avoid manual edits while it is active. When a
+task targets another branch, the dispatcher executes it in a retained per-issue
+worktree at `github-worker/N/checkout` under the common Git directory. The
+launcher checkout/branch is never switched to that issue's older code. Blocked
+or failed worker changes remain in the worktree for inspection; dirty retained
+worktrees fail before quota probing or claiming a follow-up. Worktrees are not
+automatically deleted. A task targeting the launcher's own branch uses that
+checkout as before.
 
 ## Optional macOS LaunchAgent (example only)
 
 `com.example.github-codex-worker.plist` is an inert example. Edit every absolute
 path and PATH to match your CLI installation before considering use. It runs a
-single poll every minute; the same lock protects overlapping invocations. It
-has no KeepAlive restart loop. Authentication must already work without prompts.
+single discovery poll every minute (`--once`, no `--issue`); the dispatcher lock
+protects overlapping invocations. It has no KeepAlive restart loop. Authentication must already work without prompts.
 
 Only after explicit user approval, an operator can copy the edited example into
 `~/Library/LaunchAgents/` and load it using:
@@ -217,3 +251,9 @@ Substitute the installed label and log filenames if different. The healthy idle
 result is no pending `READY_FOR_CODEX` task and empty stderr.
 
 Codex command/output-schema details: [official non-interactive documentation](https://learn.chatgpt.com/docs/non-interactive-mode).
+
+Implementation verification for issue #24 found the installed worker LaunchAgent
+also uses `--once` and omits `--issue`. Its invocation is compatible without a
+plist edit. No agent installation, reload, cadence/path/log change or activation
+was performed. Publication/activation of dispatcher-v2 remains with the runner
+and supervisor.

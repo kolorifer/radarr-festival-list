@@ -53,6 +53,8 @@ class FakeRunner(w.Runner):
             return "dirty" if self.dirty else ""
         if args == ("remote", "get-url", "origin"):
             return self.origin
+        if args == ("branch", "--show-current"):
+            return self.branch
         if args == ("rev-parse", "HEAD"):
             return "abc123"
         return "main: abc123\n"
@@ -288,7 +290,8 @@ class LifecycleTests(unittest.TestCase):
         self.assertTrue(any(c[0] == "execute" for c in self.runner.calls))
 
     def test_unknown_quota_needs_user(self):
-        with patch.object(w, "quota_remaining", side_effect=w.Stop("missing telemetry")):
+        with patch.object(w, "quota_remaining", side_effect=w.Stop("missing telemetry")), \
+                patch.object(w.subprocess, "run", side_effect=OSError("synthetic auth failure")):
             self.runner.start()
         self.assertEqual(self.runner.state["consumed"], [])
         self.assertIn("NEEDS_USER", [c for c in self.runner.calls if c[0] == "post"][0][1])
@@ -317,11 +320,12 @@ class LifecycleTests(unittest.TestCase):
             self.runner.start()
         self.assertFalse(any(c[0].endswith("/git/refs") for c in self.runner.calls))
 
-    def test_dry_run_is_read_only_and_prints_prompt_without_codex(self):
+    def test_dry_run_is_read_only_and_private_without_codex(self):
         self.runner.args.dry_run = True
         with contextlib.redirect_stdout(io.StringIO()) as output:
             self.runner.start()
-        self.assertIn(TASK, output.getvalue())
+        self.assertNotIn(TASK, output.getvalue())
+        self.assertIn("Selected issue 11 task 1", output.getvalue())
         self.assertFalse(self.runner.state_file.exists())
         self.assertFalse((self.runner.state_dir / "runner.lock").exists())
         self.assertFalse(any(c[0] in ("post", "execute") or c[1] for c in self.runner.calls))
@@ -355,6 +359,7 @@ class PublicationTests(unittest.TestCase):
             with tempfile.TemporaryDirectory() as directory:
                 runner = FakeRunner(Path(directory))
                 runner.lock_fd = 123
+                runner.global_lock_fd = 456
                 actions = []
                 original_git = runner.git
 
@@ -371,7 +376,7 @@ class PublicationTests(unittest.TestCase):
                 def worker(command, **kwargs):
                     self.assertIn("exec", command)
                     self.assertIn(f"sandbox_workspace_write.network_access={str(network).lower()}", command)
-                    self.assertEqual(kwargs["pass_fds"], (123,))
+                    self.assertEqual(kwargs["pass_fds"], (456, 123))
                     self.assertIn(TASK, kwargs["input"])
                     output = Path(command[command.index("--output-last-message") + 1])
                     output.write_text(json.dumps({"state": "READY_FOR_REVIEW", "tests": "24 tests passed",
@@ -447,5 +452,308 @@ class LockTests(unittest.TestCase):
                 pass
 
 
-if __name__ == "__main__":
+class DiscoveryRunner(FakeRunner):
+    def __init__(self, root, **options):
+        super().__init__(root, issue=options.pop('issue', None), **options)
+        self.issues = [dict(ISSUE, number=11)]
+        self.issue_messages = {11: [comment()]}
+        self.issue_refs = {}
+
+    def api(self, endpoint, **data):
+        if endpoint == 'user':
+            return {'login': 'owner'}
+        if '/matching-refs/' in endpoint:
+            return self.issue_refs.get(self.args.issue, [])
+        if '/issues/' in endpoint:
+            return next(i for i in self.issues if i['number'] == self.args.issue)
+        return super().api(endpoint, **data)
+
+    def gh(self, *args):
+        self.calls.append(('gh', args))
+        return json.dumps([self.issues[:1], self.issues[1:]])
+
+    def comments(self):
+        return self.issue_messages.get(self.args.issue, [])
+
+    def execute(self, issue, task, n):
+        self.calls.append(('execute', (self.args.issue, n)))
+
+
+class DispatcherTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.runner = DiscoveryRunner(self.root)
+        quota = patch.object(w, 'quota_remaining', return_value=80)
+        self.quota = quota.start()
+        self.addCleanup(quota.stop)
+
+    def executions(self):
+        return [c[1] for c in self.runner.calls if c[0] == 'execute']
+
+    def test_cli_defaults_to_discovery_and_explicit_override(self):
+        with patch.object(w, 'Runner') as runner:
+            self.assertEqual(w.main(['--once']), 0)
+            self.assertIsNone(runner.call_args[0][0].issue)
+            self.assertEqual(w.main(['--once', '--issue', '19']), 0)
+            self.assertEqual(runner.call_args[0][0].issue, 19)
+
+    def test_single_eligible_and_only_one_worker(self):
+        self.runner.start()
+        self.assertEqual(self.executions(), [(11, 1)])
+
+    def test_oldest_task_selected_independent_of_issue_order(self):
+        self.runner.issues += [dict(ISSUE, number=12), dict(ISSUE, number=13)]
+        self.runner.issue_messages = {11: [comment(number=30)], 12: [comment(number=10)],
+                                      13: [comment(number=20)]}
+        self.runner.start()
+        self.assertEqual(self.executions(), [(12, 1)])
+        self.assertFalse((self.runner.dispatch_dir / '11/state.json').exists())
+        self.assertFalse((self.runner.dispatch_dir / '13/state.json').exists())
+
+    def test_discovery_restarts_do_not_relaunch_and_poll_selects_next_issue(self):
+        self.runner.issues += [dict(ISSUE, number=12)]
+        self.runner.issue_messages[11] = [comment(number=30)]
+        self.runner.issue_messages[12] = [comment(number=10)]
+        self.runner.start()
+        restarted = DiscoveryRunner(self.root)
+        restarted.issues = self.runner.issues
+        restarted.issue_messages = self.runner.issue_messages
+        restarted.start()
+        self.assertEqual([c[1] for c in restarted.calls if c[0] == 'execute'], [(11, 1)])
+        restarted.calls.clear()
+        restarted.poll()
+        self.assertFalse(any(c[0] == 'execute' for c in restarted.calls))
+
+    def test_closed_done_other_owner_and_pr_ignored(self):
+        self.runner.issues = [dict(ISSUE, number=11, state='closed'),
+                              dict(ISSUE, number=12, user={'login': 'stranger'}),
+                              dict(ISSUE, number=13, pull_request={}), dict(ISSUE, number=14)]
+        self.runner.issue_messages[14] = [comment(), comment('STATE: DONE', 2)]
+        with patch.object(w.subprocess, 'run') as process:
+            self.runner.start()
+        process.assert_not_called()
+        self.quota.assert_not_called()
+        self.assertEqual(self.executions(), [])
+
+    def test_consumed_claimed_and_exhausted_ignored(self):
+        for protection in ('local', 'result', 'claim', 'max'):
+            with self.subTest(protection=protection):
+                self.runner.calls.clear()
+                self.runner.issue_messages[11] = [comment()]
+                self.runner.issue_refs = {}
+                self.runner.select_issue(11)
+                if self.runner.state_file.exists():
+                    self.runner.state_file.unlink()
+                if protection == 'local':
+                    self.runner.state_dir.mkdir(parents=True, exist_ok=True)
+                    w.save(self.runner.state_file, {'consumed': [1], 'notifications': {}})
+                elif protection == 'result':
+                    self.runner.issue_messages[11].append(comment('WORKER_RESULT: 1\nSTATE: READY_FOR_REVIEW', 2))
+                elif protection == 'claim':
+                    self.runner.issue_refs[11] = [{'ref': 'refs/heads/automation/issue-11-claim-1'}]
+                else:
+                    self.runner.issue_refs[11] = [{'ref': f'refs/heads/automation/issue-11-claim-{i}'}
+                                                  for i in range(2, 10)]
+                self.runner.start()
+                self.assertEqual(self.executions(), [])
+        self.quota.assert_not_called()
+
+    def test_malformed_or_untrusted_task_ignored(self):
+        for message in (comment(TASK.replace('AUTHORIZATION:', 'OTHER:')),
+                        comment(login='stranger'), comment(TASK + 'STATE: READY_FOR_CODEX\n'),
+                        comment(TASK + 'REASONING: unsupported\n'),
+                        comment(TASK + 'NETWORK_ACCESS: unsupported\n')):
+            self.runner.issue_messages[11] = [message]
+            self.runner.start()
+        self.assertEqual(self.executions(), [])
+        self.quota.assert_not_called()
+
+    def test_dry_discovery_has_no_mutation_probe_or_private_output(self):
+        self.runner.args.dry_run = True
+        before = sorted(str(p.relative_to(self.root)) for p in self.root.rglob('*'))
+        with patch.object(w.subprocess, 'run') as process, contextlib.redirect_stdout(io.StringIO()) as out:
+            self.runner.start()
+        process.assert_not_called()
+        self.quota.assert_not_called()
+        self.assertEqual(before, sorted(str(p.relative_to(self.root)) for p in self.root.rglob('*')))
+        self.assertIn('Selected issue 11 task 1', out.getvalue())
+        self.assertNotIn(TASK, out.getvalue())
+        self.assertFalse(any(c[0] in ('post', 'execute') for c in self.runner.calls))
+
+    def test_global_lock_blocks_discovery_and_explicit_other_issue(self):
+        other = DiscoveryRunner(self.root, issue=12)
+        for runner in (self.runner, other):
+            with w.lock(runner.dispatch_dir / 'dispatcher.lock'):
+                with self.assertRaisesRegex(w.Stop, 'holds the lock'):
+                    runner.start()
+        self.assertEqual(self.executions(), [])
+        self.quota.assert_not_called()
+
+    def test_worker_inherits_both_locks(self):
+        with w.lock(self.runner.dispatch_dir / 'dispatcher.lock') as global_fd:
+            with w.lock(self.runner.state_dir / 'runner.lock') as issue_fd:
+                self.runner.global_lock_fd, self.runner.lock_fd = global_fd, issue_fd
+                self.assertEqual(self.runner.inherited_locks(), (global_fd, issue_fd))
+
+
+class QuotaRefreshTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.runner = FakeRunner(Path(self.temp.name))
+
+    def run_case(self, observations, failure=None):
+        with patch.object(w, 'quota_remaining', side_effect=observations), \
+                patch.object(w.subprocess, 'run', side_effect=failure) as probe:
+            self.runner.start()
+        return probe
+
+    def test_fresh_high_and_low_never_probe(self):
+        for remaining in (80, 15, 0):
+            with self.subTest(remaining=remaining), tempfile.TemporaryDirectory() as root:
+                self.runner = FakeRunner(Path(root))
+                probe = self.run_case([remaining])
+                probe.assert_not_called()
+                self.assertEqual(bool(self.runner.state['consumed']), remaining > 15)
+
+    def test_stale_or_missing_probes_once_before_claim_and_continues(self):
+        def probe(command, **kwargs):
+            self.assertFalse(self.runner.state_file.exists())
+            self.assertEqual(self.runner.state['consumed'], [])
+            self.assertIn('read-only', command)
+            self.assertIn('--ignore-user-config', command)
+            self.assertIn('--ignore-rules', command)
+            self.assertIn('project_doc_max_bytes=0', command)
+            self.assertIn('features.shell_tool=false', command)
+            self.assertIn('web_search="disabled"', command)
+            self.assertIn('approval_policy="never"', command)
+            self.assertIn('sandbox_workspace_write.network_access=false', command)
+            self.assertNotIn('--ephemeral', command)
+            self.assertNotIn('resume', command)
+            self.assertNotIn('fork', command)
+            self.assertNotIn(str(self.runner.repo), command)
+            self.assertEqual(list(Path(kwargs['cwd']).iterdir()), [])
+            self.assertNotIn(TASK, kwargs['input'])
+            self.assertEqual(kwargs['stdout'], subprocess.DEVNULL)
+            self.assertEqual(kwargs['stderr'], subprocess.DEVNULL)
+            self.assertEqual(len(kwargs['pass_fds']), 2)
+        with patch.object(w, 'quota_remaining', side_effect=[w.Stop('stale'), 80]), \
+                patch.object(w.subprocess, 'run', side_effect=probe) as process:
+            self.runner.start()
+        self.assertEqual(process.call_count, 1)
+        self.assertEqual(self.runner.state['consumed'], [1])
+        self.assertFalse(self.runner.probe_file.exists())
+
+    def test_probe_low_pauses_without_consumption(self):
+        process = self.run_case([w.Stop('missing'), 15])
+        self.assertEqual(process.call_count, 1)
+        self.assertEqual(self.runner.state['consumed'], [])
+        self.assertIn('PAUSED_QUOTA', [c[1] for c in self.runner.calls if c[0] == 'post'][0])
+        self.assertFalse(any(c[0].endswith('/git/refs') for c in self.runner.calls))
+
+    def test_failure_and_no_refresh_backoff_across_issues_then_fresh_clears(self):
+        for failure in (None, OSError('PRIVATE_ERROR'), subprocess.TimeoutExpired('codex', 60),
+                        subprocess.CalledProcessError(1, ['codex'], stderr='PRIVATE_ERROR')):
+            with self.subTest(failure=type(failure).__name__), tempfile.TemporaryDirectory() as root:
+                self.runner = FakeRunner(Path(root))
+                with contextlib.redirect_stdout(io.StringIO()) as out:
+                    process = self.run_case([w.Stop('missing'), w.Stop('missing')], failure)
+                self.assertEqual(process.call_count, 1)
+                self.assertEqual(self.runner.state['consumed'], [])
+                notifications = str([c for c in self.runner.calls if c[0] == 'post'])
+                self.assertIn('NEEDS_USER', notifications)
+                self.assertNotIn('PRIVATE_ERROR', notifications + out.getvalue())
+                other = FakeRunner(Path(root), issue=12)
+                with patch.object(w, 'quota_remaining', side_effect=w.Stop('missing')), \
+                        patch.object(w.subprocess, 'run') as process:
+                    other.start()
+                process.assert_not_called()
+                self.assertEqual(other.state['consumed'], [])
+                with patch.object(w, 'quota_remaining', return_value=80), \
+                        patch.object(w.subprocess, 'run') as process:
+                    other.start()
+                process.assert_not_called()
+                self.assertFalse(other.probe_file.exists())
+
+    def test_cooldown_expiry_allows_exactly_one_new_probe(self):
+        w.save(self.runner.probe_file, {'retry_at': 0})
+        process = self.run_case([w.Stop('missing'), 80])
+        self.assertEqual(process.call_count, 1)
+
+
+class WorktreePreservationTests(unittest.TestCase):
+    def test_real_git_launcher_preserved_for_success_failure_and_dirty_partial_work(self):
+        for outcome in ('success', 'blocked', 'exception'):
+            with self.subTest(outcome=outcome), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory).resolve()
+                def git(*args):
+                    return subprocess.run(['git', *args], cwd=root, check=True, text=True,
+                                          stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.strip()
+                git('init', '-b', 'launcher')
+                git('config', 'user.email', 'test@example.invalid')
+                git('config', 'user.name', 'Offline test')
+                (root / 'runner.txt').write_text('older runner')
+                git('add', 'runner.txt')
+                git('commit', '-m', 'Synthetic base')
+                git('branch', 'automation/issue-12-worker')
+                (root / 'runner.txt').write_text('upgraded dispatcher')
+                git('add', 'runner.txt')
+                git('commit', '-m', 'Synthetic launcher')
+                original = git('rev-parse', 'HEAD')
+                git('update-ref', 'refs/remotes/origin/main', original)
+                args = argparse.Namespace(repo=root, issue=12, github_repo='owner/project', base='main',
+                                          sessions=root / 'sessions', interval=10, once=True, dry_run=False)
+                runner = w.Runner(args)
+                runner.state_dir.mkdir(parents=True)
+                real_git = runner.git
+                def offline_git(*args):
+                    if args == ('fetch', 'origin'):
+                        return ''
+                    return real_git(*args)
+                runner.git = offline_git
+                paths = []
+                def work(issue, task, n):
+                    paths.append(runner.repo)
+                    self.assertEqual(runner.git('branch', '--show-current').strip(), runner.branch)
+                    self.assertNotEqual(runner.repo, root)
+                    if outcome != 'success':
+                        (runner.repo / 'partial.txt').write_text('synthetic partial work')
+                    if outcome == 'exception':
+                        raise RuntimeError('synthetic failure')
+                runner.execute_in_checkout = work
+                if outcome == 'exception':
+                    with self.assertRaises(RuntimeError):
+                        runner.execute(ISSUE, comment(), 1)
+                else:
+                    runner.execute(ISSUE, comment(), 1)
+                self.assertEqual(runner.repo, root)
+                self.assertEqual(runner.execution_commit, git('rev-parse', runner.branch))
+                self.assertEqual(git('branch', '--show-current'), 'launcher')
+                self.assertEqual(git('rev-parse', 'HEAD'), original)
+                self.assertEqual(git('status', '--porcelain'), '')
+                self.assertEqual((root / 'runner.txt').read_text(), 'upgraded dispatcher')
+                if outcome == 'success':
+                    runner.execute(ISSUE, comment(), 2)
+                    self.assertEqual(paths, [runner.state_dir / 'checkout'] * 2)
+                else:
+                    self.assertTrue((paths[0] / 'partial.txt').exists())
+                    with self.assertRaises(w.Stop):
+                        runner.execute(ISSUE, comment(), 2)
+
+    def test_dirty_retained_checkout_blocks_before_quota_or_claim(self):
+        with tempfile.TemporaryDirectory() as directory:
+            runner = FakeRunner(Path(directory))
+            (runner.state_dir / 'checkout').mkdir()
+            original_git = runner.git
+            runner.git = lambda *args: 'dirty' if args[:1] == ('-C',) else original_git(*args)
+            with patch.object(w, 'quota_remaining') as quota, self.assertRaises(w.Stop):
+                runner.start()
+            quota.assert_not_called()
+            self.assertFalse(runner.state_file.exists())
+            self.assertFalse(any(c[0] == 'execute' or c[0].endswith('/git/refs') for c in runner.calls))
+
+
+if __name__ == '__main__':
     unittest.main()

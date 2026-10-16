@@ -3,6 +3,27 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Local GitHub worker dispatcher-v2 — 2026-10-16
+
+Issue #24 / supervisor task 1 implemented locally on automation/issue-24-worker.
+Omitted --issue now discovers eligible owner-created open issues and selects one
+oldest valid outstanding task per poll. Clone-wide flock supplements per-issue
+locks/atomic claims; retained task worktrees preserve the launcher checkout.
+Missing/stale quota telemetry now triggers a safe minimal read-only probe before
+claims, with a 30-minute failure cooldown; fresh quota and <=15% guard preserved.
+Dry-run prints safe identifiers and creates no worker/probe/state/publication.
+
+52 focused runner tests pass. Full local suite: 219 tests, 218 passed and one
+missing-bs4 dependency error; no project virtual environment present. Installed
+LaunchAgent read-only inspection confirms --once without --issue, compatible
+without plist edits. No agent/service changes or deployment; live quota-refresh
+success/unattended dispatch not verified. Runner owns publication; supervisor
+activation and product acceptance remain pending. Unrelated active task retained.
+
+[Brief](reports/2026-10-16-dispatcher-v2-brief.md) ·
+[Engineering report](reports/2026-10-16-dispatcher-v2.md) ·
+[Automation setup](../automation/README.md).
+
 ## Approved private review batch 2 — 2026-10-16
 
 Issue #20 / SUPERVISOR_TASK 4 completed 7/7 authorized record removals after
