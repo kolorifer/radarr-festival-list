@@ -47,6 +47,8 @@ class FakeRunner(w.Runner):
         self.state_dir.mkdir(parents=True, exist_ok=True)
 
     def git(self, *args):
+        if args[:1] == ('-C',):
+            return self.git(*args[2:])
         if args == ("rev-parse", "--git-common-dir"):
             return ".git"
         if args == ("status", "--porcelain"):
@@ -264,7 +266,9 @@ class LifecycleTests(unittest.TestCase):
         self.runner.claim_error = True
         self.runner.start()
         self.assertFalse(any(c[0] == "execute" for c in self.runner.calls))
-        self.assertIn("NEEDS_USER", [c for c in self.runner.calls if c[0] == "post"][0][1])
+        self.assertFalse(any(c[0] == 'post' for c in self.runner.calls))
+        self.assertEqual(self.runner.state['consumed'], [1])
+        self.assertTrue((self.runner.state_dir/'claim-failure-1.json').exists())
 
     def test_remote_claim_blocks_run_without_local_journal(self):
         self.runner.refs = [{"ref": "refs/heads/automation/issue-11-claim-1"}]
@@ -363,6 +367,7 @@ class PublicationTests(unittest.TestCase):
         for existing, network in ((False, False), (True, False), (True, True)):
             with tempfile.TemporaryDirectory() as directory:
                 runner = FakeRunner(Path(directory))
+                runner.claimed_task = 1  # This unit test starts after successful claim.
                 runner.lock_fd = 123
                 runner.global_lock_fd = 456
                 actions = []
@@ -409,6 +414,7 @@ class PublicationTests(unittest.TestCase):
     def test_blocked_worker_leaves_changes_for_review_without_publishing(self):
         with tempfile.TemporaryDirectory() as directory:
             runner = FakeRunner(Path(directory))
+            runner.claimed_task = 1  # This unit test starts after successful claim.
             runner.lock_fd = 123
             actions = []
             original_git = runner.git

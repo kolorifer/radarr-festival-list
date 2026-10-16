@@ -59,7 +59,7 @@ class PrivatePublisherTests(unittest.TestCase):
         self.current = None
         self.writes = []
         self.private = True
-        self.runner.api = lambda endpoint, **data: {'private': self.private, 'default_branch': 'main'}
+        self.runner.api = lambda endpoint, **data: {'full_name': p.PRIVATE_REPOSITORY, 'private': self.private, 'default_branch': 'main'}
         def gh(*args):
             if self.current is None:
                 raise subprocess.CalledProcessError(1, ['gh'], stderr='HTTP 404')
@@ -158,8 +158,9 @@ class PrivateExecutionTests(unittest.TestCase):
         for state in ('READY_FOR_REVIEW', 'NEEDS_USER'):
             with self.subTest(state=state), tempfile.TemporaryDirectory() as directory:
                 runner = FakeRunner(Path(directory)); actions = []; old_git = runner.git
+                runner.claimed_task = 1  # Exercise the already-owned execution boundary.
                 runner.git = lambda *args: actions.append(args) or old_git(*args)
-                runner.publish_private = lambda *args: {'verified': True}
+                runner.publish_private = lambda *args: {'verified': True, 'blob': 'a'*40, 'sha256': 'b'*64}
                 sentinel = 'SYNTHETIC_PRIVATE_IDENTITY_AND_EVIDENCE'
                 def child(command, **kwargs):
                     staging = Path(command[command.index('--add-dir') + 1]); (staging/'artifact.md').write_text(sentinel)

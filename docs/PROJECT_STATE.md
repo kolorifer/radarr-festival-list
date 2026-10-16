@@ -3,6 +3,64 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Supervisor communication extension — 2026-10-16 (local review)
+
+Issue #30 / supervisor task 2 corrects both PR #31 review findings locally on
+automation/issue-30-worker from cde534ae5e34da13a4de6ac44484cfa3c01a61ae.
+Initial checkout was clean; read-only remote branch inspection matched that SHA.
+Receipt failure now preserves existing task retention and captures any new
+failure baseline only from the exact validated execution checkout. A checkout
+creation failure cannot generate launcher-based continuation. Terminal publication
+requires confirmed atomic claim ownership; conflicts/ambiguous responses retain
+local consumption and bounded diagnostics without private writes or public
+WORKER_RESULT. Claims and task numbers are never retried or reused.
+
+TESTED locally: 105 focused / 272 full tests pass in the existing isolated Python 3.9.6
+environment. Separate launcher/issue worktrees exercise matching tar/index
+backups and actual next-task continuation; two synthetic hosts exercise stale
+discovery, claim conflicts and lost responses. Full-suite results are recorded
+in the [task-2 report](reports/2026-10-16-supervisor-communication-task2.md).
+No Git publication, launcher/LaunchAgent changes, merge, deployment, live private
+fixtures/services or schedule access by this worker. Prior live evidence below
+is preserved; acceptance of these fixes remains pending review and later live work.
+
+Schedule context supplied by the task-2 owner: user enabled an hourly supervisor
+heartbeat in the current Work/Codex chat; creation returned ACTIVE. No scheduled
+wakeup has yet been observed. Original cloud ChatGPT schedules remain unverified.
+This is supplied account-side status, not a local test or worker observation.
+[Task-2 brief](reports/2026-10-16-supervisor-communication-task2-brief.md) ·
+[Corrected protocol](../automation/SUPERVISOR_PROTOCOL.md).
+
+Task-1 implementation and evidence (historical; corrected as above):
+
+Issue #30 / supervisor task 1 implemented locally on automation/issue-30-worker,
+from b294cec (initial checkout and read-only public main agree). Parent-owned
+PRIVATE_INPUTS now requires exact commit/blob/SHA256/path/alias, validates before
+reservation, stages outside the public checkout without an input writable grant,
+and checks immutability. Private-input tasks refuse public code/history publication.
+Separate PRIVATE_DIAGNOSTIC grants one exact structured terminal JSON destination
+using private CAS/readback. Public status exposes stable reason/receipt availability
+only; required receipt failure cannot produce successful READY.
+
+TESTED locally: 97 focused / 264 full tests pass on isolated Python 3.9.6; pip
+check and diff checks pass. Synthetic integration uses real temporary Git/files
+and a Python child behind fake GitHub/Codex boundaries. No live private repository,
+Radarr, seedbox or media access; no launcher/LaunchAgent/state evidence changes,
+Git publication, deployment or schedule activation by this child. Earlier PR #27/
+#29 and issue-28 live evidence below remains historical and preserved.
+
+EXPECTED BY DESIGN, pending later OBSERVED LIVE: deployed CLI reads staged aliases,
+parent publishes new output/receipt loop, and original ChatGPT account schedule
+wakes/reviews it. Prepared exact prompt/checklist requires inspecting existing
+Codex Supervisor Sync and Phase B Output, enabled/next-run verification and one
+actual wakeup. Local tests/LaunchAgent do not prove cloud activation.
+
+This scoped task is complete for review; no next implementation task inferred.
+The unrelated legacy CODEX_TASK.md is retained unchanged and was not executed.
+[Brief](reports/2026-10-16-supervisor-communication-brief.md) ·
+[Report and recovery limits](reports/2026-10-16-supervisor-communication.md) ·
+[Account handoff and later harmless live plan](../automation/SUPERVISOR_HANDOFF.md).
+
 ## Supervisor infrastructure stabilization — 2026-10-16
 
 [PR #27](https://github.com/kolorifer/radarr-festival-list/pull/27) merged;

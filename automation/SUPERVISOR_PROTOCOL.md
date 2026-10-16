@@ -49,9 +49,163 @@ public PR. Ordinary code tasks retain the existing public branch/PR workflow;
 worker prose is private there too. Code-task diffs still require scope/privacy
 review: this is not a general classifier for arbitrary sensitive source code.
 
-The capability authorizes output, not private input access. Tasks needing private
-source data must receive separately authorized local input staging or use an
-approved read-only connector. The child does not gain host GitHub authentication.
+The capability authorizes output only. Input staging and terminal diagnostics
+require the independent capabilities below. The child receives no host GitHub
+authentication. Existing tasks without these new fields retain their defaults.
+
+## Pinned private input authorization (issue #30)
+
+Only the latest validated issue-owner task may supply one canonical single-line
+JSON object. Replace the placeholders with actual lower-case full hashes:
+
+```text
+PRIVATE_INPUTS: {"inputs":[{"repository":"kolorifer/radarr-state","path":"fixtures/synthetic.txt","commit":"<40 hex commit>","blob":"<40 hex blob>","sha256":"<64 hex content hash>","alias":"input.txt"}]}
+```
+
+All six fields are required for every input: the immutable commit establishes
+path membership and file mode, the blob establishes Git identity, and SHA256
+establishes content integrity independently. Mutable refs, abbreviated hashes,
+missing/extra/duplicate JSON keys, duplicate source paths/aliases, other
+repositories, traversal, wildcards and URL syntax are refused. Paths are exact
+repository-relative ASCII paths (maximum 240 characters); local aliases are
+single alphanumeric/underscore/hyphen filenames ending md/json/txt. There are
+at most eight inputs, each at most 900000 bytes. Omission grants no private read.
+Issue bodies, older tasks and other commenters grant nothing.
+
+Under the existing dispatcher and issue locks, after quota but **before local
+reservation and remote claim**, the authenticated host verifies full repository
+identity, private visibility and main default branch. It resolves the authorized
+commit, walks non-recursive Git tree metadata for that exact path and accepts
+only regular blob modes 100644/100755. Symlinks, symlink parents, submodules,
+truncated trees and missing/ambiguous nodes fail closed. Tree responses contain
+directory metadata; no other file contents or recursive tree are requested.
+The parent reads only the exact contents endpoint at the pinned commit, compares
+blob/size and recomputes Git blob SHA1 plus SHA256. Advancing main cannot change
+this input; changed bytes or mismatched pins are refused. All remote inputs must
+validate in bounded memory before any staging files are created.
+
+The parent stages aliases outside the public checkout, with directory mode500
+and files mode400. The child receives local paths and the original narrow task
+authorization, using the same filtered environment/config/sandbox as before.
+There is **no --add-dir writable grant for inputs**. Only a separately authorized
+output directory receives that grant. Reads outside the checkout rely on the
+existing workspace sandbox read permissions; live CLI verification is pending.
+Directory/file identity, modes, timestamps, size, SHA256 and directory entries
+are checked before reservation, before the child and after it, including child
+failure. Unexpected changes refuse artifact/public-code publication. This is
+change detection plus ordinary filesystem permissions, not a claim of isolation
+against a hostile process running as the same OS account.
+
+Failed remote validation creates no partial stage, claim or consumed number.
+Local staging failures retain their recorded staging path for inspection. An
+input failure emits the deduplicated INPUT_VALIDATION_FAILED preflight status;
+no private diagnostic is uploaded before reservation. Once reserved, existing
+at-most-once rules apply even if input checks subsequently fail. Staging remains
+private and is not automatically cleaned. A host crash/OS temporary-directory
+cleanup can require inspected recovery; no automatic task replay is added.
+
+Any task receiving private inputs is publication-restricted just like a
+PRIVATE_ARTIFACT task: no public add/commit/push/PR, and any checkout/history
+change refuses publication even for a blocked result. A separately authorized
+artifact can be written locally and published by the parent after READY only.
+An input-only task can process locally without granting any GitHub write.
+
+## Structured private terminal diagnostic (version 1)
+
+An independent exact destination may be authorized in the latest owner task:
+
+```text
+PRIVATE_DIAGNOSTIC: {"repository":"kolorifer/radarr-state","path":"operations/synthetic-terminal.json","expected_blob":"absent"}
+```
+
+Only operations/ JSON paths in the allowlisted private repository are accepted.
+The path must differ from PRIVATE_ARTIFACT; neither grant implies the other,
+an adjacent file, a directory or permission to publish worker prose. The same
+parent-owned repository validation, destination divergence check, blob CAS,
+identical-byte idempotency and exact readback protect each independent write.
+An expected existing blob must be explicitly authorized by a new task.
+
+After confirmed successful atomic claim creation, READY_FOR_REVIEW, NEEDS_USER
+and caught FAILED paths attempt the authorized receipt once. Reservation alone
+does not establish ownership. Claim conflicts and ambiguous responses keep the
+task consumed locally and record only bounded local CLAIM_FAILED diagnostics;
+they never launch a child, publish task-private outputs/receipts, or post an
+authoritative WORKER_RESULT. This avoids preempting the winning host's absent
+receipt destination. A process kill, interpreter/host crash, unusable
+state storage or total network outage can prevent receipts; absence is never
+success. Preflight refusals and quota pauses do not consume or publish receipts.
+
+The parent constructs and validates this small schema; no receipt field is copied
+from worker prose, prompts, logs, environment, stderr or exception messages:
+
+| Field | Version 1 allowlist |
+| --- | --- |
+| schema_version | integer 1 |
+| identity | public repository, positive issue and task integers |
+| state | READY_FOR_REVIEW, NEEDS_USER, FAILED |
+| code; next_action | fixed boundary code and mapped action below |
+| runtime | parent Python version; launcher runner revision; checkout revision (null if unavailable) |
+| retained_snapshot | exact recorded current-task SHA256, or null |
+| verification | booleans: inputs_verified, inputs_unchanged, public_checkout_unchanged, artifact_readback |
+| artifacts | zero/one authorized output repository/path/blob/SHA256, only after verified readback |
+
+Runtime identifies the interpreter executing the parent and the inspected Git
+revisions. It is not an assertion that arbitrary worker tests passed. A false
+verification flag means unverified/not applicable; only true records a completed
+parent check. Revisions are Git identities, not an attestation of a clean
+launcher or of worker-reported tests. The worker result must have exactly the
+original four string fields, a supported state and at most 64000 bytes. Extra
+diagnostic keys and duplicate JSON keys are rejected, never forwarded.
+
+| Code | Permitted next action |
+| --- | --- |
+| OK | review |
+| WORKER_BLOCKED | new_task (only after resolving the blocker) |
+| EXECUTION_FAILED, CHECKOUT_FAILED | inspect_local |
+| CHILD_FAILED, INVALID_RESULT, INPUT_CHANGED | inspect_local |
+| PUBLIC_CHANGE_REFUSED, ARTIFACT_INVALID | inspect_local |
+| PUBLIC_CODE_PUBLICATION_FAILED, RECEIPT_PUBLICATION_FAILED | inspect_local |
+| ARTIFACT_PUBLICATION_FAILED, RESULT_PUBLICATION_FAILED | reconcile_private |
+
+Codes describe the observed boundary, not inferred root causes. These action
+categories confer no new authorization. Cloud supervision can distinguish an
+input integrity failure, child failure, blocker or publication failure, but
+missing credentials, exact subjective questions, raw test failures, crash causes,
+damaged checkout/snapshot and uncertain API delivery still need local inspection.
+No arbitrary diagnostic text is permitted by version 1.
+CLAIM_FAILED remains accepted by the version-1 reader for historical receipts;
+the corrected runner records it only in local claim-failure-N.json, with
+ownership=unconfirmed and consumed=true. It emits no public claim warning or
+terminal result on an unconfirmed claim.
+
+The normal order is: child -> input/checkout checks -> optional artifact write
+and readback -> receipt write and readback -> fixed public result. Public results
+retain WORKER_RESULT/STATE and add REASON_CODE plus PRIVATE_RECEIPT with only
+verified/unavailable/not_authorized. Preflight uses not_attempted. No private
+source/destination identity, hash, local path or raw worker prose is reflected.
+Existing retained snapshot fields remain available for exact continuation.
+RUNNING now has CLAIMED_AT and explicitly denotes a historical claim; actual
+local process/heartbeat observations must carry their observation timestamp.
+
+Local terminal-N.json preserves the intended structured receipt; delivery-N.json
+records receipt availability/hashes and public-result delivery; original worker
+JSON/logs, artifact copies and retained backups remain private under common Git
+state. If a required receipt write/readback fails, the public terminal result is
+FAILED/RECEIPT_PUBLICATION_FAILED with unavailable, never successful READY. The
+intended receipt is preserved and no overwrite/retry loop is attempted. Snapshot
+failure is separately recorded locally as SNAPSHOT_UNAVAILABLE, with a null
+receipt fingerprint when none could be recorded.
+
+A private PUT may succeed before its response/readback fails. The remote receipt
+may then describe the intended READY even though the public result is FAILED;
+it is not verified delivery. A verified receipt may likewise precede a failed or
+ambiguous public comment POST. That private receipt remains untouched; the local
+delivery journal records RESULT_PUBLICATION_FAILED, and no second terminal upload
+or task execution occurs. Public comment delivery itself is not readback-verified.
+Inspect the exact authorized private destinations and public issue, compare
+bytes/hashes and permanent claim, then use a NEW task with exact expected blobs
+and, if needed, the immediately preceding retained snapshot. Do not delete claims,
+reuse numbers, clean/reset partial work or infer authorization for recovery files.
 
 ## Retained work continuation
 
@@ -60,6 +214,14 @@ preceding task, HEAD, symbolic branch, index, tracked bytes/modes and nonignored
 untracked bytes. Symlinks are fingerprinted by their link text. Ignored caches are
 outside this fingerprint. A private tar plus index patch preserves partial work.
 No parent reset, clean, stash, force-push or automatic retry is performed.
+
+Recovery retains the exact validated execution checkout even after the parent
+restores its launcher context. A receipt failure preserves already captured
+current-task retention, including its original state, snapshot, tar and index
+patch. When a successful child has no prior capture, receipt failure records
+FAILED retention from that execution checkout. A checkout that was never
+established has no usable continuation or backup; its receipt snapshot is null.
+The launcher is never substituted as an issue continuation baseline.
 
 A NEW task can explicitly authorize reconciliation:
 
@@ -83,6 +245,13 @@ create-only claim refs supply cross-machine at-most-once execution. Never delete
 or edit claims. Local reservation precedes the remote claim: ambiguous failures
 burn a task number. Each --once invocation selects at most one eligible latest
 owner task, ordered by GitHub comment ID. Eight consumed iterations is the limit.
+Two hosts may both discover before either claims. Only a successful atomic
+create response establishes ownership for publication. An existing ref, even
+at the same SHA, cannot establish which host created it. A lost create response
+may leave a permanent ref with no executing/publishing host; keep local consumed
+state, inspect the exact claim and host records, and authorize a NEW task if
+needed. There is no claim retry, deletion, consumed-number reuse or automatic
+execution. The losing host cannot publish a competing terminal state.
 
 Fresh 300-minute telemetry >15% permits work. <=15% pauses without consuming.
 Missing/stale telemetry triggers one fixed read-only, tool-disabled low-reasoning
@@ -103,6 +272,12 @@ not establish whether a cloud ChatGPT schedule exists. The available desktop
 schedule tool cannot enumerate the original ChatGPT account schedules; the
 original cloud schedule must be inspected there before creating a duplicate.
 
+Task-2 owner update: the user enabled an hourly supervisor heartbeat in the
+current Work/Codex chat; creation returned ACTIVE. This is supplied account-side
+status, not a worker observation. No scheduled wakeup has yet been observed,
+and the original cloud ChatGPT schedules remain unverified. This worker has
+not inspected, activated or altered any schedule.
+
 Suggested hourly supervisor prompt: inspect the latest trusted terminal worker
 results and PR state for the public control repository; remain quiet while state
 is unchanged; distinguish RUNNING claims from process liveness; review aggregate
@@ -115,6 +290,12 @@ or authorize Radarr/media/seedbox mutations automatically. Notify on meaningful
 completion/failure or a decision requiring the user. Verify schedule activation,
 next run and one observed wakeup in ChatGPT; this parent runner cannot prove it.
 
+The review-ready [exact schedule prompt, account checklist and harmless post-merge
+acceptance plan](SUPERVISOR_HANDOFF.md) supersedes that abbreviated prompt for
+issue #30. Inspect **Codex Supervisor Sync** and **Phase B Output** in the original
+account before creating any duplicate. This is a prepared handoff, not evidence
+of activation or a new authorization to activate it.
+
 ## Observed deployment evidence — 2026-10-16
 
 PR #27 merged runtime e56ff96 is deployed from main. Harmless issue #28 observed
@@ -125,4 +306,5 @@ The installed LaunchAgent file/cadence stayed unchanged. See the
 
 Official scheduled-task documentation: [Scheduled tasks](https://learn.chatgpt.com/docs/automations).
 Saved schedules provide recurring wakeups; this is distinct from the local worker
-poll. Account-specific activation and an observed supervisor run are still pending.
+poll. The current-chat heartbeat is reported ACTIVE; an observed scheduled
+wakeup and verification of the original cloud schedules are still pending.
