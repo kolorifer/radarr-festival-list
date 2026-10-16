@@ -3,6 +3,11 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import hashlib
+import threading
+import tarfile
+from urllib.parse import quote
 import contextlib
 import datetime as dt
 import fcntl
@@ -16,12 +21,19 @@ import sys
 import time
 import tempfile
 
+try:
+    from automation.supervisor_policy import (private_artifact, continuation, snapshot,
+                                              worker_environment, PolicyError)
+except ModuleNotFoundError:
+    from supervisor_policy import (private_artifact, continuation, snapshot,
+                                   worker_environment, PolicyError)
+
 MODEL = "gpt-6.1-sol"
 PROBE_COOLDOWN = 30 * 60
 FIELDS = re.compile(r"^([A-Z_]+):[ \t]*(.*)$", re.M)
 
 
-class Stop(RuntimeError):
+class Stop(PolicyError):
     pass
 
 
@@ -73,7 +85,7 @@ def choose_task(comments, supervisor, consumed):
     names = [match[1] for match in headings]
     if len(names) != len(set(names)):
         raise Stop(f"Task {n} has duplicate protocol fields")
-    effort = fields(latest["body"]).get("REASONING", "medium").lower()
+    effort = fields(latest["body"]).get("REASONING", "high").lower()
     if effort not in ("low", "medium", "high", "xhigh", "max"):
         raise Stop("Unsupported explicit REASONING override")
     sections = {match[1]: (match[2] + latest["body"][match.end():
@@ -83,6 +95,11 @@ def choose_task(comments, supervisor, consumed):
         if not sections.get(section, "").strip():
             raise Stop(f"Task {n} has no {section}")
     capabilities(latest, supervisor)
+    try:
+        private_artifact(latest["body"])
+        continuation(latest["body"])
+    except PolicyError as exc:
+        raise Stop(str(exc)) from None
     return latest
 
 
@@ -194,8 +211,8 @@ CURRENT GIT STATE:
 """
 
 
-def codex_command(repo, output, schema, effort="medium", network_access=False):
-    return ["codex", "-c", 'approval_policy="never"', "exec", "--model", MODEL,
+def codex_command(repo, output, schema, effort="high", network_access=False):
+    return ["codex", "-c", 'approval_policy="never"', "exec", "--ignore-user-config", "--ignore-rules", "--model", MODEL,
             "--sandbox", "workspace-write", "--config", f'model_reasoning_effort="{effort}"',
             "--config", f'sandbox_workspace_write.network_access={str(network_access).lower()}',
             "--cd", str(repo), "--output-schema", str(schema), "--output-last-message", str(output), "-"]
@@ -256,13 +273,106 @@ class Runner:
                 subprocess.run(quota_probe_command(directory), cwd=directory,
                                input="Reply only OK. Do not use tools, read files, or access the network.",
                                text=True, check=True, stdout=subprocess.DEVNULL,
-                               stderr=subprocess.DEVNULL, timeout=60, pass_fds=self.inherited_locks())
+                               stderr=subprocess.DEVNULL, timeout=60, pass_fds=self.inherited_locks(),
+                               env=worker_environment())
             remaining = quota_remaining(self.args.sessions)
         except (Stop, OSError, subprocess.SubprocessError):
             raise Stop("Quota refresh failed or no current telemetry; check local Codex authentication; task not consumed") from None
         self.probe_file.unlink(missing_ok=True)
         print("Quota refresh succeeded", flush=True)
         return remaining
+
+    def retained(self, task, checkout):
+        requested = continuation(task['body'])
+        previous = self.state.get('retained')
+        if requested is None:
+            return False
+        n = task_number(task['body'])
+        if (not previous or previous['state'] not in ('NEEDS_USER', 'FAILED')
+                or requested['task'] != previous['task']
+                or requested['task'] != max((v for v in self.state['consumed'] if v != n), default=0)
+                or n <= requested['task'] or requested['snapshot'] != previous['snapshot']
+                or str(checkout.resolve()) != previous['checkout']
+                or snapshot(checkout) != previous['snapshot']):
+            raise Stop('Continuation does not match the immediately preceding retained state')
+        return True
+
+    def record_retained(self, n, state):
+        fingerprint = snapshot(self.repo)
+        backup = self.state_dir / f'retained-{n}.tar'
+        if not backup.exists():
+            names = set((self.git('ls-files', '-z') + self.git('ls-files', '--others', '--exclude-standard', '-z')).split('\0')) - {''}
+            with tarfile.open(backup, 'w', dereference=False) as archive:
+                for name in sorted(names):
+                    path = self.repo / name
+                    if path.exists() or path.is_symlink():
+                        archive.add(path, arcname=name, recursive=False)
+            (self.state_dir / f'retained-{n}-index.patch').write_text(self.git('diff', '--cached', '--binary'))
+        self.state['retained'] = {'task': n, 'state': state, 'snapshot': fingerprint,
+                                  'checkout': str(self.repo.resolve())}
+        save(self.state_file, self.state)
+        return fingerprint
+
+    def artifact_bytes(self, authorization, staging):
+        source = staging / authorization['source']
+        if source.is_symlink() or not source.is_file() or source.stat().st_size > 900000:
+            raise Stop('Missing, linked or oversized private artifact')
+        return source.read_bytes()
+
+    def publish_private(self, authorization, content):
+        repository = authorization['repository']
+        metadata = self.api(f'repos/{repository}')
+        if metadata.get('private') is not True or metadata.get('default_branch') != 'main':
+            raise Stop('Destination must be the allowlisted private repository on main')
+        endpoint = f"repos/{repository}/contents/{quote(authorization['path'], safe='/')}"
+        def read():
+            # Only a proven 404 means absent; auth/network failures fail closed.
+            try:
+                return json.loads(self.gh('api', endpoint + '?ref=main'))
+            except subprocess.CalledProcessError as exc:
+                if 'HTTP 404' in (exc.stderr or ''):
+                    return None
+                raise Stop('Private destination read failed') from None
+        def decode(item):
+            if not item or item.get('type') != 'file' or item.get('encoding') != 'base64':
+                raise Stop('Private readback format mismatch')
+            return base64.b64decode(item['content'])
+        before = read()
+        expected = authorization['expected_blob']
+        if before is not None and decode(before) == content:
+            pass  # An identical retry is idempotent, even after a lost response.
+        else:
+            if (before is None and expected != 'absent') or (before is not None and before['sha'] != expected):
+                raise Stop('Private destination diverged; overwrite refused')
+            payload = {'message': 'Publish authorized supervisor artifact', 'branch': 'main',
+                       'content': base64.b64encode(content).decode()}
+            if before is not None:
+                payload['sha'] = before['sha']
+            # PUT uses GitHub's expected blob CAS; a racing destination write fails.
+            self.run(['gh', 'api', endpoint, '--method', 'PUT', '--input', '-'], input=json.dumps(payload))
+        after = read()
+        if decode(after) != content:
+            raise Stop('Private artifact readback mismatch')
+        digest = hashlib.sha256(content).hexdigest()
+        receipt = {'sha256': digest, 'blob': after['sha'], 'verified': True}
+        save(self.state_dir / 'private-receipt.json', receipt)
+        return receipt
+
+    @contextlib.contextmanager
+    def heartbeat(self, n):
+        stopped = threading.Event()
+        path = self.state_dir / 'heartbeat.json'
+        def beat():
+            while not stopped.is_set():
+                save(path, {'task': n, 'pid': os.getpid(), 'updated_at': time.time(), 'active': True})
+                stopped.wait(15)
+        thread = threading.Thread(target=beat, daemon=True)
+        thread.start()
+        try:
+            yield
+        finally:
+            stopped.set(); thread.join()
+            save(path, {'task': n, 'pid': os.getpid(), 'updated_at': time.time(), 'active': False})
 
     def run(self, command, **kwargs):
         return subprocess.run(command, cwd=self.repo, text=True, check=True,
@@ -368,12 +478,20 @@ class Runner:
             return
         self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
         with lock(self.state_dir / "runner.lock") as self.lock_fd:
-            self.run_selected(issue, task, consumed)
+            try:
+                self.run_selected(issue, task, consumed)
+            except Stop:
+                if task_number(task['body']) not in self.state['consumed']:
+                    self.notify(task_number(task['body']), 'NEEDS_USER',
+                                'Preflight refused; inspect private retained state/configuration; task not consumed')
+                raise
 
     def run_selected(self, issue, task, consumed):
         n = task_number(task["body"])
+        current = self.git("branch", "--show-current").strip()
         if self.git("status", "--porcelain").strip():
-            raise Stop("Working tree is dirty; preserve/reconcile it before running")
+            if current != self.branch or not self.retained(task, self.repo):
+                raise Stop("Working tree is dirty; preserve/reconcile it before running")
         # gh must target the same repository as git push, even in dry-run.
         origin = self.git("remote", "get-url", "origin").strip()
         if origin not in (f"https://github.com/{self.args.github_repo}.git",
@@ -387,7 +505,8 @@ class Runner:
             raise Stop("Launcher must be on a branch")
         checkout = self.state_dir / "checkout"
         if checkout.exists():
-            if self.git("-C", str(checkout), "status", "--porcelain").strip():
+            authorized = self.retained(task, checkout)
+            if self.git("-C", str(checkout), "status", "--porcelain").strip() and not authorized:
                 raise Stop("Retained worktree has partial changes; preserve/reconcile before running")
             if self.git("-C", str(checkout), "branch", "--show-current").strip() != self.branch:
                 raise Stop("Retained worktree branch mismatch; inspect local checkout")
@@ -416,11 +535,14 @@ class Runner:
         self.post(f"SUPERVISOR_TASK: {n}\nSTATE: RUNNING\nBRANCH: {self.branch}")
         self.execution_commit = None
         try:
-            self.execute(issue, task, n)
+            with self.heartbeat(n):
+                self.execute(issue, task, n)
         except Exception as exc:
             # Do not publish captured stderr, which may contain credentials.
             commit = self.execution_commit or self.git("rev-parse", "HEAD").strip()
-            self.post(f"WORKER_RESULT: {n}\nSTATE: FAILED\nBRANCH: {self.branch}\nCOMMIT: {commit}\nPR: none\nTESTS: incomplete\nSUMMARY: {type(exc).__name__}; inspect private local logs and working tree. Task will not retry.\nQUESTIONS: supervisor must inspect and issue a new task number")
+            retained = self.state.get('retained', {})
+            retained_field = ('\nRETAINED_SNAPSHOT: ' + retained['snapshot']) if retained.get('task') == n else ''
+            self.post(f"WORKER_RESULT: {n}\nSTATE: FAILED\nBRANCH: {self.branch}\nCOMMIT: {commit}\nPR: none\nTESTS: incomplete\nSUMMARY: {type(exc).__name__}; inspect private local logs and working tree. Task will not retry.\nQUESTIONS: supervisor must inspect and issue a new task number{retained_field}")
             raise
 
     def execute(self, issue, task, n):
@@ -431,7 +553,11 @@ class Runner:
         if not current:
             raise Stop("Launcher must be on a branch")
         if current == self.branch:
-            return self.execute_in_checkout(issue, task, n)
+            try:
+                return self.execute_in_checkout(issue, task, n)
+            except Exception:
+                self.record_retained(n, 'FAILED')
+                raise
         checkout = self.state_dir / "checkout"
         self.git("fetch", "origin")
         if not checkout.exists():
@@ -446,9 +572,12 @@ class Runner:
         try:
             if self.git("branch", "--show-current").strip() != self.branch:
                 raise Stop("Retained worktree branch mismatch; inspect local checkout")
-            if self.git("status", "--porcelain").strip():
+            if self.git("status", "--porcelain").strip() and not self.retained(task, self.repo):
                 raise Stop("Retained worktree has partial changes; preserve/reconcile before running")
             self.execute_in_checkout(issue, task, n)
+        except Exception:
+            self.record_retained(n, "FAILED")
+            raise
         finally:
             # Error reports must identify the task checkout, not the launcher HEAD.
             try:
@@ -468,10 +597,13 @@ class Runner:
             self.git("switch", "--track", "-c", self.branch, f"origin/{self.branch}")
         else:
             self.git("switch", "-c", self.branch, f"origin/{self.args.base}")
-        if remote:
+        continuing = self.retained(task, self.repo)
+        if remote and continuing:
+            self.git("merge-base", "--is-ancestor", f"origin/{self.branch}", "HEAD")
+        if remote and not continuing:
             # Fail rather than overwrite another publisher or silently omit work.
             self.git("merge", "--ff-only", f"origin/{self.branch}")
-        effort = fields(task["body"]).get("REASONING", "medium").lower()
+        effort = fields(task["body"]).get("REASONING", "high").lower()
         if effort not in ("low", "medium", "high", "xhigh", "max"):
             raise Stop("Unsupported explicit REASONING override")
         output = self.state_dir / f"result-{n}.json"
@@ -483,15 +615,38 @@ class Runner:
             "required": ["state", "tests", "summary", "questions"], "additionalProperties": False})
         prompt = prompt_for(issue, task, self.repo,
                             self.git("status", "--short", "--branch") + self.git("log", "-3", "--oneline"), self.branch)
+        authorization = private_artifact(task['body'])
+        staging = None
+        command = codex_command(self.repo, output, schema, effort, network)
+        if authorization:
+            staging = Path(tempfile.mkdtemp(prefix=f'codex-private-{self.args.issue}-{n}-'))
+            self.state.setdefault('staging', {})[str(n)] = str(staging)
+            save(self.state_file, self.state)
+            command[-1:-1] = ['--add-dir', str(staging)]
+            prompt += (f"\nPRIVATE OUTPUT: Write only {staging / authorization['source']}. "
+                       "The host runner owns the authorized private GitHub write and readback. "
+                       "Do not access GitHub credentials or publish through tools/connectors. "
+                       "Finish with no public repository changes or commits. If CONTINUE_FROM is authorized, "
+                       "reconcile only its exact retained files as instructed; the parent holds a private backup. "
+                       "Never put private contents in result fields.\n")
+        before_head = self.git("rev-parse", "HEAD").strip()
         with (self.state_dir / f"worker-{n}.log").open("w") as log:
-            subprocess.run(codex_command(self.repo, output, schema, effort, network), input=prompt,
+            subprocess.run(command, input=prompt, env=worker_environment(),
                            cwd=self.repo, text=True, check=True, stdout=log, stderr=log,
                            pass_fds=self.inherited_locks())
+        if authorization and (staging / authorization['source']).exists():
+            (self.state_dir / f'artifact-{n}.bin').write_bytes(self.artifact_bytes(authorization, staging))
         result = json.loads(output.read_text())
         if result["state"] not in ("READY_FOR_REVIEW", "NEEDS_USER"):
             raise Stop("Invalid worker result")
         pr = "none"
-        if result["state"] == "READY_FOR_REVIEW":
+        if result['state'] == 'NEEDS_USER':
+            self.record_retained(n, 'NEEDS_USER')
+        if authorization and result['state'] == 'READY_FOR_REVIEW':
+            if self.git('status', '--porcelain').strip() or self.git('rev-parse', 'HEAD').strip() != before_head:
+                raise Stop('Private task changed public files or history; publication refused')
+            self.publish_private(authorization, self.artifact_bytes(authorization, staging))
+        if result["state"] == "READY_FOR_REVIEW" and not authorization:
             self.git("diff", "--check")
             self.git("add", "--all")
             # Preserve the actual inspected diff privately before committing.
@@ -501,7 +656,7 @@ class Runner:
             self.git("push", "--set-upstream", "origin", self.branch)
             prs = json.loads(self.gh("pr", "list", "--repo", self.args.github_repo,
                                      "--head", self.branch, "--base", self.args.base, "--json", "url"))
-            body = f"Implements supervisor task {n} from #{self.args.issue}.\n\n{result['summary']}\n\nValidation: {result['tests']}\n\nControl issue: #{self.args.issue}"
+            body = f"Implements supervisor task {n} from #{self.args.issue}.\n\nParent diff validation passed. Detailed worker checks/results are retained privately for supervisor review.\n\nControl issue: #{self.args.issue}"
             body_file = self.state_dir / "pr-body.md"
             body_file.write_text(body)
             if prs:
@@ -511,9 +666,24 @@ class Runner:
                 pr = self.gh("pr", "create", "--repo", self.args.github_repo, "--head", self.branch,
                              "--base", self.args.base, "--title", f"GitHub worker loop (issue #{self.args.issue})",
                              "--body-file", str(body_file)).strip()
+        if authorization:
+            # Never reflect worker prose, paths, private identities or evidence publicly.
+            result = dict(result, tests='Parent checks recorded privately',
+                          summary=('Authorized private artifact published and readback verified'
+                                   if result['state'] == 'READY_FOR_REVIEW' else 'Private task requires supervisor inspection'),
+                          questions='none' if result['state'] == 'READY_FOR_REVIEW' else 'Inspect private local result')
+        else:
+            result = dict(result, tests='Parent diff checks passed; worker checks retained privately'
+                          if result['state'] == 'READY_FOR_REVIEW' else 'Worker checks retained privately',
+                          summary='Scoped worker result ready for supervisor review'
+                          if result['state'] == 'READY_FOR_REVIEW' else 'Worker requires supervisor inspection',
+                          questions='none' if result['state'] == 'READY_FOR_REVIEW' else 'Inspect private local result')
+        retained_field = ''
+        if result['state'] == 'NEEDS_USER':
+            retained_field = '\nRETAINED_SNAPSHOT: ' + self.state['retained']['snapshot']
         # Keep each protocol field on one line; arbitrary worker text cannot add states.
         clean = lambda s: " ".join(str(s).split())
-        self.post(f"WORKER_RESULT: {n}\nSTATE: {result['state']}\nBRANCH: {self.branch}\nCOMMIT: {self.git('rev-parse', 'HEAD').strip()}\nPR: {pr}\nTESTS: {clean(result['tests'])}\nSUMMARY: {clean(result['summary'])}\nQUESTIONS: {clean(result['questions'])}")
+        self.post(f"WORKER_RESULT: {n}\nSTATE: {result['state']}\nBRANCH: {self.branch}\nCOMMIT: {self.git('rev-parse', 'HEAD').strip()}\nPR: {pr}\nTESTS: {clean(result['tests'])}\nSUMMARY: {clean(result['summary'])}\nQUESTIONS: {clean(result['questions'])}{retained_field}")
 
     def start(self):
         if self.args.dry_run:
@@ -545,7 +715,7 @@ def main(argv=None):
     os.umask(0o077)
     try:
         Runner(args).start()
-    except (Stop, subprocess.CalledProcessError, OSError, ValueError) as exc:
+    except (PolicyError, subprocess.CalledProcessError, OSError, ValueError) as exc:
         print(f"Stopped: {type(exc).__name__}: " + (str(exc) if isinstance(exc, Stop) else "inspect local configuration/logs"), file=sys.stderr)
         return 1
     except KeyboardInterrupt:

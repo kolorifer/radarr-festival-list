@@ -127,7 +127,7 @@ class ProtocolTests(unittest.TestCase):
         cmd = w.codex_command(Path("repo"), Path("output"), Path("schema"))
         self.assertIn("exec", cmd)
         self.assertIn("gpt-6.1-sol", cmd)
-        self.assertIn('model_reasoning_effort="medium"', cmd)
+        self.assertIn('model_reasoning_effort="high"', cmd)
         self.assertIn("workspace-write", cmd)
         self.assertNotIn("resume", cmd)
         self.assertNotIn("fork", cmd)
@@ -145,7 +145,7 @@ class CapabilityTests(unittest.TestCase):
         cmd = w.codex_command(Path("repo"), Path("output"), Path("schema"), network_access=True)
         self.assertIn("sandbox_workspace_write.network_access=true", cmd)
         self.assertIn("workspace-write", cmd)
-        self.assertIn('model_reasoning_effort="medium"', cmd)
+        self.assertIn('model_reasoning_effort="high"', cmd)
         for forbidden in ("resume", "fork", "danger-full-access", "--dangerously-bypass-approvals-and-sandbox"):
             self.assertNotIn(forbidden, cmd)
 
@@ -354,6 +354,11 @@ class LifecycleTests(unittest.TestCase):
 
 
 class PublicationTests(unittest.TestCase):
+    def setUp(self):
+        self.fingerprint = patch.object(w, 'snapshot', return_value='a' * 64)
+        self.fingerprint.start()
+        self.addCleanup(self.fingerprint.stop)
+
     def test_worker_to_commit_push_pr_and_result_without_running_codex(self):
         for existing, network in ((False, False), (True, False), (True, True)):
             with tempfile.TemporaryDirectory() as directory:
@@ -380,7 +385,7 @@ class PublicationTests(unittest.TestCase):
                     self.assertIn(TASK, kwargs["input"])
                     output = Path(command[command.index("--output-last-message") + 1])
                     output.write_text(json.dumps({"state": "READY_FOR_REVIEW", "tests": "24 tests passed",
-                                                  "summary": "Implemented worker", "questions": "none"}))
+                                                  "summary": "SYNTHETIC_PRIVATE_PROSE", "questions": "SYNTHETIC_PRIVATE_PROSE"}))
                     return subprocess.CompletedProcess(command, 0)
 
                 runner.git = git
@@ -395,8 +400,10 @@ class PublicationTests(unittest.TestCase):
                 operation = "edit" if existing else "create"
                 self.assertEqual(sum(a[0] == "gh" and a[1][:2] == ("pr", operation) for a in actions), 1)
                 result = [a[1] for a in runner.calls if a[0] == "post"][-1]
+                self.assertNotIn("SYNTHETIC_PRIVATE_PROSE", result)
+                self.assertNotIn("SYNTHETIC_PRIVATE_PROSE", (runner.state_dir / "pr-body.md").read_text())
                 for expected in ("WORKER_RESULT: 1", "STATE: READY_FOR_REVIEW", "COMMIT: abc123",
-                                 "PR: https://github.com/owner/project/pull/12", "TESTS: 24 tests passed"):
+                                 "PR: https://github.com/owner/project/pull/12", "TESTS: Parent diff checks passed"):
                     self.assertIn(expected, result)
 
     def test_blocked_worker_leaves_changes_for_review_without_publishing(self):
@@ -751,7 +758,7 @@ class WorktreePreservationTests(unittest.TestCase):
             with patch.object(w, 'quota_remaining') as quota, self.assertRaises(w.Stop):
                 runner.start()
             quota.assert_not_called()
-            self.assertFalse(runner.state_file.exists())
+            self.assertEqual(json.loads(runner.state_file.read_text())['consumed'], [])
             self.assertFalse(any(c[0] == 'execute' or c[0].endswith('/git/refs') for c in runner.calls))
 
 
