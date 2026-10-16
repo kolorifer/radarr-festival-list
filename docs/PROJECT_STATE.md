@@ -5,18 +5,29 @@ Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 
 ## Supervisor infrastructure stabilization — 2026-10-16
 
-Implementation and verification in progress on infra/supervisor-stabilization.
-Live inspection confirmed main 226bdbb, launcher still on issue-24 at 8259f3b,
-and installed --once discovery every 60 seconds. Parent authentication can access
-both repositories. Issue-26 retained worktree is currently clean; its existing
-stash, task journal and permanent claims are preserved.
+[PR #27](https://github.com/kolorifer/radarr-festival-list/pull/27) merged;
+verified runtime e56ff969a9c621b6e02083604408f53e3f322d55 deployed on launcher main.
+Installed LaunchAgent remains --once discovery every 60 seconds; plist unchanged.
+Existing issue-26 worktree, stash, journals and permanent claims preserved.
 
 Exact-path private output authorization, host CAS/readback verification,
 snapshot-bound continuation with private backups, fixed public result text,
 filtered child credentials/config, high reasoning default and local heartbeat
-are implemented. Deployment and live smoke evidence will be recorded in the
-[engineering report](reports/2026-10-16-supervisor-stabilization.md).
-[Protocol](../automation/SUPERVISOR_PROTOCOL.md). No movie/service access authorized.
+are implemented. 65 focused / 232 full tests pass; CI 3.12/3.13 passes.
+Real authenticated quota probe succeeded after a synthetic stale-entry condition;
+failure/cooldown paths remain synthetically tested.
+
+OBSERVED LIVE: harmless issue #28 automatically executed two high-reasoning tasks:
+intentional NEEDS_USER with preserved partial work, then exact snapshot continuation
+without stash/reset, host private publication/readback and sanitized READY_FOR_REVIEW.
+Active process/heartbeat and both held locks were observed. Backup remains intact;
+smoke checkout is clean. No Radarr/seedbox/media access or movie state changes.
+Original cloud ChatGPT supervisor schedule activation remains unverified; no local
+automation entry was found and available tools cannot enumerate that cloud schedule.
+
+[Engineering evidence and limitations](reports/2026-10-16-supervisor-stabilization.md).
+[Current protocol and precise schedule handoff](../automation/SUPERVISOR_PROTOCOL.md).
+
 
 ## Local GitHub worker dispatcher-v2 — 2026-10-16
 
