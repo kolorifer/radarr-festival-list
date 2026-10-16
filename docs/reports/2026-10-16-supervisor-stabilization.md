@@ -1,8 +1,11 @@
 # Engineering report: supervisor infrastructure stabilization
 
 **Specification:** [User-authorized brief](2026-10-16-supervisor-stabilization-brief.md).
-**Result:** implemented; deployment and live smoke verification pending.
-**Repository revision:** infra/supervisor-stabilization, based on merged main 226bdbb.
+**Result:** implemented, merged and deployed; harmless live acceptance loop observed.
+Original cloud ChatGPT supervisor wakeup remains unverified.
+**Repository revision:** [PR #27](https://github.com/kolorifer/radarr-festival-list/pull/27),
+implementation 869f4a5, merged/deployed runtime e56ff969a9c621b6e02083604408f53e3f322d55.
+Final evidence is a documentation-only follow-up from merged main.
 **Verification date:** 2026-10-16, dedicated macOS worker host.
 
 ## What changed
@@ -31,8 +34,8 @@ remain. A local heartbeat distinguishes observed parent activity from RUNNING.
 
 ## Architecture and observed baseline
 
-OBSERVED LIVE: public main is 226bdbb93652073f188cff6ed3f17f979b4e783b;
-PR #25 is merged from 8259f3b. The dedicated launcher is clean but still on the
+INITIAL OBSERVED LIVE: public main was 226bdbb93652073f188cff6ed3f17f979b4e783b;
+PR #25 is merged from 8259f3b. The dedicated launcher was clean but still on the
 issue-24 implementation branch at 8259f3b. Its installed LaunchAgent invokes the
 Python runner with --repo and --once, omits --issue, and polls every 60 seconds.
 Recent polls report no eligible task; idle launchctl state is not worker liveness.
@@ -44,9 +47,13 @@ printed or altered. The retained issue-26 checkout is clean at merged main; its
 existing stash and consumed [1,2] journal remain. Permanent claim refs agree with
 consumption. Issue-26 terminal comments record NEEDS_USER twice.
 
-INFERENCE: historical Keychain denial explains the earlier child/parent mismatch;
-the prior conversation alone is not a fresh credential-isolation test. Fresh
-child-boundary verification is part of the harmless live smoke test.
+OBSERVED LIVE: the fresh sandboxed child reported GH_TOKEN/GITHUB_TOKEN and
+SSH_AUTH_SOCK absent and its bounded gh identity call failed. Parent private
+publication succeeded separately. No credential contents were retrieved or printed.
+INFERENCE: this is consistent with the historical Keychain/sandbox mismatch; a
+network-disabled failed identity call alone does not isolate Keychain denial as
+its unique cause. The enforced environment/config/sandbox boundary is separately
+tested; no claim of a hostile same-account credential-exfiltration audit is made.
 
 EXPECTED BY DESIGN, verified in code/tests: LaunchAgent starts the parent;
 parent owns discovery, quota, local reservation, create-only claims, RUNNING,
@@ -63,14 +70,14 @@ ChatGPT supervisor wakeups require an independent saved schedule.
 | Dispatch, locks, claims, one per poll | TESTED | Existing dispatcher/lifecycle/lock regressions |
 | Quota/cooldown | TESTED | Existing stale/low/failure/backoff/fresh-clears-cooldown cases |
 | Authenticated quota probe | OBSERVED LIVE | Real probe after synthetic stale-entry condition refreshed telemetry; cooldown cleared |
-| Launcher merged-main normalization | Pending | Deploy only after merge/checks |
-| Automatic discovery/continuation/private smoke | Pending | Harmless two-task control issue required |
-| Installed LaunchAgent after deployment | Pending | Reinspect runtime command and plist hash |
+| Launcher merged-main normalization | OBSERVED LIVE | main at merged e56ff96; retained worktree/stash/plist unchanged |
+| Automatic discovery/continuation/private smoke | OBSERVED LIVE | Issue #28 tasks 1/2; exact backup-to-private readback; public READY_FOR_REVIEW |
+| Installed LaunchAgent after deployment | OBSERVED LIVE | --once, no --issue, 60s; unchanged plist SHA256; exit 0 after smoke |
 | Original ChatGPT supervisor schedule | Not verified | No local automation.toml entries; original cloud schedule not enumerated |
 
 ## Tests run and results
 
-65 focused tests pass. The full 232-test suite passes with offline test-server
+65 focused tests pass; GitHub CI Python 3.12/3.13 both pass. The full 232-test suite passes with offline test-server
 sockets permitted. Restricted full-suite execution hit only ten local test-server
 socket denials; the complete suite is rerun with those offline fixtures allowed.
 Dependencies installed in an isolated project environment; pip check passes.
@@ -81,11 +88,39 @@ failure. No Radarr/seedbox/media service was contacted.
 
 ## Deployment result
 
-Not yet deployed at this implementation checkpoint. Preserve common-Git journals,
-worktrees, stash and claim refs; update only the clean launcher to merged main
-while holding the existing dispatcher lock. Installed command needs no plist edit.
-Rollback is a clean switch to the recorded prior revision under that lock,
-preserving all new state/artifacts and without replaying consumed task numbers.
+OBSERVED LIVE: launcher switched from the stale implementation branch to merged
+main under the clone-wide dispatcher lock. Existing issue-26 HEAD/clean state,
+stash ref, journals and permanent claims were preserved. Installed plist SHA256
+remained 3fc18b1ab766e9b3430be4ad31adc1b173974d5316bc5b5ba96c45e4695e34de;
+no plist edit, reload, service installation or cadence change was needed.
+
+[Issue #28](https://github.com/kolorifer/radarr-festival-list/issues/28) is a purely
+synthetic acceptance test. Task 1 was posted at 17:32:01 Europe/Warsaw, picked up
+17:33:04 and ended deliberate NEEDS_USER at 17:33:37. The private tar and retained
+file matched exact synthetic bytes. A new high-reasoning task authorized its exact
+snapshot. Automatic pickup at 17:35:02 continued without stash/reset, copied the
+marker into approved staging and reconciled only the untracked synthetic fixture.
+During execution a fresh heartbeat and PID with PPID 1 were observed; both global
+and issue locks rejected second acquisition. This is process evidence beyond
+RUNNING. One distinct LaunchAgent poll executed each task.
+
+The parent published only the authorized private operations path, commit
+65d0f94c742620c11f28ffd7d8d5b9a69a15b63e at 17:35:46, then posted sanitized
+[READY_FOR_REVIEW](https://github.com/kolorifer/radarr-festival-list/issues/28#issuecomment-6218974396)
+at 17:35:48. Independent readback exactly matched the original backup and durable
+staged copy: blob 79800a5cf54ad49a9556ff6bcb35b824f7068044, SHA256
+7ae3a2ae19a9436feb8c7e86db53cf3182b28bd1a0dfadbc18f9ae94dc9ac6c5.
+A further live-destination divergence check refused before PUT; the verification
+harness additionally prohibited any PUT. The smoke checkout is clean; the original
+partial backup and unrelated existing stash remain intact. No empty smoke PR was
+needed. Public result checks found no artifact content or local paths.
+
+Claim refs issue-28-claim-1 and -2 both point to deployed e56ff96; consumed journal
+is [1,2]. After execution heartbeat is inactive, LaunchAgent exit code is 0.
+The pre-existing private research artifact still has the original blob/size.
+Rollback: hold the dispatcher lock and switch the clean launcher to the recorded
+prior runtime; preserve all new state/artifacts and never replay consumed numbers.
+The evidence-only follow-up changes no runtime bytes and is deployed from main.
 
 ## Unexpected findings and residual risks
 
@@ -101,7 +136,8 @@ state needs inspected baselining, not automatic retroactive authorization.
 Ordinary code-task diffs still need privacy review; there is no universal private
 identity detector. Exact output capability is not a generalized private-input
 stager. Original ChatGPT automation activation/next run/observed wakeup still
-requires account-side inspection. See the precise schedule handoff in the
+requires account-side inspection. A hard process kill before terminal snapshot
+recording also requires inspected recovery; at-most-once claims are not retried. See the precise schedule handoff in the
 [protocol](../../automation/SUPERVISOR_PROTOCOL.md).
 
 ## Commit/PR and project context

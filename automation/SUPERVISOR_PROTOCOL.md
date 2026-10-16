@@ -114,3 +114,15 @@ identities/evidence in public comments. Never make subjective KEEP/REMOVE decisi
 or authorize Radarr/media/seedbox mutations automatically. Notify on meaningful
 completion/failure or a decision requiring the user. Verify schedule activation,
 next run and one observed wakeup in ChatGPT; this parent runner cannot prove it.
+
+## Observed deployment evidence — 2026-10-16
+
+PR #27 merged runtime e56ff96 is deployed from main. Harmless issue #28 observed
+both automatic pickups, real heartbeat/process/lock evidence, snapshot continuation
+without stash/reset, host private write/readback and sanitized READY_FOR_REVIEW.
+The installed LaunchAgent file/cadence stayed unchanged. See the
+[engineering report](../docs/reports/2026-10-16-supervisor-stabilization.md).
+
+Official scheduled-task documentation: [Scheduled tasks](https://learn.chatgpt.com/docs/automations).
+Saved schedules provide recurring wakeups; this is distinct from the local worker
+poll. Account-specific activation and an observed supervisor run are still pending.
