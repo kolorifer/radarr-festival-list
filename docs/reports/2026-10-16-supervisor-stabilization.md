@@ -43,7 +43,7 @@ Recent polls report no eligible task; idle launchctl state is not worker livenes
 OBSERVED LIVE: host gh can access both repositories with push permissions; the
 state repository is private. The preserved private operation file has blob
 84df3d5acb2b4df78217ac1918b99f7d8ed2a5dd (size 50149). Its contents were not
-printed or altered. The retained issue-26 checkout is clean at merged main; its
+printed or altered. The retained issue-26 checkout is clean at its original merged-main revision 226bdbb; its
 existing stash and consumed [1,2] journal remain. Permanent claim refs agree with
 consumption. Issue-26 terminal comments record NEEDS_USER twice.
 
@@ -79,7 +79,7 @@ ChatGPT supervisor wakeups require an independent saved schedule.
 
 65 focused tests pass; GitHub CI Python 3.12/3.13 both pass. The full 232-test suite passes with offline test-server
 sockets permitted. Restricted full-suite execution hit only ten local test-server
-socket denials; the complete suite is rerun with those offline fixtures allowed.
+socket denials; the complete suite passed when those offline fixtures were allowed.
 Dependencies installed in an isolated project environment; pip check passes.
 The live quota probe used its fixed read-only/tool-disabled prompt, low reasoning,
 and a synthetic stale-entry condition; normal live telemetry was initially fresh.

@@ -135,8 +135,10 @@ summary, questions, READY_FOR_REVIEW or NEEDS_USER). The runner then checks the
 diff, commits scoped work, pushes `automation/issue-11-worker`, and creates or
 updates one open PR to main. Subsequent tasks use that branch. It does not merge
 or deploy. A blocked worker leaves any partial changes for human inspection and
-publishes no code. Tests reported in a result are the worker's stated actual
-checks; the runner does not invent a successful full-suite result.
+publishes no code. Detailed worker-reported tests/summary/questions stay in the
+private local JSON result. The parent emits fixed public status text and its own
+checks; it does not invent a successful full-suite result. Private-output tasks
+use the exact capability below and create no public commit/PR.
 
 ```text
 WORKER_RESULT: 2
@@ -144,8 +146,8 @@ STATE: READY_FOR_REVIEW
 BRANCH: automation/issue-11-worker
 COMMIT: <full SHA>
 PR: <URL>
-TESTS: <actual commands and results>
-SUMMARY: <concise result>
+TESTS: Parent diff checks passed; worker checks retained privately
+SUMMARY: Scoped worker result ready for supervisor review
 QUESTIONS: none
 ```
 
