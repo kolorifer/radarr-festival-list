@@ -914,15 +914,16 @@ class Runner:
             prompt += (f"\nPRIVATE OUTPUT: Write only {staging / authorization['source']}. "
                        "The host runner owns the authorized private GitHub write and readback. "
                        "Do not access GitHub credentials or publish through tools/connectors. "
-                       "Finish with no public repository changes or commits. If CONTINUE_FROM is authorized, "
-                       "reconcile only its exact retained files as instructed; the parent holds a private backup. "
                        "Never put private contents in result fields.\n")
         if self.inputs:
             prompt += "\nPRIVATE INPUTS (read-only local aliases; no direct GitHub access authorized by these capabilities):\n"
             prompt += "\n".join(str(v['path']) for v in self.inputs)
         if private:
-            prompt += ("\nThis private-input/output task must finish without public checkout/history changes. "
-                       "Keep all private identities, paths, evidence and contents out of result prose.\n")
+            if not operations:
+                prompt += ("\nThis private-input/output task must finish with a clean public checkout and unchanged HEAD. "
+                           "If CONTINUE_FROM is authorized, reconcile only its exact retained files as instructed; "
+                           "the parent holds a private backup.\n")
+            prompt += "\nKeep all private identities, paths, evidence and contents out of result prose.\n"
         if operations:
             prompt += ("\nOperations-only publication: do not edit or reconcile this public checkout, "
                        "including retained work, branch, HEAD or index. Leave its exact baseline unchanged. "
@@ -950,8 +951,10 @@ class Runner:
                 child_exited = True
         finally:
             self.record_outcome(n, child_process='exited' if child_exited else 'failed')
-            # Always compare even on child failure, before any artifact/receipt
-            # publication. Snapshot errors (e.g. detached HEAD) fail closed too.
+            # Always record comparison, even on child failure. Only explicit
+            # operations mode requires exact immutability; default private tasks
+            # may reconcile authorized retained files, then must finish clean
+            # with unchanged HEAD before private publication below.
             self.failure_code = 'PUBLIC_CHANGE_REFUSED'
             try:
                 unchanged = snapshot(self.repo) == before
@@ -964,10 +967,10 @@ class Runner:
                 if self.inputs:
                     self.verification['inputs_unchanged'] = True
             finally:
-                if (operations or private) and not unchanged:
+                if operations and not unchanged:
                     self.failure_code = 'PUBLIC_CHANGE_REFUSED'
                     raise Stop('Public checkout baseline changed; publication refused')
-                if operations or private:
+                if operations:
                     self.verification['public_checkout_unchanged'] = True
             self.failure_code = 'CHILD_FAILED'
         self.failure_code = 'ARTIFACT_INVALID'

@@ -56,12 +56,17 @@ An unchanged exact CONTINUE_FROM baseline may contain preceding partial work;
 the child must leave every byte/index/branch/HEAD unchanged. This also applies
 when operations_only is combined with private inputs/output: it permits retaining
 existing explicitly bound differences, never new checkout changes or public code
-publication. Other private tasks retain their clean-finish requirement, and all
-private tasks now also compare the exact before/after fingerprint. Unexpected
-changes yield PUBLIC_CHANGE_REFUSED and preserve files/history/index plus the
-existing private retention backup where snapshotting is possible. A child that
-also failed remains recorded as failed in the local execution record. No stash,
-reset, clean, claim deletion/reuse or automatic retry is introduced.
+publication. Default-mode private tasks may reconcile only the exact retained
+files explicitly authorized by the immediately preceding CONTINUE_FROM contract.
+They must finish with a clean public checkout and unchanged HEAD before private
+publication; their final fingerprint need not equal a dirty retained baseline.
+The local execution record still reports the exact comparison independently.
+Operations-only baseline changes, or a dirty checkout/changed HEAD at default
+private publication, yield PUBLIC_CHANGE_REFUSED. Failures preserve partial work
+and existing private backups where snapshotting is possible. Default private
+child failures remain CHILD_FAILED; operations-only changes take refusal priority,
+with the child failure independently recorded locally. No stash, reset, clean,
+claim deletion/reuse or automatic retry is introduced.
 
 Ignored caches, Git metadata beyond HEAD/branch/index entries, external filesystem
 state, and changes made and reverted between observations are outside this
@@ -317,6 +322,9 @@ task. The issue-local journal, checkout path and recomputed fingerprint must all
 match. Changed bytes/index/HEAD/branch or remote advancement are refused before
 worker mutation; worktree mismatches are checked before quota/claim. Tell the
 worker exactly which partial files it may reconcile, preserving the parent backup.
+Default private input/output tasks can reconcile those authorized files to a clean
+checkout with unchanged HEAD before publication. Explicit operations_only tasks
+instead must leave the entire exact retained baseline unchanged, including dirt.
 Pre-upgrade partial states without a recorded fingerprint need inspection and a
 new baseline, not an invented continuation grant. Existing issue-26 stash remains
 untouched; no old task is replayed.

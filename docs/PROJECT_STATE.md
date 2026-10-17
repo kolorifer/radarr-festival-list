@@ -5,6 +5,34 @@ Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 
 ## Explicit operations-only publication — 2026-10-17 (local review)
 
+Issue #35 / supervisor task 2 corrects PR #36 locally from verified clean
+580eb8e777a71f6a270950aa4e9cff76a891bb6b on automation/issue-35-worker. Exact
+before/after fingerprint enforcement now applies only to explicit operations_only.
+Default private tasks preserve the established exact immediately preceding
+CONTINUE_FROM reconciliation contract: authorized retained-file cleanup may
+change the fingerprint, but final checkout must be clean and HEAD unchanged
+before artifact publication. Inputs remain immutable; private tasks never enter
+code publication. Original partial-work tar/index backups remain preserved.
+Prompts and protocol now distinguish these contracts. Default private failed-child
+reporting is restored to CHILD_FAILED; operations-only changes still take refusal
+priority with child failure separately recorded. Receipt schema remains v1.
+
+TESTED: 138 focused / 316 full tests pass without skips in isolated Python 3.9.6;
+pip check, final diff/scope and documentation link checks pass. Targeted synthetic
+correction: 3 tests pass, including default private
+artifact/receipt/readback success after retained-file reconciliation, operations
+refusal of the same cleanup and the prior failure/backup continuation case.
+OBSERVED LIVE: none. No merge/deployment,
+launcher/service/schedule changes, seedbox/Radarr/media/private-inventory access,
+credential access or child Git/GitHub publication. Supervisor acceptance is pending.
+The unrelated legacy CODEX_TASK.md remains unchanged and was not executed; no next
+task inferred. [Task-2 brief](reports/2026-10-17-private-continuation-correction-brief.md) ·
+[Task-2 report](reports/2026-10-17-private-continuation-correction.md).
+
+Task-1 evidence below is historical; its additional exact fingerprint enforcement
+on default private tasks and changed private-failure precedence are superseded by
+the task-2 correction above. Operations-only immutability remains unchanged.
+
 Issue #35 / supervisor task 1 implements a strict latest-owner PUBLICATION_MODE
 directive on automation/issue-35-worker from clean main 92afda3. Omission preserves
 ordinary code publication. Explicit operations_only skips all parent add/commit/

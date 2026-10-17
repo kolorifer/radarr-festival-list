@@ -5,6 +5,7 @@ No live GitHub, Codex, service, SSH, private repository or media access.
 import json
 from pathlib import Path
 import subprocess
+import tarfile
 import unittest
 
 from automation import github_worker as w
@@ -73,6 +74,7 @@ class OperationsTests(unittest.TestCase):
 
         def guarded_git(*args):
             self.runner.events.append(('parent-git', args))
+            self.assertNotIn(args[0], ('stash', 'reset', 'clean'))
             if args[0] in ('add', 'commit', 'push', 'merge'):
                 self.assertTrue(self.code_task, 'Forbidden parent code command: ' + args[0])
             if args[0] == 'push':
@@ -269,6 +271,85 @@ class OperationsTests(unittest.TestCase):
         self.check_retained_baseline(private=True)
         self.assertTrue(self.receipt()['verification']['public_checkout_unchanged'])
         self.assertTrue(self.receipt()['verification']['artifact_readback'])
+
+    def check_private_retained_reconciliation(self, operations=False):
+        checkout = self.runner.state_dir/'checkout'
+        self.runner.git('worktree', 'add', str(checkout), self.runner.branch)
+        marker = checkout/'synthetic-partial.txt'
+        marker.write_bytes(fixtures.CANARY)
+        head = self.local_git(checkout, 'rev-parse', 'HEAD').strip()
+        self.runner.state['consumed'] = [1]
+        baseline = self.runner.record_retained(1, 'NEEDS_USER', checkout)
+        backup_path = self.runner.state_dir/'retained-1.tar'
+        backup = backup_path.read_bytes()
+        index_backup = (self.runner.state_dir/'retained-1-index.patch').read_bytes()
+        self.runner.body = fixtures.task_body([fixtures.INPUT]).replace('TASK: 1', 'TASK: 2')
+        self.runner.body = self.runner.body.replace('- Repository changes and PR',
+            '- Reconcile only synthetic-partial.txt by removing it; preserve the parent backup.')
+        self.runner.body += 'CONTINUE_FROM: ' + json.dumps({'task': 1, 'snapshot': baseline}) + '\n'
+        if operations:
+            self.runner.body += MODE
+        original = self.runner.child
+
+        def reconcile(command, **kwargs):
+            if command[0] == 'codex':
+                self.assertEqual(self.runner.repo, checkout)
+                self.assertEqual(p.snapshot(checkout), baseline)
+                if operations:
+                    self.assertIn('do not edit or reconcile this public checkout', kwargs['input'])
+                    self.assertNotIn('must finish with a clean public checkout', kwargs['input'])
+                else:
+                    self.assertIn('reconcile only its exact retained files', kwargs['input'])
+                    self.assertIn('must finish with a clean public checkout and unchanged HEAD', kwargs['input'])
+                marker.unlink()  # Only the explicitly authorized local reconciliation.
+            return original(command, **kwargs)
+        self.runner.child = reconcile
+        if operations:
+            with self.assertRaises(w.Stop): self.run_task()
+        else:
+            self.run_task()
+
+        self.assertEqual(self.runner.child_count, 1)
+        self.assertEqual(self.runner.state['consumed'], [1, 2])
+        self.assertFalse(marker.exists())
+        self.assertEqual(self.local_git(checkout, 'status', '--porcelain'), '')
+        self.assertEqual(self.local_git(checkout, 'rev-parse', 'HEAD').strip(), head)
+        self.assertEqual(backup_path.read_bytes(), backup)
+        self.assertEqual((self.runner.state_dir/'retained-1-index.patch').read_bytes(), index_backup)
+        with tarfile.open(backup_path) as archive:
+            self.assertEqual(archive.extractfile(marker.name).read(), fixtures.CANARY)
+        self.assertEqual(self.local_git(checkout, 'stash', 'list'), '')
+        self.assertEqual(self.runner.repo, self.root)
+        self.assertEqual(self.runner.git('status', '--porcelain'), '')
+        self.assertFalse(self.outcome(2)['checkout_unchanged'])
+        self.assertEqual(self.outcome(2)['code_publication'], 'disabled')
+        self.assertFalse(any(k in ('git-public', 'parent-pr') for k, v in self.runner.events))
+        public = self.assert_no_leak()
+        self.assertIn('PR: none', public)
+        self.assertIn('PRIVATE_RECEIPT: verified', public)
+        receipt = validate_receipt(self.receipt())
+        if operations:
+            self.assertEqual((receipt['state'], receipt['code']), ('FAILED', 'PUBLIC_CHANGE_REFUSED'))
+            self.assertFalse(receipt['verification']['public_checkout_unchanged'])
+            self.assertNotIn(fixtures.AUTH['path'], self.runner.remote_files)
+        else:
+            self.assertEqual((receipt['state'], receipt['code']), ('READY_FOR_REVIEW', 'OK'))
+            self.assertTrue(all(receipt['verification'].values()))
+            self.assertEqual(self.runner.remote_files[fixtures.AUTH['path']], fixtures.CANARY+b' processed')
+            events = self.runner.events
+            artifact = events.index(('write', fixtures.AUTH['path']))
+            diagnostic = events.index(('write', fixtures.DIAGNOSTIC['path']))
+            terminal = next(i for i, (k, v) in enumerate(events) if k == 'post' and 'WORKER_RESULT' in v)
+            self.assertLess(artifact, diagnostic)
+            self.assertLess(diagnostic, terminal)
+            self.assertIn(('read', fixtures.AUTH['path']), events[artifact+1:diagnostic])
+            self.assertIn(('read', fixtures.DIAGNOSTIC['path']), events[diagnostic+1:terminal])
+
+    def test_default_private_exact_continuation_reconciles_cleanly_without_code_publication(self):
+        self.check_private_retained_reconciliation()
+
+    def test_operations_private_exact_continuation_refuses_same_reconciliation(self):
+        self.check_private_retained_reconciliation(operations=True)
 
     def test_new_dirt_before_child_is_never_promoted_to_baseline(self):
         original = self.runner.verify_inputs

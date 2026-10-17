@@ -154,6 +154,12 @@ remain consumed and operations are never automatically replayed. See the
 [full boundary/limitations](SUPERVISOR_PROTOCOL.md#explicit-operations-only-publication-issue-35)
 and [prepared harmless acceptance task](OPERATIONS_ACCEPTANCE.md).
 
+Default-mode private tasks preserve exact authorized `CONTINUE_FROM`
+reconciliation: they must finish with a clean public checkout and unchanged HEAD
+before private publication, while keeping the parent backup. Their final
+fingerprint may differ from the retained dirty baseline. Exact baseline
+immutability applies to explicit operations-only tasks, including private ones.
+
 ```text
 WORKER_RESULT: 2
 STATE: READY_FOR_REVIEW

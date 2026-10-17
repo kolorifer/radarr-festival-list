@@ -348,9 +348,9 @@ class IntegrationTests(unittest.TestCase):
         self.edit_child_checkout()
         self.runner.child_mode = 'FAILED'
         self.runner.fail_write = DIAGNOSTIC['path']
-        with self.assertRaises(w.Stop): self.run_task()
+        with self.assertRaises(subprocess.CalledProcessError): self.run_task()
         self.assertEqual(json.loads((self.runner.state_dir/'terminal-1.json').read_text())['code'],
-                         'PUBLIC_CHANGE_REFUSED')
+                         'CHILD_FAILED')
         self.assertEqual(json.loads((self.runner.state_dir/'execution-1.json').read_text())['child_process'],
                          'failed')
         follow = self.assert_issue_retention('FAILED', partial=True)
