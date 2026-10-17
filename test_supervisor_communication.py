@@ -179,7 +179,7 @@ class BoundaryRunner(w.Runner):
         self.events.append(('write', path))
         if path == DIAGNOSTIC['path']:
             # A crash during PUT must leave a conservative local delivery record.
-            delivery = json.loads((self.state_dir/'delivery-1.json').read_text())
+            delivery = json.loads((self.state_dir/f'delivery-{self.claimed_task}.json').read_text())
             assert delivery['receipt'] == 'unavailable' and not delivery['public_result']
         if self.fail_write == path:
             raise subprocess.CalledProcessError(1, ['fake'], stderr=CANARY.decode())
@@ -349,6 +349,10 @@ class IntegrationTests(unittest.TestCase):
         self.runner.child_mode = 'FAILED'
         self.runner.fail_write = DIAGNOSTIC['path']
         with self.assertRaises(subprocess.CalledProcessError): self.run_task()
+        self.assertEqual(json.loads((self.runner.state_dir/'terminal-1.json').read_text())['code'],
+                         'CHILD_FAILED')
+        self.assertEqual(json.loads((self.runner.state_dir/'execution-1.json').read_text())['child_process'],
+                         'failed')
         follow = self.assert_issue_retention('FAILED', partial=True)
         checkout = self.runner.state_dir/'checkout'
         before = p.snapshot(checkout)
