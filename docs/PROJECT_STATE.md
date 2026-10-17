@@ -3,6 +3,29 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## TMDb duplicate exact-match resolution — 2026-10-17 (local review)
+
+Issue #33 / supervisor task 1 implemented locally on automation/issue-33-worker,
+from clean a7017dd. Duplicate exact normalized title/original-title + year
+matches resolve only with both >=10x popularity and >=10 points of lead over
+the strongest runner-up. All exact candidates need finite nonnegative numeric
+popularity; missing/invalid evidence and close candidates stay unresolved.
+Unique-match behavior and existing title/year filtering remain unchanged.
+
+TESTED offline: 42 focused resolver/notification/action/pending-action tests
+pass. Full discovery with a socket-denying audit hook: 283 tests, 273 passed,
+10 socket tests skipped under the task's network prohibition. Supplied Snowman
+popularity values select TMDb372343; synthetic unique Hamnet (2025) selects
+858024; malformed Hamnet remains unresolved. These are mocked identity checks,
+not live TMDb observations. No dependencies installed.
+
+No network/seedbox access, deployment/restart, live notification or Radarr/media
+mutation. Runner owns Git/PR publication. Product acceptance and live validation
+remain pending. The unrelated legacy CODEX_TASK.md assignment is unchanged and
+was not executed. No next implementation task inferred.
+[Completed brief](reports/2026-10-17-tmdb-duplicate-exact-brief.md) ·
+[Engineering report](reports/2026-10-17-tmdb-duplicate-exact.md).
+
 ## Supervisor communication extension — 2026-10-16 (local review)
 
 Issue #30 / supervisor task 2 corrects both PR #31 review findings locally on
