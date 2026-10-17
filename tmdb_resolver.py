@@ -4,6 +4,7 @@ The resolver never guesses between ambiguous title/year matches. Successful
 lookups are cached locally so notification traffic does not repeatedly hit TMDb.
 """
 import json
+import math
 import os
 import re
 from pathlib import Path
@@ -16,6 +17,11 @@ API_BASE = "https://api.themoviedb.org/3"
 IMAGE_BASE = "https://image.tmdb.org/t/p/w500"
 TOKEN = os.environ.get("TMDB_API_TOKEN", "").strip()
 CACHE_PATH = Path(os.environ.get("TMDB_CACHE_PATH", ROOT / "tmdb-cache.json"))
+
+# Duplicate exact title+year matches need an order-of-magnitude lead AND a
+# substantial absolute gap. Popularity alone is not an identity match.
+_DUPLICATE_POPULARITY_MIN_RATIO = 10.0
+_DUPLICATE_POPULARITY_MIN_GAP = 10.0
 
 
 def _norm(value):
@@ -113,8 +119,25 @@ def _search_exact(title, year):
         year_match = not wanted_year or row_year == wanted_year
         if title_match and year_match:
             matches.append(row)
-    if len(matches) != 1:
+    if not matches:
         return None
+    if len(matches) > 1:
+        # Do not extend the duplicate exception to searches without a year.
+        if not wanted_year:
+            return None
+        for row in matches:
+            popularity = row.get("popularity")
+            # Missing/invalid data on ANY exact candidate leaves ambiguity.
+            if (type(popularity) not in (int, float)
+                    or not math.isfinite(popularity) or popularity < 0):
+                return None
+        matches.sort(key=lambda row: row["popularity"], reverse=True)
+        top, runner_up = matches[0]["popularity"], matches[1]["popularity"]
+        # Inclusive thresholds; comparison with the runner-up covers all others.
+        # A known zero is allowed, but the absolute gap still must be >= 10.
+        if (top < _DUPLICATE_POPULARITY_MIN_RATIO * runner_up
+                or top - runner_up < _DUPLICATE_POPULARITY_MIN_GAP):
+            return None
     return _details(matches[0]["id"])
 
 
@@ -132,8 +155,10 @@ def resolve_movie(title, year=None, imdb_id=None):
     """Resolve a movie without guessing.
 
     IMDb ID is preferred when already known. Otherwise TMDb text search is only
-    accepted when exactly one result matches normalized title/original title and
-    year. Successful results are cached by both title/year and IMDb ID.
+    accepted for a unique normalized title/original-title and year match, or an
+    exact title+year duplicate with >= 10x popularity AND >= 10 points of lead
+    over the runner-up (all exact candidates need valid popularity). Successful
+    results are cached by both title/year and IMDb ID.
     """
     cache = _load_cache()
     title_key = f"title:{_norm(title)}:{year or ''}"
