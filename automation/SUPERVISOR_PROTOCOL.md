@@ -16,6 +16,89 @@ supervisor to review terminal results and post a new numbered task. A public
 RUNNING comment is a claim history record, not proof of liveness. Inspect the local
 heartbeat (active, timestamp, PID), actual process and inherited kernel locks.
 
+## Explicit operations-only publication (issue #35)
+
+The latest validated issue-owner numbered task may include exactly this line:
+
+```text
+PUBLICATION_MODE: operations_only
+```
+
+Omission retains ordinary code publication; `PUBLICATION_MODE: code` explicitly
+selects that same default. These are the only values. Unknown values, duplicates,
+case/indentation/spacing variants, inline comments and multiline values fail
+before claim/child execution. Older tasks, other commenters, issue text, repository
+briefs, worker results and prose cannot supply the mode. Neither no diff, a READY
+state nor deployment keywords imply it. Do not set operations_only on a code
+implementation task merely because its implementation concerns operations.
+
+This is a publication restriction, never an authority grant. NETWORK_ACCESS,
+SEEDBOX_PERMISSION, exact private capabilities and especially AUTHORIZATION and
+FORBIDDEN still control every action. No network, SSH, service, deployment,
+filesystem edit or private write is authorized by this field. Operations-only
+does not permit editing or reconciling this public worker checkout. Any future
+remote deployment needs its own explicit scope. Claims, locks, quota, reasoning,
+child credential filtering and task-number consumption remain unchanged.
+
+For operations_only the parent never runs git add/commit/push or PR list/create/
+edit, including on a branch containing earlier commits. An existing issue checkout
+is not fast-forwarded or reconciled; remote advancement beyond its HEAD is refused.
+Normal initial issue-worktree creation remains available. The parent validates the
+clean or explicitly authorized exact retained baseline when entering the checkout,
+captures its fingerprint again immediately before launching the child, and compares
+it afterward even on child failure. Pre-child drift is refused, never silently
+adopted. Branch, HEAD, staged entries, tracked bytes/modes, deletions, symlink text
+and nonignored untracked bytes are covered. Detached HEAD is fingerprintable so
+an unexpected detach can be refused and retained. Fingerprints of normal branches
+are compatible with existing retention records.
+
+An unchanged exact CONTINUE_FROM baseline may contain preceding partial work;
+the child must leave every byte/index/branch/HEAD unchanged. This also applies
+when operations_only is combined with private inputs/output: it permits retaining
+existing explicitly bound differences, never new checkout changes or public code
+publication. Other private tasks retain their clean-finish requirement, and all
+private tasks now also compare the exact before/after fingerprint. Unexpected
+changes yield PUBLIC_CHANGE_REFUSED and preserve files/history/index plus the
+existing private retention backup where snapshotting is possible. A child that
+also failed remains recorded as failed in the local execution record. No stash,
+reset, clean, claim deletion/reuse or automatic retry is introduced.
+
+Ignored caches, Git metadata beyond HEAD/branch/index entries, external filesystem
+state, and changes made and reverted between observations are outside this
+fingerprint contract. It is change detection, not a hostile-process security
+boundary or proof of external operations. Unsupported/unreadable entries fail
+closed. Do not store operational evidence in the public checkout, including its
+ignored caches. Private inputs, artifact staging and diagnostics remain independent;
+only separately granted exact destinations can be uploaded with existing CAS and
+readback. Artifact verification precedes receipt verification and public status.
+
+Public operations results always say `PR: none`. Fixed TESTS text reports only
+whether the parent verified the checkout fingerprint unchanged; SUMMARY states
+the terminal reason code, disabled code publication and that external state was
+not verified. READY/OK, NEEDS_USER/WORKER_BLOCKED, CHILD_FAILED, INVALID_RESULT,
+PUBLIC_CHANGE_REFUSED, ARTIFACT_PUBLICATION_FAILED, RECEIPT_PUBLICATION_FAILED and
+RESULT_PUBLICATION_FAILED remain distinct parent observations. Raw child text,
+exception details, local paths and private evidence stay private.
+
+The parent persists `execution-N.json` locally under the issue's common-Git state
+directory, separately from `terminal-N.json` and `delivery-N.json`. Its local v1
+fields record the task/mode, child process (not_started/running/exited/failed),
+parsed worker_state (or null), checkout baseline/comparison, code publication
+(not_started/disabled/started/completed), attempted terminal state/code, receipt
+availability and public result (not_attempted/unconfirmed/posted). `exited` means
+the child process returned zero; worker_state is a parsed claim, not proof of a
+deployment. `running`, `started` or `unconfirmed` after interruption is inconclusive.
+`posted` means the public POST returned normally, without readback verification.
+Delivery errors do not erase completed child observations. Inspect/reconcile
+delivery under separately authorized scope; never infer that operations need
+rerunning, retry the child or delete/reuse its permanent claim. Private terminal
+receipt schema stays at v1 with its existing allowlist; no new upload destination
+is inferred from this local record.
+
+See the [harmless post-merge acceptance plan](OPERATIONS_ACCEPTANCE.md).
+Implementation tests are synthetic; merge, launcher deployment and live acceptance
+are separate supervisor follow-up, not authorized by this implementation task.
+
 ## Exact private output authorization
 
 Only a valid issue-owner task can include this single-line JSON capability:

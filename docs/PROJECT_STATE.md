@@ -3,6 +3,35 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Explicit operations-only publication — 2026-10-17 (local review)
+
+Issue #35 / supervisor task 1 implements a strict latest-owner PUBLICATION_MODE
+directive on automation/issue-35-worker from clean main 92afda3. Omission preserves
+ordinary code publication. Explicit operations_only skips all parent add/commit/
+push/PR handling, including earlier branch commits, without granting operational
+authority. Exact before/after checkout checks run even on child failure; changed
+work is refused/preserved and unchanged exact retained continuation is accepted.
+Parent execution-N.json separates child exit/parsed result from delivery failure;
+worker READY does not establish external deployment state. Private grants/CAS/
+readback remain independent; terminal receipt schema stays v1. PR #31 claim and
+retention boundaries are preserved.
+
+TESTED: 136 focused / 314 full tests pass without skips in isolated Python 3.9.6;
+pip check, final diff/scope and documentation checks pass. All operational/private
+boundaries are synthetic. OBSERVED LIVE: none for this change. No merge, launcher/service/
+schedule changes, live smoke, seedbox/Radarr/media/private-inventory access or
+Git/GitHub publication by this child. Issue #33 deployment is complete according
+to supervisor-supplied user context; it was not retried or inspected here.
+
+EXPECTED BY DESIGN: later explicitly authorized operations-only tasks skip public
+code publication. The harmless local assertion [acceptance plan](../automation/OPERATIONS_ACCEPTANCE.md)
+is prepared; merge, launcher deployment and live acceptance remain supervisor
+follow-up after review. Product acceptance is pending. The unrelated legacy
+CODEX_TASK.md remains unchanged and was not executed; no next task inferred.
+[Completed brief](reports/2026-10-17-operations-publication-brief.md) ·
+[Engineering report](reports/2026-10-17-operations-publication.md) ·
+[Protocol](../automation/SUPERVISOR_PROTOCOL.md).
+
 ## TMDb duplicate exact-match resolution — 2026-10-17 (local review)
 
 Issue #33 / supervisor task 1 implemented locally on automation/issue-33-worker,

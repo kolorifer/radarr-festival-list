@@ -16,6 +16,20 @@ MAX_PRIVATE_BYTES = 900000
 MAX_INPUTS = 8
 
 
+def publication_mode(task, supervisor):
+    """Publication policy only; caller selects the latest trusted owner task."""
+    if task['user']['login'] != supervisor:
+        raise PolicyError('Publication mode requires an issue-owner supervisor task')
+    lines = [line for line in task['body'].splitlines()
+             if re.match(r'^\s*PUBLICATION_MODE\b', line, re.I)]
+    if not lines:
+        return 'code'
+    if len(lines) != 1 or lines[0] not in (
+            'PUBLICATION_MODE: code', 'PUBLICATION_MODE: operations_only'):
+        raise PolicyError('Malformed, duplicate or unsupported PUBLICATION_MODE')
+    return lines[0].split(': ')[1]
+
+
 def unique_object(pairs):
     result = {}
     for key, value in pairs:
@@ -132,8 +146,15 @@ def snapshot(repo):
     digest = hashlib.sha256()
     def add(data):
         digest.update(len(data).to_bytes(8, 'big')); digest.update(data)
-    for args in [('rev-parse', 'HEAD'), ('symbolic-ref', 'HEAD'), ('ls-files', '--stage', '-z')]:
-        add(git(*args))
+    for args in [('rev-parse', 'HEAD'), ('symbolic-ref', '--quiet', 'HEAD'), ('ls-files', '--stage', '-z')]:
+        try:
+            value = git(*args)
+        except subprocess.CalledProcessError as exc:
+            if args == ('symbolic-ref', '--quiet', 'HEAD') and exc.returncode == 1:
+                value = b'<detached>\n'
+            else:
+                raise
+        add(value)
     paths = set(git('ls-files', '-z').split(b'\0') + git('ls-files', '--others', '--exclude-standard', '-z').split(b'\0')) - {b''}
     for name in sorted(paths):
         add(name)

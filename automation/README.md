@@ -140,6 +140,20 @@ private local JSON result. The parent emits fixed public status text and its own
 checks; it does not invent a successful full-suite result. Private-output tasks
 use the exact capability below and create no public commit/PR.
 
+For a task that must perform only explicitly authorized operations and leave the
+public checkout unchanged, the latest issue-owner task can set
+`PUBLICATION_MODE: operations_only`. The parent then skips all add/commit/push/PR
+handling, even with earlier branch commits, and reports `PR: none`. Absence or
+explicit `PUBLICATION_MODE: code` keeps ordinary publication. Parsing is strict;
+the mode grants no operational access or private write. Exact checkout comparison
+also runs on child failure; an unchanged explicitly bound retained baseline is
+allowed, while new changes are refused and preserved. Parent-generated local
+`execution-N.json` separates child exit/parsed result from later delivery failure;
+neither it nor a worker READY proves external deployment state. Existing claims
+remain consumed and operations are never automatically replayed. See the
+[full boundary/limitations](SUPERVISOR_PROTOCOL.md#explicit-operations-only-publication-issue-35)
+and [prepared harmless acceptance task](OPERATIONS_ACCEPTANCE.md).
+
 ```text
 WORKER_RESULT: 2
 STATE: READY_FOR_REVIEW
