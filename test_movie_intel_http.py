@@ -218,3 +218,51 @@ class HTTPFlowTests(unittest.TestCase):
         self.assertEqual(len(self.added), 1)
         self.assertEqual(len(self.pushed), 1)
         self.assertFalse(self.added[0]["addOptions"]["searchForMovie"])
+
+    def test_uncertain_push_cannot_be_retried_even_after_reload(self):
+        path = self.webhook()
+        with patch.object(svc, 'push_release', side_effect=radarr.RadarrError('Unable to reach Radarr')) as push:
+            self.assertEqual(self.approve(path)[0], 502)
+            self.assertEqual(self.approve(path)[0], 409)
+            self.assertEqual(self.request(path)[0], 409)
+        push.assert_called_once()
+
+    def test_failed_state_persistence_prevents_radarr_writes(self):
+        path = self.webhook()
+        with patch.object(svc, 'update_action', return_value=False):
+            self.assertEqual(self.approve(path)[0], 502)
+        self.assertEqual(self.added, [])
+        self.assertEqual(self.pushed, [])
+
+    def test_storage_failure_preserves_notification_without_button(self):
+        with patch.object(svc, 'create_action', side_effect=OSError('private details')):
+            status, body, _ = self.request('/webhook/' + 'w' * 32, json.dumps(PAYLOAD).encode())
+        self.assertEqual(status, 200)
+        self.assertFalse(json.loads(body)['action'])
+        self.assertIn('Arrival', self.messages[-1]['text'])
+        self.assertNotIn('private details', self.logs.getvalue())
+
+    def test_unrecognized_result_shape_falls_back_redacted(self):
+        payload = copy.deepcopy(PAYLOAD)
+        payload['data']['result'] = 'unexpected https://tracker.invalid/PRIVATE'
+        status, _, _ = self.request('/webhook/' + 'w' * 32, json.dumps(payload).encode())
+        self.assertEqual(status, 200)
+        self.assertNotIn('reply_markup', self.messages[-1])
+        self.assertNotIn('PRIVATE', str(self.messages))
+
+    def test_unresolved_movie_has_no_approval_and_keeps_release(self):
+        with patch.object(svc, 'resolve_movie', return_value=None):
+            status, body, _ = self.request('/webhook/' + 'w' * 32, json.dumps(PAYLOAD).encode())
+        self.assertEqual(status, 200)
+        self.assertFalse(json.loads(body)['action'])
+        self.assertNotIn('reply_markup', self.messages[-1])
+        self.assertIn(PAYLOAD['data']['release']['name'], self.messages[-1]['text'])
+        self.assertEqual(self.added, [])
+
+    def test_corrupt_store_returns_unavailable_without_acquisition(self):
+        path = self.webhook()
+        actions.STORE_PATH.write_text('{invalid')
+        self.assertEqual(self.request(path)[0], 503)
+        self.assertEqual(self.approve(path)[0], 503)
+        self.assertEqual(self.added, [])
+        self.assertEqual(self.pushed, [])

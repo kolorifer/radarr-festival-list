@@ -8,6 +8,22 @@ import pending_actions as pa
 
 
 class PendingActionTests(unittest.TestCase):
+    def test_duplicate_webhook_retains_uncertain_attempt(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(pa, 'STORE_PATH', Path(tmp) / 'actions.json'):
+            row = {'movie': {'tmdb_id': 1}, 'release': {'name': 'Exact.Release', 'download_url': 'PRIVATE'}}
+            token = pa.create_action(row)
+            pa.update_action(token, status='needs_review')
+            self.assertEqual(pa.create_action(row), token)
+            self.assertEqual(pa.get_action(token)['status'], 'needs_review')
+
+    def test_corrupt_store_is_not_overwritten(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'actions.json'
+            path.write_text('{partial')
+            with patch.object(pa, 'STORE_PATH', path), self.assertRaises(ValueError):
+                pa.create_action({'movie': {'tmdb_id': 1}})
+            self.assertEqual(path.read_text(), '{partial')
+
     def test_action_round_trip_and_delete(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "actions.json"

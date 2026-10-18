@@ -7,6 +7,7 @@ import json
 import math
 import os
 import re
+from contextvars import ContextVar
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, quote
@@ -22,6 +23,11 @@ CACHE_PATH = Path(os.environ.get("TMDB_CACHE_PATH", ROOT / "tmdb-cache.json"))
 # substantial absolute gap. Popularity alone is not an identity match.
 _DUPLICATE_POPULARITY_MIN_RATIO = 10.0
 _DUPLICATE_POPULARITY_MIN_GAP = 10.0
+_REASON = ContextVar('resolution_reason', default='unresolved')
+
+
+def resolution_reason():
+    return _REASON.get()
 
 
 def _norm(value):
@@ -50,6 +56,7 @@ def _save_cache(cache):
 
 def _get(path, params=None):
     if not TOKEN:
+        _REASON.set('resolver_unconfigured')
         return None
     url = API_BASE + path
     if params:
@@ -66,6 +73,7 @@ def _get(path, params=None):
         with urlopen(request, timeout=12) as response:
             return json.loads(response.read())
     except (HTTPError, URLError, TimeoutError, json.JSONDecodeError):
+        _REASON.set('metadata_api_unavailable')
         return None
 
 
@@ -73,9 +81,12 @@ def _compact(details):
     if not isinstance(details, dict) or not details.get("id"):
         return None
     ext = details.get("external_ids") or {}
+    if not isinstance(ext, dict):
+        ext = {}
     poster_path = details.get("poster_path")
     release_date = details.get("release_date")
-    genres = [x.get("name") for x in (details.get("genres") or []) if x.get("name")]
+    genres = [x.get("name") for x in (details.get("genres") or [])
+              if isinstance(x, dict) and isinstance(x.get("name"), str)]
     return {
         "tmdb_id": details.get("id"),
         "imdb_id": ext.get("imdb_id"),
@@ -109,6 +120,8 @@ def _search_exact(title, year):
             "page": 1,
         },
     )
+    if payload is None:
+        return None
     results = (payload or {}).get("results") or []
     key = _norm(title)
     wanted_year = str(year) if year else None
@@ -120,8 +133,10 @@ def _search_exact(title, year):
         if title_match and year_match:
             matches.append(row)
     if not matches:
+        _REASON.set('no_exact_match')
         return None
     if len(matches) > 1:
+        _REASON.set('ambiguous_exact_matches')
         # Do not extend the duplicate exception to searches without a year.
         if not wanted_year:
             return None
@@ -138,6 +153,7 @@ def _search_exact(title, year):
         if (top < _DUPLICATE_POPULARITY_MIN_RATIO * runner_up
                 or top - runner_up < _DUPLICATE_POPULARITY_MIN_GAP):
             return None
+    _REASON.set('details_unavailable')
     return _details(matches[0]["id"])
 
 
@@ -160,6 +176,7 @@ def resolve_movie(title, year=None, imdb_id=None):
     over the runner-up (all exact candidates need valid popularity). Successful
     results are cached by both title/year and IMDb ID.
     """
+    _REASON.set('unresolved')
     cache = _load_cache()
     title_key = f"title:{_norm(title)}:{year or ''}"
     imdb_key = f"imdb:{imdb_id}" if imdb_id else None
@@ -167,14 +184,20 @@ def resolve_movie(title, year=None, imdb_id=None):
     if imdb_key and imdb_key in cache:
         return cache[imdb_key]
     if title_key in cache:
-        return cache[title_key]
+        cached = cache[title_key]
+        if not imdb_id or cached.get('imdb_id') == imdb_id:
+            return cached
     if not TOKEN:
+        _REASON.set('resolver_unconfigured')
         return None
 
     resolved = _find_by_imdb(imdb_id) if imdb_id else None
     if not resolved:
         resolved = _search_exact(title, year)
     if not resolved:
+        return None
+    if imdb_id and resolved.get('imdb_id') != imdb_id:
+        _REASON.set('identity_conflict')
         return None
 
     cache[title_key] = resolved
