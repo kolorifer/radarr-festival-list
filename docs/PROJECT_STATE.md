@@ -1,6 +1,6 @@
 # Movie List project state
 
-## Landlock Stage1 follow-up — 2026-10-18, release gates in progress
+## Landlock Stage1 follow-up — 2026-10-18, shadow deployment complete
 
 Issue49's focused feasibility and integration passes succeeded with a small stdlib
 Landlock ABI6 boundary, inherited loopback listener and standard systemd syscall
@@ -8,11 +8,27 @@ filter. Actual provider child denies protected file/directory, symlink, fd, proc
 signal, metadata and new-socket access. It can commit SQLite WAL and answer HTTP;
 restart/dedup/disable and forced kernel/path failure checks pass. No provider/root
 change. Full local suite445 tests:444 pass,1 Linux-only skip; focused54 likewise.
-Dependency and frozen scoring checks pass. CI/seedbox gates and conditional rollout
-remain pending at this revision. Production is still the verified30adc20.
+CI Python3.12/3.13 and seedbox each pass445, including the kernel check; dependency,
+frozen scoring and configuration checks pass. PR48 merged4740413; collector source
+is pinned at tested3a2090703f9b4b85d5a3982b0e99ef452a625420 (identical merge tree).
+The separately installed collector is active/healthy with actual child denial
+proofs. Only an authenticated loopback RELEASE_NEW route was added; all existing
+autobrr notifier/filter rows are unchanged. movie-intel checkout/process remains
+clean at30adc20b7d46bbe89bb14728d778d9d1142c57c6, never restarted, observer off.
+Local/public health200,1909 movies; both bindings and cache/config hashes unchanged.
+Normal existing movie-intel activity later added1 action (58→59), no old action
+changed and no acquisition started. No notification/approval/Radarr/download test.
+
+Actual production observation:4 unresolved seeds;461 retained rows →450 accepted,
+4 quarantined,7 excluded. Repeat454 duplicates, no new evidence/cases. Store450
+releases/454 evidence versions/345 provisional unresolved cases before live events.
+**3 real movie events accepted by18:06:17UTC**, max lag0.0833s; totals453 releases,
+457 evidence versions/346 unresolved cases. Real publisher delivery is verified. Coverage remains
+incomplete. One transient storage warning during import recovered; its counter is
+retained and stable at1. Autobrr logging is disabled and no external alert worker was added.
 [Report](reports/2026-10-18-landlock-shadow.md) and
 [brief](reports/2026-10-18-landlock-shadow-brief.md) supersede the isolation blocker
-below, but do not yet claim live capture. Outcome observer will remain off.
+below. Stage2 and further identity work require review; none has begun.
 
 ## Identity investigation Stage 1 — earlier 2026-10-18, deployment blocked
 

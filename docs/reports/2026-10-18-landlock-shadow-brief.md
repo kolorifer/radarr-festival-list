@@ -15,3 +15,7 @@ Radarr calls or downloads. Report actual denial proofs and distinguish synthetic
 retained and real intake. Existing unrelated CODEX_TASK remains untouched.
 
 [Report](2026-10-18-landlock-shadow.md) and [runbook](../../deploy/IDENTITY_TRIAGE.md).
+
+Completed: minimal boundary passed, PR48 merged and separate shadow collector
+deployed. The report distinguishes retained/seed results from3 actual live movie
+deliveries and records the remaining operational limits.
