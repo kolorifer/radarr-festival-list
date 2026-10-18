@@ -72,6 +72,14 @@ the workflow documentation task.
   unresolved/review states; no manual crosswalk or relaxed text-search rule was
   adopted. See the [implementation brief](reports/2026-10-18-tracker-metadata-implementation-brief.md).
 
+- **Narrow exception authorized, 2026-10-18:** [issue #45](https://github.com/kolorifer/radarr-festival-list/issues/45)
+  permits only the reviewed Hamnet source-context repair and Not Not Jazz exact
+  alias. Both require private exact-source bindings and unchanged unique
+  IMDb/TMDb roundtrip/year checks; original release data remains immutable.
+  No other mapping, generic alias/year heuristic or investigation queue is approved.
+  Implementation and verified deployment are authorized by the
+  [brief](reports/2026-10-18-reviewed-identity-brief.md).
+
 ## D006 — Audience ratings provide context
 
 - **Status/source:** Accepted existing baseline; captured 2026-10-13.
@@ -138,6 +146,12 @@ the workflow documentation task.
   credentials, and health/matching verification without downloads. The
   [deployment brief](reports/2026-10-18-tracker-metadata-deployment-brief.md) records
   this scope; other services, scoring and unrelated cleanup remain unchanged.
+
+- **Authorized narrow rollout, 2026-10-18:** Issue #45 and the current user request
+  authorize a reviewed PR, tests and safe production deployment of only the two
+  identity corrections in its [brief](reports/2026-10-18-reviewed-identity-brief.md).
+  Live acceptance is read-only metadata/context verification; no notifications,
+  approval creation or acquisition tests are included.
 
 ## D011 — Compare audience weights without choosing production policy
 

@@ -1,5 +1,21 @@
 # Movie List project state
 
+## Reviewed identity corrections — 2026-10-18, implementation validation
+
+[Issue #45](https://github.com/kolorifer/radarr-festival-list/issues/45) authorizes
+only the reviewed Hamnet source-title/year repair and exact Not Not Jazz alias.
+The implementation binds both to private exact release/IMDb/TMDb provenance,
+passes corrected context through the existing external-ID checks and preserves
+the original release and acquisition safeguards. No other mappings or persistent
+investigation queue are included. Runtime validation/deployment results are tracked
+in the [report](reports/2026-10-18-reviewed-identity.md) and
+[brief](reports/2026-10-18-reviewed-identity-brief.md).
+
+Fresh starting production state: clean `a2049938b7c2cc77017de3920f1140c220108a5d`,
+active/running, NRestarts=0. Both exact live source associations remain unchanged
+and reproduce title conflicts before the repair. The unrelated cleanup task remains
+untouched. Final deployment results will supersede this starting-state record.
+
 ## Tracker metadata — 2026-10-18, deployed and enabled
 
 The user's instruction to update implementation after the investigation is

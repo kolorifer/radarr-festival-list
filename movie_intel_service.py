@@ -33,6 +33,7 @@ from radarr_client import (
 )
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
+from reviewed_identity import reviewed_context
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
 PORT = os.environ.get("MOVIE_INTEL_PORT", "40714")
@@ -260,8 +261,23 @@ def build_movie_context(payload):
             elif imdb_id and supplied_imdb and imdb_id != supplied_imdb:
                 meta = {'identity_status': 'needs_review', 'identity_reason': 'local_identity_conflict'}
             else:
-                meta = resolve_external_movie(title, year, imdb_id=supplied_imdb or imdb_id,
-                                              tmdb_id=supplied_tmdb)
+                correction = reviewed_context(release, data.get('indexer') or {}, supplied_imdb, source)
+                corrected_local = (find_local(correction['title'], correction['year'], INDEX)
+                                   if correction else None)
+                if (correction and corrected_local and corrected_local.get('imdb_id')
+                        and corrected_local['imdb_id'] != supplied_imdb):
+                    meta = {'identity_status': 'needs_review', 'identity_reason': 'local_identity_conflict'}
+                else:
+                    meta = resolve_external_movie(
+                        correction['title'] if correction else title,
+                        correction['year'] if correction else year,
+                        imdb_id=supplied_imdb or imdb_id,
+                        tmdb_id=correction['tmdb_id'] if correction else supplied_tmdb)
+                if correction:
+                    applied = meta.get('identity_status') == 'verified_tmdb'
+                    decision_log('reviewed_context', correction['rule'] if applied else 'validation_failed', payload)
+                    if applied:
+                        meta = dict(meta, identity_correction=correction['rule'])
             meta = dict(meta, identity_source=source)
         elif not external:
             meta = resolve_movie(title, year, imdb_id=imdb_id)
@@ -346,6 +362,7 @@ def create_pending_action(payload, meta):
             "identity_source": meta.get('identity_source'),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
+            "identity_correction": meta.get('identity_correction'),
         },
         "release": stored_release,
         "indexer": stored_indexer,

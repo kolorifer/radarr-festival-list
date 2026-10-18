@@ -132,6 +132,37 @@ validation. A full rollback uses the previously verified runtime revision and
 preserves current action state, following the rollback instructions above. No
 historical notification replay or action backfill occurs on startup.
 
+## Reviewed context corrections (issue #45)
+
+`MOVIE_INTEL_REVIEWED_CONTEXT_FILE` optionally names an absolute, owner-only
+regular JSON file outside the checkout. It is absent/disabled by default. The
+strict schema is version 1 with a `rules` array containing zero, one or both fixed
+rule names: `hamnet-2025` and `not-not-jazz-2024`. Each entry requires only `rule`,
+`imdb_id`, integer `tmdb_id`, `source_sha256` and `evidence_sha256`; no additional
+fields or duplicate/unknown rules are accepted. Keep real IDs, fingerprints and
+private provenance out of examples, Git and logs. File mode must be 600 or stricter;
+symlinks, non-owner files and files over 16KiB fail preflight.
+
+Prepare bindings only from the approved, revalidated private evidence. The source
+digest uses `reviewed_identity.source_fingerprint` and binds the exact original
+listing/reference, full release name, observed title/year, IMDb assertion and
+TorrentLeech source. The evidence digest refers to the corresponding retained
+private case evidence. The code fixes both approved title/year transformations;
+this file cannot add another title or a general matching policy.
+
+Both repairs require successful exact-listing validation, the reviewed IMDb/TMDb
+pair and unchanged movie roundtrip/year checks. Original release data and download
+reference remain immutable. Native IDs without checked listing provenance do not
+enable the repair. Rules are reread on each eligible lookup: removing an entry
+revokes future corrections even with warm metadata caches. Invalid/missing files
+leave the original unresolved context and cannot trigger title-search fallback.
+An invalid configured file also fails startup preflight.
+
+Audit codes identify only the fixed rule applied or validation failure. Future
+eligible actions retain that rule marker without exposing private evidence.
+Revocation does not rewrite previously created actions; no action backfill/replay
+is performed. Changing this file affects identity only, never approval or download.
+
 ## Keep the service running
 
 If `systemctl --user` works, install the user service. It expects the paths above;

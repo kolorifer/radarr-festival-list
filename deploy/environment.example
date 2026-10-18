@@ -11,6 +11,8 @@ TMDB_API_TOKEN=
 # Optional exact-listing metadata lookup. Dedicated private cookie JSON required.
 MOVIE_INTEL_TL_METADATA_ENABLED=0
 MOVIE_INTEL_TL_COOKIE_FILE=
+# Optional issue #45 bindings; keep exact reviewed provenance in a private file.
+MOVIE_INTEL_REVIEWED_CONTEXT_FILE=
 RADARR_URL=
 RADARR_API_KEY=
 # Complete HTTPS route INCLUDING the /movie-intel prefix (or provider prefix).
