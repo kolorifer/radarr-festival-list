@@ -106,6 +106,22 @@ class Server(ThreadingHTTPServer):
 class Handler(BaseHTTPRequestHandler):
     protocol_version = 'HTTP/1.0'
 
+    def handle(self):
+        # Socket idle timeout alone does not bound a slow trickle of headers/body.
+        # A hard lifetime also prevents eight slow clients occupying every slot.
+        def expire():
+            try:
+                self.connection.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+        deadline = threading.Timer(5, expire)
+        deadline.daemon = True
+        deadline.start()
+        try:
+            super().handle()
+        finally:
+            deadline.cancel()
+
     def log_message(self, *args):
         pass
 

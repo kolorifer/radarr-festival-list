@@ -106,7 +106,7 @@ def normalize(payload, sources, channel='release_new'):
         imdb = None if imdb in (None, '') else imdb
         tmdb = release.get('meta_tmdb')
         # Zero TMDb is omitted by upstream; explicitly supplied invalid values quarantine.
-        if imdb is not None and (not isinstance(imdb, str) or not re.fullmatch(r'tt\d{7,10}', imdb)):
+        if imdb is not None and (not isinstance(imdb, str) or not re.fullmatch(r'tt[0-9]{7,10}', imdb)):
             raise ValueError('film_id')
         if tmdb is not None and (type(tmdb) != int or not 0 < tmdb < 2**31):
             raise ValueError('film_id')

@@ -57,7 +57,7 @@ remain separate groups; this deliberately allows fragmentation instead of silent
 joining conflicting identities. The same release fingerprint still links their
 evidence versions. No semantic film deduplication is claimed.
 
-HTTP bounds: loopback only, 64KiB body, 3s socket timeout, 8 concurrent requests,
+HTTP bounds: loopback only, 64KiB body, 3s socket idle timeout, 5s hard connection lifetime, 8 concurrent requests,
 queue8, fixed responses, no request-path/body logs, separate route keys, constant-time
 comparison. Capacity is 1,000,000 delivery rows and 1,000,000 conflict rows; there is
 no automatic pruning. Disk capacity must be monitored. Retained reconciliation is

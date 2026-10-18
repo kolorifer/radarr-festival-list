@@ -68,7 +68,7 @@ class NormalizationTests(Base):
             with self.assertRaises(intake.Reject): intake.normalize(p, SOURCES)
 
     def test_invalid_ids_quarantined(self):
-        for key, values in {'meta_imdb': ['https://example.invalid', False, 0, [], 'tt1'], 'meta_tmdb': [0, False, '123', -1, []]}.items():
+        for key, values in {'meta_imdb': ['https://example.invalid', False, 0, [], 'tt1', 'tt١٢٣٤٥٦٧'], 'meta_tmdb': [0, False, '123', -1, []]}.items():
             for value in values:
                 with self.subTest(key=key,value=value):
                     r = intake.normalize(payload(**{key: value}), SOURCES)
@@ -311,6 +311,25 @@ class HTTPTests(Base):
         self.assertEqual(self.request(path='/metrics',method='GET',key='bad')[0],401)
         status,body=self.request(path='/metrics',method='GET')
         self.assertEqual(status,200);self.assertEqual(json.loads(body)['coverage'],'incomplete')
+
+    def test_hard_connection_deadline(self):
+        with socket.create_connection(self.server.server_address, timeout=7) as client:
+            client.sendall(b'POST /v1/release HTTP/1.1\r\n')
+            stop = threading.Event()
+            def trickle():
+                while not stop.wait(0.1):
+                    try:
+                        client.sendall(b'x')
+                    except OSError:
+                        return
+            sender = threading.Thread(target=trickle, daemon=True)
+            sender.start()
+            try:
+                self.assertEqual(client.recv(1024), b'')
+            finally:
+                stop.set()
+                sender.join(timeout=1)
+        self.assertEqual(self.store.metrics()['distinct_releases'], 0)
 
     def test_no_outbound_connections_from_receiver(self):
         # Allow the test client to connect; any receiver connect attempt would fail.
