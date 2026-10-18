@@ -68,6 +68,13 @@ def parse_listing(body, release_name):
     if any(str(tag.get('type', '')).casefold() == 'password' for tag in soup.find_all('input')):
         return _result('login_required')
     headings = soup.select('#torrentnameid, #torrentName')
+    # TL appends this separate presentation badge to its h2, while h4 keeps
+    # the exact release name. Ignore only the observed badge element/text;
+    # never strip words from a release name or accept a mismatching heading.
+    for heading in headings:
+        for badge in heading.select('span.new.label.labelfreeleech'):
+            if badge.get_text(' ', strip=True) == 'FREELEECH':
+                badge.decompose()
     names = [node.get('value') if node.name == 'input' else node.get_text(' ', strip=True)
              for node in headings]
     normalize = lambda value: ' '.join(str(value or '').split())
