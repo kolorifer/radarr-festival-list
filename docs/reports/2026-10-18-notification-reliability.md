@@ -1,8 +1,9 @@
 # Engineering report: notification and exact-release approval reliability
 
 **Specification:** [User brief](2026-10-18-notification-reliability-brief.md),
-D005/D006/D008/D009/D010. **Status:** implementation and validation in progress;
-production acceptance is not complete.
+D005/D006/D008/D009/D010. **Status:** implementation, deployment and end-to-end
+technical verification complete. User review of the Telegram presentation remains
+separate from technical acceptance. [Draft PR #41](https://github.com/kolorifer/radarr-festival-list/pull/41).
 
 ## Diagnosis
 
@@ -27,7 +28,7 @@ were incorrectly described as “outside or unresolved”; this is a rendering b
 Both enabled autobrr TELEGRAM and WEBHOOK notifications include movie events;
 the built-in Telegram destination matches movie-intel's bot and chat. This creates
 two notification streams. The user explicitly approved removing overlapping movie events while keeping
-connection/update alerts (D021); application is pending.
+connection/update alerts (D021); applied and verified after deployment.
 
 Read-only live selection_context timed out fetching the entire Radarr movie
 collection, after root/profile reads had succeeded. That optional defaults lookup
@@ -75,8 +76,81 @@ no year guessing, translated-title inference or weakened popularity rule was add
 Final local full suite: **335 tests passed** on Python 3.12 (125.196 seconds).
 Focused unit regressions passed; pip check, production_scoring.py --check,
 py_compile and git diff --check passed. Catalog remains 1,909 / 387 qualified.
-All integration tests use local synthetic servers. No acquisition has been triggered.
-Deployment and post-fix live acceptance are pending; this report will be updated.
+Integration regression tests use local synthetic servers. The full seedbox suite
+also passed **335 tests** (19.219 seconds), alongside preflight, pip check and the
+frozen catalog check. PR CI passed on Python 3.12 and 3.13.
+
+With explicit user approval, deployed runtime commit
+`dcae919acbc87f1a33de84b7c6b628668b400b07` from PR #41 over
+`92afda3004af075c165886b6705b9f79f219706d`. Backed up private environment,
+cache/actions and notification settings on the host. Restarted only
+movie-intel.service. Environment, movie-intel unit, sync service/timer and nginx
+configuration hashes were unchanged. Live checkout remains clean at the tested
+runtime commit; later documentation commits do not require another restart.
+
+Final local/public health: HTTP 200, ok=true, Radarr configured, 1,909 movies.
+Service active/running, NRestarts=0. Both local/public existing approval pages
+returned 200 in approximately 0.05 seconds, with full release, no private reference,
+no-store, one live root and eight live profiles; profile selection is explicit.
+
+## Notification routing applied
+
+Removed PUSH_REJECTED/PUSH_APPROVED/PUSH_ERROR only from autobrr Telegram notifier
+1. IRC_DISCONNECTED, IRC_RECONNECTED and APP_UPDATE_AVAILABLE remain enabled.
+Webhook notifier, built-in notifier, all other fields and filter routes were
+verified unchanged. No autobrr restart was needed.
+
+The user explicitly approved a temporary private API key because no key existed
+and browser control was unavailable. Used loopback API Update to refresh live
+routing, then API Delete to revoke both the database entry and authentication
+cache. Verified absence and denied reuse; no temporary key or key file remains.
+The configured browser prefix is not the loopback API prefix. Also, an omitted
+empty event_sounds map is serialized as null by API Update; supplying the original
+empty map explicitly preserved the original field exactly. Final readback passed.
+
+## Explicitly approved live add/grab
+
+The user approved sending a retained real Unknown Movie event and acquiring only:
+
+**The Boxtrolls (2014), TMDb 170687**
+
+`The Boxtrolls 2014 2160p HULU WEB-DL DDP 5 1 H 265-PiRaTeS`
+
+- Retained autobrr release 375 was verified against its pending action, including
+  exact private reference equality. Movie was absent from Radarr before the test.
+- Replayed that retained event through the deployed public webhook. HTTP 200
+  reported mode=enriched, poster=true and action=true. Journal
+  confirmed resolved/local_catalog/action created/photo_sent. Rendering included
+  IMDb link, IMDb and Letterboxd ratings, recognition and the full exact release.
+  The existing unexpired token was reused. Telegram accepted the photo/card/button.
+- Public confirmation page returned 200 with the full release and no private
+  reference. Submitted the single live root and Ultra-HD profile (ID 5).
+- Verified deployed add code uses searchForMovie=false; execution logged
+  started_search_disabled. Approval returned 200 in 3.87 seconds and logged
+  exact_release_approved. Radarr created movie 1020 with TMDb 170687/profile 5.
+- Command snapshots showed RefreshMovie and ordinary background
+  ImportListSync/ProcessMonitoredDownloads/RefreshMonitoredDownloads. No search
+  command appeared. This is paired runtime/code evidence, not a captured wire
+  trace of the add request. No search, import-list refresh or downloader command
+  was independently launched by the verification scripts.
+- Radarr's grabbed history contains the exact announced release name and the
+  exact original downloadUrl, compared privately on the host. The download first
+  appeared as downloading/ok, then completed and imported with the same download
+  ID. hasFile=true; the actual file exists and its size matches Radarr:
+  **9,064,876,594 bytes, WEBDL-2160p**. This is a completed download/import, not
+  only an accepted release decision.
+- The successful token was removed. Subsequent GET and empty POST both returned
+  **410**, without submitting another acquisition form.
+- A genuine retained Nocturne (2020) event was replayed read-only through deployed
+  logic. Fresh resolution returned ambiguous_exact_matches, with no identity,
+  action or button. Telegram/state writes were mocked for this negative case;
+  it was not another live notification or acquisition.
+
+Private test evidence remains on the seedbox in a mode-700 directory with
+mode-600 files. Direct qBittorrent inspection was unavailable because Radarr's
+configuration API masks its password. Completion is independently established
+by matching grab/import history and the actual imported file, without changing
+credentials or download settings.
 
 ## Privacy and operational limits
 
@@ -93,6 +167,9 @@ or needs_review actions retryable: keep those capabilities blocked/retired befor
 running a revision that does not understand their status. Preserve current state,
 never restore an older action snapshot over completed acquisitions.
 
-Remaining acceptance: apply the approved notifier adjustment, deployment health,
-genuine post-fix notifications and specific approval for a full add/grab with
-downstream/replay evidence. Preserve unrelated task docs.
+Remaining limits: optional local ratings/recognition are unavailable outside the
+catalog; conservative title/year/duplicate rules intentionally leave some real
+events unresolved. No broader identity heuristic or additional data provider was
+introduced. User visual/product review is separate from the successful technical
+test. PR #41 remains draft and unmerged; no merge was requested. The unrelated
+cleanup assignment in CODEX_TASK.md is preserved and was not executed.

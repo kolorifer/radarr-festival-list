@@ -317,7 +317,8 @@ the workflow documentation task.
 
 ## D021 — One Telegram stream for movie notifications
 
-- **Status/source:** Explicit user choice, 2026-10-18; configuration application pending.
+- **Status/source:** Explicit user choice, 2026-10-18; applied and read back on
+  2026-10-18. Temporary API keys revoked, including authentication cache.
 - **Decision:** Remove overlapping movie events (PUSH_REJECTED, PUSH_APPROVED,
   PUSH_ERROR) from autobrr's built-in Telegram notifier. The movie-intel webhook
   remains responsible for those events; retain built-in connection/update alerts.

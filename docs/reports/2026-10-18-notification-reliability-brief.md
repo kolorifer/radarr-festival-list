@@ -19,3 +19,7 @@ the user; unrelated cleanup and supervisor work are outside this task.
 Inspect repository main and deployment independently. Retain sanitized evidence,
 run focused and full tests, preflight, health and read-only checks, record limits.
 The unrelated existing CODEX_TASK.md cleanup assignment is preserved.
+
+Completed 2026-10-18: deployed dcae919, applied the explicitly approved notifier
+change and completed the specifically approved Boxtrolls exact-release download/
+import test. [Final evidence and limits](2026-10-18-notification-reliability.md).

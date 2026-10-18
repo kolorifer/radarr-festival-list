@@ -2,12 +2,22 @@
 
 ## Notification reliability — 2026-10-18
 
-Production diagnosis and narrow fixes are in progress; full product acceptance
-is pending. See [engineering evidence](reports/2026-10-18-notification-reliability.md)
+Implemented, deployed and technically verified end to end at runtime commit
+dcae919 (draft PR #41). Local/seedbox suites: 335 tests pass; CI passes on 3.12/3.13.
+Local/public health 200; active/running, NRestarts=0. Approved duplicate Telegram
+movie events removed; other notifications/settings preserved and temporary API
+keys revoked. User-approved The Boxtrolls (2014) exact HULU 2160p PiRaTeS release
+produced a Telegram photo/card/button, added with search disabled and downloaded/
+imported successfully (9,064,876,594 bytes, WEBDL-2160p). Exact original reference
+and grab/import identity matched; no search command observed; used-token GET/POST
+return 410. Nocturne ambiguity remains safe in a read-only replay with sending
+disabled. User presentation review is separate from technical completion.
+See [engineering evidence](reports/2026-10-18-notification-reliability.md)
 and [assigned brief](reports/2026-10-18-notification-reliability-brief.md).
 The existing unrelated cleanup assignment remains untouched.
 
-Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
+Subsystem verification above: 2026-10-18; other entries retain their own dates.
+Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
 ## Explicit operations-only publication — 2026-10-17 (local review)
