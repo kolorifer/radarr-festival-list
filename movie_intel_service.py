@@ -31,7 +31,8 @@ from radarr_client import (
     push_release,
     selection_context,
 )
-from tmdb_resolver import resolve_movie, resolution_reason
+from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
+from tracker_metadata import lookup_listing
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
 PORT = os.environ.get("MOVIE_INTEL_PORT", "40714")
@@ -139,7 +140,10 @@ def format_message(payload, movie=None, meta=None):
     rejections = result.get("rejections") or []
     category = rejection_class(rejections)
     release_name = release.get("name")
-    if movie is None:
+    identity_status = (meta or {}).get('identity_status')
+    if identity_status and identity_status != 'verified_tmdb':
+        movie = None
+    elif movie is None:
         movie = find_local(title, year, INDEX)
 
     canonical_title = (meta or {}).get("title") or title
@@ -160,6 +164,9 @@ def format_message(payload, movie=None, meta=None):
     lines = [heading, f"<b>{html.escape(str(canonical_title))}</b>" + (f" ({html.escape(str(canonical_year))})" if canonical_year else "")]
     if link_line:
         lines.append(link_line)
+
+    if identity_status == 'verified_tmdb' and meta.get('identity_year_basis') == 'release_dates':
+        lines.append('TMDb also records a release in ' + html.escape(str(meta['matched_release_year'])) + '.')
 
     ratings = []
     if movie:
@@ -185,7 +192,13 @@ def format_message(payload, movie=None, meta=None):
         if facts:
             lines.append(" · ".join(html.escape(x) for x in facts))
 
-    if movie:
+    if identity_status == 'needs_review':
+        lines += ['', 'ℹ️ Movie identity requires review: conflicting or invalid metadata. Approval unavailable.']
+    elif identity_status == 'imdb_associated':
+        lines += ['', 'ℹ️ Indexer IMDb association only; no verified TMDb mapping. Approval unavailable.']
+    elif identity_status == 'unresolved':
+        lines += ['', 'ℹ️ Movie identity could not be verified from source metadata. Approval unavailable.']
+    elif movie:
         recognition = []
         if movie.get("tspdt_rank"):
             recognition.append(f"TSPDT #{movie['tspdt_rank']}")
@@ -219,16 +232,53 @@ def build_movie_context(payload):
                 'meta': None, 'category': category}
     movie = find_local(title, year, INDEX)
     imdb_id = movie.get("imdb_id") if movie else None
+    external = False
     try:
-        meta = resolve_movie(title, year, imdb_id=imdb_id)
-        decision_log('identity', 'resolved' if meta else resolution_reason(), payload)
-    except Exception:
+        supplied_imdb = release.get('meta_imdb')
+        supplied_tmdb = release.get('meta_tmdb')
+        # Empty fields are omitted by autobrr; zero/bool/collections are invalid,
+        # not absence. external_id is a torrent identifier and is never consumed.
+        supplied_imdb = None if supplied_imdb in (None, '') else supplied_imdb
+        supplied_tmdb = None if supplied_tmdb in (None, '') else supplied_tmdb
+        source = 'autobrr_external_ids'
         meta = None
+        if supplied_imdb is None and supplied_tmdb is None:
+            listing = lookup_listing(release, data.get('indexer') or {})
+            decision_log('tracker_metadata', listing['reason'], payload)
+            if listing.get('imdb_id'):
+                supplied_imdb = listing['imdb_id']
+                source = listing['source']
+            elif listing['reason'] not in ('disabled', 'unsupported_indexer'):
+                external = True
+                meta = {'identity_status': 'unresolved', 'identity_reason': listing['reason'],
+                        'identity_source': listing['source']}
+        if supplied_imdb is not None or supplied_tmdb is not None:
+            external = True
+            if ((supplied_imdb is not None and not valid_imdb_id(supplied_imdb))
+                    or (supplied_tmdb is not None and not valid_tmdb_id(supplied_tmdb))):
+                meta = {'identity_status': 'needs_review', 'identity_reason': 'invalid_external_id'}
+            elif imdb_id and supplied_imdb and imdb_id != supplied_imdb:
+                meta = {'identity_status': 'needs_review', 'identity_reason': 'local_identity_conflict'}
+            else:
+                meta = resolve_external_movie(title, year, imdb_id=supplied_imdb or imdb_id,
+                                              tmdb_id=supplied_tmdb)
+            meta = dict(meta, identity_source=source)
+        elif not external:
+            meta = resolve_movie(title, year, imdb_id=imdb_id)
+        decision_log('identity', meta.get('identity_reason', 'resolved') if meta else resolution_reason(), payload)
+    except Exception:
+        meta = {'identity_status': 'unresolved', 'identity_reason': 'resolver_error'} if external else None
         decision_log('identity', 'resolver_error', payload)
-    if movie is None and meta and meta.get("imdb_id"):
+    blocked = meta and meta.get('identity_status') not in (None, 'verified_tmdb')
+    if blocked:
+        movie = None
+        # A conflicting assertion is not a movie link or canonical metadata.
+        if meta['identity_status'] == 'needs_review':
+            meta.pop('imdb_id', None)
+    elif movie is None and meta and meta.get("imdb_id"):
         movie = INDEX.get(meta["imdb_id"])
     text = format_message(payload, movie=movie, meta=meta)
-    decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta else 'unresolved', payload)
+    decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
@@ -256,7 +306,8 @@ def create_pending_action(payload, meta):
     if not radarr_configured():
         decision_log('action', 'radarr_unconfigured', payload)
         return None
-    if not meta or not meta.get("tmdb_id"):
+    if (not meta or not meta.get("tmdb_id")
+            or meta.get('identity_status') not in (None, 'verified_tmdb')):
         decision_log('action', 'identity_unresolved', payload)
         return None
     data = payload.get("data") or {}
@@ -291,6 +342,10 @@ def create_pending_action(payload, meta):
             "tmdb_id": meta.get("tmdb_id"),
             "imdb_id": meta.get("imdb_id"),
             "poster_url": meta.get("poster_url"),
+            "identity_status": meta.get('identity_status'),
+            "identity_source": meta.get('identity_source'),
+            "identity_year_basis": meta.get('identity_year_basis'),
+            "matched_release_year": meta.get('matched_release_year'),
         },
         "release": stored_release,
         "indexer": stored_indexer,

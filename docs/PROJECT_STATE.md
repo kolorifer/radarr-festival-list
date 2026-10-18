@@ -1,5 +1,29 @@
 # Movie List project state
 
+## Tracker metadata implementation — 2026-10-18, awaiting review
+
+The user's instruction to update implementation after the investigation is
+implemented on `feature/tracker-metadata-identity`. Native IMDb/TMDb fields now
+undergo ID-first movie/crosswalk/title/year validation; an optional, default-off
+TorrentLeech adapter reads the exact listing using dedicated private cookies.
+Explicit conflicts/unmapped IDs cannot fall back to title guesses or enable Grab.
+New caches are bounded, expiring and isolated from legacy title lookup; existing
+exact-release approval/attempt/replay guarantees remain intact.
+
+**Tested:** 373 local tests pass; scoring and diff checks pass. Fresh in-memory,
+read-only comparison verifies 9/15 previously unresolved identities, leaves four
+IMDb associations unmapped and two for review (Hamnet and performer-prefixed Not
+Not Jazz); Snowman control still resolves. One real Fragmentos listing validates
+the new parser. This is not a new notification/download end-to-end test.
+
+**Not merged/deployed/activated:** production freshly verified clean at
+`dcae919acbc87f1a33de84b7c6b628668b400b07`, active/running, NRestarts=0, loopback
+health200 and 1,909 catalog movies. Dedicated adapter session provisioning and
+activation remain pending. No production state/configuration or acquisition
+changes. The unrelated CODEX_TASK.md cleanup assignment remains untouched.
+[Implementation report](reports/2026-10-18-tracker-metadata-implementation.md) ·
+[Completed brief](reports/2026-10-18-tracker-metadata-implementation-brief.md).
+
 ## Tracker metadata investigation — 2026-10-18, proposal only
 
 Investigated current main a7c2e13 and deployed dcae919; no identity-resolution

@@ -77,6 +77,61 @@ connectivity. Outbound access is needed to `api.telegram.org`,
 `api.themoviedb.org`, and the actual Radarr host. Telegram fetches posters from
 `image.tmdb.org`; the browser also uses poster/public movie links.
 
+## Optional TorrentLeech metadata
+
+Native autobrr `meta_imdb`/`meta_tmdb` movie fields are validated automatically.
+The TorrentLeech IRC definition does not populate them. For that source only,
+`MOVIE_INTEL_TL_METADATA_ENABLED=1` enables a read-only exact-listing fallback
+when both fields are absent. It defaults to `0`; no ingestion or autobrr changes
+are needed. This setting does not disable native-ID validation.
+
+Before enabling, supply `MOVIE_INTEL_TL_COOKIE_FILE` as an absolute path to a
+dedicated private JSON object mapping cookie names to values. Keep it outside the
+checkout and web roots, in the private configuration directory, owned by the
+service user and mode 600. Symlinks and group/world access are rejected. Obtain
+appropriate session credentials through the normal account login; do not couple
+the service to Prowlarr's database or copy credentials into examples/reports.
+Preflight validates the file offline, not whether the session is still valid.
+
+The adapter accepts only the canonical HTTPS `www.torrentleech.org` listing
+path with a numeric torrent ID, no query/fragment/credentials/port. It requires
+TorrentLeech as indexer, verifies the exact retained release heading, and consumes
+one IMDb input field. It never requests a download URL. Redirects, login forms,
+multiple/conflicting IDs, changed markup and unavailable authentication fail
+closed; the notification remains readable, without approval.
+
+Operational bounds: one active listing fetch, at most one new request per second,
+1 MB decoded body, 3s connect/5s read timeout and a 10s streaming budget (a pending
+read can add up to 5s). A 429 pauses requests for at least 60s or the longer
+Retry-After duration. These are implementation ceilings, not a tracker account
+rate guarantee; check the account's applicable limits before enabling. There are
+no automatic retries or login attempts. Concurrent callers receive a safe busy
+outcome instead of waiting in an unbounded queue.
+
+Listing results and independently validated TMDb identities use separate bounded
+in-memory caches (256 entries each; success 15 minutes, failures 60 seconds).
+Listing keys include a digest of source URL, full release name and credentials;
+cookie rotation invalidates cached session failures. Identity keys include both
+IDs and exact title/year context; neither cache reads or writes the legacy title
+cache. Restarting clears these caches and rate backoff, so avoid repeated restarts
+during a provider rate limit. No private persistent cache migration is needed.
+
+The accepted source IMDb ID must map to exactly one TMDb movie and round-trip
+correctly. Supplied TMDb IDs and local identity must agree. Canonical, alternative
+or translated titles must match, and the announced year must appear in the primary
+date or TMDb release-date records. Title comparison folds Unicode case/punctuation
+and `&`/`and` only in this ID context; existing title-search rules are unchanged.
+No synopsis matching, performer-prefix stripping, year tolerance or hand-entered
+crosswalk is used. An unmapped tracker IMDb assertion is labeled an association,
+not independently verified IMDb metadata; it cannot enable Grab.
+
+Inspect fixed `tracker_metadata` and `identity` decision reasons for diagnostics;
+do not log response bodies, cookies, listing URLs or approval tokens. Turning the
+adapter off restores the existing no-ID fallback, while native IDs still undergo
+validation. A full rollback uses the previously verified runtime revision and
+preserves current action state, following the rollback instructions above. No
+historical notification replay or action backfill occurs on startup.
+
 ## Keep the service running
 
 If `systemctl --user` works, install the user service. It expects the paths above;

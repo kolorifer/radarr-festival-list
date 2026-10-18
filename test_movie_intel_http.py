@@ -23,6 +23,7 @@ from test_movie_intel_actions import PAYLOAD
 
 class HTTPFlowTests(unittest.TestCase):
     def setUp(self):
+        tmdb._ID_CACHE.clear()
         self.stack = contextlib.ExitStack()
         self.addCleanup(self.stack.close)
         directory = self.stack.enter_context(tempfile.TemporaryDirectory())
@@ -44,6 +45,10 @@ class HTTPFlowTests(unittest.TestCase):
                 path = urlsplit(self.path).path
                 if path == "/tmdb/search/movie":
                     self.respond({"results": [{"id": 329865, "title": "Arrival", "release_date": "2016-11-11"}]})
+                elif path == '/tmdb/find/tt2543164':
+                    self.respond({'movie_results': [{'id': 329865}]})
+                elif path == '/tmdb/find/tt33503751':
+                    self.respond({'movie_results': []})
                 elif path == "/tmdb/movie/329865":
                     self.respond({"id": 329865, "title": "Arrival", "release_date": "2016-11-11", "external_ids": {"imdb_id": "tt2543164"}})
                 elif path == "/radarr/api/v3/rootfolder":
@@ -146,6 +151,29 @@ class HTTPFlowTests(unittest.TestCase):
             self.assertNotIn("tracker.invalid", public)
             self.assertNotIn("w" * 32, public)
         self.assertEqual(actions.STORE_PATH.stat().st_mode & 0o777, 0o600)
+
+    def test_external_id_webhook_approval_still_pushes_exactly_once(self):
+        payload = copy.deepcopy(PAYLOAD)
+        payload['data']['release'].update(meta_imdb='tt2543164', meta_tmdb='329865')
+        path = self.webhook(payload)
+        self.assertEqual(self.added, [])
+        self.assertEqual(self.pushed, [])
+        self.assertEqual(self.approve(path)[0], 200)
+        self.assertFalse(self.added[0]['addOptions']['searchForMovie'])
+        self.assertEqual(self.pushed[0]['downloadUrl'], payload['data']['release']['download_url'])
+        self.assertEqual(self.approve(path)[0], 410)
+        self.assertEqual(len(self.pushed), 1)
+
+    def test_unmapped_id_webhook_has_no_button_or_acquisition(self):
+        payload = copy.deepcopy(PAYLOAD)
+        payload['data']['release'].update(title='Fragmentos', year=2025, meta_imdb='tt33503751')
+        status, body, _ = self.request('/webhook/' + 'w' * 32, json.dumps(payload).encode())
+        self.assertEqual(status, 200)
+        self.assertFalse(json.loads(body)['action'])
+        self.assertNotIn('reply_markup', self.messages[-1])
+        self.assertIn('Indexer IMDb association only', self.messages[-1]['text'])
+        self.assertEqual(self.added, [])
+        self.assertEqual(self.pushed, [])
 
     def test_concurrent_approvals_push_once(self):
         path = self.webhook()
