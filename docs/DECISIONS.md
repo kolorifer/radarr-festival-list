@@ -133,6 +133,11 @@ the workflow documentation task.
 - **Consequences:** Inspect before changing, back up replaced private settings,
   adapt installation paths, preserve feeds/scoring, and report rollback and
   deployment limits. A future change to this boundary needs an agreed brief.
+- **Authorized rollout, 2026-10-18:** The user explicitly requested merging PR
+  #42, deploying tested code, enabling TorrentLeech lookup with dedicated private
+  credentials, and health/matching verification without downloads. The
+  [deployment brief](reports/2026-10-18-tracker-metadata-deployment-brief.md) records
+  this scope; other services, scoring and unrelated cleanup remain unchanged.
 
 ## D011 — Compare audience weights without choosing production policy
 

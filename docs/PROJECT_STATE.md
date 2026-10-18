@@ -1,6 +1,6 @@
 # Movie List project state
 
-## Tracker metadata implementation — 2026-10-18, awaiting review
+## Tracker metadata — 2026-10-18, deployed and enabled
 
 The user's instruction to update implementation after the investigation is
 implemented on `feature/tracker-metadata-identity`. Native IMDb/TMDb fields now
@@ -10,17 +10,26 @@ Explicit conflicts/unmapped IDs cannot fall back to title guesses or enable Grab
 New caches are bounded, expiring and isolated from legacy title lookup; existing
 exact-release approval/attempt/replay guarantees remain intact.
 
-**Tested:** 373 local tests pass; scoring and diff checks pass. Fresh in-memory,
-read-only comparison verifies 9/15 previously unresolved identities, leaves four
-IMDb associations unmapped and two for review (Hamnet and performer-prefixed Not
-Not Jazz); Snowman control still resolves. One real Fragmentos listing validates
-the new parser. This is not a new notification/download end-to-end test.
+**Merged/deployed/enabled:** PR #42 merged as `cdb8761`. Full listing verification
+found a FREELEECH display badge causing five exact-heading mismatches; the narrow
+markup correction merged in PR #43 (`65a695c`). Production is pinned clean at the
+tested correction head **`a2049938b7c2cc77017de3920f1140c220108a5d`**. A fresh
+dedicated session is stored privately with mode600 and lookup is enabled in the
+running process; no runtime Prowlarr cookie dependency. Active/running,
+NRestarts=0, local/public health200, 1,909 catalog movies, read-only Radarr status OK.
 
-**Not merged/deployed/activated:** production freshly verified clean at
-`dcae919acbc87f1a33de84b7c6b628668b400b07`, active/running, NRestarts=0, loopback
-health200 and 1,909 catalog movies. Dedicated adapter session provisioning and
-activation remain pending. No production state/configuration or acquisition
-changes. The unrelated CODEX_TASK.md cleanup assignment remains untouched.
+**Tested:** 375 tests pass locally and on seedbox; CI passes on Python3.12/3.13;
+dependency/scoring/config checks pass. Full source-listing-to-TMDb comparison with
+deployed code and dedicated credentials passes all 16 expected outcomes: 9/15
+previous failures resolved, four unmapped IMDb associations, two review cases,
+plus resolved Snowman control. Private stores were unchanged during the final
+comparison. No deliberate notification replay, approval, search or download.
+
+Private backups were taken and unrelated settings preserved. Session expiry,
+unmapped/conflicting identities and HTML/rate/busy failures remain safe limits.
+The unrelated CODEX_TASK.md cleanup assignment remains untouched.
+[Deployment report](reports/2026-10-18-tracker-metadata-deployment.md) ·
+[Deployment brief](reports/2026-10-18-tracker-metadata-deployment-brief.md) ·
 [Implementation report](reports/2026-10-18-tracker-metadata-implementation.md) ·
 [Completed brief](reports/2026-10-18-tracker-metadata-implementation-brief.md).
 

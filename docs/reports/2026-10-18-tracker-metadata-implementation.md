@@ -1,5 +1,10 @@
 # Engineering report: tracker metadata movie identification
 
+**Subsequent deployment:** This report preserves the pre-deployment implementation
+evidence. See the [deployment report](2026-10-18-tracker-metadata-deployment.md)
+for merged PRs, the tested FREELEECH markup correction, dedicated credentials,
+final production revision and full-path read-only verification.
+
 **Specification:** [implementation brief](2026-10-18-tracker-metadata-implementation-brief.md),
 [investigation](2026-10-18-tracker-metadata-investigation.md), D005/D008/D009/D010.
 **Result:** Implemented for review; not merged, deployed or activated.
