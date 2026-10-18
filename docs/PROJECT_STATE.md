@@ -1,5 +1,14 @@
 # Movie List project state
 
+## Stage2 bounded research — 2026-10-18, implementation verification
+
+Issue51 authorizes a separate proposal-only worker and finite metadata pilot.
+Implementation and private frozen replay are complete; CI/seedbox/pilot gates are
+pending. No merge, automatic corrections, observer activation or recurring service.
+Production movie-intel30adc20 and collector3a20907 remain pinned unchanged.
+[Report](reports/2026-10-18-identity-research.md) ·
+[Brief](reports/2026-10-18-identity-research-brief.md).
+
 ## Landlock Stage1 follow-up — 2026-10-18, shadow deployment complete
 
 Issue49's focused feasibility and integration passes succeeded with a small stdlib

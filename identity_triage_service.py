@@ -110,10 +110,24 @@ class Server(ThreadingHTTPServer):
     def handle_error(self, request, client_address):
         print('triage request_failed', flush=True)
 
-    def storage_failed(self):
+    def storage_failed(self, error=None):
         with self.failure_lock:
             self.storage_failures += 1
-        print('triage storage_unavailable', flush=True)
+        print('triage storage_unavailable reason=' + storage_reason(error), flush=True)
+
+
+def storage_reason(error):
+    """Fixed reason codes only; no exception text, paths or payloads."""
+    import errno
+    if isinstance(error, sqlite3.Error):
+        primary = getattr(error, 'sqlite_errorcode', 0) & 255
+        return {sqlite3.SQLITE_BUSY:'sqlite_busy', sqlite3.SQLITE_LOCKED:'sqlite_locked',
+                sqlite3.SQLITE_FULL:'sqlite_full', sqlite3.SQLITE_IOERR:'sqlite_io',
+                sqlite3.SQLITE_READONLY:'sqlite_readonly'}.get(primary, 'sqlite_other')
+    if isinstance(error, OSError):
+        return {errno.EACCES:'permission', errno.EPERM:'permission', errno.ENOSPC:'disk_full',
+                errno.ENOENT:'path_missing'}.get(error.errno, 'os_other')
+    return 'validation' if isinstance(error, ValueError) else 'unknown'
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -179,8 +193,8 @@ class Handler(BaseHTTPRequestHandler):
             metrics = self.server.store.metrics()
             metrics['storage_failures_since_start'] = self.server.storage_failures
             self.reply(200, metrics if self.path == '/metrics' else None)
-        except (ValueError, OSError, sqlite3.Error):
-            self.server.storage_failed()
+        except (ValueError, OSError, sqlite3.Error) as exc:
+            self.server.storage_failed(exc)
             self.reply(503)
 
     def do_POST(self):
@@ -216,11 +230,11 @@ class Handler(BaseHTTPRequestHandler):
             try:
                 self.server.store.reject(channel)
                 self.reply(400)
-            except (ValueError, OSError, sqlite3.Error):
-                self.server.storage_failed()
+            except (ValueError, OSError, sqlite3.Error) as exc:
+                self.server.storage_failed(exc)
                 self.reply(503)
-        except (ValueError, OSError, sqlite3.Error):
-            self.server.storage_failed()
+        except (ValueError, OSError, sqlite3.Error) as exc:
+            self.server.storage_failed(exc)
             self.reply(503)
 
 
@@ -254,8 +268,8 @@ def main(argv=None):
                 while not stop.wait(60):
                     try:
                         print('triage metrics ' + json.dumps(store.metrics(), sort_keys=True), flush=True)
-                    except (ValueError, OSError, sqlite3.Error):
-                        server.storage_failed()
+                    except (ValueError, OSError, sqlite3.Error) as exc:
+                        server.storage_failed(exc)
             thread = threading.Thread(target=monitor, daemon=True, name='triage-health')
             thread.start()
             try:
