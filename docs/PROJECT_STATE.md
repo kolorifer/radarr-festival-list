@@ -1,6 +1,6 @@
 # Movie List project state
 
-## Reviewed identity corrections — 2026-10-18, implementation validation
+## Reviewed identity corrections — 2026-10-18, deployed and verified
 
 [Issue #45](https://github.com/kolorifer/radarr-festival-list/issues/45) authorizes
 only the reviewed Hamnet source-title/year repair and exact Not Not Jazz alias.
@@ -11,10 +11,19 @@ investigation queue are included. Runtime validation/deployment results are trac
 in the [report](reports/2026-10-18-reviewed-identity.md) and
 [brief](reports/2026-10-18-reviewed-identity-brief.md).
 
-Fresh starting production state: clean `a2049938b7c2cc77017de3920f1140c220108a5d`,
-active/running, NRestarts=0. Both exact live source associations remain unchanged
-and reproduce title conflicts before the repair. The unrelated cleanup task remains
-untouched. Final deployment results will supersede this starting-state record.
+**PR #46 merged** as `cba8d79cd889311d3e27715774c2888f78641d0d`. Production is
+pinned clean at tested **`30adc20b7d46bbe89bb14728d778d9d1142c57c6`**; its tree
+matches the merge. Both private bindings are enabled, mode600, with existing
+credentials/unrelated configuration preserved. Service active/running, NRestarts=0,
+local/public health200, 1,909 movies. Private action/cache state was unchanged.
+
+**Verified:** 391 tests pass locally and on seedbox; CI passes Python3.12/3.13;
+dependency/scoring/configuration preflight passes. Live deployed GET-only cohort:
+16/16 expected outcomes, 12 verified (including the two repairs and Snowman control),
+four unchanged unmapped associations; four additional negative/revocation checks
+pass. Only the two approved identities improved. No notification replay, test
+messages/tokens, Radarr access, additions, searches or downloads. The unrelated
+cleanup task remains untouched. Earlier deployment sections below are historical.
 
 ## Tracker metadata — 2026-10-18, deployed and enabled
 
