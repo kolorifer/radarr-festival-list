@@ -103,26 +103,29 @@ import. No live test button or action webhook was invoked.
 
 ## Actual intake and final verification
 
-Route activation:2026-10-18 17:57:38UTC (19:57:38 Warsaw). At18:03:32UTC,
-**live release_new deliveries:0**. No live rejected/quarantined/duplicate attempts
-were recorded either. This verifies deployment/configuration and reachable health,
-not a successful real publisher-to-receiver delivery. No synthetic POST was sent
-to the production collector to disguise this gap.
+Route activation:2026-10-18 17:57:38UTC (19:57:38 Warsaw). The first18:03:32UTC
+snapshot had no live events. By **18:06:17UTC (20:06:17 Warsaw),3 real movie
+release_new deliveries had arrived and committed**, with maximum measured lag
+0.0833 seconds. No live rejection, quarantine or duplicate was recorded. This is
+actual publisher-to-receiver evidence; no synthetic POST was sent to production.
 
 | Source | Actual production-store result |
 | --- | --- |
 | Four approved private seeds | 4 accepted,4 duplicates on repeat; all unresolved |
 | Bounded retained scan | 461 rows,450 accepted,4 quarantined,7 rejected/excluded; cursor461 |
 | Same retained scan repeated | 454 duplicate events,7 excluded again; no added evidence/cases |
-| Live release_new | 0 during the measured window |
+| Live release_new | 3 accepted real movie events; no quarantine/rejection/duplicates |
 | Current outcome observer | Off;0 deliveries |
 
-Final store:450 release fingerprints,454 evidence versions,345 provisional cases,
+Before live arrivals:450 release fingerprints,454 evidence versions,345 provisional cases,
 all unresolved,4 seed associations. The generic `observed_movie_deliveries=454`
 includes450 retained and4 seeds; it is not the live intake count. The seven
 excluded rows are counted again on repeat, so the rejected-attempt counter is14.
 Current retained data has four more accepted records than the earlier offline457-row
 sample; these are retained observations, not evidence of newly delivered webhooks.
+After the3 live arrivals:453 release fingerprints,457 evidence versions,346
+provisional unresolved cases;457 observed movie deliveries split into450 retained,
+4 seeds and3 live. Seed associations remain4.
 Private DB/WAL/SHM and backup are0600, containing directory0700; quick_check passes.
 No synthetic production rows or secret values in collector journal were found.
 
@@ -135,9 +138,15 @@ fail closed and are tested; an overlapping upstream delivery could be lost becau
 there is no durable sender retry. No such loss can be proved or excluded here.
 
 Final movie-intel local/public health200,1909 movies, active/running,NRestarts0;
-both reviewed bindings validate. Environment, bindings, action store and resolver
-cache hashes match the predeployment snapshot, and process PID/start time is
-unchanged. Collector active/running,NRestarts0,health200,installed hashes match.
+both reviewed bindings validate. Environment, bindings and resolver-cache hashes
+match the predeployment snapshot, and process PID/start time is unchanged. The
+action store matched through18:03, then normal existing movie-intel activity added
+one action (58→59): no old row changed or was removed, and no acquisition attempt
+was started. Its journal independently records action.created and2 photo_sent
+events from the unchanged production flow. These natural notifications were not
+test replays or collector sends; the collector is denied both action-store access
+and outbound sockets. Collector active/running,NRestarts0,health200,installed hashes
+match, and the storage-warning counter is stable at1 after import.
 No deliberate Telegram event, approval token, Radarr request, search or download.
 
 ## Limits and rollback

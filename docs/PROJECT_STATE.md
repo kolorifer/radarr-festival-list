@@ -15,15 +15,17 @@ The separately installed collector is active/healthy with actual child denial
 proofs. Only an authenticated loopback RELEASE_NEW route was added; all existing
 autobrr notifier/filter rows are unchanged. movie-intel checkout/process remains
 clean at30adc20b7d46bbe89bb14728d778d9d1142c57c6, never restarted, observer off.
-Local/public health200,1909 movies; both bindings and private action/cache/config
-hashes unchanged. No notification/approval/Radarr/download test was run.
+Local/public health200,1909 movies; both bindings and cache/config hashes unchanged.
+Normal existing movie-intel activity later added1 action (58→59), no old action
+changed and no acquisition started. No notification/approval/Radarr/download test.
 
 Actual production observation:4 unresolved seeds;461 retained rows →450 accepted,
 4 quarantined,7 excluded. Repeat454 duplicates, no new evidence/cases. Store450
-releases/454 evidence versions/345 provisional unresolved cases. **Live intake0**
-at18:03UTC; real publisher delivery has not yet been demonstrated. Coverage remains
+releases/454 evidence versions/345 provisional unresolved cases before live events.
+**3 real movie events accepted by18:06:17UTC**, max lag0.0833s; totals453 releases,
+457 evidence versions/346 unresolved cases. Real publisher delivery is verified. Coverage remains
 incomplete. One transient storage warning during import recovered; its counter is
-retained. Autobrr logging is disabled and no external alert worker was added.
+retained and stable at1. Autobrr logging is disabled and no external alert worker was added.
 [Report](reports/2026-10-18-landlock-shadow.md) and
 [brief](reports/2026-10-18-landlock-shadow-brief.md) supersede the isolation blocker
 below. Stage2 and further identity work require review; none has begun.
