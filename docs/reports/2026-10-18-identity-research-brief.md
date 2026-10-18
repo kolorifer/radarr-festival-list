@@ -1,4 +1,7 @@
-# Stage 2 bounded identity research — assigned brief
+# Stage 2 bounded identity research — completed brief
+
+Status: implemented, tested and finite pilot completed; owner review pending.
+[Engineering report](2026-10-18-identity-research.md).
 
 Owner authorization: [issue 51](https://github.com/kolorifer/radarr-festival-list/issues/51)
 and the user's 2026-10-18 instruction. Implement and test a separate proposal-only
