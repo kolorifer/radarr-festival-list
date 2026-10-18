@@ -15,9 +15,12 @@ issue #47. The supplied unit requires `PrivateUsers=yes`, `ProtectHome=tmpfs` an
 explicitly binds only collector code, config and state. It must fail closed on that
 host. Do not remove the restrictions to make it start.
 
-A provider-supported namespace boundary or separately isolated account/service is
-needed. Provider/root configuration, a replacement architecture, or weakening the
-no-action-access requirement are not assumed authorized by this implementation.
+A provider-supported namespace boundary, separately isolated service, or a reviewed
+alternative sandbox is needed. A read-only kernel query reports Landlock ABI6,
+but no Landlock policy/launcher or effective access-denial checks are implemented.
+Do not treat capability availability as a passing deployment gate. Provider/root
+configuration, a replacement architecture, or weakening the no-action-access
+requirement are not assumed authorized by this implementation.
 Do not change existing movie-intel/autobrr routing before this gate passes.
 
 ## Schema and limits
