@@ -34,6 +34,7 @@ from radarr_client import (
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
 from reviewed_identity import reviewed_context
+from identity_triage_observer import observe as observe_identity_outcome
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
 PORT = os.environ.get("MOVIE_INTEL_PORT", "40714")
@@ -766,6 +767,7 @@ class Handler(BaseHTTPRequestHandler):
 
             if is_movie_rejection:
                 context = build_movie_context(payload)
+                observe_identity_outcome(payload, context)
                 token = create_pending_action(payload, context.get("meta"))
                 action_url = public_action_url(self.headers, token) if token else None
                 if token and not action_url:

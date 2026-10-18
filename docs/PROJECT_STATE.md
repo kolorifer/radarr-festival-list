@@ -1,5 +1,38 @@
 # Movie List project state
 
+## Landlock Stage1 follow-up — 2026-10-18, release gates in progress
+
+Issue49's focused feasibility and integration passes succeeded with a small stdlib
+Landlock ABI6 boundary, inherited loopback listener and standard systemd syscall
+filter. Actual provider child denies protected file/directory, symlink, fd, proc,
+signal, metadata and new-socket access. It can commit SQLite WAL and answer HTTP;
+restart/dedup/disable and forced kernel/path failure checks pass. No provider/root
+change. Full local suite445 tests:444 pass,1 Linux-only skip; focused54 likewise.
+Dependency and frozen scoring checks pass. CI/seedbox gates and conditional rollout
+remain pending at this revision. Production is still the verified30adc20.
+[Report](reports/2026-10-18-landlock-shadow.md) and
+[brief](reports/2026-10-18-landlock-shadow-brief.md) supersede the isolation blocker
+below, but do not yet claim live capture. Outcome observer will remain off.
+
+## Identity investigation Stage 1 — earlier 2026-10-18, deployment blocked
+
+[Draft PR #48](https://github.com/kolorifer/radarr-festival-list/pull/48) implements
+issue #47 on an isolated branch (runtime a64b948): private durable inbox,
+strict release.new intake, versioned evidence/provisional cases, default-off outcome
+observer, four unresolved private seeds and bounded retained reconciliation. No
+Stage 2 work or additional identity repairs. [Report](reports/2026-10-18-identity-triage.md)
+and [brief](reports/2026-10-18-identity-triage-brief.md) distinguish tests from live capture.
+
+Provider isolation preflight failed: PrivateUsers denied; InaccessiblePaths alone
+was silently ignored. No collector/route installed and no production changes. Live
+intake is zero. Production remains clean, healthy at `30adc20` with both approved bindings.
+Private retained validation:457 rows,446 accepted, 4 quarantined, 7 excluded TV;
+repeat 450 duplicates without added evidence/cases; all 4 seeds unresolved. Deployment
+requires a supported isolation boundary and review of the blocked safety gate.
+Landlock ABI6 is available, but an alternative sandbox is not implemented/validated.
+Final runtime a64b948 passes435 local tests and435 on each CI Python3.12/3.13;
+44 focused Stage1 tests pass. No runtime changes follow that tested commit.
+
 ## Reviewed identity corrections — 2026-10-18, deployed and verified
 
 [Issue #45](https://github.com/kolorifer/radarr-festival-list/issues/45) authorizes

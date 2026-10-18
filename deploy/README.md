@@ -269,3 +269,12 @@ to guess defaults.
 
 Keep the existing public feeds independent from the qualification catalog. Stop the service with `systemctl --user stop movie-intel` if
 using the user unit. Back up the private state only to a private location.
+
+## Stage 1 identity observation (default off; separately confined)
+
+See [the separate collector runbook](IDENTITY_TRIAGE.md). Issue #47 permits only
+observational storage, conditional on effective isolation from credentials/action
+state. Issue #49 supplies a Landlock ABI6 boundary and socket activation after the
+provider's namespace approach failed. Activation requires actual child denial
+proofs and the runbook gates. Never weaken them to start the collector. The outcome
+observer can stay off; existing movie-intel may remain pinned at its verified code.
