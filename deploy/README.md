@@ -24,7 +24,10 @@ after a verified dry-run; it is not part of movie-intel startup.
 
 Rollback code/data by stopping movie-intel, checking out the recorded prior
 revision and starting movie-intel. Preserve current private action/cache state;
-this iteration changes no state schema. Recheck local/public health.
+the notification reliability update adds durable approval attempt status. Before
+rolling back to older code, privately retire/block every `executing` or
+`needs_review` capability so old code cannot retry an uncertain acquisition.
+Never restore an earlier action snapshot over current completed acquisitions. Recheck local/public health.
 Only restore private configuration if that configuration was actually changed.
 
 ## Install on the host
@@ -98,8 +101,8 @@ cd ~/radarr-festival-list
 ```
 
 For a temporary manual run, use a persistent SSH terminal session. This is not a
-verified reboot-survival strategy. Logs are limited to method/status and startup
-errors; do not enable payload or request-path logging in a supervisor/proxy.
+verified reboot-survival strategy. Logs contain method/status, startup errors and fixed decision codes with
+a release-name digest; do not enable payload or request-path logging in a supervisor/proxy.
 
 ## HTTPS route and autobrr
 
@@ -170,9 +173,13 @@ Radarr added the movie without a general search and processed the exact release.
 Reopening/resubmitting the used link must return 410. Inspect notification,
 browser, and proxy/service logs for private URL/key leakage without sharing their
 contents. A normal Radarr rejection leaves the action available to retry; verify
-the reason first. For a connection timeout after a push, inspect Radarr/download
-client history before retrying: a remote request can succeed even if its response
-is lost.
+the reason first. A persisted attempt with an uncertain remote outcome returns HTTP 409 and
+blocks further submissions, including after a restart. Inspect Radarr/download
+client history privately before any new attempt: a remote request can succeed
+even when its response is lost. Do not clear that marker merely to retry.
+Successful/expired capabilities return HTTP 410. Multiple root/profile choices
+require explicit selection; the confirmation page does not fetch the library
+to guess defaults.
 
 Keep the existing public feeds independent from the qualification catalog. Stop the service with `systemctl --user stop movie-intel` if
 using the user unit. Back up the private state only to a private location.

@@ -23,8 +23,10 @@ _LOCK = threading.Lock()
 def _load_unlocked():
     try:
         data = json.loads(STORE_PATH.read_text())
-        return data if isinstance(data, dict) else {}
-    except (OSError, json.JSONDecodeError):
+        if not isinstance(data, dict):
+            raise ValueError('Invalid private action store')
+        return data
+    except FileNotFoundError:
         return {}
 
 
@@ -35,7 +37,14 @@ def _save_unlocked(data):
     with os.fdopen(fd, "w", encoding="utf-8") as handle:
         os.fchmod(handle.fileno(), 0o600)
         json.dump(data, handle, ensure_ascii=False, indent=2, sort_keys=True)
+        handle.flush()
+        os.fsync(handle.fileno())
     os.replace(tmp, STORE_PATH)
+    directory_fd = os.open(STORE_PATH.parent, os.O_RDONLY)
+    try:
+        os.fsync(directory_fd)
+    finally:
+        os.close(directory_fd)
     try:
         os.chmod(STORE_PATH, 0o600)
     except OSError:
@@ -60,6 +69,14 @@ def create_action(action, ttl_seconds=None):
     with _LOCK:
         data = _load_unlocked()
         _prune_unlocked(data, now)
+        # Duplicate webhooks reuse the same capability and attempt state. A
+        # repeated notification cannot sidestep an uncertain acquisition.
+        release = action.get('release') or {}
+        if release.get('name'):
+            for existing_token, existing in data.items():
+                if (existing.get('movie', {}).get('tmdb_id') == action.get('movie', {}).get('tmdb_id')
+                        and existing.get('release') == release):
+                    return existing_token
         while token in data:
             token = secrets.token_urlsafe(24)
         data[token] = row

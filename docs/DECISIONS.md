@@ -314,3 +314,15 @@ the workflow documentation task.
   existing watched/unmonitored preservation regression passes. PR #10 merged;
   167 tests (16 new), CI and deployed health checks pass.
 - **Report:** [Aggregate implementation/deployment](reports/2026-10-14-watched-new-import.md).
+
+## D021 — One Telegram stream for movie notifications
+
+- **Status/source:** Explicit user choice, 2026-10-18; configuration application pending.
+- **Decision:** Remove overlapping movie events (PUSH_REJECTED, PUSH_APPROVED,
+  PUSH_ERROR) from autobrr's built-in Telegram notifier. The movie-intel webhook
+  remains responsible for those events; retain built-in connection/update alerts.
+- **Rationale:** Both notifiers target the same bot/chat and duplicate movie
+  messages make enrichment and approval-button behavior appear inconsistent.
+- **Boundary:** Preserve webhook credentials, destination, all unrelated event
+  settings, filters/actions and Radarr/list automation. No acquisition permission
+  is created by this notification routing change.

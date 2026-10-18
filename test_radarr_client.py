@@ -5,7 +5,7 @@ import radarr_client as rc
 
 
 class RadarrClientTests(unittest.TestCase):
-    def test_selection_context_infers_most_used_values(self):
+    def test_selection_context_requires_explicit_multiple_choices(self):
         roots = [{"id": 1, "path": "/movies"}, {"id": 2, "path": "/archive"}]
         profiles = [{"id": 10, "name": "HD"}, {"id": 20, "name": "4K"}]
         movies = [
@@ -15,10 +15,11 @@ class RadarrClientTests(unittest.TestCase):
         ]
         with patch.object(rc, "get_root_folders", return_value=roots), \
              patch.object(rc, "get_quality_profiles", return_value=profiles), \
-             patch.object(rc, "get_movies", return_value=movies):
+             patch.object(rc, "get_movies", side_effect=AssertionError("No full-library fetch")) as get_movies:
             ctx = rc.selection_context()
-        self.assertEqual(ctx["root_default"], "/movies")
-        self.assertEqual(ctx["profile_default"], 20)
+        self.assertIsNone(ctx["root_default"])
+        self.assertIsNone(ctx["profile_default"])
+        get_movies.assert_not_called()
 
     def test_ensure_movie_never_requests_search(self):
         added = {"id": 123, "tmdbId": 329865}

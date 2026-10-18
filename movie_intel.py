@@ -31,7 +31,7 @@ def rejection_class(rejections):
     text = " ".join(rejections or []).lower()
     if "unknown movie" in text:
         return "unknown_movie"
-    if "quality" in text:
+    if any(word in text for word in ("quality", "profile", "cutoff")):
         return "quality"
     if "upgrade" in text:
         return "not_upgrade"

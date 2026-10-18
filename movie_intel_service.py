@@ -7,7 +7,9 @@ URLs, or logs.
 """
 import argparse
 import html
+import hashlib
 import json
+import math
 import os
 import re
 import sys
@@ -22,13 +24,14 @@ from private_text import redact_text, sanitize
 from pending_actions import create_action, delete_action, get_action, update_action
 from radarr_client import (
     RadarrError,
+    ReleaseRejected,
     build_release_push,
     configured as radarr_configured,
     ensure_movie,
     push_release,
     selection_context,
 )
-from tmdb_resolver import resolve_movie
+from tmdb_resolver import resolve_movie, resolution_reason
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
 PORT = os.environ.get("MOVIE_INTEL_PORT", "40714")
@@ -46,8 +49,33 @@ ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
 ACTION_TOKEN_RE = re.compile(r"^[A-Za-z0-9_-]{20,128}$")
 
 
+def decision_log(stage, outcome, payload=None):
+    """Only fixed call-site codes and a correlation digest leave private state."""
+    row = {'stage': stage, 'outcome': outcome}
+    if isinstance(payload, dict):
+        release = (payload.get('data') or {}).get('release') or {}
+        row['release_digest'] = hashlib.sha256(str(release.get('name', '')).encode()).hexdigest()[:16]
+    print('decision ' + json.dumps(row, sort_keys=True), flush=True)
+
+
+def valid_movie_payload(payload):
+    if not isinstance(payload, dict) or payload.get('event') != 'action.rejected':
+        return False
+    data = payload.get('data')
+    if not isinstance(data, dict):
+        return False
+    release, result = data.get('release'), data.get('result')
+    if not isinstance(release, dict) or release.get('type') != 'movie' or not isinstance(result, dict):
+        return False
+    reasons = result.get('rejections', [])
+    return (isinstance(reasons, list) and all(isinstance(x, str) for x in reasons)
+            and isinstance(release.get('title'), str) and bool(release['title'].strip())
+            and re.fullmatch(r'\d{4}', str(release.get('year', ''))) is not None
+            and isinstance(data.get('indexer', {}), dict))
+
+
 def _fmt_count(value):
-    if not isinstance(value, (int, float)):
+    if type(value) not in (int, float) or not math.isfinite(value) or value < 0:
         return None
     if value >= 1_000_000:
         return f"{value / 1_000_000:.1f}m"
@@ -57,7 +85,7 @@ def _fmt_count(value):
 
 
 def _rating(obj):
-    if not obj:
+    if not isinstance(obj, dict):
         return None
     score = obj.get("rating") or obj.get("score") or obj.get("value")
     count = obj.get("votes") or obj.get("vote_count") or obj.get("ratings") or obj.get("rating_count")
@@ -98,7 +126,7 @@ def _append_rejection_details(lines, rejections, release_name):
             lines += ["", "<b>Radarr:</b>"]
             lines.extend("• " + html.escape(reason[:280]) for reason in clean[:3])
     if release_name:
-        lines.append("<b>Release:</b> " + html.escape(str(release_name)[:220]))
+        lines.append("<b>Release:</b> " + html.escape(str(release_name)))
 
 
 def format_message(payload, movie=None, meta=None):
@@ -121,7 +149,7 @@ def format_message(payload, movie=None, meta=None):
     if category in ROUTINE_RELEASE_REJECTIONS:
         lines = [
             "⏭️ <b>Radarr — Release Rejected</b>",
-            f"<b>{html.escape(str(canonical_title))}</b>" + (f" ({canonical_year})" if canonical_year else ""),
+            f"<b>{html.escape(str(canonical_title))}</b>" + (f" ({html.escape(str(canonical_year))})" if canonical_year else ""),
         ]
         if link_line:
             lines.append(link_line)
@@ -129,7 +157,7 @@ def format_message(payload, movie=None, meta=None):
         return "\n".join(lines)
 
     heading = "❌ <b>Radarr — Unknown Movie</b>" if category == "unknown_movie" else "❌ <b>Radarr — Rejected</b>"
-    lines = [heading, f"<b>{html.escape(str(canonical_title))}</b>" + (f" ({canonical_year})" if canonical_year else "")]
+    lines = [heading, f"<b>{html.escape(str(canonical_title))}</b>" + (f" ({html.escape(str(canonical_year))})" if canonical_year else "")]
     if link_line:
         lines.append(link_line)
 
@@ -170,8 +198,10 @@ def format_message(payload, movie=None, meta=None):
             lines += ["", "⚠️ <b>POTENTIAL FALSE NEGATIVE</b>", "Our model: QUALIFIES — " + html.escape(routes)]
         else:
             lines += ["", "Our model: does not currently qualify"]
+    elif meta:
+        lines += ["", "ℹ️ Identified; not in the local Movie List catalog. Ratings and recognition unavailable locally."]
     else:
-        lines += ["", "ℹ️ Outside or unresolved in the current local intelligence universe."]
+        lines += ["", "ℹ️ Movie identity could not be safely resolved. Approval unavailable."]
 
     _append_rejection_details(lines, rejections, release_name)
     return "\n".join(lines)
@@ -182,12 +212,23 @@ def build_movie_context(payload):
     release = data.get("release") or {}
     title = release.get("title") or release.get("name") or "Unknown movie"
     year = release.get("year")
+    category = rejection_class(((data.get('result') or {}).get('rejections') or []))
+    if category in ROUTINE_RELEASE_REJECTIONS:
+        decision_log('identity', 'skipped_routine', payload)
+        return {'text': format_message(payload), 'poster_url': None, 'movie': None,
+                'meta': None, 'category': category}
     movie = find_local(title, year, INDEX)
     imdb_id = movie.get("imdb_id") if movie else None
-    meta = resolve_movie(title, year, imdb_id=imdb_id)
+    try:
+        meta = resolve_movie(title, year, imdb_id=imdb_id)
+        decision_log('identity', 'resolved' if meta else resolution_reason(), payload)
+    except Exception:
+        meta = None
+        decision_log('identity', 'resolver_error', payload)
     if movie is None and meta and meta.get("imdb_id"):
         movie = INDEX.get(meta["imdb_id"])
     text = format_message(payload, movie=movie, meta=meta)
+    decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta else 'unresolved', payload)
     return {
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
@@ -212,20 +253,27 @@ def _pick(obj, *keys):
 
 def create_pending_action(payload, meta):
     """Persist only what is needed to add the movie and re-push this release."""
-    if not radarr_configured() or not meta or not meta.get("tmdb_id"):
+    if not radarr_configured():
+        decision_log('action', 'radarr_unconfigured', payload)
+        return None
+    if not meta or not meta.get("tmdb_id"):
+        decision_log('action', 'identity_unresolved', payload)
         return None
     data = payload.get("data") or {}
     result = data.get("result") or {}
     if rejection_class(result.get("rejections") or []) != "unknown_movie":
+        decision_log('action', 'not_unknown_movie', payload)
         return None
     release = data.get("release") or {}
     if not _pick(release, "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url"):
+        decision_log('action', 'missing_reference', payload)
         return None
     indexer = data.get("indexer") or {}
     try:
         build_release_push(release, indexer=indexer, event_timestamp=payload.get("timestamp"), tmdb_id=meta["tmdb_id"])
     except (RadarrError, TypeError, ValueError):
         # Do not offer an action that would create a movie but cannot re-push.
+        decision_log('action', 'invalid_release', payload)
         return None
 
     release_keys = (
@@ -248,7 +296,13 @@ def create_pending_action(payload, meta):
         "indexer": stored_indexer,
         "event_timestamp": payload.get("timestamp"),
     }
-    return create_action(action)
+    try:
+        token = create_action(action)
+    except (OSError, ValueError):
+        decision_log('action', 'store_failed', payload)
+        return None
+    decision_log('action', 'created', payload)
+    return token
 
 
 def _sanitize(value):
@@ -342,13 +396,39 @@ def send_telegram(text, parse_mode="HTML", action_url=None):
 
 def send_movie_notification(text, poster_url=None, action_url=None):
     # Telegram photo captions are limited to 1024 characters after parsing.
-    if poster_url and len(text) <= 950:
+    units = lambda value: len(value.encode('utf-16-le')) // 2
+    if poster_url and units(text) <= 950:
         try:
-            return _telegram_request("sendPhoto", _telegram_photo_payload(poster_url, text, action_url=action_url))
+            status = _telegram_request("sendPhoto", _telegram_photo_payload(poster_url, text, action_url=action_url))
+            decision_log('telegram', 'photo_sent')
+            return status
         except Exception:
             # Metadata/image delivery must never suppress the actual notification.
-            pass
-    return send_telegram(text, parse_mode="HTML", action_url=action_url)
+            decision_log('telegram', 'photo_failed_text_fallback')
+    # Split on complete rendered lines to preserve HTML entities/tags. Oversized
+    # individual lines are sent as plain text, never sliced through markup.
+    chunks, chunk = [], ''
+    for line in text.splitlines(keepends=True):
+        if units(chunk) + units(line) > 3800 and chunk:
+            chunks.append((chunk, 'HTML'))
+            chunk = ''
+        if units(line) > 3800:
+            plain = html.unescape(re.sub(r'<[^>]+>', '', line))
+            chunks.extend((plain[i:i+1900], None) for i in range(0, len(plain), 1900))
+        else:
+            chunk += line
+    if chunk:
+        chunks.append((chunk, 'HTML'))
+    for index, (part, mode) in enumerate(chunks):
+        status = send_telegram(part, parse_mode=mode, action_url=action_url if index == len(chunks)-1 else None)
+    decision_log('telegram', 'text_sent')
+    if poster_url and units(text) > 950:
+        try:
+            _telegram_request('sendPhoto', _telegram_photo_payload(poster_url, 'Movie poster'))
+            decision_log('telegram', 'supplemental_photo_sent')
+        except Exception:
+            decision_log('telegram', 'supplemental_photo_failed')
+    return status
 
 
 def public_action_url(headers, token):
@@ -382,6 +462,8 @@ def render_confirmation(action, context):
     poster_html = f'<img src="{html.escape(str(poster), quote=True)}" alt="poster">' if poster else ""
 
     root_options = []
+    if context.get('root_default') is None:
+        root_options.append('<option value="" selected disabled>Select a root folder</option>')
     for row in context["roots"]:
         path = row.get("path")
         if not path:
@@ -391,6 +473,8 @@ def render_confirmation(action, context):
         root_options.append(f'<option value="{esc}"{selected}>{html.escape(str(path))}</option>')
 
     profile_options = []
+    if context.get('profile_default') is None:
+        profile_options.append('<option value="" selected disabled>Select a quality profile</option>')
     for row in context["profiles"]:
         if row.get("id") is None:
             continue
@@ -428,6 +512,14 @@ def render_result(action, success, message):
     return _page("Radarr action", body)
 
 
+def uncertain_action(action):
+    return action.get('status') in ('executing', 'needs_review')
+
+
+REVIEW_MESSAGE = ('The previous attempt may have reached Radarr. Further submissions are blocked. '
+                  'Inspect Radarr and downloader history before any new acquisition attempt.')
+
+
 class Handler(BaseHTTPRequestHandler):
     def _json(self, status, obj):
         raw = json.dumps(obj).encode()
@@ -463,9 +555,17 @@ class Handler(BaseHTTPRequestHandler):
 
         token = self._action_token()
         if token:
-            action = get_action(token)
+            try:
+                action = get_action(token)
+            except (OSError, ValueError):
+                self._html(503, _page('Unavailable', '<h2>Private action storage is unavailable</h2>'))
+                decision_log('approval', 'store_unavailable')
+                return
             if not action:
                 self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
+                return
+            if uncertain_action(action):
+                self._html(409, render_result(action, False, REVIEW_MESSAGE))
                 return
             try:
                 context = selection_context()
@@ -481,10 +581,20 @@ class Handler(BaseHTTPRequestHandler):
             self._handle_action_post_locked(token)
 
     def _handle_action_post_locked(self, token):
-        action = get_action(token)
+        try:
+            action = get_action(token)
+        except (OSError, ValueError):
+            self._html(503, _page('Unavailable', '<h2>Private action storage is unavailable</h2>'))
+            decision_log('approval', 'store_unavailable')
+            return
         if not action:
             self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
             return
+        if uncertain_action(action):
+            decision_log('approval', 'blocked_uncertain_attempt')
+            self._html(409, render_result(action, False, REVIEW_MESSAGE))
+            return
+        attempted = False
         try:
             length = int(self.headers.get("Content-Length", "0"))
             if length <= 0 or length > 16_384:
@@ -505,13 +615,23 @@ class Handler(BaseHTTPRequestHandler):
             if not tmdb_id:
                 raise RadarrError("TMDb ID is unavailable for this movie")
 
+            # Revalidate before adding; malformed legacy state must not create a
+            # movie that cannot be pushed. Persist before the first remote write.
+            build_release_push(action.get('release') or {}, indexer=action.get('indexer') or {},
+                               event_timestamp=action.get('event_timestamp'), tmdb_id=tmdb_id)
+            if not update_action(token, status='executing'):
+                raise RadarrError('Could not persist the approval attempt')
+            attempted = True
+            decision_log('approval', 'started_search_disabled')
+
             movie, created = ensure_movie(
                 tmdb_id,
                 profile_id,
                 root_folder,
                 title=movie_info.get("title"),
             )
-            update_action(token, movie_id=movie.get("id"), movie_created=created)
+            if not update_action(token, movie_id=movie.get("id"), movie_created=created):
+                raise RadarrError('Could not persist the movie result; inspect Radarr history')
             push_release(
                 action.get("release") or {},
                 indexer=action.get("indexer") or {},
@@ -519,13 +639,26 @@ class Handler(BaseHTTPRequestHandler):
                 tmdb_id=tmdb_id,
             )
             delete_action(token)
+            decision_log('approval', 'exact_release_approved')
             message = "Movie is available in Radarr and the exact announced release was re-pushed. No indexer search was run."
             self._html(200, render_result(action, True, message))
         except (ValueError, UnicodeDecodeError):
             self._html(400, render_result(action, False, "Invalid confirmation form"))
-        except RadarrError as exc:
-            update_action(token, last_error=str(exc)[:500])
+        except ReleaseRejected as exc:
+            update_action(token, status='pending', last_error=redact_text(exc)[:500])
+            decision_log('approval', 'release_rejected')
             self._html(502, render_result(action, False, str(exc)))
+        except (RadarrError, OSError) as exc:
+            if attempted:
+                # The persisted executing marker itself blocks retries even if
+                # this update fails or the process dies after a remote success.
+                try:
+                    update_action(token, status='needs_review')
+                except OSError:
+                    pass
+            decision_log('approval', 'needs_review' if attempted else 'preflight_failed')
+            message = REVIEW_MESSAGE if attempted else 'Radarr or private action storage is unavailable; no acquisition attempted.'
+            self._html(502, render_result(action, False, message))
 
     def do_POST(self):
         token = self._action_token()
@@ -557,12 +690,7 @@ class Handler(BaseHTTPRequestHandler):
 
             data = payload.get("data") if isinstance(payload, dict) else None
             release = (data or {}).get("release") if isinstance(data, dict) else None
-            is_movie_rejection = (
-                isinstance(payload, dict)
-                and payload.get("event") == "action.rejected"
-                and isinstance(release, dict)
-                and release.get("type") == "movie"
-            )
+            is_movie_rejection = valid_movie_payload(payload)
 
             if is_movie_rejection:
                 context = build_movie_context(payload)
@@ -571,6 +699,7 @@ class Handler(BaseHTTPRequestHandler):
                 if token and not action_url:
                     delete_action(token)
                     token = None
+                    decision_log('action', 'public_origin_unconfigured', payload)
                 send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
                 self._json(200, {
                     "ok": True,
@@ -579,10 +708,12 @@ class Handler(BaseHTTPRequestHandler):
                     "action": bool(action_url),
                 })
             else:
+                decision_log('payload', 'passthrough')
                 send_telegram(passthrough_message(payload), parse_mode=None)
                 self._json(200, {"ok": True, "mode": "passthrough"})
         except Exception as exc:
             # Never log payloads or request paths: both can contain secrets.
+            decision_log('notification', 'failed')
             self._json(500, {"ok": False, "error": type(exc).__name__})
 
     def log_message(self, fmt, *args):

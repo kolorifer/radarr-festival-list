@@ -1,5 +1,12 @@
 # Movie List project state
 
+## Notification reliability — 2026-10-18
+
+Production diagnosis and narrow fixes are in progress; full product acceptance
+is pending. See [engineering evidence](reports/2026-10-18-notification-reliability.md)
+and [assigned brief](reports/2026-10-18-notification-reliability-brief.md).
+The existing unrelated cleanup assignment remains untouched.
+
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
