@@ -48,15 +48,19 @@ def investigate(lease,provider):
         for movie_id in unique[:3]:
             data=get('details',movie_id)
             if data:
-                conflicts=list(f['contradictions'])
+                conflicts=[];support_gaps=[]
                 if f['imdb'] and data['imdb'] and data['imdb']!=f['imdb']:conflicts.append('identifier_conflict')
                 if not data['imdb'] and f['imdb']:conflicts.append('missing_crosswalk')
                 names={normalized(x) for x in [data['title'],data['original_title']]+data['aliases']+data['translations'] if x}
-                if not names.intersection(normalized(x) for x in f['variants']):conflicts.append('title_conflict')
-                if not data['date'] or data['date'][:4]!=str(f['year']):conflicts.append('year_conflict')
-                if f['director'] and normalized(f['director']) not in {normalized(x) for x in data['directors']}:conflicts.append('director_conflict')
-                if f['runtime'] and data['runtime'] and f['runtime']!=data['runtime']:conflicts.append('runtime_conflict')
+                if normalized(f['title']) not in names:conflicts.append('title_conflict')
+                if not data['date']:support_gaps.append('release_date_missing')
+                elif data['date'][:4]!=str(f['year']):conflicts.append('year_conflict')
+                if f['director'] and not data['directors']:support_gaps.append('director_missing')
+                elif f['director'] and normalized(f['director']) not in {normalized(x) for x in data['directors']}:conflicts.append('director_conflict')
+                if f['runtime'] and not data['runtime']:support_gaps.append('runtime_missing')
+                elif f['runtime'] and f['runtime']!=data['runtime']:conflicts.append('runtime_conflict')
                 candidates.append({'record':data,'contradictions':sorted(set(conflicts)),
+                                   'source_contradictions':list(f['contradictions']),'support_gaps':support_gaps,
                                    'confidence':'review_required',
                                    'explanation':'Exact IDs and context are evidence; historical claims and conflicts remain unapproved.'})
         reason='identifier_conflict' if len(found)>1 or any('identifier_conflict' in x['contradictions'] for x in candidates) else 'candidate_review' if candidates else 'tv_only' if tv else 'missing_crosswalk' if missing else 'no_supported_candidate'

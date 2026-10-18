@@ -240,7 +240,8 @@ class InvestigationTests(Base):
         p,t=self.provider(run,[Response({'movie_results':[]}),Response({'page':1,'results':[]}),Response({'page':1,'results':[]}),Response(movie(date='2024-01-01'))])
         result=investigate(lease,p);self.store.finish(lease,result)
         self.assertEqual(result['reason'],'candidate_review');self.assertTrue(result['missing_crosswalk']);self.assertFalse(result['runtime_correction'])
-        self.assertEqual(set(result['candidates'][0]['contradictions']),{'missing_crosswalk','year_conflict','director_conflict','runtime_conflict'})
+        self.assertEqual(set(result['candidates'][0]['contradictions']),{'missing_crosswalk','year_conflict','runtime_conflict'})
+        self.assertEqual(result['candidates'][0]['support_gaps'],['director_missing'])
         self.assertEqual(self.sql('select status from proposals'),[('needs_review',)])
         self.assertEqual(self.sql('select status from jobs'),[('awaiting_evidence',)])
 
@@ -383,3 +384,24 @@ class AdditionalGates(Base):
         self.assertEqual(self.store.summary()['requests_reserved'],2)
         self.store.close_pilot()
         with self.assertRaises(Stop):p.get(lease,'details',123)
+
+
+class EvidenceDistinctions(Base):
+    def test_source_flags_and_missing_context_are_not_new_contradictions(self):
+        item=case();item['historical_candidates']=[123]
+        item['facts'].update(director='Expected',runtime=100,contradictions=['missing_crosswalk','runtime_conflict'])
+        run,lease=self.ready(item);data=movie(date='',imdb='tt1234567');data['runtime']=0
+        p,t=self.provider(run,[Response({'movie_results':[movie()]}),Response(data)])
+        r=investigate(lease,p);c=r['candidates'][0]
+        self.assertEqual(c['contradictions'],[])
+        self.assertEqual(set(c['support_gaps']),{'director_missing','runtime_missing','release_date_missing'})
+        self.assertEqual(c['source_contradictions'],['missing_crosswalk','runtime_conflict'])
+        self.assertFalse(r['runtime_correction'])
+
+    def test_different_director_is_actual_conflict_and_alias_does_not_erase_source_title(self):
+        item=case();item['facts'].update(title='Original Source Title',director='Expected')
+        run,lease=self.ready(item);data=movie(imdb='tt1234567');data['credits']['crew']=[{'job':'Director','name':'Different'}]
+        p,t=self.provider(run,[Response({'movie_results':[movie()]}),Response(data)])
+        candidate=investigate(lease,p)['candidates'][0]
+        self.assertEqual(set(candidate['contradictions']),{'director_conflict','title_conflict'})
+        self.assertEqual(candidate['support_gaps'],[])
