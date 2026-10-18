@@ -1,5 +1,28 @@
 # Movie List project state
 
+## Stage2 bounded research — 2026-10-18, finite pilot complete
+
+[PR52](https://github.com/kolorifer/radarr-festival-list/pull/52) is ready for review,
+unmerged. Tested final code2de1ba8 is installed separately **disabled**; the finite
+live pilot ran at efcad3f:4 known unresolved seeds,19 successful TMDb GETs,4 private
+review results,zero retries/corrections/acquisitions. Final comparison refinement
+replayed those responses offline, with no additional GETs. Worker credential
+removed, pilot ledger closed, no scheduler.2 promising proposals (Fragmentos and
+Steve Howe),Syd Barrett target unresolved,Rainbow edition still contradictory.
+Three additional chronological examples were already verified and excluded;
+no further genuinely unresolved cohort demonstrated. Manual manifest admission,
+off/lossy outcome hook and incomplete upstream delivery remain limits.
+
+481 tests pass on seedbox and CI3.12/3.13; local479 pass/2 Linux-only skips.
+Dependency/scoring/config and actual installed Landlock/libseccomp denial gates
+pass. movie-intel30adc20 and collector3a20907 remain clean/pinned, healthy and
+unrestarted; observer OFF. At18:43UTC,8 live intake movies accepted,storage-warning
+count remains1. Cause of the historical warning unknown; fixed reason diagnostics
+are in the PR but not deployed to the collector. Runtime corrections, recurring
+traffic and Stage3 review/digest require separate approval.
+[Report](reports/2026-10-18-identity-research.md) ·
+[Brief](reports/2026-10-18-identity-research-brief.md).
+
 ## Landlock Stage1 follow-up — 2026-10-18, shadow deployment complete
 
 Issue49's focused feasibility and integration passes succeeded with a small stdlib
