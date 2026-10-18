@@ -5,23 +5,38 @@ notification, fetch a provider, or acquire a release. All cases remain unresolve
 even a recorded `verified_tmdb` outcome is a report of existing behavior, not an
 accepted triage decision. Stage 2 requires separate review.
 
-## Current deployment gate
+## Isolation and deployment gate
 
-**Do not activate on the currently inspected seedbox.** On 2026-10-18 its user
-manager denied user namespaces (`217/USER`). With `PrivateUsers` omitted it silently
-ignored `InaccessiblePaths`, and a temporary probe could still access the approval
-store directory. A process running as the same unrestricted Unix user does not meet
-issue #47. The supplied unit requires `PrivateUsers=yes`, `ProtectHome=tmpfs` and
-explicitly binds only collector code, config and state. It must fail closed on that
-host. Do not remove the restrictions to make it start.
+Issue #49 replaces the failed user-namespace approach with Linux x86-64 Landlock
+ABI6 plus the provider's effective systemd syscall filter. No root/provider changes,
+helper daemon, hand-written seccomp program or new dependency. The separate socket
+unit binds only `127.0.0.1:40715`; the collector inherits that listening FD3. The
+service cannot create sockets or connect, including UDP and pathname Unix sockets.
 
-A provider-supported namespace boundary, separately isolated service, or a reviewed
-alternative sandbox is needed. A read-only kernel query reports Landlock ABI6,
-but no Landlock policy/launcher or effective access-denial checks are implemented.
-Do not treat capability availability as a passing deployment gate. Provider/root
-configuration, a replacement architecture, or weakening the no-action-access
-requirement are not assumed authorized by this implementation.
-Do not change existing movie-intel/autobrr routing before this gate passes.
+`identity_triage_sandbox.confine` runs before reading configuration, creating the
+store or serving requests. It verifies the fixed private layout, clean stdio and
+listener, closes every descriptor above3, sets no_new_privs and installs a
+deny-by-default policy. Reads are limited to collector code/config, the exact
+system Python standard library and architecture library directory; writes only to
+collector state (regular files, WAL/SHM, truncate/remove). No execute, cross-tree
+rename, device/socket creation, `/proc` or unrelated home access is granted.
+ABI6 also scopes signals and abstract Unix IPC; new TCP bind/connect is denied.
+
+Landlock does not cover chmod/chown/xattr/time changes or all socket operations.
+The unit explicitly denies those metadata syscalls, socket/socketpair/connect,
+ptrace/process_vm/pidfd_getfd and io_uring, with native ABI and no_new_privs.
+Startup actively requires protected-directory, `/proc`, new-socket and same-mode
+chmod denials. A missing kernel right, path, listener or effective complementary
+filter fails startup. A plain Python invocation cannot start an unconfined receiver.
+Do not remove probes or broaden roots to make it start. Linux/Python layout changes
+require revalidation. Landlock does not hide stat metadata and this is not isolation
+from a malicious host administrator or other unconstrained same-user process.
+
+The actual user-service child passed read/write/list, symlink, inherited-FD,
+process `/proc`, signal and socket denials on the provider, while SQLite and inbound
+HTTP worked. Kernel-refusal and changed-root failures produced no success ACK and
+no DB changes. Repeat these gates for the installed revision before routing.
+See [issue #49 report](../docs/reports/2026-10-18-landlock-shadow.md).
 
 ## Schema and limits
 
@@ -67,7 +82,7 @@ no automatic pruning. Disk capacity must be monitored. Retained reconciliation i
 at most 500 rows per explicit invocation, with an explicit ID cursor. No background
 provider/reconciliation worker or durable publisher outbox exists.
 
-## Configuration and staged installation (blocked until isolation works)
+## Configuration and staged installation
 
 Generate two different random URL-safe secrets directly into a private JSON file
 (never print them). No existing credentials or sessions need to be rotated.
@@ -94,16 +109,18 @@ Do not point either new route at movie-intel's Telegram-forwarding webhook.
    dependency/scoring/leak checks. Review and pin the exact code revision.
 2. Create mode700 collector code/config/state directories. Copy only
    `identity_triage_service.py`, `identity_triage_intake.py`,
-   `identity_triage_store.py` to `~/.local/lib/movie-identity-triage`. Use stdlib
+   `identity_triage_store.py`, `identity_triage_sandbox.py` to `~/.local/lib/movie-identity-triage`. Use stdlib
    `/usr/bin/python3`3.12/3.13; no movie-intel env/venv/config inheritance. Record
-   source SHA and file hashes privately. Install `identity-triage.service` only
-   after confirming its sandbox can start. Verify the service mount namespace
+   source SHA and file hashes privately. Install both `identity-triage.service` and
+   `identity-triage.socket` after confirming the boundary works. Verify the child
    cannot open movie-intel credentials, approval/cache/backups, `.apps`, `.ssh` or
    the production checkout. Verify `/proc/<pid>/environ` has only the explicit safe
    environment. The application also refuses readable protected directories or
-   inherited acquisition/provider variables; this supplements the unit, not replaces it.
+   inherited acquisition/provider variables. Enable/start the socket unit, not an
+   unrestricted alternate launcher. No mount-namespace claim is made.
 3. Before routing, enable config and run `--check-config` **inside that exact
-   service sandbox**, then start and verify authenticated `/health` and `/metrics`.
+   service sandbox** (temporary service ExecStart suffix), restore normal ExecStart,
+   then start and verify authenticated `/health` and `/metrics`.
    An unsandboxed shell preflight is expected to fail. Do not substitute a passing
    synthetic HTTP test for this check. The collector imports no sender/acquisition
    modules and opens no outbound connections.
@@ -189,7 +206,9 @@ for recovery/HTTP tests. Never replay production notifications into movie-intel.
 
 Disable: first disable/remove only the dedicated RELEASE_NEW route through normal
 administration, set collector `enabled=false`, disable the observer flag, stop the
-collector. Preserve the original notifier snapshot for comparison. Roll back the
+socket and service (`systemctl --user disable --now identity-triage.socket` followed
+by `systemctl --user stop identity-triage.service`). Stopping the service alone lets
+the socket reactivate it. Preserve the original notifier snapshot for comparison. Roll back the
 movie-intel code/observer config with its existing stop/checkout/start procedure;
 retain current action state and reviewed bindings. Keep the observational DB private.
 Schema v1 has no downgrade; restore a triage backup only with collector stopped and

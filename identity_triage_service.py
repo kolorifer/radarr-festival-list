@@ -7,9 +7,15 @@ import os
 from pathlib import Path
 import re
 import socket
+import sys
 import sqlite3
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from socketserver import BaseServer
+
+# -I ignores user/site configuration; explicitly load only sibling collector code.
+if __name__ == '__main__':
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from identity_triage_intake import MAX_BODY, Reject, decode, normalize
 from identity_triage_store import Store, private_path
@@ -46,7 +52,7 @@ def isolation_check(home=None):
             fd = os.open(home / relative, os.O_RDONLY | os.O_DIRECTORY)
         except OSError as exc:
             if exc.errno in (errno.EACCES, errno.ENOENT):
-                continue  # ProtectHome=tmpfs hides unrelated home paths altogether.
+                continue  # Missing paths are harmless; Landlock denies all ungranted paths.
             raise ValueError('isolation') from None
         else:
             os.close(fd)
@@ -60,14 +66,21 @@ class Server(ThreadingHTTPServer):
     daemon_threads = True
     request_queue_size = 8
 
-    def __init__(self, address, config_path, store):
+    def __init__(self, address, config_path, store, listener=None):
         if address[0] != '127.0.0.1':
             raise ValueError('loopback_only')
         self.config_path, self.store = config_path, store
         self.slots = threading.BoundedSemaphore(8)
         self.failure_lock = threading.Lock()
         self.storage_failures = 0  # volatile: cannot claim durable disk-failure counters
-        super().__init__(address, Handler)
+        if listener is None:
+            super().__init__(address, Handler)  # isolated in-process test fixtures
+        else:
+            if listener.getsockname() != address:
+                raise ValueError('listener_address')
+            BaseServer.__init__(self, address, Handler)
+            self.socket = listener
+            self.server_name, self.server_port = 'localhost', address[1]
 
     def get_request(self):
         connection, address = super().get_request()
@@ -218,8 +231,15 @@ def main(argv=None):
     parser.add_argument('--check-config', action='store_true')
     args = parser.parse_args(argv)
     os.umask(0o077)
+    # Provider home aliases may be symlinks; policy compares canonical roots.
+    args.config = str(Path(args.config).resolve())
+    args.state = str(Path(args.state).resolve())
     try:
+        from identity_triage_sandbox import confine
+        listener, abi = confine(args.config, args.state)
         cfg = read_config(args.config)
+        if listener.getsockname()[1] != cfg['port']:
+            raise ValueError('listener_port')
         if not cfg['enabled']:
             raise ValueError('disabled')
         isolation_check()
@@ -227,8 +247,8 @@ def main(argv=None):
         if args.check_config:
             print('triage preflight_ok')
             return 0
-        with Server(('127.0.0.1', cfg['port']), args.config, store) as server:
-            print('triage shadow_observation_only coverage_incomplete', flush=True)
+        with Server(('127.0.0.1', cfg['port']), args.config, store, listener=listener) as server:
+            print('triage sandbox_verified abi=' + str(abi) + ' shadow_observation_only coverage_incomplete', flush=True)
             stop = threading.Event()
             def monitor():
                 while not stop.wait(60):

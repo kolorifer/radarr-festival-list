@@ -325,7 +325,10 @@ class HTTPTests(Base):
             sender = threading.Thread(target=trickle, daemon=True)
             sender.start()
             try:
-                self.assertEqual(client.recv(1024), b'')
+                try:
+                    self.assertEqual(client.recv(1024), b'')
+                except ConnectionResetError:
+                    pass  # A hard close may reset a peer still sending bytes.
             finally:
                 stop.set()
                 sender.join(timeout=1)

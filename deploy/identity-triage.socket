@@ -1,0 +1,10 @@
+[Unit]
+Description=Loopback-only movie identity metadata intake
+
+[Socket]
+ListenStream=127.0.0.1:40715
+Backlog=8
+Service=identity-triage.service
+
+[Install]
+WantedBy=sockets.target

@@ -1,6 +1,20 @@
 # Movie List project state
 
-## Identity investigation Stage 1 — 2026-10-18, deployment blocked
+## Landlock Stage1 follow-up — 2026-10-18, release gates in progress
+
+Issue49's focused feasibility and integration passes succeeded with a small stdlib
+Landlock ABI6 boundary, inherited loopback listener and standard systemd syscall
+filter. Actual provider child denies protected file/directory, symlink, fd, proc,
+signal, metadata and new-socket access. It can commit SQLite WAL and answer HTTP;
+restart/dedup/disable and forced kernel/path failure checks pass. No provider/root
+change. Full local suite445 tests:444 pass,1 Linux-only skip; focused54 likewise.
+Dependency and frozen scoring checks pass. CI/seedbox gates and conditional rollout
+remain pending at this revision. Production is still the verified30adc20.
+[Report](reports/2026-10-18-landlock-shadow.md) and
+[brief](reports/2026-10-18-landlock-shadow-brief.md) supersede the isolation blocker
+below, but do not yet claim live capture. Outcome observer will remain off.
+
+## Identity investigation Stage 1 — earlier 2026-10-18, deployment blocked
 
 [Draft PR #48](https://github.com/kolorifer/radarr-festival-list/pull/48) implements
 issue #47 on an isolated branch (runtime a64b948): private durable inbox,

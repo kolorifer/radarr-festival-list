@@ -1,29 +1,26 @@
 [Unit]
-Description=Private movie identity observation (shadow mode only)
+Description=Private movie identity observation (Landlock shadow mode)
+Requires=identity-triage.socket
+After=identity-triage.socket
+StartLimitIntervalSec=300
+StartLimitBurst=3
 
 [Service]
 Type=simple
 WorkingDirectory=%h/.local/lib/movie-identity-triage
-# Install ONLY identity_triage_{service,intake,store}.py here; stdlib only.
-ExecStart=/usr/bin/env -i HOME=%h PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -u identity_triage_service.py --config %h/.config/movie-identity-triage/config.json --state %h/.local/state/movie-identity-triage
+# Four collector modules only. A clean environment, no acquisition credentials.
+ExecStart=/usr/bin/env -i HOME=%h PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -I -B -u identity_triage_service.py --config %h/.config/movie-identity-triage/config.json --state %h/.local/state/movie-identity-triage
 UMask=0077
-PrivateUsers=yes
-ProtectHome=tmpfs
-ProtectSystem=strict
-BindReadOnlyPaths=%h/.local/lib/movie-identity-triage %h/.config/movie-identity-triage
-BindPaths=%h/.local/state/movie-identity-triage
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
 NoNewPrivileges=yes
-PrivateTmp=yes
-ProtectKernelTunables=yes
-ProtectKernelModules=yes
-ProtectControlGroups=yes
-RestrictSUIDSGID=yes
-LockPersonality=yes
-RestrictAddressFamilies=AF_INET AF_UNIX
+SystemCallArchitectures=native
+SystemCallErrorNumber=EPERM
+# The sole listener comes from the socket unit. No new Unix/TCP/UDP socket or
+# external connection. Also deny ABI6 filesystem-metadata and process/FD bypasses.
+SystemCallFilter=~socket socketpair connect @chown chmod fchmod fchmodat fchmodat2 utime utimes futimesat utimensat setxattr lsetxattr fsetxattr removexattr lremovexattr fremovexattr ptrace process_vm_readv process_vm_writev pidfd_getfd io_uring_setup io_uring_enter io_uring_register
 MemoryMax=128M
 TasksMax=20
 Restart=on-failure
 RestartSec=30
-
-[Install]
-WantedBy=default.target
