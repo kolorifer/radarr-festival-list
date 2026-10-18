@@ -7,6 +7,10 @@ import json
 import math
 import os
 import re
+import threading
+import time
+import unicodedata
+from collections import OrderedDict
 from contextvars import ContextVar
 from pathlib import Path
 from urllib.error import HTTPError, URLError
@@ -24,6 +28,121 @@ CACHE_PATH = Path(os.environ.get("TMDB_CACHE_PATH", ROOT / "tmdb-cache.json"))
 _DUPLICATE_POPULARITY_MIN_RATIO = 10.0
 _DUPLICATE_POPULARITY_MIN_GAP = 10.0
 _REASON = ContextVar('resolution_reason', default='unresolved')
+_ID_CACHE = OrderedDict()
+_ID_LOCK = threading.Lock()
+
+
+def valid_imdb_id(value):
+    return isinstance(value, str) and re.fullmatch(r'tt[0-9]{7,12}', value) is not None
+
+
+def valid_tmdb_id(value):
+    return (type(value) in (str, int)
+            and re.fullmatch(r'[1-9][0-9]{0,9}', str(value)) is not None)
+
+
+def _identity_title(value):
+    # Context check ONLY after an exact ID lookup; never broaden text search.
+    text = unicodedata.normalize('NFC', str(value or '')).casefold().replace('&', 'and')
+    return ''.join(c for c in text if c.isalnum())
+
+
+def _identity_result(status, reason, imdb_id=None):
+    result = {'identity_status': status, 'identity_reason': reason}
+    if valid_imdb_id(imdb_id):
+        result['imdb_id'] = imdb_id
+    return result
+
+
+def _resolve_external(title, year, imdb_id, tmdb_id):
+    """No title-search fallback, even on missing mapping or provider failure."""
+    if imdb_id:
+        payload = _get(f'/find/{imdb_id}', {'external_source': 'imdb_id', 'language': 'en-US'})
+        if not isinstance(payload, dict):
+            return _identity_result('unresolved', 'metadata_api_unavailable', imdb_id)
+        rows = payload.get('movie_results')
+        if not isinstance(rows, list):
+            return _identity_result('needs_review', 'invalid_metadata', imdb_id)
+        if payload.get('tv_results') or payload.get('tv_episode_results') or payload.get('person_results'):
+            return _identity_result('needs_review', 'non_movie_identity', imdb_id)
+        if not rows:
+            return _identity_result('imdb_associated', 'tmdb_mapping_missing', imdb_id)
+        if len(rows) != 1 or not isinstance(rows[0], dict) or not valid_tmdb_id(rows[0].get('id')):
+            return _identity_result('needs_review', 'ambiguous_id_mapping', imdb_id)
+        found_id = int(rows[0]['id'])
+        if tmdb_id and found_id != int(tmdb_id):
+            return _identity_result('needs_review', 'identity_conflict', imdb_id)
+        tmdb_id = found_id
+    details = _get(f'/movie/{int(tmdb_id)}', {
+        'append_to_response': 'external_ids,alternative_titles,translations,release_dates',
+        'language': 'en-US',
+    })
+    if not isinstance(details, dict):
+        return _identity_result('unresolved', 'metadata_api_unavailable', imdb_id)
+    if type(details.get('id')) is not int or details['id'] != int(tmdb_id) or not details.get('title'):
+        return _identity_result('needs_review', 'invalid_movie_identity', imdb_id)
+    ext = details.get('external_ids')
+    canonical_imdb = ext.get('imdb_id') if isinstance(ext, dict) else None
+    if ((imdb_id and canonical_imdb != imdb_id)
+            or (canonical_imdb is not None and not valid_imdb_id(canonical_imdb))):
+        return _identity_result('needs_review', 'identity_conflict', imdb_id)
+
+    titles = [details.get('title'), details.get('original_title')]
+    alternatives = details.get('alternative_titles') or {}
+    translations = details.get('translations') or {}
+    dates = details.get('release_dates') or {}
+    if not all(isinstance(x, dict) for x in (alternatives, translations, dates)):
+        return _identity_result('needs_review', 'invalid_metadata', imdb_id)
+    titles.extend(row.get('title') for row in alternatives.get('titles', []) if isinstance(row, dict))
+    for row in translations.get('translations', []):
+        if isinstance(row, dict) and isinstance(row.get('data'), dict):
+            titles.append(row['data'].get('title'))
+    wanted_title = _identity_title(title)
+    if not wanted_title or wanted_title not in {_identity_title(x) for x in titles if x}:
+        return _identity_result('needs_review', 'title_conflict', imdb_id)
+    years = {_year(details.get('release_date'))}
+    for country in dates.get('results', []):
+        if isinstance(country, dict):
+            years.update(_year(row.get('release_date')) for row in country.get('release_dates', [])
+                         if isinstance(row, dict))
+    if not re.fullmatch(r'[0-9]{4}', str(year)) or str(year) not in years:
+        return _identity_result('needs_review', 'year_conflict', imdb_id)
+    result = _compact(details)
+    result.update(identity_status='verified_tmdb', identity_reason='external_id_verified')
+    result['matched_release_year'] = str(year)
+    result['identity_year_basis'] = 'canonical_date' if str(year) == result['year'] else 'release_dates'
+    return result
+
+
+def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None):
+    """Validate source IDs and context in an isolated, bounded, expiring cache.
+
+    Never read/write the legacy title cache. The key includes the exact context
+    and both supplied IDs, so a cached ID cannot bypass a new conflict.
+    """
+    if ((imdb_id is not None and not valid_imdb_id(imdb_id))
+            or (tmdb_id is not None and not valid_tmdb_id(tmdb_id))
+            or (imdb_id is None and tmdb_id is None)):
+        return _identity_result('needs_review', 'invalid_external_id')
+    key = (str(title), str(year), imdb_id, str(tmdb_id))
+    if not _ID_LOCK.acquire(blocking=False):
+        return _identity_result('unresolved', 'metadata_lookup_busy', imdb_id)
+    try:
+        cached = _ID_CACHE.get(key)
+        if cached and cached[0] > time.monotonic():
+            return dict(cached[1])
+        try:
+            result = _resolve_external(title, year, imdb_id, tmdb_id)
+        except (TypeError, ValueError, KeyError, AttributeError):
+            result = _identity_result('needs_review', 'invalid_metadata', imdb_id)
+        ttl = 900 if result['identity_status'] == 'verified_tmdb' else 60
+        _ID_CACHE[key] = (time.monotonic() + ttl, dict(result))
+        _ID_CACHE.move_to_end(key)
+        while len(_ID_CACHE) > 256:
+            _ID_CACHE.popitem(last=False)
+        return result
+    finally:
+        _ID_LOCK.release()
 
 
 def resolution_reason():

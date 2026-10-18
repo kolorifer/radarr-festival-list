@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 from urllib.parse import urlsplit
+from tracker_metadata import cookie_file
 
 REQUIRED = (
     "MOVIE_INTEL_WEBHOOK_SECRET", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID",
@@ -12,6 +13,14 @@ REQUIRED = (
 def configuration_errors(env=None):
     env = os.environ if env is None else env
     errors = [f"{name} is required" for name in REQUIRED if not env.get(name, "").strip()]
+    enabled = env.get('MOVIE_INTEL_TL_METADATA_ENABLED', '0')
+    if enabled not in ('0', '1'):
+        errors.append('MOVIE_INTEL_TL_METADATA_ENABLED must be 0 or 1')
+    if enabled == '1':
+        try:
+            cookie_file(env.get('MOVIE_INTEL_TL_COOKIE_FILE'))
+        except (OSError, ValueError, TypeError):
+            errors.append('MOVIE_INTEL_TL_COOKIE_FILE must be an absolute, owner-only regular JSON cookie file')
     secret = env.get("MOVIE_INTEL_WEBHOOK_SECRET", "")
     if secret and (len(secret) < 32 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in secret)):
         errors.append("MOVIE_INTEL_WEBHOOK_SECRET must be at least 32 URL-safe characters")

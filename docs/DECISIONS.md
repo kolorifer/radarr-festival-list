@@ -66,6 +66,11 @@ the workflow documentation task.
 - **Rationale:** Incorrect movie additions/downloads are more harmful than a
   missed automatic resolution.
 - **Consequences:** Preserve conservative title/year/TMDb matching and tests.
+- **Implementation follow-up, 2026-10-18:** The user authorized implementing the
+  tracker metadata investigation findings. Explicit movie IDs now require
+  crosswalk/context validation, with optional exact-listing lookup and safe
+  unresolved/review states; no manual crosswalk or relaxed text-search rule was
+  adopted. See the [implementation brief](reports/2026-10-18-tracker-metadata-implementation-brief.md).
 
 ## D006 — Audience ratings provide context
 
