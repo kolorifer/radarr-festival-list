@@ -18,6 +18,20 @@ PAGE = f'<h2 id="torrentName">{NAME}</h2><input name="imdbID" value="tt2543164">
 
 
 class ListingParserTests(unittest.TestCase):
+    def test_observed_freeleech_badge_does_not_change_release_identity(self):
+        badge = '<span class="new label labelfreeleech">FREELEECH</span>'
+        page = f'<h2 id="torrentnameid">{NAME}{badge}</h2>' + PAGE
+        self.assertEqual(tracker.parse_listing(page, NAME)['imdb_id'], 'tt2543164')
+        self.assertEqual(tracker.parse_listing(page, 'Other')['reason'], 'listing_mismatch')
+
+    def test_only_known_badge_is_ignored_not_title_text_or_arbitrary_markup(self):
+        for suffix in (' FREELEECH', '<span>FREELEECH</span>',
+                       '<span class="new label labelfreeleech">OTHER</span>',
+                       '<span class="new label labelfreeleech">FREELEECH Other</span>'):
+            page = f'<h2 id="torrentnameid">{NAME}{suffix}</h2>' + PAGE
+            with self.subTest(suffix=suffix):
+                self.assertEqual(tracker.parse_listing(page, NAME)['reason'], 'listing_mismatch')
+
     def test_structural_release_and_single_id_required(self):
         self.assertEqual(tracker.parse_listing(PAGE, NAME)['imdb_id'], 'tt2543164')
         self.assertEqual(tracker.parse_listing(PAGE, 'Other')['reason'], 'listing_mismatch')
