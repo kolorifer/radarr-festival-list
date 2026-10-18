@@ -1,5 +1,24 @@
 # Movie List project state
 
+## Tracker metadata investigation — 2026-10-18, proposal only
+
+Investigated current main a7c2e13 and deployed dcae919; no identity-resolution
+implementation or deployment. Running autobrr matches the official v1.88.0 binary.
+TorrentLeech listings supply IMDb IDs that the current IRC parser does not collect;
+autobrr can forward populated meta_imdb/meta_tmdb, but movie-intel ignores them.
+Across 15 currently unresolved sampled title/year pairs, all 15 listings carry
+valid IMDb movie IDs and 11 map uniquely to TMDb with matching IMDb round trips.
+Ten have corroborating title/year context; malformed Hamnet still requires review.
+Four lack TMDb mappings, including Fragmentos: IMDb identifies Alejandro Rangel's
+2025 film, while candidate TMDb 1356955 lacks the required IMDb cross-link.
+Recommend ID validation plus a bounded exact-listing metadata adapter, subject to
+product review. No new policy is adopted. The report distinguishes historical
+payload inference from direct observation and documents the cleaned-up CLI probe
+exception. Production remains clean at dcae919, active and healthy.
+[Investigation report](reports/2026-10-18-tracker-metadata-investigation.md) ·
+[Assigned brief](reports/2026-10-18-tracker-metadata-investigation-brief.md).
+The unrelated CODEX_TASK.md assignment remains untouched.
+
 ## Notification reliability — 2026-10-18
 
 Implemented, deployed and technically verified end to end at runtime commit
