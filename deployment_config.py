@@ -19,6 +19,15 @@ def configuration_errors(env=None):
             read_rules(env[ENV_NAME])
         except (OSError, ValueError, TypeError, UnicodeError):
             errors.append(ENV_NAME + ' must be an absolute, owner-only valid reviewed context file')
+    triage_enabled = env.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED', '0')
+    if triage_enabled not in ('0', '1'):
+        errors.append('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED must be 0 or 1')
+    if triage_enabled == '1':
+        from identity_triage_observer import read_config as read_observer_config
+        try:
+            read_observer_config(env.get('MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG', ''))
+        except (OSError, ValueError, TypeError):
+            errors.append('MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG must be an owner-only valid observer config')
     enabled = env.get('MOVIE_INTEL_TL_METADATA_ENABLED', '0')
     if enabled not in ('0', '1'):
         errors.append('MOVIE_INTEL_TL_METADATA_ENABLED must be 0 or 1')

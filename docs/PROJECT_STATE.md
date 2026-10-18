@@ -1,5 +1,20 @@
 # Movie List project state
 
+## Identity investigation Stage 1 — 2026-10-18, deployment blocked
+
+Issue #47 implementation is prepared on an isolated branch: private durable inbox,
+strict release.new intake, versioned evidence/provisional cases, default-off outcome
+observer, four unresolved private seeds and bounded retained reconciliation. No
+Stage2 work or additional identity repairs. [Report](reports/2026-10-18-identity-triage.md)
+and [brief](reports/2026-10-18-identity-triage-brief.md) distinguish tests from live capture.
+
+Provider isolation preflight failed: PrivateUsers denied; InaccessiblePaths alone
+was silently ignored. No collector/route installed and no production changes. Live
+intake is zero. Production remains clean healthy30adc20 with both approved bindings.
+Private retained validation:457 rows,446 accepted,4 quarantined,7 excluded TV;
+repeat450 duplicates without added evidence/cases;all4 seeds unresolved. Deployment
+requires a supported isolation boundary and review of the blocked safety gate.
+
 ## Reviewed identity corrections — 2026-10-18, deployed and verified
 
 [Issue #45](https://github.com/kolorifer/radarr-festival-list/issues/45) authorizes

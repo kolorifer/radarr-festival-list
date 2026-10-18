@@ -269,3 +269,10 @@ to guess defaults.
 
 Keep the existing public feeds independent from the qualification catalog. Stop the service with `systemctl --user stop movie-intel` if
 using the user unit. Back up the private state only to a private location.
+
+## Stage 1 identity observation (default off; deployment blocked)
+
+See [the separate collector runbook](IDENTITY_TRIAGE.md). Issue #47 permits only
+observational storage, conditional on effective isolation from credentials/action
+state. Current provider isolation preflight fails; do not activate the route or
+observer by weakening sandbox settings. Existing movie-intel operation is unchanged.
