@@ -8,6 +8,9 @@ import queue
 import re
 import threading
 import uuid
+import time
+from collections import Counter
+from identity_outcome_outbox import Outbox
 
 from identity_triage_intake import CATEGORIES, OUTCOME_STATUSES, REASONS, decode, normalize
 from identity_triage_store import private_path
@@ -15,6 +18,8 @@ from identity_triage_store import private_path
 _QUEUE = queue.Queue(maxsize=32)
 _LOCK = threading.Lock()
 _WORKER = None
+_STATS = Counter()
+_STATS_LOCK = threading.Lock()
 
 
 def read_config(path):
@@ -41,7 +46,9 @@ def envelope(payload, context, sources):
         status = 'skipped_routine'
     outcome = {'status': status if status in OUTCOME_STATUSES else 'unresolved',
                'category': context.get('category') if context.get('category') in CATEGORIES else 'other',
-               'reason': meta.get('identity_reason') if meta.get('identity_reason') in REASONS else 'other'}
+               'reason': (context.get('identity_observation') or {}).get('reason',meta.get('identity_reason')) if (context.get('identity_observation') or {}).get('reason',meta.get('identity_reason')) in REASONS else ('resolved' if status=='legacy_resolved' else 'other')}
+    for key, value in (('asserted_imdb',meta.get('imdb_id')),('asserted_tmdb',meta.get('tmdb_id'))):
+        if value is not None:outcome[key]=value
     result = {'version': '1.0', 'event': 'identity.outcome', 'id': str(uuid.uuid4()),
               'timestamp': datetime.now(timezone.utc).isoformat(),
               'data': {'release': {k: release[k] for k in ('type', 'protocol', 'implementation', 'title', 'year', 'name', 'external_id', 'meta_imdb', 'meta_tmdb') if k in release},
@@ -52,6 +59,7 @@ def envelope(payload, context, sources):
     checked = normalize(result, sources, 'outcome')
     if checked.get('reason'):
         result['data']['release'] = {'type': 'movie'}
+        result['data']['outcome'] = {'status':'unresolved','category':'other','reason':'invalid_metadata'}
     return result
 
 
@@ -68,30 +76,69 @@ def _send(cfg, item):
         connection.close()
 
 
+def count(name):
+    with _STATS_LOCK:_STATS[name]+=1
+    if name in {'queue_full','prepersist_failed','delivery_failed','configuration_failed'}:
+        print('triage_observer '+name,flush=True)
+
+
+def metrics():
+    with _STATS_LOCK:
+        return dict(_STATS)|{'memory_pending':_QUEUE.qsize(),'prepersist_crash_window':'unknown_on_restart'}
+
+
 def _run():
+    outbox=None;last_report=0
     while True:
-        path, item = _QUEUE.get()
         try:
-            if os.environ.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED', '0') == '1':
-                _send(read_config(path), item)  # current key; queued items cannot bypass revocation
+            if os.environ.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED','0')!='1':
+                time.sleep(1);continue
+            if outbox is None:
+                outbox=Outbox(Path.home().resolve()/'.local/state/movie-identity-outcomes')
+            try:item=_QUEUE.get(timeout=.25)
+            except queue.Empty:item=None
+            if item is not None:
+                try:outbox.put(item);count('persisted')
+                except Exception:
+                    count('prepersist_failed')
+                    try:_QUEUE.put_nowait(item)
+                    except queue.Full:count('queue_full')
+                finally:_QUEUE.task_done()
+            pending=outbox.next()
+            if pending:
+                key,item,attempts=pending
+                try:
+                    cfg=read_config(os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG'])
+                    if os.environ.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED','0')=='1':
+                        _send(cfg,item);outbox.ack(key);count('delivered')
+                except Exception:
+                    outbox.failed(key,attempts);count('delivery_failed')
+            if time.monotonic()-last_report>=60:
+                print('triage_observer metrics '+json.dumps({'process':metrics(),'durable':outbox.metrics()},sort_keys=True),flush=True)
+                last_report=time.monotonic()
         except Exception:
-            print('triage_observer unavailable_delivery_lost', flush=True)
-        finally:
-            _QUEUE.task_done()
+            count('prepersist_failed');outbox=None;time.sleep(2)
 
 
-def observe(payload, context):
+def start():
     global _WORKER
-    if os.environ.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED', '0') != '1':
-        return
+    if os.environ.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED','0')!='1':return
     try:
-        path = os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG']
-        cfg = read_config(path)
-        item = envelope(payload, context, cfg['sources'])
+        read_config(os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG'])
         with _LOCK:
             if _WORKER is None or not _WORKER.is_alive():
-                _WORKER = threading.Thread(target=_run, daemon=True, name='identity-outcome-observer')
+                _WORKER=threading.Thread(target=_run,daemon=True,name='identity-outcome-observer')
                 _WORKER.start()
-        _QUEUE.put_nowait((path, item))
-    except Exception:
-        print('triage_observer unavailable_delivery_lost', flush=True)
+                print('triage_observer started prepersist_window_uncertain',flush=True)
+    except Exception:count('configuration_failed')
+
+
+def observe(payload,context):
+    if os.environ.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED','0')!='1':return
+    try:
+        cfg=read_config(os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG'])
+        item=envelope(payload,context,cfg['sources'])
+        if _WORKER is None or not _WORKER.is_alive():start()
+        _QUEUE.put_nowait(item);count('queued')
+    except queue.Full:count('queue_full')
+    except Exception:count('configuration_failed')

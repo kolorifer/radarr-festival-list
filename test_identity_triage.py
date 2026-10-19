@@ -269,6 +269,28 @@ class HTTPTests(Base):
             c.request(method,path,raw,h);r=c.getresponse();return r.status,r.read()
         finally:c.close()
 
+    def test_eligible_export_requires_outcome_key_and_never_enables_research(self):
+        self.assertEqual(self.request(path='/v1/eligible',method='GET')[0],401)
+        status,raw=self.request(path='/v1/eligible',method='GET',key=self.cfg['outcome_key'])
+        self.assertEqual(status,200)
+        self.assertEqual(json.loads(raw),{'items':[],'research_enabled':False})
+
+    def test_observer_offline_then_live_delivery_reuses_durable_event(self):
+        from identity_outcome_outbox import Outbox
+        from identity_triage_observer import _send, envelope
+        box=Outbox(self.root/'outbox')
+        item=envelope(payload(),{'meta':None,'category':'unknown_movie','identity_observation':{'reason':'no_exact_match'}},SOURCES)
+        box.put(item)
+        key,body,attempts=box.next()
+        cfg={'port':self.server.server_address[1],'key':self.cfg['outcome_key']}
+        with patch('identity_triage_observer.http.client.HTTPConnection',side_effect=ConnectionRefusedError):
+            with self.assertRaises(ConnectionRefusedError):_send(cfg,body)
+        box.failed(key,attempts)
+        self.assertEqual(box.metrics()['pending'],1)
+        _send(cfg,body);_send(cfg,body);box.ack(key)
+        self.assertEqual(box.metrics()['pending'],0)
+        self.assertEqual(self.store.metrics()['selection']['outcome_events'],1)
+
     def test_committed_before_success(self):
         self.assertEqual(self.request()[0],200)
         self.assertEqual(self.store.metrics()['distinct_releases'],1)

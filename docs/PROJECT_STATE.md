@@ -1,5 +1,28 @@
 # Movie List project state
 
+## Passive identity eligibility — 2026-10-19
+
+PR52 merged as `fba7a0767cc94c5f77613880d893c82502bf567b`; issue51 closed.
+[PR54](https://github.com/kolorifer/radarr-festival-list/pull/54) separately implements
+issue53 and remains unmerged. Tested `28d65ed5a6ec26825386b9be1bb7d52a27c2acef`
+is deployed to movie-intel and the five-module collector, with passive outcome
+observation/selection enabled. Collector confinement and notifier/filter rows are
+unchanged; actor public/local health200, reviewed bindings preserved.510 tests:
+all pass seedbox/CI3.12/3.13; local508 pass/two Linux-only skips.
+
+Research worker remains `2de1ba8`, disabled/token empty; all pilot tables unchanged,
+ledger closed at19 GETs, zero new research requests. No schedule/correction/action.
+Final 270.9-second readback:566 source releases,116 live accepted announcements, zero fresh
+outcomes/eligible admissions, four existing unresolved seeds. These releases are
+unassessed, not 565 failures or successes. Natural live positive correlation is
+still pending; isolated integration tests pass. Committed observer messages retry,
+but pre-persistence crash loss and incomplete publisher coverage remain explicit.
+A weekly cap of5 changed/new cases and25 GETs is proposed only, not activated.
+[Report](reports/2026-10-19-identity-selection.md) ·
+[Brief](reports/2026-10-19-identity-selection-brief.md).
+
+Earlier sections below describe historical deployment states.
+
 ## Stage2 bounded research — 2026-10-18, finite pilot complete
 
 [PR52](https://github.com/kolorifer/radarr-festival-list/pull/52) is ready for review,

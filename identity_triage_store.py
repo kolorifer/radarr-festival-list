@@ -74,6 +74,8 @@ class Store:
                 ):
                     c.execute(statement)
                 c.execute('PRAGMA user_version=1')
+            import identity_selection
+            identity_selection.initialize(c)
             c.commit()
         self.check_permissions()
 
@@ -159,6 +161,8 @@ class Store:
             c.execute('INSERT INTO deliveries VALUES (?,?,?,?,?,?,?)',
                       (channel, record['event_id'], signature, evidence_id, reason, record.get('time'), now))
             self.count(c, channel, result)
+            import identity_selection
+            identity_selection.ingest(c, record, channel, evidence_id, now)
             c.commit()  # HTTP success is permitted only after this returns.
         return result
 
@@ -172,7 +176,9 @@ class Store:
                       for name, table in (('observed_movie_deliveries', 'deliveries WHERE evidence IS NOT NULL'),
                                           ('distinct_releases', 'releases'), ('evidence_versions', 'evidence'),
                                           ('provisional_cases', 'cases'), ('seed_associations', 'seeds'))}
-        return dict(tables, counters=counts, last_good_release_delivery=last, max_delivery_lag_seconds=lag,
+            import identity_selection
+            selection = identity_selection.metrics(c)
+        return dict(tables, selection=selection, counters=counts, last_good_release_delivery=last, max_delivery_lag_seconds=lag,
                     coverage='incomplete', publisher_outbox=False,
                     source_health='no_delivery_observed' if last is None else 'stale_or_quiet' if time.time()-last > 900 else 'recent_delivery',
                     source_gap_detection='cannot_distinguish_quiet_source_from_lost_events')

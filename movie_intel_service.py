@@ -34,7 +34,7 @@ from radarr_client import (
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
 from reviewed_identity import reviewed_context
-from identity_triage_observer import observe as observe_identity_outcome
+from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
 PORT = os.environ.get("MOVIE_INTEL_PORT", "40714")
@@ -282,9 +282,11 @@ def build_movie_context(payload):
             meta = dict(meta, identity_source=source)
         elif not external:
             meta = resolve_movie(title, year, imdb_id=imdb_id)
-        decision_log('identity', meta.get('identity_reason', 'resolved') if meta else resolution_reason(), payload)
+        observed_reason = meta.get('identity_reason', 'resolved') if meta else resolution_reason()
+        decision_log('identity', observed_reason, payload)
     except Exception:
         meta = {'identity_status': 'unresolved', 'identity_reason': 'resolver_error'} if external else None
+        observed_reason = 'resolver_error'
         decision_log('identity', 'resolver_error', payload)
     blocked = meta and meta.get('identity_status') not in (None, 'verified_tmdb')
     if blocked:
@@ -297,6 +299,7 @@ def build_movie_context(payload):
     text = format_message(payload, movie=movie, meta=meta)
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
+        "identity_observation": {"reason": observed_reason},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
         "movie": movie,
@@ -819,6 +822,7 @@ def main(argv=None):
     except ValueError:
         print("MOVIE_INTEL_PORT must be an integer between 1 and 65535", file=sys.stderr)
         return 1
+    start_identity_observer()
     server = ThreadingHTTPServer((HOST, port), Handler)
     print(f"movie-intel listening on {HOST}:{PORT}")
     server.serve_forever()
