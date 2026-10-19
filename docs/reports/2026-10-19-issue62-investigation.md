@@ -1,5 +1,13 @@
 # Issue 62 — exact-release alternative downloads and film editions
 
+## Updated owner decision
+
+After reviewing the initial investigation, the owner explicitly said: **“if radarr automatically replaces old file - it’s ok for me.”** This supersedes issue62’s original keep-existing-file constraint for individually confirmed alternative releases. It does not authorize autonomous grabs, live acquisition smoke tests, quality-profile changes or general search. Confirmation must now disclose that Radarr may import and replace the existing file; never promise preservation.
+
+Replacement permission does not resolve the transport limitation: installed Radarr’s manual ReleaseController only accepts a cached RemoteMovie (30-minute cache populated by that controller’s search/RSS mapping). ReleasePushController does not populate this cache. Its POST still applies RSS rejection decisions. There is no demonstrated native arbitrary-original-reference force endpoint.
+
+The revised proposed helper would submit only a confirmed exact release to the existing `radarr` category. Radarr may later import/replace it or reject import; queued is still not imported. The separate credential-access approval for that helper remains pending, since the owner’s response explicitly approved replacement, not credential expansion. Do not create downloader credentials or enable the helper until that decision arrives.
+
 ## Scope and status
 
 Owner requested resumption of [issue 62](https://github.com/kolorifer/radarr-festival-list/issues/62).
@@ -68,7 +76,7 @@ cannot choose a separate direct-download action without changing existing
 configuration. Neither that retry nor a Radarr push supplies safe download-only
 semantics.
 
-## Recommended implementation requiring a security decision
+## Initial preservation design (superseded by replacement permission above)
 
 A narrow local helper would hold existing qBittorrent credentials separately from
 movie-intel and the metadata-only research components. Its only write operation
@@ -108,8 +116,7 @@ Sanitized proposed examples:
 - Quality rejection: “Radarr — Release Rejected / Touch of Evil (1958) / Multiple
   significant cuts exist / Announced: 1998 reconstructed (claimed) / Existing:
   1958 theatrical (claimed).” **No Grab Anyway button yet**; route pending security
-  decision. Final confirmed download wording must be “Download alternative; keep
-  existing file.”
+  decision. Revised final confirmation must warn that Radarr may import and replace the existing file.
 - Generic accepted Remux: “Radarr — Release Accepted / Touch of Evil (1958) /
   Multiple significant cuts exist / Edition of this release unknown.”
 - Reconstruction: explanatory note says it follows Welles' memo, changes editing
@@ -120,7 +127,9 @@ Sanitized proposed examples:
 Focused parser and existing reliability/identity tests passed (41 tests at initial
 checkpoint). Added synthetic HTTP coverage for accepted annotations with zero
 approval creation, zero identity intake/retries, zero movie adds and zero release
-pushes. Full local suite: 588 tests run, 586 passed and two Linux-only skips. A subsequent defensive input guard passed all 10 edition tests; the exact final revision will be checked on Linux before deployment. No live notification sent.
+pushes. Full local suite: 588 tests run, 586 passed and two Linux-only skips. Exact implementation commit `6b3d6b8` then passed all 588 tests on the seedbox in an isolated checkout. CI is queued. No live notification sent.
 
 Do not deploy while PR63 is pending. Rebase/integrate its fix after merge and
 revalidate the final actor revision; never reset the actor to this older base.
+
+Draft implementation PR: https://github.com/kolorifer/radarr-festival-list/pull/64. No deployment performed.

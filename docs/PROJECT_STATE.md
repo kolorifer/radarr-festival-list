@@ -738,3 +738,5 @@ tests, revision/PR references, deployment checks, privacy and rollback.
 ## Issue 62 — staged edition annotations and alternative-download investigation
 
 Read-only investigation found that current Radarr push/retry paths cannot guarantee preservation of an existing file. A restricted download-only helper requires the owner’s explicit credential-boundary decision. Display-only curated edition annotations and tests are staged separately, with no production changes. See [investigation and plan](reports/2026-10-19-issue62-investigation.md). PR63 rollout remains separate; integrate its fix before deploying this work.
+
+Issue62 update: owner explicitly permits Radarr to replace the old file after confirmation of a specific alternative release. This supersedes keep-existing-file wording, but not per-release approval. Native manual grab requires a search-cache entry that autobrr pushes do not create; the remaining direct-helper credential decision is still pending. Exact annotation draft 6b3d6b8 passed all 588 seedbox tests, undeployed.

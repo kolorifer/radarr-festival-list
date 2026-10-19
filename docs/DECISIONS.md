@@ -383,3 +383,9 @@ the workflow documentation task.
   dropped accepted class; natural end-to-end verification was unavailable during
   the quiet bounded window and remains pending.
 - **Evidence:** [Engineering report](reports/2026-10-19-selected-intake.md).
+
+## D024 — Permit replacement after an explicitly confirmed alternative grab
+
+- Source: owner message, 2026-10-19: “if radarr automatically replaces old file - it’s ok for me.”
+- Supersedes issue62’s initial never-replace requirement for owner-confirmed alternative releases only. The confirmation must disclose possible Radarr replacement.
+- Does not authorize automatic grabs, live download tests, generic search, quality-profile changes, or a new credential boundary. A separate restricted-helper credential decision remains pending.
