@@ -855,6 +855,8 @@ def main(argv=None):
     from identity_retry import start as start_identity_retry
     start_identity_retry(build_movie_context)
     server = ThreadingHTTPServer((HOST, port), Handler)
+    from identity_telegram_digest import start as start_identity_digest
+    start_identity_digest(lambda text: send_telegram(text, parse_mode=None))
     print(f"movie-intel listening on {HOST}:{PORT}")
     server.serve_forever()
 

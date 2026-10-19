@@ -1,5 +1,32 @@
 # Movie List project state
 
+## Changed-case Telegram review digest — 2026-10-19
+
+Explicitly approved, implemented and enabled at verified production runtime
+`8846f5195d4094a337726d1f7829659ecdeb8f85` ([PR59](https://github.com/kolorifer/radarr-festival-list/pull/59)).
+The actor polls complete private research reports every five minutes and sends
+new/materially changed review cases through its existing Telegram chat/topic.
+One initial message covering two cases was acknowledged; both versions are marked
+sent, with zero uncertain deliveries and zero sends after reopening the ledger
+against the unchanged report. Aberfan remains an unverified candidate; all identity
+corrections still need review. No correction/download controls were introduced.
+
+560 tests pass on seedbox and CI 3.12/3.13; local 558 pass/two Linux-only skips.
+Only movie-intel restarted. Local/public health200, 1909 movies, NRestarts=0;
+collector PID, protected worker/helper/collector configuration/code, bindings and
+daily timer unchanged. Research budget unchanged at one case/two GETs. No task
+metadata lookup, Radarr operation or download. Production stays on the tested
+runtime, excluding documentation-only follow-ups and unrelated catalog updates.
+
+Daily research cadence still governs findings; unchanged historical seeds and
+unassessed announcements are excluded. Network-ambiguous Telegram sends remain
+uncertain for manual inspection; only explicit 429 rejection retries. Journal
+signals are not an independent alert. Latest-state polling can coalesce intermediate
+changes. [Engineering report](reports/2026-10-19-identity-digest.md) ·
+[Approved brief](reports/2026-10-19-identity-digest-brief.md).
+The unrelated active CODEX_TASK remains untouched. This entry supersedes earlier
+statements that the digest is pending product approval.
+
 ## Automatic identity investigations — 2026-10-19
 
 Issue57's approved automatic pipeline is deployed at verified runtime
