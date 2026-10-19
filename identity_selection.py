@@ -143,5 +143,8 @@ def snapshot(c,now):
         cases.append({'case_id':key,'version':version,'observed_at':observed,
                       'title':m['title'],'year':m['year'],'route':r['route'],
                       'reason':r['outcome']['reason'],'correlation':r['correlation'],
-                      'original_type':m.get('original_type','movie')})
+                      'original_type':m.get('original_type','movie'),
+                      'source_identity':{'imdb':m['imdb'],'tmdb':m['tmdb'],
+                                         'asserted_imdb':r['outcome'].get('asserted_imdb'),
+                                         'asserted_tmdb':r['outcome'].get('asserted_tmdb')}})
     return {'version':1,'generated_at':now,'coverage':counts,'cases':cases,'items':export(c,100)}

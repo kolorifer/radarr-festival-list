@@ -12,7 +12,7 @@ import socket
 import stat
 import time
 from identity_triage_store import private_path, private_directory, create_private
-from identity_research_provider import validate_case, clean, strict_json
+from identity_research_provider import validate_case, clean, strict_json, IMDB, ident, request_deadline
 from identity_triage_intake import REASONS
 
 ROUTES={'eligible','retry_later','review_only','quarantine','unmatched','unassessed','verified','routine','existing_seed'}
@@ -25,10 +25,16 @@ def validate_snapshot(value,now):
     if not isinstance(value['cases'],list) or len(value['cases'])>1000:raise ValueError('snapshot_capacity')
     ids=set()
     for case in value['cases']:
-        if set(case)!={'case_id','version','observed_at','title','year','route','reason','correlation','original_type'}:raise ValueError('snapshot_case')
+        if set(case)!={'case_id','version','observed_at','title','year','route','reason','correlation','original_type','source_identity'}:raise ValueError('snapshot_case')
         if not re.fullmatch('outcome-[a-f0-9]{64}',case['case_id']) or case['case_id'] in ids:raise ValueError('snapshot_case_id')
         ids.add(case['case_id'])
         if not re.fullmatch('[a-f0-9]{64}',case['version']) or case['route'] not in ROUTES or case['reason'] not in REASONS:raise ValueError('snapshot_case_status')
+        identity=case['source_identity']
+        if not isinstance(identity,dict) or set(identity)!={'imdb','tmdb','asserted_imdb','asserted_tmdb'}:raise ValueError('snapshot_identity')
+        for key in ('imdb','asserted_imdb'):
+            if identity[key] is not None and (not isinstance(identity[key],str) or not IMDB.fullmatch(identity[key])):raise ValueError('snapshot_imdb')
+        for key in ('tmdb','asserted_tmdb'):
+            if identity[key] is not None:ident(identity[key])
         clean(case['title'],256)
         if type(case['year'])!=int or not 1870<=case['year']<=2100:raise ValueError('snapshot_year')
         if type(case['observed_at']) not in (int,float) or not 0<case['observed_at']<=now+300:raise ValueError('snapshot_observed')
@@ -104,10 +110,11 @@ def main():
         connection=LoopbackConnection('127.0.0.1',cfg['port'],timeout=3)
         connection.sock=socket.create_connection(('127.0.0.1',cfg['port']),timeout=3)
         abi=confine(connection,config,incoming)
-        connection.request('GET','/v1/investigations',headers={'X-Identity-Intake-Key':cfg['key']})
-        response=connection.getresponse()
-        if response.status!=200:raise ValueError('handoff_status')
-        raw=response.read(1_048_577)
+        with request_deadline():
+            connection.request('GET','/v1/investigations',headers={'X-Identity-Intake-Key':cfg['key']})
+            response=connection.getresponse()
+            if response.status!=200:raise ValueError('handoff_status')
+            raw=response.read(1_048_577)
         if len(raw)>1_048_576:raise ValueError('handoff_size')
         snapshot=validate_snapshot(strict_json(raw),time.time())
         atomic_json(incoming/'snapshot.json',snapshot)
