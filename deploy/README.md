@@ -334,3 +334,35 @@ processes with a 15-second process deadline and five-second gaps. Exhaustion
 fails that scan; it never repeats the research worker as part of that retry.
 The failure log contains only a fixed stage/reason. Daily timer invocation and
 all manual invocations still share the same durable research ledger.
+
+### Approved changed-case Telegram digest
+
+`MOVIE_INTEL_IDENTITY_DIGEST_ENABLED=1` enables an actor-owned sender (default 0).
+It polls the private `movie-identity-research/review-report.json` every five minutes,
+using the existing Telegram bot/chat/topic. The research worker retains no Telegram
+credential or outbound permission. Its `telegram_digest_enabled: false` field
+means that the worker itself does not send; actor configuration is authoritative.
+No collector/worker unit, research schedule or request budget changes are needed.
+
+The first poll sends current review cases once; subsequent polls send only new or
+materially changed evidence/proposals/status. Up to four cases fit one plain-text
+message. Verified/routine cases are mentioned only if previously sent for review.
+Unassessed announcements and unchanged historical seeds are excluded. Stale
+proposals are labelled, and candidate IDs are explicitly unverified. No buttons,
+URLs, approval tokens, corrections or acquisition calls are created.
+
+The owner-only `~/.local/state/movie-identity-digest/deliveries.sqlite3` reserves a
+version before sending. Confirmed Telegram acknowledgements become `sent`;
+unchanged versions are suppressed across restarts. Explicit 429 rejection retries
+no sooner than an hour or a longer Retry-After. Network/response ambiguity or a
+crash after reservation stays `uncertain`, with fixed journal status/counts. Inspect
+Telegram and that ledger before any operator-authorized resend: Telegram offers
+no sendMessage idempotency key. Do not erase the ledger to force redelivery.
+Reports older than 48 hours, unsafe permissions or invalid data fail closed with
+`identity_digest check_failed`; this is a journal signal, not an independent alert.
+Polling reflects the latest complete report, not every intermediate transition
+between polls. Daily research timing still governs when findings reach the report.
+
+Disable by setting the flag to 0 and restarting only movie-intel. Preserve the
+ledger on disable/rollback. Health/preflight and the private-state backup procedure
+above apply; no test download or Radarr access is needed for this feature.
