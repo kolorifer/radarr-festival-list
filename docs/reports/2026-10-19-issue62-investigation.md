@@ -106,6 +106,21 @@ Sanitized proposed examples:
 
 Synthetic coverage includes strict negative source/identity/rejection gates, unchanged-file checks, exact-byte transport, durable replay blocking, uncertain outcomes, existing hash handling, explicit and concurrent HTTP confirmations, HTML/privacy handling and the unchanged normal Add & Grab path. No live webhook replay, Telegram test notification or torrent submission is permitted.
 
-Final suite, CI, isolated runtime and deployment results: pending completion.
+- PR64 merged as `d0bbf109bc5c39bcda3f323b6eae10cecd2f8bb9`; reviewed head `2188ecf455bdff0907ff6800e675566a4a06a442`. Python 3.12 and 3.13 CI both passed on that exact head.
+- Full local suite: **609 tests**, 607 passed and two Linux-only skips. Exact isolated runtime: **592 tests, all passed** on the seedbox. The runtime has fewer tests because unrelated main changes are intentionally excluded. All changed runtime/test files are byte-identical to the merged implementation.
+- Production is pinned to **`906a2cdc5c8fad2c62bb5e8ab46675ec290eb143`**, parent `cd4e25f96d1d5d0d6de5f953959bdb2ed10aa72a`. Only the 11 issue62 runtime/test/operator-document files changed. Existing catalog and installed research components were not upgraded from main.
+- Dependency, catalog and enabled-config preflight passed. Catalog remains 1,909 candidates / 387 qualified. All 21 retained cutoff-bearing references passed the exact source validator; 13 contain only the known cutoff reason. These are structural eligibility findings, not proof that every historical release has a currently verified identity or live torrent.
+- Private helper configuration reuses the approved existing credentials. The only actor configuration change enables that file. Actor/private state/config were backed up before activation; only movie-intel was restarted.
+- Local and public health returned **200**, actor and collector remained active with **NRestarts=0**. Collector PID and protected collector/research/helper/config/timer hashes were unchanged. Installed collector remains `23cacc8`.
+- Existing approval state was byte-identical across rollout. Digest ledger remained **2 sent**, and no helper receipt store was created: no helper submissions occurred. No webhook was replayed, no Telegram test message sent, no tracker torrent fetched and no download started.
+- Postflight verified the deployed clean runtime and live Touch of Evil same-movie/file association. An in-memory synthetic confirmation and edition comparison passed without creating an action token or delivering a notification. Private backup/result evidence is retained under `~/.local/state/issue62-rollout/`.
+
+## Remaining limitations and operation
+
+The next eligible natural announcement can offer Grab Anyway; old Telegram messages are not rewritten and historical approvals are not backfilled. A fresh checkbox confirmation permits possible replacement of the existing file, including by a lower-quality alternative. Radarr may still reject import, and queue acknowledgement cannot establish imported/replaced status. End-to-end real download/import remains deliberately untested without a new per-release owner approval.
+
+Only supported TorrentLeech original RSS references and bounded v1/hybrid torrents qualify; no generic fallback search or v2-only route exists. Strict pure-quality reason recognition excludes mixed failures and new/localized reason wording. Source lifetime is unknown until an explicit confirmation fetch. Refusal/uncertainty is durably blocked even across new tokens and needs private operator review before recovery. The helper is interface-restricted, not an OS sandbox from the same-user actor. Curated historical edition context currently covers Touch of Evil; labels in release/file metadata remain claims, not content verification.
+
+The active unrelated `docs/CODEX_TASK.md` assignment was left intact. No new research task or schedule was started.
 
 PR: https://github.com/kolorifer/radarr-festival-list/pull/64.

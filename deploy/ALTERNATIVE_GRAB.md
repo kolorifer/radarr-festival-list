@@ -49,5 +49,5 @@ Back up actor state/config and receipts privately, preserve existing actions,
 collector, research installation and schedule, and restart only movie-intel.
 No test notification or download is authorized. Set the flag only for the tested
 version. On rollback remove the new flag, retain all receipts/current action
-state, switch back to the recorded actor commit and verify health. Never restore
+state, durably mark every alternative capability `needs_review` before running an older actor that does not recognize this action kind, switch back to the recorded actor commit and verify health. Never restore
 an old action store. Startup does not replay old notifications or make actions.
