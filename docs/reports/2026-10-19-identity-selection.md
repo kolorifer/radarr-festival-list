@@ -118,7 +118,9 @@ provisional groups and **115 live accepted movie announcements**. The 260 reject
 release.new inputs are intake rejections, not confirmed movie-identification
 failures or a measured delivery-loss count.
 
-Repeated passive readback through 173 seconds after deployment: zero outcome events, zero assessed release cases,
+Final passive snapshot at 270.9 seconds after deployment: **566 source releases**
+and **116 live accepted announcements**, including one new natural announcement
+after deployment. The collector continues accepting real traffic. Zero outcome events, zero assessed release cases,
 zero new eligible/review-only/verified/unmatched cases, zero new or duplicate
 admission versions, zero pending spool messages and zero known observer errors.
 **Four previously investigated unresolved movies remain; zero additional genuine

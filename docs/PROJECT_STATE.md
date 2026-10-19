@@ -12,7 +12,7 @@ all pass seedbox/CI3.12/3.13; local508 pass/two Linux-only skips.
 
 Research worker remains `2de1ba8`, disabled/token empty; all pilot tables unchanged,
 ledger closed at19 GETs, zero new research requests. No schedule/correction/action.
-Initial readback:565 source releases,115 live accepted announcements, zero fresh
+Final 270.9-second readback:566 source releases,116 live accepted announcements, zero fresh
 outcomes/eligible admissions, four existing unresolved seeds. These releases are
 unassessed, not 565 failures or successes. Natural live positive correlation is
 still pending; isolated integration tests pass. Committed observer messages retry,
