@@ -54,7 +54,8 @@ Final rollout readback, before any unattended daily tick:
 | Live retry admissions / recoveries / extra GETs | 0 / 0 / 0 |
 | Historical seeds / closed pilot requests | 4 / 19, all original table hashes unchanged |
 | Collector storage failures since final restart | 0 |
-| Duplicate outcome deliveries | 1, deduplicated without another event |
+| Outcome spool persisted / delivered / pending | 6 / 6 / 0 |
+| Recovered delivery failures / duplicate deliveries | 1 / 1, deduplicated without another event |
 | Oldest unresolved case at rollout | About 71 minutes; first-observed age is separate from refreshed evidence |
 
 There are **two currently assessed unresolved cases**, not 571 failed movies: one eligible/researched and one quarantined. The four historical seeds/proposals remain separate. The eligibility transition for this already-notified Aberfan case used the authorized metadata-only revalidation; a fresh naturally eligible case after the new parser deployment has not yet been observed. The natural observer chain itself is proven independently.
