@@ -366,3 +366,20 @@ the workflow documentation task.
   inspection before resend, explicit rate rejection may retry. Daily reports and
   five-minute polling determine notification latency.
 - **Evidence:** [Deployment report](reports/2026-10-19-identity-digest.md).
+
+
+## D023 — Record selected action attempts, not all movie announcements
+
+- **Source/status:** Owner's issue60 and explicit implementation/deployment request,
+  2026-10-19; selected-only notifier/configuration enabled.
+- **Decision:** Record releases that matched enabled autobrr filters and attempted
+  an action, including Unknown Movie rejection and action errors. Action acceptance
+  is not evidence of completed download or verified movie identity.
+- **Boundary:** Preserve actor notifications, Add & Grab, retries, daily bounded
+  research and digest; collector remains metadata-only and confined. Keep history
+  and all ledgers. No automatic purge or new identity correction.
+- **Coverage:** Action-result events miss pre-action failures, no-action matches,
+  nonreturning actions and transport losses. Retained comparison showed no newly
+  dropped accepted class; natural end-to-end verification was unavailable during
+  the quiet bounded window and remains pending.
+- **Evidence:** [Engineering report](reports/2026-10-19-selected-intake.md).
