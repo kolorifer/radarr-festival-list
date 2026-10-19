@@ -1,0 +1,16 @@
+[Unit]
+Description=Bounded movie identity eligibility handoff and research
+[Service]
+Type=oneshot
+WorkingDirectory=%h/.local/lib/movie-identity-handoff
+ExecStart=/usr/bin/env -i HOME=%h PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 LC_ALL=C.UTF-8 /usr/bin/python3 -I -B -c 'import sys; sys.path.insert(0,"."); import identity_research_scan; sys.exit(identity_research_scan.main())'
+ExecStart=/usr/bin/env -i HOME=%h PATH=/usr/bin:/bin PYTHONDONTWRITEBYTECODE=1 LC_ALL=C.UTF-8 /usr/bin/python3 -I -B -c 'import os,sys; os.chdir(os.path.expanduser("~/.local/lib/movie-identity-research")); sys.path.insert(0,"."); import identity_triage_worker; sys.exit(identity_triage_worker.main())'
+UMask=0077
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
+NoNewPrivileges=yes
+SystemCallArchitectures=native
+MemoryMax=128M
+TasksMax=16
+TimeoutStartSec=660

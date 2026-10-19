@@ -19,6 +19,9 @@ def configuration_errors(env=None):
             read_rules(env[ENV_NAME])
         except (OSError, ValueError, TypeError, UnicodeError):
             errors.append(ENV_NAME + ' must be an absolute, owner-only valid reviewed context file')
+    retry_mode=env.get('MOVIE_INTEL_IDENTITY_RETRY_MODE','off')
+    if retry_mode not in ('off','shadow','active'):errors.append('MOVIE_INTEL_IDENTITY_RETRY_MODE must be off, shadow or active')
+    if retry_mode!='off' and env.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED')!='1':errors.append('identity retries require the observer')
     triage_enabled = env.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED', '0')
     if triage_enabled not in ('0', '1'):
         errors.append('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED must be 0 or 1')

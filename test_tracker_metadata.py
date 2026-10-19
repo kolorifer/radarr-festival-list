@@ -37,6 +37,10 @@ class ListingParserTests(unittest.TestCase):
         self.assertEqual(tracker.parse_listing(PAGE, 'Other')['reason'], 'listing_mismatch')
         self.assertEqual(tracker.parse_listing(PAGE.replace('torrentName', 'changed'), NAME)['reason'], 'listing_mismatch')
 
+    def test_exact_listing_without_any_id_is_missing_not_malformed(self):
+        for body in (f'<h2 id="torrentName">{NAME}</h2>',f'<h2 id="torrentName">{NAME}</h2><input name="imdbID" value="">'):
+            self.assertEqual(tracker.parse_listing(body.encode(),NAME)['reason'],'listing_id_missing')
+
     def test_login_missing_invalid_duplicate_and_conflicting_ids(self):
         for page, reason in ((PAGE + '<input type="password">', 'login_required'),
                              (PAGE.replace('imdbID', 'unknown'), 'listing_id_invalid'),
@@ -119,8 +123,8 @@ class ListingTransportTests(unittest.TestCase):
 
     def test_redirects_errors_content_and_body_limits(self):
         for status, body, headers, reason in (
-                (302, b'', {'Location': 'https://evil.invalid'}, 'listing_http_error'),
-                (403, b'', None, 'listing_http_error'),
+                (302, b'', {'Location': 'https://evil.invalid'}, 'listing_redirect'),
+                (403, b'', None, 'listing_auth_failure'),
                 (200, b'', {'Content-Type': 'application/x-bittorrent'}, 'listing_content_invalid'),
                 (200, b'x' * (tracker.MAX_BODY + 1), None, 'listing_limit_exceeded')):
             tracker._CACHE.clear()

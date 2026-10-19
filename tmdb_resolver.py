@@ -13,9 +13,15 @@ import unicodedata
 from collections import OrderedDict
 from contextvars import ContextVar
 from pathlib import Path
+from identity_request_guard import reserve, cooldown
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, quote
-from urllib.request import Request, urlopen
+from urllib.request import Request, build_opener, HTTPRedirectHandler
+
+class _NoMetadataRedirect(HTTPRedirectHandler):
+    def redirect_request(self,req,fp,code,msg,headers,newurl):return None
+
+urlopen = build_opener(_NoMetadataRedirect).open
 
 ROOT = Path(__file__).parent
 API_BASE = "https://api.themoviedb.org/3"
@@ -59,7 +65,7 @@ def _resolve_external(title, year, imdb_id, tmdb_id):
     if imdb_id:
         payload = _get(f'/find/{imdb_id}', {'external_source': 'imdb_id', 'language': 'en-US'})
         if not isinstance(payload, dict):
-            return _identity_result('unresolved', 'metadata_api_unavailable', imdb_id)
+            return _identity_result('unresolved', _REASON.get() if _REASON.get() in {'metadata_auth_failure','metadata_rate_limited','metadata_record_missing','metadata_redirect'} else 'metadata_api_unavailable', imdb_id)
         rows = payload.get('movie_results')
         if not isinstance(rows, list):
             return _identity_result('needs_review', 'invalid_metadata', imdb_id)
@@ -78,7 +84,7 @@ def _resolve_external(title, year, imdb_id, tmdb_id):
         'language': 'en-US',
     })
     if not isinstance(details, dict):
-        return _identity_result('unresolved', 'metadata_api_unavailable', imdb_id)
+        return _identity_result('unresolved', _REASON.get() if _REASON.get() in {'metadata_auth_failure','metadata_rate_limited','metadata_record_missing','metadata_redirect'} else 'metadata_api_unavailable', imdb_id)
     if type(details.get('id')) is not int or details['id'] != int(tmdb_id) or not details.get('title'):
         return _identity_result('needs_review', 'invalid_movie_identity', imdb_id)
     ext = details.get('external_ids')
@@ -174,6 +180,7 @@ def _save_cache(cache):
 
 
 def _get(path, params=None):
+    _REASON.set('unresolved')
     if not TOKEN:
         _REASON.set('resolver_unconfigured')
         return None
@@ -189,9 +196,25 @@ def _get(path, params=None):
         },
     )
     try:
+        reserve('tmdb')
         with urlopen(request, timeout=12) as response:
             return json.loads(response.read())
-    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError):
+    except HTTPError as exc:
+        if exc.code in (401,403):
+            _REASON.set('metadata_auth_failure');cooldown('tmdb',auth=True)
+        elif exc.code==429:
+            from email.utils import parsedate_to_datetime
+            value=exc.headers.get('Retry-After','60') if exc.headers else '60'
+            try:pause=max(60,int(value))
+            except (TypeError,ValueError):
+                try:pause=max(60,parsedate_to_datetime(value).timestamp()-time.time())
+                except (TypeError,ValueError,OverflowError):pause=60
+            cooldown('tmdb',pause);_REASON.set('metadata_rate_limited')
+        elif exc.code==404:_REASON.set('metadata_record_missing')
+        elif 300<=exc.code<400:_REASON.set('metadata_redirect')
+        else:_REASON.set('metadata_api_unavailable')
+        return None
+    except (URLError, TimeoutError, json.JSONDecodeError):
         _REASON.set('metadata_api_unavailable')
         return None
 

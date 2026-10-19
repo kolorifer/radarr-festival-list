@@ -17,6 +17,8 @@ REASONS |= {'no_exact_match','ambiguous_exact_matches','resolver_unconfigured','
             'login_required','listing_mismatch','listing_id_invalid','listing_id_conflict','rate_limited',
             'listing_http_error','listing_content_invalid','listing_limit_exceeded','listing_reference_invalid',
             'lookup_busy','authentication_unavailable','listing_unavailable','unsupported_indexer'}
+REASONS |= {'listing_id_missing','listing_auth_failure','listing_not_found','listing_redirect','listing_temporary_http',
+            'metadata_auth_failure','metadata_rate_limited','metadata_record_missing','metadata_redirect','movie_category_type_conflict','retry_exhausted'}
 CONTRADICTIONS = {'missing_crosswalk', 'year_conflict', 'title_conflict', 'runtime_conflict',
                   'director_conflict', 'insufficient_evidence'}
 
@@ -83,12 +85,14 @@ def normalize(payload, sources, channel='release_new'):
     if not isinstance(source, str) or source not in sources or indexer.get('name') != sources[source]:
         raise Reject('source')
     malformed_type = release.get('type') != 'movie'
-    if malformed_type and (release.get('type') in ('episode', 'series', 'music', 'book', 'game', 'app')
+    diagnostic = (channel=='outcome' and release.get('type')=='episode'
+                  and isinstance(data.get('outcome'),dict) and data['outcome'].get('reason')=='movie_category_type_conflict')
+    if malformed_type and not diagnostic and (release.get('type') in ('episode', 'series', 'music', 'book', 'game', 'app')
                            or not ('year' in release and 'title' in release)):
         raise Reject('non_movie')
     # From here, malformed movie-like records are durable quarantine, with no raw text.
     record = {'event_id': '', 'time': None}
-    if malformed_type:
+    if malformed_type and not diagnostic:
         record['reason'] = 'invalid_movie_type'
     try:
         record['event_id'] = str(uuid.UUID(payload.get('id', '')))
@@ -124,6 +128,7 @@ def normalize(payload, sources, channel='release_new'):
                               'title_key': ''.join(c for c in unicodedata.normalize('NFKC', title).casefold() if c.isalnum()),
                               'year': year, 'name': name, 'imdb': imdb, 'tmdb': tmdb,
                               'release_key_basis': 'external_id' if external else 'name_fallback'}
+        if diagnostic:record['metadata']['original_type']='episode'
         if not record['metadata']['title_key']:
             raise ValueError('title')
         if channel == 'outcome':

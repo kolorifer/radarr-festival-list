@@ -1,3 +1,4 @@
+import time
 """Isolated shadow receiver: loopback HTTP metadata in, SQLite only out."""
 import argparse
 import errno
@@ -185,10 +186,16 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
-            if self.path not in ('/health', '/metrics', '/v1/eligible'):
+            if self.path not in ('/health', '/metrics', '/v1/eligible', '/v1/investigations'):
                 self.reply(404)
                 return
-            if not self.authenticate('outcome' if self.path=='/v1/eligible' else 'release_new'):
+            if not self.authenticate('outcome' if self.path in ('/v1/eligible','/v1/investigations') else 'release_new'):
+                return
+            if self.path=='/v1/investigations':
+                import identity_selection
+                with self.server.store.connection(readonly=True) as c:
+                    snapshot=identity_selection.snapshot(c,time.time())
+                self.reply(200,snapshot)
                 return
             if self.path=='/v1/eligible':
                 import identity_selection

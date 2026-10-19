@@ -1,5 +1,50 @@
 # Movie List project state
 
+## Automatic identity investigations — 2026-10-19
+
+Issue57's approved automatic pipeline is deployed at verified runtime
+`4c55f2a29314fa18c5131c4199aa9bf53966bd35` ([PR58](https://github.com/kolorifer/radarr-festival-list/pull/58)).
+PR54 merged as `e11469988d867ce3edde449c0f81c639ce2f49bb` after fresh gates.
+Bounded actor metadata retries are active. The confined daily eligibility/research
+scan is enabled: 5 new/materially changed case versions and 25 TMDb GETs per rolling
+week, max 5 GETs per version. Retry traffic separately caps at 10 extra GETs/week,
+max 5 per provider and 3 attempts per unchanged source version in 24 hours.
+No identification correction, acquisition, digest or review control is automatic.
+
+Aberfan's natural 10:24:47 event was received after the observer's 09:27:40 start,
+strongly correlated and initially quarantined. Its exact listing had no IMDb
+field; typed absence is now distinct from malformed ID. One authorized
+metadata-only revalidation entered the live eligible queue without replaying its
+notification. Research used 2 GETs and found the unverified search candidate
+TMDb 1796471, *Aberfan: The Village That Fought Back*, dated 2026-10-19. Details,
+source crosswalk and media type still require review. Research punctuation
+handling was corrected; the existing response was surfaced without rerunning
+unchanged evidence or resetting budgets.
+
+Live readback: 576 source releases / 571 unassessed; 6 outcome events (5 natural,
+1 metadata revalidation), 5 strongly correlated cases: 3 verified, 1 researched
+eligible, 1 quarantine (*2018 Everyone Is A Hero*, listing_id_invalid). Current
+research ledger: 1 case, 2 GETs, 1 review result, no unknown requests; unchanged
+rescans spend zero GETs and report zero changes. Live retry recoveries: 0; tested
+synthetically. The historical pilot remains closed at 19 GETs with all four
+seed proposals/table hashes unchanged. No actor/collector health or storage
+failure after successful deployment; local/public actor health 200, 1909 movies.
+
+Final runtime: 546 tests pass seedbox/CI 3.12/3.13; local 544 pass and 2 Linux-only
+skips. Actual Landlock/seccomp proofs pass. A failed local handoff exercised the
+code/config rollback successfully; diagnostics and a strict three-attempt local
+handoff limit were added without relaxing either boundary. Final report-only
+update kept the actor PID unchanged. Timer is active; first unattended tick is
+pending (latest deadline 12:01:11 CEST, within the daily noon plus 15-minute jitter).
+
+Private changed-case reports are generated automatically. A proposed Telegram
+digest example is in the [engineering report](reports/2026-10-19-identity-automation.md);
+it still requires product sign-off. Source publisher/pre-persistence coverage
+gaps remain; no all-announcement guarantee. Apollo/18½ and other conflicting
+identities remain separate reviewed corrections. [Approved brief](reports/2026-10-19-identity-automation-brief.md).
+The unrelated active CODEX_TASK assignment is untouched. Earlier sections below
+are retained historical states, superseded by this entry where they differ.
+
 ## Passive identity eligibility — 2026-10-19
 
 PR52 merged as `fba7a0767cc94c5f77613880d893c82502bf567b`; issue51 closed.

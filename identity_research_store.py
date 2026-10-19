@@ -20,9 +20,10 @@ class Stop(Exception):
 
 
 class ResearchStore:
+    filename = 'research.sqlite3'
     def __init__(self, directory, clock=time.time):
         self.directory = private_directory(directory)
-        self.path = self.directory / 'research.sqlite3'
+        self.path = self.directory / self.filename
         self.clock = clock
         try:
             create_private(self.path)

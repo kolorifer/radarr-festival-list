@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import sqlite3
 import time
+import unicodedata
 
 from identity_research_provider import Provider, validate_case
 from identity_research_store import ResearchStore, Stop
@@ -12,7 +13,8 @@ from identity_triage_store import private_path, digest
 
 
 def normalized(title):
-    return ' '.join(title.casefold().split())
+    # Candidate discovery only. Never used by the actor's identity/action gates.
+    return ''.join(c for c in unicodedata.normalize('NFKC',title).casefold() if c.isalnum())
 
 
 def investigate(lease,provider):
@@ -83,8 +85,9 @@ def read_config(path):
     p=private_path(path)
     if p.stat().st_size>8192:raise ValueError('config_size')
     config=json.loads(p.read_text())
-    if set(config)!={'enabled','tmdb_token'} or type(config['enabled'])!=bool or not isinstance(config['tmdb_token'],str):
+    if set(config) not in ({'enabled','tmdb_token'},{'enabled','tmdb_token','mode'}) or type(config['enabled'])!=bool or not isinstance(config['tmdb_token'],str):
         raise ValueError('config_schema')
+    if config.get('mode','pilot') not in ('pilot','recurring'):raise ValueError('config_mode')
     return config
 
 
@@ -106,11 +109,28 @@ def main():
         if not cfg['enabled']:
             print('research disabled',flush=True);return 0
         from identity_research_sandbox import confine,preconnect
-        connection=preconnect()
+        try:connection=preconnect()
+        except OSError:
+            if cfg.get('mode')!='recurring':raise
         abi=confine(connection,config,state)
-        store=ResearchStore(state)
-        items=read_manifest(state/'input.json')
+        recurring=cfg.get('mode')=='recurring'
+        snapshot=None
+        if recurring:
+            from identity_recurring_store import RecurringStore
+            from identity_research_handoff import validate_snapshot
+            p=private_path(state/'incoming/snapshot.json')
+            if p.stat().st_size>1_048_576:raise ValueError('snapshot_size')
+            snapshot=validate_snapshot(json.loads(p.read_text()),time.time())
+            store=RecurringStore(state);items=snapshot['items']
+        else:
+            store=ResearchStore(state);items=read_manifest(state/'input.json')
         for item in items:store.admit(item)
+        if recurring:store.reconcile(items)
+        if recurring and connection is None:
+            from identity_investigation_report import write_report
+            write_report(state,snapshot,store)
+            print('research provider_unavailable queued_cases_preserved',flush=True)
+            return 1
         run=store.start()
         class SwitchProvider(Provider):
             def get(self,lease,kind,value):
@@ -119,6 +139,7 @@ def main():
         provider=SwitchProvider(store,run,connection,cfg['tmdb_token'])
         print('research sandbox_verified abi='+str(abi),flush=True)
         while True:
+            if recurring:time.sleep(1.05)
             try:lease=store.lease(run)
             except Stop:break
             if not lease:break
@@ -126,6 +147,9 @@ def main():
             store.finish(lease,result)
             if result['reason'] in {'auth_failure','rate_limited','transport_failure','request_budget','provider_cooldown','provider_suspended','run_inactive'}:break
         store.end(run)
+        if recurring:
+            from identity_investigation_report import write_report
+            print('research changed_cases='+str(write_report(state,snapshot,store)),flush=True)
         print('research summary '+json.dumps(store.summary(),sort_keys=True),flush=True)
         return 0
     except (ValueError,OSError,sqlite3.Error,Stop):

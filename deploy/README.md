@@ -278,3 +278,59 @@ state. Issue #49 supplies a Landlock ABI6 boundary and socket activation after t
 provider's namespace approach failed. Activation requires actual child denial
 proofs and the runbook gates. Never weaken them to start the collector. The outcome
 observer can stay off; existing movie-intel may remain pinned at its verified code.
+
+### Automatic identity investigation (issue57)
+
+`MOVIE_INTEL_IDENTITY_RETRY_MODE=off|shadow|active` defaults to off. Shadow
+persists candidate retry jobs without extra provider calls; active permits only
+metadata context rebuilding. Both require the existing authenticated observer.
+The private retry spool is `~/.local/state/movie-identity-retries/outcomes.sqlite3`.
+It reserves at most 10 additional GETs per rolling week globally and 5 per provider,
+with at most 3 attempts per unchanged source version in 24 hours, then human review.
+The delays are 15 minutes, 1 hour and 6 hours. It never invokes a rejection handler,
+Telegram sender, Radarr action or approval-token creation.
+
+The separate recurring worker configuration is the existing owner-only
+`~/.config/movie-identity-research/config.json`, with `mode: "recurring"`, an
+explicit `enabled` switch and only the existing TMDb read token. Its new ledger
+is `recurring-v1.sqlite3`; never delete/reset it or reopen `research.sqlite3`.
+Limits are 5 case versions and 25 GET reservations per rolling 7 days, max 5 GETs per
+version. Unknown/failed calls count; unchanged attempted versions do not rerun.
+
+A separate helper installation under `~/.local/lib/movie-identity-handoff`
+receives only the existing loopback export key in its owner-only config, not
+provider/action credentials. It preconnects to fixed loopback, then applies
+Landlock and seccomp before GET `/v1/investigations`. It can write only the
+worker's `incoming/` subdirectory. Copy the required standard-library modules
+and their local dependencies from the same verified runtime; preserve 700
+folders and 600 private files. Actual kernel proofs are mandatory. Do not
+substitute direct Stage1 database access or broaden either sandbox.
+
+`identity-investigation-scan.service` runs the confined handoff, then the worker
+in a separate clean process. Its timer scans daily at 12:00 host local time plus
+up to 15 minutes jitter, with persistent catch-up. Install it disabled; prove the
+natural observer chain, fresh complete handoff, disabled-worker behavior and
+security boundaries before activating research/timer. A stale (>1 hour),
+partial or oversized export fails closed. Export limits are 100 eligible and 1000
+assessed cases / 1 MiB; failure is visible in the service journal.
+
+The private `review-report.json` includes every current assessed case, evidence
+freshness, source ID assertions, candidate proposals and their current/stale
+status, changed-case list, coverage gaps and budgets. `review-changes.json`
+retains the last changed scan across quiet scans. Research proposals are never
+approved identities. No Telegram digest or authenticated review controls are
+enabled; product sign-off on a sanitized example is still required.
+
+Disable/rollback: stop and disable the scan timer, stop its service, set the
+worker `enabled` false and remove its copied token, set retry mode off and
+restart only movie-intel. Preserve all ledgers and outcome spools. Restore the
+previous verified code/configuration from private backups if necessary, then
+check actor/collector health and confinement. Never restore an old action
+store, erase request reservations, reset a budget or create fresh ledger names
+to bypass limits. Existing collector data remains backward compatible.
+
+Each daily scan retries only the confined local handoff, at most three fresh
+processes with a 15-second process deadline and five-second gaps. Exhaustion
+fails that scan; it never repeats the research worker as part of that retry.
+The failure log contains only a fixed stage/reason. Daily timer invocation and
+all manual invocations still share the same durable research ledger.
