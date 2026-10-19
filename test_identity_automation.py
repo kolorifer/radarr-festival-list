@@ -213,3 +213,10 @@ class ApolloTests(unittest.TestCase):
         from movie_intel_service import movie_category_type_conflict
         for p in ({'event':'action.rejected','data':[]},{'event':'action.rejected','data':{'release':[]}},payload(type='episode',category='TV :: HD')):
             self.assertFalse(movie_category_type_conflict(p))
+
+    def test_diagnostic_labels_case_without_private_url_or_identity_promotion(self):
+        from movie_intel_service import type_conflict_message
+        p=payload(title='Apollo 10 1',year=2022,type='episode')
+        self.assertIn('Apollo 10 1 (2022)',type_conflict_message(p))
+        p['data']['release']['title']='https://private.invalid/download?token=secret'
+        self.assertNotIn('private.invalid',type_conflict_message(p))

@@ -70,6 +70,17 @@ def movie_category_type_conflict(payload):
             and category.split('::',1)[0].strip().casefold()=='movies')
 
 
+def type_conflict_message(payload):
+    from identity_triage_intake import safe_text
+    release=payload['data']['release']
+    try:title=safe_text(release.get('title'),250)
+    except (ValueError,TypeError):title='Unidentified release'
+    year=release.get('year')
+    label=title+(f" ({year})" if type(year)==int and 1888<=year<=2100 else '')
+    return ('⚠️ '+label+' — identification needs review. Movie-category release parsed as an episode. '
+            'Approval unavailable. Original parsing preserved.')
+
+
 def valid_movie_payload(payload):
     if not isinstance(payload, dict) or payload.get('event') != 'action.rejected':
         return False
@@ -782,8 +793,7 @@ class Handler(BaseHTTPRequestHandler):
                          'category':'other','identity_observation':{'reason':'movie_category_type_conflict'}}
                 observe_identity_outcome(payload,context)
                 decision_log('identity','movie_category_type_conflict',payload)
-                send_telegram('⚠️ Movie identification needs review: movie-category release parsed as an episode. '
-                              'Approval unavailable. The original parsing has been preserved.',parse_mode=None)
+                send_telegram(type_conflict_message(payload),parse_mode=None)
                 self._json(200,{'ok':True,'mode':'identity_diagnostic','action':False})
             elif is_movie_rejection:
                 context = build_movie_context(payload)
