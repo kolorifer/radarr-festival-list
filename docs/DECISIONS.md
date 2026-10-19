@@ -351,3 +351,18 @@ the workflow documentation task.
 - **Boundary:** Preserve webhook credentials, destination, all unrelated event
   settings, filters/actions and Radarr/list automation. No acquisition permission
   is created by this notification routing change.
+
+
+## D022 — Changed-case-only Telegram investigation digest
+
+- **Source/status:** Explicit user approval on 2026-10-19; implemented and enabled.
+- **Decision:** Send current review cases once and then new/materially changed
+  investigation cases through movie-intel's existing Telegram path. Keep identity
+  corrections subject to review and preserve all Radarr/Grab safeguards.
+- **Boundary:** Informational messages only; no buttons, approval tokens or
+  automatic corrections. The research worker receives no Telegram credential or
+  expanded permissions. Research timing/budgets remain unchanged.
+- **Delivery:** Private durable deduplication; uncertain acknowledgements require
+  inspection before resend, explicit rate rejection may retry. Daily reports and
+  five-minute polling determine notification latency.
+- **Evidence:** [Deployment report](reports/2026-10-19-identity-digest.md).
