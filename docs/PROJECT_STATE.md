@@ -738,3 +738,5 @@ tests, revision/PR references, deployment checks, privacy and rollback.
 ## Metadata retry budget fix (2026-10-19)
 
 Owner-authorized Contagion investigation follow-up: zero-request budget/cooldown waits are deferred without consuming lookup attempts; temporary Telegram lookup failures are explicit. Validation/deployment tracked in [report](reports/2026-10-19-retry-budget-fix.md). No new identity correction or request budget.
+
+PR63 completed: merge 4239e63; production actor cd4e25f96d1d5d0d6de5f953959bdb2ed10aa72a. Both CI versions passed, exact runtime passed 564 seedbox tests, public/local health200. Collector 23cacc8, research configuration and approval/delivery state preserved. Contagion remains pending with zero counted retries; no live notification/download/lookup replay. See the retry-budget report for schedule and expiry limits.
