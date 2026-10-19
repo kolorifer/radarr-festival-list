@@ -734,3 +734,7 @@ Their large simulation artifacts are not production runtime/build dependencies.
 [Current production brief](reports/2026-10-14-d016-production-brief.md) and
 [engineering/deployment report](reports/2026-10-14-d016-production.md) record
 tests, revision/PR references, deployment checks, privacy and rollback.
+
+## Issue 62 — staged edition annotations and alternative-download investigation
+
+Read-only investigation found that current Radarr push/retry paths cannot guarantee preservation of an existing file. A restricted download-only helper requires the owner’s explicit credential-boundary decision. Display-only curated edition annotations and tests are staged separately, with no production changes. See [investigation and plan](reports/2026-10-19-issue62-investigation.md). PR63 rollout remains separate; integrate its fix before deploying this work.

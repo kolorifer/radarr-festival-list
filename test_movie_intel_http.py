@@ -133,6 +133,23 @@ class HTTPFlowTests(unittest.TestCase):
     def approve(self, path, root="/movies"):
         return self.request(path, urlencode({"root_folder": root, "quality_profile": 2}).encode(), "application/x-www-form-urlencoded")
 
+    def test_accepted_curated_movie_annotations_cannot_create_actions_or_outcomes(self):
+        from test_film_editions import META
+        value=copy.deepcopy(PAYLOAD)
+        value['event']='action.approved'
+        value['data']['release'].update(title='Touch of Evil',year=1958,name='Touch.of.Evil.1958.1998.RECONSTRUCTED.2160p.REMUX',meta_imdb='tt0052311')
+        value['data']['result']['rejections']=[]
+        existing={'imdbId':'tt0052311','tmdbId':1480,'hasFile':True,'movieFile':{'edition':'Theatrical Cut'}}
+        with patch.object(svc,'resolve_external_movie',return_value=META), patch.object(svc,'get_movie_by_tmdb',return_value=existing), patch.object(svc,'create_pending_action') as action, patch.object(svc,'observe_identity_outcome') as observe, patch('identity_retry.submit') as retry:
+            status,body,_=self.request('/webhook/'+svc.WEBHOOK_SECRET,json.dumps(value).encode())
+        self.assertEqual(status,200);self.assertFalse(json.loads(body)['action'])
+        self.assertIn('Release Accepted',self.messages[0]['text'])
+        self.assertIn('1998 reconstructed',self.messages[0]['text'])
+        self.assertIn('Existing: 1958 theatrical',self.messages[0]['text'])
+        self.assertNotIn('reply_markup',self.messages[0])
+        action.assert_not_called();observe.assert_not_called();retry.assert_not_called()
+        self.assertEqual(self.added,[]);self.assertEqual(self.pushed,[])
+
     def test_apollo_style_episode_gets_one_plain_diagnostic_no_action(self):
         value=copy.deepcopy(PAYLOAD)
         value['data']['release'].update(type='episode',category='Movies :: HD')

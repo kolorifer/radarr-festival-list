@@ -28,11 +28,13 @@ from radarr_client import (
     build_release_push,
     configured as radarr_configured,
     ensure_movie,
+    get_movie_by_tmdb,
     push_release,
     selection_context,
 )
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
+from film_editions import annotation as edition_annotation, candidate as edition_candidate, verified_film
 from reviewed_identity import reviewed_context
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
 
@@ -152,7 +154,7 @@ def _append_rejection_details(lines, rejections, release_name):
         lines.append("<b>Release:</b> " + html.escape(str(release_name)))
 
 
-def format_message(payload, movie=None, meta=None):
+def format_message(payload, movie=None, meta=None, existing=None):
     payload = sanitize(payload)
     data = payload.get("data") or {}
     release = data.get("release") or {}
@@ -172,6 +174,7 @@ def format_message(payload, movie=None, meta=None):
     canonical_year = (meta or {}).get("year") or year
     link_line = _links(movie, meta)
 
+    edition_note=edition_annotation(release,meta,existing)
     if category in ROUTINE_RELEASE_REJECTIONS:
         lines = [
             "⏭️ <b>Radarr — Release Rejected</b>",
@@ -179,10 +182,13 @@ def format_message(payload, movie=None, meta=None):
         ]
         if link_line:
             lines.append(link_line)
+        if edition_note:lines += ['',html.escape(edition_note)]
         _append_rejection_details(lines, rejections, release_name)
         return "\n".join(lines)
 
     heading = "❌ <b>Radarr — Unknown Movie</b>" if category == "unknown_movie" else "❌ <b>Radarr — Rejected</b>"
+    if payload.get('event')=='action.approved':heading='✅ <b>Radarr — Release Accepted</b>'
+    elif payload.get('event')=='action.error':heading='⚠️ <b>Radarr — Release Error</b>'
     lines = [heading, f"<b>{html.escape(str(canonical_title))}</b>" + (f" ({html.escape(str(canonical_year))})" if canonical_year else "")]
     if link_line:
         lines.append(link_line)
@@ -238,6 +244,7 @@ def format_message(payload, movie=None, meta=None):
     else:
         lines += ["", "ℹ️ Movie identity could not be safely resolved. Approval unavailable."]
 
+    if edition_note:lines += ['',html.escape(edition_note)]
     _append_rejection_details(lines, rejections, release_name)
     return "\n".join(lines)
 
@@ -248,7 +255,7 @@ def build_movie_context(payload):
     title = release.get("title") or release.get("name") or "Unknown movie"
     year = release.get("year")
     category = rejection_class(((data.get('result') or {}).get('rejections') or []))
-    if category in ROUTINE_RELEASE_REJECTIONS:
+    if category in ROUTINE_RELEASE_REJECTIONS and not edition_candidate(release):
         decision_log('identity', 'skipped_routine', payload)
         return {'text': format_message(payload), 'poster_url': None, 'movie': None,
                 'meta': None, 'category': category}
@@ -316,7 +323,11 @@ def build_movie_context(payload):
             meta.pop('imdb_id', None)
     elif movie is None and meta and meta.get("imdb_id"):
         movie = INDEX.get(meta["imdb_id"])
-    text = format_message(payload, movie=movie, meta=meta)
+    existing=None
+    if verified_film(meta):
+        try:existing=get_movie_by_tmdb(meta['tmdb_id']) or {}
+        except RadarrError:existing={}
+    text = format_message(payload, movie=movie, meta=meta, existing=existing)
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
         "identity_observation": {"reason": observed_reason},
@@ -795,6 +806,12 @@ class Handler(BaseHTTPRequestHandler):
                 decision_log('identity','movie_category_type_conflict',payload)
                 send_telegram(type_conflict_message(payload),parse_mode=None)
                 self._json(200,{'ok':True,'mode':'identity_diagnostic','action':False})
+            elif (isinstance(payload,dict) and payload.get('event') in ('action.approved','action.error')
+                  and valid_movie_payload(dict(payload,event='action.rejected')) and edition_candidate(release)):
+                # Display-only enrichment. Never create approvals, record outcomes or retry accepted events.
+                context=build_movie_context(payload)
+                send_movie_notification(context['text'],context['poster_url'])
+                self._json(200,{'ok':True,'mode':'edition_annotation','action':False})
             elif is_movie_rejection:
                 context = build_movie_context(payload)
                 observe_identity_outcome(payload, context)
