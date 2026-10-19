@@ -74,7 +74,7 @@ class RetryStore(Outbox):
                 self._review(c,version,raw,'retry_expired')
             rows=c.execute('select version,body from retry_jobs where expires>? and ((state="pending" and due<=?) or (state="leased" and until<=?)) order by due limit 20',(now,now,now)).fetchall()
             for version,raw in rows:
-                used=c.execute('select count(*) from retry_attempts where version=? and started>?',(version,now-86400)).fetchone()[0]
+                used=c.execute('select count(*) from retry_attempts where version=? and started>? and not (coalesce(reason,"") in ("retry_request_budget","retry_provider_cooldown") and not exists (select 1 from retry_requests r where r.attempt=retry_attempts.id))',(version,now-86400)).fetchone()[0]
                 if used>=3:
                     self._review(c,version,raw,'retry_attempt_limit');continue
                 token=uuid.uuid4().hex
@@ -118,6 +118,23 @@ class RetryStore(Outbox):
             c.execute('update retry_jobs set state=?,due=?,lease=NULL,reason=? where version=?',(state,due,reason,lease['version']))
             c.execute('update retry_attempts set ended=?,reason=? where id=?',(self.clock(),reason,lease['token']))
 
+    def defer(self,lease,reason,provider):
+        """Budget/cooldown waits are not failed lookups; retain audit history."""
+        now=self.clock()
+        with self.tx() as c:
+            row=c.execute('select lease,until,expires from retry_jobs where version=?',(lease['version'],)).fetchone()
+            if not row or row[0]!=lease['token'] or row[1]<=now:raise RetryBudget('stale_retry')
+            due=now+1
+            for query,args,cap in (
+                ('select reserved from retry_requests where reserved>? order by reserved',(now-_WEEK,),10),
+                ('select reserved from retry_requests where reserved>? and provider=? order by reserved',(now-_WEEK,provider),5)):
+                times=[r[0] for r in c.execute(query,args)]
+                if len(times)>=cap:due=max(due,times[len(times)-cap]+_WEEK+1)
+            p=c.execute('select until from retry_provider where name=?',(provider,)).fetchone()
+            if p:due=max(due,p[0])
+            c.execute('update retry_jobs set state="pending",due=?,lease=NULL,until=NULL,reason=? where version=?',(min(due,row[2]),reason,lease['version']))
+            c.execute('update retry_attempts set ended=?,reason=? where id=?',(now,reason,lease['token']))
+
     def summary(self):
         with self.tx() as c:
             return {'states':dict(c.execute('select state,count(*) from retry_jobs group by state')),
@@ -129,8 +146,9 @@ class RetryStore(Outbox):
 
 
 class Gate:
-    def __init__(self,store,lease):self.store=store;self.lease=lease;self.blocked=None
+    def __init__(self,store,lease):self.store=store;self.lease=lease;self.blocked=None;self.provider=None
     def reserve(self,provider):
+        self.provider=provider
         time.sleep(1.05)
         try:self.store.reserve_request(self.lease,provider)
         except RetryBudget as exc:self.blocked=str(exc);raise
@@ -146,6 +164,9 @@ def run_one(store,resolve):
     payload['data']['result']={'rejections':['Unknown Movie']}
     gate=Gate(store,lease)
     with guarded(gate):context=resolve(payload)
+    if gate.blocked in ('retry_request_budget','retry_provider_cooldown'):
+        store.defer(lease,gate.blocked,gate.provider)
+        return True
     if gate.blocked:
         context={'meta':{'identity_status':'needs_review' if lease['number']>=3 else 'unresolved',
                          'identity_reason':'metadata_auth_failure' if gate.blocked=='retry_provider_auth' else 'retry_exhausted' if lease['number']>=3 else 'metadata_api_unavailable'},'category':'unknown_movie'}
