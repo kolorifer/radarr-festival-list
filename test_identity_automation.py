@@ -220,3 +220,25 @@ class ApolloTests(unittest.TestCase):
         self.assertIn('Apollo 10 1 (2022)',type_conflict_message(p))
         p['data']['release']['title']='https://private.invalid/download?token=secret'
         self.assertNotIn('private.invalid',type_conflict_message(p))
+
+
+class ResearchPunctuationTests(unittest.TestCase):
+    def test_colon_candidate_is_investigated_but_never_approved(self):
+        from identity_triage_worker import investigate
+        from unittest.mock import Mock
+        item=case(1,False);item['facts'].update(title='Synthetic Documentary',imdb=None,variants=['Synthetic Documentary'])
+        provider=Mock()
+        provider.get.side_effect=[{'reason':'ok','data':{'results':[{'id':123,'title':'Synthetic: Documentary','original_title':None}]}},
+                                  {'reason':'ok','data':{'results':[]}},
+                                  {'reason':'ok','data':{'id':123,'title':'Synthetic: Documentary','original_title':None,'aliases':[],'translations':[],'date':'2025-01-01','imdb':None,'runtime':60,'directors':[]}}]
+        result=investigate({'item':item},provider)
+        self.assertEqual(result['reason'],'candidate_review');self.assertFalse(result['runtime_correction'])
+        self.assertEqual(result['candidates'][0]['confidence'],'review_required')
+        self.assertEqual(provider.get.call_count,3)
+    def test_existing_search_evidence_visible_without_reopening_ledger(self):
+        from identity_investigation_report import search_candidates
+        result={'original_facts':{'title':'Synthetic Documentary','year':2025},'reason':'no_supported_candidate',
+                'evidence':[{'method':'movie_search','result':{'data':{'results':[{'id':123,'title':'Synthetic: Documentary','original_title':None,'date':'2025-01-01','type':'movie'}]}}}]}
+        before=deepcopy(result);rows=search_candidates(result)
+        self.assertEqual(rows[0]['confidence'],'search_only_unverified');self.assertTrue(rows[0]['year_agrees'])
+        self.assertEqual(result,before)

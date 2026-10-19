@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import sqlite3
 import time
+import unicodedata
 
 from identity_research_provider import Provider, validate_case
 from identity_research_store import ResearchStore, Stop
@@ -12,7 +13,8 @@ from identity_triage_store import private_path, digest
 
 
 def normalized(title):
-    return ' '.join(title.casefold().split())
+    # Candidate discovery only. Never used by the actor's identity/action gates.
+    return ''.join(c for c in unicodedata.normalize('NFKC',title).casefold() if c.isalnum())
 
 
 def investigate(lease,provider):

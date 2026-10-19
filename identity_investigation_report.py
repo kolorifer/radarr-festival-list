@@ -4,6 +4,22 @@ from identity_triage_store import private_path, digest
 from identity_research_handoff import atomic_json
 
 
+def search_candidates(result):
+    """Surface existing search evidence without refetching or rewriting its history."""
+    from identity_triage_worker import normalized
+    facts=result.get('original_facts') or {};title=facts.get('title','')
+    rows=[];seen=set()
+    for evidence in result.get('evidence',[]):
+        if evidence.get('method') not in ('movie_search','tv_search'):continue
+        for row in (evidence.get('result',{}).get('data') or {}).get('results',[]):
+            key=(row['type'],row['id'])
+            if key not in seen and normalized(title) in {normalized(row.get('title') or ''),normalized(row.get('original_title') or '')}:
+                seen.add(key);rows.append({'record':row,'confidence':'search_only_unverified',
+                                          'year_agrees':bool(row.get('date')) and row['date'][:4]==str(facts.get('year')),
+                                          'next_action':'Review detail metadata, media type and source crosswalk before any correction.'})
+    return rows
+
+
 def write_report(state,snapshot,store):
     previous={};path=state/'review-report.json'
     try:
@@ -22,6 +38,7 @@ def write_report(state,snapshot,store):
         row['proposal']=proposals.get(case['case_id'])
         if row['proposal']:
             row['proposal']['current_evidence']=row['proposal']['evidence_version']==jobs.get(case['case_id'],{}).get('version')
+            row['proposal']['search_candidates']=search_candidates(row['proposal']['result'])
         row['proposed_fix']='Review evidence before any identity correction; no automatic correction.'
         all_cases.append(row)
         stable={k:v for k,v in row.items() if k!='observed_at'}
