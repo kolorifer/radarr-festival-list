@@ -133,6 +133,21 @@ class HTTPFlowTests(unittest.TestCase):
     def approve(self, path, root="/movies"):
         return self.request(path, urlencode({"root_folder": root, "quality_profile": 2}).encode(), "application/x-www-form-urlencoded")
 
+    def test_apollo_style_episode_gets_one_plain_diagnostic_no_action(self):
+        value=copy.deepcopy(PAYLOAD)
+        value['data']['release'].update(type='episode',category='Movies :: HD')
+        with patch.object(svc,'observe_identity_outcome') as observe, patch.object(svc,'create_pending_action') as action:
+            request=Request(self.base+'/webhook/test-secret',data=json.dumps(value).encode(),headers={'Content-Type':'application/json'})
+            # Use the same configured secret as the existing HTTP fixture.
+            request.full_url=self.base+'/webhook/'+svc.WEBHOOK_SECRET
+            with urlopen(request) as response:result=json.load(response)
+        self.assertEqual(result['mode'],'identity_diagnostic');self.assertFalse(result['action'])
+        self.assertEqual(len(self.messages),1)
+        self.assertNotIn('reply_markup',self.messages[0]);self.assertNotIn('download',self.messages[0]['text'].lower())
+        action.assert_not_called();observe.assert_called_once()
+        self.assertEqual(value['data']['release']['type'],'episode')
+        self.assertEqual(self.added,[]);self.assertEqual(self.pushed,[])
+
     def test_webhook_confirmation_exact_release_and_single_use(self):
         path = self.webhook()
         status, page, headers = self.request(path)

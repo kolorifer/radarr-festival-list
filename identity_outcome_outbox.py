@@ -32,7 +32,8 @@ class Outbox:
     def count(c,key):
         c.execute('insert into counters values (?,1) on conflict(name) do update set value=value+1',(key,))
 
-    def put(self,item):
+    @staticmethod
+    def validate(item):
         from identity_triage_intake import normalize
         if set(item)!={'version','event','id','timestamp','data'} or set(item['data'])!={'release','indexer','outcome'}:
             raise ValueError('outbox_shape')
@@ -47,6 +48,10 @@ class Outbox:
                 raise ValueError('outbox_quarantine')
         body=json.dumps(item,sort_keys=True)
         if len(body.encode())>65536:raise ValueError('outcome_size')
+        return body
+
+    def put(self,item):
+        body=self.validate(item)
         with self.tx() as c:
             if c.execute('select count(*) from pending').fetchone()[0]>=10000:raise ValueError('outbox_capacity')
             cursor=c.execute('insert or ignore into pending values (?,?,?,0,?)',(item['id'],body,time.time(),time.time()))

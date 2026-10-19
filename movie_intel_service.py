@@ -61,6 +61,15 @@ def decision_log(stage, outcome, payload=None):
     print('decision ' + json.dumps(row, sort_keys=True), flush=True)
 
 
+def movie_category_type_conflict(payload):
+    if not isinstance(payload,dict) or payload.get('event')!='action.rejected':return False
+    data=payload.get('data')
+    if not isinstance(data,dict) or not isinstance(data.get('release'),dict):return False
+    release=data['release'];category=release.get('category')
+    return (release.get('type')=='episode' and isinstance(category,str)
+            and category.split('::',1)[0].strip().casefold()=='movies')
+
+
 def valid_movie_payload(payload):
     if not isinstance(payload, dict) or payload.get('event') != 'action.rejected':
         return False
@@ -768,9 +777,19 @@ class Handler(BaseHTTPRequestHandler):
             release = (data or {}).get("release") if isinstance(data, dict) else None
             is_movie_rejection = valid_movie_payload(payload)
 
-            if is_movie_rejection:
+            if movie_category_type_conflict(payload):
+                context={'meta':{'identity_status':'needs_review','identity_reason':'movie_category_type_conflict'},
+                         'category':'other','identity_observation':{'reason':'movie_category_type_conflict'}}
+                observe_identity_outcome(payload,context)
+                decision_log('identity','movie_category_type_conflict',payload)
+                send_telegram('⚠️ Movie identification needs review: movie-category release parsed as an episode. '
+                              'Approval unavailable. The original parsing has been preserved.',parse_mode=None)
+                self._json(200,{'ok':True,'mode':'identity_diagnostic','action':False})
+            elif is_movie_rejection:
                 context = build_movie_context(payload)
                 observe_identity_outcome(payload, context)
+                from identity_retry import submit as submit_identity_retry
+                submit_identity_retry(payload,context)
                 token = create_pending_action(payload, context.get("meta"))
                 action_url = public_action_url(self.headers, token) if token else None
                 if token and not action_url:
@@ -823,6 +842,8 @@ def main(argv=None):
         print("MOVIE_INTEL_PORT must be an integer between 1 and 65535", file=sys.stderr)
         return 1
     start_identity_observer()
+    from identity_retry import start as start_identity_retry
+    start_identity_retry(build_movie_context)
     server = ThreadingHTTPServer((HOST, port), Handler)
     print(f"movie-intel listening on {HOST}:{PORT}")
     server.serve_forever()

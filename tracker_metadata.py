@@ -20,6 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from tmdb_resolver import valid_imdb_id
+from identity_request_guard import reserve, cooldown
 
 MAX_BODY = 1_000_000
 _LOCK = threading.Lock()
@@ -81,6 +82,9 @@ def parse_listing(body, release_name):
     if not names or any(normalize(name) != normalize(release_name) for name in names):
         return _result('listing_mismatch')
     fields = soup.select('input[name="imdbID"]')
+    ids = set(re.findall(r'\btt[0-9]{7,12}\b', str(soup)))
+    if (not fields or (len(fields)==1 and fields[0].get('value') in (None,''))) and not ids:
+        return _result('listing_id_missing')
     if len(fields) != 1 or not valid_imdb_id(fields[0].get('value')):
         return _result('listing_id_invalid')
     imdb_id = fields[0]['value']
@@ -109,13 +113,21 @@ def _fetch(url, name, cookies):
         session.trust_env = False
         for key, value in cookies.items():
             session.cookies.set(key, value, domain=urlsplit(url).hostname, path='/')
+        reserve('listing')
         with session.get(url, allow_redirects=False, timeout=(3, 5), stream=True,
                          headers={'Accept': 'text/html', 'User-Agent': 'movie-intel/1.0'}) as response:
             if response.status_code == 429:
-                _NEXT_REQUEST = time.monotonic() + _backoff(response.headers.get('Retry-After'))
+                pause = _backoff(response.headers.get('Retry-After'))
+                _NEXT_REQUEST = time.monotonic() + pause
+                cooldown('listing', pause)
                 return _result('rate_limited')
-            if response.status_code != 200:
-                return _result('listing_http_error')
+            if response.status_code in (401,403):
+                cooldown('listing',auth=True)
+                return _result('listing_auth_failure')
+            if response.status_code==404:return _result('listing_not_found')
+            if 300<=response.status_code<400:return _result('listing_redirect')
+            if response.status_code>=500:return _result('listing_temporary_http')
+            if response.status_code != 200:return _result('listing_http_error')
             if 'text/html' not in response.headers.get('Content-Type', '').lower():
                 return _result('listing_content_invalid')
             body = bytearray()

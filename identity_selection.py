@@ -6,13 +6,13 @@ Projection and intake commit together. Original events and seed history stay int
 import json
 from identity_triage_store import digest
 
-RESEARCH = {'tmdb_mapping_missing', 'no_exact_match'}
-REVIEW = {'title_conflict', 'year_conflict', 'ambiguous_exact_matches', 'ambiguous_id_mapping',
+RESEARCH = {'tmdb_mapping_missing', 'no_exact_match', 'listing_id_missing'}
+REVIEW = {'retry_exhausted','authentication_unavailable','login_required','disabled','resolver_unconfigured','listing_auth_failure','listing_not_found','listing_redirect','metadata_auth_failure','metadata_record_missing','metadata_redirect','title_conflict', 'year_conflict', 'ambiguous_exact_matches', 'ambiguous_id_mapping',
           'identity_conflict', 'local_identity_conflict', 'external_id_conflict', 'listing_id_conflict', 'listing_mismatch'}
-RETRY = {'metadata_api_unavailable','metadata_lookup_busy','resolver_error','resolver_unconfigured',
-         'details_unavailable','lookup_busy','authentication_unavailable','login_required','rate_limited',
-         'listing_http_error','listing_unavailable','unavailable','disabled'}
-INVALID = {'invalid_metadata','invalid_external_id','invalid_movie_identity','non_movie_identity',
+RETRY = {'listing_temporary_http','metadata_rate_limited','metadata_api_unavailable','metadata_lookup_busy','resolver_error',
+         'details_unavailable','lookup_busy','rate_limited',
+         'listing_http_error','listing_unavailable','unavailable'}
+INVALID = {'movie_category_type_conflict','invalid_metadata','invalid_external_id','invalid_movie_identity','non_movie_identity',
            'listing_reference_invalid','listing_id_invalid','listing_content_invalid','listing_limit_exceeded'}
 
 
@@ -80,9 +80,12 @@ def project(c,release):
         decision='quarantine';correlation='simultaneous_conflict'
     if any(meta[k] and outcome.get('asserted_'+k) and meta[k]!=outcome['asserted_'+k] for k in ('imdb','tmdb')):
         decision='quarantine';correlation='identifier_conflict'
-    seed=c.execute('select 1 from seeds s join evidence e on e.id=s.evidence where e.release=?',(release,)).fetchone()
+    seed=c.execute('select e.metadata from seeds s join evidence e on e.id=s.evidence where e.release=?',(release,)).fetchone()
     # Never overwrite/reimport the four richer, previously reviewed pilot inputs.
-    if seed:decision='existing_seed'
+    if seed:
+        original=json.loads(seed[0])
+        changed=any(original.get(k)!=meta.get(k) for k in ('title_key','year','imdb','tmdb'))
+        decision='review_only' if changed else 'existing_seed'
     status=decision
     if decision in ('eligible','review_only') and correlation!='strong_source_id':status='unmatched'
     if correlation in ('context_conflict','simultaneous_conflict','identifier_conflict') and decision!='existing_seed':status='quarantine'
@@ -127,3 +130,18 @@ def export(c,limit=100):
                        'provenance':[{'source':'stage1_outcome','digest':version,'observed_at':observed}],
                        'historical_candidates':[],'observed_at':observed})
     return result
+
+
+def snapshot(c,now):
+    """Complete bounded operator projection; overflow fails closed, never silently drops."""
+    counts=metrics(c)
+    if counts['assessed_release_cases']>1000 or counts['routes'].get('eligible',0)>100:
+        raise ValueError('selection_export_capacity')
+    cases=[]
+    for key,version,observed,raw in c.execute('select x.case_key,x.version,x.observed,h.material from selection_current x join selection_history h on h.version=x.version order by x.case_key'):
+        r=json.loads(raw);m=r['metadata']
+        cases.append({'case_id':key,'version':version,'observed_at':observed,
+                      'title':m['title'],'year':m['year'],'route':r['route'],
+                      'reason':r['outcome']['reason'],'correlation':r['correlation'],
+                      'original_type':m.get('original_type','movie')})
+    return {'version':1,'generated_at':now,'coverage':counts,'cases':cases,'items':export(c,100)}

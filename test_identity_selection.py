@@ -47,7 +47,7 @@ class SelectionTests(Base):
                ('other','unresolved','unassessed'),('no_exact_match','unresolved','eligible'),
                ('title_conflict','needs_review','review_only'),('year_conflict','needs_review','review_only'),
                ('ambiguous_exact_matches','unresolved','review_only'),('metadata_api_unavailable','unresolved','retry_later'),
-               ('authentication_unavailable','unresolved','retry_later'),('rate_limited','unresolved','retry_later'),
+               ('authentication_unavailable','unresolved','review_only'),('rate_limited','unresolved','retry_later'),
                ('non_movie_identity','needs_review','quarantine')]
         for i,(reason,status,expected) in enumerate(cases):
             p=payload(external_id=str(i));self.ingest(p);self.ingest(self.outcome(p,reason,status),'outcome')
