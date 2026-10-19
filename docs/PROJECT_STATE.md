@@ -1,5 +1,22 @@
 # Movie List project state
 
+## Incident investigation55–56 — 2026-10-19, read-only complete
+
+Seven historical movie notices: two source HTTP errors, three year conflicts,
+one title conflict and one missing crosswalk. Apollo was parsed as an episode
+and bypassed movie enrichment. All incidents predate observer activation at
+09:27:40 CEST; the seven movie observations have no historical outcome/selection
+rows. This is not evidence of post-activation delivery loss. Current read-only
+checks verify The Killing, Legend of the White Dragon and Jhilli; other cases
+remain for review. Tres has a conflicting-ID candidate; no crosswalk accepted.
+42 targeted tests pass, including eight new synthetic characterizations.
+Nine listing and18 TMDb diagnostic GETs; no production mutation or acquisition.
+Actor/collector remain28d65ed, healthy; worker2de1ba8 disabled, pilot ledger19
+unchanged. Proposed bounded retry, concise parser-conflict notices and exact
+fraction/year/ID reviews require approval; PR54 remains independent.
+[Report](reports/2026-10-19-identity-incidents.md) ·
+[Brief](reports/2026-10-19-identity-incidents-brief.md).
+
 ## Passive identity eligibility — 2026-10-19
 
 PR52 merged as `fba7a0767cc94c5f77613880d893c82502bf567b`; issue51 closed.
