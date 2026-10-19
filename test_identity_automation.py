@@ -260,8 +260,19 @@ class HandoffFailureTests(unittest.TestCase):
         with patch('identity_triage_observer.read_config',return_value={'port':40715}), patch.object(handoff.socket,'create_connection',side_effect=TimeoutError('PRIVATE_URL_TOKEN')), patch('sys.stdout',output):
             self.assertEqual(handoff.main(),1)
         self.assertIn('stage=connect reason=timeout',output.getvalue());self.assertNotIn('PRIVATE',output.getvalue())
-    def test_scan_retry_is_bounded_and_does_not_change_worker_sandbox(self):
-        unit=Path('deploy/identity-investigation-scan.service').read_text()
-        self.assertIn('StartLimitBurst=3',unit);self.assertIn('StartLimitIntervalSec=600',unit)
-        self.assertIn('RestartSec=60',unit);self.assertIn('Restart=on-failure',unit)
-        self.assertNotIn('Restart=',Path('deploy/identity-research.service').read_text())
+    def test_scan_retry_is_bounded_and_does_not_repeat_worker(self):
+        import identity_research_scan as scan
+        from unittest.mock import Mock
+        import io
+        with patch.object(scan.subprocess,'run',return_value=Mock(returncode=1)) as run, patch.object(scan.time,'sleep') as sleep, patch('sys.stdout',io.StringIO()):
+            self.assertEqual(scan.main(),1)
+        self.assertEqual(run.call_count,3);self.assertEqual(sleep.call_count,2)
+        self.assertTrue(all(call.kwargs['timeout']==15 for call in run.call_args_list))
+        self.assertNotIn('identity_triage_worker',scan.COMMAND[-1])
+        self.assertNotIn('Restart=',Path('deploy/identity-investigation-scan.service').read_text())
+    def test_handoff_retry_stops_after_success(self):
+        import identity_research_scan as scan
+        from unittest.mock import Mock
+        with patch.object(scan.subprocess,'run',side_effect=[Mock(returncode=1),Mock(returncode=0)]) as run, patch.object(scan.time,'sleep'):
+            self.assertEqual(scan.main(),0)
+        self.assertEqual(run.call_count,2)
