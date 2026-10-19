@@ -734,3 +734,7 @@ Their large simulation artifacts are not production runtime/build dependencies.
 [Current production brief](reports/2026-10-14-d016-production-brief.md) and
 [engineering/deployment report](reports/2026-10-14-d016-production.md) record
 tests, revision/PR references, deployment checks, privacy and rollback.
+
+## Metadata retry budget fix (2026-10-19)
+
+Owner-authorized Contagion investigation follow-up: zero-request budget/cooldown waits are deferred without consuming lookup attempts; temporary Telegram lookup failures are explicit. Validation/deployment tracked in [report](reports/2026-10-19-retry-budget-fix.md). No new identity correction or request budget.
