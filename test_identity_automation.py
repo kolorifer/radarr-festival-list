@@ -65,6 +65,53 @@ class RetryTests(Base):
         self.s=RetryStore(self.s.directory,clock=lambda:self.now)
         with self.assertRaisesRegex(RetryBudget,'auth'):self.s.reserve_request(lease,'tmdb')
         self.assertEqual(self.s.summary()['requests_rolling_week'],5)
+    def test_budget_deferral_survives_restart_without_consuming_attempt(self):
+        lease=self.ready()
+        with self.s.tx() as c:
+            for n in range(5):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','tmdb',self.now-100+n))
+            c.execute('update retry_jobs set expires=?',(self.now+8*86400,))
+        self.s.defer(lease,'retry_request_budget','tmdb')
+        self.assertEqual(self.s.metrics()['pending'],0)
+        self.s=RetryStore(self.s.directory,clock=lambda:self.now)
+        self.assertIsNone(self.s.lease())
+        with self.s.tx() as c:
+            due=c.execute('select due from retry_jobs').fetchone()[0]
+            self.assertEqual(due,self.now-100+7*86400+1)
+            # Extend only this fixture's source lifetime to test budget reopening.
+            c.execute('update retry_jobs set expires=?',(due+100,))
+        self.now=due
+        self.assertEqual(self.s.lease()['number'],1)
+
+    def test_cooldown_deferral_counts_partial_request_but_not_empty_wait(self):
+        lease=self.ready();self.s.cooldown('listing',100,False)
+        self.s.defer(lease,'retry_provider_cooldown','listing');self.now+=101
+        lease=self.s.lease();self.assertEqual(lease['number'],1)
+        self.s.reserve_request(lease,'tmdb')
+        self.s.cooldown('listing',100,False)
+        self.s.defer(lease,'retry_provider_cooldown','listing');self.now+=101
+        self.assertEqual(self.s.lease()['number'],2)
+
+    def test_budget_block_does_not_publish_false_failure(self):
+        from identity_request_guard import reserve
+        self.s.admit(self.item,SOURCES);self.now+=901
+        with self.s.tx() as c:
+            for n in range(5):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','tmdb',self.now))
+        def resolve(p):
+            try:reserve('tmdb')
+            except RetryBudget:pass
+            return context()
+        run_one(self.s,resolve)
+        self.assertEqual(self.s.metrics()['pending'],0)
+        self.assertEqual(self.s.summary()['states'],{'pending':1})
+
+    def test_temporary_notification_is_clear_without_promising_recovery(self):
+        from movie_intel_service import format_message
+        text=format_message(self.p,meta=context('listing_temporary_http')['meta'])
+        self.assertIn('temporarily unavailable',text)
+        self.assertIn('Approval unavailable',text)
+        text=format_message(self.p,meta=context('title_conflict')['meta'])
+        self.assertNotIn('temporarily unavailable',text)
+
     def test_future_material_invalidates_old_lease(self):
         lease=self.ready();p=deepcopy(self.p);p['data']['release']['year']=2024
         changed={'observation':envelope(p,context(),SOURCES)}
