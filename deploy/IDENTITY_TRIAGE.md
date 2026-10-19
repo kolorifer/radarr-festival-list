@@ -109,7 +109,7 @@ Do not point either new route at movie-intel's Telegram-forwarding webhook.
    dependency/scoring/leak checks. Review and pin the exact code revision.
 2. Create mode700 collector code/config/state directories. Copy only
    `identity_triage_service.py`, `identity_triage_intake.py`,
-   `identity_triage_store.py`, `identity_triage_sandbox.py` to `~/.local/lib/movie-identity-triage`. Use stdlib
+   `identity_triage_store.py`, `identity_triage_sandbox.py`, `identity_selection.py` to `~/.local/lib/movie-identity-triage`. Use stdlib
    `/usr/bin/python3`3.12/3.13; no movie-intel env/venv/config inheritance. Record
    source SHA and file hashes privately. Install both `identity-triage.service` and
    `identity-triage.socket` after confirming the boundary works. Verify the child
@@ -214,3 +214,42 @@ retain current action state and reviewed bindings. Keep the observational DB pri
 Schema v1 has no downgrade; restore a triage backup only with collector stopped and
 only into triage state, acknowledging observation loss after the snapshot. Never
 restore an action/cache backup as part of triage rollback. Recheck old service health.
+
+
+## Passive eligibility bridge (issue 53)
+
+Install `identity_selection.py` alongside the four collector modules. Its tables
+are additive; v1 evidence, deliveries, seeds and constraints stay intact. Disable
+or roll back code without restoring an old action store or deleting observations.
+The original four seeds retain their separate reviewed history.
+
+The optional movie-intel observer uses the existing collector outcome key in its
+private three-field configuration (`port`, `key`, `sources`). The actor owns a
+700/600 retry spool at `~/.local/state/movie-identity-outcomes`. No collector or
+researcher access to that directory is granted. Committed messages retry with the
+same UUID until acknowledged. The 32-item asynchronous pre-persistence queue may
+lose events on crash or saturation; process counters and fixed-code journal
+messages expose known failures, but cannot reconstruct an unknown crash window.
+The publisher still has no durable outbox. Never claim complete intake.
+
+`/metrics` reports observed source releases, releases without outcomes, assessed
+release cases, explicit routes, correlation strengths, material versions and
+legacy rows without chronology. These are release cases, not canonical distinct
+movies. Strong source-ID matching is required for automatic eligibility; name
+fallback and unmatched outcomes are withheld. Provider failures go to retry later;
+conflicts to review only; invalid data to quarantine. No research is executed.
+
+Authenticated `GET /v1/eligible` uses the existing **outcome** key and returns at
+most ten current Stage 2-compatible manifests. This private export is the pending
+research queue. Future research still needs an explicitly approved budget/run and
+controlled manifest transfer; the worker never reads the collector database or
+holds its key. Export pagination/large backlog draining is not implemented.
+
+Before activation, back up private observer/environment configuration and collector
+code; snapshot only triage state for migration verification. Keep research disabled,
+its token empty and its finite ledger closed. Check exact notifier configuration,
+collector socket/system-call policy, effective startup denials, local/public actor
+health, original reviewed bindings and researcher installed hashes. Disable the
+observer environment flag and restart only movie-intel to stop outcome production;
+its committed spool remains private for a later approved resume. Old collector
+code can ignore additive selection tables. Do not restore stale acquisition state.

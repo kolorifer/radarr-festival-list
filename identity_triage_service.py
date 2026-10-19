@@ -185,10 +185,16 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         try:
-            if self.path not in ('/health', '/metrics'):
+            if self.path not in ('/health', '/metrics', '/v1/eligible'):
                 self.reply(404)
                 return
-            if not self.authenticate('release_new'):
+            if not self.authenticate('outcome' if self.path=='/v1/eligible' else 'release_new'):
+                return
+            if self.path=='/v1/eligible':
+                import identity_selection
+                with self.server.store.connection(readonly=True) as c:
+                    items=identity_selection.export(c,10)
+                self.reply(200,{'items':items,'research_enabled':False})
                 return
             metrics = self.server.store.metrics()
             metrics['storage_failures_since_start'] = self.server.storage_failures

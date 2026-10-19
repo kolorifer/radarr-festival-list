@@ -13,6 +13,10 @@ CATEGORIES = {'unknown_movie', 'quality', 'existing', 'not_upgrade', 'other'}
 REASONS = {'tmdb_mapping_missing', 'metadata_api_unavailable', 'invalid_metadata', 'non_movie_identity', 'ambiguous_id_mapping', 'identity_conflict', 'invalid_movie_identity', 'metadata_lookup_busy', 'external_id_verified', 'other', 'resolved', 'skipped_routine', 'unmapped_external_id', 'external_id_conflict',
            'local_identity_conflict', 'invalid_external_id', 'title_conflict', 'year_conflict',
            'resolver_error', 'missing', 'ambiguous', 'disabled', 'unavailable', 'verified'}
+REASONS |= {'no_exact_match','ambiguous_exact_matches','resolver_unconfigured','details_unavailable',
+            'login_required','listing_mismatch','listing_id_invalid','listing_id_conflict','rate_limited',
+            'listing_http_error','listing_content_invalid','listing_limit_exceeded','listing_reference_invalid',
+            'lookup_busy','authentication_unavailable','listing_unavailable','unsupported_indexer'}
 CONTRADICTIONS = {'missing_crosswalk', 'year_conflict', 'title_conflict', 'runtime_conflict',
                   'director_conflict', 'insufficient_evidence'}
 
@@ -124,9 +128,13 @@ def normalize(payload, sources, channel='release_new'):
             raise ValueError('title')
         if channel == 'outcome':
             o = data.get('outcome')
-            if (not isinstance(o, dict) or set(o) != {'category', 'status', 'reason'}
+            if (not isinstance(o, dict) or not {'category', 'status', 'reason'} <= set(o) or set(o)-{'category','status','reason','asserted_imdb','asserted_tmdb'}
                     or o['category'] not in CATEGORIES or o['status'] not in OUTCOME_STATUSES or o['reason'] not in REASONS):
                 raise ValueError('outcome')
+            if o.get('asserted_imdb') is not None and (not isinstance(o['asserted_imdb'],str) or not re.fullmatch(r'tt[0-9]{7,10}',o['asserted_imdb'])):
+                raise ValueError('outcome_id')
+            if o.get('asserted_tmdb') is not None and (type(o['asserted_tmdb'])!=int or not 0<o['asserted_tmdb']<2**31):
+                raise ValueError('outcome_id')
             record['outcome'] = dict(o)
         if channel == 'seed':
             s = data.get('seed')
