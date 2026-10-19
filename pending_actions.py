@@ -74,7 +74,8 @@ def create_action(action, ttl_seconds=None):
         release = action.get('release') or {}
         if release.get('name'):
             for existing_token, existing in data.items():
-                if (existing.get('movie', {}).get('tmdb_id') == action.get('movie', {}).get('tmdb_id')
+                if (existing.get('kind') == action.get('kind')
+                        and existing.get('movie', {}).get('tmdb_id') == action.get('movie', {}).get('tmdb_id')
                         and existing.get('release') == release):
                     return existing_token
         while token in data:
