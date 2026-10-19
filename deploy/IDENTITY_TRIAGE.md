@@ -253,3 +253,46 @@ health, original reviewed bindings and researcher installed hashes. Disable the
 observer environment flag and restart only movie-intel to stop outcome production;
 its committed spool remains private for a later approved resume. Old collector
 code can ignore additive selection tables. Do not restore stale acquisition state.
+
+## Selected-action intake (issue60)
+
+`POST /v1/selected` uses the existing limited release key and accepts only autobrr
+v1.88 `action.approved/rejected/error` with corresponding `PUSH_APPROVED/REJECTED/ERROR`
+status, positive filter ID, known action type and bounded action-name/client fields.
+Names/client labels are hashed into an opaque action identity; filter numeric ID,
+action type and fixed outcome codes are stored separately from movie metadata.
+URLs, raw rejection/error text, credentials and full payloads are never retained.
+`unknown_movie` is a fixed classifier of rejected results, not a verified identity.
+
+Set optional collector `source_mode: "selected_only"` only after verification;
+`/v1/release` then returns410 without storing announcements. Omission/default
+`announcements` keeps the old route for staged comparison/rollback. `/v1/outcome`
+and its separate credential/export remain unchanged. Change only the dedicated
+Identity shadow intake notifier to the three PUSH events and `/v1/selected`.
+Do not repoint the actor rejection webhook or restore duplicate Telegram events.
+
+An additive `selected_observations` table/index leaves schema-v1 history intact.
+UUID redeliveries remain duplicates; equivalent action observations with new UUIDs
+are separately counted as duplicate observations. Filter/action/outcome changes
+add observations on the same source release/evidence, not new movie identities.
+Autobrr omits numeric action/status IDs, so repeated identical attempts cannot be
+distinguished from new-UUID delivery duplicates; metrics count distinct observations,
+not a guaranteed number of executions. Changed movie metadata still creates a new
+evidence version. Old collector code can read the database after rollback.
+
+Selected source evidence supports strong outcome correlation just like historical
+release.new/retained evidence. Missing stable IDs stay weak/unmatched. Explicit
+movie-category episodes become diagnostic quarantine without making real TV movies.
+Action acceptance alone never enters research or verifies/downloads a movie.
+Metrics expose selected fingerprints, distinct event/filter observations, Unknown
+Movie correlations, missing outcomes, weak IDs and dedup/rejection counters. A zero
+count is not proof of a gap or no activity: upstream has no durable webhook outbox.
+
+Back up configuration and SQLite through its backup API before migration. Test
+both overlapping channels and rollback before changing the notifier. Bounded
+parallel comparison may briefly record both channels but shares release/evidence
+identity; remove the temporary notifier at cutover or timeout. Preserve all ledgers.
+Rollback restores only the original dedicated notifier and saved collector config/
+code, restarting only the collector; never restore stale action/research databases.
+No historical purge is authorized. Estimate any future cleanup on a private copy
+and request a separate retention decision before deleting observations.

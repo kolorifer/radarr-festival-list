@@ -48,7 +48,7 @@ def count(c,name):
 def ingest(c,record,channel,evidence,now):
     if not evidence:return
     release=record['release']
-    if channel=='outcome':
+    if channel=='outcome' or (channel=='selected' and 'outcome' in record):
         outcome=record['outcome'];observed=record['time']
         if observed is None or observed>now+300:
             outcome={'status':'unresolved','category':'other','reason':'invalid_metadata'}
@@ -66,7 +66,7 @@ def project(c,release):
     decision=route(outcome)
     if outcome['reason']=='tmdb_mapping_missing' and not (outcome.get('asserted_imdb') or meta['imdb']):
         decision='quarantine'
-    observations=c.execute('select distinct e.metadata from evidence e join deliveries d on d.evidence=e.id where e.release=? and d.channel in ("release_new","retained")',(release,)).fetchall()
+    observations=c.execute('select distinct e.metadata from evidence e join deliveries d on d.evidence=e.id where e.release=? and d.channel in ("release_new","retained","selected")',(release,)).fetchall()
     if meta['release_key_basis']!='external_id':correlation='uncertain_name_only'
     elif not observations:correlation='outcome_only'
     else:
@@ -104,8 +104,8 @@ def project(c,release):
 def metrics(c):
     states=dict(c.execute('select h.route,count(*) from selection_current x join selection_history h on h.version=x.version group by h.route'))
     correlations=dict(c.execute('select h.correlation,count(*) from selection_current x join selection_history h on h.version=x.version group by h.correlation'))
-    observed=c.execute('select count(distinct e.release) from evidence e join deliveries d on d.evidence=e.id where d.channel in ("release_new","retained")').fetchone()[0]
-    unassessed=c.execute('select count(distinct e.release) from evidence e join deliveries d on d.evidence=e.id where d.channel in ("release_new","retained") and not exists(select 1 from selection_events s where s.release=e.release)').fetchone()[0]
+    observed=c.execute('select count(distinct e.release) from evidence e join deliveries d on d.evidence=e.id where d.channel in ("release_new","retained","selected")').fetchone()[0]
+    unassessed=c.execute('select count(distinct e.release) from evidence e join deliveries d on d.evidence=e.id where d.channel in ("release_new","retained","selected") and not exists(select 1 from selection_events s where s.release=e.release)').fetchone()[0]
     legacy=c.execute('select count(*) from outcomes o where not exists(select 1 from selection_events s where s.evidence=o.evidence)').fetchone()[0]
     return {'source_releases_observed':observed,'source_releases_without_outcome':unassessed,
             'outcome_events':c.execute('select count(*) from selection_events').fetchone()[0],

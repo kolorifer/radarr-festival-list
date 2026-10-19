@@ -19,6 +19,9 @@ REASONS |= {'no_exact_match','ambiguous_exact_matches','resolver_unconfigured','
             'lookup_busy','authentication_unavailable','listing_unavailable','unsupported_indexer'}
 REASONS |= {'listing_id_missing','listing_auth_failure','listing_not_found','listing_redirect','listing_temporary_http',
             'metadata_auth_failure','metadata_rate_limited','metadata_record_missing','metadata_redirect','movie_category_type_conflict','retry_exhausted'}
+SELECTED_EVENTS = {'action.approved': 'PUSH_APPROVED', 'action.rejected': 'PUSH_REJECTED', 'action.error': 'PUSH_ERROR'}
+ACTION_TYPES = {'TEST','EXEC','QBITTORRENT','DELUGE_V1','DELUGE_V2','RTORRENT','TRANSMISSION','PORLA','ARIA2','WATCH_FOLDER','WEBHOOK','RADARR','SONARR','LIDARR','WHISPARR','WHISPARR_V3','READARR','SPORTARR','SABNZBD','NZBGET'}
+
 CONTRADICTIONS = {'missing_crosswalk', 'year_conflict', 'title_conflict', 'runtime_conflict',
                   'director_conflict', 'insufficient_evidence'}
 
@@ -72,7 +75,10 @@ def timestamp(value):
 
 
 def normalize(payload, sources, channel='release_new'):
-    event = 'identity.outcome' if channel == 'outcome' else 'release.new'
+    selected = channel == 'selected'
+    event = payload.get('event') if selected else 'identity.outcome' if channel == 'outcome' else 'release.new'
+    if selected and (not isinstance(event, str) or event not in SELECTED_EVENTS):
+        raise Reject('unsupported_event')
     if payload.get('event') != event or payload.get('version') != '1.0':
         raise Reject('unsupported_event')
     data = payload.get('data')
@@ -84,9 +90,32 @@ def normalize(payload, sources, channel='release_new'):
     source = indexer.get('identifier')
     if not isinstance(source, str) or source not in sources or indexer.get('name') != sources[source]:
         raise Reject('source')
+    provenance = None
+    if selected:
+        f, a, result = data.get('filter'), data.get('action'), data.get('result')
+        try:
+            if not all(isinstance(x, dict) for x in (f, a, result)):
+                raise ValueError('selected_schema')
+            if type(f.get('id')) != int or not 0 < f['id'] < 2**31:
+                raise ValueError('selected_filter')
+            if a.get('type') not in ACTION_TYPES or result.get('status') != SELECTED_EVENTS[event]:
+                raise ValueError('selected_result')
+            name = safe_text(a.get('name'), 128)
+            client = safe_text(a['client'], 128) if a.get('client') else ''
+            rejections = result.get('rejections', [])
+            if not isinstance(rejections, list) or len(rejections) > 64 or any(not isinstance(x, str) or len(x) > 4096 for x in rejections):
+                raise ValueError('selected_rejections')
+            reason = ('unknown_movie' if event == 'action.rejected' and any('unknown movie' in x.casefold() for x in rejections)
+                      else {'action.approved': 'action_accepted', 'action.rejected': 'action_rejected', 'action.error': 'action_error'}[event])
+            provenance = {'filter_id': f['id'], 'action_key': digest([a['type'], name, client]),
+                          'action_type': a['type'], 'event': event, 'reason': reason}
+        except (ValueError, TypeError):
+            raise Reject('selected_provenance') from None
     malformed_type = release.get('type') != 'movie'
     diagnostic = (channel=='outcome' and release.get('type')=='episode'
                   and isinstance(data.get('outcome'),dict) and data['outcome'].get('reason')=='movie_category_type_conflict')
+    diagnostic = diagnostic or (selected and release.get('type') == 'episode' and isinstance(release.get('category'), str)
+                                and release['category'].split('::', 1)[0].strip().casefold() == 'movies')
     if malformed_type and not diagnostic and (release.get('type') in ('episode', 'series', 'music', 'book', 'game', 'app')
                            or not ('year' in release and 'title' in release)):
         raise Reject('non_movie')
@@ -131,6 +160,10 @@ def normalize(payload, sources, channel='release_new'):
         if diagnostic:record['metadata']['original_type']='episode'
         if not record['metadata']['title_key']:
             raise ValueError('title')
+        if selected:
+            record['selected'] = provenance
+            if diagnostic:
+                record['outcome'] = {'category': 'other', 'status': 'needs_review', 'reason': 'movie_category_type_conflict'}
         if channel == 'outcome':
             o = data.get('outcome')
             if (not isinstance(o, dict) or not {'category', 'status', 'reason'} <= set(o) or set(o)-{'category','status','reason','asserted_imdb','asserted_tmdb'}

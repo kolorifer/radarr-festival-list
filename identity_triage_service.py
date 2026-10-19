@@ -28,7 +28,7 @@ def read_config(path):
     if path.stat().st_size > 8192:
         raise ValueError('configuration')
     cfg = decode(path.read_bytes())
-    if set(cfg) != {'version', 'enabled', 'port', 'sources', 'release_key', 'outcome_key'}:
+    if set(cfg)-{'source_mode'} != {'version', 'enabled', 'port', 'sources', 'release_key', 'outcome_key'} or cfg.get('source_mode', 'announcements') not in ('announcements', 'selected_only'):
         raise ValueError('configuration')
     if cfg['version'] != 1 or type(cfg['enabled']) != bool or type(cfg['port']) != int or not 1024 <= cfg['port'] <= 65535:
         raise ValueError('configuration')
@@ -204,6 +204,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply(200,{'items':items,'research_enabled':False})
                 return
             metrics = self.server.store.metrics()
+            metrics['source_mode'] = read_config(self.server.config_path).get('source_mode', 'announcements')
             metrics['storage_failures_since_start'] = self.server.storage_failures
             self.reply(200, metrics if self.path == '/metrics' else None)
         except (ValueError, OSError, sqlite3.Error) as exc:
@@ -211,13 +212,17 @@ class Handler(BaseHTTPRequestHandler):
             self.reply(503)
 
     def do_POST(self):
-        channel = {'/v1/release': 'release_new', '/v1/outcome': 'outcome'}.get(self.path)
+        channel = {'/v1/release': 'release_new', '/v1/selected': 'selected', '/v1/outcome': 'outcome'}.get(self.path)
         if channel is None:
             self.reply(404)
             return
         try:
             cfg = self.authenticate(channel)
             if cfg is None:
+                return
+            if channel == 'release_new' and cfg.get('source_mode') == 'selected_only':
+                self.server.store.reject(channel)
+                self.reply(410)
                 return
             lengths = self.headers.get_all('Content-Length', [])
             if self.headers.get('Transfer-Encoding') or len(lengths) != 1 or not re.fullmatch('[0-9]{1,8}', lengths[0]):

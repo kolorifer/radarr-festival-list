@@ -10,7 +10,7 @@ import uuid
 from contextlib import contextmanager
 
 SCHEMA_VERSION = 1
-CHANNELS = {'release_new', 'outcome', 'retained', 'seed'}
+CHANNELS = {'release_new', 'outcome', 'retained', 'seed', 'selected'}
 
 
 def digest(value):
@@ -74,6 +74,9 @@ class Store:
                 ):
                     c.execute(statement)
                 c.execute('PRAGMA user_version=1')
+            # Additive migration: old schema-v1 readers can still operate/rollback.
+            c.execute('CREATE TABLE IF NOT EXISTS selected_observations (id TEXT PRIMARY KEY, release TEXT NOT NULL, evidence TEXT NOT NULL REFERENCES evidence(id), filter_id INTEGER NOT NULL, action_key TEXT NOT NULL, action_type TEXT NOT NULL, event TEXT NOT NULL, reason TEXT NOT NULL, observed REAL, received REAL NOT NULL)')
+            c.execute('CREATE INDEX IF NOT EXISTS selected_release ON selected_observations(release)')
             import identity_selection
             identity_selection.initialize(c)
             c.commit()
@@ -150,6 +153,12 @@ class Store:
                     version = c.execute('SELECT coalesce(max(version),0)+1 FROM evidence WHERE release=?', (release,)).fetchone()[0]
                     c.execute('INSERT INTO evidence VALUES (?,?,?,?,?)',
                               (evidence_id, release, case_id, version, json.dumps(meta, sort_keys=True)))
+                if 'selected' in record:
+                    s = record['selected']
+                    key = digest([release, evidence_id, s])
+                    inserted = c.execute('INSERT OR IGNORE INTO selected_observations VALUES (?,?,?,?,?,?,?,?,?,?)',
+                                         (key, release, evidence_id, s['filter_id'], s['action_key'], s['action_type'], s['event'], s['reason'], record.get('time'), now))
+                    self.count(c, channel, 'new_observation' if inserted.rowcount else 'duplicate_observation')
                 if 'outcome' in record:
                     o = record['outcome']
                     c.execute('INSERT OR IGNORE INTO outcomes VALUES (?,?,?,?)',
@@ -171,14 +180,27 @@ class Store:
             counts = {}
             for channel, name, value in c.execute('SELECT channel,name,value FROM counters'):
                 counts.setdefault(channel, {})[name] = value
-            last, lag = c.execute('SELECT max(received), max(max(0,received-source_time)) FROM deliveries WHERE channel="release_new" AND evidence IS NOT NULL').fetchone()
+            last, lag = c.execute('SELECT max(received), max(max(0,received-source_time)) FROM deliveries WHERE channel in ("release_new","selected") AND evidence IS NOT NULL').fetchone()
             tables = {name: c.execute('SELECT count(*) FROM ' + table).fetchone()[0]
                       for name, table in (('observed_movie_deliveries', 'deliveries WHERE evidence IS NOT NULL'),
                                           ('distinct_releases', 'releases'), ('evidence_versions', 'evidence'),
                                           ('provisional_cases', 'cases'), ('seed_associations', 'seeds'))}
             import identity_selection
             selection = identity_selection.metrics(c)
-        return dict(tables, selection=selection, counters=counts, last_good_release_delivery=last, max_delivery_lag_seconds=lag,
+            selected = {
+                'semantics': 'matched_filter_and_action_attempted',
+                'distinct_releases': c.execute('select count(distinct release) from selected_observations').fetchone()[0],
+                'observations': c.execute('select count(*) from selected_observations').fetchone()[0],
+                'events': dict(c.execute('select event,count(*) from selected_observations group by event')),
+                'per_filter_event': [{'filter_id': f, 'event': event, 'count': n} for f,event,n in c.execute('select filter_id,event,count(*) from selected_observations group by filter_id,event')],
+                'unknown_movie_releases': c.execute('select count(distinct release) from selected_observations where reason="unknown_movie"').fetchone()[0],
+                'unknown_movie_with_outcome': c.execute('select count(distinct s.release) from selected_observations s where reason="unknown_movie" and exists(select 1 from selection_events e where e.release=s.release)').fetchone()[0],
+                'unknown_movie_strongly_correlated': c.execute('select count(distinct s.release) from selected_observations s join selection_current x on x.release=s.release join selection_history h on h.version=x.version where s.reason="unknown_movie" and h.correlation="strong_source_id"').fetchone()[0],
+                'without_outcome': c.execute('select count(distinct s.release) from selected_observations s where not exists(select 1 from selection_events e where e.release=s.release)').fetchone()[0],
+                'weak_source_observations': c.execute('select count(*) from selected_observations s join evidence e on e.id=s.evidence where json_extract(e.metadata,"$.release_key_basis")!="external_id"').fetchone()[0],
+                'source_delivery_gaps': 'unknown_without_upstream_outbox; compare per-filter/event counts with retained action statuses',
+            }
+        return dict(tables, selection=selection, selected=selected, counters=counts, last_good_release_delivery=last, max_delivery_lag_seconds=lag,
                     coverage='incomplete', publisher_outbox=False,
                     source_health='no_delivery_observed' if last is None else 'stale_or_quiet' if time.time()-last > 900 else 'recent_delivery',
                     source_gap_detection='cannot_distinguish_quiet_source_from_lost_events')
