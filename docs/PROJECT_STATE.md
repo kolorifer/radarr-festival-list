@@ -740,3 +740,8 @@ tests, revision/PR references, deployment checks, privacy and rollback.
 Read-only investigation found that current Radarr push/retry paths cannot guarantee preservation of an existing file. A restricted download-only helper requires the owner’s explicit credential-boundary decision. Display-only curated edition annotations and tests are staged separately, with no production changes. See [investigation and plan](reports/2026-10-19-issue62-investigation.md). PR63 rollout remains separate; integrate its fix before deploying this work.
 
 Issue62 update: owner explicitly permits Radarr to replace the old file after confirmation of a specific alternative release. This supersedes keep-existing-file wording, but not per-release approval. Native manual grab requires a search-cache entry that autobrr pushes do not create; the remaining direct-helper credential decision is still pending. Exact annotation draft 6b3d6b8 passed all 588 seedbox tests, undeployed.
+## Metadata retry budget fix (2026-10-19)
+
+Owner-authorized Contagion investigation follow-up: zero-request budget/cooldown waits are deferred without consuming lookup attempts; temporary Telegram lookup failures are explicit. Validation/deployment tracked in [report](reports/2026-10-19-retry-budget-fix.md). No new identity correction or request budget.
+
+PR63 completed: merge 4239e63; production actor cd4e25f96d1d5d0d6de5f953959bdb2ed10aa72a. Both CI versions passed, exact runtime passed 564 seedbox tests, public/local health200. Collector 23cacc8, research configuration and approval/delivery state preserved. Contagion remains pending with zero counted retries; no live notification/download/lookup replay. See the retry-budget report for schedule and expiry limits.

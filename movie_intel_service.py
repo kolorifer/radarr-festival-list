@@ -220,10 +220,13 @@ def format_message(payload, movie=None, meta=None, existing=None):
         if facts:
             lines.append(" · ".join(html.escape(x) for x in facts))
 
+    from identity_retry import TEMPORARY
     if identity_status == 'needs_review':
         lines += ['', 'ℹ️ Movie identity requires review: conflicting or invalid metadata. Approval unavailable.']
     elif identity_status == 'imdb_associated':
         lines += ['', 'ℹ️ Indexer IMDb association only; no verified TMDb mapping. Approval unavailable.']
+    elif identity_status == 'unresolved' and meta.get('identity_reason') in TEMPORARY:
+        lines += ['', 'ℹ️ Identity verification is temporarily unavailable because a metadata lookup failed or was rate-limited. Approval unavailable until verification succeeds.']
     elif identity_status == 'unresolved':
         lines += ['', 'ℹ️ Movie identity could not be verified from source metadata. Approval unavailable.']
     elif movie:
