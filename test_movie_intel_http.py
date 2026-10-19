@@ -168,7 +168,9 @@ class HTTPFlowTests(unittest.TestCase):
     def test_alternative_confirmation_is_explicit_and_single_use(self):
         from test_alternative_grab import ACTION, CURRENT
         import alternative_grab as alt
-        token=actions.create_action(ACTION);path='/action/'+token
+        action=copy.deepcopy(ACTION)
+        action['rejections']=['Existing file on disk has a equal or higher Custom Format score: 0']
+        token=actions.create_action(action);path='/action/'+token
         with patch.object(alt,'get_movie_by_tmdb',return_value=CURRENT), patch.object(alt,'execute',return_value='queued') as execute:
             status,page,headers=self.request(path)
             self.assertEqual(status,200);self.assertIn('possible replacement',page)
