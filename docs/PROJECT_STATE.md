@@ -1,5 +1,34 @@
 # Movie List project state
 
+## Selected-only identity source intake — 2026-10-19
+
+[Issue60](https://github.com/kolorifer/radarr-festival-list/issues/60) is implemented
+in [PR61](https://github.com/kolorifer/radarr-festival-list/pull/61). Collector modules
+are deployed at tested `23cacc8b9d1cab1cc463a3a554a1faaa1d2fcd01`; actor remains clean
+at `8846f5195d4094a337726d1f7829659ecdeb8f85`, PID unchanged. Dedicated Identity shadow
+intake now receives only PUSH_APPROVED/PUSH_REJECTED/PUSH_ERROR at `/v1/selected`;
+source_mode selected_only rejects new broad announcements. No other notifier,
+filter, action, research/digest/retry setting, binding or acquisition record changed.
+
+577 tests pass seedbox/CI3.12/3.13; local575 pass/two Linux skips. Actual collector/
+worker denials and isolated confined selected-intake/correlation/restart checks
+pass. All539 retained action records were projected offline, with no newly lost
+accepted class and one improved diagnostic episode quarantine. In the measured
+broad cohort,111 of188 releases (59%) lacked selected-action evidence. No history
+was deleted; database size grew20,480 bytes including schema/intervening activity.
+
+The720-second natural comparison saw no new actions or accepted movie announcements.
+Its temporary notifier/key were removed. Cutover followed passing functional and
+security checks; **natural selected/Unknown Movie end-to-end capture is pending**.
+Postflight selected rows0, new broad accepted rows0. Local/public health200,1909
+movies, actor/collector active NRestarts0, timer active, outcome outbox drained.
+Existing malformed metadata, pre-action failures, nonreturning actions, no-action
+matches and upstream webhook loss remain explicit limits; per-filter overrides
+can replace global notification routing. Four seeds/closed pilot/digest preserved.
+[Report](reports/2026-10-19-selected-intake.md) ·
+[Brief](reports/2026-10-19-selected-intake-brief.md).
+Unrelated CODEX_TASK and supervisor queue remain untouched.
+
 ## Changed-case Telegram review digest — 2026-10-19
 
 Explicitly approved, implemented and enabled at verified production runtime

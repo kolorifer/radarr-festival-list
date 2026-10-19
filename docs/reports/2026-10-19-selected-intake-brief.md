@@ -14,8 +14,9 @@ state and the four seeds/proposals. Exclude TV, except explicit movie-category
 parser conflicts that require quarantine. Approval is never proof of download.
 
 Activation gates: full CI3.12/3.13 and seedbox suite, actual confinement, private
-backups, unchanged unrelated configuration, passive natural selected notifications,
-reversible dedicated-notifier cutover. If a relevant selected class is shown to be
+backups, unchanged unrelated configuration, bounded passive natural-event
+comparison where available, reversible dedicated-notifier cutover. A quiet source
+window must be reported separately from functional/security verification. If a relevant selected class is shown to be
 missing, seek review before activation. Document no-action/pre-action/upstream
 loss gaps and absence of a natural Unknown Movie sample if none occurs.
 The unrelated CODEX_TASK and separate supervisor queue remain untouched.
