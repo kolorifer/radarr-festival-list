@@ -37,7 +37,7 @@ def write_report(state,snapshot,store):
         row['research_status']=jobs.get(case['case_id'],{}).get('status','not_admitted')
         row['proposal']=proposals.get(case['case_id'])
         if row['proposal']:
-            row['proposal']['current_evidence']=row['proposal']['evidence_version']==jobs.get(case['case_id'],{}).get('version')
+            row['proposal']['current_evidence']=case['route']=='eligible' and row['proposal']['evidence_version']==jobs.get(case['case_id'],{}).get('version')
             row['proposal']['search_candidates']=search_candidates(row['proposal']['result'])
         row['proposed_fix']='Review evidence before any identity correction; no automatic correction.'
         all_cases.append(row)

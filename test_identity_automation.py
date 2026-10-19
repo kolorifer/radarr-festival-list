@@ -200,6 +200,17 @@ class HandoffTests(Base):
         self.assertEqual(write_report(store.directory,s,store),0)
         self.assertEqual(previous,(store.directory/'review-changes.json').read_bytes())
         self.assertFalse(json.loads(previous)['telegram_digest_enabled'])
+    def test_resolved_case_marks_previous_research_proposal_historical(self):
+        p=self.ingest();snapshot=self.snapshot();store=RecurringStore(self.root/'research')
+        store.admit(snapshot['items'][0]);run=store.start();lease=store.lease(run)
+        store.finish(lease,{'reason':'candidate_review'});store.end(run)
+        event=envelope(p,context('external_id_verified','verified_tmdb'),SOURCES)
+        self.stage.ingest(normalize(event,SOURCES,'outcome'),'outcome')
+        snapshot=self.snapshot();store.reconcile(snapshot['items']);write_report(store.directory,snapshot,store)
+        report=json.loads((store.directory/'review-report.json').read_text())
+        self.assertEqual(report['cases'][0]['route'],'verified')
+        self.assertFalse(report['cases'][0]['proposal']['current_evidence'])
+
     def test_atomic_private_output_rejects_symlink(self):
         path=self.root/'data.json';tmp=self.root/'data.json.new';tmp.symlink_to(self.root/'target')
         with self.assertRaises(ValueError):atomic_json(path,{'a':1})
@@ -207,11 +218,14 @@ class HandoffTests(Base):
 
 class ApolloTests(unittest.TestCase):
     def test_preserves_episode_type_only_for_typed_diagnostic(self):
-        p=payload(type='episode',category='Movies :: HD')
+        # Sanitized autobrr/rls v0.8.1 output shape; no tracker reference.
+        p=payload(type='episode',category='Movies :: WEBRip',title='Apollo 10 1',year=2022,
+                  name='Apollo 10 1 - 2 A Space Age Childhood 2022 1080p WEBRip',episode=2)
         p['event']='action.rejected'
         from movie_intel_service import movie_category_type_conflict
         self.assertTrue(movie_category_type_conflict(p))
         event=envelope(p,context('movie_category_type_conflict','needs_review'),SOURCES)
+        self.assertEqual(p['data']['release']['episode'],2)
         self.assertEqual(event['data']['release']['type'],'episode')
         row=normalize(event,SOURCES,'outcome');self.assertEqual(row['metadata']['original_type'],'episode')
         self.assertEqual(selection.route(row['outcome']),'quarantine')
@@ -221,6 +235,16 @@ class ApolloTests(unittest.TestCase):
         from movie_intel_service import movie_category_type_conflict
         for p in ({'event':'action.rejected','data':[]},{'event':'action.rejected','data':{'release':[]}},payload(type='episode',category='TV :: HD')):
             self.assertFalse(movie_category_type_conflict(p))
+
+    def test_fraction_title_context_stays_blocked_in_actor(self):
+        import tmdb_resolver as tmdb
+        tmdb._ID_CACHE.clear()
+        details={'id':123,'title':'18½','original_title':'18½','release_date':'2021-01-01',
+                 'external_ids':{'imdb_id':'tt1234567'}}
+        with patch.object(tmdb,'_get',side_effect=lambda path,params: {'movie_results':[{'id':123}]} if path.startswith('/find/') else details):
+            result=tmdb.resolve_external_movie('18 1 2',2021,imdb_id='tt1234567')
+        self.assertEqual(result['identity_status'],'needs_review')
+        self.assertEqual(result['identity_reason'],'title_conflict')
 
     def test_diagnostic_labels_case_without_private_url_or_identity_promotion(self):
         from movie_intel_service import type_conflict_message
