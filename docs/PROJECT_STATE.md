@@ -745,3 +745,7 @@ Issue62 update: owner explicitly permits Radarr to replace the old file after co
 Owner-authorized Contagion investigation follow-up: zero-request budget/cooldown waits are deferred without consuming lookup attempts; temporary Telegram lookup failures are explicit. Validation/deployment tracked in [report](reports/2026-10-19-retry-budget-fix.md). No new identity correction or request budget.
 
 PR63 completed: merge 4239e63; production actor cd4e25f96d1d5d0d6de5f953959bdb2ed10aa72a. Both CI versions passed, exact runtime passed 564 seedbox tests, public/local health200. Collector 23cacc8, research configuration and approval/delivery state preserved. Contagion remains pending with zero counted retries; no live notification/download/lookup replay. See the retry-budget report for schedule and expiry limits.
+
+## Issue62 approved helper implementation — 2026-10-19
+
+Owner explicitly approved restricted helper credential reuse and possible Radarr replacement after individual confirmation. PR64 now implements the helper, durable source receipts and confirmation page alongside edition annotations. PR63's `cd4e25f` runtime is the deployment baseline. Read-only qBittorrent login/category/hook checks passed; final regression, CI and isolated-runtime deployment validation are in progress. No live acquisition test is authorized. See [report](reports/2026-10-19-issue62-investigation.md) and [runbook](../deploy/ALTERNATIVE_GRAB.md).

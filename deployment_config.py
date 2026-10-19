@@ -41,6 +41,12 @@ def configuration_errors(env=None):
             cookie_file(env.get('MOVIE_INTEL_TL_COOKIE_FILE'))
         except (OSError, ValueError, TypeError):
             errors.append('MOVIE_INTEL_TL_COOKIE_FILE must be an absolute, owner-only regular JSON cookie file')
+    if env.get('MOVIE_INTEL_ALTERNATIVE_GRAB_CONFIG'):
+        from alternative_grab_helper import private_config
+        try:
+            private_config(env['MOVIE_INTEL_ALTERNATIVE_GRAB_CONFIG'])
+        except (OSError, ValueError, TypeError, KeyError):
+            errors.append('MOVIE_INTEL_ALTERNATIVE_GRAB_CONFIG must be an absolute owner-only helper configuration')
     secret = env.get("MOVIE_INTEL_WEBHOOK_SECRET", "")
     if secret and (len(secret) < 32 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in secret)):
         errors.append("MOVIE_INTEL_WEBHOOK_SECRET must be at least 32 URL-safe characters")

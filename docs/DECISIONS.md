@@ -388,4 +388,5 @@ the workflow documentation task.
 
 - Source: owner message, 2026-10-19: “if radarr automatically replaces old file - it’s ok for me.”
 - Supersedes issue62’s initial never-replace requirement for owner-confirmed alternative releases only. The confirmation must disclose possible Radarr replacement.
-- Does not authorize automatic grabs, live download tests, generic search, quality-profile changes, or a new credential boundary. A separate restricted-helper credential decision remains pending.
+- Owner subsequently explicitly approved: “Approve restricted helper and Radarr replacement.” Reuse existing qBittorrent credentials through a restricted local helper, submitting only the individually confirmed exact release into the existing `radarr` category. No automatic grabs, live test downloads, generic search or quality-profile changes.
+- The interface restriction is not a new OS sandbox against the same-user actor. Preserve collector/research isolation. Durable source receipts block repeat/uncertain submissions across capability expiry.

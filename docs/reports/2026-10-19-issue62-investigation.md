@@ -6,16 +6,11 @@ After reviewing the initial investigation, the owner explicitly said: **“if ra
 
 Replacement permission does not resolve the transport limitation: installed Radarr’s manual ReleaseController only accepts a cached RemoteMovie (30-minute cache populated by that controller’s search/RSS mapping). ReleasePushController does not populate this cache. Its POST still applies RSS rejection decisions. There is no demonstrated native arbitrary-original-reference force endpoint.
 
-The revised proposed helper would submit only a confirmed exact release to the existing `radarr` category. Radarr may later import/replace it or reject import; queued is still not imported. The separate credential-access approval for that helper remains pending, since the owner’s response explicitly approved replacement, not credential expansion. Do not create downloader credentials or enable the helper until that decision arrives.
+The owner then explicitly approved **“Approve restricted helper and Radarr replacement.”** The restricted local helper now implements the exact-reference submission to the existing `radarr` category, with a fresh checkbox confirmation disclosing possible replacement. No live acquisition test is authorized.
 
-## Scope and status
+## Scope and current status
 
-Owner requested resumption of [issue 62](https://github.com/kolorifer/radarr-festival-list/issues/62).
-Read-only acquisition feasibility investigation completed; display-only edition
-implementation staged with synthetic tests. No production changes or acquisition
-smoke tests. Grab Anyway remains unavailable pending the explicit credential-boundary
-decision required by the issue. PR63 actor rollout remains separately owned by
-its monitor; do not deploy this branch over it.
+Implementation includes curated edition annotations and the approved helper/confirmation flow. PR63 is merged and its isolated runtime fix `cd4e25f` is the deployment baseline. PR64 includes the main-line retry fix. Deployment validation/results are recorded below; unrelated main catalog updates must not ship with this actor change.
 
 ## Verified baseline
 
@@ -76,35 +71,21 @@ cannot choose a separate direct-download action without changing existing
 configuration. Neither that retry nor a Radarr push supplies safe download-only
 semantics.
 
-## Initial preservation design (superseded by replacement permission above)
+## Implemented restricted helper
 
-A narrow local helper would hold existing qBittorrent credentials separately from
-movie-intel and the metadata-only research components. Its only write operation
-would submit a freshly confirmed, privately bound exact release, with a fixed
-non-Radarr category and separate download directory outside all library/watch
-paths. Do not give the actor a general downloader API or pass client credentials
-through the triage store. Explicit user approval is pending for this new boundary.
+Only verified same-movie existing-file quality rejections with an intact TorrentLeech RSS reference qualify. Exact full-reason allowlists reject mixed failures. The helper accepts only an executing private action capability on stdin, revalidates movie/file/profile and source ID, fetches the exact original torrent without redirects, validates bounded torrent metadata, and submits its unchanged bytes to the existing `radarr` category. A durable source-ID receipt and infohash checks prevent repeat submissions across token expiry; ambiguous acknowledgements stay locked. No generic downloader endpoint, movie add, search, profile update or library write exists in this path.
 
-Before activation verify the client's global completion hooks, automatic torrent
-management/category paths, all import/watch paths and duplicate-torrent behavior.
-A category alone is not a filesystem isolation guarantee. Use per-approval private
-subdirectories and validated torrent paths; reject unsafe/missing/expired source
-references, redirects or identity mismatches. No acquisition test is authorized.
+The credentials remain in an owner-only helper config. This is a restricted process interface, not OS isolation from the same-user actor. Collector/research access and payload schema are unchanged. Read-only provisioning confirmed qBittorrent v5.1.4, existing `radarr` category and disabled external execution hooks. The helper repeats route/category/hook checks before each submission.
 
-Reuse the existing private confirmation page and durable one-shot/uncertain-result
-lockout; show existing and incoming facts, source availability, full sanitized
-release name, claimed cut, quality, group and size. Submit only after fresh
-identity/existing-file checks. Unknown client acknowledgement must lock the
-capability rather than retry. Queued means download queued, never imported or
-replaced. Manual import/replacement is a separately approved future design.
+The page shows existing/announced release, quality, claimed edition, group, size and original rejection. It requires explicit approval of possible replacement. Unknown fields remain unknown. Queued requires a client hash readback but never means imported/replaced. Source failure or uncertain result is terminal pending private operator review; no fallback/retry. See [operator runbook](../../deploy/ALTERNATIVE_GRAB.md).
 
-## Display-only staged implementation
+## Edition annotations
 
 `film_editions.py` provides a small source-backed fact set and bounded claim parser.
 `movie_intel_service.py` annotates verified curated movies in rejection and
 accepted/error notifications, reads matching existing Radarr metadata, and creates
 no approvals/outcomes/retries for accepted events. Non-curated accepted events
-retain passthrough and ordinary routine rejections retain skipped lookups.
+retain passthrough and ordinary ineligible routine rejections retain skipped lookups.
 Existing Add & Grab behavior stays unchanged. Facts are escaped for Telegram and
 unknown/conflicting claims remain explicit. No cut metadata affects selection,
 scoring or acquisition.
@@ -115,21 +96,16 @@ Sanitized proposed examples:
 
 - Quality rejection: “Radarr — Release Rejected / Touch of Evil (1958) / Multiple
   significant cuts exist / Announced: 1998 reconstructed (claimed) / Existing:
-  1958 theatrical (claimed).” **No Grab Anyway button yet**; route pending security
-  decision. Revised final confirmation must warn that Radarr may import and replace the existing file.
+  1958 theatrical (claimed).” **⬇️ Grab Anyway** appears only after all eligibility checks. Final confirmation warns that Radarr may import and replace the existing file.
 - Generic accepted Remux: “Radarr — Release Accepted / Touch of Evil (1958) /
   Multiple significant cuts exist / Edition of this release unknown.”
 - Reconstruction: explanatory note says it follows Welles' memo, changes editing
   and opening sound, and was made after his death without his personal approval.
 
-## Validation / deployment boundary
+## Validation and deployment
 
-Focused parser and existing reliability/identity tests passed (41 tests at initial
-checkpoint). Added synthetic HTTP coverage for accepted annotations with zero
-approval creation, zero identity intake/retries, zero movie adds and zero release
-pushes. Full local suite: 588 tests run, 586 passed and two Linux-only skips. Exact implementation commit `6b3d6b8` then passed all 588 tests on the seedbox in an isolated checkout. CI is queued. No live notification sent.
+Synthetic coverage includes strict negative source/identity/rejection gates, unchanged-file checks, exact-byte transport, durable replay blocking, uncertain outcomes, existing hash handling, explicit and concurrent HTTP confirmations, HTML/privacy handling and the unchanged normal Add & Grab path. No live webhook replay, Telegram test notification or torrent submission is permitted.
 
-Do not deploy while PR63 is pending. Rebase/integrate its fix after merge and
-revalidate the final actor revision; never reset the actor to this older base.
+Final suite, CI, isolated runtime and deployment results: pending completion.
 
-Draft implementation PR: https://github.com/kolorifer/radarr-festival-list/pull/64. No deployment performed.
+PR: https://github.com/kolorifer/radarr-festival-list/pull/64.

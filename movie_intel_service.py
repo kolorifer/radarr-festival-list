@@ -34,6 +34,7 @@ from radarr_client import (
 )
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
+import alternative_grab
 from film_editions import annotation as edition_annotation, candidate as edition_candidate, verified_film
 from reviewed_identity import reviewed_context
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
@@ -258,7 +259,7 @@ def build_movie_context(payload):
     title = release.get("title") or release.get("name") or "Unknown movie"
     year = release.get("year")
     category = rejection_class(((data.get('result') or {}).get('rejections') or []))
-    if category in ROUTINE_RELEASE_REJECTIONS and not edition_candidate(release):
+    if category in ROUTINE_RELEASE_REJECTIONS and not edition_candidate(release) and not alternative_grab.candidate(payload):
         decision_log('identity', 'skipped_routine', payload)
         return {'text': format_message(payload), 'poster_url': None, 'movie': None,
                 'meta': None, 'category': category}
@@ -366,6 +367,8 @@ def create_pending_action(payload, meta):
         return None
     data = payload.get("data") or {}
     result = data.get("result") or {}
+    if alternative_grab.candidate(payload):
+        return alternative_grab.offer(payload,meta)
     if rejection_class(result.get("rejections") or []) != "unknown_movie":
         decision_log('action', 'not_unknown_movie', payload)
         return None
@@ -445,9 +448,14 @@ def _topic_fields():
 def _reply_markup(action_url):
     if not action_url:
         return None
+    label="➕ Add to Radarr & grab this release"
+    try:
+        action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
+        if action and action.get('kind')=='alternative':label='⬇️ Grab Anyway'
+    except (OSError,ValueError):pass
     return {
         "inline_keyboard": [[{
-            "text": "➕ Add to Radarr & grab this release",
+            "text": label,
             "url": action_url,
         }]]
     }
@@ -563,6 +571,22 @@ select{{background:#202124;color:#eee}} button{{margin-top:20px;background:#eee;
 </style></head><body><div class="card">{body}<div class="clear"></div></div></body></html>"""
 
 
+def render_alternative(action):
+    def esc(value):return html.escape(redact_text(str(value if value not in (None,'',[],{}) else 'Unknown')))
+    release=action['release'];old=action['existing']
+    rows=[('Release',old.get('name'),release.get('name')),('Quality',((old.get('quality') or {}).get('quality') or {}).get('name'),
+          ' / '.join(str(release.get(k) or 'Unknown') for k in ('resolution','source'))),
+          ('Edition (claimed)',old.get('edition'),release.get('edition') or release.get('cut')),
+          ('Release group',old.get('group'),release.get('group')),('Size (bytes)',old.get('size'),release.get('size'))]
+    table='<table><tr><th>Fact</th><th>Existing</th><th>Announced</th></tr>'+''.join('<tr><th>'+esc(k)+'</th><td>'+esc(a)+'</td><td>'+esc(b)+'</td></tr>' for k,a,b in rows)+'</table>'
+    body='<h2>Grab Anyway</h2><p>'+esc(action['movie'].get('title'))+'</p>'+table
+    body+='<p>Original rejection: '+esc('; '.join(action['rejections']))+'</p>'
+    body+='<p>This downloads only the exact announced release. Radarr may import it and replace your existing file, or reject its import. A lower-quality alternative may replace a better copy. No movie settings or profiles will change.</p>'
+    body+='<p>Source availability is checked on confirmation. If unavailable, nothing else will be fetched.</p>'
+    body+='<form method="post"><label><input type="checkbox" name="confirm_alternative" value="yes" required> I approve this exact release and possible replacement of my existing file.</label><button type="submit">Confirm Grab Anyway</button></form>'
+    return _page('Confirm exact release',body)
+
+
 def render_confirmation(action, context):
     movie = action.get("movie") or {}
     release = action.get("release") or {}
@@ -614,6 +638,7 @@ def render_result(action, success, message):
     title = redact_text(movie.get("title") or "Movie")
     klass = "ok" if success else "err"
     heading = "Added and sent to downloader" if success else "Radarr could not complete the action"
+    if action.get("kind")=="alternative":heading="Alternative release result"
     body = (
         f'<h2 class="{klass}">{html.escape(heading)}</h2>'
         f'<p><b>{html.escape(str(title))}</b></p>'
@@ -678,10 +703,14 @@ class Handler(BaseHTTPRequestHandler):
                 self._html(409, render_result(action, False, REVIEW_MESSAGE))
                 return
             try:
-                context = selection_context()
-                self._html(200, render_confirmation(action, context))
-            except RadarrError as exc:
-                self._html(502, render_result(action, False, str(exc)))
+                if action.get('kind')=='alternative':
+                    alternative_grab.validate_action(action)
+                    self._html(200,render_alternative(action))
+                else:
+                    context = selection_context()
+                    self._html(200, render_confirmation(action, context))
+            except (RadarrError, ValueError, KeyError, TypeError):
+                self._html(502, render_result(action, False, 'The existing movie/file or source is unavailable.'))
             return
 
         self._json(404, {"ok": False})
@@ -689,6 +718,32 @@ class Handler(BaseHTTPRequestHandler):
     def _handle_action_post(self, token):
         with _APPROVAL_LOCK:
             self._handle_action_post_locked(token)
+
+    def _alternative_post(self,token,action):
+        attempted=False
+        try:
+            length=int(self.headers.get('Content-Length','0'))
+            if not 0<length<=1024:raise ValueError()
+            params=parse_qs(self.rfile.read(length).decode('utf-8'))
+            if params!={'confirm_alternative':['yes']}:raise ValueError()
+            alternative_grab.validate_action(action)
+            if not update_action(token,status='executing'):raise OSError()
+            attempted=True
+            status=alternative_grab.execute(token)
+            if status in ('queued','already_present'):
+                delete_action(token)
+                message=('Exact release queued. Radarr may import and replace the existing file; import is not confirmed.' if status=='queued' else 'This exact torrent is already in the downloader. No additional transfer or category change was made.')
+                self._html(200,render_result(action,True,message))
+            else:
+                update_action(token,status='needs_review')
+                self._html(409,render_result(action,False,'Submission unavailable or uncertain. No automatic retry will run. Inspect downloader history before another attempt.'))
+        except (ValueError,UnicodeDecodeError):
+            self._html(400,render_result(action,False,'Explicit confirmation is required.'))
+        except (RadarrError,OSError):
+            if attempted:
+                try:update_action(token,status='needs_review')
+                except OSError:pass
+            self._html(409,render_result(action,False,'The existing movie/file changed or the action is unavailable. No automatic retry will run.'))
 
     def _handle_action_post_locked(self, token):
         try:
@@ -703,6 +758,9 @@ class Handler(BaseHTTPRequestHandler):
         if uncertain_action(action):
             decision_log('approval', 'blocked_uncertain_attempt')
             self._html(409, render_result(action, False, REVIEW_MESSAGE))
+            return
+        if action.get('kind')=='alternative':
+            self._alternative_post(token,action)
             return
         attempted = False
         try:
@@ -826,6 +884,8 @@ class Handler(BaseHTTPRequestHandler):
                     delete_action(token)
                     token = None
                     decision_log('action', 'public_origin_unconfigured', payload)
+                if not token and os.environ.get(alternative_grab.CONFIG) and alternative_grab.quality_only(((payload.get('data') or {}).get('result') or {}).get('rejections')):
+                    context['text'] += '\n\nGrab Anyway unavailable: the verified movie, unchanged existing file, or supported exact source reference could not be confirmed.'
                 send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
                 self._json(200, {
                     "ok": True,
