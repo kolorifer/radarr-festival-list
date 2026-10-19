@@ -25,7 +25,7 @@ def validate_snapshot(value,now):
     if not isinstance(value['cases'],list) or len(value['cases'])>1000:raise ValueError('snapshot_capacity')
     ids=set()
     for case in value['cases']:
-        if set(case)!={'case_id','version','observed_at','title','year','route','reason','correlation','original_type','source_identity'}:raise ValueError('snapshot_case')
+        if set(case)!={'case_id','version','observed_at','first_observed_at','title','year','route','reason','correlation','original_type','source_identity'}:raise ValueError('snapshot_case')
         if not re.fullmatch('outcome-[a-f0-9]{64}',case['case_id']) or case['case_id'] in ids:raise ValueError('snapshot_case_id')
         ids.add(case['case_id'])
         if not re.fullmatch('[a-f0-9]{64}',case['version']) or case['route'] not in ROUTES or case['reason'] not in REASONS:raise ValueError('snapshot_case_status')
@@ -37,6 +37,7 @@ def validate_snapshot(value,now):
             if identity[key] is not None:ident(identity[key])
         clean(case['title'],256)
         if type(case['year'])!=int or not 1870<=case['year']<=2100:raise ValueError('snapshot_year')
+        if type(case['first_observed_at']) not in (int,float) or not 0<case['first_observed_at']<=case['observed_at']:raise ValueError('snapshot_first_observed')
         if type(case['observed_at']) not in (int,float) or not 0<case['observed_at']<=now+300:raise ValueError('snapshot_observed')
         if case['correlation'] not in {'strong_source_id','uncertain_name_only','outcome_only','context_conflict','simultaneous_conflict','identifier_conflict'} or case['original_type'] not in {'movie','episode'}:raise ValueError('snapshot_provenance')
     if not isinstance(value['items'],list) or len(value['items'])>100:raise ValueError('snapshot_items')

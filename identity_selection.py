@@ -138,10 +138,10 @@ def snapshot(c,now):
     if counts['assessed_release_cases']>1000 or counts['routes'].get('eligible',0)>100:
         raise ValueError('selection_export_capacity')
     cases=[]
-    for key,version,observed,raw in c.execute('select x.case_key,x.version,x.observed,h.material from selection_current x join selection_history h on h.version=x.version order by x.case_key'):
+    for key,version,observed,first,raw in c.execute('select x.case_key,x.version,x.observed,(select min(s.observed) from selection_events s where s.release=x.release),h.material from selection_current x join selection_history h on h.version=x.version order by x.case_key'):
         r=json.loads(raw);m=r['metadata']
         cases.append({'case_id':key,'version':version,'observed_at':observed,
-                      'title':m['title'],'year':m['year'],'route':r['route'],
+                      'title':m['title'],'year':m['year'],'route':r['route'],'first_observed_at':first,
                       'reason':r['outcome']['reason'],'correlation':r['correlation'],
                       'original_type':m.get('original_type','movie'),
                       'source_identity':{'imdb':m['imdb'],'tmdb':m['tmdb'],

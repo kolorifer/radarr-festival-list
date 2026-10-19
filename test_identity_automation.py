@@ -181,6 +181,14 @@ class HandoffTests(Base):
                      lambda x:x['cases'][0].update(title='https://private.invalid'),lambda x:x.update(secret='x')):
             bad=deepcopy(s);edit(bad)
             with self.assertRaises(ValueError):validate_snapshot(bad,self.now)
+    def test_first_observation_age_survives_new_evidence_freshness(self):
+        p=self.ingest();first=self.snapshot()['cases'][0]['first_observed_at']
+        event=envelope(p,context('no_exact_match'),SOURCES)
+        self.stage.ingest(normalize(event,SOURCES,'outcome'),'outcome')
+        snapshot=validate_snapshot(self.snapshot(),self.now)
+        self.assertEqual(snapshot['cases'][0]['first_observed_at'],first)
+        self.assertGreaterEqual(snapshot['cases'][0]['observed_at'],first)
+
     def test_capacity_fails_closed_instead_of_silent_truncation(self):
         with patch.object(selection,'metrics',return_value={'assessed_release_cases':1001}):
             with self.assertRaisesRegex(ValueError,'capacity'):self.snapshot()

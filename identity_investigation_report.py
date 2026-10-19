@@ -45,7 +45,7 @@ def write_report(state,snapshot,store):
         key=digest(stable);versions[row['case_id']]=key
         if previous.get(row['case_id'])!=key:cases.append(row)
     report={'version':1,'generated_at':snapshot['generated_at'],'coverage':snapshot['coverage'],
-            'oldest_unresolved_age_seconds':max([snapshot['generated_at']-x['observed_at'] for x in snapshot['cases'] if x['route'] not in ('verified','routine')]+[0]),
+            'oldest_unresolved_age_seconds':max([snapshot['generated_at']-x['first_observed_at'] for x in snapshot['cases'] if x['route'] not in ('verified','routine')]+[0]),
             'budget':store.summary(),'cases':all_cases,'changed_cases':cases,'versions':versions,
             'telegram_digest_enabled':False,'review_controls_enabled':False,
             'unassessed_policy':'Announcements without explicit outcomes are not identification failures.',
