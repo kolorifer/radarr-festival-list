@@ -250,3 +250,18 @@ class ResearchPunctuationTests(unittest.TestCase):
         before=deepcopy(result);rows=search_candidates(result)
         self.assertEqual(rows[0]['confidence'],'search_only_unverified');self.assertTrue(rows[0]['year_agrees'])
         self.assertEqual(result,before)
+
+
+class HandoffFailureTests(unittest.TestCase):
+    def test_connect_timeout_reports_only_fixed_diagnostics(self):
+        import identity_research_handoff as handoff
+        import io
+        output=io.StringIO()
+        with patch('identity_triage_observer.read_config',return_value={'port':40715}), patch.object(handoff.socket,'create_connection',side_effect=TimeoutError('PRIVATE_URL_TOKEN')), patch('sys.stdout',output):
+            self.assertEqual(handoff.main(),1)
+        self.assertIn('stage=connect reason=timeout',output.getvalue());self.assertNotIn('PRIVATE',output.getvalue())
+    def test_scan_retry_is_bounded_and_does_not_change_worker_sandbox(self):
+        unit=Path('deploy/identity-investigation-scan.service').read_text()
+        self.assertIn('StartLimitBurst=3',unit);self.assertIn('StartLimitIntervalSec=600',unit)
+        self.assertIn('RestartSec=60',unit);self.assertIn('Restart=on-failure',unit)
+        self.assertNotIn('Restart=',Path('deploy/identity-research.service').read_text())

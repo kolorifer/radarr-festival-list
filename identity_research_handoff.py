@@ -105,24 +105,31 @@ def confine(connection,config,incoming):
 def main():
     os.umask(0o077);home=Path.home().resolve();connection=None
     config=home/'.config/movie-identity-handoff/config.json';incoming=home/'.local/state/movie-identity-research/incoming'
+    stage='configuration'
     try:
         from identity_triage_observer import read_config
         cfg=read_config(config)
         connection=LoopbackConnection('127.0.0.1',cfg['port'],timeout=3)
+        stage='connect'
         connection.sock=socket.create_connection(('127.0.0.1',cfg['port']),timeout=3)
+        stage='confinement'
         abi=confine(connection,config,incoming)
+        stage='export'
         with request_deadline():
             connection.request('GET','/v1/investigations',headers={'X-Identity-Intake-Key':cfg['key']})
             response=connection.getresponse()
             if response.status!=200:raise ValueError('handoff_status')
             raw=response.read(1_048_577)
         if len(raw)>1_048_576:raise ValueError('handoff_size')
+        stage='validation'
         snapshot=validate_snapshot(strict_json(raw),time.time())
+        stage='persistence'
         atomic_json(incoming/'snapshot.json',snapshot)
         print('handoff sandbox_verified abi='+str(abi)+' cases='+str(len(snapshot['cases']))+' eligible='+str(len(snapshot['items'])),flush=True)
         return 0
-    except (ValueError,OSError,http.client.HTTPException):
-        print('handoff stopped_safe',flush=True);return 1
+    except (ValueError,OSError,http.client.HTTPException) as exc:
+        reason='timeout' if isinstance(exc,TimeoutError) else 'transport' if isinstance(exc,(OSError,http.client.HTTPException)) else 'validation'
+        print('handoff stopped_safe stage='+stage+' reason='+reason,flush=True);return 1
     finally:
         if connection:connection.close()
 

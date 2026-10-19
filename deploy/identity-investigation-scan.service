@@ -1,5 +1,7 @@
 [Unit]
 Description=Bounded movie identity eligibility handoff and research
+StartLimitIntervalSec=600
+StartLimitBurst=3
 [Service]
 Type=oneshot
 WorkingDirectory=%h/.local/lib/movie-identity-handoff
@@ -14,3 +16,5 @@ SystemCallArchitectures=native
 MemoryMax=128M
 TasksMax=16
 TimeoutStartSec=660
+Restart=on-failure
+RestartSec=60
