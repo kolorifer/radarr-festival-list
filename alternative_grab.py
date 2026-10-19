@@ -16,6 +16,7 @@ REASONS=[re.compile(p) for p in (
     r'Existing file meets cutoff: '+QUALITY+r' \[\]',
     r'Existing file on disk is of equal or higher preference: '+QUALITY+r' v[1-9][0-9]*',
     r'Existing file and the Quality profile does not allow upgrades',
+    r'Existing file on disk has a equal or higher Custom Format score: -?(?:0|[1-9][0-9]{0,9})',
 )]
 
 

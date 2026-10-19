@@ -143,3 +143,22 @@ class AlternativeTests(unittest.TestCase):
         for filename in ['%2fescape.torrent','%5cescape.torrent','bad%00.torrent']:
             release['download_url']=RELEASE['download_url'].replace('release.torrent',filename)
             with self.assertRaises(ValueError):alt.source_reference(release,ACTION['indexer'])
+
+    def test_custom_format_scores_enable_only_verified_exact_approvals(self):
+        for score in ('0','100','-100'):
+            payload=copy.deepcopy(PAYLOAD)
+            payload['data']['result']['rejections']=['Existing file on disk has a equal or higher Custom Format score: '+score]
+            self.assertTrue(alt.candidate(payload))
+            token=alt.offer(payload,MOVIE)
+            self.assertIsNotNone(token)
+            alt.validate_action(actions.get_action(token))
+            self.assertIsNone(alt.offer(payload,dict(MOVIE,identity_status='unresolved')))
+            payload['data']['result']['rejections'].append('Quality not allowed')
+            self.assertFalse(alt.candidate(payload))
+            self.assertIsNone(alt.offer(payload,MOVIE))
+
+    def test_custom_format_malformed_or_unrelated_reasons_fail_closed(self):
+        prefix='Existing file on disk has a equal or higher Custom Format score: '
+        for reason in [prefix+'',prefix+'unknown',prefix+'0 extra',prefix+'1.5',prefix+'01',prefix+'0\n',
+                       'Minimum custom format score not met', 'prefix '+prefix+'0']:
+            self.assertFalse(alt.quality_only([reason]))

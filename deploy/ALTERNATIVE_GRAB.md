@@ -19,7 +19,7 @@ The independently confined research worker and collector receive no new access.
 
 Eligibility requires a verified TMDb/IMDb pair, a matching monitored Radarr movie
 with a file, a RADARR rejection event containing only the exact approved
-existing-file quality reasons, and a TorrentLeech original RSS download reference
+existing-file quality reasons (including the exact equal/higher Custom Format score rejection), and a TorrentLeech original RSS download reference
 whose numeric ID matches the release's external ID. Mixed profile/language/parse
 rejections, Unknown Movie, unsupported sources and missing references fail closed.
 No global profile/settings writes, library additions or searches occur.
