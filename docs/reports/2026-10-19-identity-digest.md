@@ -64,7 +64,17 @@ preserve the digest ledger and current action state. No worker rollback is neede
 
 The first unattended daily research scan succeeded with no changed cases or
 additional research GETs. New normal production events arrived afterward; some
-outcome deliveries retried. This digest does not change that delivery pipeline.
+outcome deliveries retried. Final readback had all 24 actor outcome deliveries
+drained (zero pending), with 18 cumulative failed attempts. The collector recorded
+three storage failures (`os_other`, precise cause unresolved), followed by successful
+intake; its code/config/PID were untouched by this change.
+
+At the final readback, the live collector had 605 source releases, 582 unassessed,
+26 outcome events and 23 assessed cases: 20 verified, two eligible, one quarantine.
+The approximately 72-minute-old daily report still contained the earlier two
+review cases. The additional eligible case will enter the digest after the next
+successful scheduled report; no extra research scan was triggered for this task.
+This distinguishes the live intake queue from the digest's daily report coverage.
 
 ## Remaining limitations
 
