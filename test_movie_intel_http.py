@@ -133,6 +133,23 @@ class HTTPFlowTests(unittest.TestCase):
     def approve(self, path, root="/movies"):
         return self.request(path, urlencode({"root_folder": root, "quality_profile": 2}).encode(), "application/x-www-form-urlencoded")
 
+    def test_accepted_curated_movie_annotations_cannot_create_actions_or_outcomes(self):
+        from test_film_editions import META
+        value=copy.deepcopy(PAYLOAD)
+        value['event']='action.approved'
+        value['data']['release'].update(title='Touch of Evil',year=1958,name='Touch.of.Evil.1958.1998.RECONSTRUCTED.2160p.REMUX',meta_imdb='tt0052311')
+        value['data']['result']['rejections']=[]
+        existing={'imdbId':'tt0052311','tmdbId':1480,'hasFile':True,'movieFile':{'edition':'Theatrical Cut'}}
+        with patch.object(svc,'resolve_external_movie',return_value=META), patch.object(svc,'get_movie_by_tmdb',return_value=existing), patch.object(svc,'create_pending_action') as action, patch.object(svc,'observe_identity_outcome') as observe, patch('identity_retry.submit') as retry:
+            status,body,_=self.request('/webhook/'+svc.WEBHOOK_SECRET,json.dumps(value).encode())
+        self.assertEqual(status,200);self.assertFalse(json.loads(body)['action'])
+        self.assertIn('Release Accepted',self.messages[0]['text'])
+        self.assertIn('1998 reconstructed',self.messages[0]['text'])
+        self.assertIn('Existing: 1958 theatrical',self.messages[0]['text'])
+        self.assertNotIn('reply_markup',self.messages[0])
+        action.assert_not_called();observe.assert_not_called();retry.assert_not_called()
+        self.assertEqual(self.added,[]);self.assertEqual(self.pushed,[])
+
     def test_apollo_style_episode_gets_one_plain_diagnostic_no_action(self):
         value=copy.deepcopy(PAYLOAD)
         value['data']['release'].update(type='episode',category='Movies :: HD')
@@ -146,6 +163,44 @@ class HTTPFlowTests(unittest.TestCase):
         self.assertNotIn('reply_markup',self.messages[0]);self.assertNotIn('download',self.messages[0]['text'].lower())
         action.assert_not_called();observe.assert_called_once()
         self.assertEqual(value['data']['release']['type'],'episode')
+        self.assertEqual(self.added,[]);self.assertEqual(self.pushed,[])
+
+    def test_alternative_confirmation_is_explicit_and_single_use(self):
+        from test_alternative_grab import ACTION, CURRENT
+        import alternative_grab as alt
+        token=actions.create_action(ACTION);path='/action/'+token
+        with patch.object(alt,'get_movie_by_tmdb',return_value=CURRENT), patch.object(alt,'execute',return_value='queued') as execute:
+            status,page,headers=self.request(path)
+            self.assertEqual(status,200);self.assertIn('possible replacement',page)
+            self.assertNotIn('torrentleech.org',page);self.assertIn('Existing.mkv',page)
+            self.assertEqual(self.request(path,b'confirm_alternative=no')[0],400)
+            execute.assert_not_called()
+            with ThreadPoolExecutor(max_workers=2) as pool:
+                statuses=list(pool.map(lambda _:self.request(path,b'confirm_alternative=yes')[0],range(2)))
+            self.assertEqual(sorted(statuses),[200,410]);execute.assert_called_once_with(token)
+        self.assertEqual(self.added,[]);self.assertEqual(self.pushed,[])
+
+    def test_alternative_uncertain_blocks_followup_and_escapes_titles(self):
+        from test_alternative_grab import ACTION, CURRENT
+        import alternative_grab as alt
+        value=copy.deepcopy(ACTION);value['release']['name']='<script>alert(1)</script>'
+        token=actions.create_action(value);path='/action/'+token
+        with patch.object(alt,'get_movie_by_tmdb',return_value=CURRENT), patch.object(alt,'execute',return_value='uncertain') as execute:
+            self.assertNotIn('<script>',self.request(path)[1])
+            self.assertEqual(self.request(path,b'confirm_alternative=yes')[0],409)
+            self.assertEqual(self.request(path,b'confirm_alternative=yes')[0],409)
+            self.assertEqual(self.request(path)[0],409);execute.assert_called_once()
+        self.assertEqual(actions.get_action(token)['status'],'needs_review')
+
+    def test_alternative_webhook_offers_button_without_acquisition(self):
+        from test_alternative_grab import PAYLOAD as ALT_PAYLOAD, CURRENT, MOVIE
+        import alternative_grab as alt
+        import os
+        with patch.dict(os.environ,{alt.CONFIG:'/synthetic/private/config'}), patch.object(alt,'get_movie_by_tmdb',return_value=CURRENT), patch.object(svc,'build_movie_context',return_value={'meta':MOVIE,'text':'Synthetic notification','poster_url':None,'identity_observation':{},'category':'quality'}), patch.object(alt,'execute') as execute:
+            path=self.webhook(ALT_PAYLOAD)
+            self.assertEqual(self.messages[-1]['reply_markup']['inline_keyboard'][0][0]['text'],'⬇️ Grab Anyway')
+            self.assertNotIn('torrentleech.org',json.dumps(self.messages))
+            execute.assert_not_called()
         self.assertEqual(self.added,[]);self.assertEqual(self.pushed,[])
 
     def test_webhook_confirmation_exact_release_and_single_use(self):

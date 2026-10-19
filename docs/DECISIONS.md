@@ -383,3 +383,10 @@ the workflow documentation task.
   dropped accepted class; natural end-to-end verification was unavailable during
   the quiet bounded window and remains pending.
 - **Evidence:** [Engineering report](reports/2026-10-19-selected-intake.md).
+
+## D024 — Permit replacement after an explicitly confirmed alternative grab
+
+- Source: owner message, 2026-10-19: “if radarr automatically replaces old file - it’s ok for me.”
+- Supersedes issue62’s initial never-replace requirement for owner-confirmed alternative releases only. The confirmation must disclose possible Radarr replacement.
+- Owner subsequently explicitly approved: “Approve restricted helper and Radarr replacement.” Reuse existing qBittorrent credentials through a restricted local helper, submitting only the individually confirmed exact release into the existing `radarr` category. No automatic grabs, live test downloads, generic search or quality-profile changes.
+- The interface restriction is not a new OS sandbox against the same-user actor. Preserve collector/research isolation. Durable source receipts block repeat/uncertain submissions across capability expiry.
