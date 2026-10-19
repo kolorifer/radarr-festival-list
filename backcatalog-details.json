@@ -22,8 +22,8 @@
   },
   "watch_policy": "watched films remain candidates but recommended_monitored=false",
   "universe_count": 951,
-  "resolved_count": 948,
-  "unresolved_count": 3,
+  "resolved_count": 950,
+  "unresolved_count": 1,
   "candidates": [
     {
       "title": "Moonlight",
@@ -1887,6 +1887,22 @@
       "recommended_monitored": true
     },
     {
+      "title": "The Son",
+      "year": 2002,
+      "imdb_id": "tt0291172",
+      "tspdt_rank": 106,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #106"
+      ],
+      "director": "Dardenne, Jean-Pierre & Luc Dardenne",
+      "country": "Belgium",
+      "runtime": 103,
+      "status": "candidate",
+      "watch_state": "unknown",
+      "recommended_monitored": true
+    },
+    {
       "title": "Trouble Every Day",
       "year": 2001,
       "imdb_id": "tt0204700",
@@ -3338,6 +3354,22 @@
       "director": "Lee, Spike",
       "country": "USA",
       "runtime": 134,
+      "status": "candidate",
+      "watch_state": "unknown",
+      "recommended_monitored": true
+    },
+    {
+      "title": "Ten",
+      "year": 2002,
+      "imdb_id": "tt0301978",
+      "tspdt_rank": 209,
+      "score": 2.0,
+      "signals": [
+        "TSPDT 21st-century #209"
+      ],
+      "director": "Kiarostami, Abbas",
+      "country": "France",
+      "runtime": 92,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -15270,16 +15302,6 @@
     }
   ],
   "unresolved": [
-    {
-      "title": "The Son",
-      "year": 2002,
-      "tspdt_rank": 106
-    },
-    {
-      "title": "Ten",
-      "year": 2002,
-      "tspdt_rank": 209
-    },
     {
       "title": "Fahrenheit 9/11",
       "year": 2004,
