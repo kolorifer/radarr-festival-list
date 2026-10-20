@@ -3,7 +3,11 @@
 ## Passive scoring shadow pilot — 2026-10-20
 
 Owner approved a separate seven-day passive observer of retained research results.
-Implementation/testing in progress; scoring is not enabled for actor decisions.
+Isolated shadow `f4e8409` is deployed; actor remains `658d8f8`. Full local700
+(two skips), Linux CI and21 seedbox tests pass. Hourly pilot endsOctober27.
+Initial8 historical snapshots /7 titles;0 new results. Missing retained provenance
+remains blocked; coverage is research proposals only, not all accepted releases.
+Scoring is not enabled for actor decisions.
 [Shadow pilot report](reports/2026-10-20-identity-scoring-shadow.md).
 
 ## Offline identity-scoring proposal — 2026-10-20
