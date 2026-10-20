@@ -20,7 +20,7 @@ from private_text import redact_text
 
 FLAG = 'MOVIE_INTEL_IDENTITY_DIGEST_ENABLED'
 REVIEW = {'eligible', 'review_only', 'quarantine', 'unmatched', 'retry_later'}
-ROUTES = REVIEW | {'verified', 'routine', 'unassessed', 'existing_seed'}
+ROUTES = REVIEW | {'verified', 'routine', 'reviewed_occurrence', 'unassessed', 'existing_seed'}
 LOG = logging.getLogger(__name__)
 
 
@@ -82,6 +82,8 @@ def projection(report, now):
 
 def readable_case(title, year, route, reason, status, proposal, current, candidates):
     lines=[f'{title} ({year})']
+    if route=='reviewed_occurrence':
+        return '\n'.join(lines+['Reviewed for this occurrence only. No download approved.', 'The next encounter requires fresh evidence and a new choice.'])
     if route=='retry_later':
         lines.append('Temporary metadata lookup problem. No reliable match yet.')
         lines.append('Automatic rechecks use a daily allowance and respect provider cooldowns. Persistent failures go to review.')

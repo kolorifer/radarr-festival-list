@@ -49,7 +49,7 @@ def refreshed_report(previous,snapshot,case_ids):
         if previous['versions'].get(cid)!=key:changed.append(row)
     result['changed_cases']=changed
     result['coverage']=snapshot['coverage'];result['generated_at']=snapshot['generated_at']
-    result['oldest_unresolved_age_seconds']=max([snapshot['generated_at']-x['first_observed_at'] for x in result['cases'] if x['route'] not in {'verified','routine'}]+[0])
+    result['oldest_unresolved_age_seconds']=max([snapshot['generated_at']-x['first_observed_at'] for x in result['cases'] if x['route'] not in {'verified','routine','reviewed_occurrence'}]+[0])
     return result
 
 

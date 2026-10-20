@@ -15,7 +15,7 @@ from identity_triage_store import private_path, private_directory, create_privat
 from identity_research_provider import validate_case, clean, strict_json, IMDB, ident, request_deadline
 from identity_triage_intake import REASONS
 
-ROUTES={'eligible','retry_later','review_only','quarantine','unmatched','unassessed','verified','routine','existing_seed'}
+ROUTES={'eligible','retry_later','review_only','quarantine','unmatched','unassessed','verified','routine','reviewed_occurrence','existing_seed'}
 
 
 def validate_snapshot(value,now):

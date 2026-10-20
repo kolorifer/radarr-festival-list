@@ -494,3 +494,12 @@ when TMDb lacks the later date; no film-specific facts or exception is embedded.
 Missing/ambiguous evidence remains for review. Preserve explicit download approval;
 no downloads or notification replays during deployment. D033 occurrence-only
 human choices and conflicting-ID review remain unchanged.
+
+## D035 — Completed human review is occurrence-scoped workflow state
+
+On 2026-10-20 the owner explicitly requested marking today's Madame Bovary review
+complete without making the 1949 choice permanent. Store an exact occurrence
+review receipt for audit and distinguish it from automatic verification. A new
+accepted source event reopens the case with fresh evidence and a choice, even for
+the same torrent. Preserve the conflicting source assertions, history, existing
+matching rules and explicit download confirmation. No live downloads are authorized.

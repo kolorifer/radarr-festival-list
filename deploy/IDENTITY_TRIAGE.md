@@ -296,3 +296,22 @@ Rollback restores only the original dedicated notifier and saved collector confi
 code, restarting only the collector; never restore stale action/research databases.
 No historical purge is authorized. Estimate any future cleanup on a private copy
 and request a separate retention decision before deleting observations.
+
+## Closing a reviewed occurrence
+
+After explicit owner review, `identity_triage_admin.py review-occurrence` accepts
+an exact case ID/current version and `--imdb`, `--tmdb`, `--year` for the reviewed
+target. Run only in bounded private maintenance: back up the collector/report,
+pause the research scan timer and actor digest, prove the change on a copied DB,
+apply inside `BEGIN IMMEDIATE`, refresh only that case's report, then restore
+services and verify health. Do not replay a webhook or create an acquisition.
+
+The `reviewed_occurrence` route closes workflow only; source evidence and identity
+conflicts remain unchanged. Install compatible `identity_selection.py` in the
+collector, `identity_research_handoff.py` in the handoff helper and report producer,
+and the matching report/digest/reconcile modules before publishing this route.
+Keep the installed selected-only collector intake; do not replace it from an older
+actor runtime. Rollback must preserve review receipts/history and regenerate
+projections/report with the compatible code, never restore old action state.
+A new accepted delivery reopens the source; an exact duplicate does not. This
+maintenance command does not make a permanent exception or grant download rights.
