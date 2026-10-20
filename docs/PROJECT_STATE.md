@@ -1,5 +1,29 @@
 # Movie List project state
 
+## Torrent-page investigation evidence — 2026-10-20
+
+PR72 merged (`99f18fb3`), implementation `ad2c53c`; production clean at
+`49531b165ce597460b9f2c254faa595277ab360b`. Generic unresolved-case evidence now
+includes bounded separate description/NFO text and embedded screenshot references
+for visual review. No image model, automatic conflicting-ID override or per-film
+rule. Collector-compatible selection/intake preserve selected-only behavior;
+worker/handoff confinement, credentials, budgets and timer remain unchanged.
+
+Final local627 tests(two skips), seedbox runtime610/main627 and CI3.12/3.13 pass.
+Actual collector ABI6/worker denial proofs, config/catalog/dependencies and
+local/public health200 pass. Actor/collector active NRestarts0; actions/receipts
+and protected settings unchanged. No downloads or notification replays.
+
+Madame Bovary now has a current proposal containing its279-character description,
+1409-character NFO and three screenshot references awaiting visual review. NFO114min
+vs TMDb1949 candidate106min remains explicit. Identity still blocked year_conflict;
+no correction applied. This supersedes the earlier statement that source evidence
+was missing: it is now collected and awaiting review. Weeklyresearch4cases/9GETs
+(no extra research GETs because catalog evidence was cached). Normal changed-case
+digest can report this material update. Unsupported image hosts remain counted;
+images themselves are not fetched or analyzed. No historical bulk replay.
+[Engineering report](reports/2026-10-20-torrent-research-evidence.md).
+
 ## Generic conflict investigation — 2026-10-20
 
 PR71 merged (`0f27ec7b`); actor and research worker use tested runtime

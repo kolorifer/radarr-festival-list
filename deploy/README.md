@@ -374,3 +374,21 @@ nonmovie mappings remain excluded and terminate an existing retry if discovered.
 No notification replay or action creation occurs on recovery. Retained cases must
 not be bulk reopened or budget history reset; the approved Insomnia admission is
 recorded in the [report](../docs/reports/2026-10-20-missing-mapping-retries.md).
+
+
+### Torrent-page investigation evidence
+
+Unresolved exact-checked TorrentLeech lookups project bounded source description,
+NFO text and public screenshot references into the existing private observer.
+No separate fetcher or image-analysis service is enabled. The initial image-host
+allowlist is i.ibb.co; links are never followed by the collector/worker. All
+conflicting identities and visual evidence require review.
+
+Deployment requires `torrent_research_evidence.py` in actor, collector, handoff
+and worker code directories, plus compatible intake/selection/provider/worker
+modules. Preserve the collector's selected-only revision when the actor runtime
+is pinned separately. Install dependencies before restarting consumers, validate
+actual isolation, and retain old records/ledgers. The schema extension is optional
+for old records but all active consumers must understand new evidence before the
+actor starts producing it. Source text does not grant authority or identity.
+Reference-only images are private review material, not verified film contents.
