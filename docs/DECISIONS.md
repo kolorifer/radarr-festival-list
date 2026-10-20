@@ -428,3 +428,11 @@ not merely their current entries. Preserve generic typo acceptance and standard
 ID/title/year checks, explicit download confirmation and historical private state.
 Former exception cases require normal metadata agreement or remain unresolved.
 No automatic notifications, downloads, replay or historical state rewriting.
+
+## D029 — Bounded retries for missing TMDb mappings
+
+Accepted by explicit owner request on 2026-10-20. Retry missing IMDb-to-TMDb movie
+mappings using the existing durable metadata-only bounds; include the retained
+Insomnia case without renewing its original expiry or resetting request history.
+Identity conflicts such as Madame Bovary stay blocked. No new matching exception,
+search fallback, download, acquisition approval creation or notification replay.

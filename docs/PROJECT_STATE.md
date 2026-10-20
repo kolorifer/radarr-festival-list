@@ -1,5 +1,19 @@
 # Movie List project state
 
+## Bounded missing-mapping retries — 2026-10-20
+
+PR70 merged (`c061989d`), production clean at tested runtime
+`c2ae4e12e67486d4651db863e5132213715246f6`. Missing TMDb mappings now enter the
+existing bounded metadata retry path; conflicts remain excluded. No budget,
+identity-policy or notification behavior expansion. Insomnia's authorized retained
+case recovered on its first normal worker attempt (one listing/two TMDb GETs),
+collector updated to verified, original expiry preserved. Madame Bovary remains
+year_conflict and unqueued. Prior request/attempt history and approval state
+preserved; no downloads or notification replay. Local613 tests (two skips),
+seedbox596, CI3.12/3.13 pass. Local/public health200, actor/collector active
+NRestarts0, collector PID and protected configuration unchanged.
+[Engineering report](reports/2026-10-20-missing-mapping-retries.md).
+
 ## Generic identification only — 2026-10-20
 
 PR69 merged (`832131e6`); production clean at tested runtime

@@ -362,3 +362,15 @@ words, numeric/Roman numeral changes and larger edits remain blocked. Native IDs
 without checked listing provenance and title searches stay strict. Local identity
 conflicts and all approval/acquisition controls remain enforced. No per-film exception registry is supported. Disable this flag and restart movie-intel to revoke the
 new policy. No history replay/backfill or extra metadata queries are required.
+
+
+### Missing IMDb-to-TMDb mappings
+
+The metadata retry worker also admits `tmdb_mapping_missing`. It uses the same
+three-attempt limit, 15-minute/1-hour/6-hour delays, daily provider/request caps,
+source expiry, deduplication and provider holds as transient metadata failures.
+Persistent absence goes to review. Identity/year/title conflicts, ambiguous or
+nonmovie mappings remain excluded and terminate an existing retry if discovered.
+No notification replay or action creation occurs on recovery. Retained cases must
+not be bulk reopened or budget history reset; the approved Insomnia admission is
+recorded in the [report](../docs/reports/2026-10-20-missing-mapping-retries.md).
