@@ -503,3 +503,11 @@ review receipt for audit and distinguish it from automatic verification. A new
 accepted source event reopens the case with fresh evidence and a choice, even for
 the same torrent. Preserve the conflicting source assertions, history, existing
 matching rules and explicit download confirmation. No live downloads are authorized.
+
+## D036 — Offline numerical identity-scoring proposal only
+
+On 2026-10-20 the owner requested an offline experiment using reviewed cases,
+showing weights, thresholds and changed decisions before production activation.
+Experimental weights/thresholds may be proposed and tested, but are not approved
+production policy. Preserve conflicting-ID review and explicit download consent;
+no downloads or live matching/status changes are authorized by this experiment.

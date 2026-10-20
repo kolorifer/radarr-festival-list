@@ -1,5 +1,16 @@
 # Movie List project state
 
+## Offline identity-scoring proposal — 2026-10-20
+
+An isolated experiment under `research/identity_scoring/` replays nine retained
+cases with proposed title/year/runtime/language/tracker-ID weights. It would
+identify Everyone Is a Hero despite148/150min runtime; Nunakal and Bruce retain
+their identities. Conflicting Madame Bovary remains review-only. Production is
+unchanged at actor `658d8f8` / collector `d8cce25`; no integration or activation.
+The policy is uncalibrated and includes explicit synthetic failure/ambiguity
+probes. Weights, thresholds and any shadow/production follow-up await review.
+[Offline report](reports/2026-10-20-offline-identity-scoring.md).
+
 ## Reviewed occurrence status — 2026-10-20
 
 PR77 merged `8003775`; actor runtime `658d8f8`, installed collector selection

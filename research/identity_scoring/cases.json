@@ -1,0 +1,895 @@
+{
+  "version": 1,
+  "scope": "offline_only",
+  "evidence_cutoff": "2026-10-20",
+  "cases": [
+    {
+      "name": "Aayirathonnu Nunakal",
+      "kind": "reviewed_identity",
+      "baseline": "identify",
+      "expected_id": 1035029,
+      "source": {
+        "title": "Aayirathonnu Nunakal",
+        "year": 2023,
+        "imdb": null,
+        "runtime": 104,
+        "language": "ml",
+        "checked_listing": true,
+        "nfo_bound": true,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 1035029,
+          "titles": [
+            "1001 Nunakal",
+            "ആയിരത്തൊന്ന് നുണകൾ",
+            "Aayirathonnu Nunakal",
+            "1001 Nunaakal",
+            "Thousand and One Lies"
+          ],
+          "years": [
+            2022,
+            2023
+          ],
+          "runtime": 104,
+          "language": "ml",
+          "imdb": "tt16103640",
+          "media_type": "movie",
+          "crosswalk_verified": true
+        }
+      ],
+      "candidate_set_complete": true,
+      "notes": "Stored NFO 104 min/Malayalam; exact alias and crosswalk verified in PR76. 2023 is a documented cross-linked Wikidata release year, not an assumed year tolerance."
+    },
+    {
+      "name": "2018 Everyone Is a Hero",
+      "kind": "reviewed_identity",
+      "baseline": "review",
+      "expected_id": 866440,
+      "source": {
+        "title": "2018 Everyone Is A Hero",
+        "year": 2023,
+        "imdb": null,
+        "runtime": 148,
+        "language": "ml",
+        "checked_listing": true,
+        "nfo_bound": true,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 866440,
+          "titles": [
+            "2018",
+            "2403 ft",
+            "2018 Everyone Is a Hero",
+            "La megatormenta: La inundación"
+          ],
+          "years": [
+            2023
+          ],
+          "runtime": 150,
+          "language": "ml",
+          "imdb": "tt9006564",
+          "media_type": "movie",
+          "crosswalk_verified": true
+        }
+      ],
+      "candidate_set_complete": true,
+      "notes": "Owner-confirmed match in this conversation; saved live NFO 148 min/Malayalam vs catalog150. Exact alias and unique IMDb crosswalk verified read-only. Historical listing_id_invalid is stale; fresh checked listing has no ID."
+    },
+    {
+      "name": "Bruce Almiighty",
+      "kind": "reviewed_identity",
+      "baseline": "identify",
+      "expected_id": 310,
+      "source": {
+        "title": "Bruce Almiighty",
+        "year": 2003,
+        "imdb": "tt0315327",
+        "runtime": null,
+        "language": null,
+        "checked_listing": true,
+        "nfo_bound": false,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 310,
+          "titles": [
+            "Bruce Almighty"
+          ],
+          "years": [
+            2003
+          ],
+          "runtime": 101,
+          "language": null,
+          "imdb": "tt0315327",
+          "media_type": "movie",
+          "crosswalk_verified": true
+        }
+      ],
+      "candidate_set_complete": true,
+      "notes": "Saved listing IMDb plus verified crosswalk and documented canonical title; NFO attributes were not present in this evidence snapshot. Current baseline is the generic minor-typo rule, not the retired exception."
+    },
+    {
+      "name": "Madame Bovary",
+      "kind": "reviewed_conflict",
+      "baseline": "review",
+      "expected_id": 45184,
+      "source": {
+        "title": "Madame Bovary",
+        "year": 1949,
+        "imdb": "tt2334733",
+        "runtime": 114,
+        "language": "en",
+        "checked_listing": true,
+        "nfo_bound": true,
+        "conflicting_evidence": true
+      },
+      "candidates": [
+        {
+          "id": 253161,
+          "titles": [
+            "Madame Bovary",
+            "Paní Bovaryová",
+            "Госпожа Бовари",
+            "Doamna Bovary",
+            "包法利夫人",
+            "Μαντάμ Μποβαρί",
+            "마담 보바리",
+            "Мадам Бовари",
+            "Pani Bovary",
+            "慾見包法利夫人",
+            "מאדאם בובארי",
+            "Pani Bovaryová",
+            "Пані Боварі"
+          ],
+          "years": [
+            2015
+          ],
+          "runtime": 118,
+          "language": "en",
+          "imdb": "tt2334733",
+          "media_type": "movie",
+          "crosswalk_verified": true
+        },
+        {
+          "id": 45184,
+          "titles": [
+            "Madame Bovary",
+            "מאדאם בובארי",
+            "Madame Bovary und ihre Liebhaber",
+            "A Sedutora Madame Bovary",
+            "Мадам Бовари",
+            "包法利夫人",
+            "La seductora",
+            "Bovaryné",
+            "마담 보바리"
+          ],
+          "years": [
+            1949
+          ],
+          "runtime": 106,
+          "language": "en",
+          "imdb": "tt0041615",
+          "media_type": "movie",
+          "crosswalk_verified": true
+        },
+        {
+          "id": 2528,
+          "titles": [
+            "Madame Bovary",
+            "מאדם בוברי",
+            "Bovaryné",
+            "Bayan Bovary",
+            "마담 보바리",
+            "ボヴァリー夫人",
+            "包法利夫人",
+            "Мадам Бовари",
+            "Paní Bovaryová",
+            "Pani Bovaryová",
+            "Doamna Bovary",
+            "Pani Bovary",
+            "Bovari xonim"
+          ],
+          "years": [
+            1991
+          ],
+          "runtime": 143,
+          "language": "fr",
+          "imdb": "tt0102368",
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 759362,
+          "titles": [
+            "Madame Bovary"
+          ],
+          "years": [
+            1974
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 116585,
+          "titles": [
+            "Madame Bovary",
+            "Die nackte Bovary"
+          ],
+          "years": [
+            1969
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 491588,
+          "titles": [
+            "Madame Bovary"
+          ],
+          "years": [
+            1947
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 43123,
+          "titles": [
+            "Madame Bovary"
+          ],
+          "years": [
+            1934
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 288957,
+          "titles": [
+            "Madame Bovary"
+          ],
+          "years": [
+            1968
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 290149,
+          "titles": [
+            "Madame Bovary"
+          ],
+          "years": [
+            1937
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 400114,
+          "titles": [
+            "I Am Not Madame Bovary",
+            "我不是潘金莲"
+          ],
+          "years": [
+            2016
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 348703,
+          "titles": [
+            "Madame Bovary, That's Me",
+            "Pani Bovary to ja"
+          ],
+          "years": [
+            1977
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 620197,
+          "titles": [
+            "Madame Bovary's Revenge"
+          ],
+          "years": [
+            1995
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 876581,
+          "titles": [
+            "The Emma Bovary Trial",
+            "Le Procès d'Emma Bovary"
+          ],
+          "years": [
+            2021
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        }
+      ],
+      "candidate_set_complete": false,
+      "notes": "Underlying matcher still needs review; occurrence is closed. Manually transcribed retained NFO: 114min/English and matching filename; parser cannot handle this layout. Description instead says2014/118min and names remake actors. Tracker links remake tt2334733; owner chose1949 using screenshots. Numeric model has no visual evidence. Only three of the search candidates have full details."
+    },
+    {
+      "name": "Aberfan: The Village That Fought Back",
+      "kind": "owner_skipped",
+      "baseline": "skipped",
+      "expected_id": null,
+      "source": {
+        "title": "Aberfan The Village That Fought Back",
+        "year": 2026,
+        "imdb": null,
+        "runtime": null,
+        "language": null,
+        "checked_listing": true,
+        "nfo_bound": false,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 1796471,
+          "titles": [
+            "Aberfan: The Village That Fought Back"
+          ],
+          "years": [
+            2026
+          ],
+          "runtime": 60,
+          "language": "en",
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        }
+      ],
+      "candidate_set_complete": false,
+      "notes": "Owner skipped; no verified IMDb crosswalk. Included as a refusal control, not a labeled wrong movie or a request to reopen."
+    },
+    {
+      "name": "Fragmentos",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "source": {
+        "title": "Fragmentos",
+        "year": 2025,
+        "imdb": "tt33503751",
+        "runtime": 111,
+        "language": null,
+        "checked_listing": true,
+        "nfo_bound": false,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 1530349,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2025
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1776096,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2026
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1173289,
+          "titles": [
+            "Fragments",
+            "Fragmentos"
+          ],
+          "years": [
+            2023
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1701128,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2026
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1363351,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2022
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1377801,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2025
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1267397,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2014
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1387084,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2024
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 826409,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2020
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1425484,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1356955,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2025
+          ],
+          "runtime": 108,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 777958,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2012
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1446841,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            1966
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 677349,
+          "titles": [
+            "Fragments",
+            "Fragmentos"
+          ],
+          "years": [
+            2020
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1521392,
+          "titles": [
+            "Fragments",
+            "Fragmentos"
+          ],
+          "years": [
+            1998
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 400013,
+          "titles": [
+            "Fragments of Love",
+            "Fragmentos de amor"
+          ],
+          "years": [
+            2016
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1548510,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2024
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1492389,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2025
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 739159,
+          "titles": [
+            "Fragmentos"
+          ],
+          "years": [
+            2020
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 512576,
+          "titles": [
+            "Fragmentos urbanos"
+          ],
+          "years": [
+            2002
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        }
+      ],
+      "candidate_set_complete": false,
+      "notes": "Unresolved closed-pilot snapshot; no ground-truth identity label. Original investigator runtime is retained but not treated as source-bound NFO proof. Incomplete search/detail or crosswalk evidence cannot justify automatic choice. Director facts exist but have zero weight in this proposal."
+    },
+    {
+      "name": "Syd Barrett Up Close And Personal",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "source": {
+        "title": "Syd Barrett Up Close And Personal",
+        "year": 2007,
+        "imdb": "tt7343706",
+        "runtime": 57,
+        "language": null,
+        "checked_listing": true,
+        "nfo_bound": false,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 553334,
+          "titles": [
+            "Syd Barrett: Under Review"
+          ],
+          "years": [
+            2006
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 354460,
+          "titles": [
+            "Syd Barrett's First Trip"
+          ],
+          "years": [
+            1966
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 31557,
+          "titles": [
+            "The Pink Floyd and Syd Barrett Story"
+          ],
+          "years": [
+            2003
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1160329,
+          "titles": [
+            "The Pink Floyd Syd Barrett Story - The Definitive Edition"
+          ],
+          "years": [
+            2005
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 1118723,
+          "titles": [
+            "Have You Got It Yet? The Story of Syd Barrett and Pink Floyd"
+          ],
+          "years": [
+            2023
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        }
+      ],
+      "candidate_set_complete": false,
+      "notes": "Unresolved closed-pilot snapshot; no ground-truth identity label. Original investigator runtime is retained but not treated as source-bound NFO proof. Incomplete search/detail or crosswalk evidence cannot justify automatic choice. Director facts exist but have zero weight in this proposal."
+    },
+    {
+      "name": "Rainbow In Performance",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "source": {
+        "title": "Rainbow In Performance",
+        "year": 2025,
+        "imdb": "tt32360791",
+        "runtime": 113,
+        "language": null,
+        "checked_listing": true,
+        "nfo_bound": false,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 836233,
+          "titles": [
+            "Rainbow: In Their Own Words"
+          ],
+          "years": [
+            2006
+          ],
+          "runtime": 75,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        }
+      ],
+      "candidate_set_complete": false,
+      "notes": "Unresolved closed-pilot snapshot; no ground-truth identity label. Original investigator runtime is retained but not treated as source-bound NFO proof. Incomplete search/detail or crosswalk evidence cannot justify automatic choice. Director facts exist but have zero weight in this proposal."
+    },
+    {
+      "name": "Steve Howe Live Legends",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "source": {
+        "title": "Steve Howe Live Legends",
+        "year": 2003,
+        "imdb": "tt35303243",
+        "runtime": 52,
+        "language": null,
+        "checked_listing": true,
+        "nfo_bound": false,
+        "conflicting_evidence": false
+      },
+      "candidates": [
+        {
+          "id": 1045920,
+          "titles": [
+            "Steve Howe"
+          ],
+          "years": [
+            2002
+          ],
+          "runtime": 52,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 340500,
+          "titles": [
+            "Steve Howe - Beginnings"
+          ],
+          "years": [
+            1975
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 965221,
+          "titles": [
+            "Steve Howe's Remedy Live"
+          ],
+          "years": [
+            2005
+          ],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        },
+        {
+          "id": 525577,
+          "titles": [
+            "Steve Howe - Unplugged Live at Montreux Jazz Festival 1979"
+          ],
+          "years": [],
+          "runtime": null,
+          "language": null,
+          "imdb": null,
+          "media_type": "movie",
+          "crosswalk_verified": false
+        }
+      ],
+      "candidate_set_complete": false,
+      "notes": "Unresolved closed-pilot snapshot; no ground-truth identity label. Original investigator runtime is retained but not treated as source-bound NFO proof. Incomplete search/detail or crosswalk evidence cannot justify automatic choice. Director facts exist but have zero weight in this proposal."
+    }
+  ],
+  "limitations": [
+    "Four human-reviewed identity labels; five refusal/skip controls without positive ground truth. This is a development set, not a held-out validation set.",
+    "Crosswalk and candidate completeness assertions are frozen evidence annotations, not fresh provider calls. No model receives the expected_id label.",
+    "Older Hamnet/Not Not Jazz repairs are not replayed: this batch uses the retained current evidence bundles and closed-pilot research; it is not every historical review.",
+    "No probabilistic accuracy or false-positive rate can be estimated from this sample."
+  ]
+}
