@@ -300,7 +300,7 @@ and request a separate retention decision before deleting observations.
 ## Closing a reviewed occurrence
 
 After explicit owner review, `identity_triage_admin.py review-occurrence` accepts
-an exact case ID/current version and `--imdb`, `--tmdb`, `--year` for the reviewed
+an exact case ID/current version and the exact private delivery cursor (`--delivery`), plus `--imdb`, `--tmdb`, `--year` for the reviewed
 target. Run only in bounded private maintenance: back up the collector/report,
 pause the research scan timer and actor digest, prove the change on a copied DB,
 apply inside `BEGIN IMMEDIATE`, refresh only that case's report, then restore

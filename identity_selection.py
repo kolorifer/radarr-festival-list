@@ -119,7 +119,7 @@ def delivery_cursor(c,release):
     return c.execute('select max(d.rowid) from deliveries d join evidence e on e.id=d.evidence where e.release=?',(release,)).fetchone()[0]
 
 
-def review_occurrence(c,case_key,expected_version,imdb,tmdb,year):
+def review_occurrence(c,case_key,expected_version,imdb,tmdb,year,expected_delivery):
     """Operator-only workflow closure after explicit review; no acquisition rights.
 
     Caller holds BEGIN IMMEDIATE and commits only after verification. An exact
@@ -135,6 +135,7 @@ def review_occurrence(c,case_key,expected_version,imdb,tmdb,year):
     release=row[1]
     event=c.execute('select id from selection_events where release=? order by observed desc,id limit 1',(release,)).fetchone()[0]
     cursor=delivery_cursor(c,release)
+    if type(expected_delivery)!=int or cursor!=expected_delivery:raise ValueError('review_occurrence_changed')
     ident=digest([case_key,event,cursor])
     c.execute('insert into selection_reviews values (?,?,?,?,?,?,?,?)',(ident,case_key,event,cursor,time.time(),imdb,tmdb,year))
     project(c,release)

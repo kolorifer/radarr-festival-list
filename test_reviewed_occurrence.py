@@ -15,12 +15,13 @@ class ReviewedOccurrenceTests(Base):
         self.p=payload();self.ingest(self.p)
         self.event=self.outcome(self.p,'year_conflict','needs_review');self.ingest(self.event,'outcome')
         self.before=self.snap();self.row=self.before['cases'][0]
+        with self.s.connection(True) as c:self.cursor=selection.delivery_cursor(c,self.row['case_id'].removeprefix('outcome-'))
     def snap(self):
         with self.s.connection(True) as c:return selection.snapshot(c,time.time())
     def close(self,**kwargs):
         with self.s.connection() as c:
             c.execute('BEGIN IMMEDIATE')
-            result=selection.review_occurrence(c,self.row['case_id'],kwargs.pop('version',self.row['version']),kwargs.pop('imdb','tt0041615'),kwargs.pop('tmdb',45184),kwargs.pop('year',1949))
+            result=selection.review_occurrence(c,self.row['case_id'],kwargs.pop('version',self.row['version']),kwargs.pop('imdb','tt0041615'),kwargs.pop('tmdb',45184),kwargs.pop('year',1949),self.cursor)
             c.commit();return result
     def test_review_is_closed_not_verified_and_preserves_evidence(self):
         self.setup_case();before=self.export()[0];self.close();s=self.snap()
@@ -52,7 +53,7 @@ class ReviewedOccurrenceTests(Base):
             with self.assertRaises(ValueError):self.close(**kwargs)
         self.assertEqual(self.routes(),{'eligible':1})
         with self.s.connection() as c:
-            with self.assertRaises(ValueError):selection.review_occurrence(c,self.row['case_id'],self.row['version'],'tt0041615',45184,1949)
+            with self.assertRaises(ValueError):selection.review_occurrence(c,self.row['case_id'],self.row['version'],'tt0041615',45184,1949,self.cursor)
         self.close()
         self.row=self.snap()['cases'][0]
         with self.assertRaises(ValueError):self.close()
@@ -68,6 +69,11 @@ class ReviewedOccurrenceTests(Base):
         new=copy.deepcopy(self.event);new['id']=str(uuid.uuid4());self.ingest(new,'outcome')
         reopened=refreshed_report(updated,self.snap(),[row['case_id']])
         self.assertEqual(d.tick(projection(reopened,time.time()),send,time.time()),1)
+    def test_same_material_before_review_still_invalidates_old_occurrence(self):
+        self.setup_case();new=copy.deepcopy(self.event);new['id']=str(uuid.uuid4());self.ingest(new,'outcome')
+        self.assertEqual(self.snap()['cases'][0]['version'],self.row['version'])
+        with self.assertRaises(ValueError):self.close()
+        self.assertEqual(self.routes(),{'eligible':1})
     def test_next_selected_filter_event_reopens(self):
         from test_identity_selected import selected
         self.setup_case();self.close()

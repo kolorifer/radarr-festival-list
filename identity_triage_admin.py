@@ -78,7 +78,7 @@ def main(argv=None):
     s = sub.add_parser('seed'); s.add_argument('private_bundle')
     r = sub.add_parser('reconcile'); r.add_argument('database'); r.add_argument('--after-id', type=int, default=0); r.add_argument('--limit', type=int, default=100)
     v = sub.add_parser('review-occurrence'); v.add_argument('case_id'); v.add_argument('expected_version')
-    v.add_argument('--imdb',required=True); v.add_argument('--tmdb',type=int,required=True); v.add_argument('--year',type=int,required=True)
+    v.add_argument('--imdb',required=True); v.add_argument('--tmdb',type=int,required=True); v.add_argument('--year',type=int,required=True); v.add_argument('--delivery',type=int,required=True)
     args = p.parse_args(argv)
     try:
         cfg = read_config(args.config)
@@ -93,7 +93,7 @@ def main(argv=None):
             from identity_selection import review_occurrence
             with store.connection() as c:
                 c.execute('BEGIN IMMEDIATE')
-                review_occurrence(c,args.case_id,args.expected_version,args.imdb,args.tmdb,args.year)
+                review_occurrence(c,args.case_id,args.expected_version,args.imdb,args.tmdb,args.year,args.delivery)
                 c.commit()
             result = {'reviewed_for_occurrence':True,'identity_verified':False,'download_approved':False}
         else:
