@@ -916,3 +916,9 @@ verified read-only without recording a choice. Health200; action/receipt state,
 collector PID, configuration and research installation/schedule unchanged. No
 notification replay or download. Historical messages are not edited/backfilled.
 See [implementation/deployment report](reports/2026-10-20-occurrence-evidence-choice.md).
+
+Owner disposition,2026-10-20: **Aberfan: The Village That Fought Back(2026) skipped**
+as unwanted. Exact case now `routine/skipped_routine` in collector and report;
+excluded from open review/research export, with evidence/history retained. Silent
+receipt prevents a maintenance notification. No download, identity correction or
+autobrr change. Health200, runtime unchanged. See the status-reconciliation report.

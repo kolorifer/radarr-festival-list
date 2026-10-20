@@ -67,3 +67,23 @@ retained exact source evidence and an explicit affected-case scope. Missing sour
 evidence, concurrent case changes or temporary lookup failures are reported rather
 than guessed. Research proposal history is retained and stale evidence is labelled;
 the ordinary bounded worker may produce future updates on its normal schedule.
+
+## Owner-requested Aberfan skip
+
+The owner subsequently chose to skip Aberfan: The Village That Fought Back(2026),
+stating it is not wanted in the library and autobrr filters were independently
+changed. This is a preference/disposition, not proof of absence from IMDb and not
+an identity correction.
+
+Applied the existing `skipped_routine` outcome to the exact retained case through
+the collector, with normalized source matching, a private owner-decision record,
+backups and an isolated-copy proof. The collector/report now classify it as
+`routine/skipped_routine`, excluding it from unresolved review and eligible research
+export. Original evidence and the awaiting-evidence research history are preserved.
+One precise digest version is silently suppressed; no message or download occurred.
+A new naturally verified Frankenstein row was included in the refreshed report;
+no unrelated unresolved cases were altered. Actions, receipts, configuration,
+research ledger and collector PID stayed unchanged; services restored and health200.
+Runtime remains `3a6c2cc`; no code change or full-suite rerun was needed for this
+operator disposition. No autobrr or Radarr setting was changed. A future newly
+admitted occurrence is still governed by ordinary rules and the owner's filters.
