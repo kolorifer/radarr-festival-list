@@ -879,3 +879,23 @@ PR65 merged `6c55c3c`; production **`5e2758405962ea23a46df079f2ca34d503b5a276`**
 ## Daily retry recovery deployed — 2026-10-20
 
 PR66 merged `27d9814`; production **`09c3ab44767c2182fbf23b1214da74c336949fbc`** replaces weekly extra-metadata retry caps with rolling daily60 total /20 listing /40 TMDb, preserving cooldowns/auth holds, attempt history, per-case limits and review-only corrections. Five budget waits migrated once; **Toby, Contagion, Rooster Cogburn, Legend of the White Dragon and Making the Shining all naturally recovered with verified external IDs** in the next five minutes, using15 extra GETs. CI passed; local616 (two skips), exact runtime599 passed. Digest copy is clearer with unchanged delivery keys (65-case proof); sent count stayed9. Health200, configuration/research/approval/downloader state preserved. No live download or correction performed. [Report](reports/2026-10-20-daily-identity-retries.md).
+
+
+## Evidence and choices replace persistent approvals — 2026-10-20
+
+D033 supersedes D032. PR74 merged `a8d5d9a`; production actor
+**`3a6c2cc9e2613a60719ba7030e5968895d14d7f2`**. The persistent Madame Bovary
+approval is revoked with history preserved; persistent lookup/creation is retired.
+New supported conflicting notifications offer a private evidence-and-choice page;
+selection applies only to that expiring occurrence, with separate download
+confirmation and source/target revalidation. Same-torrent later encounters require
+fresh review. Existing generic automatic rules remain; choices never train an
+exception or mark future cases resolved.
+
+Local647 tests(two skips), seedbox runtime630/main647, both CI versions passed.
+Live Madame Bovary remains `needs_review/year_conflict`, with description/NFO,
+three image references and three research candidates available;1949 crosswalk
+verified read-only without recording a choice. Health200; action/receipt state,
+collector PID, configuration and research installation/schedule unchanged. No
+notification replay or download. Historical messages are not edited/backfilled.
+See [implementation/deployment report](reports/2026-10-20-occurrence-evidence-choice.md).
