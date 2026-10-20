@@ -398,3 +398,10 @@ clarity on 2026-10-20. Implement bounded rolling daily retry capacity: 60 GETs t
 20 tracker and 40 TMDb, retaining provider pacing/cooldowns/auth holds and per-case
 attempt limits. Preserve all ledgers and migrate only pending budget waits. No
 identity correction, acquisition, deeper-research budget or schedule change.
+
+## D026 — Exact-source Bruce spelling correction
+
+On 2026-10-20 the owner approved Bruce Almiighty (2003) to Bruce Almighty (2003),
+bound to the verified IMDb/TMDb identity and exact release provenance. Use the
+existing private reviewed-context registry; preserve all acquisition safeguards.
+No generic typo tolerance, other identity correction or live download test.

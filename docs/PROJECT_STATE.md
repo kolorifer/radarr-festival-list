@@ -1,5 +1,17 @@
 # Movie List project state
 
+## Reviewed Bruce spelling correction — 2026-10-20
+
+PR67 merged (`012af524`); production is clean at tested runtime
+`3d842b1f2dfc355ba687022254d34d2c61a4236b`. Exact-source private binding repairs
+Bruce Almiighty (2003) to Bruce Almighty (2003), preserving normal ID roundtrip,
+context and approval safeguards. Existing two rules preserved. Local618 tests
+(two skips), seedbox601 tests and both CI versions pass. Live read-only context
+returns verified_tmdb; local/public health200, actor/collector active NRestarts0.
+No notification replay, action backfill, ledger reset or downloads. Historical
+review status remains unchanged until normal observation/report refresh.
+[Engineering report](reports/2026-10-20-bruce-reviewed-context.md).
+
 ## Selected-only identity source intake — 2026-10-19
 
 [Issue60](https://github.com/kolorifer/radarr-festival-list/issues/60) is implemented
