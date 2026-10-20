@@ -1,6 +1,7 @@
 """Opt-in TorrentLeech listing metadata. Never request torrent/download URLs.
 
-Only the listing's structural release heading and IMDb field are consumed.
+Identity uses only the exact release heading and IMDb field. Bounded description,
+NFO and inert image references are separately retained for review-only research.
 Private URLs and credentials never appear in returned results or diagnostics.
 """
 import hashlib
@@ -81,18 +82,25 @@ def parse_listing(body, release_name):
     normalize = lambda value: ' '.join(str(value or '').split())
     if not names or any(normalize(name) != normalize(release_name) for name in names):
         return _result('listing_mismatch')
+    from torrent_research_evidence import extract
+    try:
+        evidence = extract(soup)
+    except (ValueError, TypeError, RecursionError):
+        evidence = None  # Research projection must not change identification.
+    def result(reason, imdb_id=None):
+        return _result(reason, imdb_id) | ({'torrent_evidence': evidence} if evidence is not None else {})
     fields = soup.select('input[name="imdbID"]')
     ids = set(re.findall(r'\btt[0-9]{7,12}\b', str(soup)))
     if (not fields or (len(fields)==1 and fields[0].get('value') in (None,''))) and not ids:
-        return _result('listing_id_missing')
+        return result('listing_id_missing')
     if len(fields) != 1 or not valid_imdb_id(fields[0].get('value')):
-        return _result('listing_id_invalid')
+        return result('listing_id_invalid')
     imdb_id = fields[0]['value']
     # Conflicting IMDb links elsewhere in the listing are not silently ignored.
     ids = set(re.findall(r'\btt[0-9]{7,12}\b', str(soup)))
     if ids != {imdb_id}:
-        return _result('listing_id_conflict')
-    return _result('listing_id_found', imdb_id)
+        return result('listing_id_conflict')
+    return result('listing_id_found', imdb_id)
 
 
 def _backoff(value):

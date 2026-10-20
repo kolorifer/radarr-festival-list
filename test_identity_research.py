@@ -267,6 +267,27 @@ class InvestigationTests(Base):
         self.assertEqual(candidate['confidence'],'review_required')
         self.assertEqual(self.sql('select status from proposals'),[('needs_review',)])
 
+    def test_torrent_source_evidence_remains_review_only_and_uses_no_extra_gets(self):
+        from torrent_research_evidence import extract
+        from bs4 import BeautifulSoup
+        from test_torrent_research_evidence import PAGE
+        item=case();item['facts']['contradictions']=['year_conflict']
+        item['facts']['torrent_evidence']=extract(BeautifulSoup(PAGE,'html.parser'))
+        run,lease=self.ready(item)
+        linked=movie(1,date='2015-01-01',imdb='tt1234567');alternative=movie(2,imdb='tt7654321');alternative['runtime']=114
+        p,t=self.provider(run,[Response({'movie_results':[linked]}),Response({'page':1,'results':[alternative]}),Response(linked),Response(alternative)])
+        result=investigate(lease,p);self.store.finish(lease,result)
+        candidate=result['candidates'][1]
+        self.assertEqual(len(t.calls),4)
+        self.assertFalse(result['runtime_correction'])
+        self.assertEqual(candidate['source_review']['runtime_comparison'],'agrees')
+        self.assertEqual(candidate['source_review']['visual_review'],'pending')
+        self.assertEqual(candidate['confidence'],'review_required')
+        self.assertIn('identifier_conflict',candidate['contradictions'])
+        self.assertIn('screenshot_visual_review_pending',candidate['support_gaps'])
+        self.assertNotIn('independent_source_corroboration_missing',candidate['support_gaps'])
+        self.assertEqual(self.sql('select status from proposals'),[('needs_review',)])
+
     def test_tv_only_is_not_movie_or_catalog_absence(self):
         run,lease=self.ready();p,t=self.provider(run,[Response({'movie_results':[],'tv_results':[{'id':123,'name':'Synthetic Movie','first_air_date':'2025-01-01'}]}),Response({'page':1,'results':[]}),Response({'page':1,'results':[]})])
         r=investigate(lease,p);self.assertEqual(r['reason'],'tv_only');self.assertFalse(r['catalog_absence_proven']);self.assertEqual(r['candidates'],[])
