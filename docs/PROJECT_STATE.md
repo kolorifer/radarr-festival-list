@@ -1,5 +1,21 @@
 # Movie List project state
 
+## Reviewed occurrence status — 2026-10-20
+
+PR77 merged `8003775`; actor runtime `658d8f8`, installed collector selection
+`d8cce25`. Madame Bovary is now **reviewed for this occurrence**, retaining its
+source conflict and historical evidence. Its persistent approval remains revoked.
+A new accepted encounter—even the same torrent—reopens review with a new version;
+exact duplicate transport delivery does not. No matcher reads review receipts,
+and no download approval is granted. Reports/digest distinguish this from verified.
+
+Local679 (two skips), seedbox main679/runtime649 and CI pass. Copied live-case
+reopening/zero-send proofs and live handoff/report/health checks pass. Services
+active, health200; actions, downloader receipts and research ledger preserved.
+No downloads or notifications. Only 2018: Everyone Is a Hero remains unresolved.
+Operator closure is explicit; web choices do not automatically close workflow.
+[Engineering report](reports/2026-10-20-reviewed-occurrence-status.md).
+
 ## Generic torrent-evidence identification — 2026-10-20
 
 PR76 merged `f83ae69`; production actor `b4a8c1d` with the generic evidence flag

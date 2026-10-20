@@ -34,7 +34,49 @@ not a verified identity, a learned rule or an identity override.
 
 ## Verification and deployment
 
-Pending final tests, deployment and the bounded live workflow update.
+PR [#77](https://github.com/kolorifer/radarr-festival-list/pull/77) merged as
+`8003775a1d01a28214a8cca93bd4e2d5a20092eb`. Collector selection is from tested
+`d8cce25a058bea729e360c26e804b0be05473bf1`; actor/report compatibility runtime is
+`658d8f838aed7a03db7d01244254362fba99369a`, based on the previous isolated runtime.
+Unrelated main catalog changes were not deployed. The installed selected-only
+intake was verified byte-identical to the tested main version and preserved.
+
+Nine new regressions cover closure versus verification, exact redelivery, new
+identical outcomes, new selected-filter observations, delayed observations, stale
+review races (including unchanged material), report/digest behavior and other
+releases. Final local suite: 679 tests, two Linux-only skips. Seedbox main: 679
+passed; isolated runtime: 649 passed. CI Python 3.12 and 3.13 passed. The initial
+sandboxed local run could not bind loopback HTTP test fixtures; the full rerun
+with that permission passed. Dependency/config/catalog preflight passed.
+
+A private copy of the actual collector database proved closure and reopening for
+Madame Bovary with unchanged source evidence, including a new research version.
+Copied digest state proved zero sends. Deployment backed up code, configuration
+and private state, restarted the collector and actor, and restored the research
+timer. Collector Landlock ABI 6 and selected-only mode remained active with zero
+storage failures; local/public actor health returned 200 with 1,909 movies.
+Unchanged files/configuration were hash-checked; research network isolation and
+budgets were not changed.
+
+Live read-only evidence verification still returns `needs_review / year_conflict`
+and offers the independently verified 1949 target (IMDb tt0041615 / TMDb 45184).
+The evidence packet contains 279 description characters, 1,409 NFO characters,
+three screenshot references and three candidate choices. No web choice or
+acquisition token was created by verification.
+
+The explicit owner review was recorded against the exact current occurrence and
+delivery cursor. Collector and report now show `reviewed_occurrence`, retaining
+`year_conflict` as the underlying reason. Historical source events and the entire
+research ledger are unchanged; existing actions, helper receipts and protected
+files are unchanged. One suppressed digest receipt prevents a maintenance alert;
+all previous delivery records remain intact. The prior persistent approval is
+still revoked. Installed handoff validation accepts the resulting live snapshot,
+and the report matches current collector versions. Actor, collector and daily
+research timer are active.
+
+Only **2018: Everyone Is a Hero (2023)** remains unresolved (`listing_id_invalid`).
+No downloads, Radarr writes, notifications or notification replays were triggered.
+Product acceptance beyond the explicitly approved occurrence remains for the owner.
 
 ## Limits
 
