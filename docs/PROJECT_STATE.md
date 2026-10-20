@@ -1,5 +1,24 @@
 # Movie List project state
 
+## Generic conflict investigation — 2026-10-20
+
+PR71 merged (`0f27ec7b`); actor and research worker use tested runtime
+`15e07b446637f21049f9a673b80c543e945fa0ac`. Collector identity_selection uses
+082a1ca to preserve selected-only intake; other installed collector modules remain
+unchanged. Strongly correlated title/year/ID conflicts enter bounded proposal-only
+research. Actor identity and approval gates remain blocked; no override is applied.
+Local616 tests(two skips), seedbox actor599/collector-compatible616 and both CI
+versions pass. Installed collector ABI6 and worker denial proofs pass; health200,
+actor/collector active NRestarts0, timer preserved, acquisition state unchanged.
+
+Madame Bovary pilot used5requests, retained the linked2015 film, and proposed
+TMDb45184/IMDbtt0041615 (1949, Vincente Minnelli) for human review. Independent
+source corroboration is missing; conflicting IMDb remains explicit. Still
+needs_review/year_conflict, with no action creation/download or notification replay.
+Weekly research usage3cases/9requests; limits unchanged. New proposal evidence
+uses the existing changed-case digest policy. No per-film exception introduced.
+[Engineering report](reports/2026-10-20-conflict-investigation.md).
+
 ## Bounded missing-mapping retries — 2026-10-20
 
 PR70 merged (`c061989d`), production clean at tested runtime

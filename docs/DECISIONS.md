@@ -436,3 +436,15 @@ mappings using the existing durable metadata-only bounds; include the retained
 Insomnia case without renewing its original expiry or resetting request history.
 Identity conflicts such as Madame Bovary stay blocked. No new matching exception,
 search fallback, download, acquisition approval creation or notification replay.
+
+## D030 — Generic conflict investigation, proposals only
+
+Accepted by explicit owner request on2026-10-20, starting with Madame Bovary.
+Allow strongly correlated title/year/identity conflicts into bounded research;
+search alternatives even when the tracker IMDb already maps to a movie. Retain
+all conflicting assertions and gather catalog director/cast/runtime/language.
+Missing independent source corroboration is an explicit evidence gap. Conflicting-ID
+overrides remain subject to review; no automatic identity acceptance, exception,
+download or notification replay. Existing research budgets, isolation, selected-only
+intake and Radarr/Grab safeguards remain. Normal changed-case digest may surface
+new proposals; no historical replay is forced.

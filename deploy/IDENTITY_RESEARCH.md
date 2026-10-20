@@ -80,3 +80,19 @@ all competing search IDs remain recorded. No popularity-based acceptance.
 The collector's historical warning has fixed diagnostic codes in this PR only;
 rolling out that collector-only diagnostic is a separate deployment choice. It
 must not be confused with the unchanged collector installed for this pilot.
+
+
+## Generic conflict investigations
+
+Strongly correlated title/year/identity conflicts are research-eligible while
+remaining blocked in the actor. The worker retains the tracker-linked candidate,
+searches one title page for alternatives, prioritizes matching-year records for
+up to three detail lookups and gathers director/cast/runtime/language. The normal
+five-request per-version recurring cap and weekly caps remain. All results are
+review_required and preserve source/identifier contradictions; absent independent
+corroboration is explicit. No NFO scraping, automatic crosswalk or override exists.
+Actor observations retain source assertions privately even when they are not
+shown as accepted movie links. Deploy collector changes on its selected-only
+intake baseline, not an older actor module copy. Do not replay historical messages
+or reset research ledgers to force a new run. See the
+[deployment and Madame Bovary pilot report](../docs/reports/2026-10-20-conflict-investigation.md).
