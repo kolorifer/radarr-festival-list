@@ -53,6 +53,33 @@ def _identity_title(value):
     return ''.join(c for c in text if c.isalnum())
 
 
+def _minor_title_typo(observed, candidate):
+    """One alphabetic edit in one long word; never remove words or numbers."""
+    def words(value):
+        text = unicodedata.normalize('NFC', str(value or '')).casefold().replace('&', 'and')
+        return re.findall(r"[^\W_]+", text)
+    left, right = words(observed), words(candidate)
+    if len(left) != len(right) or sum(map(len, right)) < 8:
+        return False
+    differences = [(a, b) for a, b in zip(left, right) if a != b]
+    if len(differences) != 1:
+        return False
+    a, b = differences[0]
+    if (min(len(a), len(b)) < 6 or not a.isalpha() or not b.isalpha()
+            or re.fullmatch('[ivxlcdm]+', a) or re.fullmatch('[ivxlcdm]+', b)):
+        return False
+    if len(a) == len(b):
+        changed = [i for i in range(len(a)) if a[i] != b[i]]
+        return (len(changed) == 1 or
+                (len(changed) == 2 and changed[1] == changed[0] + 1
+                 and a[changed[0]] == b[changed[1]] and a[changed[1]] == b[changed[0]]))
+    if abs(len(a) - len(b)) != 1:
+        return False
+    longer, shorter = (a, b) if len(a) > len(b) else (b, a)
+    i = next((i for i in range(len(shorter)) if longer[i] != shorter[i]), len(shorter))
+    return longer[:i] + longer[i + 1:] == shorter
+
+
 def _identity_result(status, reason, imdb_id=None):
     result = {'identity_status': status, 'identity_reason': reason}
     if valid_imdb_id(imdb_id):
@@ -60,7 +87,7 @@ def _identity_result(status, reason, imdb_id=None):
     return result
 
 
-def _resolve_external(title, year, imdb_id, tmdb_id):
+def _resolve_external(title, year, imdb_id, tmdb_id, allow_minor_typo=False):
     """No title-search fallback, even on missing mapping or provider failure."""
     if imdb_id:
         payload = _get(f'/find/{imdb_id}', {'external_source': 'imdb_id', 'language': 'en-US'})
@@ -104,7 +131,10 @@ def _resolve_external(title, year, imdb_id, tmdb_id):
         if isinstance(row, dict) and isinstance(row.get('data'), dict):
             titles.append(row['data'].get('title'))
     wanted_title = _identity_title(title)
-    if not wanted_title or wanted_title not in {_identity_title(x) for x in titles if x}:
+    exact_title = bool(wanted_title) and wanted_title in {_identity_title(x) for x in titles if x}
+    typo = (not exact_title and allow_minor_typo is True and valid_imdb_id(imdb_id)
+            and any(_minor_title_typo(title, x) for x in titles if x))
+    if not exact_title and not typo:
         return _identity_result('needs_review', 'title_conflict', imdb_id)
     years = {_year(details.get('release_date'))}
     for country in dates.get('results', []):
@@ -115,12 +145,14 @@ def _resolve_external(title, year, imdb_id, tmdb_id):
         return _identity_result('needs_review', 'year_conflict', imdb_id)
     result = _compact(details)
     result.update(identity_status='verified_tmdb', identity_reason='external_id_verified')
+    if typo:
+        result['identity_title_basis'] = 'tracker_minor_typo'
     result['matched_release_year'] = str(year)
     result['identity_year_basis'] = 'canonical_date' if str(year) == result['year'] else 'release_dates'
     return result
 
 
-def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None):
+def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_minor_typo=False):
     """Validate source IDs and context in an isolated, bounded, expiring cache.
 
     Never read/write the legacy title cache. The key includes the exact context
@@ -130,7 +162,7 @@ def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None):
             or (tmdb_id is not None and not valid_tmdb_id(tmdb_id))
             or (imdb_id is None and tmdb_id is None)):
         return _identity_result('needs_review', 'invalid_external_id')
-    key = (str(title), str(year), imdb_id, str(tmdb_id))
+    key = (str(title), str(year), imdb_id, str(tmdb_id), allow_minor_typo is True)
     if not _ID_LOCK.acquire(blocking=False):
         return _identity_result('unresolved', 'metadata_lookup_busy', imdb_id)
     try:
@@ -138,7 +170,7 @@ def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None):
         if cached and cached[0] > time.monotonic():
             return dict(cached[1])
         try:
-            result = _resolve_external(title, year, imdb_id, tmdb_id)
+            result = _resolve_external(title, year, imdb_id, tmdb_id, allow_minor_typo)
         except (TypeError, ValueError, KeyError, AttributeError):
             result = _identity_result('needs_review', 'invalid_metadata', imdb_id)
         ttl = 900 if result['identity_status'] == 'verified_tmdb' else 60

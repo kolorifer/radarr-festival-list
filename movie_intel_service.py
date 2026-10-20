@@ -304,7 +304,18 @@ def build_movie_context(payload):
                         correction['title'] if correction else title,
                         correction['year'] if correction else year,
                         imdb_id=supplied_imdb or imdb_id,
-                        tmdb_id=correction['tmdb_id'] if correction else supplied_tmdb)
+                        tmdb_id=correction['tmdb_id'] if correction else supplied_tmdb,
+                        **({'allow_minor_typo': True} if (
+                            os.environ.get('MOVIE_INTEL_TRACKER_TYPO_ENABLED') == '1'
+                            and source == 'torrentleech_listing' and not correction
+                            and all(str(v).casefold() == 'torrentleech' for k, v in
+                                    (data.get('indexer') or {}).items() if k in ('name', 'identifier') and v)
+                        ) else {}))
+                    if meta.get('identity_title_basis') == 'tracker_minor_typo':
+                        canonical_local = find_local(meta['title'], meta['year'], INDEX)
+                        if (canonical_local and canonical_local.get('imdb_id')
+                                and canonical_local['imdb_id'] != supplied_imdb):
+                            meta = {'identity_status': 'needs_review', 'identity_reason': 'local_identity_conflict'}
                 if correction:
                     applied = meta.get('identity_status') == 'verified_tmdb'
                     decision_log('reviewed_context', correction['rule'] if applied else 'validation_failed', payload)
