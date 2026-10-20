@@ -322,15 +322,6 @@ def build_movie_context(payload):
             torrent_evidence = lookup_listing(release, data.get('indexer') or {}).get('torrent_evidence')
         except Exception:
             pass  # Observational evidence must never change the action path.
-    if category == 'unknown_movie':
-        import reviewed_corrections
-        corrected = reviewed_corrections.apply(release, data.get('indexer') or {}, listing, meta, resolve_external_movie)
-        if corrected:
-            canonical_local = find_local(corrected['title'], corrected['year'], INDEX)
-            if not canonical_local or canonical_local.get('imdb_id') == corrected['imdb_id']:
-                meta = corrected
-                observed_reason = meta['identity_reason']
-                movie = canonical_local
     asserted = {k:v for k,v in (('asserted_imdb', (meta or {}).get('imdb_id')),
                                  ('asserted_tmdb', (meta or {}).get('tmdb_id'))) if v is not None}
     blocked = meta and meta.get('identity_status') not in (None, 'verified_tmdb')
@@ -348,6 +339,7 @@ def build_movie_context(payload):
     text = format_message(payload, movie=movie, meta=meta, existing=existing)
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
+        "review_listing": listing,
         "identity_observation": {"reason": observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and blocked else {})},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
@@ -358,18 +350,38 @@ def build_movie_context(payload):
 
 
 def reviewed_action_current(action):
-    """A revoked/stale review cannot authorize an already-issued acquisition form."""
+    """Never reuse a legacy decision; a chosen occurrence must still be live."""
     movie = action.get('movie') or {}
-    if not movie.get('identity_review'):return movie.get('identity_source') != 'owner_reviewed_source'
+    if movie.get('identity_review') or movie.get('identity_source') == 'owner_reviewed_source':return False
+    marker=movie.get('identity_choice')
+    if not marker:return movie.get('identity_source') != 'owner_occurrence_choice'
     try:
-        context = build_movie_context({'data': {'release': action['release'], 'indexer': action['indexer'],
-                                              'result': {'rejections': ['Unknown Movie']}}})
-        current = context.get('meta') or {}
-        return (current.get('identity_review') == movie['identity_review']
-                and current.get('identity_status') == 'verified_tmdb'
-                and current.get('imdb_id') == movie.get('imdb_id')
-                and current.get('tmdb_id') == movie.get('tmdb_id'))
-    except Exception:return False
+        review=get_action(marker['review_token'])
+        if not review or review.get('kind')!='identity_review' or not review.get('chosen'):return False
+        if any(review['movie'].get(k)!=movie.get(k) for k in ('imdb_id','tmdb_id')):return False
+        if review['release']!=action['release'] or review['indexer']!=action['indexer']:return False
+        import occurrence_review
+        target=occurrence_review.verified_target(review,movie['imdb_id'],movie['tmdb_id'],lookup_listing,resolve_external_movie)
+        local=find_local(target['title'],target['year'],INDEX)
+        return not local or local.get('imdb_id')==target['imdb_id']
+    except (OSError,ValueError,KeyError,TypeError):return False
+
+
+def create_identity_review(payload,context):
+    import occurrence_review
+    review=occurrence_review.packet(payload,context)
+    if not review:return None
+    data=payload['data']
+    # Use the same exact acquisition projection, without validating or fetching a download.
+    release={k:v for k,v in data['release'].items() if k in REVIEW_RELEASE_KEYS}
+    indexer={k:v for k,v in data['indexer'].items() if k in ('name','protocol','identifier')}
+    try:return create_action({'kind':'identity_review','movie':{},'release':release,'indexer':indexer,
+                              'event_timestamp':payload.get('timestamp'),'review':review})
+    except (OSError,ValueError):return None
+
+
+REVIEW_RELEASE_KEYS=("protocol", "timestamp", "publishDate", "publish_date", "name", "title", "year", "size", "seeders", "leechers",
+                    "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url", "info_url", "infoUrl", "link", "external_id")
 
 
 def build_movie_notification(payload):
@@ -431,6 +443,7 @@ def create_pending_action(payload, meta):
             "identity_status": meta.get('identity_status'),
             "identity_source": meta.get('identity_source'),
             **({"identity_review": meta["identity_review"]} if meta.get("identity_review") else {}),
+            **({"identity_choice": meta["identity_choice"]} if meta.get("identity_choice") else {}),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
         },
@@ -481,6 +494,7 @@ def _reply_markup(action_url):
     try:
         action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
         if action and action.get('kind')=='alternative':label='⬇️ Grab Anyway'
+        if action and action.get('kind')=='identity_review':label='🔎 Review evidence & choose movie'
     except (OSError,ValueError):pass
     return {
         "inline_keyboard": [[{
@@ -732,7 +746,10 @@ class Handler(BaseHTTPRequestHandler):
                 self._html(409, render_result(action, False, REVIEW_MESSAGE))
                 return
             try:
-                if action.get('kind')=='alternative':
+                if action.get('kind')=='identity_review':
+                    import occurrence_review
+                    self._html(200,_page('Review identity',occurrence_review.render(action)))
+                elif action.get('kind')=='alternative':
                     alternative_grab.validate_action(action)
                     self._html(200,render_alternative(action))
                 else:
@@ -747,6 +764,35 @@ class Handler(BaseHTTPRequestHandler):
     def _handle_action_post(self, token):
         with _APPROVAL_LOCK:
             self._handle_action_post_locked(token)
+
+    def _identity_review_post(self,token,action):
+        import occurrence_review
+        try:
+            length=int(self.headers.get('Content-Length','0'))
+            if not 0<length<=1024:raise ValueError('form')
+            params=parse_qs(self.rfile.read(length).decode('utf-8'))
+            if action.get('chosen'):
+                if params!={'prepare_download':['yes']}:raise ValueError('form')
+                meta=dict(action['movie'],identity_choice={'review_token':token})
+                probe={'movie':meta,'release':action['release'],'indexer':action['indexer']}
+                if not reviewed_action_current(probe):raise ValueError('stale_choice')
+                payload={'timestamp':action.get('event_timestamp'),'data':{'release':action['release'],'indexer':action['indexer'],'result':{'rejections':['Unknown Movie']}}}
+                next_token=create_pending_action(payload,meta)
+                if not next_token:raise ValueError('acquisition_unavailable')
+                url=public_action_url({},next_token)
+                if not url:raise ValueError('origin_unavailable')
+                self._html(200,_page('Download confirmation','<p>No download started.</p><a href="'+html.escape(url,quote=True)+'">Continue to separate download confirmation</a>'))
+                return
+            if set(params)!={'imdb','tmdb','confirm_identity'} or params['confirm_identity']!=['yes'] or len(params['imdb'])!=1 or len(params['tmdb'])!=1:raise ValueError('form')
+            imdb=params['imdb'][0];tmdb=int(params['tmdb'][0])
+            if not valid_imdb_id(imdb) or not valid_tmdb_id(tmdb):raise ValueError('ids')
+            target=occurrence_review.verified_target(action,imdb,tmdb,lookup_listing,resolve_external_movie)
+            local=find_local(target['title'],target['year'],INDEX)
+            if local and local.get('imdb_id')!=target['imdb_id']:raise ValueError('local_conflict')
+            if not update_action(token,chosen=True,movie=target):raise OSError('store')
+            self._html(200,_page('Identity selected',occurrence_review.render(dict(action,chosen=True,movie=target))))
+        except (ValueError,UnicodeDecodeError,KeyError,TypeError,OSError):
+            self._html(409,_page('Review unavailable','<p>The choice could not be verified, the evidence changed, or the form is invalid. No download started. Review the evidence again.</p>'))
 
     def _alternative_post(self,token,action):
         attempted=False
@@ -787,6 +833,9 @@ class Handler(BaseHTTPRequestHandler):
         if uncertain_action(action):
             decision_log('approval', 'blocked_uncertain_attempt')
             self._html(409, render_result(action, False, REVIEW_MESSAGE))
+            return
+        if action.get('kind')=='identity_review':
+            self._identity_review_post(token,action)
             return
         if not reviewed_action_current(action):
             self._html(409, render_result(action, False, 'Identity review was revoked, changed or could not be revalidated. No acquisition attempted.'))
@@ -911,6 +960,8 @@ class Handler(BaseHTTPRequestHandler):
                 from identity_retry import submit as submit_identity_retry
                 submit_identity_retry(payload,context)
                 token = create_pending_action(payload, context.get("meta"))
+                if not token:
+                    token = create_identity_review(payload,context)
                 action_url = public_action_url(self.headers, token) if token else None
                 if token and not action_url:
                     delete_action(token)

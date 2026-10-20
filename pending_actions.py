@@ -72,7 +72,7 @@ def create_action(action, ttl_seconds=None):
         # Duplicate webhooks reuse the same capability and attempt state. A
         # repeated notification cannot sidestep an uncertain acquisition.
         release = action.get('release') or {}
-        if release.get('name'):
+        if release.get('name') and action.get('kind') != 'identity_review':
             for existing_token, existing in data.items():
                 if (existing.get('kind') == action.get('kind')
                         and existing.get('movie', {}).get('tmdb_id') == action.get('movie', {}).get('tmdb_id')
