@@ -757,3 +757,7 @@ PR64 merged `d0bbf10` after current-head CI passed. Production actor **`906a2cdc
 ## Custom Format Grab Anyway gap fixed — 2026-10-19
 
 PR65 merged `6c55c3c`; production **`5e2758405962ea23a46df079f2ca34d503b5a276`** adds the exact equal/higher existing Custom Format score reason. All original eligibility, explicit replacement and replay protections remain. CI passed; local611 (two skips), seedbox594 passed. Actual retained Masters of the Universe rejection passes the deployed rule; local/public health200, existing configuration/approval/receipt/research state preserved. No live notification or download test. [Report](reports/2026-10-19-custom-format-grab.md).
+
+## Daily retry recovery deployed — 2026-10-20
+
+PR66 merged `27d9814`; production **`09c3ab44767c2182fbf23b1214da74c336949fbc`** replaces weekly extra-metadata retry caps with rolling daily60 total /20 listing /40 TMDb, preserving cooldowns/auth holds, attempt history, per-case limits and review-only corrections. Five budget waits migrated once; **Toby, Contagion, Rooster Cogburn, Legend of the White Dragon and Making the Shining all naturally recovered with verified external IDs** in the next five minutes, using15 extra GETs. CI passed; local616 (two skips), exact runtime599 passed. Digest copy is clearer with unchanged delivery keys (65-case proof); sent count stayed9. Health200, configuration/research/approval/downloader state preserved. No live download or correction performed. [Report](reports/2026-10-20-daily-identity-retries.md).

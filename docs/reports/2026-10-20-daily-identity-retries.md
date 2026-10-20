@@ -26,4 +26,26 @@ every correction requires review. Existing material-version keys are preserved,
 so wording changes alone do not resend historical messages. No test digest will
 be deliberately sent; future natural case changes use the new wording.
 
-Validation and production results pending.
+## Validation and deployment
+
+PR66 merged as `27d98149062fec71fb03813389082058cd79b639` after Python 3.12/3.13 CI passed on `5402dff`. Local full suite: 616 tests, two Linux-only skips. Exact isolated runtime: 599 tests, all passed on the seedbox.
+
+Production is pinned to **`09c3ab44767c2182fbf23b1214da74c336949fbc`**, based on verified `5e27584`. Only retry/digest modules and their tests changed; those files match the merged implementation. Dependencies/config/catalog preflight passed. Local/public health200, catalog1,909, actor and collector active with NRestarts=0. Protected configuration/research/timer hashes and collector PID remained unchanged. Approval and downloader receipt stores were preserved; no download or correction was triggered.
+
+Private-copy verification preserved all existing request/attempt/provider rows while moving only the five pending budget waits to +60/+120/+180/+240/+300 seconds. All 65 report-case material delivery keys matched the previous implementation. The live rollout preserved old request reservations and source expiry; digest stayed at nine sent records with no wording-only replay. Backups and rollout evidence are retained privately under `~/.local/state/daily-retry-rollout/`.
+
+## Live recovery results
+
+All five naturally scheduled cases completed with `external_id_verified` within the staggered five-minute rollout window: **Toby, Contagion, Rooster Cogburn, Legend of the White Dragon, Making the Shining**. No retry was forced manually. They consumed 15 additional GET reservations (five listing, ten TMDb); the rolling-day totals at postflight were eight listing and thirteen TMDb, below 20/40 limits.
+
+These are successful ordinary source/TMDb identity verifications, not newly approved correction rules. No correction configuration changed. Existing approval capabilities for the five films were compared against the private pre-rollout backup and were unchanged; no new capability was created by retry. Final local/public health remained200, digest remained nine sent, and production SHA was rechecked. No live download occurred.
+
+A postflight assertion initially assumed no prior capabilities existed for these titles; that assumption was too broad. Verification was corrected to compare their actual pre-rollout state, proving no new or changed approvals without deleting or rewriting existing ones.
+
+## Limitations and operator notes
+
+Daily bounds are additional retry traffic only; ordinary webhook enrichment and the separate deeper-research budget are unchanged. A repeated provider outage, rate limit or authentication suspension can still delay recovery. Three attempted lookups per case per day remain bounded; persistent failures go to review. No policy guarantees that every movie will resolve or be offered for acquisition.
+
+The digest is driven by the existing daily research report and five-minute actor poll. Retry outcomes enter the collector immediately, but digest reporting can wait for the next scheduled report. Old Telegram messages are not rewritten. The new wording appears on future material changes and explicitly keeps corrections subject to review.
+
+Rollback is code-only to `5e27584`, preserving current requests, attempts, provider holds, migration marker, approvals and receipts. Never restore earlier ledgers to obtain capacity. The one-time migration does not rerun on every restart. The unrelated active `docs/CODEX_TASK.md` assignment was left intact.
