@@ -10,7 +10,7 @@ class EvidenceIdentityTests(unittest.TestCase):
     def setUp(self):
         rule._CACHE.clear();rule._UNTIL=0
         p=patch.dict(os.environ,{rule.FLAG:'1'});p.start();self.addCleanup(p.stop)
-        text='General Complete name : A Film.mkv Duration : 1 h 44 min Video ID : 1 Duration : 1 h 44 min Audio ID : 2 Duration : 1 h 44 min Language : Malayalam (IN) Default : Yes Text ID : 3 Duration : 1 h 40 min Language : English Default : No'
+        text='General Complete name : Alias.Film.2023.WEB.mkv Format : Matroska Duration : 1 h 44 min Video ID : 1 Duration : 1 h 44 min Audio ID : 2 Duration : 1 h 44 min Language : Malayalam (IN) Default : Yes Text ID : 3 Duration : 1 h 40 min Language : English Default : No'
         self.evidence={'version':1,'description':{'text':'','digest':fingerprint('')},'nfo':{'text':text,'digest':fingerprint(text)},'images':[],'unavailable_images':0,'truncated':True}
         self.listing={'reason':'listing_id_missing','source':'torrentleech_listing','torrent_evidence':self.evidence}
         self.release={'name':'Alias Film 2023 WEB','title':'Alias Film','year':2023,'info_url':'https://www.torrentleech.org/torrent/1'}
@@ -118,3 +118,7 @@ class EvidenceIdentityTests(unittest.TestCase):
             cooldown.assert_called_once_with('tmdb',120)
         with patch.object(rule,'urlopen') as transport:
             self.assertEqual(rule.wikidata_years('Q123','tt1234567',123),set());transport.assert_not_called()
+
+    def test_nfo_for_another_release_cannot_supply_supporting_facts(self):
+        self.text(self.evidence['nfo']['text'].replace('Alias.Film.2023.WEB.mkv','Other.Film.2023.WEB.mkv'))
+        self.assertIsNone(self.resolve());self.get.assert_not_called()
