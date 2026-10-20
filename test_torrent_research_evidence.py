@@ -35,6 +35,13 @@ class TorrentEvidenceTests(unittest.TestCase):
         self.assertEqual(evidence.assess(value,{'runtime':106})['runtime_comparison'],'differs_or_ambiguous')
         self.assertIn('Year: 2010',value['description']['text'])
 
+    def test_projection_failure_cannot_change_listing_identification(self):
+        with patch.object(evidence,'extract',side_effect=ValueError('malformed_evidence')):
+            result=tracker_metadata.parse_listing(PAGE,NAME)
+        self.assertEqual(result['reason'],'listing_id_found')
+        self.assertEqual(result['imdb_id'],'tt1234567')
+        self.assertNotIn('torrent_evidence',result)
+
     def test_exact_listing_required_and_identity_conflicts_stay_blocked(self):
         self.assertNotIn('torrent_evidence',tracker_metadata.parse_listing(PAGE,'Other'))
         value=tracker_metadata.parse_listing(PAGE,NAME)
