@@ -1,5 +1,22 @@
 # Movie List project state
 
+## Investigation status reconciliation — 2026-10-20
+
+PR75 merged `2dfedf9`. Production actor remains `3a6c2cc`; no matcher/schedule
+change. Live collector and report now show Bruce Almiighty **verified** under the
+generic typo rule and Madame Bovary **review required** (`year_conflict`).
+The previous approved Madame Bovary status described below is historical and
+superseded by D033 and this reconciliation.
+
+A scoped maintenance helper and deployment gate now require affected-case refresh
+after identity-rule changes. Exact source evidence is rechecked; old records are
+preserved. Two silent digest receipts suppress only this maintenance refresh;
+previous deliveries, actions, downloader receipts and research ledger unchanged.
+Local651 tests(two skips), focused seedbox tests and CI3.12/3.13 pass. Services
+active, health200; no notifications/downloads. No new recurring scanner.
+[Report](reports/2026-10-20-identity-status-reconciliation.md).
+
+
 ## Reviewed source correction — 2026-10-20
 
 Owner approved the exact Madame Bovary release as1949 via a generic reviewed flow.

@@ -27,9 +27,38 @@ and scan timer during publication, then restore their prior operation and health
 ## Verification and result
 
 Local full suite651 tests passed,2 Linux-only skips. Four helper tests also passed
-on the seedbox. Live reconciliation pending. Exact source preparations use only
-retained metadata and public movie lookups, with all notification/acquisition
-methods blocked. No live downloads are authorized.
+on the seedbox. Both Python3.12/3.13 CI jobs passed. PR
+[#75](https://github.com/kolorifer/radarr-festival-list/pull/75) merged as
+`2dfedf96f517b7004c84d6cead1af12620d353d5` (implementation `08e2a93`).
+
+Live reconciliation completed:
+
+- Bruce Almiighty: old `title_conflict/review_only` replaced by a fresh
+  `external_id_verified/verified` result under the generic typo rule.
+- Madame Bovary: historical `external_id_verified/verified` replaced by a fresh
+  `year_conflict/eligible` result, meaning investigation/review is required.
+- Both collector projection and private review report agree. Their complete source
+  fingerprints and normalized metadata matched before publishing. Old evidence,
+  decisions, events, request history and proposals were retained.
+- Exactly two new digest records are marked `suppressed`. Every pre-existing
+  delivery record stayed byte-for-byte equivalent at the row level; no messages
+  were sent. An isolated copy proved the entire refreshed report produces zero
+  immediate sends before publication; live readback confirmed only silent receipts.
+- Actions, downloader receipts, private configuration, installed collector/worker/
+  handoff modules and the complete research ledger were unchanged. Collector PID
+  stayed unchanged. Actor and scan timer were briefly paused for atomic publication,
+  then restored active. Local/public health200. No notifications or downloads.
+- Production actor remains **`3a6c2cc9e2613a60719ba7030e5968895d14d7f2`**.
+  No runtime matcher change or new scheduled job was needed; maintenance used the
+  tested helper privately with existing installed modules.
+
+Unexpected findings: autobrr no longer retained the exact old Bruce row, so its
+private saved evidence was used, requiring exact normalized source equivalence.
+The first isolated proof also detected a new natural **Audition** verified case
+since the previous report and stopped before any live mutation. That verified,
+never-notified row was represented in the report before re-running the proof;
+no unrelated unresolved case or notification was suppressed. All backups and
+prepared events remain private for audit.
 
 ## Limitations
 
