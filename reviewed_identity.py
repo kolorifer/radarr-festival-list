@@ -1,6 +1,6 @@
-"""Issue #45's two reviewed context repairs, bound to private exact provenance.
+"""Explicitly approved reviewed context repairs, bound to private exact provenance.
 
-This is not a general override/crosswalk registry. The two title/year changes are
+This is not a general override/crosswalk registry. The fixed title/year changes are
 fixed here; owner-only configuration supplies their reviewed IDs and fingerprints.
 Returned context must still pass the normal unique external-ID roundtrip checks.
 """
@@ -18,6 +18,7 @@ ENV_NAME = 'MOVIE_INTEL_REVIEWED_CONTEXT_FILE'
 # Only these exact observed contexts are approved; punctuation/case variants do
 # not expand this exception. IDs and release references remain private.
 RULES = {
+    'bruce-almiighty-2003': ('Bruce Almiighty', '2003', 'Bruce Almighty', 2003),
     'hamnet-2025': ('Hamnet 2025', '2016', 'Hamnet', 2025),
     'not-not-jazz-2024': ('Medeski Martin Wood Not Not Jazz', '2024', 'Not Not Jazz', 2024),
 }
@@ -36,7 +37,7 @@ def read_rules(path):
         data = json.loads(stream.read(16385))
     if (not isinstance(data, dict) or set(data) != {'version', 'rules'}
             or type(data['version']) is not int or data['version'] != 1
-            or not isinstance(data['rules'], list) or len(data['rules']) > 2):
+            or not isinstance(data['rules'], list) or len(data['rules']) > len(RULES)):
         raise ValueError('invalid reviewed context schema')
     seen = set()
     for row in data['rules']:
