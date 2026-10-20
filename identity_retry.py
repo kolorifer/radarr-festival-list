@@ -21,6 +21,9 @@ from identity_request_guard import guarded
 TEMPORARY={'listing_http_error','listing_temporary_http','listing_unavailable','rate_limited',
            'lookup_busy','metadata_api_unavailable','metadata_rate_limited','metadata_lookup_busy','resolver_error'}
 _WEEK=7*86400
+_DAY=86400
+DAILY_TOTAL=60
+DAILY_PROVIDER={"listing":20,"tmdb":40}
 _QUEUE=queue.Queue(32)
 _THREAD=None
 _LOCK=threading.Lock()
@@ -38,6 +41,15 @@ class RetryStore(Outbox):
             c.execute('create table if not exists retry_attempts(id text primary key,version text not null,started real not null,ended real,reason text)')
             c.execute('create table if not exists retry_requests(id integer primary key,attempt text not null,provider text not null,reserved real not null)')
             c.execute('create table if not exists retry_provider(name text primary key,until real not null,auth integer not null)')
+            c.execute('create table if not exists retry_policy(name text primary key)')
+            # One-time scheduling migration only: never reset requests, attempts,
+            # expiry, authentication suspension, completed jobs or active leases.
+            if c.execute('insert or ignore into retry_policy values (?)',('daily-v1',)).rowcount:
+                now=self.clock()
+                rows=c.execute('select version,due from retry_jobs where state="pending" and reason="retry_request_budget" and expires>? order by observed',(now,)).fetchall()
+                for index,(version,due) in enumerate(rows):
+                    c.execute('update retry_jobs set due=? where version=?',(min(due,now+60+index*60),version))
+
 
     def admit(self,item,sources):
         if not isinstance(item,dict) or set(item)-{'observation','listing'}:raise ValueError('retry_shape')
@@ -88,12 +100,12 @@ class RetryStore(Outbox):
         with self.tx() as c:
             job=c.execute('select 1 from retry_jobs where lease=? and until>? and state="leased"',(lease['token'],now)).fetchone()
             if not job:raise RetryBudget('stale_retry')
-            total=c.execute('select count(*) from retry_requests where reserved>?',(now-_WEEK,)).fetchone()[0]
-            used=c.execute('select count(*) from retry_requests where reserved>? and provider=?',(now-_WEEK,provider)).fetchone()[0]
+            total=c.execute('select count(*) from retry_requests where reserved>?',(now-_DAY,)).fetchone()[0]
+            used=c.execute('select count(*) from retry_requests where reserved>? and provider=?',(now-_DAY,provider)).fetchone()[0]
             p=c.execute('select until,auth from retry_provider where name=?',(provider,)).fetchone()
             if p and p[1]:raise RetryBudget('retry_provider_auth')
             if p and p[0]>now:raise RetryBudget('retry_provider_cooldown')
-            if total>=10 or used>=5:raise RetryBudget('retry_request_budget')
+            if total>=DAILY_TOTAL or used>=DAILY_PROVIDER[provider]:raise RetryBudget('retry_request_budget')
             c.execute('insert into retry_requests values(NULL,?,?,?)',(lease['token'],provider,now))
             c.execute('insert into retry_provider values(?,?,0) on conflict(name) do update set until=excluded.until',(provider,now+1))
 
@@ -126,10 +138,10 @@ class RetryStore(Outbox):
             if not row or row[0]!=lease['token'] or row[1]<=now:raise RetryBudget('stale_retry')
             due=now+1
             for query,args,cap in (
-                ('select reserved from retry_requests where reserved>? order by reserved',(now-_WEEK,),10),
-                ('select reserved from retry_requests where reserved>? and provider=? order by reserved',(now-_WEEK,provider),5)):
+                ('select reserved from retry_requests where reserved>? order by reserved',(now-_DAY,),DAILY_TOTAL),
+                ('select reserved from retry_requests where reserved>? and provider=? order by reserved',(now-_DAY,provider),DAILY_PROVIDER[provider])):
                 times=[r[0] for r in c.execute(query,args)]
-                if len(times)>=cap:due=max(due,times[len(times)-cap]+_WEEK+1)
+                if len(times)>=cap:due=max(due,times[len(times)-cap]+_DAY+1)
             p=c.execute('select until from retry_provider where name=?',(provider,)).fetchone()
             if p:due=max(due,p[0])
             c.execute('update retry_jobs set state="pending",due=?,lease=NULL,until=NULL,reason=? where version=?',(min(due,row[2]),reason,lease['version']))
@@ -138,9 +150,9 @@ class RetryStore(Outbox):
     def summary(self):
         with self.tx() as c:
             return {'states':dict(c.execute('select state,count(*) from retry_jobs group by state')),
-                    'requests_rolling_week':c.execute('select count(*) from retry_requests where reserved>?',(self.clock()-_WEEK,)).fetchone()[0],
+                    'requests_rolling_day':c.execute('select count(*) from retry_requests where reserved>?',(self.clock()-_DAY,)).fetchone()[0],
                     'oldest_pending_age_seconds':max(0,self.clock()-c.execute('select coalesce(min(observed),?) from retry_jobs where state in ("pending","leased")',(self.clock(),)).fetchone()[0]),
-                    'request_cap_rolling_week':10,'per_provider_cap':5,
+                    'request_cap_rolling_day':DAILY_TOTAL,'per_provider_caps':DAILY_PROVIDER,
                     'recoveries':c.execute('select count(*) from retry_attempts where reason="external_id_verified"').fetchone()[0],
                     'reasons':dict(c.execute('select reason,count(*) from retry_jobs group by reason'))}
 

@@ -390,3 +390,11 @@ the workflow documentation task.
 - Supersedes issue62’s initial never-replace requirement for owner-confirmed alternative releases only. The confirmation must disclose possible Radarr replacement.
 - Owner subsequently explicitly approved: “Approve restricted helper and Radarr replacement.” Reuse existing qBittorrent credentials through a restricted local helper, submitting only the individually confirmed exact release into the existing `radarr` category. No automatic grabs, live test downloads, generic search or quality-profile changes.
 - The interface restriction is not a new OS sandbox against the same-user actor. Preserve collector/research isolation. Durable source receipts block repeat/uncertain submissions across capability expiry.
+
+## D025 — Daily bounded metadata recovery
+
+Owner explicitly requested fixing the week-long retry budget bottleneck and digest
+clarity on 2026-10-20. Implement bounded rolling daily retry capacity: 60 GETs total,
+20 tracker and 40 TMDb, retaining provider pacing/cooldowns/auth holds and per-case
+attempt limits. Preserve all ledgers and migrate only pending budget waits. No
+identity correction, acquisition, deeper-research budget or schedule change.
