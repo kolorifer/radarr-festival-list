@@ -1,5 +1,22 @@
 # Movie List project state
 
+## Generic torrent-evidence identification — 2026-10-20
+
+PR76 merged `f83ae69`; production actor `b4a8c1d` with the generic evidence flag
+enabled. Checked ID-less listings can identify automatically only when documented
+title/alias, matching NFO filename/runtime/original audio, unique IMDb–TMDb mapping
+and documented release year agree. Conflicting/incomplete cases remain for review;
+explicit download confirmation and occurrence-only human choices are preserved.
+
+Live read-only verification identifies Aayirathonnu Nunakal as TMDb1035029 /
+IMDbtt16103640 using the documented later 2023 release date. Its collector/report
+status is now verified; history preserved and maintenance digest suppressed.
+Madame Bovary still requires review; Aberfan remains skipped. No downloads or
+notification replays. Local670 (two skips), seedbox main670/runtime649 and CI pass;
+health200,1909 movies. Protected files, research ledger and action/receipt state
+unchanged. Parser/provider limitations are documented in the
+[engineering report](reports/2026-10-20-generic-torrent-evidence-identity.md).
+
 ## Investigation status reconciliation — 2026-10-20
 
 PR75 merged `2dfedf9`. Production actor remains `3a6c2cc`; no matcher/schedule

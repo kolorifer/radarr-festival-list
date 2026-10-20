@@ -29,15 +29,42 @@ Source evidence is retained in the observation. An acquisition capability stores
 its binding and rechecks matching before remote writes; disabling the feature
 invalidates unused evidence-backed offers. Identity selection does not download.
 
-## Initial verification
+## Verification and deployment
 
 An isolated seedbox check identified 1001 Nunakal through the new rule using the
-announced alias,104 minutes,Malayalam,IMDbtt16103640 and TMDb1035029. TMDb's canonical
-date is2022; cross-linked Wikidata supplies2023 as a later release year. That check
-made one TMDb search,one details GET,one IMDb find and one Wikidata GET, plus the
+announced alias, 104 minutes, Malayalam, IMDb tt16103640 and TMDb 1035029. TMDb's canonical
+date is 2022; cross-linked Wikidata supplies 2023 as a later release year. That check
+made one TMDb search, one details GET, one IMDb find and one Wikidata GET, plus the
 existing listing fetch. All acquisition/notification functions were blocked.
 
-Final tests, merge, activation and silent queue reconciliation pending.
+PR [#76](https://github.com/kolorifer/radarr-festival-list/pull/76) merged as
+`f83ae692d5e4568facbaaa3ee4f02ced9ac6b480`. Tested production runtime is
+`b4a8c1d0c6c43e5f05357db34e59ffb6d4c1894d`, isolated from unrelated main catalog
+changes. The evidence flag is enabled; all other actor settings are unchanged.
+
+Validation: 19 focused tests; full local suite 670 tests (two Linux-only skips);
+seedbox main 670 and isolated runtime 649 tests passed. Dependencies, configuration
+and catalog preflight passed. CI Python 3.12/3.13 both passed on head `99512c3`.
+The first 3.12 run hit the unchanged collector concurrency test's SQLite lock
+timeout; the failed job passed on rerun without code changes.
+
+Private state/configuration were backed up. Only movie-intel was restarted for
+rollout; local/public health returned 200 with 1,909 movies and no automatic
+restarts. Protected collector, research, helper and review files were unchanged,
+as were actions and downloader receipts. Collector PID was unchanged.
+
+The same read-only proof on the deployed runtime verified Nunakal automatically.
+A copied-database/digest proof preceded its one-case maintenance refresh: current
+collector and review report now show `verified / external_id_verified`. Historical
+records and the full research ledger remain intact. One suppressed digest receipt
+prevents a maintenance notification; all previous delivery records are unchanged.
+A naturally verified Locked arrival was included in the report without inventing
+research. Madame Bovary remains `eligible / year_conflict`, Bruce remains verified,
+and Aberfan remains skipped. Actor, collector and research timer are active.
+
+No acquisition action was created, no download was triggered, and no notification
+was sent or replayed by testing, deployment or maintenance. Future normal events
+can offer explicit download confirmation; this identification rule never grants it.
 
 ## Limits
 
