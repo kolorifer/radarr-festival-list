@@ -54,13 +54,13 @@ The experiment does not supply the future production evidence-validation adapter
 
 ## Important outcomes and limitations
 
-Everyone Is a Hero: title30 + year20 + runtime13 + language10 + sourceID0 = **73**.
+Everyone Is a Hero: title 30 + year 20 + runtime 13 + language 10 + source ID 0 = **73**.
 Nunakal = **75**. Bruce typo = **70.71**, using the tracker ID and no NFO points.
 The only changed real automatic decision is Everyone Is a Hero: review → identify.
 
 Madame Bovary is a counterexample to trusting a high-ranking candidate: the wrong
-tracker-linked remake scores54.92, while the human-selected1949 film scores38.68.
-The evidence includes a114-minute NFO, inconsistent remake description and wrong
+tracker-linked remake scores 54.92, while the human-selected 1949 film scores 38.68.
+The evidence includes a 114-minute NFO, inconsistent remake description and wrong
 source ID. The case remains review-only; the numeric model has no equivalent of
 the owner's black-and-white screenshot interpretation. Its completed occurrence
 review is not reopened or used to train the model.

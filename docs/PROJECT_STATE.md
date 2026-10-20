@@ -7,8 +7,9 @@ cases with proposed title/year/runtime/language/tracker-ID weights. It would
 identify Everyone Is a Hero despite148/150min runtime; Nunakal and Bruce retain
 their identities. Conflicting Madame Bovary remains review-only. Production is
 unchanged at actor `658d8f8` / collector `d8cce25`; no integration or activation.
-The policy is uncalibrated and includes explicit synthetic failure/ambiguity
-probes. Weights, thresholds and any shadow/production follow-up await review.
+Draft PR78; implementation `28eb06f`. Full local694 (two skips), 15 new tests
+and Linux CI3.12/3.13 pass. The policy is uncalibrated and includes explicit
+synthetic failure/ambiguity probes. Weights, thresholds and any shadow/production follow-up await review.
 [Offline report](reports/2026-10-20-offline-identity-scoring.md).
 
 ## Reviewed occurrence status — 2026-10-20
