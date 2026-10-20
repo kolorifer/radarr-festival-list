@@ -429,3 +429,37 @@ Only actor modules change; preserve collector/worker/handoff installations,
 confinement, schedules and budgets. Back up private state/config and revoke the
 explicitly retired persistent decision before activation. Roll back actor code
 only if health fails, retaining that revocation and all current action state.
+
+### Reconcile investigation statuses after identity-rule changes
+
+A matcher deployment is not complete until affected retained investigation cases
+have been checked for stale statuses. Use explicit affected case IDs and the
+currently deployed actor, not a bulk replay or main-branch resolver. This is an
+operator deployment gate, not a new scheduled research job.
+
+1. Prepare fresh metadata-only results from exact retained source records. Block
+   all notification/action/acquisition calls, preserve native assertions, and use
+   `identity_queue_reconcile.prepare` to require identical normalized provenance.
+   Do not replace an old decision with a transient/unresolved lookup failure.
+   Save the runtime SHA, expected case versions and prepared events privately.
+2. Prove the existing collector's ingestion on a private SQLite backup. Use
+   `refreshed_report` to refresh only the named cases and refuse unrelated case
+   drift. Preserve original events, proposals and all research/request ledgers.
+3. For an explicitly silent maintenance refresh, pause the actor (which owns the
+   digest) and research scan timer; require the scan inactive. Back up state and
+   verify the prepared runtime/case versions are still current. Publish via the
+   existing authenticated outcome observer, never by editing collector tables.
+4. Refresh the private report from the new collector snapshot. Before exposing
+   it, call `suppress_refresh` inside a digest database transaction for only the
+   affected report versions. These receipts are labelled `suppressed`, not `sent`;
+   old deliveries remain intact and future material changes remain eligible.
+5. Publish the report atomically, restore prior service/timer operation, verify
+   health and both collector/report statuses, and prove actions/receipts and the
+   research ledger unchanged. Record the maintenance results and runtime revision.
+   Do not replay webhooks, create acquisition capabilities, run the worker, reset
+   request budgets, or change original announcement timestamps/attempt history.
+
+The helper has no autonomous runner, provider calls or service-control entry point.
+A one-time guarded operator script supplies the deployment-specific paths and
+explicit scope. If proof or a freshness check fails, stop before publishing and
+investigate; never overwrite current state with an older backup.
