@@ -83,9 +83,12 @@ def parse_listing(body, release_name):
     if not names or any(normalize(name) != normalize(release_name) for name in names):
         return _result('listing_mismatch')
     from torrent_research_evidence import extract
-    evidence = extract(soup)
+    try:
+        evidence = extract(soup)
+    except (ValueError, TypeError, RecursionError):
+        evidence = None  # Research projection must not change identification.
     def result(reason, imdb_id=None):
-        return _result(reason, imdb_id) | {'torrent_evidence': evidence}
+        return _result(reason, imdb_id) | ({'torrent_evidence': evidence} if evidence is not None else {})
     fields = soup.select('input[name="imdbID"]')
     ids = set(re.findall(r'\btt[0-9]{7,12}\b', str(soup)))
     if (not fields or (len(fields)==1 and fields[0].get('value') in (None,''))) and not ids:
