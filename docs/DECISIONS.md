@@ -458,3 +458,13 @@ screenshot references for visual review rather than a new image-analysis service
 Collect bounded inert source evidence through the existing actor/observer boundary;
 keep research isolation, budgets, identity gates and acquisition safeguards intact.
 No film-specific rule or automatic conflicting-ID override is authorized.
+
+## D032 — Explicit reviewed source-identity decisions
+
+Owner approved the reviewed Madame Bovary release as the1949 identity on2026-10-20
+and requested applying it via a generic flow, without downloads. Permit private,
+revocable owner decisions bound to exact source/evidence and verified target IDs.
+No film-specific code or old context registry; all other conflicting identities
+remain blocked. Identity approval does not approve downloading; existing explicit
+acquisition confirmation and safeguards remain. This narrows D028's ban on stored
+repairs only for explicitly approved generic reviewed decisions.
