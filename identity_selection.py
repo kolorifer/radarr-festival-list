@@ -4,6 +4,8 @@ No providers, research execution, action imports or schema changes to v1 tables.
 Projection and intake commit together. Original events and seed history stay intact.
 """
 import json
+import re
+import time
 from identity_triage_store import digest
 
 CONFLICT_RESEARCH = {'title_conflict','year_conflict','identity_conflict','local_identity_conflict','external_id_conflict'}
@@ -38,6 +40,8 @@ def initialize(c):
         'CREATE INDEX IF NOT EXISTS selection_release ON selection_events(release,observed)',
         'CREATE TABLE IF NOT EXISTS selection_history (version TEXT PRIMARY KEY, case_key TEXT NOT NULL, evidence TEXT NOT NULL REFERENCES evidence(id), route TEXT NOT NULL, correlation TEXT NOT NULL, material TEXT NOT NULL)',
         'CREATE TABLE IF NOT EXISTS selection_current (case_key TEXT PRIMARY KEY, version TEXT NOT NULL REFERENCES selection_history(version), release TEXT UNIQUE NOT NULL, observed REAL NOT NULL)',
+        'CREATE TABLE IF NOT EXISTS selection_reviews (id TEXT PRIMARY KEY, case_key TEXT NOT NULL, event TEXT NOT NULL, delivery INTEGER NOT NULL, reviewed REAL NOT NULL, imdb TEXT NOT NULL, tmdb INTEGER NOT NULL, year INTEGER NOT NULL)',
+        'CREATE INDEX IF NOT EXISTS selection_review_case ON selection_reviews(case_key)',
         'CREATE TABLE IF NOT EXISTS selection_counters (name TEXT PRIMARY KEY, value INTEGER NOT NULL)',
     ):c.execute(sql)
     if c.execute('select version from selection_schema').fetchall()!=[(1,)]:raise ValueError('selection_schema')
@@ -62,9 +66,9 @@ def ingest(c,record,channel,evidence,now):
 
 
 def project(c,release):
-    events=c.execute('select s.evidence,s.observed,s.outcome,e.metadata from selection_events s join evidence e on e.id=s.evidence where s.release=? order by s.observed desc,s.id limit 1',(release,)).fetchall()
+    events=c.execute('select s.id,s.evidence,s.observed,s.outcome,e.metadata from selection_events s join evidence e on e.id=s.evidence where s.release=? order by s.observed desc,s.id limit 1',(release,)).fetchall()
     if not events:return
-    evidence,observed,encoded,metadata=events[0];outcome=json.loads(encoded);meta=json.loads(metadata)
+    event,evidence,observed,encoded,metadata=events[0];outcome=json.loads(encoded);meta=json.loads(metadata)
     decision=route(outcome)
     if outcome['reason']=='tmdb_mapping_missing' and not (outcome.get('asserted_imdb') or meta['imdb']):
         decision='quarantine'
@@ -93,6 +97,14 @@ def project(c,release):
     if correlation in ('context_conflict','simultaneous_conflict','identifier_conflict') and decision!='existing_seed':status='quarantine'
     key='outcome-'+release
     material={'metadata':meta,'outcome':outcome,'route':status,'underlying_route':decision,'correlation':correlation}
+    # A review is a workflow receipt, never a matching input. Any new accepted
+    # delivery, even identical source metadata, invalidates it. Exact transport
+    # redelivery is already deduplicated by Store before projection.
+    if c.execute('select 1 from selection_reviews where case_key=?',(key,)).fetchone():
+        cursor=delivery_cursor(c,release)
+        material['occurrence']=digest([event,cursor])
+        if c.execute('select 1 from selection_reviews where case_key=? and event=? and delivery=?', (key,event,cursor)).fetchone():
+            status='reviewed_occurrence';material['route']=status
     version=digest([key,material])
     previous=c.execute('select version from selection_current where case_key=?',(key,)).fetchone()
     inserted=c.execute('insert or ignore into selection_history values (?,?,?,?,?,?)',(version,key,evidence,status,correlation,json.dumps(material,sort_keys=True)))
@@ -101,6 +113,33 @@ def project(c,release):
     if not previous or previous[0]!=version:
         count(c,'changed_versions')
     else:count(c,'duplicate_projection')
+
+
+def delivery_cursor(c,release):
+    return c.execute('select max(d.rowid) from deliveries d join evidence e on e.id=d.evidence where e.release=?',(release,)).fetchone()[0]
+
+
+def review_occurrence(c,case_key,expected_version,imdb,tmdb,year,expected_delivery):
+    """Operator-only workflow closure after explicit review; no acquisition rights.
+
+    Caller holds BEGIN IMMEDIATE and commits only after verification. An exact
+    version guard refuses stale human review. The target is historical audit data,
+    never read by the matcher or used as source identity in research exports.
+    """
+    if not c.in_transaction:raise ValueError('review_transaction_required')
+    if not isinstance(imdb,str) or not re.fullmatch(r'tt[0-9]{7,10}',imdb):raise ValueError('review_imdb')
+    if type(tmdb)!=int or not 0<tmdb<2**31 or type(year)!=int or not 1888<=year<=2100:raise ValueError('review_target')
+    row=c.execute('select x.version,x.release,h.route from selection_current x join selection_history h on h.version=x.version where x.case_key=?',(case_key,)).fetchone()
+    if not row or row[0]!=expected_version:raise ValueError('review_stale')
+    if row[2] not in {'eligible','review_only','quarantine','unmatched','retry_later'}:raise ValueError('review_not_unresolved')
+    release=row[1]
+    event=c.execute('select id from selection_events where release=? order by observed desc,id limit 1',(release,)).fetchone()[0]
+    cursor=delivery_cursor(c,release)
+    if type(expected_delivery)!=int or cursor!=expected_delivery:raise ValueError('review_occurrence_changed')
+    ident=digest([case_key,event,cursor])
+    c.execute('insert into selection_reviews values (?,?,?,?,?,?,?,?)',(ident,case_key,event,cursor,time.time(),imdb,tmdb,year))
+    project(c,release)
+    return ident
 
 
 def metrics(c):
