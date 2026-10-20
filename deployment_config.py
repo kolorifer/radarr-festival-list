@@ -17,6 +17,8 @@ def configuration_errors(env=None):
         errors.append('MOVIE_INTEL_REVIEWED_CONTEXT_FILE is retired; remove this setting')
     if env.get('MOVIE_INTEL_IDENTITY_DIGEST_ENABLED', '0') not in ('0', '1'):
         errors.append('MOVIE_INTEL_IDENTITY_DIGEST_ENABLED must be 0 or 1')
+    if env.get('MOVIE_INTEL_TORRENT_EVIDENCE_ENABLED', '0') not in ('0', '1'):
+        errors.append('MOVIE_INTEL_TORRENT_EVIDENCE_ENABLED must be 0 or 1')
     if env.get('MOVIE_INTEL_TRACKER_TYPO_ENABLED', '0') not in ('0', '1'):
         errors.append('MOVIE_INTEL_TRACKER_TYPO_ENABLED must be 0 or 1')
     retry_mode=env.get('MOVIE_INTEL_IDENTITY_RETRY_MODE','off')
