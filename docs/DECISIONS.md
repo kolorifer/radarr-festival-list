@@ -405,3 +405,15 @@ On 2026-10-20 the owner approved Bruce Almiighty (2003) to Bruce Almighty (2003)
 bound to the verified IMDb/TMDb identity and exact release provenance. Use the
 existing private reviewed-context registry; preserve all acquisition safeguards.
 No generic typo tolerance, other identity correction or live download test.
+
+## D027 — Automatic minor tracker-backed filename typos
+
+Accepted by explicit owner request on 2026-10-20: identify minor filename typos
+when verified tracker IMDb, unique TMDb mapping and year agree. Preserve explicit
+download confirmation and existing safeguards; test/deploy without downloads.
+Initial conservative implementation accepts one letter edit/adjacent transposition
+in one word (both spellings at least six letters, candidate title at least eight
+alphanumeric characters), excluding numeric/Roman numeral changes and word additions.
+Checked listing provenance is mandatory; native-only IDs/title searches stay strict.
+An operator switch can revoke this policy independently. D026's exact reviewed
+binding remains available; arbitrary/larger corrections still need review.

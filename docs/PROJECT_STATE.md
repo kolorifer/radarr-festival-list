@@ -1,5 +1,19 @@
 # Movie List project state
 
+## Automatic minor tracker-backed typos — 2026-10-20
+
+PR68 merged (`39e1b5fe`); production clean at tested runtime
+`0cc5f3fec5ccfa97af3977b9987c46d708c2b68b`, typo switch enabled. Conservative
+single-letter/adjacent-transposition acceptance requires exact tracker listing,
+unique IMDb/TMDb roundtrip, matching year and no local identity conflict. Short
+words, numbers, added words and larger changes remain blocked; download still
+requires confirmation. Existing three reviewed bindings preserved. Local624 tests
+(two Linux-only skips), seedbox607 and both CI versions pass. Read-only live Bruce
+verification independently passed the general typo path. Local/public health200,
+actor/collector active NRestarts0; approvals, receipts and protected components
+unchanged. No downloads, notifications, history replay or research schedule change.
+[Engineering report](reports/2026-10-20-tracker-minor-typos.md).
+
 ## Reviewed Bruce spelling correction — 2026-10-20
 
 PR67 merged (`012af524`); production is clean at tested runtime

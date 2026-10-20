@@ -368,3 +368,17 @@ ledger on disable/rollback. Health/preflight and the private-state backup proced
 above apply; no test download or Radarr access is needed for this feature.
 
 The daily-budget upgrade migrates only pending, unexpired request-budget waits once, staggered by one minute. Existing reservations, attempts, source expiry and provider holds are retained. Digest wording changes preserve material-version delivery keys; they do not replay old messages. See [daily retry report](../docs/reports/2026-10-20-daily-identity-retries.md).
+
+### Minor tracker-backed filename typos
+
+`MOVIE_INTEL_TRACKER_TYPO_ENABLED=1` enables conservative typo context acceptance
+(default off). Requires successful exact TorrentLeech listing validation, its
+IMDb association, a unique TMDb movie mapping with matching reverse IMDb, and a
+matching documented release year. One letter insertion/deletion/substitution or
+adjacent transposition is allowed in one word only; both spellings must have six
+letters, candidate title eight alphanumeric characters. Word additions, short
+words, numeric/Roman numeral changes and larger edits remain blocked. Native IDs
+without checked listing provenance and title searches stay strict. Local identity
+conflicts and all approval/acquisition controls remain enforced. Existing reviewed
+bindings are preserved. Disable this flag and restart movie-intel to revoke the
+new policy. No history replay/backfill or extra metadata queries are required.
