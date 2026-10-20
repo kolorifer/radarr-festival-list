@@ -315,6 +315,20 @@ def build_movie_context(payload):
         meta = {'identity_status': 'unresolved', 'identity_reason': 'resolver_error'} if external else None
         observed_reason = 'resolver_error'
         decision_log('identity', 'resolver_error', payload)
+    if category == 'unknown_movie' and listing and listing.get('reason') == 'listing_id_missing':
+        import torrent_evidence_identity
+        try:
+            inferred = torrent_evidence_identity.resolve(release, data.get('indexer') or {}, listing)
+            if inferred:
+                canonical_local = find_local(inferred['title'], inferred['year'], INDEX)
+                if canonical_local and canonical_local.get('imdb_id') != inferred['imdb_id']:
+                    meta = {'identity_status':'needs_review','identity_reason':'local_identity_conflict'}
+                    observed_reason = 'local_identity_conflict'
+                else:
+                    meta = inferred; movie = canonical_local; observed_reason = 'external_id_verified'
+        except Exception:
+            # Extra evidence can never turn an unavailable lookup into acceptance.
+            decision_log('identity', 'evidence_lookup_unavailable', payload)
     torrent_evidence = (listing or {}).get('torrent_evidence')
     # Native-ID failures also need source context; this does not alter resolution.
     if listing is None and meta and meta.get('identity_status') in {'needs_review','unresolved','imdb_associated'}:
@@ -340,7 +354,7 @@ def build_movie_context(payload):
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
         "review_listing": listing,
-        "identity_observation": {"reason": observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and blocked else {})},
+        "identity_observation": {"reason": observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and (blocked or (meta or {}).get("identity_source")=="torrent_evidence") else {})},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
         "movie": movie,
@@ -353,6 +367,14 @@ def reviewed_action_current(action):
     """Never reuse a legacy decision; a chosen occurrence must still be live."""
     movie = action.get('movie') or {}
     if movie.get('identity_review') or movie.get('identity_source') == 'owner_reviewed_source':return False
+    if movie.get('identity_source') == 'torrent_evidence' or movie.get('identity_evidence'):
+        try:
+            current=build_movie_context({'data':{'release':action['release'],'indexer':action['indexer'],
+                                               'result':{'rejections':['Unknown Movie']}}}).get('meta') or {}
+            return (bool(movie.get('identity_evidence')) and current.get('identity_status')=='verified_tmdb'
+                    and current.get('identity_source')=='torrent_evidence'
+                    and all(current.get(k)==movie.get(k) for k in ('imdb_id','tmdb_id','identity_evidence')))
+        except Exception:return False
     marker=movie.get('identity_choice')
     if not marker:return movie.get('identity_source') != 'owner_occurrence_choice'
     try:
@@ -444,6 +466,7 @@ def create_pending_action(payload, meta):
             "identity_source": meta.get('identity_source'),
             **({"identity_review": meta["identity_review"]} if meta.get("identity_review") else {}),
             **({"identity_choice": meta["identity_choice"]} if meta.get("identity_choice") else {}),
+            **({"identity_evidence": meta["identity_evidence"]} if meta.get("identity_evidence") else {}),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
         },
