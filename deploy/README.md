@@ -392,3 +392,29 @@ actual isolation, and retain old records/ledgers. The schema extension is option
 for old records but all active consumers must understand new evidence before the
 actor starts producing it. Source text does not grant authority or identity.
 Reference-only images are private review material, not verified film contents.
+
+
+### Explicit reviewed source-identity corrections
+
+The actor optionally reads its owner-only
+`~/.local/state/movie-identity-reviews/decisions.sqlite3`. Absence means no reviewed
+corrections. This is separate from the retired context registry and is never
+installed inside the collector/research worker's writable paths.
+
+Only after an explicit owner decision, derive the exact source/evidence binding
+from a fresh verified listing and independently verify the approved target
+IMDb/TMDb pair. Prepare a private JSON decision using `reviewed_corrections.binding`
+and the validated target IDs plus an owner-review note. Record it using
+`python -m reviewed_corrections approve --input /absolute/private/decision.json`.
+Revoke with `python -m reviewed_corrections revoke --decision ID --note 'Reason'`.
+Neither command sends a notification or touches Radarr/downloader/action state.
+Never fabricate a human approval, reuse a binding for another source, erase the
+ledger, restore old action state or migrate legacy film exceptions into it.
+
+The reader requires exact evidence and normal target title/year/ID agreement.
+Review-backed acquisition confirmations revalidate the source/decision before
+remote writes. Revocation cannot undo an already executing acquisition. Ordinary
+metadata cache TTLs still apply. Back up private state/config before deployments;
+if activation fails, revoke only the new decision and roll back code, preserving
+approval/revocation history and all current acquisition state. The research worker
+must remain unable to read or write this ledger; verify actual kernel denials.

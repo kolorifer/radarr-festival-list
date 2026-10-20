@@ -1,5 +1,26 @@
 # Movie List project state
 
+## Reviewed source correction — 2026-10-20
+
+Owner approved the exact Madame Bovary release as1949 via a generic reviewed flow.
+PR73 merged (`6ef6643f`), implementation `e38dd51`; production clean at
+`6bf176b96378ab3408a73b59b9b9af0caf97c51d`. A private append-only approval/revocation
+ledger binds source/evidence to the approved IDs; no film-specific code or retired
+registry. Normal target ID/title/year validation and explicit acquisition
+confirmation remain. Changed/revoked review-backed actions fail revalidation.
+
+Live lookup verifies Madame Bovary1949 / IMDbtt0041615 / TMDb45184 with source
+owner_reviewed_source. Collector/report now verified; historical conflict proposal
+preserved but not current. This supersedes the earlier blocked status for this
+exact reviewed source only. No download, Radarr write, action creation or
+notification replay. Research ledger unchanged4cases/9GETs; other conflicts untouched.
+
+Local638 tests(two skips), seedbox runtime621/main638 and CI3.12/3.13 pass.
+Health200,1909movies; actor/collector active NRestarts0, collector PID/configuration
+and timer unchanged. Actual worker denied read/write access to the new private
+ledger with zero HTTP proof requests. Approval state/receipts preserved.
+[Engineering report](reports/2026-10-20-reviewed-identity-decisions.md).
+
 ## Torrent-page investigation evidence — 2026-10-20
 
 PR72 merged (`99f18fb3`), implementation `ad2c53c`; production clean at
