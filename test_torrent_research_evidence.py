@@ -98,3 +98,14 @@ class ActorEvidenceTests(unittest.TestCase):
         self.assertEqual(context['identity_observation']['torrent_evidence'],source)
         self.assertNotIn('i.ibb.co',context['text'])
         self.assertNotIn('imdb_id',context['meta'])
+
+    def test_verified_identity_does_not_record_investigation_evidence(self):
+        import movie_intel_service as svc
+        from test_identity_triage import payload
+        p=payload(meta_imdb=None);p['data']['result']={'rejections':['Unknown Movie']}
+        source=evidence.extract(BeautifulSoup(PAGE,'html.parser'))
+        meta={'identity_status':'verified_tmdb','identity_reason':'external_id_verified','imdb_id':'tt1234567','tmdb_id':123,'title':'Synthetic Movie','year':2025}
+        with patch.object(svc,'find_local',return_value=None), patch.object(svc,'resolve_external_movie',return_value=meta), patch.object(svc,'lookup_listing',return_value={'reason':'listing_id_found','source':'torrentleech_listing','imdb_id':'tt1234567','torrent_evidence':source}), patch.object(svc,'decision_log'), patch.object(svc,'get_movie_by_tmdb',return_value={}):
+            context=svc.build_movie_context(p)
+        self.assertNotIn('torrent_evidence',context['identity_observation'])
+        self.assertEqual(context['meta']['identity_status'],'verified_tmdb')

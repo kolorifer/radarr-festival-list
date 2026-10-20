@@ -339,7 +339,7 @@ def build_movie_context(payload):
     text = format_message(payload, movie=movie, meta=meta, existing=existing)
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
-        "identity_observation": {"reason": observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence else {})},
+        "identity_observation": {"reason": observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and blocked else {})},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
         "movie": movie,
