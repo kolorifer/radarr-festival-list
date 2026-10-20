@@ -3,7 +3,6 @@ import os
 from pathlib import Path
 from urllib.parse import urlsplit
 from tracker_metadata import cookie_file
-from reviewed_identity import ENV_NAME, read_rules
 
 REQUIRED = (
     "MOVIE_INTEL_WEBHOOK_SECRET", "TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID",
@@ -14,11 +13,8 @@ REQUIRED = (
 def configuration_errors(env=None):
     env = os.environ if env is None else env
     errors = [f"{name} is required" for name in REQUIRED if not env.get(name, "").strip()]
-    if env.get(ENV_NAME):
-        try:
-            read_rules(env[ENV_NAME])
-        except (OSError, ValueError, TypeError, UnicodeError):
-            errors.append(ENV_NAME + ' must be an absolute, owner-only valid reviewed context file')
+    if env.get('MOVIE_INTEL_REVIEWED_CONTEXT_FILE'):
+        errors.append('MOVIE_INTEL_REVIEWED_CONTEXT_FILE is retired; remove this setting')
     if env.get('MOVIE_INTEL_IDENTITY_DIGEST_ENABLED', '0') not in ('0', '1'):
         errors.append('MOVIE_INTEL_IDENTITY_DIGEST_ENABLED must be 0 or 1')
     if env.get('MOVIE_INTEL_TRACKER_TYPO_ENABLED', '0') not in ('0', '1'):

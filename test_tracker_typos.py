@@ -65,7 +65,6 @@ class TrackerTypoTests(unittest.TestCase):
         if native:payload['data']['release']['meta_imdb']='tt0000001'
         before=copy.deepcopy(payload)
         with patch.dict(os.environ,{'MOVIE_INTEL_TRACKER_TYPO_ENABLED':'1'}), \
-             patch.object(svc,'reviewed_context',return_value=None), \
              patch.object(svc,'find_local',side_effect=lambda title,year,index: local if title=='Bruce Almighty' else None), \
              patch.object(svc,'lookup_listing',return_value={'reason':'listing_id_found','source':'torrentleech_listing','imdb_id':'tt0000001'}), \
              patch.object(tmdb,'_get',side_effect=lambda path,params:self.find if path.startswith('/find/') else self.details), \
