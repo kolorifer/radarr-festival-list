@@ -394,27 +394,38 @@ actor starts producing it. Source text does not grant authority or identity.
 Reference-only images are private review material, not verified film contents.
 
 
-### Explicit reviewed source-identity corrections
+### Evidence and choices for individual occurrences
 
-The actor optionally reads its owner-only
-`~/.local/state/movie-identity-reviews/decisions.sqlite3`. Absence means no reviewed
-corrections. This is separate from the retired context registry and is never
-installed inside the collector/research worker's writable paths.
+Persistent source approvals are retired. The old decisions ledger is retained for
+audit/revocation only; no lookup or new approval can affect matching. Existing
+legacy review-backed download capabilities fail closed. Never restore an old
+ledger to re-enable them.
 
-Only after an explicit owner decision, derive the exact source/evidence binding
-from a fresh verified listing and independently verify the approved target
-IMDb/TMDb pair. Prepare a private JSON decision using `reviewed_corrections.binding`
-and the validated target IDs plus an owner-review note. Record it using
-`python -m reviewed_corrections approve --input /absolute/private/decision.json`.
-Revoke with `python -m reviewed_corrections revoke --decision ID --note 'Reason'`.
-Neither command sends a notification or touches Radarr/downloader/action state.
-Never fabricate a human approval, reuse a binding for another source, erase the
-ledger, restore old action state or migrate legacy film exceptions into it.
+For exact-checked tracker title/year conflicts with description/NFO evidence,
+each incoming notification offers **Review evidence & choose movie**. The private,
+expiring review page shows the filename/year, conflicting tracker IMDb, bounded
+description/NFO, allowlisted screenshot links, and matching stored research
+candidates (historical proposals are labelled). It never fetches screenshots or
+runs research on page opening. Missing research is explicit; the owner can supply
+IMDb/TMDb IDs after reviewing with ChatGPT.
 
-The reader requires exact evidence and normal target title/year/ID agreement.
-Review-backed acquisition confirmations revalidate the source/decision before
-remote writes. Revocation cannot undo an already executing acquisition. Ordinary
-metadata cache TTLs still apply. Back up private state/config before deployments;
-if activation fails, revoke only the new decision and roll back code, preserving
-approval/revocation history and all current acquisition state. The research worker
-must remain unable to read or write this ledger; verify actual kernel denials.
+The selection POST requires explicit identity consent, unchanged checked source
+evidence, a unique target IMDb/TMDb crosswalk, normal title/year checks and local
+catalog consistency. Selection changes only that occurrence's private capability;
+it never calls Telegram, Radarr or the downloader. A subsequent button opens a
+separate normal download confirmation. Before acquisition, the selected review
+must still exist/unexpired and match the exact source and target, and source and
+identity checks run again. A selected review cannot be edited/replayed to choose
+another movie. Existing acquisition deduplication/uncertainty safeguards remain.
+
+The same torrent in another notification gets a fresh unselected review. Choices
+are never used by the generic matcher, collector, retries or research queue.
+Strict external-ID/title/year and optional minor-typo rules remain the automatic
+policy; source prose/runtime/visual hints alone cannot override conflicting IDs.
+Review pages have the existing action TTL (normally24h), private token storage,
+no-store and no-referrer headers. No historical notification replay/backfill.
+
+Only actor modules change; preserve collector/worker/handoff installations,
+confinement, schedules and budgets. Back up private state/config and revoke the
+explicitly retired persistent decision before activation. Roll back actor code
+only if health fails, retaining that revocation and all current action state.

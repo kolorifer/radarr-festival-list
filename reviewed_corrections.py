@@ -1,4 +1,4 @@
-"""Explicit owner decisions, bound to an exact source and evidence version.
+"""Retired persistent decisions: audit and revocation support only.
 
 No film names/IDs or automatic approval rules. Research cannot write this ledger.
 An identity approval is not an acquisition approval.
@@ -73,12 +73,7 @@ def connection(root=None,write=False):
 
 
 def approve(value,root=None):
-    validate_decision(value)
-    with connection(root,True) as c:
-        if c.execute('SELECT 1 FROM decisions d WHERE source_key=? AND NOT EXISTS(SELECT 1 FROM revocations r WHERE r.decision=d.id)',(value['source_key'],)).fetchone():raise ValueError('review_already_active')
-        decision=str(uuid.uuid4())
-        c.execute('INSERT INTO decisions VALUES (?,?,?,?)',(decision,value['source_key'],time.time(),json.dumps(value,sort_keys=True)))
-    return decision
+    raise ValueError('persistent_reviews_retired')
 
 
 def revoke(decision,note,root=None):
@@ -88,29 +83,13 @@ def revoke(decision,note,root=None):
         c.execute('INSERT INTO revocations VALUES (?,?,?)',(decision,time.time(),note))
 
 
-def lookup(bound,root=None):
-    try:
-        with connection(root) as c:
-            rows=c.execute('SELECT d.id,d.record FROM decisions d WHERE source_key=? AND NOT EXISTS(SELECT 1 FROM revocations r WHERE r.decision=d.id)',(bound['source_key'],)).fetchall()
-        if len(rows)!=1:return None
-        ident,raw=rows[0];value=validate_decision(json.loads(raw))
-        if any(value[k]!=v for k,v in bound.items()):return None
-        return value|{'decision_id':ident}
-    except (OSError,ValueError,sqlite3.Error):return None
+def lookup(*args,**kwargs):
+    return None  # Persistent decisions are historical audit data only.
 
 
-def apply(release,indexer,listing,meta,resolver,root=None):
-    if not meta or meta.get('identity_status')!='needs_review' or meta.get('identity_source')!='torrentleech_listing':return None
-    try:
-        bound=binding(release,indexer,listing or {},meta.get('identity_reason'))
-        decision=lookup(bound,root)
-        if not decision:return None
-        # The approved identity must still pass unique IMDb/TMDb roundtrip and
-        # ordinary filename title/year checks. No title or year repair here.
-        target=resolver(release['title'],release['year'],imdb_id=decision['target_imdb'],tmdb_id=decision['target_tmdb'])
-        if target.get('identity_status')!='verified_tmdb' or target.get('imdb_id')!=decision['target_imdb'] or target.get('tmdb_id')!=decision['target_tmdb']:return None
-        return dict(target,identity_source='owner_reviewed_source',identity_review={'decision_id':decision['decision_id'],'source_key':bound['source_key']})
-    except (ValueError,KeyError,TypeError,OSError):return None
+def apply(*args,**kwargs):
+    # Historical ledger is audit-only. No approval may affect identification.
+    return None
 
 
 def main():
