@@ -57,18 +57,18 @@ class RetryTests(Base):
         self.assertEqual(self.s.metrics()['pending'],0)
     def test_provider_limits_auth_and_retry_after_persist(self):
         lease=self.ready()
-        for _ in range(5):self.s.reserve_request(lease,'tmdb');self.now+=2
+        for _ in range(40):self.s.reserve_request(lease,'tmdb');self.now+=2
         with self.assertRaisesRegex(RetryBudget,'retry_request_budget'):self.s.reserve_request(lease,'tmdb')
         self.s.cooldown('listing',3600,False)
         with self.assertRaisesRegex(RetryBudget,'cooldown'):self.s.reserve_request(lease,'listing')
         self.s.cooldown('tmdb',0,True)
         self.s=RetryStore(self.s.directory,clock=lambda:self.now)
         with self.assertRaisesRegex(RetryBudget,'auth'):self.s.reserve_request(lease,'tmdb')
-        self.assertEqual(self.s.summary()['requests_rolling_week'],5)
+        self.assertEqual(self.s.summary()['requests_rolling_day'],40)
     def test_budget_deferral_survives_restart_without_consuming_attempt(self):
         lease=self.ready()
         with self.s.tx() as c:
-            for n in range(5):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','tmdb',self.now-100+n))
+            for n in range(40):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','tmdb',self.now-100+n))
             c.execute('update retry_jobs set expires=?',(self.now+8*86400,))
         self.s.defer(lease,'retry_request_budget','tmdb')
         self.assertEqual(self.s.metrics()['pending'],0)
@@ -76,7 +76,7 @@ class RetryTests(Base):
         self.assertIsNone(self.s.lease())
         with self.s.tx() as c:
             due=c.execute('select due from retry_jobs').fetchone()[0]
-            self.assertEqual(due,self.now-100+7*86400+1)
+            self.assertEqual(due,self.now-100+86400+1)
             # Extend only this fixture's source lifetime to test budget reopening.
             c.execute('update retry_jobs set expires=?',(due+100,))
         self.now=due
@@ -95,7 +95,7 @@ class RetryTests(Base):
         from identity_request_guard import reserve
         self.s.admit(self.item,SOURCES);self.now+=901
         with self.s.tx() as c:
-            for n in range(5):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','tmdb',self.now))
+            for n in range(40):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','tmdb',self.now))
         def resolve(p):
             try:reserve('tmdb')
             except RetryBudget:pass
@@ -103,6 +103,49 @@ class RetryTests(Base):
         run_one(self.s,resolve)
         self.assertEqual(self.s.metrics()['pending'],0)
         self.assertEqual(self.s.summary()['states'],{'pending':1})
+
+    def test_daily_policy_migrates_only_waiting_budget_jobs_once(self):
+        lease=self.ready()
+        self.s.finish(lease,'retry_request_budget')
+        with self.s.tx() as c:
+            c.execute('delete from retry_policy') # fixture simulates pre-upgrade schema
+            c.execute('update retry_jobs set due=?',(self.now+6*86400,))
+            c.execute('insert into retry_requests values(NULL,?,?,?)',('older','listing',self.now-2*86400))
+            c.execute('insert into retry_provider values(?,?,?)',('listing',self.now+3600,1))
+            before=c.execute('select * from retry_attempts').fetchall()
+        self.s=RetryStore(self.s.directory,clock=lambda:self.now)
+        with self.s.tx() as c:
+            self.assertEqual(c.execute('select due from retry_jobs').fetchone()[0],self.now+60)
+            self.assertEqual(c.execute('select count(*) from retry_requests').fetchone()[0],1)
+            self.assertEqual(c.execute('select * from retry_attempts').fetchall(),before)
+            self.assertEqual(c.execute('select auth from retry_provider').fetchone()[0],1)
+            c.execute('update retry_jobs set due=?',(self.now+5000,))
+        self.s=RetryStore(self.s.directory,clock=lambda:self.now)
+        with self.s.tx() as c:self.assertEqual(c.execute('select due from retry_jobs').fetchone()[0],self.now+5000)
+
+    def test_migration_does_not_reopen_review_expired_or_leased_jobs(self):
+        lease=self.ready()
+        with self.s.tx() as c:
+            c.execute('delete from retry_policy')
+            c.execute('update retry_jobs set reason="retry_request_budget"')
+            before=c.execute('select * from retry_jobs').fetchall()
+        self.s=RetryStore(self.s.directory,clock=lambda:self.now)
+        with self.s.tx() as c:
+            self.assertEqual(c.execute('select * from retry_jobs').fetchall(),before)
+            c.execute('delete from retry_policy')
+            c.execute('update retry_jobs set state="review",due=?',(self.now+6*86400,))
+            before=c.execute('select * from retry_jobs').fetchall()
+        self.s=RetryStore(self.s.directory,clock=lambda:self.now)
+        with self.s.tx() as c:self.assertEqual(c.execute('select * from retry_jobs').fetchall(),before)
+
+    def test_yesterdays_requests_do_not_block_today_but_recent_requests_do(self):
+        lease=self.ready()
+        with self.s.tx() as c:
+            for n in range(20):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','listing',self.now-86401))
+        self.s.reserve_request(lease,'listing');self.now+=2
+        with self.s.tx() as c:
+            for n in range(19):c.execute('insert into retry_requests values(NULL,?,?,?)',('older','listing',self.now))
+        with self.assertRaisesRegex(RetryBudget,'retry_request_budget'):self.s.reserve_request(lease,'listing')
 
     def test_temporary_notification_is_clear_without_promising_recovery(self):
         from movie_intel_service import format_message
@@ -134,7 +177,7 @@ class RetryTests(Base):
         from identity_request_guard import reserve
         def resolve(p):reserve('tmdb');return context('external_id_verified','verified_tmdb')
         self.s.admit(self.item,SOURCES);self.now+=901;run_one(self.s,resolve)
-        self.assertEqual(self.s.summary()['requests_rolling_week'],1)
+        self.assertEqual(self.s.summary()['requests_rolling_day'],1)
     def test_expired_source_publishes_review_without_resolving(self):
         self.s.admit(self.item,SOURCES);self.now+=8*86400
         with patch('movie_intel_service.build_movie_context') as resolve:

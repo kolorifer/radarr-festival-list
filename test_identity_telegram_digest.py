@@ -97,6 +97,27 @@ class DigestTests(unittest.TestCase):
         with self.assertRaises(ValueError):read_report(link,self.now)
         self.report['cases'].append(deepcopy(self.report['cases'][0]))
         with self.assertRaises(ValueError):self.rows()
+    def test_plain_language_retry_and_review_explanations(self):
+        row=self.report['cases'][0];row.update(route='retry_later',reason='metadata_api_unavailable',research_status='not_admitted',proposal={})
+        text=self.rows()[0][3]
+        self.assertIn('Temporary metadata lookup problem',text)
+        self.assertIn('daily allowance',text)
+        for code in ('retry_later','not admitted','metadata api unavailable'):self.assertNotIn(code,text)
+        row.update(route='review_only',reason='title_conflict')
+        self.assertIn('release title disagrees',self.rows()[0][3])
+
+    def test_wording_change_preserves_existing_delivery_key(self):
+        import hashlib
+        row=self.report['cases'][0]
+        legacy=(row['title']+' (2026)\nStatus: eligible; listing id missing. Research: awaiting evidence.'
+                '\nPossible TMDb matches (unverified): movie 1796471.'
+                '\nDetails, media type and source crosswalk require review.')
+        key=hashlib.sha256(json.dumps({'version':row['version'],'text':legacy,'proposal':row['proposal']},sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        with self.d.connect() as c:c.execute('insert into delivery values(?,?,?,?)',(row['case_id'],key,'sent',self.now))
+        self.assertEqual(self.rows()[0][1],key)
+        self.assertEqual(self.d.tick(self.rows(),self.send,self.now),0)
+        self.send.assert_not_called()
+
     def test_disabled_start_has_no_thread_or_state(self):
         with patch.dict(os.environ,{FLAG:'0'}), patch('threading.Thread') as thread:
             self.assertIsNone(start(self.send));thread.assert_not_called()

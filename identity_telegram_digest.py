@@ -69,11 +69,43 @@ def projection(report, now):
             text += '\nDetails, media type and source crosswalk require review.'
         elif proposal:
             text += '\nResearch evidence available for review' + ('; current proposal.' if current else '; prior proposal is stale.')
+        # Keep the existing material key: copy edits alone must not resend old cases.
+        legacy_text = text
+        text = readable_case(title, year, route, reason, status, proposal, current, candidates)
         # Include material evidence even when the concise text remains the same.
-        stable = {'version': version, 'text': text, 'proposal': proposal}
+        stable = {'version': version, 'text': legacy_text, 'proposal': proposal}
         key = hashlib.sha256(json.dumps(stable, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
         output.append((cid, key, route, text))
     return output
+
+
+
+def readable_case(title, year, route, reason, status, proposal, current, candidates):
+    lines=[f'{title} ({year})']
+    if route=='retry_later':
+        lines.append('Temporary metadata lookup problem. No reliable match yet.')
+        lines.append('Automatic rechecks use a daily allowance and respect provider cooldowns. Persistent failures go to review.')
+        lines.append('No manual decision needed yet; deeper research has not started.' if status=='not_admitted' else 'Research status will update after fresh evidence arrives.')
+    elif route=='verified':
+        lines.append('Movie identity verified by a fresh metadata check.')
+    elif route=='routine':
+        lines.append('Identity investigation no longer needed for this release.')
+    elif reason=='title_conflict':
+        lines.append('Review needed: the release title disagrees with source metadata.')
+    elif route in ('review_only','quarantine'):
+        lines.append('Review needed: source metadata is conflicting or incomplete.')
+    elif reason=='listing_id_missing':
+        lines.append('The tracker listing did not provide a movie ID.')
+    else:
+        lines.append('Movie identity is not confirmed yet.')
+    if candidates:
+        lines.append('Possible TMDb matches (unverified): '+', '.join(f'{kind} {ident}' for kind,ident in candidates)+'.')
+        lines.append('Please review the evidence before approving any correction.')
+    elif proposal:
+        lines.append('Evidence is ready for review; no confirmed match.' if current else 'Earlier research is stale; fresh evidence is needed.')
+    elif route=='eligible':
+        lines.append('Research is queued or running.' if status in ('queued','researching','running','leased') else 'Awaiting research evidence; no proposal ready yet.')
+    return '\n'.join(lines)
 
 
 def read_report(path, now):
@@ -126,8 +158,8 @@ class Digest:
                     break
         if not selected:
             return 0
-        message = 'Movie identity review\n\n' + '\n\n'.join(x[2] for x in selected)
-        message += '\n\nReview required before any correction. No correction or download performed. Reply in the main ChatGPT conversation to review.'
+        message = 'Movie identification update\n\n' + '\n\n'.join(x[2] for x in selected)
+        message += '\n\nNo correction or download performed. Any proposed identity correction needs your review in the main ChatGPT conversation.'
         state = 'sent'; due = now
         try:
             if send(message) != 200:
