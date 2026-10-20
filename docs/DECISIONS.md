@@ -448,3 +448,13 @@ overrides remain subject to review; no automatic identity acceptance, exception,
 download or notification replay. Existing research budgets, isolation, selected-only
 intake and Radarr/Grab safeguards remain. Normal changed-case digest may surface
 new proposals; no historical replay is forced.
+
+## D031 — Generic torrent-page research evidence
+
+Owner explicitly requested automatic collection of torrent descriptions, NFOs and
+embedded screenshots on2026-10-20, retaining reviewed conflicting-ID corrections
+and testing/deployment without downloads or notification replay. Owner selected
+screenshot references for visual review rather than a new image-analysis service.
+Collect bounded inert source evidence through the existing actor/observer boundary;
+keep research isolation, budgets, identity gates and acquisition safeguards intact.
+No film-specific rule or automatic conflicting-ID override is authorized.
