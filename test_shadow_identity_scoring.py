@@ -1,4 +1,5 @@
 import copy
+from contextlib import closing
 import hashlib
 import json
 from pathlib import Path
@@ -35,12 +36,13 @@ class ShadowTests(unittest.TestCase):
     def test_read_only_dedup_new_vs_historical_and_no_network(self):
         with tempfile.TemporaryDirectory() as d:
             path=Path(d)/'research.sqlite3'
-            with sqlite3.connect(path) as c:
+            with closing(sqlite3.connect(path)) as c:
                 c.executescript('create table evidence(version text,case_id text); create table proposals(version text,created real,result text);')
                 for version,created in [('v1',90),('v2',110)]:
                     c.execute('insert into evidence values (?,?)',(version,'case'))
                     c.execute('insert into proposals values (?,?,?)',(version,created,json.dumps(proposal())))
                 c.execute('insert into proposals select * from proposals where version="v2"')
+                c.commit()
             before=hashlib.sha256(path.read_bytes()).hexdigest()
             with patch.object(socket,'socket',side_effect=AssertionError('network')):
                 r=scan([path],100,200,120);again=scan([path],100,200,120)

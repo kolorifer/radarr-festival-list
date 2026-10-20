@@ -5,6 +5,7 @@ Research projections do not retain sufficient provenance for automatic acceptanc
 missing checks are reported honestly, never inferred from a research proposal.
 """
 import argparse
+from contextlib import closing
 import hashlib
 import json
 import os
@@ -77,7 +78,7 @@ def scan(databases, started, until, now=None):
     rows = []; total = 0; seen = set()
     for path in databases:
         path = Path(path).resolve(strict=True)
-        with sqlite3.connect(path.as_uri() + '?mode=ro', uri=True, timeout=1) as conn:
+        with closing(sqlite3.connect(path.as_uri() + '?mode=ro', uri=True, timeout=1)) as conn:
             conn.execute('PRAGMA query_only=ON')
             total += conn.execute('select count(*) from proposals').fetchone()[0]
             remaining = MAX_ROWS - len(rows)
