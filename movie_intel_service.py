@@ -322,6 +322,15 @@ def build_movie_context(payload):
             torrent_evidence = lookup_listing(release, data.get('indexer') or {}).get('torrent_evidence')
         except Exception:
             pass  # Observational evidence must never change the action path.
+    if category == 'unknown_movie':
+        import reviewed_corrections
+        corrected = reviewed_corrections.apply(release, data.get('indexer') or {}, listing, meta, resolve_external_movie)
+        if corrected:
+            canonical_local = find_local(corrected['title'], corrected['year'], INDEX)
+            if not canonical_local or canonical_local.get('imdb_id') == corrected['imdb_id']:
+                meta = corrected
+                observed_reason = meta['identity_reason']
+                movie = canonical_local
     asserted = {k:v for k,v in (('asserted_imdb', (meta or {}).get('imdb_id')),
                                  ('asserted_tmdb', (meta or {}).get('tmdb_id'))) if v is not None}
     blocked = meta and meta.get('identity_status') not in (None, 'verified_tmdb')
@@ -346,6 +355,21 @@ def build_movie_context(payload):
         "meta": meta,
         "category": rejection_class(((data.get("result") or {}).get("rejections") or [])),
     }
+
+
+def reviewed_action_current(action):
+    """A revoked/stale review cannot authorize an already-issued acquisition form."""
+    movie = action.get('movie') or {}
+    if not movie.get('identity_review'):return movie.get('identity_source') != 'owner_reviewed_source'
+    try:
+        context = build_movie_context({'data': {'release': action['release'], 'indexer': action['indexer'],
+                                              'result': {'rejections': ['Unknown Movie']}}})
+        current = context.get('meta') or {}
+        return (current.get('identity_review') == movie['identity_review']
+                and current.get('identity_status') == 'verified_tmdb'
+                and current.get('imdb_id') == movie.get('imdb_id')
+                and current.get('tmdb_id') == movie.get('tmdb_id'))
+    except Exception:return False
 
 
 def build_movie_notification(payload):
@@ -392,10 +416,10 @@ def create_pending_action(payload, meta):
     release_keys = (
         "protocol", "timestamp", "publishDate", "publish_date", "name", "title", "year", "size", "seeders", "leechers",
         "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url",
-        "info_url", "infoUrl", "link",
+        "info_url", "infoUrl", "link", "external_id",
     )
     stored_release = {key: release[key] for key in release_keys if key in release}
-    stored_indexer = {key: indexer[key] for key in ("name", "protocol") if key in indexer}
+    stored_indexer = {key: indexer[key] for key in ("name", "protocol", "identifier") if key in indexer}
     movie_title = meta.get("title") or release.get("title") or release.get("name")
     action = {
         "movie": {
@@ -406,6 +430,7 @@ def create_pending_action(payload, meta):
             "poster_url": meta.get("poster_url"),
             "identity_status": meta.get('identity_status'),
             "identity_source": meta.get('identity_source'),
+            **({"identity_review": meta["identity_review"]} if meta.get("identity_review") else {}),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
         },
@@ -762,6 +787,9 @@ class Handler(BaseHTTPRequestHandler):
         if uncertain_action(action):
             decision_log('approval', 'blocked_uncertain_attempt')
             self._html(409, render_result(action, False, REVIEW_MESSAGE))
+            return
+        if not reviewed_action_current(action):
+            self._html(409, render_result(action, False, 'Identity review was revoked, changed or could not be revalidated. No acquisition attempted.'))
             return
         if action.get('kind')=='alternative':
             self._alternative_post(token,action)
