@@ -285,7 +285,7 @@ observer can stay off; existing movie-intel may remain pinned at its verified co
 persists candidate retry jobs without extra provider calls; active permits only
 metadata context rebuilding. Both require the existing authenticated observer.
 The private retry spool is `~/.local/state/movie-identity-retries/outcomes.sqlite3`.
-It reserves at most 10 additional GETs per rolling week globally and 5 per provider,
+It reserves at most 60 additional GETs per rolling 24 hours globally: 20 tracker listing GETs and 40 TMDb GETs,
 with at most 3 attempts per unchanged source version in 24 hours, then human review.
 The delays are 15 minutes, 1 hour and 6 hours. It never invokes a rejection handler,
 Telegram sender, Radarr action or approval-token creation.
@@ -366,3 +366,5 @@ between polls. Daily research timing still governs when findings reach the repor
 Disable by setting the flag to 0 and restarting only movie-intel. Preserve the
 ledger on disable/rollback. Health/preflight and the private-state backup procedure
 above apply; no test download or Radarr access is needed for this feature.
+
+The daily-budget upgrade migrates only pending, unexpired request-budget waits once, staggered by one minute. Existing reservations, attempts, source expiry and provider holds are retained. Digest wording changes preserve material-version delivery keys; they do not replay old messages. See [daily retry report](../docs/reports/2026-10-20-daily-identity-retries.md).
