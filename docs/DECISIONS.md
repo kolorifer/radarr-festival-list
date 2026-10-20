@@ -468,3 +468,16 @@ No film-specific code or old context registry; all other conflicting identities
 remain blocked. Identity approval does not approve downloading; existing explicit
 acquisition confirmation and safeguards remain. This narrows D028's ban on stored
 repairs only for explicitly approved generic reviewed decisions.
+
+## D033 — Evidence and choices, never persistent identity exceptions
+
+Explicit owner clarification and implementation request,2026-10-20. Supersedes
+D032: revoke the persistent Madame Bovary approval, retain history, and prohibit
+future persistent source approvals. Gather reusable types of evidence through
+generic collectors; use existing strict agreement/typo rules for automatic
+identification. Inconclusive supported conflicts present source evidence and
+candidate movies for explicit owner selection for that occurrence only. A later
+encounter, even the same torrent, must undergo generic resolution or fresh review.
+Identity selection remains separate from download confirmation. No live downloads
+or notification replays during testing/deployment. Broader automatic conflicting-ID
+rules require a separately justified generic evidence policy; no invented scores.
