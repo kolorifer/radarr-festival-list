@@ -314,6 +314,8 @@ def build_movie_context(payload):
         meta = {'identity_status': 'unresolved', 'identity_reason': 'resolver_error'} if external else None
         observed_reason = 'resolver_error'
         decision_log('identity', 'resolver_error', payload)
+    asserted = {k:v for k,v in (('asserted_imdb', (meta or {}).get('imdb_id')),
+                                 ('asserted_tmdb', (meta or {}).get('tmdb_id'))) if v is not None}
     blocked = meta and meta.get('identity_status') not in (None, 'verified_tmdb')
     if blocked:
         movie = None
@@ -329,7 +331,7 @@ def build_movie_context(payload):
     text = format_message(payload, movie=movie, meta=meta, existing=existing)
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
-        "identity_observation": {"reason": observed_reason},
+        "identity_observation": {"reason": observed_reason, **asserted},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
         "movie": movie,

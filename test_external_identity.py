@@ -130,6 +130,16 @@ class ServiceIdentityTests(unittest.TestCase):
         self.stack.enter_context(contextlib.redirect_stdout(self.output))
         self.stack.enter_context(patch.object(svc, 'INDEX', {}))
 
+    def test_conflicting_assertion_retained_for_research_but_not_display(self):
+        self.payload['data']['release'].update(meta_imdb='tt2543164')
+        with patch.object(svc,'resolve_external_movie',return_value={
+                'identity_status':'needs_review','identity_reason':'year_conflict','imdb_id':'tt2543164'}):
+            result=svc.build_movie_context(self.payload)
+        self.assertNotIn('imdb_id',result['meta'])
+        self.assertEqual(result['identity_observation']['asserted_imdb'],'tt2543164')
+        self.assertNotIn('imdb.com',result['text'])
+        self.assertIsNone(svc.create_pending_action(self.payload,result['meta']))
+
     def test_native_ids_propagate_without_listing_or_search(self):
         self.payload['data']['release'].update(meta_imdb='tt2543164', meta_tmdb=329865)
         with patch.object(svc, 'resolve_external_movie', return_value=dict(META, identity_status='verified_tmdb')) as resolve, \

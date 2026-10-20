@@ -6,6 +6,7 @@ Projection and intake commit together. Original events and seed history stay int
 import json
 from identity_triage_store import digest
 
+CONFLICT_RESEARCH = {'title_conflict','year_conflict','identity_conflict','local_identity_conflict','external_id_conflict'}
 RESEARCH = {'tmdb_mapping_missing', 'no_exact_match', 'listing_id_missing'}
 REVIEW = {'retry_exhausted','authentication_unavailable','login_required','disabled','resolver_unconfigured','listing_auth_failure','listing_not_found','listing_redirect','metadata_auth_failure','metadata_record_missing','metadata_redirect','title_conflict', 'year_conflict', 'ambiguous_exact_matches', 'ambiguous_id_mapping',
           'identity_conflict', 'local_identity_conflict', 'external_id_conflict', 'listing_id_conflict', 'listing_mismatch'}
@@ -23,6 +24,7 @@ def route(outcome):
         return 'verified' if reason in {'external_id_verified','resolved','verified'} else 'quarantine'
     if reason in RETRY:return 'retry_later'
     if reason in INVALID:return 'quarantine'
+    if reason in CONFLICT_RESEARCH and status=='needs_review':return 'eligible'
     if reason in REVIEW:return 'review_only'
     if reason in RESEARCH and status in {'unresolved','imdb_associated'}:return 'eligible'
     return 'unassessed'
@@ -125,7 +127,9 @@ def export(c,limit=100):
         result.append({'case_id':key,'seed':False,'eligibility':'explicit_unresolved',
                        'facts':{'title':m['title'],'year':m['year'],'imdb':o.get('asserted_imdb') or m['imdb'],
                                 'tmdb':o.get('asserted_tmdb') or m['tmdb'],'variants':[m['title']],
-                                'contradictions':['missing_crosswalk'] if o['reason']=='tmdb_mapping_missing' else ['unknown_identity'],
+                                'contradictions':([o['reason'] if o['reason'] in {'title_conflict','year_conflict'} else 'identifier_conflict']
+                                                  if o['reason'] in CONFLICT_RESEARCH else
+                                                  ['missing_crosswalk'] if o['reason']=='tmdb_mapping_missing' else ['unknown_identity']),
                                 'director':None,'runtime':None},
                        'provenance':[{'source':'stage1_outcome','digest':version,'observed_at':observed}],
                        'historical_candidates':[],'observed_at':observed})
