@@ -245,6 +245,28 @@ class InvestigationTests(Base):
         self.assertEqual(self.sql('select status from proposals'),[('needs_review',)])
         self.assertEqual(self.sql('select status from jobs'),[('awaiting_evidence',)])
 
+    def test_conflicting_link_searches_alternatives_without_accepting_them(self):
+        item=case();item['facts']['contradictions']=['year_conflict']
+        run,lease=self.ready(item)
+        linked=movie(1,date='2015-01-01',imdb='tt1234567')
+        alternative=movie(2,imdb='tt7654321')
+        alternative['credits']={'crew':[{'job':'Director','name':'Example Director'}],
+                                'cast':[{'name':'Example Actor'}]}
+        alternative['original_language']='en'
+        p,t=self.provider(run,[Response({'movie_results':[linked]}),
+                              Response({'page':1,'results':[linked,alternative]}),
+                              Response(linked),Response(alternative)])
+        result=investigate(lease,p);self.store.finish(lease,result)
+        self.assertEqual(len(t.calls),4)
+        self.assertTrue(result['conflict_investigation']);self.assertFalse(result['runtime_correction'])
+        self.assertIn('year_conflict',result['candidates'][0]['contradictions'])
+        candidate=result['candidates'][1]
+        self.assertIn('identifier_conflict',candidate['contradictions'])
+        self.assertIn('independent_source_corroboration_missing',candidate['support_gaps'])
+        self.assertEqual(candidate['record']['cast'],['Example Actor'])
+        self.assertEqual(candidate['confidence'],'review_required')
+        self.assertEqual(self.sql('select status from proposals'),[('needs_review',)])
+
     def test_tv_only_is_not_movie_or_catalog_absence(self):
         run,lease=self.ready();p,t=self.provider(run,[Response({'movie_results':[],'tv_results':[{'id':123,'name':'Synthetic Movie','first_air_date':'2025-01-01'}]}),Response({'page':1,'results':[]}),Response({'page':1,'results':[]})])
         r=investigate(lease,p);self.assertEqual(r['reason'],'tv_only');self.assertFalse(r['catalog_absence_proven']);self.assertEqual(r['candidates'],[])

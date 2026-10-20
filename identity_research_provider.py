@@ -107,7 +107,9 @@ def projection(kind,data,expected=None):
     aliases=[clean(x['title'],256) for x in data.get('alternative_titles',{}).get('titles',[])][:100]
     translations=[clean(x['data']['title'],256) for x in data.get('translations',{}).get('translations',[]) if x.get('data',{}).get('title')][:100]
     dates=[clean(d['release_date'],40) for x in data.get('release_dates',{}).get('results',[]) for d in x.get('release_dates',[])][:100]
-    return b|{'imdb':external,'runtime':runtime,'directors':directors,'aliases':aliases,'translations':translations,'dates':dates}
+    cast=[clean(x['name'],128) for x in data.get('credits',{}).get('cast',[])[:8]]
+    language=text_or_none(data.get('original_language'),20)
+    return b|{'cast':cast,'original_language':language,'imdb':external,'runtime':runtime,'directors':directors,'aliases':aliases,'translations':translations,'dates':dates}
 
 
 def retry_after(value,now):

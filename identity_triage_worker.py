@@ -20,6 +20,7 @@ def normalized(title):
 def investigate(lease,provider):
     """Evidence-first bounded research; candidates are never accepted identities."""
     item=lease['item'];f=item['facts'];evidence=[];candidates=[];ids=[];found=[];tv=[]
+    conflict_review=bool(set(f['contradictions']) & {'title_conflict','year_conflict','identifier_conflict'})
     missing=False
     def get(kind,value):
         result=provider.get(lease,kind,value)
@@ -38,19 +39,22 @@ def investigate(lease,provider):
         if f['tmdb']:ids.append(f['tmdb'])
         # Historical IDs remain candidate assertions, never verified crosswalks.
         ids.extend(item['historical_candidates'])
-        if not found:
-            for title in f['variants']:
+        if not found or conflict_review:
+            for title in (f['variants'][:1] if conflict_review else f['variants']):
                 movies=get('movie_search',title)
-                shows=get('tv_search',title)
+                shows=None if conflict_review else get('tv_search',title)
                 if shows:tv.extend(shows['results'])
                 if movies:
                     names={normalized(t) for t in f['variants']}
-                    ids.extend(x['id'] for x in movies['results'] if normalized(x['title']) in names or (x['original_title'] and normalized(x['original_title']) in names))
+                    matches=[x for x in movies['results'] if normalized(x['title']) in names or (x['original_title'] and normalized(x['original_title']) in names)]
+                    if conflict_review:
+                        matches.sort(key=lambda x: (not (x.get('date') or '').startswith(str(f['year'])),x['id']))
+                    ids.extend(x['id'] for x in matches)
         unique=list(dict.fromkeys(ids))
         for movie_id in unique[:3]:
             data=get('details',movie_id)
             if data:
-                conflicts=[];support_gaps=[]
+                conflicts=[];support_gaps=['independent_source_corroboration_missing'] if conflict_review else []
                 if f['imdb'] and data['imdb'] and data['imdb']!=f['imdb']:conflicts.append('identifier_conflict')
                 if not data['imdb'] and f['imdb']:conflicts.append('missing_crosswalk')
                 names={normalized(x) for x in [data['title'],data['original_title']]+data['aliases']+data['translations'] if x}
@@ -69,7 +73,7 @@ def investigate(lease,provider):
         return {'reason':reason,'missing_crosswalk':missing,'candidates':candidates,'competing_movie_ids':unique,
                 'detail_limit_reached':len(unique)>3,'tv_observations':tv,'evidence':evidence,
                 'original_facts':f,'next_action':'human_review' if candidates else 'await_evidence',
-                'runtime_correction':False,'catalog_absence_proven':False}
+                'runtime_correction':False,'catalog_absence_proven':False,'conflict_investigation':conflict_review}
     except ResearchFailure as exc:
         return {'reason':exc.result['reason'],'retry_after':exc.result.get('retry_after',0),
                 'candidates':candidates,'evidence':evidence,'original_facts':f,'runtime_correction':False}

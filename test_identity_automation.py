@@ -297,7 +297,7 @@ class HandoffTests(Base):
         e=envelope(p,context(reason),SOURCES);self.stage.ingest(normalize(e,SOURCES,'outcome'),'outcome')
         return p
     def test_all_routes_visible_eligible_only_researched(self):
-        for i,r in enumerate(('listing_id_missing','metadata_api_unavailable','title_conflict','listing_id_invalid')):
+        for i,r in enumerate(('listing_id_missing','metadata_api_unavailable','listing_redirect','listing_id_invalid')):
             self.ingest(r,external_id=str(i))
         s=validate_snapshot(self.snapshot(),self.now)
         self.assertEqual(len(s['cases']),4);self.assertEqual(len(s['items']),1)
