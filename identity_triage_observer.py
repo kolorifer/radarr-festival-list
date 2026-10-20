@@ -47,7 +47,7 @@ def envelope(payload, context, sources):
     outcome = {'status': status if status in OUTCOME_STATUSES else 'unresolved',
                'category': context.get('category') if context.get('category') in CATEGORIES else 'other',
                'reason': (context.get('identity_observation') or {}).get('reason',meta.get('identity_reason')) if (context.get('identity_observation') or {}).get('reason',meta.get('identity_reason')) in REASONS else ('resolved' if status=='legacy_resolved' else 'other')}
-    for key, value in (('asserted_imdb',meta.get('imdb_id')),('asserted_tmdb',meta.get('tmdb_id'))):
+    for key, value in (('asserted_imdb',(context.get('identity_observation') or {}).get('asserted_imdb',meta.get('imdb_id'))),('asserted_tmdb',(context.get('identity_observation') or {}).get('asserted_tmdb',meta.get('tmdb_id')))):
         if value is not None:outcome[key]=value
     result = {'version': '1.0', 'event': 'identity.outcome', 'id': str(uuid.uuid4()),
               'timestamp': datetime.now(timezone.utc).isoformat(),

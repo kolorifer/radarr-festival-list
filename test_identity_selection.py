@@ -45,14 +45,23 @@ class SelectionTests(Base):
     def test_routing_is_explicit_not_unknown_movie_alone(self):
         cases=[('external_id_verified','verified_tmdb','verified'),('resolved','legacy_resolved','verified'),
                ('other','unresolved','unassessed'),('no_exact_match','unresolved','eligible'),
-               ('title_conflict','needs_review','review_only'),('year_conflict','needs_review','review_only'),
+               ('title_conflict','needs_review','eligible'),('year_conflict','needs_review','eligible'),
                ('ambiguous_exact_matches','unresolved','review_only'),('metadata_api_unavailable','unresolved','retry_later'),
                ('authentication_unavailable','unresolved','review_only'),('rate_limited','unresolved','retry_later'),
                ('non_movie_identity','needs_review','quarantine')]
         for i,(reason,status,expected) in enumerate(cases):
             p=payload(external_id=str(i));self.ingest(p);self.ingest(self.outcome(p,reason,status),'outcome')
             self.assertGreaterEqual(self.routes().get(expected,0),1)
-        self.assertEqual(len(self.export()),1)
+        self.assertEqual(len(self.export()),3)
+
+    def test_conflict_proposals_preserve_source_assertion_and_reason(self):
+        p=payload();self.ingest(p)
+        self.ingest(self.outcome(p,'year_conflict','needs_review',asserted_imdb='tt1234567'),'outcome')
+        item=self.export()[0];validate_case(item)
+        self.assertEqual(item['facts']['imdb'],'tt1234567')
+        self.assertEqual(item['facts']['contradictions'],['year_conflict'])
+        self.assertEqual(item['facts']['year'],p['data']['release']['year'])
+        self.assertEqual(item['historical_candidates'],[])
 
     def test_routine_verified_approved_repairs_never_queue(self):
         for title in ('Snowman','Hamnet','Not Not Jazz'):
