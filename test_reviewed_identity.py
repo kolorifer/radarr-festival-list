@@ -79,6 +79,38 @@ class ReviewedIdentityTests(unittest.TestCase):
         self.send.assert_not_called()
         self.legacy.assert_not_called()
 
+    def test_bruce_typo_exact_binding_and_revocation(self):
+        self.setup_case('bruce-almiighty-2003')
+        before = copy.deepcopy(self.payload)
+        self.assertEqual(self.context()['meta']['identity_correction'], self.rule)
+        self.assertEqual(self.payload, before)
+        for field, value in [('title', 'Bruce Almiighty Extra'), ('title', 'bruce almiighty'),
+                             ('year', 2004), ('name', 'Another edition'),
+                             ('info_url', 'https://tracker.invalid/listing/another')]:
+            self.setup_case('bruce-almiighty-2003')
+            self.payload['data']['release'][field] = value
+            self.assertNotIn('identity_correction', self.context()['meta'])
+        self.setup_case('bruce-almiighty-2003')
+        self.registry['rules'][0]['tmdb_id'] = 999
+        self.write_registry()
+        self.assertEqual(self.context()['meta']['identity_reason'], 'identity_conflict')
+        self.setup_case('bruce-almiighty-2003')
+        self.assertEqual(self.context()['meta']['identity_status'], 'verified_tmdb')
+        self.registry['rules'] = []
+        self.write_registry()
+        self.assertEqual(self.context()['meta']['identity_reason'], 'title_conflict')
+        self.create.assert_not_called()
+        self.send.assert_not_called()
+
+    def test_all_three_reviewed_rules_can_coexist(self):
+        rows = []
+        for rule in reviewed.RULES:
+            self.setup_case(rule)
+            rows.extend(self.registry['rules'])
+        self.registry['rules'] = rows
+        self.write_registry()
+        self.assertEqual(len(reviewed.read_rules(str(self.path))), 3)
+
     def test_exact_jazz_alias_only(self):
         self.setup_case('not-not-jazz-2024')
         self.assertEqual(self.context()['meta']['identity_status'], 'verified_tmdb')
