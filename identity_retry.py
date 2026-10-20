@@ -19,7 +19,8 @@ from identity_triage_observer import envelope, read_config, _send
 from identity_request_guard import guarded
 
 TEMPORARY={'listing_http_error','listing_temporary_http','listing_unavailable','rate_limited',
-           'lookup_busy','metadata_api_unavailable','metadata_rate_limited','metadata_lookup_busy','resolver_error'}
+           'lookup_busy','metadata_api_unavailable','metadata_rate_limited','metadata_lookup_busy','resolver_error',
+           'tmdb_mapping_missing'}
 _WEEK=7*86400
 _DAY=86400
 DAILY_TOTAL=60

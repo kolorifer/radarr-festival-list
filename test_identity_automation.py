@@ -50,6 +50,46 @@ class RetryTests(Base):
         lease=self.s.lease();self.assertEqual(lease['number'],3)
         self.s.finish(lease,'metadata_api_unavailable');self.now+=21601
         self.assertIsNone(self.s.lease());self.assertEqual(self.s.summary()['states'],{'review':1})
+    def test_missing_mapping_recovers_without_notification_or_action(self):
+        self.item={'observation':envelope(self.p,context('tmdb_mapping_missing','imdb_associated'),SOURCES)}
+        self.assertEqual(self.s.admit(self.item,SOURCES),'admitted')
+        self.now+=901
+        with patch('movie_intel_service.send_telegram') as send, patch('movie_intel_service.create_pending_action') as action:
+            self.assertTrue(run_one(self.s,lambda p:context('external_id_verified','verified_tmdb')))
+        send.assert_not_called();action.assert_not_called()
+        self.assertEqual(self.s.summary()['states'],{'done':1})
+        self.assertEqual(self.s.next(self.now)[1]['data']['outcome']['reason'],'external_id_verified')
+        self.assertEqual(self.s.admit(self.item,SOURCES),'duplicate')
+
+    def test_missing_mapping_exhausts_three_attempts_across_restart(self):
+        self.item={'observation':envelope(self.p,context('tmdb_mapping_missing','imdb_associated'),SOURCES)}
+        self.s.admit(self.item,SOURCES)
+        for delay in (901,3601,21601):
+            self.now+=delay
+            self.s=RetryStore(self.s.directory,clock=lambda:self.now)
+            self.assertTrue(run_one(self.s,lambda p:context('tmdb_mapping_missing','imdb_associated')))
+        self.assertEqual(self.s.summary()['states'],{'review':1})
+        with self.s.tx() as c:
+            self.assertEqual(c.execute('select count(*) from retry_attempts').fetchone()[0],3)
+            outcomes=[json.loads(r[0])['data']['outcome']['reason'] for r in c.execute('select body from pending')]
+        self.assertIn('retry_exhausted',outcomes)
+        self.now+=86400
+        self.assertFalse(run_one(self.s,lambda p:self.fail('must remain bounded')))
+        self.assertEqual(self.s.admit(self.item,SOURCES),'duplicate')
+
+    def test_missing_mapping_retry_stops_on_conflict(self):
+        for reason in ('year_conflict','identity_conflict','local_identity_conflict','ambiguous_id_mapping','title_conflict','non_movie_identity'):
+            with self.subTest(reason=reason):
+                store=RetryStore(self.root/reason,clock=lambda:self.now)
+                item={'observation':envelope(self.p,context('tmdb_mapping_missing','imdb_associated'),SOURCES)}
+                store.admit(item,SOURCES);self.now+=901
+                run_one(store,lambda p:context(reason,'needs_review'))
+                self.assertEqual(store.summary()['states'],{'done':1})
+                self.assertEqual(store.next(self.now)[1]['data']['outcome']['reason'],reason)
+                self.assertEqual(store.admit(item,SOURCES),'duplicate')
+                self.now+=86400
+                self.assertFalse(run_one(store,lambda p:self.fail('conflict must not retry')))
+
     def test_crash_reservation_counts_and_stale_lease_cannot_publish(self):
         a=self.ready();self.now+=121;b=self.s.lease()
         self.assertEqual(b['number'],2)
@@ -161,7 +201,8 @@ class RetryTests(Base):
         self.s.admit(changed,SOURCES)
         with self.assertRaises(RetryBudget):self.s.finish(lease,'external_id_verified',self.item['observation'])
     def test_non_retryable_never_admitted_and_private_url_is_allowlisted(self):
-        for reason in ('listing_auth_failure','listing_redirect','listing_not_found','listing_id_invalid','title_conflict'):
+        for reason in ('listing_auth_failure','listing_redirect','listing_not_found','listing_id_invalid','title_conflict','year_conflict','identity_conflict',
+                       'local_identity_conflict','ambiguous_id_mapping','non_movie_identity'):
             self.assertEqual(self.s.admit({'observation':envelope(self.p,context(reason),SOURCES)},SOURCES),'not_retryable')
         for item in (dict(self.item,listing='https://evil.invalid'),dict(self.item,download_url='secret')):
             with self.assertRaises(ValueError):self.s.admit(item,SOURCES)
