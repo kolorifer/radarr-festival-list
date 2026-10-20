@@ -63,6 +63,28 @@ class SelectionTests(Base):
         self.assertEqual(item['facts']['year'],p['data']['release']['year'])
         self.assertEqual(item['historical_candidates'],[])
 
+    def test_torrent_evidence_crosses_outbox_collector_handoff_without_approval(self):
+        from torrent_research_evidence import extract
+        from bs4 import BeautifulSoup
+        from test_torrent_research_evidence import PAGE
+        from identity_research_handoff import validate_snapshot
+        source=extract(BeautifulSoup(PAGE,'html.parser'))
+        p=payload();self.ingest(p)
+        context={'meta':{'identity_status':'needs_review'},'category':'unknown_movie',
+                 'identity_observation':{'reason':'year_conflict','asserted_imdb':'tt1234567','torrent_evidence':source}}
+        event=observer.envelope(p,context,SOURCES)
+        Outbox.validate(event)
+        self.ingest(event,'outcome')
+        with self.s.connection(True) as c:snapshot=selection.snapshot(c,time.time())
+        validate_snapshot(snapshot,time.time())
+        item=self.export()[0];validate_case(item)
+        self.assertEqual(item['facts']['torrent_evidence'],source)
+        self.assertEqual(item['facts']['contradictions'],['year_conflict'])
+        self.assertEqual(self.routes(),{'eligible':1})
+        self.ingest(event,'outcome')
+        self.assertEqual(len(self.export()),1)
+        self.assertEqual(self.export()[0],item)
+
     def test_routine_verified_approved_repairs_never_queue(self):
         for title in ('Snowman','Hamnet','Not Not Jazz'):
             p=payload(title=title,external_id=title.replace(' ',''));self.ingest(p)

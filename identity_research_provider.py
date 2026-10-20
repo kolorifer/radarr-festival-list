@@ -37,8 +37,11 @@ def validate_case(item):
     if type(item['observed_at']) not in (int,float) or not 0 < item['observed_at'] < 10**11:
         raise ValueError('observation_time')
     f=item['facts']
-    if set(f)!={'title','year','imdb','tmdb','variants','contradictions','director','runtime'}:
+    if set(f)-{'torrent_evidence'}!={'title','year','imdb','tmdb','variants','contradictions','director','runtime'}:
         raise ValueError('facts_schema')
+    if 'torrent_evidence' in f:
+        from torrent_research_evidence import validate
+        validate(f['torrent_evidence'])
     clean(f['title'],256)
     if type(f['year'])!=int or not 1870<=f['year']<=2100:
         raise ValueError('invalid_year')

@@ -133,13 +133,16 @@ def normalize(payload, sources, channel='release_new'):
             raise ValueError('title')
         if channel == 'outcome':
             o = data.get('outcome')
-            if (not isinstance(o, dict) or not {'category', 'status', 'reason'} <= set(o) or set(o)-{'category','status','reason','asserted_imdb','asserted_tmdb'}
+            if (not isinstance(o, dict) or not {'category', 'status', 'reason'} <= set(o) or set(o)-{'category','status','reason','asserted_imdb','asserted_tmdb','torrent_evidence'}
                     or o['category'] not in CATEGORIES or o['status'] not in OUTCOME_STATUSES or o['reason'] not in REASONS):
                 raise ValueError('outcome')
             if o.get('asserted_imdb') is not None and (not isinstance(o['asserted_imdb'],str) or not re.fullmatch(r'tt[0-9]{7,10}',o['asserted_imdb'])):
                 raise ValueError('outcome_id')
             if o.get('asserted_tmdb') is not None and (type(o['asserted_tmdb'])!=int or not 0<o['asserted_tmdb']<2**31):
                 raise ValueError('outcome_id')
+            if 'torrent_evidence' in o:
+                from torrent_research_evidence import validate
+                validate(o['torrent_evidence'])
             record['outcome'] = dict(o)
         if channel == 'seed':
             s = data.get('seed')

@@ -49,6 +49,10 @@ def envelope(payload, context, sources):
                'reason': (context.get('identity_observation') or {}).get('reason',meta.get('identity_reason')) if (context.get('identity_observation') or {}).get('reason',meta.get('identity_reason')) in REASONS else ('resolved' if status=='legacy_resolved' else 'other')}
     for key, value in (('asserted_imdb',(context.get('identity_observation') or {}).get('asserted_imdb',meta.get('imdb_id'))),('asserted_tmdb',(context.get('identity_observation') or {}).get('asserted_tmdb',meta.get('tmdb_id')))):
         if value is not None:outcome[key]=value
+    evidence = (context.get('identity_observation') or {}).get('torrent_evidence')
+    if evidence is not None:
+        from torrent_research_evidence import validate
+        outcome['torrent_evidence'] = validate(evidence)
     result = {'version': '1.0', 'event': 'identity.outcome', 'id': str(uuid.uuid4()),
               'timestamp': datetime.now(timezone.utc).isoformat(),
               'data': {'release': {k: release[k] for k in ('type', 'protocol', 'implementation', 'title', 'year', 'name', 'external_id', 'meta_imdb', 'meta_tmdb') if k in release},

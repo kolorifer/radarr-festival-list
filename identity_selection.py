@@ -130,7 +130,8 @@ def export(c,limit=100):
                                 'contradictions':([o['reason'] if o['reason'] in {'title_conflict','year_conflict'} else 'identifier_conflict']
                                                   if o['reason'] in CONFLICT_RESEARCH else
                                                   ['missing_crosswalk'] if o['reason']=='tmdb_mapping_missing' else ['unknown_identity']),
-                                'director':None,'runtime':None},
+                                'director':None,'runtime':None,
+                                **({'torrent_evidence':o['torrent_evidence']} if 'torrent_evidence' in o else {})},
                        'provenance':[{'source':'stage1_outcome','digest':version,'observed_at':observed}],
                        'historical_candidates':[],'observed_at':observed})
     return result

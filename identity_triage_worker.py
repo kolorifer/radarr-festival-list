@@ -65,7 +65,17 @@ def investigate(lease,provider):
                 elif f['director'] and normalized(f['director']) not in {normalized(x) for x in data['directors']}:conflicts.append('director_conflict')
                 if f['runtime'] and not data['runtime']:support_gaps.append('runtime_missing')
                 elif f['runtime'] and f['runtime']!=data['runtime']:conflicts.append('runtime_conflict')
-                candidates.append({'record':data,'contradictions':sorted(set(conflicts)),
+                source_evidence = f.get('torrent_evidence')
+                source_review = None
+                if source_evidence:
+                    from torrent_research_evidence import assess
+                    source_review = assess(source_evidence, data)
+                    if conflict_review:
+                        if source_evidence['nfo']['text'] or source_evidence['description']['text']:
+                            support_gaps = [gap for gap in support_gaps if gap != 'independent_source_corroboration_missing']
+                            support_gaps.append('source_evidence_requires_review')
+                        if source_evidence['images']:support_gaps.append('screenshot_visual_review_pending')
+                candidates.append({'source_review':source_review,'record':data,'contradictions':sorted(set(conflicts)),
                                    'source_contradictions':list(f['contradictions']),'support_gaps':support_gaps,
                                    'confidence':'review_required',
                                    'explanation':'Exact IDs and context are evidence; historical claims and conflicts remain unapproved.'})
