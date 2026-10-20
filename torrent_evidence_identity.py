@@ -87,6 +87,7 @@ def wikidata_years(qid,imdb,tmdb_id):
 def candidate(details,title,year,facts,get=tmdb._get,dates=wikidata_years):
     ident=details.get('id');ext=details.get('external_ids') or {};imdb=ext.get('imdb_id')
     if type(ident)!=int or not tmdb.valid_tmdb_id(ident) or not tmdb.valid_imdb_id(imdb):return None
+    if details.get('imdb_id') not in (None,imdb):raise ValueError('detail_id_conflict')
     names=[details.get('title'),details.get('original_title')]
     names += [x.get('title') for x in details.get('alternative_titles',{}).get('titles',[])]
     names += [x.get('data',{}).get('title') for x in details.get('translations',{}).get('translations',[])]
@@ -98,7 +99,7 @@ def candidate(details,title,year,facts,get=tmdb._get,dates=wikidata_years):
     mapping=get('/find/'+imdb,{'external_source':'imdb_id','language':'en-US'})
     if not isinstance(mapping,dict) or any(mapping.get(x) for x in ('tv_results','tv_episode_results','tv_season_results','person_results')):raise ValueError('mapping_inconclusive')
     movies=mapping.get('movie_results')
-    if not isinstance(movies,list) or len(movies)!=1 or movies[0].get('id')!=ident:raise ValueError('mapping_conflict')
+    if not isinstance(movies,list) or len(movies)!=1 or type(movies[0].get('id'))!=int or movies[0].get('id')!=ident:raise ValueError('mapping_conflict')
     years={tmdb._year(details.get('release_date'))}
     years.update(tmdb._year(d.get('release_date')) for c in details.get('release_dates',{}).get('results',[]) for d in c.get('release_dates',[]))
     basis='tmdb_release_dates'
@@ -122,6 +123,10 @@ def resolve(release,indexer,listing,get=None,dates=None):
     try:facts=nfo_facts(listing['torrent_evidence'])
     except (ValueError,KeyError,TypeError):return None
     if not facts:return None
+    filenames=re.findall(r'\bComplete name\s*:\s*(.+?)\s+Format\s*:',listing['torrent_evidence']['nfo']['text'])
+    if len(filenames)!=1:return None
+    filename=re.sub(r'\.(?:mkv|mp4|avi|m2ts)$','',filenames[0],flags=re.I)
+    if tmdb._identity_title(filename)!=tmdb._identity_title(release['name']):return None
     source=digest([release.get('info_url'),release.get('name'),release.get('title'),release['year'],listing['torrent_evidence']])
     if not _LOCK.acquire(blocking=False):return None
     try:
@@ -134,9 +139,9 @@ def resolve(release,indexer,listing,get=None,dates=None):
         result=None
         try:
             search=get('/search/movie',{'query':release['title'],'include_adult':'false','language':'en-US','page':1})
-            if not isinstance(search,dict) or search.get('page')!=1 or search.get('total_pages')!=1:raise ValueError('incomplete_search')
+            if not isinstance(search,dict) or type(search.get('page'))!=int or search['page']!=1 or type(search.get('total_pages'))!=int or search['total_pages']!=1:raise ValueError('incomplete_search')
             rows=search.get('results')
-            if not isinstance(rows,list) or not 1<=len(rows)<=3 or search.get('total_results')!=len(rows):raise ValueError('search_capacity')
+            if not isinstance(rows,list) or not 1<=len(rows)<=3 or type(search.get('total_results'))!=int or search['total_results']!=len(rows):raise ValueError('search_capacity')
             ids=[x.get('id') for x in rows]
             if any(type(x)!=int or not tmdb.valid_tmdb_id(x) for x in ids) or len(set(ids))!=len(ids):raise ValueError('invalid_search')
             matches=[]
