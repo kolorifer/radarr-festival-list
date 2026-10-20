@@ -1,5 +1,11 @@
 # Movie List project state
 
+## Passive scoring shadow pilot — 2026-10-20
+
+Owner approved a separate seven-day passive observer of retained research results.
+Implementation/testing in progress; scoring is not enabled for actor decisions.
+[Shadow pilot report](reports/2026-10-20-identity-scoring-shadow.md).
+
 ## Offline identity-scoring proposal — 2026-10-20
 
 An isolated experiment under `research/identity_scoring/` replays nine retained

@@ -511,3 +511,13 @@ showing weights, thresholds and changed decisions before production activation.
 Experimental weights/thresholds may be proposed and tested, but are not approved
 production policy. Preserve conflicting-ID review and explicit download consent;
 no downloads or live matching/status changes are authorized by this experiment.
+
+## D037 — Passive shadow observation of proposed identity scoring
+
+On2026-10-20 the owner approved shadow operation on real examples before deciding
+whether to activate scoring. Keep the proposed arithmetic unchanged, including
+Bruce's25.7/30 title contribution. Install a separate bounded passive observer of
+retained research evidence, with no provider requests, identity changes, queue
+writes, notifications or downloads. Seven-day hourly observation is an operational
+pilot; missing provenance must remain explicit and cannot be assumed verified.
+Production automatic scoring remains unapproved.

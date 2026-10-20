@@ -77,3 +77,14 @@ synthetic controls check policy mechanics, not statistical accuracy. Thresholds
 and weights are hand-proposed here, not learned or calibrated. No safe production
 false-positive rate can be inferred. More labeled confusable candidates and a
 read-only shadow evaluation would be needed before recommending activation.
+
+## Passive shadow pilot
+
+`python -m research.identity_scoring.shadow --database /private/research.sqlite3
+--output /private/shadow/report.json --started UNIX_SECONDS --until UNIX_SECONDS`
+reads only retained research proposals and writes a separate comparison report.
+The interval is at most seven days. It does not import or alter the production
+matcher. See [pilot scope and limitations](../../docs/reports/2026-10-20-identity-scoring-shadow.md).
+The runtime socket guard forbids provider calls. Existing historical proposals
+are explicitly separated from results arriving during the pilot. Missing retained
+provenance remains blocked; numerical scores alone do not constitute identification.
