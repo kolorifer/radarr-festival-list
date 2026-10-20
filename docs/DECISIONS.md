@@ -417,3 +417,14 @@ alphanumeric characters), excluding numeric/Roman numeral changes and word addit
 Checked listing provenance is mandatory; native-only IDs/title searches stay strict.
 An operator switch can revoke this policy independently. D026's exact reviewed
 binding remains available; arbitrary/larger corrections still need review.
+
+## D028 — Generic actor identification only
+
+Accepted by explicit owner request on 2026-10-20: no film-specific exceptions,
+only generic identity rules. Supersedes D026's Bruce exception and the earlier
+Hamnet/Not Not Jazz reviewed actor context repairs; also supersedes D027's
+retention of those bindings. Remove the exception registry and runtime path,
+not merely their current entries. Preserve generic typo acceptance and standard
+ID/title/year checks, explicit download confirmation and historical private state.
+Former exception cases require normal metadata agreement or remain unresolved.
+No automatic notifications, downloads, replay or historical state rewriting.

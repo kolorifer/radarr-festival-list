@@ -1,5 +1,19 @@
 # Movie List project state
 
+## Generic identification only — 2026-10-20
+
+PR69 merged (`832131e6`); production clean at tested runtime
+`c025aad64cbab6b5f891aac96a11b708f0fc077c`. All three per-film actor exceptions
+and their registry code are removed; legacy environment binding removed. Bruce
+live-verifies through the generic typo rule without any override. Hamnet/Jazz
+must satisfy ordinary catalog ID/title/year checks; no special repairs remain.
+Local610 tests (two skips), seedbox593 and both CI versions pass. Local/public
+health200, actor/collector active NRestarts0, collector PID unchanged. Protected
+components, approval state and download receipts preserved. No notifications or
+downloads triggered. Historical audit evidence remains private and inactive.
+This supersedes earlier statements that the three reviewed bindings are active.
+[Engineering report](reports/2026-10-20-generic-identity-only.md).
+
 ## Automatic minor tracker-backed typos — 2026-10-20
 
 PR68 merged (`39e1b5fe`); production clean at tested runtime

@@ -132,36 +132,17 @@ validation. A full rollback uses the previously verified runtime revision and
 preserves current action state, following the rollback instructions above. No
 historical notification replay or action backfill occurs on startup.
 
-## Reviewed context corrections (issue #45)
+## Generic identity rules only
 
-`MOVIE_INTEL_REVIEWED_CONTEXT_FILE` optionally names an absolute, owner-only
-regular JSON file outside the checkout. It is absent/disabled by default. The
-strict schema is version 1 with a `rules` array containing up to three fixed
-rule names: `hamnet-2025`, `not-not-jazz-2024` and `bruce-almiighty-2003`. Each entry requires only `rule`,
-`imdb_id`, integer `tmdb_id`, `source_sha256` and `evidence_sha256`; no additional
-fields or duplicate/unknown rules are accepted. Keep real IDs, fingerprints and
-private provenance out of examples, Git and logs. File mode must be 600 or stricter;
-symlinks, non-owner files and files over 16KiB fail preflight.
+Per-film reviewed context corrections are retired. There is no runtime registry
+or fixed title/year repair. Remove `MOVIE_INTEL_REVIEWED_CONTEXT_FILE` from the
+actor environment; preflight rejects it if still set. Old private evidence may
+be retained for audit, but is never loaded by the matcher. Existing action history
+is preserved; no old notification/action is replayed or backfilled.
 
-Prepare bindings only from the approved, revalidated private evidence. The source
-digest uses `reviewed_identity.source_fingerprint` and binds the exact original
-listing/reference, full release name, observed title/year, IMDb assertion and
-TorrentLeech source. The evidence digest refers to the corresponding retained
-private case evidence. The code fixes the approved title/year transformations;
-this file cannot add another title or a general matching policy.
-
-All repairs require successful exact-listing validation, the reviewed IMDb/TMDb
-pair and unchanged movie roundtrip/year checks. Original release data and download
-reference remain immutable. Native IDs without checked listing provenance do not
-enable the repair. Rules are reread on each eligible lookup: removing an entry
-revokes future corrections even with warm metadata caches. Invalid/missing files
-leave the original unresolved context and cannot trigger title-search fallback.
-An invalid configured file also fails startup preflight.
-
-Audit codes identify only the fixed rule applied or validation failure. Future
-eligible actions retain that rule marker without exposing private evidence.
-Revocation does not rewrite previously created actions; no action backfill/replay
-is performed. Changing this file affects identity only, never approval or download.
+Use the standard exact-ID/title/year checks and the optional generic tracker typo
+policy below. Unsupported prefixes, title differences and conflicting years stay
+unresolved unless ordinary catalog metadata satisfies the same generic rules.
 
 ## Keep the service running
 
@@ -379,6 +360,5 @@ adjacent transposition is allowed in one word only; both spellings must have six
 letters, candidate title eight alphanumeric characters. Word additions, short
 words, numeric/Roman numeral changes and larger edits remain blocked. Native IDs
 without checked listing provenance and title searches stay strict. Local identity
-conflicts and all approval/acquisition controls remain enforced. Existing reviewed
-bindings are preserved. Disable this flag and restart movie-intel to revoke the
+conflicts and all approval/acquisition controls remain enforced. No per-film exception registry is supported. Disable this flag and restart movie-intel to revoke the
 new policy. No history replay/backfill or extra metadata queries are required.
