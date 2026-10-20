@@ -481,3 +481,16 @@ encounter, even the same torrent, must undergo generic resolution or fresh revie
 Identity selection remains separate from download confirmation. No live downloads
 or notification replays during testing/deployment. Broader automatic conflicting-ID
 rules require a separately justified generic evidence policy; no invented scores.
+
+## D034 — Generic corroborated torrent-evidence identification
+
+Owner explicitly approved implementation/testing/safe deployment on2026-10-20,
+starting with Aayirathonnu Nunakal. Permit automatic identification where a checked
+ID-less listing's documented title/alias, NFO runtime/audio language, unique
+IMDb–TMDb mapping and documented release year agree, with no conflicting source
+IDs or equally supported candidates. A later release year needs catalog evidence,
+not a tolerance or filename assertion. Use cross-linked structured Wikidata dates
+when TMDb lacks the later date; no film-specific facts or exception is embedded.
+Missing/ambiguous evidence remains for review. Preserve explicit download approval;
+no downloads or notification replays during deployment. D033 occurrence-only
+human choices and conflicting-ID review remain unchanged.

@@ -463,3 +463,49 @@ The helper has no autonomous runner, provider calls or service-control entry poi
 A one-time guarded operator script supplies the deployment-specific paths and
 explicit scope. If proof or a freshness check fails, stop before publishing and
 investigate; never overwrite current state with an older backup.
+
+### Generic torrent-evidence identification
+
+`MOVIE_INTEL_TORRENT_EVIDENCE_ENABLED=1` enables a default-off actor rule for
+Unknown Movie events with an exact-heading-checked TorrentLeech listing that has
+no IMDb assertion. Native IDs, conflicting listing IDs and wrong/unavailable pages
+cannot use it. No film-specific rules or remembered owner choices are involved.
+
+The complete MediaInfo NFO must name the same release (punctuation/extension
+normalization only), contain one general duration in minutes and one audio
+language. Subtitle duration/language cannot substitute; multiple audio tracks,
+text-cap truncation and unsupported layouts require review. Image-reference
+truncation alone does not invalidate the complete NFO text. Runtime matches the
+catalog's integer minutes exactly; language must equal the candidate's original
+language through its documented English language name.
+
+Search TMDb without a year filter, inspect every result only when the response is
+complete and contains at most three movies, and require a documented title/alias,
+runtime/language agreement, a valid IMDb ID and a unique reverse IMDb-to-TMDb movie
+mapping. No popularity ranking or first-candidate selection. Multiple qualifying
+candidates or incomplete provider evidence remain unresolved. A conflicting local
+catalog identity blocks acceptance.
+
+The announced year must occur in TMDb's release dates. Otherwise use only the
+candidate's TMDb-supplied Wikidata entity ID, fetching bounded JSON from the fixed
+`www.wikidata.org/wiki/Special:EntityData/Q….json` endpoint without credentials or
+redirects. Require that entity to link exactly the same IMDb and TMDb IDs; use only
+non-deprecated Gregorian release-date claims with year-or-better precision and no
+uncertainty range. No arbitrary evidence URLs are followed. This is corroborating
+catalog data, not verification of video contents or a claim of infallible sources.
+
+At most one search, three detail requests, three crosswalk requests and three
+Wikidata GETs per uncached lookup; the existing listing GET is separate. A soft
+20-second budget stops starting further TMDb calls, in addition to existing
+provider timeouts. Wikidata timeout5s, response1MiB,429 backoff; its calls consume
+existing metadata retry reservations under the `tmdb` bucket when running in a
+retry context, so no retry capacity is added. Bound cache256, success15min/failure1min.
+Collector/research/handoff isolation, their hosts/budgets and schedules are unchanged.
+
+Accepted metadata keeps canonical catalog year and records the matched release
+year plus evidence basis. Acquisition offers retain the source-evidence binding;
+POST revalidates it and the identity before any writes. Turning the flag off also
+blocks unused evidence-backed confirmations. Normal explicit download confirmation,
+exact-source push and duplicate/uncertain-attempt safeguards remain mandatory.
+After activation reconcile affected retained cases silently using the deployment
+gate above. Do not send test notifications or download media without authorization.
