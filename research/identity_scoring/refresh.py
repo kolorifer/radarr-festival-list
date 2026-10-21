@@ -55,7 +55,14 @@ def exact_release(home, row):
     from identity_triage_store import digest
     with closing(sqlite3.connect((home/'.local/state/movie-identity-triage/inbox.sqlite3').as_uri()+'?mode=ro', uri=True)) as c:
         saved = c.execute('select x.version,x.release,h.material from selection_current x join selection_history h on h.version=x.version where x.case_key=?', (row['case_id'],)).fetchone()
-    if not saved or saved[0] != row['version']:
+    # The research version hashes an export envelope; the collector version is
+    # the stage1_outcome provenance digest inside that envelope, not the same ID.
+    with closing(sqlite3.connect((home/'.local/state/movie-identity-research/recurring-v1.sqlite3').as_uri()+'?mode=ro', uri=True)) as c:
+        evidence = c.execute('select material from evidence where version=? and case_id=?',
+                             (row['version'], row['case_id'])).fetchone()
+    provenance = json.loads(evidence[0]).get('provenance', []) if evidence else []
+    versions = [p.get('digest') for p in provenance if p.get('source') == 'stage1_outcome']
+    if not saved or versions != [saved[0]]:
         raise RuntimeError('occurrence_changed')
     material = json.loads(saved[2]); meta = material['metadata']
     if material['route'] not in ('eligible', 'review_only'):

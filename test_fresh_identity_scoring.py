@@ -93,6 +93,32 @@ class FreshTests(unittest.TestCase):
         self.assertGreater(len(r['full_nfo']['nfo']),3000)
         self.assertEqual(r['source']['language'],'fr')
 
+    def test_research_envelope_version_binds_collector_provenance(self):
+        import sqlite3
+        from contextlib import closing
+        from identity_triage_store import digest
+        from research.identity_scoring.refresh import exact_release
+        with tempfile.TemporaryDirectory() as folder:
+            home=Path(folder)
+            for sub in ('.local/state/movie-identity-triage','.local/state/movie-identity-research','.apps/autobrr'):
+                (home/sub).mkdir(parents=True)
+            meta=dict(self.release,source='torrentleech',release_key_basis='external_id')
+            material={'metadata':meta,'route':'eligible','correlation':'strong_source_id','outcome':{}}
+            with closing(sqlite3.connect(home/'.local/state/movie-identity-triage/inbox.sqlite3')) as c:
+                c.executescript('create table selection_current(case_key text,version text,release text); create table selection_history(version text,material text);')
+                c.execute('insert into selection_current values (?,?,?)',('case','collector-version',digest(['torrentleech','torrent',['external','123']])))
+                c.execute('insert into selection_history values (?,?)',('collector-version',json.dumps(material)));c.commit()
+            with closing(sqlite3.connect(home/'.local/state/movie-identity-research/recurring-v1.sqlite3')) as c:
+                c.execute('create table evidence(version text,case_id text,material text)')
+                c.execute('insert into evidence values (?,?,?)',('research-version','case',json.dumps({'provenance':[{'source':'stage1_outcome','digest':'collector-version'}]})));c.commit()
+            with closing(sqlite3.connect(home/'.apps/autobrr/autobrr.db')) as c:
+                c.execute('create table release(torrent_id integer,info_url text,torrent_name text,year integer)')
+                c.execute('insert into release values (?,?,?,?)',(123,'https://www.torrentleech.org/torrent/123',self.release['name'],1997));c.commit()
+            release,_=exact_release(home,{'case_id':'case','version':'research-version'})
+            self.assertEqual(release['name'],self.release['name'])
+            with self.assertRaisesRegex(RuntimeError,'occurrence_changed'):
+                exact_release(home,{'case_id':'case','version':'wrong-version'})
+
     def test_no_actor_acquisition_imports(self):
         s=Path('research/identity_scoring/refresh.py').read_text()
         for forbidden in ('movie_intel_service','radarr_client','telegram','qbittorrent','download_url'):
