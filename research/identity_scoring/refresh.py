@@ -58,7 +58,7 @@ def exact_release(home, row):
     if not saved or saved[0] != row['version']:
         raise RuntimeError('occurrence_changed')
     material = json.loads(saved[2]); meta = material['metadata']
-    if material['route'] in ('reviewed_occurrence', 'routine', 'verified'):
+    if material['route'] not in ('eligible', 'review_only'):
         raise RuntimeError('case_no_longer_unresolved')
     if meta['source'] != 'torrentleech' or meta['release_key_basis'] != 'external_id' or material['correlation'] != 'strong_source_id':
         raise RuntimeError('source_binding_missing')
@@ -164,7 +164,7 @@ def refresh_one(home, row, budget):
                 requests=budget.used)
 
 
-def main():
+def run():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--actor-code', required=True)
     args=parser.parse_args()
@@ -219,6 +219,18 @@ def main():
     report['fresh_results']=sum('refreshed_at' in r for r in report['rows'])
     report['collection_mode']='bounded_fresh_shadow'
     atomic(state/'report.json',report)
+
+
+def main():
+    import fcntl
+    os.umask(0o077)
+    state=Path.home().resolve()/'.local/state/identity-scoring-shadow'
+    with (state/'.refresh.lock').open('a') as lock:
+        try:
+            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except BlockingIOError:
+            return
+        run()
 
 
 if __name__=='__main__':
