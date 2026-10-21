@@ -88,3 +88,9 @@ matcher. See [pilot scope and limitations](../../docs/reports/2026-10-20-identit
 The runtime socket guard forbids provider calls. Existing historical proposals
 are explicitly separated from results arriving during the pilot. Missing retained
 provenance remains blocked; numerical scores alone do not constitute identification.
+
+The approved fresh-evidence extension runs as
+`python -m research.identity_scoring.refresh --actor-code /path/to/production/code`.
+It retains the original pilot deadline and reads the private pilot configuration.
+Only the isolated shadow unit uses it; the production matcher remains unchanged.
+[Fresh evidence scope and bounds](../../docs/reports/2026-10-21-fresh-shadow-evidence.md).

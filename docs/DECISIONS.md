@@ -521,3 +521,12 @@ retained research evidence, with no provider requests, identity changes, queue
 writes, notifications or downloads. Seven-day hourly observation is an operational
 pilot; missing provenance must remain explicit and cannot be assumed verified.
 Production automatic scoring remains unapproved.
+
+## D038 — Fresh tracker/NFO evidence in shadow only
+
+On2026-10-21 the owner approved correcting shadow evidence collection to use
+fresh tracker metadata and full NFO evidence, including same-language multi-audio.
+This permits bounded metadata GETs by the isolated shadow process and supersedes
+D037's no-provider-requests condition only for that process. Preserve production
+matching, original research snapshots, conflicts for review and explicit download
+confirmation. No downloads, notifications, automatic promotion or pilot extension.
