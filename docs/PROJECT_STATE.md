@@ -1,5 +1,15 @@
 # Movie List project state
 
+## Fresh evidence in shadow scoring — 2026-10-21
+
+Shadow **cf70212** deployed with bounded tracker/TMDb refresh and full NFO parsing,
+including same-language multi-audio. Actor remains **658d8f8** unchanged. Final
+local714(two skips), seedbox714 and Linux CI pass. Genealogies of a Crime now
+scores **100 vs retained50**, would identify TMDb125039/IMDbtt0119242 in shadow.
+Four metadata GETs; repeat run zero extra requests. Collector still eligible;
+no production identity, approval, notification or download change. Original pilot
+endOctober27 preserved. [Report](reports/2026-10-21-fresh-shadow-evidence.md).
+
 ## Passive scoring shadow pilot — 2026-10-20
 
 Owner approved a separate seven-day passive observer of retained research results.

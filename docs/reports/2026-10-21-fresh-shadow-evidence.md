@@ -68,4 +68,56 @@ actor actions, and restarts only the shadow oneshot service.
 
 ## Verification and deployment
 
-Pending full-suite, Linux checks and isolated deployment verification.
+Deployed shadow implementation **cf70212**. Actor remains
+**658d8f838aed7a03db7d01244254362fba99369a**, with no restart or code switch.
+
+- Final local suite: **714 tests passed**, two Linux-only skips,148.528s.
+- Final seedbox suite: **714 tests passed**,45.772s, including Linux isolation checks.
+- GitHub CI Python3.12/3.13 passed on the implementation revision.
+-14 new tests cover full NFO parsing, multi-audio, mixed/missing languages,
+  subtitle isolation, conflicts, provenance versions, budgets and end-to-end
+  mocked page capture. Existing shadow/offline tests also pass.
+- Read-only preflight caught an initial research-envelope/collector-version
+  comparison mistake. It was fixed by following the collector provenance digest,
+  regression-tested, and rechecked against the live case before activation.
+- Installed fresh.py/refresh.py hashes match the tested local sources. Existing
+  tracker/parser/request-guard helpers also match production bytes.
+- Shadow-only unit switched after backing up its previous unit and state under
+  `~/.local/state/identity-scoring-shadow-backup-vdi8fkwj`. Rollback restores the
+  previous shadow unit and reloads/restarts that timer; no actor state restore.
+- Local production health200. Actor, collector, original investigation timer and
+  shadow timer active. Actor source, private environment, action file, original
+  investigation timer and pilot deadline hashes unchanged during deployment.
+- No Radarr/download client/Telegram calls, queue updates or notification replays.
+
+## Live result
+
+**Genealogies of a Crime (1997): retained50 → fresh100 points.**
+The shadow decision is `would_identify`, TMDb125039 / IMDbtt0119242.
+Title30 + year20 + NFO runtime15 + audio language10 + tracker IMDb25.
+Full sanitized NFO length8,024 characters;113min; two French audio tracks.
+The original description's114min is retained for review; scoring uses the NFO's
+container runtime113min, which matches TMDb. Movie-name encoding damage is
+explicitly flagged; the NFO has no embedded filename. Binding is to its element
+on the exactly checked torrent page, not a claimed file-content inspection.
+
+A complete one-page title search returned one candidate; unique IMDb mapping
+agreed. Reported margin100 compares with the zero baseline for a sole retrieved
+candidate; it is not proof that no unseen catalog competitor exists.
+
+The run used **4 metadata GETs**. A second invocation added **0 requests** and
+preserved the original50-point snapshot beside the fresh100-point result. The
+collector case remains `eligible`; no production identity or approval changed.
+One fresh pilot case is available; eight historical snapshots remain unchanged.
+Pilot deadline stays **2026-10-27 19:12 Europe/Warsaw**.
+
+## Remaining limitations
+
+This still covers completed research cases arriving during the pilot, not every
+incoming release. Evidence is up to24h old between successful refreshes; request
+caps can defer further cases. Unknown NFO layouts, over64KiB text and mixed/unknown
+language declarations lose the corresponding evidence rather than being guessed.
+Conflicts and incomplete candidate discovery remain guarded. Screenshot references
+are collected for human review, without automatic visual interpretation.
+Scoring remains experimental, not a probability and not enabled for live identity
+decisions. PR78 remains draft; no merge or production scoring activation.
