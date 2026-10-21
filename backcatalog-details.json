@@ -5,7 +5,7 @@
     2023
   ],
   "source": "TSPDT 21st Century Top 1000",
-  "source_mode": "cache",
+  "source_mode": "live",
   "scoring": {
     "TSPDT_1_25": 5,
     "TSPDT_26_50": 4,
