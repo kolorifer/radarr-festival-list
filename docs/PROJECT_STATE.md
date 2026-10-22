@@ -1,5 +1,17 @@
 # Movie List project state
 
+## Shadow NFO tracks and alias corroboration — 2026-10-22
+
+Shadow **db8c3c2** deployed; actor658d8f8 unchanged. Dotted/numbered NFO layouts
+extract all audio tracks, explicit commentary, precise runtime and filename.
+Constrained unique alias-search support plus title/year/IMDb clears missing
+catalog transliteration. ChinaIII fresh88.66 now would_identifyTMDb10619;
+ChinaII NFO parses5 tracks but fresh scoring stops at4-candidate search(cap3).
+Multilingual scoring remains0, proposal awaiting approval. Full local/seedbox728
+and bothCI pass, health200. No downloads, notifications or production corrections.
+[Report and proposal](reports/2026-10-22-nfo-alias-corroboration.md).
+
+
 ## Shadow AKA discovery deployed — 2026-10-22
 
 Shadow0f8446d searches explicit alias pairs separately, retains direct IMDb
