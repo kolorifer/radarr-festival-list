@@ -119,6 +119,65 @@ class FreshTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'occurrence_changed'):
                 exact_release(home,{'case_id':'case','version':'wrong-version'})
 
+    def pipeline(self, responses, listing=None):
+        import tracker_metadata
+        from research.identity_scoring.refresh import refresh_one
+        calls=[]
+        def get(path,params,budget):
+            calls.append((path,params))
+            if path=='/search/movie':return responses[params['query']]
+            if path.startswith('/find/'):return self.maps['tt1234567']
+            return self.details[int(path.rsplit('/',1)[-1])]
+        with patch('research.identity_scoring.refresh.exact_release',return_value=(self.release,{})), \
+             patch.object(tracker_metadata,'lookup_listing',side_effect=lambda r,i:tracker_metadata.parse_listing('<div id="nfo_text">'+NFO+'</div>',r['name'])), \
+             patch.object(tracker_metadata,'parse_listing',return_value=listing or self.listing), \
+             patch('research.identity_scoring.refresh.metadata_get',side_effect=get):
+            return refresh_one(Path('/unused'),{},type('B',(),{'used':0})()),calls
+
+    def test_alias_queries_merge_duplicates_and_score_supported_aliases(self):
+        self.release['title']='Alternate Name aka Example Movie'
+        self.details[123]['alternative_titles']={'titles':[{'title':'Alternate Name'}]}
+        r,calls=self.pipeline({'Alternate Name':self.search,'Example Movie':self.search})
+        self.assertEqual(r['selected_id'],123)
+        self.assertEqual(r['ranked'][0]['contributions']['title'],30)
+        self.assertEqual(sum(p=='/movie/123' for p,q in calls),1)
+        self.assertEqual([q['query'] for p,q in calls if p=='/search/movie'],['Alternate Name','Example Movie'])
+
+    def test_imdb_candidate_survives_complete_empty_title_search(self):
+        empty={'page':1,'total_pages':0,'total_results':0,'results':[]}
+        r,calls=self.pipeline({'Example Movie':empty})
+        self.assertEqual(r['selected_id'],123)
+        self.assertTrue(calls[0][0].startswith('/find/'))
+
+    def test_missing_id_and_empty_search_stays_unresolved(self):
+        empty={'page':1,'total_pages':0,'total_results':0,'results':[]}
+        with self.assertRaisesRegex(RuntimeError,'candidate_search_empty'):
+            self.pipeline({'Example Movie':empty},{'reason':'listing_id_missing'})
+
+    def test_partial_and_oversized_search_cannot_hide_rivals(self):
+        for response,reason in ((dict(self.search,total_pages=2),'candidate_search_incomplete'),
+                                (dict(self.search,total_results=4,results=[{'id':i} for i in range(1,5)]),'candidate_capacity')):
+            with self.assertRaisesRegex(RuntimeError,reason):self.pipeline({'Example Movie':response})
+
+    def test_misleading_alias_cannot_borrow_correct_name(self):
+        self.release['title']='Unrelated Movie aka Example Movie'
+        r,_=self.pipeline({'Unrelated Movie':self.search,'Example Movie':self.search})
+        self.assertEqual(r['decision'],'review')
+        self.assertIn('source_alias_not_corroborated',r['reasons'])
+
+    def test_aliases_preserve_sequel_numbers(self):
+        from research.identity_scoring.scorer import score_candidate,source_titles
+        candidate={'id':1,'titles':['Wong Fei Hung II','Once Upon a Time in China II'],
+                   'media_type':'movie','crosswalk_verified':True,'imdb':'tt0105839'}
+        src={'title':'Wong Fei Hung II aka Once Upon a Time in China II','checked_listing':True,'conflicting_evidence':False}
+        self.assertEqual(score_candidate(src,candidate)['contributions']['title'],30)
+        src['title']='Wong Fei Hung III aka Once Upon a Time in China III'
+        self.assertEqual(score_candidate(src,candidate)['contributions']['title'],-30)
+        src['title']='Wong Fei Hung II aka Once Upon a Time in China III'
+        self.assertIn('source_alias_sequel_conflict',score_candidate(src,candidate)['blocks'])
+        self.assertEqual(source_titles('A / B'),['A / B'])
+        self.assertEqual(source_titles('A aka B aka C'),['A aka B aka C'])
+
     def test_no_actor_acquisition_imports(self):
         s=Path('research/identity_scoring/refresh.py').read_text()
         for forbidden in ('movie_intel_service','radarr_client','telegram','qbittorrent','download_url'):

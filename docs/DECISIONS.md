@@ -538,3 +538,11 @@ three queued cases, with bounded requests, shadow-only deployment and no test
 notifications or downloads. Use rolling24h limits of5 attempts/25 requests,
 retaining5 requests per evidence version and all history/cooldowns/confinement.
 No automatic identity correction or production scoring activation.
+
+## D040 — Explicit aliases and IMDb candidates in shadow discovery
+
+On2026-10-22 the owner approved implementing separate searches for explicit AKA
+aliases, deduplicated candidates and direct tracker IMDb discovery, with scoring
+against supported aliases. Preserve sequel distinctions, bounded requests,
+conflict/review safeguards, existing weights and shadow-only operation. No live
+identity changes or downloads. Unsupported alias claims remain review-only.

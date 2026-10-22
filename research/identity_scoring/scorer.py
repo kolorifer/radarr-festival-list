@@ -35,6 +35,13 @@ def words(value):
     return re.findall(r'[^\W_]+',unicodedata.normalize('NFC',value).casefold().replace('&','and'))
 
 
+def source_titles(value):
+    """Only an explicit, bounded AKA pair; never guess punctuation as aliases."""
+    words(value)
+    parts=re.split(r'\s+(?:aka|a\.k\.a\.)\s+', value, flags=re.I)
+    return parts if len(parts)==2 and all(p.strip() for p in parts) else [value]
+
+
 def title_similarity(left,right):
     a,b=words(left),words(right)
     # Preserve the existing protection against fuzzy changes to sequel numbers.
@@ -62,7 +69,8 @@ def score_candidate(source,candidate,policy=None):
     policy=policy or Policy()
     titles=candidate.get('titles',[])
     if not isinstance(titles,list) or not 1<=len(titles)<=100:raise ValueError('titles')
-    similarities=[title_similarity(source['title'],t) for t in titles]
+    aliases=source_titles(source['title'])
+    similarities=[max(title_similarity(a,t) for a in aliases) for t in titles]
     similarity=max(similarities)
     years=candidate.get('years',[])
     if not isinstance(years,list) or len(years)>100 or any(not valid_year(y) for y in years):raise ValueError('years')
@@ -70,6 +78,12 @@ def score_candidate(source,candidate,policy=None):
     if sy is not None and not valid_year(sy):raise ValueError('source_year')
     features={'title':2*similarity-1,'year':0.0,'runtime':0.0,'language':0.0,'source_id':0.0}
     observed=['title'];blocks=[]
+    # An arbitrary second name cannot lend its score to an unrelated release.
+    sequel=lambda value:[w for w in words(value) if any(c.isdigit() for c in w) or re.fullmatch(r'[ivxlcdm]+',w)]
+    if len(aliases)>1 and sequel(aliases[0])!=sequel(aliases[1]):
+        blocks.append('source_alias_sequel_conflict')
+    if len(aliases)>1 and any(not any(words(a)==words(t) for t in titles) for a in aliases):
+        blocks.append('source_alias_not_corroborated')
     if sy is not None and years:
         features['year']=1.0 if sy in years else -1.0;observed.append('year')
     sr,cr=source.get('runtime'),candidate.get('runtime')

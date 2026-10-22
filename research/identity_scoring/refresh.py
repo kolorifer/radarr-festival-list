@@ -12,6 +12,7 @@ import tempfile
 from unittest.mock import patch
 from .shadow import scan
 from .fresh import result, MAX_NFO
+from .scorer import source_titles
 
 
 def atomic(path, value):
@@ -130,25 +131,36 @@ def refresh_one(home, row, budget):
     if not captured:
         raise RuntimeError('listing_refresh_failed')
     get = lambda path, params: metadata_get(path, params, budget)
-    search = get('/search/movie', {'query':release['title'], 'include_adult':'false', 'page':1, 'language':'en-US'})
-    rows = search.get('results', [])
-    if not isinstance(rows, list) or not 1 <= len(rows) <= 3:
-        raise RuntimeError('candidate_capacity_or_empty')
-    ids = [x.get('id') for x in rows]
-    if any(type(x)!=int or not 0<x<2**31 for x in ids) or len(set(ids))!=len(ids):
-        raise RuntimeError('invalid_candidates')
-    mappings = {}; imdb = listing.get('imdb_id')
+    # Search explicit aliases separately, retaining every rival within the cap.
+    # A checked IMDb is a candidate even when title queries are empty.
+    mappings = {}; imdb = listing.get('imdb_id'); ids = []
     if imdb:
         mapping = get('/find/'+imdb, {'external_source':'imdb_id','language':'en-US'})
         mappings[imdb] = mapping
-        # Include the tracker-linked competitor even when the title search omits it.
         for r in mapping.get('movie_results', []):
-            if type(r.get('id')) != int or not 0<r['id']<2**31:
+            ident=r.get('id')
+            if type(ident)!=int or not 0<ident<2**31:
                 raise RuntimeError('invalid_mapping')
-            if r['id'] not in ids:
-                ids.append(r['id'])
-        if len(ids)>3:
+            if ident not in ids:ids.append(ident)
+    searches=[]
+    for title in source_titles(release['title']):
+        response=get('/search/movie', {'query':title, 'include_adult':'false', 'page':1, 'language':'en-US'})
+        rows=response.get('results', [])
+        if not isinstance(rows,list) or len(rows)>3:
             raise RuntimeError('candidate_capacity')
+        page_ids=[r.get('id') for r in rows]
+        if any(type(i)!=int or not 0<i<2**31 for i in page_ids) or len(set(page_ids))!=len(page_ids):
+            raise RuntimeError('invalid_candidates')
+        if (response.get('page')!=1 or response.get('total_pages') not in ((1,) if rows else (0,1))
+                or response.get('total_results')!=len(rows)):
+            raise RuntimeError('candidate_search_incomplete')
+        searches.append({'query':title,'count':len(rows)})
+        ids.extend(i for i in page_ids if i not in ids)
+        if len(ids)>3:raise RuntimeError('candidate_capacity')
+    if not ids:raise RuntimeError('candidate_search_empty')
+    # All queried pages were complete, including genuinely empty pages. Include
+    # IMDb-derived candidates in the merged set so they cannot be silently lost.
+    search={'page':1,'total_pages':1,'total_results':len(ids),'results':[{'id':i} for i in ids]}
     details = {}
     for ident in ids:
         d = get('/movie/'+str(ident), {'append_to_response':'external_ids,alternative_titles,translations,release_dates','language':'en-US'})
@@ -165,7 +177,7 @@ def refresh_one(home, row, budget):
     if outcome.get('status') == 'needs_review' or (asserted_tmdb and scored.get('selected_id') not in (None, asserted_tmdb)):
         scored.update(decision='review', selected_id=None)
         scored['reasons'].append('existing_identity_conflict_requires_review')
-    return dict(**scored, refreshed_at=time.time(), listing_reason=listing['reason'],
+    return dict(**scored, candidate_searches=searches, refreshed_at=time.time(), listing_reason=listing['reason'],
                 full_nfo=captured, description=listing.get('torrent_evidence', {}).get('description', {}),
                 screenshots=listing.get('torrent_evidence', {}).get('images', []),
                 requests=budget.used)
@@ -208,7 +220,8 @@ def run():
                        'case_no_longer_unresolved','source_binding_missing',
                        'exact_listing_not_retained','metadata_route_denied','metadata_http_failure',
                        'metadata_response_limit','listing_refresh_failed','candidate_capacity_or_empty',
-                       'invalid_candidates','invalid_mapping','candidate_capacity','details_id_conflict'}
+                       'invalid_candidates','invalid_mapping','candidate_capacity','details_id_conflict',
+                       'candidate_search_empty','candidate_search_incomplete'}
             entry['error'] = str(exc) if type(exc) is RuntimeError and str(exc) in allowed else 'refresh_incomplete'
         entry['requests']=budget.used
         atomic(ledger,saved)
