@@ -10,7 +10,7 @@ Parser normalizes field-padding dots, reads runtime only from a unique GENERAL
 section, splits each AUDIO section, excludes subtitles, retains title/language
 and marks explicitly labelled commentary. Other track roles remain unspecified.
 The leading full filename is now checked against the exact release; mismatches
-block. MediaInfo layout remains supported. Unsupported/ambiguous fields are
+block. Numbered AUDIO(n)/GENERAL INFO layouts and clock-form runtimes are also supported; seconds are retained as fractional minutes. Language qualifiers and commentary in OTHER INFO remain explicit. MediaInfo layout remains supported. Unsupported/ambiguous fields are
 missing rather than guessed. Cantonese/Mandarin labels remain in track titles;
 Chinese language fields are not silently converted into a specific variety.
 

@@ -230,6 +230,21 @@ class FreshTests(unittest.TestCase):
         self.assertEqual(f['audio_track_details'][1]['role'],'commentary')
         self.assertEqual(f['audio_track_details'][0]['role'],'unspecified')
 
+    def test_numbered_audio_clock_runtime_and_language_qualifier(self):
+        nfo=('Example.Movie.1997.REMUX GENERAL INFO FORMAT : MKV DURATION : 01:53:25 (h:m:s) '
+             'VIDEO CODEC : AVC AUDIO (1) CODEC : DTS LANGUAGE : Chinese (Cantonese) CHANNEL(S) : 1.0 '
+             'AUDIO (2) CODEC : DTS LANGUAGE : Chinese (Mandarin) CHANNEL(S) : 2.0 '
+             'AUDIO (3) CODEC : AC-3 LANGUAGE : English OTHER INFO : Commentary by Reviewer '
+             'SUBTITLES French SCREENSHOTS none')
+        f=nfo_facts(nfo)
+        self.assertAlmostEqual(f['runtime'],113+25/60)
+        self.assertEqual(f['audio_tracks'],3)
+        self.assertEqual(f['audio_languages'],['chinese','chinese','english'])
+        self.assertEqual(f['audio_track_details'][0]['language_detail'],'Cantonese')
+        self.assertEqual(f['audio_track_details'][2]['role'],'commentary')
+        self.assertEqual(f['filenames'],['Example.Movie.1997.REMUX'])
+        self.assertIsNone(nfo_facts(nfo.replace('01:53:25','01:73:25'))['runtime'])
+
     def test_no_actor_acquisition_imports(self):
         s=Path('research/identity_scoring/refresh.py').read_text()
         for forbidden in ('movie_intel_service','radarr_client','telegram','qbittorrent','download_url'):

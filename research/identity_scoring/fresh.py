@@ -22,37 +22,56 @@ def nfo_facts(value):
     text = re.sub(r'(?<=\w)\.{2,}(?=\s*:)', ' ', text)
     sections = re.split(r'-{3,}(GENERAL|VIDEO|AUDIO(?:\s*\(#\d+\))?|TEXT|MENU)-{3,}', text, flags=re.I)
     dotted = len(sections)>1
+    numbered = bool(re.search(r'\bGENERAL INFO\b',text) and re.search(r'\bAUDIO \(\d+\)\s+CODEC\s*:',text))
     # Only the container section can supply runtime, never subtitles or audio.
     header = re.split(r'\b(?:Video|Audio|Text)(?: #\d+)?\s+ID\s*:', text, maxsplit=1)[0]
     if dotted:
         general=[sections[i+1] for i in range(1,len(sections),2) if sections[i].upper()=='GENERAL']
         header=general[0] if len(general)==1 else ''
-    durations = re.findall(r'\bDuration\s*:\s*(?:(\d{1,2})\s*h\s*)?(\d{1,3})\s*min\b', header)
+    if numbered and not dotted:
+        general=re.split(r'\bGENERAL INFO\b',text)
+        header=re.split(r'\bVIDEO\s+CODEC\s*:',general[1],maxsplit=1)[0] if len(general)==2 else ''
+    durations = re.findall(r'\bDuration\s*:\s*(?:(\d{1,2})\s*h\s*)?(\d{1,3})\s*min\b', header, flags=re.I)
     if len(durations) == 1:
         hours, minutes = durations[0]
         duration = int(hours or 0) * 60 + int(minutes)
         if 0 < duration <= 1440 and (not hours or int(minutes) < 60):
             result['runtime'] = duration
+    clocks=re.findall(r'\bDURATION\s*:\s*(\d{1,2}):(\d{2}):(\d{2})\b',header,flags=re.I)
+    if clocks:
+        result['runtime']=None
+        if len(clocks)==1 and not durations:
+            hours,minutes,seconds=map(int,clocks[0])
+            if minutes<60 and seconds<60 and 0<hours*60+minutes+seconds/60<=1440:
+                result['runtime']=hours*60+minutes+seconds/60
     if result['runtime'] is None:
         result['gaps'].append('container_runtime_missing_or_ambiguous')
     tracks = re.split(r'\bAudio(?: #\d+)?\s+ID\s*:', text)[1:]
     if dotted:
         tracks=[sections[i+1] for i in range(1,len(sections),2) if sections[i].upper().startswith('AUDIO')]
-    labels=r'ID|Format|Codec ID|Duration|Bit rate(?: mode)?|Channel(?:s| layout)?|Sampling rate|Sample rate|Frame rate|Compression mode|Stream size|Title|Language|Default|Forced|Service kind|SUBTITLES|Chapters'
+    if numbered and not dotted:
+        tracks=re.split(r'\bAUDIO \(\d+\)\s+(?=CODEC\s*:)',text)[1:]
+    labels=r'CHANNEL\(S\)|CODEC|BITRATE|BIT DEPTH|OTHER INFO|ID|Format|Codec ID|Duration|Bit rate(?: mode)?|Channel(?:s| layout)?|Sampling rate|Sample rate|Frame rate|Compression mode|Stream size|Title|Language|Default|Forced|Service kind|SUBTITLES|Chapters'
     def field(track, name):
         values=re.findall(r'\b'+name+r'\s*:\s*(.*?)(?=\s+(?:'+labels+r')\s*:|$)',track,flags=re.I)
         return values[0].strip() if len(values)==1 else None
     for index,track in enumerate(tracks,1):
-        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\bMenu\b|\bSUBTITLES\s*:|\bChapters\s*:', track, maxsplit=1, flags=re.I)[0]
+        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\bMenu\b|\bSUBTITLES\s*:|\bChapters\s*:|\bSUBTITLES\b|\bSCREENSHOTS\b', track, maxsplit=1, flags=re.I)[0]
         language=field(track,'Language')
+        language_raw=language
+        qualifier=None
+        if language:
+            qualified=re.fullmatch(r'([a-zA-Z ]+)\s*\(([a-zA-Z -]+)\)',language)
+            if qualified:language,qualifier=qualified[1].strip(),qualified[2]
         language=language.casefold() if language else None
         if not language or not re.fullmatch(r'[a-z]+(?:[ -][a-z]+)*',language):language=None
         title=field(track,'Title')
-        commentary=bool(title and re.search(r'\bcommentary\b',title,re.I))
+        other=field(track,'OTHER INFO')
+        commentary=bool(re.search(r'\bcommentary\b',' '.join(x for x in (title,other) if x),re.I))
         result['audio_languages'].append(language)
-        result['audio_track_details'].append({'index':index,'language':language,'title':title,
+        result['audio_track_details'].append({'index':index,'language':language,'language_raw':language_raw,'language_detail':qualifier,'title':title,'other_info':other,
             'role':'commentary' if commentary else 'unspecified',
-            'role_basis':'explicit_title' if commentary else 'not_declared',
+            'role_basis':'explicit_label' if commentary else 'not_declared',
             'default':field(track,'Default')})
     if not tracks or None in result['audio_languages'] or len(set(result['audio_languages'])) != 1:
         result['gaps'].append('audio_language_missing_or_mixed')
@@ -61,6 +80,9 @@ def nfo_facts(value):
     if dotted:
         prefix=sections[0].strip()
         if re.fullmatch(r'.+\.(?:mkv|mp4|avi|m2ts)',prefix,re.I):filenames.append(prefix)
+    if numbered and not dotted:
+        prefix=text.split('GENERAL INFO',1)[0]
+        filenames.extend(re.findall(r'(?<!\S)[\w.-]+\.(?:19|20)\d{2}\.[\w.-]+',prefix))
     result['filenames'] = filenames
     movie = re.findall(r'\bMovie name\s*:\s*(.*?)(?=\s+(?:Encoded date|Writing application|Writing library|Duration|Format)\s*:|$)', header)
     result['declared_movie_names'] = movie
