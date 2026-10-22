@@ -161,7 +161,8 @@ class FreshTests(unittest.TestCase):
 
     def test_misleading_alias_cannot_borrow_correct_name(self):
         self.release['title']='Unrelated Movie aka Example Movie'
-        r,_=self.pipeline({'Unrelated Movie':self.search,'Example Movie':self.search})
+        empty={'page':1,'total_pages':0,'total_results':0,'results':[]}
+        r,_=self.pipeline({'Unrelated Movie':empty,'Example Movie':self.search})
         self.assertEqual(r['decision'],'review')
         self.assertIn('source_alias_not_corroborated',r['reasons'])
 
@@ -177,6 +178,57 @@ class FreshTests(unittest.TestCase):
         self.assertIn('source_alias_sequel_conflict',score_candidate(src,candidate)['blocks'])
         self.assertEqual(source_titles('A / B'),['A / B'])
         self.assertEqual(source_titles('A aka B aka C'),['A aka B aka C'])
+
+    def test_search_alias_support_needs_id_year_and_documented_name(self):
+        from research.identity_scoring.scorer import score_candidate
+        src={'title':'Romanized Name III aka Example Movie III','year':1993,'imdb':'tt1234567',
+             'checked_listing':True,'conflicting_evidence':False,
+             'alias_search_support':[{'query':q,'count':1,'ids':[123]} for q in ('Romanized Name III','Example Movie III')]}
+        candidate={'id':123,'titles':['Example Movie III'],'years':[1993],'media_type':'movie',
+                   'imdb':'tt1234567','crosswalk_verified':True}
+        self.assertNotIn('source_alias_not_corroborated',score_candidate(src,candidate)['blocks'])
+        for change in ({'imdb':None},{'year':1992},{'checked_listing':False},
+                       {'alias_search_support':[{'query':q,'count':1,'ids':[456]} for q in ('Romanized Name III','Example Movie III')]}):
+            self.assertIn('source_alias_not_corroborated',score_candidate(dict(src,**change),candidate)['blocks'])
+        for change in ({'crosswalk_verified':False},{'titles':['Other Movie III']},{'imdb':'tt7654321'}):
+            self.assertIn('source_alias_not_corroborated',score_candidate(src,dict(candidate,**change))['blocks'])
+
+    def test_dotted_nfo_all_tracks_and_explicit_commentary(self):
+        nfo=('Example.Movie.1997.REMUX.mkv ---GENERAL---- Size............: 30 GiB '
+             'Duration........: 1 h 51 min ---VIDEO---- Duration........: 9 min '
+             '---AUDIO---- Title...........: Mono (Cantonese) Language........: Chinese '
+             '---AUDIO (#2)---- Title...........: Stereo (Mandarin) Language........: Chinese '
+             '---AUDIO (#3)---- Title...........: Surround Language........: English '
+             '---AUDIO (#4)---- Title...........: Commentary by Reviewer Language........: English '
+             'SUBTITLES.......: French Chapters........: 00:00:00')
+        f=nfo_facts(nfo)
+        self.assertEqual(f['runtime'],111)
+        self.assertEqual(f['audio_languages'],['chinese','chinese','english','english'])
+        self.assertEqual(f['audio_tracks'],4)
+        self.assertEqual([x['role'] for x in f['audio_track_details']],['unspecified']*3+['commentary'])
+        self.assertEqual(f['audio_track_details'][0]['title'],'Mono (Cantonese)')
+        r=self.score(nfo)
+        self.assertIsNone(r['source']['language']) # no multilingual policy activation
+        self.assertEqual(r['ranked'][0]['contributions']['language'],0)
+        self.assertTrue(r['nfo_facts']['filename_present'])
+
+    def test_dotted_runtime_must_be_general_and_unique(self):
+        for nfo in ('---VIDEO---- Duration........: 1 h 51 min',
+                    '---GENERAL---- Duration........: 111 min Duration........: 112 min ---AUDIO---- Language........: French',
+                    '---GENERAL---- Size........: 4 GiB ---AUDIO---- Duration........: 111 min'):
+            self.assertIsNone(nfo_facts(nfo)['runtime'])
+
+    def test_dotted_missing_duplicate_language_and_wrong_filename(self):
+        nfo='Wrong.Movie.mkv ---GENERAL---- Duration........: 113 min ---AUDIO---- Language........: French Language........: English'
+        f=nfo_facts(nfo);self.assertEqual(f['audio_languages'],[None])
+        self.assertEqual(self.score(nfo)['decision'],'review')
+        f=nfo_facts('---GENERAL---- Duration........: 113 min ---AUDIO---- Title........: Track one')
+        self.assertEqual(f['audio_track_details'][0]['language'],None)
+
+    def test_media_info_tracks_preserve_commentary_title(self):
+        f=nfo_facts(NFO.replace('Title : 2.0','Title : Director commentary'))
+        self.assertEqual(f['audio_track_details'][1]['role'],'commentary')
+        self.assertEqual(f['audio_track_details'][0]['role'],'unspecified')
 
     def test_no_actor_acquisition_imports(self):
         s=Path('research/identity_scoring/refresh.py').read_text()

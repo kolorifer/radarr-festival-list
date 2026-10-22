@@ -546,3 +546,12 @@ aliases, deduplicated candidates and direct tracker IMDb discovery, with scoring
 against supported aliases. Preserve sequel distinctions, bounded requests,
 conflict/review safeguards, existing weights and shadow-only operation. No live
 identity changes or downloads. Unsupported alias claims remain review-only.
+
+## D041 — Full audio extraction and refined alias support in shadow
+
+Owner approved dotted NFO parsing, separate audio tracks including commentary,
+and refined alias corroboration in shadow on2026-10-22. Complete unique alias
+search agreement may support an undocumented transliteration only alongside a
+documented alias, matching year and verified tracker IMDb crosswalk. Preserve
+conflict/sequel guards. Propose multilingual scoring separately, do not enable
+it. No downloads or notifications; existing request caps remain.

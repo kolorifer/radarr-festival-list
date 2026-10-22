@@ -154,13 +154,13 @@ def refresh_one(home, row, budget):
         if (response.get('page')!=1 or response.get('total_pages') not in ((1,) if rows else (0,1))
                 or response.get('total_results')!=len(rows)):
             raise RuntimeError('candidate_search_incomplete')
-        searches.append({'query':title,'count':len(rows)})
+        searches.append({'query':title,'count':len(rows),'ids':page_ids})
         ids.extend(i for i in page_ids if i not in ids)
         if len(ids)>3:raise RuntimeError('candidate_capacity')
     if not ids:raise RuntimeError('candidate_search_empty')
     # All queried pages were complete, including genuinely empty pages. Include
     # IMDb-derived candidates in the merged set so they cannot be silently lost.
-    search={'page':1,'total_pages':1,'total_results':len(ids),'results':[{'id':i} for i in ids]}
+    search={'page':1,'total_pages':1,'total_results':len(ids),'results':[{'id':i} for i in ids],'alias_search_support':searches}
     details = {}
     for ident in ids:
         d = get('/movie/'+str(ident), {'append_to_response':'external_ids,alternative_titles,translations,release_dates','language':'en-US'})

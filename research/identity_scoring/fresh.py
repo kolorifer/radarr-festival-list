@@ -13,13 +13,20 @@ def normalized(value):
 
 def nfo_facts(value):
     """Parse the complete bounded NFO, never a truncated display projection."""
-    result = {'runtime': None, 'audio_languages': [], 'gaps': [], 'characters': len(value)}
+    result = {'runtime': None, 'audio_languages': [], 'audio_track_details': [], 'gaps': [], 'characters': len(value)}
     if not value or len(value) > MAX_NFO:
         result['gaps'].append('nfo_absent_or_over_limit')
         return result
     text = ' '.join(value.split())
+    # Padding dots are field separators, not part of a field name.
+    text = re.sub(r'(?<=\w)\.{2,}(?=\s*:)', ' ', text)
+    sections = re.split(r'-{3,}(GENERAL|VIDEO|AUDIO(?:\s*\(#\d+\))?|TEXT|MENU)-{3,}', text, flags=re.I)
+    dotted = len(sections)>1
     # Only the container section can supply runtime, never subtitles or audio.
     header = re.split(r'\b(?:Video|Audio|Text)(?: #\d+)?\s+ID\s*:', text, maxsplit=1)[0]
+    if dotted:
+        general=[sections[i+1] for i in range(1,len(sections),2) if sections[i].upper()=='GENERAL']
+        header=general[0] if len(general)==1 else ''
     durations = re.findall(r'\bDuration\s*:\s*(?:(\d{1,2})\s*h\s*)?(\d{1,3})\s*min\b', header)
     if len(durations) == 1:
         hours, minutes = durations[0]
@@ -29,18 +36,31 @@ def nfo_facts(value):
     if result['runtime'] is None:
         result['gaps'].append('container_runtime_missing_or_ambiguous')
     tracks = re.split(r'\bAudio(?: #\d+)?\s+ID\s*:', text)[1:]
-    for track in tracks:
-        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\bMenu\b', track, maxsplit=1)[0]
-        languages = re.findall(r'\bLanguage\s*:\s*(.*?)(?=\s+(?:Default|Forced|Title|Service kind)\s*:|$)', track)
-        language = languages[0].strip().casefold() if len(languages) == 1 else None
-        if language and re.fullmatch(r'[a-z]+(?:[ -][a-z]+)*', language):
-            result['audio_languages'].append(language)
-        else:
-            result['audio_languages'].append(None)
+    if dotted:
+        tracks=[sections[i+1] for i in range(1,len(sections),2) if sections[i].upper().startswith('AUDIO')]
+    labels=r'ID|Format|Codec ID|Duration|Bit rate(?: mode)?|Channel(?:s| layout)?|Sampling rate|Sample rate|Frame rate|Compression mode|Stream size|Title|Language|Default|Forced|Service kind|SUBTITLES|Chapters'
+    def field(track, name):
+        values=re.findall(r'\b'+name+r'\s*:\s*(.*?)(?=\s+(?:'+labels+r')\s*:|$)',track,flags=re.I)
+        return values[0].strip() if len(values)==1 else None
+    for index,track in enumerate(tracks,1):
+        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\bMenu\b|\bSUBTITLES\s*:|\bChapters\s*:', track, maxsplit=1, flags=re.I)[0]
+        language=field(track,'Language')
+        language=language.casefold() if language else None
+        if not language or not re.fullmatch(r'[a-z]+(?:[ -][a-z]+)*',language):language=None
+        title=field(track,'Title')
+        commentary=bool(title and re.search(r'\bcommentary\b',title,re.I))
+        result['audio_languages'].append(language)
+        result['audio_track_details'].append({'index':index,'language':language,'title':title,
+            'role':'commentary' if commentary else 'unspecified',
+            'role_basis':'explicit_title' if commentary else 'not_declared',
+            'default':field(track,'Default')})
     if not tracks or None in result['audio_languages'] or len(set(result['audio_languages'])) != 1:
         result['gaps'].append('audio_language_missing_or_mixed')
     result['audio_tracks'] = len(tracks)
     filenames = re.findall(r'\bComplete name\s*:\s*(.*?)\s+Format\s*:', header)
+    if dotted:
+        prefix=sections[0].strip()
+        if re.fullmatch(r'.+\.(?:mkv|mp4|avi|m2ts)',prefix,re.I):filenames.append(prefix)
     result['filenames'] = filenames
     movie = re.findall(r'\bMovie name\s*:\s*(.*?)(?=\s+(?:Encoded date|Writing application|Writing library|Duration|Format)\s*:|$)', header)
     result['declared_movie_names'] = movie
@@ -93,6 +113,7 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
                                years=sorted({int(x[:4]) for x in dates if isinstance(x, str) and x[:4].isdigit()}),
                                runtime=d.get('runtime') or None, language=d.get('original_language'),
                                imdb=imdb, media_type='movie', crosswalk_verified=unique_mapping(mappings.get(imdb), ident)))
+    source['alias_search_support'] = search.get('alias_search_support', []) if isinstance(search,dict) else []
     rows = search.get('results', []) if isinstance(search, dict) else []
     ids = [x.get('id') for x in rows]
     complete = (isinstance(search, dict) and search.get('page') == 1 and search.get('total_pages') == 1

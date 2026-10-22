@@ -82,7 +82,19 @@ def score_candidate(source,candidate,policy=None):
     sequel=lambda value:[w for w in words(value) if any(c.isdigit() for c in w) or re.fullmatch(r'[ivxlcdm]+',w)]
     if len(aliases)>1 and sequel(aliases[0])!=sequel(aliases[1]):
         blocks.append('source_alias_sequel_conflict')
-    if len(aliases)>1 and any(not any(words(a)==words(t) for t in titles) for a in aliases):
+    catalog_aliases=[any(words(a)==words(t) for t in titles) for a in aliases]
+    support=source.get('alias_search_support',[])
+    # Search agreement is supporting evidence, not independent proof. Require
+    # a documented alias, year and checked unique tracker-ID crosswalk as well.
+    search_agrees=(isinstance(support,list) and len(support)==len(aliases)
+                   and all(isinstance(r,dict) and r.get('query')==a
+                           and r.get('ids')==[candidate['id']] and r.get('count')==1
+                           for a,r in zip(aliases,support)))
+    corroborated=(search_agrees and any(catalog_aliases) and sy in years
+                  and source.get('checked_listing') is True
+                  and source.get('imdb') is not None and source.get('imdb')==candidate.get('imdb')
+                  and candidate.get('crosswalk_verified') is True)
+    if len(aliases)>1 and not all(catalog_aliases) and not corroborated:
         blocks.append('source_alias_not_corroborated')
     if sy is not None and years:
         features['year']=1.0 if sy in years else -1.0;observed.append('year')
