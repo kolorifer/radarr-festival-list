@@ -1,5 +1,16 @@
 # Movie List project state
 
+## Shadow AKA discovery deployed — 2026-10-22
+
+Shadow0f8446d searches explicit alias pairs separately, retains direct IMDb
+candidates and deduplicates before bounded detail lookup. Best supported alias
+scoring preserves sequel/conflict guards; uncorroborated aliases stay review-only.
+Local/seedbox722 tests and bothCI pass, health200. Actor658d8f8 unchanged.
+ChinaIII now discovered asTMDb10619, fresh75 but still review(alias/NFO gaps).
+ChinaII retained75 versus15; fresh verification pending preserved retry delay.
+No downloads, notifications or live identity changes. [Report](reports/2026-10-22-shadow-alias-discovery.md).
+
+
 ## Daily research allowance deployed — 2026-10-22
 
 Worker-only **776986f** replaces rolling-week5 attempts/25 requests with rolling
