@@ -269,14 +269,49 @@ class RecurringTests(Base):
             for j in range(5):self.s.reserve(run,lease['token'],str((i,j)));self.now+=2
             with self.assertRaisesRegex(Stop,'request_budget'):self.s.reserve(run,lease['token'],'extra')
             self.s.finish(lease,{'reason':'case_request_budget'})
-        with self.assertRaisesRegex(Stop,'weekly_case_budget'):self.s.lease(run)
+        with self.assertRaisesRegex(Stop,'daily_case_budget'):self.s.lease(run)
         self.s.end(run);self.s=RecurringStore(self.s.directory,clock=lambda:self.now)
-        summary=self.s.summary();self.assertEqual(summary['requests_rolling_week'],25);self.assertEqual(summary['requests_unknown'],25)
+        summary=self.s.summary();self.assertEqual(summary['requests_rolling_day'],25);self.assertEqual(summary['requests_unknown'],25)
         self.assertEqual(summary['states']['queued'],1)
-        self.now+=7*86400+1;run=self.s.start();self.assertIsNotNone(self.s.lease(run))
+        self.now+=86400+1;run=self.s.start();self.assertIsNotNone(self.s.lease(run))
+    def test_daily_window_preserves_history_and_exact_boundary(self):
+        start=self.now
+        for i in range(6):self.s.admit(case(i,False))
+        run=self.s.start()
+        for i in range(5):
+            lease=self.s.lease(run)
+            self.s.finish(lease,{'reason':'candidate_review'})
+        self.s.end(run)
+        self.now=start+86400-1
+        self.s=RecurringStore(self.s.directory,clock=lambda:self.now)
+        run=self.s.start()
+        with self.assertRaisesRegex(Stop,'daily_case_budget'):self.s.lease(run)
+        self.s.end(run)
+        self.now+=1
+        run=self.s.start();self.assertIsNotNone(self.s.lease(run))
+        with self.s.tx() as c:
+            self.assertEqual(c.execute('select count(*) from attempts').fetchone()[0],6)
+        self.assertEqual(self.s.summary()['cases_rolling_day'],1)
+
+    def test_daily_request_limit_blocks_before_lease_and_keeps_unknowns(self):
+        run,lease=self.ready()
+        with self.s.tx() as c:
+            for i in range(25):
+                c.execute('insert into requests values(NULL,?,?,"tmdb",?,?,NULL)',
+                          (run,lease['token'],str(i),self.now))
+        self.s.finish(lease,{'reason':'candidate_review'})
+        self.s.admit(case(2,False))
+        with self.assertRaisesRegex(Stop,'daily_request_budget'):self.s.lease(run)
+        self.assertEqual(self.s.summary()['cases_rolling_day'],1)
+        self.s.end(run);self.now+=86400
+        self.s=RecurringStore(self.s.directory,clock=lambda:self.now)
+        run=self.s.start();self.assertIsNotNone(self.s.lease(run))
+        self.assertEqual(self.s.summary()['requests_rolling_day'],0)
+        self.assertEqual(self.s.summary()['requests_unknown'],25)
+
     def test_interrupted_attempt_does_not_repeat_unknown_work(self):
         run,lease=self.ready();self.now+=601;run=self.s.start();self.assertIsNone(self.s.lease(run))
-        self.assertEqual(self.s.summary()['cases_rolling_week'],1)
+        self.assertEqual(self.s.summary()['cases_rolling_day'],1)
     def test_no_longer_eligible_is_retired_without_deleting_history(self):
         self.s.admit(case(1,False));self.s.reconcile([])
         run=self.s.start();self.assertIsNone(self.s.lease(run))

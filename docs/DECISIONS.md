@@ -530,3 +530,11 @@ This permits bounded metadata GETs by the isolated shadow process and supersedes
 D037's no-provider-requests condition only for that process. Preserve production
 matching, original research snapshots, conflicts for review and explicit download
 confirmation. No downloads, notifications, automatic promotion or pilot extension.
+
+## D039 — Bounded daily recurring research
+
+On2026-10-22 the owner authorized removing the weekly research bottleneck for
+three queued cases, with bounded requests, shadow-only deployment and no test
+notifications or downloads. Use rolling24h limits of5 attempts/25 requests,
+retaining5 requests per evidence version and all history/cooldowns/confinement.
+No automatic identity correction or production scoring activation.
