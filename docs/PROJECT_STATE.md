@@ -1,5 +1,18 @@
 # Movie List project state
 
+## Daily research allowance deployed — 2026-10-22
+
+Worker-only **776986f** replaces rolling-week5 attempts/25 requests with rolling
+24h limits, preserving5 requests/version, history and confinement. Actor658d8f8
+and shadowcf70212 unchanged. Full local/seedbox716 tests and CI pass, health200.
+All three queued cases investigated using9 requests; zero remain queued. Shadow
+checks added6 GETs but cannot complete fresh scoring: broad The Beast search
+exceeds3 candidates; two combined Wong Fei Hung aka titles return no candidates.
+ChinaII candidate10618 and The Beast914206 remain proposals; ChinaIII unresolved.
+Three maintenance digest versions suppressed; no downloads/notifications or
+identity corrections. [Report](reports/2026-10-22-daily-research-budget.md).
+
+
 ## Fresh evidence in shadow scoring — 2026-10-21
 
 Shadow **cf70212** deployed with bounded tracker/TMDb refresh and full NFO parsing,
