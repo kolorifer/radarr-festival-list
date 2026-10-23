@@ -372,3 +372,12 @@ No film-specific code or old context registry; all other conflicting identities
 remain blocked. Identity approval does not approve downloading; existing explicit
 acquisition confirmation and safeguards remain. This narrows D028's ban on stored
 repairs only for explicitly approved generic reviewed decisions.
+
+
+## D045 — Original-message recovery updates
+
+On 2026-10-23 the owner authorized editing the original Telegram notification
+after identification retry success or exhaustion, preserving explicit download
+confirmation and triggering no downloads. Retain bot-owned message receipts and
+the exact release privately; offer existing confirmation only after verification.
+Unverified cases stay review-only. No guessed historical IDs or message replays.

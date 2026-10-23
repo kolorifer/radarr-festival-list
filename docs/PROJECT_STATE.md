@@ -1,5 +1,17 @@
 # Movie List project state
 
+## Telegram retry recovery updates — 2026-10-23
+
+Production actor **2320281** deployed on isolated baseline658d8f8. Future retryable
+notifications retain private Telegram receipts and exact release references.
+Success/exhaustion edits the original message; verified identities offer the
+existing explicit confirmation page, while unverified cases remain review-only.
+Edits are durable, bounded and idempotent; no new messages are sent as fallback.
+All 664 runtime tests and both CI checks passed. Local/public health200; collector,
+research and shadow unchanged. Actions and retry history preserved. No live test
+notification, replay or download. Historical warnings lack message receipts and
+remain unchanged. [Report](reports/2026-10-23-retry-telegram-recovery.md), draftPR79.
+
 ## Automatic identity investigations — 2026-10-19
 
 Issue57's approved automatic pipeline is deployed at verified runtime
