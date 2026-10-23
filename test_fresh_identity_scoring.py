@@ -356,3 +356,9 @@ class CompleteAliasComparisonTests(unittest.TestCase):
         c=self.case();r=evaluate(c);r['source']=c['source'];r['selected_id']=None;r['decision']='review'
         apply_existing_conflict_guard(r,{'tmdb':456},{})
         self.assertIn('existing_identity_conflict_requires_review',r['reasons'])
+
+        for release in ({'tmdb':456},{'imdb':'tt1111111'}):
+            c=self.case();r=evaluate(c);r['source']=c['source']
+            apply_existing_conflict_guard(r,release,{'status':'needs_review','reason':'title_conflict',
+                'asserted_tmdb':123,'asserted_imdb':'tt1234567'})
+            self.assertEqual(r['decision'],'review')

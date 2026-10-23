@@ -109,10 +109,9 @@ def metadata_get(path, params, budget):
 def apply_existing_conflict_guard(scored, release, outcome):
     """A resolved title-only conflict may clear; asserted identity conflicts may not."""
     top=scored['ranked'][0]['candidate_id'] if scored.get('ranked') else None
-    asserted_tmdb=outcome.get('asserted_tmdb') or release.get('tmdb')
-    asserted_imdb=outcome.get('asserted_imdb') or release.get('imdb')
-    id_conflict=(bool(asserted_tmdb and asserted_tmdb!=top)
-                 or bool(asserted_imdb and asserted_imdb!=scored.get('source',{}).get('imdb')))
+    id_conflict=(any(value and value!=top for value in (outcome.get('asserted_tmdb'),release.get('tmdb')))
+                 or any(value and value!=scored.get('source',{}).get('imdb')
+                        for value in (outcome.get('asserted_imdb'),release.get('imdb'))))
     title_resolved=(scored.get('alias_resolution')=='complete_candidate_comparison'
                     and scored.get('decision')=='would_identify'
                     and outcome.get('reason')=='title_conflict')
