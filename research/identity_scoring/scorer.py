@@ -86,10 +86,11 @@ def score_candidate(source,candidate,policy=None):
     support=source.get('alias_search_support',[])
     # Search agreement is supporting evidence, not independent proof. Require
     # a documented alias, year and checked unique tracker-ID crosswalk as well.
-    search_agrees=(isinstance(support,list) and len(support)==len(aliases)
-                   and all(isinstance(r,dict) and r.get('query')==a
-                           and r.get('ids')==[candidate['id']] and r.get('count')==1
-                           for a,r in zip(aliases,support)))
+    valid_support=(isinstance(support,list) and len(support)==len(aliases)
+                   and all(isinstance(r,dict) and r.get('query')==a and r.get('complete',True) is True
+                           and isinstance(r.get('ids'),list) and r.get('count')==len(r['ids'])
+                           and all(type(i)==int for i in r['ids']) for a,r in zip(aliases,support)))
+    search_agrees=valid_support and set.intersection(*(set(r['ids']) for r in support))=={candidate['id']}
     corroborated=(search_agrees and any(catalog_aliases) and sy in years
                   and source.get('checked_listing') is True
                   and source.get('imdb') is not None and source.get('imdb')==candidate.get('imdb')
@@ -106,7 +107,12 @@ def score_candidate(source,candidate,policy=None):
     sl,cl=source.get('language'),candidate.get('language')
     for value in (sl,cl):
         if value is not None and (not isinstance(value,str) or not re.fullmatch('[a-z]{2,3}',value)):raise ValueError('language')
-    if sl is not None and cl is not None:
+    audio=source.get('audio_language_codes')
+    if audio is not None:
+        if not isinstance(audio,list) or any(not isinstance(x,str) or not re.fullmatch('[a-z]{2,3}',x) for x in audio):raise ValueError('audio_languages')
+        if cl is not None:
+            features['language']=1.0 if cl in audio else 0.0;observed.append('language')
+    elif sl is not None and cl is not None:
         features['language']=1.0 if sl==cl else -1.0;observed.append('language')
     si,ci=source.get('imdb'),candidate.get('imdb')
     for value in (si,ci):
@@ -119,12 +125,14 @@ def score_candidate(source,candidate,policy=None):
     if candidate.get('crosswalk_verified') is not True or ci is None:blocks.append('crosswalk_unverified')
     if source.get('checked_listing') is not True:blocks.append('source_not_checked')
     if source.get('conflicting_evidence') is not False:blocks.append('source_conflict_or_unknown')
-    if (sr is not None or sl is not None) and source.get('nfo_bound') is not True:blocks.append('nfo_not_bound_to_release')
+    if (sr is not None or sl is not None or bool(audio)) and source.get('nfo_bound') is not True:blocks.append('nfo_not_bound_to_release')
     contributions={k:policy.weights[k]*v for k,v in features.items()}
     # Missing rival facts must not create a falsely large winning margin.
-    comparable={'title':True,'year':sy is not None,'runtime':sr is not None,'language':sl is not None,'source_id':si is not None}
+    comparable={'title':True,'year':sy is not None,'runtime':sr is not None,'language':sl is not None or bool(audio),'source_id':si is not None}
     upper=sum(contributions.values())+sum(policy.weights[k] for k in comparable if comparable[k] and k not in observed)
-    return {'upper_score':upper,'candidate_id':candidate['id'],'title':titles[0], 'score':sum(contributions.values()),
+    if candidate.get('evidence_status')=='search_only':
+        upper=sum(policy.weights.values()) # Missing aliases/dates/details cannot prove a rival irrelevant.
+    return {**({'evidence_status':'search_only'} if candidate.get('evidence_status')=='search_only' else {}),'upper_score':upper,'candidate_id':candidate['id'],'title':titles[0], 'score':sum(contributions.values()),
             'contributions':contributions,'observed_attributes':observed,'title_similarity':similarity,
             'matched_title':titles[similarities.index(similarity)],'blocks':blocks}
 

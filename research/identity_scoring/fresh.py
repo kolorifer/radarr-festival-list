@@ -96,6 +96,25 @@ def unique_mapping(mapping, ident):
             and all(not mapping.get(k) for k in ('tv_results', 'tv_episode_results', 'tv_season_results', 'person_results')))
 
 
+def map_audio_tracks(facts, language_map):
+    codes=set()
+    for track in facts['audio_track_details']:
+        labels=' '.join(x for x in (track.get('title'),track.get('other_info')) if x)
+        eligible=track['role']!='commentary' and not re.search(r'\b(audio description|descriptive audio|isolated score|music only)\b',labels,re.I)
+        detail=track.get('language_detail')
+        named={name for name in language_map if re.search(r'(?<!\w)'+re.escape(name)+r'(?!\w)',track.get('title') or '',re.I)}
+        hints={detail.casefold()} if detail else named
+        base=track.get('language')
+        if not hints and base and base!='chinese':hints={base}
+        resolved=set().union(*(language_map.get(name,set()) for name in hints)) if hints else set()
+        code=next(iter(resolved)) if eligible and len(resolved)==1 and len(hints)==1 else None
+        if base and base!='chinese' and language_map.get(base) and resolved!=language_map[base]:code=None
+        track['scoring_language_code']=code
+        track['language_scoring_eligible']=bool(code)
+        if code:codes.add(code)
+    return sorted(codes)
+
+
 def build_case(release, listing, full_nfo, search, details, mappings, asserted_imdb=None):
     facts = nfo_facts(full_nfo)
     checked = listing.get('reason') in ('listing_id_found', 'listing_id_missing')
@@ -121,6 +140,7 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
     langs = facts['audio_languages']
     if langs and None not in langs and len(set(langs)) == 1 and len(language_map.get(langs[0], set())) == 1:
         source['language'] = next(iter(language_map[langs[0]]))
+    source['audio_language_codes']=map_audio_tracks(facts,language_map)
     candidates = []
     for ident, d in details.items():
         names = [d.get('title'), d.get('original_title')]
@@ -138,9 +158,15 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
     source['alias_search_support'] = search.get('alias_search_support', []) if isinstance(search,dict) else []
     rows = search.get('results', []) if isinstance(search, dict) else []
     ids = [x.get('id') for x in rows]
+    for row in rows:
+        if row['id'] in details:continue
+        names=list(dict.fromkeys(x for x in (row.get('title'),row.get('original_title')) if isinstance(x,str) and x))
+        date=row.get('release_date') or ''
+        candidates.append(dict(id=row['id'],titles=names or ['Unknown title'],years=[int(date[:4])] if date[:4].isdigit() else [],
+            runtime=None,language=None,imdb=None,media_type='movie',crosswalk_verified=False,evidence_status='search_only'))
     complete = (isinstance(search, dict) and search.get('page') == 1 and search.get('total_pages') == 1
-                and search.get('total_results') == len(rows) and 0 < len(rows) <= 3
-                and len(set(ids)) == len(ids) and set(ids).issubset(details))
+                and search.get('total_results') == len(rows) and 0 < len(rows) <= 41
+                and len(set(ids)) == len(ids) and search.get('discovery_complete',True) is True)
     for name in facts.pop('declared_movie_names', []):
         year = re.search(r'\((\d{4})\)\s*$', name)
         if year and int(year[1]) != release['year']:
@@ -163,4 +189,4 @@ def result(release, listing, full_nfo, search, details, mappings, asserted_imdb=
     return dict(**scored, source=case['source'], nfo_facts=facts,
                 evidence_digest=hashlib.sha256(full_nfo.encode()).hexdigest(),
                 arithmetic_pass=bool(top and top['score'] >= 70 and scored['margin'] >= 15),
-                evidence_gaps=facts['gaps'] + ([] if case['source']['language'] else ['source_language_unmapped']))
+                evidence_gaps=facts['gaps'] + ([] if case['source']['audio_language_codes'] else ['no_supported_film_audio_language']))

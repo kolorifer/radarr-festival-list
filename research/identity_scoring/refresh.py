@@ -12,7 +12,7 @@ import tempfile
 from unittest.mock import patch
 from .shadow import scan
 from .fresh import result, MAX_NFO
-from .scorer import source_titles
+from .scorer import source_titles, title_similarity
 
 
 def atomic(path, value):
@@ -142,36 +142,53 @@ def refresh_one(home, row, budget):
             if type(ident)!=int or not 0<ident<2**31:
                 raise RuntimeError('invalid_mapping')
             if ident not in ids:ids.append(ident)
-    searches=[]
+    direct_ids=set(ids); summaries={}; searches=[]; discovery_complete=True
     for title in source_titles(release['title']):
         response=get('/search/movie', {'query':title, 'include_adult':'false', 'page':1, 'language':'en-US'})
         rows=response.get('results', [])
-        if not isinstance(rows,list) or len(rows)>3:
+        if not isinstance(rows,list) or len(rows)>20:
             raise RuntimeError('candidate_capacity')
         page_ids=[r.get('id') for r in rows]
         if any(type(i)!=int or not 0<i<2**31 for i in page_ids) or len(set(page_ids))!=len(page_ids):
             raise RuntimeError('invalid_candidates')
-        if (response.get('page')!=1 or response.get('total_pages') not in ((1,) if rows else (0,1))
-                or response.get('total_results')!=len(rows)):
-            raise RuntimeError('candidate_search_incomplete')
-        searches.append({'query':title,'count':len(rows),'ids':page_ids})
+        complete=(response.get('page')==1 and response.get('total_pages') in ((1,) if rows else (0,1))
+                  and response.get('total_results')==len(rows))
+        discovery_complete &= complete
+        searches.append({'query':title,'count':len(rows),'ids':page_ids,'complete':complete})
+        for row in rows:
+            prior=summaries.get(row['id'])
+            if prior and any(prior.get(k)!=row.get(k) for k in ('title','original_title','release_date')):
+                discovery_complete=False
+            summaries.setdefault(row['id'],row)
         ids.extend(i for i in page_ids if i not in ids)
-        if len(ids)>3:raise RuntimeError('candidate_capacity')
+    if len(ids)>41:raise RuntimeError('candidate_capacity')
     if not ids:raise RuntimeError('candidate_search_empty')
-    # All queried pages were complete, including genuinely empty pages. Include
-    # IMDb-derived candidates in the merged set so they cannot be silently lost.
-    search={'page':1,'total_pages':1,'total_results':len(ids),'results':[{'id':i} for i in ids],'alias_search_support':searches}
+    search={'page':1,'total_pages':1,'total_results':len(ids),
+            'results':[summaries.get(i,{'id':i}) for i in ids],
+            'alias_search_support':searches,'discovery_complete':discovery_complete}
+    def priority(ident):
+        row=summaries.get(ident,{})
+        names=[n for n in (row.get('title'),row.get('original_title')) if isinstance(n,str) and n]
+        similarity=max([title_similarity(alias,name) for alias in source_titles(release['title']) for name in names] or [0])
+        year=(row.get('release_date') or '')[:4]==str(release['year'])
+        return (ident not in direct_ids,-(30*(2*similarity-1)+(20 if year else -20)),ident)
+    detail_ids=sorted(ids,key=priority)[:4]
     details = {}
-    for ident in ids:
+    for ident in detail_ids:
         d = get('/movie/'+str(ident), {'append_to_response':'external_ids,alternative_titles,translations,release_dates','language':'en-US'})
         if type(d.get('id')) != int or d.get('id') != ident:
             raise RuntimeError('details_id_conflict')
         details[ident] = d
-        candidate_imdb = (d.get('external_ids') or {}).get('imdb_id')
-        if candidate_imdb and re.fullmatch(r'tt[0-9]{7,10}', candidate_imdb) and candidate_imdb not in mappings:
-            mappings[candidate_imdb] = get('/find/'+candidate_imdb, {'external_source':'imdb_id','language':'en-US'})
+    # Crosswalk the provisional leader only. Rival metadata stays visible even
+    # without a reverse lookup; no requests are spent pretending it is approved.
     scored = result(release, listing, captured['nfo'], search, details, mappings,
                     outcome.get('asserted_imdb') or release.get('imdb'))
+    top=scored['ranked'][0]['candidate_id'] if scored['ranked'] else None
+    top_imdb=(details.get(top,{}).get('external_ids') or {}).get('imdb_id')
+    if isinstance(top_imdb,str) and re.fullmatch(r'tt[0-9]{7,10}',top_imdb) and top_imdb not in mappings:
+        mappings[top_imdb]=get('/find/'+top_imdb,{'external_source':'imdb_id','language':'en-US'})
+        scored=result(release, listing, captured['nfo'], search, details, mappings,
+                      outcome.get('asserted_imdb') or release.get('imdb'))
     # Existing conflicting source identities are not repaired by shadow refresh.
     asserted_tmdb = outcome.get('asserted_tmdb') or release.get('tmdb')
     if outcome.get('status') == 'needs_review' or (asserted_tmdb and scored.get('selected_id') not in (None, asserted_tmdb)):

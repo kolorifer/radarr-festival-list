@@ -555,3 +555,12 @@ search agreement may support an undocumented transliteration only alongside a
 documented alias, matching year and verified tracker IMDb crosswalk. Preserve
 conflict/sequel guards. Propose multilingual scoring separately, do not enable
 it. No downloads or notifications; existing request caps remain.
+
+## D042 — Multilingual audio points and bounded rival discovery in shadow
+
+On2026-10-23 the owner approved the multilingual proposal and removing ChinaII's
+three-result search bottleneck while keeping requests bounded and plausible
+rivals visible. Award language weight once for supported non-commentary audio
+matching original language; otherwise zero, without dub/commentary penalties.
+Shadow only; no downloads or notifications. Details stay bounded and unknown
+rivals must prevent unsupported confidence; no new production identification.

@@ -155,9 +155,10 @@ class FreshTests(unittest.TestCase):
             self.pipeline({'Example Movie':empty},{'reason':'listing_id_missing'})
 
     def test_partial_and_oversized_search_cannot_hide_rivals(self):
-        for response,reason in ((dict(self.search,total_pages=2),'candidate_search_incomplete'),
-                                (dict(self.search,total_results=4,results=[{'id':i} for i in range(1,5)]),'candidate_capacity')):
-            with self.assertRaisesRegex(RuntimeError,reason):self.pipeline({'Example Movie':response})
+        r,_=self.pipeline({'Example Movie':dict(self.search,total_pages=2)})
+        self.assertIn('candidate_set_incomplete',r['reasons'])
+        response=dict(self.search,total_results=21,results=[{'id':i} for i in range(1,22)])
+        with self.assertRaisesRegex(RuntimeError,'candidate_capacity'):self.pipeline({'Example Movie':response})
 
     def test_misleading_alias_cannot_borrow_correct_name(self):
         self.release['title']='Unrelated Movie aka Example Movie'
@@ -244,6 +245,50 @@ class FreshTests(unittest.TestCase):
         self.assertEqual(f['audio_track_details'][2]['role'],'commentary')
         self.assertEqual(f['filenames'],['Example.Movie.1997.REMUX'])
         self.assertIsNone(nfo_facts(nfo.replace('01:53:25','01:73:25'))['runtime'])
+
+    def test_multilingual_audio_bonus_once_excluding_commentary_and_uncertainty(self):
+        from research.identity_scoring.scorer import score_candidate
+        candidate={'id':1,'titles':['Example'],'years':[2000],'language':'fr','media_type':'movie',
+                   'crosswalk_verified':True,'imdb':'tt1234567'}
+        src={'title':'Example','year':2000,'checked_listing':True,'conflicting_evidence':False,'nfo_bound':True}
+        for codes,points in ((['fr','en'],10),(['fr','fr'],10),(['en'],0),([],0)):
+            self.assertEqual(score_candidate(dict(src,audio_language_codes=codes),candidate)['contributions']['language'],points)
+        r=self.score(NFO.replace('Language : French Default : No','Language : English Default : No'))
+        self.assertEqual(r['ranked'][0]['contributions']['language'],10)
+        r=self.score(NFO.replace('Title : 5.1 upmix','Title : Commentary').replace('Title : 2.0','Title : Commentary'))
+        self.assertEqual(r['ranked'][0]['contributions']['language'],0)
+
+    def test_chinese_varieties_need_explicit_labels_and_exclude_auxiliary_audio(self):
+        from research.identity_scoring.fresh import map_audio_tracks
+        tracks=[{'language':'chinese','language_detail':None,'title':title,'other_info':None,'role':role}
+                for title,role in ((None,'unspecified'),('Mono (Cantonese)','unspecified'),('Mandarin','commentary'),('Audio description (Mandarin)','unspecified'))]
+        facts={'audio_track_details':tracks}
+        self.assertEqual(map_audio_tracks(facts,{'cantonese':{'cn'},'mandarin':{'zh'}}),['cn'])
+        self.assertIsNone(tracks[0]['scoring_language_code'])
+        conflict={'audio_track_details':[{'language':'english','language_detail':None,'title':'French','role':'unspecified'}]}
+        self.assertEqual(map_audio_tracks(conflict,{'english':{'en'},'french':{'fr'}}),[])
+
+    def test_four_candidates_all_visible_and_details_bounded(self):
+        rows=[{'id':i,'title':'Example Movie' if i==123 else 'Rival '+str(i),'release_date':'1997-01-01'} for i in (123,124,125,126,127)]
+        response=dict(self.search,total_results=5,results=rows)
+        for i in (124,125,126,127):
+            self.details[i]=dict(self.details[123],id=i,title='Rival '+str(i),external_ids={'imdb_id':'tt7654321'})
+        r,calls=self.pipeline({'Example Movie':response})
+        self.assertEqual(len(r['ranked']),5)
+        self.assertEqual(sum(p.startswith('/movie/') for p,q in calls),4)
+        pending=[x for x in r['ranked'] if x.get('evidence_status')=='search_only']
+        self.assertEqual(len(pending),1);self.assertEqual(pending[0]['upper_score'],100)
+        self.assertEqual(r['decision'],'review');self.assertIn('insufficient_margin',r['reasons'])
+        self.assertLessEqual(len(calls)+1,10) # include tracker GET
+
+    def test_alias_intersection_keeps_disagreeing_rivals(self):
+        from research.identity_scoring.scorer import score_candidate
+        candidate={'id':123,'titles':['Example III'],'years':[1993],'media_type':'movie','imdb':'tt1234567','crosswalk_verified':True}
+        src={'title':'Romanized III aka Example III','year':1993,'imdb':'tt1234567','checked_listing':True,'conflicting_evidence':False,
+             'alias_search_support':[{'query':'Romanized III','ids':[123,456],'count':2,'complete':True},{'query':'Example III','ids':[123],'count':1,'complete':True}]}
+        self.assertNotIn('source_alias_not_corroborated',score_candidate(src,candidate)['blocks'])
+        src['alias_search_support'][1].update(ids=[123,456],count=2)
+        self.assertIn('source_alias_not_corroborated',score_candidate(src,candidate)['blocks'])
 
     def test_no_actor_acquisition_imports(self):
         s=Path('research/identity_scoring/refresh.py').read_text()
