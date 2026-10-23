@@ -1,5 +1,18 @@
 # Movie List project state
 
+## Complete alias comparisons — 2026-10-23
+
+Shadow **6659b9f** deployed; production actor **658d8f8** unchanged. Complete,
+strongly evidenced candidate comparisons can now resolve an ambiguous alias and
+its historical title-only conflict; actual conflicting IDs remain blocked.
+China II retained evidence now **would identify TMDb 10618**, score **99.45**,
+margin **111.34**, all four candidates visible. Verification used zero provider
+requests and preserved the evidence timestamp and request ledger. China III and
+Genealogies remain proposals; The Beast remains review-only. All 736 tests pass
+locally (two Linux-only skips) and on seedbox; both CI checks pass. Health 200,
+protected hashes unchanged. No downloads, notifications or production corrections.
+[Engineering report](reports/2026-10-23-complete-alias-comparison.md).
+
 ## Multilingual shadow scoring and bounded rivals — 2026-10-23
 
 Shadow **29b9ace** deployed; actor **658d8f8** unchanged. Approved multilingual
