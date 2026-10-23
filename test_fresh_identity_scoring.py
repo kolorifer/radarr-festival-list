@@ -362,3 +362,68 @@ class CompleteAliasComparisonTests(unittest.TestCase):
             apply_existing_conflict_guard(r,release,{'status':'needs_review','reason':'title_conflict',
                 'asserted_tmdb':123,'asserted_imdb':'tt1234567'})
             self.assertEqual(r['decision'],'review')
+
+class TargetedDiscoveryTests(unittest.TestCase):
+    def setUp(self):
+        self.f=FreshTests();self.f.setUp()
+        self.f.details[123].update(original_title='Titre original',release_date='1998-01-01',
+            release_dates={'results':[{'release_dates':[{'release_date':'1997-09-01'}]}]})
+    def test_targeted_year_queries_preserve_catalog_and_source_year(self):
+        f=self.f;r,calls=f.pipeline({'Example Movie':f.search,'Titre original':f.search})
+        queries=[q for p,q in calls if p=='/search/movie']
+        self.assertEqual([(q['query'],q['year']) for q in queries],
+                         [('Example Movie',1997),('Titre original',1997),('Titre original',1998)])
+        self.assertEqual(r['selected_id'],123)
+        self.assertEqual(r['discovery_scope']['kind'],'verified_id_targeted')
+        self.assertFalse(r['discovery_scope']['exhaustive_catalog_search'])
+        self.assertEqual(sum(p=='/movie/123' for p,q in calls),1)
+        self.assertLessEqual(len(calls)+1,10) # plus the exact listing GET
+    def test_targeted_rivals_and_pagination_are_not_hidden(self):
+        f=self.f
+        rows=[dict(f.search['results'][0],id=i,title='Example Movie',release_date='1997-01-01') for i in range(123,128)]
+        for i in range(124,128):f.details[i]=dict(f.details[123],id=i,external_ids={'imdb_id':'tt7654321'})
+        search=dict(f.search,total_results=5,results=rows)
+        r,calls=f.pipeline({'Example Movie':search,'Titre original':search})
+        self.assertEqual(len(r['ranked']),5)
+        self.assertEqual(sum(p.startswith('/movie/') for p,q in calls),4)
+        self.assertEqual(sum(c.get('evidence_status')=='search_only' for c in r['ranked']),1)
+        self.assertEqual(r['decision'],'review');self.assertIn('insufficient_margin',r['reasons'])
+        self.assertLessEqual(len(calls)+1,10)
+        search=dict(f.search,total_pages=2,total_results=21)
+        r,_=f.pipeline({'Example Movie':search,'Titre original':search})
+        self.assertIn('candidate_set_incomplete',r['reasons'])
+    def test_targeting_requires_unique_id_and_independent_evidence(self):
+        from research.identity_scoring.refresh import targeted_queries
+        for change in ('id','year','title','runtime','language','nfo','ambiguous_mapping'):
+            f=FreshTests();f.setUp();f.details[123]['original_title']='Titre original';nfo=NFO
+            if change=='id':f.details[123]['external_ids']['imdb_id']='tt7654321'
+            if change=='year':f.release['year']=1996
+            if change=='title':f.release['title']='Unrelated'
+            if change=='runtime':f.details[123]['runtime']=50
+            if change=='language':f.details[123]['original_language']='en'
+            if change=='nfo':nfo=''
+            if change=='ambiguous_mapping':f.maps['tt1234567']['movie_results'].append({'id':456})
+            with self.subTest(change=change):
+                self.assertIsNone(targeted_queries(f.release,f.listing,nfo,f.details,f.maps))
+    def test_local_catalog_recheck_requires_matching_present_records(self):
+        from research.identity_scoring.refresh import local_identity_recheck,apply_existing_conflict_guard
+        f=self.f;r,_=f.pipeline({'Example Movie':f.search,'Titre original':f.search})
+        for rows,status in [({},'missing'),({1:{'title':'Example Movie','year':1997,'imdb_id':'tt1234567'}},'agrees'),
+                ({1:{'title':'Example Movie','year':1997,'imdb_id':'tt7654321'}},'conflict'),
+                ({1:{'title':'Example Movie','year':1997,'imdb_id':'tt1234567','tmdb_id':456}},'conflict')]:
+            with patch('movie_intel.build_index',return_value=rows):check=local_identity_recheck(f.release,r)
+            self.assertEqual(check['status'],status)
+            scored=deepcopy(r);scored['local_identity_recheck']=check
+            apply_existing_conflict_guard(scored,f.release,{'status':'needs_review','reason':'local_identity_conflict'})
+            self.assertEqual(scored['decision']=='would_identify',status=='agrees')
+        scored=deepcopy(r);scored['local_identity_recheck']={'status':'agrees','imdb':'tt1234567','tmdb':123}
+        apply_existing_conflict_guard(scored,{'imdb':'tt7654321'},{'status':'needs_review','reason':'local_identity_conflict'})
+        self.assertEqual(scored['decision'],'review')
+    def test_budget_admission_does_not_spend_last_partial_allowance(self):
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'budget.json'
+            atomic(path,{'days':{'1970-01-01':38},'cooldowns':{},'suspended':[]})
+            before=path.read_bytes();b=Budget(path,lambda:100)
+            self.assertFalse(b.can_start_refresh());self.assertEqual(b.used,0)
+            self.assertEqual(path.read_bytes(),before)
+            self.assertTrue(Budget(path,lambda:86401).can_start_refresh())

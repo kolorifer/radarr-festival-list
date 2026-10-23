@@ -11,8 +11,8 @@ import time
 import tempfile
 from unittest.mock import patch
 from .shadow import scan
-from .fresh import result, MAX_NFO
-from .scorer import source_titles, title_similarity
+from .fresh import result, MAX_NFO, build_case, unique_mapping
+from .scorer import source_titles, title_similarity, score_candidate, words
 
 
 def atomic(path, value):
@@ -35,6 +35,10 @@ class Budget:
         self.data = json.loads(path.read_text()) if path.exists() else {'days': {}, 'cooldowns': {}, 'suspended': []}
         self.used = 0
         self.last_request = 0
+    def can_start_refresh(self):
+        day=time.strftime('%Y-%m-%d',time.gmtime(self.now()))
+        return self.data['days'].get(day,0)<=30
+
     def reserve(self, provider):
         now = self.now(); day = time.strftime('%Y-%m-%d', time.gmtime(now))
         if provider in self.data['suspended'] or self.data['cooldowns'].get(provider, 0) > now:
@@ -106,6 +110,47 @@ def metadata_get(path, params, budget):
             return json.loads(raw)
 
 
+def targeted_queries(release, listing, nfo, details, mappings):
+    """Scope discovery only after independent source facts support a unique ID.
+
+    This is completeness within explicit title/year queries, never a claim that
+    every similarly named movie in the catalog has been fetched.
+    """
+    if len(details)!=1 or len(source_titles(release['title']))!=1:return None
+    ident,d=next(iter(details.items()))
+    imdb=listing.get('imdb_id')
+    if not imdb or not unique_mapping(mappings.get(imdb),ident):return None
+    search={'page':1,'total_pages':1,'total_results':1,'results':[{'id':ident}]}
+    case,_=build_case(release,listing,nfo,search,details,mappings)
+    scored=score_candidate(case['source'],case['candidates'][0])
+    points=scored['contributions']
+    if (scored['blocks'] or points['title']!=30 or points['year']!=20
+        or points['source_id']!=25 or points['runtime']<=0 or points['language']<=0):return None
+    original=d.get('original_title')
+    if not isinstance(original,str) or not original.strip():return None
+    # Validate bounded title before sending it back as a query.
+    words(original)
+    year=release['year'];date=d.get('release_date') or ''
+    primary=int(date[:4]) if date[:4].isdigit() else year
+    queries=[(release['title'],year),(original,year),(original,primary)]
+    return list(dict.fromkeys(queries))
+
+
+def local_identity_recheck(release, scored):
+    """Read actor catalog only. Missing/ambiguous identities do not clear history."""
+    from movie_intel import build_index, _norm
+    wanted={_norm(t) for t in source_titles(release['title'])}
+    wanted.add(_norm(scored['ranked'][0]['title']))
+    hits=[r for r in build_index().values()
+          if str(r.get('year'))==str(release['year'])
+          and any(_norm(t) in wanted for t in [r.get('title'),*r.get('aliases',[])] if t)]
+    if not hits:return {'status':'missing'}
+    ident=scored['ranked'][0]['candidate_id'];imdb=scored['source'].get('imdb')
+    agrees=all(r.get('imdb_id')==imdb and r.get('tmdb_id') in (None,ident) for r in hits)
+    return {'status':'agrees' if agrees else 'conflict','matched_records':len(hits),
+            'imdb':imdb if agrees else None,'tmdb':ident if agrees else None}
+
+
 def apply_existing_conflict_guard(scored, release, outcome):
     """A resolved title-only conflict may clear; asserted identity conflicts may not."""
     top=scored['ranked'][0]['candidate_id'] if scored.get('ranked') else None
@@ -115,7 +160,13 @@ def apply_existing_conflict_guard(scored, release, outcome):
     title_resolved=(scored.get('alias_resolution')=='complete_candidate_comparison'
                     and scored.get('decision')=='would_identify'
                     and outcome.get('reason')=='title_conflict')
-    if id_conflict or (outcome.get('status')=='needs_review' and not title_resolved):
+    recheck=scored.get('local_identity_recheck',{})
+    local_resolved=(outcome.get('reason')=='local_identity_conflict'
+                    and scored.get('decision')=='would_identify'
+                    and scored.get('discovery_scope',{}).get('kind')=='verified_id_targeted'
+                    and recheck.get('status')=='agrees' and recheck.get('tmdb')==top
+                    and recheck.get('imdb')==scored.get('source',{}).get('imdb'))
+    if id_conflict or (outcome.get('status')=='needs_review' and not (title_resolved or local_resolved)):
         scored.update(decision='review',selected_id=None)
         if 'existing_identity_conflict_requires_review' not in scored['reasons']:
             scored['reasons'].append('existing_identity_conflict_requires_review')
@@ -158,8 +209,20 @@ def refresh_one(home, row, budget):
                 raise RuntimeError('invalid_mapping')
             if ident not in ids:ids.append(ident)
     direct_ids=set(ids); summaries={}; searches=[]; discovery_complete=True
-    for title in source_titles(release['title']):
-        response=get('/search/movie', {'query':title, 'include_adult':'false', 'page':1, 'language':'en-US'})
+    details={}; plan=None
+    if len(ids)==1 and len(source_titles(release['title']))==1 and unique_mapping(mappings.get(imdb),ids[0]):
+        ident=ids[0]
+        d=get('/movie/'+str(ident), {'append_to_response':'external_ids,alternative_titles,translations,release_dates','language':'en-US'})
+        if type(d.get('id'))!=int or d['id']!=ident:raise RuntimeError('details_id_conflict')
+        details[ident]=d
+        plan=targeted_queries(release,listing,captured['nfo'],details,mappings)
+    scope={'kind':'verified_id_targeted' if plan else 'broad_title',
+           'basis':'checked_unique_imdb_title_year_nfo' if plan else 'title_queries',
+           'exhaustive_catalog_search':False}
+    for title,year in (plan or [(t,None) for t in source_titles(release['title'])]):
+        params={'query':title, 'include_adult':'false', 'page':1, 'language':'en-US'}
+        if year is not None:params['year']=year
+        response=get('/search/movie',params)
         rows=response.get('results', [])
         if not isinstance(rows,list) or len(rows)>20:
             raise RuntimeError('candidate_capacity')
@@ -169,18 +232,19 @@ def refresh_one(home, row, budget):
         complete=(response.get('page')==1 and response.get('total_pages') in ((1,) if rows else (0,1))
                   and response.get('total_results')==len(rows))
         discovery_complete &= complete
-        searches.append({'query':title,'count':len(rows),'ids':page_ids,'complete':complete})
+        searches.append({'query':title,**({'year':year} if year is not None else {}),'count':len(rows),'ids':page_ids,'complete':complete})
         for row in rows:
             prior=summaries.get(row['id'])
             if prior and any(prior.get(k)!=row.get(k) for k in ('title','original_title','release_date')):
                 discovery_complete=False
             summaries.setdefault(row['id'],row)
         ids.extend(i for i in page_ids if i not in ids)
-    if len(ids)>41:raise RuntimeError('candidate_capacity')
+    if len(ids)>(61 if plan else 41):raise RuntimeError('candidate_capacity')
     if not ids:raise RuntimeError('candidate_search_empty')
     search={'page':1,'total_pages':1,'total_results':len(ids),
             'results':[summaries.get(i,{'id':i}) for i in ids],
-            'alias_search_support':searches,'discovery_complete':discovery_complete}
+            'alias_search_support':searches,'discovery_complete':discovery_complete,
+            'discovery_scope':scope}
     def priority(ident):
         row=summaries.get(ident,{})
         names=[n for n in (row.get('title'),row.get('original_title')) if isinstance(n,str) and n]
@@ -188,8 +252,8 @@ def refresh_one(home, row, budget):
         year=(row.get('release_date') or '')[:4]==str(release['year'])
         return (ident not in direct_ids,-(30*(2*similarity-1)+(20 if year else -20)),ident)
     detail_ids=sorted(ids,key=priority)[:4]
-    details = {}
     for ident in detail_ids:
+        if ident in details:continue
         d = get('/movie/'+str(ident), {'append_to_response':'external_ids,alternative_titles,translations,release_dates','language':'en-US'})
         if type(d.get('id')) != int or d.get('id') != ident:
             raise RuntimeError('details_id_conflict')
@@ -204,6 +268,10 @@ def refresh_one(home, row, budget):
         mappings[top_imdb]=get('/find/'+top_imdb,{'external_source':'imdb_id','language':'en-US'})
         scored=result(release, listing, captured['nfo'], search, details, mappings,
                       outcome.get('asserted_imdb') or release.get('imdb'))
+    scored['discovery_scope']=scope
+    if outcome.get('reason')=='local_identity_conflict' and scored['decision']=='would_identify' and plan:
+        try:scored['local_identity_recheck']=local_identity_recheck(release,scored)
+        except Exception:scored['local_identity_recheck']={'status':'unavailable'}
     apply_existing_conflict_guard(scored, release, outcome)
     return dict(**scored, candidate_searches=searches, refreshed_at=time.time(), listing_reason=listing['reason'],
                 full_nfo=captured, description=listing.get('torrent_evidence', {}).get('description', {}),
@@ -236,10 +304,13 @@ def run():
     due=[r for r in eligible if now-saved.get(r['key'],{}).get('attempted',0)>=
          (86400 if saved.get(r['key'],{}).get('fresh') else 3600)]
     due.sort(key=lambda r:saved.get(r['key'],{}).get('attempted',0))
-    if due:
+    budget=Budget(state/'refresh-budget.json')
+    if due and not budget.can_start_refresh():
+        report['refresh_deferred']='insufficient_daily_budget_for_complete_refresh'
+        report['deferred_cases']=len(due)
+    if due and budget.can_start_refresh():
         row=due[0]; entry={'attempted':now}; saved[row['key']]=entry
         atomic(ledger,saved)  # A process kill cannot create an unlimited retry loop.
-        budget=Budget(state/'refresh-budget.json')
         try:
             entry['fresh']=refresh_one(home,row,budget)
         except Exception as exc:

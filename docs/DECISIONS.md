@@ -573,3 +573,11 @@ A fully evidenced clear winner may clear its alias gate and a historical
 **title_conflict** only. Preserve score weights, thresholds, sequel checks,
 source/NFO binding, asserted IMDb/TMDb checks and bounded request limits. Apply
 only in shadow, with tests and safe deployment; no downloads or notifications.
+
+## D044 — Verified-ID targeted discovery in shadow
+
+On 2026-10-23 the owner approved bounded discovery from a verified tracker IMDb
+mapping, original title and relevant year, starting with The Beast. Keep plausible
+rivals visible and actual conflicting IDs blocked. A historical local conflict
+may clear only after current evidence and a read-only local-catalog recheck agree.
+Shadow only; no downloads, notifications, production activation or budget increase.

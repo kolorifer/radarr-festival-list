@@ -165,7 +165,7 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
         candidates.append(dict(id=row['id'],titles=names or ['Unknown title'],years=[int(date[:4])] if date[:4].isdigit() else [],
             runtime=None,language=None,imdb=None,media_type='movie',crosswalk_verified=False,evidence_status='search_only'))
     complete = (isinstance(search, dict) and search.get('page') == 1 and search.get('total_pages') == 1
-                and search.get('total_results') == len(rows) and 0 < len(rows) <= 41
+                and search.get('total_results') == len(rows) and 0 < len(rows) <= (61 if search.get('discovery_scope',{}).get('kind')=='verified_id_targeted' else 41)
                 and len(set(ids)) == len(ids) and search.get('discovery_complete',True) is True)
     for name in facts.pop('declared_movie_names', []):
         year = re.search(r'\((\d{4})\)\s*$', name)
