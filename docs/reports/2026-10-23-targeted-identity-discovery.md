@@ -63,7 +63,65 @@ then. The unchanged October 27 pilot deadline still applies.
 
 ## Tests and deployment
 
-Pending full checks. New regression tests cover scoped source/original-title
+New regression tests cover scoped source/original-title
 years, exact-ID prerequisites, missing/conflicting evidence, visible unchecked
 rivals, pagination, four-detail/ten-request bounds, catalog agreement/conflicts,
 and admission with insufficient daily allowance.
+
+
+## Components and validation
+
+- `refresh.py`: verified-ID query planning, bounded detail reuse, scoped search
+  audit, explicit installed-catalog recheck, independent conflict guards and
+  whole-refresh daily admission.
+- `fresh.py`: retains up to 61 results only for the three-query targeted scope;
+  existing broad discovery limit and scorer upper bounds remain unchanged.
+- `test_fresh_identity_scoring.py`: five additional methods with adversarial
+  subcases; targeted module passes 39 tests.
+
+Final runtime **ab88fbd**, built on initial implementation 0c91d3d. Seedbox full
+suite: **741 tests passed, 47.177s**. Python 3.12/3.13 CI passed on that exact head
+(run 39924410859). The initial implementation passed 741 tests locally in
+146.758s with two Linux-only skips; final local/deployment results follow below.
+
+The catalog recheck explicitly receives the installed actor directory. It does
+not read the shadow checkout's potentially different catalog, and tests assert
+that binding. No production code/catalog or identity state is changed.
+
+
+## Deployment result — 2026-10-23
+
+Final local suite: **741 tests passed**, two Linux-only skips, **149.404s**.
+Shadow **ab88fbd** deployed from the tested isolated archive; code hashes match.
+Private backup: `identity-scoring-shadow-backup-6w7v4fci`. The shadow service ran
+successfully and its existing timer resumed. Local movie-intel health returned
+HTTP 200; movie-intel, collector and research timer remained active. Production
+actor remains **658d8f838aed7a03db7d01244254362fba99369a**.
+
+Protected actor/config/action state, research timer, pilot deadline, shadow
+request ledger and retained refresh ledger were byte-for-byte unchanged. The
+verification made **zero provider requests**, triggered no research, downloads
+or notifications, and did not restart the actor. Code rollback restores only
+the previous shadow unit/archive, preserving ledgers and action history.
+
+Read-only exact-occurrence and installed-catalog checks confirm one local record
+agrees with The Beast's retained IMDb tt14407336 / candidate TMDb 914206. The
+current shadow result remains **review, score 100**, from the earlier broad
+search. No real targeted search has yet run under the new code. The old broad
+rivals and their review reasons remain visible; they were not retroactively
+removed or replaced with synthetic results.
+
+The current 38/40 daily allowance cannot admit a complete refresh. The normal
+hourly worker will use targeted discovery when both the daily budget and existing
+24-hour evidence freshness window permit. No refresh timestamp was reset to
+force admission. Tests prove the query/scoring path and budget deferral, while
+live targeted candidate coverage remains **pending**. This distinction is the
+main remaining verification limitation. The installed generic rule may still
+return review if actual targeted searches paginate or leave plausible rivals
+unchecked; no specific outcome is guaranteed.
+
+China II, China III and Genealogies retained proposals are unchanged. Pilot
+coverage remains eight historical snapshots plus four new cases. PR #78 remains
+draft, and production matching has not been activated. The passive monitor now
+tracks the first actual targeted result without repeating the known budget wait.
+D044 and project state were updated; the unrelated active cleanup task remains.

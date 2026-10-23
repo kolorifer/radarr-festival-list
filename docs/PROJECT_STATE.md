@@ -1,5 +1,20 @@
 # Movie List project state
 
+## Verified-ID targeted shadow discovery — 2026-10-23
+
+Shadow **ab88fbd** deployed; actor **658d8f8** unchanged. Strong verified IMDb,
+title/year and bound NFO support can scope discovery to at most three deduplicated
+source/original-title year queries. At most four detailed candidates; unchecked
+rivals stay visible and blocking. Current installed catalog agreement is required
+to clear a historical local conflict; actual conflicting IDs remain blocked.
+All 741 local/seedbox tests and both CI checks passed; health 200. Deployment
+used zero provider requests and preserved ledgers, actions and pilot deadline.
+The Beast's catalog agrees with retained tt14407336, but its actual targeted
+search is **pending normal budget/freshness admission** (daily usage 38/40).
+Its retained 100-point broad-search review result is unchanged. No downloads,
+notifications or production identity changes. Monitor follows the first real
+result. [Engineering report](reports/2026-10-23-targeted-identity-discovery.md).
+
 ## Complete alias comparisons — 2026-10-23
 
 Shadow **6659b9f** deployed; production actor **658d8f8** unchanged. Complete,
