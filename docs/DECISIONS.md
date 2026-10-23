@@ -503,3 +503,12 @@ review receipt for audit and distinguish it from automatic verification. A new
 accepted source event reopens the case with fresh evidence and a choice, even for
 the same torrent. Preserve the conflicting source assertions, history, existing
 matching rules and explicit download confirmation. No live downloads are authorized.
+
+
+## D045 — Original-message recovery updates
+
+On 2026-10-23 the owner authorized editing the original Telegram notification
+after identification retry success or exhaustion, preserving explicit download
+confirmation and triggering no downloads. Retain bot-owned message receipts and
+the exact release privately; offer existing confirmation only after verification.
+Unverified cases stay review-only. No guessed historical IDs or message replays.
