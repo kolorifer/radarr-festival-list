@@ -411,7 +411,9 @@ class TargetedDiscoveryTests(unittest.TestCase):
         for rows,status in [({},'missing'),({1:{'title':'Example Movie','year':1997,'imdb_id':'tt1234567'}},'agrees'),
                 ({1:{'title':'Example Movie','year':1997,'imdb_id':'tt7654321'}},'conflict'),
                 ({1:{'title':'Example Movie','year':1997,'imdb_id':'tt1234567','tmdb_id':456}},'conflict')]:
-            with patch('movie_intel.build_index',return_value=rows):check=local_identity_recheck(f.release,r)
+            with patch('production_scoring.load_catalog',return_value=rows) as load:
+                check=local_identity_recheck(f.release,r,Path('/installed/actor'))
+                load.assert_called_once_with(Path('/installed/actor'))
             self.assertEqual(check['status'],status)
             scored=deepcopy(r);scored['local_identity_recheck']=check
             apply_existing_conflict_guard(scored,f.release,{'status':'needs_review','reason':'local_identity_conflict'})

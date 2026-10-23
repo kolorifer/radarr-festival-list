@@ -136,12 +136,13 @@ def targeted_queries(release, listing, nfo, details, mappings):
     return list(dict.fromkeys(queries))
 
 
-def local_identity_recheck(release, scored):
+def local_identity_recheck(release, scored, actor_root):
     """Read actor catalog only. Missing/ambiguous identities do not clear history."""
-    from movie_intel import build_index, _norm
+    from movie_intel import _norm
+    from production_scoring import load_catalog
     wanted={_norm(t) for t in source_titles(release['title'])}
     wanted.add(_norm(scored['ranked'][0]['title']))
-    hits=[r for r in build_index().values()
+    hits=[r for r in load_catalog(actor_root).values()
           if str(r.get('year'))==str(release['year'])
           and any(_norm(t) in wanted for t in [r.get('title'),*r.get('aliases',[])] if t)]
     if not hits:return {'status':'missing'}
@@ -270,7 +271,7 @@ def refresh_one(home, row, budget):
                       outcome.get('asserted_imdb') or release.get('imdb'))
     scored['discovery_scope']=scope
     if outcome.get('reason')=='local_identity_conflict' and scored['decision']=='would_identify' and plan:
-        try:scored['local_identity_recheck']=local_identity_recheck(release,scored)
+        try:scored['local_identity_recheck']=local_identity_recheck(release,scored,home/'radarr-festival-list')
         except Exception:scored['local_identity_recheck']={'status':'unavailable'}
     apply_existing_conflict_guard(scored, release, outcome)
     return dict(**scored, candidate_searches=searches, refreshed_at=time.time(), listing_reason=listing['reason'],
