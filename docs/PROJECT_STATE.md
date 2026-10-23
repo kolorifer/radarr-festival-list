@@ -1,5 +1,19 @@
 # Movie List project state
 
+## Multilingual shadow scoring and bounded rivals — 2026-10-23
+
+Shadow **29b9ace** deployed; actor **658d8f8** unchanged. Approved multilingual
+rule awards language points once for a recognized film track; commentary does
+not contribute. China II now completes fresh scoring with all four rivals
+detailed: **99.45**, still review due alias ambiguity and the existing conflict
+guard. China III **98.66**, would identify TMDb 10619 in shadow. The Beast now
+fresh **100**, still review because broad discovery is incomplete and unknown
+rivals preserve a zero margin. Existing limits remain 10 requests/run, 40/day;
+validation plus normal run used 20 GETs, daily total 38. All 732 local/seedbox
+tests and both CI checks passed; health 200 and services active. No downloads,
+notifications or production identity changes. Pilot end remains October 27.
+[Engineering report](reports/2026-10-23-multilingual-rival-discovery.md).
+
 ## Shadow NFO tracks and alias corroboration — 2026-10-22
 
 Shadow **db8c3c2** deployed; actor658d8f8 unchanged. Dotted/numbered NFO layouts
