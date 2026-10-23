@@ -137,6 +137,35 @@ def score_candidate(source,candidate,policy=None):
             'matched_title':titles[similarities.index(similarity)],'blocks':blocks}
 
 
+def resolve_alias_comparison(source, ranked, complete, policy=None):
+    """Resolve only an alias gate, using a complete, strongly evidenced comparison.
+
+    Also accepts retained ranked evidence for offline shadow re-evaluation. Never
+    clears ID, sequel, provenance, NFO or source-conflict blocks.
+    """
+    policy=policy or Policy()
+    if complete is not True or not ranked:return False
+    top=ranked[0]; aliases=source_titles(source['title'])
+    support=source.get('alias_search_support',[])
+    if len(aliases)!=2 or not isinstance(support,list) or len(support)!=2:return False
+    ids={r['candidate_id'] for r in ranked}
+    if len(ids)!=len(ranked):return False
+    for alias,row in zip(aliases,support):
+        if (not isinstance(row,dict) or row.get('query')!=alias or row.get('complete') is not True
+            or not isinstance(row.get('ids'),list) or row.get('count')!=len(row['ids'])
+            or any(type(i)!=int for i in row['ids']) or len(set(row['ids']))!=len(row['ids'])
+            or not set(row['ids'])<=ids or top['candidate_id'] not in row['ids']):return False
+    if top['blocks']!=['source_alias_not_corroborated']:return False
+    if source.get('checked_listing') is not True or source.get('conflicting_evidence') is not False or source.get('nfo_bound') is not True:return False
+    if any(r.get('evidence_status')=='search_only' or set(r['observed_attributes'])!=set(policy.weights) for r in ranked):return False
+    points=top['contributions']
+    if any(points[k]!=policy.weights[k] for k in ('title','year','source_id')) or points['runtime']<=0 or points['language']<=0:return False
+    margin=top['score']-max([r['upper_score'] for r in ranked[1:]] or [0])
+    if top['score']<policy.threshold or margin<policy.margin:return False
+    top['blocks'].remove('source_alias_not_corroborated')
+    return True
+
+
 def evaluate(case,policy=None):
     policy=policy or Policy();candidates=case.get('candidates')
     if not isinstance(candidates,list) or len(candidates)>100:raise ValueError('candidate_capacity')
@@ -145,10 +174,12 @@ def evaluate(case,policy=None):
     ranked.sort(key=lambda r:(-r['score'],r['candidate_id']))
     if not ranked:return {'decision':'review','selected_id':None,'ranked':[],'margin':None,'reasons':['no_candidates']}
     top=ranked[0];margin=top['score']-max([r['upper_score'] for r in ranked[1:]] or [0])
+    resolved=resolve_alias_comparison(case['source'],ranked,case.get('candidate_set_complete'),policy)
     reasons=list(top['blocks'])
     if case.get('candidate_set_complete') is not True:reasons.append('candidate_set_incomplete')
     if top['score']<policy.threshold:reasons.append('score_below_threshold')
     if margin<policy.margin:reasons.append('insufficient_margin')
     accepted=not reasons
     return {'decision':'would_identify' if accepted else 'review','selected_id':top['candidate_id'] if accepted else None,
-            'ranked':ranked,'margin':margin,'reasons':reasons}
+            'ranked':ranked,'margin':margin,'reasons':reasons,
+            **({'alias_resolution':'complete_candidate_comparison'} if resolved else {})}

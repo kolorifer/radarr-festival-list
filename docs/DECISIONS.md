@@ -564,3 +564,12 @@ rivals visible. Award language weight once for supported non-commentary audio
 matching original language; otherwise zero, without dub/commentary penalties.
 Shadow only; no downloads or notifications. Details stay bounded and unknown
 rivals must prevent unsupported confidence; no new production identification.
+
+## D043 — Complete comparisons may resolve alias ambiguity in shadow
+
+On 2026-10-23 the owner approved allowing complete candidate comparisons to
+resolve ambiguous alias searches, while preserving actual conflicting-ID blocks.
+A fully evidenced clear winner may clear its alias gate and a historical
+**title_conflict** only. Preserve score weights, thresholds, sequel checks,
+source/NFO binding, asserted IMDb/TMDb checks and bounded request limits. Apply
+only in shadow, with tests and safe deployment; no downloads or notifications.

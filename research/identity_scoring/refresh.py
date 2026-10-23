@@ -106,6 +106,22 @@ def metadata_get(path, params, budget):
             return json.loads(raw)
 
 
+def apply_existing_conflict_guard(scored, release, outcome):
+    """A resolved title-only conflict may clear; asserted identity conflicts may not."""
+    top=scored['ranked'][0]['candidate_id'] if scored.get('ranked') else None
+    asserted_tmdb=outcome.get('asserted_tmdb') or release.get('tmdb')
+    asserted_imdb=outcome.get('asserted_imdb') or release.get('imdb')
+    id_conflict=(bool(asserted_tmdb and asserted_tmdb!=top)
+                 or bool(asserted_imdb and asserted_imdb!=scored.get('source',{}).get('imdb')))
+    title_resolved=(scored.get('alias_resolution')=='complete_candidate_comparison'
+                    and scored.get('decision')=='would_identify'
+                    and outcome.get('reason')=='title_conflict')
+    if id_conflict or (outcome.get('status')=='needs_review' and not title_resolved):
+        scored.update(decision='review',selected_id=None)
+        if 'existing_identity_conflict_requires_review' not in scored['reasons']:
+            scored['reasons'].append('existing_identity_conflict_requires_review')
+
+
 def refresh_one(home, row, budget):
     import tracker_metadata as tracker
     from identity_request_guard import guarded
@@ -189,11 +205,7 @@ def refresh_one(home, row, budget):
         mappings[top_imdb]=get('/find/'+top_imdb,{'external_source':'imdb_id','language':'en-US'})
         scored=result(release, listing, captured['nfo'], search, details, mappings,
                       outcome.get('asserted_imdb') or release.get('imdb'))
-    # Existing conflicting source identities are not repaired by shadow refresh.
-    asserted_tmdb = outcome.get('asserted_tmdb') or release.get('tmdb')
-    if outcome.get('status') == 'needs_review' or (asserted_tmdb and scored.get('selected_id') not in (None, asserted_tmdb)):
-        scored.update(decision='review', selected_id=None)
-        scored['reasons'].append('existing_identity_conflict_requires_review')
+    apply_existing_conflict_guard(scored, release, outcome)
     return dict(**scored, candidate_searches=searches, refreshed_at=time.time(), listing_reason=listing['reason'],
                 full_nfo=captured, description=listing.get('torrent_evidence', {}).get('description', {}),
                 screenshots=listing.get('torrent_evidence', {}).get('images', []),

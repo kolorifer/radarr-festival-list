@@ -296,3 +296,63 @@ class FreshTests(unittest.TestCase):
             self.assertNotIn(forbidden,s)
 
 if __name__=='__main__':unittest.main()
+
+class CompleteAliasComparisonTests(unittest.TestCase):
+    def case(self):
+        source={'title':'Romanized II aka Example II','year':1992,'imdb':'tt1234567',
+                'runtime':113.4,'audio_language_codes':['cn','en'],'checked_listing':True,
+                'conflicting_evidence':False,'nfo_bound':True,
+                'alias_search_support':[{'query':q,'ids':[123,456],'count':2,'complete':True}
+                    for q in ('Romanized II','Example II')]}
+        winner={'id':123,'titles':['Example II'],'years':[1992],'runtime':113,'language':'cn',
+                'imdb':'tt1234567','media_type':'movie','crosswalk_verified':True}
+        rival=dict(winner,id=456,titles=['Example III'],imdb='tt7654321',crosswalk_verified=False)
+        return {'source':source,'candidates':[winner,rival],'candidate_set_complete':True}
+    def test_complete_comparison_resolves_alias_without_dropping_rivals(self):
+        from research.identity_scoring.scorer import evaluate
+        r=evaluate(self.case())
+        self.assertEqual(r['selected_id'],123)
+        self.assertEqual(r['alias_resolution'],'complete_candidate_comparison')
+        self.assertEqual(len(r['ranked']),2)
+        self.assertIn('tracker_id_conflict',r['ranked'][1]['blocks'])
+    def test_incomplete_or_close_rivals_and_missing_support_stay_blocked(self):
+        from research.identity_scoring.scorer import evaluate
+        for change in ('incomplete','search_only','runtime','language','close','absent','pagination','omitted'):
+            with self.subTest(change=change):
+                c=self.case()
+                if change=='incomplete':c['candidate_set_complete']=False
+                if change=='search_only':c['candidates'][1]['evidence_status']='search_only'
+                if change in ('runtime','language'):c['candidates'][1][change]=None
+                if change=='close':c['candidates'][1]=dict(c['candidates'][0],id=456)
+                if change=='absent':c['source']['alias_search_support'][0].update(ids=[456],count=1)
+                if change=='pagination':c['source']['alias_search_support'][0]['complete']=False
+                if change=='omitted':c['source']['alias_search_support'][0].update(ids=[123,456,789],count=3)
+                self.assertEqual(evaluate(c)['decision'],'review')
+    def test_real_conflicts_and_provenance_cannot_be_outscored(self):
+        from research.identity_scoring.scorer import evaluate
+        for change in ('imdb','source','sequel','crosswalk','binding','unchecked','year','no_runtime','no_audio'):
+            with self.subTest(change=change):
+                c=self.case()
+                if change=='imdb':c['source']['imdb']='tt1111111'
+                if change=='source':c['source']['conflicting_evidence']=True
+                if change=='sequel':c['source']['title']='Romanized IV aka Example II'
+                if change=='crosswalk':c['candidates'][0]['crosswalk_verified']=False
+                if change=='binding':c['source']['nfo_bound']=False
+                if change=='unchecked':c['source']['checked_listing']=False
+                if change=='year':c['source']['year']=1991
+                if change=='no_runtime':c['source']['runtime']=None
+                if change=='no_audio':c['source']['audio_language_codes']=[]
+                self.assertEqual(evaluate(c)['decision'],'review')
+    def test_only_title_conflict_clears_and_asserted_ids_are_checked(self):
+        from research.identity_scoring.scorer import evaluate
+        from research.identity_scoring.refresh import apply_existing_conflict_guard
+        for reason,ids,accepted in [('title_conflict',{},True),('id_conflict',{},False),
+                (None,{},False),('title_conflict',{'asserted_imdb':'tt1111111'},False),
+                ('title_conflict',{'asserted_tmdb':456},False),
+                ('title_conflict',{'asserted_imdb':'tt1234567','asserted_tmdb':123},True)]:
+            c=self.case();r=evaluate(c);r['source']=c['source']
+            apply_existing_conflict_guard(r,{},dict(status='needs_review',reason=reason,**ids))
+            self.assertEqual(r['decision']=='would_identify',accepted)
+        c=self.case();r=evaluate(c);r['source']=c['source'];r['selected_id']=None;r['decision']='review'
+        apply_existing_conflict_guard(r,{'tmdb':456},{})
+        self.assertIn('existing_identity_conflict_requires_review',r['reasons'])
