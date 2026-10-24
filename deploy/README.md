@@ -366,3 +366,13 @@ between polls. Daily research timing still governs when findings reach the repor
 Disable by setting the flag to 0 and restarting only movie-intel. Preserve the
 ledger on disable/rollback. Health/preflight and the private-state backup procedure
 above apply; no test download or Radarr access is needed for this feature.
+
+### Action-specific Telegram topics
+
+`TELEGRAM_ADD_GRAB_TOPIC_ID` routes Unknown Movie/add-and-grab notifications,
+including temporary identity failures that may later gain a confirmation button.
+`TELEGRAM_GRAB_ANYWAY_TOPIC_ID` routes alternative-release offers. Unset overrides
+fall back to `TELEGRAM_TOPIC_ID`. General alerts and investigation digests use the
+default topic. All text chunks, poster fallbacks and supplemental images share
+one notification route. Retry edits address their saved original message IDs;
+historical messages are not moved or replayed. Topic IDs must be positive.

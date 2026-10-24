@@ -50,7 +50,7 @@ def configuration_errors(env=None):
     secret = env.get("MOVIE_INTEL_WEBHOOK_SECRET", "")
     if secret and (len(secret) < 32 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in secret)):
         errors.append("MOVIE_INTEL_WEBHOOK_SECRET must be at least 32 URL-safe characters")
-    for name in ("TELEGRAM_CHAT_ID", "TELEGRAM_TOPIC_ID", "MOVIE_INTEL_PORT", "MOVIE_INTEL_ACTION_TTL_SECONDS"):
+    for name in ("TELEGRAM_CHAT_ID", "TELEGRAM_TOPIC_ID", "TELEGRAM_ADD_GRAB_TOPIC_ID", "TELEGRAM_GRAB_ANYWAY_TOPIC_ID", "MOVIE_INTEL_PORT", "MOVIE_INTEL_ACTION_TTL_SECONDS"):
         value = env.get(name, "")
         if not value:
             continue
@@ -58,7 +58,7 @@ def configuration_errors(env=None):
             number = int(value)
             if name == "MOVIE_INTEL_PORT" and not 1 <= number <= 65535:
                 raise ValueError
-            if name in ("TELEGRAM_TOPIC_ID", "MOVIE_INTEL_ACTION_TTL_SECONDS") and number <= 0:
+            if name in ("TELEGRAM_TOPIC_ID", "TELEGRAM_ADD_GRAB_TOPIC_ID", "TELEGRAM_GRAB_ANYWAY_TOPIC_ID", "MOVIE_INTEL_ACTION_TTL_SECONDS") and number <= 0:
                 raise ValueError
         except ValueError:
             errors.append(f"{name} must be a valid integer in its supported range")

@@ -36,6 +36,7 @@ from radarr_client import (
 )
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
+from telegram_routing import notification_route, topic_fields
 import alternative_grab
 from film_editions import annotation as edition_annotation, candidate as edition_candidate, verified_film
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
@@ -504,12 +505,13 @@ def passthrough_message(payload):
 
 
 def _topic_fields():
-    if not TELEGRAM_TOPIC_ID:
-        return {}
-    try:
-        return {"message_thread_id": int(TELEGRAM_TOPIC_ID)}
-    except ValueError as exc:
-        raise RuntimeError("TELEGRAM_TOPIC_ID must be an integer") from exc
+    return topic_fields(TELEGRAM_TOPIC_ID)
+
+
+def notification_kind(payload):
+    if alternative_grab.candidate(payload):return 'alternative'
+    reasons=((payload.get('data') or {}).get('result') or {}).get('rejections') or []
+    return 'add_grab' if rejection_class(reasons)=='unknown_movie' else None
 
 
 def _reply_markup(action_url):
@@ -583,6 +585,16 @@ def send_telegram(text, parse_mode="HTML", action_url=None):
 
 
 def send_movie_notification(text, poster_url=None, action_url=None):
+    kind=None
+    if action_url:
+        action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
+        if action:
+            kind='alternative' if action.get('kind')=='alternative' else 'add_grab' if action.get('kind') not in ('identity_review',) else None
+    with notification_route(kind):
+        return _send_movie_notification(text,poster_url,action_url)
+
+
+def _send_movie_notification(text, poster_url=None, action_url=None):
     # Telegram photo captions are limited to 1024 characters after parsing.
     units = lambda value: len(value.encode('utf-16-le')) // 2
     if poster_url and units(text) <= 950:
@@ -1053,7 +1065,7 @@ class Handler(BaseHTTPRequestHandler):
                 if not token and os.environ.get(alternative_grab.CONFIG) and alternative_grab.quality_only(((payload.get('data') or {}).get('result') or {}).get('rejections')):
                     context['text'] += '\n\nGrab Anyway unavailable: the verified movie, unchanged existing file, or supported exact source reference could not be confirmed.'
                 from retry_telegram import capture
-                with capture() as receipts:
+                with notification_route(notification_kind(payload)), capture() as receipts:
                     send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
                 bind_retry_message(payload,context,receipts)
                 self._json(200, {
