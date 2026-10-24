@@ -51,3 +51,30 @@ No test notification or download is authorized. Set the flag only for the tested
 version. On rollback remove the new flag, retain all receipts/current action
 state, durably mark every alternative capability `needs_review` before running an older actor that does not recognize this action kind, switch back to the recorded actor commit and verify health. Never restore
 an old action store. Startup does not replay old notifications or make actions.
+
+
+### Submission acknowledgement and reconciliation
+
+The helper submits once, then makes at most five hash-filtered GET readbacks,
+with delays of 0, 0.25, 0.5, 1 and 2 seconds and per-request connect/read timeouts
+of 2/3 seconds. The enclosing helper process still has its 75-second limit.
+A lost/negative add acknowledgement can be resolved only by an exact hash in the
+`radarr` category. Missing, malformed, mismatched or unavailable evidence never
+permits another add. `queued` remains a submission observation, not import proof.
+
+Receipt migration preserves every original source/state/creation time and adds
+private `infohash`, `detail` (fixed reason codes only) and `updated` columns.
+The hash is committed before submission. Neither an expired action nor a process
+crash clears the durable source barrier. No background replay or automatic
+operator reconciliation is introduced.
+
+For an owner-authorized reconciliation, inspect the exact receipt and existing
+client torrent without fetching its source again. Require the client hash,
+category, completion and Radarr import history download ID to agree with the
+approved movie and current imported file. Legacy receipts without hashes need
+additional exact release-name and submission-time correlation; do not infer
+success from a similar title alone. Stop only the actor before editing its action
+store, back up current private stores, mark the receipt `imported` with private
+evidence, and retire only the corresponding capability. Preserve all other
+approvals and the receipt itself. An old link then returns expired/used (410).
+Never restore stale approval state or delete a receipt to enable a retry.

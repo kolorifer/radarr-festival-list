@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
+import sqlite3
 import unittest
 from unittest.mock import patch, Mock
 import alternative_grab as alt
@@ -42,7 +43,7 @@ class Session:
     def __init__(self,existing=False,fail=False):self.calls=[];self.cookies=Mock();self.existing=existing;self.fail=fail;self.added=False
     def request(self,method,url,**kw):
         self.calls.append((method,url,kw))
-        if url.endswith('/torrents/info'):return Response([{'hash':HASH}] if self.existing or self.added else [])
+        if url.endswith('/torrents/info'):return Response([{'hash':HASH,'category':'radarr'}] if self.existing or self.added else [])
         if url.endswith('/torrents/add') and self.fail:raise TimeoutError()
         if url.endswith('/torrents/add'):self.added=True
         return Response()
@@ -50,6 +51,7 @@ class Session:
 class AlternativeTests(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
+        p=patch.object(helper.time,'sleep');self.sleep=p.start();self.addCleanup(p.stop)
         self.cfg={'url':'https://client.invalid/qbit','username':'synthetic','password':'synthetic','category':'radarr','state':self.tmp.name+'/receipts'}
         p=patch.object(alt,'get_movie_by_tmdb',return_value=copy.deepcopy(CURRENT));self.current=p.start();self.addCleanup(p.stop)
         p=patch.object(actions,'STORE_PATH',Path(self.tmp.name)/'actions.json');p.start();self.addCleanup(p.stop)
@@ -162,3 +164,118 @@ class AlternativeTests(unittest.TestCase):
         for reason in [prefix+'',prefix+'unknown',prefix+'0 extra',prefix+'1.5',prefix+'01',prefix+'0\n',
                        'Minimum custom format score not met', 'prefix '+prefix+'0']:
             self.assertFalse(alt.quality_only([reason]))
+
+    def receipt(self):
+        with sqlite3.connect(Path(self.cfg['state'])/'receipts.sqlite3') as c:
+            return c.execute('select state,infohash,detail from receipt').fetchone()
+
+    def test_delayed_visibility_recovers_without_second_add(self):
+        s=Session();original=s.request;readbacks=iter([[],[],[{'hash':HASH,'category':'radarr'}]])
+        def request(method,url,**kw):
+            if s.added and url.endswith('/torrents/info'):
+                s.calls.append((method,url,kw));return Response(next(readbacks))
+            return original(method,url,**kw)
+        s.request=request
+        with patch.object(helper,'verify_client'):
+            self.assertEqual(helper.submit(ACTION,self.cfg,s),'queued')
+        self.assertEqual(sum(x[1].endswith('/torrents/add') for x in s.calls),1)
+        self.assertEqual(self.sleep.call_count,2)
+        self.assertEqual(self.receipt(),('queued',HASH,'hash_verified'))
+
+    def test_lost_add_acknowledgement_uses_hash_readback_only(self):
+        s=Session();original=s.request
+        def request(method,url,**kw):
+            result=original(method,url,**kw)
+            if url.endswith('/torrents/add'):raise TimeoutError('private URL must not be recorded')
+            return result
+        s.request=request
+        with patch.object(helper,'verify_client'):
+            self.assertEqual(helper.submit(ACTION,self.cfg,s),'queued')
+        self.assertEqual(sum(x[1].endswith('/torrents/add') for x in s.calls),1)
+        self.assertEqual(self.receipt(),('queued',HASH,'hash_verified_after_unconfirmed_add'))
+
+    def test_transient_readback_error_recovers(self):
+        s=Session();original=s.request;failed=False
+        def request(method,url,**kw):
+            nonlocal failed
+            if s.added and url.endswith('/torrents/info') and not failed:
+                failed=True;raise TimeoutError()
+            return original(method,url,**kw)
+        s.request=request
+        with patch.object(helper,'verify_client'):
+            self.assertEqual(helper.submit(ACTION,self.cfg,s),'queued')
+        self.assertEqual(self.receipt()[0],'queued')
+
+    def test_readback_exhaustion_is_bounded_and_durable(self):
+        s=Session();original=s.request;reads=[]
+        def request(method,url,**kw):
+            if s.added and url.endswith('/torrents/info'):
+                reads.append(kw);return Response([])
+            return original(method,url,**kw)
+        s.request=request
+        with patch.object(helper,'verify_client'):
+            self.assertEqual(helper.submit(ACTION,self.cfg,s),'uncertain')
+            calls=len(s.calls)
+            self.assertEqual(helper.submit(ACTION,self.cfg,s),'uncertain')
+            self.assertEqual(len(s.calls),calls)
+        self.assertEqual(len(reads),5)
+        self.assertTrue(all(r['timeout']==(2,3) and not r['allow_redirects'] for r in reads))
+        self.assertEqual(self.receipt(),('uncertain',HASH,'hash_not_visible'))
+
+    def test_unrelated_or_wrong_category_hash_never_confirms(self):
+        for rows,reason in [([{'hash':'0'*40,'category':'radarr'}],'readback_invalid'),
+                            ([{'hash':HASH,'category':'other'}],'category_mismatch'),
+                            ([{'hash':HASH,'category':'radarr'}]*2,'readback_invalid'),
+                            ({'hash':HASH},'readback_invalid'),(None,'readback_invalid')]:
+            with self.subTest(rows=rows):
+                s=Mock();s.request.return_value=Response(rows)
+                self.assertEqual(helper.confirm_submission(s,self.cfg['url'],HASH),(False,reason))
+                self.assertEqual(s.request.call_count,1)
+
+    def test_old_receipt_migration_preserves_replay_barrier(self):
+        state=Path(self.cfg['state']);state.mkdir(mode=0o700)
+        db=state/'receipts.sqlite3';key=alt.source_reference(RELEASE,ACTION['indexer'])[1]
+        with sqlite3.connect(db) as c:
+            c.execute('create table receipt(source text primary key,state text,created real)')
+            c.execute('insert into receipt values(?,?,?)',(key,'uncertain',123))
+        s=Session()
+        self.assertEqual(helper.submit(ACTION,self.cfg,s),'uncertain')
+        self.assertEqual(s.calls,[])
+        self.assertEqual(self.receipt(),('uncertain',None,None))
+
+    def test_submission_hash_is_durable_before_add(self):
+        s=Session();original=s.request
+        def request(method,url,**kw):
+            if url.endswith('/torrents/add'):
+                self.assertEqual(self.receipt(),('uncertain',HASH,'submission_started'))
+            return original(method,url,**kw)
+        s.request=request
+        with patch.object(helper,'verify_client'):
+            self.assertEqual(helper.submit(ACTION,self.cfg,s),'queued')
+
+    def test_delayed_client_visibility_over_real_local_http(self):
+        from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+        import threading
+        state={'adds':0,'reads':0}
+        class Handler(BaseHTTPRequestHandler):
+            def log_message(self,*args):pass
+            def do_POST(self):
+                self.rfile.read(int(self.headers.get('Content-Length',0)))
+                if self.path.endswith('/torrents/add'):state['adds']+=1
+                self.send_response(200);self.end_headers();self.wfile.write(b'Ok.')
+            def do_GET(self):
+                body=TORRENT
+                if self.path.startswith('/api/v2/torrents/info'):
+                    state['reads']+=1
+                    body=json.dumps([{'hash':HASH,'category':'radarr'}] if state['reads']>=4 else []).encode()
+                self.send_response(200);self.end_headers();self.wfile.write(body)
+        server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
+        thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+        try:
+            base='http://127.0.0.1:'+str(server.server_port)
+            cfg=dict(self.cfg,url=base)
+            with patch.object(helper,'source_reference',return_value=(base+'/fixture','synthetic-source')),patch.object(helper,'verify_client'):
+                self.assertEqual(helper.submit(ACTION,cfg),'queued')
+            self.assertEqual(state,{'adds':1,'reads':4})
+        finally:
+            server.shutdown();server.server_close();thread.join()
