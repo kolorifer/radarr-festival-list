@@ -38,3 +38,16 @@ class RivalBoundsTests(unittest.TestCase):
         c=self.case();c['candidate_set_complete']=True;r=evaluate(c)
         self.assertIsNone(r['rival_bound_audit']['unseen_upper_score'])
         self.assertEqual(r['ranked'][0]['contributions'],{'title':30,'year':20,'runtime':15,'language':10,'source_id':25})
+    def test_malformed_pagination_never_enables_bounds(self):
+        import test_fresh_identity_scoring as fixtures
+        t=fixtures.TargetedDiscoveryTests();t.setUp();f=t.f
+        malformed=dict(f.search,total_results=99,total_pages=1)
+        r,_=f.pipeline({'Example Movie':malformed,'Titre original':malformed})
+        self.assertFalse(r['discovery_integrity']);self.assertEqual(r['decision'],'review')
+        self.assertNotIn('unique_tracker_movie_id',r['source'])
+    def test_inconsistent_summary_never_enables_bounds(self):
+        import test_fresh_identity_scoring as fixtures
+        t=fixtures.TargetedDiscoveryTests();t.setUp();f=t.f
+        other=dict(f.search,results=[{'id':123,'title':'Different'}])
+        r,_=f.pipeline({'Example Movie':f.search,'Titre original':other})
+        self.assertFalse(r['discovery_integrity']);self.assertEqual(r['decision'],'review')

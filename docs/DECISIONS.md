@@ -598,3 +598,12 @@ Owner explicitly rejected the manually populated collection list. Replace it
 with bounded automatic source discovery and interpretation with cached findings.
 No special collection entries; retain inconclusive/conflicting cases for review.
 Shadow only, existing request caps and download confirmation preserved.
+
+
+## Generic unique-ID rival bounds — 2026-10-24
+
+Owner approved realistic rival upper bounds using verified unique identity
+evidence, including unseen pages, and upper-bound detail prioritization within
+existing request caps. Shadow only; preserve weights, thresholds, explicit
+download confirmation and actual ID conflicts. Known duplicate mappings or
+invalid evidence keep review. No specific movie exception.

@@ -1,5 +1,15 @@
 # Movie List project state
 
+## Unique-identity rival bounds — 2026-10-24
+
+Shadow **d04608b** deployed; actor **f34cd4d** preserved. Verified unique
+identity evidence bounds unknown/unseen rivals at75 while keeping30 Beast
+candidates visible. Offline retained replay: Beast100,margin25,would-identify
+914206; current local catalog agrees. Fresh live result pending normal schedule.
+All763 local/seedbox tests and bothCI pass; health200, protected state unchanged,
+zero deployment provider requests/downloads/notifications. No production scoring
+activation. [Report](reports/2026-10-24-identity-rival-bounds.md).
+
 ## Automatic edition discovery — 2026-10-24
 
 Shadow **bade2d6** replaces the rejected manual collection list with bounded
