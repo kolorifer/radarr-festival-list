@@ -1,5 +1,15 @@
 # Movie List project state
 
+## Automatic edition discovery — 2026-10-24
+
+Shadow **bade2d6** replaces the rejected manual collection list with bounded
+public-catalog discovery and cached source evidence. No collection/member
+registry remains. Development Bond50 replay discovers22 members and Goldfinger100;
+live fresh result pending normal admission. All755 local/seedbox tests and both
+CI pass. Health200, actor2320281 and protected state unchanged, zero deployment
+provider requests/downloads/notifications. Inconclusive evidence stays for review.
+[Report](reports/2026-10-24-automatic-edition-discovery.md).
+
 ## Sourced edition evidence in shadow — 2026-10-24
 
 Shadow **f67f60c** deployed; actor **2320281** unchanged. Generic documented

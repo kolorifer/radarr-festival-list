@@ -590,3 +590,11 @@ Use sourced packaging/member facts plus exact-occurrence evidence; preserve
 conflicting-ID review, meaningful title numbers and explicit download consent.
 No acquisition or production identity activation. Initial source is the supplied
 Bond 50 collection page; it is bibliographic evidence, not a torrent approval.
+
+
+## Automatic edition evidence supersedes manual membership data — 2026-10-24
+
+Owner explicitly rejected the manually populated collection list. Replace it
+with bounded automatic source discovery and interpretation with cached findings.
+No special collection entries; retain inconclusive/conflicting cases for review.
+Shadow only, existing request caps and download confirmation preserved.
