@@ -103,6 +103,51 @@ def verify_client(cfg,session):
     if prefs.get('autorun_enabled') or prefs.get('autorun_on_torrent_added_enabled'):raise ValueError('hooks')
 
 
+def open_receipts(db):
+    """Add private diagnostics without discarding any existing replay barrier."""
+    c=sqlite3.connect(db,timeout=5)
+    os.chmod(db,0o600)
+    c.execute('create table if not exists receipt(source text primary key,state text,created real)')
+    c.execute('create table if not exists receipt_detail(source text primary key,infohash text,detail text,updated real)')
+    c.commit()
+    return c
+
+
+def record_detail(c,key,detail,infohash=None):
+    # A separate table keeps the original three-column receipt compatible with rollback.
+    c.execute('insert into receipt_detail(source,infohash,detail,updated) values(?,?,?,?) '
+              'on conflict(source) do update set infohash=coalesce(excluded.infohash,receipt_detail.infohash), '
+              'detail=excluded.detail,updated=excluded.updated', (key,infohash,detail,time.time()))
+
+
+def confirm_submission(session,base,infohash):
+    """Only GETs: qBittorrent can acknowledge before its torrent is visible.
+
+    Also resolves a lost add acknowledgement if the exact hash is visible.
+    Nothing here can retry the add, fetch the source, or change a transfer.
+    """
+    detail='hash_not_visible'
+    for delay in (0,0.25,0.5,1,2):
+        if delay:time.sleep(delay)
+        try:
+            r=session.request('GET',base+'/api/v2/torrents/info',
+                              params={'hashes':infohash},timeout=(2,3),allow_redirects=False)
+            if r.status_code!=200:
+                detail='readback_http_error';continue
+            rows=r.json()
+        except Exception:
+            detail='readback_unavailable';continue
+        if rows==[]:
+            detail='hash_not_visible';continue
+        if (not isinstance(rows,list) or len(rows)!=1 or not isinstance(rows[0],dict)
+                or not isinstance(rows[0].get('hash'),str)
+                or rows[0]['hash'].lower()!=infohash):
+            return False,'readback_invalid'
+        if rows[0].get('category')!='radarr':return False,'category_mismatch'
+        return True,'hash_verified'
+    return False,detail
+
+
 def submit(action,cfg,session=None):
     validate_action(action)
     url,key=source_reference(action['release'],action['indexer'])
@@ -110,13 +155,12 @@ def submit(action,cfg,session=None):
     if state.is_symlink() or state.stat().st_mode&0o077:raise ValueError('state')
     db=state/'receipts.sqlite3'
     if db.is_symlink():raise ValueError('state')
-    c=sqlite3.connect(db,timeout=5);os.chmod(db,0o600)
-    c.execute('create table if not exists receipt(source text primary key,state text,created real)');c.commit()
+    c=open_receipts(db)
     try:
-        with c:c.execute('insert into receipt values(?,?,?)',(key,'uncertain',time.time()))
+        with c:c.execute('insert into receipt(source,state,created) values(?,?,?)',(key,'uncertain',time.time()))
     except sqlite3.IntegrityError:
         c.close();return 'uncertain' # never retry an older capability under another token
-    sent=False
+    sent=False;stage='source_fetch'
     try:
         s=session or requests.Session();s.trust_env=False
         # Fetch only the bound source URL; no redirects, fallback searches or substitutions.
@@ -126,31 +170,48 @@ def submit(action,cfg,session=None):
                 total+=len(chunk)
                 if total>4_000_000 or time.monotonic()-started>20:raise ValueError('torrent_limit')
                 chunks.append(chunk)
+        stage='torrent_validation'
         data=b''.join(chunks);infohash=torrent_hash(data)
+        with c:record_detail(c,key,'torrent_validated',infohash)
         base=cfg['url'].rstrip('/')
         # Never send tracker session state to the client or client credentials to the tracker.
         s.cookies.clear()
+        stage='client_login'
         r=request(s,'POST',base+'/api/v2/auth/login',data={'username':cfg['username'],'password':cfg['password']})
         if r.text.strip()!='Ok.':raise ValueError('auth')
+        stage='existing_hash_check'
         rows=request(s,'GET',base+'/api/v2/torrents/info',params={'hashes':infohash}).json()
         if not isinstance(rows,list):raise ValueError('client')
         if any(not isinstance(row,dict) or row.get('hash','').lower()!=infohash for row in rows):raise ValueError('hash')
         if rows:
-            status='already_present' # do not recategorize or mutate an existing transfer
+            status='already_present';detail='existing_hash_verified' # do not recategorize or mutate an existing transfer
         else:
+            stage='submission_preflight'
             validate_action(action) # movie/file/profile may have changed during source fetch
             verify_client(cfg,s)
-            sent=True
-            r=request(s,'POST',base+'/api/v2/torrents/add',files={'torrents':('release.torrent',data,'application/x-bittorrent')},data={'category':'radarr'})
-            if r.text.strip()!='Ok.':raise ValueError('unconfirmed')
-            confirmed=request(s,'GET',base+'/api/v2/torrents/info',params={'hashes':infohash}).json()
-            if not isinstance(confirmed,list) or len(confirmed)!=1 or confirmed[0].get('hash','').lower()!=infohash:raise ValueError('unconfirmed')
-            status='queued'
-        with c:c.execute('update receipt set state=? where source=?',(status,key))
+            # Commit the hash and stage before the only add call. A process timeout
+            # still leaves evidence for operator reconciliation, never permission to retry.
+            with c:record_detail(c,key,'submission_started')
+            sent=True;stage='submission'
+            acknowledged=False
+            try:
+                r=request(s,'POST',base+'/api/v2/torrents/add',files={'torrents':('release.torrent',data,'application/x-bittorrent')},data={'category':'radarr'})
+                acknowledged=r.text.strip()=='Ok.'
+            except Exception:
+                pass # the client may already have accepted it; read only from here
+            with c:record_detail(c,key,'add_acknowledged' if acknowledged else 'add_unconfirmed')
+            confirmed,detail=confirm_submission(s,base,infohash)
+            status='queued' if confirmed else 'uncertain'
+            if confirmed and not acknowledged:detail='hash_verified_after_unconfirmed_add'
+        with c:
+            c.execute('update receipt set state=? where source=?',(status,key))
+            record_detail(c,key,detail)
         return status
     except Exception:
         status='uncertain' if sent else 'refused'
-        with c:c.execute('update receipt set state=? where source=?',(status,key))
+        with c:
+            c.execute('update receipt set state=? where source=?',(status,key))
+            record_detail(c,key,stage+'_failed')
         return status
     finally:c.close()
 
