@@ -1,5 +1,28 @@
 # Movie List project state
 
+
+## Grab Anyway confirmation and first import — 2026-10-24
+
+[PR80](https://github.com/kolorifer/radarr-festival-list/pull/80) is merged and
+production is clean at `f34cd4d401cedf1be671b11b00ba86bcc30bf15e`, preserving
+baseline `23202815`. Bounded exact-hash/category readback resolves delayed client
+visibility or a lost add acknowledgement without a second submission. Private
+receipt diagnostics preserve the existing source barrier and rollback compatibility.
+
+The first alternative, The End of Oak Street, was already downloaded/imported at
+12:05:04 UTC (file166→168). Exact client-hash/Radarr-import/current-file evidence
+now reconciles its receipt to imported and retires its approval (HTTP410), without
+another download. Other approvals/configuration and collector state were preserved.
+
+Final suites: 672 local tests (two Linux skips), 672 seedbox passes; final PR CI
+3.12/3.13 passed. Actor active, NRestarts0, local/public health200, 1,909 movies.
+The historical immediate-check failure is consistent with delayed visibility,
+but its exact exception was not recorded. Queue confirmation remains distinct
+from import; genuine uncertainty stays blocked. No new live acquisition test.
+[Report](reports/2026-10-24-grab-confirmation.md) ·
+[Completed brief](reports/2026-10-24-grab-confirmation-brief.md).
+
+
 ## Reviewed occurrence status — 2026-10-20
 
 PR77 merged `8003775`; actor runtime `658d8f8`, installed collector selection

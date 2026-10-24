@@ -1,5 +1,7 @@
 # Grab Anyway confirmation and completed-attempt reconciliation
 
+Status: **Complete**. [Validation, deployment and reconciliation report](2026-10-24-grab-confirmation.md).
+
 Owner request, 2026-10-24: investigate and fix uncertain status handling, deploy
 safely, and reconcile the completed first attempt without downloading it again.
 
