@@ -1,5 +1,135 @@
 # Movie List project state
 
+## Automatic edition discovery — 2026-10-24
+
+Shadow **bade2d6** replaces the rejected manual collection list with bounded
+public-catalog discovery and cached source evidence. No collection/member
+registry remains. Development Bond50 replay discovers22 members and Goldfinger100;
+live fresh result pending normal admission. All755 local/seedbox tests and both
+CI pass. Health200, actor2320281 and protected state unchanged, zero deployment
+provider requests/downloads/notifications. Inconclusive evidence stays for review.
+[Report](reports/2026-10-24-automatic-edition-discovery.md).
+
+## Sourced edition evidence in shadow — 2026-10-24
+
+Shadow **f67f60c** deployed; actor **2320281** unchanged. Generic documented
+edition/member matching preserves identity and pack safeguards. Initial sourced
+metadata supports Bond 50/Goldfinger; fixture40→100, actual fresh score pending
+normal admission. All749 local/seedbox tests and bothCI pass. Health200, protected
+state unchanged, zero provider requests/downloads/notifications. Unknown labels
+still need sourced metadata; no automatic web discovery or permanent approval.
+[Report](reports/2026-10-24-edition-evidence-shadow.md).
+
+## Verified-ID targeted shadow discovery — 2026-10-23
+
+Shadow **ab88fbd** deployed; actor **658d8f8** unchanged. Strong verified IMDb,
+title/year and bound NFO support can scope discovery to at most three deduplicated
+source/original-title year queries. At most four detailed candidates; unchecked
+rivals stay visible and blocking. Current installed catalog agreement is required
+to clear a historical local conflict; actual conflicting IDs remain blocked.
+All 741 local/seedbox tests and both CI checks passed; health 200. Deployment
+used zero provider requests and preserved ledgers, actions and pilot deadline.
+The Beast's catalog agrees with retained tt14407336, but its actual targeted
+search is **pending normal budget/freshness admission** (daily usage 38/40).
+Its retained 100-point broad-search review result is unchanged. No downloads,
+notifications or production identity changes. Monitor follows the first real
+result. [Engineering report](reports/2026-10-23-targeted-identity-discovery.md).
+
+## Complete alias comparisons — 2026-10-23
+
+Shadow **6659b9f** deployed; production actor **658d8f8** unchanged. Complete,
+strongly evidenced candidate comparisons can now resolve an ambiguous alias and
+its historical title-only conflict; actual conflicting IDs remain blocked.
+China II retained evidence now **would identify TMDb 10618**, score **99.45**,
+margin **111.34**, all four candidates visible. Verification used zero provider
+requests and preserved the evidence timestamp and request ledger. China III and
+Genealogies remain proposals; The Beast remains review-only. All 736 tests pass
+locally (two Linux-only skips) and on seedbox; both CI checks pass. Health 200,
+protected hashes unchanged. No downloads, notifications or production corrections.
+[Engineering report](reports/2026-10-23-complete-alias-comparison.md).
+
+## Multilingual shadow scoring and bounded rivals — 2026-10-23
+
+Shadow **29b9ace** deployed; actor **658d8f8** unchanged. Approved multilingual
+rule awards language points once for a recognized film track; commentary does
+not contribute. China II now completes fresh scoring with all four rivals
+detailed: **99.45**, still review due alias ambiguity and the existing conflict
+guard. China III **98.66**, would identify TMDb 10619 in shadow. The Beast now
+fresh **100**, still review because broad discovery is incomplete and unknown
+rivals preserve a zero margin. Existing limits remain 10 requests/run, 40/day;
+validation plus normal run used 20 GETs, daily total 38. All 732 local/seedbox
+tests and both CI checks passed; health 200 and services active. No downloads,
+notifications or production identity changes. Pilot end remains October 27.
+[Engineering report](reports/2026-10-23-multilingual-rival-discovery.md).
+
+## Shadow NFO tracks and alias corroboration — 2026-10-22
+
+Shadow **db8c3c2** deployed; actor658d8f8 unchanged. Dotted/numbered NFO layouts
+extract all audio tracks, explicit commentary, precise runtime and filename.
+Constrained unique alias-search support plus title/year/IMDb clears missing
+catalog transliteration. ChinaIII fresh88.66 now would_identifyTMDb10619;
+ChinaII NFO parses5 tracks but fresh scoring stops at4-candidate search(cap3).
+Multilingual scoring remains0, proposal awaiting approval. Full local/seedbox728
+and bothCI pass, health200. No downloads, notifications or production corrections.
+[Report and proposal](reports/2026-10-22-nfo-alias-corroboration.md).
+
+
+## Shadow AKA discovery deployed — 2026-10-22
+
+Shadow0f8446d searches explicit alias pairs separately, retains direct IMDb
+candidates and deduplicates before bounded detail lookup. Best supported alias
+scoring preserves sequel/conflict guards; uncorroborated aliases stay review-only.
+Local/seedbox722 tests and bothCI pass, health200. Actor658d8f8 unchanged.
+ChinaIII now discovered asTMDb10619, fresh75 but still review(alias/NFO gaps).
+ChinaII retained75 versus15; fresh verification pending preserved retry delay.
+No downloads, notifications or live identity changes. [Report](reports/2026-10-22-shadow-alias-discovery.md).
+
+
+## Daily research allowance deployed — 2026-10-22
+
+Worker-only **776986f** replaces rolling-week5 attempts/25 requests with rolling
+24h limits, preserving5 requests/version, history and confinement. Actor658d8f8
+and shadowcf70212 unchanged. Full local/seedbox716 tests and CI pass, health200.
+All three queued cases investigated using9 requests; zero remain queued. Shadow
+checks added6 GETs but cannot complete fresh scoring: broad The Beast search
+exceeds3 candidates; two combined Wong Fei Hung aka titles return no candidates.
+ChinaII candidate10618 and The Beast914206 remain proposals; ChinaIII unresolved.
+Three maintenance digest versions suppressed; no downloads/notifications or
+identity corrections. [Report](reports/2026-10-22-daily-research-budget.md).
+
+
+## Fresh evidence in shadow scoring — 2026-10-21
+
+Shadow **cf70212** deployed with bounded tracker/TMDb refresh and full NFO parsing,
+including same-language multi-audio. Actor remains **658d8f8** unchanged. Final
+local714(two skips), seedbox714 and Linux CI pass. Genealogies of a Crime now
+scores **100 vs retained50**, would identify TMDb125039/IMDbtt0119242 in shadow.
+Four metadata GETs; repeat run zero extra requests. Collector still eligible;
+no production identity, approval, notification or download change. Original pilot
+endOctober27 preserved. [Report](reports/2026-10-21-fresh-shadow-evidence.md).
+
+## Passive scoring shadow pilot — 2026-10-20
+
+Owner approved a separate seven-day passive observer of retained research results.
+Isolated shadow `f4e8409` is deployed; actor remains `658d8f8`. Full local700
+(two skips), Linux CI and21 seedbox tests pass. Hourly pilot endsOctober27.
+Initial8 historical snapshots /7 titles;0 new results. Missing retained provenance
+remains blocked; coverage is research proposals only, not all accepted releases.
+Scoring is not enabled for actor decisions.
+[Shadow pilot report](reports/2026-10-20-identity-scoring-shadow.md).
+
+## Offline identity-scoring proposal — 2026-10-20
+
+An isolated experiment under `research/identity_scoring/` replays nine retained
+cases with proposed title/year/runtime/language/tracker-ID weights. It would
+identify Everyone Is a Hero despite148/150min runtime; Nunakal and Bruce retain
+their identities. Conflicting Madame Bovary remains review-only. Production is
+unchanged at actor `658d8f8` / collector `d8cce25`; no integration or activation.
+Draft PR78; implementation `28eb06f`. Full local694 (two skips), 15 new tests
+and Linux CI3.12/3.13 pass. The policy is uncalibrated and includes explicit
+synthetic failure/ambiguity probes. Weights, thresholds and any shadow/production follow-up await review.
+[Offline report](reports/2026-10-20-offline-identity-scoring.md).
+
 ## Reviewed occurrence status — 2026-10-20
 
 PR77 merged `8003775`; actor runtime `658d8f8`, installed collector selection

@@ -1,7 +1,8 @@
-"""New, independent rolling budget epoch. Never opens or resets the old pilot.
+"""Rolling daily research limits on the existing append-only epoch.
 
 Each material version is researched once, including interrupted/failed attempts.
 Unknown requests count. Only materially new evidence can enqueue it again.
+The shorter window never resets request history or retries an old attempt.
 """
 import json
 import uuid
@@ -9,7 +10,7 @@ from identity_research_store import ResearchStore, Stop
 from identity_research_provider import validate_case
 from identity_triage_store import digest
 
-WEEK=7*86400
+WINDOW=86400
 
 class RecurringStore(ResearchStore):
     filename='recurring-v1.sqlite3'
@@ -52,8 +53,8 @@ class RecurringStore(ResearchStore):
             self._run(c,run)
             # An interrupted attempt has an unknown outcome; do not rerun it.
             c.execute('update jobs set status="awaiting_evidence",lease=NULL where status="leased" and until<=?',(now,))
-            if c.execute('select count(*) from attempts where started>?',(now-WEEK,)).fetchone()[0]>=5:raise Stop('weekly_case_budget')
-            if c.execute('select count(*) from requests where reserved>?',(now-WEEK,)).fetchone()[0]>=25:raise Stop('weekly_request_budget')
+            if c.execute('select count(*) from attempts where started>?',(now-WINDOW,)).fetchone()[0]>=5:raise Stop('daily_case_budget')
+            if c.execute('select count(*) from requests where reserved>?',(now-WINDOW,)).fetchone()[0]>=25:raise Stop('daily_request_budget')
             p=c.execute('select * from provider').fetchone()
             if p['suspended']:raise Stop('provider_suspended')
             if p['not_before']>now:raise Stop('provider_cooldown')
@@ -77,7 +78,7 @@ class RecurringStore(ResearchStore):
             cached=c.execute('select result from cache where key=? and expires>?',(key,now)).fetchone()
             if cached:return None,json.loads(cached['result'])
             if p['not_before']>now:raise Stop('provider_cooldown')
-            if c.execute('select count(*) from requests where reserved>?',(now-WEEK,)).fetchone()[0]>=25:raise Stop('weekly_request_budget')
+            if c.execute('select count(*) from requests where reserved>?',(now-WINDOW,)).fetchone()[0]>=25:raise Stop('daily_request_budget')
             if c.execute('select count(*) from requests r join attempts a on a.id=r.attempt where a.version=?',(j['version'],)).fetchone()[0]>=5:raise Stop('case_request_budget')
             cursor=c.execute('insert into requests values(NULL,?,?,"tmdb",?,?,NULL)',(run,lease,key,now))
             c.execute('update provider set not_before=?',(now+1,))
@@ -92,9 +93,9 @@ class RecurringStore(ResearchStore):
 
     def summary(self):
         with self.tx() as c:
-            return {'epoch':'recurring-v1','weekly_case_cap':5,'weekly_request_cap':25,'per_version_request_cap':5,
-                    'cases_rolling_week':c.execute('select count(*) from attempts where started>?',(self.clock()-WEEK,)).fetchone()[0],
-                    'requests_rolling_week':c.execute('select count(*) from requests where reserved>?',(self.clock()-WEEK,)).fetchone()[0],
+            return {'epoch':'recurring-v1','daily_case_cap':5,'daily_request_cap':25,'per_version_request_cap':5,
+                    'cases_rolling_day':c.execute('select count(*) from attempts where started>?',(self.clock()-WINDOW,)).fetchone()[0],
+                    'requests_rolling_day':c.execute('select count(*) from requests where reserved>?',(self.clock()-WINDOW,)).fetchone()[0],
                     'requests_unknown':c.execute('select count(*) from requests where result is null').fetchone()[0],
                     'states':dict(c.execute('select status,count(*) from jobs group by status')),
                     'proposals':c.execute('select count(*) from proposals').fetchone()[0],

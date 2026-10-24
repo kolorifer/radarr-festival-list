@@ -503,3 +503,98 @@ review receipt for audit and distinguish it from automatic verification. A new
 accepted source event reopens the case with fresh evidence and a choice, even for
 the same torrent. Preserve the conflicting source assertions, history, existing
 matching rules and explicit download confirmation. No live downloads are authorized.
+
+## D036 — Offline numerical identity-scoring proposal only
+
+On 2026-10-20 the owner requested an offline experiment using reviewed cases,
+showing weights, thresholds and changed decisions before production activation.
+Experimental weights/thresholds may be proposed and tested, but are not approved
+production policy. Preserve conflicting-ID review and explicit download consent;
+no downloads or live matching/status changes are authorized by this experiment.
+
+## D037 — Passive shadow observation of proposed identity scoring
+
+On2026-10-20 the owner approved shadow operation on real examples before deciding
+whether to activate scoring. Keep the proposed arithmetic unchanged, including
+Bruce's25.7/30 title contribution. Install a separate bounded passive observer of
+retained research evidence, with no provider requests, identity changes, queue
+writes, notifications or downloads. Seven-day hourly observation is an operational
+pilot; missing provenance must remain explicit and cannot be assumed verified.
+Production automatic scoring remains unapproved.
+
+## D038 — Fresh tracker/NFO evidence in shadow only
+
+On2026-10-21 the owner approved correcting shadow evidence collection to use
+fresh tracker metadata and full NFO evidence, including same-language multi-audio.
+This permits bounded metadata GETs by the isolated shadow process and supersedes
+D037's no-provider-requests condition only for that process. Preserve production
+matching, original research snapshots, conflicts for review and explicit download
+confirmation. No downloads, notifications, automatic promotion or pilot extension.
+
+## D039 — Bounded daily recurring research
+
+On2026-10-22 the owner authorized removing the weekly research bottleneck for
+three queued cases, with bounded requests, shadow-only deployment and no test
+notifications or downloads. Use rolling24h limits of5 attempts/25 requests,
+retaining5 requests per evidence version and all history/cooldowns/confinement.
+No automatic identity correction or production scoring activation.
+
+## D040 — Explicit aliases and IMDb candidates in shadow discovery
+
+On2026-10-22 the owner approved implementing separate searches for explicit AKA
+aliases, deduplicated candidates and direct tracker IMDb discovery, with scoring
+against supported aliases. Preserve sequel distinctions, bounded requests,
+conflict/review safeguards, existing weights and shadow-only operation. No live
+identity changes or downloads. Unsupported alias claims remain review-only.
+
+## D041 — Full audio extraction and refined alias support in shadow
+
+Owner approved dotted NFO parsing, separate audio tracks including commentary,
+and refined alias corroboration in shadow on2026-10-22. Complete unique alias
+search agreement may support an undocumented transliteration only alongside a
+documented alias, matching year and verified tracker IMDb crosswalk. Preserve
+conflict/sequel guards. Propose multilingual scoring separately, do not enable
+it. No downloads or notifications; existing request caps remain.
+
+## D042 — Multilingual audio points and bounded rival discovery in shadow
+
+On2026-10-23 the owner approved the multilingual proposal and removing ChinaII's
+three-result search bottleneck while keeping requests bounded and plausible
+rivals visible. Award language weight once for supported non-commentary audio
+matching original language; otherwise zero, without dub/commentary penalties.
+Shadow only; no downloads or notifications. Details stay bounded and unknown
+rivals must prevent unsupported confidence; no new production identification.
+
+## D043 — Complete comparisons may resolve alias ambiguity in shadow
+
+On 2026-10-23 the owner approved allowing complete candidate comparisons to
+resolve ambiguous alias searches, while preserving actual conflicting-ID blocks.
+A fully evidenced clear winner may clear its alias gate and a historical
+**title_conflict** only. Preserve score weights, thresholds, sequel checks,
+source/NFO binding, asserted IMDb/TMDb checks and bounded request limits. Apply
+only in shadow, with tests and safe deployment; no downloads or notifications.
+
+## D044 — Verified-ID targeted discovery in shadow
+
+On 2026-10-23 the owner approved bounded discovery from a verified tracker IMDb
+mapping, original title and relevant year, starting with The Beast. Keep plausible
+rivals visible and actual conflicting IDs blocked. A historical local conflict
+may clear only after current evidence and a read-only local-catalog recheck agree.
+Shadow only; no downloads, notifications, production activation or budget increase.
+
+
+## Edition evidence in shadow — 2026-10-24
+
+Owner approved generic evidence-backed collection/edition handling in shadow.
+Use sourced packaging/member facts plus exact-occurrence evidence; preserve
+conflicting-ID review, meaningful title numbers and explicit download consent.
+No acquisition or production identity activation. Initial source is the supplied
+Bond 50 collection page; it is bibliographic evidence, not a torrent approval.
+
+
+## Automatic edition evidence supersedes manual membership data — 2026-10-24
+
+Owner explicitly rejected the manually populated collection list. Replace it
+with bounded automatic source discovery and interpretation with cached findings.
+No special collection entries; retain inconclusive/conflicting cases for review.
+Shadow only, existing request caps and download confirmation preserved.
