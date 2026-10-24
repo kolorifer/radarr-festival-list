@@ -1,5 +1,13 @@
 # Movie List project state
 
+## Telegram topic routing — 2026-10-24
+
+Actor **25eae809** deployed on f34cd4d: Add & Grab/Unknown Movie retry messages
+route to1466, Grab Anyway to1468, general messages remain458. Old message edits
+stay at their original IDs/topics. All678 local/seedbox tests and bothCI pass;
+local/public health200, protected state unchanged. No test messages/downloads.
+[Report](reports/2026-10-24-telegram-topic-routing.md).
+
 ## Automatic identity investigations — 2026-10-19
 
 Issue57's approved automatic pipeline is deployed at verified runtime

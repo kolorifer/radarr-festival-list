@@ -372,3 +372,11 @@ No film-specific code or old context registry; all other conflicting identities
 remain blocked. Identity approval does not approve downloading; existing explicit
 acquisition confirmation and safeguards remain. This narrows D028's ban on stored
 repairs only for explicitly approved generic reviewed decisions.
+
+
+## Telegram action-topic split — 2026-10-24
+
+Owner requested Add to Radarr & Grab in topic1466 and Grab Anyway in1468,
+keeping default458. New Unknown Movie retries start in the add-and-grab topic;
+old original-message edits remain in place. Preserve all confirmation safeguards,
+no test messages/downloads or historical notification replays.
