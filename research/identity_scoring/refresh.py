@@ -269,6 +269,21 @@ def refresh_one(home, row, budget):
         mappings[top_imdb]=get('/find/'+top_imdb,{'external_source':'imdb_id','language':'en-US'})
         scored=result(release, listing, captured['nfo'], search, details, mappings,
                       outcome.get('asserted_imdb') or release.get('imdb'))
+    # Packaging is investigated only after ordinary candidate discovery, without
+    # changing query scope or suppressing rivals. All requests share Budget.
+    from .edition_discovery import proposal, discover
+    case,facts=build_case(release,listing,captured['nfo'],search,details,mappings,
+                          outcome.get('asserted_imdb') or release.get('imdb'))
+    request=proposal(case['source'],case['candidates'])
+    edition_status=None
+    if request and facts.get('filename_count')==1:
+        discovery=discover(request,home/'.local/state/identity-scoring-shadow/edition-cache.json',budget)
+        edition_status=discovery['status']
+        if discovery.get('record'):
+            listing['_discovered_editions']=[discovery['record']]
+            scored=result(release,listing,captured['nfo'],search,details,mappings,
+                          outcome.get('asserted_imdb') or release.get('imdb'))
+    if edition_status:scored['edition_discovery_status']=edition_status
     scored['discovery_scope']=scope
     if outcome.get('reason')=='local_identity_conflict' and scored['decision']=='would_identify' and plan:
         try:scored['local_identity_recheck']=local_identity_recheck(release,scored,home/'radarr-festival-list')

@@ -181,6 +181,7 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
     if edition is not None:source['edition_evidence'] = edition
     case = dict(source=source, candidates=candidates, candidate_set_complete=complete)
     facts['binding'] = 'exact_listing_nfo_element' if source['nfo_bound'] else 'unverified'
+    facts['filename_count'] = len(facts.get('filenames', []))
     facts['filename_present'] = bool(facts.pop('filenames', []))
     return case, facts
 

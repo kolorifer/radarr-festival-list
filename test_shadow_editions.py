@@ -1,5 +1,4 @@
 """Evidence-backed packaging, including adversarial single-movie interpretation."""
-from copy import deepcopy
 import unittest
 from unittest.mock import patch
 from research.identity_scoring.fresh import result
@@ -11,6 +10,7 @@ class EditionTests(unittest.TestCase):
         self.listing={'reason':'listing_id_found','imdb_id':'tt0058150','torrent_evidence':{'description':{'text':'Goldfinger While investigating a gold magnate.'}}}
         self.nfo='Complete name : Bond.50.Goldfinger.1964.REMUX.mkv Format : Matroska Duration : 1 h 50 min Audio ID : 1 Language : English'
         self.details={658:{'id':658,'title':'Goldfinger','release_date':'1964-01-01','runtime':110,'original_language':'en','spoken_languages':[{'english_name':'English','iso_639_1':'en'}],'external_ids':{'imdb_id':'tt0058150'}}}
+        self.listing['_discovered_editions']=[{'label':'Bond 50','source':'https://example.org/edition','retrieved':123,'members':[{'title':'Goldfinger'}]}]
         self.maps={'tt0058150':{'movie_results':[{'id':658}]}}
         self.search={'page':1,'total_pages':1,'total_results':1,'results':[{'id':658}]}
     def score(self):return result(self.release,self.listing,self.nfo,self.search,self.details,self.maps)
@@ -49,8 +49,8 @@ class EditionTests(unittest.TestCase):
         self.nfo=self.nfo.replace('Bond.50','Cinema.Anniversary.75')
         import json
         records=[{'label':'Cinema Anniversary 75','source':'https://example.org/edition','retrieved':'2026-10-24','members':[{'title':'Goldfinger','year':1964}]}]
-        with patch('research.identity_scoring.editions.Path.read_text',return_value=json.dumps(records)):
-            self.assertEqual(self.score()['selected_id'],658)
+        self.listing['_discovered_editions']=records
+        self.assertEqual(self.score()['selected_id'],658)
     def test_sequel_and_numeric_title_guard_unchanged(self):
         for a,b in [('Rocky II','Rocky'),('Blade Runner 2049','Blade Runner'),('2018','2019')]:
             self.assertEqual(title_similarity(a,b),0)
