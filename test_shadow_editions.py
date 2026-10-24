@@ -20,7 +20,7 @@ class EditionTests(unittest.TestCase):
         self.assertEqual(r['ranked'][0]['edition_resolution']['label'],'Bond 50')
     def test_unregistered_label_and_member(self):
         for title in ['Unknown 50 Goldfinger','Bond 51 Goldfinger','Bond 50 Goldfinger II','Bond 50']:
-            self.release['title']=title;self.assertIsNone(self.score()['ranked'][0]['edition_resolution'])
+            self.release['title']=title;self.assertIsNone(self.score()['ranked'][0].get('edition_resolution'))
     def test_pack_description(self):
         for desc in ['Goldfinger complete collection','Goldfinger 22 movies','Goldfinger double feature','Goldfinger movie pack']:
             self.listing['torrent_evidence']['description']['text']=desc

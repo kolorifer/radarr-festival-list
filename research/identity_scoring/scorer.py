@@ -147,7 +147,7 @@ def score_candidate(source,candidate,policy=None):
     return {**({'evidence_status':'search_only'} if candidate.get('evidence_status')=='search_only' else {}),'upper_score':upper,'candidate_id':candidate['id'],'title':titles[0], 'score':sum(contributions.values()),
             'contributions':contributions,'observed_attributes':observed,'title_similarity':similarity,
             'matched_title':edition['movie_title'] if edition_applied else titles[similarities.index(similarity)],
-            'edition_resolution':edition if edition_applied else None,'blocks':blocks}
+            **({'edition_resolution':edition} if edition_applied else {}),'blocks':blocks}
 
 
 def resolve_alias_comparison(source, ranked, complete, policy=None):
