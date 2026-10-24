@@ -126,6 +126,18 @@ def score_candidate(source,candidate,policy=None):
     if source.get('checked_listing') is not True:blocks.append('source_not_checked')
     if source.get('conflicting_evidence') is not False:blocks.append('source_conflict_or_unknown')
     if (sr is not None or sl is not None or bool(audio)) and source.get('nfo_bound') is not True:blocks.append('nfo_not_bound_to_release')
+    edition=source.get('edition_evidence')
+    edition_applied=False
+    # Packaging evidence cannot bypass any identity, alias or provenance guard.
+    if (isinstance(edition,dict) and edition.get('candidate_id')==candidate['id']
+        and edition.get('source') and edition.get('retrieved') and not blocks
+        and source.get('nfo_bound') is True and len(aliases)==1
+        and features['year']==1 and features['runtime']>0 and features['language']==1
+        and features['source_id']==1
+        and edition.get('movie_title') in titles
+        and words(source['title']) in (words(edition['label'])+words(edition['movie_title']),
+                                       words(edition['movie_title'])+words(edition['label']))):
+        features['title']=1.0; edition_applied=True
     contributions={k:policy.weights[k]*v for k,v in features.items()}
     # Missing rival facts must not create a falsely large winning margin.
     comparable={'title':True,'year':sy is not None,'runtime':sr is not None,'language':sl is not None or bool(audio),'source_id':si is not None}
@@ -134,7 +146,8 @@ def score_candidate(source,candidate,policy=None):
         upper=sum(policy.weights.values()) # Missing aliases/dates/details cannot prove a rival irrelevant.
     return {**({'evidence_status':'search_only'} if candidate.get('evidence_status')=='search_only' else {}),'upper_score':upper,'candidate_id':candidate['id'],'title':titles[0], 'score':sum(contributions.values()),
             'contributions':contributions,'observed_attributes':observed,'title_similarity':similarity,
-            'matched_title':titles[similarities.index(similarity)],'blocks':blocks}
+            'matched_title':edition['movie_title'] if edition_applied else titles[similarities.index(similarity)],
+            'edition_resolution':edition if edition_applied else None,'blocks':blocks}
 
 
 def resolve_alias_comparison(source, ranked, complete, policy=None):

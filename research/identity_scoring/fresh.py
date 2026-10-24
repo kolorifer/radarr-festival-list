@@ -176,6 +176,9 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
             facts['gaps'].append('nfo_movie_name_encoding_damaged')
         elif normalized(title) not in {normalized(t) for c in candidates for t in c['titles']}:
             source['conflicting_evidence'] = True
+    from .editions import evidence
+    edition = evidence(release, listing, facts, candidates)
+    if edition is not None:source['edition_evidence'] = edition
     case = dict(source=source, candidates=candidates, candidate_set_complete=complete)
     facts['binding'] = 'exact_listing_nfo_element' if source['nfo_bound'] else 'unverified'
     facts['filename_present'] = bool(facts.pop('filenames', []))
