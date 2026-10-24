@@ -179,6 +179,36 @@ def resolve_alias_comparison(source, ranked, complete, policy=None):
     return True
 
 
+def bound_identity_rivals(source, ranked, complete, policy=None):
+    """Conditional bounds from a unique checked ID, not title-summary guesses.
+
+    Unknown aliases/years can still earn their full weights. Only the identity
+    weight is unavailable to a different ID under the verified unique crosswalk.
+    """
+    policy=policy or Policy()
+    ident=source.get('unique_tracker_movie_id')
+    if type(ident)!=int or not ranked:return None
+    top=ranked[0];points=top['contributions']
+    if (top['candidate_id']!=ident or top['blocks']
+        or source.get('checked_listing') is not True
+        or source.get('conflicting_evidence') is not False or source.get('nfo_bound') is not True
+        or any(points[k]!=policy.weights[k] for k in ('title','year','source_id'))
+        or points['runtime']<=0 or points['language']<=0):return None
+    # A known second record asserting the same IMDb contradicts uniqueness.
+    if any(r['candidate_id']!=ident and r['contributions']['source_id']>0 for r in ranked):
+        return {'status':'conflicting_duplicate_mapping'}
+    cap=sum(policy.weights.values())-policy.weights['source_id']
+    for rival in ranked[1:]:
+        identity=min(0,rival['contributions']['source_id'])
+        previous=rival['upper_score']
+        rival['upper_score']=min(previous,cap+identity)
+        rival['upper_bound_basis']='unique_checked_tracker_mapping'
+    return {'status':'bounded','basis':'unique_checked_tracker_mapping',
+            'mapped_candidate_id':ident,'unseen_upper_score':cap if complete is not True else None,
+            'search_complete':complete is True,
+            'assumption':'unique_mapping_current_unless_contradictory_evidence'}
+
+
 def evaluate(case,policy=None):
     policy=policy or Policy();candidates=case.get('candidates')
     if not isinstance(candidates,list) or len(candidates)>100:raise ValueError('candidate_capacity')
@@ -186,13 +216,17 @@ def evaluate(case,policy=None):
     if len({r['candidate_id'] for r in ranked})!=len(ranked):raise ValueError('duplicate_candidate')
     ranked.sort(key=lambda r:(-r['score'],r['candidate_id']))
     if not ranked:return {'decision':'review','selected_id':None,'ranked':[],'margin':None,'reasons':['no_candidates']}
-    top=ranked[0];margin=top['score']-max([r['upper_score'] for r in ranked[1:]] or [0])
+    bounded=bound_identity_rivals(case['source'],ranked,case.get('candidate_set_complete'),policy)
+    unseen=[bounded['unseen_upper_score']] if bounded and bounded.get('unseen_upper_score') is not None else []
+    top=ranked[0];margin=top['score']-max([r['upper_score'] for r in ranked[1:]]+unseen or [0])
     resolved=resolve_alias_comparison(case['source'],ranked,case.get('candidate_set_complete'),policy)
     reasons=list(top['blocks'])
-    if case.get('candidate_set_complete') is not True:reasons.append('candidate_set_incomplete')
+    if bounded and bounded['status']=='conflicting_duplicate_mapping':reasons.append('conflicting_duplicate_mapping')
+    if case.get('candidate_set_complete') is not True and not (bounded and bounded['status']=='bounded'):reasons.append('candidate_set_incomplete')
     if top['score']<policy.threshold:reasons.append('score_below_threshold')
     if margin<policy.margin:reasons.append('insufficient_margin')
     accepted=not reasons
     return {'decision':'would_identify' if accepted else 'review','selected_id':top['candidate_id'] if accepted else None,
             'ranked':ranked,'margin':margin,'reasons':reasons,
+            **({'rival_bound_audit':bounded} if bounded else {}),
             **({'alias_resolution':'complete_candidate_comparison'} if resolved else {})}

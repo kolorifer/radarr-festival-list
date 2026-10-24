@@ -155,6 +155,10 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
                                years=sorted({int(x[:4]) for x in dates if isinstance(x, str) and x[:4].isdigit()}),
                                runtime=d.get('runtime') or None, language=d.get('original_language'),
                                imdb=imdb, media_type='movie', crosswalk_verified=unique_mapping(mappings.get(imdb), ident)))
+    mapped=[c['id'] for c in candidates if c.get('imdb')==source.get('imdb') and c['crosswalk_verified']]
+    if (len(mapped)==1 and search.get('discovery_scope',{}).get('kind')=='verified_id_targeted'
+        and search.get('discovery_integrity') is True):
+        source['unique_tracker_movie_id']=mapped[0]
     source['alias_search_support'] = search.get('alias_search_support', []) if isinstance(search,dict) else []
     rows = search.get('results', []) if isinstance(search, dict) else []
     ids = [x.get('id') for x in rows]

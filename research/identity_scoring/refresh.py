@@ -209,7 +209,7 @@ def refresh_one(home, row, budget):
             if type(ident)!=int or not 0<ident<2**31:
                 raise RuntimeError('invalid_mapping')
             if ident not in ids:ids.append(ident)
-    direct_ids=set(ids); summaries={}; searches=[]; discovery_complete=True
+    direct_ids=set(ids); summaries={}; searches=[]; discovery_complete=True; discovery_integrity=True
     details={}; plan=None
     if len(ids)==1 and len(source_titles(release['title']))==1 and unique_mapping(mappings.get(imdb),ids[0]):
         ident=ids[0]
@@ -232,12 +232,16 @@ def refresh_one(home, row, budget):
             raise RuntimeError('invalid_candidates')
         complete=(response.get('page')==1 and response.get('total_pages') in ((1,) if rows else (0,1))
                   and response.get('total_results')==len(rows))
+        discovery_integrity &= (response.get('page')==1 and type(response.get('total_pages'))==int
+                                and response['total_pages']>=0 and type(response.get('total_results'))==int
+                                and response['total_results']>=len(rows)
+                                and (response['total_pages']>1 or response['total_results']==len(rows)))
         discovery_complete &= complete
         searches.append({'query':title,**({'year':year} if year is not None else {}),'count':len(rows),'ids':page_ids,'complete':complete})
         for row in rows:
             prior=summaries.get(row['id'])
             if prior and any(prior.get(k)!=row.get(k) for k in ('title','original_title','release_date')):
-                discovery_complete=False
+                discovery_complete=False; discovery_integrity=False
             summaries.setdefault(row['id'],row)
         ids.extend(i for i in page_ids if i not in ids)
     if len(ids)>(61 if plan else 41):raise RuntimeError('candidate_capacity')
@@ -245,14 +249,18 @@ def refresh_one(home, row, budget):
     search={'page':1,'total_pages':1,'total_results':len(ids),
             'results':[summaries.get(i,{'id':i}) for i in ids],
             'alias_search_support':searches,'discovery_complete':discovery_complete,
-            'discovery_scope':scope}
+            'discovery_scope':scope,'discovery_integrity':discovery_integrity}
     def priority(ident):
         row=summaries.get(ident,{})
         names=[n for n in (row.get('title'),row.get('original_title')) if isinstance(n,str) and n]
         similarity=max([title_similarity(alias,name) for alias in source_titles(release['title']) for name in names] or [0])
         year=(row.get('release_date') or '')[:4]==str(release['year'])
         return (ident not in direct_ids,-(30*(2*similarity-1)+(20 if year else -20)),ident)
-    detail_ids=sorted(ids,key=priority)[:4]
+    provisional,_=build_case(release,listing,captured['nfo'],search,details,mappings)
+    from .scorer import evaluate
+    ranks=evaluate(provisional)['ranked']
+    upper={r['candidate_id']:r['upper_score'] for r in ranks}
+    detail_ids=sorted(ids,key=lambda ident:(ident not in direct_ids,-upper.get(ident,100),priority(ident)))[:4]
     for ident in detail_ids:
         if ident in details:continue
         d = get('/movie/'+str(ident), {'append_to_response':'external_ids,alternative_titles,translations,release_dates','language':'en-US'})
@@ -285,6 +293,7 @@ def refresh_one(home, row, budget):
                           outcome.get('asserted_imdb') or release.get('imdb'))
     if edition_status:scored['edition_discovery_status']=edition_status
     scored['discovery_scope']=scope
+    scored['discovery_integrity']=discovery_integrity
     if outcome.get('reason')=='local_identity_conflict' and scored['decision']=='would_identify' and plan:
         try:scored['local_identity_recheck']=local_identity_recheck(release,scored,home/'radarr-festival-list')
         except Exception:scored['local_identity_recheck']={'status':'unavailable'}

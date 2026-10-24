@@ -387,11 +387,13 @@ class TargetedDiscoveryTests(unittest.TestCase):
         self.assertEqual(len(r['ranked']),5)
         self.assertEqual(sum(p.startswith('/movie/') for p,q in calls),4)
         self.assertEqual(sum(c.get('evidence_status')=='search_only' for c in r['ranked']),1)
-        self.assertEqual(r['decision'],'review');self.assertIn('insufficient_margin',r['reasons'])
+        self.assertEqual(r['decision'],'would_identify');self.assertEqual(r['margin'],25)
+        self.assertEqual(r['ranked'][-1].get('upper_bound_basis'),'unique_checked_tracker_mapping')
         self.assertLessEqual(len(calls)+1,10)
         search=dict(f.search,total_pages=2,total_results=21)
         r,_=f.pipeline({'Example Movie':search,'Titre original':search})
-        self.assertIn('candidate_set_incomplete',r['reasons'])
+        self.assertEqual(r['decision'],'would_identify')
+        self.assertEqual(r['rival_bound_audit']['unseen_upper_score'],75)
     def test_targeting_requires_unique_id_and_independent_evidence(self):
         from research.identity_scoring.refresh import targeted_queries
         for change in ('id','year','title','runtime','language','nfo','ambiguous_mapping'):
