@@ -581,3 +581,12 @@ mapping, original title and relevant year, starting with The Beast. Keep plausib
 rivals visible and actual conflicting IDs blocked. A historical local conflict
 may clear only after current evidence and a read-only local-catalog recheck agree.
 Shadow only; no downloads, notifications, production activation or budget increase.
+
+
+## Edition evidence in shadow — 2026-10-24
+
+Owner approved generic evidence-backed collection/edition handling in shadow.
+Use sourced packaging/member facts plus exact-occurrence evidence; preserve
+conflicting-ID review, meaningful title numbers and explicit download consent.
+No acquisition or production identity activation. Initial source is the supplied
+Bond 50 collection page; it is bibliographic evidence, not a torrent approval.

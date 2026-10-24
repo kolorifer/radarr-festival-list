@@ -1,5 +1,15 @@
 # Movie List project state
 
+## Sourced edition evidence in shadow — 2026-10-24
+
+Shadow **f67f60c** deployed; actor **2320281** unchanged. Generic documented
+edition/member matching preserves identity and pack safeguards. Initial sourced
+metadata supports Bond 50/Goldfinger; fixture40→100, actual fresh score pending
+normal admission. All749 local/seedbox tests and bothCI pass. Health200, protected
+state unchanged, zero provider requests/downloads/notifications. Unknown labels
+still need sourced metadata; no automatic web discovery or permanent approval.
+[Report](reports/2026-10-24-edition-evidence-shadow.md).
+
 ## Verified-ID targeted shadow discovery — 2026-10-23
 
 Shadow **ab88fbd** deployed; actor **658d8f8** unchanged. Strong verified IMDb,
