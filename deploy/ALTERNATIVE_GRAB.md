@@ -62,8 +62,10 @@ A lost/negative add acknowledgement can be resolved only by an exact hash in the
 `radarr` category. Missing, malformed, mismatched or unavailable evidence never
 permits another add. `queued` remains a submission observation, not import proof.
 
-Receipt migration preserves every original source/state/creation time and adds
-private `infohash`, `detail` (fixed reason codes only) and `updated` columns.
+Receipt migration preserves every original source/state/creation time and adds a
+separate private `receipt_detail` table with `infohash`, `detail` (fixed reason
+codes only) and `updated`. The original three-column table remains compatible
+with the previous helper during code rollback.
 The hash is committed before submission. Neither an expired action nor a process
 crash clears the durable source barrier. No background replay or automatic
 operator reconciliation is introduced.
