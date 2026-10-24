@@ -14,6 +14,8 @@ import os
 import re
 import sys
 import threading
+from pathlib import Path
+from urllib.error import HTTPError
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlparse
 from urllib.request import Request, urlopen
@@ -226,7 +228,7 @@ def format_message(payload, movie=None, meta=None, existing=None):
     elif identity_status == 'imdb_associated':
         lines += ['', 'ℹ️ Indexer IMDb association only; no verified TMDb mapping. Approval unavailable.']
     elif identity_status == 'unresolved' and meta.get('identity_reason') in TEMPORARY:
-        lines += ['', 'ℹ️ Identity verification is temporarily unavailable because a metadata lookup failed or was rate-limited. Approval unavailable until verification succeeds.']
+        lines += ['', 'ℹ️ Identity verification is temporarily unavailable because a metadata lookup failed or was rate-limited. Approval unavailable. Retrying automatically; this message will update when retries finish.']
     elif identity_status == 'unresolved':
         lines += ['', 'ℹ️ Movie identity could not be verified from source metadata. Approval unavailable.']
     elif movie:
@@ -571,6 +573,8 @@ def _telegram_request(method, body):
         result = json.load(response)
         if not isinstance(result, dict) or result.get("ok") is not True:
             raise RuntimeError("Telegram did not accept the notification")
+        from retry_telegram import receipt
+        receipt(method,body,result)
         return response.status
 
 
@@ -613,6 +617,62 @@ def send_movie_notification(text, poster_url=None, action_url=None):
         except Exception:
             decision_log('telegram', 'supplemental_photo_failed')
     return status
+
+
+def bind_retry_message(payload,context,receipts):
+    if os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE') not in ('shadow','active'):return
+    try:
+        from identity_retry import RetryStore
+        from identity_triage_observer import read_config
+        from retry_telegram import bind
+        store=RetryStore(Path.home().resolve()/'.local/state/movie-identity-retries')
+        bind(store,payload,context,receipts,read_config(os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG'])['sources'])
+    except Exception:decision_log('identity_retry','message_receipt_not_retained')
+
+
+def prepare_retry_message(payload,context,terminal):
+    # Preparation offers the existing confirmation flow, never invokes it.
+    meta=context.get('meta') or {};release=payload['data']['release'];token=None
+    verified=terminal!='retry_exhausted' and meta.get('identity_status')=='verified_tmdb'
+    if verified and PUBLIC_BASE_URL:token=create_pending_action(payload,meta)
+    elif terminal!='retry_exhausted' and PUBLIC_BASE_URL:token=create_identity_review(payload,context)
+    url=public_action_url({},token) if token else None
+    if token and not url:delete_action(token);token=None
+    title=meta.get('title') or release.get('title') or 'Movie'
+    year=meta.get('year') or release.get('year') or ''
+    status=('✅ Movie identified' if verified else '⚠️ Automatic identification needs review')
+    text=status+'\n'+str(title)+' ('+str(year)+')'
+    if verified:
+        text+='\nIdentity verification succeeded after retry.'
+        text+=('\nOpen the confirmation page to review this exact release. Identification does not start a download.' if token
+               else '\nNo download confirmation is available: the original release reference or required configuration could not be validated.')
+    else:
+        text+='\nAutomatic retries have ended. No download is approved.'
+        text+=('\nReview the collected identity evidence.' if token else '\nReview this case in the main ChatGPT conversation.')
+    text+='\nRelease: '+str(release.get('name') or '')
+    return {'text':redact_text(text).encode('utf-16-le')[:1800].decode('utf-16-le',errors='ignore'),'token':token}
+
+
+def edit_retry_message(refs,prepared):
+    token=prepared.get('token');action=get_action(token) if token else None
+    # Never recreate an expired, consumed or uncertain action when retrying edits.
+    if action and (action.get('status') in ('executing','needs_review') or any(action.get(k) for k in ('used','completed'))):action=None
+    url=public_action_url({},token) if action else None
+    for index,ref in enumerate(refs):
+        if str(ref['chat_id'])!=str(TELEGRAM_CHAT_ID):raise ValueError('retry_chat_changed')
+        method='editMessageCaption' if ref['kind']=='caption' else 'editMessageText'
+        field='caption' if ref['kind']=='caption' else 'text'
+        text=prepared['text'] if index==0 else 'Identification result updated in the original message above.'
+        if index==0 and token and not action:
+            text='\n'.join(prepared['text'].splitlines()[:2])+'\nThe previous confirmation is unavailable or has already been used. Check Radarr before taking further action.'
+        body={'chat_id':ref['chat_id'],'message_id':ref['message_id'],field:text,
+              'reply_markup':_reply_markup(url) if index==0 and url else {'inline_keyboard':[]}}
+        try:_telegram_request(method,body)
+        except HTTPError as exc:
+            # Repeating an edit after a lost ACK is idempotent.
+            try:detail=json.loads(exc.read(65536)).get('description','')
+            except Exception:detail=''
+            if exc.code!=400 or 'message is not modified' not in detail.casefold():raise RuntimeError('retry_message_edit_failed') from None
 
 
 def public_action_url(headers, token):
@@ -992,7 +1052,10 @@ class Handler(BaseHTTPRequestHandler):
                     decision_log('action', 'public_origin_unconfigured', payload)
                 if not token and os.environ.get(alternative_grab.CONFIG) and alternative_grab.quality_only(((payload.get('data') or {}).get('result') or {}).get('rejections')):
                     context['text'] += '\n\nGrab Anyway unavailable: the verified movie, unchanged existing file, or supported exact source reference could not be confirmed.'
-                send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
+                from retry_telegram import capture
+                with capture() as receipts:
+                    send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
+                bind_retry_message(payload,context,receipts)
                 self._json(200, {
                     "ok": True,
                     "mode": "enriched",
@@ -1039,7 +1102,7 @@ def main(argv=None):
         return 1
     start_identity_observer()
     from identity_retry import start as start_identity_retry
-    start_identity_retry(build_movie_context)
+    start_identity_retry(build_movie_context,(prepare_retry_message,edit_retry_message))
     server = ThreadingHTTPServer((HOST, port), Handler)
     from identity_telegram_digest import start as start_identity_digest
     start_identity_digest(lambda text: send_telegram(text, parse_mode=None))

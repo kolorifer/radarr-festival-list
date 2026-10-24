@@ -38,6 +38,8 @@ class RetryStore(Outbox):
         self.clock=clock
         super().__init__(directory)
         with self.tx() as c:
+            from retry_telegram import schema
+            schema(c)
             c.execute('create table if not exists retry_jobs(version text primary key, source text not null, observed real not null, body text not null, due real not null, expires real not null, state text not null, lease text, until real, reason text not null)')
             c.execute('create table if not exists retry_attempts(id text primary key,version text not null,started real not null,ended real,reason text)')
             c.execute('create table if not exists retry_requests(id integer primary key,attempt text not null,provider text not null,reserved real not null)')
@@ -78,6 +80,8 @@ class RetryStore(Outbox):
         encoded=self.validate(event)
         c.execute('insert into pending values(?,?,?,0,?)',(event['id'],encoded,self.clock(),self.clock()))
         self.count(c,'persisted')
+        from retry_telegram import completed
+        completed(c,version,None,'retry_exhausted',self.clock())
         c.execute('update retry_jobs set state="review",reason=?,lease=NULL where version=?',(reason,version))
 
     def lease(self):
@@ -114,7 +118,7 @@ class RetryStore(Outbox):
         with self.tx() as c:
             c.execute('insert into retry_provider values(?,?,?) on conflict(name) do update set until=max(until,excluded.until),auth=max(auth,excluded.auth)',(provider,self.clock()+max(0,seconds),int(auth)))
 
-    def finish(self,lease,reason,outcome=None):
+    def finish(self,lease,reason,outcome=None,context=None):
         encoded=self.validate(outcome) if outcome else None
         with self.tx() as c:
             row=c.execute('select lease,until from retry_jobs where version=?',(lease['version'],)).fetchone()
@@ -130,6 +134,9 @@ class RetryStore(Outbox):
                 self.count(c,'persisted')
             c.execute('update retry_jobs set state=?,due=?,lease=NULL,reason=? where version=?',(state,due,reason,lease['version']))
             c.execute('update retry_attempts set ended=?,reason=? where id=?',(self.clock(),reason,lease['token']))
+            if state in ('done','review'):
+                from retry_telegram import completed
+                completed(c,lease['version'],context,'retry_exhausted' if state=='review' else reason,self.clock())
 
     def defer(self,lease,reason,provider):
         """Budget/cooldown waits are not failed lookups; retain audit history."""
@@ -189,7 +196,7 @@ def run_one(store,resolve):
     outcome['id']=str(uuid.UUID(lease['token']))
     if lease['number']>=3 and (reason in TEMPORARY or gate.blocked):
         outcome['data']['outcome'].update(status='needs_review',reason='retry_exhausted')
-    store.finish(lease,gate.blocked or reason,outcome)  # commit outcome and completion atomically
+    store.finish(lease,gate.blocked or reason,outcome,context)  # commit outcome and completion atomically
     return True
 
 
@@ -206,7 +213,7 @@ def submit(payload,context):
     except Exception:print('identity_retry admission_failed',flush=True)
 
 
-def start(resolve):
+def start(resolve,notification_handlers=None):
     global _THREAD
     if os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE','off') not in ('shadow','active'):return
     def work():
@@ -224,6 +231,9 @@ def start(resolve):
                         except queue.Full:print('identity_retry queue_full',flush=True)
                     finally:_QUEUE.task_done()
                 if os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE')=='active':run_one(store,resolve)
+                if notification_handlers and os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE')=='active':
+                    from retry_telegram import pump
+                    pump(store,*notification_handlers)
                 pending=store.next()
                 if pending:
                     key,body,attempts=pending
