@@ -108,11 +108,16 @@ def open_receipts(db):
     c=sqlite3.connect(db,timeout=5)
     os.chmod(db,0o600)
     c.execute('create table if not exists receipt(source text primary key,state text,created real)')
-    columns={row[1] for row in c.execute('pragma table_info(receipt)')}
-    for name,kind in (('infohash','text'),('detail','text'),('updated','real')):
-        if name not in columns:c.execute(f'alter table receipt add column {name} {kind}')
+    c.execute('create table if not exists receipt_detail(source text primary key,infohash text,detail text,updated real)')
     c.commit()
     return c
+
+
+def record_detail(c,key,detail,infohash=None):
+    # A separate table keeps the original three-column receipt compatible with rollback.
+    c.execute('insert into receipt_detail(source,infohash,detail,updated) values(?,?,?,?) '
+              'on conflict(source) do update set infohash=coalesce(excluded.infohash,receipt_detail.infohash), '
+              'detail=excluded.detail,updated=excluded.updated', (key,infohash,detail,time.time()))
 
 
 def confirm_submission(session,base,infohash):
@@ -167,8 +172,7 @@ def submit(action,cfg,session=None):
                 chunks.append(chunk)
         stage='torrent_validation'
         data=b''.join(chunks);infohash=torrent_hash(data)
-        with c:c.execute('update receipt set infohash=?,detail=?,updated=? where source=?',
-                         (infohash,'torrent_validated',time.time(),key))
+        with c:record_detail(c,key,'torrent_validated',infohash)
         base=cfg['url'].rstrip('/')
         # Never send tracker session state to the client or client credentials to the tracker.
         s.cookies.clear()
@@ -187,8 +191,7 @@ def submit(action,cfg,session=None):
             verify_client(cfg,s)
             # Commit the hash and stage before the only add call. A process timeout
             # still leaves evidence for operator reconciliation, never permission to retry.
-            with c:c.execute('update receipt set detail=?,updated=? where source=?',
-                             ('submission_started',time.time(),key))
+            with c:record_detail(c,key,'submission_started')
             sent=True;stage='submission'
             acknowledged=False
             try:
@@ -196,18 +199,19 @@ def submit(action,cfg,session=None):
                 acknowledged=r.text.strip()=='Ok.'
             except Exception:
                 pass # the client may already have accepted it; read only from here
-            with c:c.execute('update receipt set detail=?,updated=? where source=?',
-                             ('add_acknowledged' if acknowledged else 'add_unconfirmed',time.time(),key))
+            with c:record_detail(c,key,'add_acknowledged' if acknowledged else 'add_unconfirmed')
             confirmed,detail=confirm_submission(s,base,infohash)
             status='queued' if confirmed else 'uncertain'
             if confirmed and not acknowledged:detail='hash_verified_after_unconfirmed_add'
-        with c:c.execute('update receipt set state=?,detail=?,updated=? where source=?',
-                         (status,detail,time.time(),key))
+        with c:
+            c.execute('update receipt set state=? where source=?',(status,key))
+            record_detail(c,key,detail)
         return status
     except Exception:
         status='uncertain' if sent else 'refused'
-        with c:c.execute('update receipt set state=?,detail=?,updated=? where source=?',
-                         (status,stage+'_failed',time.time(),key))
+        with c:
+            c.execute('update receipt set state=? where source=?',(status,key))
+            record_detail(c,key,stage+'_failed')
         return status
     finally:c.close()
 

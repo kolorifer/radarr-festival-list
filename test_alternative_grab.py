@@ -167,7 +167,7 @@ class AlternativeTests(unittest.TestCase):
 
     def receipt(self):
         with sqlite3.connect(Path(self.cfg['state'])/'receipts.sqlite3') as c:
-            return c.execute('select state,infohash,detail from receipt').fetchone()
+            return c.execute('select r.state,d.infohash,d.detail from receipt r left join receipt_detail d on d.source=r.source').fetchone()
 
     def test_delayed_visibility_recovers_without_second_add(self):
         s=Session();original=s.request;readbacks=iter([[],[],[{'hash':HASH,'category':'radarr'}]])
@@ -242,6 +242,10 @@ class AlternativeTests(unittest.TestCase):
         self.assertEqual(helper.submit(ACTION,self.cfg,s),'uncertain')
         self.assertEqual(s.calls,[])
         self.assertEqual(self.receipt(),('uncertain',None,None))
+        # Older helper code can still use its original positional three-column INSERT.
+        with sqlite3.connect(db) as c:
+            c.execute('insert into receipt values(?,?,?)',('another-source','uncertain',456))
+            self.assertEqual(len(c.execute('pragma table_info(receipt)').fetchall()),3)
 
     def test_submission_hash_is_durable_before_add(self):
         s=Session();original=s.request
