@@ -1,3 +1,13 @@
+# Historical retry cards repaired — 2026-10-25
+
+The owner supplied exact links for After Yang and Christmas in August. Fresh
+source/identity checks passed; both existing cards now have normal movie text,
+correct links and posters. Telegram acknowledgements and saved receipt/state
+readback verified. No new notification, approval or download. Original download
+references are absent from retained retry records, so cards explain the lack of
+confirmation buttons. Runtime72a04701 remains unchanged and healthy.
+See the [report](reports/2026-10-25-historical-card-repair.md).
+
 # Undertone identity contradiction — 2026-10-25
 
 Deployed `72a04701d110c2b6f54cfd67c25861e6bf997a4c` at19:39 CET, clean,
