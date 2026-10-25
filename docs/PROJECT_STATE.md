@@ -1,3 +1,11 @@
+# Grab Anyway retry recovery — 2026-10-25
+
+Implemented on the actual production baseline; deployment validation pending.
+See the [investigation and report](reports/2026-10-25-grab-eligibility-recovery.md).
+Original rejection reasons and Telegram receipts are retained across retries.
+The pictured old card has no retained message ID and cannot safely be edited.
+The unrelated cleanup assignment remains unchanged.
+
 # Movie List project state
 
 ## Automatic identity investigations — 2026-10-19

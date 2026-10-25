@@ -631,23 +631,40 @@ def _send_movie_notification(text, poster_url=None, action_url=None):
     return status
 
 
+def alternative_unavailable_message(payload,meta):
+    from identity_retry import TEMPORARY
+    meta=meta or {}
+    if meta.get('identity_reason') in TEMPORARY:
+        return ('Grab Anyway temporarily unavailable: movie identity could not be verified because the metadata lookup failed. '
+                'Automatic identification retries are pending; no download has started.')
+    if meta.get('identity_status')!='verified_tmdb':
+        return 'Grab Anyway unavailable: the movie identity could not be verified.'
+    data=payload.get('data') or {}
+    try:alternative_grab.source_reference(data.get('release'),data.get('indexer'))
+    except (ValueError,TypeError):return 'Grab Anyway unavailable: this announcement has no supported exact release reference.'
+    return 'Grab Anyway unavailable: the current Radarr movie/file or approval storage could not be verified.'
+
+
 def bind_retry_message(payload,context,receipts):
     if os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE') not in ('shadow','active'):return
     try:
-        from identity_retry import RetryStore
         from identity_triage_observer import read_config
-        from retry_telegram import bind
-        store=RetryStore(Path.home().resolve()/'.local/state/movie-identity-retries')
-        bind(store,payload,context,receipts,read_config(os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG'])['sources'])
-    except Exception:decision_log('identity_retry','message_receipt_not_retained')
+        from retry_telegram import queue_binding
+        queue_binding(Path.home().resolve()/'.local/state/movie-identity-retries',payload,context,receipts,
+                      read_config(os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG'])['sources'])
+    except Exception as exc:
+        reason=('message_receipt_storage_failed' if isinstance(exc,OSError) else
+                'message_receipt_validation_failed' if isinstance(exc,(ValueError,TypeError,KeyError)) else 'message_receipt_runtime_failed')
+        decision_log('identity_retry',reason)
 
 
 def prepare_retry_message(payload,context,terminal):
     # Preparation offers the existing confirmation flow, never invokes it.
     meta=context.get('meta') or {};release=payload['data']['release'];token=None
     verified=terminal!='retry_exhausted' and meta.get('identity_status')=='verified_tmdb'
-    if verified and PUBLIC_BASE_URL:token=create_pending_action(payload,meta)
-    elif terminal!='retry_exhausted' and PUBLIC_BASE_URL:token=create_identity_review(payload,context)
+    original_available=terminal!='original_event_unavailable'
+    if verified and original_available and PUBLIC_BASE_URL:token=create_pending_action(payload,meta)
+    elif terminal!='retry_exhausted' and original_available and PUBLIC_BASE_URL:token=create_identity_review(payload,context)
     url=public_action_url({},token) if token else None
     if token and not url:delete_action(token);token=None
     title=meta.get('title') or release.get('title') or 'Movie'
@@ -656,6 +673,7 @@ def prepare_retry_message(payload,context,terminal):
     text=status+'\n'+str(title)+' ('+str(year)+')'
     if verified:
         text+='\nIdentity verification succeeded after retry.'
+        if not original_available:text+='\nThe original rejection details were not retained; a fresh announcement is required.'
         text+=('\nOpen the confirmation page to review this exact release. Identification does not start a download.' if token
                else '\nNo download confirmation is available: the original release reference or required configuration could not be validated.')
     else:
@@ -1063,7 +1081,7 @@ class Handler(BaseHTTPRequestHandler):
                     token = None
                     decision_log('action', 'public_origin_unconfigured', payload)
                 if not token and os.environ.get(alternative_grab.CONFIG) and alternative_grab.quality_only(((payload.get('data') or {}).get('result') or {}).get('rejections')):
-                    context['text'] += '\n\nGrab Anyway unavailable: the verified movie, unchanged existing file, or supported exact source reference could not be confirmed.'
+                    context['text'] += '\n\n'+alternative_unavailable_message(payload,context.get('meta'))
                 from retry_telegram import capture
                 with notification_route(notification_kind(payload)), capture() as receipts:
                     send_movie_notification(context["text"], context["poster_url"], action_url=action_url)

@@ -5,6 +5,9 @@ injected by the actor; receipt ownership never comes from webhook fields.
 """
 from contextlib import contextmanager
 import json
+import os
+from pathlib import Path
+import tempfile
 import threading
 import time
 from identity_triage_store import digest
@@ -12,6 +15,7 @@ from identity_triage_intake import normalize
 from identity_triage_observer import envelope
 
 _LOCAL=threading.local()
+_BIND_LOCK=threading.Lock()
 
 @contextmanager
 def capture():
@@ -45,7 +49,7 @@ def completed(c,version,context,terminal,now):
               (version,raw,terminal,now))
 
 
-def bind(store,payload,context,refs,sources):
+def binding(payload,context,refs,sources):
     from identity_retry import TEMPORARY
     meta=context.get('meta') or {}
     if meta.get('identity_reason') not in TEMPORARY or not refs:return False
@@ -56,23 +60,76 @@ def bind(store,payload,context,refs,sources):
     REVIEW_RELEASE_KEYS=("protocol","timestamp","publishDate","publish_date","name","title","year","size","seeders","leechers",
                          "download_url","downloadUrl","magnet_uri","magnetUrl","magnet_url","info_url","infoUrl","link","external_id")
     data=payload['data']
-    saved={'event':'action.rejected','timestamp':payload.get('timestamp'),'data':{
-        'release':{k:v for k,v in data['release'].items() if k in (*REVIEW_RELEASE_KEYS,'type','meta_imdb','meta_tmdb')},
+    saved={'_retry_original_event':1,'event':payload.get('event'),'timestamp':payload.get('timestamp'),'data':{
+        'release':{k:v for k,v in data['release'].items() if k in (*REVIEW_RELEASE_KEYS,'type','meta_imdb','meta_tmdb','season','episode','resolution','source','group','edition','cut')},
         'indexer':{k:v for k,v in data['indexer'].items() if k in ('name','protocol','identifier')},
-        'result':{'rejections':['Unknown Movie']}}}
+        'action':{'type':(data.get('action') or {}).get('type')},
+        'result':{'rejections':(data.get('result') or {}).get('rejections',[])}}}
     raw=json.dumps(saved)
     if len(raw.encode())>65536:return False
+    return {'version':version,'payload':raw,'refs':json.dumps(refs),'created':time.time()}
+
+
+def save_binding(store,item):
     with store.tx() as c:
         c.execute('delete from retry_messages where created<?',(store.clock()-8*86400,))
         if c.execute('select count(*) from retry_messages').fetchone()[0]>=10000:return False
-        # A replay cannot replace the original receipt or exact source reference.
         c.execute('insert into retry_messages(version,payload,refs,created) values(?,?,?,?) on conflict(version) do update set payload=coalesce(retry_messages.payload,excluded.payload),refs=coalesce(retry_messages.refs,excluded.refs)',
-                  (version,raw,json.dumps(refs),store.clock()))
+                  (item['version'],item['payload'],item['refs'],item['created']))
     return True
+
+
+def bind(store,payload,context,refs,sources):
+    item=binding(payload,context,refs,sources)
+    if not item:return False
+    item['created']=store.clock()
+    return save_binding(store,item)
+
+
+def queue_binding(directory,payload,context,refs,sources):
+    """Retain the acknowledged message before any contended SQLite transaction.
+
+    Atomic, owner-only spool; first receipt wins. The actor worker drains it
+    without sending messages, fetching metadata or creating approvals here.
+    """
+    item=binding(payload,context,refs,sources)
+    if not item:return False
+    from identity_triage_store import private_directory
+    directory=private_directory(Path(directory))
+    spool=private_directory(directory/'message-bindings')
+    if len(list(spool.iterdir()))>=1000:raise ValueError('binding_capacity')
+    target=spool/(item['version']+'.json')
+    raw=json.dumps(item).encode()
+    if len(raw)>131072:raise ValueError('binding_size')
+    fd,tmp=tempfile.mkstemp(dir=spool,prefix='.binding-')
+    try:
+        with os.fdopen(fd,'wb') as f:f.write(raw);f.flush();os.fsync(f.fileno())
+        with _BIND_LOCK:
+            if not target.exists():os.replace(tmp,target)
+        dfd=os.open(spool,os.O_RDONLY)
+        try:os.fsync(dfd)
+        finally:os.close(dfd)
+    finally:
+        if os.path.exists(tmp):os.unlink(tmp)
+    return True
+
+
+def flush_binding(store):
+    from identity_triage_store import private_path
+    spool=store.directory/'message-bindings'
+    if not spool.exists():return
+    private_path(spool,True)
+    for path in sorted(spool.glob('*.json'))[:1]:
+        private_path(path)
+        if path.stat().st_size>131072:raise ValueError('binding_size')
+        item=json.loads(path.read_text())
+        if set(item)!={'version','payload','refs','created'} or path.stem!=item['version']:raise ValueError('binding_shape')
+        if item['created']<store.clock()-8*86400 or save_binding(store,item):path.unlink()
 
 
 def pump(store,prepare,edit):
     """One edit batch per tick, five attempts maximum; no sends or re-resolution."""
+    flush_binding(store)
     now=store.clock()
     with store.tx() as c:
         c.execute('delete from retry_messages where created<?',(now-8*86400,))
@@ -81,7 +138,9 @@ def pump(store,prepare,edit):
     version,payload,refs,context,terminal,prepared,attempts=row
     try:
         if not prepared:
-            prepared=json.dumps(prepare(json.loads(payload),json.loads(context),terminal))
+            original=json.loads(payload)
+            if original.get('_retry_original_event')!=1:terminal='original_event_unavailable'
+            prepared=json.dumps(prepare(original,json.loads(context),terminal))
             with store.tx() as c:c.execute('update retry_messages set prepared=? where version=?',(prepared,version))
         edit(json.loads(refs),json.loads(prepared))
     except Exception:

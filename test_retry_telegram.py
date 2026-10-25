@@ -139,3 +139,106 @@ class TelegramTransportIntegrationTests(unittest.TestCase):
             self.assertEqual(seen[1][1]['message_id'],42)
             self.assertEqual(seen[1][1]['text'],'Identified')
         finally:server.shutdown();server.server_close();thread.join()
+
+
+class AlternativeRetryRecoveryTests(unittest.TestCase):
+    setUp=RetryMessageTests.setUp
+    bind=RetryMessageTests.bind
+    success=RetryMessageTests.success
+    def test_original_quality_reasons_and_source_guards_survive_binding(self):
+        from test_alternative_grab import PAYLOAD as ALT
+        p=copy.deepcopy(ALT)
+        p['data']['indexer']['name']='TorrentLeech';p['data']['release']['external_id']='123';p['data']['release']['implementation']='IRC'
+        p['data']['release']['season']=1
+        p['data']['result']['rejections'].append('Quality not allowed')
+        item=nt.binding(p,context(),self.refs,{'torrentleech':'TorrentLeech'})
+        original=json.loads(item['payload'])
+        self.assertEqual(original['data']['result'],p['data']['result'])
+        self.assertEqual(original['data']['action'],{'type':'RADARR'})
+        self.assertEqual(original['data']['release']['season'],1)
+        self.assertEqual(original['_retry_original_event'],1)
+
+    def test_durable_binding_does_not_need_sqlite_and_survives_restart(self):
+        with patch.object(self.store,'tx',side_effect=RuntimeError('database busy')):
+            self.assertTrue(nt.queue_binding(self.store.directory,self.p,context(),self.refs,SOURCES))
+        self.success()
+        self.store=RetryStore(self.store.directory,clock=lambda:self.now)
+        prepare=Mock(return_value={});edit=Mock()
+        self.assertTrue(nt.pump(self.store,prepare,edit))
+        self.assertEqual(edit.call_args.args[0],self.refs)
+        self.assertFalse(list((self.store.directory/'message-bindings').glob('*.json')))
+
+    def test_failed_database_flush_retains_receipt_and_duplicate_keeps_first(self):
+        nt.queue_binding(self.store.directory,self.p,context(),self.refs,SOURCES)
+        nt.queue_binding(self.store.directory,self.p,context(),[dict(self.refs[0],message_id=99)],SOURCES)
+        with patch.object(nt,'save_binding',side_effect=OSError()):
+            with self.assertRaises(OSError):nt.flush_binding(self.store)
+        self.assertEqual(len(list((self.store.directory/'message-bindings').glob('*.json'))),1)
+        self.success();edit=Mock();nt.pump(self.store,Mock(return_value={}),edit)
+        self.assertEqual(edit.call_args.args[0][0]['message_id'],17)
+
+    def test_quality_recovery_prepares_alternative_not_add_grab(self):
+        from test_alternative_grab import PAYLOAD as ALT,CURRENT,MOVIE
+        import alternative_grab as alt
+        p=copy.deepcopy(ALT);p['data']['indexer']['name']='TorrentLeech';p['data']['release']['external_id']='123';p['data']['release']['implementation']='IRC'
+        sources={'torrentleech':'TorrentLeech'}
+        self.store.admit({'observation':envelope(p,context(),sources)},sources)
+        nt.queue_binding(self.store.directory,p,context(),self.refs,sources)
+        self.now+=901
+        # Finish both the base fixture and the actual alternative job.
+        for _ in range(2):run_one(self.store,lambda _:dict(context('external_id_verified','verified_tmdb'),meta=MOVIE))
+        with patch.object(pending_actions,'STORE_PATH',Path(self.tmp.name)/'actions.json'), \
+             patch.dict(os.environ,{alt.CONFIG:'synthetic-config'}),patch.object(alt,'get_movie_by_tmdb',return_value=CURRENT), \
+             patch.object(svc,'PUBLIC_BASE_URL','https://example.invalid'),patch.object(svc,'radarr_configured',return_value=True), \
+             patch.object(svc,'ensure_movie') as add,patch.object(svc,'push_release') as push:
+            edit=Mock();self.assertTrue(nt.pump(self.store,svc.prepare_retry_message,edit))
+            prepared=edit.call_args.args[1];action=svc.get_action(prepared['token'])
+            self.assertEqual(action['kind'],'alternative')
+            self.assertEqual(action['rejections'],p['data']['result']['rejections'])
+            self.assertEqual(action['release']['download_url'],p['data']['release']['download_url'])
+            self.assertEqual(edit.call_args.args[0],self.refs)
+            add.assert_not_called();push.assert_not_called()
+
+    def test_legacy_fabricated_unknown_movie_cannot_offer_acquisition(self):
+        self.bind();self.success()
+        with self.store.tx() as c:
+            version,raw=c.execute('select version,payload from retry_messages').fetchone()
+            p=json.loads(raw);p.pop('_retry_original_event')
+            c.execute('update retry_messages set payload=? where version=?',(json.dumps(p),version))
+        with patch.object(svc,'create_pending_action') as create,patch.object(svc,'create_identity_review') as review:
+            self.assertTrue(nt.pump(self.store,svc.prepare_retry_message,Mock()))
+        create.assert_not_called();review.assert_not_called()
+
+    def test_unavailable_message_explains_temporary_lookup(self):
+        from test_alternative_grab import PAYLOAD as ALT
+        text=svc.alternative_unavailable_message(ALT,{'identity_status':'unresolved','identity_reason':'listing_temporary_http'})
+        self.assertIn('temporarily unavailable',text)
+        self.assertIn('metadata lookup failed',text)
+        self.assertNotIn('unchanged existing file',text)
+
+    def test_actor_queues_receipt_without_opening_retry_database(self):
+        (Path(self.tmp.name)/'.local/state').mkdir(parents=True)
+        with patch.dict(os.environ,{'MOVIE_INTEL_IDENTITY_RETRY_MODE':'active','MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG':'synthetic'}), \
+             patch('identity_triage_observer.read_config',return_value={'sources':SOURCES}), \
+             patch.object(svc.Path,'home',return_value=Path(self.tmp.name)), \
+             patch('identity_retry.RetryStore',side_effect=AssertionError('must not open database')):
+            svc.bind_retry_message(self.p,context(),self.refs)
+        paths=list((Path(self.tmp.name)/'.local/state/movie-identity-retries/message-bindings').glob('*.json'))
+        self.assertEqual(len(paths),1)
+        self.assertEqual(json.loads(paths[0].read_text())['refs'],json.dumps(self.refs))
+
+    def test_recovered_mixed_rejection_and_tv_guard_do_not_offer_action(self):
+        from test_alternative_grab import PAYLOAD as ALT,CURRENT,MOVIE
+        import alternative_grab as alt
+        for guard in ('mixed','season'):
+            p=copy.deepcopy(ALT)
+            p['data']['indexer']['name']='TorrentLeech'
+            p['data']['release'].update(external_id='123',implementation='IRC')
+            if guard=='mixed':p['data']['result']['rejections'].append('Quality not allowed')
+            else:p['data']['release']['season']=1
+            original=json.loads(nt.binding(p,context(),self.refs,{'torrentleech':'TorrentLeech'})['payload'])
+            with patch.dict(os.environ,{alt.CONFIG:'synthetic'}),patch.object(alt,'get_movie_by_tmdb',return_value=CURRENT), \
+                 patch.object(svc,'PUBLIC_BASE_URL','https://example.invalid'),patch.object(svc,'radarr_configured',return_value=True), \
+                 patch.object(svc,'ensure_movie') as add,patch.object(svc,'push_release') as push:
+                prepared=svc.prepare_retry_message(original,{'meta':MOVIE},'external_id_verified')
+            self.assertIsNone(prepared['token']);add.assert_not_called();push.assert_not_called()
