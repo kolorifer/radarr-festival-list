@@ -22,8 +22,8 @@
   },
   "watch_policy": "watched films remain candidates but recommended_monitored=false",
   "universe_count": 951,
-  "resolved_count": 950,
-  "unresolved_count": 1,
+  "resolved_count": 949,
+  "unresolved_count": 2,
   "candidates": [
     {
       "title": "Moonlight",
@@ -6528,22 +6528,6 @@
       "director": "Dardenne, Jean-Pierre & Luc Dardenne",
       "country": "Belgium",
       "runtime": 87,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
-      "title": "La libertad",
-      "year": 2001,
-      "imdb_id": "tt0291310",
-      "tspdt_rank": 401,
-      "score": 1.0,
-      "signals": [
-        "TSPDT 21st-century #401"
-      ],
-      "director": "Alonso, Lisandro",
-      "country": "Argentina",
-      "runtime": 73,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -15302,6 +15286,11 @@
     }
   ],
   "unresolved": [
+    {
+      "title": "La Libertad",
+      "year": 2001,
+      "tspdt_rank": 401
+    },
     {
       "title": "Fahrenheit 9/11",
       "year": 2004,
