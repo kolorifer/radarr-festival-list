@@ -1,8 +1,11 @@
 # Standard retry notification — 2026-10-25
 
 Implemented normal movie notification text and an in-place poster edit after
-successful identification retry. Validation/deployment pending; the requested
-Late Night Trains card will retain its original approval.
+successful identification retry. Deployed `ea062d865f56cfb33a0b284cafeb11feb37a1b2b`;
+health 200 and zero restarts; 19 existing approvals and acquisition receipts preserved.
+717 local tests passed (two skips), all 717 seedbox tests passed, Python 3.12/3.13 CI passed.
+The requested Late Night Trains card now has the normal catalog text and poster,
+with the same message ID and approval button. No new message or download.
 See the [report](reports/2026-10-25-retry-presentation.md).
 
 # Remembered identity confirmation — 2026-10-25
