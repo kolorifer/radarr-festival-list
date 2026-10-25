@@ -3,6 +3,27 @@
 Last verified: 2026-10-14. Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
 
+## Local launcher quota compatibility — 2026-10-25
+
+Direct local repair for the installed GitHub-to-Codex launcher, from clean
+564a022 on main. The installed Codex quota probe succeeds, but the account now
+reports a weekly primary window (10,080 minutes), no secondary window and 87%
+remaining at diagnosis (86% at the installed verification). The old parser required primary=300 minutes and rejected that valid
+telemetry, causing QUOTA_UNAVAILABLE. Authentication was not the cause.
+
+The parser now validates the newest Codex quota snapshot and uses the lowest
+remaining percentage across its reported primary/secondary windows. The <=15%
+pause, five-hour observation freshness bound, expiry checks, cooldown, local
+reservation, kernel locks and atomic create-only GitHub claims are retained.
+Errors no longer attribute an unknown probe failure to authentication.
+
+Scope is launcher-only. The unrelated legacy CODEX_TASK.md assignment and all
+Radarr/scoring/Telegram/seedbox code and services remain unchanged. Existing issue
+#86 task 1 is verified by read-only selection; no replacement task or claim reset
+is part of this repair. See the [completed brief](reports/2026-10-25-launcher-quota-repair-brief.md)
+and [verification report](reports/2026-10-25-launcher-quota-repair.md) for test and
+local installation evidence. No remote push or production deployment is included.
+
 ## Explicit operations-only publication — 2026-10-17 (local review)
 
 Issue #35 / supervisor task 2 corrects PR #36 locally from verified clean
