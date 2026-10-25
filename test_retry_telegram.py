@@ -135,7 +135,10 @@ class TelegramTransportIntegrationTests(unittest.TestCase):
             with patch.object(svc,'TELEGRAM_BOT_TOKEN','fake-local-only'),patch.object(svc,'TELEGRAM_CHAT_ID','123'),patch.object(svc,'urlopen',side_effect=local):
                 with nt.capture() as refs:svc.send_telegram('Retrying')
                 svc.edit_retry_message(refs,{'text':'Identified','token':None})
-            self.assertEqual([p for p,b in seen],['/sendMessage','/editMessageText'])
+                svc.edit_retry_message(refs,{'text':'<b>Identified</b>','parse_mode':'HTML','poster_url':'https://image.invalid/poster.jpg','token':None})
+            self.assertEqual([p for p,b in seen],['/sendMessage','/editMessageText','/editMessageMedia'])
+            self.assertEqual(seen[2][1]['media']['caption'],'<b>Identified</b>')
+            self.assertEqual(seen[2][1]['message_id'],42)
             self.assertEqual(seen[1][1]['message_id'],42)
             self.assertEqual(seen[1][1]['text'],'Identified')
         finally:server.shutdown();server.server_close();thread.join()
@@ -242,3 +245,50 @@ class AlternativeRetryRecoveryTests(unittest.TestCase):
                  patch.object(svc,'ensure_movie') as add,patch.object(svc,'push_release') as push:
                 prepared=svc.prepare_retry_message(original,{'meta':MOVIE},'external_id_verified')
             self.assertIsNone(prepared['token']);add.assert_not_called();push.assert_not_called()
+
+
+class RetryPresentationTests(unittest.TestCase):
+    def prepared(self,**changes):
+        meta=dict(META,identity_status='verified_tmdb',**changes)
+        with patch.object(svc,'create_pending_action',return_value='same-token'),patch.object(svc,'PUBLIC_BASE_URL','https://example.invalid'),patch.object(svc,'INDEX',{}):
+            return svc.prepare_retry_message(PAYLOAD,{'meta':meta},'external_id_verified')
+
+    def test_verified_retry_uses_standard_message_and_poster(self):
+        prepared=self.prepared()
+        self.assertIn('ℹ️ Identified; not in the local Movie List catalog. Ratings and recognition unavailable locally.',prepared['text'])
+        self.assertNotIn('Open the confirmation page',prepared['text'])
+        self.assertNotIn('Identity verification succeeded after retry',prepared['text'])
+        self.assertEqual(prepared['poster_url'],META['poster_url'])
+        self.assertEqual(prepared['parse_mode'],'HTML')
+        self.assertEqual(prepared['token'],'same-token')
+
+    def test_text_message_becomes_poster_in_place_without_new_send(self):
+        prepared=self.prepared()
+        with patch.object(svc,'TELEGRAM_CHAT_ID','123'),patch.object(svc,'get_action',return_value={'status':'pending'}),patch.object(svc,'_telegram_request') as request:
+            svc.edit_retry_message([{'chat_id':'123','message_id':42,'kind':'text'}],prepared)
+        method,body=request.call_args.args
+        self.assertEqual(method,'editMessageMedia');self.assertEqual(body['message_id'],42)
+        self.assertEqual(body['media']['media'],META['poster_url'])
+        self.assertEqual(body['media']['caption'],prepared['text'])
+        self.assertEqual(body['media']['parse_mode'],'HTML')
+        self.assertNotIn('message_thread_id',body);self.assertEqual(request.call_count,1)
+
+    def test_repeated_media_edit_ack_is_idempotent(self):
+        prepared=self.prepared()
+        error=HTTPError('https://example.invalid',400,'Bad Request',{},io.BytesIO(json.dumps({'description':'Bad Request: message is not modified'}).encode()))
+        with patch.object(svc,'TELEGRAM_CHAT_ID','123'),patch.object(svc,'get_action',return_value={'status':'pending'}),patch.object(svc,'_telegram_request',side_effect=error) as request:
+            svc.edit_retry_message([{'chat_id':'123','message_id':42,'kind':'text'}],prepared)
+        self.assertEqual(request.call_args.args[0],'editMessageMedia')
+
+    def test_missing_poster_keeps_text_and_expired_approval_stays_removed(self):
+        prepared=self.prepared(poster_url=None)
+        with patch.object(svc,'TELEGRAM_CHAT_ID','123'),patch.object(svc,'get_action',return_value=None),patch.object(svc,'_telegram_request') as request:
+            svc.edit_retry_message([{'chat_id':'123','message_id':42,'kind':'text'}],prepared)
+        method,body=request.call_args.args
+        self.assertEqual(method,'editMessageText');self.assertEqual(body['reply_markup'],{'inline_keyboard':[]})
+
+    def test_long_caption_does_not_cut_html_tags_or_entities(self):
+        prepared=self.prepared(title='An & unusual <title> '+'🎬'*900)
+        self.assertIsNone(prepared['parse_mode'])
+        self.assertLessEqual(len(prepared['text'].encode('utf-16-le'))//2,900)
+        self.assertIn('An & unusual <title>',prepared['text'])

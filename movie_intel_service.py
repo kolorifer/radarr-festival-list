@@ -692,6 +692,17 @@ def prepare_retry_message(payload,context,terminal):
     elif terminal!='retry_exhausted' and original_available and PUBLIC_BASE_URL:token=create_identity_review(payload,context)
     url=public_action_url({},token) if token else None
     if token and not url:delete_action(token);token=None
+    if verified and original_available:
+        movie=INDEX.get(meta.get('imdb_id'))
+        text=redact_text(format_message(payload,movie=movie,meta=meta))
+        parse_mode='HTML'
+        # Preserve the usual formatting when it fits a Telegram photo caption.
+        # Oversized text uses a bounded plain-text fallback, never sliced HTML.
+        if len(text.encode('utf-16-le'))//2>900:
+            text=html.unescape(re.sub(r'<[^>]*>','',text))
+            text=text.encode('utf-16-le')[:1798].decode('utf-16-le',errors='ignore')+'…'
+            parse_mode=None
+        return {'text':text,'token':token,'parse_mode':parse_mode,'poster_url':meta.get('poster_url')}
     title=meta.get('title') or release.get('title') or 'Movie'
     year=meta.get('year') or release.get('year') or ''
     status=('✅ Movie identified' if verified else '⚠️ Automatic identification needs review')
@@ -722,6 +733,14 @@ def edit_retry_message(refs,prepared):
             text='\n'.join(prepared['text'].splitlines()[:2])+'\nThe previous confirmation is unavailable or has already been used. Check Radarr before taking further action.'
         body={'chat_id':ref['chat_id'],'message_id':ref['message_id'],field:text,
               'reply_markup':_reply_markup(url) if index==0 and url else {'inline_keyboard':[]}}
+        parse_mode=prepared.get('parse_mode') if index==0 else None
+        if parse_mode:body['parse_mode']=parse_mode
+        if index==0 and prepared.get('poster_url'):
+            method='editMessageMedia'
+            body.pop(field);body.pop('parse_mode',None)
+            body['media']={'type':'photo','media':prepared['poster_url'],'caption':text,
+                           'show_caption_above_media':False}
+            if parse_mode:body['media']['parse_mode']=parse_mode
         try:_telegram_request(method,body)
         except HTTPError as exc:
             # Repeating an edit after a lost ACK is idempotent.

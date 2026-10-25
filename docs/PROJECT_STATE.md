@@ -1,3 +1,10 @@
+# Standard retry notification — 2026-10-25
+
+Implemented normal movie notification text and an in-place poster edit after
+successful identification retry. Validation/deployment pending; the requested
+Late Night Trains card will retain its original approval.
+See the [report](reports/2026-10-25-retry-presentation.md).
+
 # Remembered identity confirmation — 2026-10-25
 
 User selected explicit identity confirmation before enabling Grab Anyway.
