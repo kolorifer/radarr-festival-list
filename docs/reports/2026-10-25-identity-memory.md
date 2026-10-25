@@ -1,7 +1,9 @@
 # Engineering report: remembered movie identity confirmation
 
 **Specification:** [accepted brief](2026-10-25-identity-memory-brief.md), user option 2.
-**Result:** implemented; final validation/deployment pending.
+**Result:** implemented and deployed; live user confirmation not exercised.
+**Deployed revision:** `89b1b72092e247c86e5a23b4ad25e0fd4e42f278`.
+**Review:** [PR #84](https://github.com/kolorifer/radarr-festival-list/pull/84), open against the isolated runtime baseline.
 **Runtime baseline:** `99d81d8e89f7fac5a0545fc1303ea8dd278846f2`.
 
 ## What changed
@@ -49,18 +51,37 @@ source conflicts are not rewritten into successful matches.
 
 ## Tests
 
-89 focused integration/regression tests passed before the final concurrency test.
-Final complete local/seedbox and CI results will be appended after completion.
-The earlier foundation-only full suite passed 694 tests with two skips; this is
-not claimed as validation of the completed review flow.
+- Full local suite: **712 tests passed, two skips**, 147.024 seconds.
+- Full isolated seedbox suite: **712 tests passed**, 45.649 seconds.
+- [CI passed on Python 3.12 and 3.13](https://github.com/kolorifer/radarr-festival-list/actions/runs/40196421955).
+- Local/seedbox pip check passed; scoring reproduction passed with 1,909
+  candidates / 224 grandfathered / 163 new / 387 qualified.
+- Deployment configuration preflight and diff whitespace checks passed.
+- Read-only replay of the exact original Oak Street release yields a remembered
+  proposal while its identity remains unresolved pending owner confirmation.
+  No review/acquisition action was created by this check.
 
 ## Deployment
 
-Pending. Five retained source-verified retry results, including The End of Oak
-Street, were found read-only and are eligible for memory seeding with their
-original timestamps. This does not send old notifications or recreate approvals.
-No live notification, torrent fetch, download, import or Radarr mutation is part
-of the deployment validation.
+Activated at **14:15 CET, 2026-10-25**. Clean checkout at the deployed revision;
+movie-intel active/running with NRestarts=0; local/public HTTPS health 200 with
+1,909 catalog movies. The running process's cache setting was verified.
+All 34 preexisting approvals and acquisition receipts were unchanged. Protected
+configuration and the identity collector PID/state were preserved.
+
+Only the optional cache setting was added to private configuration. The dedicated
+canonical cache directory is owner-only (700), with a 600 SQLite file. Five recent
+source-verified retry results were seeded, including The End of Oak Street, with
+their original verification timestamps. No old notification or approval was replayed.
+Private activation backup/evidence: `~/.local/state/identity-memory-20261025-activation`.
+Post-start checks found no traceback, memory-unavailable or retry-worker-stop errors.
+
+The first activation preflight rejected the symlinked home-path spelling, even
+though its directory permissions were already 700. The guarded script restored
+code/configuration and kept acquisition state intact. Activation then succeeded
+using a dedicated canonical private path; permissions were not relaxed. That
+initial attempt's private backup is `~/.local/state/identity-memory-20261025`.
+No live notification, torrent fetch, download, import or Radarr mutation was run.
 
 ## Limits and rollback
 
@@ -80,4 +101,6 @@ preserved. Private cache data can be moved aside while the actor is stopped.
 
 D005 records the user's selected confirmation policy. The unrelated active
 cleanup assignment is preserved. This report and brief provide the handoff;
-final commit, PR and deployment references will be added after validation.
+runtime commit and PR are recorded above. The final report commit is documentation
+only and is not deployed. Existing open runtime-stack PRs were not merged as part
+of this work.

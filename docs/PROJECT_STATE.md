@@ -3,7 +3,11 @@
 User selected explicit identity confirmation before enabling Grab Anyway.
 Implemented private verified-ID caching and exact source/title/year memory;
 remembered matches are occurrence-bound proposals, never automatic approvals.
-Final validation/deployment pending. See the [report](reports/2026-10-25-identity-memory.md).
+Deployed `89b1b72092e247c86e5a23b4ad25e0fd4e42f278`; local/public health 200,
+zero restarts; 34 existing approvals and acquisition receipts preserved.
+712 local tests passed (two skips), all 712 seedbox tests passed, Python 3.12/3.13
+CI passed. Five verified historical matches seeded with original timestamps.
+PR #84 is open for review. See the [report](reports/2026-10-25-identity-memory.md).
 The unrelated active cleanup assignment remains unchanged.
 
 # Grab Anyway retry recovery — 2026-10-25

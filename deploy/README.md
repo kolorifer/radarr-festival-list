@@ -388,8 +388,8 @@ The full title/year/IMDb/TMDb/typo-mode context is hashed into the cache key.
 Only verified responses are stored, for seven days from verification (reads do
 not renew expiry); storage is capped at 1,024 entries and 32 KiB per entry.
 Changed IDs or context do not reuse another entry. Missing, expired, corrupt or
-unavailable cache data falls back to normal resolution. This cache does not infer
-an ID for a different torrent from its title, bypass tracker-source verification,
+unavailable cache data falls back to normal resolution. This cache does not automatically accept
+an ID for a different torrent from its title, bypass identity confirmation,
 cache a failed lookup as success, or reuse an approval/source/edition decision.
 To clear it, stop movie-intel, move the private cache file aside, then restart.
 No acquisition state is stored in it.
