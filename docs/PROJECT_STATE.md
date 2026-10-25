@@ -1,3 +1,11 @@
+# Verified identity memory — local work, 2026-10-25
+
+Persistent exact-ID/context caching is implemented locally and disabled by default.
+Cross-torrent title/year reuse is awaiting the user’s identity-policy choice;
+this request is not complete and no production changes have been made.
+See the [brief and progress report](reports/2026-10-25-identity-memory.md).
+The unrelated active cleanup assignment remains unchanged.
+
 # Grab Anyway retry recovery — 2026-10-25
 
 Deployed `99d81d8e89f7fac5a0545fc1303ea8dd278846f2`; local/public health 200,

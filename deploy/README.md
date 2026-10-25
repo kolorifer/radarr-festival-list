@@ -376,3 +376,20 @@ fall back to `TELEGRAM_TOPIC_ID`. General alerts and investigation digests use t
 default topic. All text chunks, poster fallbacks and supplemental images share
 one notification route. Retry edits address their saved original message IDs;
 historical messages are not moved or replayed. Topic IDs must be positive.
+
+## Persistent verified-ID response cache
+
+`MOVIE_INTEL_VERIFIED_CACHE_PATH` optionally enables a private SQLite cache for
+successful exact-ID/context validations. Set an absolute file path in an existing
+owner-only (700) state directory; the cache file is created as 600. Keep it outside
+web roots. Blank/unset preserves the existing in-memory behavior.
+
+The full title/year/IMDb/TMDb/typo-mode context is hashed into the cache key.
+Only verified responses are stored, for seven days from verification (reads do
+not renew expiry); storage is capped at 1,024 entries and 32 KiB per entry.
+Changed IDs or context do not reuse another entry. Missing, expired, corrupt or
+unavailable cache data falls back to normal resolution. This cache does not infer
+an ID for a different torrent from its title, bypass tracker-source verification,
+cache a failed lookup as success, or reuse an approval/source/edition decision.
+To clear it, stop movie-intel, move the private cache file aside, then restart.
+No acquisition state is stored in it.

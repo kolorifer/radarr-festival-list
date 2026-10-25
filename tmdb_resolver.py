@@ -169,10 +169,20 @@ def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_min
         cached = _ID_CACHE.get(key)
         if cached and cached[0] > time.monotonic():
             return dict(cached[1])
+        import verified_identity_cache as persistent
+        remembered = persistent.get('external_movie', key)
+        if (remembered and remembered.get('identity_status') == 'verified_tmdb'
+                and valid_tmdb_id(remembered.get('tmdb_id'))
+                and (not imdb_id or remembered.get('imdb_id') == imdb_id)
+                and (not tmdb_id or str(remembered.get('tmdb_id')) == str(tmdb_id))
+                and remembered.get('matched_release_year') == str(year)):
+            return dict(remembered)
         try:
             result = _resolve_external(title, year, imdb_id, tmdb_id, allow_minor_typo)
         except (TypeError, ValueError, KeyError, AttributeError):
             result = _identity_result('needs_review', 'invalid_metadata', imdb_id)
+        if result['identity_status'] == 'verified_tmdb':
+            persistent.put('external_movie', key, result)
         ttl = 900 if result['identity_status'] == 'verified_tmdb' else 60
         _ID_CACHE[key] = (time.monotonic() + ttl, dict(result))
         _ID_CACHE.move_to_end(key)

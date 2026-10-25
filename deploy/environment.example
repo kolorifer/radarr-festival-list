@@ -21,3 +21,6 @@ RADARR_API_KEY=
 MOVIE_INTEL_PUBLIC_BASE_URL=
 # The user service supplies absolute state/cache paths; set these explicitly
 # when running manually. Keep them outside any directory served by nginx.
+# Optional persistent verified-ID cache. Existing parent must be owner-only (700).
+# Entries expire after seven days. Empty disables persistence.
+MOVIE_INTEL_VERIFIED_CACHE_PATH=

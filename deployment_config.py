@@ -21,6 +21,12 @@ def configuration_errors(env=None):
         errors.append('MOVIE_INTEL_TORRENT_EVIDENCE_ENABLED must be 0 or 1')
     if env.get('MOVIE_INTEL_TRACKER_TYPO_ENABLED', '0') not in ('0', '1'):
         errors.append('MOVIE_INTEL_TRACKER_TYPO_ENABLED must be 0 or 1')
+    if env.get('MOVIE_INTEL_VERIFIED_CACHE_PATH'):
+        from verified_identity_cache import configured_path
+        try:
+            configured_path(env)
+        except (OSError, ValueError, TypeError):
+            errors.append('MOVIE_INTEL_VERIFIED_CACHE_PATH requires an absolute private file in an existing owner-only directory')
     retry_mode=env.get('MOVIE_INTEL_IDENTITY_RETRY_MODE','off')
     if retry_mode not in ('off','shadow','active'):errors.append('MOVIE_INTEL_IDENTITY_RETRY_MODE must be off, shadow or active')
     if retry_mode!='off' and env.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED')!='1':errors.append('identity retries require the observer')
