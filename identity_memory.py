@@ -12,7 +12,7 @@ from private_text import redact_text
 # Missing/contradictory IDs, authentication failures and malformed pages are not outages.
 OUTAGES = {'listing_temporary_http','listing_unavailable','rate_limited','lookup_busy',
            'metadata_api_unavailable','metadata_rate_limited','metadata_lookup_busy'}
-CONFLICTS = {'identity_conflict','local_identity_conflict','title_conflict','year_conflict',
+CONFLICTS = {'runtime_conflict','identity_conflict','local_identity_conflict','title_conflict','year_conflict',
              'listing_id_conflict','external_id_conflict','non_movie_identity','ambiguous_id_mapping'}
 MOVIE_KEYS = ('title','year','tmdb_id','imdb_id','poster_url','identity_status','identity_reason',
               'identity_year_basis','matched_release_year')

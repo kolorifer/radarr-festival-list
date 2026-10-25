@@ -76,8 +76,8 @@ def offer(payload,meta):
     try:
         release=data['release'];indexer=data['indexer'];source_reference(release,indexer)
         current=existing_movie(meta)
-        keys=('type','protocol','external_id','name','title','year','size','resolution','source','group','edition','cut','download_url')
-        movie={k:meta.get(k) for k in ('tmdb_id','imdb_id','identity_status','title','year')}
+        keys=('type','protocol','external_id','name','title','year','size','resolution','source','group','edition','cut','download_url','info_url')
+        movie={k:meta.get(k) for k in ('tmdb_id','imdb_id','identity_status','title','year','identity_source','identity_title_basis')}
         if meta.get('identity_memory_choice'):
             movie.update(identity_source=meta.get('identity_source'),identity_memory_choice=meta['identity_memory_choice'])
         return create_action({'kind':'alternative','movie':movie,'release':{k:release[k] for k in keys if k in release},

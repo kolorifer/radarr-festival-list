@@ -152,7 +152,7 @@ def _resolve_external(title, year, imdb_id, tmdb_id, allow_minor_typo=False):
     return result
 
 
-def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_minor_typo=False):
+def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_minor_typo=False, force_refresh=False):
     """Validate source IDs and context in an isolated, bounded, expiring cache.
 
     Never read/write the legacy title cache. The key includes the exact context
@@ -167,10 +167,10 @@ def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_min
         return _identity_result('unresolved', 'metadata_lookup_busy', imdb_id)
     try:
         cached = _ID_CACHE.get(key)
-        if cached and cached[0] > time.monotonic():
+        if not force_refresh and cached and cached[0] > time.monotonic():
             return dict(cached[1])
         import verified_identity_cache as persistent
-        remembered = persistent.get('external_movie', key)
+        remembered = None if force_refresh else persistent.get('external_movie', key)
         if (remembered and remembered.get('identity_status') == 'verified_tmdb'
                 and valid_tmdb_id(remembered.get('tmdb_id'))
                 and (not imdb_id or remembered.get('imdb_id') == imdb_id)

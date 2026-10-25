@@ -224,7 +224,9 @@ def format_message(payload, movie=None, meta=None, existing=None):
             lines.append(" · ".join(html.escape(x) for x in facts))
 
     from identity_retry import TEMPORARY
-    if identity_status == 'needs_review':
+    if identity_status == 'needs_review' and meta.get('identity_reason') == 'runtime_conflict':
+        lines += ['', 'ℹ️ Movie identity requires review: the release runtime conflicts with the matched movie. Approval unavailable.']
+    elif identity_status == 'needs_review':
         lines += ['', 'ℹ️ Movie identity requires review: conflicting or invalid metadata. Approval unavailable.']
     elif identity_status == 'imdb_associated':
         lines += ['', 'ℹ️ Indexer IMDb association only; no verified TMDb mapping. Approval unavailable.']
@@ -332,6 +334,12 @@ def build_movie_context(payload):
         except Exception:
             # Extra evidence can never turn an unavailable lookup into acceptance.
             decision_log('identity', 'evidence_lookup_unavailable', payload)
+    from source_identity_guard import runtime_conflict
+    if meta and meta.get('identity_status') == 'verified_tmdb' and runtime_conflict(listing, meta):
+        meta = {'identity_status':'needs_review', 'identity_reason':'runtime_conflict',
+                'identity_source':meta.get('identity_source'), 'imdb_id':meta.get('imdb_id')}
+        observed_reason = 'runtime_conflict'
+        decision_log('identity', 'runtime_conflict', payload)
     torrent_evidence = (listing or {}).get('torrent_evidence')
     # Native-ID failures also need source context; this does not alter resolution.
     if listing is None and meta and meta.get('identity_status') in {'needs_review','unresolved','imdb_associated'}:
@@ -363,7 +371,7 @@ def build_movie_context(payload):
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
         "review_listing": listing,
-        "identity_observation": {"reason": observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and (blocked or (meta or {}).get("identity_source")=="torrent_evidence") else {})},
+        "identity_observation": {"reason": "identity_conflict" if observed_reason == "runtime_conflict" else observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and (blocked or (meta or {}).get("identity_source")=="torrent_evidence") else {})},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
         "movie": movie,
@@ -375,6 +383,8 @@ def build_movie_context(payload):
 def reviewed_action_current(action):
     """Never reuse a legacy decision; a chosen occurrence must still be live."""
     movie = action.get('movie') or {}
+    import source_identity_guard
+    if not source_identity_guard.current(action, lookup_listing, resolve_external_movie):return False
     if movie.get('identity_memory_choice') or movie.get('identity_source')=='owner_remembered_choice':
         import identity_memory
         return identity_memory.reviewed_current(action,get_action)
@@ -494,6 +504,7 @@ def create_pending_action(payload, meta):
             **({"identity_choice": meta["identity_choice"]} if meta.get("identity_choice") else {}),
             **({"identity_memory_choice": meta["identity_memory_choice"]} if meta.get("identity_memory_choice") else {}),
             **({"identity_evidence": meta["identity_evidence"]} if meta.get("identity_evidence") else {}),
+            "identity_title_basis": meta.get('identity_title_basis'),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
         },
@@ -901,6 +912,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if uncertain_action(action):
                 self._html(409, render_result(action, False, REVIEW_MESSAGE))
+                return
+            if action.get('kind') != 'identity_review' and not reviewed_action_current(action):
+                self._html(409, render_result(action, False, 'Movie identity changed or could not be revalidated. No acquisition attempted.'))
                 return
             try:
                 if action.get('kind')=='identity_review':

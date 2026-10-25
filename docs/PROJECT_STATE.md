@@ -1,3 +1,12 @@
+# Undertone identity contradiction — 2026-10-25
+
+The latest card selected a 12-minute same-title/year short instead of the feature.
+The incorrect approval is expired and remembered identity quarantined. The fresh
+listing now identifies the feature; the original source response is unavailable.
+Runtime corroboration and approval-time source revalidation are implemented;
+validation/deployment/card correction pending. See the
+[report](reports/2026-10-25-undertone-identity.md). Unrelated cleanup task preserved.
+
 # Standard retry notification — 2026-10-25
 
 Implemented normal movie notification text and an in-place poster edit after
