@@ -1,0 +1,1849 @@
+{
+  "research_date": "2026-10-25",
+  "collection_method": "Bounded public web research and public metadata reads; no runtime collector. Primary web observations may be cached; observed_at is review date, not measurement time. No source text archives are republished.",
+  "letterboxd_access_url": "https://letterboxd.com/api-beta/access/",
+  "awards": [
+    {
+      "imdb_id": "tt28607951",
+      "component": "academy_best_picture",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt8999762",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt17526714",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt15239678",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14961016",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14961016",
+      "component": "academy_international",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "International Feature Film",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "academy_international",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "International Feature Film",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt4772188",
+      "component": "academy_international",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "International Feature Film",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt4772188",
+      "component": "academy_animated",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Animated Feature Film",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "academy_best_picture",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14905854",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt31193180",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt29768334",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "academy_international",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "International Feature Film",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt36491653",
+      "component": "academy_international",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "International Feature Film",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32298285",
+      "component": "academy_international",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "International Feature Film",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt8999762",
+      "component": "globe_best_picture",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "globe_best_picture",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28607951",
+      "component": "globe_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt17526714",
+      "component": "globe_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt15239678",
+      "component": "globe_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "globe_non_english",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Non-English Language",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14961016",
+      "component": "globe_non_english",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Non-English Language",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt4772188",
+      "component": "globe_animated",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Motion Picture, Animated",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14905854",
+      "component": "globe_best_picture",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "globe_best_picture",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "globe_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt36491653",
+      "component": "globe_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt31193180",
+      "component": "globe_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "globe_non_english",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Non-English Language",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt36491653",
+      "component": "globe_non_english",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Non-English Language",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32298285",
+      "component": "globe_non_english",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Motion Picture, Non-English Language",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28607951",
+      "component": "bafta_best_film",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Film",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt8999762",
+      "component": "bafta_best_film",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Film",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "bafta_best_film",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Film",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "bafta_non_english",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Film Not in the English Language",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14961016",
+      "component": "bafta_non_english",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Film Not in the English Language",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2025",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "bafta_best_film",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "Best Film",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14905854",
+      "component": "bafta_best_film",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Film",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "bafta_best_film",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Film",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt31193180",
+      "component": "bafta_best_film",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Film",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "bafta_non_english",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "Film Not in the English Language",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt36491653",
+      "component": "bafta_non_english",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Film Not in the English Language",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32298285",
+      "component": "bafta_non_english",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Film Not in the English Language",
+      "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28607951",
+      "component": "cannes_main",
+      "status": "winner",
+      "event_year": 2024,
+      "category": "Palme d'or",
+      "source_url": "https://www.festival-cannes.com/en/press/press-releases/the-77th-festival-de-cannes-winners-list/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "cannes_jury",
+      "status": "winner",
+      "event_year": 2024,
+      "category": "Jury Prize",
+      "source_url": "https://www.festival-cannes.com/en/press/press-releases/the-77th-festival-de-cannes-winners-list/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "cannes_main",
+      "status": "competition",
+      "event_year": 2024,
+      "category": "Main Competition; not a Palme win",
+      "source_url": "https://www.festival-cannes.com/en/press/press-releases/the-77th-festival-de-cannes-winners-list/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "cannes_main",
+      "status": "competition",
+      "event_year": 2025,
+      "category": "Main Competition; not a Palme win",
+      "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32298285",
+      "component": "cannes_main",
+      "status": "competition",
+      "event_year": 2025,
+      "category": "Main Competition; not a Palme win",
+      "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28690468",
+      "component": "cannes_main",
+      "status": "competition",
+      "event_year": 2025,
+      "category": "Main Competition; not a Palme win",
+      "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt36491653",
+      "component": "cannes_main",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Palme d'or",
+      "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "cannes_grand_prix",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Grand Prix",
+      "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32298285",
+      "component": "cannes_jury",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Jury Prize, joint",
+      "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28690468",
+      "component": "cannes_jury",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Jury Prize, joint",
+      "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt8999762",
+      "component": "venice_director",
+      "status": "winner",
+      "event_year": 2024,
+      "category": "Silver Lion, Best Director: Brady Corbet for this film",
+      "source_url": "https://www.labiennale.org/en/news/official-awards-81st-venice-international-film-festival",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30057084",
+      "component": "venice_main",
+      "status": "competition",
+      "event_year": 2024,
+      "category": "Venezia 81 main Competition (Volpi acting prize itself excluded)",
+      "source_url": "https://www.labiennale.org/en/news/official-awards-81st-venice-international-film-festival",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt21097228",
+      "component": "berlin_main",
+      "status": "competition",
+      "event_year": 2024,
+      "category": "Main Competition (dossier lists production 2023; premiere year 2024)",
+      "source_url": "https://www.berlinale.de/media/download/presse/dossier/pressedossier-2024.pdf",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt29271639",
+      "component": "berlin_main",
+      "status": "competition",
+      "event_year": 2026,
+      "category": "Main Competition",
+      "source_url": "https://www.berlinale-talents.de/bt/page/c/festival-returnees-2026",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt4772188",
+      "component": "efa_best_film",
+      "status": "nominee",
+      "event_year": 2024,
+      "category": "European Film",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/flow/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt17526714",
+      "component": "efa_best_film",
+      "status": "nominee",
+      "event_year": 2024,
+      "category": "European Film",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/the-substance/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "efa_best_film",
+      "status": "winner",
+      "event_year": 2024,
+      "category": "European Film",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/emilia-perez/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "efa_best_film",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "European Film",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/sentimental-value/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt36491653",
+      "component": "efa_best_film",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "European Film",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/it-was-just-an-accident/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32298285",
+      "component": "efa_best_film",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "European Film",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/sirat/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28690468",
+      "component": "efa_best_film",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "European Film",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/sound-of-falling/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt21097228",
+      "component": "gotham_best_feature",
+      "status": "winner",
+      "event_year": 2024,
+      "category": "Best Feature",
+      "source_url": "https://thegotham.org/press/34th-gothams-winners/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "gotham_best_feature",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Feature",
+      "source_url": "https://thegotham.org/press/winners-2025-gotham-film-awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14905854",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Feature",
+      "source_url": "https://letterboxd.com/thegotham/list/2025-gotham-film-awards-best-feature-nominees/detail/",
+      "verification": "institution_authored_indexed_page",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt21349688",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Feature",
+      "source_url": "https://letterboxd.com/thegotham/list/2025-gotham-film-awards-best-feature-nominees/detail/",
+      "verification": "institution_authored_indexed_page",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32928666",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Feature",
+      "source_url": "https://letterboxd.com/thegotham/list/2025-gotham-film-awards-best-feature-nominees/detail/",
+      "verification": "institution_authored_indexed_page",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32843349",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Feature",
+      "source_url": "https://letterboxd.com/thegotham/list/2025-gotham-film-awards-best-feature-nominees/detail/",
+      "verification": "institution_authored_indexed_page",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt29768334",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Feature",
+      "source_url": "https://letterboxd.com/thegotham/list/2025-gotham-film-awards-best-feature-nominees/detail/",
+      "verification": "institution_authored_indexed_page",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28607951",
+      "component": "spirit_best_feature",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Feature",
+      "source_url": "https://www.filmindependent.org/press-releases/film-independent-celebrates-2025-spirit-awards-winners-organizations-history-at-40th-annual-ceremony/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt29768334",
+      "component": "spirit_best_feature",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "Best Feature",
+      "source_url": "https://www.filmindependent.org/blog/backstage-for-a-dream-night-in-hollywood-at-the-2026-film-independent-spirit-awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt32843349",
+      "component": "spirit_best_feature",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Feature",
+      "source_url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-2026-spirit-awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt21349688",
+      "component": "spirit_first_feature",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best First Feature",
+      "source_url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-2026-spirit-awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt21349688",
+      "component": "sundance_audience",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Audience Award: NEXT (historical category-insensitive Audience Award mapping)",
+      "source_url": "https://www.sundance.org/blogs/2025-sundance-film-festival-award-winners-announced/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt8999762",
+      "component": "nyfcc_best_film",
+      "status": "winner",
+      "event_year": 2024,
+      "category": "Best Film",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "nyfcc_best_film",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Film",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "nsfc_best_picture",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Picture; announced 2026-01-03 for 2025 films",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "lafca_best_film",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.lafca.net/",
+      "verification": "indexed_primary_page",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt28607951",
+      "component": "critics_choice_best_picture",
+      "status": "winner",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt8999762",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt17526714",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt15239678",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt20221436",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2025,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt30144839",
+      "component": "critics_choice_best_picture",
+      "status": "winner",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt14905854",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt27714581",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt31193180",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    },
+    {
+      "imdb_id": "tt29768334",
+      "component": "critics_choice_best_picture",
+      "status": "nominee",
+      "event_year": 2026,
+      "category": "Best Picture",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "verification": "primary_web_observation",
+      "observed_at": "2026-10-25",
+      "source_measurement_date": null
+    }
+  ],
+  "extensions": [
+    {
+      "imdb_id": "tt14905854",
+      "kind": "tiff",
+      "fact": "2025 TIFF main People's Choice Award winner, confirmed by film producer; no runner-up/international variants",
+      "event_year": 2025,
+      "source_url": "https://amblin.com/movie/hamnet/",
+      "observed_at": "2026-10-25",
+      "verification": "primary_web_observation",
+      "unique_film_attribution": true
+    },
+    {
+      "imdb_id": "tt17526714",
+      "kind": "screenplay",
+      "fact": "Cannes main Competition Best Screenplay: Coralie Fargeat explicitly for The Substance",
+      "event_year": 2024,
+      "source_url": "https://www.festival-cannes.com/en/press/press-releases/the-77th-festival-de-cannes-winners-list/",
+      "observed_at": "2026-10-25",
+      "verification": "primary_web_observation",
+      "unique_film_attribution": true
+    },
+    {
+      "imdb_id": "tt14961016",
+      "kind": "screenplay",
+      "fact": "Venice main Competition Best Screenplay: Murilo Hauser and Heitor Lorega explicitly for Ainda Estou Aqui",
+      "event_year": 2024,
+      "source_url": "https://www.labiennale.org/en/news/official-awards-81st-venice-international-film-festival",
+      "observed_at": "2026-10-25",
+      "verification": "primary_web_observation",
+      "unique_film_attribution": true
+    },
+    {
+      "imdb_id": "tt29271639",
+      "kind": "screenplay",
+      "fact": "Berlin Competition Silver Bear Best Screenplay: Geneviève Dulude-de Celles explicitly for Nina Roza",
+      "event_year": 2026,
+      "source_url": "https://www.berlinale-talents.de/bt/page/c/festival-returnees-2026",
+      "observed_at": "2026-10-25",
+      "verification": "primary_web_observation",
+      "unique_film_attribution": true
+    }
+  ],
+  "coverage_checks": [
+    {
+      "imdb_ids": [
+        "tt28607951"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt28607951"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt28607951"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt8999762"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt8999762"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt8999762"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt17526714"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt17526714"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt17526714"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt15239678"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt15239678"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt15239678"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt20221436"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt20221436"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt20221436"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt14961016"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt14961016"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt14961016"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt4772188"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt4772188"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt4772188"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt21097228"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt21097228"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt21097228"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32928666"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32928666"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32928666"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt30057084"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt30057084"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt30057084"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt27714581"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt27714581"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt27714581"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt36491653"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt36491653"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt36491653"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32298285"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32298285"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32298285"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt30144839"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt30144839"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt30144839"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt31193180"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt31193180"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt31193180"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt21349688"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt21349688"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt21349688"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32843349"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32843349"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt32843349"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt29768334"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt29768334"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt29768334"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_positive",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt28690468"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt28690468"
+      ],
+      "venue": "Golden Globes",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+      "source_url": "https://goldenglobes.com/nominations/2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt28690468"
+      ],
+      "venue": "Critics Choice",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt12042730"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "99th Oscars: nominations scheduled 2027-01-21; eligible 2026 season, eligibility of this film not asserted",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt12042730"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "32nd ceremony scheduled 2027-01-03; 2026-season awards not yet awarded",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt33764258"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "99th Oscars: nominations scheduled 2027-01-21; eligible 2026 season, eligibility of this film not asserted",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt33764258"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "32nd ceremony scheduled 2027-01-03; 2026-season awards not yet awarded",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt29271639"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "99th Oscars: nominations scheduled 2027-01-21; eligible 2026 season, eligibility of this film not asserted",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt29271639"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "32nd ceremony scheduled 2027-01-03; 2026-season awards not yet awarded",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt38991615"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "99th Oscars: nominations scheduled 2027-01-21; eligible 2026 season, eligibility of this film not asserted",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-25"
+    },
+    {
+      "imdb_ids": [
+        "tt38991615"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "32nd ceremony scheduled 2027-01-03; 2026-season awards not yet awarded",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-25"
+    }
+  ],
+  "ratings": [
+    {
+      "imdb_id": "tt29271639",
+      "source": "imdb",
+      "rating": 6.6,
+      "votes": 229,
+      "status": "indexed_observation",
+      "source_url": "https://www.imdb.com/title/tt29271639/ratings/",
+      "observed_at": "2026-10-25",
+      "measurement_date": null,
+      "freshness": "Web index reported crawled today; measurement time unknown. Other indexed locales report 191/198/227 votes and 6.7/6.6; do not mix these observations."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "source": "imdb",
+      "rating": 6.9,
+      "votes": 85,
+      "status": "indexed_observation",
+      "source_url": "https://www.imdb.com/title/tt38991615/",
+      "observed_at": "2026-10-25",
+      "measurement_date": null,
+      "freshness": "Web index reported crawled last month; exact measurement date unknown. Sparse sample demonstrated for this observation, not current vote count."
+    }
+  ],
+  "film_notes": {
+    "tt14905854": [
+      "curated-details.json at cc11595 records score=1 and reason 'IMDb Festival list'. curated.py adds one for list membership. That is not an award, a 1/100 score, or evidence of no awards. Existing curated semantics are untouched.",
+      "BAFTA Outstanding British Film and Jessie Buckley's acting wins at BAFTA/Globes/Oscars are real but outside the historical film categories. They add no points here. Hamnet has no verified main-festival screenplay winner in this packet; a screenplay nomination does not enable the +6 experiment."
+    ],
+    "tt32928666": [
+      "2024 premiere/film year; TMDb release event 2025-06-20. Gotham/Spirit 2025/2026 recognition reflects later release. Venice Orizzonti directing/acting and debut prizes are outside the preserved main Competition policy; no unrequested hierarchy extension."
+    ],
+    "tt21097228": [
+      "Berlinale dossier calls production 2023; TMDb and the research film identity use 2024 premiere/release year. Do not change identity to a different film or treat the dossier production year as a false-match trigger."
+    ],
+    "tt29271639": [
+      "Exclude indexed IMDb tt29893755 despite matching title/cast text: public Wikidata entity Q137832534 maps tt29271639 to TMDb1527449, whose title/year agree. Sparse rating observation uses only tt29271639/ratings; current live counts remain unverified.",
+      "Berlin premiere in 2026; public TMDb release event 2026-04-24. Local release dates and runtimes differ across sources. Do not claim the film is unreleased everywhere.",
+      "2026-release control: 2027 season awards are pending, not verified zero; eligibility and eventual nominations are not assumed."
+    ],
+    "tt38991615": [
+      "2026 Directors' Fortnight premiere verified by British Council. Public TMDb release event 2026-12-04 is later than research date; it does not establish worldwide unreleased status.",
+      "Fortnight selection and IMDb Editors inclusion are not main Competition or awards. Fortnight audience-prize secondary reports were noticed but not independently verified against the awarding institution; unmodeled and unscored.",
+      "2026-release control: 2027 season awards are pending, not verified zero; eligibility and eventual nominations are not assumed."
+    ],
+    "tt21349688": [
+      "Sundance NEXT audience award maps to the existing category-insensitive Sundance Audience Award type (30 normalized =3 v1 points). This is not the TIFF extension. Sundance special screenplay/other categories remain unmodeled."
+    ],
+    "tt20221436": [
+      "Snapshot lacks Academy/Globe/BAFTA/Cannes facts verified here. Low archived audience ratings do not cancel institutional recognition. The large score change is evidence repair, not new award weighting."
+    ],
+    "tt4772188": [
+      "EFA official film page lists European Film 2024 nomination separately from Animated Feature win. Only the former adds 12 normalized points; LUX and animated EFA wins are unmodeled."
+    ],
+    "tt12042730": [
+      "2026-release control: 2027 season awards are pending, not verified zero; eligibility and eventual nominations are not assumed."
+    ],
+    "tt33764258": [
+      "2026-release control: 2027 season awards are pending, not verified zero; eligibility and eventual nominations are not assumed."
+    ]
+  },
+  "source_urls": {
+    "oscars25": "https://www.oscars.org/oscars/ceremonies/2025",
+    "oscars26": "https://www.oscars.org/oscars/ceremonies/2026",
+    "globes25": "https://goldenglobes.com/nominations/2025/",
+    "globes26": "https://goldenglobes.com/nominations/2026/",
+    "bafta25": "https://www.bafta.org/awards/film/?award-year=2025",
+    "bafta26": "https://www.bafta.org/awards/film/?award-year=2026",
+    "cannes24": "https://www.festival-cannes.com/en/press/press-releases/the-77th-festival-de-cannes-winners-list/",
+    "cannes25": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+    "venice24": "https://www.labiennale.org/en/news/official-awards-81st-venice-international-film-festival",
+    "gotham24": "https://thegotham.org/press/34th-gothams-winners/",
+    "gotham25": "https://thegotham.org/press/winners-2025-gotham-film-awards/",
+    "gotham25nom": "https://letterboxd.com/thegotham/list/2025-gotham-film-awards-best-feature-nominees/detail/",
+    "spirit25": "https://www.filmindependent.org/press-releases/film-independent-celebrates-2025-spirit-awards-winners-organizations-history-at-40th-annual-ceremony/",
+    "spirit26": "https://www.filmindependent.org/blog/backstage-for-a-dream-night-in-hollywood-at-the-2026-film-independent-spirit-awards/",
+    "spirit26nom": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-2026-spirit-awards/",
+    "sundance25": "https://www.sundance.org/blogs/2025-sundance-film-festival-award-winners-announced/",
+    "cc25": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+    "cc26": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+    "nyfcc": "https://www.nyfcc.com/awards/",
+    "nsfc25": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+    "lafca25": "https://www.lafca.net/",
+    "berlin26": "https://www.berlinale-talents.de/bt/page/c/festival-returnees-2026",
+    "berlin24": "https://www.berlinale.de/media/download/presse/dossier/pressedossier-2024.pdf",
+    "oscars27": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+    "cc27": "https://www.criticschoice.com/critics-choice-awards/"
+  },
+  "unverified_claims": [
+    "Archived per-row rating timestamps and current provider licensing/redistribution rights are not established.",
+    "No institution-wide complete award history is claimed for any film.",
+    "LAFCA 2024 Anora fact remains archived secondary; current index corroborates only 2025 winner.",
+    "Remaining historical categories not reverified are explicitly archived_secondary.",
+    "Public IMDb index observations are research citations, not authorization for scraping, bulk republication or a production provider."
+  ]
+}

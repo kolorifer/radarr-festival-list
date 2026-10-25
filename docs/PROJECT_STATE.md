@@ -1,5 +1,34 @@
 # Movie List project state
 
+## Live Movie Score v1 research — 2026-10-25
+
+Issue #86 supervisor task 1 has a separate offline calibration packet for review
+on `automation/issue-86-worker`, based on `cc11595`: 24 films (2024:10,2025:10,
+2026:4), twelve variants each, with the agreed Audience 50 / Recognition 50 caps.
+The selected historical award-family rows at `9c5a0f0` are preserved and exactly
+reconstructed; dated public evidence documents additional awards and source gaps.
+
+Coverage is 22 archived IMDb/Letterboxd pairs, two indexed sparse IMDb
+observations, two unavailable Letterboxd halves, 93 newly reviewed award facts
+and 68 scoped checks. Original rating measurement dates and complete live award
+coverage are not established. All overall scores remain null; reported observed
+subtotals are conditional on the pinned evidence. No overall leaderboard or
+production confidence/bonus policy is adopted.
+
+Technical verification: 20 focused research tests pass; offline regeneration,
+pip check and frozen production scorer check pass. The local full suite ran 687
+tests with four errors and two skips under available Python 3.9; SQLite error
+attributes/constants are missing on that interpreter, including the unchanged
+HTTP storage-error paths. Supported Python 3.12/3.13 CI was not run by this worker.
+Deployment/operational verification: not authorized or performed; no seedbox or
+service access. Worker publication is delegated to the runner. Product acceptance,
+provider rights/access, exact confidence parameters and new awards remain pending.
+
+[Calibration report](../simulations/live-score-v1/report.md) ·
+[Engineering report](reports/2026-10-25-live-score-v1.md) ·
+[Completed scoped brief](reports/2026-10-25-live-score-v1-brief.md).
+The unrelated active `docs/CODEX_TASK.md` cleanup assignment is unchanged.
+
 
 ## Grab Anyway confirmation and first import — 2026-10-24
 
