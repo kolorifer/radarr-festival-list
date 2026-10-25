@@ -1,28 +1,32 @@
-# Persistent verified identity memory — implementation brief
+# Remembered movie identity with explicit confirmation
 
-User requested storing previous successful identifications and reusing them for
-later torrents of the same movie, using repeated The End of Oak Street events as
-the example.
+The user requested storing successful identifications for later torrents of the
+same movie. On 2026-10-25 they selected option 2: show the remembered match for
+identity confirmation before enabling Grab Anyway. Download confirmation remains
+separate. This is the accepted extension to D005; automatic title/year approval
+was not selected.
 
-Current verified state: external-ID validation and exact tracker-listing caches
-are process-local, last 15 minutes, and do not reuse a movie match across different
-torrent references. Consequently a new torrent can still fail at source lookup.
+Acceptance:
+- Persist successful exact-ID/context validation responses, with expiry and bounds.
+- Remember only independently verified movie matches by exact source/title/year;
+  no fuzzy names, alternate years, TV fields, or remembered owner-choice feedback.
+- On temporary metadata failure, offer a unique remembered identity as a proposal.
+  New explicit ID conflicts, contradictory evidence, mixed rejections and expired
+  or ambiguous memory must not enable acquisition.
+- Identity confirmation applies only to this immutable release occurrence. It
+  must not download or create a permanent correction. A separate confirmation
+  prepares and approves the original release through existing safeguards.
+- Preserve each torrent's original source, link, rejection, quality and cut.
+- Revalidate the live choice and cached identity before acquisition, including
+  the restricted Grab Anyway helper; replay cannot recreate a completed child.
+- Seed recent retained independent verified outcomes with their original times;
+  never import unverified suggestions, owner decisions or acquisition approvals.
+- Validate and deploy atop the running revision, preserving existing approvals,
+  receipts, retry budgets, Telegram routing and unrelated services.
+- No deliberate live notifications, downloads, imports or Radarr changes.
 
-Authorized foundation implemented: optional private, bounded persistent storage
-of successful exact-ID/context validation results, surviving service restarts.
-Failed/ambiguous results are not durable positive matches. Changed supplied IDs,
-title, year and typo mode must not hit an earlier key. Cache faults fall back to
-the current resolver. No downloads, notifications or production change yet.
-
-Pending design choice sent to the user: for a new torrent with the same exact
-source/title/year but no readable metadata, can a unique previously verified
-match enable Grab Anyway, or must the user confirm the remembered identity first?
-D005 currently requires source/context verification and disallows title-only
-fallback when the source lookup fails. The new cross-torrent behavior will not be
-implemented or enabled until the user resolves this question. Download approval
-will remain separate in either design; film-cut evidence stays release-specific.
-
-Acceptance for the foundation: durable hits avoid provider calls; seven-day
-expiry is not extended by reads; 1,024 entries / 32 KiB bounds; private 700 parent
-and 600 file; expired/corrupt/inconsistent data cannot bypass fresh validation.
-Preserve production revision 99d81d8 and existing action/retry state.
+Implementation choices: TorrentLeech only (the supported Grab Anyway source);
+exact Unicode NFC/case-folded/whitespace-normalized titles and exact integer year;
+seven-day cache lifetime, 1,024 combined records, 32 KiB per record; private 700
+parent and 600 SQLite file. Cache unavailability falls back to ordinary lookup or
+blocks a remembered choice, never bypasses confirmation.

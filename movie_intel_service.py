@@ -353,7 +353,13 @@ def build_movie_context(payload):
     if verified_film(meta):
         try:existing=get_movie_by_tmdb(meta['tmdb_id']) or {}
         except RadarrError:existing={}
+    import identity_memory
+    try:identity_memory.observe(payload,meta or {})
+    except (OSError,ValueError,TypeError,KeyError,AttributeError):
+        decision_log('identity','memory_unavailable',payload)
     text = format_message(payload, movie=movie, meta=meta, existing=existing)
+    if identity_memory.packet(payload,{'meta':meta}):
+        text += '\n\nA previous release matched this movie. Confirm the remembered movie for this torrent before opening download confirmation.'
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
         "review_listing": listing,
@@ -369,6 +375,9 @@ def build_movie_context(payload):
 def reviewed_action_current(action):
     """Never reuse a legacy decision; a chosen occurrence must still be live."""
     movie = action.get('movie') or {}
+    if movie.get('identity_memory_choice') or movie.get('identity_source')=='owner_remembered_choice':
+        import identity_memory
+        return identity_memory.reviewed_current(action,get_action)
     if movie.get('identity_review') or movie.get('identity_source') == 'owner_reviewed_source':return False
     if movie.get('identity_source') == 'torrent_evidence' or movie.get('identity_evidence'):
         try:
@@ -394,6 +403,20 @@ def reviewed_action_current(action):
 
 def create_identity_review(payload,context):
     import occurrence_review
+    import identity_memory
+    remembered=identity_memory.packet(payload,context)
+    if remembered:
+        data=payload['data']
+        keys=(*REVIEW_RELEASE_KEYS,'type','season','episode','meta_imdb','meta_tmdb','implementation','resolution','source','group','edition','cut')
+        release={k:v for k,v in data['release'].items() if k in keys}
+        indexer={k:v for k,v in data['indexer'].items() if k in ('name','protocol','identifier')}
+        original={'event':payload.get('event'),'timestamp':payload.get('timestamp'),'data':{
+            'release':release,'indexer':indexer,'action':{'type':data['action']['type']},
+            'result':{'rejections':data['result']['rejections']}}}
+        remembered['binding']=identity_memory.binding(original)
+        try:return create_action({'kind':'identity_review','movie':{},'release':release,'indexer':indexer,
+                                  'original_event':original,'review':remembered})
+        except (OSError,ValueError):return None
     review=occurrence_review.packet(payload,context)
     if not review:return None
     data=payload['data']
@@ -469,6 +492,7 @@ def create_pending_action(payload, meta):
             "identity_source": meta.get('identity_source'),
             **({"identity_review": meta["identity_review"]} if meta.get("identity_review") else {}),
             **({"identity_choice": meta["identity_choice"]} if meta.get("identity_choice") else {}),
+            **({"identity_memory_choice": meta["identity_memory_choice"]} if meta.get("identity_memory_choice") else {}),
             **({"identity_evidence": meta["identity_evidence"]} if meta.get("identity_evidence") else {}),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
@@ -521,7 +545,8 @@ def _reply_markup(action_url):
     try:
         action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
         if action and action.get('kind')=='alternative':label='⬇️ Grab Anyway'
-        if action and action.get('kind')=='identity_review':label='🔎 Review evidence & choose movie'
+        if action and action.get('kind')=='identity_review':
+            label=('🔎 Confirm remembered movie' if action.get('review',{}).get('type')=='remembered_movie' else '🔎 Review evidence & choose movie')
     except (OSError,ValueError):pass
     return {
         "inline_keyboard": [[{
@@ -860,8 +885,14 @@ class Handler(BaseHTTPRequestHandler):
                 return
             try:
                 if action.get('kind')=='identity_review':
-                    import occurrence_review
-                    self._html(200,_page('Review identity',occurrence_review.render(action)))
+                    if action.get('review',{}).get('type')=='remembered_movie':
+                        import identity_memory
+                        identity_memory.target(action)
+                        url=public_action_url({},action['next_token']) if action.get('next_token') else None
+                        self._html(200,_page('Confirm remembered movie',identity_memory.render(action,url)))
+                    else:
+                        import occurrence_review
+                        self._html(200,_page('Review identity',occurrence_review.render(action)))
                 elif action.get('kind')=='alternative':
                     alternative_grab.validate_action(action)
                     self._html(200,render_alternative(action))
@@ -878,7 +909,39 @@ class Handler(BaseHTTPRequestHandler):
         with _APPROVAL_LOCK:
             self._handle_action_post_locked(token)
 
+    def _memory_review_post(self,token,action):
+        import identity_memory
+        try:
+            length=int(self.headers.get('Content-Length','0'))
+            if not 0<length<=1024:raise ValueError('form')
+            params=parse_qs(self.rfile.read(length).decode('utf-8'))
+            target=identity_memory.target(action)
+            local=find_local(target['title'],target['year'],INDEX)
+            if local and local.get('imdb_id')!=target['imdb_id']:raise ValueError('local_conflict')
+            if not action.get('chosen'):
+                if params!={'confirm_identity':['yes']}:raise ValueError('form')
+                if not update_action(token,chosen=True,movie=target):raise OSError('store')
+                self._html(200,_page('Identity confirmed',identity_memory.render(dict(action,chosen=True,movie=target))))
+                return
+            if params!={'prepare_download':['yes']}:raise ValueError('form')
+            next_token=action.get('next_token')
+            if not next_token:
+                meta=dict(target,identity_memory_choice={'review_token':token,'binding':action['review']['binding']})
+                next_token=create_pending_action(action['original_event'],meta)
+                if not next_token:raise ValueError('acquisition_unavailable')
+                if not update_action(token,next_token=next_token):
+                    delete_action(next_token)
+                    raise OSError('store')
+            url=public_action_url({},next_token)
+            if not url:raise ValueError('origin_unavailable')
+            self._html(200,_page('Download confirmation',identity_memory.render(action,url)))
+        except (ValueError,UnicodeDecodeError,KeyError,TypeError,OSError):
+            self._html(409,_page('Remembered match unavailable','<p>The match expired, conflicting evidence appeared, or the form was invalid. No download started.</p>'))
+
     def _identity_review_post(self,token,action):
+        if action.get('review',{}).get('type')=='remembered_movie':
+            self._memory_review_post(token,action)
+            return
         import occurrence_review
         try:
             length=int(self.headers.get('Content-Length','0'))

@@ -92,3 +92,39 @@ def put(namespace, context, value):
     finally:
         if connection is not None:
             connection.close()
+
+
+def remember(context, movie, *, conflict=False, verified_at=None):
+    """Atomically preserve ambiguity instead of letting the last writer win."""
+    connection = None
+    try:
+        connection = _connect()
+        if connection is None:
+            return False
+        now = time.time()
+        created = now if verified_at is None else float(verified_at)
+        if not now-TTL < created <= now:return False
+        key = _key('remembered_movie', context)
+        connection.execute('begin immediate')
+        row = connection.execute('select value,expires,created from verified_cache where key=?', (key,)).fetchone()
+        previous = json.loads(row[0]) if row and row[1] > now else {}
+        old = previous.get('movie') or {}
+        ambiguous = (conflict or previous.get('ambiguous') is True or
+                     bool(old and any(old.get(k) != movie.get(k) for k in ('imdb_id','tmdb_id'))))
+        if row and row[1] > now:
+            if row[2] > created and not ambiguous:return True
+            created=max(created,row[2])
+        value = {'ambiguous':ambiguous, 'movie':{} if ambiguous else movie, 'verified_at':created}
+        raw = json.dumps(value)
+        if len(raw.encode()) > 32768:
+            return False
+        with connection:
+            connection.execute('insert into verified_cache values(?,?,?,?) on conflict(key) do update set value=excluded.value,created=excluded.created,expires=excluded.expires', (key,raw,created,created+TTL))
+            connection.execute('delete from verified_cache where expires<=?',(now,))
+            connection.execute('delete from verified_cache where key in (select key from verified_cache order by created desc,key limit -1 offset ?)',(LIMIT,))
+        return True
+    except (OSError, ValueError, TypeError, sqlite3.Error):
+        return False
+    finally:
+        if connection is not None:
+            connection.close()

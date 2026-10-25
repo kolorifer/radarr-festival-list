@@ -1,9 +1,9 @@
-# Verified identity memory — local work, 2026-10-25
+# Remembered identity confirmation — 2026-10-25
 
-Persistent exact-ID/context caching is implemented locally and disabled by default.
-Cross-torrent title/year reuse is awaiting the user’s identity-policy choice;
-this request is not complete and no production changes have been made.
-See the [brief and progress report](reports/2026-10-25-identity-memory.md).
+User selected explicit identity confirmation before enabling Grab Anyway.
+Implemented private verified-ID caching and exact source/title/year memory;
+remembered matches are occurrence-bound proposals, never automatic approvals.
+Final validation/deployment pending. See the [report](reports/2026-10-25-identity-memory.md).
 The unrelated active cleanup assignment remains unchanged.
 
 # Grab Anyway retry recovery — 2026-10-25

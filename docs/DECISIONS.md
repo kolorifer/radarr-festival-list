@@ -80,6 +80,16 @@ the workflow documentation task.
   Implementation and verified deployment are authorized by the
   [brief](reports/2026-10-18-reviewed-identity-brief.md).
 
+- **Remembered identity proposals authorized, 2026-10-25:** The user requested
+  persistent reuse of previous successful lookups and selected option 2: an exact
+  source/title/year remembered match must be explicitly confirmed for each new
+  torrent before enabling Grab Anyway. This permits private bounded persistence
+  of independently verified identities and proposals during temporary lookup
+  failures, not automatic identity acceptance, fuzzy matching, contradiction
+  overrides or learned owner exceptions. Identity confirmation and download
+  approval remain separate; source links, rejections and film cuts remain
+  specific to the new release. See the [brief](reports/2026-10-25-identity-memory-brief.md).
+
 ## D006 — Audience ratings provide context
 
 - **Status/source:** Accepted existing baseline; captured 2026-10-13.

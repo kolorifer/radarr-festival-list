@@ -393,3 +393,16 @@ an ID for a different torrent from its title, bypass tracker-source verification
 cache a failed lookup as success, or reuse an approval/source/edition decision.
 To clear it, stop movie-intel, move the private cache file aside, then restart.
 No acquisition state is stored in it.
+
+The same private cache also keeps independently verified TorrentLeech movie
+matches by exact source/title/year. During a temporary lookup outage a unique
+remembered match can produce a **Confirm remembered movie** review. Confirming
+identity applies only to that occurrence and starts no download. The separate
+existing download confirmation remains mandatory. Changed or conflicting IDs,
+ambiguous/expired memory, and revoked choices block acquisition. No owner-choice
+or research result is automatically learned as a new identity mapping.
+
+Before rolling back to code without this feature, stop the actor and privately
+retire outstanding remembered reviews and their child capabilities; otherwise
+older code will not understand their confirmation markers. Preserve all unrelated
+and completed acquisition state. Never restore an old actions snapshot.
