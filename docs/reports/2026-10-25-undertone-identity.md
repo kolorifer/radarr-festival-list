@@ -1,7 +1,7 @@
 # Engineering report: Undertone identity contradiction
 
 **Specification:** [brief](2026-10-25-undertone-identity-brief.md), user-confirmed card.
-**Result:** implementation under validation; deployment and card correction pending.
+**Result:** implemented, deployed and exact existing Telegram card corrected.
 **Verification date:** 2026-10-25.
 
 ## Verified cause
@@ -51,7 +51,55 @@ No acquisition operation was invoked.
 
 ## Validation and deployment
 
-Pending; results will be recorded after completion.
+Runtime revision: `72a04701d110c2b6f54cfd67c25861e6bf997a4c`, deployed at
+19:39 CET. [PR87](https://github.com/kolorifer/radarr-festival-list/pull/87) remains
+open against isolated runtime/undertone-identity-baseline; no unrelated main merge.
+
+- Full local `python -m unittest -v`: 726 tests, 156.545s, OK (two Linux-only skips).
+  Two additional test-only regressions were added while that suite ran; the final
+  27 focused tests passed, including real GET/POST handler refusal with zero writes.
+- Final full isolated seedbox suite: 728 tests, 45.560s, all passed.
+- [CI Python3.12 and3.13](https://github.com/kolorifer/radarr-festival-list/actions/runs/40222191820): passed
+  on the exact deployed revision. Dispatch was explicit because this PR's isolated
+  base is outside the workflow's main-branch trigger.
+- Frozen scoring passed locally/server: 1909 candidates, 224 grandfathered,
+  163 new, 387 qualified. Server pip check and actual private-config preflight pass.
+  A local private-config check had no environment file; server validation is the
+  deployment evidence. The initial unprivileged focused run could not bind local
+  HTTP sockets; the full local suite passed with required loopback permission.
+- Actual metadata replay: General NFO runtime93; short runtime12 blocked; feature
+  runtime94 accepted, with the 2025 festival date independently verified by TMDb.
+- Guarded deployment: clean pinned checkout, local/public health200,1909movies,
+  active/running,NRestarts0; all21 existing actions and acquisition receipts unchanged.
+  Protected configuration and collector PID/state unchanged. Backup/audit at
+  ~/.local/state/undertone-identity-20261025-deployment. Code rollback preserves
+  current action state and the expired wrong approval; never restore old actions.
+
+## Existing-card correction
+
+The user supplied the exact Telegram message link. A fresh source/ID recheck and
+caption dry-run passed. Edited that same message in the same chat/topic via
+editMessageMedia: correct feature poster, IMDb tt35892608, TMDb1480387, canonical
+2026 year plus the documented 2025 release note, normal outside-catalog wording.
+The source release is unchanged. A replacement pending capability points to the
+correct film and expires no later than the old one. Other live actions are unchanged.
+The original detailed Radarr rejection prose was not retained, so the corrected
+card preserves the known Unknown Movie category without inventing detailed reasons.
+
+Telegram acknowledgement verifies message/chat/topic, photo and correct button;
+IMDb/TMDb URLs were checked in caption_entities. The first acknowledgement assertion
+looked for HTML URLs in plain caption text and failed after the successful edit;
+checking the saved entities resolved it without a repeat edit or new action.
+Corrected page GET200; retired page GET410. Both identities remain absent from
+Radarr; health200 and NRestarts0 after correction. No acquisition POST, movie add,
+search, download, import, sendMessage or sendPhoto was invoked. This is not an
+end-to-end download test. Private card audit is in the quarantine backup's
+card-correction directory; it contains capabilities and must not be published.
+
+## Handoff
+
+Brief/report and PROJECT_STATE updated. The unrelated CODEX_TASK remains untouched.
+Only documentation changes follow the tested/deployed runtime revision.
 
 ## Limits
 

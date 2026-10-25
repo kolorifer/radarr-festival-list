@@ -1,11 +1,18 @@
 # Undertone identity contradiction — 2026-10-25
 
-The latest card selected a 12-minute same-title/year short instead of the feature.
-The incorrect approval is expired and remembered identity quarantined. The fresh
-listing now identifies the feature; the original source response is unavailable.
-Runtime corroboration and approval-time source revalidation are implemented;
-validation/deployment/card correction pending. See the
-[report](reports/2026-10-25-undertone-identity.md). Unrelated cleanup task preserved.
+Deployed `72a04701d110c2b6f54cfd67c25861e6bf997a4c` at19:39 CET, clean,
+health200/1909movies/NRestarts0. Runtime contradictions block identity enrichment
+and tracker-backed approvals recheck source IDs before acquisition.21preexisting
+approvals and receipts preserved by deployment. Final seedbox728tests and CI3.12/3.13
+passed; local726tests/two skips plus final27focused tests passed.
+The wrong12-minute-short approval is expired and its remembered identity quarantined.
+The same user-specified Telegram card now shows the independently verified feature
+and poster, with a new pending capability for the unchanged release: newGET200,
+oldGET410. Other live approvals preserved; both movies still absent in Radarr.
+No acquisition or duplicate notification. Original raw listing is unavailable;
+current source differs from the original accepted ID. [PR87](https://github.com/kolorifer/radarr-festival-list/pull/87)
+remains open. See the [report](reports/2026-10-25-undertone-identity.md).
+The unrelated cleanup assignment is unchanged.
 
 # Standard retry notification — 2026-10-25
 
