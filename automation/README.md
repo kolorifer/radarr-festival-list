@@ -175,8 +175,11 @@ QUESTIONS: none
 
 The runner reads only `event_msg` / `token_count` quota metadata from local
 `~/.codex/sessions/**/*.jsonl`, following the existing `codex-health` telemetry
-shape. It selects the latest timestamped primary 300-minute observation, not
-the most recently modified file. Context usage/history is never placed in a
+shape. It selects the latest timestamped Codex quota snapshot, not the most
+recently modified file. Window durations are account-dependent: primary may be
+weekly with no secondary window. It validates all reported primary/secondary
+windows and uses the lowest remaining percentage; a malformed or expired latest
+snapshot fails closed rather than falling back to an older allowance. Context usage/history is never placed in a
 prompt, nor used to resume a session.
 
 At <=15% remaining it posts `STATE: PAUSED_QUOTA` with the percentage, does not
