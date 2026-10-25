@@ -1,7 +1,8 @@
 # Engineering report: Grab Anyway eligibility recovery
 
 **Specification:** [completed brief](2026-10-25-grab-eligibility-recovery-brief.md).
-**Result:** implemented; validation and deployment pending.
+**Result:** implemented and deployed; PR review and live recovery observation pending.
+**Runtime revision:** `99d81d8e89f7fac5a0545fc1303ea8dd278846f2`.
 **Baseline:** production `25eae809e63f734689a0ce2243c8140e2657b8d0`.
 **Verification date:** 2026-10-25.
 
@@ -43,18 +44,37 @@ The initial card explains temporary identity lookup failure explicitly.
 | Negative safeguards | Passed focused tests | Mixed reasons, season field and legacy payload create no acquisition approval |
 | Receipt retention | Passed focused tests | Queue without opening SQLite; failed flush persists; restart retains original message |
 | No acquisition | Passed focused tests | ensure_movie and push_release are never invoked |
-| Deployment | Pending | See final deployment result |
+| Deployment | Passed | Clean running revision, health 200, zero restarts, state preserved |
 
 ## Tests run and results
 
 Focused synthetic suite: 29 tests passed, including local mock Telegram transport.
-Full local/seedbox suite and preflight results will be recorded after completion.
+Final full local suite: 686 tests, passed with two skips (154.935 seconds).
+Final full seedbox suite: 686 tests, all passed (44.998 seconds).
+Python 3.12 and 3.13 [CI passed](https://github.com/kolorifer/radarr-festival-list/actions/runs/40191146259).
+Local and seedbox pip check passed. Production scoring reproduction passed:
+1,909 candidates, 224 grandfathered, 163 new, 387 qualified. Seedbox deployment
+configuration preflight passed. Diff whitespace check passed.
+
+An earlier local run failed the newly added receipt-wrapper test because its
+temporary home lacked `.local/state`; the fixture was corrected and the full
+suite rerun successfully. All notification tests used synthetic local transports.
 
 ## Deployment result
 
-Pending. Production contains unmerged runtime work from PRs #79 and #82; this
-isolated fix is based on the exact running revision, without replacing it with
-main or merging unrelated work.
+Activated `99d81d8e89f7fac5a0545fc1303ea8dd278846f2` at 12:02 UTC on
+2026-10-25. Clean checkout; movie-intel active/running, NRestarts=0. Local and
+public HTTPS health both returned 200 with 1,909 catalog movies. All 34 preexisting
+approvals and acquisition receipts were unchanged. Protected private
+configuration and identity collector PID/state were unchanged. Backups are in
+the private host directory `~/.local/state/grab-eligibility-20261025`.
+
+Production contains unmerged runtime work from PRs #79 and #82; this isolated
+fix uses the actual running baseline without replacing it with main or merging
+unrelated work. PR #83 remains open for review against that baseline.
+Rollback: stop only movie-intel, restore code to `25eae80`, restart and verify
+health; preserve current private state and never restore old action snapshots.
+New spool files are ignored by the older code and retained for recovery.
 
 ## Unexpected findings
 
@@ -74,8 +94,9 @@ before a receipt reaches durable storage cannot be eliminated by this change.
 
 ## Commit and PR reference
 
-The containing implementation commit/PR records this change against the isolated
-production baseline. Deployment and final evidence will be appended separately.
+[PR #83](https://github.com/kolorifer/radarr-festival-list/pull/83), open for review.
+Implementation/deployed commit: `99d81d8e89f7fac5a0545fc1303ea8dd278846f2`.
+The subsequent report commit changes documentation only and is not deployed.
 
 ## Project context updates
 

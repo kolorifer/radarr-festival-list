@@ -1,6 +1,9 @@
 # Grab Anyway retry recovery — 2026-10-25
 
-Implemented on the actual production baseline; deployment validation pending.
+Deployed `99d81d8e89f7fac5a0545fc1303ea8dd278846f2`; local/public health 200,
+zero restarts, 34 preexisting approvals and acquisition receipts preserved.
+686 local tests passed (two skips), 686 seedbox tests passed, Python 3.12/3.13 CI passed.
+PR #83 remains open against the isolated production baseline.
 See the [investigation and report](reports/2026-10-25-grab-eligibility-recovery.md).
 Original rejection reasons and Telegram receipts are retained across retries.
 The pictured old card has no retained message ID and cannot safely be edited.
