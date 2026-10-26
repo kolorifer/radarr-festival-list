@@ -292,6 +292,13 @@ def refresh_one(home, row, budget):
             scored=result(release,listing,captured['nfo'],search,details,mappings,
                           outcome.get('asserted_imdb') or release.get('imdb'))
     if edition_status:scored['edition_discovery_status']=edition_status
+    # Cut claims/runtime comparisons are separate audit proposals. Never clear
+    # actor identity conflicts or change scorer weights/selection in this pilot.
+    from .cut_discovery import proposal as cut_proposal, discover as discover_cut, comparison
+    cut_request=cut_proposal(release,listing,captured['nfo'],case,facts)
+    if cut_request:
+        cut_finding=discover_cut(cut_request,home/'.local/state/identity-scoring-shadow/cut-cache.json',budget)
+        scored['edition_investigation']=comparison(cut_request,cut_finding)
     scored['discovery_scope']=scope
     scored['discovery_integrity']=discovery_integrity
     if outcome.get('reason')=='local_identity_conflict' and scored['decision']=='would_identify' and plan:
