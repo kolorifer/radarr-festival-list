@@ -1,5 +1,36 @@
 # Movie List project state
 
+## Live Movie Score v1 — separate Task 2 research, 2026-10-26
+
+Issue #86 supervisor task 2 adds a separate offline packet under
+`simulations/live-score-v1/task2/` against immutable Task 1 / PR #88 at
+`b62f00de56b2f1aa488e9f41742b86617efcec72`. The same 24 exact-ID films and all
+Task 1 files/rating pairs remain unchanged. New evidence includes 26 award
+corroborations (25 primary-page reviews, one indexed primary), 11 components
+upgraded to direct primary support across ten films, and 81 scoped checks.
+These improve provenance/coverage without changing any same-variant subtotal.
+
+Fresh paired ratings remain unresolved after current source-rights/access review:
+IMDb zero fresh, 22 archived plus two stale indexed; Letterboxd zero fresh,
+22 archived plus two unavailable. No new raw rating dataset was acquired.
+The three exact strengths 0/1,000/10,000 and priors 7.25/3.65 use fixed evidence;
+audience ranks compare only the unchanged 22 paired archival rows. Two ties
+separate; all same-scenario ranks match Task 1. Overall scores/ranks remain null.
+TIFF/screenplay sensitivity remains separate and off in base; no constants,
+award extensions, production logic or completeness policy have been accepted.
+
+Technical verification: 14 Task 2 and 20 Task 1 research tests pass, offline byte
+checks and unchanged frozen scorer check pass. The isolated Python 3.9.6 full
+suite ran 515 tests with 68 errors/two skips: 64 missing requests/bs4 errors and
+four SQLite/HTTP storage-error compatibility failures. No full-suite or supported
+3.12/3.13 pass is claimed. Deployment/operational verification: unauthorized and
+not performed. Parent owns publication; product acceptance and lawful fresh
+audience evidence remain pending. The unrelated active cleanup brief is unchanged.
+
+[Task 2 findings](../simulations/live-score-v1/task2/report.md) ·
+[Engineering report](reports/2026-10-26-live-score-v1-task2.md) ·
+[Completed scoped brief](reports/2026-10-26-live-score-v1-task2-brief.md).
+
 ## Live Movie Score v1 research — 2026-10-25
 
 Issue #86 supervisor task 1 has a separate offline calibration packet for review

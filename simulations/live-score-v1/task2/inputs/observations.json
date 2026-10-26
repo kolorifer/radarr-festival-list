@@ -1,0 +1,1988 @@
+{
+  "task": 2,
+  "research_date": "2026-10-26",
+  "review_window_utc": {
+    "start": "2026-10-26T15:50:04Z",
+    "end": "2026-10-26T15:54:09Z"
+  },
+  "method": "Bounded read-only public web review. Cached/indexed text explicitly labeled. Facts summarized; no articles or new rating datasets redistributed. Origin update times generally unknown. Day precision for award observation; not a live collector.",
+  "sources": {
+    "gotham24": {
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "institution": "Gotham",
+      "scope": "2024 Best Feature nominations",
+      "event_year": 2024,
+      "event_date": "2024-10-29",
+      "event_date_kind": "nomination_announcement",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "gotham25": {
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "institution": "Gotham",
+      "scope": "2025 Best Feature nominations; international category separate",
+      "event_year": 2025,
+      "event_date": "2025-10-28",
+      "event_date_kind": "nomination_announcement",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "venice24": {
+      "source_url": "https://www.labiennale.org/en/cinema/2024/venezia-81-competition",
+      "institution": "Venice",
+      "scope": "2024 Venezia 81 Competition selection",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "cannes24": {
+      "source_url": "https://www.festival-cannes.com/en/f/the-substance/",
+      "institution": "Cannes",
+      "scope": "2024 The Substance film dossier: In Competition, screenplay award",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "spirit25": {
+      "source_url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-40th-anniversary-2025-spirit-awards/",
+      "institution": "Spirit",
+      "scope": "2025 Best Feature and Best First Feature nominations",
+      "event_year": 2025,
+      "event_date": "2024-12-04",
+      "event_date_kind": "nomination_announcement",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "efa26": {
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/sound-of-falling/",
+      "institution": "EFA",
+      "scope": "Sound of Falling: European Film 2026 nomination, distinct technical categories",
+      "event_year": 2026,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "academy26": {
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "institution": "Academy",
+      "scope": "98th ceremony Best Picture and International Feature Film only",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "nyfcc": {
+      "source_url": "https://www.nyfcc.com/awards/",
+      "institution": "NYFCC",
+      "scope": "Best Film 2024 and 2025; no other categories scored",
+      "event_year": null,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "nsfc24": {
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "institution": "NSFC",
+      "scope": "2024 Best Picture winner only; runners-up not winners",
+      "event_year": 2024,
+      "event_date": "2025-01-04",
+      "event_date_kind": "announcement",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "nsfc25": {
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "institution": "NSFC",
+      "scope": "2025 Best Picture winner only; runners-up not winners",
+      "event_year": 2025,
+      "event_date": "2026-01-03",
+      "event_date_kind": "announcement",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "lafca24": {
+      "source_url": "https://www.lafca.net/Years/2024.php",
+      "institution": "LAFCA",
+      "scope": "2024 Best Picture winner Anora; The Brutalist runner-up",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "observed_at": "2026-10-26",
+      "access_method": "indexed_primary_page",
+      "limitations": "Search index said crawled four days ago; direct open timed out. Indexed corroboration only, not a successful origin retrieval; announcement day unverified."
+    },
+    "academy27": {
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "institution": "Academy",
+      "scope": "2026 release-season nominations 2027-01-21; ceremony 2027-03-14",
+      "event_year": 2027,
+      "event_date": "2026-04-07",
+      "event_date_kind": "calendar_publication",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    },
+    "cc27": {
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "institution": "Critics Choice",
+      "scope": "32nd ceremony advertised for 2027-01-03; pending season, no film eligibility assertion",
+      "event_year": 2027,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "observed_at": "2026-10-26",
+      "access_method": "primary_page_via_web",
+      "limitations": "Public web reader may serve cached text; review date is not an origin freshness guarantee."
+    }
+  },
+  "ratings": [],
+  "awards": [
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "film_title": "Anora",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2024,
+      "event_date": "2024-10-29",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt30057084",
+      "tmdb_id": 1097549,
+      "film_title": "Babygirl",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2024,
+      "event_date": "2024-10-29",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt21097228",
+      "tmdb_id": 989662,
+      "film_title": "A Different Man",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2024,
+      "event_date": "2024-10-29",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt21349688",
+      "tmdb_id": 1398911,
+      "film_title": "East of Wall",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2025,
+      "event_date": "2025-10-28",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt32928666",
+      "tmdb_id": 1265717,
+      "film_title": "Familiar Touch",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2025,
+      "event_date": "2025-10-28",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "film_title": "Hamnet",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2025,
+      "event_date": "2025-10-28",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt30144839",
+      "tmdb_id": 1054867,
+      "film_title": "One Battle After Another",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2025,
+      "event_date": "2025-10-28",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt32843349",
+      "tmdb_id": 1205515,
+      "film_title": "Sorry, Baby",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2025,
+      "event_date": "2025-10-28",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt29768334",
+      "tmdb_id": 1241983,
+      "film_title": "Train Dreams",
+      "component": "gotham_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2025,
+      "event_date": "2025-10-28",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "film_title": "The Brutalist",
+      "component": "venice_main",
+      "status": "competition",
+      "category": "Venezia 81 Competition",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "source_id": "venice24",
+      "source_url": "https://www.labiennale.org/en/cinema/2024/venezia-81-competition",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt14961016",
+      "tmdb_id": 1000837,
+      "film_title": "I'm Still Here",
+      "component": "venice_main",
+      "status": "competition",
+      "category": "Venezia 81 Competition",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "source_id": "venice24",
+      "source_url": "https://www.labiennale.org/en/cinema/2024/venezia-81-competition",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "film_title": "The Substance",
+      "component": "cannes_main",
+      "status": "competition",
+      "category": "In Competition (feature film, not screenplay points)",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "source_id": "cannes24",
+      "source_url": "https://www.festival-cannes.com/en/f/the-substance/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "film_title": "The Substance",
+      "component": "spirit_best_feature",
+      "status": "nominee",
+      "category": "Best Feature",
+      "event_year": 2025,
+      "event_date": "2024-12-04",
+      "event_date_kind": "nomination_announcement",
+      "source_id": "spirit25",
+      "source_url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-40th-anniversary-2025-spirit-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt28690468",
+      "tmdb_id": 1221061,
+      "film_title": "Sound of Falling",
+      "component": "efa_best_film",
+      "status": "nominee",
+      "category": "European Film",
+      "event_year": 2026,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "source_id": "efa26",
+      "source_url": "https://www.europeanfilmawards.eu/efa-movie/sound-of-falling/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "film_title": "Hamnet",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "category": "Best Picture",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "film_title": "Sentimental Value",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "category": "Best Picture",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt31193180",
+      "tmdb_id": 1233413,
+      "film_title": "Sinners",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "category": "Best Picture",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt29768334",
+      "tmdb_id": 1241983,
+      "film_title": "Train Dreams",
+      "component": "academy_best_picture",
+      "status": "nominee",
+      "category": "Best Picture",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt30144839",
+      "tmdb_id": 1054867,
+      "film_title": "One Battle After Another",
+      "component": "academy_best_picture",
+      "status": "winner",
+      "category": "Best Picture",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "film_title": "Sentimental Value",
+      "component": "academy_international",
+      "status": "winner",
+      "category": "International Feature Film",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "film_title": "It Was Just an Accident",
+      "component": "academy_international",
+      "status": "nominee",
+      "category": "International Feature Film",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt32298285",
+      "tmdb_id": 1151272,
+      "film_title": "Sirāt",
+      "component": "academy_international",
+      "status": "nominee",
+      "category": "International Feature Film",
+      "event_year": 2026,
+      "event_date": "2026-03-15",
+      "event_date_kind": "ceremony",
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "film_title": "The Brutalist",
+      "component": "nyfcc_best_film",
+      "status": "winner",
+      "category": "Best Film",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt30144839",
+      "tmdb_id": 1054867,
+      "film_title": "One Battle After Another",
+      "component": "nyfcc_best_film",
+      "status": "winner",
+      "category": "Best Film",
+      "event_year": 2025,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt30144839",
+      "tmdb_id": 1054867,
+      "film_title": "One Battle After Another",
+      "component": "nsfc_best_picture",
+      "status": "winner",
+      "category": "Best Picture",
+      "event_year": 2025,
+      "event_date": "2026-01-03",
+      "event_date_kind": "announcement",
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "film_title": "Anora",
+      "component": "lafca_best_film",
+      "status": "winner",
+      "category": "Best Picture",
+      "event_year": 2024,
+      "event_date": null,
+      "event_date_kind": "edition",
+      "source_id": "lafca24",
+      "source_url": "https://www.lafca.net/Years/2024.php",
+      "observed_at": "2026-10-26",
+      "verification": "indexed_primary_page",
+      "unique_film_attribution": true,
+      "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+    }
+  ],
+  "coverage_checks": [
+    {
+      "imdb_ids": [
+        "tt28607951"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt8999762"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt17526714"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt15239678"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt20221436"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt14961016"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt4772188"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt21097228"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt30057084"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2024 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2024,
+      "source_id": "gotham24",
+      "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt28607951"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt8999762"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_positive",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt17526714"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt15239678"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt20221436"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt14961016"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt4772188"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt21097228"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt30057084"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2024,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt28607951"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt8999762"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt17526714"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt15239678"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt20221436"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt14961016"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt4772188"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt21097228"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt30057084"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2024,
+      "source_id": "nsfc24",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt27714581"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt36491653"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32298285"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt30144839"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt31193180"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt21349688"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32843349"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt29768334"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt28690468"
+      ],
+      "venue": "Gotham",
+      "status": "verified_no_award",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32928666"
+      ],
+      "venue": "Gotham",
+      "status": "verified_positive",
+      "scope": "2025 Best Feature nomination list only; no whole-family absence",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "event_year": 2025,
+      "source_id": "gotham25",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt27714581"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt36491653"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32298285"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt30144839"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_positive",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt31193180"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt21349688"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32843349"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt29768334"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt28690468"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32928666"
+      ],
+      "venue": "NYFCC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "event_year": 2025,
+      "source_id": "nyfcc",
+      "source_url": "https://www.nyfcc.com/awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt27714581"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt36491653"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32298285"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt30144839"
+      ],
+      "venue": "NSFC",
+      "status": "verified_positive",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt31193180"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt21349688"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32843349"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt29768334"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt28690468"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32928666"
+      ],
+      "venue": "NSFC",
+      "status": "verified_no_award",
+      "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "event_year": 2025,
+      "source_id": "nsfc25",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt27714581"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt36491653"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32298285"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt30144839"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt31193180"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt21349688"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32843349"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt29768334"
+      ],
+      "venue": "Academy",
+      "status": "verified_positive",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt28690468"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt32928666"
+      ],
+      "venue": "Academy",
+      "status": "verified_no_award",
+      "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+      "components": [
+        "academy_best_picture",
+        "academy_international"
+      ],
+      "event_year": 2026,
+      "source_id": "academy26",
+      "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt12042730"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "event_year": 2027,
+      "source_id": "academy27",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt12042730"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "event_year": 2027,
+      "source_id": "cc27",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt33764258"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "event_year": 2027,
+      "source_id": "academy27",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt33764258"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "event_year": 2027,
+      "source_id": "cc27",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt29271639"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "event_year": 2027,
+      "source_id": "academy27",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt29271639"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "event_year": 2027,
+      "source_id": "cc27",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt38991615"
+      ],
+      "venue": "Academy",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "event_year": 2027,
+      "source_id": "academy27",
+      "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt38991615"
+      ],
+      "venue": "Critics Choice",
+      "status": "not_yet_announced",
+      "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "event_year": 2027,
+      "source_id": "cc27",
+      "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web"
+    },
+    {
+      "imdb_ids": [
+        "tt28607951",
+        "tt8999762",
+        "tt17526714",
+        "tt15239678",
+        "tt20221436",
+        "tt14961016",
+        "tt4772188",
+        "tt21097228",
+        "tt30057084"
+      ],
+      "venue": "LAFCA",
+      "status": "unavailable",
+      "scope": "2024 direct official archive retrieval failed; not proof of absence",
+      "components": [
+        "lafca_best_film"
+      ],
+      "event_year": 2024,
+      "source_url": "https://www.lafca.net/Years/2024.php",
+      "observed_at": "2026-10-26",
+      "verification": "failed_web_open"
+    },
+    {
+      "imdb_ids": [
+        "tt14905854",
+        "tt27714581",
+        "tt36491653",
+        "tt32298285",
+        "tt30144839",
+        "tt31193180",
+        "tt21349688",
+        "tt32843349",
+        "tt29768334",
+        "tt28690468",
+        "tt32928666"
+      ],
+      "venue": "LAFCA",
+      "status": "unavailable",
+      "scope": "2025 direct official archive retrieval failed; not proof of absence",
+      "components": [
+        "lafca_best_film"
+      ],
+      "event_year": 2025,
+      "source_url": "https://www.lafca.net/Years/2025.php",
+      "observed_at": "2026-10-26",
+      "verification": "failed_web_open"
+    }
+  ],
+  "excluded_awards": [
+    {
+      "imdb_id": "tt32843349",
+      "category": "Sundance 2025 Waldo Salt Screenwriting Award",
+      "source_url": "https://www.sundance.org/blogs/2025-sundance-film-festival-award-winners-announced/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "reason": "Verified film attribution, but neither historical Special Jury Award nor Cannes/Berlin/Venice main screenplay extension. No points."
+    },
+    {
+      "imdb_id": "tt32928666",
+      "category": "Venice 2024 Orizzonti direction and debut-film awards",
+      "source_url": "https://www.labiennale.org/en/news/official-awards-81st-venice-international-film-festival",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "reason": "Orizzonti/debut categories remain outside historical main-Competition types. No points."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "category": "Gotham 2025 Best International Feature nomination",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "reason": "Distinct from Best Feature. No historical international Gotham component."
+    },
+    {
+      "imdb_id": "tt28690468",
+      "category": "Gotham 2025 Best International Feature nomination",
+      "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "reason": "Distinct from Best Feature. No historical international Gotham component."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "category": "NSFC 2024 Best Picture runner-up",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "reason": "Runner-up is not a winner; nominee weight remains zero."
+    },
+    {
+      "imdb_id": "tt31193180",
+      "category": "NSFC 2025 Best Picture runner-up",
+      "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+      "observed_at": "2026-10-26",
+      "verification": "primary_page_via_web",
+      "reason": "Runner-up is not a winner; nominee weight remains zero."
+    }
+  ],
+  "extensions_added": [],
+  "rating_refresh": "No lawful fresh paired acquisition route established; all 24 films retain the exact baseline pairs/statuses/measurement-date gaps. No endpoint acquisition after rights/access barriers."
+}
