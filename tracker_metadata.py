@@ -155,6 +155,8 @@ def lookup_listing(release, indexer, *, force_refresh=False):
     unavailable or contradictory listing evidence with a title-only guess.
     """
     global _NEXT_REQUEST
+    from identity_request_guard import fresh_metadata_required
+    force_refresh = force_refresh or fresh_metadata_required()
     if os.environ.get('MOVIE_INTEL_TL_METADATA_ENABLED', '0') != '1':
         return _result('disabled')
     if str(indexer.get('identifier') or indexer.get('name') or '').casefold() != 'torrentleech':

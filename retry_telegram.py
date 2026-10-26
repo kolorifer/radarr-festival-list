@@ -50,9 +50,8 @@ def completed(c,version,context,terminal,now):
 
 
 def binding(payload,context,refs,sources):
-    from identity_retry import TEMPORARY
-    meta=context.get('meta') or {}
-    if meta.get('identity_reason') not in TEMPORARY or not refs:return False
+    from identity_retry import retryable_context
+    if not retryable_context(payload,context) or not refs:return False
     if len(refs)>8 or len({r['chat_id'] for r in refs})!=1:return False
     observed=envelope(payload,context,sources);r=normalize(observed,sources,'outcome')
     if r.get('reason'):return False

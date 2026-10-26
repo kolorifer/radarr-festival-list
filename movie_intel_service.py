@@ -366,6 +366,10 @@ def build_movie_context(payload):
     except (OSError,ValueError,TypeError,KeyError,AttributeError):
         decision_log('identity','memory_unavailable',payload)
     text = format_message(payload, movie=movie, meta=meta, existing=existing)
+    from identity_retry import tracker_conflict
+    if (os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE')=='active'
+            and tracker_conflict(release,data.get('indexer') or {},observed_reason)):
+        text += '\n\nThe tracker may still be updating this listing. We will recheck in about 15 minutes, subject to request limits. If the conflict remains, review will still be required.'
     if identity_memory.packet(payload,{'meta':meta}):
         text += '\n\nA previous release matched this movie. Confirm the remembered movie for this torrent before opening download confirmation.'
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)

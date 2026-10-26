@@ -158,6 +158,8 @@ def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_min
     Never read/write the legacy title cache. The key includes the exact context
     and both supplied IDs, so a cached ID cannot bypass a new conflict.
     """
+    from identity_request_guard import fresh_metadata_required
+    force_refresh = force_refresh or fresh_metadata_required()
     if ((imdb_id is not None and not valid_imdb_id(imdb_id))
             or (tmdb_id is not None and not valid_tmdb_id(tmdb_id))
             or (imdb_id is None and tmdb_id is None)):

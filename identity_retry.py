@@ -16,11 +16,39 @@ from identity_outcome_outbox import Outbox
 from identity_triage_store import digest
 from identity_triage_intake import normalize
 from identity_triage_observer import envelope, read_config, _send
-from identity_request_guard import guarded
+from identity_request_guard import guarded, fresh_metadata
 
 TEMPORARY={'listing_http_error','listing_temporary_http','listing_unavailable','rate_limited',
            'lookup_busy','metadata_api_unavailable','metadata_rate_limited','metadata_lookup_busy','resolver_error',
            'tmdb_mapping_missing'}
+# These remain conflicts, never transient acceptance. Only a fresh, otherwise
+# fully verified source may resolve them. One unchanged conflict ends the job.
+TRACKER_CONFLICTS={'identity_conflict','runtime_conflict','local_identity_conflict',
+                   'title_conflict','year_conflict','listing_id_conflict'}
+
+
+def tracker_conflict(release,indexer,reason):
+    from tracker_metadata import valid_listing_url
+    url=release.get('info_url')
+    return (reason in TRACKER_CONFLICTS
+            and str(indexer.get('identifier') or indexer.get('name') or '').casefold()=='torrentleech'
+            and release.get('meta_imdb') in (None,'') and release.get('meta_tmdb') in (None,'')
+            and valid_listing_url(url)
+            and str(release.get('external_id') or '')==url.rsplit('/',1)[-1])
+
+
+def conflict_item(item):
+    data=item['observation']['data']
+    return tracker_conflict(dict(data['release'],info_url=item.get('listing')),
+                            data['indexer'],data['outcome']['reason'])
+
+
+def retryable_context(payload,context):
+    reason=(context.get('identity_observation') or {}).get('reason') or (context.get('meta') or {}).get('identity_reason')
+    data=payload.get('data') or {}
+    return reason in TEMPORARY or tracker_conflict(data.get('release') or {},data.get('indexer') or {},reason)
+
+
 _WEEK=7*86400
 _DAY=86400
 DAILY_TOTAL=60
@@ -66,7 +94,7 @@ class RetryStore(Outbox):
         with self.tx() as c:
             if c.execute('select 1 from retry_jobs where source=? and observed>?',(source,observed)).fetchone():return 'stale'
             c.execute('update retry_jobs set state="done",reason="superseded",lease=NULL where source=? and version!=? and observed<=?',(source,version,observed))
-            if reason not in TEMPORARY:
+            if reason not in TEMPORARY and not conflict_item(item):
                 c.execute('update retry_jobs set state="done",reason=?,lease=NULL where version=?',(reason,version));return 'not_retryable'
             if c.execute('select 1 from retry_jobs where version=?',(version,)).fetchone():return 'duplicate'
             if c.execute('select count(*) from retry_jobs').fetchone()[0]>=10000:raise RetryBudget('retry_capacity')
@@ -183,7 +211,8 @@ def run_one(store,resolve):
     if item.get('listing'):payload['data']['release']['info_url']=item['listing']
     payload['data']['result']={'rejections':['Unknown Movie']}
     gate=Gate(store,lease)
-    with guarded(gate):context=resolve(payload)
+    with guarded(gate), fresh_metadata(conflict_item(item)):
+        context=resolve(payload)
     if gate.blocked in ('retry_request_budget','retry_provider_cooldown'):
         store.defer(lease,gate.blocked,gate.provider)
         return True
