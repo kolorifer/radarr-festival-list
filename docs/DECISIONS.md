@@ -607,3 +607,14 @@ evidence, including unseen pages, and upper-bound detail prioritization within
 existing request caps. Shadow only; preserve weights, thresholds, explicit
 download confirmation and actual ID conflicts. Known duplicate mappings or
 invalid evidence keep review. No specific movie exception.
+
+
+## 2026-10-26 — Generic cut discovery, shadow first
+
+Owner approved extracting unfamiliar edition claims and unexplained labels from
+release names, descriptions and NFOs, using runtime disagreement as another
+research trigger, and corroborating/caching sourced findings rather than adding
+film/cut exceptions. Implemented in shadow with unchanged request limits, pilot
+deadline and identity/download safeguards. Edition comparisons are proposals;
+production activation remains separate. See the
+[report](reports/2026-10-26-generic-cut-discovery.md).

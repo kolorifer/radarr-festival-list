@@ -1,3 +1,14 @@
+## 2026-10-26 — Generic cut evidence in shadow
+
+Deployed shadow8fd8283 after776 local/seedbox tests and CI. Actor remainsd598296.
+Unknown cut/edition/version claims and runtime disagreement can trigger bounded
+public source discovery and private caching. Original identity decisions remain
+unchanged; report adds an edition-runtime comparison. Retained Wolverine replay
+with captured public evidence explains138vs126minutes and compares100vs85.71,
+not a fresh scheduled score or approval. Pilot deadline and budgets unchanged.
+[Report](reports/2026-10-26-generic-cut-discovery.md),
+[PR90](https://github.com/kolorifer/radarr-festival-list/pull/90).
+
 # Movie List project state
 
 ## Unique-identity rival bounds — 2026-10-24
