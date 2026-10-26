@@ -382,3 +382,15 @@ No film-specific code or old context registry; all other conflicting identities
 remain blocked. Identity approval does not approve downloading; existing explicit
 acquisition confirmation and safeguards remain. This narrows D028's ban on stored
 repairs only for explicitly approved generic reviewed decisions.
+
+
+## 2026-10-26 — Generic delayed tracker conflict recheck
+
+Owner requested rechecking conflicting tracker metadata after about15minutes to
+allow corrected descriptions to be considered. Use the existing bounded retry
+worker for an exact supported listing, force fresh tracker/TMDb evidence, and
+retain all identity/runtime and explicit acquisition-confirmation safeguards.
+A persistent conflict remains review; no film-specific override, native-ID
+replacement, additional request budget or historical replay is authorized.
+Implementation and deployment are recorded in the
+[engineering report](reports/2026-10-26-tracker-conflict-recheck.md).

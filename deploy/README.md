@@ -406,3 +406,14 @@ Before rolling back to code without this feature, stop the actor and privately
 retire outstanding remembered reviews and their child capabilities; otherwise
 older code will not understand their confirmation markers. Preserve all unrelated
 and completed acquisition state. Never restore an old actions snapshot.
+
+### Delayed tracker conflict checks
+
+With the existing active identity retry worker, a new conflict from an exact
+TorrentLeech listing is rechecked after15minutes. Native autobrr movie IDs are
+never overwritten. Rechecks bypass metadata success caches and retain all current
+identity/runtime checks; an unchanged conflict returns to review. Existing request
+budgets/cooldowns may delay the check, and temporary lookup failures retain the
+bounded retry/expiry policy. Existing Telegram messages update only when a valid
+receipt was retained. No historical backfill or automatic acquisition occurs.
+See [implementation and verification](../docs/reports/2026-10-26-tracker-conflict-recheck.md).

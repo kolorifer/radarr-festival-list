@@ -1,3 +1,15 @@
+## 2026-10-26 — Delayed tracker conflict recheck deployed
+
+Production actor: d598296e4ba3b3223e9014c993b116ada9ed723e, based on72a04701.
+New exact TorrentLeech-sourced conflicts receive a fresh recheck after900seconds
+subject to existing request limits. Corrected evidence must pass all current
+identity/runtime guards; persistent conflicts remain for review. Original-message
+recovery retains explicit download confirmation. No historical replay or live
+download test.737 local/seedbox tests, CI, preflight and local/public health passed.
+Shadow d04608b and other services/configuration/state preserved.
+[Engineering report](reports/2026-10-26-tracker-conflict-recheck.md),
+[draft PR89](https://github.com/kolorifer/radarr-festival-list/pull/89).
+
 # Undertone identity contradiction — 2026-10-25
 
 The latest card selected a 12-minute same-title/year short instead of the feature.
