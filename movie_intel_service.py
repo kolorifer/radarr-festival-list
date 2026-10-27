@@ -31,6 +31,7 @@ from radarr_client import (
     configured as radarr_configured,
     ensure_movie,
     get_movie_by_tmdb,
+    movie_has_tag,
     push_release,
     selection_context,
 )
@@ -38,7 +39,7 @@ from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reas
 from tracker_metadata import lookup_listing
 from telegram_routing import notification_route, topic_fields
 import alternative_grab
-from film_editions import annotation as edition_annotation, candidate as edition_candidate, verified_film
+from film_editions import annotation as edition_annotation, candidate as edition_candidate
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
@@ -157,7 +158,7 @@ def _append_rejection_details(lines, rejections, release_name):
         lines.append("<b>Release:</b> " + html.escape(str(release_name)))
 
 
-def format_message(payload, movie=None, meta=None, existing=None):
+def format_message(payload, movie=None, meta=None, existing=None, watched=False):
     payload = sanitize(payload)
     data = payload.get("data") or {}
     release = data.get("release") or {}
@@ -170,6 +171,7 @@ def format_message(payload, movie=None, meta=None, existing=None):
     identity_status = (meta or {}).get('identity_status')
     if identity_status and identity_status != 'verified_tmdb':
         movie = None
+        watched = False
     elif movie is None:
         movie = find_local(title, year, INDEX)
 
@@ -185,6 +187,8 @@ def format_message(payload, movie=None, meta=None, existing=None):
         ]
         if link_line:
             lines.append(link_line)
+        if watched:
+            lines += ['', '👁️ <b>Watched</b>']
         if edition_note:lines += ['',html.escape(edition_note)]
         _append_rejection_details(lines, rejections, release_name)
         return "\n".join(lines)
@@ -242,16 +246,19 @@ def format_message(payload, movie=None, meta=None, existing=None):
         if recognition:
             lines += ["", "🏆 <b>Recognition</b>"] + ["• " + html.escape(x) for x in recognition]
 
-        if movie.get("qualified"):
-            routes = ", ".join(movie.get("routes") or []) or "model"
-            lines += ["", "⚠️ <b>POTENTIAL FALSE NEGATIVE</b>", "Our model: QUALIFIES — " + html.escape(routes)]
-        else:
-            lines += ["", "Our model: does not currently qualify"]
+        if not watched:
+            if movie.get("qualified"):
+                routes = ", ".join(movie.get("routes") or []) or "model"
+                lines += ["", "Our model: QUALIFIES — " + html.escape(routes)]
+            else:
+                lines += ["", "Our model: does not currently qualify"]
     elif meta:
         lines += ["", "ℹ️ Identified; not in the local Movie List catalog. Ratings and recognition unavailable locally."]
     else:
         lines += ["", "ℹ️ Movie identity could not be safely resolved. Approval unavailable."]
 
+    if watched:
+        lines += ['', '👁️ <b>Watched</b>']
     if edition_note:lines += ['',html.escape(edition_note)]
     _append_rejection_details(lines, rejections, release_name)
     return "\n".join(lines)
@@ -358,14 +365,23 @@ def build_movie_context(payload):
     elif movie is None and meta and meta.get("imdb_id"):
         movie = INDEX.get(meta["imdb_id"])
     existing=None
-    if verified_film(meta):
-        try:existing=get_movie_by_tmdb(meta['tmdb_id']) or {}
-        except RadarrError:existing={}
+    watched = False
+    if meta and not blocked and valid_tmdb_id(meta.get('tmdb_id')):
+        try:
+            existing = get_movie_by_tmdb(meta['tmdb_id']) or {}
+            # The client checks TMDb identity; reject a contradictory IMDb ID too.
+            if (existing.get('imdbId') and meta.get('imdb_id')
+                    and existing['imdbId'] != meta['imdb_id']):
+                existing = {}
+            watched = movie_has_tag(existing, 'watched')
+        except RadarrError:
+            # Optional display enrichment must not prevent the notification.
+            decision_log('watch_status', 'unavailable', payload)
     import identity_memory
     try:identity_memory.observe(payload,meta or {})
     except (OSError,ValueError,TypeError,KeyError,AttributeError):
         decision_log('identity','memory_unavailable',payload)
-    text = format_message(payload, movie=movie, meta=meta, existing=existing)
+    text = format_message(payload, movie=movie, meta=meta, existing=existing, watched=watched)
     from identity_retry import tracker_conflict
     if (os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE')=='active'
             and tracker_conflict(release,data.get('indexer') or {},observed_reason)):

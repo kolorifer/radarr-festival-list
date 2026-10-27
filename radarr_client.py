@@ -90,6 +90,23 @@ def get_movie_by_tmdb(tmdb_id):
     return None
 
 
+def movie_has_tag(movie, label):
+    """Resolve this movie's numeric tag IDs against Radarr's current labels."""
+    tags = movie.get('tags') if isinstance(movie, dict) else None
+    if not isinstance(tags, list):
+        return False
+    tag_ids = {value for value in tags if type(value) is int and value > 0}
+    if not tag_ids:
+        return False
+    rows = _request('/tag')
+    if not isinstance(rows, list):
+        raise RadarrError('Radarr returned invalid tags')
+    return any(isinstance(row, dict) and type(row.get('id')) is int
+               and row['id'] in tag_ids and isinstance(row.get('label'), str)
+               and row['label'].strip().casefold() == label.casefold()
+               for row in rows)
+
+
 def selection_context():
     """Return live valid choices without depending on a full library fetch."""
     roots = get_root_folders()

@@ -1,3 +1,14 @@
+# Watched notification presentation — 2026-10-27
+
+Implemented on the recorded d598296 actor baseline: remove the potential-false-
+negative warning and display Watched when the matched Radarr movie has that tag.
+745 local tests OK (one unavailable-kernel skip); scoring and dependencies pass.
+Not deployed: this session has no seedbox connection or integration credentials.
+Current live revision and tag behavior remain unverified. Existing runtime work
+and the unrelated cleanup assignment are preserved. Product acceptance pending.
+[Brief](reports/2026-10-27-watched-notification-brief.md) ·
+[Engineering report](reports/2026-10-27-watched-notification.md).
+
 # Undertone identity contradiction — 2026-10-25
 
 The latest card selected a 12-minute same-title/year short instead of the feature.

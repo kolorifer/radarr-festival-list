@@ -1,5 +1,16 @@
 # Movie List decisions
 
+## D036 — Explicit watched label in enriched movie notifications
+
+Owner requested on 2026-10-27 that the unclear “POTENTIAL FALSE NEGATIVE” warning
+be removed and “Watched” shown when the movie has that tag in Radarr. Display
+the current tag state, without inferring it from monitoring or qualification.
+The watched label replaces the model assessment; other movies retain their
+existing qualification information without the warning. Qualification, movie
+state, identity safeguards and download authorization are unchanged. Missing
+or unavailable tag evidence does not establish watched state.
+
+
 This is the record of accepted product/architecture decisions and rationale.
 The user and ChatGPT own these decisions. Codex implements them and records an
 agreed change here; it does not turn an implementation convenience into policy.
