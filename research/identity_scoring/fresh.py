@@ -2,7 +2,7 @@
 import hashlib
 import re
 import unicodedata
-from .scorer import evaluate
+from .scorer import evaluate, source_titles, words
 
 MAX_NFO = 65536
 
@@ -56,7 +56,7 @@ def nfo_facts(value):
         result['gaps'].append('container_runtime_missing_or_ambiguous')
     tracks = []
     for section in re.split(r'\bAudio(?: #\d+)?\s+ID\s*:', text, flags=re.I)[1:]:
-        section = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\b(?:Text|Video) #\d+\s*:|\bMenu\b', section, maxsplit=1, flags=re.I)[0]
+        section = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\b(?:Text|Video) #\d+\s*:|\bText(?: #\d+)?\s+(?=(?:Language|Format)\s*:)|\bMenu\b', section, maxsplit=1, flags=re.I)[0]
         # Bare ID starts another track only within a known Audio section.
         tracks.extend(re.split(r'(?<!Codec )(?<!codec )(?<!CODEC )\bID\s*:', section, flags=re.I))
     if compact:
@@ -70,7 +70,7 @@ def nfo_facts(value):
         values=re.findall(r'\b'+name+r'\s*:\s*(.*?)(?=\s+(?:'+labels+r')\s*:|$)',track,flags=re.I)
         return values[0].strip() if len(values)==1 else None
     for index,track in enumerate(tracks,1):
-        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\b(?:Text|Video) #\d+\s*:|\bMenu\b|\bSUBTITLES\s*:|\bChapters\s*:|\bSUBTITLES\b|\bSCREENSHOTS\b', track, maxsplit=1, flags=re.I)[0]
+        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\b(?:Text|Video) #\d+\s*:|\bText(?: #\d+)?\s+(?=(?:Language|Format)\s*:)|\bMenu\b|\bSUBTITLES\s*:|\bChapters\s*:|\bSUBTITLES\b|\bSCREENSHOTS\b', track, maxsplit=1, flags=re.I)[0]
         language=field(track,'Language')
         language_raw=language
         qualifier=None
@@ -104,7 +104,32 @@ def nfo_facts(value):
     result['filenames'] = filenames
     movie = re.findall(r'\bMovie name\s*:\s*(.*?)(?=\s+(?:Encoded date|Writing application|Writing library|Duration|Format)\s*:|$)', header)
     result['declared_movie_names'] = movie
+    # Only container fields are search leads. Track Title (e.g. Commentary) is
+    # excluded by the existing general-section boundary above.
+    titles=re.findall(r'\bTitle\s*:\s*(.*?)(?=\s+(?:Title|File size|Format(?: version)?|Duration|Overall bit rate(?: mode)?|Frame rate|Encoded date|Writing application|Writing library|Movie name)\s*:|$)',header,flags=re.I)
+    result['container_titles']=list(dict.fromkeys(movie+titles))[:4]
     return result
+
+
+def nfo_search_title(release, listing, full_nfo):
+    """At most one exact-bound container title, for candidate discovery only."""
+    if listing.get('reason') not in ('listing_id_found','listing_id_missing'):return None
+    facts=nfo_facts(full_nfo);names=facts.get('filenames',[])
+    if len(names)!=1:return None
+    name=re.sub(r'\.(mkv|mp4|avi|m2ts)$','',names[0],flags=re.I)
+    if normalized(name)!=normalized(release['name']):return None
+    hints=[]
+    for raw in facts.get('container_titles',[]):
+        if not 1<=len(raw)<=256 or re.search(r'https?:|magnet:|\[redacted\]|[<>]',raw,re.I):return None
+        dated=re.search(r'\s*\((\d{4})\)\s*$',raw)
+        if dated and int(dated[1])!=release['year']:return None
+        title=raw[:dated.start()].strip() if dated else raw.strip()
+        if not title or not any(c.isalpha() for c in title):return None
+        if title not in hints:hints.append(title)
+    if len({normalized(t) for t in hints})!=1:return None
+    title=hints[0]
+    if any(words(title)==words(t) for t in source_titles(release['title'])):return None
+    return title
 
 
 def unique_mapping(mapping, ident):

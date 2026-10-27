@@ -627,3 +627,11 @@ Preserve10/run40/day caps and existing review/download safeguards. Seven-day
 maximum pilot reuses prior supported results with explicit evidence age, gives
 unresolved/new cases priority and checkpoints partial work without resetting
 reservations. No production scoring activation, downloads or notifications.
+
+## 2026-10-27 — NFO fallback and full-set reviews
+
+Owner approved exact-bound NFO original-title fallback, audio/subtitle boundary
+fix and redacted heading diagnostics within the existing shadow pilot/caps.
+Owner also requests autonomous read-only review of the full unresolved set before
+identity-review discussions, without separate per-film commands. No changes to
+identity approval, download confirmation or permanent operation are authorized.

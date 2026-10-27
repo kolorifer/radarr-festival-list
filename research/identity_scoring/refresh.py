@@ -11,8 +11,9 @@ import time
 import tempfile
 from unittest.mock import patch
 from .shadow import scan
-from .fresh import result, MAX_NFO, build_case, unique_mapping
-EVIDENCE_REVISION = 2
+from .fresh import result, MAX_NFO, build_case, unique_mapping, nfo_search_title
+EVIDENCE_REVISION = 3
+CHECKPOINT_REVISION = 2
 
 from .scorer import source_titles, title_similarity, score_candidate, words
 
@@ -178,6 +179,24 @@ def apply_existing_conflict_guard(scored, release, outcome):
             scored['reasons'].append('existing_identity_conflict_requires_review')
 
 
+def listing_diagnostic(body, expected):
+    """Private bounded text only: no HTML, URLs, credentials or acceptance."""
+    from bs4 import BeautifulSoup
+    from torrent_research_evidence import text
+    soup=BeautifulSoup(body,'html.parser');nodes=soup.select('#torrentnameid, #torrentName')
+    found=[]
+    for node in nodes[:4]:
+        for badge in node.select('span.new.label.labelfreeleech'):
+            if badge.get_text(' ',strip=True)=='FREELEECH':badge.decompose()
+        raw=node.get('value') if node.name=='input' else node.get_text(' ',strip=True)
+        found.append(text(str(raw or ''))[:256])
+    raw=body.encode() if isinstance(body,str) else body
+    return {'reason':'listing_mismatch','expected':text(expected)[:256],
+            'observed_headings':found,'heading_count':len(nodes),
+            'body_digest':hashlib.sha256(raw).hexdigest(),'observed_at':time.time(),
+            'diagnostic_only':True}
+
+
 def refresh_one(home, row, budget, progress=None, checkpoint=lambda: None):
     import tracker_metadata as tracker
     from identity_request_guard import guarded
@@ -188,12 +207,15 @@ def refresh_one(home, row, budget, progress=None, checkpoint=lambda: None):
     # every resume. Completed GETs survive budget exhaustion, for at most24h.
     progress = progress if progress is not None else {}
     now=time.time()
-    if progress.get('revision')!=EVIDENCE_REVISION or now-progress.get('started',0)>=86400:
-        progress.clear();progress.update(revision=EVIDENCE_REVISION,started=now,metadata={})
+    if progress.get('revision')!=CHECKPOINT_REVISION or now-progress.get('started',0)>=86400:
+        progress.clear();progress.update(revision=CHECKPOINT_REVISION,started=now,metadata={})
         checkpoint()
     captured = {}; original = tracker.parse_listing
     def parse(body, name):
         listing = original(body, name)
+        if listing.get('reason')=='listing_mismatch':
+            progress['listing_diagnostic']=listing_diagnostic(body,name)
+            checkpoint()
         if listing.get('reason') not in ('listing_id_found', 'listing_id_missing'):
             return listing
         soup = BeautifulSoup(body, 'html.parser')
@@ -208,6 +230,7 @@ def refresh_one(home, row, budget, progress=None, checkpoint=lambda: None):
     if 'listing' in progress:
         listing=progress['listing'];captured=progress['captured']
     else:
+        progress.pop('listing_diagnostic',None)
         with guarded(budget), patch.object(tracker, 'parse_listing', side_effect=parse):
             listing = tracker.lookup_listing(release, {'identifier':'torrentleech'})
         if not captured:
@@ -246,7 +269,9 @@ def refresh_one(home, row, budget, progress=None, checkpoint=lambda: None):
     scope={'kind':'verified_id_targeted' if plan else 'broad_title',
            'basis':'checked_unique_imdb_title_year_nfo' if plan else 'title_queries',
            'exhaustive_catalog_search':False}
-    for title,year in (plan or [(t,None) for t in source_titles(release['title'])]):
+    queries=list(plan or [(t,None) for t in source_titles(release['title'])])
+    hint=nfo_search_title(release,listing,captured['nfo'])
+    for index,(title,year) in enumerate(queries):
         params={'query':title, 'include_adult':'false', 'page':1, 'language':'en-US'}
         if year is not None:params['year']=year
         response=get('/search/movie',params)
@@ -270,6 +295,12 @@ def refresh_one(home, row, budget, progress=None, checkpoint=lambda: None):
                 discovery_complete=False; discovery_integrity=False
             summaries.setdefault(row['id'],row)
         ids.extend(i for i in page_ids if i not in ids)
+        # Only an empty original search set permits one NFO-title fallback.
+        # Keep all original query audits; the hint never becomes an asserted ID
+        # or overwrites the filename/title used by the scorer.
+        if not ids and index==len(queries)-1 and hint and len(queries)<3 and (hint,release['year']) not in queries:
+            queries.append((hint,release['year']))
+            scope['nfo_title_fallback']={'query':hint,'year':release['year'],'basis':'exact_bound_container_title'}
     if len(ids)>(61 if plan else 41):raise RuntimeError('candidate_capacity')
     if not ids:raise RuntimeError('candidate_search_empty')
     search={'page':1,'total_pages':1,'total_results':len(ids),
@@ -401,13 +432,16 @@ def attempt_refresh(home,row,saved,ledger,budget,now):
                     'case_no_longer_unresolved','listing_mismatch','listing_id_invalid','listing_id_conflict',
                     'listing_not_found','listing_reference_invalid','source_reference_capacity'}
             entry['next_attempt']=now+(86400 if error in stable else min(86400,3600*2**min(entry['failures'],5)))
+    if progress.get('listing_diagnostic'):
+        entry['listing_diagnostic']=progress['listing_diagnostic']
+    else:entry.pop('listing_diagnostic',None)
     entry['requests']=budget.used
     checkpoint()
 
 
 def project_entry(row,entry,now):
     row.update(refresh_attempted=entry.get('attempted'),refresh_error=entry.get('error'),
-               next_attempt=entry.get('next_attempt'))
+               next_attempt=entry.get('next_attempt'),listing_diagnostic=entry.get('listing_diagnostic'))
     fresh=entry.get('fresh')
     if fresh:
         row['retained_snapshot']={k:row.get(k) for k in ('decision','selected_id','ranked','margin','reasons','evidence_gaps')}

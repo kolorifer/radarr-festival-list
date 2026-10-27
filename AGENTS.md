@@ -90,3 +90,13 @@ After implementation:
 These documents preserve the handoff; they do not create an automatic channel
 between unrelated chat threads. Start a new discussion with repository access or
 the relevant file links and revision.
+
+## Movie identity reviews
+
+When the user asks to review an unresolved/conflicting movie, review the full
+current unresolved set autonomously before opening the discussion. Present the
+collected evidence, proposed matches and remaining uncertainty together; do not
+require a separate instruction for each title. This is read-only review authority,
+not permission to bypass request budgets, source-binding checks, identity-review
+requirements or per-release download confirmation. Distinguish retained evidence,
+fresh evidence and offline proposals. Record missing evidence honestly.
