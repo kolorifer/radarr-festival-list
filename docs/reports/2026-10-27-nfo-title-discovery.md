@@ -1,7 +1,9 @@
 # NFO-title discovery and unresolved-case review
 
 **Specification:** [approved brief](2026-10-27-nfo-title-discovery-brief.md).
-**Result:** implementation complete; verification/deployment in progress.
+**Result:** tested and deployed in the existing shadow pilot.
+**Runtime:** `4db4e38f2ced01eb40777bb694e8e893c2219969`.
+**Review:** [draft PR92](https://github.com/kolorifer/radarr-festival-list/pull/92).
 
 ## Findings from the complete four-case review
 
@@ -37,9 +39,33 @@ the normal bounded provider flow. No hardcoded movie identity is introduced.
 
 ## Verification and deployment
 
-Pending exact-runtime full suites, CI/preflight and shadow-only deployment.
-Daily shadow budget was already40/40; no extra provider requests are authorized
-by this rollout. Normal scheduling resumes under the existing ledger/deadline.
+- Full local suite: **794 tests passed**, two expected Linux-only skips,112.288s.
+- Exact seedbox runtime: **794 tests passed**,47.589s; dependency,1909-row catalog
+  and private configuration preflight passed.
+- Python3.12/3.13 CI passed on exact4db4e38:
+  [run40581823867](https://github.com/kolorifer/radarr-festival-list/actions/runs/40581823867).
+-68 focused extraction/recovery/cut tests passed. New coverage includes empty-search
+  fallback, no extra query when candidates already exist, three-query upper bound,
+  ambiguous/unsafe/unbound title rejection, unnumbered subtitles, bounded/redacted
+  heading diagnostics, unchanged mismatch refusal and compatible old checkpoints.
+- Retained private NFO replay, **zero provider requests**: Dead Mountainers Hotel
+  now yields83min, German+Estonian, one filename and original-title search hint;
+  Carrue98.15min/three English tracks; Titanic97min/six French tracks; Wolverine
+  138min/English main audio and separate commentary. These are extraction proofs,
+  not new scored matches or fresh tracker validation.
+- Immutable installation verified all257 archived files against the isolated tested
+  checkout. Actor **ae1e6be9f245fa4b04296ce881817ed2a4dc5fca**, configuration,
+  action store, actor/collector PIDs and research schedule preserved. Local/public
+  health200; existing shadow ledger, scores, caches and partial responses unchanged.
+- The pilot still ends **November3 21:18:37 Warsaw**; its start/deadline, hourly
+  timer and10/run40/day limits are unchanged. Daily budget remains40/40, including
+  **six requests from pilot2**. No manual provider refresh, notification, queue
+  update, identity correction or download occurred during this rollout.
+
+Only the shadow runtime and pilot's recorded code revision changed. Private
+backups precede the rollout. Rollback switches the shadow unit to028867a without
+restoring any old ledger/action state or extending the pilot. Fresh heading
+comparison and candidate search await the next normally admitted run.
 
 ## Limitations
 

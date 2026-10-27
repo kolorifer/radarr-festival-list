@@ -1,3 +1,16 @@
+## 2026-10-27 — NFO candidate discovery and batch reviews deployed
+
+Shadow **4db4e38** adds one exact-bound NFO-title fallback after empty title
+searches, unnumbered subtitle boundaries and private redacted heading mismatch
+diagnostics. Scoring and actual conflict guards stay unchanged; checkpoint2
+compatibility preserves already completed GETs. All794 local/seedbox tests and
+both CI jobs pass; local/public health200. Actor **ae1e6be9**, live state, budgets
+and November3 21:18 Warsaw deadline preserved; zero deployment provider requests,
+notifications or downloads. Retained four-case extraction proof and pending
+fresh checks are documented in the [report](reports/2026-10-27-nfo-title-discovery.md).
+AGENTS.md records the owner's preference to review the full unresolved set before
+discussion, without separate per-film prompts. Unrelated cleanup task preserved.
+
 ## 2026-10-27 — Shadow evidence and budget recovery deployed
 
 Shadow **028867a** deployed after787 local/seedbox tests and both CI jobs passed.
