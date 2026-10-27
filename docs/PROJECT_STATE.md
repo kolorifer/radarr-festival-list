@@ -1,9 +1,20 @@
-## 2026-10-27 — Shadow evidence and budget recovery
+## 2026-10-27 — Shadow evidence and budget recovery deployed
 
-Implementation and verification in progress, shadow-only. Actor remains separately
-managed; pilot1 has ended. See [brief](reports/2026-10-27-shadow-recovery-brief.md)
-and [report](reports/2026-10-27-shadow-recovery.md). The unrelated assigned cleanup
-task in CODEX_TASK.md is preserved.
+Shadow **028867a** deployed after787 local/seedbox tests and both CI jobs passed.
+Actor **ae1e6be9** remains unchanged; local/public health200 and protected state
+preserved. NFO field/track parsing and exact whitespace reference recovery pass
+retained Titanic/Carrue proofs. Alias/remaster/container-version text no longer
+causes spurious edition requests. Partial GET checkpoints resume within10/run,
+40/day; old supported results are retained with age instead of daily refetching.
+
+New pilot: October27 21:18–November3 21:18 Warsaw, hourly, same budgets/history.
+8historical +10carryover snapshots at start,6prior results reused,4still requiring
+work. First live Wolverine observation used5GETs, preserving listing/metadata
+for the remaining edition lookup; daily39/40. Final alias cleanup was verified
+on that checkpoint without additional requests; public cut lookup still pending.
+No production identity activation, notifications or downloads.
+[Report](reports/2026-10-27-shadow-recovery.md), [PR92](https://github.com/kolorifer/radarr-festival-list/pull/92).
+The unrelated CODEX_TASK cleanup assignment is preserved.
 
 ## 2026-10-26 — Generic cut evidence in shadow
 
