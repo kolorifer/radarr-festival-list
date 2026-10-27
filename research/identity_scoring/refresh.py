@@ -12,6 +12,8 @@ import tempfile
 from unittest.mock import patch
 from .shadow import scan
 from .fresh import result, MAX_NFO, build_case, unique_mapping
+EVIDENCE_REVISION = 2
+
 from .scorer import source_titles, title_similarity, score_candidate, words
 
 
@@ -37,7 +39,7 @@ class Budget:
         self.last_request = 0
     def can_start_refresh(self):
         day=time.strftime('%Y-%m-%d',time.gmtime(self.now()))
-        return self.data['days'].get(day,0)<=30
+        return self.data['days'].get(day,0)<40
 
     def reserve(self, provider):
         now = self.now(); day = time.strftime('%Y-%m-%d', time.gmtime(now))
@@ -75,9 +77,12 @@ def exact_release(home, row):
     if meta['source'] != 'torrentleech' or meta['release_key_basis'] != 'external_id' or material['correlation'] != 'strong_source_id':
         raise RuntimeError('source_binding_missing')
     with closing(sqlite3.connect((home/'.apps/autobrr/autobrr.db').as_uri()+'?mode=ro', uri=True)) as c:
-        rows = c.execute('select torrent_id,info_url from release where torrent_name=? and year=?', (meta['name'], meta['year'])).fetchall()
+        # Whitespace is presentation, but identity still requires exact source-ID
+        # digest, year, canonical URL and the fresh tracker heading check.
+        rows = c.execute('select torrent_id,info_url,torrent_name from release where year=? limit 10001', (meta['year'],)).fetchall()
+    if len(rows)>10000:raise RuntimeError('source_reference_capacity')
     from tracker_metadata import valid_listing_url
-    urls = {url for ident, url in rows if digest(['torrentleech', 'torrent', ['external', str(ident)]]) == saved[1]
+    urls = {url for ident, url, name in rows if ' '.join(name.split()) == ' '.join(meta['name'].split()) and digest(['torrentleech', 'torrent', ['external', str(ident)]]) == saved[1]
             and valid_listing_url(url) and url.rsplit('/', 1)[-1] == str(ident)}
     if len(urls) != 1:
         raise RuntimeError('exact_listing_not_retained')
@@ -173,12 +178,19 @@ def apply_existing_conflict_guard(scored, release, outcome):
             scored['reasons'].append('existing_identity_conflict_requires_review')
 
 
-def refresh_one(home, row, budget):
+def refresh_one(home, row, budget, progress=None, checkpoint=lambda: None):
     import tracker_metadata as tracker
     from identity_request_guard import guarded
     from bs4 import BeautifulSoup
     from torrent_research_evidence import SECRET
     release, outcome = exact_release(home, row)
+    # Same research version and exact current occurrence are rechecked above on
+    # every resume. Completed GETs survive budget exhaustion, for at most24h.
+    progress = progress if progress is not None else {}
+    now=time.time()
+    if progress.get('revision')!=EVIDENCE_REVISION or now-progress.get('started',0)>=86400:
+        progress.clear();progress.update(revision=EVIDENCE_REVISION,started=now,metadata={})
+        checkpoint()
     captured = {}; original = tracker.parse_listing
     def parse(body, name):
         listing = original(body, name)
@@ -193,11 +205,25 @@ def refresh_one(home, row, budget):
         captured['nfo'] = SECRET.sub('[redacted]', raw) if len(raw) <= MAX_NFO else ''
         captured['nfo_digest'] = hashlib.sha256(raw.encode()).hexdigest()
         return listing
-    with guarded(budget), patch.object(tracker, 'parse_listing', side_effect=parse):
-        listing = tracker.lookup_listing(release, {'identifier':'torrentleech'})
-    if not captured:
-        raise RuntimeError('listing_refresh_failed')
-    get = lambda path, params: metadata_get(path, params, budget)
+    if 'listing' in progress:
+        listing=progress['listing'];captured=progress['captured']
+    else:
+        with guarded(budget), patch.object(tracker, 'parse_listing', side_effect=parse):
+            listing = tracker.lookup_listing(release, {'identifier':'torrentleech'})
+        if not captured:
+            reason=listing.get('reason')
+            allowed={'listing_mismatch','listing_id_invalid','listing_id_conflict','listing_not_found',
+                     'listing_redirect','listing_temporary_http','listing_auth_failure','login_required',
+                     'rate_limited','authentication_unavailable','listing_unavailable','listing_content_invalid',
+                     'listing_limit_exceeded','listing_http_error','listing_reference_invalid','disabled','lookup_busy'}
+            raise RuntimeError(reason if reason in allowed else 'listing_refresh_failed')
+        progress.update(listing=listing,captured=captured);checkpoint()
+    def get(path, params):
+        key=json.dumps([path,params],sort_keys=True)
+        if key not in progress['metadata']:
+            progress['metadata'][key]=metadata_get(path,params,budget)
+            checkpoint()
+        return progress['metadata'][key]
     # Search explicit aliases separately, retaining every rival within the cap.
     # A checked IMDb is a candidate even when title queries are empty.
     mappings = {}; imdb = listing.get('imdb_id'); ids = []
@@ -305,10 +331,92 @@ def refresh_one(home, row, budget):
         try:scored['local_identity_recheck']=local_identity_recheck(release,scored,home/'radarr-festival-list')
         except Exception:scored['local_identity_recheck']={'status':'unavailable'}
     apply_existing_conflict_guard(scored, release, outcome)
-    return dict(**scored, candidate_searches=searches, refreshed_at=time.time(), listing_reason=listing['reason'],
+    return dict(**scored, candidate_searches=searches, refreshed_at=progress['started'], completed_at=time.time(), evidence_revision=EVIDENCE_REVISION,
+                refresh_complete=(edition_status!='edition_budget_deferred' and
+                    scored.get('edition_investigation',{}).get('discovery',{}).get('status')!='cut_budget_deferred'),
+                listing_reason=listing['reason'],
                 full_nfo=captured, description=listing.get('torrent_evidence', {}).get('description', {}),
                 screenshots=listing.get('torrent_evidence', {}).get('images', []),
                 requests=budget.used)
+
+
+# Success is reused for this evidence version throughout the bounded pilot;
+# its original timestamp/age remains visible. A new occurrence gets a new key.
+def complete_entry(entry):
+    fresh=entry.get('fresh') or {}
+    return (fresh.get('evidence_revision')==EVIDENCE_REVISION or fresh.get('decision')=='would_identify') and fresh.get('refresh_complete',True)
+
+
+def due_rows(rows, saved, now):
+    due=[]
+    for row in rows:
+        entry=saved.get(row['key'],{})
+        if complete_entry(entry):continue
+        # A new parser revision gets one prompt reassessment of retained cases.
+        if entry.get('attempt_revision')==EVIDENCE_REVISION and now<entry.get('next_attempt',0):continue
+        due.append(row)
+    def priority(row):
+        entry=saved.get(row['key'],{});fresh=entry.get('fresh') or {}
+        # Unseen/unresolved work precedes repeat validation of old successes;
+        # within each group use oldest attempt to avoid one failing case starving others.
+        return (fresh.get('decision')=='would_identify',entry.get('attempted',0),row['observed'])
+    return sorted(due,key=priority)
+
+
+DIAGNOSTICS={'provider_paused','shadow_request_budget','occurrence_changed',
+    'case_no_longer_unresolved','source_binding_missing','source_reference_capacity',
+    'exact_listing_not_retained','metadata_route_denied','metadata_http_failure',
+    'metadata_response_limit','listing_refresh_failed','candidate_capacity_or_empty',
+    'invalid_candidates','invalid_mapping','candidate_capacity','details_id_conflict',
+    'candidate_search_empty','candidate_search_incomplete','listing_mismatch','listing_id_invalid',
+    'listing_id_conflict','listing_not_found','listing_redirect','listing_temporary_http',
+    'listing_auth_failure','login_required','rate_limited','authentication_unavailable',
+    'listing_unavailable','listing_content_invalid','listing_limit_exceeded','listing_http_error',
+    'listing_reference_invalid','disabled','lookup_busy'}
+
+
+def attempt_refresh(home,row,saved,ledger,budget,now):
+    entry=saved.setdefault(row['key'],{})
+    # Reserve the attempt before I/O, preserving previous good evidence on failure.
+    entry.update(attempted=now,attempt_revision=EVIDENCE_REVISION,next_attempt=now+3600)
+    entry.pop('error',None)
+    progress=entry.setdefault('progress',{})
+    checkpoint=lambda:atomic(ledger,saved)
+    checkpoint()
+    try:
+        fresh=refresh_one(home,row,budget,progress,checkpoint)
+        entry['fresh']=fresh
+        if fresh.get('refresh_complete',True):entry.pop('progress',None)
+    except Exception as exc:
+        error=str(exc) if type(exc) is RuntimeError and str(exc) in DIAGNOSTICS else 'refresh_incomplete'
+        entry['error']=error
+        # Stable evidence/reference failures need no hourly repeat. Temporary
+        # errors back off exponentially to one day; budgets don't count as failures.
+        if error in {'shadow_request_budget','provider_paused'}:
+            if error=='shadow_request_budget' and not budget.can_start_refresh():
+                entry['next_attempt']=(int(now)//86400+1)*86400
+        else:
+            entry['failures']=entry.get('failures',0)+1
+            stable={'exact_listing_not_retained','source_binding_missing','occurrence_changed',
+                    'case_no_longer_unresolved','listing_mismatch','listing_id_invalid','listing_id_conflict',
+                    'listing_not_found','listing_reference_invalid','source_reference_capacity'}
+            entry['next_attempt']=now+(86400 if error in stable else min(86400,3600*2**min(entry['failures'],5)))
+    entry['requests']=budget.used
+    checkpoint()
+
+
+def project_entry(row,entry,now):
+    row.update(refresh_attempted=entry.get('attempted'),refresh_error=entry.get('error'),
+               next_attempt=entry.get('next_attempt'))
+    fresh=entry.get('fresh')
+    if fresh:
+        row['retained_snapshot']={k:row.get(k) for k in ('decision','selected_id','ranked','margin','reasons','evidence_gaps')}
+        row.update({k:v for k,v in fresh.items() if k not in ('full_nfo','description','screenshots')})
+        row['evidence_file']='refresh-state.json'
+        row['evidence_age_seconds']=max(0,now-fresh['refreshed_at'])
+        row['refresh_status']='fresh' if row['evidence_age_seconds']<=86400 else 'retained_stale'
+        row['current_evidence_revision']=fresh.get('evidence_revision')==EVIDENCE_REVISION
+    elif entry:row['refresh_status']='incomplete'
 
 
 def run():
@@ -330,44 +438,26 @@ def run():
     report=scan(databases,pilot['started'],pilot['until'])
     ledger=state/'refresh-state.json'
     saved=json.loads(ledger.read_text()) if ledger.exists() else {}
-    # One case per run; unsuccessful evidence can retry next hour, successful
-    # refreshes are reused for at most24h. Old pilot baseline is never refetched.
-    eligible=[r for r in report['rows'] if r['cohort']=='new_during_pilot']
-    due=[r for r in eligible if now-saved.get(r['key'],{}).get('attempted',0)>=
-         (86400 if saved.get(r['key'],{}).get('fresh') else 3600)]
-    due.sort(key=lambda r:saved.get(r['key'],{}).get('attempted',0))
+    eligible=[]
+    for row in report['rows']:
+        if row['key'] in pilot.get('carryover_keys',[]):row['cohort']='carried_over'
+        if row['cohort'] in ('new_during_pilot','carried_over'):eligible.append(row)
+    due=due_rows(eligible,saved,now)
     budget=Budget(state/'refresh-budget.json')
     if due and not budget.can_start_refresh():
-        report['refresh_deferred']='insufficient_daily_budget_for_complete_refresh'
+        report['refresh_deferred']='daily_budget_exhausted'
         report['deferred_cases']=len(due)
     if due and budget.can_start_refresh():
-        row=due[0]; entry={'attempted':now}; saved[row['key']]=entry
-        atomic(ledger,saved)  # A process kill cannot create an unlimited retry loop.
-        try:
-            entry['fresh']=refresh_one(home,row,budget)
-        except Exception as exc:
-            # Only our fixed diagnostic vocabulary may leave this boundary.
-            allowed = {'provider_paused','shadow_request_budget','occurrence_changed',
-                       'case_no_longer_unresolved','source_binding_missing',
-                       'exact_listing_not_retained','metadata_route_denied','metadata_http_failure',
-                       'metadata_response_limit','listing_refresh_failed','candidate_capacity_or_empty',
-                       'invalid_candidates','invalid_mapping','candidate_capacity','details_id_conflict',
-                       'candidate_search_empty','candidate_search_incomplete'}
-            entry['error'] = str(exc) if type(exc) is RuntimeError and str(exc) in allowed else 'refresh_incomplete'
-        entry['requests']=budget.used
-        atomic(ledger,saved)
+        attempt_refresh(home,due[0],saved,ledger,budget,now)
     for row in eligible:
-        entry=saved.get(row['key'],{}); fresh=entry.get('fresh')
-        row['refresh_attempted']=entry.get('attempted'); row['refresh_error']=entry.get('error')
-        if fresh and now-fresh['refreshed_at']<=86400:
-            row['retained_snapshot']={k:row.get(k) for k in ('decision','selected_id','ranked','margin','reasons','evidence_gaps')}
-            row.update({k:v for k,v in fresh.items() if k not in ('full_nfo','description','screenshots')})
-            row['evidence_file']='refresh-state.json'
-        elif entry:
-            row['refresh_status']='not_fresh'
+        project_entry(row,saved.get(row['key'],{}),now)
+    report['carried_over']=sum(r['cohort']=='carried_over' for r in eligible)
+    report['completed_current_revision']=sum(complete_entry(saved.get(r['key'],{})) and saved[r['key']]['fresh'].get('evidence_revision')==EVIDENCE_REVISION for r in eligible)
+    report['reused_prior_successes']=sum(complete_entry(saved.get(r['key'],{})) and saved[r['key']]['fresh'].get('evidence_revision')!=EVIDENCE_REVISION for r in eligible)
+    report['scheduler']='unresolved_first_checkpointed_no_repeat_success'
     report['would_identify']=sum(r.get('decision')=='would_identify' for r in report['rows'])
     report['arithmetic_pass']=sum(r.get('arithmetic_pass',False) for r in report['rows'])
-    report['fresh_results']=sum('refreshed_at' in r for r in report['rows'])
+    report['fresh_results']=sum(r.get('refresh_status')=='fresh' for r in report['rows'])
     report['collection_mode']='bounded_fresh_shadow'
     atomic(state/'report.json',report)
 

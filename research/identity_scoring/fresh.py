@@ -20,22 +20,30 @@ def nfo_facts(value):
     text = ' '.join(value.split())
     # Padding dots are field separators, not part of a field name.
     text = re.sub(r'(?<=\w)\.{2,}(?=\s*:)', ' ', text)
+    # Decorative section borders carry no metadata. Removing them reveals
+    # normal MediaInfo headings; track IDs are split only inside Audio sections.
+    text = re.sub(r'={3,}', ' ', text)
+    text = ' '.join(text.split())
+    compact = bool(re.search(r'\bVideo #\d+\s*:', text, re.I))
     sections = re.split(r'-{3,}(GENERAL|VIDEO|AUDIO(?:\s*\(#\d+\))?|TEXT|MENU)-{3,}', text, flags=re.I)
     dotted = len(sections)>1
     numbered = bool(re.search(r'\bGENERAL INFO\b',text) and re.search(r'\bAUDIO \(\d+\)\s+CODEC\s*:',text))
     # Only the container section can supply runtime, never subtitles or audio.
-    header = re.split(r'\b(?:Video|Audio|Text)(?: #\d+)?\s+ID\s*:', text, maxsplit=1)[0]
+    header = re.split(r'\b(?:Video|Audio|Text)(?: #\d+)?\s+ID\s*:|\b(?:Video|Audio|Text) #\d+\s*:', text, maxsplit=1, flags=re.I)[0]
     if dotted:
         general=[sections[i+1] for i in range(1,len(sections),2) if sections[i].upper()=='GENERAL']
         header=general[0] if len(general)==1 else ''
     if numbered and not dotted:
         general=re.split(r'\bGENERAL INFO\b',text)
         header=re.split(r'\bVIDEO\s+CODEC\s*:',general[1],maxsplit=1)[0] if len(general)==2 else ''
-    durations = re.findall(r'\bDuration\s*:\s*(?:(\d{1,2})\s*h\s*)?(\d{1,3})\s*min\b', header, flags=re.I)
+    if compact:
+        # Compact MediaInfo's container Length includes size followed by runtime.
+        header = re.sub(r'\bLength\s*:[^:]*?\sfor\s+(?=\d)', 'Duration : ', header, flags=re.I)
+    durations = re.findall(r'\bDuration\s*:\s*(?:(\d{1,2})\s*h\s*)?(\d{1,3})\s*min\b(?:\s*(\d{1,2})\s*s\b)?', header, flags=re.I)
     if len(durations) == 1:
-        hours, minutes = durations[0]
-        duration = int(hours or 0) * 60 + int(minutes)
-        if 0 < duration <= 1440 and (not hours or int(minutes) < 60):
+        hours, minutes, seconds = durations[0]
+        duration = int(hours or 0) * 60 + int(minutes) + int(seconds or 0)/60
+        if 0 < duration <= 1440 and (not hours or int(minutes) < 60) and int(seconds or 0)<60:
             result['runtime'] = duration
     clocks=re.findall(r'\bDURATION\s*:\s*(\d{1,2}):(\d{2}):(\d{2})\b',header,flags=re.I)
     if clocks:
@@ -46,17 +54,23 @@ def nfo_facts(value):
                 result['runtime']=hours*60+minutes+seconds/60
     if result['runtime'] is None:
         result['gaps'].append('container_runtime_missing_or_ambiguous')
-    tracks = re.split(r'\bAudio(?: #\d+)?\s+ID\s*:', text)[1:]
+    tracks = []
+    for section in re.split(r'\bAudio(?: #\d+)?\s+ID\s*:', text, flags=re.I)[1:]:
+        section = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\b(?:Text|Video) #\d+\s*:|\bMenu\b', section, maxsplit=1, flags=re.I)[0]
+        # Bare ID starts another track only within a known Audio section.
+        tracks.extend(re.split(r'(?<!Codec )(?<!codec )(?<!CODEC )\bID\s*:', section, flags=re.I))
+    if compact:
+        tracks = re.split(r'\bAudio #\d+\s*:', text, flags=re.I)[1:]
     if dotted:
         tracks=[sections[i+1] for i in range(1,len(sections),2) if sections[i].upper().startswith('AUDIO')]
     if numbered and not dotted:
         tracks=re.split(r'\bAUDIO \(\d+\)\s+(?=CODEC\s*:)',text)[1:]
-    labels=r'CHANNEL\(S\)|CODEC|BITRATE|BIT DEPTH|OTHER INFO|ID|Format|Codec ID|Duration|Bit rate(?: mode)?|Channel(?:s| layout)?|Sampling rate|Sample rate|Frame rate|Compression mode|Stream size|Title|Language|Default|Forced|Service kind|SUBTITLES|Chapters'
+    labels=r'Infos|Format/Info|Commercial name|Source|Aspect|Length|CHANNEL\(S\)|CODEC|BITRATE|BIT DEPTH|OTHER INFO|ID|Format|Codec ID|Duration|Bit rate(?: mode)?|Channel(?:s|\(s\)| layout)?|Sampling rate|Sample rate|Frame rate|Compression mode|Stream size|Title|Language|Default|Forced|Service kind|SUBTITLES|Chapters'
     def field(track, name):
         values=re.findall(r'\b'+name+r'\s*:\s*(.*?)(?=\s+(?:'+labels+r')\s*:|$)',track,flags=re.I)
         return values[0].strip() if len(values)==1 else None
     for index,track in enumerate(tracks,1):
-        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\bMenu\b|\bSUBTITLES\s*:|\bChapters\s*:|\bSUBTITLES\b|\bSCREENSHOTS\b', track, maxsplit=1, flags=re.I)[0]
+        track = re.split(r'\b(?:Text|Video)(?: #\d+)?\s+ID\s*:|\b(?:Text|Video) #\d+\s*:|\bMenu\b|\bSUBTITLES\s*:|\bChapters\s*:|\bSUBTITLES\b|\bSCREENSHOTS\b', track, maxsplit=1, flags=re.I)[0]
         language=field(track,'Language')
         language_raw=language
         qualifier=None
@@ -72,11 +86,15 @@ def nfo_facts(value):
         result['audio_track_details'].append({'index':index,'language':language,'language_raw':language_raw,'language_detail':qualifier,'title':title,'other_info':other,
             'role':'commentary' if commentary else 'unspecified',
             'role_basis':'explicit_label' if commentary else 'not_declared',
-            'default':field(track,'Default')})
+            'default':field(track,'Default'), 'format':field(track,'Format'),
+            'format_info':field(track,'Format/Info'), 'channels':field(track,r'Channel(?:s|\(s\))') or field(track,'Infos')})
     if not tracks or None in result['audio_languages'] or len(set(result['audio_languages'])) != 1:
         result['gaps'].append('audio_language_missing_or_mixed')
     result['audio_tracks'] = len(tracks)
-    filenames = re.findall(r'\bComplete name\s*:\s*(.*?)\s+Format\s*:', header)
+    filenames = re.findall(r'\bComplete name\s*:\s*(.*?)\s+Format\s*:', header, flags=re.I)
+    filenames.extend(re.findall(r'\bFile Name\s*:\s*(.*?\.(?:mkv|mp4|avi|m2ts))(?=\s|$)', header, flags=re.I))
+    if compact:
+        filenames.extend(re.findall(r'\bGeneral\s*:\s*(.*?\.(?:mkv|mp4|avi|m2ts))(?=\s|$)', header, flags=re.I))
     if dotted:
         prefix=sections[0].strip()
         if re.fullmatch(r'.+\.(?:mkv|mp4|avi|m2ts)',prefix,re.I):filenames.append(prefix)
@@ -137,6 +155,7 @@ def build_case(release, listing, full_nfo, search, details, mappings, asserted_i
             name, code = language.get('english_name'), language.get('iso_639_1')
             if isinstance(name, str) and isinstance(code, str) and re.fullmatch('[a-z]{2,3}', code):
                 language_map.setdefault(name.casefold(), set()).add(code)
+                language_map.setdefault(code, set()).add(code)
     langs = facts['audio_languages']
     if langs and None not in langs and len(set(langs)) == 1 and len(language_map.get(langs[0], set())) == 1:
         source['language'] = next(iter(language_map[langs[0]]))

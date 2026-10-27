@@ -1,3 +1,10 @@
+## 2026-10-27 — Shadow evidence and budget recovery
+
+Implementation and verification in progress, shadow-only. Actor remains separately
+managed; pilot1 has ended. See [brief](reports/2026-10-27-shadow-recovery-brief.md)
+and [report](reports/2026-10-27-shadow-recovery.md). The unrelated assigned cleanup
+task in CODEX_TASK.md is preserved.
+
 ## 2026-10-26 — Generic cut evidence in shadow
 
 Deployed shadow8fd8283 after776 local/seedbox tests and CI. Actor remainsd598296.

@@ -618,3 +618,12 @@ film/cut exceptions. Implemented in shadow with unchanged request limits, pilot
 deadline and identity/download safeguards. Edition comparisons are proposals;
 production activation remains separate. See the
 [report](reports/2026-10-26-generic-cut-discovery.md).
+
+## 2026-10-27 — Evidence/scheduling fixes and second bounded shadow pilot
+
+Owner approved fixing NFO extraction, exact reference retention, unnecessary
+edition requests and scheduling waste, followed by another bounded shadow pilot.
+Preserve10/run40/day caps and existing review/download safeguards. Seven-day
+maximum pilot reuses prior supported results with explicit evidence age, gives
+unresolved/new cases priority and checkpoints partial work without resetting
+reservations. No production scoring activation, downloads or notifications.

@@ -114,6 +114,8 @@ class FreshTests(unittest.TestCase):
             with closing(sqlite3.connect(home/'.apps/autobrr/autobrr.db')) as c:
                 c.execute('create table release(torrent_id integer,info_url text,torrent_name text,year integer)')
                 c.execute('insert into release values (?,?,?,?)',(123,'https://www.torrentleech.org/torrent/123',self.release['name'],1997));c.commit()
+            with closing(sqlite3.connect(home/'.apps/autobrr/autobrr.db')) as c:
+                c.execute('update release set torrent_name=?',('  '+self.release['name']+'  ',));c.commit()
             release,_=exact_release(home,{'case_id':'case','version':'research-version'})
             self.assertEqual(release['name'],self.release['name'])
             with self.assertRaisesRegex(RuntimeError,'occurrence_changed'):
@@ -423,11 +425,11 @@ class TargetedDiscoveryTests(unittest.TestCase):
         scored=deepcopy(r);scored['local_identity_recheck']={'status':'agrees','imdb':'tt1234567','tmdb':123}
         apply_existing_conflict_guard(scored,{'imdb':'tt7654321'},{'status':'needs_review','reason':'local_identity_conflict'})
         self.assertEqual(scored['decision'],'review')
-    def test_budget_admission_does_not_spend_last_partial_allowance(self):
+    def test_budget_admission_allows_checkpointed_partial_allowance(self):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'budget.json'
             atomic(path,{'days':{'1970-01-01':38},'cooldowns':{},'suspended':[]})
             before=path.read_bytes();b=Budget(path,lambda:100)
-            self.assertFalse(b.can_start_refresh());self.assertEqual(b.used,0)
+            self.assertTrue(b.can_start_refresh());self.assertEqual(b.used,0)
             self.assertEqual(path.read_bytes(),before)
             self.assertTrue(Budget(path,lambda:86401).can_start_refresh())

@@ -10,13 +10,13 @@ import time
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
 from .edition_discovery import PRODUCT, SEARCH, fetch
-from .scorer import words, score_candidate, valid_runtime, Policy
+from .scorer import words, score_candidate, valid_runtime, Policy, source_titles
 
 # Syntax and release-format vocabulary, not a catalog of named film cuts.
 NOUN = r'(?:cut|edition|version)'
 TECH = re.compile(r'\b(?:\d{3,4}p|uhd|blu[ .-]?ray|b[dr]remux|remux|web[ .-]?(?:dl|rip)|'
                   r'hdtv|dvd(?:rip)?|h[ .]?26[45]|[xh]26[45]|avc|hevc|hdr\d*|dv|'
-                  r'dts|truehd|ddp?|aac|atmos|repack|proper|internal)\b', re.I)
+                  r'[248]k|remaster(?:ed)?|restored|dts|truehd|ddp?|aac|atmos|repack|proper|internal)\b', re.I)
 MAX_TEXT = 65536
 
 
@@ -40,6 +40,7 @@ def labels(text):
     found=[]
     for m in re.finditer(r'\b'+NOUN+r'\b', clean, re.I):
         before=clean[max(0,m.start()-100):m.start()]
+        if re.search(r'\bformat\s*$',before,re.I):continue
         before=re.split(r'[\n:;!?/|()"“”]|\s[-–—]\s|\b(?:is|was|includes?|contains?|features?|featuring|labeled|labelled|this|with|of|and|or|versus|vs|19\d{2}|20\d{2})\b',before,flags=re.I)[-1]
         tokens=re.findall(r"[^\W_]+(?:'s)?",before,flags=re.U)[-4:]
         if not tokens or any(t.isdigit() for t in tokens):continue
@@ -67,14 +68,20 @@ def extract(release, listing, nfo, candidate):
             if cleaned and len(cleaned)<=80 and 1<=len(cleaned.split())<=6 and not labels(cleaned):
                 tokens=words(cleaned)
                 if any(t.isalpha() and not re.fullmatch('[ivxlcdm]+',t) for t in tokens):
-                    claims.append({'label':cleaned,'descriptor':descriptor(cleaned),'negated':False,
-                                   'origin':origin,'kind':'unexplained_label'})
+                    key=(origin,norm(cleaned),False)
+                    if key not in seen:
+                        seen.add(key)
+                        claims.append({'label':cleaned,'descriptor':descriptor(cleaned),'negated':False,
+                                       'origin':origin,'kind':'unexplained_label'})
     name=release.get('name','')
     if isinstance(name,str) and len(name)<=1024:
         year=re.search(r'(?<!\d)'+str(release['year'])+r'(?!\d)',name)
-        if year:add(TECH.split(name[year.end():].replace('.',' '),1)[0],'release_suffix',True)
+        if year:add(name[year.end():].replace('.',' '),'release_suffix',True)
     title=release['title']
-    for t in candidate['titles']:
+    # An explicit AKA separates movie aliases, never an edition prefix. Keep
+    # unresolved aliases in ordinary identity comparison, not public cut search.
+    title_aliases=source_titles(title)
+    for t in candidate['titles'] if len(title_aliases)==1 else []:
         raw=words(title); base=words(t)
         if len(raw)>len(base) and (raw[:len(base)]==base or raw[-len(base):]==base):
             rest=raw[len(base):] if raw[:len(base)]==base else raw[:-len(base)]
