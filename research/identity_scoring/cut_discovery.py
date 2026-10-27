@@ -67,7 +67,7 @@ def extract(release, listing, nfo, candidate):
             cleaned=re.sub(r'[-][A-Za-z0-9]+$','',cleaned).strip()
             if cleaned and len(cleaned)<=80 and 1<=len(cleaned.split())<=6 and not labels(cleaned):
                 tokens=words(cleaned)
-                if any(t.isalpha() and not re.fullmatch('[ivxlcdm]+',t) for t in tokens):
+                if descriptor(cleaned) and any(t.isalpha() and not re.fullmatch('[ivxlcdm]+',t) for t in tokens):
                     key=(origin,norm(cleaned),False)
                     if key not in seen:
                         seen.add(key)
@@ -81,7 +81,8 @@ def extract(release, listing, nfo, candidate):
     # An explicit AKA separates movie aliases, never an edition prefix. Keep
     # unresolved aliases in ordinary identity comparison, not public cut search.
     title_aliases=source_titles(title)
-    for t in candidate['titles'] if len(title_aliases)==1 else []:
+    full_title_known=any(words(title)==words(t) for t in candidate['titles'])
+    for t in candidate['titles'] if len(title_aliases)==1 and not full_title_known else []:
         raw=words(title); base=words(t)
         if len(raw)>len(base) and (raw[:len(base)]==base or raw[-len(base):]==base):
             rest=raw[len(base):] if raw[:len(base)]==base else raw[:-len(base)]

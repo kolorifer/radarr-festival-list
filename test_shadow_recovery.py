@@ -71,6 +71,15 @@ class EvidenceRecoveryTests(unittest.TestCase):
         claims=cut.extract(release,{},'',candidates)
         self.assertEqual(sum(c['label']=='phoenix' for c in claims),1)
 
+    def test_complete_title_prevents_shorter_alias_from_inventing_edition(self):
+        f=fixtures.CutTests();f.setUp()
+        candidates={'titles':['Wolverine','The Wolverine','Wolverine']}
+        claims=cut.extract(f.release,f.listing,f.nfo,candidates)
+        self.assertFalse(any(c['origin']=='title_remainder' for c in claims))
+        self.assertTrue(any(c['descriptor']=='extended' for c in claims))
+        release={'title':'The Example','year':2000,'name':'The Example 2000 1080p'}
+        self.assertEqual(cut.extract(release,{},'',{'titles':['Example']}),[])
+
 
 class SchedulingRecoveryTests(unittest.TestCase):
     def row(self,key):return {'key':key,'observed':1}
