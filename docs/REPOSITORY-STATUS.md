@@ -1,5 +1,14 @@
 # Repository status and review map
 
+## Observer timeout fix — 28 October 2026, not deployed
+
+The observer timeout is aligned with the collector's bounded wait; fixed failure
+diagnostics distinguish transport/HTTP and local outbox ACK errors without exposing
+private content. Same-event retry, backoff and asynchronous admission are preserved.
+The change is repository-only and has not been deployed to actor `d7487700`.
+The installed collector fix, actor/shadow configuration and ongoing read-only
+monitor are unchanged. See the [report](reports/2026-10-28-observer-timeout.md).
+
 ## Actor identity fixes — 28 October 2026, 19:22 UTC
 
 The running actor is now **`d7487700ee8bb6eed86adefeca365945ecccc001`**,

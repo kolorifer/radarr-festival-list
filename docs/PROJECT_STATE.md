@@ -1,5 +1,17 @@
 # Movie List project state
 
+## Observer timeout and diagnostics — 2026-10-28, not deployed
+
+The observer's half-second socket timeout was shorter than the collector's bounded
+writer wait. Repository code now waits up to six seconds per socket operation,
+preserving asynchronous queueing and durable same-event retries, and records
+allowlisted failure stage/reason, HTTP status and bounded elapsed time. Synthetic
+regressions cover queued writes, backpressure, lost ACKs, redaction and retry state.
+Local validation: 106 focused and 932 full-suite tests passed (two Linux skips).
+This change is **not deployed**. Actor/shadow configuration is preserved and the
+existing 24-hour read-only collector monitor continues. See the
+[report](reports/2026-10-28-observer-timeout.md).
+
 ## Contextual typos and runtime handling — 2026-10-28
 
 Actor `d7487700ee8bb6eed86adefeca365945ecccc001` is deployed with contextual
