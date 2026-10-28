@@ -95,6 +95,16 @@ class ListingTransportTests(unittest.TestCase):
         response.iter_content.return_value = [body]
         return instance, response
 
+    def test_forced_refresh_bypasses_cached_identity_but_preserves_rate_gate(self):
+        with patch.object(tracker.time, 'monotonic', return_value=100), patch.object(tracker, '_fetch', return_value=tracker._result('listing_id_found','tt2543164')) as fetch:
+            self.assertEqual(self.lookup()['imdb_id'],'tt2543164')
+            self.assertEqual(tracker.lookup_listing(self.release,self.indexer,force_refresh=True)['reason'],'rate_limited')
+            self.assertEqual(fetch.call_count,1)
+        with patch.object(tracker.time, 'monotonic', return_value=102), patch.object(tracker, '_fetch', return_value=tracker._result('listing_id_found','tt1234567')) as fetch:
+            self.assertEqual(self.lookup()['imdb_id'],'tt2543164')
+            self.assertEqual(tracker.lookup_listing(self.release,self.indexer,force_refresh=True)['imdb_id'],'tt1234567')
+            fetch.assert_called_once()
+
     def test_only_exact_listing_get_no_redirect_proxy_or_download(self):
         with patch.object(tracker.requests, 'Session') as session:
             instance, response = self.response(session)

@@ -357,11 +357,12 @@ The daily-budget upgrade migrates only pending, unexpired request-budget waits o
 IMDb association, a unique TMDb movie mapping with matching reverse IMDb, and a
 matching documented release year. One letter insertion/deletion/substitution or
 adjacent transposition is allowed in one word only; both spellings must have six
-letters, candidate title eight alphanumeric characters. Word additions, short
+letters. Word additions, short
 words, numeric/Roman numeral changes and larger edits remain blocked. Native IDs
 without checked listing provenance and title searches stay strict. Local identity
 conflicts and all approval/acquisition controls remain enforced. No per-film exception registry is supported. Disable this flag and restart movie-intel to revoke the
-new policy. No history replay/backfill or extra metadata queries are required.
+new policy. There is no historical replay or backfill. Tracker-backed approval
+revalidates the exact listing and movie metadata, which can require fresh requests.
 
 
 ### Missing IMDb-to-TMDb mappings
@@ -369,9 +370,12 @@ new policy. No history replay/backfill or extra metadata queries are required.
 The metadata retry worker also admits `tmdb_mapping_missing`. It uses the same
 three-attempt limit, 15-minute/1-hour/6-hour delays, daily provider/request caps,
 source expiry, deduplication and provider holds as transient metadata failures.
-Persistent absence goes to review. Identity/year/title conflicts, ambiguous or
-nonmovie mappings remain excluded and terminate an existing retry if discovered.
-No notification replay or action creation occurs on recovery. Retained cases must
+Persistent absence goes to review. A narrowly scoped exact-source tracker conflict
+can receive one fresh 15-minute recheck under existing budgets; an unchanged conflict
+ends for review. Ambiguous or nonmovie mappings are not automatically accepted.
+When a retry succeeds and the original event and message receipt are retained, the
+actor can edit that original message and create an eligible confirmation action;
+it never starts a download. No historical notifications are replayed. Retained cases must
 not be bulk reopened or budget history reset; the approved Insomnia admission is
 recorded in the [report](../docs/reports/2026-10-20-missing-mapping-retries.md).
 
@@ -509,3 +513,43 @@ blocks unused evidence-backed confirmations. Normal explicit download confirmati
 exact-source push and duplicate/uncertain-attempt safeguards remain mandatory.
 After activation reconcile affected retained cases silently using the deployment
 gate above. Do not send test notifications or download media without authorization.
+
+### Action-specific Telegram topics
+
+`TELEGRAM_ADD_GRAB_TOPIC_ID` routes Unknown Movie/add-and-grab notifications,
+including temporary identity failures that may later gain a confirmation button.
+`TELEGRAM_GRAB_ANYWAY_TOPIC_ID` routes alternative-release offers. Unset overrides
+fall back to `TELEGRAM_TOPIC_ID`. General alerts and investigation digests use the
+default topic. All text chunks, poster fallbacks and supplemental images share
+one notification route. Retry edits address their saved original message IDs;
+historical messages are not moved or replayed. Topic IDs must be positive.
+
+## Persistent verified-ID response cache
+
+`MOVIE_INTEL_VERIFIED_CACHE_PATH` optionally enables a private SQLite cache for
+successful exact-ID/context validations. Set an absolute file path in an existing
+owner-only (700) state directory; the cache file is created as 600. Keep it outside
+web roots. Blank/unset preserves the existing in-memory behavior.
+
+The full title/year/IMDb/TMDb/typo-mode context is hashed into the cache key.
+Only verified responses are stored, for seven days from verification (reads do
+not renew expiry); storage is capped at 1,024 entries and 32 KiB per entry.
+Changed IDs or context do not reuse another entry. Missing, expired, corrupt or
+unavailable cache data falls back to normal resolution. This cache does not automatically accept
+an ID for a different torrent from its title, bypass identity confirmation,
+cache a failed lookup as success, or reuse an approval/source/edition decision.
+To clear it, stop movie-intel, move the private cache file aside, then restart.
+No acquisition state is stored in it.
+
+The same private cache also keeps independently verified TorrentLeech movie
+matches by exact source/title/year. During a temporary lookup outage a unique
+remembered match can produce a **Confirm remembered movie** review. Confirming
+identity applies only to that occurrence and starts no download. The separate
+existing download confirmation remains mandatory. Changed or conflicting IDs,
+ambiguous/expired memory, and revoked choices block acquisition. No owner-choice
+or research result is automatically learned as a new identity mapping.
+
+Before rolling back to code without this feature, stop the actor and privately
+retire outstanding remembered reviews and their child capabilities; otherwise
+older code will not understand their confirmation markers. Preserve all unrelated
+and completed acquisition state. Never restore an old actions snapshot.

@@ -59,7 +59,7 @@ def _minor_title_typo(observed, candidate):
         text = unicodedata.normalize('NFC', str(value or '')).casefold().replace('&', 'and')
         return re.findall(r"[^\W_]+", text)
     left, right = words(observed), words(candidate)
-    if len(left) != len(right) or sum(map(len, right)) < 8:
+    if len(left) != len(right):
         return False
     differences = [(a, b) for a, b in zip(left, right) if a != b]
     if len(differences) != 1:
@@ -152,12 +152,14 @@ def _resolve_external(title, year, imdb_id, tmdb_id, allow_minor_typo=False):
     return result
 
 
-def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_minor_typo=False):
+def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_minor_typo=False, force_refresh=False):
     """Validate source IDs and context in an isolated, bounded, expiring cache.
 
     Never read/write the legacy title cache. The key includes the exact context
     and both supplied IDs, so a cached ID cannot bypass a new conflict.
     """
+    from identity_request_guard import fresh_metadata_required
+    force_refresh = force_refresh or fresh_metadata_required()
     if ((imdb_id is not None and not valid_imdb_id(imdb_id))
             or (tmdb_id is not None and not valid_tmdb_id(tmdb_id))
             or (imdb_id is None and tmdb_id is None)):
@@ -167,12 +169,22 @@ def resolve_external_movie(title, year, *, imdb_id=None, tmdb_id=None, allow_min
         return _identity_result('unresolved', 'metadata_lookup_busy', imdb_id)
     try:
         cached = _ID_CACHE.get(key)
-        if cached and cached[0] > time.monotonic():
+        if not force_refresh and cached and cached[0] > time.monotonic():
             return dict(cached[1])
+        import verified_identity_cache as persistent
+        remembered = None if force_refresh else persistent.get('external_movie', key)
+        if (remembered and remembered.get('identity_status') == 'verified_tmdb'
+                and valid_tmdb_id(remembered.get('tmdb_id'))
+                and (not imdb_id or remembered.get('imdb_id') == imdb_id)
+                and (not tmdb_id or str(remembered.get('tmdb_id')) == str(tmdb_id))
+                and remembered.get('matched_release_year') == str(year)):
+            return dict(remembered)
         try:
             result = _resolve_external(title, year, imdb_id, tmdb_id, allow_minor_typo)
         except (TypeError, ValueError, KeyError, AttributeError):
             result = _identity_result('needs_review', 'invalid_metadata', imdb_id)
+        if result['identity_status'] == 'verified_tmdb':
+            persistent.put('external_movie', key, result)
         ttl = 900 if result['identity_status'] == 'verified_tmdb' else 60
         _ID_CACHE[key] = (time.monotonic() + ttl, dict(result))
         _ID_CACHE.move_to_end(key)

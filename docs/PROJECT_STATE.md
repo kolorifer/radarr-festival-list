@@ -1,5 +1,8 @@
 # Movie List project state
 
+A main/production integration candidate is under review; it is not deployed.
+See the [integration report](reports/2026-10-28-main-production-integration.md).
+
 For the verified 28 October repository and deployment snapshot, see the
 [repository status and review map](REPOSITORY-STATUS.md). Earlier entries below
 are historical and may not describe the currently running revision.

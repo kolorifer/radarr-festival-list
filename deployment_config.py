@@ -21,6 +21,12 @@ def configuration_errors(env=None):
         errors.append('MOVIE_INTEL_TORRENT_EVIDENCE_ENABLED must be 0 or 1')
     if env.get('MOVIE_INTEL_TRACKER_TYPO_ENABLED', '0') not in ('0', '1'):
         errors.append('MOVIE_INTEL_TRACKER_TYPO_ENABLED must be 0 or 1')
+    if env.get('MOVIE_INTEL_VERIFIED_CACHE_PATH'):
+        from verified_identity_cache import configured_path
+        try:
+            configured_path(env)
+        except (OSError, ValueError, TypeError):
+            errors.append('MOVIE_INTEL_VERIFIED_CACHE_PATH requires an absolute private file in an existing owner-only directory')
     retry_mode=env.get('MOVIE_INTEL_IDENTITY_RETRY_MODE','off')
     if retry_mode not in ('off','shadow','active'):errors.append('MOVIE_INTEL_IDENTITY_RETRY_MODE must be off, shadow or active')
     if retry_mode!='off' and env.get('MOVIE_INTEL_TRIAGE_OBSERVER_ENABLED')!='1':errors.append('identity retries require the observer')
@@ -50,7 +56,7 @@ def configuration_errors(env=None):
     secret = env.get("MOVIE_INTEL_WEBHOOK_SECRET", "")
     if secret and (len(secret) < 32 or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-" for c in secret)):
         errors.append("MOVIE_INTEL_WEBHOOK_SECRET must be at least 32 URL-safe characters")
-    for name in ("TELEGRAM_CHAT_ID", "TELEGRAM_TOPIC_ID", "MOVIE_INTEL_PORT", "MOVIE_INTEL_ACTION_TTL_SECONDS"):
+    for name in ("TELEGRAM_CHAT_ID", "TELEGRAM_TOPIC_ID", "TELEGRAM_ADD_GRAB_TOPIC_ID", "TELEGRAM_GRAB_ANYWAY_TOPIC_ID", "MOVIE_INTEL_PORT", "MOVIE_INTEL_ACTION_TTL_SECONDS"):
         value = env.get(name, "")
         if not value:
             continue
@@ -58,7 +64,7 @@ def configuration_errors(env=None):
             number = int(value)
             if name == "MOVIE_INTEL_PORT" and not 1 <= number <= 65535:
                 raise ValueError
-            if name in ("TELEGRAM_TOPIC_ID", "MOVIE_INTEL_ACTION_TTL_SECONDS") and number <= 0:
+            if name in ("TELEGRAM_TOPIC_ID", "TELEGRAM_ADD_GRAB_TOPIC_ID", "TELEGRAM_GRAB_ANYWAY_TOPIC_ID", "MOVIE_INTEL_ACTION_TTL_SECONDS") and number <= 0:
                 raise ValueError
         except ValueError:
             errors.append(f"{name} must be a valid integer in its supported range")

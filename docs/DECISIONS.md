@@ -80,6 +80,22 @@ the workflow documentation task.
   Implementation and verified deployment are authorized by the
   [brief](reports/2026-10-18-reviewed-identity-brief.md).
 
+- **Remembered identity proposals authorized, 2026-10-25:** The user requested
+  persistent reuse of previous successful lookups and selected option 2: an exact
+  source/title/year remembered match must be explicitly confirmed for each new
+  torrent before enabling Grab Anyway. This permits private bounded persistence
+  of independently verified identities and proposals during temporary lookup
+  failures, not automatic identity acceptance, fuzzy matching, contradiction
+  overrides or learned owner exceptions. Identity confirmation and download
+  approval remain separate; source links, rejections and film cuts remain
+  specific to the new release. See the [brief](reports/2026-10-25-identity-memory-brief.md).
+
+- **Short-title typo adjustment authorized, 2026-10-28:** The user approved
+  broadening the existing exact-listing typo rule for Carrue/Carrie. Single edits
+  on words of at least six letters remain subject to the existing unique IMDb and
+  TMDb crosswalk, year and conflict checks, and do not approve a download. See the
+  [brief](reports/2026-10-28-short-title-typos-brief.md).
+
 ## D006 — Audience ratings provide context
 
 - **Status/source:** Accepted existing baseline; captured 2026-10-13.
@@ -503,3 +519,13 @@ review receipt for audit and distinguish it from automatic verification. A new
 accepted source event reopens the case with fresh evidence and a choice, even for
 the same torrent. Preserve the conflicting source assertions, history, existing
 matching rules and explicit download confirmation. No live downloads are authorized.
+
+## D036 — Explicit watched label in enriched movie notifications
+
+Owner requested on 2026-10-27 that the unclear “POTENTIAL FALSE NEGATIVE” warning
+be removed and “Watched” shown when the movie has that tag in Radarr. Display
+the current tag state, without inferring it from monitoring or qualification.
+The watched label replaces the model assessment; other movies retain their
+existing qualification information without the warning. Qualification, movie
+state, identity safeguards and download authorization are unchanged. Missing
+or unavailable tag evidence does not establish watched state.

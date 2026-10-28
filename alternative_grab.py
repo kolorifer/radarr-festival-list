@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 from radarr_client import RadarrError, get_movie_by_tmdb
-from pending_actions import create_action
+from pending_actions import create_action, get_action
 
 CONFIG='MOVIE_INTEL_ALTERNATIVE_GRAB_CONFIG'
 QUALITY=r'(?:Remux|Bluray|WEBDL|WEBRip|HDTV)-(?:720|1080|2160)p'
@@ -61,6 +61,8 @@ def snapshot(current):
 
 def validate_action(action):
     if action.get('kind')!='alternative' or not quality_only(action.get('rejections')):raise ValueError('ineligible')
+    import identity_memory
+    if not identity_memory.reviewed_current(action,get_action):raise ValueError('identity_choice_unavailable')
     source_reference(action['release'],action['indexer'])
     current=existing_movie(action['movie'])
     if snapshot(current)!=action.get('existing'):raise RadarrError('Existing movie/file changed; wait for a fresh announcement')
@@ -74,8 +76,10 @@ def offer(payload,meta):
     try:
         release=data['release'];indexer=data['indexer'];source_reference(release,indexer)
         current=existing_movie(meta)
-        keys=('type','protocol','external_id','name','title','year','size','resolution','source','group','edition','cut','download_url')
-        movie={k:meta.get(k) for k in ('tmdb_id','imdb_id','identity_status','title','year')}
+        keys=('type','protocol','external_id','name','title','year','size','resolution','source','group','edition','cut','download_url','info_url')
+        movie={k:meta.get(k) for k in ('tmdb_id','imdb_id','identity_status','title','year','identity_source','identity_title_basis')}
+        if meta.get('identity_memory_choice'):
+            movie.update(identity_source=meta.get('identity_source'),identity_memory_choice=meta['identity_memory_choice'])
         return create_action({'kind':'alternative','movie':movie,'release':{k:release[k] for k in keys if k in release},
                               'indexer':{'identifier':'torrentleech'},'rejections':reasons,'existing':snapshot(current)})
     except (KeyError,ValueError,TypeError,OSError,RadarrError):return None

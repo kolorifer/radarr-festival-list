@@ -2,6 +2,22 @@
 from contextvars import ContextVar
 from contextlib import contextmanager
 
+_FRESH = ContextVar("identity_fresh_metadata", default=False)
+
+
+def fresh_metadata_required():
+    return _FRESH.get()
+
+
+@contextmanager
+def fresh_metadata(enabled=True):
+    token = _FRESH.set(enabled)
+    try:
+        yield
+    finally:
+        _FRESH.reset(token)
+
+
 _GATE = ContextVar('identity_request_gate', default=None)
 
 
