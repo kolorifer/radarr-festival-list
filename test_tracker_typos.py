@@ -27,6 +27,21 @@ class TrackerTypoTests(unittest.TestCase):
                 self.assertEqual(result['identity_title_basis'], 'tracker_minor_typo')
         self.assertNotIn('identity_title_basis', self.resolve('Bruce Almighty', allow_minor_typo=True))
 
+    def test_six_letter_title_single_edits_require_verified_id_and_year(self):
+        self.details.update(title='Carrie', original_title='Carrie', release_date='1976-01-01')
+        for title in ('Carrue', 'Carrrie', 'Caarie'):
+            tmdb._ID_CACHE.clear()
+            with self.subTest(title=title):
+                result=self.resolve(title,1976,allow_minor_typo=True)
+                self.assertEqual(result['identity_status'],'verified_tmdb')
+                self.assertEqual(result['identity_title_basis'],'tracker_minor_typo')
+        tmdb._ID_CACHE.clear()
+        self.assertEqual(self.resolve('Carrue',1976)['identity_reason'],'title_conflict')
+        tmdb._ID_CACHE.clear()
+        self.assertEqual(self.resolve('Carrue',1977,allow_minor_typo=True)['identity_reason'],'year_conflict')
+        tmdb._ID_CACHE.clear();self.find={'movie_results':[{'id':310},{'id':311}]}
+        self.assertEqual(self.resolve('Carrue',1976,allow_minor_typo=True)['identity_reason'],'ambiguous_id_mapping')
+
     def test_policy_cache_isolation(self):
         self.assertEqual(self.resolve(allow_minor_typo=True)['identity_status'], 'verified_tmdb')
         self.assertEqual(self.resolve()['identity_reason'], 'title_conflict')

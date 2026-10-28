@@ -148,13 +148,15 @@ def _fetch(url, name, cookies):
             return parse_listing(bytes(body), name)
 
 
-def lookup_listing(release, indexer):
+def lookup_listing(release, indexer, *, force_refresh=False):
     """At most one active fetch, bounded TTL cache and a global request interval.
 
     Every enabled failure is returned explicitly so the caller cannot bypass
     unavailable or contradictory listing evidence with a title-only guess.
     """
     global _NEXT_REQUEST
+    from identity_request_guard import fresh_metadata_required
+    force_refresh = force_refresh or fresh_metadata_required()
     if os.environ.get('MOVIE_INTEL_TL_METADATA_ENABLED', '0') != '1':
         return _result('disabled')
     if str(indexer.get('identifier') or indexer.get('name') or '').casefold() != 'torrentleech':
@@ -173,7 +175,7 @@ def lookup_listing(release, indexer):
         key = hashlib.sha256(json.dumps([url, name, cookies], sort_keys=True).encode()).digest()
         now = time.monotonic()
         cached = _CACHE.get(key)
-        if cached and cached[0] > now:
+        if not force_refresh and cached and cached[0] > now:
             return dict(cached[1])
         if now < _NEXT_REQUEST:
             return _result('rate_limited')

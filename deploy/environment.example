@@ -6,6 +6,8 @@ MOVIE_INTEL_PORT=40714
 MOVIE_INTEL_WEBHOOK_SECRET=
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
+TELEGRAM_ADD_GRAB_TOPIC_ID=
+TELEGRAM_GRAB_ANYWAY_TOPIC_ID=
 TELEGRAM_TOPIC_ID=
 TMDB_API_TOKEN=
 # Optional exact-listing metadata lookup. Dedicated private cookie JSON required.
@@ -21,3 +23,6 @@ MOVIE_INTEL_PUBLIC_BASE_URL=
 # when running manually. Keep them outside any directory served by nginx.
 # Generic matching from checked ID-less torrent NFO and corroborated catalog facts.
 MOVIE_INTEL_TORRENT_EVIDENCE_ENABLED=0
+
+# Optional persistent verified-ID cache; parent must be owner-only (700).
+MOVIE_INTEL_VERIFIED_CACHE_PATH=

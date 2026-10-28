@@ -16,11 +16,39 @@ from identity_outcome_outbox import Outbox
 from identity_triage_store import digest
 from identity_triage_intake import normalize
 from identity_triage_observer import envelope, read_config, _send
-from identity_request_guard import guarded
+from identity_request_guard import guarded, fresh_metadata
 
 TEMPORARY={'listing_http_error','listing_temporary_http','listing_unavailable','rate_limited',
            'lookup_busy','metadata_api_unavailable','metadata_rate_limited','metadata_lookup_busy','resolver_error',
            'tmdb_mapping_missing'}
+# These remain conflicts, never transient acceptance. Only a fresh, otherwise
+# fully verified source may resolve them. One unchanged conflict ends the job.
+TRACKER_CONFLICTS={'identity_conflict','runtime_conflict','local_identity_conflict',
+                   'title_conflict','year_conflict','listing_id_conflict'}
+
+
+def tracker_conflict(release,indexer,reason):
+    from tracker_metadata import valid_listing_url
+    url=release.get('info_url')
+    return (reason in TRACKER_CONFLICTS
+            and str(indexer.get('identifier') or indexer.get('name') or '').casefold()=='torrentleech'
+            and release.get('meta_imdb') in (None,'') and release.get('meta_tmdb') in (None,'')
+            and valid_listing_url(url)
+            and str(release.get('external_id') or '')==url.rsplit('/',1)[-1])
+
+
+def conflict_item(item):
+    data=item['observation']['data']
+    return tracker_conflict(dict(data['release'],info_url=item.get('listing')),
+                            data['indexer'],data['outcome']['reason'])
+
+
+def retryable_context(payload,context):
+    reason=(context.get('identity_observation') or {}).get('reason') or (context.get('meta') or {}).get('identity_reason')
+    data=payload.get('data') or {}
+    return reason in TEMPORARY or tracker_conflict(data.get('release') or {},data.get('indexer') or {},reason)
+
+
 _WEEK=7*86400
 _DAY=86400
 DAILY_TOTAL=60
@@ -38,6 +66,8 @@ class RetryStore(Outbox):
         self.clock=clock
         super().__init__(directory)
         with self.tx() as c:
+            from retry_telegram import schema
+            schema(c)
             c.execute('create table if not exists retry_jobs(version text primary key, source text not null, observed real not null, body text not null, due real not null, expires real not null, state text not null, lease text, until real, reason text not null)')
             c.execute('create table if not exists retry_attempts(id text primary key,version text not null,started real not null,ended real,reason text)')
             c.execute('create table if not exists retry_requests(id integer primary key,attempt text not null,provider text not null,reserved real not null)')
@@ -64,7 +94,7 @@ class RetryStore(Outbox):
         with self.tx() as c:
             if c.execute('select 1 from retry_jobs where source=? and observed>?',(source,observed)).fetchone():return 'stale'
             c.execute('update retry_jobs set state="done",reason="superseded",lease=NULL where source=? and version!=? and observed<=?',(source,version,observed))
-            if reason not in TEMPORARY:
+            if reason not in TEMPORARY and not conflict_item(item):
                 c.execute('update retry_jobs set state="done",reason=?,lease=NULL where version=?',(reason,version));return 'not_retryable'
             if c.execute('select 1 from retry_jobs where version=?',(version,)).fetchone():return 'duplicate'
             if c.execute('select count(*) from retry_jobs').fetchone()[0]>=10000:raise RetryBudget('retry_capacity')
@@ -78,6 +108,8 @@ class RetryStore(Outbox):
         encoded=self.validate(event)
         c.execute('insert into pending values(?,?,?,0,?)',(event['id'],encoded,self.clock(),self.clock()))
         self.count(c,'persisted')
+        from retry_telegram import completed
+        completed(c,version,None,'retry_exhausted',self.clock())
         c.execute('update retry_jobs set state="review",reason=?,lease=NULL where version=?',(reason,version))
 
     def lease(self):
@@ -114,7 +146,7 @@ class RetryStore(Outbox):
         with self.tx() as c:
             c.execute('insert into retry_provider values(?,?,?) on conflict(name) do update set until=max(until,excluded.until),auth=max(auth,excluded.auth)',(provider,self.clock()+max(0,seconds),int(auth)))
 
-    def finish(self,lease,reason,outcome=None):
+    def finish(self,lease,reason,outcome=None,context=None):
         encoded=self.validate(outcome) if outcome else None
         with self.tx() as c:
             row=c.execute('select lease,until from retry_jobs where version=?',(lease['version'],)).fetchone()
@@ -130,6 +162,9 @@ class RetryStore(Outbox):
                 self.count(c,'persisted')
             c.execute('update retry_jobs set state=?,due=?,lease=NULL,reason=? where version=?',(state,due,reason,lease['version']))
             c.execute('update retry_attempts set ended=?,reason=? where id=?',(self.clock(),reason,lease['token']))
+            if state in ('done','review'):
+                from retry_telegram import completed
+                completed(c,lease['version'],context,'retry_exhausted' if state=='review' else reason,self.clock())
 
     def defer(self,lease,reason,provider):
         """Budget/cooldown waits are not failed lookups; retain audit history."""
@@ -176,7 +211,8 @@ def run_one(store,resolve):
     if item.get('listing'):payload['data']['release']['info_url']=item['listing']
     payload['data']['result']={'rejections':['Unknown Movie']}
     gate=Gate(store,lease)
-    with guarded(gate):context=resolve(payload)
+    with guarded(gate), fresh_metadata(conflict_item(item)):
+        context=resolve(payload)
     if gate.blocked in ('retry_request_budget','retry_provider_cooldown'):
         store.defer(lease,gate.blocked,gate.provider)
         return True
@@ -189,7 +225,7 @@ def run_one(store,resolve):
     outcome['id']=str(uuid.UUID(lease['token']))
     if lease['number']>=3 and (reason in TEMPORARY or gate.blocked):
         outcome['data']['outcome'].update(status='needs_review',reason='retry_exhausted')
-    store.finish(lease,gate.blocked or reason,outcome)  # commit outcome and completion atomically
+    store.finish(lease,gate.blocked or reason,outcome,context)  # commit outcome and completion atomically
     return True
 
 
@@ -206,7 +242,7 @@ def submit(payload,context):
     except Exception:print('identity_retry admission_failed',flush=True)
 
 
-def start(resolve):
+def start(resolve,notification_handlers=None):
     global _THREAD
     if os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE','off') not in ('shadow','active'):return
     def work():
@@ -224,6 +260,9 @@ def start(resolve):
                         except queue.Full:print('identity_retry queue_full',flush=True)
                     finally:_QUEUE.task_done()
                 if os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE')=='active':run_one(store,resolve)
+                if notification_handlers and os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE')=='active':
+                    from retry_telegram import pump
+                    pump(store,*notification_handlers)
                 pending=store.next()
                 if pending:
                     key,body,attempts=pending

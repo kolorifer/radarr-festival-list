@@ -14,6 +14,8 @@ import os
 import re
 import sys
 import threading
+from pathlib import Path
+from urllib.error import HTTPError
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, quote, urlparse
 from urllib.request import Request, urlopen
@@ -29,13 +31,15 @@ from radarr_client import (
     configured as radarr_configured,
     ensure_movie,
     get_movie_by_tmdb,
+    movie_has_tag,
     push_release,
     selection_context,
 )
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
+from telegram_routing import notification_route, topic_fields
 import alternative_grab
-from film_editions import annotation as edition_annotation, candidate as edition_candidate, verified_film
+from film_editions import annotation as edition_annotation, candidate as edition_candidate
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
 
 HOST = os.environ.get("MOVIE_INTEL_HOST", "127.0.0.1")
@@ -154,7 +158,7 @@ def _append_rejection_details(lines, rejections, release_name):
         lines.append("<b>Release:</b> " + html.escape(str(release_name)))
 
 
-def format_message(payload, movie=None, meta=None, existing=None):
+def format_message(payload, movie=None, meta=None, existing=None, watched=False):
     payload = sanitize(payload)
     data = payload.get("data") or {}
     release = data.get("release") or {}
@@ -167,6 +171,7 @@ def format_message(payload, movie=None, meta=None, existing=None):
     identity_status = (meta or {}).get('identity_status')
     if identity_status and identity_status != 'verified_tmdb':
         movie = None
+        watched = False
     elif movie is None:
         movie = find_local(title, year, INDEX)
 
@@ -182,6 +187,8 @@ def format_message(payload, movie=None, meta=None, existing=None):
         ]
         if link_line:
             lines.append(link_line)
+        if watched:
+            lines += ['', '👁️ <b>Watched</b>']
         if edition_note:lines += ['',html.escape(edition_note)]
         _append_rejection_details(lines, rejections, release_name)
         return "\n".join(lines)
@@ -221,12 +228,14 @@ def format_message(payload, movie=None, meta=None, existing=None):
             lines.append(" · ".join(html.escape(x) for x in facts))
 
     from identity_retry import TEMPORARY
-    if identity_status == 'needs_review':
+    if identity_status == 'needs_review' and meta.get('identity_reason') == 'runtime_conflict':
+        lines += ['', 'ℹ️ Movie identity requires review: the release runtime conflicts with the matched movie. Approval unavailable.']
+    elif identity_status == 'needs_review':
         lines += ['', 'ℹ️ Movie identity requires review: conflicting or invalid metadata. Approval unavailable.']
     elif identity_status == 'imdb_associated':
         lines += ['', 'ℹ️ Indexer IMDb association only; no verified TMDb mapping. Approval unavailable.']
     elif identity_status == 'unresolved' and meta.get('identity_reason') in TEMPORARY:
-        lines += ['', 'ℹ️ Identity verification is temporarily unavailable because a metadata lookup failed or was rate-limited. Approval unavailable until verification succeeds.']
+        lines += ['', 'ℹ️ Identity verification is temporarily unavailable because a metadata lookup failed or was rate-limited. Approval unavailable. Retrying automatically; this message will update when retries finish.']
     elif identity_status == 'unresolved':
         lines += ['', 'ℹ️ Movie identity could not be verified from source metadata. Approval unavailable.']
     elif movie:
@@ -237,19 +246,40 @@ def format_message(payload, movie=None, meta=None, existing=None):
         if recognition:
             lines += ["", "🏆 <b>Recognition</b>"] + ["• " + html.escape(x) for x in recognition]
 
-        if movie.get("qualified"):
-            routes = ", ".join(movie.get("routes") or []) or "model"
-            lines += ["", "⚠️ <b>POTENTIAL FALSE NEGATIVE</b>", "Our model: QUALIFIES — " + html.escape(routes)]
-        else:
-            lines += ["", "Our model: does not currently qualify"]
+        if not watched:
+            if movie.get("qualified"):
+                routes = ", ".join(movie.get("routes") or []) or "model"
+                lines += ["", "Our model: QUALIFIES — " + html.escape(routes)]
+            else:
+                lines += ["", "Our model: does not currently qualify"]
     elif meta:
         lines += ["", "ℹ️ Identified; not in the local Movie List catalog. Ratings and recognition unavailable locally."]
     else:
         lines += ["", "ℹ️ Movie identity could not be safely resolved. Approval unavailable."]
 
+    if watched:
+        lines += ['', '👁️ <b>Watched</b>']
     if edition_note:lines += ['',html.escape(edition_note)]
     _append_rejection_details(lines, rejections, release_name)
     return "\n".join(lines)
+
+
+def radarr_display_context(meta):
+    """Read optional verified movie display context without changing library state."""
+    existing=None
+    watched = False
+    if meta and meta.get('identity_status') in (None, 'verified_tmdb') and valid_tmdb_id(meta.get('tmdb_id')):
+        try:
+            existing = get_movie_by_tmdb(meta['tmdb_id']) or {}
+            # The client checks TMDb identity; reject a contradictory IMDb ID too.
+            if (existing.get('imdbId') and meta.get('imdb_id')
+                    and existing['imdbId'] != meta['imdb_id']):
+                existing = {}
+            watched = movie_has_tag(existing, 'watched')
+        except RadarrError:
+            # Optional display enrichment must not prevent the notification.
+            decision_log('watch_status', 'unavailable')
+    return existing, watched
 
 
 def build_movie_context(payload):
@@ -329,6 +359,12 @@ def build_movie_context(payload):
         except Exception:
             # Extra evidence can never turn an unavailable lookup into acceptance.
             decision_log('identity', 'evidence_lookup_unavailable', payload)
+    from source_identity_guard import runtime_conflict
+    if meta and meta.get('identity_status') == 'verified_tmdb' and runtime_conflict(listing, meta):
+        meta = {'identity_status':'needs_review', 'identity_reason':'runtime_conflict',
+                'identity_source':meta.get('identity_source'), 'imdb_id':meta.get('imdb_id')}
+        observed_reason = 'runtime_conflict'
+        decision_log('identity', 'runtime_conflict', payload)
     torrent_evidence = (listing or {}).get('torrent_evidence')
     # Native-ID failures also need source context; this does not alter resolution.
     if listing is None and meta and meta.get('identity_status') in {'needs_review','unresolved','imdb_associated'}:
@@ -346,15 +382,22 @@ def build_movie_context(payload):
             meta.pop('imdb_id', None)
     elif movie is None and meta and meta.get("imdb_id"):
         movie = INDEX.get(meta["imdb_id"])
-    existing=None
-    if verified_film(meta):
-        try:existing=get_movie_by_tmdb(meta['tmdb_id']) or {}
-        except RadarrError:existing={}
-    text = format_message(payload, movie=movie, meta=meta, existing=existing)
+    existing, watched = radarr_display_context(meta if not blocked else None)
+    import identity_memory
+    try:identity_memory.observe(payload,meta or {})
+    except (OSError,ValueError,TypeError,KeyError,AttributeError):
+        decision_log('identity','memory_unavailable',payload)
+    text = format_message(payload, movie=movie, meta=meta, existing=existing, watched=watched)
+    from identity_retry import tracker_conflict
+    if (os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE')=='active'
+            and tracker_conflict(release,data.get('indexer') or {},observed_reason)):
+        text += '\n\nThe tracker may still be updating this listing. We will recheck in about 15 minutes, subject to request limits. If the conflict remains, review will still be required.'
+    if identity_memory.packet(payload,{'meta':meta}):
+        text += '\n\nA previous release matched this movie. Confirm the remembered movie for this torrent before opening download confirmation.'
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
         "review_listing": listing,
-        "identity_observation": {"reason": observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and (blocked or (meta or {}).get("identity_source")=="torrent_evidence") else {})},
+        "identity_observation": {"reason": "identity_conflict" if observed_reason == "runtime_conflict" else observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and (blocked or (meta or {}).get("identity_source")=="torrent_evidence") else {})},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
         "movie": movie,
@@ -366,6 +409,11 @@ def build_movie_context(payload):
 def reviewed_action_current(action):
     """Never reuse a legacy decision; a chosen occurrence must still be live."""
     movie = action.get('movie') or {}
+    import source_identity_guard
+    if not source_identity_guard.current(action, lookup_listing, resolve_external_movie):return False
+    if movie.get('identity_memory_choice') or movie.get('identity_source')=='owner_remembered_choice':
+        import identity_memory
+        return identity_memory.reviewed_current(action,get_action)
     if movie.get('identity_review') or movie.get('identity_source') == 'owner_reviewed_source':return False
     if movie.get('identity_source') == 'torrent_evidence' or movie.get('identity_evidence'):
         try:
@@ -391,6 +439,20 @@ def reviewed_action_current(action):
 
 def create_identity_review(payload,context):
     import occurrence_review
+    import identity_memory
+    remembered=identity_memory.packet(payload,context)
+    if remembered:
+        data=payload['data']
+        keys=(*REVIEW_RELEASE_KEYS,'type','season','episode','meta_imdb','meta_tmdb','implementation','resolution','source','group','edition','cut')
+        release={k:v for k,v in data['release'].items() if k in keys}
+        indexer={k:v for k,v in data['indexer'].items() if k in ('name','protocol','identifier')}
+        original={'event':payload.get('event'),'timestamp':payload.get('timestamp'),'data':{
+            'release':release,'indexer':indexer,'action':{'type':data['action']['type']},
+            'result':{'rejections':data['result']['rejections']}}}
+        remembered['binding']=identity_memory.binding(original)
+        try:return create_action({'kind':'identity_review','movie':{},'release':release,'indexer':indexer,
+                                  'original_event':original,'review':remembered})
+        except (OSError,ValueError):return None
     review=occurrence_review.packet(payload,context)
     if not review:return None
     data=payload['data']
@@ -466,7 +528,9 @@ def create_pending_action(payload, meta):
             "identity_source": meta.get('identity_source'),
             **({"identity_review": meta["identity_review"]} if meta.get("identity_review") else {}),
             **({"identity_choice": meta["identity_choice"]} if meta.get("identity_choice") else {}),
+            **({"identity_memory_choice": meta["identity_memory_choice"]} if meta.get("identity_memory_choice") else {}),
             **({"identity_evidence": meta["identity_evidence"]} if meta.get("identity_evidence") else {}),
+            "identity_title_basis": meta.get('identity_title_basis'),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
         },
@@ -502,12 +566,13 @@ def passthrough_message(payload):
 
 
 def _topic_fields():
-    if not TELEGRAM_TOPIC_ID:
-        return {}
-    try:
-        return {"message_thread_id": int(TELEGRAM_TOPIC_ID)}
-    except ValueError as exc:
-        raise RuntimeError("TELEGRAM_TOPIC_ID must be an integer") from exc
+    return topic_fields(TELEGRAM_TOPIC_ID)
+
+
+def notification_kind(payload):
+    if alternative_grab.candidate(payload):return 'alternative'
+    reasons=((payload.get('data') or {}).get('result') or {}).get('rejections') or []
+    return 'add_grab' if rejection_class(reasons)=='unknown_movie' else None
 
 
 def _reply_markup(action_url):
@@ -517,7 +582,8 @@ def _reply_markup(action_url):
     try:
         action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
         if action and action.get('kind')=='alternative':label='⬇️ Grab Anyway'
-        if action and action.get('kind')=='identity_review':label='🔎 Review evidence & choose movie'
+        if action and action.get('kind')=='identity_review':
+            label=('🔎 Confirm remembered movie' if action.get('review',{}).get('type')=='remembered_movie' else '🔎 Review evidence & choose movie')
     except (OSError,ValueError):pass
     return {
         "inline_keyboard": [[{
@@ -571,6 +637,8 @@ def _telegram_request(method, body):
         result = json.load(response)
         if not isinstance(result, dict) or result.get("ok") is not True:
             raise RuntimeError("Telegram did not accept the notification")
+        from retry_telegram import receipt
+        receipt(method,body,result)
         return response.status
 
 
@@ -579,6 +647,16 @@ def send_telegram(text, parse_mode="HTML", action_url=None):
 
 
 def send_movie_notification(text, poster_url=None, action_url=None):
+    kind=None
+    if action_url:
+        action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
+        if action:
+            kind='alternative' if action.get('kind')=='alternative' else 'add_grab' if action.get('kind') not in ('identity_review',) else None
+    with notification_route(kind):
+        return _send_movie_notification(text,poster_url,action_url)
+
+
+def _send_movie_notification(text, poster_url=None, action_url=None):
     # Telegram photo captions are limited to 1024 characters after parsing.
     units = lambda value: len(value.encode('utf-16-le')) // 2
     if poster_url and units(text) <= 950:
@@ -613,6 +691,100 @@ def send_movie_notification(text, poster_url=None, action_url=None):
         except Exception:
             decision_log('telegram', 'supplemental_photo_failed')
     return status
+
+
+def alternative_unavailable_message(payload,meta):
+    from identity_retry import TEMPORARY
+    meta=meta or {}
+    if meta.get('identity_reason') in TEMPORARY:
+        return ('Grab Anyway temporarily unavailable: movie identity could not be verified because the metadata lookup failed. '
+                'Automatic identification retries are pending; no download has started.')
+    if meta.get('identity_status')!='verified_tmdb':
+        return 'Grab Anyway unavailable: the movie identity could not be verified.'
+    data=payload.get('data') or {}
+    try:alternative_grab.source_reference(data.get('release'),data.get('indexer'))
+    except (ValueError,TypeError):return 'Grab Anyway unavailable: this announcement has no supported exact release reference.'
+    return 'Grab Anyway unavailable: the current Radarr movie/file or approval storage could not be verified.'
+
+
+def bind_retry_message(payload,context,receipts):
+    if os.environ.get('MOVIE_INTEL_IDENTITY_RETRY_MODE') not in ('shadow','active'):return
+    try:
+        from identity_triage_observer import read_config
+        from retry_telegram import queue_binding
+        queue_binding(Path.home().resolve()/'.local/state/movie-identity-retries',payload,context,receipts,
+                      read_config(os.environ['MOVIE_INTEL_TRIAGE_OBSERVER_CONFIG'])['sources'])
+    except Exception as exc:
+        reason=('message_receipt_storage_failed' if isinstance(exc,OSError) else
+                'message_receipt_validation_failed' if isinstance(exc,(ValueError,TypeError,KeyError)) else 'message_receipt_runtime_failed')
+        decision_log('identity_retry',reason)
+
+
+def prepare_retry_message(payload,context,terminal):
+    # Preparation offers the existing confirmation flow, never invokes it.
+    meta=context.get('meta') or {};release=payload['data']['release'];token=None
+    verified=terminal!='retry_exhausted' and meta.get('identity_status')=='verified_tmdb'
+    original_available=terminal!='original_event_unavailable'
+    if verified and original_available and PUBLIC_BASE_URL:token=create_pending_action(payload,meta)
+    elif terminal!='retry_exhausted' and original_available and PUBLIC_BASE_URL:token=create_identity_review(payload,context)
+    url=public_action_url({},token) if token else None
+    if token and not url:delete_action(token);token=None
+    if verified and original_available:
+        movie=INDEX.get(meta.get('imdb_id'))
+        existing, watched = radarr_display_context(meta)
+        text=redact_text(format_message(payload,movie=movie,meta=meta,existing=existing,watched=watched))
+        parse_mode='HTML'
+        # Preserve the usual formatting when it fits a Telegram photo caption.
+        # Oversized text uses a bounded plain-text fallback, never sliced HTML.
+        if len(text.encode('utf-16-le'))//2>900:
+            text=html.unescape(re.sub(r'<[^>]*>','',text))
+            text=text.encode('utf-16-le')[:1798].decode('utf-16-le',errors='ignore')+'…'
+            parse_mode=None
+        return {'text':text,'token':token,'parse_mode':parse_mode,'poster_url':meta.get('poster_url')}
+    title=meta.get('title') or release.get('title') or 'Movie'
+    year=meta.get('year') or release.get('year') or ''
+    status=('✅ Movie identified' if verified else '⚠️ Automatic identification needs review')
+    text=status+'\n'+str(title)+' ('+str(year)+')'
+    if verified:
+        text+='\nIdentity verification succeeded after retry.'
+        if not original_available:text+='\nThe original rejection details were not retained; a fresh announcement is required.'
+        text+=('\nOpen the confirmation page to review this exact release. Identification does not start a download.' if token
+               else '\nNo download confirmation is available: the original release reference or required configuration could not be validated.')
+    else:
+        text+='\nAutomatic retries have ended. No download is approved.'
+        text+=('\nReview the collected identity evidence.' if token else '\nReview this case in the main ChatGPT conversation.')
+    text+='\nRelease: '+str(release.get('name') or '')
+    return {'text':redact_text(text).encode('utf-16-le')[:1800].decode('utf-16-le',errors='ignore'),'token':token}
+
+
+def edit_retry_message(refs,prepared):
+    token=prepared.get('token');action=get_action(token) if token else None
+    # Never recreate an expired, consumed or uncertain action when retrying edits.
+    if action and (action.get('status') in ('executing','needs_review') or any(action.get(k) for k in ('used','completed'))):action=None
+    url=public_action_url({},token) if action else None
+    for index,ref in enumerate(refs):
+        if str(ref['chat_id'])!=str(TELEGRAM_CHAT_ID):raise ValueError('retry_chat_changed')
+        method='editMessageCaption' if ref['kind']=='caption' else 'editMessageText'
+        field='caption' if ref['kind']=='caption' else 'text'
+        text=prepared['text'] if index==0 else 'Identification result updated in the original message above.'
+        if index==0 and token and not action:
+            text='\n'.join(prepared['text'].splitlines()[:2])+'\nThe previous confirmation is unavailable or has already been used. Check Radarr before taking further action.'
+        body={'chat_id':ref['chat_id'],'message_id':ref['message_id'],field:text,
+              'reply_markup':_reply_markup(url) if index==0 and url else {'inline_keyboard':[]}}
+        parse_mode=prepared.get('parse_mode') if index==0 else None
+        if parse_mode:body['parse_mode']=parse_mode
+        if index==0 and prepared.get('poster_url'):
+            method='editMessageMedia'
+            body.pop(field);body.pop('parse_mode',None)
+            body['media']={'type':'photo','media':prepared['poster_url'],'caption':text,
+                           'show_caption_above_media':False}
+            if parse_mode:body['media']['parse_mode']=parse_mode
+        try:_telegram_request(method,body)
+        except HTTPError as exc:
+            # Repeating an edit after a lost ACK is idempotent.
+            try:detail=json.loads(exc.read(65536)).get('description','')
+            except Exception:detail=''
+            if exc.code!=400 or 'message is not modified' not in detail.casefold():raise RuntimeError('retry_message_edit_failed') from None
 
 
 def public_action_url(headers, token):
@@ -768,10 +940,19 @@ class Handler(BaseHTTPRequestHandler):
             if uncertain_action(action):
                 self._html(409, render_result(action, False, REVIEW_MESSAGE))
                 return
+            if action.get('kind') != 'identity_review' and not reviewed_action_current(action):
+                self._html(409, render_result(action, False, 'Movie identity changed or could not be revalidated. No acquisition attempted.'))
+                return
             try:
                 if action.get('kind')=='identity_review':
-                    import occurrence_review
-                    self._html(200,_page('Review identity',occurrence_review.render(action)))
+                    if action.get('review',{}).get('type')=='remembered_movie':
+                        import identity_memory
+                        identity_memory.target(action)
+                        url=public_action_url({},action['next_token']) if action.get('next_token') else None
+                        self._html(200,_page('Confirm remembered movie',identity_memory.render(action,url)))
+                    else:
+                        import occurrence_review
+                        self._html(200,_page('Review identity',occurrence_review.render(action)))
                 elif action.get('kind')=='alternative':
                     alternative_grab.validate_action(action)
                     self._html(200,render_alternative(action))
@@ -788,7 +969,39 @@ class Handler(BaseHTTPRequestHandler):
         with _APPROVAL_LOCK:
             self._handle_action_post_locked(token)
 
+    def _memory_review_post(self,token,action):
+        import identity_memory
+        try:
+            length=int(self.headers.get('Content-Length','0'))
+            if not 0<length<=1024:raise ValueError('form')
+            params=parse_qs(self.rfile.read(length).decode('utf-8'))
+            target=identity_memory.target(action)
+            local=find_local(target['title'],target['year'],INDEX)
+            if local and local.get('imdb_id')!=target['imdb_id']:raise ValueError('local_conflict')
+            if not action.get('chosen'):
+                if params!={'confirm_identity':['yes']}:raise ValueError('form')
+                if not update_action(token,chosen=True,movie=target):raise OSError('store')
+                self._html(200,_page('Identity confirmed',identity_memory.render(dict(action,chosen=True,movie=target))))
+                return
+            if params!={'prepare_download':['yes']}:raise ValueError('form')
+            next_token=action.get('next_token')
+            if not next_token:
+                meta=dict(target,identity_memory_choice={'review_token':token,'binding':action['review']['binding']})
+                next_token=create_pending_action(action['original_event'],meta)
+                if not next_token:raise ValueError('acquisition_unavailable')
+                if not update_action(token,next_token=next_token):
+                    delete_action(next_token)
+                    raise OSError('store')
+            url=public_action_url({},next_token)
+            if not url:raise ValueError('origin_unavailable')
+            self._html(200,_page('Download confirmation',identity_memory.render(action,url)))
+        except (ValueError,UnicodeDecodeError,KeyError,TypeError,OSError):
+            self._html(409,_page('Remembered match unavailable','<p>The match expired, conflicting evidence appeared, or the form was invalid. No download started.</p>'))
+
     def _identity_review_post(self,token,action):
+        if action.get('review',{}).get('type')=='remembered_movie':
+            self._memory_review_post(token,action)
+            return
         import occurrence_review
         try:
             length=int(self.headers.get('Content-Length','0'))
@@ -991,8 +1204,11 @@ class Handler(BaseHTTPRequestHandler):
                     token = None
                     decision_log('action', 'public_origin_unconfigured', payload)
                 if not token and os.environ.get(alternative_grab.CONFIG) and alternative_grab.quality_only(((payload.get('data') or {}).get('result') or {}).get('rejections')):
-                    context['text'] += '\n\nGrab Anyway unavailable: the verified movie, unchanged existing file, or supported exact source reference could not be confirmed.'
-                send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
+                    context['text'] += '\n\n'+alternative_unavailable_message(payload,context.get('meta'))
+                from retry_telegram import capture
+                with notification_route(notification_kind(payload)), capture() as receipts:
+                    send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
+                bind_retry_message(payload,context,receipts)
                 self._json(200, {
                     "ok": True,
                     "mode": "enriched",
@@ -1039,7 +1255,7 @@ def main(argv=None):
         return 1
     start_identity_observer()
     from identity_retry import start as start_identity_retry
-    start_identity_retry(build_movie_context)
+    start_identity_retry(build_movie_context,(prepare_retry_message,edit_retry_message))
     server = ThreadingHTTPServer((HOST, port), Handler)
     from identity_telegram_digest import start as start_identity_digest
     start_identity_digest(lambda text: send_telegram(text, parse_mode=None))

@@ -3,7 +3,7 @@ on:
   push:
     branches: [main, movie-intel, production/d016-qualification, production/radarr-movie-list-sync, production/radarr-snapshot-bridge, production/watched-tagging, production/watched-import-state]
   pull_request:
-    branches: [main]
+    branches: [main, runtime/watched-notification-baseline]
   workflow_dispatch:
 permissions:
   contents: read
