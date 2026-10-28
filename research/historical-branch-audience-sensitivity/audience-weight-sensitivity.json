@@ -1,0 +1,2145 @@
+{
+  "mode": "audience-weight-sensitivity-v1",
+  "production_unchanged": true,
+  "qualification_unchanged": true,
+  "base_family_ceiling": 900,
+  "interpretation": "Multiplier changes only the audience_consensus contribution; all other evidence is held fixed.",
+  "scenarios": {
+    "1.0": {
+      "audience_max_points": 100,
+      "effective_score_ceiling": 900,
+      "top_50": {
+        "n": 50,
+        "with_audience_data": 50,
+        "mean_audience_points": 78.84,
+        "audience_75_plus": 30,
+        "audience_below_50": 1,
+        "titles": [
+          "Brokeback Mountain",
+          "Boyhood",
+          "Mulholland Drive",
+          "There Will Be Blood",
+          "Moonlight",
+          "No Country for Old Men",
+          "The Social Network",
+          "Parasite",
+          "Crouching Tiger, Hidden Dragon",
+          "Amour",
+          "Spirited Away",
+          "In the Mood for Love",
+          "The Hurt Locker",
+          "12 Years a Slave",
+          "The Grand Budapest Hotel",
+          "Roma",
+          "The Lives of Others",
+          "Nomadland",
+          "Spotlight",
+          "The Zone of Interest",
+          "Yi Yi",
+          "Lost in Translation",
+          "A Separation",
+          "Mad Max: Fury Road",
+          "Everything Everywhere All at Once",
+          "WALL·E",
+          "Pan's Labyrinth",
+          "Eternal Sunshine of the Spotless Mind",
+          "Inside Llewyn Davis",
+          "The Pianist",
+          "Call Me by Your Name",
+          "Anatomy of a Fall",
+          "Get Out",
+          "Inglourious Basterds",
+          "The Tree of Life",
+          "Drive My Car",
+          "Tár",
+          "The White Ribbon",
+          "The Departed",
+          "A Prophet",
+          "Whiplash",
+          "The Artist",
+          "Lady Bird",
+          "Son of Saul",
+          "Inception",
+          "The Lord of the Rings: The Return of the King",
+          "Amélie",
+          "Sideways",
+          "City of God",
+          "Memento"
+        ]
+      },
+      "positive_controls": [
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "score": 303.79,
+          "rank": 79,
+          "audience": 45.77,
+          "base_rank": 79,
+          "rank_change": 0
+        },
+        {
+          "title": "Get Out",
+          "year": 2017,
+          "score": 400.73,
+          "rank": 33,
+          "audience": 74.81,
+          "base_rank": 33,
+          "rank_change": 0
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "score": 398.58,
+          "rank": 35,
+          "audience": 38.27,
+          "base_rank": 35,
+          "rank_change": 0
+        },
+        {
+          "title": "Boyhood",
+          "year": 2014,
+          "score": 606.0,
+          "rank": 2,
+          "audience": 65.77,
+          "base_rank": 2,
+          "rank_change": 0
+        },
+        {
+          "title": "The Lives of Others",
+          "year": 2006,
+          "score": 484.55,
+          "rank": 17,
+          "audience": 97.5,
+          "base_rank": 17,
+          "rank_change": 0
+        },
+        {
+          "title": "Lost in Translation",
+          "year": 2003,
+          "score": 444.34,
+          "rank": 22,
+          "audience": 56.92,
+          "base_rank": 22,
+          "rank_change": 0
+        },
+        {
+          "title": "The White Ribbon",
+          "year": 2009,
+          "score": 392.06,
+          "rank": 38,
+          "audience": 76.44,
+          "base_rank": 38,
+          "rank_change": 0
+        },
+        {
+          "title": "Dogville",
+          "year": 2003,
+          "score": 227.88,
+          "rank": 156,
+          "audience": 83.65,
+          "base_rank": 156,
+          "rank_change": 0
+        },
+        {
+          "title": "The Turin Horse",
+          "year": 2011,
+          "score": 194.56,
+          "rank": 224,
+          "audience": 58.84,
+          "base_rank": 224,
+          "rank_change": 0
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "score": 335.44,
+          "rank": 62,
+          "audience": 77.31,
+          "base_rank": 62,
+          "rank_change": 0
+        },
+        {
+          "title": "12 Years a Slave",
+          "year": 2013,
+          "score": 490.66,
+          "rank": 14,
+          "audience": 86.15,
+          "base_rank": 14,
+          "rank_change": 0
+        },
+        {
+          "title": "Gravity",
+          "year": 2013,
+          "score": 273.76,
+          "rank": 100,
+          "audience": 49.23,
+          "base_rank": 100,
+          "rank_change": 0
+        },
+        {
+          "title": "The Wolf of Wall Street",
+          "year": 2013,
+          "score": 332.02,
+          "rank": 67,
+          "audience": 80.96,
+          "base_rank": 67,
+          "rank_change": 0
+        },
+        {
+          "title": "Fish Tank",
+          "year": 2009,
+          "score": 248.42,
+          "rank": 127,
+          "audience": 49.14,
+          "base_rank": 127,
+          "rank_change": 0
+        },
+        {
+          "title": "Blue Is the Warmest Colour",
+          "year": 2013,
+          "score": 278.58,
+          "rank": 92,
+          "audience": 35.19,
+          "base_rank": 92,
+          "rank_change": 0
+        },
+        {
+          "title": "Winter Sleep",
+          "year": 2014,
+          "score": 226.11,
+          "rank": 160,
+          "audience": 73.94,
+          "base_rank": 160,
+          "rank_change": 0
+        },
+        {
+          "title": "Shame",
+          "year": 2011,
+          "score": 123.2,
+          "rank": 483,
+          "audience": 44.42,
+          "base_rank": 483,
+          "rank_change": 0
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 114.42,
+          "rank": 533,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": 0
+        },
+        {
+          "title": "Once Upon a Time in... Hollywood",
+          "year": 2019,
+          "score": 332.64,
+          "rank": 65,
+          "audience": 58.27,
+          "base_rank": 65,
+          "rank_change": 0
+        },
+        {
+          "title": "Donnie Darko",
+          "year": 2001,
+          "score": 177.61,
+          "rank": 260,
+          "audience": 75.96,
+          "base_rank": 260,
+          "rank_change": 0
+        },
+        {
+          "title": "There Will Be Blood",
+          "year": 2007,
+          "score": 588.1,
+          "rank": 4,
+          "audience": 92.5,
+          "base_rank": 4,
+          "rank_change": 0
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 218.71,
+          "rank": 170,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 0
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 100.89,
+          "rank": 642,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 0
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 90.72,
+          "rank": 718,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 0
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "score": 358.62,
+          "rank": 50,
+          "audience": 93.65,
+          "base_rank": 50,
+          "rank_change": 0
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 224.81,
+          "rank": 161,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 0
+        },
+        {
+          "title": "Mad Max: Fury Road",
+          "year": 2015,
+          "score": 431.37,
+          "rank": 24,
+          "audience": 86.15,
+          "base_rank": 24,
+          "rank_change": 0
+        },
+        {
+          "title": "Her",
+          "year": 2013,
+          "score": 344.77,
+          "rank": 55,
+          "audience": 73.46,
+          "base_rank": 55,
+          "rank_change": 0
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 119.11,
+          "rank": 509,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 0
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 276.27,
+          "rank": 95,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 0
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 109.51,
+          "rank": 561,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 0
+        },
+        {
+          "title": "The Lobster",
+          "year": 2015,
+          "score": 169.63,
+          "rank": 282,
+          "audience": 41.92,
+          "base_rank": 282,
+          "rank_change": 0
+        },
+        {
+          "title": "The Killing of a Sacred Deer",
+          "year": 2017,
+          "score": 86.89,
+          "rank": 758,
+          "audience": 39.42,
+          "base_rank": 758,
+          "rank_change": 0
+        },
+        {
+          "title": "Past Lives",
+          "year": 2023,
+          "score": 355.72,
+          "rank": 53,
+          "audience": 78.65,
+          "base_rank": 53,
+          "rank_change": 0
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 104.42,
+          "rank": 604,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 0
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "score": 389.64,
+          "rank": 39,
+          "audience": 100.0,
+          "base_rank": 39,
+          "rank_change": 0
+        }
+      ],
+      "other_controls": [
+        {
+          "title": "Amores Perros",
+          "year": 2000,
+          "score": 243.44,
+          "rank": 136,
+          "audience": 83.65,
+          "base_rank": 136,
+          "rank_change": 0
+        },
+        {
+          "title": "A Prophet",
+          "year": 2009,
+          "score": 389.01,
+          "rank": 40,
+          "audience": 78.65,
+          "base_rank": 40,
+          "rank_change": 0
+        },
+        {
+          "title": "Caché",
+          "year": 2005,
+          "score": 300.87,
+          "rank": 81,
+          "audience": 58.06,
+          "base_rank": 81,
+          "rank_change": 0
+        },
+        {
+          "title": "Phantom Thread",
+          "year": 2017,
+          "score": 306.48,
+          "rank": 77,
+          "audience": 68.65,
+          "base_rank": 77,
+          "rank_change": 0
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 109.01,
+          "rank": 563,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": 0
+        }
+      ],
+      "focus_controls": [
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 114.42,
+          "rank": 533,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": 0
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 218.71,
+          "rank": 170,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 0
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 100.89,
+          "rank": 642,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 0
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 90.72,
+          "rank": 718,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 0
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 224.81,
+          "rank": 161,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 0
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 119.11,
+          "rank": 509,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 0
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 276.27,
+          "rank": 95,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 0
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 109.51,
+          "rank": 561,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 0
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 104.42,
+          "rank": 604,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 0
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 109.01,
+          "rank": 563,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": 0
+        }
+      ],
+      "missing": [
+        "Dune: Part Two",
+        "The Machinist",
+        "Tenet",
+        "The Batman"
+      ]
+    },
+    "1.25": {
+      "audience_max_points": 125,
+      "effective_score_ceiling": 925,
+      "top_50": {
+        "n": 50,
+        "with_audience_data": 50,
+        "mean_audience_points": 78.84,
+        "audience_75_plus": 30,
+        "audience_below_50": 1,
+        "titles": [
+          "Brokeback Mountain",
+          "Boyhood",
+          "Mulholland Drive",
+          "There Will Be Blood",
+          "Moonlight",
+          "No Country for Old Men",
+          "Parasite",
+          "The Social Network",
+          "Amour",
+          "Crouching Tiger, Hidden Dragon",
+          "Spirited Away",
+          "In the Mood for Love",
+          "12 Years a Slave",
+          "The Hurt Locker",
+          "The Grand Budapest Hotel",
+          "The Lives of Others",
+          "Roma",
+          "Spotlight",
+          "Nomadland",
+          "Yi Yi",
+          "The Zone of Interest",
+          "A Separation",
+          "Lost in Translation",
+          "Mad Max: Fury Road",
+          "WALL·E",
+          "Everything Everywhere All at Once",
+          "Pan's Labyrinth",
+          "Eternal Sunshine of the Spotless Mind",
+          "The Pianist",
+          "Inside Llewyn Davis",
+          "Inglourious Basterds",
+          "Call Me by Your Name",
+          "Get Out",
+          "Anatomy of a Fall",
+          "The Departed",
+          "Drive My Car",
+          "Whiplash",
+          "The White Ribbon",
+          "A Prophet",
+          "The Tree of Life",
+          "Tár",
+          "Inception",
+          "The Artist",
+          "The Lord of the Rings: The Return of the King",
+          "Lady Bird",
+          "Amélie",
+          "Son of Saul",
+          "City of God",
+          "Memento",
+          "Sideways"
+        ]
+      },
+      "positive_controls": [
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "score": 315.23,
+          "rank": 82,
+          "audience": 45.77,
+          "base_rank": 79,
+          "rank_change": -3
+        },
+        {
+          "title": "Get Out",
+          "year": 2017,
+          "score": 419.43,
+          "rank": 33,
+          "audience": 74.81,
+          "base_rank": 33,
+          "rank_change": 0
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "score": 408.15,
+          "rank": 40,
+          "audience": 38.27,
+          "base_rank": 35,
+          "rank_change": -5
+        },
+        {
+          "title": "Boyhood",
+          "year": 2014,
+          "score": 622.44,
+          "rank": 2,
+          "audience": 65.77,
+          "base_rank": 2,
+          "rank_change": 0
+        },
+        {
+          "title": "The Lives of Others",
+          "year": 2006,
+          "score": 508.93,
+          "rank": 16,
+          "audience": 97.5,
+          "base_rank": 17,
+          "rank_change": 1
+        },
+        {
+          "title": "Lost in Translation",
+          "year": 2003,
+          "score": 458.57,
+          "rank": 23,
+          "audience": 56.92,
+          "base_rank": 22,
+          "rank_change": -1
+        },
+        {
+          "title": "The White Ribbon",
+          "year": 2009,
+          "score": 411.17,
+          "rank": 38,
+          "audience": 76.44,
+          "base_rank": 38,
+          "rank_change": 0
+        },
+        {
+          "title": "Dogville",
+          "year": 2003,
+          "score": 248.79,
+          "rank": 147,
+          "audience": 83.65,
+          "base_rank": 156,
+          "rank_change": 9
+        },
+        {
+          "title": "The Turin Horse",
+          "year": 2011,
+          "score": 209.27,
+          "rank": 223,
+          "audience": 58.84,
+          "base_rank": 224,
+          "rank_change": 1
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "score": 354.77,
+          "rank": 63,
+          "audience": 77.31,
+          "base_rank": 62,
+          "rank_change": -1
+        },
+        {
+          "title": "12 Years a Slave",
+          "year": 2013,
+          "score": 512.2,
+          "rank": 13,
+          "audience": 86.15,
+          "base_rank": 14,
+          "rank_change": 1
+        },
+        {
+          "title": "Gravity",
+          "year": 2013,
+          "score": 286.07,
+          "rank": 107,
+          "audience": 49.23,
+          "base_rank": 100,
+          "rank_change": -7
+        },
+        {
+          "title": "The Wolf of Wall Street",
+          "year": 2013,
+          "score": 352.26,
+          "rank": 64,
+          "audience": 80.96,
+          "base_rank": 67,
+          "rank_change": 3
+        },
+        {
+          "title": "Fish Tank",
+          "year": 2009,
+          "score": 260.7,
+          "rank": 132,
+          "audience": 49.14,
+          "base_rank": 127,
+          "rank_change": -5
+        },
+        {
+          "title": "Blue Is the Warmest Colour",
+          "year": 2013,
+          "score": 287.38,
+          "rank": 105,
+          "audience": 35.19,
+          "base_rank": 92,
+          "rank_change": -13
+        },
+        {
+          "title": "Winter Sleep",
+          "year": 2014,
+          "score": 244.6,
+          "rank": 156,
+          "audience": 73.94,
+          "base_rank": 160,
+          "rank_change": 4
+        },
+        {
+          "title": "Shame",
+          "year": 2011,
+          "score": 134.31,
+          "rank": 495,
+          "audience": 44.42,
+          "base_rank": 483,
+          "rank_change": -12
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 126.78,
+          "rank": 525,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": 8
+        },
+        {
+          "title": "Once Upon a Time in... Hollywood",
+          "year": 2019,
+          "score": 347.21,
+          "rank": 68,
+          "audience": 58.27,
+          "base_rank": 65,
+          "rank_change": -3
+        },
+        {
+          "title": "Donnie Darko",
+          "year": 2001,
+          "score": 196.6,
+          "rank": 248,
+          "audience": 75.96,
+          "base_rank": 260,
+          "rank_change": 12
+        },
+        {
+          "title": "There Will Be Blood",
+          "year": 2007,
+          "score": 611.23,
+          "rank": 4,
+          "audience": 92.5,
+          "base_rank": 4,
+          "rank_change": 0
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 236.74,
+          "rank": 167,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 3
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 111.37,
+          "rank": 639,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 3
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 110.67,
+          "rank": 645,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 73
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "score": 382.03,
+          "rank": 49,
+          "audience": 93.65,
+          "base_rank": 50,
+          "rank_change": 1
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 246.01,
+          "rank": 152,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 9
+        },
+        {
+          "title": "Mad Max: Fury Road",
+          "year": 2015,
+          "score": 452.91,
+          "rank": 24,
+          "audience": 86.15,
+          "base_rank": 24,
+          "rank_change": 0
+        },
+        {
+          "title": "Her",
+          "year": 2013,
+          "score": 363.13,
+          "rank": 56,
+          "audience": 73.46,
+          "base_rank": 55,
+          "rank_change": -1
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 136.22,
+          "rank": 482,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 27
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 294.97,
+          "rank": 93,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 2
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 127.54,
+          "rank": 521,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 40
+        },
+        {
+          "title": "The Lobster",
+          "year": 2015,
+          "score": 180.11,
+          "rank": 294,
+          "audience": 41.92,
+          "base_rank": 282,
+          "rank_change": -12
+        },
+        {
+          "title": "The Killing of a Sacred Deer",
+          "year": 2017,
+          "score": 96.75,
+          "rank": 750,
+          "audience": 39.42,
+          "base_rank": 758,
+          "rank_change": 8
+        },
+        {
+          "title": "Past Lives",
+          "year": 2023,
+          "score": 375.38,
+          "rank": 52,
+          "audience": 78.65,
+          "base_rank": 53,
+          "rank_change": 1
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 119.33,
+          "rank": 566,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 38
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "score": 414.64,
+          "rank": 35,
+          "audience": 100.0,
+          "base_rank": 39,
+          "rank_change": 4
+        }
+      ],
+      "other_controls": [
+        {
+          "title": "Amores Perros",
+          "year": 2000,
+          "score": 264.35,
+          "rank": 128,
+          "audience": 83.65,
+          "base_rank": 136,
+          "rank_change": 8
+        },
+        {
+          "title": "A Prophet",
+          "year": 2009,
+          "score": 408.67,
+          "rank": 39,
+          "audience": 78.65,
+          "base_rank": 40,
+          "rank_change": 1
+        },
+        {
+          "title": "Caché",
+          "year": 2005,
+          "score": 315.38,
+          "rank": 81,
+          "audience": 58.06,
+          "base_rank": 81,
+          "rank_change": 0
+        },
+        {
+          "title": "Phantom Thread",
+          "year": 2017,
+          "score": 323.64,
+          "rank": 77,
+          "audience": 68.65,
+          "base_rank": 77,
+          "rank_change": 0
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 114.16,
+          "rank": 618,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": -55
+        }
+      ],
+      "focus_controls": [
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 126.78,
+          "rank": 525,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": 8
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 236.74,
+          "rank": 167,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 3
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 111.37,
+          "rank": 639,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 3
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 110.67,
+          "rank": 645,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 73
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 246.01,
+          "rank": 152,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 9
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 136.22,
+          "rank": 482,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 27
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 294.97,
+          "rank": 93,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 2
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 127.54,
+          "rank": 521,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 40
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 119.33,
+          "rank": 566,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 38
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 114.16,
+          "rank": 618,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": -55
+        }
+      ],
+      "missing": [
+        "Dune: Part Two",
+        "The Machinist",
+        "Tenet",
+        "The Batman"
+      ]
+    },
+    "1.5": {
+      "audience_max_points": 150,
+      "effective_score_ceiling": 950,
+      "top_50": {
+        "n": 50,
+        "with_audience_data": 50,
+        "mean_audience_points": 79.43,
+        "audience_75_plus": 31,
+        "audience_below_50": 1,
+        "titles": [
+          "Brokeback Mountain",
+          "Mulholland Drive",
+          "Boyhood",
+          "There Will Be Blood",
+          "No Country for Old Men",
+          "Moonlight",
+          "Parasite",
+          "The Social Network",
+          "Amour",
+          "Crouching Tiger, Hidden Dragon",
+          "Spirited Away",
+          "In the Mood for Love",
+          "12 Years a Slave",
+          "The Lives of Others",
+          "The Grand Budapest Hotel",
+          "The Hurt Locker",
+          "Roma",
+          "Spotlight",
+          "Yi Yi",
+          "A Separation",
+          "Nomadland",
+          "The Zone of Interest",
+          "Mad Max: Fury Road",
+          "Lost in Translation",
+          "WALL·E",
+          "Everything Everywhere All at Once",
+          "Pan's Labyrinth",
+          "Eternal Sunshine of the Spotless Mind",
+          "The Pianist",
+          "Inglourious Basterds",
+          "Inside Llewyn Davis",
+          "The Departed",
+          "Call Me by Your Name",
+          "Get Out",
+          "Whiplash",
+          "Anatomy of a Fall",
+          "The White Ribbon",
+          "Drive My Car",
+          "A Prophet",
+          "Inception",
+          "The Lord of the Rings: The Return of the King",
+          "Tár",
+          "The Tree of Life",
+          "Amélie",
+          "The Artist",
+          "City of God",
+          "Lady Bird",
+          "Son of Saul",
+          "Memento",
+          "Children of Men"
+        ]
+      },
+      "positive_controls": [
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "score": 326.68,
+          "rank": 85,
+          "audience": 45.77,
+          "base_rank": 79,
+          "rank_change": -6
+        },
+        {
+          "title": "Get Out",
+          "year": 2017,
+          "score": 438.13,
+          "rank": 34,
+          "audience": 74.81,
+          "base_rank": 33,
+          "rank_change": -1
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "score": 417.71,
+          "rank": 43,
+          "audience": 38.27,
+          "base_rank": 35,
+          "rank_change": -8
+        },
+        {
+          "title": "Boyhood",
+          "year": 2014,
+          "score": 638.88,
+          "rank": 3,
+          "audience": 65.77,
+          "base_rank": 2,
+          "rank_change": -1
+        },
+        {
+          "title": "The Lives of Others",
+          "year": 2006,
+          "score": 533.3,
+          "rank": 14,
+          "audience": 97.5,
+          "base_rank": 17,
+          "rank_change": 3
+        },
+        {
+          "title": "Lost in Translation",
+          "year": 2003,
+          "score": 472.8,
+          "rank": 24,
+          "audience": 56.92,
+          "base_rank": 22,
+          "rank_change": -2
+        },
+        {
+          "title": "The White Ribbon",
+          "year": 2009,
+          "score": 430.28,
+          "rank": 37,
+          "audience": 76.44,
+          "base_rank": 38,
+          "rank_change": 1
+        },
+        {
+          "title": "Dogville",
+          "year": 2003,
+          "score": 269.7,
+          "rank": 141,
+          "audience": 83.65,
+          "base_rank": 156,
+          "rank_change": 15
+        },
+        {
+          "title": "The Turin Horse",
+          "year": 2011,
+          "score": 223.98,
+          "rank": 223,
+          "audience": 58.84,
+          "base_rank": 224,
+          "rank_change": 1
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "score": 374.1,
+          "rank": 63,
+          "audience": 77.31,
+          "base_rank": 62,
+          "rank_change": -1
+        },
+        {
+          "title": "12 Years a Slave",
+          "year": 2013,
+          "score": 533.74,
+          "rank": 13,
+          "audience": 86.15,
+          "base_rank": 14,
+          "rank_change": 1
+        },
+        {
+          "title": "Gravity",
+          "year": 2013,
+          "score": 298.38,
+          "rank": 110,
+          "audience": 49.23,
+          "base_rank": 100,
+          "rank_change": -10
+        },
+        {
+          "title": "The Wolf of Wall Street",
+          "year": 2013,
+          "score": 372.5,
+          "rank": 65,
+          "audience": 80.96,
+          "base_rank": 67,
+          "rank_change": 2
+        },
+        {
+          "title": "Fish Tank",
+          "year": 2009,
+          "score": 272.99,
+          "rank": 137,
+          "audience": 49.14,
+          "base_rank": 127,
+          "rank_change": -10
+        },
+        {
+          "title": "Blue Is the Warmest Colour",
+          "year": 2013,
+          "score": 296.17,
+          "rank": 116,
+          "audience": 35.19,
+          "base_rank": 92,
+          "rank_change": -24
+        },
+        {
+          "title": "Winter Sleep",
+          "year": 2014,
+          "score": 263.08,
+          "rank": 151,
+          "audience": 73.94,
+          "base_rank": 160,
+          "rank_change": 9
+        },
+        {
+          "title": "Shame",
+          "year": 2011,
+          "score": 145.41,
+          "rank": 500,
+          "audience": 44.42,
+          "base_rank": 483,
+          "rank_change": -17
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 139.13,
+          "rank": 521,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": 12
+        },
+        {
+          "title": "Once Upon a Time in... Hollywood",
+          "year": 2019,
+          "score": 361.77,
+          "rank": 70,
+          "audience": 58.27,
+          "base_rank": 65,
+          "rank_change": -5
+        },
+        {
+          "title": "Donnie Darko",
+          "year": 2001,
+          "score": 215.59,
+          "rank": 241,
+          "audience": 75.96,
+          "base_rank": 260,
+          "rank_change": 19
+        },
+        {
+          "title": "There Will Be Blood",
+          "year": 2007,
+          "score": 634.35,
+          "rank": 4,
+          "audience": 92.5,
+          "base_rank": 4,
+          "rank_change": 0
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 254.77,
+          "rank": 165,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 5
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 121.85,
+          "rank": 638,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 4
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 130.62,
+          "rank": 576,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 142
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "score": 405.44,
+          "rank": 49,
+          "audience": 93.65,
+          "base_rank": 50,
+          "rank_change": 1
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 267.22,
+          "rank": 147,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 14
+        },
+        {
+          "title": "Mad Max: Fury Road",
+          "year": 2015,
+          "score": 474.44,
+          "rank": 23,
+          "audience": 86.15,
+          "base_rank": 24,
+          "rank_change": 1
+        },
+        {
+          "title": "Her",
+          "year": 2013,
+          "score": 381.5,
+          "rank": 60,
+          "audience": 73.46,
+          "base_rank": 55,
+          "rank_change": -5
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 153.34,
+          "rank": 467,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 42
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 313.67,
+          "rank": 95,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 0
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 145.57,
+          "rank": 499,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 62
+        },
+        {
+          "title": "The Lobster",
+          "year": 2015,
+          "score": 190.59,
+          "rank": 305,
+          "audience": 41.92,
+          "base_rank": 282,
+          "rank_change": -23
+        },
+        {
+          "title": "The Killing of a Sacred Deer",
+          "year": 2017,
+          "score": 106.6,
+          "rank": 743,
+          "audience": 39.42,
+          "base_rank": 758,
+          "rank_change": 15
+        },
+        {
+          "title": "Past Lives",
+          "year": 2023,
+          "score": 395.05,
+          "rank": 51,
+          "audience": 78.65,
+          "base_rank": 53,
+          "rank_change": 2
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 134.23,
+          "rank": 550,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 54
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "score": 439.64,
+          "rank": 32,
+          "audience": 100.0,
+          "base_rank": 39,
+          "rank_change": 7
+        }
+      ],
+      "other_controls": [
+        {
+          "title": "Amores Perros",
+          "year": 2000,
+          "score": 285.26,
+          "rank": 126,
+          "audience": 83.65,
+          "base_rank": 136,
+          "rank_change": 10
+        },
+        {
+          "title": "A Prophet",
+          "year": 2009,
+          "score": 428.33,
+          "rank": 39,
+          "audience": 78.65,
+          "base_rank": 40,
+          "rank_change": 1
+        },
+        {
+          "title": "Caché",
+          "year": 2005,
+          "score": 329.9,
+          "rank": 84,
+          "audience": 58.06,
+          "base_rank": 81,
+          "rank_change": -3
+        },
+        {
+          "title": "Phantom Thread",
+          "year": 2017,
+          "score": 340.81,
+          "rank": 77,
+          "audience": 68.65,
+          "base_rank": 77,
+          "rank_change": 0
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 119.31,
+          "rank": 659,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": -96
+        }
+      ],
+      "focus_controls": [
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 139.13,
+          "rank": 521,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": 12
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 254.77,
+          "rank": 165,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 5
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 121.85,
+          "rank": 638,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 4
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 130.62,
+          "rank": 576,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 142
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 267.22,
+          "rank": 147,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 14
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 153.34,
+          "rank": 467,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 42
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 313.67,
+          "rank": 95,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 0
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 145.57,
+          "rank": 499,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 62
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 134.23,
+          "rank": 550,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 54
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 119.31,
+          "rank": 659,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": -96
+        }
+      ],
+      "missing": [
+        "Dune: Part Two",
+        "The Machinist",
+        "Tenet",
+        "The Batman"
+      ]
+    },
+    "2.0": {
+      "audience_max_points": 200,
+      "effective_score_ceiling": 1000,
+      "top_50": {
+        "n": 50,
+        "with_audience_data": 50,
+        "mean_audience_points": 79.43,
+        "audience_75_plus": 31,
+        "audience_below_50": 1,
+        "titles": [
+          "Brokeback Mountain",
+          "Mulholland Drive",
+          "There Will Be Blood",
+          "Boyhood",
+          "No Country for Old Men",
+          "Parasite",
+          "Moonlight",
+          "Amour",
+          "Spirited Away",
+          "The Social Network",
+          "Crouching Tiger, Hidden Dragon",
+          "In the Mood for Love",
+          "The Lives of Others",
+          "12 Years a Slave",
+          "The Grand Budapest Hotel",
+          "Roma",
+          "The Hurt Locker",
+          "Spotlight",
+          "A Separation",
+          "Yi Yi",
+          "Mad Max: Fury Road",
+          "WALL·E",
+          "Nomadland",
+          "The Pianist",
+          "The Zone of Interest",
+          "Eternal Sunshine of the Spotless Mind",
+          "Pan's Labyrinth",
+          "Lost in Translation",
+          "Everything Everywhere All at Once",
+          "Inglourious Basterds",
+          "The Departed",
+          "Whiplash",
+          "Get Out",
+          "The Lord of the Rings: The Return of the King",
+          "Inception",
+          "Call Me by Your Name",
+          "Inside Llewyn Davis",
+          "Anatomy of a Fall",
+          "The White Ribbon",
+          "A Prophet",
+          "Drive My Car",
+          "City of God",
+          "Amélie",
+          "Memento",
+          "Tár",
+          "The Artist",
+          "Children of Men",
+          "The Tree of Life",
+          "Lady Bird",
+          "Son of Saul"
+        ]
+      },
+      "positive_controls": [
+        {
+          "title": "Melancholia",
+          "year": 2011,
+          "score": 349.56,
+          "rank": 93,
+          "audience": 45.77,
+          "base_rank": 79,
+          "rank_change": -14
+        },
+        {
+          "title": "Get Out",
+          "year": 2017,
+          "score": 475.54,
+          "rank": 33,
+          "audience": 74.81,
+          "base_rank": 33,
+          "rank_change": 0
+        },
+        {
+          "title": "The Tree of Life",
+          "year": 2011,
+          "score": 436.85,
+          "rank": 48,
+          "audience": 38.27,
+          "base_rank": 35,
+          "rank_change": -13
+        },
+        {
+          "title": "Boyhood",
+          "year": 2014,
+          "score": 671.77,
+          "rank": 4,
+          "audience": 65.77,
+          "base_rank": 2,
+          "rank_change": -2
+        },
+        {
+          "title": "The Lives of Others",
+          "year": 2006,
+          "score": 582.05,
+          "rank": 13,
+          "audience": 97.5,
+          "base_rank": 17,
+          "rank_change": 4
+        },
+        {
+          "title": "Lost in Translation",
+          "year": 2003,
+          "score": 501.26,
+          "rank": 28,
+          "audience": 56.92,
+          "base_rank": 22,
+          "rank_change": -6
+        },
+        {
+          "title": "The White Ribbon",
+          "year": 2009,
+          "score": 468.5,
+          "rank": 39,
+          "audience": 76.44,
+          "base_rank": 38,
+          "rank_change": -1
+        },
+        {
+          "title": "Dogville",
+          "year": 2003,
+          "score": 311.53,
+          "rank": 130,
+          "audience": 83.65,
+          "base_rank": 156,
+          "rank_change": 26
+        },
+        {
+          "title": "The Turin Horse",
+          "year": 2011,
+          "score": 253.4,
+          "rank": 232,
+          "audience": 58.84,
+          "base_rank": 224,
+          "rank_change": -8
+        },
+        {
+          "title": "Arrival",
+          "year": 2016,
+          "score": 412.75,
+          "rank": 64,
+          "audience": 77.31,
+          "base_rank": 62,
+          "rank_change": -2
+        },
+        {
+          "title": "12 Years a Slave",
+          "year": 2013,
+          "score": 576.81,
+          "rank": 14,
+          "audience": 86.15,
+          "base_rank": 14,
+          "rank_change": 0
+        },
+        {
+          "title": "Gravity",
+          "year": 2013,
+          "score": 322.99,
+          "rank": 120,
+          "audience": 49.23,
+          "base_rank": 100,
+          "rank_change": -20
+        },
+        {
+          "title": "The Wolf of Wall Street",
+          "year": 2013,
+          "score": 412.98,
+          "rank": 63,
+          "audience": 80.96,
+          "base_rank": 67,
+          "rank_change": 4
+        },
+        {
+          "title": "Fish Tank",
+          "year": 2009,
+          "score": 297.56,
+          "rank": 151,
+          "audience": 49.14,
+          "base_rank": 127,
+          "rank_change": -24
+        },
+        {
+          "title": "Blue Is the Warmest Colour",
+          "year": 2013,
+          "score": 313.77,
+          "rank": 127,
+          "audience": 35.19,
+          "base_rank": 92,
+          "rank_change": -35
+        },
+        {
+          "title": "Winter Sleep",
+          "year": 2014,
+          "score": 300.05,
+          "rank": 146,
+          "audience": 73.94,
+          "base_rank": 160,
+          "rank_change": 14
+        },
+        {
+          "title": "Shame",
+          "year": 2011,
+          "score": 167.62,
+          "rank": 512,
+          "audience": 44.42,
+          "base_rank": 483,
+          "rank_change": -29
+        },
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 163.84,
+          "rank": 534,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": -1
+        },
+        {
+          "title": "Once Upon a Time in... Hollywood",
+          "year": 2019,
+          "score": 390.91,
+          "rank": 71,
+          "audience": 58.27,
+          "base_rank": 65,
+          "rank_change": -6
+        },
+        {
+          "title": "Donnie Darko",
+          "year": 2001,
+          "score": 253.57,
+          "rank": 231,
+          "audience": 75.96,
+          "base_rank": 260,
+          "rank_change": 29
+        },
+        {
+          "title": "There Will Be Blood",
+          "year": 2007,
+          "score": 680.6,
+          "rank": 3,
+          "audience": 92.5,
+          "base_rank": 4,
+          "rank_change": 1
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 290.83,
+          "rank": 164,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 6
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 142.81,
+          "rank": 639,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 3
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 170.53,
+          "rank": 500,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 218
+        },
+        {
+          "title": "Memento",
+          "year": 2000,
+          "score": 452.27,
+          "rank": 44,
+          "audience": 93.65,
+          "base_rank": 50,
+          "rank_change": 6
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 309.62,
+          "rank": 134,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 27
+        },
+        {
+          "title": "Mad Max: Fury Road",
+          "year": 2015,
+          "score": 517.52,
+          "rank": 21,
+          "audience": 86.15,
+          "base_rank": 24,
+          "rank_change": 3
+        },
+        {
+          "title": "Her",
+          "year": 2013,
+          "score": 418.23,
+          "rank": 62,
+          "audience": 73.46,
+          "base_rank": 55,
+          "rank_change": -7
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 187.57,
+          "rank": 435,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 74
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 351.08,
+          "rank": 90,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 5
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 181.63,
+          "rank": 455,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 106
+        },
+        {
+          "title": "The Lobster",
+          "year": 2015,
+          "score": 211.55,
+          "rank": 339,
+          "audience": 41.92,
+          "base_rank": 282,
+          "rank_change": -57
+        },
+        {
+          "title": "The Killing of a Sacred Deer",
+          "year": 2017,
+          "score": 126.31,
+          "rank": 734,
+          "audience": 39.42,
+          "base_rank": 758,
+          "rank_change": 24
+        },
+        {
+          "title": "Past Lives",
+          "year": 2023,
+          "score": 434.37,
+          "rank": 51,
+          "audience": 78.65,
+          "base_rank": 53,
+          "rank_change": 2
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 164.04,
+          "rank": 533,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 71
+        },
+        {
+          "title": "The Departed",
+          "year": 2006,
+          "score": 489.64,
+          "rank": 31,
+          "audience": 100.0,
+          "base_rank": 39,
+          "rank_change": 8
+        }
+      ],
+      "other_controls": [
+        {
+          "title": "Amores Perros",
+          "year": 2000,
+          "score": 327.09,
+          "rank": 117,
+          "audience": 83.65,
+          "base_rank": 136,
+          "rank_change": 19
+        },
+        {
+          "title": "A Prophet",
+          "year": 2009,
+          "score": 467.66,
+          "rank": 40,
+          "audience": 78.65,
+          "base_rank": 40,
+          "rank_change": 0
+        },
+        {
+          "title": "Caché",
+          "year": 2005,
+          "score": 358.93,
+          "rank": 84,
+          "audience": 58.06,
+          "base_rank": 81,
+          "rank_change": -3
+        },
+        {
+          "title": "Phantom Thread",
+          "year": 2017,
+          "score": 375.13,
+          "rank": 80,
+          "audience": 68.65,
+          "base_rank": 77,
+          "rank_change": -3
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 129.61,
+          "rank": 707,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": -144
+        }
+      ],
+      "focus_controls": [
+        {
+          "title": "Nocturnal Animals",
+          "year": 2016,
+          "score": 163.84,
+          "rank": 534,
+          "audience": 49.42,
+          "base_rank": 533,
+          "rank_change": -1
+        },
+        {
+          "title": "Dune",
+          "year": 2021,
+          "score": 290.83,
+          "rank": 164,
+          "audience": 72.12,
+          "base_rank": 170,
+          "rank_change": 6
+        },
+        {
+          "title": "Midsommar",
+          "year": 2019,
+          "score": 142.81,
+          "rank": 639,
+          "audience": 41.92,
+          "base_rank": 642,
+          "rank_change": 3
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "score": 170.53,
+          "rank": 500,
+          "audience": 79.81,
+          "base_rank": 718,
+          "rank_change": 218
+        },
+        {
+          "title": "1917",
+          "year": 2019,
+          "score": 309.62,
+          "rank": 134,
+          "audience": 84.81,
+          "base_rank": 161,
+          "rank_change": 27
+        },
+        {
+          "title": "Ex Machina",
+          "year": 2014,
+          "score": 187.57,
+          "rank": 435,
+          "audience": 68.46,
+          "base_rank": 509,
+          "rank_change": 74
+        },
+        {
+          "title": "Manchester by the Sea",
+          "year": 2016,
+          "score": 351.08,
+          "rank": 90,
+          "audience": 74.81,
+          "base_rank": 95,
+          "rank_change": 5
+        },
+        {
+          "title": "Into the Wild",
+          "year": 2007,
+          "score": 181.63,
+          "rank": 455,
+          "audience": 72.12,
+          "base_rank": 561,
+          "rank_change": 106
+        },
+        {
+          "title": "Scott Pilgrim vs. the World",
+          "year": 2010,
+          "score": 164.04,
+          "rank": 533,
+          "audience": 59.62,
+          "base_rank": 604,
+          "rank_change": 71
+        },
+        {
+          "title": "La Commune (Paris, 1871)",
+          "year": 2000,
+          "score": 129.61,
+          "rank": 707,
+          "audience": 20.6,
+          "base_rank": 563,
+          "rank_change": -144
+        }
+      ],
+      "missing": [
+        "Dune: Part Two",
+        "The Machinist",
+        "Tenet",
+        "The Batman"
+      ]
+    }
+  }
+}

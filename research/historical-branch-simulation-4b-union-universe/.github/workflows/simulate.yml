@@ -1,0 +1,143 @@
+name: Simulate backcatalog scoring
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, simulation-4-multi-route, simulation-4b-union-universe]
+    paths:
+      - simulate_scoring.py
+      - evidence_score.py
+      - broad_critic_score.py
+      - canon_overlap_score.py
+      - evidence_sources.py
+      - evidence_sources_run.py
+      - evidence_sources_extra.py
+      - evidence_calibration.py
+      - score_band_analysis.py
+      - score_rule_experiment.py
+      - hybrid_selection_experiment.py
+      - hybrid_policy_review.py
+      - selection_stability.py
+      - sight_sound_top250_experiment.py
+      - ranked_source_correlation.py
+      - canon_overlap_experiment.py
+      - missing_evidence_audit.py
+      - critics_choice_experiment.py
+      - candidate_review_report.py
+      - rating_source_audit.py
+      - critical_consensus_experiment.py
+      - capped_critic_review.py
+      - test_audience_discovery.py
+      - test_evidence_score.py
+      - test_broad_critic_score.py
+      - test_canon_overlap_score.py
+      - test_evidence_sources.py
+      - test_evidence_sources_extra.py
+      - test_sight_sound_official.py
+      - test_phase_b_sources.py
+      - test_score_rule_experiment.py
+      - test_hybrid_selection_experiment.py
+      - test_critics_choice_experiment.py
+      - phase_b_sources.py
+      - requirements.txt
+      - audience-ratings.json
+      - sources/imdb-audience-discovery.json
+      - sources/phase-b-institutional.json
+      - sources/sight-sound-2022-top250-modern.json
+      - sources/critics-choice-best-picture.json
+      - .github/workflows/simulate.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scoring-simulation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Phase B dependencies
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python -m pip install -r requirements.txt
+      - name: Build Phase B institutional universe
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python phase_b_sources.py
+      - name: Run research scoring simulation
+        run: |
+          python simulate_scoring.py
+          python - <<'PY'
+          import json
+          rows=json.load(open('simulation-promoted.json'))
+          with open('simulation-promoted-titles.txt','w') as f:
+              for i,r in enumerate(rows,1):
+                  rank = r['rank'] if r['rank'] is not None else 'OUT'
+                  f.write(f"{i:02d}\t{rank}\t{r['year']}\t{r['title']}\t{','.join(r['routes'])}\n")
+          PY
+      - name: Build evidence-family source snapshot
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python evidence_sources_run.py
+      - name: Test and build base evidence scores
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: |
+          python -m unittest -v test_phase_b_sources.py test_audience_discovery.py test_evidence_sources.py test_evidence_sources_extra.py test_sight_sound_official.py test_evidence_score.py test_broad_critic_score.py test_canon_overlap_score.py test_score_rule_experiment.py test_hybrid_selection_experiment.py test_critics_choice_experiment.py
+          python evidence_score.py
+      - name: Audit cached rating sources
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python rating_source_audit.py
+      - name: Compare broad critic variants
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: |
+          python critical_consensus_experiment.py
+          python capped_critic_review.py
+      - name: Apply chosen capped broad critic score
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python broad_critic_score.py
+      - name: Audit ranked critical-source correlation
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python ranked_source_correlation.py
+      - name: Compare correlated canon weighting
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python canon_overlap_experiment.py
+      - name: Apply correlated canon weighting
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python canon_overlap_score.py
+      - name: Print calibration controls
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python evidence_calibration.py
+      - name: Analyze score bands
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python score_band_analysis.py
+      - name: Compare score-driven selection rules
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python score_rule_experiment.py
+      - name: Compare hybrid final-selection policies
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python hybrid_selection_experiment.py
+      - name: Build focused hybrid policy review
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python hybrid_policy_review.py
+      - name: Audit guarded selection stability
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python selection_stability.py
+      - name: Audit missing calibration evidence
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python missing_evidence_audit.py
+      - name: Build candidate review report
+        if: github.ref_name == 'simulation-4b-union-universe'
+        run: python candidate_review_report.py
+      - name: Commit simulation
+        run: |
+          git add scoring-simulation.json simulation-qualifiers.json simulation-promoted.json simulation-promoted-titles.txt simulation-phase-b-new.json
+          if [ "${GITHUB_REF_NAME}" = "simulation-4b-union-universe" ]; then git add sources/phase-b-institutional.json sources/evidence-families.json sources/critics-choice-best-picture.json evidence-scores.json score-band-analysis.json score-rule-experiment.json hybrid-selection-experiment.json hybrid-policy-review.md selection-stability.json selection-stability.md ranked-source-correlation.json ranked-source-correlation.md canon-overlap-experiment.json missing-evidence-audit.json missing-evidence-audit.md candidate-review.md rating-source-audit.json critical-consensus-experiment.json capped-critic-review.md; fi
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions-bot@users.noreply.github.com"
+          git commit -m "Update Phase B simulation"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

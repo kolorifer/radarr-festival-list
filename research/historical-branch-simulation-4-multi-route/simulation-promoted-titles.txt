@@ -1,0 +1,86 @@
+01	110	2007	Persepolis	convergence
+02	113	2014	The Grand Budapest Hotel	convergence
+03	116	2003	The Lord of the Rings: The Return of the King	convergence
+04	119	2014	Goodbye to Language	corroboration
+05	122	2015	The Assassin	corroboration
+06	127	2013	12 Years a Slave	institutional,convergence
+07	131	2013	Inside Llewyn Davis	corroboration
+08	133	2003	Spring, Summer, Fall, Winter... and Spring	convergence
+09	141	2016	Arrival	convergence
+10	145	2004	Million Dollar Baby	convergence
+11	147	2013	Gravity	corroboration
+12	148	2003	Kill Bill: Vol. 1	convergence
+13	150	2010	Inception	convergence
+14	156	2006	The Departed	institutional,convergence
+15	166	2001	Donnie Darko	convergence
+16	167	2014	Interstellar	convergence
+17	169	2015	Son of Saul	corroboration
+18	170	2010	Toy Story 3	convergence
+19	172	2004	Kung Fu Hustle	convergence
+20	175	2002	The Lord of the Rings: The Two Towers	convergence
+21	178	2000	Gladiator	convergence
+22	182	2013	The Wolf of Wall Street	convergence
+23	185	2002	Hero	convergence
+24	189	2004	The Incredibles	convergence
+25	190	2014	Whiplash	convergence
+26	198	2000	Almost Famous	convergence
+27	207	2009	Up	convergence
+28	210	2009	Fantastic Mr. Fox	convergence
+29	221	2018	Spider-Man: Into the Spider-Verse	convergence
+30	227	2010	Black Swan	convergence
+31	228	2022	Everything Everywhere All at Once	convergence
+32	230	2013	Her	convergence
+33	233	2014	Gone Girl	convergence
+34	238	2009	Mother	convergence
+35	243	2017	Paddington 2	convergence
+36	248	2012	Moonrise Kingdom	convergence
+37	250	2003	Finding Nemo	convergence
+38	255	2016	The Handmaiden	convergence
+39	256	2016	La La Land	convergence
+40	257	2007	Ratatouille	convergence
+41	278	2003	The Triplets of Belleville	convergence
+42	279	2008	Slumdog Millionaire	convergence
+43	285	2002	Infernal Affairs	convergence
+44	289	2016	Manchester by the Sea	convergence
+45	291	2000	O Brother, Where Art Thou?	convergence
+46	305	2013	The Tale of The Princess Kaguya	convergence
+47	307	2004	Kill Bill: Vol. 2	convergence
+48	315	2004	Howl's Moving Castle	convergence
+49	319	2006	Little Miss Sunshine	convergence
+50	327	2012	The Hunt	convergence
+51	332	2006	Paprika	convergence
+52	356	2002	Bowling for Columbine	convergence
+53	359	2010	Incendies	convergence
+54	366	2006	This Is England	convergence
+55	370	2021	The Worst Person in the World	convergence
+56	371	2006	Letters from Iwo Jima	convergence
+57	397	2012	Django Unchained	convergence
+58	413	2002	Lilya 4-Ever	convergence
+59	418	2004	3-Iron	convergence
+60	437	2006	The Prestige	convergence
+61	440	2003	Big Fish	convergence
+62	449	2008	The Wrestler	convergence
+63	451	2013	Before Midnight	convergence
+64	498	2006	Casino Royale	convergence
+65	499	2014	Ex Machina	convergence
+66	530	2005	Pride & Prejudice	convergence
+67	546	2004	Downfall	convergence
+68	551	2014	Mommy	convergence
+69	561	2015	Spotlight	convergence
+70	572	2023	Oppenheimer	convergence
+71	620	2022	RRR	convergence
+72	625	2009	Mary and Max	convergence
+73	636	2023	Past Lives	convergence
+74	650	2019	Little Women	convergence
+75	693	2009	The Secret in Their Eyes	convergence
+76	750	2001	Monsters, Inc.	convergence
+77	776	2009	Coraline	convergence
+78	805	2000	Snatch	convergence
+79	825	2015	Room	convergence
+80	843	2023	The Holdovers	convergence
+81	858	2002	Catch Me If You Can	convergence
+82	869	2010	Senna	convergence
+83	875	2004	Harry Potter and the Prisoner of Azkaban	convergence
+84	900	2017	Blade Runner 2049	convergence
+85	902	2023	Perfect Days	convergence
+86	968	2022	Top Gun: Maverick	convergence

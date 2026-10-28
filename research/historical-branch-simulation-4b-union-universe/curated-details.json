@@ -1,0 +1,797 @@
+[
+  {
+    "title": "Fjord",
+    "score": 3,
+    "reasons": [
+      "IMDb Festival list",
+      "Cannes: Palme d'Or"
+    ],
+    "imdb_id": "tt35410859"
+  },
+  {
+    "title": "La bola negra",
+    "score": 3,
+    "reasons": [
+      "IMDb Festival list",
+      "Cannes: Best Director",
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt35511966"
+  },
+  {
+    "title": "All of a Sudden",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt36834996"
+  },
+  {
+    "title": "Club Kid",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt38058097"
+  },
+  {
+    "title": "Fatherland",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Cannes: Best Director"
+    ],
+    "imdb_id": "tt37304295"
+  },
+  {
+    "title": "Hope",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt27369017"
+  },
+  {
+    "title": "Minotaur",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Cannes: Grand Prix"
+    ],
+    "imdb_id": "tt37118301"
+  },
+  {
+    "title": "Paper Tiger",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt34385689"
+  },
+  {
+    "title": "Teenage Sex and Death at Camp Miasma",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt35298123"
+  },
+  {
+    "title": "The Man I Love",
+    "score": 2,
+    "reasons": [
+      "IMDb Festival list",
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt37522972"
+  },
+  {
+    "title": "Woman Unknown",
+    "score": 2,
+    "reasons": [
+      "Venice: Golden Lion for Best Film"
+    ],
+    "imdb_id": "tt34888026"
+  },
+  {
+    "title": "Yellow Letters",
+    "score": 2,
+    "reasons": [
+      "Berlinale: Golden Bear for Best Film"
+    ],
+    "imdb_id": "tt32888226"
+  },
+  {
+    "title": "A Good Little Soldier",
+    "score": 1,
+    "reasons": [
+      "Venice: Best Screenplay"
+    ],
+    "imdb_id": "tt41802342"
+  },
+  {
+    "title": "A House of Dynamite",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32376165"
+  },
+  {
+    "title": "A Private Life",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt33852162"
+  },
+  {
+    "title": "A Real Pain",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt21823606"
+  },
+  {
+    "title": "After the Hunt",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32159989"
+  },
+  {
+    "title": "Albany Road",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt31839336"
+  },
+  {
+    "title": "Alpha",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32275943"
+  },
+  {
+    "title": "Anemone",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt33549447"
+  },
+  {
+    "title": "Anora",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt28607951"
+  },
+  {
+    "title": "Babygirl",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt30057084"
+  },
+  {
+    "title": "Ballad of a Small Player",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32063098"
+  },
+  {
+    "title": "Bird",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt28277817"
+  },
+  {
+    "title": "Blitz",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt15939198"
+  },
+  {
+    "title": "Blue Moon",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32536315"
+  },
+  {
+    "title": "Bugonia",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt12300742"
+  },
+  {
+    "title": "Caught by the Tides",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt27958252"
+  },
+  {
+    "title": "Christy",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32323252"
+  },
+  {
+    "title": "Clarissa",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt33335610"
+  },
+  {
+    "title": "Conclave",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt20215234"
+  },
+  {
+    "title": "Coward",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt39328391"
+  },
+  {
+    "title": "Dau",
+    "score": 1,
+    "reasons": [
+      "Venice: Silver Lion - Best Director"
+    ],
+    "imdb_id": "tt43702526"
+  },
+  {
+    "title": "Dua",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt38765198"
+  },
+  {
+    "title": "Emilia Pérez",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt20221436"
+  },
+  {
+    "title": "Eternity",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt24950660"
+  },
+  {
+    "title": "Everybody Digs Bill Evans",
+    "score": 1,
+    "reasons": [
+      "Berlinale: Silver Bear for Best Director"
+    ],
+    "imdb_id": "tt34347792"
+  },
+  {
+    "title": "Father Mother Sister Brother",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt31189315"
+  },
+  {
+    "title": "Frankenstein",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt1312221"
+  },
+  {
+    "title": "Freedom Hair",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt12415850"
+  },
+  {
+    "title": "Furiosa: A Mad Max Saga",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt12037194"
+  },
+  {
+    "title": "Ha-Chan, Shake Your Booty!",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt39149197"
+  },
+  {
+    "title": "Hamnet",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt14905854"
+  },
+  {
+    "title": "Heretic",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt28015403"
+  },
+  {
+    "title": "Horizon: An American Saga - Chapter 1",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt17505010"
+  },
+  {
+    "title": "I See Buildings Fall Like Lightning",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt38991615"
+  },
+  {
+    "title": "I'll Be Gone in June",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt23143606"
+  },
+  {
+    "title": "It Was Just an Accident",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt36491653"
+  },
+  {
+    "title": "Jay Kelly",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt30446847"
+  },
+  {
+    "title": "Jim Henson: Idea Man",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt19308034"
+  },
+  {
+    "title": "Joker: Folie à Deux",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt11315808"
+  },
+  {
+    "title": "Josephine",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32321285"
+  },
+  {
+    "title": "Kinds of Kindness",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt22408160"
+  },
+  {
+    "title": "La Gradiva",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt36107185"
+  },
+  {
+    "title": "Luther: Never Too Much",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt10850320"
+  },
+  {
+    "title": "Maria",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt22893404"
+  },
+  {
+    "title": "Megalopolis",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt10128846"
+  },
+  {
+    "title": "Naza",
+    "score": 1,
+    "reasons": [
+      "Venice: Special Jury Prize"
+    ],
+    "imdb_id": "tt44766123"
+  },
+  {
+    "title": "Nightbitch",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt12810074"
+  },
+  {
+    "title": "Nina Roza",
+    "score": 1,
+    "reasons": [
+      "Berlinale: Silver Bear for Best Screenplay"
+    ],
+    "imdb_id": "tt29271639"
+  },
+  {
+    "title": "No Other Choice",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt1527793"
+  },
+  {
+    "title": "Nouvelle Vague",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt31688586"
+  },
+  {
+    "title": "Oh, Canada",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt29994753"
+  },
+  {
+    "title": "Possible Love",
+    "score": 1,
+    "reasons": [
+      "Venice: Silver Lion - Grand Jury Prize"
+    ],
+    "imdb_id": "tt37803364"
+  },
+  {
+    "title": "Queen at Sea",
+    "score": 1,
+    "reasons": [
+      "Berlinale: Silver Bear Jury Prize"
+    ],
+    "imdb_id": "tt27541205"
+  },
+  {
+    "title": "Queer",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt24176060"
+  },
+  {
+    "title": "Roofman",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt4627382"
+  },
+  {
+    "title": "Rumours",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt30841606"
+  },
+  {
+    "title": "Salvation",
+    "score": 1,
+    "reasons": [
+      "Berlinale: Silver Bear Grand Jury Prize"
+    ],
+    "imdb_id": "tt36472181"
+  },
+  {
+    "title": "Sentimental Value",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt27714581"
+  },
+  {
+    "title": "Sirat",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32298285"
+  },
+  {
+    "title": "Springsteen: Deliver Me from Nowhere",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt31923069"
+  },
+  {
+    "title": "Tangles",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt22183852"
+  },
+  {
+    "title": "The Apprentice",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt8368368"
+  },
+  {
+    "title": "The Brutalist",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt8999762"
+  },
+  {
+    "title": "The Dreamed Adventure",
+    "score": 1,
+    "reasons": [
+      "Cannes: Jury Prize"
+    ],
+    "imdb_id": "tt21188986"
+  },
+  {
+    "title": "The Last Viking",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt27817389"
+  },
+  {
+    "title": "The Lost Bus",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt21103218"
+  },
+  {
+    "title": "The Lost Holliday",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt29352944"
+  },
+  {
+    "title": "The Mastermind",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt33455099"
+  },
+  {
+    "title": "The Most Precious of Cargoes",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt10462154"
+  },
+  {
+    "title": "The Order",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt26625693"
+  },
+  {
+    "title": "The Return",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt19861162"
+  },
+  {
+    "title": "The Room Next Door",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt29439114"
+  },
+  {
+    "title": "The Samurai and the Prisoner",
+    "score": 1,
+    "reasons": [
+      "Letterboxd HQ: Best of Cannes 2026"
+    ],
+    "imdb_id": "tt39602215"
+  },
+  {
+    "title": "The Secret Agent",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt27847051"
+  },
+  {
+    "title": "The Shrouds",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt20212786"
+  },
+  {
+    "title": "The Smashing Machine",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt11214558"
+  },
+  {
+    "title": "The Substance",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt17526714"
+  },
+  {
+    "title": "The Surfer",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt27813235"
+  },
+  {
+    "title": "The Testament of Ann Lee",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt34819091"
+  },
+  {
+    "title": "The Wild Robot",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt29623480"
+  },
+  {
+    "title": "Urchin",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt35715953"
+  },
+  {
+    "title": "Wake Up Dead Man",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt14364480"
+  },
+  {
+    "title": "We Live in Time",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt27131358"
+  },
+  {
+    "title": "Who in the Hell Is Regina Jones?",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt32196636"
+  },
+  {
+    "title": "Wolfs",
+    "score": 1,
+    "reasons": [
+      "IMDb Festival list"
+    ],
+    "imdb_id": "tt14257582"
+  },
+  {
+    "title": "YO Love Is a Rebellious Bird",
+    "score": 1,
+    "reasons": [
+      "Berlinale: Silver Bear for Outstanding Artistic Contribution"
+    ],
+    "imdb_id": "tt39382829"
+  }
+]

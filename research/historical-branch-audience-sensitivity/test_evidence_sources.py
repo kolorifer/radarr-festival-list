@@ -1,0 +1,74 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+import evidence_sources as es
+import evidence_sources_run as run
+
+
+class EvidenceSourceTests(unittest.TestCase):
+    def test_parse_event_yaml(self):
+        text = """
+'2025':
+  golden lion:
+    best film:
+      nominee: [tt1, tt2]
+      winner: [tt2]
+"""
+        rows = es.parse_imdb_event_yaml(text)
+        self.assertEqual(len(rows), 3)
+        self.assertEqual(rows[0]["award"], "golden lion")
+        self.assertEqual(rows[0]["category"], "best film")
+        self.assertEqual(rows[-1]["status"], "winner")
+        self.assertEqual(rows[-1]["imdb_id"], "tt2")
+
+    def test_discovery_films_enter_award_identity_catalog(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "discovery.json"
+            path.write_text(json.dumps({"films": [{
+                "imdb_id": "tt9", "title": "New Film", "year": 2024
+            }]}), encoding="utf-8")
+            with patch.object(run, "DISCOVERY", path), patch.object(run, "_ORIGINAL_BUILD_CATALOG", lambda: {
+                "tt1": {"imdb_id": "tt1", "title": "Old Film", "year": 2020}
+            }):
+                catalog = run.build_catalog_with_discovery()
+        self.assertIn("tt1", catalog)
+        self.assertEqual(catalog["tt9"]["title"], "New Film")
+        self.assertEqual(catalog["tt9"]["year"], 2024)
+
+    def test_us_family_caps_and_globes_corrobate(self):
+        records = {key: [] for key in es.EVENTS}
+        records["academy"] = [
+            {"imdb_id": "tt1", "award": "oscar", "category": "best motion picture of the year", "status": "nominee", "year": 2020},
+        ]
+        records["golden_globes"] = [
+            {"imdb_id": "tt1", "award": "golden globe", "category": "best motion picture - drama", "status": "winner", "year": 2020},
+        ]
+        score = es.score_events(records)["tt1"]["family_scores"]["us_institutional"]
+        self.assertEqual(score, 90.0)
+
+    def test_sundance_double_win_reaches_100(self):
+        records = {key: [] for key in es.EVENTS}
+        records["sundance"] = [
+            {"imdb_id": "tt2", "award": "grand jury prize", "category": "dramatic", "status": "winner", "year": 2020},
+            {"imdb_id": "tt2", "award": "audience award", "category": "u.s. dramatic", "status": "winner", "year": 2020},
+        ]
+        score = es.score_events(records)["tt2"]["family_scores"]["independent_cinema"]
+        self.assertEqual(score, 100.0)
+
+    def test_european_family_caps_at_100(self):
+        records = {key: [] for key in es.EVENTS}
+        records["cannes"] = [
+            {"imdb_id": "tt3", "award": "palme d'or", "category": "palme d'or", "status": "winner", "year": 2020},
+        ]
+        records["bafta"] = [
+            {"imdb_id": "tt3", "award": "bafta film award", "category": "best film", "status": "winner", "year": 2020},
+        ]
+        score = es.score_events(records)["tt3"]["family_scores"]["european_recognition"]
+        self.assertEqual(score, 100.0)
+
+
+if __name__ == "__main__":
+    unittest.main()

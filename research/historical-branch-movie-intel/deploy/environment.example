@@ -1,0 +1,16 @@
+# Copy outside the checkout to ~/.config/movie-intel/environment (mode 600).
+# Never commit filled-in values. This is systemd EnvironmentFile syntax, not a
+# shell script. Do not source this file; the manual launcher reads it safely.
+MOVIE_INTEL_HOST=127.0.0.1
+MOVIE_INTEL_PORT=40714
+MOVIE_INTEL_WEBHOOK_SECRET=
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+TELEGRAM_TOPIC_ID=
+TMDB_API_TOKEN=
+RADARR_URL=
+RADARR_API_KEY=
+# Complete HTTPS route INCLUDING the /movie-intel prefix (or provider prefix).
+MOVIE_INTEL_PUBLIC_BASE_URL=
+# The user service supplies absolute state/cache paths; set these explicitly
+# when running manually. Keep them outside any directory served by nginx.
