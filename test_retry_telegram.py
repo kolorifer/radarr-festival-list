@@ -94,6 +94,25 @@ class RetryMessageActorTests(unittest.TestCase):
             p=svc.prepare_retry_message(PAYLOAD,{'meta':meta},'external_id_verified')
         self.assertIn('Watched',p['text']);self.assertNotIn('Our model: QUALIFIES',p['text'])
 
+    def test_retry_displays_existing_verified_edition(self):
+        payload=copy.deepcopy(PAYLOAD)
+        payload['data']['release'].update(type='movie',title='Touch of Evil',year=1958,name='Touch of Evil 1958 1080p BluRay REMUX')
+        meta={'identity_status':'verified_tmdb','imdb_id':'tt0052311','tmdb_id':1480,'title':'Touch of Evil','year':1958}
+        existing={'tmdbId':1480,'imdbId':'tt0052311','hasFile':True,'movieFile':{'edition':'theatrical'}}
+        with patch.object(svc,'get_movie_by_tmdb',return_value=existing),patch.object(svc,'movie_has_tag',return_value=False), \
+             patch.object(svc,'create_pending_action',return_value=None):
+            result=svc.prepare_retry_message(payload,{'meta':meta},'external_id_verified')
+        self.assertIn('Existing: 1958 theatrical (claimed)',result['text'])
+
+    def test_retry_survives_unavailable_radarr_display_context(self):
+        meta=dict(META,identity_status='verified_tmdb')
+        for failure in ('movie','tag'):
+            with self.subTest(failure=failure),patch.object(svc,'create_pending_action',return_value=None), \
+                 patch.object(svc,'get_movie_by_tmdb',side_effect=svc.RadarrError('unavailable') if failure=='movie' else None,return_value={}), \
+                 patch.object(svc,'movie_has_tag',side_effect=svc.RadarrError('unavailable') if failure=='tag' else None,return_value=False):
+                result=svc.prepare_retry_message(PAYLOAD,{'meta':meta},'external_id_verified')
+            self.assertIn('Arrival',result['text']);self.assertNotIn('Watched',result['text'])
+
     def test_retry_disregards_contradictory_radarr_identity(self):
         meta=dict(META,identity_status='verified_tmdb')
         with patch.object(svc,'get_movie_by_tmdb',return_value={'imdbId':'tt9999999'}), \
