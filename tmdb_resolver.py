@@ -59,7 +59,7 @@ def _minor_title_typo(observed, candidate):
         text = unicodedata.normalize('NFC', str(value or '')).casefold().replace('&', 'and')
         return re.findall(r"[^\W_]+", text)
     left, right = words(observed), words(candidate)
-    if len(left) != len(right) or sum(map(len, right)) < 8:
+    if len(left) != len(right):
         return False
     differences = [(a, b) for a, b in zip(left, right) if a != b]
     if len(differences) != 1:

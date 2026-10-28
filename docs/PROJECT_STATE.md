@@ -1,3 +1,15 @@
+# Short-title typo matching — 2026-10-28
+
+Deployed tested `46cccea3a119ca080e35f6cf071bd0351eba037a`; health 200,
+1,909 movies and zero restarts. 746 server tests and both CI versions pass;
+746 local tests OK with two skips. Ten approvals and receipts preserved. The
+historical Carrue listing now fails the separate exact-heading check, so its
+live resolution is not verified; on 2026-10-28 the user accepted finalization
+without waiting for a live example. No replay or download. See the
+[brief](reports/2026-10-28-short-title-typos-brief.md) and
+[report](reports/2026-10-28-short-title-typos.md). The unrelated cleanup task is
+unchanged.
+
 # Watched notification presentation — 2026-10-27
 
 Implemented on the recorded d598296 actor baseline: remove the potential-false-
