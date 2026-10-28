@@ -101,6 +101,12 @@ the workflow documentation task.
   approval remain separate; source links, rejections and film cuts remain
   specific to the new release. See the [brief](reports/2026-10-25-identity-memory-brief.md).
 
+- **Short-title typo adjustment authorized, 2026-10-28:** The user approved
+  broadening the existing exact-listing typo rule for Carrue/Carrie. Single edits
+  on words of at least six letters remain subject to the existing unique IMDb and
+  TMDb crosswalk, year and conflict checks, and do not approve a download. See the
+  [brief](reports/2026-10-28-short-title-typos-brief.md).
+
 ## D006 — Audience ratings provide context
 
 - **Status/source:** Accepted existing baseline; captured 2026-10-13.

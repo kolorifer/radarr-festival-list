@@ -1,3 +1,11 @@
+# Short-title typo matching — 2026-10-28
+
+Implemented the authorized six-letter single-edit adjustment on production base
+`ae1e6be9`; full verification and deployment pending. See the
+[brief](reports/2026-10-28-short-title-typos-brief.md) and
+[report](reports/2026-10-28-short-title-typos.md). The unrelated cleanup task is
+unchanged.
+
 # Watched notification presentation — 2026-10-27
 
 Implemented on the recorded d598296 actor baseline: remove the potential-false-
