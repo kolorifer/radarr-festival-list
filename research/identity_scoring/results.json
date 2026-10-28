@@ -1,0 +1,2331 @@
+{
+  "synthetic_blind_spots": [
+    {
+      "name": "Synthetic retrieval blind spot: correct movie absent, indistinguishable wrong candidate",
+      "kind": "synthetic_blind_spot",
+      "baseline": "review",
+      "expected_id": 866440,
+      "expected_decision": null,
+      "changed_from_baseline": true,
+      "wrong_labeled_automatic_choice": true,
+      "decision": "would_identify",
+      "selected_id": 999999,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 999999,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 73.0,
+      "reasons": []
+    }
+  ],
+  "scope": "OFFLINE ONLY — no production integration",
+  "policy": {
+    "weights": {
+      "title": 30.0,
+      "year": 20.0,
+      "runtime": 15.0,
+      "language": 10.0,
+      "source_id": 25.0
+    },
+    "threshold": 70.0,
+    "margin": 15.0,
+    "runtime_scale": 0.1
+  },
+  "cases": [
+    {
+      "name": "Aayirathonnu Nunakal",
+      "kind": "reviewed_identity",
+      "baseline": "identify",
+      "expected_id": 1035029,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "would_identify",
+      "selected_id": 1035029,
+      "ranked": [
+        {
+          "upper_score": 75.0,
+          "candidate_id": 1035029,
+          "title": "1001 Nunakal",
+          "score": 75.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 15.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Aayirathonnu Nunakal",
+          "blocks": []
+        }
+      ],
+      "margin": 75.0,
+      "reasons": []
+    },
+    {
+      "name": "2018 Everyone Is a Hero",
+      "kind": "reviewed_identity",
+      "baseline": "review",
+      "expected_id": 866440,
+      "expected_decision": null,
+      "changed_from_baseline": true,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "would_identify",
+      "selected_id": 866440,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 73.0,
+      "reasons": []
+    },
+    {
+      "name": "Bruce Almiighty",
+      "kind": "reviewed_identity",
+      "baseline": "identify",
+      "expected_id": 310,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "would_identify",
+      "selected_id": 310,
+      "ranked": [
+        {
+          "upper_score": 70.71428571428572,
+          "candidate_id": 310,
+          "title": "Bruce Almighty",
+          "score": 70.71428571428572,
+          "contributions": {
+            "title": 25.714285714285715,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 25.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "source_id"
+          ],
+          "title_similarity": 0.9285714285714286,
+          "matched_title": "Bruce Almighty",
+          "blocks": []
+        }
+      ],
+      "margin": 70.71428571428572,
+      "reasons": []
+    },
+    {
+      "name": "Madame Bovary",
+      "kind": "reviewed_conflict",
+      "baseline": "review",
+      "expected_id": 45184,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 54.91525423728814,
+          "candidate_id": 253161,
+          "title": "Madame Bovary",
+          "score": 54.91525423728814,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 9.915254237288135,
+            "language": 10.0,
+            "source_id": 25.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language",
+            "source_id"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 38.67924528301887,
+          "candidate_id": 45184,
+          "title": "Madame Bovary",
+          "score": 38.67924528301887,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 3.6792452830188687,
+            "language": 10.0,
+            "source_id": -25.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language",
+            "source_id"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "tracker_id_conflict",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 60.0,
+          "candidate_id": 43123,
+          "title": "Madame Bovary",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 60.0,
+          "candidate_id": 116585,
+          "title": "Madame Bovary",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 60.0,
+          "candidate_id": 288957,
+          "title": "Madame Bovary",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 60.0,
+          "candidate_id": 290149,
+          "title": "Madame Bovary",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 60.0,
+          "candidate_id": 491588,
+          "title": "Madame Bovary",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 60.0,
+          "candidate_id": 759362,
+          "title": "Madame Bovary",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 37.89473684210526,
+          "candidate_id": 348703,
+          "title": "Madame Bovary, That's Me",
+          "score": -12.10526315789474,
+          "contributions": {
+            "title": 7.894736842105261,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.631578947368421,
+          "matched_title": "Madame Bovary, That's Me",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 36.0,
+          "candidate_id": 620197,
+          "title": "Madame Bovary's Revenge",
+          "score": -14.000000000000002,
+          "contributions": {
+            "title": 5.999999999999998,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.6,
+          "matched_title": "Madame Bovary's Revenge",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 23.33333333333333,
+          "candidate_id": 876581,
+          "title": "The Emma Bovary Trial",
+          "score": -26.66666666666667,
+          "contributions": {
+            "title": -6.66666666666667,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.38888888888888884,
+          "matched_title": "The Emma Bovary Trial",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": -40.0,
+          "candidate_id": 2528,
+          "title": "Madame Bovary",
+          "score": -40.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": -15.0,
+            "language": -10.0,
+            "source_id": -25.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language",
+            "source_id"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Madame Bovary",
+          "blocks": [
+            "tracker_id_conflict",
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        },
+        {
+          "upper_score": 0.0,
+          "candidate_id": 400114,
+          "title": "I Am Not Madame Bovary",
+          "score": -50.0,
+          "contributions": {
+            "title": -30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.0,
+          "matched_title": "I Am Not Madame Bovary",
+          "blocks": [
+            "crosswalk_unverified",
+            "source_conflict_or_unknown"
+          ]
+        }
+      ],
+      "margin": -5.0847457627118615,
+      "reasons": [
+        "source_conflict_or_unknown",
+        "candidate_set_incomplete",
+        "score_below_threshold",
+        "insufficient_margin"
+      ]
+    },
+    {
+      "name": "Aberfan: The Village That Fought Back",
+      "kind": "owner_skipped",
+      "baseline": "skipped",
+      "expected_id": null,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1796471,
+          "title": "Aberfan: The Village That Fought Back",
+          "score": 50.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Aberfan: The Village That Fought Back",
+          "blocks": [
+            "crosswalk_unverified"
+          ]
+        }
+      ],
+      "margin": 50.0,
+      "reasons": [
+        "crosswalk_unverified",
+        "candidate_set_incomplete",
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Fragmentos",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 85.83333333333334,
+          "candidate_id": 1356955,
+          "title": "Fragmentos",
+          "score": 60.833333333333336,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 10.833333333333336,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 90.0,
+          "candidate_id": 1377801,
+          "title": "Fragmentos",
+          "score": 50.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 90.0,
+          "candidate_id": 1492389,
+          "title": "Fragmentos",
+          "score": 50.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 90.0,
+          "candidate_id": 1530349,
+          "title": "Fragmentos",
+          "score": 50.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 90.0,
+          "candidate_id": 1425484,
+          "title": "Fragmentos",
+          "score": 30.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 0.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 677349,
+          "title": "Fragments",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 739159,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 777958,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 826409,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1173289,
+          "title": "Fragments",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1267397,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1363351,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1387084,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1446841,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1521392,
+          "title": "Fragments",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1548510,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1701128,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 50.0,
+          "candidate_id": 1776096,
+          "title": "Fragmentos",
+          "score": 10.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "Fragmentos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 27.5,
+          "candidate_id": 400013,
+          "title": "Fragments of Love",
+          "score": -12.5,
+          "contributions": {
+            "title": 7.5,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.625,
+          "matched_title": "Fragmentos de amor",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 25.294117647058826,
+          "candidate_id": 512576,
+          "title": "Fragmentos urbanos",
+          "score": -14.705882352941176,
+          "contributions": {
+            "title": 5.294117647058824,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.5882352941176471,
+          "matched_title": "Fragmentos urbanos",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        }
+      ],
+      "margin": -29.166666666666664,
+      "reasons": [
+        "crosswalk_unverified",
+        "nfo_not_bound_to_release",
+        "candidate_set_incomplete",
+        "score_below_threshold",
+        "insufficient_margin"
+      ]
+    },
+    {
+      "name": "Syd Barrett Up Close And Personal",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 20.0,
+          "candidate_id": 553334,
+          "title": "Syd Barrett: Under Review",
+          "score": -20.0,
+          "contributions": {
+            "title": 0.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.5,
+          "matched_title": "Syd Barrett: Under Review",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 15.714285714285715,
+          "candidate_id": 354460,
+          "title": "Syd Barrett's First Trip",
+          "score": -24.285714285714285,
+          "contributions": {
+            "title": -4.285714285714284,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.4285714285714286,
+          "matched_title": "Syd Barrett's First Trip",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 6.5957446808510625,
+          "candidate_id": 1160329,
+          "title": "The Pink Floyd Syd Barrett Story - The Definitive Edition",
+          "score": -33.40425531914894,
+          "contributions": {
+            "title": -13.40425531914894,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.276595744680851,
+          "matched_title": "The Pink Floyd Syd Barrett Story - The Definitive Edition",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 4.042553191489361,
+          "candidate_id": 1118723,
+          "title": "Have You Got It Yet? The Story of Syd Barrett and Pink Floyd",
+          "score": -35.95744680851064,
+          "contributions": {
+            "title": -15.957446808510639,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.23404255319148937,
+          "matched_title": "Have You Got It Yet? The Story of Syd Barrett and Pink Floyd",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": -4.0,
+          "candidate_id": 31557,
+          "title": "The Pink Floyd and Syd Barrett Story",
+          "score": -44.0,
+          "contributions": {
+            "title": -24.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.09999999999999998,
+          "matched_title": "The Pink Floyd and Syd Barrett Story",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        }
+      ],
+      "margin": -35.714285714285715,
+      "reasons": [
+        "crosswalk_unverified",
+        "nfo_not_bound_to_release",
+        "candidate_set_incomplete",
+        "score_below_threshold",
+        "insufficient_margin"
+      ]
+    },
+    {
+      "name": "Rainbow In Performance",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": -10.0,
+          "candidate_id": 836233,
+          "title": "Rainbow: In Their Own Words",
+          "score": -35.0,
+          "contributions": {
+            "title": 0.0,
+            "year": -20.0,
+            "runtime": -15.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime"
+          ],
+          "title_similarity": 0.5,
+          "matched_title": "Rainbow: In Their Own Words",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        }
+      ],
+      "margin": -35.0,
+      "reasons": [
+        "crosswalk_unverified",
+        "nfo_not_bound_to_release",
+        "candidate_set_incomplete",
+        "score_below_threshold",
+        "insufficient_margin"
+      ]
+    },
+    {
+      "name": "Steve Howe Live Legends",
+      "kind": "historical_unresolved",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": null,
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 16.999999999999996,
+          "candidate_id": 1045920,
+          "title": "Steve Howe",
+          "score": -8.000000000000004,
+          "contributions": {
+            "title": -3.0000000000000027,
+            "year": -20.0,
+            "runtime": 15.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime"
+          ],
+          "title_similarity": 0.44999999999999996,
+          "matched_title": "Steve Howe",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 23.000000000000004,
+          "candidate_id": 340500,
+          "title": "Steve Howe - Beginnings",
+          "score": -16.999999999999996,
+          "contributions": {
+            "title": 3.0000000000000027,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.55,
+          "matched_title": "Steve Howe - Beginnings",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 20.0,
+          "candidate_id": 965221,
+          "title": "Steve Howe's Remedy Live",
+          "score": -20.0,
+          "contributions": {
+            "title": 0.0,
+            "year": -20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 0.5,
+          "matched_title": "Steve Howe's Remedy Live",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        },
+        {
+          "upper_score": 30.0,
+          "candidate_id": 525577,
+          "title": "Steve Howe - Unplugged Live at Montreux Jazz Festival 1979",
+          "score": -30.0,
+          "contributions": {
+            "title": -30.0,
+            "year": 0.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title"
+          ],
+          "title_similarity": 0.0,
+          "matched_title": "Steve Howe - Unplugged Live at Montreux Jazz Festival 1979",
+          "blocks": [
+            "crosswalk_unverified",
+            "nfo_not_bound_to_release"
+          ]
+        }
+      ],
+      "margin": -38.0,
+      "reasons": [
+        "crosswalk_unverified",
+        "nfo_not_bound_to_release",
+        "candidate_set_incomplete",
+        "score_below_threshold",
+        "insufficient_margin"
+      ]
+    }
+  ],
+  "synthetic_controls": [
+    {
+      "name": "Two-minute runtime difference",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "would_identify",
+      "changed_from_baseline": true,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "would_identify",
+      "selected_id": 866440,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 73.0,
+      "reasons": []
+    },
+    {
+      "name": "Five-minute runtime difference (proposed boundary)",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "would_identify",
+      "changed_from_baseline": true,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "would_identify",
+      "selected_id": 866440,
+      "ranked": [
+        {
+          "upper_score": 70.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 70.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 10.000000000000002,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 70.0,
+      "reasons": []
+    },
+    {
+      "name": "Six-minute runtime difference",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 69.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 69.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 9.000000000000002,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 69.0,
+      "reasons": [
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Missing runtime",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 60.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 60.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 60.0,
+      "reasons": [
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Missing audio language",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 63.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 63.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 63.0,
+      "reasons": [
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Missing source year",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 53.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 53.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 0.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 53.0,
+      "reasons": [
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Title and year only",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 50.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 50.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 50.0,
+      "reasons": [
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Contradictory year",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 33.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 33.0,
+          "contributions": {
+            "title": 30.0,
+            "year": -20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 33.0,
+      "reasons": [
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Contradictory audio language",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 53.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 53.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": -10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 53.0,
+      "reasons": [
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Conflicting source IMDb",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 48.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 48.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": -25.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language",
+            "source_id"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": [
+            "tracker_id_conflict"
+          ]
+        }
+      ],
+      "margin": 48.0,
+      "reasons": [
+        "tracker_id_conflict",
+        "score_below_threshold"
+      ]
+    },
+    {
+      "name": "Crosswalk unverified",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": [
+            "crosswalk_unverified"
+          ]
+        }
+      ],
+      "margin": 73.0,
+      "reasons": [
+        "crosswalk_unverified"
+      ]
+    },
+    {
+      "name": "Listing not checked",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": [
+            "source_not_checked"
+          ]
+        }
+      ],
+      "margin": 73.0,
+      "reasons": [
+        "source_not_checked"
+      ]
+    },
+    {
+      "name": "NFO from another release",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": [
+            "nfo_not_bound_to_release"
+          ]
+        }
+      ],
+      "margin": 73.0,
+      "reasons": [
+        "nfo_not_bound_to_release"
+      ]
+    },
+    {
+      "name": "Source contradiction flagged",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": [
+            "source_conflict_or_unknown"
+          ]
+        }
+      ],
+      "margin": 73.0,
+      "reasons": [
+        "source_conflict_or_unknown"
+      ]
+    },
+    {
+      "name": "Incomplete candidate set",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 73.0,
+      "reasons": [
+        "candidate_set_incomplete"
+      ]
+    },
+    {
+      "name": "TV candidate",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": [
+            "not_movie"
+          ]
+        }
+      ],
+      "margin": 73.0,
+      "reasons": [
+        "not_movie"
+      ]
+    },
+    {
+      "name": "Wrong numeric title",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 13.0,
+          "candidate_id": 866440,
+          "title": "2019",
+          "score": 13.0,
+          "contributions": {
+            "title": -30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 0.0,
+          "matched_title": "2019",
+          "blocks": []
+        }
+      ],
+      "margin": 13.0,
+      "reasons": [
+        "score_below_threshold",
+        "insufficient_margin"
+      ]
+    },
+    {
+      "name": "Equally supported competing movie",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        },
+        {
+          "upper_score": 73.0,
+          "candidate_id": 999999,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 0.0,
+      "reasons": [
+        "insufficient_margin"
+      ]
+    },
+    {
+      "name": "Close competing movie",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        },
+        {
+          "upper_score": 61.76470588235294,
+          "candidate_id": 999999,
+          "title": "2018",
+          "score": 61.76470588235294,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 1.7647058823529416,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": 11.235294117647058,
+      "reasons": [
+        "insufficient_margin"
+      ]
+    },
+    {
+      "name": "Rival missing runtime and language",
+      "kind": "synthetic_control",
+      "baseline": "review",
+      "expected_id": null,
+      "expected_decision": "review",
+      "changed_from_baseline": false,
+      "wrong_labeled_automatic_choice": false,
+      "decision": "review",
+      "selected_id": null,
+      "ranked": [
+        {
+          "upper_score": 73.0,
+          "candidate_id": 866440,
+          "title": "2018",
+          "score": 73.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 13.0,
+            "language": 10.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year",
+            "runtime",
+            "language"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        },
+        {
+          "upper_score": 75.0,
+          "candidate_id": 999999,
+          "title": "2018",
+          "score": 50.0,
+          "contributions": {
+            "title": 30.0,
+            "year": 20.0,
+            "runtime": 0.0,
+            "language": 0.0,
+            "source_id": 0.0
+          },
+          "observed_attributes": [
+            "title",
+            "year"
+          ],
+          "title_similarity": 1.0,
+          "matched_title": "2018 Everyone Is a Hero",
+          "blocks": []
+        }
+      ],
+      "margin": -2.0,
+      "reasons": [
+        "insufficient_margin"
+      ]
+    }
+  ],
+  "threshold_sensitivity": [
+    {
+      "threshold": 65.0,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero",
+        "Bruce Almiighty"
+      ],
+      "synthetic_changes_from_proposal": [
+        "Six-minute runtime difference"
+      ]
+    },
+    {
+      "threshold": 68.0,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero",
+        "Bruce Almiighty"
+      ],
+      "synthetic_changes_from_proposal": [
+        "Six-minute runtime difference"
+      ]
+    },
+    {
+      "threshold": 70.0,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero",
+        "Bruce Almiighty"
+      ],
+      "synthetic_changes_from_proposal": []
+    },
+    {
+      "threshold": 72.0,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero"
+      ],
+      "synthetic_changes_from_proposal": [
+        "Five-minute runtime difference (proposed boundary)"
+      ]
+    },
+    {
+      "threshold": 75.0,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal"
+      ],
+      "synthetic_changes_from_proposal": [
+        "Two-minute runtime difference",
+        "Five-minute runtime difference (proposed boundary)"
+      ]
+    },
+    {
+      "threshold": 78.0,
+      "real_would_identify": [],
+      "synthetic_changes_from_proposal": [
+        "Two-minute runtime difference",
+        "Five-minute runtime difference (proposed boundary)"
+      ]
+    }
+  ],
+  "runtime_sensitivity": [
+    {
+      "runtime_scale": 0.05,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero",
+        "Bruce Almiighty"
+      ],
+      "synthetic_changes_from_proposal": [
+        "Five-minute runtime difference (proposed boundary)",
+        "Close competing movie"
+      ]
+    },
+    {
+      "runtime_scale": 0.1,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero",
+        "Bruce Almiighty"
+      ],
+      "synthetic_changes_from_proposal": []
+    },
+    {
+      "runtime_scale": 0.2,
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero",
+        "Bruce Almiighty"
+      ],
+      "synthetic_changes_from_proposal": [
+        "Six-minute runtime difference"
+      ]
+    }
+  ],
+  "margin_sensitivity": [
+    {
+      "margin": 5.0,
+      "synthetic_changes_from_proposal": [
+        "Close competing movie"
+      ]
+    },
+    {
+      "margin": 10.0,
+      "synthetic_changes_from_proposal": [
+        "Close competing movie"
+      ]
+    },
+    {
+      "margin": 15.0,
+      "synthetic_changes_from_proposal": []
+    },
+    {
+      "margin": 20.0,
+      "synthetic_changes_from_proposal": []
+    }
+  ],
+  "weight_sensitivity": [
+    {
+      "name": "equal_weights",
+      "weights": {
+        "title": 20.0,
+        "year": 20.0,
+        "runtime": 20.0,
+        "language": 20.0,
+        "source_id": 20.0
+      },
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero"
+      ]
+    },
+    {
+      "name": "less_id_more_runtime",
+      "weights": {
+        "title": 30.0,
+        "year": 20.0,
+        "runtime": 20.0,
+        "language": 10.0,
+        "source_id": 20.0
+      },
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero"
+      ]
+    },
+    {
+      "name": "less_runtime_more_title",
+      "weights": {
+        "title": 35.0,
+        "year": 20.0,
+        "runtime": 10.0,
+        "language": 10.0,
+        "source_id": 25.0
+      },
+      "real_would_identify": [
+        "Aayirathonnu Nunakal",
+        "2018 Everyone Is a Hero",
+        "Bruce Almiighty"
+      ]
+    }
+  ],
+  "limitations": [
+    "Four human-reviewed identity labels; five refusal/skip controls without positive ground truth. This is a development set, not a held-out validation set.",
+    "Crosswalk and candidate completeness assertions are frozen evidence annotations, not fresh provider calls. No model receives the expected_id label.",
+    "Older Hamnet/Not Not Jazz repairs are not replayed: this batch uses the retained current evidence bundles and closed-pilot research; it is not every historical review.",
+    "No probabilistic accuracy or false-positive rate can be estimated from this sample."
+  ],
+  "fixture_sha256": "aded6421b80c31f1ae4114695ce4802d773c654c81d555393a24557e6ecaf95b"
+}

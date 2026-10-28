@@ -94,3 +94,13 @@ the relevant file links and revision.
 ## User-facing movie notifications guide
 
 Keep `docs/MOVIE-NOTIFICATIONS-GUIDE.md` current whenever a verified change affects movie notification routing, identification, investigation, confirmation actions or their safeguards. Write in plain language, distinguish live behavior from shadow experiments, and never include private credentials or tracker links. Preserve unrelated assigned tasks.
+
+## Movie identity reviews
+
+When the user asks to review an unresolved/conflicting movie, review the full
+current unresolved set autonomously before opening the discussion. Present the
+collected evidence, proposed matches and remaining uncertainty together; do not
+require a separate instruction for each title. This is read-only review authority,
+not permission to bypass request budgets, source-binding checks, identity-review
+requirements or per-release download confirmation. Distinguish retained evidence,
+fresh evidence and offline proposals. Record missing evidence honestly.
