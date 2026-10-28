@@ -7,19 +7,35 @@ is not automatically deployed. The inventory and divergence figures below
 describe the earlier audit snapshot, before that integration; verify current PRs,
 Git revisions and service health before acting. This document does not update itself.
 
-## Integration update — 28 October 2026
+## Current review state — 28 October 2026
 
-[PR #95](https://github.com/kolorifer/radarr-festival-list/pull/95) added this
-status map, and [PR #96](https://github.com/kolorifer/radarr-festival-list/pull/96)
-merged the deployed actor lineage into `main` at `ee8c29e`. The integration
-contains an independently reviewed retry-display improvement which has **not**
-been deployed. The production actor remains at `46cccea`; `main` is not an
-identical deployment tree. Deployment requires a separate decision.
+[PR #96](https://github.com/kolorifer/radarr-festival-list/pull/96) merged the
+production actor lineage into `main` at `ee8c29e`. Its independently reviewed
+retry-display improvement is in `main` but **not deployed**; the running actor
+remains `46cccea`. Main also retains its own collector and other changes, so the
+integration commit is not identical to the production checkout. A deployment
+requires its own decision and validation.
 
-PRs #83, #84, #85 and #91 were closed as superseded because their complete heads
-are ancestors of the merged integration. PR #87 was closed after its runtime
-commit and later reports were verified in the integration. This historical
-review map below predates these closures; use the live PR list for current state.
+Eight duplicate deployed-work PRs were closed as superseded after their runtime
+changes and later reports were accounted for: #79, #82, #83, #84, #85, #87,
+#89 and #91. The remaining open work at this snapshot is:
+
+- **Shadow identity and cut research:** [#78](https://github.com/kolorifer/radarr-festival-list/pull/78),
+  [#90](https://github.com/kolorifer/radarr-festival-list/pull/90), and
+  [#92](https://github.com/kolorifer/radarr-festival-list/pull/92), all draft.
+  Their research findings are separate from production identity policy.
+- **Worker outputs awaiting disposition:** [#88](https://github.com/kolorifer/radarr-festival-list/pull/88)
+  and [#16](https://github.com/kolorifer/radarr-festival-list/pull/16), ready for review.
+- **Earlier handoff and research drafts:** [#1–#5](https://github.com/kolorifer/radarr-festival-list/pulls),
+  which require individual review before closing or merging.
+
+Two separate CI runs encountered SQLite lock timeouts in concurrent collector
+store tests; reruns passed. This deserves investigation and does not prove that
+concurrent intake can never encounter backpressure. See the
+[integration report](reports/2026-10-28-main-production-integration.md).
+
+The audit map below records the earlier 18-PR snapshot; its open/closed states
+are historical. Use the live GitHub PR list for current status.
 
 ## What is running?
 
@@ -54,7 +70,7 @@ one of those branches is **not** a merge into `main`. For example,
 into `runtime/short-title-typos-baseline`; its runtime is deployed, but this
 merge alone did not bring the change into `main`.
 
-## Review map
+## Historical review map (before integration cleanup)
 
 | PRs | Purpose | State at snapshot |
 | --- | --- | --- |
@@ -70,7 +86,7 @@ merge alone did not bring the change into `main`.
 There were 18 open PRs when this snapshot was made, before any PR for this status
 map. “Ready” and “draft” are GitHub states, not independent code approvals.
 
-## Safe path to a simpler repository
+## Historical integration plan
 
 1. Independently review the deployed actor changes against current `main`,
    preserving both main-only work and the verified production behavior.
