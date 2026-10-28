@@ -3,6 +3,35 @@ import re
 from torrent_research_evidence import validate, MAX_TEXT
 
 
+def _duration(value):
+    """Parse a single bounded MediaInfo duration, preserving seconds when given."""
+    clock = re.match(r'(\d{1,2}):(\d{2}):(\d{2})(?:[.,](\d{1,3}))?(?![\d.,:])', value)
+    if clock:
+        hours, minutes, seconds, fraction = clock.groups()
+        if int(minutes) >= 60 or int(seconds) >= 60:
+            return None
+        total = int(hours)*60 + int(minutes) + (int(seconds) + float('0.'+(fraction or '0')))/60
+        end = clock.end()
+    else:
+        tokens = re.match(r'(?:\d+\s*(?:min|ms|h|s)\b\s*)+', value, re.I)
+        if not tokens:
+            return None
+        match = re.fullmatch(r'(?:(\d{1,2})\s*h\s*)?(\d{1,4})\s*min\s*'
+                             r'(?:(\d{1,2})\s*s\s*)?(?:(\d{1,3})\s*ms\s*)?', tokens[0], re.I)
+        if not match:
+            return None
+        hours, minutes, seconds, milliseconds = match.groups()
+        if ((hours and int(minutes) >= 60) or int(seconds or 0) >= 60
+                or (milliseconds is not None and seconds is None)):
+            return None
+        total = int(hours or 0)*60 + int(minutes) + int(seconds or 0)/60 + int(milliseconds or 0)/60000
+        end = tokens.end()
+    # Multiple durations in one field are not a single-file runtime.
+    if re.match(r'\s*(?:/|or|and|,)\s*\d', value[end:], re.I):
+        return None
+    return total if 0 < total <= 1440 else None
+
+
 def nfo_runtime(listing):
     """Read one general runtime, excluding video/audio tracks and commentary.
 
@@ -15,27 +44,43 @@ def nfo_runtime(listing):
         return None
     if not text or len(text) >= MAX_TEXT:
         return None
-    sections = re.split(r'(?:---VIDEO-+|\bVideo(?: #\d+)? ID\s*:)', text, maxsplit=1, flags=re.I)
-    if len(sections) != 2 or not re.search(r'\bGENERAL\b', sections[0], re.I):
+    sections = re.split(r'(?:---(?:VIDEO|AUDIO|TEXT)-+|\b(?:Video|Audio|Text)'
+                        r'(?:\s*#\d+\s*:|(?: #\d+)? ID\s*:))', text, maxsplit=1, flags=re.I)
+    if len(sections) != 2:
         return None
-    values = re.findall(r'\b(?:RUNTIME|Duration)\s*[.]*\s*:\s*(?:(\d{1,2})\s*h\s*)?(\d{1,3})\s*min\b', sections[0], re.I)
-    if len(values) != 1:
+    general = re.split(r'\bGENERAL\b', sections[0], flags=re.I)
+    if len(general) != 2:
         return None
-    hours, minutes = values[0]
-    if hours and int(minutes) >= 60:
+    fields = list(re.finditer(r'\b(?:RUNTIME|Duration|Length)\s*[.]*\s*:\s*', general[1], re.I))
+    if len(fields) != 1:
         return None
-    duration = int(hours or 0)*60 + int(minutes)
-    return duration if 0 < duration <= 1440 else None
+    field = fields[0]
+    value = general[1][field.end():]
+    if field[0].lower().startswith('length'):
+        value = re.sub(r'^\d+(?:[.,]\d+)?\s*[KMGT]?i?B\s+for\s+', '', value, count=1, flags=re.I)
+    return _duration(value)
 
 
 def runtime_conflict(listing, meta):
     duration = nfo_runtime(listing or {})
     runtime = (meta or {}).get('runtime')
-    # Both sources expose whole minutes. Adjacent minute values cannot establish
-    # a contradiction because one source may truncate and the other round up.
-    # This is a veto only: agreement never establishes or changes an identity.
-    return (duration is not None and type(runtime) is int and runtime > 0
-            and abs(duration-runtime) > 1)
+    if duration is None or type(runtime) is not int or runtime <= 0:
+        return False
+    # Preserve minute-precision allowance. The owner-approved wider allowance
+    # applies ONLY after the exact listing's IMDb, unique round-trip mapping and
+    # title/year checks have succeeded. It never identifies a movie or a cut.
+    tolerance = 1
+    from tmdb_resolver import valid_imdb_id, valid_tmdb_id
+    if (listing.get('source') == 'torrentleech_listing'
+            and listing.get('reason') == 'listing_id_found'
+            and meta.get('identity_status') == 'verified_tmdb'
+            and meta.get('identity_reason') == 'external_id_verified'
+            and valid_imdb_id(meta.get('imdb_id'))
+            and meta['imdb_id'] == listing.get('imdb_id')
+            and valid_tmdb_id(meta.get('tmdb_id'))
+            and re.fullmatch(r'[0-9]{4}', str(meta.get('matched_release_year')))):
+        tolerance = max(1, min(5, runtime * 0.05))
+    return abs(duration-runtime) > tolerance
 
 
 def current(action, lookup, resolve):
