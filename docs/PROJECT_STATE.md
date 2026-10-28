@@ -1,5 +1,37 @@
 # Movie List project state
 
+## Live Movie Score — Task 3 source preparation, 2026-10-28
+
+Issue #86 supervisor Task 3 adds an isolated manual validation packet at
+`simulations/live-score-v1/source-validation/`, preserving Task 2 / PR #88 at
+`489ce4e3e005dbb15fadebf8ac27e6c181cf3a98`. Offline by default, it includes the
+fixed eight-film manifest, operation/field permission audit, synthetic tests,
+private/public storage contract, unsent provider enquiry and readiness table.
+No new calibration, rankings, policy, runtime collector/cache or authenticated
+adapter. The unrelated active cleanup assignment and prior packets are unchanged.
+
+One authorized official IMDb export GET processed entirely in memory found
+8/8 exact-ID rating/count pairs. Only aggregate/schema/dataset-version provenance
+was emitted; no fresh observations persisted or were published. All individual
+measurement times remain unknown. IMDb personal-use access is distinct from
+public redistribution. MDBList's documented free quota is promising, but its
+Letterboxd field contract, permission for private derived scoring/30-day retention,
+source update semantics, actual account access and free-tier inclusion remain
+unverified. Authenticated MDBList/Letterboxd stages are NOT_RUN (zero film reads).
+
+Technical verification: 18 focused synthetic tests, 14 Task 2 and 20 Task 1
+preservation tests pass; frozen scorer check passes unchanged. Fresh isolated
+Python 3.9 full suite: 515 tests, 68 errors/two skips (64 missing requests/bs4,
+four SQLite/HTTP compatibility errors); no full-suite/supported-version pass.
+Implementation is ready for code review; paired provider trial remains blocked.
+Deployment/operational verification: unauthorized and not performed. Parent owns
+publication; owner review and explicit provider permission/schema/access gates
+precede any separately authorized private trial. No automatic scoring follow-up.
+
+[Packet and source audit](../simulations/live-score-v1/source-validation/README.md) ·
+[Engineering report](reports/2026-10-28-live-score-v1-task3.md) ·
+[Completed scoped brief](reports/2026-10-28-live-score-v1-task3-brief.md).
+
 ## Live Movie Score v1 — separate Task 2 research, 2026-10-26
 
 Issue #86 supervisor task 2 adds a separate offline packet under
