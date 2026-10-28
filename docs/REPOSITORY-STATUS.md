@@ -1,5 +1,15 @@
 # Repository status and review map
 
+## Collector-only deployment — 28 October 2026
+
+PR #105 merged at `55f22402be9a4001f913677587aade203f49ac3f`. Only its
+`identity_triage_store.py` was deployed at 18:47 UTC. The actor remains clean at
+`46cccea3a119ca080e35f6cf071bd0351eba037a`, without a restart; shadow runtime
+`4db4e38` and its active timer/configuration are unchanged. Collector and actor
+health, database integrity, 77 host tests and confined synthetic concurrency
+checks passed. No production POST, download or Telegram test was triggered.
+See the [deployment report](reports/2026-10-28-collector-sqlite-deployment.md).
+
 ## Consolidation snapshot — 28 October 2026
 
 The validated main baseline before this status update is `6c8129d7042a444920a2400054774955a06ad48e`.
@@ -37,7 +47,8 @@ activated. Full details and limits are in the
 The collector SQLite contention identified during consolidation is now addressed
 by a bounded per-Store writer queue; the regression fails on the old code and
 passes on the fix. External-lock and overload backpressure remain explicit.
-This is a repository fix, not a deployment. See the
+It was initially merged without deployment; the later collector-only activation
+is recorded above. See the
 [implementation and regression report](reports/2026-10-28-collector-locks.md).
 
 ---

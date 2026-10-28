@@ -56,8 +56,11 @@ punctuation is retained as data, never interpreted as HTML/instructions.
 
 Schema v1 tables: `deliveries`, `releases`, `evidence`, `cases`, `outcomes`, `seeds`,
 `conflicts`, `counters`. Migrations use one immediate transaction; unknown versions
-fail. WAL + FULL synchronous commit precedes success. SQLite busy timeout is 250ms;
-write/capacity/permission failure returns fixed 503, never success. Directory0700,
+fail. WAL + FULL synchronous commit precedes success. Writable connections on the
+shared Store first wait at most two seconds for its local writer slot; read-only
+connections bypass that queue. SQLite's separate busy timeout remains 250ms for
+external contention. Queue/write/capacity/permission failure returns fixed 503,
+never success. Directory0700,
 DB/WAL/SHM/journal/backup0600, owner/regular-file/link checks before and after access.
 Do not loosen permissions to recover a failure.
 
