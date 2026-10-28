@@ -48,10 +48,56 @@ a local fake Telegram server.
 
 ## Verification/deployment
 
-Pending full test gates and guarded runtime deployment. Tests cover receipt
+Tests cover receipt
 ownership, success before/after binding, restart recovery, action reuse, bounded
 edit failures, retry expiry/exhaustion, replay protection, superseded cases,
 private permissions, exact-release confirmation, missing references, caption
 limits, changed chats, uncertain actions and idempotent edits.
 
 API reference: [Telegram message editing](https://core.telegram.org/bots/api#updating-messages).
+
+
+## Test results
+
+- Exact runtime 2320281: **664 tests passed** locally in 151.936s (two Linux-only
+  skips), and on seedbox in 44.280s. This isolated actor suite intentionally does
+  not include the unmerged shadow experiments.
+- Targeted notification/identity retry regressions passed; the added transport
+  integration uses a local fake Telegram HTTP server and captures/edits message 42.
+- Both Python 3.12/3.13 CI jobs passed on review revision 118e055, run 39927465660.
+- Dependency check passed. Production catalog preflight passed (1,909 candidates,
+  387 qualified); configuration preflight passed. No source/catalog changes were
+  included beyond the three actor implementation modules and tests/report.
+
+## Deployment and live read-only verification
+
+Production actor is **23202815754ba2d97a86608003ca276251f1ae9c**, isolated on the
+previous verified actor 658d8f838aed7a03db7d01244254362fba99369a. The equivalent
+main-based review change is in [draft PR #79](https://github.com/kolorifer/radarr-festival-list/pull/79).
+The PR was not merged; unrelated catalog and shadow changes were not deployed.
+
+Backup: `retry-telegram-backup-nqm7lgv6`, containing private configuration, actor
+state and retry state. Only movie-intel was restarted. Local and public health
+returned **HTTP 200**. Actor, collector and research/shadow timers are active;
+collector PID and protected configuration/action/timer/pilot hashes were unchanged.
+Shadow remains ab88fbd, with its original caps and pilot end date.
+
+The new receipt table was initialized by the live retry worker. It contains zero
+receipts at verification because no live test notification or old-message replay
+was sent. All 19 existing retry jobs were already done; history stayed unchanged:
+28 attempts, 58 provider request reservations, two provider-state rows. The action
+store remained byte-for-byte unchanged. No download, Radarr mutation, provider
+lookup or notification replay was triggered by deployment verification.
+
+The first naturally occurring retryable notification will exercise the real
+Telegram edit path. This remains the only live integration limitation: correctness
+of actual HTTP transport was tested locally, not by sending a user-visible test.
+Old warnings without receipts cannot be repaired automatically by this rollout.
+Rollback restores only the previous actor code, preserving the new private tables,
+current approval state and retry history; old code safely ignores the extra table.
+
+## Project updates
+
+Recorded D045 and updated project state. Existing unrelated cleanup brief remains
+assigned. The shadow monitor's expected actor revision was updated; its read-only
+scope and timing were preserved.

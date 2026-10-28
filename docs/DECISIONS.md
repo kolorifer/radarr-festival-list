@@ -529,3 +529,25 @@ The watched label replaces the model assessment; other movies retain their
 existing qualification information without the warning. Qualification, movie
 state, identity safeguards and download authorization are unchanged. Missing
 or unavailable tag evidence does not establish watched state.
+
+## Original-message recovery updates — 2026-10-23
+
+The owner authorized editing the original Telegram notification after identity
+retry success or exhaustion, preserving explicit download confirmation. Retain
+bot-owned message receipts and the exact release privately. Unverified cases
+remain review-only; do not guess historical message IDs or replay notifications.
+
+## Telegram action-topic split — 2026-10-24
+
+The owner requested separate topics for add-and-grab and Grab Anyway, retaining
+the default topic for other messages. Retry edits stay on their original message;
+confirmation safeguards remain unchanged.
+
+## Generic delayed tracker conflict recheck — 2026-10-26
+
+The owner requested a delayed recheck of conflicts from exact supported tracker
+listings. The bounded retry worker uses fresh tracker/TMDb evidence and retains
+all identity, runtime and acquisition-confirmation safeguards. Persistent
+conflicts remain for review. Native IDs are not overwritten; no additional
+request budget or historical replay is authorized. See the
+[report](reports/2026-10-26-tracker-conflict-recheck.md).
