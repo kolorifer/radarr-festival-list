@@ -4,6 +4,10 @@ A free bridge from IMDb Editors' annual **Festival Films You Need to Know** list
 
 The repository checks IMDb twice a day and generates `festival.json` in the StevenLu Custom format understood by Radarr. It uses IMDb's website GraphQL query rather than scraping HTML, and retrieves every page before publishing.
 
+## Project status
+
+See the [repository status and review map](docs/REPOSITORY-STATUS.md) for the deployed revision, open work and the plan for reconciling `main` with production.
+
 ## Movie notifications
 
 For a plain-language explanation of autobrr, Radarr, Telegram, identity checks and confirmation buttons, see the [movie notifications guide](docs/MOVIE-NOTIFICATIONS-GUIDE.md).
