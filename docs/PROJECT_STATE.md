@@ -4,9 +4,15 @@
 
 A bounded local writer queue fixes collector threads spending SQLite's 250 ms
 lock timeout behind other transactions on the same Store. Read-only access and
-external-lock backpressure remain; no deployment was performed. The regression
-reproduces the old failure for distinct and duplicate events. See the
-[report](reports/2026-10-28-collector-locks.md).
+external-lock backpressure remain. The regression reproduces the old failure for
+distinct and duplicate events. [PR #105](https://github.com/kolorifer/radarr-festival-list/pull/105)
+merged at `55f22402be9a4001f913677587aade203f49ac3f`; its store module alone was
+deployed on 28 October at 18:47 UTC. Actual-service preflight, 77 host tests,
+confined synthetic concurrent HTTP intake and health/integrity checks passed.
+Actor `46cccea3` and shadow `4db4e38` configuration/runtime were preserved;
+no downloads, Telegram tests or production POSTs were triggered. See the
+[implementation](reports/2026-10-28-collector-locks.md) and
+[deployment](reports/2026-10-28-collector-sqlite-deployment.md) reports.
 
 Repository consolidation is recorded in the [current status map](REPOSITORY-STATUS.md)
 and [report](reports/2026-10-28-repository-consolidation.md). The last verified

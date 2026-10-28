@@ -4,6 +4,11 @@
 **Result:** implementation verified locally; repository-only change, not deployed.
 **Base:** `87bc8cae9b775c08629f1c400c832d570aaac72b`.
 
+**Later authorized deployment:** the store module from merged PR #105 was
+deployed separately on 28 October at 18:47 UTC. See the
+[collector-only deployment report](2026-10-28-collector-sqlite-deployment.md).
+The implementation-stage evidence below retains its original scope.
+
 ## Cause and change
 
 The [original failing CI run](https://github.com/kolorifer/radarr-festival-list/actions/runs/40723928750)
