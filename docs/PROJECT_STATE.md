@@ -1,5 +1,11 @@
 # Movie List project state
 
+The isolated shadow identity and cut research from PRs #78, #90 and #92 is
+retained under `research/identity_scoring/`; its reports and decisions are
+historical. This repository integration does not activate a pilot or change
+the shared recurring research budget. See the
+[consolidation report](reports/2026-10-28-shadow-research-consolidation.md).
+
 ## Live Movie Score — Task 3 source preparation, 2026-10-28
 
 Issue #86 supervisor Task 3 adds an isolated manual validation packet at
