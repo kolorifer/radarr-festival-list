@@ -1,5 +1,12 @@
 # Movie List project state
 
+## Contextual typos and runtime handling — 2026-10-28
+
+The owner-approved contextual five-letter typo rule, General-section NFO Length
+parsing and bounded verified-ID runtime variation are implemented; deployment
+verification is pending. See the [report](reports/2026-10-28-contextual-typos-runtime.md).
+
+
 ## Collector writer contention — 2026-10-28
 
 A bounded local writer queue fixes collector threads spending SQLite's 250 ms

@@ -683,3 +683,21 @@ fix and redacted heading diagnostics within the existing shadow pilot/caps.
 Owner also requests autonomous read-only review of the full unresolved set before
 identity-review discussions, without separate per-film commands. No changes to
 identity approval, download confirmation or permanent operation are authorized.
+
+
+## 2026-10-28 — Contextual short-word typos and bounded runtime variation
+
+Owner explicitly requested generic fixes, Length parsing, tests and deployment,
+then selected “Allow this bounded runtime variation.” After exact tracker IMDb,
+unique round-trip TMDb mapping, title and documented release year agree, allow a
+runtime difference up to 5% of the catalog runtime, capped at five minutes, while
+retaining the existing one-minute precision allowance. Larger differences remain
+blocked. This supersedes the strict one-minute-only veto for that verified-source
+path; it neither proves a cut nor enables shadow scoring or identity overrides.
+
+Extend generic single-edit matching to a five-letter differing word only with
+another unchanged alphabetic word of at least six letters. Preserve standalone
+six-letter handling, numeric/Roman sequel distinctions and all ID/year/source
+gates. Parse one General-section NFO Duration/Runtime/Length, including seconds;
+exclude track durations and do not guess malformed/ambiguous values. Recheck
+source and runtime before acquisition. No live test downloads or notifications.
