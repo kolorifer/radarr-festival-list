@@ -27,8 +27,10 @@ An independent static review found no actionable actor/collector interface defec
 it identified outdated runbook and notification-guide descriptions, corrected
 in this integration. The first Python 3.12 CI run hit `database is locked` in
 `test_concurrent_distinct_events`; Python 3.13 passed. Seedbox and local tests passed.
-CI must pass again on the final PR head before merge; this failure is retained as
-evidence rather than silently omitted.
+The subsequent documentation-only head `8fb34f4` passed both CI versions. This
+failure is retained as evidence rather than silently omitted. Independent review
+also identified three post-runtime reports omitted from the first integration;
+they were added without changing runtime code.
 No production service, state, configuration, PR disposition or research activation
 was changed. This integration commit is not a deployed revision; a deployment
 requires separate approval and preflight.

@@ -1,7 +1,7 @@
 # Engineering report: short-title typo matching
 
 **Specification:** [brief](2026-10-28-short-title-typos-brief.md).
-**Status:** implemented and deployed; [PR #94](https://github.com/kolorifer/radarr-festival-list/pull/94) open.
+**Status:** implemented and deployed; [PR #94](https://github.com/kolorifer/radarr-festival-list/pull/94) merged into its isolated baseline branch.
 
 ## Change
 
