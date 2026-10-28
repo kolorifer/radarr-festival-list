@@ -85,6 +85,22 @@ class RetryMessageActorTests(unittest.TestCase):
             action=svc.get_action(prepared['token'])
             self.assertEqual(action['release']['download_url'],PAYLOAD['data']['release']['download_url'])
             self.assertNotIn('PRIVATE',prepared['text']);add.assert_not_called();grab.assert_not_called()
+    def test_retry_uses_current_verified_radarr_watched_context(self):
+        meta=dict(META,identity_status='verified_tmdb')
+        movie={'imdb_id':meta['imdb_id'],'qualified':True,'routes':['model']}
+        existing={'tmdbId':meta['tmdb_id'],'imdbId':meta['imdb_id'],'tags':[7]}
+        with patch.object(svc,'INDEX',{meta['imdb_id']:movie}),patch.object(svc,'get_movie_by_tmdb',return_value=existing), \
+             patch.object(svc,'movie_has_tag',return_value=True),patch.object(svc,'create_pending_action',return_value=None):
+            p=svc.prepare_retry_message(PAYLOAD,{'meta':meta},'external_id_verified')
+        self.assertIn('Watched',p['text']);self.assertNotIn('Our model: QUALIFIES',p['text'])
+
+    def test_retry_disregards_contradictory_radarr_identity(self):
+        meta=dict(META,identity_status='verified_tmdb')
+        with patch.object(svc,'get_movie_by_tmdb',return_value={'imdbId':'tt9999999'}), \
+             patch.object(svc,'movie_has_tag',return_value=False) as tag:
+            existing, watched=svc.radarr_display_context(meta)
+        self.assertEqual(existing,{});self.assertFalse(watched);tag.assert_called_once_with({},'watched')
+
     def test_exhaustion_never_creates_download_action(self):
         with patch.object(svc,'create_pending_action') as create:
             p=svc.prepare_retry_message(PAYLOAD,{'meta':dict(META,identity_status='verified_tmdb')},'retry_exhausted')

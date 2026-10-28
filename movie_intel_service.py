@@ -264,6 +264,24 @@ def format_message(payload, movie=None, meta=None, existing=None, watched=False)
     return "\n".join(lines)
 
 
+def radarr_display_context(meta):
+    """Read optional verified movie display context without changing library state."""
+    existing=None
+    watched = False
+    if meta and meta.get('identity_status') in (None, 'verified_tmdb') and valid_tmdb_id(meta.get('tmdb_id')):
+        try:
+            existing = get_movie_by_tmdb(meta['tmdb_id']) or {}
+            # The client checks TMDb identity; reject a contradictory IMDb ID too.
+            if (existing.get('imdbId') and meta.get('imdb_id')
+                    and existing['imdbId'] != meta['imdb_id']):
+                existing = {}
+            watched = movie_has_tag(existing, 'watched')
+        except RadarrError:
+            # Optional display enrichment must not prevent the notification.
+            decision_log('watch_status', 'unavailable')
+    return existing, watched
+
+
 def build_movie_context(payload):
     data = payload.get("data") or {}
     release = data.get("release") or {}
@@ -364,19 +382,7 @@ def build_movie_context(payload):
             meta.pop('imdb_id', None)
     elif movie is None and meta and meta.get("imdb_id"):
         movie = INDEX.get(meta["imdb_id"])
-    existing=None
-    watched = False
-    if meta and not blocked and valid_tmdb_id(meta.get('tmdb_id')):
-        try:
-            existing = get_movie_by_tmdb(meta['tmdb_id']) or {}
-            # The client checks TMDb identity; reject a contradictory IMDb ID too.
-            if (existing.get('imdbId') and meta.get('imdb_id')
-                    and existing['imdbId'] != meta['imdb_id']):
-                existing = {}
-            watched = movie_has_tag(existing, 'watched')
-        except RadarrError:
-            # Optional display enrichment must not prevent the notification.
-            decision_log('watch_status', 'unavailable', payload)
+    existing, watched = radarr_display_context(meta if not blocked else None)
     import identity_memory
     try:identity_memory.observe(payload,meta or {})
     except (OSError,ValueError,TypeError,KeyError,AttributeError):
@@ -725,7 +731,8 @@ def prepare_retry_message(payload,context,terminal):
     if token and not url:delete_action(token);token=None
     if verified and original_available:
         movie=INDEX.get(meta.get('imdb_id'))
-        text=redact_text(format_message(payload,movie=movie,meta=meta))
+        existing, watched = radarr_display_context(meta)
+        text=redact_text(format_message(payload,movie=movie,meta=meta,existing=existing,watched=watched))
         parse_mode='HTML'
         # Preserve the usual formatting when it fits a Telegram photo caption.
         # Oversized text uses a bounded plain-text fallback, never sliced HTML.
