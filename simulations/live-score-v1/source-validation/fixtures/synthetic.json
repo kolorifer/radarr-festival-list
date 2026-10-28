@@ -1,0 +1,29 @@
+{
+  "synthetic": true,
+  "description": "Invented validation data, not movie observations or a provider response contract.",
+  "requested_at": "2026-10-28T00:00:00Z",
+  "observations": [
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "source": "imdb",
+      "rating": 7.1,
+      "count": 123,
+      "count_semantics": "ratings",
+      "count_precision": "exact_integer",
+      "rating_semantics": "source_weighted_average",
+      "measurement_at": null
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "source": "letterboxd",
+      "rating": 3.7,
+      "count": 456,
+      "count_semantics": "ratings",
+      "count_precision": "exact_integer",
+      "rating_semantics": "source_weighted_average",
+      "measurement_at": "2026-08-01T00:00:00Z"
+    }
+  ]
+}

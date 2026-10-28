@@ -1,0 +1,487 @@
+{
+  "observed_at": "2026-10-25",
+  "method": "Exact IMDb P345 and TMDb P4947 on same Wikidata entity (CC0); independently inspected TMDb public title/year and release events. No authenticated TMDb API.",
+  "wikidata_query": "SELECT ?item ?imdb ?tmdb ?label WHERE { VALUES ?imdb { \"tt28607951\" \"tt8999762\" \"tt17526714\" \"tt15239678\" \"tt20221436\" \"tt14961016\" \"tt4772188\" \"tt21097228\" \"tt32928666\" \"tt30057084\" \"tt14905854\" \"tt27714581\" \"tt36491653\" \"tt32298285\" \"tt30144839\" \"tt31193180\" \"tt21349688\" \"tt32843349\" \"tt29768334\" \"tt28690468\" \"tt12042730\" \"tt33764258\" \"tt29271639\" \"tt38991615\" } ?item wdt:P345 ?imdb; wdt:P4947 ?tmdb. OPTIONAL {?item rdfs:label ?label FILTER(LANG(?label)=\"en\")} }",
+  "films": [
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "year": 2024,
+      "stratum": "mature_festival",
+      "tmdb_id": 1064213,
+      "wikidata_url": "https://www.wikidata.org/entity/Q123185887",
+      "wikidata_label": "Anora",
+      "tmdb_url": "https://www.themoviedb.org/movie/1064213?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Anora (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "Anora",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-10-14"
+        }
+      ],
+      "tmdb_body_sha256": "e3f6451ad31b63bcfb730d6b84769966b9b13f1a161b8740767d2d13c53c3d40"
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "year": 2024,
+      "stratum": "mature_festival",
+      "tmdb_id": 549509,
+      "wikidata_url": "https://www.wikidata.org/entity/Q101112656",
+      "wikidata_label": "The Brutalist",
+      "tmdb_url": "https://www.themoviedb.org/movie/549509?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "The Brutalist (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "The Brutalist",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-12-20"
+        }
+      ],
+      "tmdb_body_sha256": "7c33a4a93083a8d1e727b1b3306804e02c468b14a2386f52233b7552cd4c5dca"
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "year": 2024,
+      "stratum": "mature_genre",
+      "tmdb_id": 933260,
+      "wikidata_url": "https://www.wikidata.org/entity/Q113380226",
+      "wikidata_label": "The Substance",
+      "tmdb_url": "https://www.themoviedb.org/movie/933260?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "The Substance (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "The Substance",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-09-18"
+        }
+      ],
+      "tmdb_body_sha256": "d12fddfa43803b0d916a7e1358f80811f0873e8d1a7740dcb59c3c6ffafee278"
+    },
+    {
+      "imdb_id": "tt15239678",
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "stratum": "broad_high",
+      "tmdb_id": 693134,
+      "wikidata_url": "https://www.wikidata.org/entity/Q109228991",
+      "wikidata_label": "Dune: Part Two",
+      "tmdb_url": "https://www.themoviedb.org/movie/693134?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Dune: Part Two (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "Dune: Part Two",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-02-27"
+        }
+      ],
+      "tmdb_body_sha256": "57ad34f53e885cf79f2a38708a2d3f2d233bf961ba9497526e071354e47dfeb8"
+    },
+    {
+      "imdb_id": "tt20221436",
+      "title": "Emilia Pérez",
+      "year": 2024,
+      "stratum": "audience_low_awarded",
+      "tmdb_id": 974950,
+      "wikidata_url": "https://www.wikidata.org/entity/Q123928072",
+      "wikidata_label": "Emilia Pérez",
+      "tmdb_url": "https://www.themoviedb.org/movie/974950?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Emilia Pérez (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "Emilia Pérez",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-08-21"
+        }
+      ],
+      "tmdb_body_sha256": "e3fa5104ca7c8e25b9639db93dcc7035e39ee6639e8e07218daa5526409d2b06"
+    },
+    {
+      "imdb_id": "tt14961016",
+      "title": "I'm Still Here",
+      "year": 2024,
+      "stratum": "mature_festival",
+      "tmdb_id": 1000837,
+      "wikidata_url": "https://www.wikidata.org/entity/Q124262351",
+      "wikidata_label": "I'm Still Here",
+      "tmdb_url": "https://www.themoviedb.org/movie/1000837?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "I'm Still Here (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "I'm Still Here",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-09-19"
+        }
+      ],
+      "tmdb_body_sha256": "74f1f7fc89572ab9cdb67bf1ed1b3ccc3937d91eefb4fc301a164140374e110d"
+    },
+    {
+      "imdb_id": "tt4772188",
+      "title": "Flow",
+      "year": 2024,
+      "stratum": "animation",
+      "tmdb_id": 823219,
+      "wikidata_url": "https://www.wikidata.org/entity/Q125622088",
+      "wikidata_label": "Flow",
+      "tmdb_url": "https://www.themoviedb.org/movie/823219?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Flow (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "Flow",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-08-29"
+        }
+      ],
+      "tmdb_body_sha256": "3a957777feba8066fd75e07f2e30fac5e1c45e7aa4eef1dcfadcec9c71e217ef"
+    },
+    {
+      "imdb_id": "tt21097228",
+      "title": "A Different Man",
+      "year": 2024,
+      "stratum": "independent",
+      "tmdb_id": 989662,
+      "wikidata_url": "https://www.wikidata.org/entity/Q117272474",
+      "wikidata_label": "A Different Man",
+      "tmdb_url": "https://www.themoviedb.org/movie/989662?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "A Different Man (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "A Different Man",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-08-24"
+        }
+      ],
+      "tmdb_body_sha256": "01104df2b3523ab5c7bfe81e1cbf385ed63fe4b8a41e5329116629c1a6b06274"
+    },
+    {
+      "imdb_id": "tt32928666",
+      "title": "Familiar Touch",
+      "year": 2024,
+      "stratum": "small_sample_later_release",
+      "tmdb_id": 1265717,
+      "wikidata_url": "https://www.wikidata.org/entity/Q130164694",
+      "wikidata_label": "Familiar Touch",
+      "tmdb_url": "https://www.themoviedb.org/movie/1265717?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Familiar Touch (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Familiar Touch",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-06-20"
+        }
+      ],
+      "tmdb_body_sha256": "cda9cace6010de632f1329f80cccdbd70a0c6dd156c866442880dd9a1b92f4db"
+    },
+    {
+      "imdb_id": "tt30057084",
+      "title": "Babygirl",
+      "year": 2024,
+      "stratum": "audience_low",
+      "tmdb_id": 1097549,
+      "wikidata_url": "https://www.wikidata.org/entity/Q123861757",
+      "wikidata_label": "Babygirl",
+      "tmdb_url": "https://www.themoviedb.org/movie/1097549?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Babygirl (2024) — The Movie Database (TMDB)",
+      "tmdb_name": "Babygirl",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-12-25"
+        }
+      ],
+      "tmdb_body_sha256": "07c665076598c71dc01f5285e94bdddc20f30b0392aa912c12931d895f94db9c"
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "year": 2025,
+      "stratum": "required_audit",
+      "tmdb_id": 858024,
+      "wikidata_url": "https://www.wikidata.org/entity/Q122741016",
+      "wikidata_label": "Hamnet",
+      "tmdb_url": "https://www.themoviedb.org/movie/858024?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Hamnet (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Hamnet",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-11-26"
+        }
+      ],
+      "tmdb_body_sha256": "c33f652238626a91b8881e2327f144d55e00ad61ad8e603c847fc29c33cf51c2"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "year": 2025,
+      "stratum": "snapshot_gap",
+      "tmdb_id": 1124566,
+      "wikidata_url": "https://www.wikidata.org/entity/Q130284179",
+      "wikidata_label": "Sentimental Value",
+      "tmdb_url": "https://www.themoviedb.org/movie/1124566?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Sentimental Value (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Sentimental Value",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-08-20"
+        }
+      ],
+      "tmdb_body_sha256": "156fd7e10d6a55144d1c9aceb4389f25e1521a61905ba49cad37e0bdf3797c6f"
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "year": 2025,
+      "stratum": "snapshot_gap",
+      "tmdb_id": 1456349,
+      "wikidata_url": "https://www.wikidata.org/entity/Q133866932",
+      "wikidata_label": "It Was Just an Accident",
+      "tmdb_url": "https://www.themoviedb.org/movie/1456349?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "It Was Just an Accident (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "It Was Just an Accident",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-10-01"
+        }
+      ],
+      "tmdb_body_sha256": "a38d14e7d3567a4727d0f37ee72f4ae441aae6c4995abec3df3760a13bd55cd4"
+    },
+    {
+      "imdb_id": "tt32298285",
+      "title": "Sirāt",
+      "year": 2025,
+      "stratum": "snapshot_gap",
+      "tmdb_id": 1151272,
+      "wikidata_url": "https://www.wikidata.org/entity/Q133850188",
+      "wikidata_label": "Sirāt",
+      "tmdb_url": "https://www.themoviedb.org/movie/1151272?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Sirāt (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Sirāt",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-06-06"
+        }
+      ],
+      "tmdb_body_sha256": "ea1fd773a2c879d9ad80f43f6ecb2ec982bc266746cef9c159c68a478ebc95b2"
+    },
+    {
+      "imdb_id": "tt30144839",
+      "title": "One Battle After Another",
+      "year": 2025,
+      "stratum": "broad_awarded",
+      "tmdb_id": 1054867,
+      "wikidata_url": "https://www.wikidata.org/entity/Q117085614",
+      "wikidata_label": "One Battle After Another",
+      "tmdb_url": "https://www.themoviedb.org/movie/1054867?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "One Battle After Another (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "One Battle After Another",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-09-23"
+        }
+      ],
+      "tmdb_body_sha256": "9850c154d42a4fd361a101bdd6110d5ec1482cd4cb8ae1fe53a6d0a4a0a210db"
+    },
+    {
+      "imdb_id": "tt31193180",
+      "title": "Sinners",
+      "year": 2025,
+      "stratum": "broad_genre",
+      "tmdb_id": 1233413,
+      "wikidata_url": "https://www.wikidata.org/entity/Q125473145",
+      "wikidata_label": "Sinners",
+      "tmdb_url": "https://www.themoviedb.org/movie/1233413?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Sinners (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Sinners",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-04-16"
+        }
+      ],
+      "tmdb_body_sha256": "15816066d451d39e9550bfb4a23d2bf420cd5427277b93719f17021eac7cae02"
+    },
+    {
+      "imdb_id": "tt21349688",
+      "title": "East of Wall",
+      "year": 2025,
+      "stratum": "small_sample",
+      "tmdb_id": 1398911,
+      "wikidata_url": "https://www.wikidata.org/entity/Q131963509",
+      "wikidata_label": "East of Wall",
+      "tmdb_url": "https://www.themoviedb.org/movie/1398911?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "East of Wall (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "East of Wall",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-08-15"
+        }
+      ],
+      "tmdb_body_sha256": "c6c0a91d9eb40b695eea6fa8706c482d6ba99aa5b4d1205f7293f7205f86728b"
+    },
+    {
+      "imdb_id": "tt32843349",
+      "title": "Sorry, Baby",
+      "year": 2025,
+      "stratum": "independent",
+      "tmdb_id": 1205515,
+      "wikidata_url": "https://www.wikidata.org/entity/Q131450483",
+      "wikidata_label": "Sorry, Baby",
+      "tmdb_url": "https://www.themoviedb.org/movie/1205515?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Sorry, Baby (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Sorry, Baby",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-06-27"
+        }
+      ],
+      "tmdb_body_sha256": "22ba8b45e82e56ee8f1dc1752ed5da26e5c407a64fc63c99e10d6513a2cfce52"
+    },
+    {
+      "imdb_id": "tt29768334",
+      "title": "Train Dreams",
+      "year": 2025,
+      "stratum": "independent_awarded",
+      "tmdb_id": 1241983,
+      "wikidata_url": "https://www.wikidata.org/entity/Q126086662",
+      "wikidata_label": "Train Dreams",
+      "tmdb_url": "https://www.themoviedb.org/movie/1241983?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Train Dreams (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Train Dreams",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-11-05"
+        }
+      ],
+      "tmdb_body_sha256": "b892c3a78f053ac098a47cb479c142bb04b20e839961f516eda573a6e0455a82"
+    },
+    {
+      "imdb_id": "tt28690468",
+      "title": "Sound of Falling",
+      "year": 2025,
+      "stratum": "small_sample_festival",
+      "tmdb_id": 1221061,
+      "wikidata_url": "https://www.wikidata.org/entity/Q133848181",
+      "wikidata_label": "Sound of Falling",
+      "tmdb_url": "https://www.themoviedb.org/movie/1221061?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Sound of Falling (2025) — The Movie Database (TMDB)",
+      "tmdb_name": "Sound of Falling",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-08-28"
+        }
+      ],
+      "tmdb_body_sha256": "927b9424230833a15684d61e1dd6a1290af5c7685381205f7d09dca277336665"
+    },
+    {
+      "imdb_id": "tt12042730",
+      "title": "Project Hail Mary",
+      "year": 2026,
+      "stratum": "broad_high_incomplete_award_season",
+      "tmdb_id": 687163,
+      "wikidata_url": "https://www.wikidata.org/entity/Q107105860",
+      "wikidata_label": "Project Hail Mary",
+      "tmdb_url": "https://www.themoviedb.org/movie/687163?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Project Hail Mary (2026) — The Movie Database (TMDB)",
+      "tmdb_name": "Project Hail Mary",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2026-03-15"
+        }
+      ],
+      "tmdb_body_sha256": "2f465aa3869ba471893c2e7b6adb74d2be5e1905d6a708e2b2fe9e77b6e7cabc"
+    },
+    {
+      "imdb_id": "tt33764258",
+      "title": "The Odyssey",
+      "year": 2026,
+      "stratum": "broad_high_incomplete_award_season",
+      "tmdb_id": 1368337,
+      "wikidata_url": "https://www.wikidata.org/entity/Q131547207",
+      "wikidata_label": "The Odyssey",
+      "tmdb_url": "https://www.themoviedb.org/movie/1368337?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "The Odyssey (2026) — The Movie Database (TMDB)",
+      "tmdb_name": "The Odyssey",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2026-07-15"
+        }
+      ],
+      "tmdb_body_sha256": "433b447d11a3cf4e775c2d2c5f4366bbcc3183277040ba2b63b456e053693a7e"
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "year": 2026,
+      "stratum": "sparse_sample_festival",
+      "tmdb_id": 1527449,
+      "wikidata_url": "https://www.wikidata.org/entity/Q137832534",
+      "wikidata_label": "Nina Roza",
+      "tmdb_url": "https://www.themoviedb.org/movie/1527449?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "Nina Roza (2026) — The Movie Database (TMDB)",
+      "tmdb_name": "Nina Roza",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2026-04-24"
+        }
+      ],
+      "tmdb_body_sha256": "0b32937c7c7044f058c415ce92f524e6fd7f5c8fdd8261b20d1f1f41a7ca49dc"
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "year": 2026,
+      "stratum": "sparse_sample_limited_release",
+      "tmdb_id": 1455247,
+      "wikidata_url": "https://www.wikidata.org/entity/Q133825173",
+      "wikidata_label": "I See Buildings Fall Like Lightning",
+      "tmdb_url": "https://www.themoviedb.org/movie/1455247?language=en-US",
+      "observed_at": "2026-10-25",
+      "tmdb_page_title": "I See Buildings Fall Like Lightning (2026) — The Movie Database (TMDB)",
+      "tmdb_name": "I See Buildings Fall Like Lightning",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2026-12-04"
+        }
+      ],
+      "tmdb_body_sha256": "5047624fbc906bceaab50c44a6eaa9c68e5bab9eec05ed5d5932c2b38883c51d"
+    }
+  ]
+}

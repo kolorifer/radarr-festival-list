@@ -1,0 +1,103 @@
+{
+  "research_date": "2026-10-26",
+  "access_method": "Public web reader; may return cached text. No origin freshness attestation.",
+  "review_window_utc": {
+    "start": "2026-10-26T15:50:04Z",
+    "end": "2026-10-26T15:54:09Z"
+  },
+  "providers": [
+    {
+      "provider": "IMDb dataset",
+      "urls": [
+        "https://developer.imdb.com/non-commercial-datasets/",
+        "https://help.imdb.com/article/imdb/general-information/can-i-use-imdb-data-in-my-software/G5JTRESSHJBBHTGX"
+      ],
+      "outcome": "rights_not_established_for_public_packet",
+      "finding": "Daily title.ratings export supplies rating/count pairs; published conditions restrict use to personal noncommercial purposes and prohibit republication as movie databases. No new export acquired.",
+      "permitted_next_step": "Owner must resolve permitted use/publication before acquisition; no permission inferred from noncommercial label."
+    },
+    {
+      "provider": "IMDb website/API",
+      "urls": [
+        "https://help.imdb.com/article/imdb/general-information/can-i-use-imdb-data-in-my-software/G5JTRESSHJBBHTGX"
+      ],
+      "outcome": "website_extraction_prohibited_api_not_accessed",
+      "finding": "IMDb prohibits website robots/screen extraction; licensed route not demonstrated available without subscription. No title scraping, signup, key request or paid call.",
+      "permitted_next_step": "No acquisition under current constraints."
+    },
+    {
+      "provider": "Letterboxd API",
+      "urls": [
+        "https://letterboxd.com/api-beta/access/"
+      ],
+      "outcome": "requested_use_excluded",
+      "finding": "Request-only API currently excludes analysis, recommendations, LLM/GPT and personal projects. No application, authentication or account access.",
+      "permitted_next_step": "No acquisition under current constraints."
+    },
+    {
+      "provider": "Letterboxd website",
+      "urls": [
+        "https://letterboxd.com/legal/terms-of-use/",
+        "https://letterboxd.com/robots.txt"
+      ],
+      "outcome": "export_and_automated_extraction_restricted",
+      "finding": "October 2026 terms sections 6.8 and 6.11 restrict export and automated extraction absent express authorization. Robots separately names blocked AI agents and path rules; robots is not a content license. No film-page scraping or cached rating extraction.",
+      "permitted_next_step": "Do not infer rights from accessible pages, JSON-LD, RSS or an index."
+    },
+    {
+      "provider": "Letterboxd embedding help",
+      "urls": [
+        "https://letterboxd.zendesk.com/hc/en-us/articles/17815623056911-Can-I-display-or-embed-Letterboxd-ratings-on-my-site-or-app"
+      ],
+      "outcome": "unavailable",
+      "finding": "Web reader failed after redirect to support.letterboxd.com (500 tool redirect error). No new guidance verified.",
+      "permitted_next_step": "Task 1 review remains historical; no current embedding permission claimed."
+    },
+    {
+      "provider": "ReelDB",
+      "urls": [
+        "https://reeldb.io/"
+      ],
+      "outcome": "auth_required_rights_and_limits_unverified",
+      "finding": "Public docs require API key for all requests and advertise ratings. They do not establish upstream Letterboxd/IMDb acquisition permission, downstream redistribution rights, numeric quota or rate-limit contract. Task 1 unauthenticated 403 is historical only; Task 2 did not repeat an endpoint request after this pre-acquisition review.",
+      "permitted_next_step": "No signup, credential discovery or account request. Accessible marketing is insufficient provenance/rights."
+    }
+  ],
+  "award_access_failures": [
+    {
+      "url": "https://thegotham.org/press/2025-gotham-film-awards-nominations/",
+      "result": "unavailable via web reader; guessed path, superseded by discovered official nomination URL"
+    },
+    {
+      "url": "https://thegotham.org/press/2024-gotham-awards-nominations/",
+      "result": "unavailable via web reader; guessed path, superseded by discovered official nomination URL"
+    },
+    {
+      "url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominations-for-2025-spirit-awards/",
+      "result": "unavailable via web reader; superseded by discovered official URL"
+    },
+    {
+      "url": "https://www.lafca.net/years/2024.html",
+      "result": "unavailable; incorrect archive path, not an absence check"
+    },
+    {
+      "url": "https://www.lafca.net/years/2025.html",
+      "result": "unavailable; incorrect archive path, not an absence check"
+    },
+    {
+      "url": "https://www.lafca.net/Years/2024.php",
+      "result": "correct official path; origin open timeout (400 tool report); search index positive corroboration only"
+    },
+    {
+      "url": "https://www.lafca.net/Years/2025.php",
+      "result": "502 web-reader fetch failure; no origin verification"
+    },
+    {
+      "url": "https://www.lafca.net/",
+      "result": "502 web-reader fetch failure; no origin verification"
+    }
+  ],
+  "publication_review": "Only minimal factual award annotations, citations and derived arithmetic are added; no article bodies, reviews, personal user data or newly acquired rating datasets. Existing Task 1 evidence is preserved as instructed; its upstream rights remain unverified, not cured by public archive presence.",
+  "unused_results": "Third-party proxy EFA search hit deliberately not opened or used. TIFF searches yielded distributor/secondary reports but no new awarding-body proof; baseline extension evidence retained without upgrading it.",
+  "rate_limits": "No bulk crawl, parallel origin fan-out, endpoint load test or rate-limit probing. Rate contracts not measured; web-reader infrastructure response codes are not authenticated provider API tests."
+}

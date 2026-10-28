@@ -1,0 +1,289 @@
+imdb_id,tmdb_id,title,year,variant,imdb_points,letterboxd_points,european_recognition,independent_cinema,us_institutional,critics_groups_consensus,observed_subtotal,overall_score,status
+tt28607951,1064213,Anora,2024,unsmoothed/base,14.0,15.384615,19.0,6.0,10.0,6.0,70.384615,,provisional_incomplete
+tt28607951,1064213,Anora,2024,unsmoothed/tiff,14.0,15.384615,19.0,6.0,10.0,6.0,70.384615,,provisional_incomplete
+tt28607951,1064213,Anora,2024,unsmoothed/screenplay,14.0,15.384615,19.0,6.0,10.0,6.0,70.384615,,provisional_incomplete
+tt28607951,1064213,Anora,2024,unsmoothed/both,14.0,15.384615,19.0,6.0,10.0,6.0,70.384615,,provisional_incomplete
+tt28607951,1064213,Anora,2024,modest/base,13.99519,15.383522,19.0,6.0,10.0,6.0,70.378712,,provisional_incomplete
+tt28607951,1064213,Anora,2024,modest/tiff,13.99519,15.383522,19.0,6.0,10.0,6.0,70.378712,,provisional_incomplete
+tt28607951,1064213,Anora,2024,modest/screenplay,13.99519,15.383522,19.0,6.0,10.0,6.0,70.378712,,provisional_incomplete
+tt28607951,1064213,Anora,2024,modest/both,13.99519,15.383522,19.0,6.0,10.0,6.0,70.378712,,provisional_incomplete
+tt28607951,1064213,Anora,2024,stronger/base,13.953246,15.373721,19.0,6.0,10.0,6.0,70.326967,,provisional_incomplete
+tt28607951,1064213,Anora,2024,stronger/tiff,13.953246,15.373721,19.0,6.0,10.0,6.0,70.326967,,provisional_incomplete
+tt28607951,1064213,Anora,2024,stronger/screenplay,13.953246,15.373721,19.0,6.0,10.0,6.0,70.326967,,provisional_incomplete
+tt28607951,1064213,Anora,2024,stronger/both,13.953246,15.373721,19.0,6.0,10.0,6.0,70.326967,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,unsmoothed/base,12.0,17.307692,13.0,0.0,9.0,4.3,55.607692,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,unsmoothed/tiff,12.0,17.307692,13.0,0.0,9.0,4.3,55.607692,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,unsmoothed/screenplay,12.0,17.307692,13.0,0.0,9.0,4.3,55.607692,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,unsmoothed/both,12.0,17.307692,13.0,0.0,9.0,4.3,55.607692,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,modest/base,12.003013,17.301737,13.0,0.0,9.0,4.3,55.60475,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,modest/tiff,12.003013,17.301737,13.0,0.0,9.0,4.3,55.60475,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,modest/screenplay,12.003013,17.301737,13.0,0.0,9.0,4.3,55.60475,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,modest/both,12.003013,17.301737,13.0,0.0,9.0,4.3,55.60475,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,stronger/base,12.028583,17.248795,13.0,0.0,9.0,4.3,55.577378,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,stronger/tiff,12.028583,17.248795,13.0,0.0,9.0,4.3,55.577378,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,stronger/screenplay,12.028583,17.248795,13.0,0.0,9.0,4.3,55.577378,,provisional_incomplete
+tt8999762,549509,The Brutalist,2024,stronger/both,12.028583,17.248795,13.0,0.0,9.0,4.3,55.577378,,provisional_incomplete
+tt17526714,933260,The Substance,2024,unsmoothed/base,12.0,13.461538,4.4,2.0,7.5,0.8,40.161538,,provisional_incomplete
+tt17526714,933260,The Substance,2024,unsmoothed/tiff,12.0,13.461538,4.4,2.0,7.5,0.8,40.161538,,provisional_incomplete
+tt17526714,933260,The Substance,2024,unsmoothed/screenplay,12.0,13.461538,10.4,2.0,7.5,0.8,46.161538,,provisional_incomplete
+tt17526714,933260,The Substance,2024,unsmoothed/both,12.0,13.461538,10.4,2.0,7.5,0.8,46.161538,,provisional_incomplete
+tt17526714,933260,The Substance,2024,modest/base,12.001065,13.461292,4.4,2.0,7.5,0.8,40.162357,,provisional_incomplete
+tt17526714,933260,The Substance,2024,modest/tiff,12.001065,13.461292,4.4,2.0,7.5,0.8,40.162357,,provisional_incomplete
+tt17526714,933260,The Substance,2024,modest/screenplay,12.001065,13.461292,10.4,2.0,7.5,0.8,46.162357,,provisional_incomplete
+tt17526714,933260,The Substance,2024,modest/both,12.001065,13.461292,10.4,2.0,7.5,0.8,46.162357,,provisional_incomplete
+tt17526714,933260,The Substance,2024,stronger/base,12.01045,13.459082,4.4,2.0,7.5,0.8,40.169532,,provisional_incomplete
+tt17526714,933260,The Substance,2024,stronger/tiff,12.01045,13.459082,4.4,2.0,7.5,0.8,40.169532,,provisional_incomplete
+tt17526714,933260,The Substance,2024,stronger/screenplay,12.01045,13.459082,10.4,2.0,7.5,0.8,46.169532,,provisional_incomplete
+tt17526714,933260,The Substance,2024,stronger/both,12.01045,13.459082,10.4,2.0,7.5,0.8,46.169532,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,unsmoothed/base,24.0,25.0,0.0,0.0,7.5,0.8,57.3,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,unsmoothed/tiff,24.0,25.0,0.0,0.0,7.5,0.8,57.3,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,unsmoothed/screenplay,24.0,25.0,0.0,0.0,7.5,0.8,57.3,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,unsmoothed/both,24.0,25.0,0.0,0.0,7.5,0.8,57.3,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,modest/base,23.985618,25.0,0.0,0.0,7.5,0.8,57.285618,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,modest/tiff,23.985618,25.0,0.0,0.0,7.5,0.8,57.285618,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,modest/screenplay,23.985618,25.0,0.0,0.0,7.5,0.8,57.285618,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,modest/both,23.985618,25.0,0.0,0.0,7.5,0.8,57.285618,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,stronger/base,23.857782,25.0,0.0,0.0,7.5,0.8,57.157782,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,stronger/tiff,23.857782,25.0,0.0,0.0,7.5,0.8,57.157782,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,stronger/screenplay,23.857782,25.0,0.0,0.0,7.5,0.8,57.157782,,provisional_incomplete
+tt15239678,693134,Dune: Part Two,2024,stronger/both,23.857782,25.0,0.0,0.0,7.5,0.8,57.157782,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,unsmoothed/base,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,unsmoothed/tiff,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,unsmoothed/screenplay,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,unsmoothed/both,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,modest/base,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,modest/tiff,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,modest/screenplay,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,modest/both,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,stronger/base,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,stronger/tiff,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,stronger/screenplay,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt20221436,974950,Emilia Pérez,2024,stronger/both,0.0,0.0,20.0,0.0,10.0,0.8,30.8,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,unsmoothed/base,21.0,25.0,5.0,0.0,10.0,0.0,61.0,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,unsmoothed/tiff,21.0,25.0,5.0,0.0,10.0,0.0,61.0,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,unsmoothed/screenplay,21.0,25.0,11.0,0.0,10.0,0.0,67.0,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,unsmoothed/both,21.0,25.0,11.0,0.0,10.0,0.0,67.0,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,modest/base,20.950973,24.984701,5.0,0.0,10.0,0.0,60.935674,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,modest/tiff,20.950973,24.984701,5.0,0.0,10.0,0.0,60.935674,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,modest/screenplay,20.950973,24.984701,11.0,0.0,10.0,0.0,66.935674,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,modest/both,20.950973,24.984701,11.0,0.0,10.0,0.0,66.935674,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,stronger/base,20.533925,24.848681,5.0,0.0,10.0,0.0,60.382605,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,stronger/tiff,20.533925,24.848681,5.0,0.0,10.0,0.0,60.382605,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,stronger/screenplay,20.533925,24.848681,11.0,0.0,10.0,0.0,66.382605,,provisional_incomplete
+tt14961016,1000837,I'm Still Here,2024,stronger/both,20.533925,24.848681,11.0,0.0,10.0,0.0,66.382605,,provisional_incomplete
+tt4772188,823219,Flow,2024,unsmoothed/base,18.0,21.153846,2.4,0.0,10.0,0.0,51.553846,,provisional_incomplete
+tt4772188,823219,Flow,2024,unsmoothed/tiff,18.0,21.153846,2.4,0.0,10.0,0.0,51.553846,,provisional_incomplete
+tt4772188,823219,Flow,2024,unsmoothed/screenplay,18.0,21.153846,2.4,0.0,10.0,0.0,51.553846,,provisional_incomplete
+tt4772188,823219,Flow,2024,unsmoothed/both,18.0,21.153846,2.4,0.0,10.0,0.0,51.553846,,provisional_incomplete
+tt4772188,823219,Flow,2024,modest/base,17.964617,21.146136,2.4,0.0,10.0,0.0,51.510753,,provisional_incomplete
+tt4772188,823219,Flow,2024,modest/tiff,17.964617,21.146136,2.4,0.0,10.0,0.0,51.510753,,provisional_incomplete
+tt4772188,823219,Flow,2024,modest/screenplay,17.964617,21.146136,2.4,0.0,10.0,0.0,51.510753,,provisional_incomplete
+tt4772188,823219,Flow,2024,modest/both,17.964617,21.146136,2.4,0.0,10.0,0.0,51.510753,,provisional_incomplete
+tt4772188,823219,Flow,2024,stronger/base,17.665536,21.077362,2.4,0.0,10.0,0.0,51.142897,,provisional_incomplete
+tt4772188,823219,Flow,2024,stronger/tiff,17.665536,21.077362,2.4,0.0,10.0,0.0,51.142897,,provisional_incomplete
+tt4772188,823219,Flow,2024,stronger/screenplay,17.665536,21.077362,2.4,0.0,10.0,0.0,51.142897,,provisional_incomplete
+tt4772188,823219,Flow,2024,stronger/both,17.665536,21.077362,2.4,0.0,10.0,0.0,51.142897,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,unsmoothed/base,8.0,15.384615,2.0,3.5,0.0,0.0,28.884615,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,unsmoothed/tiff,8.0,15.384615,2.0,3.5,0.0,0.0,28.884615,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,unsmoothed/screenplay,8.0,15.384615,2.0,3.5,0.0,0.0,28.884615,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,unsmoothed/both,8.0,15.384615,2.0,3.5,0.0,0.0,28.884615,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,modest/base,8.108996,15.375498,2.0,3.5,0.0,0.0,28.984494,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,modest/tiff,8.108996,15.375498,2.0,3.5,0.0,0.0,28.984494,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,modest/screenplay,8.108996,15.375498,2.0,3.5,0.0,0.0,28.984494,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,modest/both,8.108996,15.375498,2.0,3.5,0.0,0.0,28.984494,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,stronger/base,8.894881,15.295964,2.0,3.5,0.0,0.0,29.690845,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,stronger/tiff,8.894881,15.295964,2.0,3.5,0.0,0.0,29.690845,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,stronger/screenplay,8.894881,15.295964,2.0,3.5,0.0,0.0,29.690845,,provisional_incomplete
+tt21097228,989662,A Different Man,2024,stronger/both,8.894881,15.295964,2.0,3.5,0.0,0.0,29.690845,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,unsmoothed/base,11.0,15.384615,0.0,1.0,0.0,0.0,27.384615,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,unsmoothed/tiff,11.0,15.384615,0.0,1.0,0.0,0.0,27.384615,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,unsmoothed/screenplay,11.0,15.384615,0.0,1.0,0.0,0.0,27.384615,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,unsmoothed/both,11.0,15.384615,0.0,1.0,0.0,0.0,27.384615,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,modest/base,11.56926,15.085288,0.0,1.0,0.0,0.0,27.654548,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,modest/tiff,11.56926,15.085288,0.0,1.0,0.0,0.0,27.654548,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,modest/screenplay,11.56926,15.085288,0.0,1.0,0.0,0.0,27.654548,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,modest/both,11.56926,15.085288,0.0,1.0,0.0,0.0,27.654548,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,stronger/base,12.289214,13.836826,0.0,1.0,0.0,0.0,27.126039,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,stronger/tiff,12.289214,13.836826,0.0,1.0,0.0,0.0,27.126039,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,stronger/screenplay,12.289214,13.836826,0.0,1.0,0.0,0.0,27.126039,,provisional_incomplete
+tt32928666,1265717,Familiar Touch,2024,stronger/both,12.289214,13.836826,0.0,1.0,0.0,0.0,27.126039,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,unsmoothed/base,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,unsmoothed/tiff,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,unsmoothed/screenplay,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,unsmoothed/both,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,modest/base,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,modest/tiff,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,modest/screenplay,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,modest/both,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,stronger/base,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,stronger/tiff,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,stronger/screenplay,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt30057084,1097549,Babygirl,2024,stronger/both,0.0,0.0,2.0,1.0,0.0,0.0,3.0,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,unsmoothed/base,18.0,23.076923,5.0,1.0,9.0,0.8,56.876923,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,unsmoothed/tiff,18.0,23.076923,5.0,5.0,9.0,0.8,60.876923,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,unsmoothed/screenplay,18.0,23.076923,5.0,1.0,9.0,0.8,56.876923,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,unsmoothed/both,18.0,23.076923,5.0,5.0,9.0,0.8,60.876923,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,modest/base,17.960608,23.07088,5.0,1.0,9.0,0.8,56.831488,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,modest/tiff,17.960608,23.07088,5.0,5.0,9.0,0.8,60.831488,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,modest/screenplay,17.960608,23.07088,5.0,1.0,9.0,0.8,56.831488,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,modest/both,17.960608,23.07088,5.0,5.0,9.0,0.8,60.831488,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,stronger/base,17.629931,23.016803,5.0,1.0,9.0,0.8,56.446734,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,stronger/tiff,17.629931,23.016803,5.0,5.0,9.0,0.8,60.446734,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,stronger/screenplay,17.629931,23.016803,5.0,1.0,9.0,0.8,56.446734,,provisional_incomplete
+tt14905854,858024,Hamnet,2025,stronger/both,17.629931,23.016803,5.0,5.0,9.0,0.8,60.446734,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,unsmoothed/base,17.0,23.076923,20.0,0.0,10.0,0.8,70.876923,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,unsmoothed/tiff,17.0,23.076923,20.0,0.0,10.0,0.8,70.876923,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,unsmoothed/screenplay,17.0,23.076923,20.0,0.0,10.0,0.8,70.876923,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,unsmoothed/both,17.0,23.076923,20.0,0.0,10.0,0.8,70.876923,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,modest/base,16.951353,23.06684,20.0,0.0,10.0,0.8,70.818194,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,modest/tiff,16.951353,23.06684,20.0,0.0,10.0,0.8,70.818194,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,modest/screenplay,16.951353,23.06684,20.0,0.0,10.0,0.8,70.818194,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,modest/both,16.951353,23.06684,20.0,0.0,10.0,0.8,70.818194,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,stronger/base,16.556668,22.976955,20.0,0.0,10.0,0.8,70.333622,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,stronger/tiff,16.556668,22.976955,20.0,0.0,10.0,0.8,70.333622,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,stronger/screenplay,16.556668,22.976955,20.0,0.0,10.0,0.8,70.333622,,provisional_incomplete
+tt27714581,1124566,Sentimental Value,2025,stronger/both,16.556668,22.976955,20.0,0.0,10.0,0.8,70.333622,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,unsmoothed/base,14.0,19.230769,19.4,0.0,5.0,0.0,57.630769,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,unsmoothed/tiff,14.0,19.230769,19.4,0.0,5.0,0.0,57.630769,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,unsmoothed/screenplay,14.0,19.230769,19.4,0.0,5.0,0.0,57.630769,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,unsmoothed/both,14.0,19.230769,19.4,0.0,5.0,0.0,57.630769,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,modest/base,13.963465,19.211455,19.4,0.0,5.0,0.0,57.57492,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,modest/tiff,13.963465,19.211455,19.4,0.0,5.0,0.0,57.57492,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,modest/screenplay,13.963465,19.211455,19.4,0.0,5.0,0.0,57.57492,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,modest/both,13.963465,19.211455,19.4,0.0,5.0,0.0,57.57492,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,stronger/base,13.700336,19.042493,19.4,0.0,5.0,0.0,57.142829,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,stronger/tiff,13.700336,19.042493,19.4,0.0,5.0,0.0,57.142829,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,stronger/screenplay,13.700336,19.042493,19.4,0.0,5.0,0.0,57.142829,,provisional_incomplete
+tt36491653,1456349,It Was Just an Accident,2025,stronger/both,13.700336,19.042493,19.4,0.0,5.0,0.0,57.142829,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,unsmoothed/base,10.0,11.538462,15.4,0.0,4.0,0.0,40.938462,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,unsmoothed/tiff,10.0,11.538462,15.4,0.0,4.0,0.0,40.938462,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,unsmoothed/screenplay,10.0,11.538462,15.4,0.0,4.0,0.0,40.938462,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,unsmoothed/both,10.0,11.538462,15.4,0.0,4.0,0.0,40.938462,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,modest/base,10.063007,11.541235,15.4,0.0,4.0,0.0,41.004242,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,modest/tiff,10.063007,11.541235,15.4,0.0,4.0,0.0,41.004242,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,modest/screenplay,10.063007,11.541235,15.4,0.0,4.0,0.0,41.004242,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,modest/both,10.063007,11.541235,15.4,0.0,4.0,0.0,41.004242,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,stronger/base,10.513579,11.565494,15.4,0.0,4.0,0.0,41.479073,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,stronger/tiff,10.513579,11.565494,15.4,0.0,4.0,0.0,41.479073,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,stronger/screenplay,10.513579,11.565494,15.4,0.0,4.0,0.0,41.479073,,provisional_incomplete
+tt32298285,1151272,Sirāt,2025,stronger/both,10.513579,11.565494,15.4,0.0,4.0,0.0,41.479073,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,unsmoothed/base,16.0,21.153846,10.0,3.5,10.0,10.0,70.653846,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,unsmoothed/tiff,16.0,21.153846,10.0,3.5,10.0,10.0,70.653846,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,unsmoothed/screenplay,16.0,21.153846,10.0,3.5,10.0,10.0,70.653846,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,unsmoothed/both,16.0,21.153846,10.0,3.5,10.0,10.0,70.653846,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,modest/base,15.992268,21.150846,10.0,3.5,10.0,10.0,70.643114,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,modest/tiff,15.992268,21.150846,10.0,3.5,10.0,10.0,70.643114,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,modest/screenplay,15.992268,21.150846,10.0,3.5,10.0,10.0,70.643114,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,modest/both,15.992268,21.150846,10.0,3.5,10.0,10.0,70.643114,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,stronger/base,15.924187,21.123936,10.0,3.5,10.0,10.0,70.548123,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,stronger/tiff,15.924187,21.123936,10.0,3.5,10.0,10.0,70.548123,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,stronger/screenplay,15.924187,21.123936,10.0,3.5,10.0,10.0,70.548123,,provisional_incomplete
+tt30144839,1054867,One Battle After Another,2025,stronger/both,15.924187,21.123936,10.0,3.5,10.0,10.0,70.548123,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,unsmoothed/base,15.0,21.153846,5.0,0.0,7.5,0.8,49.453846,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,unsmoothed/tiff,15.0,21.153846,5.0,0.0,7.5,0.8,49.453846,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,unsmoothed/screenplay,15.0,21.153846,5.0,0.0,7.5,0.8,49.453846,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,unsmoothed/both,15.0,21.153846,5.0,0.0,7.5,0.8,49.453846,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,modest/base,14.995311,21.152099,5.0,0.0,7.5,0.8,49.44741,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,modest/tiff,14.995311,21.152099,5.0,0.0,7.5,0.8,49.44741,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,modest/screenplay,14.995311,21.152099,5.0,0.0,7.5,0.8,49.44741,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,modest/both,14.995311,21.152099,5.0,0.0,7.5,0.8,49.44741,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,stronger/base,14.95389,21.136403,5.0,0.0,7.5,0.8,49.390292,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,stronger/tiff,14.95389,21.136403,5.0,0.0,7.5,0.8,49.390292,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,stronger/screenplay,14.95389,21.136403,5.0,0.0,7.5,0.8,49.390292,,provisional_incomplete
+tt31193180,1233413,Sinners,2025,stronger/both,14.95389,21.136403,5.0,0.0,7.5,0.8,49.390292,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,unsmoothed/base,1.0,3.846154,0.0,5.0,0.0,0.0,9.846154,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,unsmoothed/tiff,1.0,3.846154,0.0,5.0,0.0,0.0,9.846154,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,unsmoothed/screenplay,1.0,3.846154,0.0,5.0,0.0,0.0,9.846154,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,unsmoothed/both,1.0,3.846154,0.0,5.0,0.0,0.0,9.846154,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,modest/base,6.184851,4.9635,0.0,5.0,0.0,0.0,16.148351,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,modest/tiff,6.184851,4.9635,0.0,5.0,0.0,0.0,16.148351,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,modest/screenplay,6.184851,4.9635,0.0,5.0,0.0,0.0,16.148351,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,modest/both,6.184851,4.9635,0.0,5.0,0.0,0.0,16.148351,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,stronger/base,11.251382,9.014172,0.0,5.0,0.0,0.0,25.265554,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,stronger/tiff,11.251382,9.014172,0.0,5.0,0.0,0.0,25.265554,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,stronger/screenplay,11.251382,9.014172,0.0,5.0,0.0,0.0,25.265554,,provisional_incomplete
+tt21349688,1398911,East of Wall,2025,stronger/both,11.251382,9.014172,0.0,5.0,0.0,0.0,25.265554,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,unsmoothed/base,11.0,21.153846,0.0,3.0,0.0,0.0,35.153846,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,unsmoothed/tiff,11.0,21.153846,0.0,3.0,0.0,0.0,35.153846,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,unsmoothed/screenplay,11.0,21.153846,0.0,3.0,0.0,0.0,35.153846,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,unsmoothed/both,11.0,21.153846,0.0,3.0,0.0,0.0,35.153846,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,modest/base,11.054116,21.131548,0.0,3.0,0.0,0.0,35.185665,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,modest/tiff,11.054116,21.131548,0.0,3.0,0.0,0.0,35.185665,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,modest/screenplay,11.054116,21.131548,0.0,3.0,0.0,0.0,35.185665,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,modest/both,11.054116,21.131548,0.0,3.0,0.0,0.0,35.185665,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,stronger/base,11.408519,20.935923,0.0,3.0,0.0,0.0,35.344442,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,stronger/tiff,11.408519,20.935923,0.0,3.0,0.0,0.0,35.344442,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,stronger/screenplay,11.408519,20.935923,0.0,3.0,0.0,0.0,35.344442,,provisional_incomplete
+tt32843349,1205515,"Sorry, Baby",2025,stronger/both,11.408519,20.935923,0.0,3.0,0.0,0.0,35.344442,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,unsmoothed/base,15.0,21.153846,0.0,6.0,6.5,0.8,49.453846,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,unsmoothed/tiff,15.0,21.153846,0.0,6.0,6.5,0.8,49.453846,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,unsmoothed/screenplay,15.0,21.153846,0.0,6.0,6.5,0.8,49.453846,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,unsmoothed/both,15.0,21.153846,0.0,6.0,6.5,0.8,49.453846,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,modest/base,14.978867,21.142471,0.0,6.0,6.5,0.8,49.421338,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,modest/tiff,14.978867,21.142471,0.0,6.0,6.5,0.8,49.421338,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,modest/screenplay,14.978867,21.142471,0.0,6.0,6.5,0.8,49.421338,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,modest/both,14.978867,21.142471,0.0,6.0,6.5,0.8,49.421338,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,stronger/base,14.803614,21.041421,0.0,6.0,6.5,0.8,49.145035,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,stronger/tiff,14.803614,21.041421,0.0,6.0,6.5,0.8,49.145035,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,stronger/screenplay,14.803614,21.041421,0.0,6.0,6.5,0.8,49.145035,,provisional_incomplete
+tt29768334,1241983,Train Dreams,2025,stronger/both,14.803614,21.041421,0.0,6.0,6.5,0.8,49.145035,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,unsmoothed/base,10.0,13.461538,12.4,0.0,0.0,0.0,35.861538,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,unsmoothed/tiff,10.0,13.461538,12.4,0.0,0.0,0.0,35.861538,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,unsmoothed/screenplay,10.0,13.461538,12.4,0.0,0.0,0.0,35.861538,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,unsmoothed/both,10.0,13.461538,12.4,0.0,0.0,0.0,35.861538,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,modest/base,10.312735,13.443854,12.4,0.0,0.0,0.0,36.156589,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,modest/tiff,10.312735,13.443854,12.4,0.0,0.0,0.0,36.156589,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,modest/screenplay,10.312735,13.443854,12.4,0.0,0.0,0.0,36.156589,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,modest/both,10.312735,13.443854,12.4,0.0,0.0,0.0,36.156589,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,stronger/base,11.471107,13.309812,12.4,0.0,0.0,0.0,37.180919,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,stronger/tiff,11.471107,13.309812,12.4,0.0,0.0,0.0,37.180919,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,stronger/screenplay,11.471107,13.309812,12.4,0.0,0.0,0.0,37.180919,,provisional_incomplete
+tt28690468,1221061,Sound of Falling,2025,stronger/both,11.471107,13.309812,12.4,0.0,0.0,0.0,37.180919,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,unsmoothed/base,22.0,25.0,0.0,0.0,0.0,0.0,47.0,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,unsmoothed/tiff,22.0,25.0,0.0,0.0,0.0,0.0,47.0,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,unsmoothed/screenplay,22.0,25.0,0.0,0.0,0.0,0.0,47.0,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,unsmoothed/both,22.0,25.0,0.0,0.0,0.0,0.0,47.0,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,modest/base,21.983481,24.997282,0.0,0.0,0.0,0.0,46.980763,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,modest/tiff,21.983481,24.997282,0.0,0.0,0.0,0.0,46.980763,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,modest/screenplay,21.983481,24.997282,0.0,0.0,0.0,0.0,46.980763,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,modest/both,21.983481,24.997282,0.0,0.0,0.0,0.0,46.980763,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,stronger/base,21.837352,24.972876,0.0,0.0,0.0,0.0,46.810228,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,stronger/tiff,21.837352,24.972876,0.0,0.0,0.0,0.0,46.810228,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,stronger/screenplay,21.837352,24.972876,0.0,0.0,0.0,0.0,46.810228,,provisional_incomplete
+tt12042730,687163,Project Hail Mary,2026,stronger/both,21.837352,24.972876,0.0,0.0,0.0,0.0,46.810228,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,unsmoothed/base,24.0,25.0,0.0,0.0,0.0,0.0,49.0,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,unsmoothed/tiff,24.0,25.0,0.0,0.0,0.0,0.0,49.0,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,unsmoothed/screenplay,24.0,25.0,0.0,0.0,0.0,0.0,49.0,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,unsmoothed/both,24.0,25.0,0.0,0.0,0.0,0.0,49.0,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,modest/base,23.978168,24.997255,0.0,0.0,0.0,0.0,48.975423,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,modest/tiff,23.978168,24.997255,0.0,0.0,0.0,0.0,48.975423,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,modest/screenplay,23.978168,24.997255,0.0,0.0,0.0,0.0,48.975423,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,modest/both,23.978168,24.997255,0.0,0.0,0.0,0.0,48.975423,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,stronger/base,23.785346,24.972603,0.0,0.0,0.0,0.0,48.757949,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,stronger/tiff,23.785346,24.972603,0.0,0.0,0.0,0.0,48.757949,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,stronger/screenplay,23.785346,24.972603,0.0,0.0,0.0,0.0,48.757949,,provisional_incomplete
+tt33764258,1368337,The Odyssey,2026,stronger/both,23.785346,24.972603,0.0,0.0,0.0,0.0,48.757949,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,unsmoothed/base,6.0,,2.0,0.0,0.0,0.0,8.0,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,unsmoothed/tiff,6.0,,2.0,0.0,0.0,0.0,8.0,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,unsmoothed/screenplay,6.0,,8.0,0.0,0.0,0.0,14.0,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,unsmoothed/both,6.0,,8.0,0.0,0.0,0.0,14.0,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,modest/base,11.288853,,2.0,0.0,0.0,0.0,13.288853,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,modest/tiff,11.288853,,2.0,0.0,0.0,0.0,13.288853,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,modest/screenplay,11.288853,,8.0,0.0,0.0,0.0,19.288853,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,modest/both,11.288853,,8.0,0.0,0.0,0.0,19.288853,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,stronger/base,12.354482,,2.0,0.0,0.0,0.0,14.354482,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,stronger/tiff,12.354482,,2.0,0.0,0.0,0.0,14.354482,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,stronger/screenplay,12.354482,,8.0,0.0,0.0,0.0,20.354482,,provisional_incomplete
+tt29271639,1527449,Nina Roza,2026,stronger/both,12.354482,,8.0,0.0,0.0,0.0,20.354482,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,unsmoothed/base,9.0,,0.0,0.0,0.0,0.0,9.0,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,unsmoothed/tiff,9.0,,0.0,0.0,0.0,0.0,9.0,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,unsmoothed/screenplay,9.0,,0.0,0.0,0.0,0.0,9.0,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,unsmoothed/both,9.0,,0.0,0.0,0.0,0.0,9.0,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,modest/base,12.225806,,0.0,0.0,0.0,0.0,12.225806,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,modest/tiff,12.225806,,0.0,0.0,0.0,0.0,12.225806,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,modest/screenplay,12.225806,,0.0,0.0,0.0,0.0,12.225806,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,modest/both,12.225806,,0.0,0.0,0.0,0.0,12.225806,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,stronger/base,12.470501,,0.0,0.0,0.0,0.0,12.470501,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,stronger/tiff,12.470501,,0.0,0.0,0.0,0.0,12.470501,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,stronger/screenplay,12.470501,,0.0,0.0,0.0,0.0,12.470501,,provisional_incomplete
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,stronger/both,12.470501,,0.0,0.0,0.0,0.0,12.470501,,provisional_incomplete
