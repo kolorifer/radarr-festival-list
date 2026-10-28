@@ -1,5 +1,9 @@
 # Movie List project state
 
+For the verified 28 October repository and deployment snapshot, see the
+[repository status and review map](REPOSITORY-STATUS.md). Earlier entries below
+are historical and may not describe the currently running revision.
+
 
 ## Grab Anyway confirmation and first import — 2026-10-24
 
