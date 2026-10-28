@@ -32,3 +32,9 @@ only with the existing verified source and ID constraints.
 - No live notification, historical replay, movie addition or download occurred.
   Existing rollback restores the previous code while preserving current state.
   The unrelated cleanup assignment remains unchanged.
+
+## Product acceptance
+
+On 2026-10-28 the user accepted finalization without waiting for a live
+end-to-end example, given the rarity of this case. The historical listing
+heading mismatch and absence of a live success remain documented above.
