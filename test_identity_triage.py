@@ -1,5 +1,5 @@
 """Synthetic fixtures only; tests never reach trackers, Telegram or Radarr."""
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from contextlib import contextmanager
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -162,6 +162,77 @@ class StoreTests(Base):
         self.assertEqual(results, ['accepted']*16)
         self.assertEqual(self.store.metrics()['provisional_cases'],1)
 
+    def test_slow_local_writer_does_not_spend_other_writers_sqlite_timeout(self):
+        # Force the same BEGIN IMMEDIATE contention seen in CI, with a real
+        # transaction held longer than SQLite's default 250 ms busy timeout.
+        for duplicate in (False, True):
+            with self.subTest(duplicate=duplicate):
+                store = Store(self.root / ('duplicates' if duplicate else 'distinct'))
+                record = intake.normalize(payload(), SOURCES)
+                next_record = record if duplicate else intake.normalize(payload(external_id='456'), SOURCES)
+                held, release, attempting = threading.Event(), threading.Event(), threading.Event()
+                original_count, original_connection = store.count, store.connection
+
+                def slow_count(c, channel, name):
+                    if not held.is_set():
+                        held.set()
+                        if not release.wait(5):
+                            raise AssertionError('test did not release writer')
+                    return original_count(c, channel, name)
+
+                @contextmanager
+                def observe_connection(*args, **kwargs):
+                    if held.is_set() and not kwargs.get('readonly', False):
+                        attempting.set()
+                    with original_connection(*args, **kwargs) as c:
+                        yield c
+
+                with patch.object(store, 'count', slow_count), patch.object(store, 'connection', observe_connection):
+                    with ThreadPoolExecutor(max_workers=2) as pool:
+                        first = pool.submit(store.ingest, record, 'release_new')
+                        try:
+                            self.assertTrue(held.wait(5))
+                            second = pool.submit(store.ingest, next_record, 'release_new')
+                            self.assertTrue(attempting.wait(5))
+                            # Readers still see the committed snapshot while a writer waits.
+                            self.assertEqual(store.metrics()['observed_movie_deliveries'], 0)
+                            with self.assertRaises(TimeoutError):
+                                second.result(timeout=2 * store.timeout)
+                        finally:
+                            release.set()
+                        self.assertEqual(first.result(timeout=5), 'accepted')
+                        self.assertEqual(second.result(timeout=5), 'duplicate_event' if duplicate else 'accepted')
+                metrics = store.metrics()
+                self.assertEqual(metrics['observed_movie_deliveries'], 1 if duplicate else 2)
+                self.assertEqual(metrics['counters']['release_new']['accepted'], 1 if duplicate else 2)
+                if duplicate:
+                    self.assertEqual(metrics['counters']['release_new']['duplicate_event'], 1)
+
+    def test_local_writer_queue_is_bounded_and_does_not_partially_write(self):
+        store = Store(self.root / 'bounded', writer_timeout=0.02)
+        record = intake.normalize(payload(), SOURCES)
+        with store.connection() as c:
+            c.execute('BEGIN IMMEDIATE')
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                attempt = pool.submit(store.ingest, record, 'release_new')
+                with self.assertRaises(sqlite3.OperationalError) as caught:
+                    attempt.result(timeout=5)
+            self.assertEqual(caught.exception.sqlite_errorcode, sqlite3.SQLITE_BUSY)
+            self.assertEqual(service.storage_reason(caught.exception), 'sqlite_busy')
+            self.assertEqual(store.metrics()['observed_movie_deliveries'], 0)
+        self.assertEqual(store.ingest(record, 'release_new'), 'accepted')
+
+    def test_failed_transaction_releases_local_writer_slot_after_rollback(self):
+        record = intake.normalize(payload(), SOURCES)
+        with patch('identity_selection.ingest', side_effect=RuntimeError('synthetic failure')):
+            with self.assertRaisesRegex(RuntimeError, 'synthetic failure'):
+                self.store.ingest(record, 'release_new')
+        self.assertEqual(self.store.metrics()['observed_movie_deliveries'], 0)
+        # A different thread must acquire the slot left by the failed writer.
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            self.assertEqual(pool.submit(self.store.ingest, record, 'release_new').result(timeout=5), 'accepted')
+        self.assertEqual(self.store.metrics()['counters']['release_new']['accepted'], 1)
+
     def test_crash_before_commit_rolls_back(self):
         script = '''import sqlite3,os,sys
 c=sqlite3.connect(sys.argv[1]); c.execute('BEGIN IMMEDIATE'); c.execute('INSERT INTO releases VALUES (?)', ('crash',)); os._exit(9)
@@ -322,6 +393,21 @@ class HTTPTests(Base):
         self.cfg['enabled']=False;self.write_config()
         self.assertEqual(self.request()[0],503)
         self.assertEqual(self.sql('select count(*) from deliveries'),[(0,)])
+
+    def test_local_writer_queue_timeout_returns_503_and_retry_commits_once(self):
+        self.store.writer_timeout = 0.02
+        p = payload()
+        with self.store.connection() as c:
+            c.execute('BEGIN IMMEDIATE')
+            self.assertEqual(self.request(p)[0], 503)
+            self.assertEqual(self.store.metrics()['observed_movie_deliveries'], 0)
+        self.assertEqual(self.server.storage_failures, 1)
+        self.assertEqual(self.request(p)[0], 200)
+        self.assertEqual(self.request(p)[0], 200)
+        metrics = self.store.metrics()
+        self.assertEqual(metrics['observed_movie_deliveries'], 1)
+        self.assertEqual(metrics['counters']['release_new']['accepted'], 1)
+        self.assertEqual(metrics['counters']['release_new']['duplicate_event'], 1)
 
     def test_busy_or_storage_failure_not_acknowledged(self):
         with patch.object(self.store,'ingest',side_effect=sqlite3.OperationalError('private-error-must-not-log')):
