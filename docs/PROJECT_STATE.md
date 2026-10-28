@@ -1,5 +1,9 @@
 # Movie List project state
 
+Repository consolidation is recorded in the [current status map](REPOSITORY-STATUS.md)
+and [report](reports/2026-10-28-repository-consolidation.md). The last verified
+actor revision below is historical; this consolidation did not deploy.
+
 Historical qualification research and the read-only issues 55–56 investigation
 are retained without changing current scoring or production behavior. See the
 [consolidation report](reports/2026-10-28-historical-research-consolidation.md).

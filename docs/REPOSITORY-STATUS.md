@@ -1,5 +1,52 @@
 # Repository status and review map
 
+## Consolidation snapshot — 28 October 2026
+
+The validated main baseline before this status update is `6c8129d7042a444920a2400054774955a06ad48e`.
+The status-update merge itself advances `main`; use `git rev-parse origin/main`
+or the repository's GitHub branch view for its current revision. The running
+actor was last verified at `46cccea3a119ca080e35f6cf071bd0351eba037a` in the
+previous session; its current state has not been checked during consolidation.
+Main is not a deployment claim. The separate shadow worker has not been
+rechecked. No deployment or live acquisition was performed during this work.
+
+| Original PR or branch | Contribution and disposition |
+| --- | --- |
+| #1 | Handoff instructions, archive, templates and original deployment report retained as a historical snapshot; closed after #102. |
+| #2 | Audience-cap comparison, code, tests and frozen outputs retained by #102; no production cap selected. |
+| #3 | Identity-integrity research, corrections, tests and original data retained by #102; no production identity policy changed. |
+| #4 | Qualification calibration, policies, tests and artifacts retained by #102; no threshold chosen. |
+| #5 | P225/P250 comparison, source tree, tests and frozen results retained by #102; no threshold chosen. |
+| #16 | Original public legacy audit preserved alongside the later second pass by #99; detailed private evidence was not accessed. |
+| #78 | Offline and shadow identity scoring, tests, reports and decisions preserved by #101; earlier files preserved by #103. |
+| #90 | Cut discovery research and tests preserved by #101; its earlier files preserved by #103. Depends on #78. |
+| #92 | Shadow evidence recovery and bounded scheduling code and reports preserved by #101/#102. Depends on #90. The shared daily-budget implementation is retained as inert source, not applied to the live recurring store. |
+| #88 | All three Live Movie Score worker packets and their public reports preserved by #99; rating/source permissions and product choices remain unresolved. |
+| `automation/launcher-quota-repair` | Validated account-provided quota windows and associated tests merged by #100; no worker was launched here. |
+| `investigation/issues55-56-readonly` | Incident reports and synthetic tests preserved by #102; one test updated for later research-only routing. |
+| `movie-intel`, simulation and audience-sensitivity branches | Frozen historical branch trees retained by #103; `noop` shares the audience-sensitivity head. |
+| #79, #82–#85, #87, #89, #91 | Previously closed as superseded after deployed runtime changes and later reports were accounted for in #96/#97. |
+
+The original ten open PRs were closed as superseded only after their identified
+content was retained on `main`; the original branches remain available. The
+integration PRs above target `main`. Research snapshots preserve earlier code,
+outputs and decisions as historical material, with no scheduler or workflow
+activated. Full details and limits are in the
+[consolidation report](reports/2026-10-28-repository-consolidation.md).
+
+Two earlier CI runs reported SQLite locks in concurrent collector tests. The
+store's default lock timeout is 250 ms; a local stress check of those two tests
+completed 200 runs without a failure. This is not a fix or proof of a root
+cause, and the timeout/backpressure behavior remains an open reliability issue.
+
+---
+
+## Historical status map — prior to this consolidation
+
+The following section is retained as dated context. Its branch heads and PR
+states are historical, not the current inventory.
+
+
 Snapshot: **28 October 2026**. The integration PR that contains this update
 brings the deployed actor revision into the main branch history while preserving
 main-only collector and documentation changes. The resulting integration commit
