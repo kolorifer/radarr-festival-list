@@ -54,7 +54,7 @@ def _identity_title(value):
 
 
 def _minor_title_typo(observed, candidate):
-    """One alphabetic edit in one long word; never remove words or numbers."""
+    """One alphabetic edit, with extra title context for five-letter words."""
     def words(value):
         text = unicodedata.normalize('NFC', str(value or '')).casefold().replace('&', 'and')
         return re.findall(r"[^\W_]+", text)
@@ -65,7 +65,13 @@ def _minor_title_typo(observed, candidate):
     if len(differences) != 1:
         return False
     a, b = differences[0]
-    if (min(len(a), len(b)) < 6 or not a.isalpha() or not b.isalpha()
+    # A five-letter word needs another unchanged, substantial word. This does
+    # not make standalone Alien/Aliens or The Thing/The Think interchangeable.
+    contextual_short_word = (min(len(a), len(b)) == 5 and any(
+        x == y and len(x) >= 6 and x.isalpha() and not re.fullmatch('[ivxlcdm]+', x)
+        for x, y in zip(left, right)))
+    if ((min(len(a), len(b)) < 6 and not contextual_short_word)
+            or not a.isalpha() or not b.isalpha()
             or re.fullmatch('[ivxlcdm]+', a) or re.fullmatch('[ivxlcdm]+', b)):
         return False
     if len(a) == len(b):

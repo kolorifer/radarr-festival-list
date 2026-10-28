@@ -49,6 +49,31 @@ class TrackerTypoTests(unittest.TestCase):
         self.assertEqual(self.resolve()['identity_reason'], 'title_conflict')
         self.assertEqual(self.resolve(allow_minor_typo=True)['identity_status'], 'verified_tmdb')
 
+    def test_five_letter_word_requires_unchanged_substantial_context(self):
+        for title in ('Charlie Victor Romeon', 'Charlie Victor Romoe', 'Charlie Victor Rameo'):
+            self.details.update(title='Charlie Victor Romeo', original_title='Charlie Victor Romeo',
+                                release_date='2014-01-29', release_dates={'results':[{
+                                    'release_dates':[{'release_date':'2013-01-21'}]}]})
+            tmdb._ID_CACHE.clear()
+            with self.subTest(title=title):
+                result = self.resolve(title, 2013, allow_minor_typo=True)
+                self.assertEqual(result['identity_status'], 'verified_tmdb')
+                self.assertEqual(result['identity_title_basis'], 'tracker_minor_typo')
+                self.assertEqual(result['identity_year_basis'], 'release_dates')
+        for observed, candidate in [('Romeon','Romeo'), ('The Romeon','The Romeo'),
+                                     ('Charlie Vuctor Romeon','Charlie Victor Romeo'),
+                                     ('Charlie Victor Romeon II','Charlie Victor Romeo III'),
+                                     ('Charlie Victor Rone','Charlie Victor Rome')]:
+            with self.subTest(observed=observed):
+                self.assertFalse(tmdb._minor_title_typo(observed, candidate))
+
+    def test_contextual_short_typo_still_requires_identity_and_year(self):
+        self.details.update(title='Charlie Victor Romeo', original_title='Charlie Victor Romeo', release_date='2013-01-21')
+        self.assertEqual(self.resolve('Charlie Victor Romeon',2013)['identity_reason'],'title_conflict')
+        self.assertEqual(self.resolve('Charlie Victor Romeon',2014,allow_minor_typo=True)['identity_reason'],'year_conflict')
+        self.details['external_ids']['imdb_id']='tt0000002'
+        self.assertEqual(self.resolve('Charlie Victor Romeon',2013,allow_minor_typo=True)['identity_reason'],'identity_conflict')
+
     def test_unsafe_title_changes(self):
         for a,b in [('Alien','Aliens'),('The Think','The Thing'),('Rocky II','Rocky III'),
                     ('Rocky 2','Rocky 3'),('Movie 10','Movie 11'),('Bruce Almighty Extra','Bruce Almighty'),
