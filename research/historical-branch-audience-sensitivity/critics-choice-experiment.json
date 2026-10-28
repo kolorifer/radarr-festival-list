@@ -1,0 +1,3074 @@
+{
+  "mode": "research-critics-choice-best-picture-v2-bold-headings",
+  "qualification_unchanged": true,
+  "active_score_unchanged": true,
+  "source": "Critics Choice Awards official archive",
+  "archive_url": "https://www.criticschoice.com/critics-choice-awards-archives/",
+  "weighting": {
+    "winner": 25.0,
+    "nominee": 8.0,
+    "family": "critics_groups_consensus"
+  },
+  "pages_discovered": 26,
+  "pages_parsed": 26,
+  "page_errors": [],
+  "records": 263,
+  "resolved_records": 234,
+  "unresolved_records": [
+    {
+      "title": "Quills",
+      "winner": false,
+      "ceremony_year": 2001,
+      "film_year_hint": 2000,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "title": "Thirteen Days",
+      "winner": false,
+      "ceremony_year": 2001,
+      "film_year_hint": 2000,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "title": "Ali",
+      "winner": false,
+      "ceremony_year": 2002,
+      "film_year_hint": 2001,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "title": "Lord of the Rings: The Fellowship of the Ring",
+      "winner": false,
+      "ceremony_year": 2002,
+      "film_year_hint": 2001,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "title": "The Shipping News",
+      "winner": false,
+      "ceremony_year": 2002,
+      "film_year_hint": 2001,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "title": "Lord of the Rings: The Two Towers",
+      "winner": false,
+      "ceremony_year": 2003,
+      "film_year_hint": 2002,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "title": "In America",
+      "winner": false,
+      "ceremony_year": 2004,
+      "film_year_hint": 2003,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "title": "Lord of the Rings: The Return of the King",
+      "winner": true,
+      "ceremony_year": 2004,
+      "film_year_hint": 2003,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "title": "Master and Commander",
+      "winner": false,
+      "ceremony_year": 2004,
+      "film_year_hint": 2003,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "title": "Kinsey",
+      "winner": false,
+      "ceremony_year": 2005,
+      "film_year_hint": 2004,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "title": "Dreamgirls",
+      "winner": false,
+      "ceremony_year": 2007,
+      "film_year_hint": 2006,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "title": "Notes on a Scandal",
+      "winner": false,
+      "ceremony_year": 2007,
+      "film_year_hint": 2006,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "title": "Sweeney Todd",
+      "winner": false,
+      "ceremony_year": 2008,
+      "film_year_hint": 2007,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "title": "The Kite Runner",
+      "winner": false,
+      "ceremony_year": 2008,
+      "film_year_hint": 2007,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "title": "Nine",
+      "winner": false,
+      "ceremony_year": 2010,
+      "film_year_hint": 2009,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "title": "Birdman",
+      "winner": false,
+      "ceremony_year": 2015,
+      "film_year_hint": 2014,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "title": "Star Wars: The Force Awakens",
+      "winner": false,
+      "ceremony_year": 2016,
+      "film_year_hint": 2015,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "title": "Loving",
+      "winner": false,
+      "ceremony_year": 2016,
+      "film_year_hint": 2015,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "title": "Mary Poppins Returns",
+      "winner": false,
+      "ceremony_year": 2019,
+      "film_year_hint": 2018,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "title": "Ma Rainey’s Black Bottom",
+      "winner": false,
+      "ceremony_year": 2021,
+      "film_year_hint": 2020,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "title": "News of the World",
+      "winner": false,
+      "ceremony_year": 2021,
+      "film_year_hint": 2020,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "title": "One Night in Miami",
+      "winner": false,
+      "ceremony_year": 2021,
+      "film_year_hint": 2020,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "title": "Babylon",
+      "winner": false,
+      "ceremony_year": 2023,
+      "film_year_hint": 2022,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "title": "Glass Onion: A Knives Out Mystery",
+      "winner": false,
+      "ceremony_year": 2023,
+      "film_year_hint": 2022,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "title": "Saltburn",
+      "winner": false,
+      "ceremony_year": 2024,
+      "film_year_hint": 2023,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "title": "The Color Purple",
+      "winner": false,
+      "ceremony_year": 2024,
+      "film_year_hint": 2023,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "title": "Sing Sing",
+      "winner": false,
+      "ceremony_year": 2025,
+      "film_year_hint": 2024,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "title": "Jay Kelly",
+      "winner": false,
+      "ceremony_year": 2026,
+      "film_year_hint": 2025,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "title": "Wicked: For Good",
+      "winner": false,
+      "ceremony_year": 2026,
+      "film_year_hint": 2025,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    }
+  ],
+  "thresholds": {
+    "300": {
+      "selected": 170,
+      "promotions_vs_old": 38,
+      "old_qualified_retained": 132
+    },
+    "275": {
+      "selected": 221,
+      "promotions_vs_old": 66,
+      "old_qualified_retained": 155
+    },
+    "250": {
+      "selected": 276,
+      "promotions_vs_old": 99,
+      "old_qualified_retained": 177
+    },
+    "225": {
+      "selected": 354,
+      "promotions_vs_old": 151,
+      "old_qualified_retained": 203
+    },
+    "200": {
+      "selected": 456,
+      "promotions_vs_old": 231,
+      "old_qualified_retained": 225
+    }
+  },
+  "hybrid": {
+    "policy": {
+      "new_floor": 225,
+      "legacy_floor": 175,
+      "protect_multi_route": true,
+      "min_non_audience_families": 2
+    },
+    "baseline": {
+      "selected": 388,
+      "promotions_vs_old": 149,
+      "legacy_retained": 239,
+      "legacy_dropped": 16
+    },
+    "experimental": {
+      "selected": 389,
+      "promotions_vs_old": 150,
+      "legacy_retained": 239,
+      "legacy_dropped": 16
+    }
+  },
+  "newly_selected": [
+    {
+      "title": "Frost/Nixon",
+      "year": 2008,
+      "imdb_id": "tt0870111",
+      "base_score": 224.27,
+      "new_score": 226.27,
+      "base_rank": 355,
+      "new_rank": 346,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2009,
+        "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 28.82,
+          "old_active_critics": 28.82,
+          "new_active_critics": 30.82,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    }
+  ],
+  "controls": {
+    "Blade Runner 2049": {
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "imdb_id": "tt1856101",
+      "base_score": 190.8,
+      "new_score": 190.8,
+      "base_rank": 496,
+      "new_rank": 497,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Ex Machina": {
+      "title": "Ex Machina",
+      "year": 2014,
+      "imdb_id": "tt0470752",
+      "base_score": 208.86,
+      "new_score": 208.86,
+      "base_rank": 410,
+      "new_rank": 411,
+      "cca": null,
+      "qualified_old": true
+    },
+    "Scott Pilgrim vs. the World": {
+      "title": "Scott Pilgrim vs. the World",
+      "year": 2010,
+      "imdb_id": "tt0446029",
+      "base_score": 180.79,
+      "new_score": 180.79,
+      "base_rank": 548,
+      "new_rank": 550,
+      "cca": null,
+      "qualified_old": false
+    },
+    "The Batman": {
+      "title": "The Batman",
+      "year": 2022,
+      "imdb_id": "tt1877830",
+      "base_score": 158.88,
+      "new_score": 158.88,
+      "base_rank": 658,
+      "new_rank": 659,
+      "cca": null,
+      "qualified_old": false
+    },
+    "Tenet": {
+      "title": "Tenet",
+      "year": 2020,
+      "imdb_id": "tt6723592",
+      "base_score": 90.19,
+      "new_score": 90.19,
+      "base_rank": 1191,
+      "new_rank": 1192,
+      "cca": null,
+      "qualified_old": false
+    },
+    "The Machinist": {
+      "title": "The Machinist",
+      "year": 2004,
+      "imdb_id": "tt0361862",
+      "base_score": 121.57,
+      "new_score": 121.57,
+      "base_rank": 924,
+      "new_rank": 926,
+      "cca": null,
+      "qualified_old": false
+    },
+    "Dune: Part Two": {
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "imdb_id": "tt15239678",
+      "base_score": 300.47,
+      "new_score": 302.47,
+      "base_rank": 166,
+      "new_rank": 165,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2025,
+        "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 28.8,
+          "old_active_critics": 28.8,
+          "new_active_critics": 30.8,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    "Midsommar": {
+      "title": "Midsommar",
+      "year": 2019,
+      "imdb_id": "tt8772262",
+      "base_score": 154.03,
+      "new_score": 154.03,
+      "base_rank": 691,
+      "new_rank": 692,
+      "cca": null,
+      "qualified_old": false
+    },
+    "Nocturnal Animals": {
+      "title": "Nocturnal Animals",
+      "year": 2016,
+      "imdb_id": "tt4550098",
+      "base_score": 165.57,
+      "new_score": 165.57,
+      "base_rank": 618,
+      "new_rank": 619,
+      "cca": null,
+      "qualified_old": false
+    },
+    "The Odyssey": {
+      "title": "The Odyssey",
+      "year": 2026,
+      "imdb_id": "tt33764258",
+      "base_score": 234.27,
+      "new_score": 234.27,
+      "base_rank": 317,
+      "new_rank": 318,
+      "cca": null,
+      "qualified_old": false
+    },
+    "1917": {
+      "title": "1917",
+      "year": 2019,
+      "imdb_id": "tt8579674",
+      "base_score": 337.72,
+      "new_score": 339.72,
+      "base_rank": 123,
+      "new_rank": 122,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2020,
+        "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 24.64,
+          "old_active_critics": 24.64,
+          "new_active_critics": 26.64,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    "Arrival": {
+      "title": "Arrival",
+      "year": 2016,
+      "imdb_id": "tt2543164",
+      "base_score": 442.68,
+      "new_score": 444.68,
+      "base_rank": 55,
+      "new_rank": 56,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 31.47,
+          "old_active_critics": 31.47,
+          "new_active_critics": 33.47,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    "Get Out": {
+      "title": "Get Out",
+      "year": 2017,
+      "imdb_id": "tt5052448",
+      "base_score": 541.95,
+      "new_score": 543.95,
+      "base_rank": 20,
+      "new_rank": 21,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2018,
+        "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 34.97,
+          "old_active_critics": 34.97,
+          "new_active_critics": 36.97,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    "Mad Max: Fury Road": {
+      "title": "Mad Max: Fury Road",
+      "year": 2015,
+      "imdb_id": "tt1392190",
+      "base_score": 560.38,
+      "new_score": 562.38,
+      "base_rank": 16,
+      "new_rank": 17,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 39.06,
+          "old_active_critics": 39.06,
+          "new_active_critics": 41.06,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    "Her": {
+      "title": "Her",
+      "year": 2013,
+      "imdb_id": "tt1798709",
+      "base_score": 428.51,
+      "new_score": 433.64,
+      "base_rank": 65,
+      "new_rank": 63,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2014,
+        "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 38.83,
+          "old_active_critics": 47.58,
+          "new_active_critics": 52.71,
+          "delta": 5.13
+        }
+      },
+      "qualified_old": true
+    },
+    "Manchester by the Sea": {
+      "title": "Manchester by the Sea",
+      "year": 2016,
+      "imdb_id": "tt4034228",
+      "base_score": 380.48,
+      "new_score": 382.48,
+      "base_rank": 89,
+      "new_rank": 89,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 39.28,
+          "old_active_critics": 39.28,
+          "new_active_critics": 41.28,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    }
+  },
+  "largest_changes": [
+    {
+      "title": "Everything Everywhere All at Once",
+      "year": 2022,
+      "imdb_id": "tt6710474",
+      "base_score": 509.09,
+      "new_score": 534.09,
+      "base_rank": 31,
+      "new_rank": 25,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2023,
+        "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 25.0,
+          "group_after_cca": 60.0,
+          "broad_points": 30.88,
+          "old_active_critics": 42.72,
+          "new_active_critics": 67.72,
+          "delta": 25.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Nomadland",
+      "year": 2020,
+      "imdb_id": "tt9770150",
+      "base_score": 512.41,
+      "new_score": 536.86,
+      "base_rank": 30,
+      "new_rank": 24,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2021,
+        "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 25.0,
+          "group_after_cca": 60.0,
+          "broad_points": 35.74,
+          "old_active_critics": 44.49,
+          "new_active_critics": 68.94,
+          "delta": 24.45
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "No Country for Old Men",
+      "year": 2007,
+      "imdb_id": "tt0477348",
+      "base_score": 635.93,
+      "new_score": 660.25,
+      "base_rank": 7,
+      "new_rank": 5,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2008,
+        "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 25.0,
+          "group_after_cca": 60.0,
+          "broad_points": 35.91,
+          "old_active_critics": 44.66,
+          "new_active_critics": 68.98,
+          "delta": 24.32
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "La La Land",
+      "year": 2016,
+      "imdb_id": "tt3783958",
+      "base_score": 419.41,
+      "new_score": 443.52,
+      "base_rank": 68,
+      "new_rank": 57,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 25.0,
+          "group_after_cca": 60.0,
+          "broad_points": 36.19,
+          "old_active_critics": 44.94,
+          "new_active_critics": 69.05,
+          "delta": 24.11
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Artist",
+      "year": 2011,
+      "imdb_id": "tt1655442",
+      "base_score": 446.2,
+      "new_score": 469.63,
+      "base_rank": 48,
+      "new_rank": 42,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2012,
+        "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 25.0,
+          "group_after_cca": 60.0,
+          "broad_points": 37.09,
+          "old_active_critics": 45.84,
+          "new_active_critics": 69.27,
+          "delta": 23.43
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "imdb_id": "tt0388795",
+      "base_score": 711.94,
+      "new_score": 734.42,
+      "base_rank": 1,
+      "new_rank": 1,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2006,
+        "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 25.0,
+          "group_after_cca": 95.0,
+          "broad_points": 30.06,
+          "old_active_critics": 77.52,
+          "new_active_critics": 100.0,
+          "delta": 22.48
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Anora",
+      "year": 2024,
+      "imdb_id": "tt28607951",
+      "base_score": 396.51,
+      "new_score": 418.96,
+      "base_rank": 76,
+      "new_rank": 71,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2025,
+        "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 25.0,
+          "group_after_cca": 60.0,
+          "broad_points": 38.4,
+          "old_active_critics": 47.15,
+          "new_active_critics": 69.6,
+          "delta": 22.45
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Sideways",
+      "year": 2004,
+      "imdb_id": "tt0375063",
+      "base_score": 410.22,
+      "new_score": 430.84,
+      "base_rank": 72,
+      "new_rank": 67,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2005,
+        "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 25.0,
+          "group_after_cca": 95.0,
+          "broad_points": 37.5,
+          "old_active_critics": 79.38,
+          "new_active_critics": 100.0,
+          "delta": 20.62
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Spotlight",
+      "year": 2015,
+      "imdb_id": "tt1895587",
+      "base_score": 541.83,
+      "new_score": 562.24,
+      "base_rank": 21,
+      "new_rank": 18,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 25.0,
+          "group_after_cca": 95.0,
+          "broad_points": 38.34,
+          "old_active_critics": 79.59,
+          "new_active_critics": 100.0,
+          "delta": 20.41
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Boyhood",
+      "year": 2014,
+      "imdb_id": "tt1065073",
+      "base_score": 673.54,
+      "new_score": 693.8,
+      "base_rank": 4,
+      "new_rank": 3,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2015,
+        "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 25.0,
+          "group_after_cca": 95.0,
+          "broad_points": 38.95,
+          "old_active_critics": 79.74,
+          "new_active_critics": 100.0,
+          "delta": 20.26
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Roma",
+      "year": 2018,
+      "imdb_id": "tt6155172",
+      "base_score": 546.54,
+      "new_score": 566.8,
+      "base_rank": 19,
+      "new_rank": 15,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2019,
+        "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 25.0,
+          "group_after_cca": 95.0,
+          "broad_points": 38.95,
+          "old_active_critics": 79.74,
+          "new_active_critics": 100.0,
+          "delta": 20.26
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "A Beautiful Mind",
+      "year": 2001,
+      "imdb_id": "tt0268978",
+      "base_score": 302.95,
+      "new_score": 322.16,
+      "base_rank": 160,
+      "new_rank": 140,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2002,
+        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 7.72,
+          "old_active_critics": 7.72,
+          "new_active_critics": 26.93,
+          "delta": 19.21
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Gladiator",
+      "year": 2000,
+      "imdb_id": "tt0172495",
+      "base_score": 445.82,
+      "new_score": 463.71,
+      "base_rank": 50,
+      "new_rank": 45,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2001,
+        "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 9.48,
+          "old_active_critics": 9.48,
+          "new_active_critics": 27.37,
+          "delta": 17.89
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Changeling",
+      "year": 2008,
+      "imdb_id": "tt0824747",
+      "base_score": 121.71,
+      "new_score": 129.71,
+      "base_rank": 920,
+      "new_rank": 859,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2009,
+        "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "About Schmidt",
+      "year": 2002,
+      "imdb_id": "tt0257360",
+      "base_score": 179.82,
+      "new_score": 187.82,
+      "base_rank": 554,
+      "new_rank": 509,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2003,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 26.26,
+          "old_active_critics": 41.56,
+          "new_active_critics": 49.56,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Blood Diamond",
+      "year": 2006,
+      "imdb_id": "tt0450259",
+      "base_score": 134.36,
+      "new_score": 142.36,
+      "base_rank": 825,
+      "new_rank": 775,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2007,
+        "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Capote",
+      "year": 2005,
+      "imdb_id": "tt0379725",
+      "base_score": 284.73,
+      "new_score": 292.73,
+      "base_rank": 201,
+      "new_rank": 187,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2006,
+        "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 30.49,
+          "old_active_critics": 42.62,
+          "new_active_critics": 50.62,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Don't Look Up",
+      "year": 2021,
+      "imdb_id": "tt11286314",
+      "base_score": 148.46,
+      "new_score": 156.46,
+      "base_rank": 727,
+      "new_rank": 680,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2022,
+        "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Extremely Loud & Incredibly Close",
+      "year": 2011,
+      "imdb_id": "tt0477302",
+      "base_score": 101.9,
+      "new_score": 109.9,
+      "base_rank": 1091,
+      "new_rank": 1019,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2012,
+        "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Far from Heaven",
+      "year": 2002,
+      "imdb_id": "tt0297884",
+      "base_score": 260.84,
+      "new_score": 268.84,
+      "base_rank": 247,
+      "new_rank": 235,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2003,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 26.28,
+          "old_active_critics": 41.57,
+          "new_active_critics": 49.57,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "In the Bedroom",
+      "year": 2001,
+      "imdb_id": "tt0247425",
+      "base_score": 275.31,
+      "new_score": 283.31,
+      "base_rank": 217,
+      "new_rank": 204,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2002,
+        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 29.41,
+          "old_active_critics": 42.35,
+          "new_active_critics": 50.35,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Inside Llewyn Davis",
+      "year": 2013,
+      "imdb_id": "tt2042568",
+      "base_score": 457.82,
+      "new_score": 465.82,
+      "base_rank": 46,
+      "new_rank": 44,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2014,
+        "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 28.92,
+          "old_active_critics": 42.23,
+          "new_active_critics": 50.23,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Joker",
+      "year": 2019,
+      "imdb_id": "tt7286456",
+      "base_score": 357.17,
+      "new_score": 365.17,
+      "base_rank": 103,
+      "new_rank": 97,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2020,
+        "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Lady Bird",
+      "year": 2017,
+      "imdb_id": "tt4925292",
+      "base_score": 437.41,
+      "new_score": 445.41,
+      "base_rank": 58,
+      "new_rank": 53,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2018,
+        "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 8.0,
+          "group_after_cca": 78.0,
+          "broad_points": 39.18,
+          "old_active_critics": 79.8,
+          "new_active_critics": 87.8,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Les Misérables",
+      "year": 2012,
+      "imdb_id": "tt1707386",
+      "base_score": 187.02,
+      "new_score": 195.02,
+      "base_rank": 513,
+      "new_rank": 473,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2013,
+        "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Letters from Iwo Jima",
+      "year": 2006,
+      "imdb_id": "tt0498380",
+      "base_score": 291.99,
+      "new_score": 299.99,
+      "base_rank": 187,
+      "new_rank": 171,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2007,
+        "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 32.41,
+          "old_active_critics": 43.1,
+          "new_active_critics": 51.1,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Memoirs of a Geisha",
+      "year": 2005,
+      "imdb_id": "tt0397535",
+      "base_score": 92.17,
+      "new_score": 100.17,
+      "base_rank": 1167,
+      "new_rank": 1117,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2006,
+        "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Milk",
+      "year": 2008,
+      "imdb_id": "tt1013753",
+      "base_score": 261.75,
+      "new_score": 269.75,
+      "base_rank": 245,
+      "new_rank": 232,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2009,
+        "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 30.88,
+          "old_active_critics": 42.72,
+          "new_active_critics": 50.72,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Million Dollar Baby",
+      "year": 2004,
+      "imdb_id": "tt0405159",
+      "base_score": 386.35,
+      "new_score": 394.35,
+      "base_rank": 84,
+      "new_rank": 78,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2005,
+        "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 30.71,
+          "old_active_critics": 42.68,
+          "new_active_critics": 50.68,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Moonlight",
+      "year": 2016,
+      "imdb_id": "tt4975722",
+      "base_score": 644.74,
+      "new_score": 652.74,
+      "base_rank": 5,
+      "new_rank": 6,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 8.0,
+          "group_after_cca": 78.0,
+          "broad_points": 39.28,
+          "old_active_critics": 79.82,
+          "new_active_critics": 87.82,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Mulholland Drive",
+      "year": 2001,
+      "imdb_id": "tt0166924",
+      "base_score": 623.94,
+      "new_score": 631.94,
+      "base_rank": 9,
+      "new_rank": 8,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2002,
+        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 8.0,
+          "group_after_cca": 78.0,
+          "broad_points": 25.68,
+          "old_active_critics": 76.42,
+          "new_active_critics": 84.42,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Descendants",
+      "year": 2011,
+      "imdb_id": "tt1033575",
+      "base_score": 265.69,
+      "new_score": 273.69,
+      "base_rank": 235,
+      "new_rank": 224,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2012,
+        "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 27.34,
+          "old_active_critics": 41.84,
+          "new_active_critics": 49.84,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "The Last Samurai",
+      "year": 2003,
+      "imdb_id": "tt0325710",
+      "base_score": 131.03,
+      "new_score": 139.03,
+      "base_rank": 852,
+      "new_rank": 794,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2004,
+        "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "The Phantom of the Opera",
+      "year": 2004,
+      "imdb_id": "tt0293508",
+      "base_score": 85.26,
+      "new_score": 93.26,
+      "base_rank": 1234,
+      "new_rank": 1160,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2005,
+        "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "The Pianist",
+      "year": 2002,
+      "imdb_id": "tt0253474",
+      "base_score": 515.99,
+      "new_score": 523.99,
+      "base_rank": 27,
+      "new_rank": 28,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2003,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 32.66,
+          "old_active_critics": 43.16,
+          "new_active_critics": 51.16,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Reader",
+      "year": 2008,
+      "imdb_id": "tt0976051",
+      "base_score": 207.05,
+      "new_score": 215.05,
+      "base_rank": 418,
+      "new_rank": 384,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2009,
+        "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "There Will Be Blood",
+      "year": 2007,
+      "imdb_id": "tt0469494",
+      "base_score": 706.87,
+      "new_score": 714.87,
+      "base_rank": 2,
+      "new_rank": 2,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2008,
+        "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 70.0,
+          "cca_points": 8.0,
+          "group_after_cca": 78.0,
+          "broad_points": 34.6,
+          "old_active_critics": 78.65,
+          "new_active_critics": 86.65,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Traffic",
+      "year": 2000,
+      "imdb_id": "tt0181865",
+      "base_score": 260.83,
+      "new_score": 268.83,
+      "base_rank": 248,
+      "new_rank": 236,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2001,
+        "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 31.96,
+          "old_active_critics": 42.99,
+          "new_active_critics": 50.99,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "United 93",
+      "year": 2006,
+      "imdb_id": "tt0475276",
+      "base_score": 194.31,
+      "new_score": 202.31,
+      "base_rank": 476,
+      "new_rank": 440,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2007,
+        "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 32.95,
+          "old_active_critics": 43.24,
+          "new_active_critics": 51.24,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Vice",
+      "year": 2018,
+      "imdb_id": "tt6266538",
+      "base_score": 142.34,
+      "new_score": 150.34,
+      "base_rank": 771,
+      "new_rank": 715,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2019,
+        "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "tick, tick... BOOM!",
+      "year": 2021,
+      "imdb_id": "tt8721424",
+      "base_score": 43.33,
+      "new_score": 51.33,
+      "base_rank": 1614,
+      "new_rank": 1524,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2022,
+        "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "A Complete Unknown",
+      "year": 2024,
+      "imdb_id": "tt11563598",
+      "base_score": 126.67,
+      "new_score": 134.67,
+      "base_rank": 881,
+      "new_rank": 826,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2025,
+        "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 0.0,
+          "old_active_critics": 0.0,
+          "new_active_critics": 8.0,
+          "delta": 8.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Zero Dark Thirty",
+      "year": 2012,
+      "imdb_id": "tt1790885",
+      "base_score": 352.69,
+      "new_score": 360.49,
+      "base_rank": 106,
+      "new_rank": 103,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2013,
+        "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 35.26,
+          "old_active_critics": 44.01,
+          "new_active_critics": 51.81,
+          "delta": 7.8
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Nickel Boys",
+      "year": 2024,
+      "imdb_id": "tt23055660",
+      "base_score": 121.54,
+      "new_score": 128.96,
+      "base_rank": 925,
+      "new_rank": 865,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2025,
+        "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 35.77,
+          "old_active_critics": 44.52,
+          "new_active_critics": 51.94,
+          "delta": 7.42
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "American Hustle",
+      "year": 2013,
+      "imdb_id": "tt1800241",
+      "base_score": 195.45,
+      "new_score": 202.56,
+      "base_rank": 469,
+      "new_rank": 438,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2014,
+        "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 36.19,
+          "old_active_critics": 44.94,
+          "new_active_critics": 52.05,
+          "delta": 7.11
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Chicago",
+      "year": 2002,
+      "imdb_id": "tt0299658",
+      "base_score": 254.35,
+      "new_score": 260.74,
+      "base_rank": 263,
+      "new_rank": 251,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2003,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 24.81,
+          "old_active_critics": 24.81,
+          "new_active_critics": 31.2,
+          "delta": 6.39
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "12 Years a Slave",
+      "year": 2013,
+      "imdb_id": "tt2024544",
+      "base_score": 612.41,
+      "new_score": 618.66,
+      "base_rank": 10,
+      "new_rank": 10,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2014,
+        "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 39.7,
+          "old_active_critics": 39.7,
+          "new_active_critics": 45.95,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Argo",
+      "year": 2012,
+      "imdb_id": "tt1024648",
+      "base_score": 303.11,
+      "new_score": 309.36,
+      "base_rank": 158,
+      "new_rank": 152,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2013,
+        "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 35.41,
+          "old_active_critics": 35.41,
+          "new_active_critics": 41.66,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Once Upon a Time in... Hollywood",
+      "year": 2019,
+      "imdb_id": "tt7131622",
+      "base_score": 410.07,
+      "new_score": 416.32,
+      "base_rank": 73,
+      "new_rank": 73,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2020,
+        "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 28.0,
+          "old_active_critics": 28.0,
+          "new_active_critics": 34.25,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Oppenheimer",
+      "year": 2023,
+      "imdb_id": "tt15398776",
+      "base_score": 446.02,
+      "new_score": 452.27,
+      "base_rank": 49,
+      "new_rank": 49,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2024,
+        "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 38.4,
+          "old_active_critics": 38.4,
+          "new_active_critics": 44.65,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Slumdog Millionaire",
+      "year": 2008,
+      "imdb_id": "tt1010048",
+      "base_score": 412.96,
+      "new_score": 419.21,
+      "base_rank": 70,
+      "new_rank": 70,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2009,
+        "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 30.56,
+          "old_active_critics": 30.56,
+          "new_active_critics": 36.81,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Departed",
+      "year": 2006,
+      "imdb_id": "tt0407887",
+      "base_score": 517.12,
+      "new_score": 523.37,
+      "base_rank": 26,
+      "new_rank": 29,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2007,
+        "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 30.81,
+          "old_active_critics": 30.81,
+          "new_active_critics": 37.06,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Power of the Dog",
+      "year": 2021,
+      "imdb_id": "tt10293406",
+      "base_score": 353.89,
+      "new_score": 360.14,
+      "base_rank": 105,
+      "new_rank": 104,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2022,
+        "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 38.21,
+          "old_active_critics": 38.21,
+          "new_active_critics": 44.46,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Shape of Water",
+      "year": 2017,
+      "imdb_id": "tt5580390",
+      "base_score": 387.1,
+      "new_score": 393.35,
+      "base_rank": 82,
+      "new_rank": 80,
+      "cca": {
+        "winner": true,
+        "ceremony_year": 2018,
+        "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/",
+        "points": 25.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 25.0,
+          "group_after_cca": 25.0,
+          "broad_points": 34.57,
+          "old_active_critics": 34.57,
+          "new_active_critics": 40.82,
+          "delta": 6.25
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "WALL·E",
+      "year": 2008,
+      "imdb_id": "tt0910970",
+      "base_score": 531.15,
+      "new_score": 537.27,
+      "base_rank": 25,
+      "new_rank": 23,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2009,
+        "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 37.51,
+          "old_active_critics": 46.26,
+          "new_active_critics": 52.38,
+          "delta": 6.12
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Carol",
+      "year": 2015,
+      "imdb_id": "tt2402927",
+      "base_score": 385.64,
+      "new_score": 391.73,
+      "base_rank": 86,
+      "new_rank": 83,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 37.54,
+          "old_active_critics": 46.29,
+          "new_active_critics": 52.38,
+          "delta": 6.09
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Killers of the Flower Moon",
+      "year": 2023,
+      "imdb_id": "tt5537002",
+      "base_score": 331.88,
+      "new_score": 337.93,
+      "base_rank": 129,
+      "new_rank": 125,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2024,
+        "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 37.6,
+          "old_active_critics": 46.35,
+          "new_active_critics": 52.4,
+          "delta": 6.05
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Crash",
+      "year": 2004,
+      "imdb_id": "tt0375679",
+      "base_score": 245.29,
+      "new_score": 251.0,
+      "base_rank": 287,
+      "new_rank": 270,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2006,
+        "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 3.06,
+          "old_active_critics": 3.06,
+          "new_active_critics": 8.77,
+          "delta": 5.71
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Brutalist",
+      "year": 2024,
+      "imdb_id": "tt8999762",
+      "base_score": 290.29,
+      "new_score": 295.89,
+      "base_rank": 191,
+      "new_rank": 180,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2025,
+        "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 38.2,
+          "old_active_critics": 46.95,
+          "new_active_critics": 52.55,
+          "delta": 5.6
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Gravity",
+      "year": 2013,
+      "imdb_id": "tt1454468",
+      "base_score": 336.08,
+      "new_score": 341.21,
+      "base_rank": 124,
+      "new_rank": 118,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2014,
+        "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 38.83,
+          "old_active_critics": 47.58,
+          "new_active_critics": 52.71,
+          "delta": 5.13
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Her",
+      "year": 2013,
+      "imdb_id": "tt1798709",
+      "base_score": 428.51,
+      "new_score": 433.64,
+      "base_rank": 65,
+      "new_rank": 63,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2014,
+        "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 38.83,
+          "old_active_critics": 47.58,
+          "new_active_critics": 52.71,
+          "delta": 5.13
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Babel",
+      "year": 2006,
+      "imdb_id": "tt0449467",
+      "base_score": 302.06,
+      "new_score": 306.93,
+      "base_rank": 162,
+      "new_rank": 155,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2007,
+        "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 4.17,
+          "old_active_critics": 4.17,
+          "new_active_critics": 9.04,
+          "delta": 4.87
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Past Lives",
+      "year": 2023,
+      "imdb_id": "tt13238346",
+      "base_score": 444.87,
+      "new_score": 449.74,
+      "base_rank": 52,
+      "new_rank": 50,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2024,
+        "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 39.18,
+          "old_active_critics": 47.93,
+          "new_active_critics": 52.8,
+          "delta": 4.87
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Call Me by Your Name",
+      "year": 2017,
+      "imdb_id": "tt5726616",
+      "base_score": 483.98,
+      "new_score": 488.77,
+      "base_rank": 37,
+      "new_rank": 36,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2018,
+        "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 39.28,
+          "old_active_critics": 48.03,
+          "new_active_critics": 52.82,
+          "delta": 4.79
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Irishman",
+      "year": 2019,
+      "imdb_id": "tt1302006",
+      "base_score": 352.66,
+      "new_score": 357.29,
+      "base_rank": 107,
+      "new_rank": 106,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2020,
+        "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 39.5,
+          "old_active_critics": 48.25,
+          "new_active_critics": 52.88,
+          "delta": 4.63
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Parasite",
+      "year": 2019,
+      "imdb_id": "tt6751668",
+      "base_score": 679.67,
+      "new_score": 684.22,
+      "base_rank": 3,
+      "new_rank": 4,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2020,
+        "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 35.0,
+          "cca_points": 8.0,
+          "group_after_cca": 43.0,
+          "broad_points": 39.6,
+          "old_active_critics": 48.35,
+          "new_active_critics": 52.9,
+          "delta": 4.55
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Moulin Rouge!",
+      "year": 2001,
+      "imdb_id": "tt0203009",
+      "base_score": 357.27,
+      "new_score": 361.76,
+      "base_rank": 102,
+      "new_rank": 100,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2002,
+        "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 4.68,
+          "old_active_critics": 4.68,
+          "new_active_critics": 9.17,
+          "delta": 4.49
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "The Curious Case of Benjamin Button",
+      "year": 2008,
+      "imdb_id": "tt0421715",
+      "base_score": 245.34,
+      "new_score": 249.47,
+      "base_rank": 286,
+      "new_rank": 279,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2009,
+        "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 5.16,
+          "old_active_critics": 5.16,
+          "new_active_critics": 9.29,
+          "delta": 4.13
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Emilia Pérez",
+      "year": 2024,
+      "imdb_id": "tt20221436",
+      "base_score": 45.85,
+      "new_score": 49.46,
+      "base_rank": 1577,
+      "new_rank": 1547,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2025,
+        "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 5.85,
+          "old_active_critics": 5.85,
+          "new_active_critics": 9.46,
+          "delta": 3.61
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "The Help",
+      "year": 2011,
+      "imdb_id": "tt1454029",
+      "base_score": 270.49,
+      "new_score": 274.08,
+      "base_rank": 227,
+      "new_rank": 223,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2012,
+        "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 5.88,
+          "old_active_critics": 5.88,
+          "new_active_critics": 9.47,
+          "delta": 3.59
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Avatar: The Way of Water",
+      "year": 2022,
+      "imdb_id": "tt1630029",
+      "base_score": 192.17,
+      "new_score": 195.37,
+      "base_rank": 487,
+      "new_rank": 471,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2023,
+        "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 6.4,
+          "old_active_critics": 6.4,
+          "new_active_critics": 9.6,
+          "delta": 3.2
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "American Sniper",
+      "year": 2014,
+      "imdb_id": "tt2179136",
+      "base_score": 148.97,
+      "new_score": 151.88,
+      "base_rank": 721,
+      "new_rank": 706,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2015,
+        "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 6.79,
+          "old_active_critics": 6.79,
+          "new_active_critics": 9.7,
+          "delta": 2.91
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Big Fish",
+      "year": 2003,
+      "imdb_id": "tt0319061",
+      "base_score": 233.08,
+      "new_score": 235.86,
+      "base_rank": 322,
+      "new_rank": 311,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2004,
+        "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 6.96,
+          "old_active_critics": 6.96,
+          "new_active_critics": 9.74,
+          "delta": 2.78
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Gangs of New York",
+      "year": 2002,
+      "imdb_id": "tt0217505",
+      "base_score": 264.43,
+      "new_score": 266.91,
+      "base_rank": 237,
+      "new_rank": 239,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2003,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 7.36,
+          "old_active_critics": 7.36,
+          "new_active_critics": 9.84,
+          "delta": 2.48
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "127 Hours",
+      "year": 2010,
+      "imdb_id": "tt1542344",
+      "base_score": 203.93,
+      "new_score": 205.93,
+      "base_rank": 429,
+      "new_rank": 424,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2011,
+        "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 29.96,
+          "old_active_critics": 29.96,
+          "new_active_critics": 31.96,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "1917",
+      "year": 2019,
+      "imdb_id": "tt8579674",
+      "base_score": 337.72,
+      "new_score": 339.72,
+      "base_rank": 123,
+      "new_rank": 122,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2020,
+        "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 24.64,
+          "old_active_critics": 24.64,
+          "new_active_critics": 26.64,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "A Serious Man",
+      "year": 2009,
+      "imdb_id": "tt1019452",
+      "base_score": 346.68,
+      "new_score": 348.68,
+      "base_rank": 108,
+      "new_rank": 108,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2010,
+        "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 30.71,
+          "old_active_critics": 30.71,
+          "new_active_critics": 32.71,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "A Star Is Born",
+      "year": 2018,
+      "imdb_id": "tt1517451",
+      "base_score": 245.17,
+      "new_score": 247.17,
+      "base_rank": 288,
+      "new_rank": 287,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2019,
+        "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 34.4,
+          "old_active_critics": 34.4,
+          "new_active_critics": 36.4,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Adaptation.",
+      "year": 2002,
+      "imdb_id": "tt0268126",
+      "base_score": 306.26,
+      "new_score": 308.26,
+      "base_rank": 151,
+      "new_rank": 153,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2003,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 28.0,
+          "old_active_critics": 28.0,
+          "new_active_critics": 30.0,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Almost Famous",
+      "year": 2000,
+      "imdb_id": "tt0181875",
+      "base_score": 358.85,
+      "new_score": 360.85,
+      "base_rank": 101,
+      "new_rank": 102,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2001,
+        "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 33.8,
+          "old_active_critics": 33.8,
+          "new_active_critics": 35.8,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "American Fiction",
+      "year": 2023,
+      "imdb_id": "tt23561236",
+      "base_score": 220.09,
+      "new_score": 222.09,
+      "base_rank": 366,
+      "new_rank": 362,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2024,
+        "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 30.81,
+          "old_active_critics": 30.81,
+          "new_active_critics": 32.81,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "American Gangster",
+      "year": 2007,
+      "imdb_id": "tt0765429",
+      "base_score": 192.37,
+      "new_score": 194.37,
+      "base_rank": 485,
+      "new_rank": 479,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2008,
+        "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 16.09,
+          "old_active_critics": 16.09,
+          "new_active_critics": 18.09,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "An Education",
+      "year": 2009,
+      "imdb_id": "tt1174732",
+      "base_score": 226.32,
+      "new_score": 228.32,
+      "base_rank": 342,
+      "new_rank": 335,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2010,
+        "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 31.51,
+          "old_active_critics": 31.51,
+          "new_active_critics": 33.51,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Arrival",
+      "year": 2016,
+      "imdb_id": "tt2543164",
+      "base_score": 442.68,
+      "new_score": 444.68,
+      "base_rank": 55,
+      "new_rank": 56,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 31.47,
+          "old_active_critics": 31.47,
+          "new_active_critics": 33.47,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Atonement",
+      "year": 2007,
+      "imdb_id": "tt0783233",
+      "base_score": 359.34,
+      "new_score": 361.34,
+      "base_rank": 99,
+      "new_rank": 101,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2008,
+        "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 23.69,
+          "old_active_critics": 23.69,
+          "new_active_critics": 25.69,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Avatar",
+      "year": 2009,
+      "imdb_id": "tt0499549",
+      "base_score": 361.81,
+      "new_score": 363.81,
+      "base_rank": 97,
+      "new_rank": 98,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2010,
+        "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 21.3,
+          "old_active_critics": 21.3,
+          "new_active_critics": 23.3,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Barbie",
+      "year": 2023,
+      "imdb_id": "tt1517268",
+      "base_score": 197.63,
+      "new_score": 199.63,
+      "base_rank": 462,
+      "new_rank": 458,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2024,
+        "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 26.4,
+          "old_active_critics": 26.4,
+          "new_active_critics": 28.4,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Beasts of the Southern Wild",
+      "year": 2012,
+      "imdb_id": "tt2125435",
+      "base_score": 302.13,
+      "new_score": 304.13,
+      "base_rank": 161,
+      "new_rank": 160,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2013,
+        "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 28.34,
+          "old_active_critics": 28.34,
+          "new_active_critics": 30.34,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Belfast",
+      "year": 2021,
+      "imdb_id": "tt12789558",
+      "base_score": 202.1,
+      "new_score": 204.1,
+      "base_rank": 437,
+      "new_rank": 430,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2022,
+        "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 20.6,
+          "old_active_critics": 20.6,
+          "new_active_critics": 22.6,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Billy Elliot",
+      "year": 2000,
+      "imdb_id": "tt0249462",
+      "base_score": 249.02,
+      "new_score": 251.02,
+      "base_rank": 277,
+      "new_rank": 269,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2001,
+        "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 15.83,
+          "old_active_critics": 15.83,
+          "new_active_critics": 17.83,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "BlacKkKlansman",
+      "year": 2018,
+      "imdb_id": "tt7349662",
+      "base_score": 367.63,
+      "new_score": 369.63,
+      "base_rank": 94,
+      "new_rank": 94,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2019,
+        "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 34.11,
+          "old_active_critics": 34.11,
+          "new_active_critics": 36.11,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Black Panther",
+      "year": 2018,
+      "imdb_id": "tt1825683",
+      "base_score": 293.89,
+      "new_score": 295.89,
+      "base_rank": 180,
+      "new_rank": 179,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2019,
+        "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 37.94,
+          "old_active_critics": 37.94,
+          "new_active_critics": 39.94,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Black Swan",
+      "year": 2010,
+      "imdb_id": "tt0947798",
+      "base_score": 437.86,
+      "new_score": 439.86,
+      "base_rank": 57,
+      "new_rank": 59,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2011,
+        "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 22.05,
+          "old_active_critics": 22.05,
+          "new_active_critics": 24.05,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Bridge of Spies",
+      "year": 2015,
+      "imdb_id": "tt3682448",
+      "base_score": 219.55,
+      "new_score": 221.55,
+      "base_rank": 370,
+      "new_rank": 363,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 28.78,
+          "old_active_critics": 28.78,
+          "new_active_critics": 30.78,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Brooklyn",
+      "year": 2015,
+      "imdb_id": "tt2381111",
+      "base_score": 293.03,
+      "new_score": 295.03,
+      "base_rank": 182,
+      "new_rank": 181,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2016,
+        "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 36.87,
+          "old_active_critics": 36.87,
+          "new_active_critics": 38.87,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Bugonia",
+      "year": 2025,
+      "imdb_id": "tt12300742",
+      "base_score": 215.23,
+      "new_score": 217.23,
+      "base_rank": 381,
+      "new_rank": 375,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2026,
+        "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 19.2,
+          "old_active_critics": 19.2,
+          "new_active_critics": 21.2,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "CODA",
+      "year": 2021,
+      "imdb_id": "tt10366460",
+      "base_score": 380.52,
+      "new_score": 382.52,
+      "base_rank": 88,
+      "new_rank": 88,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2022,
+        "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 24.37,
+          "old_active_critics": 24.37,
+          "new_active_critics": 26.37,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    },
+    {
+      "title": "Captain Phillips",
+      "year": 2013,
+      "imdb_id": "tt1535109",
+      "base_score": 258.81,
+      "new_score": 260.81,
+      "base_rank": 254,
+      "new_rank": 250,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2014,
+        "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 31.12,
+          "old_active_critics": 31.12,
+          "new_active_critics": 33.12,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Cast Away",
+      "year": 2000,
+      "imdb_id": "tt0162222",
+      "base_score": 158.09,
+      "new_score": 160.09,
+      "base_rank": 665,
+      "new_rank": 651,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2001,
+        "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 18.61,
+          "old_active_critics": 18.61,
+          "new_active_critics": 20.61,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": false
+    },
+    {
+      "title": "Catch Me If You Can",
+      "year": 2002,
+      "imdb_id": "tt0264464",
+      "base_score": 191.99,
+      "new_score": 193.99,
+      "base_rank": 489,
+      "new_rank": 481,
+      "cca": {
+        "winner": false,
+        "ceremony_year": 2003,
+        "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/",
+        "points": 8.0,
+        "critic_recompute": {
+          "base_group_before_cca": 0.0,
+          "cca_points": 8.0,
+          "group_after_cca": 8.0,
+          "broad_points": 10.51,
+          "old_active_critics": 10.51,
+          "new_active_critics": 12.51,
+          "delta": 2.0
+        }
+      },
+      "qualified_old": true
+    }
+  ]
+}

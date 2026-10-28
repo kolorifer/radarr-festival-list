@@ -1,0 +1,2092 @@
+{
+  "source": "Critics Choice Awards official archive",
+  "archive_url": "https://www.criticschoice.com/critics-choice-awards-archives/",
+  "category": "Best Picture",
+  "family": "critics_groups_consensus",
+  "weighting": {
+    "winner": 25.0,
+    "nominee": 8.0
+  },
+  "pages_discovered": 26,
+  "records_parsed": 263,
+  "resolved": 234,
+  "unresolved": [
+    {
+      "title": "Quills",
+      "winner": false,
+      "ceremony_year": 2001,
+      "film_year_hint": 2000,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "title": "Thirteen Days",
+      "winner": false,
+      "ceremony_year": 2001,
+      "film_year_hint": 2000,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "title": "Ali",
+      "winner": false,
+      "ceremony_year": 2002,
+      "film_year_hint": 2001,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "title": "Lord of the Rings: The Fellowship of the Ring",
+      "winner": false,
+      "ceremony_year": 2002,
+      "film_year_hint": 2001,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "title": "The Shipping News",
+      "winner": false,
+      "ceremony_year": 2002,
+      "film_year_hint": 2001,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "title": "Lord of the Rings: The Two Towers",
+      "winner": false,
+      "ceremony_year": 2003,
+      "film_year_hint": 2002,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "title": "In America",
+      "winner": false,
+      "ceremony_year": 2004,
+      "film_year_hint": 2003,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "title": "Lord of the Rings: The Return of the King",
+      "winner": true,
+      "ceremony_year": 2004,
+      "film_year_hint": 2003,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "title": "Master and Commander",
+      "winner": false,
+      "ceremony_year": 2004,
+      "film_year_hint": 2003,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "title": "Kinsey",
+      "winner": false,
+      "ceremony_year": 2005,
+      "film_year_hint": 2004,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "title": "Dreamgirls",
+      "winner": false,
+      "ceremony_year": 2007,
+      "film_year_hint": 2006,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "title": "Notes on a Scandal",
+      "winner": false,
+      "ceremony_year": 2007,
+      "film_year_hint": 2006,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "title": "Sweeney Todd",
+      "winner": false,
+      "ceremony_year": 2008,
+      "film_year_hint": 2007,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "title": "The Kite Runner",
+      "winner": false,
+      "ceremony_year": 2008,
+      "film_year_hint": 2007,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "title": "Nine",
+      "winner": false,
+      "ceremony_year": 2010,
+      "film_year_hint": 2009,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "title": "Birdman",
+      "winner": false,
+      "ceremony_year": 2015,
+      "film_year_hint": 2014,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "title": "Star Wars: The Force Awakens",
+      "winner": false,
+      "ceremony_year": 2016,
+      "film_year_hint": 2015,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "title": "Loving",
+      "winner": false,
+      "ceremony_year": 2016,
+      "film_year_hint": 2015,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "title": "Mary Poppins Returns",
+      "winner": false,
+      "ceremony_year": 2019,
+      "film_year_hint": 2018,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "title": "Ma Rainey’s Black Bottom",
+      "winner": false,
+      "ceremony_year": 2021,
+      "film_year_hint": 2020,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "title": "News of the World",
+      "winner": false,
+      "ceremony_year": 2021,
+      "film_year_hint": 2020,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "title": "One Night in Miami",
+      "winner": false,
+      "ceremony_year": 2021,
+      "film_year_hint": 2020,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "title": "Babylon",
+      "winner": false,
+      "ceremony_year": 2023,
+      "film_year_hint": 2022,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "title": "Glass Onion: A Knives Out Mystery",
+      "winner": false,
+      "ceremony_year": 2023,
+      "film_year_hint": 2022,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "title": "Saltburn",
+      "winner": false,
+      "ceremony_year": 2024,
+      "film_year_hint": 2023,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "title": "The Color Purple",
+      "winner": false,
+      "ceremony_year": 2024,
+      "film_year_hint": 2023,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "title": "Sing Sing",
+      "winner": false,
+      "ceremony_year": 2025,
+      "film_year_hint": 2024,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "title": "Jay Kelly",
+      "winner": false,
+      "ceremony_year": 2026,
+      "film_year_hint": 2025,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "title": "Wicked: For Good",
+      "winner": false,
+      "ceremony_year": 2026,
+      "film_year_hint": 2025,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    }
+  ],
+  "films": [
+    {
+      "imdb_id": "tt0181875",
+      "title": "Almost Famous",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0249462",
+      "title": "Billy Elliot",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0162222",
+      "title": "Cast Away",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0190332",
+      "title": "Crouching Tiger, Hidden Dragon",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0195685",
+      "title": "Erin Brockovich",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0172495",
+      "title": "Gladiator",
+      "year": 2000,
+      "winner": true,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0209144",
+      "title": "Memento",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "imdb_id": "tt0181865",
+      "title": "Traffic",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0185014",
+      "title": "Wonder Boys",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0203230",
+      "title": "You Can Count on Me",
+      "year": 2000,
+      "winner": false,
+      "ceremony_year": 2001,
+      "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+    },
+    {
+      "imdb_id": "tt0268978",
+      "title": "A Beautiful Mind",
+      "year": 2001,
+      "winner": true,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "imdb_id": "tt0247425",
+      "title": "In the Bedroom",
+      "year": 2001,
+      "winner": false,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "imdb_id": "tt0203009",
+      "title": "Moulin Rouge!",
+      "year": 2001,
+      "winner": false,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "imdb_id": "tt0166924",
+      "title": "Mulholland Drive",
+      "year": 2001,
+      "winner": false,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "imdb_id": "tt0126029",
+      "title": "Shrek",
+      "year": 2001,
+      "winner": false,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "imdb_id": "tt0243133",
+      "title": "The Man Who Wasn't There",
+      "year": 2001,
+      "winner": false,
+      "ceremony_year": 2002,
+      "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+    },
+    {
+      "imdb_id": "tt0257360",
+      "title": "About Schmidt",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0268126",
+      "title": "Adaptation.",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0264464",
+      "title": "Catch Me If You Can",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0299658",
+      "title": "Chicago",
+      "year": 2002,
+      "winner": true,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0297884",
+      "title": "Far from Heaven",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0217505",
+      "title": "Gangs of New York",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0257044",
+      "title": "Road to Perdition",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0274558",
+      "title": "The Hours",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0253474",
+      "title": "The Pianist",
+      "year": 2002,
+      "winner": false,
+      "ceremony_year": 2003,
+      "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+    },
+    {
+      "imdb_id": "tt0319061",
+      "title": "Big Fish",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0159365",
+      "title": "Cold Mountain",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0266543",
+      "title": "Finding Nemo",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0335266",
+      "title": "Lost in Translation",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0327056",
+      "title": "Mystic River",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0329575",
+      "title": "Seabiscuit",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0325710",
+      "title": "The Last Samurai",
+      "year": 2003,
+      "winner": false,
+      "ceremony_year": 2004,
+      "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+    },
+    {
+      "imdb_id": "tt0369339",
+      "title": "Collateral",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0375679",
+      "title": "Crash",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0338013",
+      "title": "Eternal Sunshine of the Spotless Mind",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0308644",
+      "title": "Finding Neverland",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0395169",
+      "title": "Hotel Rwanda",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0405159",
+      "title": "Million Dollar Baby",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0350258",
+      "title": "Ray",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0375063",
+      "title": "Sideways",
+      "year": 2004,
+      "winner": true,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0338751",
+      "title": "The Aviator",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0293508",
+      "title": "The Phantom of the Opera",
+      "year": 2004,
+      "winner": false,
+      "ceremony_year": 2005,
+      "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+    },
+    {
+      "imdb_id": "tt0388795",
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "winner": true,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0379725",
+      "title": "Capote",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0352248",
+      "title": "Cinderella Man",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0433383",
+      "title": "Good Night, and Good Luck.",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0360717",
+      "title": "King Kong",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0397535",
+      "title": "Memoirs of a Geisha",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0408306",
+      "title": "Munich",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0387131",
+      "title": "The Constant Gardener",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0358273",
+      "title": "Walk the Line",
+      "year": 2005,
+      "winner": false,
+      "ceremony_year": 2006,
+      "source_url": "https://www.criticschoice.com/11th-annual-critics-choice-awards-list-of-nominees-and-winners-2006/"
+    },
+    {
+      "imdb_id": "tt0449467",
+      "title": "Babel",
+      "year": 2006,
+      "winner": false,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0450259",
+      "title": "Blood Diamond",
+      "year": 2006,
+      "winner": false,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0498380",
+      "title": "Letters from Iwo Jima",
+      "year": 2006,
+      "winner": false,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0404203",
+      "title": "Little Children",
+      "year": 2006,
+      "winner": false,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0449059",
+      "title": "Little Miss Sunshine",
+      "year": 2006,
+      "winner": false,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0407887",
+      "title": "The Departed",
+      "year": 2006,
+      "winner": true,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0436697",
+      "title": "The Queen",
+      "year": 2006,
+      "winner": false,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0475276",
+      "title": "United 93",
+      "year": 2006,
+      "winner": false,
+      "ceremony_year": 2007,
+      "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+    },
+    {
+      "imdb_id": "tt0765429",
+      "title": "American Gangster",
+      "year": 2007,
+      "winner": false,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0783233",
+      "title": "Atonement",
+      "year": 2007,
+      "winner": false,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0758758",
+      "title": "Into the Wild",
+      "year": 2007,
+      "winner": false,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0467406",
+      "title": "Juno",
+      "year": 2007,
+      "winner": false,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0465538",
+      "title": "Michael Clayton",
+      "year": 2007,
+      "winner": false,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0477348",
+      "title": "No Country for Old Men",
+      "year": 2007,
+      "winner": true,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0401383",
+      "title": "The Diving Bell and the Butterfly",
+      "year": 2007,
+      "winner": false,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0469494",
+      "title": "There Will Be Blood",
+      "year": 2007,
+      "winner": false,
+      "ceremony_year": 2008,
+      "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+    },
+    {
+      "imdb_id": "tt0824747",
+      "title": "Changeling",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt0918927",
+      "title": "Doubt",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt0870111",
+      "title": "Frost/Nixon",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt1013753",
+      "title": "Milk",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt1010048",
+      "title": "Slumdog Millionaire",
+      "year": 2008,
+      "winner": true,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt0421715",
+      "title": "The Curious Case of Benjamin Button",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt0468569",
+      "title": "The Dark Knight",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt0887912",
+      "title": "The Hurt Locker",
+      "year": 2008,
+      "winner": true,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt0976051",
+      "title": "The Reader",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt1125849",
+      "title": "The Wrestler",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt0910970",
+      "title": "WALL·E",
+      "year": 2008,
+      "winner": false,
+      "ceremony_year": 2009,
+      "source_url": "https://www.criticschoice.com/14th-annual-critics-choice-awards-list-of-nominees-and-winners-2009/"
+    },
+    {
+      "imdb_id": "tt1019452",
+      "title": "A Serious Man",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt1174732",
+      "title": "An Education",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt0499549",
+      "title": "Avatar",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt0361748",
+      "title": "Inglourious Basterds",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt1057500",
+      "title": "Invictus",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt0929632",
+      "title": "Precious",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt1049413",
+      "title": "Up",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt1193138",
+      "title": "Up in the Air",
+      "year": 2009,
+      "winner": false,
+      "ceremony_year": 2010,
+      "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+    },
+    {
+      "imdb_id": "tt1542344",
+      "title": "127 Hours",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt0947798",
+      "title": "Black Swan",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt1375666",
+      "title": "Inception",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt0964517",
+      "title": "The Fighter",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt1504320",
+      "title": "The King's Speech",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt1285016",
+      "title": "The Social Network",
+      "year": 2010,
+      "winner": true,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt0840361",
+      "title": "The Town",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt0435761",
+      "title": "Toy Story 3",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt1403865",
+      "title": "True Grit",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt1399683",
+      "title": "Winter's Bone",
+      "year": 2010,
+      "winner": false,
+      "ceremony_year": 2011,
+      "source_url": "https://www.criticschoice.com/16th-annual-critics-choice-awards-list-of-nominees-and-winners-2011/"
+    },
+    {
+      "imdb_id": "tt0780504",
+      "title": "Drive",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt0477302",
+      "title": "Extremely Loud & Incredibly Close",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt0970179",
+      "title": "Hugo",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt1605783",
+      "title": "Midnight in Paris",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt1210166",
+      "title": "Moneyball",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt1655442",
+      "title": "The Artist",
+      "year": 2011,
+      "winner": true,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt1033575",
+      "title": "The Descendants",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt1454029",
+      "title": "The Help",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt0478304",
+      "title": "The Tree of Life",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt1568911",
+      "title": "War Horse",
+      "year": 2011,
+      "winner": false,
+      "ceremony_year": 2012,
+      "source_url": "https://www.criticschoice.com/17th-annual-critics-choice-awards-list-of-nominees-and-winners-2012/"
+    },
+    {
+      "imdb_id": "tt1024648",
+      "title": "Argo",
+      "year": 2012,
+      "winner": true,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt2125435",
+      "title": "Beasts of the Southern Wild",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt1853728",
+      "title": "Django Unchained",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt1707386",
+      "title": "Les Misérables",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt0454876",
+      "title": "Life of Pi",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt0443272",
+      "title": "Lincoln",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt1748122",
+      "title": "Moonrise Kingdom",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt1045658",
+      "title": "Silver Linings Playbook",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt1560747",
+      "title": "The Master",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt1790885",
+      "title": "Zero Dark Thirty",
+      "year": 2012,
+      "winner": false,
+      "ceremony_year": 2013,
+      "source_url": "https://www.criticschoice.com/18th-annual-critics-choice-awards-list-of-nominees-and-winners-2013/"
+    },
+    {
+      "imdb_id": "tt2024544",
+      "title": "12 Years a Slave",
+      "year": 2013,
+      "winner": true,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt1800241",
+      "title": "American Hustle",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt1535109",
+      "title": "Captain Phillips",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt0790636",
+      "title": "Dallas Buyers Club",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt1454468",
+      "title": "Gravity",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt1798709",
+      "title": "Her",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt2042568",
+      "title": "Inside Llewyn Davis",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt1821549",
+      "title": "Nebraska",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt2140373",
+      "title": "Saving Mr. Banks",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt0993846",
+      "title": "The Wolf of Wall Street",
+      "year": 2013,
+      "winner": false,
+      "ceremony_year": 2014,
+      "source_url": "https://www.criticschoice.com/19th-annual-critics-choice-awards-list-of-nominees-and-winners-2014/"
+    },
+    {
+      "imdb_id": "tt2179136",
+      "title": "American Sniper",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt1065073",
+      "title": "Boyhood",
+      "year": 2014,
+      "winner": true,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt1100089",
+      "title": "Foxcatcher",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt2267998",
+      "title": "Gone Girl",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt2872718",
+      "title": "Nightcrawler",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt1020072",
+      "title": "Selma",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt2278388",
+      "title": "The Grand Budapest Hotel",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt2084970",
+      "title": "The Imitation Game",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt2582802",
+      "title": "Whiplash",
+      "year": 2014,
+      "winner": false,
+      "ceremony_year": 2015,
+      "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+    },
+    {
+      "imdb_id": "tt3682448",
+      "title": "Bridge of Spies",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt2381111",
+      "title": "Brooklyn",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt2402927",
+      "title": "Carol",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt1392190",
+      "title": "Mad Max: Fury Road",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt3170832",
+      "title": "Room",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt3397884",
+      "title": "Sicario",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt1895587",
+      "title": "Spotlight",
+      "year": 2015,
+      "winner": true,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt1596363",
+      "title": "The Big Short",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt3659388",
+      "title": "The Martian",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt1663202",
+      "title": "The Revenant",
+      "year": 2015,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt2543164",
+      "title": "Arrival",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt2671706",
+      "title": "Fences",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt2119532",
+      "title": "Hacksaw Ridge",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt2582782",
+      "title": "Hell or High Water",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt3783958",
+      "title": "La La Land",
+      "year": 2016,
+      "winner": true,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt3741834",
+      "title": "Lion",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt4034228",
+      "title": "Manchester by the Sea",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt4975722",
+      "title": "Moonlight",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt3263904",
+      "title": "Sully",
+      "year": 2016,
+      "winner": false,
+      "ceremony_year": 2016,
+      "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+    },
+    {
+      "imdb_id": "tt5726616",
+      "title": "Call Me by Your Name",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt4555426",
+      "title": "Darkest Hour",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt5013056",
+      "title": "Dunkirk",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt5052448",
+      "title": "Get Out",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt4925292",
+      "title": "Lady Bird",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt5462602",
+      "title": "The Big Sick",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt5649144",
+      "title": "The Florida Project",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt6294822",
+      "title": "The Post",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt5580390",
+      "title": "The Shape of Water",
+      "year": 2017,
+      "winner": true,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt5027774",
+      "title": "Three Billboards outside Ebbing, Missouri",
+      "year": 2017,
+      "winner": false,
+      "ceremony_year": 2018,
+      "source_url": "https://www.criticschoice.com/23rd-annual-critics-choice-awards-list-of-nominees-and-winners-2018/"
+    },
+    {
+      "imdb_id": "tt1517451",
+      "title": "A Star Is Born",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt7349662",
+      "title": "BlacKkKlansman",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt1825683",
+      "title": "Black Panther",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt1213641",
+      "title": "First Man",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt6966692",
+      "title": "Green Book",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt7125860",
+      "title": "If Beale Street Could Talk",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt6155172",
+      "title": "Roma",
+      "year": 2018,
+      "winner": true,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt5083738",
+      "title": "The Favourite",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt6266538",
+      "title": "Vice",
+      "year": 2018,
+      "winner": false,
+      "ceremony_year": 2019,
+      "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+    },
+    {
+      "imdb_id": "tt8579674",
+      "title": "1917",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt1950186",
+      "title": "Ford v Ferrari",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt2584384",
+      "title": "Jojo Rabbit",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt7286456",
+      "title": "Joker",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt3281548",
+      "title": "Little Women",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt7653254",
+      "title": "Marriage Story",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt7131622",
+      "title": "Once Upon a Time in... Hollywood",
+      "year": 2019,
+      "winner": true,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt6751668",
+      "title": "Parasite",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt1302006",
+      "title": "The Irishman",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt5727208",
+      "title": "Uncut Gems",
+      "year": 2019,
+      "winner": false,
+      "ceremony_year": 2020,
+      "source_url": "https://www.criticschoice.com/25th-annual-critics-choice-awards-list-of-nominees-and-winners-2020/"
+    },
+    {
+      "imdb_id": "tt9777644",
+      "title": "Da 5 Bloods",
+      "year": 2020,
+      "winner": false,
+      "ceremony_year": 2021,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "imdb_id": "tt10618286",
+      "title": "Mank",
+      "year": 2020,
+      "winner": false,
+      "ceremony_year": 2021,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "imdb_id": "tt10633456",
+      "title": "Minari",
+      "year": 2020,
+      "winner": false,
+      "ceremony_year": 2021,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "imdb_id": "tt9770150",
+      "title": "Nomadland",
+      "year": 2020,
+      "winner": true,
+      "ceremony_year": 2021,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "imdb_id": "tt9620292",
+      "title": "Promising Young Woman",
+      "year": 2020,
+      "winner": false,
+      "ceremony_year": 2021,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "imdb_id": "tt5363618",
+      "title": "Sound of Metal",
+      "year": 2020,
+      "winner": false,
+      "ceremony_year": 2021,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "imdb_id": "tt1070874",
+      "title": "The Trial of the Chicago 7",
+      "year": 2020,
+      "winner": false,
+      "ceremony_year": 2021,
+      "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+    },
+    {
+      "imdb_id": "tt12789558",
+      "title": "Belfast",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt10366460",
+      "title": "CODA",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt11286314",
+      "title": "Don't Look Up",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt1160419",
+      "title": "Dune",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt9620288",
+      "title": "King Richard",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt11271038",
+      "title": "Licorice Pizza",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt7740496",
+      "title": "Nightmare Alley",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt10293406",
+      "title": "The Power of the Dog",
+      "year": 2021,
+      "winner": true,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt3581652",
+      "title": "West Side Story",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt8721424",
+      "title": "tick, tick... BOOM!",
+      "year": 2021,
+      "winner": false,
+      "ceremony_year": 2022,
+      "source_url": "https://www.criticschoice.com/27th-annual-critics-choice-awards-list-of-nominees-and-winners-2022/"
+    },
+    {
+      "imdb_id": "tt1630029",
+      "title": "Avatar: The Way of Water",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt3704428",
+      "title": "Elvis",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt6710474",
+      "title": "Everything Everywhere All at Once",
+      "year": 2022,
+      "winner": true,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt8178634",
+      "title": "RRR",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt11813216",
+      "title": "The Banshees of Inisherin",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt14208870",
+      "title": "The Fabelmans",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt1745960",
+      "title": "Top Gun: Maverick",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt14444726",
+      "title": "Tár",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt13669038",
+      "title": "Women Talking",
+      "year": 2022,
+      "winner": false,
+      "ceremony_year": 2023,
+      "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+    },
+    {
+      "imdb_id": "tt23561236",
+      "title": "American Fiction",
+      "year": 2023,
+      "winner": false,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt1517268",
+      "title": "Barbie",
+      "year": 2023,
+      "winner": false,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt5537002",
+      "title": "Killers of the Flower Moon",
+      "year": 2023,
+      "winner": false,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt5535276",
+      "title": "Maestro",
+      "year": 2023,
+      "winner": false,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt15398776",
+      "title": "Oppenheimer",
+      "year": 2023,
+      "winner": true,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt13238346",
+      "title": "Past Lives",
+      "year": 2023,
+      "winner": false,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt14230458",
+      "title": "Poor Things",
+      "year": 2023,
+      "winner": false,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt14849194",
+      "title": "The Holdovers",
+      "year": 2023,
+      "winner": false,
+      "ceremony_year": 2024,
+      "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+    },
+    {
+      "imdb_id": "tt11563598",
+      "title": "A Complete Unknown",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "year": 2024,
+      "winner": true,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt20215234",
+      "title": "Conclave",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt15239678",
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt20221436",
+      "title": "Emilia Pérez",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt23055660",
+      "title": "Nickel Boys",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt1262426",
+      "title": "Wicked",
+      "year": 2024,
+      "winner": false,
+      "ceremony_year": 2025,
+      "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+    },
+    {
+      "imdb_id": "tt12300742",
+      "title": "Bugonia",
+      "year": 2025,
+      "winner": false,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "imdb_id": "tt1312221",
+      "title": "Frankenstein",
+      "year": 2025,
+      "winner": false,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "year": 2025,
+      "winner": false,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "imdb_id": "tt32916440",
+      "title": "Marty Supreme",
+      "year": 2025,
+      "winner": false,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "imdb_id": "tt30144839",
+      "title": "One Battle After Another",
+      "year": 2025,
+      "winner": true,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "year": 2025,
+      "winner": false,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "imdb_id": "tt31193180",
+      "title": "Sinners",
+      "year": 2025,
+      "winner": false,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    },
+    {
+      "imdb_id": "tt29768334",
+      "title": "Train Dreams",
+      "year": 2025,
+      "winner": false,
+      "ceremony_year": 2026,
+      "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+    }
+  ]
+}

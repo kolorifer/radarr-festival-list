@@ -1,0 +1,2541 @@
+{
+  "mode": "audience-150-vs-200-v1",
+  "production_unchanged": true,
+  "qualification_unchanged": true,
+  "film_count": 1319,
+  "summary_150": {
+    "top50_mean_audience": 79.43,
+    "top100_mean_audience": 76.03,
+    "top50_audience_75_plus": 31,
+    "top100_audience_75_plus": 54,
+    "top50_audience_below_50": 1,
+    "top100_audience_below_50": 6
+  },
+  "summary_200": {
+    "top50_mean_audience": 79.43,
+    "top100_mean_audience": 77.21,
+    "top50_audience_75_plus": 31,
+    "top100_audience_75_plus": 57,
+    "top50_audience_below_50": 1,
+    "top100_audience_below_50": 4
+  },
+  "cutoffs": {
+    "50": {
+      "overlap": 50,
+      "entered_at_200": [],
+      "exited_at_200": []
+    },
+    "100": {
+      "overlap": 96,
+      "entered_at_200": [
+        {
+          "title": "Spider-Man: Into the Spider-Verse",
+          "year": 2018,
+          "imdb_id": "tt4633694",
+          "audience": 97.5,
+          "source_hits": 3,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 94,
+          "rank_150": 109
+        },
+        {
+          "title": "CODA",
+          "year": 2021,
+          "imdb_id": "tt10366460",
+          "audience": 72.12,
+          "source_hits": 3,
+          "routes": [
+            "institutional"
+          ],
+          "qualified": true,
+          "rank_200": 97,
+          "rank_150": 101
+        },
+        {
+          "title": "Y tu mamá también",
+          "year": 2001,
+          "imdb_id": "tt0245574",
+          "audience": 76.15,
+          "source_hits": 4,
+          "routes": [
+            "canon",
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 99,
+          "rank_150": 102
+        },
+        {
+          "title": "Ratatouille",
+          "year": 2007,
+          "imdb_id": "tt0382932",
+          "audience": 86.15,
+          "source_hits": 5,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 100,
+          "rank_150": 108
+        }
+      ],
+      "exited_at_200": [
+        {
+          "title": "A Serious Man",
+          "year": 2009,
+          "imdb_id": "tt1019452",
+          "audience": 47.12,
+          "source_hits": 6,
+          "routes": [
+            "corroboration"
+          ],
+          "qualified": true,
+          "rank_150": 91,
+          "rank_200": 103
+        },
+        {
+          "title": "The Power of the Dog",
+          "year": 2021,
+          "imdb_id": "tt10293406",
+          "audience": 34.42,
+          "source_hits": 4,
+          "routes": [
+            "corroboration"
+          ],
+          "qualified": true,
+          "rank_150": 92,
+          "rank_200": 112
+        },
+        {
+          "title": "Minari",
+          "year": 2020,
+          "imdb_id": "tt10633456",
+          "audience": 64.81,
+          "source_hits": 5,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 99,
+          "rank_200": 101
+        },
+        {
+          "title": "Once Upon a Time in Anatolia",
+          "year": 2011,
+          "imdb_id": "tt1827487",
+          "audience": 66.88,
+          "source_hits": 4,
+          "routes": [
+            "canon"
+          ],
+          "qualified": true,
+          "rank_150": 100,
+          "rank_200": 102
+        }
+      ]
+    },
+    "200": {
+      "overlap": 195,
+      "entered_at_200": [
+        {
+          "title": "The Holdovers",
+          "year": 2023,
+          "imdb_id": "tt14849194",
+          "audience": 85.0,
+          "source_hits": 4,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 185,
+          "rank_150": 207
+        },
+        {
+          "title": "Memories of Murder",
+          "year": 2003,
+          "imdb_id": "tt0353969",
+          "audience": 90.0,
+          "source_hits": 2,
+          "routes": [
+            "canon",
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 187,
+          "rank_150": 215
+        },
+        {
+          "title": "The Wrestler",
+          "year": 2008,
+          "imdb_id": "tt1125849",
+          "audience": 77.31,
+          "source_hits": 3,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 195,
+          "rank_150": 213
+        },
+        {
+          "title": "Pain and Glory",
+          "year": 2019,
+          "imdb_id": "tt8291806",
+          "audience": 65.2,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 198,
+          "rank_150": 205
+        },
+        {
+          "title": "The Tale of The Princess Kaguya",
+          "year": 2013,
+          "imdb_id": "tt2576852",
+          "audience": 83.78,
+          "source_hits": 3,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 199,
+          "rank_150": 222
+        }
+      ],
+      "exited_at_200": [
+        {
+          "title": "Timbuktu",
+          "year": 2014,
+          "imdb_id": "tt3409392",
+          "audience": 29.49,
+          "source_hits": 5,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 179,
+          "rank_200": 212
+        },
+        {
+          "title": "Elephant",
+          "year": 2003,
+          "imdb_id": "tt0363589",
+          "audience": 30.38,
+          "source_hits": 3,
+          "routes": [
+            "canon"
+          ],
+          "qualified": true,
+          "rank_150": 184,
+          "rank_200": 218
+        },
+        {
+          "title": "Traffic",
+          "year": 2000,
+          "imdb_id": "tt0181865",
+          "audience": 51.92,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 191,
+          "rank_200": 202
+        },
+        {
+          "title": "The Queen",
+          "year": 2006,
+          "imdb_id": "tt0436697",
+          "audience": 36.51,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 193,
+          "rank_200": 214
+        },
+        {
+          "title": "The Rider",
+          "year": 2017,
+          "imdb_id": "tt6217608",
+          "audience": 47.81,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 196,
+          "rank_200": 207
+        }
+      ]
+    },
+    "300": {
+      "overlap": 288,
+      "entered_at_200": [
+        {
+          "title": "Spider-Man: Across the Spider-Verse",
+          "year": 2023,
+          "imdb_id": "tt9362722",
+          "audience": 100.0,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 265,
+          "rank_150": 330
+        },
+        {
+          "title": "Ford v Ferrari",
+          "year": 2019,
+          "imdb_id": "tt1950186",
+          "audience": 82.31,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 276,
+          "rank_150": 313
+        },
+        {
+          "title": "Kill Bill: Vol. 2",
+          "year": 2004,
+          "imdb_id": "tt0378194",
+          "audience": 79.81,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 277,
+          "rank_150": 308
+        },
+        {
+          "title": "Lion",
+          "year": 2016,
+          "imdb_id": "tt3741834",
+          "audience": 75.96,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 283,
+          "rank_150": 311
+        },
+        {
+          "title": "Mother",
+          "year": 2009,
+          "imdb_id": "tt1216496",
+          "audience": 74.86,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 287,
+          "rank_150": 312
+        },
+        {
+          "title": "Perfect Days",
+          "year": 2023,
+          "imdb_id": "tt27503384",
+          "audience": 85.0,
+          "source_hits": 4,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 289,
+          "rank_150": 337
+        },
+        {
+          "title": "Paddington 2",
+          "year": 2017,
+          "imdb_id": "tt4468740",
+          "audience": 74.81,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 291,
+          "rank_150": 315
+        },
+        {
+          "title": "13th",
+          "year": 2016,
+          "imdb_id": "tt5895028",
+          "audience": 83.97,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 293,
+          "rank_150": 336
+        },
+        {
+          "title": "Still Walking",
+          "year": 2008,
+          "imdb_id": "tt1087578",
+          "audience": 69.69,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 294,
+          "rank_150": 306
+        },
+        {
+          "title": "Isle of Dogs",
+          "year": 2018,
+          "imdb_id": "tt5104604",
+          "audience": 74.81,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 295,
+          "rank_150": 322
+        },
+        {
+          "title": "Free Solo",
+          "year": 2018,
+          "imdb_id": "tt7775622",
+          "audience": 81.29,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 299,
+          "rank_150": 343
+        },
+        {
+          "title": "Jojo Rabbit",
+          "year": 2019,
+          "imdb_id": "tt2584384",
+          "audience": 73.46,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 300,
+          "rank_150": 328
+        }
+      ],
+      "exited_at_200": [
+        {
+          "title": "Goodbye to Language",
+          "year": 2014,
+          "imdb_id": "tt2400275",
+          "audience": 9.77,
+          "source_hits": 4,
+          "routes": [
+            "corroboration"
+          ],
+          "qualified": true,
+          "rank_150": 262,
+          "rank_200": 342
+        },
+        {
+          "title": "The New World",
+          "year": 2005,
+          "imdb_id": "tt0402399",
+          "audience": 33.64,
+          "source_hits": 3,
+          "routes": [
+            "canon"
+          ],
+          "qualified": true,
+          "rank_150": 266,
+          "rank_200": 308
+        },
+        {
+          "title": "The Son's Room",
+          "year": 2001,
+          "imdb_id": "tt0208990",
+          "audience": 37.67,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 270,
+          "rank_200": 306
+        },
+        {
+          "title": "Licorice Pizza",
+          "year": 2021,
+          "imdb_id": "tt11271038",
+          "audience": 34.23,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 274,
+          "rank_200": 317
+        },
+        {
+          "title": "Margaret",
+          "year": 2011,
+          "imdb_id": "tt0466893",
+          "audience": 26.87,
+          "source_hits": 3,
+          "routes": [
+            "canon"
+          ],
+          "qualified": true,
+          "rank_150": 276,
+          "rank_200": 330
+        },
+        {
+          "title": "The Kid with a Bike",
+          "year": 2011,
+          "imdb_id": "tt1827512",
+          "audience": 40.43,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 285,
+          "rank_200": 313
+        },
+        {
+          "title": "Fallen Leaves",
+          "year": 2023,
+          "imdb_id": "tt21027780",
+          "audience": 44.55,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 286,
+          "rank_200": 310
+        },
+        {
+          "title": "First Reformed",
+          "year": 2017,
+          "imdb_id": "tt6053438",
+          "audience": 52.24,
+          "source_hits": 5,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 288,
+          "rank_200": 302
+        },
+        {
+          "title": "Lincoln",
+          "year": 2012,
+          "imdb_id": "tt0443272",
+          "audience": 43.08,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 289,
+          "rank_200": 320
+        },
+        {
+          "title": "The Squid and the Whale",
+          "year": 2005,
+          "imdb_id": "tt0367089",
+          "audience": 46.71,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 293,
+          "rank_200": 314
+        },
+        {
+          "title": "If Beale Street Could Talk",
+          "year": 2018,
+          "imdb_id": "tt7125860",
+          "audience": 47.7,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 295,
+          "rank_200": 318
+        },
+        {
+          "title": "Atlantics",
+          "year": 2019,
+          "imdb_id": "tt10199586",
+          "audience": 25.24,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 300,
+          "rank_200": 364
+        }
+      ]
+    },
+    "500": {
+      "overlap": 484,
+      "entered_at_200": [
+        {
+          "title": "Nine Queens",
+          "year": 2000,
+          "imdb_id": "tt0247586",
+          "audience": 73.92,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 452,
+          "rank_150": 501
+        },
+        {
+          "title": "Snatch",
+          "year": 2000,
+          "imdb_id": "tt0208092",
+          "audience": 80.96,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 453,
+          "rank_150": 510
+        },
+        {
+          "title": "Catch Me If You Can",
+          "year": 2002,
+          "imdb_id": "tt0264464",
+          "audience": 82.31,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 461,
+          "rank_150": 525
+        },
+        {
+          "title": "My Life as a Zucchini",
+          "year": 2016,
+          "imdb_id": "tt2321405",
+          "audience": 70.95,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 472,
+          "rank_150": 511
+        },
+        {
+          "title": "Harry Potter and the Prisoner of Azkaban",
+          "year": 2004,
+          "imdb_id": "tt0304141",
+          "audience": 81.15,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 476,
+          "rank_150": 546
+        },
+        {
+          "title": "Sin City",
+          "year": 2005,
+          "imdb_id": "tt0401792",
+          "audience": 64.42,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 477,
+          "rank_150": 506
+        },
+        {
+          "title": "Hunt for the Wilderpeople",
+          "year": 2016,
+          "imdb_id": "tt4698684",
+          "audience": 74.81,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 478,
+          "rank_150": 531
+        },
+        {
+          "title": "Sicario",
+          "year": 2015,
+          "imdb_id": "tt3397884",
+          "audience": 68.46,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 480,
+          "rank_150": 517
+        },
+        {
+          "title": "Nightcrawler",
+          "year": 2014,
+          "imdb_id": "tt2872718",
+          "audience": 70.96,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 482,
+          "rank_150": 522
+        },
+        {
+          "title": "Train to Busan",
+          "year": 2016,
+          "imdb_id": "tt5700672",
+          "audience": 65.96,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 487,
+          "rank_150": 519
+        },
+        {
+          "title": "Edge of Tomorrow",
+          "year": 2014,
+          "imdb_id": "tt1631867",
+          "audience": 65.77,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 490,
+          "rank_150": 520
+        },
+        {
+          "title": "Kubo and the Two Strings",
+          "year": 2016,
+          "imdb_id": "tt4302938",
+          "audience": 68.46,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 492,
+          "rank_150": 532
+        },
+        {
+          "title": "Loving Vincent",
+          "year": 2017,
+          "imdb_id": "tt3262342",
+          "audience": 68.35,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 494,
+          "rank_150": 533
+        },
+        {
+          "title": "The Cove",
+          "year": 2009,
+          "imdb_id": "tt1313104",
+          "audience": 66.51,
+          "source_hits": 2,
+          "routes": [
+            "corroboration"
+          ],
+          "qualified": true,
+          "rank_200": 497,
+          "rank_150": 529
+        },
+        {
+          "title": "Lady Vengeance",
+          "year": 2005,
+          "imdb_id": "tt0451094",
+          "audience": 67.01,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_200": 498,
+          "rank_150": 534
+        },
+        {
+          "title": "Blade Runner 2049",
+          "year": 2017,
+          "imdb_id": "tt1856101",
+          "audience": 79.81,
+          "source_hits": 2,
+          "routes": [
+            "convergence"
+          ],
+          "qualified": true,
+          "rank_200": 500,
+          "rank_150": 576
+        }
+      ],
+      "exited_at_200": [
+        {
+          "title": "EO",
+          "year": 2022,
+          "imdb_id": "tt19652910",
+          "audience": 25.96,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 459,
+          "rank_200": 508
+        },
+        {
+          "title": "Moolaadé",
+          "year": 2003,
+          "imdb_id": "tt0416991",
+          "audience": 24.38,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 461,
+          "rank_200": 517
+        },
+        {
+          "title": "Frozen River",
+          "year": 2008,
+          "imdb_id": "tt0978759",
+          "audience": 21.73,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 474,
+          "rank_200": 540
+        },
+        {
+          "title": "Whale Rider",
+          "year": 2002,
+          "imdb_id": "tt0298228",
+          "audience": 40.88,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 475,
+          "rank_200": 502
+        },
+        {
+          "title": "Monsoon Wedding",
+          "year": 2001,
+          "imdb_id": "tt0265343",
+          "audience": 35.75,
+          "source_hits": 3,
+          "routes": [
+            "canon"
+          ],
+          "qualified": true,
+          "rank_150": 476,
+          "rank_200": 513
+        },
+        {
+          "title": "Divine Intervention",
+          "year": 2002,
+          "imdb_id": "tt0274428",
+          "audience": 11.71,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 477,
+          "rank_200": 567
+        },
+        {
+          "title": "American Factory",
+          "year": 2019,
+          "imdb_id": "tt9351980",
+          "audience": 37.46,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 479,
+          "rank_200": 511
+        },
+        {
+          "title": "The Barbarian Invasions",
+          "year": 2003,
+          "imdb_id": "tt0338135",
+          "audience": 33.55,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 481,
+          "rank_200": 522
+        },
+        {
+          "title": "The Son",
+          "year": 2002,
+          "imdb_id": "tt0291172",
+          "audience": 32.71,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 482,
+          "rank_200": 524
+        },
+        {
+          "title": "Code Unknown",
+          "year": 2000,
+          "imdb_id": "tt0216625",
+          "audience": 32.31,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 484,
+          "rank_200": 528
+        },
+        {
+          "title": "West Side Story",
+          "year": 2021,
+          "imdb_id": "tt3581652",
+          "audience": 38.08,
+          "source_hits": 2,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 489,
+          "rank_200": 518
+        },
+        {
+          "title": "Barbie",
+          "year": 2023,
+          "imdb_id": "tt1517268",
+          "audience": 34.42,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 490,
+          "rank_200": 530
+        },
+        {
+          "title": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
+          "year": 2000,
+          "imdb_id": "tt0262240",
+          "audience": 35.51,
+          "source_hits": 2,
+          "routes": [
+            "canon"
+          ],
+          "qualified": true,
+          "rank_150": 492,
+          "rank_200": 525
+        },
+        {
+          "title": "Nostalgia for the Light",
+          "year": 2010,
+          "imdb_id": "tt1556190",
+          "audience": 35.11,
+          "source_hits": 2,
+          "routes": [
+            "canon"
+          ],
+          "qualified": true,
+          "rank_150": 495,
+          "rank_200": 531
+        },
+        {
+          "title": "Women Talking",
+          "year": 2022,
+          "imdb_id": "tt13669038",
+          "audience": 40.45,
+          "source_hits": 3,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 498,
+          "rank_200": 520
+        },
+        {
+          "title": "Shame",
+          "year": 2011,
+          "imdb_id": "tt1723811",
+          "audience": 44.42,
+          "source_hits": 4,
+          "routes": [],
+          "qualified": false,
+          "rank_150": 500,
+          "rank_200": 512
+        }
+      ]
+    }
+  },
+  "largest_upward_movers": [
+    {
+      "title": "The Chorus",
+      "year": 2004,
+      "imdb_id": "tt0372824",
+      "audience": 71.08,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 667,
+      "rank_200": 573,
+      "rank_change": 94,
+      "score_150": 118.62,
+      "score_200": 154.16
+    },
+    {
+      "title": "Inside Job",
+      "year": 2010,
+      "imdb_id": "tt1645089",
+      "audience": 67.16,
+      "source_hits": 1,
+      "routes": [
+        "corroboration"
+      ],
+      "qualified": true,
+      "rank_150": 777,
+      "rank_200": 684,
+      "rank_change": 93,
+      "score_150": 100.74,
+      "score_200": 134.32
+    },
+    {
+      "title": "The Intouchables",
+      "year": 2011,
+      "imdb_id": "tt1675434",
+      "audience": 96.15,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 454,
+      "rank_200": 363,
+      "rank_change": 91,
+      "score_150": 156.23,
+      "score_200": 204.3
+    },
+    {
+      "title": "What We Do in the Shadows",
+      "year": 2014,
+      "imdb_id": "tt3416742",
+      "audience": 69.81,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 691,
+      "rank_200": 601,
+      "rank_change": 90,
+      "score_150": 113.84,
+      "score_200": 148.75
+    },
+    {
+      "title": "Train Dreams",
+      "year": 2025,
+      "imdb_id": "tt29768334",
+      "audience": 67.31,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 713,
+      "rank_200": 626,
+      "rank_change": 87,
+      "score_150": 110.97,
+      "score_200": 144.62
+    },
+    {
+      "title": "The Lego Movie",
+      "year": 2014,
+      "imdb_id": "tt1490017",
+      "audience": 64.62,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 782,
+      "rank_200": 696,
+      "rank_change": 86,
+      "score_150": 99.91,
+      "score_200": 132.22
+    },
+    {
+      "title": "Mind Game",
+      "year": 2004,
+      "imdb_id": "tt0452039",
+      "audience": 59.28,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 848,
+      "rank_200": 763,
+      "rank_change": 85,
+      "score_150": 90.12,
+      "score_200": 119.76
+    },
+    {
+      "title": "The Notebook",
+      "year": 2004,
+      "imdb_id": "tt0332280",
+      "audience": 67.12,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 692,
+      "rank_200": 610,
+      "rank_change": 82,
+      "score_150": 113.67,
+      "score_200": 147.23
+    },
+    {
+      "title": "Control",
+      "year": 2007,
+      "imdb_id": "tt0421082",
+      "audience": 60.18,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 830,
+      "rank_200": 748,
+      "rank_change": 82,
+      "score_150": 92.95,
+      "score_200": 123.04
+    },
+    {
+      "title": "The Raid: Redemption",
+      "year": 2011,
+      "imdb_id": "tt1899353",
+      "audience": 65.96,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 710,
+      "rank_200": 629,
+      "rank_change": 81,
+      "score_150": 111.24,
+      "score_200": 144.22
+    },
+    {
+      "title": "Knives Out",
+      "year": 2019,
+      "imdb_id": "tt8946378",
+      "audience": 73.46,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 625,
+      "rank_200": 545,
+      "rank_change": 80,
+      "score_150": 123.77,
+      "score_200": 160.5
+    },
+    {
+      "title": "The Voice of Hind Rajab",
+      "year": 2025,
+      "imdb_id": "tt36943034",
+      "audience": 78.53,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 584,
+      "rank_200": 506,
+      "rank_change": 78,
+      "score_150": 129.8,
+      "score_200": 169.06
+    },
+    {
+      "title": "The Chaser",
+      "year": 2008,
+      "imdb_id": "tt1190539",
+      "audience": 69.64,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 635,
+      "rank_200": 557,
+      "rank_change": 78,
+      "score_150": 122.6,
+      "score_200": 157.42
+    },
+    {
+      "title": "Klaus",
+      "year": 2019,
+      "imdb_id": "tt4729430",
+      "audience": 88.65,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 430,
+      "rank_200": 354,
+      "rank_change": 76,
+      "score_150": 162.98,
+      "score_200": 207.3
+    },
+    {
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "imdb_id": "tt1856101",
+      "audience": 79.81,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 576,
+      "rank_200": 500,
+      "rank_change": 76,
+      "score_150": 130.62,
+      "score_200": 170.53
+    },
+    {
+      "title": "Hamnet",
+      "year": 2025,
+      "imdb_id": "tt14905854",
+      "audience": 78.65,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 591,
+      "rank_200": 515,
+      "rank_change": 76,
+      "score_150": 127.98,
+      "score_200": 167.3
+    },
+    {
+      "title": "Sicko",
+      "year": 2007,
+      "imdb_id": "tt0386032",
+      "audience": 54.75,
+      "source_hits": 1,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 901,
+      "rank_200": 825,
+      "rank_change": 76,
+      "score_150": 82.12,
+      "score_200": 109.5
+    },
+    {
+      "title": "Spider-Man 2",
+      "year": 2004,
+      "imdb_id": "tt0316654",
+      "audience": 63.46,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 739,
+      "rank_200": 665,
+      "rank_change": 74,
+      "score_150": 106.99,
+      "score_200": 138.72
+    },
+    {
+      "title": "Oslo, August 31st",
+      "year": 2011,
+      "imdb_id": "tt1736633",
+      "audience": 63.55,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 664,
+      "rank_200": 591,
+      "rank_change": 73,
+      "score_150": 118.91,
+      "score_200": 150.69
+    },
+    {
+      "title": "I, Tonya",
+      "year": 2017,
+      "imdb_id": "tt5580036",
+      "audience": 59.62,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 785,
+      "rank_200": 712,
+      "rank_change": 73,
+      "score_150": 99.43,
+      "score_200": 129.24
+    },
+    {
+      "title": "All of Us Strangers",
+      "year": 2023,
+      "imdb_id": "tt21192142",
+      "audience": 60.89,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 679,
+      "rank_200": 608,
+      "rank_change": 71,
+      "score_150": 117.0,
+      "score_200": 147.44
+    },
+    {
+      "title": "Harry Potter and the Prisoner of Azkaban",
+      "year": 2004,
+      "imdb_id": "tt0304141",
+      "audience": 81.15,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 546,
+      "rank_200": 476,
+      "rank_change": 70,
+      "score_150": 135.12,
+      "score_200": 175.69
+    },
+    {
+      "title": "Bugonia",
+      "year": 2025,
+      "imdb_id": "tt12300742",
+      "audience": 53.27,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 849,
+      "rank_200": 779,
+      "rank_change": 70,
+      "score_150": 89.91,
+      "score_200": 116.54
+    },
+    {
+      "title": "Searching for Sugar Man",
+      "year": 2012,
+      "imdb_id": "tt2125608",
+      "audience": 83.45,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 429,
+      "rank_200": 360,
+      "rank_change": 69,
+      "score_150": 163.18,
+      "score_200": 204.9
+    },
+    {
+      "title": "Sympathy for Mr. Vengeance",
+      "year": 2002,
+      "imdb_id": "tt0310775",
+      "audience": 62.45,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 702,
+      "rank_200": 633,
+      "rank_change": 69,
+      "score_150": 112.62,
+      "score_200": 143.84
+    },
+    {
+      "title": "The Seed of the Sacred Fig",
+      "year": 2024,
+      "imdb_id": "tt32178949",
+      "audience": 55.07,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 821,
+      "rank_200": 752,
+      "rank_change": 69,
+      "score_150": 94.6,
+      "score_200": 122.14
+    },
+    {
+      "title": "I Saw the Devil",
+      "year": 2010,
+      "imdb_id": "tt1588170",
+      "audience": 70.96,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 615,
+      "rank_200": 547,
+      "rank_change": 68,
+      "score_150": 124.49,
+      "score_200": 159.97
+    },
+    {
+      "title": "Creed",
+      "year": 2015,
+      "imdb_id": "tt3076658",
+      "audience": 58.27,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 754,
+      "rank_200": 686,
+      "rank_change": 68,
+      "score_150": 104.95,
+      "score_200": 134.09
+    },
+    {
+      "title": "Road to Perdition",
+      "year": 2002,
+      "imdb_id": "tt0257044",
+      "audience": 58.27,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 784,
+      "rank_200": 716,
+      "rank_change": 68,
+      "score_150": 99.51,
+      "score_200": 128.64
+    },
+    {
+      "title": "20th Century Women",
+      "year": 2016,
+      "imdb_id": "tt4385888",
+      "audience": 55.7,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 809,
+      "rank_200": 741,
+      "rank_change": 68,
+      "score_150": 96.33,
+      "score_200": 124.18
+    },
+    {
+      "title": "The Last King of Scotland",
+      "year": 2006,
+      "imdb_id": "tt0455590",
+      "audience": 54.04,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 828,
+      "rank_200": 760,
+      "rank_change": 68,
+      "score_150": 93.06,
+      "score_200": 120.08
+    },
+    {
+      "title": "David Byrne's American Utopia",
+      "year": 2020,
+      "imdb_id": "tt11874226",
+      "audience": 53.75,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 868,
+      "rank_200": 800,
+      "rank_change": 68,
+      "score_150": 86.38,
+      "score_200": 113.26
+    },
+    {
+      "title": "March of the Penguins",
+      "year": 2005,
+      "imdb_id": "tt0428803",
+      "audience": 42.13,
+      "source_hits": 1,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 1020,
+      "rank_200": 952,
+      "rank_change": 68,
+      "score_150": 63.2,
+      "score_200": 84.26
+    },
+    {
+      "title": "A Single Man",
+      "year": 2009,
+      "imdb_id": "tt1315981",
+      "audience": 59.62,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 733,
+      "rank_200": 666,
+      "rank_change": 67,
+      "score_150": 108.75,
+      "score_200": 138.56
+    },
+    {
+      "title": "Waves",
+      "year": 2019,
+      "imdb_id": "tt8652728",
+      "audience": 58.4,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 799,
+      "rank_200": 732,
+      "rank_change": 67,
+      "score_150": 97.6,
+      "score_200": 126.8
+    },
+    {
+      "title": "The Best Offer",
+      "year": 2013,
+      "imdb_id": "tt1924396",
+      "audience": 57.43,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 795,
+      "rank_200": 728,
+      "rank_change": 67,
+      "score_150": 98.15,
+      "score_200": 126.86
+    },
+    {
+      "title": "It Was Just an Accident",
+      "year": 2025,
+      "imdb_id": "tt36491653",
+      "audience": 56.49,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 806,
+      "rank_200": 739,
+      "rank_change": 67,
+      "score_150": 96.73,
+      "score_200": 124.98
+    },
+    {
+      "title": "Food, Inc.",
+      "year": 2009,
+      "imdb_id": "tt1286537",
+      "audience": 43.51,
+      "source_hits": 1,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 1001,
+      "rank_200": 934,
+      "rank_change": 67,
+      "score_150": 65.27,
+      "score_200": 87.02
+    },
+    {
+      "title": "Spider-Man: Across the Spider-Verse",
+      "year": 2023,
+      "imdb_id": "tt9362722",
+      "audience": 100.0,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 330,
+      "rank_200": 265,
+      "rank_change": 65,
+      "score_150": 185.0,
+      "score_200": 235.0
+    },
+    {
+      "title": "How to Train Your Dragon",
+      "year": 2010,
+      "imdb_id": "tt0892769",
+      "audience": 86.15,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 440,
+      "rank_200": 375,
+      "rank_change": 65,
+      "score_150": 159.23,
+      "score_200": 202.3
+    }
+  ],
+  "largest_downward_movers": [
+    {
+      "title": "Divine Intervention",
+      "year": 2002,
+      "imdb_id": "tt0274428",
+      "audience": 11.71,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 477,
+      "rank_200": 567,
+      "rank_change": -90,
+      "score_150": 149.52,
+      "score_200": 155.38
+    },
+    {
+      "title": "The Headless Woman",
+      "year": 2008,
+      "imdb_id": "tt1221141",
+      "audience": 15.77,
+      "source_hits": 4,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 508,
+      "rank_200": 592,
+      "rank_change": -84,
+      "score_150": 142.69,
+      "score_200": 150.57
+    },
+    {
+      "title": "Don't Look Up",
+      "year": 2021,
+      "imdb_id": "tt11286314",
+      "audience": 18.85,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 588,
+      "rank_200": 671,
+      "rank_change": -83,
+      "score_150": 128.28,
+      "score_200": 137.7
+    },
+    {
+      "title": "Colossal Youth",
+      "year": 2006,
+      "imdb_id": "tt0460480",
+      "audience": 13.85,
+      "source_hits": 3,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 621,
+      "rank_200": 703,
+      "rank_change": -82,
+      "score_150": 123.94,
+      "score_200": 130.86
+    },
+    {
+      "title": "Titane",
+      "year": 2021,
+      "imdb_id": "tt10944760",
+      "audience": 19.23,
+      "source_hits": 3,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 310,
+      "rank_200": 391,
+      "rank_change": -81,
+      "score_150": 189.15,
+      "score_200": 198.76
+    },
+    {
+      "title": "Goodbye to Language",
+      "year": 2014,
+      "imdb_id": "tt2400275",
+      "audience": 9.77,
+      "source_hits": 4,
+      "routes": [
+        "corroboration"
+      ],
+      "qualified": true,
+      "rank_150": 262,
+      "rank_200": 342,
+      "rank_change": -80,
+      "score_150": 204.97,
+      "score_200": 209.85
+    },
+    {
+      "title": "Red Road",
+      "year": 2006,
+      "imdb_id": "tt0471030",
+      "audience": 17.7,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 504,
+      "rank_200": 581,
+      "rank_change": -77,
+      "score_150": 143.85,
+      "score_200": 152.7
+    },
+    {
+      "title": "Birdman",
+      "year": 2014,
+      "imdb_id": "tt5130912",
+      "audience": 10.05,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 680,
+      "rank_200": 756,
+      "rank_change": -76,
+      "score_150": 116.68,
+      "score_200": 121.7
+    },
+    {
+      "title": "Regular Lovers",
+      "year": 2005,
+      "imdb_id": "tt0443844",
+      "audience": 13.24,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 661,
+      "rank_200": 737,
+      "rank_change": -76,
+      "score_150": 119.13,
+      "score_200": 125.75
+    },
+    {
+      "title": "Meek's Cutoff",
+      "year": 2010,
+      "imdb_id": "tt1518812",
+      "audience": 21.61,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 575,
+      "rank_200": 651,
+      "rank_change": -76,
+      "score_150": 130.62,
+      "score_200": 141.43
+    },
+    {
+      "title": "In the City of Sylvia",
+      "year": 2007,
+      "imdb_id": "tt0809425",
+      "audience": 10.43,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 774,
+      "rank_200": 849,
+      "rank_change": -75,
+      "score_150": 101.27,
+      "score_200": 106.48
+    },
+    {
+      "title": "Tie Xi Qu: West of the Tracks",
+      "year": 2002,
+      "imdb_id": "tt0389448",
+      "audience": 21.9,
+      "source_hits": 2,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 574,
+      "rank_200": 649,
+      "rank_change": -75,
+      "score_150": 130.67,
+      "score_200": 141.62
+    },
+    {
+      "title": "Zama",
+      "year": 2017,
+      "imdb_id": "tt3409848",
+      "audience": 18.41,
+      "source_hits": 2,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 622,
+      "rank_200": 693,
+      "rank_change": -71,
+      "score_150": 123.94,
+      "score_200": 133.15
+    },
+    {
+      "title": "Lovers Rock",
+      "year": 2020,
+      "imdb_id": "tt10551102",
+      "audience": 0.0,
+      "source_hits": 1,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 858,
+      "rank_200": 928,
+      "rank_change": -70,
+      "score_150": 88.11,
+      "score_200": 88.11
+    },
+    {
+      "title": "Personal Shopper",
+      "year": 2016,
+      "imdb_id": "tt4714782",
+      "audience": 15.38,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 655,
+      "rank_200": 725,
+      "rank_change": -70,
+      "score_150": 119.76,
+      "score_200": 127.45
+    },
+    {
+      "title": "The Kids Are All Right",
+      "year": 2010,
+      "imdb_id": "tt0842926",
+      "audience": 23.48,
+      "source_hits": 4,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 307,
+      "rank_200": 377,
+      "rank_change": -70,
+      "score_150": 190.08,
+      "score_200": 201.82
+    },
+    {
+      "title": "Blackboards",
+      "year": 2000,
+      "imdb_id": "tt0246266",
+      "audience": 5.3,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 808,
+      "rank_200": 877,
+      "rank_change": -69,
+      "score_150": 96.41,
+      "score_200": 99.06
+    },
+    {
+      "title": "The Intruder",
+      "year": 2004,
+      "imdb_id": "tt0422491",
+      "audience": 10.14,
+      "source_hits": 2,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 742,
+      "rank_200": 811,
+      "rank_change": -69,
+      "score_150": 106.79,
+      "score_200": 111.86
+    },
+    {
+      "title": "The Souvenir",
+      "year": 2019,
+      "imdb_id": "tt6920356",
+      "audience": 17.39,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 394,
+      "rank_200": 463,
+      "rank_change": -69,
+      "score_150": 170.53,
+      "score_200": 179.22
+    },
+    {
+      "title": "Star Spangled to Death",
+      "year": 2004,
+      "imdb_id": "tt0415288",
+      "audience": 0.0,
+      "source_hits": 1,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 990,
+      "rank_200": 1058,
+      "rank_change": -68,
+      "score_150": 66.9,
+      "score_200": 66.9
+    },
+    {
+      "title": "Sharasôju",
+      "year": 2003,
+      "imdb_id": "tt0363060",
+      "audience": 10.8,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 767,
+      "rank_200": 835,
+      "rank_change": -68,
+      "score_150": 102.42,
+      "score_200": 107.82
+    },
+    {
+      "title": "In Vanda's Room",
+      "year": 2000,
+      "imdb_id": "tt0139500",
+      "audience": 16.48,
+      "source_hits": 2,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 652,
+      "rank_200": 720,
+      "rank_change": -68,
+      "score_150": 120.16,
+      "score_200": 128.4
+    },
+    {
+      "title": "Bridesmaids",
+      "year": 2011,
+      "imdb_id": "tt1478338",
+      "audience": 22.88,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 375,
+      "rank_200": 443,
+      "rank_change": -68,
+      "score_150": 174.09,
+      "score_200": 185.53
+    },
+    {
+      "title": "Oxhide II",
+      "year": 2009,
+      "imdb_id": "tt1426380",
+      "audience": 0.0,
+      "source_hits": 1,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 982,
+      "rank_200": 1049,
+      "rank_change": -67,
+      "score_150": 67.99,
+      "score_200": 67.99
+    },
+    {
+      "title": "Silent Light",
+      "year": 2007,
+      "imdb_id": "tt0841925",
+      "audience": 24.3,
+      "source_hits": 3,
+      "routes": [
+        "canon"
+      ],
+      "qualified": true,
+      "rank_150": 353,
+      "rank_200": 420,
+      "rank_change": -67,
+      "score_150": 179.12,
+      "score_200": 191.27
+    },
+    {
+      "title": "Serras da desordem",
+      "year": 2006,
+      "imdb_id": "tt0922605",
+      "audience": 0.0,
+      "source_hits": 1,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 999,
+      "rank_200": 1065,
+      "rank_change": -66,
+      "score_150": 65.61,
+      "score_200": 65.61
+    },
+    {
+      "title": "Spring Breakers",
+      "year": 2012,
+      "imdb_id": "tt2101441",
+      "audience": 0.0,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 887,
+      "rank_200": 953,
+      "rank_change": -66,
+      "score_150": 83.99,
+      "score_200": 83.99
+    },
+    {
+      "title": "Frozen River",
+      "year": 2008,
+      "imdb_id": "tt0978759",
+      "audience": 21.73,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 474,
+      "rank_200": 540,
+      "rank_change": -66,
+      "score_150": 150.84,
+      "score_200": 161.7
+    },
+    {
+      "title": "Atlantics",
+      "year": 2019,
+      "imdb_id": "tt10199586",
+      "audience": 25.24,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 300,
+      "rank_200": 364,
+      "rank_change": -64,
+      "score_150": 191.56,
+      "score_200": 204.18
+    },
+    {
+      "title": "Battle in Heaven",
+      "year": 2005,
+      "imdb_id": "tt0387055",
+      "audience": 1.45,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 924,
+      "rank_200": 987,
+      "rank_change": -63,
+      "score_150": 77.39,
+      "score_200": 78.12
+    },
+    {
+      "title": "The Holy Girl",
+      "year": 2004,
+      "imdb_id": "tt0300270",
+      "audience": 19.79,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 628,
+      "rank_200": 691,
+      "rank_change": -63,
+      "score_150": 123.63,
+      "score_200": 133.53
+    },
+    {
+      "title": "Inherent Vice",
+      "year": 2014,
+      "imdb_id": "tt1791528",
+      "audience": 25.58,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 526,
+      "rank_200": 589,
+      "rank_change": -63,
+      "score_150": 138.01,
+      "score_200": 150.8
+    },
+    {
+      "title": "The Woman Who Left",
+      "year": 2016,
+      "imdb_id": "tt5843990",
+      "audience": 11.15,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 751,
+      "rank_200": 813,
+      "rank_change": -62,
+      "score_150": 105.87,
+      "score_200": 111.44
+    },
+    {
+      "title": "In Praise of Love",
+      "year": 2001,
+      "imdb_id": "tt0181912",
+      "audience": 11.3,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 730,
+      "rank_200": 792,
+      "rank_change": -62,
+      "score_150": 109.11,
+      "score_200": 114.76
+    },
+    {
+      "title": "Writing with Fire",
+      "year": 2021,
+      "imdb_id": "tt13630174",
+      "audience": 12.44,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 772,
+      "rank_200": 834,
+      "rank_change": -62,
+      "score_150": 101.66,
+      "score_200": 107.88
+    },
+    {
+      "title": "Last Men in Aleppo",
+      "year": 2017,
+      "imdb_id": "tt6333074",
+      "audience": 13.22,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 719,
+      "rank_200": 781,
+      "rank_change": -62,
+      "score_150": 109.83,
+      "score_200": 116.44
+    },
+    {
+      "title": "The Wonders",
+      "year": 2014,
+      "imdb_id": "tt3044244",
+      "audience": 21.49,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 407,
+      "rank_200": 469,
+      "rank_change": -62,
+      "score_150": 167.0,
+      "score_200": 177.75
+    },
+    {
+      "title": "Stranger by the Lake",
+      "year": 2013,
+      "imdb_id": "tt2852458",
+      "audience": 25.83,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 608,
+      "rank_200": 670,
+      "rank_change": -62,
+      "score_150": 124.97,
+      "score_200": 137.89
+    },
+    {
+      "title": "Saint Omer",
+      "year": 2022,
+      "imdb_id": "tt15376894",
+      "audience": 25.98,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 379,
+      "rank_200": 441,
+      "rank_change": -62,
+      "score_150": 173.15,
+      "score_200": 186.14
+    },
+    {
+      "title": "Beaufort",
+      "year": 2007,
+      "imdb_id": "tt0758732",
+      "audience": 3.05,
+      "source_hits": 3,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 971,
+      "rank_200": 1032,
+      "rank_change": -61,
+      "score_150": 69.58,
+      "score_200": 71.1
+    }
+  ],
+  "thin_evidence_high_audience_climbers": [
+    {
+      "title": "The Chorus",
+      "year": 2004,
+      "imdb_id": "tt0372824",
+      "audience": 71.08,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 667,
+      "rank_200": 573,
+      "rank_change": 94,
+      "score_150": 118.62,
+      "score_200": 154.16
+    },
+    {
+      "title": "The Intouchables",
+      "year": 2011,
+      "imdb_id": "tt1675434",
+      "audience": 96.15,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 454,
+      "rank_200": 363,
+      "rank_change": 91,
+      "score_150": 156.23,
+      "score_200": 204.3
+    },
+    {
+      "title": "The Voice of Hind Rajab",
+      "year": 2025,
+      "imdb_id": "tt36943034",
+      "audience": 78.53,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 584,
+      "rank_200": 506,
+      "rank_change": 78,
+      "score_150": 129.8,
+      "score_200": 169.06
+    },
+    {
+      "title": "Klaus",
+      "year": 2019,
+      "imdb_id": "tt4729430",
+      "audience": 88.65,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 430,
+      "rank_200": 354,
+      "rank_change": 76,
+      "score_150": 162.98,
+      "score_200": 207.3
+    },
+    {
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "imdb_id": "tt1856101",
+      "audience": 79.81,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 576,
+      "rank_200": 500,
+      "rank_change": 76,
+      "score_150": 130.62,
+      "score_200": 170.53
+    },
+    {
+      "title": "Hamnet",
+      "year": 2025,
+      "imdb_id": "tt14905854",
+      "audience": 78.65,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 591,
+      "rank_200": 515,
+      "rank_change": 76,
+      "score_150": 127.98,
+      "score_200": 167.3
+    },
+    {
+      "title": "Harry Potter and the Prisoner of Azkaban",
+      "year": 2004,
+      "imdb_id": "tt0304141",
+      "audience": 81.15,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 546,
+      "rank_200": 476,
+      "rank_change": 70,
+      "score_150": 135.12,
+      "score_200": 175.69
+    },
+    {
+      "title": "Searching for Sugar Man",
+      "year": 2012,
+      "imdb_id": "tt2125608",
+      "audience": 83.45,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 429,
+      "rank_200": 360,
+      "rank_change": 69,
+      "score_150": 163.18,
+      "score_200": 204.9
+    },
+    {
+      "title": "I Saw the Devil",
+      "year": 2010,
+      "imdb_id": "tt1588170",
+      "audience": 70.96,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 615,
+      "rank_200": 547,
+      "rank_change": 68,
+      "score_150": 124.49,
+      "score_200": 159.97
+    },
+    {
+      "title": "Spider-Man: Across the Spider-Verse",
+      "year": 2023,
+      "imdb_id": "tt9362722",
+      "audience": 100.0,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 330,
+      "rank_200": 265,
+      "rank_change": 65,
+      "score_150": 185.0,
+      "score_200": 235.0
+    },
+    {
+      "title": "How to Train Your Dragon",
+      "year": 2010,
+      "imdb_id": "tt0892769",
+      "audience": 86.15,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 440,
+      "rank_200": 375,
+      "rank_change": 65,
+      "score_150": 159.23,
+      "score_200": 202.3
+    },
+    {
+      "title": "Catch Me If You Can",
+      "year": 2002,
+      "imdb_id": "tt0264464",
+      "audience": 82.31,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 525,
+      "rank_200": 461,
+      "rank_change": 64,
+      "score_150": 138.53,
+      "score_200": 179.69
+    },
+    {
+      "title": "Mary and Max",
+      "year": 2009,
+      "imdb_id": "tt0978762",
+      "audience": 90.0,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 378,
+      "rank_200": 315,
+      "rank_change": 63,
+      "score_150": 173.16,
+      "score_200": 218.16
+    },
+    {
+      "title": "Song of the Sea",
+      "year": 2014,
+      "imdb_id": "tt1865505",
+      "audience": 84.49,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 451,
+      "rank_200": 390,
+      "rank_change": 61,
+      "score_150": 156.73,
+      "score_200": 198.98
+    },
+    {
+      "title": "Snatch",
+      "year": 2000,
+      "imdb_id": "tt0208092",
+      "audience": 80.96,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 510,
+      "rank_200": 453,
+      "rank_change": 57,
+      "score_150": 141.76,
+      "score_200": 182.24
+    },
+    {
+      "title": "The Raid 2",
+      "year": 2014,
+      "imdb_id": "tt2265171",
+      "audience": 73.46,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 566,
+      "rank_200": 509,
+      "rank_change": 57,
+      "score_150": 131.7,
+      "score_200": 168.43
+    },
+    {
+      "title": "The Hateful Eight",
+      "year": 2015,
+      "imdb_id": "tt3460252",
+      "audience": 70.96,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 592,
+      "rank_200": 536,
+      "rank_change": 56,
+      "score_150": 127.76,
+      "score_200": 163.24
+    },
+    {
+      "title": "Star Wars: Episode III - Revenge of the Sith",
+      "year": 2005,
+      "imdb_id": "tt0121766",
+      "audience": 72.31,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 569,
+      "rank_200": 514,
+      "rank_change": 55,
+      "score_150": 131.26,
+      "score_200": 167.42
+    },
+    {
+      "title": "Hunt for the Wilderpeople",
+      "year": 2016,
+      "imdb_id": "tt4698684",
+      "audience": 74.81,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 531,
+      "rank_200": 478,
+      "rank_change": 53,
+      "score_150": 137.69,
+      "score_200": 175.1
+    },
+    {
+      "title": "Pride & Prejudice",
+      "year": 2005,
+      "imdb_id": "tt0414387",
+      "audience": 78.65,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 413,
+      "rank_200": 361,
+      "rank_change": 52,
+      "score_150": 165.56,
+      "score_200": 204.88
+    },
+    {
+      "title": "Nine Queens",
+      "year": 2000,
+      "imdb_id": "tt0247586",
+      "audience": 73.92,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 501,
+      "rank_200": 452,
+      "rank_change": 49,
+      "score_150": 145.38,
+      "score_200": 182.34
+    },
+    {
+      "title": "Puss in Boots: The Last Wish",
+      "year": 2022,
+      "imdb_id": "tt3915174",
+      "audience": 77.31,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 473,
+      "rank_200": 427,
+      "rank_change": 46,
+      "score_150": 150.97,
+      "score_200": 189.62
+    },
+    {
+      "title": "Casino Royale",
+      "year": 2006,
+      "imdb_id": "tt0381061",
+      "audience": 75.96,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 419,
+      "rank_200": 373,
+      "rank_change": 46,
+      "score_150": 164.69,
+      "score_200": 202.67
+    },
+    {
+      "title": "Free Solo",
+      "year": 2018,
+      "imdb_id": "tt7775622",
+      "audience": 81.29,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 343,
+      "rank_200": 299,
+      "rank_change": 44,
+      "score_150": 181.94,
+      "score_200": 222.58
+    },
+    {
+      "title": "Gran Torino",
+      "year": 2008,
+      "imdb_id": "tt1205489",
+      "audience": 74.62,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 422,
+      "rank_200": 378,
+      "rank_change": 44,
+      "score_150": 164.46,
+      "score_200": 201.77
+    },
+    {
+      "title": "Sentimental Value",
+      "year": 2025,
+      "imdb_id": "tt27714581",
+      "audience": 75.58,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 466,
+      "rank_200": 423,
+      "rank_change": 43,
+      "score_150": 153.37,
+      "score_200": 191.16
+    },
+    {
+      "title": "In Bruges",
+      "year": 2008,
+      "imdb_id": "tt0780536",
+      "audience": 77.31,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 441,
+      "rank_200": 399,
+      "rank_change": 42,
+      "score_150": 159.19,
+      "score_200": 197.84
+    },
+    {
+      "title": "The Prestige",
+      "year": 2006,
+      "imdb_id": "tt0482571",
+      "audience": 100.0,
+      "source_hits": 2,
+      "routes": [
+        "convergence"
+      ],
+      "qualified": true,
+      "rank_150": 258,
+      "rank_200": 217,
+      "rank_change": 41,
+      "score_150": 206.79,
+      "score_200": 256.79
+    },
+    {
+      "title": "Gangs of Wasseypur",
+      "year": 2012,
+      "imdb_id": "tt1954470",
+      "audience": 73.92,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 396,
+      "rank_200": 356,
+      "rank_change": 40,
+      "score_150": 169.65,
+      "score_200": 206.61
+    },
+    {
+      "title": "My Life as a Zucchini",
+      "year": 2016,
+      "imdb_id": "tt2321405",
+      "audience": 70.95,
+      "source_hits": 2,
+      "routes": [],
+      "qualified": false,
+      "rank_150": 511,
+      "rank_200": 472,
+      "rank_change": 39,
+      "score_150": 141.43,
+      "score_200": 176.9
+    }
+  ]
+}
