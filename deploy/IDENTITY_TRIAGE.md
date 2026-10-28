@@ -141,10 +141,13 @@ Do not point either new route at movie-intel's Telegram-forwarding webhook.
    after safe code deployment and preflight. Absent flag is off. Deploy/restart
    movie-intel using the existing runbook, preserving both reviewed bindings.
    The hook runs after context creation, before normal action handling. A daemon
-   queue holds at most32 sanitized observations; loopback transport timeout0.5s,
-   no redirects/proxies/retries. Disabled/missing config/full queue/service outage
-   never changes resolver/Telegram/action behavior; a fixed warning reports lost
-   observer delivery. Queue loss on crash is a documented gap, not a durable outbox.
+   queue holds at most32 sanitized observations. Repository code uses a six-second
+   socket-operation timeout, longer than the collector's five-second connection
+   lifetime; no redirects/proxies. Committed observations use the durable spool
+   described below and retry with the same UUID. Disabled/missing config/full queue/
+   service outage never changes resolver/Telegram/action behavior. Queue loss before
+   persistence remains a documented gap. The timeout/diagnostic update is not yet
+   deployed; see the [report](../docs/reports/2026-10-28-observer-timeout.md).
 6. Stage passive monitoring. Check old and new services, flags, permissions,
    `/metrics`, private journal summaries, no credential logging, and no collector
    access to action state. Do not replay a live action webhook or test an approval,
@@ -164,7 +167,7 @@ counts are explicitly process-local because failed disks cannot persist them.
 `coverage=incomplete` is permanent in Stage1. `no_delivery_observed` and
 `stale_or_quiet` (15min without a stored live movie) are warnings, not proof of source
 failure. A stopped collector has no endpoint; systemd failure, autobrr's failed HTTP
-send and observer's fixed `unavailable_delivery_lost` warn the operator. There is no
+send and observer's fixed `delivery_failed`/`prepersist_failed` markers warn the operator. There is no
 external alert sender. Configure/check provider service monitoring separately before
 activation; a source quiet period and missing upstream events cannot be distinguished.
 
@@ -234,6 +237,17 @@ same UUID until acknowledged. The 32-item asynchronous pre-persistence queue may
 lose events on crash or saturation; process counters and fixed-code journal
 messages expose known failures, but cannot reconstruct an unknown crash window.
 The publisher still has no durable outbox. Never claim complete intake.
+
+The observer timeout/diagnostic update preserves these marker prefixes and adds
+only fixed failure stages/reasons, a validated numeric HTTP status (or `none`) and
+elapsed milliseconds capped at 60,000. `stage=send` distinguishes transport and
+HTTP errors through `reason`; `stage=ack http_status=200` identifies failure to
+acknowledge the local spool after successful transport. `stage=retry_state`
+identifies failure to record retry bookkeeping, without losing the original
+delivery-failure marker. Elapsed time is for the attempt/worker operation, not
+collector transaction timing. Never log raw exceptions, response text/headers,
+URLs, paths, release data, credentials or event identifiers. The monitoring window
+can detect these fixed markers without replaying any webhook.
 
 `/metrics` reports observed source releases, releases without outcomes, assessed
 release cases, explicit routes, correlation strengths, material versions and
