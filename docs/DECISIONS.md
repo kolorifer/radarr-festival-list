@@ -552,7 +552,7 @@ conflicts remain for review. Native IDs are not overwritten; no additional
 request budget or historical replay is authorized. See the
 [report](reports/2026-10-26-tracker-conflict-recheck.md).
 
-## D036 — Offline numerical identity-scoring proposal only
+## Shadow D036 — Offline numerical identity-scoring proposal only
 
 On 2026-10-20 the owner requested an offline experiment using reviewed cases,
 showing weights, thresholds and changed decisions before production activation.
