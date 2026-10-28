@@ -1,0 +1,22 @@
+{
+  "sources/evidence-families.json": {
+    "revision": "9c5a0f06e1c39e48653338fd0865ddabdc525a61",
+    "sha256": "73e6ade1d4d17ba2397c40276b4644a0f5b8ce09850e370740442bc271db6522",
+    "url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json"
+  },
+  "audience-ratings.json": {
+    "revision": "9c5a0f06e1c39e48653338fd0865ddabdc525a61",
+    "sha256": "0fb314abfdcac4b5b254e7ff6da4c4c45e2d2eeb54258cf6b34926794c5c233c",
+    "url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/audience-ratings.json"
+  },
+  "evidence_sources.py": {
+    "revision": "9c5a0f06e1c39e48653338fd0865ddabdc525a61",
+    "sha256": "2b5d33f957b2142536f9d81cdd0720a89c71142d0ad85d6d21add1d3ffdbc888",
+    "url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/evidence_sources.py"
+  },
+  "evidence_sources_extra.py": {
+    "revision": "9c5a0f06e1c39e48653338fd0865ddabdc525a61",
+    "sha256": "de27b3154f720aec691a741b83c59e6a52f67887c2f374e61ce54a6ac1d9c692",
+    "url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/evidence_sources_extra.py"
+  }
+}

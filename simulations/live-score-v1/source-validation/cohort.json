@@ -1,0 +1,132 @@
+{
+  "baseline_commit": "489ce4e3e005dbb15fadebf8ac27e6c181cf3a98",
+  "identity_evidence_path": "simulations/live-score-v1/inputs/identities.json",
+  "identity_evidence_sha256": "2a4735ac9853b57476c283ca4d5e516a24f8aad23b3b4140cd681cd10e7b0ad7",
+  "method": "Exact subset of retained Task 1 identities unchanged in Task 2; no new lookup or identity assertion. Year and release events retain source context.",
+  "conflicts": {
+    "tt29271639": "Reject similarly titled tt29893755; retain exact baseline ID.",
+    "tt38991615": "Retained TMDb release event 2026-12-04 is future relative to this check, not measurement time."
+  },
+  "films": [
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "title": "Hamnet",
+      "year": 2025,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q122741016",
+      "tmdb_url": "https://www.themoviedb.org/movie/858024?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-11-26"
+        }
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "title": "Anora",
+      "year": 2024,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q123185887",
+      "tmdb_url": "https://www.themoviedb.org/movie/1064213?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-10-14"
+        }
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "title": "The Brutalist",
+      "year": 2024,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q101112656",
+      "tmdb_url": "https://www.themoviedb.org/movie/549509?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-12-20"
+        }
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "title": "The Substance",
+      "year": 2024,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q113380226",
+      "tmdb_url": "https://www.themoviedb.org/movie/933260?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2024-09-18"
+        }
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "title": "Sentimental Value",
+      "year": 2025,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q130284179",
+      "tmdb_url": "https://www.themoviedb.org/movie/1124566?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-08-20"
+        }
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "title": "It Was Just an Accident",
+      "year": 2025,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q133866932",
+      "tmdb_url": "https://www.themoviedb.org/movie/1456349?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2025-10-01"
+        }
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "title": "Nina Roza",
+      "year": 2026,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q137832534",
+      "tmdb_url": "https://www.themoviedb.org/movie/1527449?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2026-04-24"
+        }
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "title": "I See Buildings Fall Like Lightning",
+      "year": 2026,
+      "observed_at": "2026-10-25",
+      "wikidata_url": "https://www.wikidata.org/entity/Q133825173",
+      "tmdb_url": "https://www.themoviedb.org/movie/1455247?language=en-US",
+      "tmdb_release_events": [
+        {
+          "@type": "PublicationEvent",
+          "startDate": "2026-12-04"
+        }
+      ]
+    }
+  ]
+}

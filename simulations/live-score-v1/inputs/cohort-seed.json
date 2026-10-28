@@ -1,0 +1,146 @@
+[
+  {
+    "imdb_id": "tt28607951",
+    "title": "Anora",
+    "year": 2024,
+    "stratum": "mature_festival"
+  },
+  {
+    "imdb_id": "tt8999762",
+    "title": "The Brutalist",
+    "year": 2024,
+    "stratum": "mature_festival"
+  },
+  {
+    "imdb_id": "tt17526714",
+    "title": "The Substance",
+    "year": 2024,
+    "stratum": "mature_genre"
+  },
+  {
+    "imdb_id": "tt15239678",
+    "title": "Dune: Part Two",
+    "year": 2024,
+    "stratum": "broad_high"
+  },
+  {
+    "imdb_id": "tt20221436",
+    "title": "Emilia Pérez",
+    "year": 2024,
+    "stratum": "audience_low_awarded"
+  },
+  {
+    "imdb_id": "tt14961016",
+    "title": "I'm Still Here",
+    "year": 2024,
+    "stratum": "mature_festival"
+  },
+  {
+    "imdb_id": "tt4772188",
+    "title": "Flow",
+    "year": 2024,
+    "stratum": "animation"
+  },
+  {
+    "imdb_id": "tt21097228",
+    "title": "A Different Man",
+    "year": 2024,
+    "stratum": "independent"
+  },
+  {
+    "imdb_id": "tt32928666",
+    "title": "Familiar Touch",
+    "year": 2024,
+    "stratum": "small_sample_later_release"
+  },
+  {
+    "imdb_id": "tt30057084",
+    "title": "Babygirl",
+    "year": 2024,
+    "stratum": "audience_low"
+  },
+  {
+    "imdb_id": "tt14905854",
+    "title": "Hamnet",
+    "year": 2025,
+    "stratum": "required_audit"
+  },
+  {
+    "imdb_id": "tt27714581",
+    "title": "Sentimental Value",
+    "year": 2025,
+    "stratum": "snapshot_gap"
+  },
+  {
+    "imdb_id": "tt36491653",
+    "title": "It Was Just an Accident",
+    "year": 2025,
+    "stratum": "snapshot_gap"
+  },
+  {
+    "imdb_id": "tt32298285",
+    "title": "Sirāt",
+    "year": 2025,
+    "stratum": "snapshot_gap"
+  },
+  {
+    "imdb_id": "tt30144839",
+    "title": "One Battle After Another",
+    "year": 2025,
+    "stratum": "broad_awarded"
+  },
+  {
+    "imdb_id": "tt31193180",
+    "title": "Sinners",
+    "year": 2025,
+    "stratum": "broad_genre"
+  },
+  {
+    "imdb_id": "tt21349688",
+    "title": "East of Wall",
+    "year": 2025,
+    "stratum": "small_sample"
+  },
+  {
+    "imdb_id": "tt32843349",
+    "title": "Sorry, Baby",
+    "year": 2025,
+    "stratum": "independent"
+  },
+  {
+    "imdb_id": "tt29768334",
+    "title": "Train Dreams",
+    "year": 2025,
+    "stratum": "independent_awarded"
+  },
+  {
+    "imdb_id": "tt28690468",
+    "title": "Sound of Falling",
+    "year": 2025,
+    "stratum": "small_sample_festival"
+  },
+  {
+    "imdb_id": "tt12042730",
+    "title": "Project Hail Mary",
+    "year": 2026,
+    "stratum": "broad_high_incomplete_award_season"
+  },
+  {
+    "imdb_id": "tt33764258",
+    "title": "The Odyssey",
+    "year": 2026,
+    "stratum": "broad_high_incomplete_award_season"
+  },
+  {
+    "imdb_id": "tt29271639",
+    "title": "Nina Roza",
+    "year": 2026,
+    "stratum": "sparse_sample_festival"
+  },
+  {
+    "imdb_id": "tt38991615",
+    "title": "I See Buildings Fall Like Lightning",
+    "year": 2026,
+    "stratum": "sparse_sample_limited_release"
+  }
+]

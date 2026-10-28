@@ -1,0 +1,276 @@
+{
+  "provenance": {
+    "revision": "9c5a0f06e1c39e48653338fd0865ddabdc525a61",
+    "sha256": "0fb314abfdcac4b5b254e7ff6da4c4c45e2d2eeb54258cf6b34926794c5c233c",
+    "url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/audience-ratings.json"
+  },
+  "measurement_date": null,
+  "available_by": "2026-10-14T08:18:48+02:00",
+  "note": "Archived ReelDB pairs; no per-row observation timestamps in original. Not live observations.",
+  "films": {
+    "tt28607951": {
+      "title": "Anora",
+      "year": 2024,
+      "imdb": {
+        "rating": 7.4,
+        "votes": 310831
+      },
+      "letterboxd": {
+        "rating": 3.8,
+        "votes": 2637772
+      }
+    },
+    "tt8999762": {
+      "title": "The Brutalist",
+      "year": 2024,
+      "imdb": {
+        "rating": 7.2,
+        "votes": 164930
+      },
+      "letterboxd": {
+        "rating": 3.9,
+        "votes": 806279
+      }
+    },
+    "tt17526714": {
+      "title": "The Substance",
+      "year": 2024,
+      "imdb": {
+        "rating": 7.2,
+        "votes": 468464
+      },
+      "letterboxd": {
+        "rating": 3.7,
+        "votes": 3904549
+      }
+    },
+    "tt15239678": {
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "imdb": {
+        "rating": 8.4,
+        "votes": 798620
+      },
+      "letterboxd": {
+        "rating": 4.4,
+        "votes": 3692182
+      }
+    },
+    "tt20221436": {
+      "title": "Emilia Pérez",
+      "year": 2024,
+      "imdb": {
+        "rating": 5.3,
+        "votes": 135677
+      },
+      "letterboxd": {
+        "rating": 2.0,
+        "votes": 622811
+      }
+    },
+    "tt14961016": {
+      "title": "I'm Still Here",
+      "year": 2024,
+      "imdb": {
+        "rating": 8.1,
+        "votes": 172374
+      },
+      "letterboxd": {
+        "rating": 4.3,
+        "votes": 816067
+      }
+    },
+    "tt4772188": {
+      "title": "Flow",
+      "year": 2024,
+      "imdb": {
+        "rating": 7.8,
+        "votes": 154442
+      },
+      "letterboxd": {
+        "rating": 4.1,
+        "votes": 1121455
+      }
+    },
+    "tt21097228": {
+      "title": "A Different Man",
+      "year": 2024,
+      "imdb": {
+        "rating": 6.8,
+        "votes": 40286
+      },
+      "letterboxd": {
+        "rating": 3.8,
+        "votes": 315387
+      }
+    },
+    "tt32928666": {
+      "title": "Familiar Touch",
+      "year": 2024,
+      "imdb": {
+        "rating": 7.1,
+        "votes": 1635
+      },
+      "letterboxd": {
+        "rating": 3.8,
+        "votes": 8637
+      }
+    },
+    "tt30057084": {
+      "title": "Babygirl",
+      "year": 2024,
+      "imdb": {
+        "rating": 5.7,
+        "votes": 84730
+      },
+      "letterboxd": {
+        "rating": 2.6,
+        "votes": 940862
+      }
+    },
+    "tt14905854": {
+      "title": "Hamnet",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.8,
+        "votes": 138621
+      },
+      "letterboxd": {
+        "rating": 4.2,
+        "votes": 1749286
+      }
+    },
+    "tt27714581": {
+      "title": "Sentimental Value",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.7,
+        "votes": 91504
+      },
+      "letterboxd": {
+        "rating": 4.2,
+        "votes": 1048027
+      }
+    },
+    "tt36491653": {
+      "title": "It Was Just an Accident",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.4,
+        "votes": 40056
+      },
+      "letterboxd": {
+        "rating": 4.0,
+        "votes": 347495
+      }
+    },
+    "tt32298285": {
+      "title": "Sirat",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.0,
+        "votes": 38678
+      },
+      "letterboxd": {
+        "rating": 3.6,
+        "votes": 345699
+      }
+    },
+    "tt30144839": {
+      "title": "One Battle After Another",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.6,
+        "votes": 451661
+      },
+      "letterboxd": {
+        "rating": 4.1,
+        "votes": 2883280
+      }
+    },
+    "tt31193180": {
+      "title": "Sinners",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.5,
+        "votes": 532178
+      },
+      "letterboxd": {
+        "rating": 4.1,
+        "votes": 4951100
+      }
+    },
+    "tt21349688": {
+      "title": "East of Wall",
+      "year": 2025,
+      "imdb": {
+        "rating": 6.1,
+        "votes": 1218
+      },
+      "letterboxd": {
+        "rating": 3.2,
+        "votes": 6745
+      }
+    },
+    "tt32843349": {
+      "title": "Sorry, Baby",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.1,
+        "votes": 26718
+      },
+      "letterboxd": {
+        "rating": 4.1,
+        "votes": 387105
+      }
+    },
+    "tt29768334": {
+      "title": "Train Dreams",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.5,
+        "votes": 117300
+      },
+      "letterboxd": {
+        "rating": 4.1,
+        "votes": 759744
+      }
+    },
+    "tt28690468": {
+      "title": "Sound of Falling",
+      "year": 2025,
+      "imdb": {
+        "rating": 7.0,
+        "votes": 6994
+      },
+      "letterboxd": {
+        "rating": 3.7,
+        "votes": 53373
+      }
+    },
+    "tt12042730": {
+      "title": "Project Hail Mary",
+      "year": 2026,
+      "imdb": {
+        "rating": 8.2,
+        "votes": 574085
+      },
+      "letterboxd": {
+        "rating": 4.3,
+        "votes": 4598425
+      }
+    },
+    "tt33764258": {
+      "title": "The Odyssey",
+      "year": 2026,
+      "imdb": {
+        "rating": 8.4,
+        "votes": 525747
+      },
+      "letterboxd": {
+        "rating": 4.3,
+        "votes": 4552531
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "commit": "b62f00de56b2f1aa488e9f41742b86617efcec72",
+  "pr": "https://github.com/kolorifer/radarr-festival-list/pull/88",
+  "files": {
+    "simulations/live-score-v1/breakdowns.md": "5fb0f224612b048042400a73f91f4556d90e755c07a58d6b66802da3f73b3330",
+    "simulations/live-score-v1/calibrate.py": "2abd9a7462dba1d45814ce8f3e9e0b1e1efaca8a929c21729d93a6b5238754d3",
+    "simulations/live-score-v1/comparison.csv": "cb97afc60dbadb154631b33759efc199ddd8ce3c51222689db9042223a6af56f",
+    "simulations/live-score-v1/report.md": "02de9042e5fff5dbf8b18368483fd4473f970b1032332f48e00ddb1767568cf9",
+    "simulations/live-score-v1/results.json": "2f30bbd977aa75b2b1a8fbdc11869c584544ff090a962cf1006137758292f7fe",
+    "simulations/live-score-v1/test_calibrate.py": "a5048b612318f33843ee4c1c8070167028bde909e61474768de8f44738b3a375",
+    "simulations/live-score-v1/inputs/cohort-seed.json": "54e26d7bb6ba535464edc076c58f7d23950799744f16854766d10e641254372a",
+    "simulations/live-score-v1/inputs/historical-awards.json": "0929ee153abdc5970f30a5141dc686035afa3900ec09a371bc73fb2ff80833e6",
+    "simulations/live-score-v1/inputs/historical-manifest.json": "fba158dbbb2af78aa509ffac8440701411f7179cece6b55fc5af944a6069a627",
+    "simulations/live-score-v1/inputs/historical-ratings.json": "29be524ac5a4b8dead063d9fc7d8263770835750c500db6e435377f8c99aec71",
+    "simulations/live-score-v1/inputs/identities.json": "2a4735ac9853b57476c283ca4d5e516a24f8aad23b3b4140cd681cd10e7b0ad7",
+    "simulations/live-score-v1/inputs/observations.json": "70534475b00dfb522011ce1f217f43c75fc38aff21dd66e3bfc79c834bb63e7b",
+    "docs/reports/2026-10-25-live-score-v1.md": "e2b5e90d9d43b73b22d7eb0e9f1df2d01c35aa14a0516b328a38c8fe43ab0f9b",
+    "docs/reports/2026-10-25-live-score-v1-brief.md": "c3d354fe7d4ebd2bacfe7d52fac5fd9185ba99489b6f0bb22853bdec21234cd0"
+  },
+  "note": "Existing Task 1 packet stays at original paths, byte-for-byte; no duplicated raw source dataset."
+}
