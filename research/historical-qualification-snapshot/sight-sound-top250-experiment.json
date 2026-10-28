@@ -1,0 +1,236 @@
+{
+  "mode": "research-sight-sound-official-top250-v3-exact-ids",
+  "qualification_unchanged": true,
+  "source": "BFI Sight and Sound 2022 Critics' Poll",
+  "source_url": "https://www.bfi.org.uk/sight-and-sound/greatest-films-all-time",
+  "published_depth": 250,
+  "official_modern_entries": 29,
+  "resolved_entries": 29,
+  "unresolved_entries": [],
+  "top100_overlap_with_base": 100,
+  "thresholds": {
+    "300": {
+      "selected": 168,
+      "promotions_vs_old": 37,
+      "old_qualified_retained": 131
+    },
+    "275": {
+      "selected": 219,
+      "promotions_vs_old": 64,
+      "old_qualified_retained": 155
+    },
+    "250": {
+      "selected": 274,
+      "promotions_vs_old": 97,
+      "old_qualified_retained": 177
+    },
+    "225": {
+      "selected": 354,
+      "promotions_vs_old": 150,
+      "old_qualified_retained": 204
+    },
+    "200": {
+      "selected": 453,
+      "promotions_vs_old": 227,
+      "old_qualified_retained": 226
+    }
+  },
+  "controls": {
+    "Melancholia": {
+      "title": "Melancholia",
+      "year": 2011,
+      "imdb_id": "tt1527186",
+      "base_rank": 105,
+      "base_score": 354.63,
+      "new_rank": 105,
+      "new_score": 354.63,
+      "old_sight_sound": 16.51,
+      "new_sight_sound": 16.51,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Get Out": {
+      "title": "Get Out",
+      "year": 2017,
+      "imdb_id": "tt5052448",
+      "base_rank": 16,
+      "base_score": 573.26,
+      "new_rank": 16,
+      "new_score": 573.26,
+      "old_sight_sound": 62.63,
+      "new_sight_sound": 62.63,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "The Tree of Life": {
+      "title": "The Tree of Life",
+      "year": 2011,
+      "imdb_id": "tt0478304",
+      "base_rank": 48,
+      "base_score": 456.55,
+      "new_rank": 48,
+      "new_score": 456.55,
+      "old_sight_sound": 22.47,
+      "new_sight_sound": 22.47,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "There Will Be Blood": {
+      "title": "There Will Be Blood",
+      "year": 2007,
+      "imdb_id": "tt0469494",
+      "base_rank": 1,
+      "base_score": 732.81,
+      "new_rank": 1,
+      "new_score": 732.81,
+      "old_sight_sound": 51.89,
+      "new_sight_sound": 51.89,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Mad Max: Fury Road": {
+      "title": "Mad Max: Fury Road",
+      "year": 2015,
+      "imdb_id": "tt1392190",
+      "base_rank": 17,
+      "base_score": 571.62,
+      "new_rank": 17,
+      "new_score": 571.62,
+      "old_sight_sound": 22.47,
+      "new_sight_sound": 22.47,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Parasite": {
+      "title": "Parasite",
+      "year": 2019,
+      "imdb_id": "tt6751668",
+      "base_rank": 2,
+      "base_score": 711.98,
+      "new_rank": 2,
+      "new_score": 711.98,
+      "old_sight_sound": 64.61,
+      "new_sight_sound": 64.61,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Moonlight": {
+      "title": "Moonlight",
+      "year": 2016,
+      "imdb_id": "tt4975722",
+      "base_rank": 4,
+      "base_score": 683.01,
+      "new_rank": 4,
+      "new_score": 683.01,
+      "old_sight_sound": 76.54,
+      "new_sight_sound": 76.54,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Yi Yi": {
+      "title": "Yi Yi",
+      "year": 2000,
+      "imdb_id": "tt0244316",
+      "base_rank": 23,
+      "base_score": 534.87,
+      "new_rank": 23,
+      "new_score": 534.87,
+      "old_sight_sound": 64.61,
+      "new_sight_sound": 64.61,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Caché": {
+      "title": "Caché",
+      "year": 2005,
+      "imdb_id": "tt0387898",
+      "base_rank": 127,
+      "base_score": 332.62,
+      "new_rank": 127,
+      "new_score": 332.62,
+      "old_sight_sound": 0.0,
+      "new_sight_sound": 0.0,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Certified Copy": {
+      "title": "Certified Copy",
+      "year": 2010,
+      "imdb_id": "tt1020773",
+      "base_rank": 261,
+      "base_score": 255.03,
+      "new_rank": 261,
+      "new_score": 255.03,
+      "old_sight_sound": 0.0,
+      "new_sight_sound": 0.0,
+      "delta": 0.0,
+      "qualified": false
+    },
+    "First Reformed": {
+      "title": "First Reformed",
+      "year": 2017,
+      "imdb_id": "tt6053438",
+      "base_rank": 353,
+      "base_score": 225.03,
+      "new_rank": 353,
+      "new_score": 225.03,
+      "old_sight_sound": 0.0,
+      "new_sight_sound": 0.0,
+      "delta": 0.0,
+      "qualified": false
+    },
+    "Goodbye, Dragon Inn": {
+      "title": "Goodbye, Dragon Inn",
+      "year": 2003,
+      "imdb_id": "tt0377556",
+      "base_rank": 316,
+      "base_score": 234.61,
+      "new_rank": 316,
+      "new_score": 234.61,
+      "old_sight_sound": 57.46,
+      "new_sight_sound": 57.46,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "Zama": {
+      "title": "Zama",
+      "year": 2017,
+      "imdb_id": "tt3409848",
+      "base_rank": 570,
+      "base_score": 175.19,
+      "new_rank": 570,
+      "new_score": 175.19,
+      "old_sight_sound": 22.47,
+      "new_sight_sound": 22.47,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "The Gleaners & I": {
+      "title": "The Gleaners & I",
+      "year": 2000,
+      "imdb_id": "tt0247380",
+      "base_rank": 178,
+      "base_score": 296.23,
+      "new_rank": 178,
+      "new_score": 296.23,
+      "old_sight_sound": 73.76,
+      "new_sight_sound": 73.76,
+      "delta": 0.0,
+      "qualified": true
+    },
+    "The Swamp": {
+      "title": "The Swamp",
+      "year": 2001,
+      "imdb_id": "tt0240419",
+      "base_rank": 399,
+      "base_score": 211.09,
+      "new_rank": 399,
+      "new_score": 211.09,
+      "old_sight_sound": 46.33,
+      "new_sight_sound": 46.33,
+      "delta": 0.0,
+      "qualified": true
+    }
+  },
+  "largest_changes": []
+}

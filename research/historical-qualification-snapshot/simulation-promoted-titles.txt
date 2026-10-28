@@ -1,0 +1,146 @@
+01	101	2008	The Hurt Locker	institutional
+02	110	2007	Persepolis	convergence
+03	113	2014	The Grand Budapest Hotel	convergence
+04	116	2003	The Lord of the Rings: The Return of the King	institutional,convergence
+05	119	2014	Goodbye to Language	corroboration
+06	122	2015	The Assassin	corroboration
+07	123	2017	Lady Bird	corroboration
+08	124	2009	Avatar	corroboration
+09	127	2013	12 Years a Slave	institutional,convergence
+10	131	2013	Inside Llewyn Davis	corroboration
+11	133	2003	Spring, Summer, Fall, Winter... and Spring	convergence
+12	138	2009	A Serious Man	corroboration
+13	141	2016	Arrival	convergence
+14	143	2013	Ida	corroboration
+15	145	2004	Million Dollar Baby	institutional,convergence
+16	147	2013	Gravity	corroboration
+17	148	2003	Kill Bill: Vol. 1	convergence
+18	150	2010	Inception	convergence
+19	156	2006	The Departed	institutional,convergence
+20	160	2009	Dogtooth	corroboration
+21	166	2001	Donnie Darko	convergence
+22	167	2014	Interstellar	convergence
+23	169	2015	Son of Saul	corroboration
+24	170	2010	Toy Story 3	convergence
+25	171	2021	The Power of the Dog	corroboration
+26	172	2004	Kung Fu Hustle	convergence
+27	175	2002	The Lord of the Rings: The Two Towers	convergence
+28	178	2000	Gladiator	institutional,convergence
+29	182	2013	The Wolf of Wall Street	convergence
+30	185	2002	Hero	convergence
+31	189	2004	The Incredibles	convergence
+32	190	2014	Whiplash	convergence
+33	197	2008	Waltz with Bashir	corroboration
+34	198	2000	Almost Famous	convergence
+35	202	2016	I Am Not Your Negro	corroboration
+36	203	2021	Drive My Car	corroboration
+37	207	2009	Up	convergence
+38	210	2009	Fantastic Mr. Fox	convergence
+39	214	2015	Inside Out	corroboration
+40	218	2003	Mystic River	corroboration
+41	221	2018	Spider-Man: Into the Spider-Verse	convergence
+42	222	2002	The Man Without a Past	corroboration
+43	227	2010	Black Swan	convergence
+44	228	2022	Everything Everywhere All at Once	institutional,convergence
+45	230	2013	Her	convergence
+46	233	2014	Gone Girl	convergence
+47	235	2008	Man on Wire	corroboration
+48	236	2018	Black Panther	corroboration
+49	238	2009	Mother	convergence
+50	243	2017	Paddington 2	convergence
+51	246	2017	Faces Places	corroboration
+52	248	2012	Moonrise Kingdom	convergence
+53	249	2018	Cold War	corroboration
+54	250	2003	Finding Nemo	convergence
+55	255	2016	The Handmaiden	convergence
+56	256	2016	La La Land	convergence
+57	257	2007	Ratatouille	convergence
+58	271	2023	The Zone of Interest	corroboration
+59	278	2003	The Triplets of Belleville	convergence
+60	279	2008	Slumdog Millionaire	institutional,convergence
+61	285	2002	Infernal Affairs	convergence
+62	289	2016	Manchester by the Sea	convergence
+63	291	2000	O Brother, Where Art Thou?	convergence
+64	305	2013	The Tale of The Princess Kaguya	convergence
+65	307	2004	Kill Bill: Vol. 2	convergence
+66	315	2004	Howl's Moving Castle	convergence
+67	319	2006	Little Miss Sunshine	convergence
+68	321	2017	The Shape of Water	institutional
+69	327	2012	The Hunt	convergence
+70	332	2006	Paprika	convergence
+71	356	2002	Bowling for Columbine	convergence
+72	359	2010	Incendies	convergence
+73	362	2003	The Fog of War	corroboration
+74	366	2006	This Is England	convergence
+75	367	2011	The Artist	institutional
+76	370	2021	The Worst Person in the World	convergence
+77	371	2006	Letters from Iwo Jima	convergence
+78	397	2012	Django Unchained	convergence
+79	413	2002	Lilya 4-Ever	convergence
+80	418	2004	3-Iron	convergence
+81	437	2006	The Prestige	convergence
+82	440	2003	Big Fish	convergence
+83	449	2008	The Wrestler	convergence
+84	451	2013	Before Midnight	convergence
+85	498	2006	Casino Royale	convergence
+86	499	2014	Ex Machina	convergence
+87	530	2005	Pride & Prejudice	convergence
+88	546	2004	Downfall	convergence
+89	551	2014	Mommy	convergence
+90	561	2015	Spotlight	institutional,convergence
+91	572	2023	Oppenheimer	institutional,convergence
+92	620	2022	RRR	convergence
+93	625	2009	Mary and Max	convergence
+94	636	2023	Past Lives	convergence
+95	650	2019	Little Women	convergence
+96	693	2009	The Secret in Their Eyes	convergence
+97	737	2010	The King's Speech	institutional
+98	750	2001	Monsters, Inc.	convergence
+99	776	2009	Coraline	convergence
+100	805	2000	Snatch	convergence
+101	825	2015	Room	convergence
+102	843	2023	The Holdovers	convergence
+103	849	2004	Crash	institutional
+104	858	2002	Catch Me If You Can	convergence
+105	868	2001	A Beautiful Mind	institutional
+106	869	2010	Senna	convergence
+107	875	2004	Harry Potter and the Prisoner of Azkaban	convergence
+108	900	2017	Blade Runner 2049	convergence
+109	902	2023	Perfect Days	convergence
+110	968	2022	Top Gun: Maverick	convergence
+111	OUT	2019	1917	convergence
+112	OUT	2023	20 Days in Mariupol	corroboration
+113	OUT	2022	All Quiet on the Western Front	corroboration
+114	OUT	2012	Argo	institutional
+115	OUT	2014	Big Hero 6	corroboration
+116	OUT	2014	Birdman or (The Unexpected Virtue of Ignorance)	institutional
+117	OUT	2021	CODA	institutional
+118	OUT	2018	Capernaum	convergence
+119	OUT	2002	Chicago	institutional
+120	OUT	2017	Coco	convergence
+121	OUT	2019	Ford v Ferrari	convergence
+122	OUT	2018	Free Solo	convergence
+123	OUT	2018	Green Book	institutional
+124	OUT	2022	Guillermo del Toro's Pinocchio	corroboration
+125	OUT	2016	Hacksaw Ridge	convergence
+126	OUT	2010	How to Train Your Dragon	convergence
+127	OUT	2017	Icarus	corroboration
+128	OUT	2010	Inside Job	corroboration
+129	OUT	2019	Klaus	convergence
+130	OUT	2016	Lion	convergence
+131	OUT	2020	My Octopus Teacher	corroboration
+132	OUT	2022	Navalny	corroboration
+133	OUT	2001	No Man's Land	corroboration
+134	OUT	2012	Searching for Sugar Man	convergence
+135	OUT	2023	Society of the Snow	convergence
+136	OUT	2014	Song of the Sea	convergence
+137	OUT	2020	Soul	corroboration
+138	OUT	2020	Sound of Metal	convergence
+139	OUT	2023	Spider-Man: Across the Spider-Verse	convergence
+140	OUT	2009	The Cove	corroboration
+141	OUT	2020	The Father	convergence
+142	OUT	2011	The Help	convergence
+143	OUT	2016	The Salesman	corroboration
+144	OUT	2017	Three Billboards outside Ebbing, Missouri	convergence
+145	OUT	2014	Wild Tales	convergence
+146	OUT	2016	Zootopia	corroboration

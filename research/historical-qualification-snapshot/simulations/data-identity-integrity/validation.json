@@ -1,0 +1,82 @@
+{
+  "verified_at": "2026-10-13T17:36:03Z",
+  "data_commit": "1451d54d67a5cb82b1a814d640866fe30a5a088d",
+  "tests_passed": 86,
+  "pip_check": "passed",
+  "offline_reproduction": {
+    "commands": [
+      "identity_integrity.py",
+      "award_identity_cleanup.py",
+      "letterboxd_identity_enrichment.py",
+      "integrity_research_score.py"
+    ],
+    "byte_identical_artifacts": 10,
+    "sha256": {
+      "identity-audit.json": "b19fc9fbf21fb6cd094b77a2183d0dcde2ba61f7670aa3cc014b8229abb7a3f9",
+      "identity-corrections.json": "2368c1734546eda2a16aaaaa4f2bd3eb3791c6bc495c39672c8cc9550f04f1b4",
+      "award-identity-audit.json": "2e805057e4754f6f9cc15cd7cd701b11017eddcbad43da31a10fd8ea083a6e66",
+      "evidence-score-150.json": "074e422a74ed43d364ef8daea69522356592f4afc74a728dbff3072179d3770b",
+      "evidence-score-150.csv": "83bc60046045e530e3d2918ef081b5d0569789d2319cf6e8971b1599a67cceb9",
+      "before-score-150.csv": "b9a2bb5ac6d05d83e1749435933aa6ce65ff5f2c0eb3b8fa10f39112a70cc4d5",
+      "score-rank-changes.csv": "61c73aa46d95bbdd15ccff62323c1232d26b65de95af3c40587cb328b8de8a68",
+      "comparison.json": "21b6ea86ed37a7d0500072e8a7a438b9029db73670822bc839f8c452ec1d69c0",
+      "comparison.md": "d475af23866c643735ed88658e5372df5a1590916bfc6f3486d79415e5413002",
+      "manifest.json": "2816540dd050e614af0b3852c9db1b7f5155160ce511a1e5367147cd6ea75785"
+    }
+  },
+  "existing_provider_values_preserved": 14256,
+  "candidates": 1909,
+  "metadata_count": 964,
+  "qualification_routes_unchanged": true,
+  "score_ceiling": 1000,
+  "private_backup": "/home/kolorifer/.local/state/movie-intel/research-validation/identity-final-sync-20261013T173520Z",
+  "working_tree_clean": true,
+  "qualification_count": 255,
+  "production": {
+    "research_head": "87279b4f448b1ba2d3c362d27d62ed52e7a892d3",
+    "production_head": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "production_status": "",
+    "service": "NRestarts=0\nActiveState=active\nSubState=running\nUnitFileState=enabled",
+    "health": {
+      "local": {
+        "http_status": 200
+      },
+      "public": {
+        "http_status": 200
+      }
+    }
+  },
+  "unchanged_baseline_files": [
+    "simulation-qualifiers.json",
+    "evidence_score.py",
+    "audience_cap_simulation.py",
+    "canon_overlap_score.py",
+    "broad_critic_score.py",
+    "sources/tspdt-21c.json",
+    "sources/imdb-audience-discovery.json"
+  ],
+  "github_actions": {
+    "run_id": 38439672908,
+    "url": "https://github.com/kolorifer/radarr-festival-list/actions/runs/38439672908",
+    "result": "success"
+  },
+  "data_limitations": {
+    "letterboxd_missing": 9,
+    "reeldb_status": "HTTP 403 on metadata and ratings routes",
+    "award_source_records_unresolved": 32,
+    "new_corrected_ids_without_recovered_reeldb_critic_ratings": [
+      "tt0278731",
+      "tt0806125",
+      "tt11416746",
+      "tt12913444"
+    ]
+  },
+  "pull_request": 3,
+  "production_deployed": false,
+  "privacy_checks": {
+    "configured_secret_scan": "passed",
+    "private_url_pattern_scan": "passed",
+    "changed_files_scanned": 54,
+    "compressed_metadata_matches_expanded": true
+  }
+}

@@ -1,0 +1,4181 @@
+[
+  {
+    "title": "Moonlight",
+    "year": 2016,
+    "imdb_id": "tt4975722",
+    "rank": 10,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Parasite",
+    "year": 2019,
+    "imdb_id": "tt6751668",
+    "rank": 11,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner + Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "In the Mood for Love",
+    "year": 2000,
+    "imdb_id": "tt0118694",
+    "rank": 1,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Mulholland Drive",
+    "year": 2001,
+    "imdb_id": "tt0166924",
+    "rank": 2,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Tropical Malady",
+    "year": 2004,
+    "imdb_id": "tt0381668",
+    "rank": 6,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Spirited Away",
+    "year": 2001,
+    "imdb_id": "tt0245429",
+    "rank": 4,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Get Out",
+    "year": 2017,
+    "imdb_id": "tt5052448",
+    "rank": 22,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Portrait of a Lady on Fire",
+    "year": 2019,
+    "imdb_id": "tt8613070",
+    "rank": 7,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Gleaners & I",
+    "year": 2000,
+    "imdb_id": "tt0247380",
+    "rank": 9,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "A Separation",
+    "year": 2011,
+    "imdb_id": "tt1832382",
+    "rank": 17,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Yi Yi",
+    "year": 2000,
+    "imdb_id": "tt0244316",
+    "rank": 3,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Tree of Life",
+    "year": 2011,
+    "imdb_id": "tt0478304",
+    "rank": 8,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Eternal Sunshine of the Spotless Mind",
+    "year": 2004,
+    "imdb_id": "tt0338013",
+    "rank": 12,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Caché",
+    "year": 2005,
+    "imdb_id": "tt0387898",
+    "rank": 13,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Swamp",
+    "year": 2001,
+    "imdb_id": "tt0240419",
+    "rank": 15,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The White Ribbon",
+    "year": 2009,
+    "imdb_id": "tt1149362",
+    "rank": 25,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Uncle Boonmee Who Can Recall His Past Lives",
+    "year": 2010,
+    "imdb_id": "tt1588895",
+    "rank": 14,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Melancholia",
+    "year": 2011,
+    "imdb_id": "tt1527186",
+    "rank": 21,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Turin Horse",
+    "year": 2011,
+    "imdb_id": "tt1316540",
+    "rank": 24,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "There Will Be Blood",
+    "year": 2007,
+    "imdb_id": "tt0469494",
+    "rank": 5,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Goodbye, Dragon Inn",
+    "year": 2003,
+    "imdb_id": "tt0377556",
+    "rank": 16,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "City of God",
+    "year": 2002,
+    "imdb_id": "tt0317248",
+    "rank": 18,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Mad Max: Fury Road",
+    "year": 2015,
+    "imdb_id": "tt1392190",
+    "rank": 19,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Werckmeister Harmonies",
+    "year": 2000,
+    "imdb_id": "tt0249241",
+    "rank": 20,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Tie Xi Qu: West of the Tracks",
+    "year": 2002,
+    "imdb_id": "tt0389448",
+    "rank": 23,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Lost in Translation",
+    "year": 2003,
+    "imdb_id": "tt0335266",
+    "rank": 27,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Dogville",
+    "year": 2003,
+    "imdb_id": "tt0276919",
+    "rank": 29,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Boyhood",
+    "year": 2014,
+    "imdb_id": "tt1065073",
+    "rank": 39,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Elephant",
+    "year": 2003,
+    "imdb_id": "tt0363589",
+    "rank": 42,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Under the Skin",
+    "year": 2013,
+    "imdb_id": "tt1441395",
+    "rank": 26,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Toni Erdmann",
+    "year": 2016,
+    "imdb_id": "tt4048272",
+    "rank": 28,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Holy Motors",
+    "year": 2012,
+    "imdb_id": "tt2076220",
+    "rank": 30,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Headless Woman",
+    "year": 2008,
+    "imdb_id": "tt1221141",
+    "rank": 31,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "No Country for Old Men",
+    "year": 2007,
+    "imdb_id": "tt0477348",
+    "rank": 32,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Phantom Thread",
+    "year": 2017,
+    "imdb_id": "tt5776858",
+    "rank": 33,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Act of Killing",
+    "year": 2012,
+    "imdb_id": "tt2375605",
+    "rank": 34,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film nominee",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "A.I. Artificial Intelligence",
+    "year": 2001,
+    "imdb_id": "tt0212720",
+    "rank": 35,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Pan's Labyrinth",
+    "year": 2006,
+    "imdb_id": "tt0457430",
+    "rank": 36,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Syndromes and a Century",
+    "year": 2006,
+    "imdb_id": "tt0477731",
+    "rank": 37,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Zama",
+    "year": 2017,
+    "imdb_id": "tt3409848",
+    "rank": 38,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Talk to Her",
+    "year": 2002,
+    "imdb_id": "tt0287467",
+    "rank": 40,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Once Upon a Time in Anatolia",
+    "year": 2011,
+    "imdb_id": "tt1827487",
+    "rank": 41,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Songs from the Second Floor",
+    "year": 2000,
+    "imdb_id": "tt0120263",
+    "rank": 43,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Death of Mr. Lazarescu",
+    "year": 2005,
+    "imdb_id": "tt0456149",
+    "rank": 44,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Children of Men",
+    "year": 2006,
+    "imdb_id": "tt0206634",
+    "rank": 45,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Platform",
+    "year": 2000,
+    "imdb_id": "tt0258885",
+    "rank": 46,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "In Vanda's Room",
+    "year": 2000,
+    "imdb_id": "tt0139500",
+    "rank": 47,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Oldboy",
+    "year": 2003,
+    "imdb_id": "tt0364569",
+    "rank": 48,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Punch-Drunk Love",
+    "year": 2002,
+    "imdb_id": "tt0272338",
+    "rank": 49,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inland Empire",
+    "year": 2006,
+    "imdb_id": "tt0460829",
+    "rank": 50,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Lives of Others",
+    "year": 2006,
+    "imdb_id": "tt0405094",
+    "rank": 51,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Brokeback Mountain",
+    "year": 2005,
+    "imdb_id": "tt0388795",
+    "rank": 56,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Amour",
+    "year": 2012,
+    "imdb_id": "tt1602620",
+    "rank": 60,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Roma",
+    "year": 2018,
+    "imdb_id": "tt6155172",
+    "rank": 73,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "4 Months, 3 Weeks and 2 Days",
+    "year": 2007,
+    "imdb_id": "tt1032846",
+    "rank": 79,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Dancer in the Dark",
+    "year": 2000,
+    "imdb_id": "tt0168629",
+    "rank": 80,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Still Life",
+    "year": 2006,
+    "imdb_id": "tt0859765",
+    "rank": 97,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "A Prophet",
+    "year": 2009,
+    "imdb_id": "tt1235166",
+    "rank": 68,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Master",
+    "year": 2012,
+    "imdb_id": "tt1560747",
+    "rank": 52,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Memories of Murder",
+    "year": 2003,
+    "imdb_id": "tt0353969",
+    "rank": 54,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Crouching Tiger, Hidden Dragon",
+    "year": 2000,
+    "imdb_id": "tt0190332",
+    "rank": 55,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Zodiac",
+    "year": 2007,
+    "imdb_id": "tt0443706",
+    "rank": 57,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "WALL·E",
+    "year": 2008,
+    "imdb_id": "tt0910970",
+    "rank": 58,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Morvern Callar",
+    "year": 2002,
+    "imdb_id": "tt0300214",
+    "rank": 59,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Russian Ark",
+    "year": 2002,
+    "imdb_id": "tt0318034",
+    "rank": 61,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Nostalgia for the Light",
+    "year": 2010,
+    "imdb_id": "tt1556190",
+    "rank": 62,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Amélie",
+    "year": 2001,
+    "imdb_id": "tt0211915",
+    "rank": 63,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "year": 2001,
+    "imdb_id": "tt0120737",
+    "rank": 64,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
+    "year": 2000,
+    "imdb_id": "tt0262240",
+    "rank": 65,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Social Network",
+    "year": 2010,
+    "imdb_id": "tt1285016",
+    "rank": 66,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Y tu mamá también",
+    "year": 2001,
+    "imdb_id": "tt0245574",
+    "rank": 67,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Piano Teacher",
+    "year": 2001,
+    "imdb_id": "tt0254686",
+    "rank": 69,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Colossal Youth",
+    "year": 2006,
+    "imdb_id": "tt0460480",
+    "rank": 70,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Royal Tenenbaums",
+    "year": 2001,
+    "imdb_id": "tt0265666",
+    "rank": 71,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Synecdoche, New York",
+    "year": 2008,
+    "imdb_id": "tt0383028",
+    "rank": 72,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Carol",
+    "year": 2015,
+    "imdb_id": "tt2402927",
+    "rank": 74,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Silent Light",
+    "year": 2007,
+    "imdb_id": "tt0841925",
+    "rank": 75,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Dark Knight",
+    "year": 2008,
+    "imdb_id": "tt0468569",
+    "rank": 76,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Before Sunset",
+    "year": 2004,
+    "imdb_id": "tt0381681",
+    "rank": 77,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Once Upon a Time in... Hollywood",
+    "year": 2019,
+    "imdb_id": "tt7131622",
+    "rank": 78,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Millennium Mambo",
+    "year": 2001,
+    "imdb_id": "tt0283283",
+    "rank": 81,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Memento",
+    "year": 2000,
+    "imdb_id": "tt0209144",
+    "rank": 82,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Great Beauty",
+    "year": 2013,
+    "imdb_id": "tt2358891",
+    "rank": 83,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "35 Shots of Rum",
+    "year": 2008,
+    "imdb_id": "tt1100048",
+    "rank": 84,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Hunger",
+    "year": 2008,
+    "imdb_id": "tt0986233",
+    "rank": 85,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Intruder",
+    "year": 2004,
+    "imdb_id": "tt0422491",
+    "rank": 86,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Moulin Rouge!",
+    "year": 2001,
+    "imdb_id": "tt0203009",
+    "rank": 87,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Distant",
+    "year": 2002,
+    "imdb_id": "tt0346094",
+    "rank": 88,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Fish Tank",
+    "year": 2009,
+    "imdb_id": "tt1232776",
+    "rank": 89,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The New World",
+    "year": 2005,
+    "imdb_id": "tt0402399",
+    "rank": 90,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Inglourious Basterds",
+    "year": 2009,
+    "imdb_id": "tt0361748",
+    "rank": 91,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Let the Right One In",
+    "year": 2008,
+    "imdb_id": "tt1139797",
+    "rank": 92,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Petite Maman",
+    "year": 2021,
+    "imdb_id": "tt13204490",
+    "rank": 93,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Grizzly Man",
+    "year": 2005,
+    "imdb_id": "tt0427312",
+    "rank": 94,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Sideways",
+    "year": 2004,
+    "imdb_id": "tt0375063",
+    "rank": 95,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Requiem for a Dream",
+    "year": 2000,
+    "imdb_id": "tt0180093",
+    "rank": 96,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Blue Is the Warmest Colour",
+    "year": 2013,
+    "imdb_id": "tt2278871",
+    "rank": 98,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Margaret",
+    "year": 2011,
+    "imdb_id": "tt0466893",
+    "rank": 99,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "First Cow",
+    "year": 2019,
+    "imdb_id": "tt9231040",
+    "rank": 100,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Amores Perros",
+    "year": 2000,
+    "imdb_id": "tt0245712",
+    "rank": 104,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Nomadland",
+    "year": 2020,
+    "imdb_id": "tt9770150",
+    "rank": 114,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "The Pianist",
+    "year": 2002,
+    "imdb_id": "tt0253474",
+    "rank": 134,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Head-On",
+    "year": 2004,
+    "imdb_id": "tt0347048",
+    "rank": 137,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Shoplifters",
+    "year": 2018,
+    "imdb_id": "tt8075192",
+    "rank": 139,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Return",
+    "year": 2003,
+    "imdb_id": "tt0376968",
+    "rank": 149,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Call Me by Your Name",
+    "year": 2017,
+    "imdb_id": "tt5726616",
+    "rank": 161,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "The Circle",
+    "year": 2000,
+    "imdb_id": "tt0255094",
+    "rank": 177,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Monsoon Wedding",
+    "year": 2001,
+    "imdb_id": "tt0265343",
+    "rank": 192,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "Titane",
+    "year": 2021,
+    "imdb_id": "tt10944760",
+    "rank": 220,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "canon"
+    ],
+    "evidence": []
+  },
+  {
+    "title": "The Hurt Locker",
+    "year": 2008,
+    "imdb_id": "tt0887912",
+    "rank": 101,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "Persepolis",
+    "year": 2007,
+    "imdb_id": "tt0808417",
+    "rank": 110,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Grand Budapest Hotel",
+    "year": 2014,
+    "imdb_id": "tt2278388",
+    "rank": 113,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings: The Return of the King",
+    "year": 2003,
+    "imdb_id": "tt0167260",
+    "rank": 116,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Goodbye to Language",
+    "year": 2014,
+    "imdb_id": "tt2400275",
+    "rank": 119,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Cannes Jury Prize"
+    ]
+  },
+  {
+    "title": "The Assassin",
+    "year": 2015,
+    "imdb_id": "tt3508840",
+    "rank": 122,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Cannes Best Director"
+    ]
+  },
+  {
+    "title": "Lady Bird",
+    "year": 2017,
+    "imdb_id": "tt4925292",
+    "rank": 123,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Avatar",
+    "year": 2009,
+    "imdb_id": "tt0499549",
+    "rank": 124,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "12 Years a Slave",
+    "year": 2013,
+    "imdb_id": "tt2024544",
+    "rank": 127,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inside Llewyn Davis",
+    "year": 2013,
+    "imdb_id": "tt2042568",
+    "rank": 131,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Cannes Grand Prix",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Spring, Summer, Fall, Winter... and Spring",
+    "year": 2003,
+    "imdb_id": "tt0374546",
+    "rank": 133,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "A Serious Man",
+    "year": 2009,
+    "imdb_id": "tt1019452",
+    "rank": 138,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Arrival",
+    "year": 2016,
+    "imdb_id": "tt2543164",
+    "rank": 141,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Ida",
+    "year": 2013,
+    "imdb_id": "tt2718492",
+    "rank": 143,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Million Dollar Baby",
+    "year": 2004,
+    "imdb_id": "tt0405159",
+    "rank": 145,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Gravity",
+    "year": 2013,
+    "imdb_id": "tt1454468",
+    "rank": 147,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Kill Bill: Vol. 1",
+    "year": 2003,
+    "imdb_id": "tt0266697",
+    "rank": 148,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inception",
+    "year": 2010,
+    "imdb_id": "tt1375666",
+    "rank": 150,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Departed",
+    "year": 2006,
+    "imdb_id": "tt0407887",
+    "rank": 156,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Dogtooth",
+    "year": 2009,
+    "imdb_id": "tt1379182",
+    "rank": 160,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee"
+    ]
+  },
+  {
+    "title": "Donnie Darko",
+    "year": 2001,
+    "imdb_id": "tt0246578",
+    "rank": 166,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Interstellar",
+    "year": 2014,
+    "imdb_id": "tt0816692",
+    "rank": 167,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Son of Saul",
+    "year": 2015,
+    "imdb_id": "tt3808342",
+    "rank": 169,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner"
+    ]
+  },
+  {
+    "title": "Toy Story 3",
+    "year": 2010,
+    "imdb_id": "tt0435761",
+    "rank": 170,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner + Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Power of the Dog",
+    "year": 2021,
+    "imdb_id": "tt10293406",
+    "rank": 171,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Kung Fu Hustle",
+    "year": 2004,
+    "imdb_id": "tt0373074",
+    "rank": 172,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Lord of the Rings: The Two Towers",
+    "year": 2002,
+    "imdb_id": "tt0167261",
+    "rank": 175,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Gladiator",
+    "year": 2000,
+    "imdb_id": "tt0172495",
+    "rank": 178,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Wolf of Wall Street",
+    "year": 2013,
+    "imdb_id": "tt0993846",
+    "rank": 182,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Hero",
+    "year": 2002,
+    "imdb_id": "tt0299977",
+    "rank": 185,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Incredibles",
+    "year": 2004,
+    "imdb_id": "tt0317705",
+    "rank": 189,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Whiplash",
+    "year": 2014,
+    "imdb_id": "tt2582802",
+    "rank": 190,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Waltz with Bashir",
+    "year": 2008,
+    "imdb_id": "tt1185616",
+    "rank": 197,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Almost Famous",
+    "year": 2000,
+    "imdb_id": "tt0181875",
+    "rank": 198,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "I Am Not Your Negro",
+    "year": 2016,
+    "imdb_id": "tt5804038",
+    "rank": 202,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film nominee"
+    ]
+  },
+  {
+    "title": "Drive My Car",
+    "year": 2021,
+    "imdb_id": "tt14039582",
+    "rank": 203,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Up",
+    "year": 2009,
+    "imdb_id": "tt1049413",
+    "rank": 207,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner + Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Fantastic Mr. Fox",
+    "year": 2009,
+    "imdb_id": "tt0432283",
+    "rank": 210,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inside Out",
+    "year": 2015,
+    "imdb_id": "tt2096673",
+    "rank": 214,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Mystic River",
+    "year": 2003,
+    "imdb_id": "tt0327056",
+    "rank": 218,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Spider-Man: Into the Spider-Verse",
+    "year": 2018,
+    "imdb_id": "tt4633694",
+    "rank": 221,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Man Without a Past",
+    "year": 2002,
+    "imdb_id": "tt0311519",
+    "rank": 222,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee"
+    ]
+  },
+  {
+    "title": "Black Swan",
+    "year": 2010,
+    "imdb_id": "tt0947798",
+    "rank": 227,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Everything Everywhere All at Once",
+    "year": 2022,
+    "imdb_id": "tt6710474",
+    "rank": 228,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Her",
+    "year": 2013,
+    "imdb_id": "tt1798709",
+    "rank": 230,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Gone Girl",
+    "year": 2014,
+    "imdb_id": "tt2267998",
+    "rank": 233,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Man on Wire",
+    "year": 2008,
+    "imdb_id": "tt1155592",
+    "rank": 235,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Black Panther",
+    "year": 2018,
+    "imdb_id": "tt1825683",
+    "rank": 236,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee"
+    ]
+  },
+  {
+    "title": "Mother",
+    "year": 2009,
+    "imdb_id": "tt1216496",
+    "rank": 238,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Paddington 2",
+    "year": 2017,
+    "imdb_id": "tt4468740",
+    "rank": 243,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Faces Places",
+    "year": 2017,
+    "imdb_id": "tt5598102",
+    "rank": 246,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film nominee"
+    ]
+  },
+  {
+    "title": "Moonrise Kingdom",
+    "year": 2012,
+    "imdb_id": "tt1748122",
+    "rank": 248,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Cold War",
+    "year": 2018,
+    "imdb_id": "tt6543652",
+    "rank": 249,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Finding Nemo",
+    "year": 2003,
+    "imdb_id": "tt0266543",
+    "rank": 250,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Shape of Water",
+    "year": 2017,
+    "imdb_id": "tt5580390",
+    "rank": 321,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner"
+    ]
+  },
+  {
+    "title": "The Wrestler",
+    "year": 2008,
+    "imdb_id": "tt1125849",
+    "rank": 449,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Handmaiden",
+    "year": 2016,
+    "imdb_id": "tt4016934",
+    "rank": 255,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "La La Land",
+    "year": 2016,
+    "imdb_id": "tt3783958",
+    "rank": 256,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Ratatouille",
+    "year": 2007,
+    "imdb_id": "tt0382932",
+    "rank": 257,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Zone of Interest",
+    "year": 2023,
+    "imdb_id": "tt7160372",
+    "rank": 271,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner"
+    ]
+  },
+  {
+    "title": "The Triplets of Belleville",
+    "year": 2003,
+    "imdb_id": "tt0286244",
+    "rank": 278,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Slumdog Millionaire",
+    "year": 2008,
+    "imdb_id": "tt1010048",
+    "rank": 279,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Infernal Affairs",
+    "year": 2002,
+    "imdb_id": "tt0338564",
+    "rank": 285,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Manchester by the Sea",
+    "year": 2016,
+    "imdb_id": "tt4034228",
+    "rank": 289,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "O Brother, Where Art Thou?",
+    "year": 2000,
+    "imdb_id": "tt0190590",
+    "rank": 291,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Tale of The Princess Kaguya",
+    "year": 2013,
+    "imdb_id": "tt2576852",
+    "rank": 305,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Kill Bill: Vol. 2",
+    "year": 2004,
+    "imdb_id": "tt0378194",
+    "rank": 307,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Howl's Moving Castle",
+    "year": 2004,
+    "imdb_id": "tt0347149",
+    "rank": 315,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Little Miss Sunshine",
+    "year": 2006,
+    "imdb_id": "tt0449059",
+    "rank": 319,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Hunt",
+    "year": 2012,
+    "imdb_id": "tt2106476",
+    "rank": 327,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Paprika",
+    "year": 2006,
+    "imdb_id": "tt0851578",
+    "rank": 332,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Bowling for Columbine",
+    "year": 2002,
+    "imdb_id": "tt0310793",
+    "rank": 356,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Incendies",
+    "year": 2010,
+    "imdb_id": "tt1255953",
+    "rank": 359,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Fog of War",
+    "year": 2003,
+    "imdb_id": "tt0317910",
+    "rank": 362,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner"
+    ]
+  },
+  {
+    "title": "This Is England",
+    "year": 2006,
+    "imdb_id": "tt0480025",
+    "rank": 366,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Artist",
+    "year": 2011,
+    "imdb_id": "tt1655442",
+    "rank": 367,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "The Worst Person in the World",
+    "year": 2021,
+    "imdb_id": "tt10370710",
+    "rank": 370,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Letters from Iwo Jima",
+    "year": 2006,
+    "imdb_id": "tt0498380",
+    "rank": 371,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Django Unchained",
+    "year": 2012,
+    "imdb_id": "tt1853728",
+    "rank": 397,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Lilya 4-Ever",
+    "year": 2002,
+    "imdb_id": "tt0300140",
+    "rank": 413,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "3-Iron",
+    "year": 2004,
+    "imdb_id": "tt0423866",
+    "rank": 418,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Prestige",
+    "year": 2006,
+    "imdb_id": "tt0482571",
+    "rank": 437,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Big Fish",
+    "year": 2003,
+    "imdb_id": "tt0319061",
+    "rank": 440,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Before Midnight",
+    "year": 2013,
+    "imdb_id": "tt2209418",
+    "rank": 451,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Casino Royale",
+    "year": 2006,
+    "imdb_id": "tt0381061",
+    "rank": 498,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Ex Machina",
+    "year": 2014,
+    "imdb_id": "tt0470752",
+    "rank": 499,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Pride & Prejudice",
+    "year": 2005,
+    "imdb_id": "tt0414387",
+    "rank": 530,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Downfall",
+    "year": 2004,
+    "imdb_id": "tt0363163",
+    "rank": 546,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Mommy",
+    "year": 2014,
+    "imdb_id": "tt3612616",
+    "rank": 551,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Spotlight",
+    "year": 2015,
+    "imdb_id": "tt1895587",
+    "rank": 561,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Oppenheimer",
+    "year": 2023,
+    "imdb_id": "tt15398776",
+    "rank": 572,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional",
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "RRR",
+    "year": 2022,
+    "imdb_id": "tt8178634",
+    "rank": 620,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Mary and Max",
+    "year": 2009,
+    "imdb_id": "tt0978762",
+    "rank": 625,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Past Lives",
+    "year": 2023,
+    "imdb_id": "tt13238346",
+    "rank": 636,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Little Women",
+    "year": 2019,
+    "imdb_id": "tt3281548",
+    "rank": 650,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Secret in Their Eyes",
+    "year": 2009,
+    "imdb_id": "tt1305806",
+    "rank": 693,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The King's Speech",
+    "year": 2010,
+    "imdb_id": "tt1504320",
+    "rank": 737,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Monsters, Inc.",
+    "year": 2001,
+    "imdb_id": "tt0198781",
+    "rank": 750,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Coraline",
+    "year": 2009,
+    "imdb_id": "tt0327597",
+    "rank": 776,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Snatch",
+    "year": 2000,
+    "imdb_id": "tt0208092",
+    "rank": 805,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Room",
+    "year": 2015,
+    "imdb_id": "tt3170832",
+    "rank": 825,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Holdovers",
+    "year": 2023,
+    "imdb_id": "tt14849194",
+    "rank": 843,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Crash",
+    "year": 2004,
+    "imdb_id": "tt0375679",
+    "rank": 849,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Catch Me If You Can",
+    "year": 2002,
+    "imdb_id": "tt0264464",
+    "rank": 858,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "A Beautiful Mind",
+    "year": 2001,
+    "imdb_id": "tt0268978",
+    "rank": 868,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Senna",
+    "year": 2010,
+    "imdb_id": "tt1424432",
+    "rank": 869,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Harry Potter and the Prisoner of Azkaban",
+    "year": 2004,
+    "imdb_id": "tt0304141",
+    "rank": 875,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Blade Runner 2049",
+    "year": 2017,
+    "imdb_id": "tt1856101",
+    "rank": 900,
+    "sources": [
+      "TSPDT"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Perfect Days",
+    "year": 2023,
+    "imdb_id": "tt27503384",
+    "rank": 902,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Top Gun: Maverick",
+    "year": 2022,
+    "imdb_id": "tt1745960",
+    "rank": 968,
+    "sources": [
+      "TSPDT",
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "No Man's Land",
+    "year": 2001,
+    "imdb_id": "tt0283509",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Chicago",
+    "year": 2002,
+    "imdb_id": "tt0299658",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Cove",
+    "year": 2009,
+    "imdb_id": "tt1313104",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "How to Train Your Dragon",
+    "year": 2010,
+    "imdb_id": "tt0892769",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Inside Job",
+    "year": 2010,
+    "imdb_id": "tt1645089",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "The Help",
+    "year": 2011,
+    "imdb_id": "tt1454029",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Argo",
+    "year": 2012,
+    "imdb_id": "tt1024648",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Searching for Sugar Man",
+    "year": 2012,
+    "imdb_id": "tt2125608",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Big Hero 6",
+    "year": 2014,
+    "imdb_id": "tt2245084",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Birdman or (The Unexpected Virtue of Ignorance)",
+    "year": 2014,
+    "imdb_id": "tt2562232",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Song of the Sea",
+    "year": 2014,
+    "imdb_id": "tt1865505",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Wild Tales",
+    "year": 2014,
+    "imdb_id": "tt3011894",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Hacksaw Ridge",
+    "year": 2016,
+    "imdb_id": "tt2119532",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Lion",
+    "year": 2016,
+    "imdb_id": "tt3741834",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Salesman",
+    "year": 2016,
+    "imdb_id": "tt5186714",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy International Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Zootopia",
+    "year": 2016,
+    "imdb_id": "tt2948356",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Coco",
+    "year": 2017,
+    "imdb_id": "tt2380307",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Icarus",
+    "year": 2017,
+    "imdb_id": "tt6333060",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Three Billboards outside Ebbing, Missouri",
+    "year": 2017,
+    "imdb_id": "tt5027774",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Capernaum",
+    "year": 2018,
+    "imdb_id": "tt8267604",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Free Solo",
+    "year": 2018,
+    "imdb_id": "tt7775622",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Green Book",
+    "year": 2018,
+    "imdb_id": "tt6966692",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "1917",
+    "year": 2019,
+    "imdb_id": "tt8579674",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Ford v Ferrari",
+    "year": 2019,
+    "imdb_id": "tt1950186",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Klaus",
+    "year": 2019,
+    "imdb_id": "tt4729430",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "My Octopus Teacher",
+    "year": 2020,
+    "imdb_id": "tt12888462",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Soul",
+    "year": 2020,
+    "imdb_id": "tt2948372",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Sound of Metal",
+    "year": 2020,
+    "imdb_id": "tt5363618",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "The Father",
+    "year": 2020,
+    "imdb_id": "tt10272386",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "CODA",
+    "year": 2021,
+    "imdb_id": "tt10366460",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "institutional"
+    ],
+    "evidence": [
+      "Academy Best Picture winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "All Quiet on the Western Front",
+    "year": 2022,
+    "imdb_id": "tt1016150",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Best Picture nominee + Academy International Feature Film winner",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Guillermo del Toro's Pinocchio",
+    "year": 2022,
+    "imdb_id": "tt1488589",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film winner",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Navalny",
+    "year": 2022,
+    "imdb_id": "tt17041964",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "20 Days in Mariupol",
+    "year": 2023,
+    "imdb_id": "tt24082438",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "corroboration"
+    ],
+    "evidence": [
+      "Academy Documentary Feature Film winner",
+      "IMDb strong/broad"
+    ]
+  },
+  {
+    "title": "Society of the Snow",
+    "year": 2023,
+    "imdb_id": "tt16277242",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy International Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  },
+  {
+    "title": "Spider-Man: Across the Spider-Verse",
+    "year": 2023,
+    "imdb_id": "tt9362722",
+    "rank": null,
+    "sources": [
+      "institutional"
+    ],
+    "routes": [
+      "convergence"
+    ],
+    "evidence": [
+      "Academy Animated Feature Film nominee",
+      "IMDb strong/broad",
+      "Letterboxd strong/broad"
+    ]
+  }
+]

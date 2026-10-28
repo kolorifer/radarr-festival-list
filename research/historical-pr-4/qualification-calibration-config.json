@@ -1,0 +1,56 @@
+{
+  "baseline_commit": "762d6af242c84e26e2007d2a175b08c7e9c3b2a8",
+  "thresholds": [
+    100,
+    125,
+    150,
+    175,
+    200,
+    225,
+    250,
+    300,
+    350,
+    400
+  ],
+  "policies": [
+    "score_only",
+    "A_keep_existing",
+    "B_two_families",
+    "C_one_family",
+    "D_audience_half",
+    "E_low_evidence_guard"
+  ],
+  "shortlist": [
+    {
+      "policy": "A_keep_existing",
+      "threshold": 250,
+      "rationale": "Preserves all existing films and adds 119; a moderate expansion with one audience-dominant new case."
+    },
+    {
+      "policy": "A_keep_existing",
+      "threshold": 300,
+      "rationale": "Preserves all existing films with a smaller 54-film expansion and no audience-dominant new cases."
+    },
+    {
+      "policy": "E_low_evidence_guard",
+      "threshold": 125,
+      "rationale": "Broad discovery option; removes audience-only and audience-dominant single-family admissions while preserving strong single-family evidence."
+    },
+    {
+      "policy": "D_audience_half",
+      "threshold": 200,
+      "rationale": "Evidence-led replacement comparator; removes audience dominance entirely but loses many currently qualified films."
+    }
+  ],
+  "recent_year_start": 2020,
+  "borderline_window": 10,
+  "example_limit": 10,
+  "negative_taste_labels_available": false,
+  "deployed_snapshot": {
+    "commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+    "path": "simulations/qualification-calibration/inputs/deployed-qualifiers.json",
+    "sha256": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4",
+    "count": 224,
+    "role": "Diagnostic only. Primary comparison remains the explicitly requested255-film PR#3 baseline."
+  }
+}

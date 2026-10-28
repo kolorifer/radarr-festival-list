@@ -1,0 +1,14 @@
+{
+  "baseline_commit": "64d1f61a547de1e8330646a104656e1072720782",
+  "deployed_commit": "c7a458241b4a8a2acbd4d4f5a957d71e5198adc1",
+  "deployed_path": "simulations/qualification-calibration/inputs/deployed-qualifiers.json",
+  "deployed_sha256": "939d85d9c889d9868131ebddd8ee60665b27351256b1f1985eb9735d2231e3d4",
+  "thresholds": [
+    225,
+    250
+  ],
+  "recent_start": 2020,
+  "very_recent_start": 2024,
+  "borderline_window": 15,
+  "history_path": "simulations/p225-vs-p250/inputs/research31-history.json"
+}

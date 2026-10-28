@@ -1,0 +1,24 @@
+{
+  "observed_at": "2026-10-13T17:34:08.983580+00:00",
+  "records": [
+    {
+      "imdb_id": "tt0274622",
+      "title": "LaLee's Kin: The Legacy of Cotton",
+      "attempts": [
+        {
+          "selector_type": "imdb",
+          "selector": "tt0274622",
+          "metadata_status": "HTTP 403",
+          "metadata": {},
+          "rating_status": "HTTP 403"
+        }
+      ],
+      "added": [],
+      "complete_after": false
+    }
+  ],
+  "requests": 2,
+  "request_budget": 100,
+  "existing_valid_values_preserved": true,
+  "status": "stopped_ratings_HTTP_403"
+}
