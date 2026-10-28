@@ -223,12 +223,51 @@ class QuotaTests(unittest.TestCase):
         self.assertEqual(w.quota_remaining(self.root, self.now), 90)
 
     def test_unusable_telemetry_fails_closed(self):
-        for events in ([], [self.event(minutes=10080)], [self.event(reset=self.now)],
+        for events in ([], [self.event(minutes=0)], [self.event(reset=self.now)],
                        [self.event(stamp=self.now - 18001)], [self.event(used=float("nan"))],
                        [self.event(used=-1)], [self.event(stamp=self.now + 100)]):
             self.write(events)
             with self.assertRaises(w.Stop):
                 w.quota_remaining(self.root, self.now)
+
+    def test_weekly_only_quota_and_thresholds(self):
+        for used, remaining in ((13, 87), (84, 16), (85, 15), (100, 0)):
+            self.write([self.event(used=used, minutes=10080)])
+            self.assertEqual(w.quota_remaining(self.root, self.now), remaining)
+
+    def test_lowest_remaining_window_regardless_of_order(self):
+        for primary_minutes, secondary_minutes in ((300, 10080), (10080, 300)):
+            for primary_used, secondary_used in ((13, 85), (85, 13)):
+                event = self.event(used=primary_used, minutes=primary_minutes)
+                event['payload']['rate_limits']['secondary'] = self.event(
+                    used=secondary_used, minutes=secondary_minutes)['payload']['rate_limits']['primary']
+                self.write([event])
+                self.assertEqual(w.quota_remaining(self.root, self.now), 15)
+
+    def test_latest_invalid_snapshot_does_not_use_older_allowance(self):
+        for window in (None, {}, {'used_percent': 10},
+                       {'used_percent': 10, 'window_minutes': -1, 'resets_at': self.now + 100},
+                       {'used_percent': 10, 'window_minutes': True, 'resets_at': self.now + 100},
+                       {'used_percent': 10, 'window_minutes': 10080, 'resets_at': float('inf')}):
+            event = self.event(stamp=self.now - 1)
+            event['payload']['rate_limits']['primary'] = window
+            self.write([self.event(stamp=self.now - 20), event])
+            with self.assertRaises(w.Stop):
+                w.quota_remaining(self.root, self.now)
+
+    def test_invalid_secondary_fails_closed(self):
+        for window in ({}, self.event(reset=self.now)['payload']['rate_limits']['primary']):
+            event = self.event(minutes=10080)
+            event['payload']['rate_limits']['secondary'] = window
+            self.write([event])
+            with self.assertRaises(w.Stop):
+                w.quota_remaining(self.root, self.now)
+
+    def test_other_metered_bucket_does_not_replace_codex(self):
+        event = self.event(used=0, stamp=self.now - 1)
+        event['payload']['rate_limits']['limit_id'] = 'codex_other'
+        self.write([self.event(used=90, stamp=self.now - 20), event])
+        self.assertEqual(w.quota_remaining(self.root, self.now), 10)
 
     def test_newest_expired_record_does_not_fall_back(self):
         self.write([self.event(stamp=self.now - 20), self.event(stamp=self.now - 1, reset=self.now)])
@@ -689,6 +728,26 @@ class QuotaRefreshTests(unittest.TestCase):
                     other.start()
                 process.assert_not_called()
                 self.assertFalse(other.probe_file.exists())
+
+    def test_weekly_telemetry_preserves_threshold_and_at_most_once(self):
+        for used in (13, 84, 85, 100):
+            with self.subTest(used=used), tempfile.TemporaryDirectory() as root:
+                runner = FakeRunner(Path(root))
+                runner.args.sessions.mkdir()
+                now = w.time.time()
+                event = {'type': 'event_msg',
+                         'timestamp': w.dt.datetime.fromtimestamp(now, w.dt.timezone.utc).isoformat(),
+                         'payload': {'type': 'token_count', 'rate_limits': {
+                             'limit_id': 'codex', 'primary': {'window_minutes': 10080,
+                                 'used_percent': used, 'resets_at': now + 3600}, 'secondary': None}}}
+                (runner.args.sessions / 'quota.jsonl').write_text(json.dumps(event) + '\n')
+                runner.start()
+                runner.start()
+                executions = [c for c in runner.calls if c[0] == 'execute']
+                claims = [c for c in runner.calls if c[0].endswith('/git/refs')]
+                self.assertEqual(len(executions), int(used < 85))
+                self.assertEqual(len(claims), int(used < 85))
+                self.assertEqual(runner.state['consumed'], [1] if used < 85 else [])
 
     def test_cooldown_expiry_allows_exactly_one_new_probe(self):
         w.save(self.runner.probe_file, {'retry_at': 0})

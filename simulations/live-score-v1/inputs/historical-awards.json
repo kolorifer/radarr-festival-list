@@ -1,0 +1,433 @@
+{
+  "mode": "evidence-family-snapshot-v1",
+  "award_family_policy": {
+    "us_institutional": "Academy + Golden Globes, capped at 100",
+    "european_recognition": "BAFTA + Cannes + Berlin + Venice + European Film Awards, capped at 100",
+    "independent_cinema": "Sundance + Film Independent Spirit + Gotham, capped at 100",
+    "critics_groups_consensus": "NSFC + NYFCC + LAFCA Best Film wins (35 each) plus Critics Choice Best Picture winner/nominee corroboration (25/8); family capped at 100"
+  },
+  "extra_award_sources": {
+    "efa_best_film": {
+      "url": "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film",
+      "static_path": null,
+      "family": "european_recognition",
+      "winner_points": 40,
+      "nominee_points": 12,
+      "resolved": 144,
+      "unresolved": 8
+    },
+    "gotham_best_feature": {
+      "url": "https://en.wikipedia.org/wiki/Gotham_Independent_Film_Award_for_Best_Feature",
+      "static_path": null,
+      "family": "independent_cinema",
+      "winner_points": 35,
+      "nominee_points": 10,
+      "resolved": 114,
+      "unresolved": 1
+    },
+    "nsfc_best_picture": {
+      "url": "https://en.wikipedia.org/wiki/National_Society_of_Film_Critics_Award_for_Best_Picture",
+      "static_path": null,
+      "family": "critics_groups_consensus",
+      "winner_points": 35,
+      "nominee_points": 0,
+      "resolved": 26,
+      "unresolved": 0
+    },
+    "nyfcc_best_film": {
+      "url": "https://en.wikipedia.org/wiki/New_York_Film_Critics_Circle_Award_for_Best_Film",
+      "static_path": null,
+      "family": "critics_groups_consensus",
+      "winner_points": 35,
+      "nominee_points": 0,
+      "resolved": 26,
+      "unresolved": 0
+    },
+    "lafca_best_film": {
+      "url": "https://en.wikipedia.org/wiki/Los_Angeles_Film_Critics_Association_Award_for_Best_Film",
+      "static_path": null,
+      "family": "critics_groups_consensus",
+      "winner_points": 35,
+      "nominee_points": 0,
+      "resolved": 27,
+      "unresolved": 1
+    },
+    "critics_choice_best_picture": {
+      "url": "https://www.criticschoice.com/critics-choice-awards-archives/",
+      "static_path": "sources/critics-choice-best-picture.json",
+      "family": "critics_groups_consensus",
+      "winner_points": 25,
+      "nominee_points": 8,
+      "resolved": 241,
+      "unresolved": 22,
+      "records_parsed": 263,
+      "pages_discovered": 26
+    }
+  },
+  "films": {
+    "tt28607951": {
+      "title": "Anora",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 100.0,
+        "european_recognition": 95.0,
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 60.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (winner)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)",
+          "Cannes: palme d'or / palme d'or (winner)"
+        ],
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (winner)",
+          "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
+        ]
+      }
+    },
+    "tt8999762": {
+      "title": "The Brutalist",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 90.0,
+        "european_recognition": 65.0,
+        "critics_groups_consensus": 43.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (winner)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)",
+          "Venice: golden lion / best film (nominee)",
+          "Venice: silver lion / best director (winner)"
+        ],
+        "critics_groups_consensus": [
+          "NYFCC Best Film (winner)",
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt17526714": {
+      "title": "The Substance",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 22.0,
+        "independent_cinema": 20.0,
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)"
+        ],
+        "european_recognition": [
+          "Cannes: palme d'or / palme d'or (nominee)",
+          "European Film Awards Best Film (nominee)"
+        ],
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt15239678": {
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt20221436": {
+      "title": "Emilia Pérez",
+      "year": 2024,
+      "family_scores": {
+        "european_recognition": 40.0,
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "European Film Awards Best Film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt14961016": {
+      "title": "I'm Still Here",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 100.0,
+        "european_recognition": 25.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best international feature film (winner)",
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - non-english language (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film not in the english language (nominee)",
+          "Venice: golden lion / best film (nominee)"
+        ]
+      }
+    },
+    "tt4772188": {
+      "title": "Flow",
+      "year": 2024,
+      "family_scores": {
+        "us_institutional": 100.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best animated feature film (winner)",
+          "Academy: oscar / best international feature film (nominee)",
+          "Golden Globes: golden globe / best motion picture - animated (winner)"
+        ]
+      }
+    },
+    "tt21097228": {
+      "title": "A Different Man",
+      "year": 2024,
+      "family_scores": {
+        "independent_cinema": 35.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Gotham Best Feature (winner)"
+        ]
+      }
+    },
+    "tt32928666": {
+      "title": "Familiar Touch",
+      "year": 2024,
+      "family_scores": {
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt30057084": {
+      "title": "Babygirl",
+      "year": 2024,
+      "family_scores": {
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt14905854": {
+      "title": "Hamnet",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 90.0,
+        "european_recognition": 25.0,
+        "independent_cinema": 10.0,
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (winner)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt27714581": {
+      "title": "Sentimental Value",
+      "year": 2025,
+      "family_scores": {
+        "european_recognition": 40.0,
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "European Film Awards Best Film (winner)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt36491653": {
+      "title": "It Was Just an Accident",
+      "year": 2025,
+      "family_scores": {
+        "european_recognition": 12.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt32298285": {
+      "title": "Sirat",
+      "year": 2025,
+      "family_scores": {
+        "european_recognition": 12.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt30144839": {
+      "title": "One Battle After Another",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 100.0,
+        "european_recognition": 50.0,
+        "independent_cinema": 35.0,
+        "critics_groups_consensus": 100.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (winner)",
+          "Golden Globes: golden globe / best motion picture - musical or comedy (winner)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (winner)"
+        ],
+        "independent_cinema": [
+          "Gotham Best Feature (winner)"
+        ],
+        "critics_groups_consensus": [
+          "NSFC Best Picture (winner)",
+          "NYFCC Best Film (winner)",
+          "LAFCA Best Film (winner)",
+          "Critics Choice Best Picture (winner)"
+        ]
+      }
+    },
+    "tt31193180": {
+      "title": "Sinners",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 75.0,
+        "european_recognition": 25.0,
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)",
+          "Golden Globes: golden globe / best motion picture - drama (nominee)"
+        ],
+        "european_recognition": [
+          "BAFTA: bafta film award / best film (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt21349688": {
+      "title": "East of Wall",
+      "year": 2025,
+      "family_scores": {
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt32843349": {
+      "title": "Sorry, Baby",
+      "year": 2025,
+      "family_scores": {
+        "independent_cinema": 10.0
+      },
+      "family_evidence": {
+        "independent_cinema": [
+          "Gotham Best Feature (nominee)"
+        ]
+      }
+    },
+    "tt29768334": {
+      "title": "Train Dreams",
+      "year": 2025,
+      "family_scores": {
+        "us_institutional": 65.0,
+        "independent_cinema": 60.0,
+        "critics_groups_consensus": 8.0
+      },
+      "family_evidence": {
+        "us_institutional": [
+          "Academy: oscar / best motion picture of the year (nominee)"
+        ],
+        "independent_cinema": [
+          "Spirit: independent spirit award / best feature (winner)",
+          "Gotham Best Feature (nominee)"
+        ],
+        "critics_groups_consensus": [
+          "Critics Choice Best Picture (nominee)"
+        ]
+      }
+    },
+    "tt28690468": {
+      "title": "Sound of Falling",
+      "year": 2025,
+      "family_scores": {
+        "european_recognition": 12.0
+      },
+      "family_evidence": {
+        "european_recognition": [
+          "European Film Awards Best Film (nominee)"
+        ]
+      }
+    },
+    "tt12042730": {
+      "title": "Project Hail Mary",
+      "year": 2026
+    },
+    "tt33764258": {
+      "title": "The Odyssey",
+      "year": 2026
+    }
+  },
+  "provenance": {
+    "revision": "9c5a0f06e1c39e48653338fd0865ddabdc525a61",
+    "sha256": "73e6ade1d4d17ba2397c40276b4644a0f5b8ce09850e370740442bc271db6522",
+    "url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json"
+  }
+}

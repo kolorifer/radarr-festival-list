@@ -140,23 +140,40 @@ def quota_remaining(root, now=None):
                     payload = event.get("payload") or {}
                     if event.get("type") != "event_msg" or payload.get("type") != "token_count":
                         continue
-                    primary = (payload.get("rate_limits") or {}).get("primary") or {}
-                    if primary.get("window_minutes") != 300:
+                    limits = payload.get("rate_limits")
+                    if not isinstance(limits, dict) or limits.get("limit_id") not in (None, "codex"):
                         continue
                     stamp = dt.datetime.fromisoformat(event["timestamp"].replace("Z", "+00:00")).timestamp()
-                    used = float(primary["used_percent"])
-                    reset = float(primary["resets_at"])
-                    if not all(math.isfinite(v) for v in (stamp, used, reset)) or not 0 <= used <= 100:
-                        continue
-                    if stamp > now + 60:
+                    if not math.isfinite(stamp) or stamp > now + 60:
                         continue
                     if newest is None or stamp > newest[0]:
-                        newest = (stamp, used, reset)
+                        newest = (stamp, limits)
                 except (ValueError, KeyError, TypeError, AttributeError):
                     continue
-    if newest is None or now - newest[0] > 5 * 3600 or newest[2] <= now:
-        raise Stop("No current 5-hour quota telemetry")
-    return 100 - newest[1]
+    # Window durations depend on the account; primary is not always five hours.
+    # Validate the newest snapshot as a whole, never fall back to older good data.
+    try:
+        if newest is None or now - newest[0] > 5 * 3600:
+            raise ValueError
+        remaining = []
+        for key in ("primary", "secondary"):
+            window = newest[1].get(key)
+            if window is None:
+                continue
+            minutes, used, reset = (window[k] for k in
+                                    ("window_minutes", "used_percent", "resets_at"))
+            if any(isinstance(v, bool) for v in (minutes, used, reset)):
+                raise ValueError
+            minutes, used, reset = map(float, (minutes, used, reset))
+            if (not all(math.isfinite(v) for v in (minutes, used, reset))
+                    or minutes <= 0 or not 0 <= used <= 100 or reset <= now):
+                raise ValueError
+            remaining.append(100 - used)
+        if not remaining:
+            raise ValueError
+        return min(remaining)
+    except (ValueError, KeyError, TypeError, AttributeError):
+        raise Stop("No current valid quota telemetry") from None
 
 
 @contextlib.contextmanager
@@ -299,7 +316,7 @@ class Runner:
                                env=worker_environment())
             remaining = quota_remaining(self.args.sessions)
         except (Stop, OSError, subprocess.SubprocessError):
-            raise Stop("Quota refresh failed or no current telemetry; check local Codex authentication; task not consumed") from None
+            raise Stop("Quota refresh failed or no current valid telemetry; inspect the local quota probe; task not consumed") from None
         self.probe_file.unlink(missing_ok=True)
         print("Quota refresh succeeded", flush=True)
         return remaining
@@ -746,7 +763,7 @@ class Runner:
             return
         if remaining <= 15:
             print("Quota paused (<=15%); task not consumed", flush=True)
-            self.notify(n, "PAUSED_QUOTA", f"5-hour allowance remaining: {remaining:g}% (<=15%); task not consumed", 'QUOTA_PAUSED')
+            self.notify(n, "PAUSED_QUOTA", f"Limiting allowance remaining: {remaining:g}% (<=15%); task not consumed", 'QUOTA_PAUSED')
             return
         # All private inputs must validate before reservation/claim or child launch.
         # A failed/partial stage is retained locally and never supplied to a child.

@@ -1,0 +1,84 @@
+{
+  "review_date": "2026-10-28",
+  "review_method": "Public official documentation; web reader/index can be cached. Direct documentation failures do not establish provider API behavior. Findings are engineering scope interpretations, not legal guarantees.",
+  "sources": [
+    {
+      "provider": "IMDb",
+      "urls": [
+        "https://developer.imdb.com/non-commercial-datasets/",
+        "https://help.imdb.com/article/imdb/general-information/can-i-use-imdb-data-in-my-software/G5JTRESSHJBBHTGX",
+        "https://www.imdb.com/conditions"
+      ],
+      "operations": [
+        {"operation": "Personal noncommercial local copy/exact-ID extraction of official export", "finding": "allowed_subject_to_conditions", "basis": "Official dataset and software-use guidance; attribution required, permission revocable. Only the single in-memory check authorized here."},
+        {"operation": "Public redistribution of fresh raw ratings or movie database", "finding": "prohibited_under_personal_use_route", "basis": "Personal-use allowance does not authorize public republication. No fresh raw values in this packet."},
+        {"operation": "IMDb website scraping", "finding": "prohibited", "basis": "Software-use guidance and task prohibition."}
+      ],
+      "fields": {
+        "tconst": "Exact title identity; no title/year fields in ratings export",
+        "averageRating": "Weighted average; IMDb scale 1 to 10; dataset decimal as supplied, not latent/unrounded precision",
+        "numVotes": "Integer number of votes, not effective Bayesian sample size",
+        "freshness": "Daily export; Last-Modified/ETag/hash identify dataset version, not individual rating measurement time",
+        "missing": "Absent row or missing value remains missing; zero votes is distinct and cannot support an average"
+      }
+    },
+    {
+      "provider": "MDBList",
+      "urls": [
+        "https://api.mdblist.com/docs/",
+        "https://api.mdblist.com/schema/",
+        "https://api.mdblist.com/",
+        "https://docs.mdblist.com/docs/api",
+        "https://docs.mdblist.com/docs/score",
+        "https://mdblist.com/static/legal.html"
+      ],
+      "terms_last_updated": "2025-03-08",
+      "operations": [
+        {"operation": "Read public documentation", "finding": "allowed", "basis": "Task authorization; bounded, no authentication."},
+        {"operation": "Free account API reads", "finding": "documented_capability_not_permission_for_this_trial", "basis": "Free key is documented; no signup/key/account access authorized here. Subject to lower actual account limits."},
+        {"operation": "Downstream Letterboxd private derived scoring and 30-day retention", "finding": "unclear", "basis": "Terms require third-party compliance; reviewed pages do not expressly establish upstream authorization or this downstream right. Account-data retention language is not a client-cache license."},
+        {"operation": "Redistribute source observations publicly", "finding": "unclear_and_task_prohibited", "basis": "No downstream redistribution grant established."}
+      ],
+      "documented_request_contract": {
+        "base": "https://api.mdblist.com",
+        "authentication": "API key query parameter illustrated on public overview; no key used",
+        "candidate_lookup": "GET /{media_provider}/{media_type}/{media_id}/ appears in indexed official Swagger; exact parameter enums and response schema unverified",
+        "batch": "POST batch lookups documented as reads in rate summary; no batch implementation or call here",
+        "quota": "Free 1000/day; 1000 reads/300 writes per fixed five-minute account window, shared across keys/apps; not measured",
+        "limit_headers": ["X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset"],
+        "429": "Retry-After seconds documented; rehearsal stops without retrying"
+      },
+      "field_semantics": {
+        "letterboxd_field_path": "UNVERIFIED: full response schema inaccessible",
+        "letterboxd_weighted_average": "UNVERIFIED: upstream Letterboxd semantics do not prove MDBList returns the same quantity",
+        "letterboxd_scale": "UNVERIFIED for MDBList; upstream scale 0.5 to 5 is not an assumed conversion rule",
+        "letterboxd_count": "UNVERIFIED: must distinguish ratings from watches/reviews/likes and exact integers from rounded displays",
+        "missing_values": "UNVERIFIED: no assumed null/zero/sentinel mapping",
+        "identity_join": "UNVERIFIED field paths; future response must roundtrip exact IMDb and retained TMDb identity without fuzzy search",
+        "updated_at": "UNVERIFIED: no per-source measurement-time meaning or refresh interval established",
+        "composite": "MDBList Score combines ratings with vote baselines. It must not replace either source rating or count."
+      }
+    },
+    {
+      "provider": "Letterboxd",
+      "urls": [
+        "https://letterboxd.com/api-beta/access/",
+        "https://letterboxd.com/legal/terms-of-use/",
+        "https://api-docs.letterboxd.com/",
+        "https://letterboxd.com/faq/"
+      ],
+      "terms_last_updated": "October 2026",
+      "operations": [
+        {"operation": "Direct API access for private analysis/recommendation project", "finding": "not_currently_granted", "basis": "Request-only API explicitly excludes these project categories; no application sent."},
+        {"operation": "Direct automated film-page extraction", "finding": "prohibited_in_this_task", "basis": "Task prohibition; terms 6.8/6.11 restrict export/extraction absent authorization. FAQ crawler/embedding guidance is not general data-acquisition permission."},
+        {"operation": "MDBList-mediated private derived scoring/30-day retention", "finding": "unclear", "basis": "No verified upstream/downstream grant; third-party accessibility is insufficient."}
+      ],
+      "upstream_documented_semantics_only": {
+        "FilmStatistics.rating": "Weighted average 0.5 to 5; omitted when insufficient ratings",
+        "FilmStatistics.counts.ratings": "Number of members who rated film, distinct from watches, reviews and likes",
+        "FilmSummary.id": "Letterboxd LID, not IMDb ID",
+        "warning": "Public API documentation is not access approval or proof of MDBList field mapping/rights"
+      }
+    }
+  ]
+}

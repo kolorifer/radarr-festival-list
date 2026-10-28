@@ -1,0 +1,58 @@
+{
+  "task": 3,
+  "baseline_commit": "489ce4e3e005dbb15fadebf8ac27e6c181cf3a98",
+  "review_date": "2026-10-28",
+  "packet_readiness": "READY_FOR_REVIEW",
+  "private_paired_trial_readiness": "BLOCKED",
+  "new_scores_or_ranks_generated": false,
+  "actual_checks": {
+    "imdb_official_dataset": {
+      "status": "CHECKED",
+      "attempts": 1,
+      "url": "https://datasets.imdbws.com/title.ratings.tsv.gz",
+      "requested_at": "2026-10-28T14:45:42.514627Z",
+      "retrieved_at": "2026-10-28T14:45:43.319689Z",
+      "dataset_last_modified": "2026-10-28T00:33:57+00:00",
+      "dataset_version_etag": "\"6dbf0a0221b8fe22c4d6ef6123b18d91-2\"",
+      "compressed_bytes": 8722946,
+      "compressed_sha256": "13f29d59057c0901e6d84e34650dab6c2f14a511eff4977df72b7773cbafb9eb",
+      "schema": ["tconst", "averageRating", "numVotes"],
+      "sample_size": 8,
+      "exact_ids_present": 8,
+      "valid_pairs": 8,
+      "exact_ids_absent": 0,
+      "per_film_measurement_time": "not_provided_for_all_eight",
+      "storage": "in_memory_only_discarded_at_exit_no_raw_output",
+      "attribution": "Information courtesy of IMDb (https://www.imdb.com). Used with permission."
+    },
+    "mdblist_documentation": {
+      "status": "PARTIAL",
+      "method": "Public web reader/index plus bounded unauthenticated documentation GETs",
+      "web_reader": "Overview, legal and static docs readable; Swagger rendered as one back-link; indexed official Swagger endpoint/rate-limit summary available; linked schema unsupported content type",
+      "direct_documentation_http": {"/docs/": 403, "/openapi.json": 403, "/schema/": 403},
+      "note": "Documentation access only. These are not authenticated API results or evidence of free-account quota/Letterboxd availability. No access workaround."
+    },
+    "authenticated_mdblist": {
+      "status": "NOT_RUN",
+      "film_operations": 0,
+      "reason": "No permission evidence or explicitly supplied local API key; response contract unverified. Neither credentials nor private account state inspected."
+    },
+    "authenticated_letterboxd": {"status": "NOT_RUN", "film_operations": 0},
+    "letterboxd_extraction": {"status": "NOT_RUN", "film_operations": 0}
+  },
+  "synthetic_checks": {
+    "status": "PASS",
+    "focused_tests": 18,
+    "provider_access_claim": false,
+    "schema": "Proposed internal observation envelope, not an MDBList adapter",
+    "offline_cli": {"network_requests": 0, "observations_checked": 2, "valid_pairs": 2, "unknown_measurement_times": 1, "old_measurement_times": 1}
+  },
+  "gates": [
+    {"operation": "Private personal IMDb availability check", "readiness": "GO_CHECKED", "limitation": "No retained values or per-film measurement times; future dataset may differ"},
+    {"operation": "Publish fresh IMDb/Letterboxd observations", "readiness": "NO_GO", "limitation": "Not authorized; rights not established"},
+    {"operation": "Free MDBList eight-film lookup", "readiness": "CONDITIONAL_NOT_RUN", "limitation": "Permission, precise field contract/freshness and explicit local key required before a later owner-authorized run"},
+    {"operation": "Private derived scores and 30-day observation retention", "readiness": "BLOCKED", "limitation": "MDBList/Letterboxd downstream permission and update semantics unresolved; private output destination required"},
+    {"operation": "Direct Letterboxd API or extraction", "readiness": "NO_GO", "limitation": "API excludes this use; automated extraction forbidden in this task"},
+    {"operation": "Production scoring/cache/integration", "readiness": "NO_GO", "limitation": "Outside Task 3 authorization"}
+  ]
+}

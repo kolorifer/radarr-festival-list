@@ -6,6 +6,100 @@ historical. This repository integration does not activate a pilot or change
 the shared recurring research budget. See the
 [consolidation report](reports/2026-10-28-shadow-research-consolidation.md).
 
+## Live Movie Score — Task 3 source preparation, 2026-10-28
+
+Issue #86 supervisor Task 3 adds an isolated manual validation packet at
+`simulations/live-score-v1/source-validation/`, preserving Task 2 / PR #88 at
+`489ce4e3e005dbb15fadebf8ac27e6c181cf3a98`. Offline by default, it includes the
+fixed eight-film manifest, operation/field permission audit, synthetic tests,
+private/public storage contract, unsent provider enquiry and readiness table.
+No new calibration, rankings, policy, runtime collector/cache or authenticated
+adapter. The unrelated active cleanup assignment and prior packets are unchanged.
+
+One authorized official IMDb export GET processed entirely in memory found
+8/8 exact-ID rating/count pairs. Only aggregate/schema/dataset-version provenance
+was emitted; no fresh observations persisted or were published. All individual
+measurement times remain unknown. IMDb personal-use access is distinct from
+public redistribution. MDBList's documented free quota is promising, but its
+Letterboxd field contract, permission for private derived scoring/30-day retention,
+source update semantics, actual account access and free-tier inclusion remain
+unverified. Authenticated MDBList/Letterboxd stages are NOT_RUN (zero film reads).
+
+Technical verification: 18 focused synthetic tests, 14 Task 2 and 20 Task 1
+preservation tests pass; frozen scorer check passes unchanged. Fresh isolated
+Python 3.9 full suite: 515 tests, 68 errors/two skips (64 missing requests/bs4,
+four SQLite/HTTP compatibility errors); no full-suite/supported-version pass.
+Implementation is ready for code review; paired provider trial remains blocked.
+Deployment/operational verification: unauthorized and not performed. Parent owns
+publication; owner review and explicit provider permission/schema/access gates
+precede any separately authorized private trial. No automatic scoring follow-up.
+
+[Packet and source audit](../simulations/live-score-v1/source-validation/README.md) ·
+[Engineering report](reports/2026-10-28-live-score-v1-task3.md) ·
+[Completed scoped brief](reports/2026-10-28-live-score-v1-task3-brief.md).
+
+## Live Movie Score v1 — separate Task 2 research, 2026-10-26
+
+Issue #86 supervisor task 2 adds a separate offline packet under
+`simulations/live-score-v1/task2/` against immutable Task 1 / PR #88 at
+`b62f00de56b2f1aa488e9f41742b86617efcec72`. The same 24 exact-ID films and all
+Task 1 files/rating pairs remain unchanged. New evidence includes 26 award
+corroborations (25 primary-page reviews, one indexed primary), 11 components
+upgraded to direct primary support across ten films, and 81 scoped checks.
+These improve provenance/coverage without changing any same-variant subtotal.
+
+Fresh paired ratings remain unresolved after current source-rights/access review:
+IMDb zero fresh, 22 archived plus two stale indexed; Letterboxd zero fresh,
+22 archived plus two unavailable. No new raw rating dataset was acquired.
+The three exact strengths 0/1,000/10,000 and priors 7.25/3.65 use fixed evidence;
+audience ranks compare only the unchanged 22 paired archival rows. Two ties
+separate; all same-scenario ranks match Task 1. Overall scores/ranks remain null.
+TIFF/screenplay sensitivity remains separate and off in base; no constants,
+award extensions, production logic or completeness policy have been accepted.
+
+Technical verification: 14 Task 2 and 20 Task 1 research tests pass, offline byte
+checks and unchanged frozen scorer check pass. The isolated Python 3.9.6 full
+suite ran 515 tests with 68 errors/two skips: 64 missing requests/bs4 errors and
+four SQLite/HTTP storage-error compatibility failures. No full-suite or supported
+3.12/3.13 pass is claimed. Deployment/operational verification: unauthorized and
+not performed. Parent owns publication; product acceptance and lawful fresh
+audience evidence remain pending. The unrelated active cleanup brief is unchanged.
+
+[Task 2 findings](../simulations/live-score-v1/task2/report.md) ·
+[Engineering report](reports/2026-10-26-live-score-v1-task2.md) ·
+[Completed scoped brief](reports/2026-10-26-live-score-v1-task2-brief.md).
+
+## Live Movie Score v1 research — 2026-10-25
+
+Issue #86 supervisor task 1 has a separate offline calibration packet for review
+on `automation/issue-86-worker`, based on `cc11595`: 24 films (2024:10,2025:10,
+2026:4), twelve variants each, with the agreed Audience 50 / Recognition 50 caps.
+The selected historical award-family rows at `9c5a0f0` are preserved and exactly
+reconstructed; dated public evidence documents additional awards and source gaps.
+
+Coverage is 22 archived IMDb/Letterboxd pairs, two indexed sparse IMDb
+observations, two unavailable Letterboxd halves, 93 newly reviewed award facts
+and 68 scoped checks. Original rating measurement dates and complete live award
+coverage are not established. All overall scores remain null; reported observed
+subtotals are conditional on the pinned evidence. No overall leaderboard or
+production confidence/bonus policy is adopted.
+
+Technical verification: 20 focused research tests pass; offline regeneration,
+pip check and frozen production scorer check pass. The local full suite ran 687
+tests with four errors and two skips under available Python 3.9; SQLite error
+attributes/constants are missing on that interpreter, including the unchanged
+HTTP storage-error paths. Supported Python 3.12/3.13 CI was not run by this worker.
+Deployment/operational verification: not authorized or performed; no seedbox or
+service access. Worker publication is delegated to the runner. Product acceptance,
+provider rights/access, exact confidence parameters and new awards remain pending.
+
+[Calibration report](../simulations/live-score-v1/report.md) ·
+[Engineering report](reports/2026-10-25-live-score-v1.md) ·
+[Completed scoped brief](reports/2026-10-25-live-score-v1-brief.md).
+The unrelated active `docs/CODEX_TASK.md` cleanup assignment is unchanged.
+
+
+
 The main/production integration and its validation are recorded in the
 [integration report](reports/2026-10-28-main-production-integration.md). The
 integration commit is not itself a deployed revision.
@@ -497,6 +591,27 @@ The existing unrelated cleanup assignment remains untouched.
 Subsystem verification above: 2026-10-18; other entries retain their own dates.
 Read [decisions](DECISIONS.md),
 [active task](CODEX_TASK.md) and [engineering instructions](../AGENTS.md).
+
+## Local launcher quota compatibility — 2026-10-25
+
+Direct local repair for the installed GitHub-to-Codex launcher, from clean
+564a022 on main. The installed Codex quota probe succeeds, but the account now
+reports a weekly primary window (10,080 minutes), no secondary window and 87%
+remaining at diagnosis (86% at the installed verification). The old parser required primary=300 minutes and rejected that valid
+telemetry, causing QUOTA_UNAVAILABLE. Authentication was not the cause.
+
+The parser now validates the newest Codex quota snapshot and uses the lowest
+remaining percentage across its reported primary/secondary windows. The <=15%
+pause, five-hour observation freshness bound, expiry checks, cooldown, local
+reservation, kernel locks and atomic create-only GitHub claims are retained.
+Errors no longer attribute an unknown probe failure to authentication.
+
+Scope is launcher-only. The unrelated legacy CODEX_TASK.md assignment and all
+Radarr/scoring/Telegram/seedbox code and services remain unchanged. Existing issue
+#86 task 1 is verified by read-only selection; no replacement task or claim reset
+is part of this repair. See the [completed brief](reports/2026-10-25-launcher-quota-repair-brief.md)
+and [verification report](reports/2026-10-25-launcher-quota-repair.md) for test and
+local installation evidence. No remote push or production deployment is included.
 
 ## Explicit operations-only publication — 2026-10-17 (local review)
 
