@@ -2,9 +2,17 @@
 
 ## Contextual typos and runtime handling — 2026-10-28
 
-The owner-approved contextual five-letter typo rule, General-section NFO Length
-parsing and bounded verified-ID runtime variation are implemented; deployment
-verification is pending. See the [report](reports/2026-10-28-contextual-typos-runtime.md).
+Actor `d7487700ee8bb6eed86adefeca365945ecccc001` is deployed with contextual
+five-letter typos, General-section NFO Length parsing and the owner-approved
+5% runtime allowance capped at five minutes after strict source/identity checks.
+Local 922 tests (two skips), seedbox 757 tests and CI 3.12/3.13 passed. Clean
+checkout, local/public health 200, 1,909 catalog movies, zero restarts. Both newly
+reviewed cases verified with fresh source evidence and were reconciled silently.
+Fifteen existing approvals, receipts, retry/research history and the separately
+installed collector were preserved. No notifications or downloads.
+[PR #107](https://github.com/kolorifer/radarr-festival-list/pull/107) brings the
+same runtime patch to main; the minimal actor deployment excludes unrelated
+main-only changes. See the [report](reports/2026-10-28-contextual-typos-runtime.md).
 
 
 ## Collector writer contention — 2026-10-28

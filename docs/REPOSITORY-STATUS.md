@@ -1,5 +1,16 @@
 # Repository status and review map
 
+## Actor identity fixes — 28 October 2026, 19:22 UTC
+
+The running actor is now **`d7487700ee8bb6eed86adefeca365945ecccc001`**,
+a minimal patch on `46cccea3`. [PR #107](https://github.com/kolorifer/radarr-festival-list/pull/107)
+contains the equivalent patch for main: contextual five-letter typos, NFO Length
+parsing and owner-approved bounded runtime variation. Both reviewed occurrences
+are verified; health is 200 and the actor has zero restarts. The collector-only
+update below and the separate shadow runtime were preserved. The main-only retry
+display improvement from #96 is still not part of this actor deployment.
+[Validation and deployment report](reports/2026-10-28-contextual-typos-runtime.md).
+
 ## Collector-only deployment — 28 October 2026
 
 PR #105 merged at `55f22402be9a4001f913677587aade203f49ac3f`. Only its
