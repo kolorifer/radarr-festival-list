@@ -90,3 +90,7 @@ After implementation:
 These documents preserve the handoff; they do not create an automatic channel
 between unrelated chat threads. Start a new discussion with repository access or
 the relevant file links and revision.
+
+## User-facing movie notifications guide
+
+Keep `docs/MOVIE-NOTIFICATIONS-GUIDE.md` current whenever a verified change affects movie notification routing, identification, investigation, confirmation actions or their safeguards. Write in plain language, distinguish live behavior from shadow experiments, and never include private credentials or tracker links. Preserve unrelated assigned tasks.
