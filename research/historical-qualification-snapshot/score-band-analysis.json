@@ -1,0 +1,3826 @@
+{
+  "mode": "research-score-band-analysis-v1",
+  "qualification_unchanged": true,
+  "film_count": 1909,
+  "score_ceiling": 950,
+  "bands": {
+    ">=600": {
+      "count": 12,
+      "qualified": 12,
+      "unqualified": 0,
+      "gateway": 10,
+      "audience_only": 0
+    },
+    "500-599.99": {
+      "count": 20,
+      "qualified": 20,
+      "unqualified": 0,
+      "gateway": 15,
+      "audience_only": 0
+    },
+    "450-499.99": {
+      "count": 17,
+      "qualified": 16,
+      "unqualified": 1,
+      "gateway": 13,
+      "audience_only": 0
+    },
+    "400-449.99": {
+      "count": 27,
+      "qualified": 23,
+      "unqualified": 4,
+      "gateway": 14,
+      "audience_only": 0
+    },
+    "350-399.99": {
+      "count": 31,
+      "qualified": 23,
+      "unqualified": 8,
+      "gateway": 18,
+      "audience_only": 0
+    },
+    "300-349.99": {
+      "count": 63,
+      "qualified": 38,
+      "unqualified": 25,
+      "gateway": 31,
+      "audience_only": 0
+    },
+    "250-299.99": {
+      "count": 106,
+      "qualified": 45,
+      "unqualified": 61,
+      "gateway": 34,
+      "audience_only": 0
+    },
+    "200-249.99": {
+      "count": 180,
+      "qualified": 48,
+      "unqualified": 132,
+      "gateway": 51,
+      "audience_only": 0
+    },
+    "150-199.99": {
+      "count": 261,
+      "qualified": 22,
+      "unqualified": 239,
+      "gateway": 62,
+      "audience_only": 11
+    },
+    "100-149.99": {
+      "count": 400,
+      "qualified": 8,
+      "unqualified": 392,
+      "gateway": 10,
+      "audience_only": 2
+    }
+  },
+  "top_cutoffs": {
+    "50": {
+      "score_at_cutoff": 449.74,
+      "qualified": 49,
+      "gateway": 39
+    },
+    "100": {
+      "score_at_cutoff": 361.76,
+      "qualified": 90,
+      "gateway": 67
+    },
+    "150": {
+      "score_at_cutoff": 312.34,
+      "qualified": 121,
+      "gateway": 91
+    },
+    "200": {
+      "score_at_cutoff": 287.2,
+      "qualified": 148,
+      "gateway": 107
+    },
+    "250": {
+      "score_at_cutoff": 260.81,
+      "qualified": 163,
+      "gateway": 125
+    },
+    "300": {
+      "score_at_cutoff": 240.16,
+      "qualified": 188,
+      "gateway": 147
+    },
+    "400": {
+      "score_at_cutoff": 210.93,
+      "qualified": 215,
+      "gateway": 172
+    },
+    "500": {
+      "score_at_cutoff": 190.22,
+      "qualified": 230,
+      "gateway": 198
+    }
+  },
+  "discovery": {
+    "seeds": 1047,
+    "gateway_pass": 258,
+    "gateway_with_non_audience_evidence": 245,
+    "gateway_audience_only": 13,
+    "incomplete_three_source_audience": 288,
+    "top_gateway_audience_only": [
+      {
+        "rank": 539,
+        "title": "A Silent Voice: The Movie",
+        "year": 2016,
+        "imdb_id": "tt5323662",
+        "score": 183.22,
+        "eligible_max": 950,
+        "audience": 183.21,
+        "audience_raw": {
+          "imdb_audience": 85.0,
+          "letterboxd_audience": 92.31,
+          "trakt_audience": 97.51
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 545,
+        "title": "Shutter Island",
+        "year": 2010,
+        "imdb_id": "tt1130884",
+        "score": 181.54,
+        "eligible_max": 950,
+        "audience": 181.54,
+        "audience_raw": {
+          "imdb_audience": 85.0,
+          "letterboxd_audience": 92.31,
+          "trakt_audience": 95.0
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 553,
+        "title": "3 Idiots",
+        "year": 2009,
+        "imdb_id": "tt1187043",
+        "score": 180.46,
+        "eligible_max": 950,
+        "audience": 180.46,
+        "audience_raw": {
+          "imdb_audience": 95.0,
+          "letterboxd_audience": 92.31,
+          "trakt_audience": 83.38
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 596,
+        "title": "12th Fail",
+        "year": 2023,
+        "imdb_id": "tt23849204",
+        "score": 170.01,
+        "eligible_max": 800,
+        "audience": 170.01,
+        "audience_raw": {
+          "imdb_audience": 100.0,
+          "letterboxd_audience": 87.15,
+          "trakt_audience": 67.86
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 635,
+        "title": "Hachi: A Dog's Tale",
+        "year": 2009,
+        "imdb_id": "tt1028532",
+        "score": 162.81,
+        "eligible_max": 950,
+        "audience": 162.82,
+        "audience_raw": {
+          "imdb_audience": 80.0,
+          "letterboxd_audience": 69.23,
+          "trakt_audience": 95.0
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 648,
+        "title": "Like Stars on Earth",
+        "year": 2007,
+        "imdb_id": "tt0986264",
+        "score": 160.73,
+        "eligible_max": 950,
+        "audience": 160.73,
+        "audience_raw": {
+          "imdb_audience": 90.0,
+          "letterboxd_audience": 84.62,
+          "trakt_audience": 66.48
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 667,
+        "title": "The Pursuit of Happyness",
+        "year": 2006,
+        "imdb_id": "tt0454921",
+        "score": 157.95,
+        "eligible_max": 950,
+        "audience": 157.95,
+        "audience_raw": {
+          "imdb_audience": 75.0,
+          "letterboxd_audience": 76.92,
+          "trakt_audience": 85.0
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 682,
+        "title": "About Time",
+        "year": 2013,
+        "imdb_id": "tt2194499",
+        "score": 156.41,
+        "eligible_max": 950,
+        "audience": 156.41,
+        "audience_raw": {
+          "imdb_audience": 65.0,
+          "letterboxd_audience": 84.62,
+          "trakt_audience": 85.0
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 683,
+        "title": "The Invisible Guest",
+        "year": 2016,
+        "imdb_id": "tt4857264",
+        "score": 155.63,
+        "eligible_max": 950,
+        "audience": 155.63,
+        "audience_raw": {
+          "imdb_audience": 75.0,
+          "letterboxd_audience": 76.92,
+          "trakt_audience": 81.53
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 688,
+        "title": "Dangal",
+        "year": 2016,
+        "imdb_id": "tt5074352",
+        "score": 154.38,
+        "eligible_max": 950,
+        "audience": 154.38,
+        "audience_raw": {
+          "imdb_audience": 90.0,
+          "letterboxd_audience": 76.92,
+          "trakt_audience": 64.65
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 708,
+        "title": "Ip Man",
+        "year": 2008,
+        "imdb_id": "tt1220719",
+        "score": 151.71,
+        "eligible_max": 950,
+        "audience": 151.71,
+        "audience_raw": {
+          "imdb_audience": 75.0,
+          "letterboxd_audience": 76.92,
+          "trakt_audience": 75.64
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 829,
+        "title": "Rogue One: A Star Wars Story",
+        "year": 2016,
+        "imdb_id": "tt3748528",
+        "score": 134.36,
+        "eligible_max": 950,
+        "audience": 134.36,
+        "audience_raw": {
+          "imdb_audience": 65.0,
+          "letterboxd_audience": 61.54,
+          "trakt_audience": 75.0
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      },
+      {
+        "rank": 849,
+        "title": "PK",
+        "year": 2014,
+        "imdb_id": "tt2338151",
+        "score": 131.58,
+        "eligible_max": 950,
+        "audience": 131.59,
+        "audience_raw": {
+          "imdb_audience": 80.0,
+          "letterboxd_audience": 61.49,
+          "trakt_audience": 55.89
+        },
+        "gateway": true,
+        "non_audience": false,
+        "qualified": false,
+        "routes": [],
+        "sources": [
+          "evidence_snapshot",
+          "audience_discovery"
+        ]
+      }
+    ]
+  },
+  "high_score_unqualified": [
+    {
+      "rank": 33,
+      "title": "Anatomy of a Fall",
+      "year": 2023,
+      "imdb_id": "tt17009710",
+      "score": 499.79,
+      "eligible_max": 800,
+      "audience": 133.08,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 60.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 65,
+      "title": "Tár",
+      "year": 2022,
+      "imdb_id": "tt14444726",
+      "score": 431.62,
+      "eligible_max": 850,
+      "audience": 96.67,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 30.78
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery"
+      ]
+    },
+    {
+      "rank": 69,
+      "title": "The Favourite",
+      "year": 2018,
+      "imdb_id": "tt5083738",
+      "score": 423.45,
+      "eligible_max": 850,
+      "audience": 114.61,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 45.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 71,
+      "title": "Anora",
+      "year": 2024,
+      "imdb_id": "tt28607951",
+      "score": 418.96,
+      "eligible_max": 800,
+      "audience": 94.36,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 35.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 74,
+      "title": "One Battle After Another",
+      "year": 2025,
+      "imdb_id": "tt30144839",
+      "score": 411.41,
+      "eligible_max": 800,
+      "audience": 126.41,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 50.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery"
+      ]
+    },
+    {
+      "rank": 92,
+      "title": "Poor Things",
+      "year": 2023,
+      "imdb_id": "tt14230458",
+      "score": 374.76,
+      "eligible_max": 800,
+      "audience": 129.49,
+      "audience_raw": {
+        "imdb_audience": 60.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 65.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 93,
+      "title": "Minari",
+      "year": 2020,
+      "imdb_id": "tt10633456",
+      "score": 372.42,
+      "eligible_max": 850,
+      "audience": 119.23,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 49.23
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 94,
+      "title": "BlacKkKlansman",
+      "year": 2018,
+      "imdb_id": "tt7349662",
+      "score": 369.63,
+      "eligible_max": 850,
+      "audience": 124.61,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 95,
+      "title": "Marriage Story",
+      "year": 2019,
+      "imdb_id": "tt7653254",
+      "score": 367.93,
+      "eligible_max": 850,
+      "audience": 144.61,
+      "audience_raw": {
+        "imdb_audience": 70.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 70.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 97,
+      "title": "Joker",
+      "year": 2019,
+      "imdb_id": "tt7286456",
+      "score": 365.17,
+      "eligible_max": 850,
+      "audience": 166.15,
+      "audience_raw": {
+        "imdb_audience": 90.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 90.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery"
+      ]
+    },
+    {
+      "rank": 101,
+      "title": "Atonement",
+      "year": 2007,
+      "imdb_id": "tt0783233",
+      "score": 361.34,
+      "eligible_max": 950,
+      "audience": 139.36,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 67.12
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 103,
+      "title": "Zero Dark Thirty",
+      "year": 2012,
+      "imdb_id": "tt1790885",
+      "score": 360.49,
+      "eligible_max": 950,
+      "audience": 95.9,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 45.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 106,
+      "title": "The Irishman",
+      "year": 2019,
+      "imdb_id": "tt1302006",
+      "score": 357.29,
+      "eligible_max": 850,
+      "audience": 129.49,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 110,
+      "title": "The Banshees of Inisherin",
+      "year": 2022,
+      "imdb_id": "tt11813216",
+      "score": 345.69,
+      "eligible_max": 850,
+      "audience": 129.75,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 55.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 117,
+      "title": "The Revenant",
+      "year": 2015,
+      "imdb_id": "tt1663202",
+      "score": 341.66,
+      "eligible_max": 950,
+      "audience": 136.15,
+      "audience_raw": {
+        "imdb_audience": 75.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 60.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 120,
+      "title": "Precious",
+      "year": 2009,
+      "imdb_id": "tt0929632",
+      "score": 340.29,
+      "eligible_max": 950,
+      "audience": 86.83,
+      "audience_raw": {
+        "imdb_audience": 40.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 28.71
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 121,
+      "title": "I'm Still Here",
+      "year": 2024,
+      "imdb_id": "tt14961016",
+      "score": 340.05,
+      "eligible_max": 800,
+      "audience": 181.57,
+      "audience_raw": {
+        "imdb_audience": 80.0,
+        "letterboxd_audience": 100.0,
+        "trakt_audience": 92.36
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 125,
+      "title": "Killers of the Flower Moon",
+      "year": 2023,
+      "imdb_id": "tt5537002",
+      "score": 337.93,
+      "eligible_max": 800,
+      "audience": 117.95,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 50.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 127,
+      "title": "The Diving Bell and the Butterfly",
+      "year": 2007,
+      "imdb_id": "tt0401383",
+      "score": 332.78,
+      "eligible_max": 950,
+      "audience": 123.66,
+      "audience_raw": {
+        "imdb_audience": 75.0,
+        "letterboxd_audience": 74.09,
+        "trakt_audience": 36.4
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 132,
+      "title": "Winter's Bone",
+      "year": 2010,
+      "imdb_id": "tt1399683",
+      "score": 329.71,
+      "eligible_max": 950,
+      "audience": 53.47,
+      "audience_raw": {
+        "imdb_audience": 30.0,
+        "letterboxd_audience": 38.46,
+        "trakt_audience": 11.74
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 137,
+      "title": "Leviathan",
+      "year": 2014,
+      "imdb_id": "tt2802154",
+      "score": 325.1,
+      "eligible_max": 950,
+      "audience": 91.11,
+      "audience_raw": {
+        "imdb_audience": 49.04,
+        "letterboxd_audience": 68.1,
+        "trakt_audience": 19.53
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 138,
+      "title": "Drive",
+      "year": 2011,
+      "imdb_id": "tt0780504",
+      "score": 324.78,
+      "eligible_max": 950,
+      "audience": 129.49,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 141,
+      "title": "Shrek",
+      "year": 2001,
+      "imdb_id": "tt0126029",
+      "score": 320.87,
+      "eligible_max": 950,
+      "audience": 156.41,
+      "audience_raw": {
+        "imdb_audience": 70.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 80.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 142,
+      "title": "Dunkirk",
+      "year": 2017,
+      "imdb_id": "tt5013056",
+      "score": 317.89,
+      "eligible_max": 850,
+      "audience": 121.03,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 55.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 143,
+      "title": "Another Round",
+      "year": 2020,
+      "imdb_id": "tt10288566",
+      "score": 316.97,
+      "eligible_max": 850,
+      "audience": 139.75,
+      "audience_raw": {
+        "imdb_audience": 60.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 65.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 144,
+      "title": "Aftersun",
+      "year": 2022,
+      "imdb_id": "tt19770238",
+      "score": 316.96,
+      "eligible_max": 850,
+      "audience": 139.19,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 92.31,
+        "trakt_audience": 61.47
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 146,
+      "title": "Hamnet",
+      "year": 2025,
+      "imdb_id": "tt14905854",
+      "score": 316.08,
+      "eligible_max": 800,
+      "audience": 161.54,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 92.31,
+        "trakt_audience": 85.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 147,
+      "title": "Dune",
+      "year": 2021,
+      "imdb_id": "tt1160419",
+      "score": 315.67,
+      "eligible_max": 850,
+      "audience": 149.49,
+      "audience_raw": {
+        "imdb_audience": 75.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 80.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 149,
+      "title": "Flee",
+      "year": 2021,
+      "imdb_id": "tt8430054",
+      "score": 312.73,
+      "eligible_max": 850,
+      "audience": 117.34,
+      "audience_raw": {
+        "imdb_audience": 46.58,
+        "letterboxd_audience": 89.35,
+        "trakt_audience": 40.08
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 153,
+      "title": "Adaptation.",
+      "year": 2002,
+      "imdb_id": "tt0268126",
+      "score": 308.26,
+      "eligible_max": 950,
+      "audience": 118.63,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 38.33
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 154,
+      "title": "The Aviator",
+      "year": 2004,
+      "imdb_id": "tt0338751",
+      "score": 308.13,
+      "eligible_max": 950,
+      "audience": 100.51,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 39.23
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 155,
+      "title": "Babel",
+      "year": 2006,
+      "imdb_id": "tt0449467",
+      "score": 306.93,
+      "eligible_max": 950,
+      "audience": 86.59,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 31.03
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 160,
+      "title": "Beasts of the Southern Wild",
+      "year": 2012,
+      "imdb_id": "tt2125435",
+      "score": 304.13,
+      "eligible_max": 950,
+      "audience": 71.6,
+      "audience_raw": {
+        "imdb_audience": 33.95,
+        "letterboxd_audience": 57.76,
+        "trakt_audience": 15.69
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 162,
+      "title": "Master and Commander: The Far Side of the World",
+      "year": 2003,
+      "imdb_id": "tt0311113",
+      "score": 303.98,
+      "eligible_max": 950,
+      "audience": 115.28,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 46.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 164,
+      "title": "The Hours",
+      "year": 2002,
+      "imdb_id": "tt0274558",
+      "score": 302.57,
+      "eligible_max": 950,
+      "audience": 98.75,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 28.9
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 165,
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "imdb_id": "tt15239678",
+      "score": 302.47,
+      "eligible_max": 800,
+      "audience": 196.67,
+      "audience_raw": {
+        "imdb_audience": 95.0,
+        "letterboxd_audience": 100.0,
+        "trakt_audience": 100.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 168,
+      "title": "Moneyball",
+      "year": 2011,
+      "imdb_id": "tt1210166",
+      "score": 301.32,
+      "eligible_max": 950,
+      "audience": 122.82,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 169,
+      "title": "The Voice of Hind Rajab",
+      "year": 2025,
+      "imdb_id": "tt36943034",
+      "score": 300.75,
+      "eligible_max": 800,
+      "audience": 143.12,
+      "audience_raw": {
+        "imdb_audience": 57.05,
+        "letterboxd_audience": 100.0,
+        "trakt_audience": 57.63
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 176,
+      "title": "Fruitvale Station",
+      "year": 2013,
+      "imdb_id": "tt2334649",
+      "score": 297.69,
+      "eligible_max": 950,
+      "audience": 108.5,
+      "audience_raw": {
+        "imdb_audience": 49.24,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 36.59
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 180,
+      "title": "The Brutalist",
+      "year": 2024,
+      "imdb_id": "tt8999762",
+      "score": 295.89,
+      "eligible_max": 800,
+      "audience": 88.35,
+      "audience_raw": {
+        "imdb_audience": 35.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 28.29
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 181,
+      "title": "Brooklyn",
+      "year": 2015,
+      "imdb_id": "tt2381111",
+      "score": 295.03,
+      "eligible_max": 950,
+      "audience": 100.1,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 38.61
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 184,
+      "title": "Silver Linings Playbook",
+      "year": 2012,
+      "imdb_id": "tt1045658",
+      "score": 294.3,
+      "eligible_max": 950,
+      "audience": 112.57,
+      "audience_raw": {
+        "imdb_audience": 60.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 55.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 186,
+      "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)",
+      "year": 2021,
+      "imdb_id": "tt7378922",
+      "score": 293.0,
+      "eligible_max": 850,
+      "audience": 106.96,
+      "audience_raw": {
+        "imdb_audience": 44.64,
+        "letterboxd_audience": 82.67,
+        "trakt_audience": 33.13
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 187,
+      "title": "Capote",
+      "year": 2005,
+      "imdb_id": "tt0379725",
+      "score": 292.73,
+      "eligible_max": 950,
+      "audience": 76.97,
+      "audience_raw": {
+        "imdb_audience": 40.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 21.61
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 188,
+      "title": "Winter Sleep",
+      "year": 2014,
+      "imdb_id": "tt2758880",
+      "score": 292.66,
+      "eligible_max": 950,
+      "audience": 116.33,
+      "audience_raw": {
+        "imdb_audience": 66.58,
+        "letterboxd_audience": 81.31,
+        "trakt_audience": 26.61
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 191,
+      "title": "Erin Brockovich",
+      "year": 2000,
+      "imdb_id": "tt0195685",
+      "score": 291.1,
+      "eligible_max": 950,
+      "audience": 117.63,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 57.21
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 194,
+      "title": "Triangle of Sadness",
+      "year": 2022,
+      "imdb_id": "tt7322224",
+      "score": 289.68,
+      "eligible_max": 850,
+      "audience": 75.9,
+      "audience_raw": {
+        "imdb_audience": 35.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 25.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 195,
+      "title": "Volver",
+      "year": 2006,
+      "imdb_id": "tt0441909",
+      "score": 289.4,
+      "eligible_max": 950,
+      "audience": 117.85,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 37.15
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 197,
+      "title": "American Splendor",
+      "year": 2003,
+      "imdb_id": "tt0305206",
+      "score": 289.11,
+      "eligible_max": 950,
+      "audience": 68.73,
+      "audience_raw": {
+        "imdb_audience": 39.19,
+        "letterboxd_audience": 49.87,
+        "trakt_audience": 14.03
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 198,
+      "title": "Train Dreams",
+      "year": 2025,
+      "imdb_id": "tt29768334",
+      "score": 288.77,
+      "eligible_max": 800,
+      "audience": 126.84,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 55.64
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 199,
+      "title": "The Queen",
+      "year": 2006,
+      "imdb_id": "tt0436697",
+      "score": 287.78,
+      "eligible_max": 950,
+      "audience": 64.7,
+      "audience_raw": {
+        "imdb_audience": 40.0,
+        "letterboxd_audience": 33.01,
+        "trakt_audience": 24.04
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 200,
+      "title": "The Fabelmans",
+      "year": 2022,
+      "imdb_id": "tt14208870",
+      "score": 287.2,
+      "eligible_max": 850,
+      "audience": 122.85,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 57.35
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 201,
+      "title": "Life of Pi",
+      "year": 2012,
+      "imdb_id": "tt0454876",
+      "score": 286.7,
+      "eligible_max": 950,
+      "audience": 127.69,
+      "audience_raw": {
+        "imdb_audience": 70.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 204,
+      "title": "In the Bedroom",
+      "year": 2001,
+      "imdb_id": "tt0247425",
+      "score": 283.31,
+      "eligible_max": 950,
+      "audience": 65.25,
+      "audience_raw": {
+        "imdb_audience": 37.15,
+        "letterboxd_audience": 51.68,
+        "trakt_audience": 9.04
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 207,
+      "title": "Pain and Glory",
+      "year": 2019,
+      "imdb_id": "tt8291806",
+      "score": 281.33,
+      "eligible_max": 850,
+      "audience": 108.3,
+      "audience_raw": {
+        "imdb_audience": 45.79,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 32.04
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 208,
+      "title": "Flow",
+      "year": 2024,
+      "imdb_id": "tt4772188",
+      "score": 281.25,
+      "eligible_max": 800,
+      "audience": 153.08,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 80.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 210,
+      "title": "Uncut Gems",
+      "year": 2019,
+      "imdb_id": "tt5727208",
+      "score": 280.9,
+      "eligible_max": 850,
+      "audience": 107.95,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 40.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 211,
+      "title": "Quo Vadis, Aida?",
+      "year": 2020,
+      "imdb_id": "tt8633462",
+      "score": 279.63,
+      "eligible_max": 850,
+      "audience": 118.21,
+      "audience_raw": {
+        "imdb_audience": 61.07,
+        "letterboxd_audience": 77.74,
+        "trakt_audience": 38.51
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 212,
+      "title": "Close",
+      "year": 2022,
+      "imdb_id": "tt9660502",
+      "score": 279.6,
+      "eligible_max": 850,
+      "audience": 137.15,
+      "audience_raw": {
+        "imdb_audience": 55.05,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 66.06
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 213,
+      "title": "True Grit",
+      "year": 2010,
+      "imdb_id": "tt1403865",
+      "score": 278.64,
+      "eligible_max": 950,
+      "audience": 116.01,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 49.78
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 214,
+      "title": "Juno",
+      "year": 2007,
+      "imdb_id": "tt0467406",
+      "score": 277.78,
+      "eligible_max": 950,
+      "audience": 92.57,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 40.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 215,
+      "title": "District 9",
+      "year": 2009,
+      "imdb_id": "tt1136608",
+      "score": 277.69,
+      "eligible_max": 950,
+      "audience": 127.69,
+      "audience_raw": {
+        "imdb_audience": 70.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 217,
+      "title": "Timbuktu",
+      "year": 2014,
+      "imdb_id": "tt3409392",
+      "score": 275.79,
+      "eligible_max": 950,
+      "audience": 42.9,
+      "audience_raw": {
+        "imdb_audience": 19.22,
+        "letterboxd_audience": 39.76,
+        "trakt_audience": 5.37
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 219,
+      "title": "The Imitation Game",
+      "year": 2014,
+      "imdb_id": "tt2084970",
+      "score": 275.34,
+      "eligible_max": 950,
+      "audience": 152.82,
+      "audience_raw": {
+        "imdb_audience": 75.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 85.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 220,
+      "title": "A History of Violence",
+      "year": 2005,
+      "imdb_id": "tt0399146",
+      "score": 275.3,
+      "eligible_max": 950,
+      "audience": 87.63,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 32.59
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 221,
+      "title": "Promising Young Woman",
+      "year": 2020,
+      "imdb_id": "tt9620292",
+      "score": 275.29,
+      "eligible_max": 850,
+      "audience": 109.23,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 222,
+      "title": "Hell or High Water",
+      "year": 2016,
+      "imdb_id": "tt2582782",
+      "score": 274.56,
+      "eligible_max": 950,
+      "audience": 116.15,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 50.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 224,
+      "title": "The Descendants",
+      "year": 2011,
+      "imdb_id": "tt1033575",
+      "score": 273.69,
+      "eligible_max": 950,
+      "audience": 71.31,
+      "audience_raw": {
+        "imdb_audience": 40.0,
+        "letterboxd_audience": 46.15,
+        "trakt_audience": 20.81
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 225,
+      "title": "Sinners",
+      "year": 2025,
+      "imdb_id": "tt31193180",
+      "score": 273.23,
+      "eligible_max": 800,
+      "audience": 136.41,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 70.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 227,
+      "title": "I, Daniel Blake",
+      "year": 2016,
+      "imdb_id": "tt5168192",
+      "score": 271.72,
+      "eligible_max": 950,
+      "audience": 122.67,
+      "audience_raw": {
+        "imdb_audience": 59.75,
+        "letterboxd_audience": 75.88,
+        "trakt_audience": 48.38
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 228,
+      "title": "Selma",
+      "year": 2014,
+      "imdb_id": "tt1020072",
+      "score": 271.62,
+      "eligible_max": 950,
+      "audience": 98.88,
+      "audience_raw": {
+        "imdb_audience": 49.98,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 36.8
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 229,
+      "title": "The Class",
+      "year": 2008,
+      "imdb_id": "tt1068646",
+      "score": 271.41,
+      "eligible_max": 950,
+      "audience": 60.93,
+      "audience_raw": {
+        "imdb_audience": 39.4,
+        "letterboxd_audience": 39.5,
+        "trakt_audience": 12.5
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 230,
+      "title": "Good Night, and Good Luck.",
+      "year": 2005,
+      "imdb_id": "tt0433383",
+      "score": 270.78,
+      "eligible_max": 950,
+      "audience": 76.36,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 46.53,
+        "trakt_audience": 23.01
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 231,
+      "title": "25th Hour",
+      "year": 2002,
+      "imdb_id": "tt0307901",
+      "score": 270.08,
+      "eligible_max": 950,
+      "audience": 106.2,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 35.07
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 232,
+      "title": "Milk",
+      "year": 2008,
+      "imdb_id": "tt1013753",
+      "score": 269.75,
+      "eligible_max": 950,
+      "audience": 97.31,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 34.42
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 233,
+      "title": "Conclave",
+      "year": 2024,
+      "imdb_id": "tt20215234",
+      "score": 269.08,
+      "eligible_max": 800,
+      "audience": 112.82,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 55.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 235,
+      "title": "Far from Heaven",
+      "year": 2002,
+      "imdb_id": "tt0297884",
+      "score": 268.84,
+      "eligible_max": 950,
+      "audience": 66.56,
+      "audience_raw": {
+        "imdb_audience": 34.32,
+        "letterboxd_audience": 53.64,
+        "trakt_audience": 11.88
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 236,
+      "title": "Traffic",
+      "year": 2000,
+      "imdb_id": "tt0181865",
+      "score": 268.83,
+      "eligible_max": 950,
+      "audience": 91.0,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 32.65
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 237,
+      "title": "Michael Clayton",
+      "year": 2007,
+      "imdb_id": "tt0465538",
+      "score": 267.77,
+      "eligible_max": 950,
+      "audience": 80.7,
+      "audience_raw": {
+        "imdb_audience": 35.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 24.51
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 238,
+      "title": "Loveless",
+      "year": 2017,
+      "imdb_id": "tt6304162",
+      "score": 266.96,
+      "eligible_max": 850,
+      "audience": 78.9,
+      "audience_raw": {
+        "imdb_audience": 43.48,
+        "letterboxd_audience": 58.17,
+        "trakt_audience": 16.7
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 239,
+      "title": "Gangs of New York",
+      "year": 2002,
+      "imdb_id": "tt0217505",
+      "score": 266.91,
+      "eligible_max": 950,
+      "audience": 102.57,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 50.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 240,
+      "title": "Hugo",
+      "year": 2011,
+      "imdb_id": "tt0970179",
+      "score": 266.46,
+      "eligible_max": 950,
+      "audience": 85.53,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 38.46,
+        "trakt_audience": 39.84
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 242,
+      "title": "The Florida Project",
+      "year": 2017,
+      "imdb_id": "tt5649144",
+      "score": 265.84,
+      "eligible_max": 850,
+      "audience": 126.11,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 49.54
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 244,
+      "title": "The Farewell",
+      "year": 2019,
+      "imdb_id": "tt8637428",
+      "score": 264.39,
+      "eligible_max": 850,
+      "audience": 117.07,
+      "audience_raw": {
+        "imdb_audience": 47.05,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 43.93
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 247,
+      "title": "Nebraska",
+      "year": 2013,
+      "imdb_id": "tt1821549",
+      "score": 262.34,
+      "eligible_max": 950,
+      "audience": 113.11,
+      "audience_raw": {
+        "imdb_audience": 60.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 32.74
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 248,
+      "title": "Honeyland",
+      "year": 2019,
+      "imdb_id": "tt8991268",
+      "score": 262.21,
+      "eligible_max": 850,
+      "audience": 93.23,
+      "audience_raw": {
+        "imdb_audience": 49.35,
+        "letterboxd_audience": 60.74,
+        "trakt_audience": 29.75
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 250,
+      "title": "Captain Phillips",
+      "year": 2013,
+      "imdb_id": "tt1535109",
+      "score": 260.81,
+      "eligible_max": 950,
+      "audience": 127.69,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 65.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 252,
+      "title": "Marty Supreme",
+      "year": 2025,
+      "imdb_id": "tt32916440",
+      "score": 260.69,
+      "eligible_max": 800,
+      "audience": 121.28,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 55.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 256,
+      "title": "Hedwig and the Angry Inch",
+      "year": 2001,
+      "imdb_id": "tt0248845",
+      "score": 258.82,
+      "eligible_max": 950,
+      "audience": 105.89,
+      "audience_raw": {
+        "imdb_audience": 47.49,
+        "letterboxd_audience": 80.36,
+        "trakt_audience": 30.98
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 258,
+      "title": "Never Rarely Sometimes Always",
+      "year": 2020,
+      "imdb_id": "tt7772582",
+      "score": 257.12,
+      "eligible_max": 850,
+      "audience": 86.35,
+      "audience_raw": {
+        "imdb_audience": 29.55,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 23.06
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 261,
+      "title": "The Trial of the Chicago 7",
+      "year": 2020,
+      "imdb_id": "tt1070874",
+      "score": 256.52,
+      "eligible_max": 850,
+      "audience": 131.03,
+      "audience_raw": {
+        "imdb_audience": 60.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 75.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 262,
+      "title": "Certified Copy",
+      "year": 2010,
+      "imdb_id": "tt1020773",
+      "score": 255.03,
+      "eligible_max": 950,
+      "audience": 79.67,
+      "audience_raw": {
+        "imdb_audience": 25.69,
+        "letterboxd_audience": 79.3,
+        "trakt_audience": 14.52
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 266,
+      "title": "You Can Count on Me",
+      "year": 2000,
+      "imdb_id": "tt0203230",
+      "score": 252.39,
+      "eligible_max": 950,
+      "audience": 68.01,
+      "audience_raw": {
+        "imdb_audience": 38.25,
+        "letterboxd_audience": 52.45,
+        "trakt_audience": 11.32
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 268,
+      "title": "The Wild Robot",
+      "year": 2024,
+      "imdb_id": "tt29623480",
+      "score": 251.32,
+      "eligible_max": 800,
+      "audience": 181.54,
+      "audience_raw": {
+        "imdb_audience": 80.0,
+        "letterboxd_audience": 92.31,
+        "trakt_audience": 100.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 269,
+      "title": "Billy Elliot",
+      "year": 2000,
+      "imdb_id": "tt0249462",
+      "score": 251.02,
+      "eligible_max": 950,
+      "audience": 136.14,
+      "audience_raw": {
+        "imdb_audience": 60.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 59.59
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 272,
+      "title": "The Square",
+      "year": 2017,
+      "imdb_id": "tt4995790",
+      "score": 250.47,
+      "eligible_max": 850,
+      "audience": 54.6,
+      "audience_raw": {
+        "imdb_audience": 28.84,
+        "letterboxd_audience": 46.15,
+        "trakt_audience": 6.91
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 273,
+      "title": "The Big Short",
+      "year": 2015,
+      "imdb_id": "tt1596363",
+      "score": 250.41,
+      "eligible_max": 950,
+      "audience": 129.49,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 60.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 274,
+      "title": "Isle of Dogs",
+      "year": 2018,
+      "imdb_id": "tt5104604",
+      "score": 250.37,
+      "eligible_max": 850,
+      "audience": 146.11,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 69.55
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 275,
+      "title": "The Rider",
+      "year": 2017,
+      "imdb_id": "tt6217608",
+      "score": 250.34,
+      "eligible_max": 850,
+      "audience": 75.19,
+      "audience_raw": {
+        "imdb_audience": 30.38,
+        "letterboxd_audience": 65.23,
+        "trakt_audience": 17.17
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 277,
+      "title": "The Wind Rises",
+      "year": 2013,
+      "imdb_id": "tt2013293",
+      "score": 249.88,
+      "eligible_max": 950,
+      "audience": 144.25,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 66.75
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    }
+  ],
+  "qualified_below_200": [
+    {
+      "rank": 1050,
+      "title": "The Intruder",
+      "year": 2004,
+      "imdb_id": "tt0422491",
+      "score": 106.98,
+      "eligible_max": 950,
+      "audience": 13.51,
+      "audience_raw": {
+        "imdb_audience": 0.92,
+        "letterboxd_audience": 19.35,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 952,
+      "title": "In Vanda's Room",
+      "year": 2000,
+      "imdb_id": "tt0139500",
+      "score": 119.31,
+      "eligible_max": 950,
+      "audience": 21.98,
+      "audience_raw": {
+        "imdb_audience": 3.57,
+        "letterboxd_audience": 29.4,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 925,
+      "title": "Colossal Youth",
+      "year": 2006,
+      "imdb_id": "tt0460480",
+      "score": 121.62,
+      "eligible_max": 950,
+      "audience": 18.46,
+      "audience_raw": {
+        "imdb_audience": 2.09,
+        "letterboxd_audience": 25.6,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 839,
+      "title": "Platform",
+      "year": 2000,
+      "imdb_id": "tt0258885",
+      "score": 132.69,
+      "eligible_max": 950,
+      "audience": 37.15,
+      "audience_raw": {
+        "imdb_audience": 12.31,
+        "letterboxd_audience": 43.41,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 793,
+      "title": "Still Life",
+      "year": 2006,
+      "imdb_id": "tt0859765",
+      "score": 139.22,
+      "eligible_max": 950,
+      "audience": 48.73,
+      "audience_raw": {
+        "imdb_audience": 18.24,
+        "letterboxd_audience": 49.32,
+        "trakt_audience": 5.53
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 756,
+      "title": "The Circle",
+      "year": 2000,
+      "imdb_id": "tt0255094",
+      "score": 144.44,
+      "eligible_max": 950,
+      "audience": 36.45,
+      "audience_raw": {
+        "imdb_audience": 19.75,
+        "letterboxd_audience": 34.74,
+        "trakt_audience": 0.19
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 748,
+      "title": "Tie Xi Qu: West of the Tracks",
+      "year": 2002,
+      "imdb_id": "tt0389448",
+      "score": 146.01,
+      "eligible_max": 950,
+      "audience": 29.21,
+      "audience_raw": {
+        "imdb_audience": 8.27,
+        "letterboxd_audience": 35.54,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 743,
+      "title": "As I Was Moving Ahead Occasionally I Saw Brief Glimpses of Beauty",
+      "year": 2000,
+      "imdb_id": "tt0262240",
+      "score": 146.48,
+      "eligible_max": 950,
+      "audience": 47.35,
+      "audience_raw": {
+        "imdb_audience": 9.76,
+        "letterboxd_audience": 61.26,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 702,
+      "title": "Millennium Mambo",
+      "year": 2001,
+      "imdb_id": "tt0283283",
+      "score": 152.89,
+      "eligible_max": 950,
+      "audience": 50.82,
+      "audience_raw": {
+        "imdb_audience": 9.46,
+        "letterboxd_audience": 59.34,
+        "trakt_audience": 7.43
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 701,
+      "title": "Inside Job",
+      "year": 2010,
+      "imdb_id": "tt1645089",
+      "score": 152.96,
+      "eligible_max": 950,
+      "audience": 121.41,
+      "audience_raw": {
+        "imdb_audience": 81.56,
+        "letterboxd_audience": 52.75,
+        "trakt_audience": 47.8
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "corroboration"
+      ],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 697,
+      "title": "35 Shots of Rum",
+      "year": 2008,
+      "imdb_id": "tt1100048",
+      "score": 153.54,
+      "eligible_max": 950,
+      "audience": 35.52,
+      "audience_raw": {
+        "imdb_audience": 11.38,
+        "letterboxd_audience": 41.9,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 679,
+      "title": "The Headless Woman",
+      "year": 2008,
+      "imdb_id": "tt1221141",
+      "score": 156.6,
+      "eligible_max": 950,
+      "audience": 21.03,
+      "audience_raw": {
+        "imdb_audience": 0.0,
+        "letterboxd_audience": 31.54,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 661,
+      "title": "Morvern Callar",
+      "year": 2002,
+      "imdb_id": "tt0300214",
+      "score": 158.82,
+      "eligible_max": 950,
+      "audience": 46.07,
+      "audience_raw": {
+        "imdb_audience": 8.27,
+        "letterboxd_audience": 57.62,
+        "trakt_audience": 3.21
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 633,
+      "title": "Zama",
+      "year": 2017,
+      "imdb_id": "tt3409848",
+      "score": 163.95,
+      "eligible_max": 850,
+      "audience": 25.76,
+      "audience_raw": {
+        "imdb_audience": 4.48,
+        "letterboxd_audience": 32.35,
+        "trakt_audience": 1.81
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 625,
+      "title": "Inland Empire",
+      "year": 2006,
+      "imdb_id": "tt0460829",
+      "score": 164.71,
+      "eligible_max": 950,
+      "audience": 63.49,
+      "audience_raw": {
+        "imdb_audience": 13.84,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 12.17
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 600,
+      "title": "Nostalgia for the Light",
+      "year": 2010,
+      "imdb_id": "tt1556190",
+      "score": 169.02,
+      "eligible_max": 950,
+      "audience": 53.13,
+      "audience_raw": {
+        "imdb_audience": 22.63,
+        "letterboxd_audience": 47.59,
+        "trakt_audience": 9.48
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 571,
+      "title": "Silent Light",
+      "year": 2007,
+      "imdb_id": "tt0841925",
+      "score": 175.07,
+      "eligible_max": 950,
+      "audience": 32.39,
+      "audience_raw": {
+        "imdb_audience": 15.07,
+        "letterboxd_audience": 33.52,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 566,
+      "title": "Monsoon Wedding",
+      "year": 2001,
+      "imdb_id": "tt0265343",
+      "score": 177.41,
+      "eligible_max": 950,
+      "audience": 56.35,
+      "audience_raw": {
+        "imdb_audience": 28.56,
+        "letterboxd_audience": 42.94,
+        "trakt_audience": 13.03
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 559,
+      "title": "Syndromes and a Century",
+      "year": 2006,
+      "imdb_id": "tt0477731",
+      "score": 179.59,
+      "eligible_max": 950,
+      "audience": 40.27,
+      "audience_raw": {
+        "imdb_audience": 13.93,
+        "letterboxd_audience": 45.56,
+        "trakt_audience": 0.91
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    {
+      "rank": 541,
+      "title": "The Fog of War",
+      "year": 2003,
+      "imdb_id": "tt0317910",
+      "score": 182.02,
+      "eligible_max": 950,
+      "audience": 85.67,
+      "audience_raw": {
+        "imdb_audience": 53.35,
+        "letterboxd_audience": 51.13,
+        "trakt_audience": 24.02
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "corroboration"
+      ],
+      "sources": [
+        "tspdt",
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 538,
+      "title": "The Cove",
+      "year": 2009,
+      "imdb_id": "tt1313104",
+      "score": 183.23,
+      "eligible_max": 950,
+      "audience": 116.84,
+      "audience_raw": {
+        "imdb_audience": 81.87,
+        "letterboxd_audience": 51.15,
+        "trakt_audience": 42.24
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "corroboration"
+      ],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 528,
+      "title": "Russian Ark",
+      "year": 2002,
+      "imdb_id": "tt0318034",
+      "score": 184.21,
+      "eligible_max": 950,
+      "audience": 53.72,
+      "audience_raw": {
+        "imdb_audience": 23.91,
+        "letterboxd_audience": 49.48,
+        "trakt_audience": 7.19
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 508,
+      "title": "The Swamp",
+      "year": 2001,
+      "imdb_id": "tt0240419",
+      "score": 187.92,
+      "eligible_max": 950,
+      "audience": 55.97,
+      "audience_raw": {
+        "imdb_audience": 12.38,
+        "letterboxd_audience": 65.82,
+        "trakt_audience": 5.76
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 503,
+      "title": "Snatch",
+      "year": 2000,
+      "imdb_id": "tt0208092",
+      "score": 189.06,
+      "eligible_max": 950,
+      "audience": 164.61,
+      "audience_raw": {
+        "imdb_audience": 85.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 85.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "convergence"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 501,
+      "title": "No Man's Land",
+      "year": 2001,
+      "imdb_id": "tt0283509",
+      "score": 189.41,
+      "eligible_max": 950,
+      "audience": 83.33,
+      "audience_raw": {
+        "imdb_audience": 59.76,
+        "letterboxd_audience": 42.46,
+        "trakt_audience": 22.77
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "corroboration"
+      ],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 500,
+      "title": "The Death of Mr. Lazarescu",
+      "year": 2005,
+      "imdb_id": "tt0456149",
+      "score": 190.22,
+      "eligible_max": 950,
+      "audience": 66.93,
+      "audience_raw": {
+        "imdb_audience": 40.14,
+        "letterboxd_audience": 50.73,
+        "trakt_audience": 9.52
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "canon"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 497,
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "imdb_id": "tt1856101",
+      "score": 190.8,
+      "eligible_max": 850,
+      "audience": 153.08,
+      "audience_raw": {
+        "imdb_audience": 75.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 70.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "convergence"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 482,
+      "title": "Icarus",
+      "year": 2017,
+      "imdb_id": "tt6333060",
+      "score": 193.63,
+      "eligible_max": 850,
+      "audience": 123.41,
+      "audience_raw": {
+        "imdb_audience": 61.92,
+        "letterboxd_audience": 72.09,
+        "trakt_audience": 51.11
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "corroboration"
+      ],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 481,
+      "title": "Catch Me If You Can",
+      "year": 2002,
+      "imdb_id": "tt0264464",
+      "score": 193.99,
+      "eligible_max": 950,
+      "audience": 166.41,
+      "audience_raw": {
+        "imdb_audience": 80.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 85.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "convergence"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    {
+      "rank": 463,
+      "title": "My Octopus Teacher",
+      "year": 2020,
+      "imdb_id": "tt12888462",
+      "score": 198.33,
+      "eligible_max": 850,
+      "audience": 138.33,
+      "audience_raw": {
+        "imdb_audience": 74.5,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 63.76
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "corroboration"
+      ],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery"
+      ]
+    }
+  ],
+  "focus": {
+    "Blade Runner 2049": {
+      "rank": 497,
+      "title": "Blade Runner 2049",
+      "year": 2017,
+      "imdb_id": "tt1856101",
+      "score": 190.8,
+      "eligible_max": 850,
+      "audience": 153.08,
+      "audience_raw": {
+        "imdb_audience": 75.0,
+        "letterboxd_audience": 84.62,
+        "trakt_audience": 70.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "convergence"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    "Dune: Part Two": {
+      "rank": 165,
+      "title": "Dune: Part Two",
+      "year": 2024,
+      "imdb_id": "tt15239678",
+      "score": 302.47,
+      "eligible_max": 800,
+      "audience": 196.67,
+      "audience_raw": {
+        "imdb_audience": 95.0,
+        "letterboxd_audience": 100.0,
+        "trakt_audience": 100.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    "Ex Machina": {
+      "rank": 411,
+      "title": "Ex Machina",
+      "year": 2014,
+      "imdb_id": "tt0470752",
+      "score": 208.86,
+      "eligible_max": 950,
+      "audience": 131.28,
+      "audience_raw": {
+        "imdb_audience": 60.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 60.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": true,
+      "routes": [
+        "convergence"
+      ],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    "La Commune (Paris, 1871)": {
+      "rank": 980,
+      "title": "La Commune (Paris, 1871)",
+      "year": 2000,
+      "imdb_id": "tt0257497",
+      "score": 115.88,
+      "eligible_max": 950,
+      "audience": 27.47,
+      "audience_raw": {
+        "imdb_audience": 7.02,
+        "letterboxd_audience": 34.19,
+        "trakt_audience": 0.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot"
+      ]
+    },
+    "Midsommar": {
+      "rank": 692,
+      "title": "Midsommar",
+      "year": 2019,
+      "imdb_id": "tt8772262",
+      "score": 154.03,
+      "eligible_max": 850,
+      "audience": 79.23,
+      "audience_raw": {
+        "imdb_audience": 30.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 35.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "broad_critic_consensus"
+      ]
+    },
+    "Nocturnal Animals": {
+      "rank": 619,
+      "title": "Nocturnal Animals",
+      "year": 2016,
+      "imdb_id": "tt4550098",
+      "score": 165.57,
+      "eligible_max": 950,
+      "audience": 95.9,
+      "audience_raw": {
+        "imdb_audience": 45.0,
+        "letterboxd_audience": 53.85,
+        "trakt_audience": 45.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "institutional",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    "Scott Pilgrim vs. the World": {
+      "rank": 550,
+      "title": "Scott Pilgrim vs. the World",
+      "year": 2010,
+      "imdb_id": "tt0446029",
+      "score": 180.79,
+      "eligible_max": 950,
+      "audience": 122.82,
+      "audience_raw": {
+        "imdb_audience": 50.0,
+        "letterboxd_audience": 69.23,
+        "trakt_audience": 65.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "tspdt",
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    "Tenet": {
+      "rank": 1192,
+      "title": "Tenet",
+      "year": 2020,
+      "imdb_id": "tt6723592",
+      "score": 90.19,
+      "eligible_max": 850,
+      "audience": 85.64,
+      "audience_raw": {
+        "imdb_audience": 40.0,
+        "letterboxd_audience": 38.46,
+        "trakt_audience": 50.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    "The Batman": {
+      "rank": 659,
+      "title": "The Batman",
+      "year": 2022,
+      "imdb_id": "tt1877830",
+      "score": 158.88,
+      "eligible_max": 850,
+      "audience": 141.28,
+      "audience_raw": {
+        "imdb_audience": 65.0,
+        "letterboxd_audience": 76.92,
+        "trakt_audience": 70.0
+      },
+      "gateway": true,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    },
+    "The Machinist": {
+      "rank": 926,
+      "title": "The Machinist",
+      "year": 2004,
+      "imdb_id": "tt0361862",
+      "score": 121.57,
+      "eligible_max": 950,
+      "audience": 114.36,
+      "audience_raw": {
+        "imdb_audience": 55.0,
+        "letterboxd_audience": 61.54,
+        "trakt_audience": 55.0
+      },
+      "gateway": false,
+      "non_audience": true,
+      "qualified": false,
+      "routes": [],
+      "sources": [
+        "evidence_snapshot",
+        "audience_discovery",
+        "broad_critic_consensus"
+      ]
+    }
+  }
+}

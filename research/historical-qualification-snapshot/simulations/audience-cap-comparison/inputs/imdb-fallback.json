@@ -1,0 +1,36 @@
+{
+  "source_url": "https://datasets.imdbws.com/title.ratings.tsv.gz",
+  "purpose": "Missing IMDb enrichment only",
+  "requested_ids": [
+    "tt10551100",
+    "tt10551102",
+    "tt31113046",
+    "tt38063392",
+    "tt4698742"
+  ],
+  "ratings": {
+    "tt10551100": {
+      "rating": 8.0,
+      "votes": 6189
+    },
+    "tt10551102": {
+      "rating": 7.4,
+      "votes": 5630
+    },
+    "tt31113046": {
+      "rating": 7.7,
+      "votes": 22
+    },
+    "tt38063392": {
+      "rating": 8.4,
+      "votes": 10912
+    }
+  },
+  "observed_at": "2026-10-13T13:55:25.147976+00:00",
+  "status": "complete",
+  "network_requests": 1,
+  "download_sha256": "01f30fe54c7476238e5181dd591f8b54f3b0f6f93bae694989b1b634aae05cef",
+  "unavailable_ids": [
+    "tt4698742"
+  ]
+}

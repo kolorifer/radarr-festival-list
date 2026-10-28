@@ -1,0 +1,14 @@
+{
+  "candidate_count": 1909,
+  "pending_before": 1,
+  "pending_universe_before": 9,
+  "max_requests": 2,
+  "attempted": 1,
+  "succeeded": 1,
+  "failures": [],
+  "status": "complete",
+  "network_requests": 1,
+  "observed_at": "2026-10-13T13:55:23.403768+00:00",
+  "complete_pair_after": 1896,
+  "known_404_in_universe": 5
+}

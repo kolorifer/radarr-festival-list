@@ -1,0 +1,57 @@
+name: Research identity integrity
+on:
+  push:
+    branches: [research/data-identity-integrity]
+    paths:
+      - .github/workflows/identity-integrity.yml
+      - identity_integrity.py
+      - award_identity_cleanup.py
+      - integrity_rating_enrichment.py
+      - letterboxd_identity_enrichment.py
+      - integrity_research_score.py
+      - sources/identity-audit/*.gz
+      - simulations/data-identity-integrity/inputs/letterboxd-fallback.json
+permissions:
+  contents: write
+concurrency:
+  group: identity-integrity-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -r requirements.txt
+      - name: Restore frozen non-secret metadata collected through SSH
+        run: |
+          python -c "import gzip; from pathlib import Path; [(p.with_suffix('').write_bytes(gzip.decompress(p.read_bytes()))) for p in Path('sources/identity-audit').glob('*.json.gz')]"
+      - name: Repair verified film and award identities
+        run: |
+          python identity_integrity.py
+          python award_identity_cleanup.py
+      - name: Fill only missing ratings using verified IMDb/TMDb selectors
+        env:
+          REELDB_API_KEY: ${{ secrets.REELDB_API_KEY }}
+        run: python -u integrity_rating_enrichment.py
+      - name: Apply frozen public Letterboxd fallback
+        run: python letterboxd_identity_enrichment.py
+      - name: Test and generate the final research model
+        run: |
+          python -m unittest -v
+          python -m pip check
+          python integrity_research_score.py
+      - name: Commit research data and integrity artifacts
+        run: |
+          git add backcatalog.json backcatalog-details.json audience-ratings.json sources/evidence-families.json sources/phase-b-institutional.json sources/critics-choice-best-picture.json sources/identity-overrides.json sources/identity-audit/*.json simulations/data-identity-integrity
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions-bot@users.noreply.github.com"
+          git commit -m "Generate verified identity cleanup and Audience=150 research evidence"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

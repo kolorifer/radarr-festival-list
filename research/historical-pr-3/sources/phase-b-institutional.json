@@ -1,0 +1,5531 @@
+{
+  "films": [
+    {
+      "title": "Amores Perros",
+      "year": 2000,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0245712",
+      "resolved_title": "Amores Perros",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Chocolat",
+      "year": 2000,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0241303",
+      "resolved_title": "Chocolat",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Crouching Tiger, Hidden Dragon",
+      "year": 2000,
+      "signals": [
+        "Academy Best Picture nominee",
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0190332",
+      "resolved_title": "Crouching Tiger, Hidden Dragon",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Divided We Fall",
+      "year": 2000,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0234288",
+      "resolved_title": "Divided We Fall",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Erin Brockovich",
+      "year": 2000,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0195685",
+      "resolved_title": "Erin Brockovich",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Gladiator",
+      "year": 2000,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0172495",
+      "resolved_title": "Gladiator",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Into the Arms of Strangers: Stories of the Kindertransport",
+      "year": 2000,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0248912",
+      "resolved_title": "Into the Arms of Strangers: Stories of the Kindertransport",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Long Night's Journey into Day",
+      "year": 2000,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0236447",
+      "resolved_title": "Long Night's Journey Into Day",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Scottsboro: An American Tragedy",
+      "year": 2000,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0240885",
+      "resolved_title": "Scottsboro: An American Tragedy",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Sound and Fury",
+      "year": 2000,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0240912",
+      "resolved_title": "Sound and Fury",
+      "resolved_year": 2000
+    },
+    {
+      "title": "The Taste of Others",
+      "year": 2000,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0216787",
+      "resolved_title": "The Taste of Others",
+      "resolved_year": 2000
+    },
+    {
+      "title": "Traffic",
+      "year": 2000,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0181865",
+      "resolved_title": "Traffic",
+      "resolved_year": 2000
+    },
+    {
+      "title": "A Beautiful Mind",
+      "year": 2001,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0268978",
+      "resolved_title": "A Beautiful Mind",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Amélie",
+      "year": 2001,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0211915",
+      "resolved_title": "Amélie",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Children Underground",
+      "year": 2001,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0264476",
+      "resolved_title": "Children Underground",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Elling",
+      "year": 2001,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0279064",
+      "resolved_title": "Elling",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Gosford Park",
+      "year": 2001,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0280707",
+      "resolved_title": "Gosford Park",
+      "resolved_year": 2001
+    },
+    {
+      "title": "In the Bedroom",
+      "year": 2001,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0247425",
+      "resolved_title": "In the Bedroom",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Jimmy Neutron: Boy Genius",
+      "year": 2001,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0268397",
+      "resolved_title": "Jimmy Neutron: Boy Genius",
+      "resolved_year": 2001
+    },
+    {
+      "title": "LaLee's Kin: The Legacy of Cotton",
+      "year": 2001,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0274622",
+      "resolved_title": "LaLee's Kin: The Legacy of Cotton",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Monsters, Inc.",
+      "year": 2001,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0198781",
+      "resolved_title": "Monsters, Inc.",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Moulin Rouge",
+      "year": 2001,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0203009",
+      "resolved_title": "Moulin Rouge!",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Murder on a Sunday Morning",
+      "year": 2001,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0307197",
+      "resolved_title": "Murder on a Sunday Morning",
+      "resolved_year": 2001
+    },
+    {
+      "title": "No Man's Land",
+      "year": 2001,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0283509",
+      "resolved_title": "No Man's Land",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Promises",
+      "year": 2001,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0282864",
+      "resolved_title": "Promises",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Shrek",
+      "year": 2001,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0126029",
+      "resolved_title": "Shrek",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Son of the Bride",
+      "year": 2001,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0292542",
+      "resolved_title": "Son of the Bride",
+      "resolved_year": 2001
+    },
+    {
+      "title": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": 2001,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0120737",
+      "resolved_title": "The Lord of the Rings: The Fellowship of the Ring",
+      "resolved_year": 2001
+    },
+    {
+      "title": "War Photographer",
+      "year": 2001,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0309061",
+      "resolved_title": "War Photographer",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Bowling for Columbine",
+      "year": 2002,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0310793",
+      "resolved_title": "Bowling for Columbine",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Chicago",
+      "year": 2002,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0299658",
+      "resolved_title": "Chicago",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Daughter from Danang",
+      "year": 2002,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0303281",
+      "resolved_title": "Daughter from Danang",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Gangs of New York",
+      "year": 2002,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0217505",
+      "resolved_title": "Gangs of New York",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Hero",
+      "year": 2002,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0299977",
+      "resolved_title": "Hero",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Ice Age",
+      "year": 2002,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0268380",
+      "resolved_title": "Ice Age",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Lilo & Stitch",
+      "year": 2002,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0275847",
+      "resolved_title": "Lilo & Stitch",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Nowhere in Africa",
+      "year": 2002,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0161860",
+      "resolved_title": "Nowhere in Africa",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Prisoner of Paradise",
+      "year": 2002,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0316013",
+      "resolved_title": "Prisoner of Paradise",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Spellbound",
+      "year": 2002,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0334405",
+      "resolved_title": "Spellbound",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Spirit: Stallion of the Cimarron",
+      "year": 2002,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0166813",
+      "resolved_title": "Spirit: Stallion of the Cimarron",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Spirited Away",
+      "year": 2002,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0245429",
+      "resolved_title": "Spirited Away",
+      "resolved_year": 2001
+    },
+    {
+      "title": "The Hours",
+      "year": 2002,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0274558",
+      "resolved_title": "The Hours",
+      "resolved_year": 2002
+    },
+    {
+      "title": "The Lord of the Rings: The Two Towers",
+      "year": 2002,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0167261",
+      "resolved_title": "The Lord of the Rings: The Two Towers",
+      "resolved_year": 2002
+    },
+    {
+      "title": "The Man without a Past",
+      "year": 2002,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0311519",
+      "resolved_title": "The Man Without a Past",
+      "resolved_year": 2002
+    },
+    {
+      "title": "The Pianist",
+      "year": 2002,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0253474",
+      "resolved_title": "The Pianist",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Treasure Planet",
+      "year": 2002,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0133240",
+      "resolved_title": "Treasure Planet",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Winged Migration",
+      "year": 2002,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0301727",
+      "resolved_title": "Winged Migration",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Zus & Zo",
+      "year": 2002,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0245157",
+      "resolved_title": "Zus & Zo",
+      "resolved_year": 2001
+    },
+    {
+      "title": "Balseros",
+      "year": 2003,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0321376",
+      "resolved_title": "Balseros",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Brother Bear",
+      "year": 2003,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0328880",
+      "resolved_title": "Brother Bear",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Capturing the Friedmans",
+      "year": 2003,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0342172",
+      "resolved_title": "Capturing the Friedmans",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Finding Nemo",
+      "year": 2003,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0266543",
+      "resolved_title": "Finding Nemo",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Lost in Translation",
+      "year": 2003,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0335266",
+      "resolved_title": "Lost in Translation",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Master and Commander: The Far Side of the World",
+      "year": 2003,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0311113",
+      "resolved_title": "Master and Commander: The Far Side of the World",
+      "resolved_year": 2003
+    },
+    {
+      "title": "My Architect",
+      "year": 2003,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0373175",
+      "resolved_title": "My Architect",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Mystic River",
+      "year": 2003,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0327056",
+      "resolved_title": "Mystic River",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Seabiscuit",
+      "year": 2003,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0329575",
+      "resolved_title": "Seabiscuit",
+      "resolved_year": 2003
+    },
+    {
+      "title": "The Barbarian Invasions",
+      "year": 2003,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0338135",
+      "resolved_title": "The Barbarian Invasions",
+      "resolved_year": 2003
+    },
+    {
+      "title": "The Fog of War",
+      "year": 2003,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0317910",
+      "resolved_title": "The Fog of War",
+      "resolved_year": 2003
+    },
+    {
+      "title": "The Lord of the Rings: The Return of the King",
+      "year": 2003,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0167260",
+      "resolved_title": "The Lord of the Rings: The Return of the King",
+      "resolved_year": 2003
+    },
+    {
+      "title": "The Triplets of Belleville",
+      "year": 2003,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0286244",
+      "resolved_title": "The Triplets of Belleville",
+      "resolved_year": 2003
+    },
+    {
+      "title": "The Twilight Samurai",
+      "year": 2003,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0351817",
+      "resolved_title": "The Twilight Samurai",
+      "resolved_year": 2002
+    },
+    {
+      "title": "The Weather Underground",
+      "year": 2003,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0343168",
+      "resolved_title": "The Weather Underground",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Twin Sisters",
+      "year": 2003,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0322674",
+      "resolved_title": "Twin Sisters",
+      "resolved_year": 2002
+    },
+    {
+      "title": "Zelary",
+      "year": 2003,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0288330",
+      "resolved_title": "Zelary",
+      "resolved_year": 2003
+    },
+    {
+      "title": "As It Is in Heaven",
+      "year": 2004,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0382330",
+      "resolved_title": "As It Is in Heaven",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Downfall",
+      "year": 2004,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0363163",
+      "resolved_title": "Downfall",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Finding Neverland",
+      "year": 2004,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0308644",
+      "resolved_title": "Finding Neverland",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Million Dollar Baby",
+      "year": 2004,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0405159",
+      "resolved_title": "Million Dollar Baby",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Ray",
+      "year": 2004,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0350258",
+      "resolved_title": "Ray",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Shark Tale",
+      "year": 2004,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0307453",
+      "resolved_title": "Shark Tale",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Shrek 2",
+      "year": 2004,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0298148",
+      "resolved_title": "Shrek 2",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Sideways",
+      "year": 2004,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0375063",
+      "resolved_title": "Sideways",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Super Size Me",
+      "year": 2004,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0390521",
+      "resolved_title": "Super Size Me",
+      "resolved_year": 2004
+    },
+    {
+      "title": "The Aviator",
+      "year": 2004,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0338751",
+      "resolved_title": "The Aviator",
+      "resolved_year": 2004
+    },
+    {
+      "title": "The Incredibles",
+      "year": 2004,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0317705",
+      "resolved_title": "The Incredibles",
+      "resolved_year": 2004
+    },
+    {
+      "title": "The Sea Inside",
+      "year": 2004,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0369702",
+      "resolved_title": "The Sea Inside",
+      "resolved_year": 2004
+    },
+    {
+      "title": "The Story of the Weeping Camel",
+      "year": 2004,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0373861",
+      "resolved_title": "The Story of the Weeping Camel",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Tupac: Resurrection",
+      "year": 2004,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0343121",
+      "resolved_title": "Tupac: Resurrection",
+      "resolved_year": 2003
+    },
+    {
+      "title": "Twist of Faith",
+      "year": 2004,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0436857",
+      "resolved_title": "Twist of Faith",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Yesterday",
+      "year": 2004,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0419279",
+      "resolved_title": "Yesterday",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Brokeback Mountain",
+      "year": 2005,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0388795",
+      "resolved_title": "Brokeback Mountain",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Capote",
+      "year": 2005,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0379725",
+      "resolved_title": "Capote",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Crash",
+      "year": 2005,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0375679",
+      "resolved_title": "Crash",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Darwin's Nightmare",
+      "year": 2005,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0424024",
+      "resolved_title": "Darwin's Nightmare",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Don't Tell",
+      "year": 2005,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0443446",
+      "resolved_title": "Don't Tell",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Enron: The Smartest Guys in the Room",
+      "year": 2005,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1016268",
+      "resolved_title": "Enron: The Smartest Guys in the Room",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Good Night, and Good Luck.",
+      "year": 2005,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0433383",
+      "resolved_title": "Good Night, and Good Luck.",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Howl's Moving Castle",
+      "year": 2005,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0347149",
+      "resolved_title": "Howl's Moving Castle",
+      "resolved_year": 2004
+    },
+    {
+      "title": "Joyeux Noel",
+      "year": 2005,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0424205",
+      "resolved_title": "Joyeux Noel",
+      "resolved_year": 2005
+    },
+    {
+      "title": "March of the Penguins",
+      "year": 2005,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0428803",
+      "resolved_title": "March of the Penguins",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Munich",
+      "year": 2005,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0408306",
+      "resolved_title": "Munich",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Paradise Now",
+      "year": 2005,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0445620",
+      "resolved_title": "Paradise Now",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Sophie Scholl - The Final Days",
+      "year": 2005,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0426578",
+      "resolved_title": "Sophie Scholl: The Final Days",
+      "resolved_year": 2005
+    },
+    {
+      "title": "Tsotsi",
+      "year": 2005,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0468565",
+      "resolved_title": "Tsotsi",
+      "resolved_year": 2005
+    },
+    {
+      "title": "After the Wedding",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0457655",
+      "resolved_title": "After the Wedding",
+      "resolved_year": 2006
+    },
+    {
+      "title": "An Inconvenient Truth",
+      "year": 2006,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0497116",
+      "resolved_title": "An Inconvenient Truth",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Babel",
+      "year": 2006,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0449467",
+      "resolved_title": "Babel",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Cars",
+      "year": 2006,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0317219",
+      "resolved_title": "Cars",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Deliver Us from Evil",
+      "year": 2006,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0814075",
+      "resolved_title": "Deliver Us from Evil",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Happy Feet",
+      "year": 2006,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0366548",
+      "resolved_title": "Happy Feet",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Iraq in Fragments",
+      "year": 2006,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0492466",
+      "resolved_title": "Iraq in Fragments",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Jesus Camp",
+      "year": 2006,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0486358",
+      "resolved_title": "Jesus Camp",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Letters from Iwo Jima",
+      "year": 2006,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0498380",
+      "resolved_title": "Letters from Iwo Jima",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Little Miss Sunshine",
+      "year": 2006,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0449059",
+      "resolved_title": "Little Miss Sunshine",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Monster House",
+      "year": 2006,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0385880",
+      "resolved_title": "Monster House",
+      "resolved_year": 2006
+    },
+    {
+      "title": "My Country, My Country",
+      "year": 2006,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4425258",
+      "resolved_title": "My Country, My Country",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Pan's Labyrinth",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0457430",
+      "resolved_title": "Pan's Labyrinth",
+      "resolved_year": 2006
+    },
+    {
+      "title": "The Departed",
+      "year": 2006,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0407887",
+      "resolved_title": "The Departed",
+      "resolved_year": 2006
+    },
+    {
+      "title": "The Lives of Others",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0405094",
+      "resolved_title": "The Lives of Others",
+      "resolved_year": 2006
+    },
+    {
+      "title": "The Queen",
+      "year": 2006,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0436697",
+      "resolved_title": "The Queen",
+      "resolved_year": 2006
+    },
+    {
+      "title": "Atonement",
+      "year": 2007,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0783233",
+      "resolved_title": "Atonement",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Beaufort",
+      "year": 2007,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0758732",
+      "resolved_title": "Beaufort",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Juno",
+      "year": 2007,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0467406",
+      "resolved_title": "Juno",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Katyn",
+      "year": 2007,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0879843",
+      "resolved_title": "Katyn",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Michael Clayton",
+      "year": 2007,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0465538",
+      "resolved_title": "Michael Clayton",
+      "resolved_year": 2007
+    },
+    {
+      "title": "No Country for Old Men",
+      "year": 2007,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0477348",
+      "resolved_title": "No Country for Old Men",
+      "resolved_year": 2007
+    },
+    {
+      "title": "No End in Sight",
+      "year": 2007,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0912593",
+      "resolved_title": "No End in Sight",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Operation Homecoming: Writing the Wartime Experience",
+      "year": 2007,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0970184",
+      "resolved_title": "Operation Homecoming: Writing the Wartime Experience",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Persepolis",
+      "year": 2007,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0808417",
+      "resolved_title": "Persepolis",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Ratatouille",
+      "year": 2007,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0382932",
+      "resolved_title": "Ratatouille",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Sicko",
+      "year": 2007,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0386032",
+      "resolved_title": "Sicko",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Surf's Up",
+      "year": 2007,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0423294",
+      "resolved_title": "Surf's Up",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Taxi to the Dark Side",
+      "year": 2007,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0854678",
+      "resolved_title": "Taxi to the Dark Side",
+      "resolved_year": 2007
+    },
+    {
+      "title": "The Counterfeiters",
+      "year": 2007,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0813547",
+      "resolved_title": "The Counterfeiters",
+      "resolved_year": 2007
+    },
+    {
+      "title": "There Will Be Blood",
+      "year": 2007,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0469494",
+      "resolved_title": "There Will Be Blood",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Bolt",
+      "year": 2008,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0397892",
+      "resolved_title": "Bolt",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Departures",
+      "year": 2008,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1069238",
+      "resolved_title": "Departures",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Encounters at the End of the World",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1093824",
+      "resolved_title": "Encounters at the End of the World",
+      "resolved_year": 2007
+    },
+    {
+      "title": "Frost/Nixon",
+      "year": 2008,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0870111",
+      "resolved_title": "Frost/Nixon",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Kung Fu Panda",
+      "year": 2008,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0441773",
+      "resolved_title": "Kung Fu Panda",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Man on Wire",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1155592",
+      "resolved_title": "Man on Wire",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Milk",
+      "year": 2008,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1013753",
+      "resolved_title": "Milk",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Revanche",
+      "year": 2008,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1173745",
+      "resolved_title": "Revanche",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Slumdog Millionaire",
+      "year": 2008,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt1010048",
+      "resolved_title": "Slumdog Millionaire",
+      "resolved_year": 2008
+    },
+    {
+      "title": "The Baader Meinhof Complex",
+      "year": 2008,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0765432",
+      "resolved_title": "The Baader Meinhof Complex",
+      "resolved_year": 2008
+    },
+    {
+      "title": "The Class",
+      "year": 2008,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1068646",
+      "resolved_title": "The Class",
+      "resolved_year": 2008
+    },
+    {
+      "title": "The Curious Case of Benjamin Button",
+      "year": 2008,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0421715",
+      "resolved_title": "The Curious Case of Benjamin Button",
+      "resolved_year": 2008
+    },
+    {
+      "title": "The Reader",
+      "year": 2008,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0976051",
+      "resolved_title": "The Reader",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Trouble the Water",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1149405",
+      "resolved_title": "Trouble the Water",
+      "resolved_year": 2008
+    },
+    {
+      "title": "WALL-E",
+      "year": 2008,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0910970",
+      "resolved_title": "WALL·E",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Waltz with Bashir",
+      "year": 2008,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1185616",
+      "resolved_title": "Waltz with Bashir",
+      "resolved_year": 2008
+    },
+    {
+      "title": "A Prophet",
+      "year": 2009,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1235166",
+      "resolved_title": "A Prophet",
+      "resolved_year": 2009
+    },
+    {
+      "title": "A Serious Man",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1019452",
+      "resolved_title": "A Serious Man",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Ajami",
+      "year": 2009,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1077262",
+      "resolved_title": "Ajami",
+      "resolved_year": 2009
+    },
+    {
+      "title": "An Education",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1174732",
+      "resolved_title": "An Education",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Avatar",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0499549",
+      "resolved_title": "Avatar",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Coraline",
+      "year": 2009,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0327597",
+      "resolved_title": "Coraline",
+      "resolved_year": 2009
+    },
+    {
+      "title": "District 9",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1136608",
+      "resolved_title": "District 9",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Fantastic Mr. Fox",
+      "year": 2009,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0432283",
+      "resolved_title": "Fantastic Mr. Fox",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Food, Inc.",
+      "year": 2009,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1286537",
+      "resolved_title": "Food, Inc.",
+      "resolved_year": 2008
+    },
+    {
+      "title": "Inglourious Basterds",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0361748",
+      "resolved_title": "Inglourious Basterds",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The Blind Side",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0878804",
+      "resolved_title": "The Blind Side",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The Cove",
+      "year": 2009,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1313104",
+      "resolved_title": "The Cove",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The Hurt Locker",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt0887912",
+      "resolved_title": "The Hurt Locker",
+      "resolved_year": 2008
+    },
+    {
+      "title": "The Milk of Sorrow",
+      "year": 2009,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1206488",
+      "resolved_title": "The Milk of Sorrow",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The Most Dangerous Man in America: Daniel Ellsberg and the Pentagon Papers",
+      "year": 2009,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1319726",
+      "resolved_title": "The Most Dangerous Man in America: Daniel Ellsberg and the Pentagon Papers",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The Princess and the Frog",
+      "year": 2009,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0780521",
+      "resolved_title": "The Princess and the Frog",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The Secret in Their Eyes",
+      "year": 2009,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1305806",
+      "resolved_title": "The Secret in Their Eyes",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The Secret of Kells",
+      "year": 2009,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0485601",
+      "resolved_title": "The Secret of Kells",
+      "resolved_year": 2009
+    },
+    {
+      "title": "The White Ribbon",
+      "year": 2009,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1149362",
+      "resolved_title": "The White Ribbon",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Up",
+      "year": 2009,
+      "signals": [
+        "Academy Animated Feature Film winner",
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1049413",
+      "resolved_title": "Up",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Up in the Air",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1193138",
+      "resolved_title": "Up in the Air",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Which Way Home",
+      "year": 2009,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0489342",
+      "resolved_title": "Which Way Home",
+      "resolved_year": 2009
+    },
+    {
+      "title": "127 Hours",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1542344",
+      "resolved_title": "127 Hours",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Biutiful",
+      "year": 2010,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1164999",
+      "resolved_title": "Biutiful",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Black Swan",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0947798",
+      "resolved_title": "Black Swan",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Dogtooth",
+      "year": 2010,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1379182",
+      "resolved_title": "Dogtooth",
+      "resolved_year": 2009
+    },
+    {
+      "title": "Exit through the Gift Shop",
+      "year": 2010,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1587707",
+      "resolved_title": "Exit Through the Gift Shop",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Gasland",
+      "year": 2010,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1558250",
+      "resolved_title": "GasLand",
+      "resolved_year": 2010
+    },
+    {
+      "title": "How to Train Your Dragon",
+      "year": 2010,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0892769",
+      "resolved_title": "How to Train Your Dragon",
+      "resolved_year": 2010
+    },
+    {
+      "title": "In a Better World",
+      "year": 2010,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1340107",
+      "resolved_title": "In a Better World",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Incendies",
+      "year": 2010,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1255953",
+      "resolved_title": "Incendies",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Inception",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1375666",
+      "resolved_title": "Inception",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Inside Job",
+      "year": 2010,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1645089",
+      "resolved_title": "Inside Job",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Restrepo",
+      "year": 2010,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1559549",
+      "resolved_title": "Restrepo",
+      "resolved_year": 2010
+    },
+    {
+      "title": "The Fighter",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0964517",
+      "resolved_title": "The Fighter",
+      "resolved_year": 2010
+    },
+    {
+      "title": "The Illusionist",
+      "year": 2010,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0775489",
+      "resolved_title": "The Illusionist",
+      "resolved_year": 2010
+    },
+    {
+      "title": "The Kids Are All Right",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0842926",
+      "resolved_title": "The Kids Are All Right",
+      "resolved_year": 2010
+    },
+    {
+      "title": "The King's Speech",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt1504320",
+      "resolved_title": "The King's Speech",
+      "resolved_year": 2010
+    },
+    {
+      "title": "The Social Network",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1285016",
+      "resolved_title": "The Social Network",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Toy Story 3",
+      "year": 2010,
+      "signals": [
+        "Academy Animated Feature Film winner",
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt0435761",
+      "resolved_title": "Toy Story 3",
+      "resolved_year": 2010
+    },
+    {
+      "title": "True Grit",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1403865",
+      "resolved_title": "True Grit",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Waste Land",
+      "year": 2010,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1268204",
+      "resolved_title": "Waste Land",
+      "resolved_year": 2010
+    },
+    {
+      "title": "Winter's Bone",
+      "year": 2010,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1399683",
+      "resolved_title": "Winter's Bone",
+      "resolved_year": 2010
+    },
+    {
+      "title": "A Cat in Paris",
+      "year": 2011,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1673702",
+      "resolved_title": "A Cat in Paris",
+      "resolved_year": 2010
+    },
+    {
+      "title": "A Separation",
+      "year": 2011,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1832382",
+      "resolved_title": "A Separation",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Bullhead",
+      "year": 2011,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1821593",
+      "resolved_title": "Bullhead",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Extremely Loud & Incredibly Close",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0477302",
+      "resolved_title": "Extremely Loud & Incredibly Close",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Footnote",
+      "year": 2011,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1445520",
+      "resolved_title": "Footnote",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Hell and Back Again",
+      "year": 2011,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1748043",
+      "resolved_title": "Hell and Back Again",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Hugo",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0970179",
+      "resolved_title": "Hugo",
+      "resolved_year": 2011
+    },
+    {
+      "title": "If a Tree Falls: A Story of the Earth Liberation Front",
+      "year": 2011,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1787725",
+      "resolved_title": "If a Tree Falls: A Story of the Earth Liberation Front",
+      "resolved_year": 2011
+    },
+    {
+      "title": "In Darkness",
+      "year": 2011,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1417075",
+      "resolved_title": "In Darkness",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Kung Fu Panda 2",
+      "year": 2011,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1302011",
+      "resolved_title": "Kung Fu Panda 2",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Midnight in Paris",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1605783",
+      "resolved_title": "Midnight in Paris",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Moneyball",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1210166",
+      "resolved_title": "Moneyball",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Monsieur Lazhar",
+      "year": 2011,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2011971",
+      "resolved_title": "Monsieur Lazhar",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Paradise Lost 3: Purgatory",
+      "year": 2011,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2028530",
+      "resolved_title": "Paradise Lost 3: Purgatory",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Pina",
+      "year": 2011,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1440266",
+      "resolved_title": "Pina",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Puss in Boots",
+      "year": 2011,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0448694",
+      "resolved_title": "Puss in Boots",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Rango",
+      "year": 2011,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1192628",
+      "resolved_title": "Rango",
+      "resolved_year": 2011
+    },
+    {
+      "title": "The Artist",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt1655442",
+      "resolved_title": "The Artist",
+      "resolved_year": 2011
+    },
+    {
+      "title": "The Descendants",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1033575",
+      "resolved_title": "The Descendants",
+      "resolved_year": 2011
+    },
+    {
+      "title": "The Help",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1454029",
+      "resolved_title": "The Help",
+      "resolved_year": 2011
+    },
+    {
+      "title": "The Tree of Life",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0478304",
+      "resolved_title": "The Tree of Life",
+      "resolved_year": 2011
+    },
+    {
+      "title": "Undefeated",
+      "year": 2011,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1860355",
+      "resolved_title": "Undefeated",
+      "resolved_year": 2011
+    },
+    {
+      "title": "War Horse",
+      "year": 2011,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1568911",
+      "resolved_title": "War Horse",
+      "resolved_year": 2011
+    },
+    {
+      "title": "5 Broken Cameras",
+      "year": 2012,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2125423",
+      "resolved_title": "5 Broken Cameras",
+      "resolved_year": 2011
+    },
+    {
+      "title": "A Royal Affair",
+      "year": 2012,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1276419",
+      "resolved_title": "A Royal Affair",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Amour",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee",
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1602620",
+      "resolved_title": "Amour",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Argo",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt1024648",
+      "resolved_title": "Argo",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Beasts of the Southern Wild",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2125435",
+      "resolved_title": "Beasts of the Southern Wild",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Brave",
+      "year": 2012,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1217209",
+      "resolved_title": "Brave",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Django Unchained",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1853728",
+      "resolved_title": "Django Unchained",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Frankenweenie",
+      "year": 2012,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1142977",
+      "resolved_title": "Frankenweenie",
+      "resolved_year": 2012
+    },
+    {
+      "title": "How to Survive a Plague",
+      "year": 2012,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2124803",
+      "resolved_title": "How to Survive a Plague",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Kon-Tiki",
+      "year": 2012,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1613750",
+      "resolved_title": "Kon-Tiki",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Life of Pi",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0454876",
+      "resolved_title": "Life of Pi",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Lincoln",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0443272",
+      "resolved_title": "Lincoln",
+      "resolved_year": 2012
+    },
+    {
+      "title": "No",
+      "year": 2012,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2059255",
+      "resolved_title": "No",
+      "resolved_year": 2012
+    },
+    {
+      "title": "ParaNorman",
+      "year": 2012,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1623288",
+      "resolved_title": "ParaNorman",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Searching for Sugar Man",
+      "year": 2012,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2125608",
+      "resolved_title": "Searching for Sugar Man",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Silver Linings Playbook",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1045658",
+      "resolved_title": "Silver Linings Playbook",
+      "resolved_year": 2012
+    },
+    {
+      "title": "The Gatekeepers",
+      "year": 2012,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2309788",
+      "resolved_title": "The Gatekeepers",
+      "resolved_year": 2012
+    },
+    {
+      "title": "The Invisible War",
+      "year": 2012,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2120152",
+      "resolved_title": "The Invisible War",
+      "resolved_year": 2012
+    },
+    {
+      "title": "The Pirates! Band of Misfits",
+      "year": 2012,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1430626",
+      "resolved_title": "The Pirates! Band of Misfits",
+      "resolved_year": 2012
+    },
+    {
+      "title": "War Witch",
+      "year": 2012,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1820488",
+      "resolved_title": "War Witch",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Wreck-It Ralph",
+      "year": 2012,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1772341",
+      "resolved_title": "Wreck-It Ralph",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Zero Dark Thirty",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1790885",
+      "resolved_title": "Zero Dark Thirty",
+      "resolved_year": 2012
+    },
+    {
+      "title": "12 Years a Slave",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt2024544",
+      "resolved_title": "12 Years a Slave",
+      "resolved_year": 2013
+    },
+    {
+      "title": "20 Feet from Stardom",
+      "year": 2013,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2396566",
+      "resolved_title": "20 Feet from Stardom",
+      "resolved_year": 2013
+    },
+    {
+      "title": "American Hustle",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1800241",
+      "resolved_title": "American Hustle",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Captain Phillips",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1535109",
+      "resolved_title": "Captain Phillips",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Cutie and the Boxer",
+      "year": 2013,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2355540",
+      "resolved_title": "Cutie and the Boxer",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Dallas Buyers Club",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0790636",
+      "resolved_title": "Dallas Buyers Club",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Despicable Me 2",
+      "year": 2013,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1690953",
+      "resolved_title": "Despicable Me 2",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Dirty Wars",
+      "year": 2013,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2532528",
+      "resolved_title": "Dirty Wars",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Ernest & Celestine",
+      "year": 2013,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1816518",
+      "resolved_title": "Ernest & Celestine",
+      "resolved_year": 2012
+    },
+    {
+      "title": "Frozen",
+      "year": 2013,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2294629",
+      "resolved_title": "Frozen",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Gravity",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1454468",
+      "resolved_title": "Gravity",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Her",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1798709",
+      "resolved_title": "Her",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Nebraska",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1821549",
+      "resolved_title": "Nebraska",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Omar",
+      "year": 2013,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2852406",
+      "resolved_title": "Omar",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Philomena",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2431286",
+      "resolved_title": "Philomena",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Act of Killing",
+      "year": 2013,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2375605",
+      "resolved_title": "The Act of Killing",
+      "resolved_year": 2012
+    },
+    {
+      "title": "The Broken Circle Breakdown",
+      "year": 2013,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2024519",
+      "resolved_title": "The Broken Circle Breakdown",
+      "resolved_year": 2012
+    },
+    {
+      "title": "The Croods",
+      "year": 2013,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0481499",
+      "resolved_title": "The Croods",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Great Beauty",
+      "year": 2013,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2358891",
+      "resolved_title": "The Great Beauty",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Hunt",
+      "year": 2013,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2106476",
+      "resolved_title": "The Hunt",
+      "resolved_year": 2012
+    },
+    {
+      "title": "The Missing Picture",
+      "year": 2013,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2852470",
+      "resolved_title": "The Missing Picture",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Square",
+      "year": 2013,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2486682",
+      "resolved_title": "The Square",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Wind Rises",
+      "year": 2013,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2013293",
+      "resolved_title": "The Wind Rises",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Wolf of Wall Street",
+      "year": 2013,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0993846",
+      "resolved_title": "The Wolf of Wall Street",
+      "resolved_year": 2013
+    },
+    {
+      "title": "American Sniper",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2179136",
+      "resolved_title": "American Sniper",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Big Hero 6",
+      "year": 2014,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2245084",
+      "resolved_title": "Big Hero 6",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Birdman or (The Unexpected Virtue of Ignorance)",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt2562232",
+      "resolved_title": "Birdman or (The Unexpected Virtue of Ignorance)",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Boyhood",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1065073",
+      "resolved_title": "Boyhood",
+      "resolved_year": 2014
+    },
+    {
+      "title": "CitizenFour",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt4044364",
+      "resolved_title": "Citizenfour",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Finding Vivian Maier",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2714900",
+      "resolved_title": "Finding Vivian Maier",
+      "resolved_year": 2013
+    },
+    {
+      "title": "How to Train Your Dragon 2",
+      "year": 2014,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1646971",
+      "resolved_title": "How to Train Your Dragon 2",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Ida",
+      "year": 2014,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2718492",
+      "resolved_title": "Ida",
+      "resolved_year": 2013
+    },
+    {
+      "title": "Last Days in Vietnam",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3279124",
+      "resolved_title": "Last Days in Vietnam",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Leviathan",
+      "year": 2014,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2802154",
+      "resolved_title": "Leviathan",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Selma",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1020072",
+      "resolved_title": "Selma",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Song of the Sea",
+      "year": 2014,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1865505",
+      "resolved_title": "Song of the Sea",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Tangerines",
+      "year": 2014,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2991224",
+      "resolved_title": "Tangerines",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Boxtrolls",
+      "year": 2014,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt0787474",
+      "resolved_title": "The Boxtrolls",
+      "resolved_year": 2014
+    },
+    {
+      "title": "The Grand Budapest Hotel",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2278388",
+      "resolved_title": "The Grand Budapest Hotel",
+      "resolved_year": 2014
+    },
+    {
+      "title": "The Imitation Game",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2084970",
+      "resolved_title": "The Imitation Game",
+      "resolved_year": 2014
+    },
+    {
+      "title": "The Salt of the Earth",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3674140",
+      "resolved_title": "The Salt of the Earth",
+      "resolved_year": 2014
+    },
+    {
+      "title": "The Tale of the Princess Kaguya",
+      "year": 2014,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2576852",
+      "resolved_title": "The Tale of The Princess Kaguya",
+      "resolved_year": 2013
+    },
+    {
+      "title": "The Theory of Everything",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2980516",
+      "resolved_title": "The Theory of Everything",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Timbuktu",
+      "year": 2014,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3409392",
+      "resolved_title": "Timbuktu",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Virunga",
+      "year": 2014,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3455224",
+      "resolved_title": "Virunga",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Whiplash",
+      "year": 2014,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2582802",
+      "resolved_title": "Whiplash",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Wild Tales",
+      "year": 2014,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3011894",
+      "resolved_title": "Wild Tales",
+      "resolved_year": 2014
+    },
+    {
+      "title": "A War",
+      "year": 2015,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3830162",
+      "resolved_title": "A War",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Amy",
+      "year": 2015,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2870648",
+      "resolved_title": "Amy",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Anomalisa",
+      "year": 2015,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2401878",
+      "resolved_title": "Anomalisa",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Bridge of Spies",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3682448",
+      "resolved_title": "Bridge of Spies",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Brooklyn",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2381111",
+      "resolved_title": "Brooklyn",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Cartel Land",
+      "year": 2015,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4126304",
+      "resolved_title": "Cartel Land",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Embrace of the Serpent",
+      "year": 2015,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4285496",
+      "resolved_title": "Embrace of the Serpent",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Inside Out",
+      "year": 2015,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2096673",
+      "resolved_title": "Inside Out",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Mad Max: Fury Road",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1392190",
+      "resolved_title": "Mad Max: Fury Road",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Mustang",
+      "year": 2015,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3966404",
+      "resolved_title": "Mustang",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Room",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3170832",
+      "resolved_title": "Room",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Shaun the Sheep Movie",
+      "year": 2015,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2872750",
+      "resolved_title": "Shaun the Sheep Movie",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Son of Saul",
+      "year": 2015,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt3808342",
+      "resolved_title": "Son of Saul",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Spotlight",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt1895587",
+      "resolved_title": "Spotlight",
+      "resolved_year": 2015
+    },
+    {
+      "title": "The Big Short",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1596363",
+      "resolved_title": "The Big Short",
+      "resolved_year": 2015
+    },
+    {
+      "title": "The Look of Silence",
+      "year": 2015,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3521134",
+      "resolved_title": "The Look of Silence",
+      "resolved_year": 2014
+    },
+    {
+      "title": "The Martian",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3659388",
+      "resolved_title": "The Martian",
+      "resolved_year": 2015
+    },
+    {
+      "title": "The Revenant",
+      "year": 2015,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1663202",
+      "resolved_title": "The Revenant",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Theeb",
+      "year": 2015,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3170902",
+      "resolved_title": "Theeb",
+      "resolved_year": 2014
+    },
+    {
+      "title": "What Happened, Miss Simone?",
+      "year": 2015,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4284010",
+      "resolved_title": "What Happened, Miss Simone?",
+      "resolved_year": 2015
+    },
+    {
+      "title": "When Marnie Was There",
+      "year": 2015,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3398268",
+      "resolved_title": "When Marnie Was There",
+      "resolved_year": 2014
+    },
+    {
+      "title": "Winter on Fire: Ukraine's Fight for Freedom",
+      "year": 2015,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4908644",
+      "resolved_title": "Winter on Fire: Ukraine's Fight for Freedom",
+      "resolved_year": 2015
+    },
+    {
+      "title": "13th",
+      "year": 2016,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5895028",
+      "resolved_title": "13th",
+      "resolved_year": 2016
+    },
+    {
+      "title": "A Man Called Ove",
+      "year": 2016,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4080728",
+      "resolved_title": "A Man Called Ove",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Arrival",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2543164",
+      "resolved_title": "Arrival",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Fences",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2671706",
+      "resolved_title": "Fences",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Fire at Sea",
+      "year": 2016,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3652526",
+      "resolved_title": "Fire at Sea",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Hacksaw Ridge",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2119532",
+      "resolved_title": "Hacksaw Ridge",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Hell or High Water",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2582782",
+      "resolved_title": "Hell or High Water",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Hidden Figures",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4846340",
+      "resolved_title": "Hidden Figures",
+      "resolved_year": 2016
+    },
+    {
+      "title": "I Am Not Your Negro",
+      "year": 2016,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5804038",
+      "resolved_title": "I Am Not Your Negro",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Kubo and the Two Strings",
+      "year": 2016,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4302938",
+      "resolved_title": "Kubo and the Two Strings",
+      "resolved_year": 2016
+    },
+    {
+      "title": "La La Land",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3783958",
+      "resolved_title": "La La Land",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Land of Mine",
+      "year": 2016,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3841424",
+      "resolved_title": "Land of Mine",
+      "resolved_year": 2015
+    },
+    {
+      "title": "Life, Animated",
+      "year": 2016,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3917210",
+      "resolved_title": "Life, Animated",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Lion",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3741834",
+      "resolved_title": "Lion",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Manchester by the Sea",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4034228",
+      "resolved_title": "Manchester by the Sea",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Moana",
+      "year": 2016,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3521164",
+      "resolved_title": "Moana",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Moonlight",
+      "year": 2016,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt4975722",
+      "resolved_title": "Moonlight",
+      "resolved_year": 2016
+    },
+    {
+      "title": "My Life as a Zucchini",
+      "year": 2016,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2321405",
+      "resolved_title": "My Life as a Zucchini",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Nocturnal Animals",
+      "year": 2016,
+      "imdb_id": "tt4550098",
+      "institutional_strength": 2,
+      "signals": [
+        "Venice Grand Jury Prize"
+      ]
+    },
+    {
+      "title": "O.J.: Made in America",
+      "year": 2016,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt5275892",
+      "resolved_title": "O.J.: Made in America",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Tanna",
+      "year": 2016,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4239726",
+      "resolved_title": "Tanna",
+      "resolved_year": 2015
+    },
+    {
+      "title": "The Red Turtle",
+      "year": 2016,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3666024",
+      "resolved_title": "The Red Turtle",
+      "resolved_year": 2016
+    },
+    {
+      "title": "The Salesman",
+      "year": 2016,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt5186714",
+      "resolved_title": "The Salesman",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Toni Erdmann",
+      "year": 2016,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4048272",
+      "resolved_title": "Toni Erdmann",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Zootopia",
+      "year": 2016,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2948356",
+      "resolved_title": "Zootopia",
+      "resolved_year": 2016
+    },
+    {
+      "title": "A Fantastic Woman",
+      "year": 2017,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt5639354",
+      "resolved_title": "A Fantastic Woman",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Abacus: Small Enough to Jail",
+      "year": 2017,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5952382",
+      "resolved_title": "Abacus: Small Enough to Jail",
+      "resolved_year": 2016
+    },
+    {
+      "title": "Call Me by Your Name",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5726616",
+      "resolved_title": "Call Me by Your Name",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Coco",
+      "year": 2017,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2380307",
+      "resolved_title": "Coco",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Darkest Hour",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4555426",
+      "resolved_title": "Darkest Hour",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Dunkirk",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5013056",
+      "resolved_title": "Dunkirk",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Faces Places",
+      "year": 2017,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5598102",
+      "resolved_title": "Faces Places",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Ferdinand",
+      "year": 2017,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3411444",
+      "resolved_title": "Ferdinand",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Get Out",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5052448",
+      "resolved_title": "Get Out",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Icarus",
+      "year": 2017,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt6333060",
+      "resolved_title": "Icarus",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Lady Bird",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4925292",
+      "resolved_title": "Lady Bird",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Last Men in Aleppo",
+      "year": 2017,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6333074",
+      "resolved_title": "Last Men in Aleppo",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Loveless",
+      "year": 2017,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6304162",
+      "resolved_title": "Loveless",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Loving Vincent",
+      "year": 2017,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3262342",
+      "resolved_title": "Loving Vincent",
+      "resolved_year": 2017
+    },
+    {
+      "title": "On Body and Soul",
+      "year": 2017,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5607714",
+      "resolved_title": "On Body and Soul",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Phantom Thread",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5776858",
+      "resolved_title": "Phantom Thread",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Strong Island",
+      "year": 2017,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5873150",
+      "resolved_title": "Strong Island",
+      "resolved_year": 2017
+    },
+    {
+      "title": "The Boss Baby",
+      "year": 2017,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3874544",
+      "resolved_title": "The Boss Baby",
+      "resolved_year": 2017
+    },
+    {
+      "title": "The Breadwinner",
+      "year": 2017,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3901826",
+      "resolved_title": "The Breadwinner",
+      "resolved_year": 2017
+    },
+    {
+      "title": "The Insult",
+      "year": 2017,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7048622",
+      "resolved_title": "The Insult",
+      "resolved_year": 2017
+    },
+    {
+      "title": "The Post",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6294822",
+      "resolved_title": "The Post",
+      "resolved_year": 2017
+    },
+    {
+      "title": "The Shape of Water",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt5580390",
+      "resolved_title": "The Shape of Water",
+      "resolved_year": 2017
+    },
+    {
+      "title": "The Square",
+      "year": 2017,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4995790",
+      "resolved_title": "The Square",
+      "resolved_year": 2017
+    },
+    {
+      "title": "Three Billboards outside Ebbing, Missouri",
+      "year": 2017,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5027774",
+      "resolved_title": "Three Billboards Outside Ebbing, Missouri",
+      "resolved_year": 2017
+    },
+    {
+      "title": "A Star Is Born",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1517451",
+      "resolved_title": "A Star Is Born",
+      "resolved_year": 2018
+    },
+    {
+      "title": "BlacKkKlansman",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7349662",
+      "resolved_title": "BlacKkKlansman",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Black Panther",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1825683",
+      "resolved_title": "Black Panther",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Bohemian Rhapsody",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1727824",
+      "resolved_title": "Bohemian Rhapsody",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Capernaum",
+      "year": 2018,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8267604",
+      "resolved_title": "Capernaum",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Cold War",
+      "year": 2018,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6543652",
+      "resolved_title": "Cold War",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Free Solo",
+      "year": 2018,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt7775622",
+      "resolved_title": "Free Solo",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Green Book",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt6966692",
+      "resolved_title": "Green Book",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Hale County This Morning, This Evening",
+      "year": 2018,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6634646",
+      "resolved_title": "Hale County This Morning, This Evening",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Incredibles 2",
+      "year": 2018,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3606756",
+      "resolved_title": "Incredibles 2",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Isle of Dogs",
+      "year": 2018,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5104604",
+      "resolved_title": "Isle of Dogs",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Minding the Gap",
+      "year": 2018,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7476236",
+      "resolved_title": "Minding the Gap",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Mirai",
+      "year": 2018,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6900448",
+      "resolved_title": "Mirai",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Never Look Away",
+      "year": 2018,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5311542",
+      "resolved_title": "Never Look Away",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Of Fathers and Sons",
+      "year": 2018,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7519174",
+      "resolved_title": "Of Fathers and Sons",
+      "resolved_year": 2017
+    },
+    {
+      "title": "RBG",
+      "year": 2018,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7689964",
+      "resolved_title": "RBG",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Ralph Breaks the Internet",
+      "year": 2018,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5848272",
+      "resolved_title": "Ralph Breaks the Internet",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Roma",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture nominee",
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt6155172",
+      "resolved_title": "Roma",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Shoplifters",
+      "year": 2018,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8075192",
+      "resolved_title": "Shoplifters",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Spider-Man: Into the Spider-Verse",
+      "year": 2018,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt4633694",
+      "resolved_title": "Spider-Man: Into the Spider-Verse",
+      "resolved_year": 2018
+    },
+    {
+      "title": "The Favourite",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5083738",
+      "resolved_title": "The Favourite",
+      "resolved_year": 2018
+    },
+    {
+      "title": "Vice",
+      "year": 2018,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6266538",
+      "resolved_title": "Vice",
+      "resolved_year": 2018
+    },
+    {
+      "title": "1917",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8579674",
+      "resolved_title": "1917",
+      "resolved_year": 2019
+    },
+    {
+      "title": "American Factory",
+      "year": 2019,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt9351980",
+      "resolved_title": "American Factory",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Corpus Christi",
+      "year": 2019,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8649186",
+      "resolved_title": "Corpus Christi",
+      "resolved_year": 2019
+    },
+    {
+      "title": "For Sama",
+      "year": 2019,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9617456",
+      "resolved_title": "For Sama",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Ford v Ferrari",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1950186",
+      "resolved_title": "Ford v Ferrari",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Honeyland",
+      "year": 2019,
+      "signals": [
+        "Academy Documentary Feature Film nominee",
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8991268",
+      "resolved_title": "Honeyland",
+      "resolved_year": 2019
+    },
+    {
+      "title": "How to Train Your Dragon: The Hidden World",
+      "year": 2019,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2386490",
+      "resolved_title": "How to Train Your Dragon: The Hidden World",
+      "resolved_year": 2019
+    },
+    {
+      "title": "I Lost My Body",
+      "year": 2019,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9806192",
+      "resolved_title": "I Lost My Body",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Jojo Rabbit",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt2584384",
+      "resolved_title": "Jojo Rabbit",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Joker",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7286456",
+      "resolved_title": "Joker",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Klaus",
+      "year": 2019,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt4729430",
+      "resolved_title": "Klaus",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Les Misérables",
+      "year": 2019,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10199590",
+      "resolved_title": "Les Misérables",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Little Women",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3281548",
+      "resolved_title": "Little Women",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Marriage Story",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7653254",
+      "resolved_title": "Marriage Story",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Missing Link",
+      "year": 2019,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6348138",
+      "resolved_title": "Missing Link",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Once upon a Time...in Hollywood",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7131622",
+      "resolved_title": "Once Upon a Time in... Hollywood",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Pain and Glory",
+      "year": 2019,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8291806",
+      "resolved_title": "Pain and Glory",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Parasite",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture winner",
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt6751668",
+      "resolved_title": "Parasite",
+      "resolved_year": 2019
+    },
+    {
+      "title": "The Edge of Democracy",
+      "year": 2019,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6016744",
+      "resolved_title": "The Edge of Democracy",
+      "resolved_year": 2019
+    },
+    {
+      "title": "The Irishman",
+      "year": 2019,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1302006",
+      "resolved_title": "The Irishman",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Toy Story 4",
+      "year": 2019,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1979376",
+      "resolved_title": "Toy Story 4",
+      "resolved_year": 2019
+    },
+    {
+      "title": "A Shaun the Sheep Movie: Farmageddon",
+      "year": 2020,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt6193408",
+      "resolved_title": "A Shaun the Sheep Movie: Farmageddon",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Another Round",
+      "year": 2020,
+      "signals": [
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt10288566",
+      "resolved_title": "Another Round",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Collective",
+      "year": 2020,
+      "signals": [
+        "Academy Documentary Feature Film nominee",
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10706602",
+      "resolved_title": "Collective",
+      "resolved_year": 2019
+    },
+    {
+      "title": "Crip Camp",
+      "year": 2020,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8923484",
+      "resolved_title": "Crip Camp",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Judas and the Black Messiah",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9784798",
+      "resolved_title": "Judas and the Black Messiah",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Mank",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10618286",
+      "resolved_title": "Mank",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Minari",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10633456",
+      "resolved_title": "Minari",
+      "resolved_year": 2020
+    },
+    {
+      "title": "My Octopus Teacher",
+      "year": 2020,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt12888462",
+      "resolved_title": "My Octopus Teacher",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Nomadland",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt9770150",
+      "resolved_title": "Nomadland",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Onward",
+      "year": 2020,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7146812",
+      "resolved_title": "Onward",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Over the Moon",
+      "year": 2020,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7488208",
+      "resolved_title": "Over the Moon",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Promising Young Woman",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9620292",
+      "resolved_title": "Promising Young Woman",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Quo Vadis, Aida?",
+      "year": 2020,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8633462",
+      "resolved_title": "Quo Vadis, Aida?",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Soul",
+      "year": 2020,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2948372",
+      "resolved_title": "Soul",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Sound of Metal",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5363618",
+      "resolved_title": "Sound of Metal",
+      "resolved_year": 2019
+    },
+    {
+      "title": "The Father",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10272386",
+      "resolved_title": "The Father",
+      "resolved_year": 2020
+    },
+    {
+      "title": "The Man Who Sold His Skin",
+      "year": 2020,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10360862",
+      "resolved_title": "The Man Who Sold His Skin",
+      "resolved_year": 2020
+    },
+    {
+      "title": "The Mole Agent",
+      "year": 2020,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt11394298",
+      "resolved_title": "The Mole Agent",
+      "resolved_year": 2020
+    },
+    {
+      "title": "The Trial of the Chicago 7",
+      "year": 2020,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1070874",
+      "resolved_title": "The Trial of the Chicago 7",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Time",
+      "year": 2020,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt11416746",
+      "resolved_title": "Time",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Wolfwalkers",
+      "year": 2020,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5198068",
+      "resolved_title": "Wolfwalkers",
+      "resolved_year": 2020
+    },
+    {
+      "title": "Ascension",
+      "year": 2021,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt14505430",
+      "resolved_title": "Ascension",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Attica",
+      "year": 2021,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt12482898",
+      "resolved_title": "Attica",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Belfast",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt12789558",
+      "resolved_title": "Belfast",
+      "resolved_year": 2021
+    },
+    {
+      "title": "CODA",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt10366460",
+      "resolved_title": "CODA",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Don't Look Up",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt11286314",
+      "resolved_title": "Don't Look Up",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Drive My Car",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee",
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt14039582",
+      "resolved_title": "Drive My Car",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Dune",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1160419",
+      "resolved_title": "Dune",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Encanto",
+      "year": 2021,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt2953050",
+      "resolved_title": "Encanto",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Flee",
+      "year": 2021,
+      "signals": [
+        "Academy Animated Feature Film nominee",
+        "Academy Documentary Feature Film nominee",
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8430054",
+      "resolved_title": "Flee",
+      "resolved_year": 2021
+    },
+    {
+      "title": "King Richard",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9620288",
+      "resolved_title": "King Richard",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Licorice Pizza",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt11271038",
+      "resolved_title": "Licorice Pizza",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Luca",
+      "year": 2021,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt12801262",
+      "resolved_title": "Luca",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Nightmare Alley",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7740496",
+      "resolved_title": "Nightmare Alley",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Raya and the Last Dragon",
+      "year": 2021,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5109280",
+      "resolved_title": "Raya and the Last Dragon",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Summer of Soul (...Or, When the Revolution Could Not Be Televised)",
+      "year": 2021,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt7378922",
+      "resolved_title": "Summer of Soul (...Or, When the Revolution Could Not be Televised)",
+      "resolved_year": 2021
+    },
+    {
+      "title": "The Hand of God",
+      "year": 2021,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt12680684",
+      "resolved_title": "The Hand of God",
+      "resolved_year": 2021
+    },
+    {
+      "title": "The Mitchells vs. the Machines",
+      "year": 2021,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7979580",
+      "resolved_title": "The Mitchells vs. the Machines",
+      "resolved_year": 2021
+    },
+    {
+      "title": "The Power of the Dog",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10293406",
+      "resolved_title": "The Power of the Dog",
+      "resolved_year": 2021
+    },
+    {
+      "title": "The Worst Person in the World",
+      "year": 2021,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt10370710",
+      "resolved_title": "The Worst Person in the World",
+      "resolved_year": 2021
+    },
+    {
+      "title": "West Side Story",
+      "year": 2021,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3581652",
+      "resolved_title": "West Side Story",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Writing with Fire",
+      "year": 2021,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt13630174",
+      "resolved_title": "Writing with Fire",
+      "resolved_year": 2021
+    },
+    {
+      "title": "A House Made of Splinters",
+      "year": 2022,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt16377920",
+      "resolved_title": "A House Made of Splinters",
+      "resolved_year": 2022
+    },
+    {
+      "title": "All Quiet on the Western Front",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee",
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1016150",
+      "resolved_title": "All Quiet on the Western Front",
+      "resolved_year": 2022
+    },
+    {
+      "title": "All That Breathes",
+      "year": 2022,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt16377862",
+      "resolved_title": "All That Breathes",
+      "resolved_year": 2022
+    },
+    {
+      "title": "All the Beauty and the Bloodshed",
+      "year": 2022,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt21374850",
+      "resolved_title": "All the Beauty and the Bloodshed",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Argentina, 1985",
+      "year": 2022,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt15301048",
+      "resolved_title": "Argentina, 1985",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Avatar: The Way of Water",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1630029",
+      "resolved_title": "Avatar: The Way of Water",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Close",
+      "year": 2022,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9660502",
+      "resolved_title": "Close",
+      "resolved_year": 2022
+    },
+    {
+      "title": "EO",
+      "year": 2022,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt19652910",
+      "resolved_title": "EO",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Elvis",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3704428",
+      "resolved_title": "Elvis",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Everything Everywhere All at Once",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt6710474",
+      "resolved_title": "Everything Everywhere All at Once",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Fire of Love",
+      "year": 2022,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt16227014",
+      "resolved_title": "Fire of Love",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Guillermo del Toro's Pinocchio",
+      "year": 2022,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt1488589",
+      "resolved_title": "Guillermo del Toro's Pinocchio",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Marcel the Shell with Shoes On",
+      "year": 2022,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt15339456",
+      "resolved_title": "Marcel the Shell with Shoes On",
+      "resolved_year": 2021
+    },
+    {
+      "title": "Navalny",
+      "year": 2022,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt17041964",
+      "resolved_title": "Navalny",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Puss in Boots: The Last Wish",
+      "year": 2022,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt3915174",
+      "resolved_title": "Puss in Boots: The Last Wish",
+      "resolved_year": 2022
+    },
+    {
+      "title": "The Banshees of Inisherin",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt11813216",
+      "resolved_title": "The Banshees of Inisherin",
+      "resolved_year": 2022
+    },
+    {
+      "title": "The Fabelmans",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt14208870",
+      "resolved_title": "The Fabelmans",
+      "resolved_year": 2022
+    },
+    {
+      "title": "The Quiet Girl",
+      "year": 2022,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt15109082",
+      "resolved_title": "The Quiet Girl",
+      "resolved_year": 2022
+    },
+    {
+      "title": "The Sea Beast",
+      "year": 2022,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9288046",
+      "resolved_title": "The Sea Beast",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Top Gun: Maverick",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1745960",
+      "resolved_title": "Top Gun: Maverick",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Triangle of Sadness",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt7322224",
+      "resolved_title": "Triangle of Sadness",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Turning Red",
+      "year": 2022,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt8097030",
+      "resolved_title": "Turning Red",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Tár",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt14444726",
+      "resolved_title": "Tár",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Women Talking",
+      "year": 2022,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt13669038",
+      "resolved_title": "Women Talking",
+      "resolved_year": 2022
+    },
+    {
+      "title": "20 Days in Mariupol",
+      "year": 2023,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt24082438",
+      "resolved_title": "20 Days in Mariupol",
+      "resolved_year": 2023
+    },
+    {
+      "title": "American Fiction",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt23561236",
+      "resolved_title": "American Fiction",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Anatomy of a Fall",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt17009710",
+      "resolved_title": "Anatomy of a Fall",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Barbie",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt1517268",
+      "resolved_title": "Barbie",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Bobi Wine: The People's President",
+      "year": 2023,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt21376900",
+      "resolved_title": "Bobi Wine: The People's President",
+      "resolved_year": 2022
+    },
+    {
+      "title": "Elemental",
+      "year": 2023,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt15789038",
+      "resolved_title": "Elemental",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Four Daughters",
+      "year": 2023,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt27502426",
+      "resolved_title": "Four Daughters",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Io Capitano",
+      "year": 2023,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt14225838",
+      "resolved_title": "Io Capitano",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Killers of the Flower Moon",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5537002",
+      "resolved_title": "Killers of the Flower Moon",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Maestro",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt5535276",
+      "resolved_title": "Maestro",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Nimona",
+      "year": 2023,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt19500164",
+      "resolved_title": "Nimona",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Oppenheimer",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture winner"
+      ],
+      "institutional_strength": 3,
+      "imdb_id": "tt15398776",
+      "resolved_title": "Oppenheimer",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Past Lives",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt13238346",
+      "resolved_title": "Past Lives",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Perfect Days",
+      "year": 2023,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt27503384",
+      "resolved_title": "Perfect Days",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Poor Things",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt14230458",
+      "resolved_title": "Poor Things",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Robot Dreams",
+      "year": 2023,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt13429870",
+      "resolved_title": "Robot Dreams",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Society of the Snow",
+      "year": 2023,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt16277242",
+      "resolved_title": "Society of the Snow",
+      "resolved_year": 2023
+    },
+    {
+      "title": "Spider-Man: Across the Spider-Verse",
+      "year": 2023,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt9362722",
+      "resolved_title": "Spider-Man: Across the Spider-Verse",
+      "resolved_year": 2023
+    },
+    {
+      "title": "The Boy and the Heron",
+      "year": 2023,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt6587046",
+      "resolved_title": "The Boy and the Heron",
+      "resolved_year": 2023
+    },
+    {
+      "title": "The Eternal Memory",
+      "year": 2023,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt24082488",
+      "resolved_title": "The Eternal Memory",
+      "resolved_year": 2023
+    },
+    {
+      "title": "The Holdovers",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt14849194",
+      "resolved_title": "The Holdovers",
+      "resolved_year": 2023
+    },
+    {
+      "title": "The Teachers' Lounge",
+      "year": 2023,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt26612950",
+      "resolved_title": "The Teachers' Lounge",
+      "resolved_year": 2023
+    },
+    {
+      "title": "The Zone of Interest",
+      "year": 2023,
+      "signals": [
+        "Academy Best Picture nominee",
+        "Academy International Feature Film winner"
+      ],
+      "institutional_strength": 2,
+      "imdb_id": "tt7160372",
+      "resolved_title": "The Zone of Interest",
+      "resolved_year": 2023
+    },
+    {
+      "title": "To Kill a Tiger",
+      "year": 2023,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1,
+      "imdb_id": "tt21688772",
+      "resolved_title": "To Kill a Tiger",
+      "resolved_year": 2022
+    }
+  ],
+  "unresolved": [
+    {
+      "title": "Legacy",
+      "year": 2000,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Everybody Famous!",
+      "year": 2000,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Lagaan",
+      "year": 2001,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "El Crimen del Padre Amaro",
+      "year": 2002,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Evil",
+      "year": 2003,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Born into Brothels",
+      "year": 2004,
+      "signals": [
+        "Academy Documentary Feature Film winner"
+      ],
+      "institutional_strength": 2
+    },
+    {
+      "title": "The Chorus (Les Choristes)",
+      "year": 2004,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Wallace & Gromit in The Curse of the Were-Rabbit",
+      "year": 2005,
+      "signals": [
+        "Academy Animated Feature Film winner"
+      ],
+      "institutional_strength": 2
+    },
+    {
+      "title": "Tim Burton's Corpse Bride",
+      "year": 2005,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Murderball",
+      "year": 2005,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Street Fight",
+      "year": 2005,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Days of Glory (Indigènes)",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Water",
+      "year": 2006,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "War/Dance",
+      "year": 2007,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "12",
+      "year": 2007,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Mongol",
+      "year": 2007,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "The Betrayal (Nerakhoon)",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "The Garden",
+      "year": 2008,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Precious: Based on the Novel 'Push' by Sapphire",
+      "year": 2009,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Burma VJ",
+      "year": 2009,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Outside the Law (Hors-la-loi)",
+      "year": 2010,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Chico & Rita",
+      "year": 2011,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Les Mis_rables",
+      "year": 2012,
+      "signals": [
+        "Academy Best Picture nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Boy and the World",
+      "year": 2015,
+      "signals": [
+        "Academy Animated Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "The Cave",
+      "year": 2019,
+      "signals": [
+        "Academy Documentary Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Better Days",
+      "year": 2020,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    },
+    {
+      "title": "Lunana: A Yak in the Classroom",
+      "year": 2021,
+      "signals": [
+        "Academy International Feature Film nominee"
+      ],
+      "institutional_strength": 1
+    }
+  ],
+  "resolution_counts": {
+    "canonical": 211,
+    "cached": 269,
+    "live_imdb": 0,
+    "unresolved": 27
+  },
+  "notes": "Research-only systematic Academy film-level universe (Best Picture; International/Foreign Language; Documentary Feature; Animated Feature) from a static Oscars-derived CSV mirror, plus verified Venice seed. Acting/craft awards excluded. Existing TSPDT IDs are preferred, then previously verified Phase-B identities are reused, and only unresolved identities use exact-title IMDb suggestions."
+}

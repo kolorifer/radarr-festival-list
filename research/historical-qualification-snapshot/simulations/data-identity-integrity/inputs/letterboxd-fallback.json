@@ -1,0 +1,167 @@
+{
+  "provider": "Letterboxd public JSON-LD",
+  "observed_at": "2026-10-13T16:33:47.035262+00:00",
+  "ratings": {
+    "tt0278731": {
+      "rating": 3.4,
+      "votes": 36618,
+      "source_url": "https://letterboxd.com/film/spider/",
+      "imdb_id": "tt0278731",
+      "observed_at": "2026-10-13T16:33:47.035262+00:00"
+    },
+    "tt0499138": {
+      "rating": 3.55,
+      "votes": 207,
+      "source_url": "https://letterboxd.com/film/wolff-von-amerongen-did-he-commit-bankruptcy-offences/",
+      "imdb_id": "tt0499138",
+      "observed_at": "2026-10-13T16:33:47.035262+00:00"
+    },
+    "tt0806125": {
+      "rating": 3.73,
+      "votes": 1118,
+      "source_url": "https://letterboxd.com/film/la-morte-rouge/",
+      "imdb_id": "tt0806125",
+      "observed_at": "2026-10-13T16:33:47.035262+00:00"
+    },
+    "tt10551100": {
+      "rating": 4.1,
+      "votes": 31659,
+      "source_url": "https://letterboxd.com/film/mangrove-2020/",
+      "imdb_id": "tt10551100",
+      "observed_at": "2026-10-13T16:33:47.035262+00:00"
+    },
+    "tt10551102": {
+      "rating": 4.03,
+      "votes": 38145,
+      "source_url": "https://letterboxd.com/film/lovers-rock-2020/",
+      "imdb_id": "tt10551102",
+      "observed_at": "2026-10-13T16:33:47.035262+00:00"
+    },
+    "tt11416746": {
+      "rating": 3.75,
+      "votes": 27394,
+      "source_url": "https://letterboxd.com/film/time-2020/",
+      "imdb_id": "tt11416746",
+      "observed_at": "2026-10-13T16:33:47.035262+00:00"
+    },
+    "tt12913444": {
+      "rating": 3.52,
+      "votes": 1376,
+      "source_url": "https://letterboxd.com/film/the-inheritance-2020/",
+      "imdb_id": "tt12913444",
+      "observed_at": "2026-10-13T16:33:47.035262+00:00"
+    }
+  },
+  "records": [
+    {
+      "imdb_id": "tt0274622",
+      "title": "LaLee's Kin: The Legacy of Cotton",
+      "source_url": "https://letterboxd.com/film/lalees-kin-the-legacy-of-cotton/",
+      "page_sha256": "d6e2630a8b4dcf1a06b78d1a67a8cd93382b298b14a55157c8f790811ab76985",
+      "status": "no_published_aggregate_rating_count"
+    },
+    {
+      "imdb_id": "tt0278731",
+      "title": "Spider",
+      "source_url": "https://letterboxd.com/film/spider/",
+      "page_sha256": "255eae6d72be608244cc5ea383d1a7d58f7b49a463332f486b5172d7aab5d1d1",
+      "status": "rating_verified"
+    },
+    {
+      "imdb_id": "tt0316013",
+      "title": "Prisoner of Paradise",
+      "source_url": "https://letterboxd.com/film/prisoner-of-paradise-2002-1/",
+      "page_sha256": "aaa6106cc2019b74512818ce4f7f5171a2bb305000e94ae81ef5c6bf588e35b0",
+      "status": "no_published_aggregate_rating_count"
+    },
+    {
+      "imdb_id": "tt0499138",
+      "title": "Wolff von Amerongen: Did He Commit Bankruptcy Offences?",
+      "source_url": "https://letterboxd.com/film/wolff-von-amerongen-did-he-commit-bankruptcy-offences/",
+      "page_sha256": "e4e08aa02ea9e778cb87194f83810c6341cabdeb107bc8600f2a1616f971cf19",
+      "status": "rating_verified"
+    },
+    {
+      "imdb_id": "tt0806125",
+      "title": "La Morte rouge",
+      "source_url": "https://letterboxd.com/film/la-morte-rouge/",
+      "page_sha256": "7b278e91e124ece93c8f591f2c1e20b7978dcbabe6e4ecdaed6995c4b3033ef0",
+      "status": "rating_verified"
+    },
+    {
+      "imdb_id": "tt0970184",
+      "title": "Operation Homecoming: Writing the Wartime Experience",
+      "source_url": "https://letterboxd.com/film/operation-homecoming-writing-the-wartime-experience/",
+      "page_sha256": "b0ceaf21ffcc69027583240f06467bbcc9f817717195451a9c3406cd9fc59771",
+      "status": "no_published_aggregate_rating_count"
+    },
+    {
+      "imdb_id": "tt10551100",
+      "title": "Mangrove",
+      "source_url": "https://letterboxd.com/film/mangrove-2020/",
+      "page_sha256": "f5a8e3a703a0b50d6d66bd7c2263d39ac8f6ab32342a56bdedeeb0d229e1e16e",
+      "status": "rating_verified"
+    },
+    {
+      "imdb_id": "tt10551102",
+      "title": "Lovers Rock",
+      "source_url": "https://letterboxd.com/film/lovers-rock-2020/",
+      "page_sha256": "2562f7e55a67819547c7712ea2ddd6c33d1ee3db759f3d42ec7efb897026895c",
+      "status": "rating_verified"
+    },
+    {
+      "imdb_id": "tt11416746",
+      "title": "Time",
+      "source_url": "https://letterboxd.com/film/time-2020/",
+      "page_sha256": "b672d633c4a226571add95ade798f3af4f56b91bc67cc3797cfb16bbcb0d7bda",
+      "status": "rating_verified"
+    },
+    {
+      "imdb_id": "tt12913444",
+      "title": "The Inheritance",
+      "source_url": "https://letterboxd.com/film/the-inheritance-2020/",
+      "page_sha256": "022b21abc48c624aeee67a5009d9d6bd16a4cedfbfa6c7d8f5c45c8e03e75919",
+      "status": "rating_verified"
+    },
+    {
+      "imdb_id": "tt1380807",
+      "title": "Material",
+      "source_url": "https://letterboxd.com/film/material-2009/",
+      "page_sha256": "bf811d71c2f86da7c91fc16dcbe95546bdfd31c284766709c1060706e0cb3707",
+      "status": "no_published_aggregate_rating_count"
+    },
+    {
+      "imdb_id": "tt15176374",
+      "title": "Unpaarvayil",
+      "source_url": "https://letterboxd.com/film/unpaarvayil/",
+      "page_sha256": "c3f3188123920d881f50051678c634e4e5b48a0e46a799f216becc6f6b06799d",
+      "status": "no_published_aggregate_rating_count"
+    },
+    {
+      "imdb_id": "tt16747572",
+      "title": "The Silence of Swastika",
+      "source_url": "https://letterboxd.com/film/the-silence-of-swastika/",
+      "page_sha256": "6e75df305f8176e89a94e6498bbc91fcc027ecbad054eb63850293f415b42ae8",
+      "status": "identity_not_corroborated"
+    },
+    {
+      "imdb_id": "tt31113046",
+      "title": "Making Memories of Murder",
+      "status": "no_film_redirect"
+    },
+    {
+      "imdb_id": "tt38063392",
+      "title": "Mission Muh Dikhayi",
+      "source_url": "https://letterboxd.com/film/mission-muh-dikhayi/",
+      "page_sha256": "28a3038c9bdda21224b69c24feffc8498c05ec588123cde19cd0f1571bd74460",
+      "status": "no_published_aggregate_rating_count"
+    },
+    {
+      "imdb_id": "tt4573394",
+      "title": "Endless Corridor",
+      "source_url": "https://letterboxd.com/film/endless-corridor/",
+      "page_sha256": "68558da252928791477139a4d455ac3e411216be30384247ea8ce7fbced339c0",
+      "status": "no_published_aggregate_rating_count"
+    }
+  ]
+}

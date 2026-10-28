@@ -1,5 +1,9 @@
 # Movie List project state
 
+Historical qualification research and the read-only issues 55–56 investigation
+are retained without changing current scoring or production behavior. See the
+[consolidation report](reports/2026-10-28-historical-research-consolidation.md).
+
 The isolated shadow identity and cut research from PRs #78, #90 and #92 is
 retained under `research/identity_scoring/`; its reports and decisions are
 historical. This repository integration does not activate a pilot or change

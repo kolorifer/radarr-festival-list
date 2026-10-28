@@ -1,0 +1,636 @@
+{
+  "counts": {
+    "candidate_count": 1909,
+    "ReelDB_cached_in_universe": 1904,
+    "IMDb_available_after_fallback": 1908,
+    "Letterboxd_available": 1896,
+    "complete_IMDb_Letterboxd_pairs": 1896,
+    "incomplete_audience_pairs": 13,
+    "IMDb_official_fallback_used": 4,
+    "IMDb_seed_fallback_used": 0,
+    "Metacritic_usable": 1614,
+    "Rotten_Tomatoes_critics_usable": 1679,
+    "positive_critics_family": 1328,
+    "qualified_unchanged": 255
+  },
+  "missing_audience": [
+    {
+      "imdb_id": "tt0274622",
+      "title": "LaLee's Kin: The Legacy of Cotton",
+      "year": 2001,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 7.6,
+          "votes": 262
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt0316013",
+      "title": "Prisoner of Paradise",
+      "year": 2002,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 7.5,
+          "votes": 446
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt0499138",
+      "title": "Wolff von Amerongen: Did He Commit Bankruptcy Offences?",
+      "year": 2004,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 6.9,
+          "votes": 100
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt0970184",
+      "title": "Operation Homecoming: Writing the Wartime Experience",
+      "year": 2007,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 7.1,
+          "votes": 455
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt10551100",
+      "title": "Mangrove",
+      "year": 2020,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "IMDb official title.ratings",
+          "rating": 8.0,
+          "votes": 6189
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "ReelDB HTTP 404"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt10551102",
+      "title": "Lovers Rock",
+      "year": 2020,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "IMDb official title.ratings",
+          "rating": 7.4,
+          "votes": 5630
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "ReelDB HTTP 404"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt1380807",
+      "title": "Material",
+      "year": 2009,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 7.0,
+          "votes": 78
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt15176374",
+      "title": "Unpaarvayil",
+      "year": 2025,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 9.0,
+          "votes": 10050
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt16747572",
+      "title": "The Silence of Swastika",
+      "year": 2021,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 8.8,
+          "votes": 10710
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt31113046",
+      "title": "Making Memories of Murder",
+      "year": 2004,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "IMDb official title.ratings",
+          "rating": 7.7,
+          "votes": 22
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "ReelDB HTTP 404"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt38063392",
+      "title": "Mission Muh Dikhayi",
+      "year": 2025,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "IMDb official title.ratings",
+          "rating": 8.4,
+          "votes": 10912
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "ReelDB HTTP 404"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt4573394",
+      "title": "Endless Corridor",
+      "year": 2014,
+      "audience_coverage": {
+        "imdb": {
+          "available": true,
+          "origin": "ReelDB cached",
+          "rating": 8.0,
+          "votes": 42295
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "Cached provider absent or incomplete"
+        }
+      }
+    },
+    {
+      "imdb_id": "tt4698742",
+      "title": "La Porte Rouge",
+      "year": 2007,
+      "audience_coverage": {
+        "imdb": {
+          "available": false,
+          "origin": null,
+          "reason": "ReelDB HTTP 404"
+        },
+        "letterboxd": {
+          "available": false,
+          "origin": null,
+          "reason": "ReelDB HTTP 404"
+        }
+      }
+    }
+  ],
+  "cache_has_collection_dates": false,
+  "source_snapshot_status": {
+    "implemented_critics_groups": {
+      "efa_best_film": {
+        "url": "https://en.wikipedia.org/wiki/European_Film_Award_for_Best_Film",
+        "static_path": null,
+        "family": "european_recognition",
+        "winner_points": 40,
+        "nominee_points": 12,
+        "resolved": 141,
+        "unresolved": 11
+      },
+      "gotham_best_feature": {
+        "url": "https://en.wikipedia.org/wiki/Gotham_Independent_Film_Award_for_Best_Feature",
+        "static_path": null,
+        "family": "independent_cinema",
+        "winner_points": 35,
+        "nominee_points": 10,
+        "resolved": 114,
+        "unresolved": 1
+      },
+      "nsfc_best_picture": {
+        "url": "https://en.wikipedia.org/wiki/National_Society_of_Film_Critics_Award_for_Best_Picture",
+        "static_path": null,
+        "family": "critics_groups_consensus",
+        "winner_points": 35,
+        "nominee_points": 0,
+        "resolved": 22,
+        "unresolved": 4
+      },
+      "nyfcc_best_film": {
+        "url": "https://en.wikipedia.org/wiki/New_York_Film_Critics_Circle_Award_for_Best_Film",
+        "static_path": null,
+        "family": "critics_groups_consensus",
+        "winner_points": 35,
+        "nominee_points": 0,
+        "resolved": 26,
+        "unresolved": 0
+      },
+      "lafca_best_film": {
+        "url": "https://en.wikipedia.org/wiki/Los_Angeles_Film_Critics_Association_Award_for_Best_Film",
+        "static_path": null,
+        "family": "critics_groups_consensus",
+        "winner_points": 35,
+        "nominee_points": 0,
+        "resolved": 26,
+        "unresolved": 2
+      },
+      "critics_choice_best_picture": {
+        "url": "https://www.criticschoice.com/critics-choice-awards-archives/",
+        "static_path": "sources/critics-choice-best-picture.json",
+        "family": "critics_groups_consensus",
+        "winner_points": 25,
+        "nominee_points": 8,
+        "resolved": 234,
+        "unresolved": 29,
+        "records_parsed": 263,
+        "pages_discovered": 26
+      }
+    },
+    "unresolved_extra_awards": {
+      "efa_best_film": [
+        {
+          "year": 2000,
+          "title": "Harry, He's Here to Help",
+          "winner": false
+        },
+        {
+          "year": 2005,
+          "title": "Hidden",
+          "winner": true
+        },
+        {
+          "year": 2005,
+          "title": "Brothers",
+          "winner": false
+        },
+        {
+          "year": 2006,
+          "title": "Grbavica: Esma's Secret",
+          "winner": false
+        },
+        {
+          "year": 2007,
+          "title": "La Vie En Rose",
+          "winner": false
+        },
+        {
+          "year": 2010,
+          "title": "Honey",
+          "winner": false
+        },
+        {
+          "year": 2013,
+          "title": "Blancanieves",
+          "winner": false
+        },
+        {
+          "year": 2014,
+          "title": "Nymphomaniac – Director's Cut",
+          "winner": false
+        },
+        {
+          "year": 2017,
+          "title": "BPM (Beats per Minute)",
+          "winner": false
+        },
+        {
+          "year": 2018,
+          "title": "Girl",
+          "winner": false
+        },
+        {
+          "year": 2021,
+          "title": "Compartment No. 6",
+          "winner": false
+        }
+      ],
+      "gotham_best_feature": [
+        {
+          "year": 2021,
+          "title": "Test Pattern",
+          "winner": false
+        }
+      ],
+      "nsfc_best_picture": [
+        {
+          "year": 2006,
+          "title": "Pan's Labyrinth (El laberinto del fauno)",
+          "winner": true
+        },
+        {
+          "year": 2008,
+          "title": "Waltz with Bashir (Vals im Bashir)",
+          "winner": true
+        },
+        {
+          "year": 2014,
+          "title": "Goodbye to Language (Adieu au Langage)",
+          "winner": true
+        },
+        {
+          "year": 2019,
+          "title": "Parasite (Gisaengchung)",
+          "winner": true
+        }
+      ],
+      "nyfcc_best_film": [],
+      "lafca_best_film": [
+        {
+          "year": 2000,
+          "title": "Crouching Tiger, Hidden Dragon (Wo hu cang long)",
+          "winner": true
+        },
+        {
+          "year": 2020,
+          "title": "Small Axe",
+          "winner": true
+        }
+      ],
+      "critics_choice_best_picture": [
+        {
+          "title": "Quills",
+          "winner": false,
+          "ceremony_year": 2001,
+          "film_year_hint": 2000,
+          "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+        },
+        {
+          "title": "Thirteen Days",
+          "winner": false,
+          "ceremony_year": 2001,
+          "film_year_hint": 2000,
+          "source_url": "https://www.criticschoice.com/6th-annual-critics-choice-awards-list-of-nominees-and-winners-2001/"
+        },
+        {
+          "title": "Ali",
+          "winner": false,
+          "ceremony_year": 2002,
+          "film_year_hint": 2001,
+          "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+        },
+        {
+          "title": "Lord of the Rings: The Fellowship of the Ring",
+          "winner": false,
+          "ceremony_year": 2002,
+          "film_year_hint": 2001,
+          "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+        },
+        {
+          "title": "The Shipping News",
+          "winner": false,
+          "ceremony_year": 2002,
+          "film_year_hint": 2001,
+          "source_url": "https://www.criticschoice.com/7th-annual-critics-choice-awards-list-of-nominees-and-winners-2002/"
+        },
+        {
+          "title": "Lord of the Rings: The Two Towers",
+          "winner": false,
+          "ceremony_year": 2003,
+          "film_year_hint": 2002,
+          "source_url": "https://www.criticschoice.com/8th-annual-critics-choice-awards-list-of-nominees-and-winners-2003/"
+        },
+        {
+          "title": "In America",
+          "winner": false,
+          "ceremony_year": 2004,
+          "film_year_hint": 2003,
+          "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+        },
+        {
+          "title": "Lord of the Rings: The Return of the King",
+          "winner": true,
+          "ceremony_year": 2004,
+          "film_year_hint": 2003,
+          "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+        },
+        {
+          "title": "Master and Commander",
+          "winner": false,
+          "ceremony_year": 2004,
+          "film_year_hint": 2003,
+          "source_url": "https://www.criticschoice.com/9th-annual-critics-choice-awards-list-of-nominees-and-winners-2004/"
+        },
+        {
+          "title": "Kinsey",
+          "winner": false,
+          "ceremony_year": 2005,
+          "film_year_hint": 2004,
+          "source_url": "https://www.criticschoice.com/10th-annual-critics-choice-awards-list-of-nominees-and-winners-2005/"
+        },
+        {
+          "title": "Dreamgirls",
+          "winner": false,
+          "ceremony_year": 2007,
+          "film_year_hint": 2006,
+          "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+        },
+        {
+          "title": "Notes on a Scandal",
+          "winner": false,
+          "ceremony_year": 2007,
+          "film_year_hint": 2006,
+          "source_url": "https://www.criticschoice.com/12th-annual-critics-choice-awards-list-of-nominees-and-winners-2007/"
+        },
+        {
+          "title": "Sweeney Todd",
+          "winner": false,
+          "ceremony_year": 2008,
+          "film_year_hint": 2007,
+          "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+        },
+        {
+          "title": "The Kite Runner",
+          "winner": false,
+          "ceremony_year": 2008,
+          "film_year_hint": 2007,
+          "source_url": "https://www.criticschoice.com/13th-annual-critics-choice-awards-list-of-nominees-and-winners-2008/"
+        },
+        {
+          "title": "Nine",
+          "winner": false,
+          "ceremony_year": 2010,
+          "film_year_hint": 2009,
+          "source_url": "https://www.criticschoice.com/15th-annual-critics-choice-awards-list-of-nominees-and-winners-2010/"
+        },
+        {
+          "title": "Birdman",
+          "winner": false,
+          "ceremony_year": 2015,
+          "film_year_hint": 2014,
+          "source_url": "https://www.criticschoice.com/20th-annual-critics-choice-awards-list-of-nominees-and-winners-2015/"
+        },
+        {
+          "title": "Star Wars: The Force Awakens",
+          "winner": false,
+          "ceremony_year": 2016,
+          "film_year_hint": 2015,
+          "source_url": "https://www.criticschoice.com/21st-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+        },
+        {
+          "title": "Loving",
+          "winner": false,
+          "ceremony_year": 2016,
+          "film_year_hint": 2015,
+          "source_url": "https://www.criticschoice.com/22nd-annual-critics-choice-awards-list-of-nominees-and-winners-2016/"
+        },
+        {
+          "title": "Mary Poppins Returns",
+          "winner": false,
+          "ceremony_year": 2019,
+          "film_year_hint": 2018,
+          "source_url": "https://www.criticschoice.com/24th-annual-critics-choice-awards-list-of-nominees-and-winners-2019/"
+        },
+        {
+          "title": "Ma Rainey’s Black Bottom",
+          "winner": false,
+          "ceremony_year": 2021,
+          "film_year_hint": 2020,
+          "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+        },
+        {
+          "title": "News of the World",
+          "winner": false,
+          "ceremony_year": 2021,
+          "film_year_hint": 2020,
+          "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+        },
+        {
+          "title": "One Night in Miami",
+          "winner": false,
+          "ceremony_year": 2021,
+          "film_year_hint": 2020,
+          "source_url": "https://www.criticschoice.com/26th-annual-critics-choice-awards-list-of-nominees-and-winners-2021/"
+        },
+        {
+          "title": "Babylon",
+          "winner": false,
+          "ceremony_year": 2023,
+          "film_year_hint": 2022,
+          "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+        },
+        {
+          "title": "Glass Onion: A Knives Out Mystery",
+          "winner": false,
+          "ceremony_year": 2023,
+          "film_year_hint": 2022,
+          "source_url": "https://www.criticschoice.com/28th-annual-critics-choice-awards-list-of-nominees-and-winners-2023/"
+        },
+        {
+          "title": "Saltburn",
+          "winner": false,
+          "ceremony_year": 2024,
+          "film_year_hint": 2023,
+          "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+        },
+        {
+          "title": "The Color Purple",
+          "winner": false,
+          "ceremony_year": 2024,
+          "film_year_hint": 2023,
+          "source_url": "https://www.criticschoice.com/29th-annual-critics-choice-awards-list-of-nominees-and-winners-2024/"
+        },
+        {
+          "title": "Sing Sing",
+          "winner": false,
+          "ceremony_year": 2025,
+          "film_year_hint": 2024,
+          "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/"
+        },
+        {
+          "title": "Jay Kelly",
+          "winner": false,
+          "ceremony_year": 2026,
+          "film_year_hint": 2025,
+          "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+        },
+        {
+          "title": "Wicked: For Good",
+          "winner": false,
+          "ceremony_year": 2026,
+          "film_year_hint": 2025,
+          "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/"
+        }
+      ]
+    },
+    "unresolved_ranked": {
+      "bbc_21c": [
+        {
+          "rank": 98,
+          "title": "Dez",
+          "year": 2002
+        }
+      ],
+      "nyt_21c": [
+        {
+          "rank": 43,
+          "title": "Oldboy",
+          "year": 2005
+        }
+      ],
+      "sight_sound": []
+    }
+  },
+  "remaining_not_inferred": "Letterboxd values and broad-critic data are never guessed from IMDb or other populations."
+}
