@@ -34,10 +34,11 @@ outputs and decisions as historical material, with no scheduler or workflow
 activated. Full details and limits are in the
 [consolidation report](reports/2026-10-28-repository-consolidation.md).
 
-Two earlier CI runs reported SQLite locks in concurrent collector tests. The
-store's default lock timeout is 250 ms; a local stress check of those two tests
-completed 200 runs without a failure. This is not a fix or proof of a root
-cause, and the timeout/backpressure behavior remains an open reliability issue.
+The collector SQLite contention identified during consolidation is now addressed
+by a bounded per-Store writer queue; the regression fails on the old code and
+passes on the fix. External-lock and overload backpressure remain explicit.
+This is a repository fix, not a deployment. See the
+[implementation and regression report](reports/2026-10-28-collector-locks.md).
 
 ---
 

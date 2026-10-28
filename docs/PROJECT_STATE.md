@@ -1,5 +1,13 @@
 # Movie List project state
 
+## Collector writer contention — 2026-10-28
+
+A bounded local writer queue fixes collector threads spending SQLite's 250 ms
+lock timeout behind other transactions on the same Store. Read-only access and
+external-lock backpressure remain; no deployment was performed. The regression
+reproduces the old failure for distinct and duplicate events. See the
+[report](reports/2026-10-28-collector-locks.md).
+
 Repository consolidation is recorded in the [current status map](REPOSITORY-STATUS.md)
 and [report](reports/2026-10-28-repository-consolidation.md). The last verified
 actor revision below is historical; this consolidation did not deploy.

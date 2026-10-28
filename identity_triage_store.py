@@ -5,9 +5,10 @@ import os
 from pathlib import Path
 import sqlite3
 import stat
+import threading
 import time
 import uuid
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 
 SCHEMA_VERSION = 1
 CHANNELS = {'release_new', 'outcome', 'retained', 'seed', 'selected'}
@@ -43,11 +44,17 @@ def create_private(path):
 
 
 class Store:
-    def __init__(self, directory, max_deliveries=1_000_000, timeout=0.25):
+    def __init__(self, directory, max_deliveries=1_000_000, timeout=0.25, *, writer_timeout=2.0):
         self.directory = private_directory(directory)
         self.path = self.directory / 'inbox.sqlite3'
         self.max_deliveries = max_deliveries
         self.timeout = timeout
+        # The HTTP server shares this Store among up to eight request threads.
+        # Queue local writers before opening SQLite connections so their busy
+        # timers do not compete with our own transactions. External contention
+        # retains the separate short SQLite timeout. Reads need no writer slot.
+        self.writer_timeout = writer_timeout
+        self._writer_lock = threading.RLock()
         try:
             create_private(self.path)
         except FileExistsError:
@@ -90,17 +97,31 @@ class Store:
                 private_path(p)
 
     @contextmanager
-    def connection(self, readonly=False):
-        self.check_permissions()
-        c = sqlite3.connect(self.path.as_uri() + ('?mode=ro' if readonly else '?mode=rw'),
-                            uri=True, timeout=self.timeout, isolation_level=None)
+    def writer_slot(self):
+        if not self._writer_lock.acquire(timeout=self.writer_timeout):
+            # Preserve the service's fixed sqlite_busy/503 diagnostic contract.
+            error = sqlite3.OperationalError('local writer queue timeout')
+            error.sqlite_errorcode = sqlite3.SQLITE_BUSY
+            error.sqlite_errorname = 'SQLITE_BUSY'
+            raise error
         try:
-            c.execute('PRAGMA foreign_keys=ON')
-            c.execute('PRAGMA synchronous=FULL')
-            yield c
-            self.check_permissions()
+            yield
         finally:
-            c.close()  # uncommitted work is rolled back, including commit failures
+            self._writer_lock.release()
+
+    @contextmanager
+    def connection(self, readonly=False):
+        with nullcontext() if readonly else self.writer_slot():
+            self.check_permissions()
+            c = sqlite3.connect(self.path.as_uri() + ('?mode=ro' if readonly else '?mode=rw'),
+                                uri=True, timeout=self.timeout, isolation_level=None)
+            try:
+                c.execute('PRAGMA foreign_keys=ON')
+                c.execute('PRAGMA synchronous=FULL')
+                yield c
+                self.check_permissions()
+            finally:
+                c.close()  # Roll back/close before releasing the local writer slot.
 
     @staticmethod
     def count(c, channel, name):
