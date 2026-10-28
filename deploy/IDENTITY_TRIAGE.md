@@ -141,13 +141,15 @@ Do not point either new route at movie-intel's Telegram-forwarding webhook.
    after safe code deployment and preflight. Absent flag is off. Deploy/restart
    movie-intel using the existing runbook, preserving both reviewed bindings.
    The hook runs after context creation, before normal action handling. A daemon
-   queue holds at most32 sanitized observations. Repository code uses a six-second
+   queue holds at most32 sanitized observations. The observer uses a six-second
    socket-operation timeout, longer than the collector's five-second connection
    lifetime; no redirects/proxies. Committed observations use the durable spool
    described below and retry with the same UUID. Disabled/missing config/full queue/
    service outage never changes resolver/Telegram/action behavior. Queue loss before
-   persistence remains a documented gap. The timeout/diagnostic update is not yet
-   deployed; see the [report](../docs/reports/2026-10-28-observer-timeout.md).
+   persistence remains a documented gap. PR #108's observer module was deployed
+   on 28 October in actor `06d17aaf`, without restarting the collector or changing
+   actor/shadow configuration; see the
+   [deployment report](../docs/reports/2026-10-28-observer-deployment.md).
 6. Stage passive monitoring. Check old and new services, flags, permissions,
    `/metrics`, private journal summaries, no credential logging, and no collector
    access to action state. Do not replay a live action webhook or test an approval,
