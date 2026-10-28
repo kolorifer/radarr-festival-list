@@ -7,6 +7,20 @@ is not automatically deployed. The inventory and divergence figures below
 describe the earlier audit snapshot, before that integration; verify current PRs,
 Git revisions and service health before acting. This document does not update itself.
 
+## Integration update — 28 October 2026
+
+[PR #95](https://github.com/kolorifer/radarr-festival-list/pull/95) added this
+status map, and [PR #96](https://github.com/kolorifer/radarr-festival-list/pull/96)
+merged the deployed actor lineage into `main` at `ee8c29e`. The integration
+contains an independently reviewed retry-display improvement which has **not**
+been deployed. The production actor remains at `46cccea`; `main` is not an
+identical deployment tree. Deployment requires a separate decision.
+
+PRs #83, #84, #85 and #91 were closed as superseded because their complete heads
+are ancestors of the merged integration. PR #87 was closed after its runtime
+commit and later reports were verified in the integration. This historical
+review map below predates these closures; use the live PR list for current state.
+
 ## What is running?
 
 The `movie-intel` production actor was verified at
