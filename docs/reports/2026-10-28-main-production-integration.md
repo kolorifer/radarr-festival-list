@@ -22,7 +22,13 @@ current main status map; final deployment reports were retained from their PRs.
 
 Focused identity, source-revalidation, watched-notification, retry and approval
 suite: 59 tests passed. Scoring check passed (1,909 candidates, 387 qualified);
-pip check passed. Full integrated suite and independent review pending.
+pip check passed. Full integrated suite: 776 local tests OK (two skips), 776 seedbox tests passed.
+An independent static review found no actionable actor/collector interface defect;
+it identified outdated runbook and notification-guide descriptions, corrected
+in this integration. The first Python 3.12 CI run hit `database is locked` in
+`test_concurrent_distinct_events`; Python 3.13 passed. Seedbox and local tests passed.
+CI must pass again on the final PR head before merge; this failure is retained as
+evidence rather than silently omitted.
 No production service, state, configuration, PR disposition or research activation
 was changed. This integration commit is not a deployed revision; a deployment
 requires separate approval and preflight.

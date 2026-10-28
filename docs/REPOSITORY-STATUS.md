@@ -1,7 +1,11 @@
 # Repository status and review map
 
-Snapshot: **28 October 2026**. Verify current PRs, Git revisions and service
-health before acting; this document does not update itself.
+Snapshot: **28 October 2026**. The integration PR that contains this update
+brings the deployed actor revision into the main branch history while preserving
+main-only collector and documentation changes. The resulting integration commit
+is not automatically deployed. The inventory and divergence figures below
+describe the earlier audit snapshot, before that integration; verify current PRs,
+Git revisions and service health before acting. This document does not update itself.
 
 ## What is running?
 
