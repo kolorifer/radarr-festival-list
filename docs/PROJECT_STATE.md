@@ -1,5 +1,26 @@
 # Movie List project state
 
+## Live Movie Score — Task 4 awards-only review, 2026-10-28
+
+Issue #86 Task 4 adds `simulations/live-score-v1/task4-awards/` against preserved
+Task 3 `824ed090e93c69e7ee5af6fe7df398725d8a6056`. Exact eight-film/fourteen-
+institution inventory, dated source checks and offline Recognition comparisons
+close 49 category/edition/stage gaps; all eight Task 2 base subtotals stay unchanged.
+TIFF/screenplay remain separate, off-in-base proposals. Every film remains partial:
+complete Recognition fields null, no Audience acquisition/recalculation or overall
+scores/ranks. Source barriers and all unresolved cells are explicit.
+
+Technical verification: 18 Task 4 + 20/14/18 Task 1/2/3 tests pass (70 total),
+deterministic byte checks and 34 baseline packet/report Git/hash pins pass under
+Python3.9.6. No full runtime/supported-version CI or production verification.
+No deployment. Parent owns commit/push/new research PR linked to #86 and closed,
+unmerged #88; inherited research is prior work. Product acceptance remains pending.
+Unrelated active brief, decisions, provider enquiry, runtime/feed/catalog unchanged.
+
+[Findings](../simulations/live-score-v1/task4-awards/report.md) ·
+[Engineering report](reports/2026-10-28-live-score-v1-task4-awards.md) ·
+[Completed scoped brief](reports/2026-10-28-live-score-v1-task4-awards-brief.md).
+
 ## Live Movie Score — Task 3 source preparation, 2026-10-28
 
 Issue #86 supervisor Task 3 adds an isolated manual validation packet at
