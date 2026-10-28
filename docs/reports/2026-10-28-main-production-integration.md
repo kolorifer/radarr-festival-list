@@ -43,4 +43,8 @@ already present in the deployed actor. The integration now reads optional,
 identity-checked Radarr display context when preparing a retry notification and
 uses the same logic for the original notification. No Radarr write is performed.
 The correction is not deployed; focused watched/retry/edition tests pass (48 tests).
-The full suite must be rerun for this code change before merge.
+Final runtime validation: 778 local tests passed (two skips); the two later
+test-only additions passed in the 50-test focused suite. All 780 tests passed
+on the seedbox and Python 3.12/3.13 CI passed on `fb9259a`. No runtime code
+changed after that revision. The independent reviewer rechecked this fix and
+found no actionable regression.
