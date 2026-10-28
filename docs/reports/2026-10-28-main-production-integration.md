@@ -1,7 +1,7 @@
 # Main and production integration: engineering report
 
 **Specification:** [brief](2026-10-28-main-production-integration-brief.md).
-**Status:** integration candidate under validation; no deployment.
+**Status:** integrated changes validated; the integration revision is not deployed.
 
 Main parent includes [status-map PR #95](https://github.com/kolorifer/radarr-festival-list/pull/95).
 The second merge parent is deployed actor revision `46cccea3a119ca080e35f6cf071bd0351eba037a`.
