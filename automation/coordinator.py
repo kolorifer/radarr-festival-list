@@ -39,7 +39,7 @@ def material_value(value):
     """Observation refreshes alone are quiet; expiry/status transitions are not."""
     if isinstance(value, dict):
         return {k: material_value(v) for k, v in value.items()
-                if k not in ('observed_at', 'proposal_observed_at')}
+                if k not in ('observed_at', 'proposal_observed_at', 'read_at', 'collected_at')}
     if isinstance(value, list):
         return [material_value(v) for v in value]
     return value
@@ -199,7 +199,10 @@ def validate_snapshot(value):
                 identifier(resolution['reference']); identifier(resolution['reviewer'])
                 require(resolution['disposition'] in ('unrelated', 'superseded'), 'ci_disposition')
     local = value['local']
-    keys(local, 'consumed terminal_tasks writer_active worktrees retained dependencies preservation')
+    keys({k: v for k, v in local.items() if k != 'issue'},
+         'consumed terminal_tasks writer_active worktrees retained dependencies preservation')
+    if 'issue' in local:
+        require(type(local['issue']) is int and local['issue'] > 0, 'local_issue')
     require(local['writer_active'] is None or type(local['writer_active']) is bool, 'writer_evidence')
     for name in ('consumed', 'terminal_tasks'):
         require(local[name] is None or isinstance(local[name], list) and
@@ -850,8 +853,13 @@ def validate_state(state):
 
 
 def reconcile(snapshot, state, now):
-    validate_state(state)
     report = findings(snapshot, now)
+    return reconcile_report(report, state)
+
+
+def reconcile_report(report, state):
+    """Reconcile an already validated, allowlisted report (including staged sources)."""
+    validate_state(state)
     material = fingerprint(material_value(report))
     sections = {k: fingerprint(material_value(v)) for k, v in report.items()}
     changed_sections = sorted(k for k, v in sections.items() if state['sections'].get(k) != v)
@@ -874,7 +882,7 @@ def reconcile(snapshot, state, now):
                                   'documentation_corrections': len(report['documentation'])
                                       if 'documentation' in changed_sections else 0,
                                   'quality_reviews': sum(bool(r['findings']) for r in report['quality'])
-                                      if 'quality' in changed_sections else 0}
+                                      if 'quality' in changed_sections and isinstance(report['quality'], list) else 0}
                                  if changed else None),
                      'report': report if changed else None}
 
@@ -888,6 +896,11 @@ def render_task(snapshot, goal_id, number, author, now):
     owner, source, sections = authorized_goal(goal, snapshot)
     require(author == owner, 'untrusted_author')
     local = snapshot['local']
+    # Legacy v1 lists can only bind to one unambiguous issue. New adapters always
+    # carry the explicit issue; numbers from another issue can never satisfy it.
+    issues = {g['issue'] for g in snapshot['goals']} | {int(n) for n in snapshot['github']['comments']}
+    binding = local.get('issue', next(iter(issues)) if len(issues) == 1 else None)
+    require(binding == goal['issue'], 'local_issue_unbound_or_conflicting')
     require(local['consumed'] is not None and local['terminal_tasks'] is not None
             and local['writer_active'] is False, 'local_execution_unknown_or_active')
     comments = snapshot['github']['comments'][str(goal['issue'])]['items']
@@ -1077,14 +1090,23 @@ def main(argv=None):
             print(json.dumps({'status': 'snapshot_saved', 'revision': value['github']['revision'],
                               'observed_at': value['observed_at']}))
         elif args.command == 'report':
-            state = load(args.state) if args.state.exists() else empty_state()
-            updated, output = reconcile(load(args.snapshot), state, time.time())
-            atomic_save(args.state, updated)
+            from automation.coordinator_outbox import poll
+            from automation.coordinator_io import decode, read_bytes
+            output = poll(args.state, lambda: findings(
+                decode(read_bytes(args.snapshot.parent, args.snapshot.name)), time.time()))
+            # A state file can contain staged private movie payloads. Keep the
+            # foundation CLI's stdout public-safe even when sharing that state;
+            # exact payload recovery is an explicit local-file operation.
+            output['pending_outbox'] = [
+                {'id': item['id'], 'sha256': item['sha256'],
+                 'publication': item['publication']['status'],
+                 'recipient_delivery': item['recipient_delivery']}
+                for item in output['pending_outbox']]
             print(json.dumps(output, sort_keys=True))
         else:
             print(json.dumps(render_task(load(args.snapshot), args.goal, args.number, args.author, time.time())))
         return 0
-    except (ValueError, PolicyError, OSError, KeyError, TypeError, AttributeError):
+    except (ValueError, PolicyError, OSError, KeyError, TypeError, AttributeError, RecursionError):
         # Never echo imported text, paths, API responses or exception messages.
         print(json.dumps({'state': 'NEEDS_USER', 'reason': 'invalid_or_unavailable_input'}))
         return 1

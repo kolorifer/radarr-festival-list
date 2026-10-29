@@ -6,7 +6,11 @@ GitHub. This runner does not invoke ChatGPT Work or depend on a long conversatio
 
 The manual [Movie Project coordinator support](COORDINATOR.md) prepares validated
 work/review reports and offline task drafts. It has no executor or publication
-path and does not activate the wider agent contract. Dispatcher authority,
+path and does not activate the wider agent contract. The offline
+[staged-input/outbox integration](COORDINATOR.md#offline-integration-version-1-staged-manifest)
+adds content-bound source availability, selected read-only parent status and
+recoverable report bytes. Its [synthetic rehearsal and later-pilot runbook](COORDINATOR_PILOT.md)
+requires a separately authorized operations-only task for real inputs/publication. Dispatcher authority,
 capabilities, claims, locks, quota and publication behavior remain unchanged.
 
 ## Requirements and authentication

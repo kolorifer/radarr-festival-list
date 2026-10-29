@@ -1,5 +1,34 @@
 # Movie List project state
 
+## Movie Project offline integration — 2026-10-29, code awaiting review
+
+Issue #113 supervisor Task 1 starts clean at accepted #111/#112 merge
+`1ffa380feb63a321b6c67fdafe32b33824cb1dc4` on
+`automation/issue-113-worker`. It adds explicitly staged, content-bound source
+availability; actual full investigations/research-report contract checks;
+allowlisted issue-bound read-only parent journal export; and locked v2 durable
+report preparation with exact-byte recovery and offline parent receipt matching.
+Local checks passed 239 applicable synthetic tests, followed by the final
+120 coordinator/integration checks (44 new plus all 76 preserved foundation tests).
+Supported 3.12/3.13 CI at the later parent-published head is still required.
+Production quality/release evidence remains unavailable pending a passive producer.
+Private publication verification and recipient acknowledgement remain separate;
+no recipient interface, network sender or recurring execution owner is configured.
+
+Implementation and synthetic verification are recorded in the
+[scoped report](reports/2026-10-29-coordinator-integration.md) and
+[completed brief](reports/2026-10-29-coordinator-integration-brief.md).
+The [pilot runbook](../automation/COORDINATOR_PILOT.md) lists exact later grants,
+fresh coherent movie evidence, zero provider requests and private readback gates.
+No operational source/host/private state was inspected; no deployment, live
+pilot, schedule or daily agent activation occurred. Independent review,
+current-head supported CI, parent publication/merge and the real-input pilot
+remain separate pending steps. The unrelated `CODEX_TASK.md`, #86/#110,
+production/scoring, dispatcher/policy/receipt schema and claims remain unchanged.
+The older #111 entries below retain their historical handoff status; acceptance
+of their foundation merge is supplied by the current trusted owner task, not a
+fresh worker observation of CI or deployment.
+
 ## Movie Project coordinator support — 2026-10-29, awaiting review
 
 Issue #111 Task 1 adds a manual, proposal-only standard-library coordinator CLI
