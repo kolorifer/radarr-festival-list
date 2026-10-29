@@ -172,12 +172,21 @@ def validate_snapshot(value):
         require(goal['next_action'] in ('review', 'prepare_task', 'await_evidence', 'owner_decision', 'none'), 'next_action')
         require(isinstance(goal['evidence'], list) and len(goal['evidence']) <= 100, 'evidence_capacity')
         for evidence in goal['evidence']:
-            keys(evidence, 'stage revision observed_at reference result component configuration')
+            keys({k: v for k, v in evidence.items() if k != 'ci_resolution'},
+                 'stage revision observed_at reference result component configuration')
             require(evidence['stage'] in STAGES and evidence['result'] in ('passed', 'failed'), 'evidence_stage')
             sha(evidence['revision']); stamp(evidence['observed_at']); identifier(evidence['reference'])
             for name in ('component', 'configuration'):
                 if evidence[name] is not None:
                     identifier(evidence[name])
+            if 'ci_resolution' in evidence:
+                resolution = evidence['ci_resolution']
+                keys(resolution, 'checks_fingerprint observed_at reference reviewer disposition')
+                require(evidence['stage'] == 'test' and isinstance(resolution['checks_fingerprint'], str)
+                        and re.fullmatch('[a-f0-9]{64}', resolution['checks_fingerprint']), 'ci_resolution')
+                stamp(resolution['observed_at'])
+                identifier(resolution['reference']); identifier(resolution['reviewer'])
+                require(resolution['disposition'] in ('unrelated', 'superseded'), 'ci_disposition')
     local = value['local']
     keys(local, 'consumed terminal_tasks writer_active worktrees retained dependencies preservation')
     require(local['writer_active'] is None or type(local['writer_active']) is bool, 'writer_evidence')
@@ -211,6 +220,44 @@ def authorized_goal(goal, snapshot):
     return owner, source, sections
 
 
+def test_checks(detail, snapshot, latest, now):
+    """CI contradictions need a separate dated applicability/rerun artifact.
+
+    The artifact remains supplied evidence to inspect, never CLI-proven truth.
+    A partial read cannot be adjudicated: unseen checks remain unknown.
+    """
+    checks, head = detail['checks'], detail['head']
+    runs = [r for r in checks['items'] if r.get('head_sha') == head]
+    failed = sum(r.get('status') == 'completed' and r.get('conclusion') in
+                 ('failure', 'timed_out', 'cancelled', 'action_required', 'stale', 'startup_failure')
+                 for r in runs)
+    incomplete = sum(r.get('status') != 'completed' or r.get('conclusion') != 'success'
+                     for r in runs) - failed
+    result = ('failed' if failed else 'incomplete' if incomplete or checks['status'] != 'complete'
+              else 'success' if runs else 'absent')
+    digest = fingerprint({'head': head, 'checks': checks})
+    summary = {'read': checks['status'], 'result': result, 'failed': failed,
+               'incomplete': incomplete, 'current_head': len(runs),
+               'other_head': len(checks['items']) - len(runs),
+               'fingerprint': digest, 'resolution': 'not_needed'}
+    conflict = result in ('failed', 'incomplete')
+    if conflict:
+        summary['resolution'] = 'unresolved'
+        resolution = latest.get('ci_resolution') if latest else None
+        if (resolution and checks['status'] == 'complete'
+                and resolution['checks_fingerprint'] == digest
+                and resolution['reviewer'] != detail['author']
+                and max(snapshot['observed_at'], latest['observed_at']) <= resolution['observed_at'] <= now
+                and (resolution['disposition'] == 'unrelated'
+                     or snapshot['observed_at'] <= latest['observed_at'] <= now)
+                and resolution['reference'] != latest['reference']):
+            summary['resolution'] = resolution['disposition']
+            summary['evidence'] = resolution['reference']
+            summary['reviewer'] = resolution['reviewer']
+            summary['observed_at'] = resolution['observed_at']
+    return summary
+
+
 def stages_for(goal, snapshot, now):
     detail = snapshot['github']['details'].get(str(goal['pr']))
     head = detail['head'] if detail else (None if goal['pr'] else goal['head'])
@@ -218,7 +265,7 @@ def stages_for(goal, snapshot, now):
     for stage in STAGES:
         status = 'pending' if stage in goal['required_stages'] else 'not_applicable'
         reason = 'missing_evidence' if status == 'pending' else 'outside_approved_plan'
-        refs, observations = [], []
+        refs, observations, current = [], [], []
         if status == 'pending' and head:
             candidates = [e for e in goal['evidence'] if e['stage'] == stage]
             current = [e for e in candidates if e['revision'] == head
@@ -253,17 +300,21 @@ def stages_for(goal, snapshot, now):
                 reason = 'current_head_reviews' if rows['status'] == 'complete' else 'review_read_incomplete'
                 if rows['status'] != 'complete':
                     status = 'pending'
-            if stage == 'test' and detail and not current:
-                checks = detail['checks']
-                runs = checks['items']
-                applicable = [r for r in runs if r.get('head_sha') == head]
-                # CI is supplementary, not proof of the approved task's tests.
-                if checks['status'] == 'complete' and applicable and len(applicable) == len(runs):
-                    reason = 'current_ci_present_task_test_evidence_missing'
             if stage == 'merge' and detail:
                 status = 'passed' if detail['merged'] else 'pending'
                 reason = 'github_merge_only'
+        if stage == 'test' and detail:
+            ci = test_checks(detail, snapshot, max(current, key=lambda e: e['observed_at']) if current else None, now)
+            if status != 'not_applicable':
+                if ci['resolution'] == 'unresolved' and status != 'failed':
+                    status, reason = 'pending', 'current_ci_conflict_requires_independent_evidence'
+                elif ci['resolution'] in ('unrelated', 'superseded') and status == 'passed':
+                    reason = 'revision_bound_tests_ci_conflict_adjudicated'
+                elif not current and ci['result'] == 'success':
+                    reason = 'current_ci_present_task_test_evidence_missing'
         output[stage] = {'status': status, 'reason': reason, 'evidence': refs, 'observations': observations}
+        if stage == 'test' and detail:
+            output[stage]['ci'] = ci
     return head, output
 
 
@@ -349,10 +400,14 @@ def movie_review(snapshot, report, now):
 def quality_review(rows, now):
     output = []
     for row in rows:
-        keys(row, 'id design observed_at rating count recognition_complete score_complete identity_verified notification_state acquisition_approved')
+        keys({k: v for k, v in row.items() if k not in ('notification_type', 'action_eligible')},
+             'id design observed_at rating count recognition_complete score_complete identity_verified notification_state acquisition_approved')
         identifier(row['id'])
         require(row['design'] in ('historical', 'experimental_audience50_recognition50'), 'score_design')
         require(row['notification_state'] in ('unknown', 'proposed', 'confirmed'), 'notification_state')
+        kind, eligible = row.get('notification_type', 'unknown'), row.get('action_eligible')
+        require(kind in ('unknown', 'informational', 'identity_review', 'acquisition'), 'notification_type')
+        require(eligible is None or type(eligible) is bool, 'action_eligible')
         for field in ('recognition_complete', 'score_complete', 'identity_verified', 'acquisition_approved'):
             require(type(row[field]) is bool, 'quality_boolean')
         if row['observed_at'] is not None:
@@ -367,11 +422,20 @@ def quality_review(rows, now):
             findings.append('partial_score_not_final')
         if row['observed_at'] is None or not now - 86400 <= row['observed_at'] <= now + 300:
             findings.append('stale_or_undated')
-        if row['notification_state'] == 'confirmed' and not row['identity_verified']:
-            findings.append('notification_identity_inconsistent')
+        if kind == 'unknown' or eligible is None:
+            findings.append('notification_action_evidence_unknown')
+        if (eligible is True or kind == 'acquisition') and not row['identity_verified']:
+            findings.append('actionable_identity_unverified')
+        if kind == 'acquisition' and eligible is False:
+            findings.append('acquisition_action_ineligible')
+        if kind in ('informational', 'identity_review') and eligible is True:
+            findings.append('notification_action_inconsistent')
         if row['acquisition_approved'] and not row['identity_verified']:
             findings.append('approval_identity_inconsistent')
         output.append({'id': row['id'], 'design': row['design'], 'findings': findings,
+                       'delivery': row['notification_state'], 'identity_verified': row['identity_verified'],
+                       'notification_type': kind, 'action_eligible': eligible,
+                       'acquisition_approved': row['acquisition_approved'],
                        'action': 'review_only'})
     return output
 
@@ -500,7 +564,7 @@ def validate_state(state):
         keys(work['stages'], ' '.join(STAGES))
         require(work['authority'] in ('owner_task_bound', 'unverified_no_execution'), 'work_authority')
         for stage in work['stages'].values():
-            keys(stage, 'status reason evidence observations')
+            keys({k: v for k, v in stage.items() if k != 'ci'}, 'status reason evidence observations')
             require(stage['status'] in ('passed', 'failed', 'pending', 'not_applicable'), 'work_stage')
     for proposal in state['proposals']:
         keys(proposal, 'fingerprint status')
@@ -659,7 +723,8 @@ class PublicGitHub:
 
     def snapshot(self, issues=(111, 86), pulls=(110,)):
         require(len(issues) <= 2 and len(pulls) <= 2 and
-                all(type(n) is int and n > 0 for n in (*issues, *pulls)), 'github_targets')
+                len(set(issues)) == len(issues) and len(set(pulls)) == len(pulls) and
+                all(type(n) is int and 0 < n <= 2**31 - 1 for n in (*issues, *pulls)), 'github_targets')
         value = {'version': 1, 'repository': REPOSITORY, 'observed_at': time.time(),
                  'goals': [], 'local': dict.fromkeys(('consumed', 'terminal_tasks', 'writer_active',
                      'worktrees', 'retained', 'dependencies', 'preservation')),
@@ -671,6 +736,7 @@ class PublicGitHub:
         for number in issues:
             try:
                 row, _ = self.get(f'/issues/{number}')
+                require(row['number'] == number, 'github_issue_mismatch')
                 gh['issues']['items'] = [i for i in gh['issues']['items'] if i['number'] != number] + [self.project('/issues?', row)]
             except (OSError, ValueError, KeyError):
                 gh['issues']['status'] = 'partial'
@@ -678,10 +744,13 @@ class PublicGitHub:
         for number in pulls:
             try:
                 row, _ = self.get(f'/pulls/{number}')
+                require(row['number'] == number, 'github_pr_mismatch')
+                gh['pulls']['items'] = [p for p in gh['pulls']['items'] if p['number'] != number] + [self.project('/pulls?', row)]
                 gh['details'][str(number)] = {'head': row['head']['sha'], 'author': row['user']['login'], 'merged': row['merged'],
                     'merge_commit': row['merge_commit_sha'], 'reviews': self.pages(f'/pulls/{number}/reviews'),
                     'checks': self.pages('/commits/' + row['head']['sha'] + '/check-runs')}
             except (OSError, ValueError, KeyError):
+                gh['pulls']['status'] = 'partial'
                 pass  # Missing details stay unknown; never synthesize a closed/merged PR.
         try:
             repo, _ = self.get('')
@@ -699,6 +768,12 @@ def main(argv=None):
     sub = parser.add_subparsers(dest='command', required=True)
     network = sub.add_parser('snapshot')
     network.add_argument('--output', type=Path, required=True)
+    def target_number(value):
+        if not re.fullmatch('[1-9][0-9]{0,9}', value) or int(value) > 2**31 - 1:
+            raise argparse.ArgumentTypeError('expected a positive bounded issue/PR number')
+        return int(value)
+    network.add_argument('--issue', type=target_number, action='append')
+    network.add_argument('--pr', type=target_number, action='append')
     report = sub.add_parser('report')
     report.add_argument('--snapshot', type=Path, required=True)
     report.add_argument('--state', type=Path, required=True)
@@ -710,7 +785,8 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == 'snapshot':
-            value = PublicGitHub().snapshot()
+            value = PublicGitHub().snapshot(issues=tuple(args.issue) if args.issue is not None else (111, 86),
+                                            pulls=tuple(args.pr) if args.pr is not None else (110,))
             atomic_save(args.output, value)
             print(json.dumps({'status': 'snapshot_saved', 'revision': value['github']['revision'],
                               'observed_at': value['observed_at']}))

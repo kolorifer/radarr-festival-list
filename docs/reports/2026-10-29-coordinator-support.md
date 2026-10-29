@@ -1,5 +1,9 @@
 # Engineering report: issue #111 Task 1 — coordinator support
 
+The Task 1 record below is preserved as originally handed off. The appended
+**Task 2 correction report** records the subsequent review fixes and fresh checks;
+earlier test counts and pending-publication statements describe Task 1 only.
+
 **Specification:** [Scoped brief](2026-10-29-coordinator-support-brief.md), control
 issue #111 and latest issue-owner supervisor Task 1 supplied to this fresh worker.
 Existing D001/D005/D007/D010 research/production/approval boundaries are preserved.
@@ -205,3 +209,153 @@ responsibilities are attributed to issue #111; implementation defaults remain
 labelled. No decision log rewrite or new scoring policy. The unrelated active
 `docs/CODEX_TASK.md` is preserved per the task's explicit exception. The movie
 notification guide is unchanged because no live notification behavior changed.
+
+## Task 2 correction report — 29 October 2026
+
+**Specification:** Task 2 in the [scoped brief](2026-10-29-coordinator-support-brief.md),
+[owner task](https://github.com/kolorifer/radarr-festival-list/issues/111#issuecomment-6501726303)
+and [dated review](https://github.com/kolorifer/radarr-festival-list/issues/111#issuecomment-6501717512).
+**Result:** Three support corrections implemented, awaiting independent review
+and supported-environment CI at the parent-published revised head. Wider agent
+activation, merge, deployment and product acceptance remain pending.
+**Revision:** Existing branch `automation/issue-111-worker`, PR #112. Starting and
+worker-final Git HEAD is `9763271299a490a168b0e9bb4163d5e3130becda`; the correction
+diff is intentionally uncommitted. The parent dispatcher owns commit/push/PR/issue
+reporting and supplies the exact new head after publication. No new hash is
+claimed for these uncommitted changes.
+
+### What changed and why
+
+| File/component | Correction and evidence |
+| --- | --- |
+| `automation/coordinator.py`: quality audit | Removed the blanket delivery/identity violation. Optional notification type and acquisition eligibility default to unknown for old fixtures. Safe informational Unknown Movie and identity-review notifications can remain unresolved. Acquisition eligibility/offered action with unresolved identity, ineligible acquisition actions, type contradictions and identity-inconsistent acquisition approval have separate findings. Output preserves delivery, identity, eligibility and approval separately. |
+| `automation/coordinator.py`: test stage | Always surfaces selected-head CI read/result/counts/fingerprint, including when supplied test evidence passes. Failed/pending/partial checks leave testing pending until independent applicability evidence resolves the conflict. Failed supplied tests remain failed. Prior-head checks do not contradict current-head tests; green CI alone never establishes task-specific coverage. |
+| `automation/coordinator.py`: public snapshot | Added repeatable `--issue`/`--pr` canonical numeric selectors, at most two distinct targets each, replacing that option's defaults. Selected PR metadata is included outside the bounded listing window. Invalid, duplicate and excess selectors fail before network. Transport/repository/projection/page/request limits are preserved; selected target failures remain partial/unknown. |
+| `test_coordinator.py` | Regression fixtures for all three review findings, independent applicability and freshness/schema boundaries, selected PR projection, CLI defaults/refusals and incomplete reads. |
+| `automation/COORDINATOR.md` | Selector syntax/limits, notification semantics, CI evidence schema and conservative adjudication requirements; existing activation gates preserved. |
+| Scoped brief/report and `docs/PROJECT_STATE.md` | Task 2 authority, exact baseline, fresh verification and remaining review/CI/activation gates. Task 1 history retained. |
+
+The notification semantics follow the existing production guide's topic routing
+and confirmation-action sections; no production notification behavior changed.
+`action_eligible` specifically means acquisition eligibility, so a review-evidence
+button does not assert a download action. A verified acquisition button does not
+imply its per-release approval has been given. Unknown type/eligibility produces
+an evidence-gap finding instead of an inferred violation.
+
+The CI resolution schema is a routine conservative implementation choice, not a
+new owner policy. Optional `ci_resolution` on the latest current-head test evidence
+binds an exact checks fingerprint, separate evidence reference, independent
+reviewer, observation time and `unrelated`/`superseded` disposition. The date must
+postdate both the snapshot and tests; a superseding rerun must also have current
+tests dated at/after the snapshot. The reviewer differs from the PR author. New
+head/check content or snapshot time invalidates old adjudication. Incomplete
+collection reads cannot be overridden; reread them completely first. Even resolved
+failures remain visible as GitHub facts. The CLI validates supplied bindings, not
+the truth/authenticity of an artifact: independent inspection remains mandatory.
+Skipped/neutral or unknown check outcomes conservatively require applicability
+review rather than being assumed to cover task requirements.
+
+### Acceptance and verification
+
+The three regressions have synthetic tests. The delivered Unknown Movie case has
+no violation; unresolved acquisition actions and approval raise separate findings.
+Supplied passing tests plus current failing/pending/partial CI stay pending and
+cannot complete the owner-bound plan. Current success plus current task evidence
+can pass; stale task evidence and CI-only success cannot. Applicability evidence
+requires independent reviewer/reference, exact fingerprint and valid dates; partial
+reads, changed observations and failed tests cannot be hidden. Review, merge,
+deploy and acceptance stages remain separate. Selected PR head/reviews/checks and
+projection are tested with invalid/duplicate/over-limit argument refusal before
+network access.
+
+Fresh local command results are recorded below. A new task-local Python **3.9.6**
+virtual environment was created at `/private/tmp/coordinator-111-task2.ZKAKys/venv`.
+No supported 3.12/3.13 interpreter or project virtual environment was available;
+no packages/runtime were fetched outside the authorized public-GitHub read scope.
+Dependencies are unchanged; dependency installation and `pip check` were not run.
+
+```sh
+python3 -m venv /private/tmp/coordinator-111-task2.ZKAKys/venv
+# Commands use the new environment's Python:
+python -m unittest test_coordinator test_github_worker test_supervisor_policy test_supervisor_communication -v
+python -m unittest -v
+python -m unittest test_coordinator -v
+python production_scoring.py --check
+PYTHONPYCACHEPREFIX=/private/tmp/coordinator-111-task2.ZKAKys/pycache \
+  python -m py_compile automation/coordinator.py test_coordinator.py
+git diff --check
+```
+
+- Combined coordinator/dispatcher/policy/communication run: **155 passed in
+  88.731 seconds**, including 44 coordinator tests. After adding an additional
+  resolution-schema test and tightening regression assertions, the final
+  coordinator-only run: **45 passed in 0.522 seconds**. The implementation did
+  not change between these runs.
+- Full local suite: **675 tests in 465.148 seconds; FAILED, 109 errors, two
+  skips**. This run collected the 44-test coordinator version before the final
+  test-only additions above. Errors were missing `requests` (84), missing `bs4`
+  (nine), Python 3.9's missing `TestCase.enterContext` (ten) and SQLite error
+  attributes/constants (three), plus three synthetic HTTP `RemoteDisconnected`
+  errors. Those HTTP failures remain unverified on the supported environment;
+  they are not silently attributed to missing dependencies. Import errors mean
+  this is not proof that every repository test was collected. No full-suite
+  success is claimed for the correction diff.
+- Frozen scoring check **passed**: 1,909 candidates, 224 grandfathered, 163 new,
+  387 qualified. No scoring/catalog files changed.
+- Compilation, CLI snapshot/report/quiet replay, scoped changed-file allowlist,
+  local Markdown target checks, added-diff credential-pattern scan and
+  `git diff --check` **passed**. The complete scoped diff was inspected. The
+  privacy check covers these synthetic/public changes; it makes no claim about
+  uninspected downstream/provider logs. No state files or raw logs were added.
+
+### Bounded public PR #112 smoke and historical CI
+
+```sh
+python -m automation.coordinator snapshot --issue 111 --pr 112 \
+  --output /private/tmp/coordinator-111-task2.ZKAKys/public.json
+python -m automation.coordinator report \
+  --snapshot /private/tmp/coordinator-111-task2.ZKAKys/public.json \
+  --state /private/tmp/coordinator-111-task2.ZKAKys/cli-state.json
+# Repeat the report command with the same snapshot/state.
+```
+
+Observed at **`2026-10-29T16:05:04.340941+00:00`**:
+PR #112 head **`9763271299a490a168b0e9bb4163d5e3130becda`**, not merged,
+complete reviews (zero records) and complete checks (two completed successes).
+Default branch remained `ae11228c45ee72044f30be65e10b3fecd76b1eb1`.
+Branch/issue/PR listing reads were complete; 140 branches observed. Persisted
+allowlisted snapshot was 33,993 bytes outside the checkout. Reconciliation from
+empty state and replay of the saved state produced `changed: true` followed by
+`changed: false`; fingerprint
+`8475ec44c6bdefe6fd472496412a786c0b76494d6c3527603de706154373c2e8`.
+Delivery remained `not_confirmed`. Issue #111 Task 2's public RUNNING metadata
+was explicitly reported with worker liveness `unknown`.
+
+Read-only inspection of [Actions run 40905610701](https://github.com/kolorifer/radarr-festival-list/actions/runs/40905610701)
+verified successful Python 3.12 and 3.13 jobs at the **original** head above,
+including dependency installation/check, full unittest and frozen scorer steps.
+The run completed at `2026-10-29T15:51:46Z`. These are historical Task 1 checks,
+not CI evidence for this correction diff. Parent publication must produce the
+revised head before supported CI and independent review can verify it. No CI run
+was dispatched by the child.
+
+This smoke verifies GET/selection/projection/report behavior only. It does not
+verify parent process liveness, private runtime tests, services, notifications,
+deployment or broad coordinator activation. No raw API payload or state/log
+artifact is tracked.
+
+### Deployment, limitations and disposition
+
+No merge, deployment, host/private-state access, service/daemon/schedule change,
+notification or movie operation was authorized or performed. No dispatcher,
+authority/policy/claims/locks/quota code, issue #86/PR #110 work, scoring/catalog
+or unrelated `docs/CODEX_TASK.md` changes were made. The original Task 1 commit
+and report remain preserved; no history rewrite or branch cleanup occurred.
+
+Remaining gates are independent review of the exact new head, supported 3.12/3.13
+full-suite CI, and separate product acceptance. All original activation prerequisites
+in `automation/COORDINATOR.md` remain: accountable controller ownership, separately
+authorized private evidence mapping, durable context, dispatch liveness and delivery
+receipt interfaces, and explicitly scoped live verification. This correction is
+proposal-only support. Parent dispatcher retains commit/push/existing PR update
+and issue result ownership; worker readiness does not establish review or deployment.

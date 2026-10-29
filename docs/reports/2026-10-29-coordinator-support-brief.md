@@ -64,3 +64,36 @@ activation prerequisites. The containing parent-created commit/PR will supply th
 implementation revision; this worker does not publish it.
 
 Completed result: [engineering report](2026-10-29-coordinator-support.md).
+
+## Task 2 — bounded corrections, 29 October 2026
+
+**Authority:** Latest issue-owner `SUPERVISOR_TASK: 2`, comment `6501726303`,
+and dated independent findings in comment `6501717512` (15:53 UTC review).
+These authorize only three support corrections on existing PR #112, starting at
+`9763271299a490a168b0e9bb4163d5e3130becda` on `automation/issue-111-worker`.
+The Task 1 specification/result above remain historical records, not replay authority.
+
+1. Distinguish notification delivery, verified identity, acquisition-action
+   eligibility and separate acquisition approval. Informational unresolved Unknown
+   Movie delivery is valid; unknown action evidence remains unknown. Test safe
+   informational/review and verified actionable cases, unsafe unresolved actions
+   and acquisition approval separately. No live notification.
+2. Surface contradictory failed/incomplete current-head CI even with supplied
+   passing tests; prevent unqualified tested/completed results until independently
+   dated applicability evidence resolves the conflict. Generic green CI cannot
+   prove task-specific coverage. Preserve separate completion stages.
+3. Add bounded validated numeric CLI issue/PR selectors within the fixed public
+   repository, preserving unauthenticated GET, projections and request/page limits.
+   Test target selection and invalid/duplicate/excess inputs; smoke PR #112 and
+   record exact head/time without inferring liveness or private runtime health.
+
+Run focused coordinator/parser/policy tests, the available full-suite check and
+frozen scorer, document interpreter/CI limits, inspect privacy/docs/diff, and update
+this scoped report/guide. Only coordinator/tests and narrow documentation edits
+are authorized. All Task 2 prohibitions apply: no private/seedbox/provider access,
+movie actions, dispatcher/policy/claim changes, #86/#110 changes, cleanup task
+edits, Git publication, merge, deployment, activation or schedules. Parent runner
+owns the new commit/hash and existing PR/issue update. This correction does not
+adopt new scoring/acquisition policy or activate the wider agent.
+
+Result: see the **Task 2 correction report** in the existing engineering report.

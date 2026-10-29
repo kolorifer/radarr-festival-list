@@ -66,7 +66,7 @@ One bounded unauthenticated public read is available:
 
 ```sh
 python -m automation.coordinator snapshot \
-  --output /private/tmp/coordinator-example/public.json
+  --output /private/tmp/coordinator-example/public.json --issue 111 --pr 112
 python -m automation.coordinator report \
   --snapshot /private/tmp/coordinator-example/public.json \
   --state /private/tmp/coordinator-example/public-state.json
@@ -76,8 +76,14 @@ The public adapter is fixed to `kolorifer/radarr-festival-list`. It uses GET onl
 without inspecting credentials, environment tokens, gh authentication or proxy
 configuration. Redirects and automatic retries are disabled. Each collection is
 bounded at three pages of 50; requests at 40 total, ten seconds and 1 MiB each.
-It reads branches, all-state issues/PRs, selected issue #111/#86 comment metadata
-and PR #110 head/review/check metadata, plus repository/default-head metadata.
+It reads branches, all-state issues/PRs and repository/default-head metadata.
+`--issue NUMBER` and `--pr NUMBER` select comment and exact PR head/review/check
+metadata; each option can be repeated for at most two distinct targets. Explicit
+selections replace that option's defaults (issues #111/#86 and PR #110). Numbers
+must be canonical positive decimal integers no larger than 2147483647; duplicates,
+URLs and excess targets fail before network access. Selected issues/PRs are
+included even outside the bounded listing window. These selectors do not change
+the repository, transport, page or request limits.
 Rate limits, transport failure and page limits remain `unavailable`/`partial`,
 never authoritative absence. Each invocation is a dated observation, not an
 atomic GitHub transaction. Duplicate entries invalidate a supplied snapshot.
@@ -124,6 +130,30 @@ the accountable reviewer must inspect its underlying artifact. Evidence cannot
 authorize an action. Default required stages are **not** guessed: the supplied
 plan must come from the approved objective. Omitted stages say `not_applicable`
 with a reason. A pending stage stays pending when evidence is missing.
+
+The test stage also reports `ci`: the selected head's check counts, collection
+read status, result, exact checks fingerprint and any conflict resolution. Every
+current-head failure, pending/unknown conclusion or incomplete read is surfaced
+even with passing supplied tests. Such a conflict leaves testing pending and
+prevents overall completion; it does not declare every failed check relevant to
+the task. Prior-head checks are counted separately and do not contradict current
+tests. CI success alone still cannot establish task-specific test coverage.
+
+An optional `ci_resolution` on the latest same-head test observation documents
+independent applicability evidence. It has exactly `checks_fingerprint`,
+`observed_at`, `reference`, `reviewer`, and `disposition`. The fingerprint must
+match the reported CI fingerprint; the reviewer must differ from the PR author;
+the reference must identify a separate artifact from the test report. Its date
+must be at or after both the snapshot and test observation and no later than now.
+`disposition: unrelated` means the artifact documents why those checks do not
+apply to this task. `superseded` means an independent artifact verifies a later
+task-specific rerun; the passing test observation must also postdate the snapshot.
+Partial/unavailable check reads cannot be resolved this way: obtain a complete
+read first. Changed checks/head or a later snapshot require renewed evidence.
+Failed supplied tests remain failed. The failed/pending GitHub facts remain in
+the report even after adjudication. These are inspectable supplied assertions;
+the CLI cannot authenticate the reviewer or prove the artifact's contents. The
+supervisor must inspect the dated underlying evidence before accepting it.
 
 For an automated overall `complete` finding, the pinned owner task must explicitly
 declare its stage list, for example
@@ -218,8 +248,26 @@ requires current evidence and a known creation time within the existing report's
 48-hour window; a current version alone cannot make undated/old research fresh.
 Proposal observation time is separate from unknown provider measurement time.
 
-Quality review flags missing/undated/stale evidence, incomplete recognition/score
-subtotals and inconsistent notification/identity state. Historical scoring and the
+Quality review flags missing/undated/stale evidence and incomplete recognition/
+score subtotals. `notification_state` describes delivery (`confirmed` means
+delivered), separately from `identity_verified` and `acquisition_approved`.
+Optional `notification_type` is `informational`, `identity_review`, `acquisition`
+or `unknown`; optional `action_eligible` is a boolean or null and refers specifically
+to acquisition eligibility, not a review-evidence button. Legacy records default
+to unknown type/eligibility and receive `notification_action_evidence_unknown`,
+without an inferred identity violation. The audit reports all these facts separately.
+
+A delivered informational Unknown Movie notification with unresolved identity and
+no acquisition action is valid, as is an identity-review link without acquisition
+eligibility. Offering an acquisition action or asserting its eligibility with an
+unverified identity raises `actionable_identity_unverified`; an explicitly
+ineligible acquisition action or a type/eligibility contradiction is also flagged.
+Acquisition approval with unresolved identity independently raises
+`approval_identity_inconsistent`. Verified action eligibility does not imply
+per-release acquisition approval. These findings are fixture audits, not live
+notification routing or acquisition-policy changes; see the existing
+[notification guide](../docs/MOVIE-NOTIFICATIONS-GUIDE.md).
+Historical scoring and the
 experimental Audience 50 / Recognition 50 design remain separate. No invented
 ratings/counts, smoothing, production score promotion or provider access occurs.
 

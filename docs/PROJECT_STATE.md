@@ -20,6 +20,17 @@ earlier deployment facts below were not reverified. Issue #86 / PR #110 and the
 unrelated `CODEX_TASK.md` cleanup assignment remain unchanged. See the
 [operating guide and activation prerequisites](../automation/COORDINATOR.md).
 
+Task 2 corrects the independent review's three support findings on PR #112:
+informational unresolved notification delivery is distinct from acquisition
+eligibility/approval; current-head CI contradictions block unqualified testing
+completion pending independent applicability evidence; and bounded public CLI
+selectors can observe the actual implementation PR. Synthetic regressions and
+a public #112 smoke are recorded in the same report's Task 2 section. The smoke
+observed original head `9763271299a490a168b0e9bb4163d5e3130becda` on 29 October
+at 16:05:04 UTC; its green 3.12/3.13 CI belongs to Task 1. The revised diff awaits
+parent publication, fresh supported CI and independent review. No deployment,
+notification behavior change or broad agent activation is claimed.
+
 ## Observer timeout and diagnostics — 2026-10-28, deployed
 
 The observer's half-second socket timeout was shorter than the collector's bounded

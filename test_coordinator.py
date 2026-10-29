@@ -66,6 +66,15 @@ def evidence(stage, revision=HEAD, **changes):
     return value
 
 
+def quality(**changes):
+    value = {'id': 'synthetic-notification', 'design': 'historical', 'observed_at': NOW,
+             'rating': 7, 'count': 100, 'recognition_complete': True, 'score_complete': True,
+             'identity_verified': False, 'notification_state': 'confirmed',
+             'notification_type': 'informational', 'action_eligible': False, 'acquisition_approved': False}
+    value.update(changes)
+    return value
+
+
 def movies():
     """Actual collector export shape, with two distinct occurrences of one movie."""
     cases = []
@@ -204,6 +213,94 @@ class CoordinatorTests(unittest.TestCase):
         detail['checks']['status'] = 'partial'
         self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'pending')
 
+    def test_current_head_failed_ci_conflicts_with_supplied_pass(self):
+        goal = self.s['goals'][0]
+        goal['evidence'] = [evidence(s) for s in ('implementation', 'test', 'docs')]
+        detail = self.s['github']['details']['112']
+        detail['reviews'] = rows([{'id': 1, 'commit_id': HEAD, 'state': 'APPROVED',
+                                  'user': {'login': 'reviewer'}}])
+        detail['checks'] = rows([{'head_sha': HEAD, 'status': 'completed', 'conclusion': 'failure'}])
+        result = c.findings(self.s, NOW)['goals'][0]
+        self.assertFalse(result['complete'])
+        self.assertEqual(result['stages']['test']['status'], 'pending')
+        self.assertEqual(result['stages']['test']['ci']['failed'], 1)
+        self.assertEqual(result['stages']['review']['status'], 'passed')
+        self.assertEqual(result['stages']['merge']['status'], 'not_applicable')
+        self.assertEqual(result['stages']['deploy']['status'], 'not_applicable')
+        state, _ = c.reconcile(self.s, c.empty_state(), NOW)
+        c.validate_state(state)
+        self.assertFalse(c.reconcile(self.s, state, NOW)[1]['changed'])
+        detail['checks']['items'][0]['conclusion'] = 'success'
+        self.assertTrue(c.findings(self.s, NOW)['goals'][0]['complete'])
+
+    def test_pending_partial_and_unavailable_ci_block_supplied_pass(self):
+        self.s['goals'][0]['evidence'] = [evidence('test')]
+        for status, runs in (
+                ('complete', [{'head_sha': HEAD, 'status': 'in_progress', 'conclusion': None}]),
+                ('complete', [{'head_sha': HEAD, 'status': 'completed', 'conclusion': 'success'},
+                              {'head_sha': HEAD, 'status': 'queued', 'conclusion': None}]),
+                ('partial', [{'head_sha': HEAD, 'status': 'completed', 'conclusion': 'success'}]),
+                ('unavailable', [])):
+            with self.subTest(status=status, runs=runs):
+                self.s['github']['details']['112']['checks'] = rows(runs, status)
+                result = c.findings(self.s, NOW)['goals'][0]['stages']['test']
+                self.assertEqual(result['status'], 'pending')
+                self.assertEqual(result['ci']['result'], 'incomplete')
+
+    def test_successful_ci_supplements_current_tests_but_not_prior_head(self):
+        self.s['github']['details']['112']['checks'] = rows([
+            {'head_sha': HEAD, 'status': 'completed', 'conclusion': 'success'},
+            {'head_sha': OLD, 'status': 'completed', 'conclusion': 'failure'}])
+        self.s['goals'][0]['evidence'] = [evidence('test')]
+        result = c.findings(self.s, NOW)['goals'][0]['stages']['test']
+        self.assertEqual(result['status'], 'passed')
+        self.assertEqual(result['ci']['other_head'], 1)
+        self.s['goals'][0]['evidence'][0]['revision'] = OLD
+        self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'pending')
+
+    def test_ci_conflict_requires_bound_independent_dated_applicability(self):
+        detail = self.s['github']['details']['112']
+        detail['checks'] = rows([{'head_sha': HEAD, 'status': 'completed', 'conclusion': 'failure'}])
+        resolution = {'checks_fingerprint': c.fingerprint({'head': HEAD, 'checks': detail['checks']}),
+                      'observed_at': NOW, 'reference': 'independent-applicability-artifact',
+                      'reviewer': 'independent-reviewer', 'disposition': 'unrelated'}
+        self.s['goals'][0]['evidence'] = [evidence('test', ci_resolution=resolution)]
+        result = c.findings(self.s, NOW)['goals'][0]['stages']['test']
+        self.assertEqual(result['status'], 'passed')
+        self.assertEqual(result['ci']['result'], 'failed')  # Never rewrite GitHub's observation.
+        self.assertEqual(result['ci']['resolution'], 'unrelated')
+        for change in ({'reviewer': 'implementer'}, {'observed_at': NOW-2}, {'observed_at': NOW+1},
+                       {'checks_fingerprint': '0'*64}, {'reference': 'synthetic-evidence'}):
+            with self.subTest(change=change):
+                self.s['goals'][0]['evidence'][0]['ci_resolution'] = dict(resolution, **change)
+                self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'pending')
+        self.s['goals'][0]['evidence'][0]['ci_resolution'] = resolution
+        detail['checks']['status'] = 'partial'
+        resolution['checks_fingerprint'] = c.fingerprint({'head': HEAD, 'checks': detail['checks']})
+        self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'pending')
+        detail['checks']['status'] = 'complete'
+        resolution['checks_fingerprint'] = c.fingerprint({'head': HEAD, 'checks': detail['checks']})
+        resolution['disposition'] = 'superseded'
+        self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'pending')
+        self.s['goals'][0]['evidence'][0]['observed_at'] = NOW
+        self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'passed')
+        self.s['goals'][0]['evidence'][0]['result'] = 'failed'
+        self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'failed')
+        self.s['goals'][0]['evidence'][0]['result'] = 'passed'
+        self.s['observed_at'] += 1
+        self.assertEqual(c.findings(self.s, NOW+1)['goals'][0]['stages']['test']['status'], 'pending')
+
+    def test_ci_resolution_schema_rejects_undated_or_unsupported_assertions(self):
+        base = {'checks_fingerprint': '0'*64, 'observed_at': NOW,
+                'reference': 'independent-artifact', 'reviewer': 'reviewer', 'disposition': 'unrelated'}
+        invalid = [dict(base, disposition='ignore'), dict(base, observed_at=None),
+                   dict(base, checks_fingerprint='bad'), dict(base, extra=True),
+                   {k: v for k, v in base.items() if k != 'reviewer'}]
+        for resolution in invalid:
+            with self.subTest(resolution=resolution), self.assertRaises(ValueError):
+                self.s['goals'][0]['evidence'] = [evidence('test', ci_resolution=resolution)]
+                c.validate_snapshot(self.s)
+
     def test_merge_and_ready_never_imply_deployment(self):
         self.s['github']['details']['112'].update(merged=True, merge_commit=OLD)
         self.s['goals'][0]['required_stages'] += ['merge', 'deploy', 'live']
@@ -271,8 +368,49 @@ class CoordinatorTests(unittest.TestCase):
         self.assertEqual(len(result), 2)
         self.assertIn('partial_score_not_final', result[0]['findings'])
         self.assertIn('missing_rating_evidence', result[0]['findings'])
-        self.assertIn('notification_identity_inconsistent', result[0]['findings'])
+        self.assertIn('notification_action_evidence_unknown', result[0]['findings'])
+        self.assertIn('approval_identity_inconsistent', result[0]['findings'])
         self.assertNotIn('score', result[0])
+
+    def test_delivered_unknown_movie_is_informational_with_unresolved_identity(self):
+        result = c.quality_review([quality()], NOW)[0]
+        self.assertEqual(result['findings'], [])
+        self.assertEqual(result['delivery'], 'confirmed')
+        self.assertFalse(result['identity_verified'])
+        self.assertFalse(result['action_eligible'])
+        self.assertFalse(result['acquisition_approved'])
+        review = quality(notification_type='identity_review')
+        self.assertEqual(c.quality_review([review], NOW)[0]['findings'], [])
+
+    def test_verified_action_eligibility_does_not_imply_acquisition_approval(self):
+        row = quality(identity_verified=True, notification_type='acquisition', action_eligible=True)
+        result = c.quality_review([row], NOW)[0]
+        self.assertEqual(result['findings'], [])
+        self.assertFalse(result['acquisition_approved'])
+        row['acquisition_approved'] = True
+        self.assertEqual(c.quality_review([row], NOW)[0]['findings'], [])
+
+    def test_unresolved_acquisition_action_and_approval_are_separate_findings(self):
+        row = quality(notification_type='acquisition', action_eligible=True)
+        self.assertEqual(c.quality_review([row], NOW)[0]['findings'], ['actionable_identity_unverified'])
+        row['acquisition_approved'] = True
+        self.assertEqual(c.quality_review([row], NOW)[0]['findings'],
+                         ['actionable_identity_unverified', 'approval_identity_inconsistent'])
+        row.update(notification_type='informational', action_eligible=False)
+        self.assertEqual(c.quality_review([row], NOW)[0]['findings'], ['approval_identity_inconsistent'])
+
+    def test_unknown_notification_eligibility_stays_unknown_and_invalid_fields_fail(self):
+        row = quality(); row.pop('notification_type'); row.pop('action_eligible')
+        result = c.quality_review([row], NOW)[0]
+        self.assertEqual(result['findings'], ['notification_action_evidence_unknown'])
+        self.assertIsNone(result['action_eligible'])
+        for changes in ({'action_eligible': 1}, {'notification_type': 'arbitrary'}):
+            with self.subTest(changes=changes), self.assertRaises(ValueError):
+                c.quality_review([quality(**changes)], NOW)
+        self.assertIn('acquisition_action_ineligible', c.quality_review([
+            quality(identity_verified=True, notification_type='acquisition')], NOW)[0]['findings'])
+        self.assertIn('notification_action_inconsistent', c.quality_review([
+            quality(identity_verified=True, action_eligible=True)], NOW)[0]['findings'])
 
     def test_claim_unique_research_and_closed_pr_protection(self):
         result = {r['branch']: r for r in c.inventory(self.s)['branches']}
@@ -389,6 +527,71 @@ class CoordinatorTests(unittest.TestCase):
 
 
 class GitHubTests(unittest.TestCase):
+    def test_selected_pr_head_reviews_checks_and_projection(self):
+        adapter = c.PublicGitHub()
+        def get(path):
+            if path == '/pulls/112':
+                return {'number': 112, 'state': 'open', 'head': {'sha': HEAD, 'ref': 'automation/issue-111-worker'},
+                        'user': {'login': 'implementer'}, 'merged': False, 'merge_commit_sha': None,
+                        'body': 'UNPROJECTED'}, False
+            if path == '/issues/111':
+                return {'number': 111, 'state': 'open', 'user': {'login': 'owner'}}, False
+            if path.startswith('/pulls/112/reviews?'):
+                return [{'id': 1, 'commit_id': HEAD, 'state': 'APPROVED', 'user': {'login': 'reviewer'},
+                         'body': 'UNPROJECTED'}], False
+            if path.startswith('/commits/' + HEAD + '/check-runs?'):
+                return {'check_runs': [{'head_sha': HEAD, 'status': 'completed', 'conclusion': 'success',
+                                        'output': 'UNPROJECTED'}]}, False
+            if path == '':
+                return {'default_branch': 'main'}, False
+            if path == '/commits/main':
+                return {'sha': OLD}, False
+            return [], False
+        with patch.object(adapter, 'get', side_effect=get) as transport:
+            result = adapter.snapshot(issues=(111,), pulls=(112,))
+        detail = result['github']['details']['112']
+        self.assertEqual(detail['head'], HEAD)
+        self.assertEqual(detail['reviews']['items'][0]['commit_id'], HEAD)
+        self.assertEqual(detail['checks']['items'][0]['head_sha'], HEAD)
+        self.assertEqual(result['github']['pulls']['items'][0]['number'], 112)
+        self.assertEqual(list(result['github']['comments']), ['111'])
+        self.assertNotIn('UNPROJECTED', json.dumps(result))
+        self.assertNotIn('/pulls/110', [call.args[0] for call in transport.call_args_list])
+
+    def test_cli_selection_defaults_and_validation_before_network(self):
+        with tempfile.TemporaryDirectory() as directory:
+            args = ['snapshot', '--output', str(Path(directory) / 'snapshot.json')]
+            with patch.object(c.PublicGitHub, 'snapshot', return_value=snapshot()) as read, patch('builtins.print'):
+                self.assertEqual(c.main(args), 0)
+                read.assert_called_once_with(issues=(111, 86), pulls=(110,))
+                read.reset_mock()
+                self.assertEqual(c.main(args + ['--issue', '111', '--pr', '112']), 0)
+                read.assert_called_once_with(issues=(111,), pulls=(112,))
+            for extra in (['--pr', 'https://example.invalid'], ['--pr', '0'], ['--issue', '-1'],
+                          ['--pr', '01'], ['--pr', '2147483648'], ['--pr', '1.2'],
+                          ['--pr', '112', '--pr', '112'], ['--issue', '111', '--issue', '111'],
+                          ['--pr', '1', '--pr', '2', '--pr', '3'],
+                          ['--issue', '1', '--issue', '2', '--issue', '3']):
+                with self.subTest(extra=extra), patch.object(c.PublicGitHub, 'get') as network, \
+                        patch('sys.stderr', new_callable=io.StringIO), patch('builtins.print'):
+                    try:
+                        self.assertEqual(c.main(args + extra), 1)
+                    except SystemExit as error:
+                        self.assertEqual(error.code, 2)
+                    network.assert_not_called()
+        for options in ({'pulls': (True,)}, {'issues': (111, 111)}, {'pulls': (1, 2, 3)},
+                        {'pulls': (2**31,)}):
+            with self.subTest(options=options), patch.object(c.PublicGitHub, 'get') as network:
+                with self.assertRaises(ValueError): c.PublicGitHub().snapshot(**options)
+                network.assert_not_called()
+
+    def test_selected_pr_failure_stays_unknown(self):
+        adapter = c.PublicGitHub()
+        with patch.object(adapter, 'get', side_effect=OSError()):
+            result = adapter.snapshot(issues=(111,), pulls=(112,))
+        self.assertNotIn('112', result['github']['details'])
+        self.assertEqual(result['github']['pulls']['status'], 'partial')
+
     def test_pagination_bound_partial_not_absent(self):
         adapter = c.PublicGitHub()
         with patch.object(adapter, 'get', side_effect=[([branch('test')], True)] * 3) as get:
