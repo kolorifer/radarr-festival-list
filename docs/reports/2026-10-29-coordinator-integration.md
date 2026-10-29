@@ -209,3 +209,198 @@ sources compiled; the protected-file diff was empty. The exact documented
 synthetic rehearsal passed again after the final code changes. The branch HEAD
 remains the accepted starting merge; the parent will supply the publication
 commit/PR and run supported CI. No deployment or operational receipt is claimed.
+
+
+## Task 2 correction report — 29 October 2026
+
+**Specification:** [Completed Task 2 scoped brief](2026-10-29-coordinator-integration-brief.md#task-2--refresh-deduplication-and-source-write-boundary-29-october-2026),
+latest issue-owner `SUPERVISOR_TASK: 2` supplied to this fresh worker.
+**Result:** Both defects corrected; synthetic implementation verification complete,
+awaiting parent publication, independent review and current-head supported CI.
+**Repository revision:** Existing `automation/issue-113-worker`, clean starting
+HEAD `a91d848c59b144d19a2b240400474993203add2f`, retained PR #114.
+Parent owns the containing commit/push/PR/result; this worker has not published.
+**Verification date/environment:** 29 October 2026, local macOS, Python 3.9.6.
+No private input, source-system/host fact or operational state was inspected.
+
+### What changed and reproduced failures
+
+Against the exact clean starting head, synthetic staging prepared one report.
+Advancing only engineering `observed_at` by one second, regenerating bytes and
+updating matching observation/collection/SHA256 manifest pins produced
+`changed=true`, `changed_sections=['sources']`, two pending entries. Separately,
+CLI parent-export with output `<synthetic-worker-root>/113/state.json` returned
+zero and removed the journal's top-level `consumed` key by replacing its bytes.
+These reproductions ran before editing the implementation.
+
+The persistent report path now compares validated findings separately from raw
+serialization provenance. Only source metadata `sha256` and `generated_at` are
+newly omitted from comparison; existing observation/read/collection clock
+exclusions are preserved. Exact raw source-byte hash validation still runs,
+private payloads retain original hashes/times, and all other hashes remain.
+Evidence/occurrence/report versions, explicit source revisions, task/head/result
+facts, availability/freshness/reason transitions and limits remain material.
+The Task 1 guide's raw-byte-material choice is **superseded**, not evidence of
+accepted behavior: it retained exact provenance but incorrectly made normal
+refreshes consume the bounded outbox. The original Task 1 report/brief above
+remain historical evidence, including their earlier tests and pending gates.
+
+Comparison semantics are explicitly versioned in new payloads as
+`comparison_version: 2`; the state envelope/entry ID formula remain v2. A legacy
+pending-v2 payload without that marker validates against the original comparison
+v1. Its ID, material, bytes, payload hash, intent, publication evidence and
+recipient status are retained. Polling computes an in-memory semantic baseline
+from the last actual payload; a quiet refresh/restart writes no state and emits
+no report, preserving the original dated provenance. A genuine transition appends
+one new entry. Unknown comparison versions fail closed. Existing pure-v1
+reconciliation defaults remain compatible. Old validators reject new staged
+comparison-v2 reports; readers must be upgraded with writers. No downgrade or
+historical payload reconstruction is attempted.
+
+The committed pre-correction fixture was generated with the actual starting-head
+outbox and synthetic source producer helpers, before the correction. Its exact
+file SHA256 is `dd6cff17bd2f31169800d6cd033069e0e89daabace776355275c5e08bfdf05cc`.
+It contains one unacknowledged synthetic pending-v2 entry with an explicit intent,
+not fabricated historical or operational bytes/receipt. Regressions recover it
+unchanged through refresh/restart, append a material change without altering it,
+and separately bind a synthetic receipt to its original payload/hash/intent.
+Private publication and recipient delivery remain separate facts.
+
+The parent-export CLI now refuses outputs at or beneath the caller's worker root
+before any write. It opens source/output directories without following symlinks,
+checks resolved path exclusion plus source/destination ancestor filesystem
+identity (including case-insensitive aliases), and rejects symlink, traversal,
+hardlink and nonregular destinations. A separate existing staged directory is
+supported. Mode600 temporary writes, replacement and fsync use the pinned output
+directory FD, preventing a later path alias from redirecting a write into source
+journals. No source directory/journal is created or modified. Failures use only
+the existing fixed sanitized error. Bounded source reads remain unchanged.
+The containing directories must remain stable/trusted as already required by
+the staged local workflow; this is not a hostile same-account isolation boundary.
+
+### Files and components changed
+
+| Component | Change |
+| --- | --- |
+| `automation/coordinator_sources.py` | Scoped report material projection; retains raw provenance in original payload. |
+| `automation/coordinator.py` | Optional report materializer; existing default semantics/assertions retained. |
+| `automation/coordinator_outbox.py` | Versioned material validation and transient baseline from immutable last payload. |
+| `automation/coordinator_integration.py` | Source-root exclusion and no-follow, pinned-directory parent export writes. |
+| `test_coordinator_integration.py`, `tests/fixtures/coordinator-pending-v2-task1.json` | Sixteen added synthetic regression methods and exact pre-correction pending fixture. |
+| Coordinator guide/pilot runbook, project state, scoped brief/report | Corrected semantics, compatibility, test evidence and remaining gates. |
+
+No original test/assertion was removed or changed. `test_coordinator.py`, parent
+exporter/read helpers, dispatcher, supervisor protocol/policy, terminal-receipt
+schema, claims/locks/quota/publication implementation, scoring/catalog, #86/#110,
+research packets, delivery state and unrelated `docs/CODEX_TASK.md` are unchanged.
+
+### Acceptance criteria and evidence
+
+| Criterion | Result / evidence |
+| --- | --- |
+| 1: exact baseline and scope | Clean branch/HEAD verified; Task 1 history/PR retained; changes confined to authorized helpers/tests/docs. |
+| 2–3: quiet source refresh and compatibility | Engineering observation, newer unchanged parent export and coherent movie generation refresh all regenerate bytes/pins, stay fresh, return unchanged across a new interpreter, preserve pending bytes/ID/hash and state bytes. Actual evidence, occurrence version, explicit revision, engineering head/test result and freshness/availability changes append appropriate reports. Incorrect raw pins still reject. Legacy pending bytes and exact receipt binding tested. |
+| 4: CLI source-write boundary | Direct state/execution/terminal/new-source output, source-root output, symlink ancestors/final/cyclic/dangling links, traversal, case alias, hardlinks and FIFO rejected with exact fixed error; all synthetic source bytes/mtimes/file sets unchanged. Separate staged output succeeds and remains mode600. |
+| 5: required checks | Scoped tests, frozen-scoring and diff/compile/docs verification recorded below. Supported current-head full CI still required. |
+| 6: handoff | Task 2 brief/report appended; guide/pilot/project state updated; historical Task 1 evidence retained and old choice marked superseded. |
+| 7: publication/operation | Worker diff ready; parent owns retained PR #114 update. No merge, deployment, pilot, private publication or recipient-delivery claim. |
+
+### Tests run and results
+
+Actual commands:
+
+```sh
+python3 -m unittest test_coordinator test_coordinator_integration -q
+python3 -m unittest test_coordinator_integration.RefreshTests test_coordinator_integration.ParentExportCLITests -v
+python3 -m unittest test_coordinator_integration.ParentExportCLITests -v
+python3 -m unittest test_coordinator_integration.RefreshTests.test_engineering_head_and_test_result_changes_remain_material test_coordinator_integration.OutboxTests.test_precorrection_pending_v2_receipt_binds_original_bytes -v
+python3 -m unittest test_coordinator_integration test_coordinator test_github_worker test_supervisor_policy test_supervisor_communication test_identity_automation.HandoffTests -q
+python3 production_scoring.py --check
+PYTHONPYCACHEPREFIX=/private/tmp/issue113-task2-pycache python3 -m py_compile automation/coordinator.py automation/coordinator_sources.py automation/coordinator_outbox.py automation/coordinator_integration.py test_coordinator_integration.py
+git diff --check
+```
+
+The first preservation run passed all **120 original coordinator/integration
+tests** in 4.341 seconds. The initial added boundary set passed **13 tests**;
+then the case-alias check and two engineering/legacy-receipt checks passed.
+An intermediate combined applicable run passed **252 tests in 64.146 seconds**;
+its code preceded the final case-alias/engineering/legacy-receipt additions.
+Final containing-diff results are recorded below rather than attributed to that
+intermediate run. No failing test result is claimed as acceptance.
+
+Frozen scoring passed: **1,909 candidates, 224 grandfathered, 163 new,
+387 qualified**. Changed Python sources compiled. The exact existing synthetic
+rehearsal Python block was extracted from the pilot runbook and executed:
+first report changed, unchanged replay preserved ID/hash/bytes, read-only parent
+liveness stayed unknown and exact report recovery succeeded. Related relative
+documentation file links resolved. Source/diff/fixture review is recorded below.
+
+Only `/usr/bin/python3` 3.9.6 is on PATH; no project `.venv`/`venv`, Python 3.12
+or 3.13 executable was present in the checked standard locations. Per Task 2's
+explicit exception, unsupported full-suite failures were not repeated. No
+runtime/dependency installation or dependency change occurred; no local supported
+full-suite pass is claimed. Full Python 3.12/3.13 CI at the new parent-published
+revision is required. The owner-supplied prior-head CI at `a91d848` (1,052 tests
+per job, run 40939700511) and separate 120-test Python 3.12 check belong to
+Task 1, were not freshly queried by this worker and do not accept this correction.
+
+### Deployment result
+
+Not authorized/performed. No private input/host inspection, provider acquisition,
+source-system operation, deployment, activation, schedule/daemon change, live
+notification/movie/download test, Git publication or task-comment publication.
+Tests use synthetic task-local files, inert parent-writer fixtures and in-memory
+research stores only. No worker/runner was launched as an engineering executor.
+
+### Unexpected findings and remaining risks
+
+Final source-boundary inspection identified case-insensitive path aliases on the
+local filesystem. Resolved string comparisons alone were insufficient; directory
+identity checks now reject that alias and the local regression passes. Pending
+legacy reports cannot be relabeled to reflect later source times; quiet polls
+therefore retain their original payload rather than rewriting provenance.
+
+The outbox capacity/recipient workflow, absent production quality/release passive
+producer, unknown journal event/liveness facts and later recurring-owner inspection
+remain Task 1 gaps. This correction adds no source acquisition/sender/executor or
+product policy. Forward recovery is supported; downgrading a reader after a new
+comparison-v2 report is prepared is not supported.
+
+Next gate is parent publication on PR #114, independent exact-revision review,
+full supported current-head CI, then acceptance/merge. A real pilot requires a
+separate **operations_only** task with verified exact source/destination grants,
+a **new explicitly authorized writable derived staging/state root outside the
+parent's read-only PRIVATE_INPUTS directory**, only the **final report in the
+parent artifact output**, and the **exact receipt hash of the actual supplied
+bytes**. Source freshness/coverage, zero provider acquisition, actual private
+report/readback, restart/replay, publication and recipient delivery must each be
+verified under that later authority. No current private input or host fact is
+established by this code task. Recurrence still requires an observed scheduled
+cycle and its receipt through an inspected existing owner.
+
+### Commit/PR and project context
+
+The containing parent-published commit and existing PR #114 identify this scoped
+correction; the starting commit is pinned above. The worker leaves publication
+to the existing parent. Project state, guide/pilot and dated brief/report record
+implementation separately from independent review, supported CI, merge,
+deployment, live verification, private publication and recipient delivery.
+Decisions and the notification guide need no change because this correction does
+not adopt a new product decision or change live notification safeguards.
+The unrelated active task is preserved rather than cleared.
+
+
+Final Task 2 verification: **255 applicable tests passed in 70.311 seconds**,
+including all **120 original** coordinator/integration tests and **16 new**
+regression methods (136 coordinator/integration tests in the combined run), plus
+existing dispatcher/policy/communication/handoff checks. The final run includes
+the filesystem-identity alias correction and legacy receipt test; no local skips
+were reported. `git diff --check`, changed-Python compilation, synthetic runbook
+rehearsal, related documentation file-link checks and protected-file/scope review
+passed. The pre-correction fixture hash is unchanged. HEAD/branch are retained;
+parent publication/current-head supported CI and independent review remain pending.
+
+The canonical public [owner Task 1](https://github.com/kolorifer/radarr-festival-list/issues/113#issuecomment-6505747957)
+was also read through one bounded unauthenticated public comments endpoint; it
+provided context only. Latest supplied owner Task 2 remained the sole correction
+authority. No CI/private endpoint, credential or host token was accessed.

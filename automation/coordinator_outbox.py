@@ -10,7 +10,7 @@ import stat
 
 from automation import coordinator as c
 from automation.coordinator_io import directory, read_bytes, decode, digest, encode
-from automation.coordinator_sources import hex64
+from automation.coordinator_sources import hex64, material_report
 from automation.coordinator_parent import number
 from automation.supervisor_policy import PRIVATE_REPOSITORY, exact_path, hex_value
 from automation.terminal_receipt import validate_receipt
@@ -86,8 +86,11 @@ def validate(value):
         c.require(isinstance(item['payload'], str) and len(item['payload'].encode()) <= MAX_PAYLOAD
                   and digest(item['payload'].encode()) == item['sha256'], 'outbox_payload')
         payload = decode(item['payload'].encode())
+        comparison = payload.get('comparison_version', 1)
+        c.require(type(comparison) is int and comparison in (1, 2), 'outbox_comparison')
+        materializer = c.material_value if comparison == 1 else material_report
         c.require(payload['fingerprint'] == item['material'] and payload['changed'] is True
-                  and c.fingerprint(c.material_value(payload['report'])) == item['material'], 'outbox_payload')
+                  and c.fingerprint(materializer(payload['report'])) == item['material'], 'outbox_payload')
         c.require(item['recipient_delivery'] == 'not_configured', 'recipient_delivery')
         publication = item['publication']
         c.keys(publication, 'status intent evidence')
@@ -151,7 +154,15 @@ def poll(path, report_factory, intent=None):
         validate_intent(intent)
     with locked(path) as path:
         value = read_state(path)
-        updated, output = c.reconcile_report(report_factory(), value['reconciliation'])
+        baseline = value['reconciliation']
+        if value['outbox']:
+            # Rebase comparison only in memory from the actual last immutable
+            # payload. Never rewrite legacy IDs/bytes/hashes/intents/receipts or
+            # label its provenance as a newer observation. Quiet polls don't save.
+            previous = decode(value['outbox'][-1]['payload'].encode())['report']
+            baseline, _ = c.reconcile_report(previous, baseline, material_report)
+        updated, output = c.reconcile_report(report_factory(), baseline, material_report)
+        output['comparison_version'] = 2
         if output['changed']:
             if len(value['outbox']) >= MAX_REPORTS:
                 return {'changed': False, 'material_change_pending': True,

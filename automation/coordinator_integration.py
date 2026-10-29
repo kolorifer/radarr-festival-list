@@ -1,14 +1,73 @@
 """Offline staged coordinator CLI. No sender, task execution or runtime activation."""
 import argparse
 import json
+import os
 from pathlib import Path
+import secrets
+import stat
 import time
 
 from automation import coordinator as c
 from automation import coordinator_outbox as outbox
-from automation.coordinator_io import decode, read_bytes
+from automation.coordinator_io import decode, read_bytes, directory, encode
 from automation.coordinator_parent import export_parent
 from automation.coordinator_sources import observations, FAILURES
+
+
+def parent_export_to(root, issue, tasks, output, now):
+    """Read journals and atomically stage elsewhere via a pinned directory FD.
+
+    Reject symlink ancestors, traversal and overlapping destinations before any
+    write. Renames use the open directory, so a later path alias cannot redirect
+    the write into source journals. No source directories are created/modified.
+    """
+    root, output = Path(root).absolute(), Path(output).absolute()
+    with directory(root) as source_fd, directory(output.parent) as target:
+        source = root.resolve(strict=True)
+        # Resolve only the already-opened parent. Inspect the final entry with
+        # lstat semantics below, including dangling/cyclic symlinks.
+        destination = output.parent.resolve(strict=True) / output.name
+        c.require(source != destination and source not in destination.parents, 'parent_output')
+        checkout = Path(__file__).resolve().parent.parent
+        c.require(checkout != destination and checkout not in destination.parents, 'parent_output')
+        # Filesystem identity also catches case-insensitive aliases. Check the
+        # pinned destination's ancestors, not only their path spellings.
+        source_info = os.fstat(source_fd)
+        ancestor = os.dup(target)
+        try:
+            while True:
+                info = os.fstat(ancestor)
+                identity = (info.st_dev, info.st_ino)
+                c.require(identity != (source_info.st_dev, source_info.st_ino), 'parent_output')
+                above = os.open('..', os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=ancestor)
+                above_info = os.fstat(above)
+                os.close(ancestor)
+                ancestor = above
+                if identity == (above_info.st_dev, above_info.st_ino):
+                    break
+        finally:
+            os.close(ancestor)
+        try:
+            info = os.stat(output.name, dir_fd=target, follow_symlinks=False)
+        except FileNotFoundError:
+            pass
+        else:
+            c.require(stat.S_ISREG(info.st_mode) and info.st_nlink == 1, 'parent_output')
+        value = export_parent(root, issue, tasks, now)
+        name = '.parent-export-' + secrets.token_hex(16)
+        fd = os.open(name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
+                     0o600, dir_fd=target)
+        try:
+            with os.fdopen(fd, 'wb') as stream:
+                stream.write(encode(value)); stream.flush(); os.fsync(stream.fileno())
+            os.replace(name, output.name, src_dir_fd=target, dst_dir_fd=target)
+            os.fsync(target)
+        finally:
+            try:
+                os.unlink(name, dir_fd=target)
+            except FileNotFoundError:
+                pass
+        return value
 
 
 def public_projection(output):
@@ -93,8 +152,7 @@ def main(argv=None):
             result = public_projection(outbox.poll(args.state,
                 lambda: observations(args.root, args.manifest, time.time()), intent))
         elif args.command == 'parent-export':
-            value = export_parent(args.root, args.issue, args.task, time.time())
-            c.atomic_save(args.output, value)
+            value = parent_export_to(args.root, args.issue, args.task, args.output, time.time())
             result = {'status': value['status'], 'reason': value['reason'], 'writer_liveness': 'unknown'}
         elif args.command == 'recover':
             result = {'sha256': recover(args.state, args.id, args.output), 'status': 'recovered'}

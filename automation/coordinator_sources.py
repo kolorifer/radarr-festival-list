@@ -13,6 +13,20 @@ MAX_AGE = {'engineering': 3600, 'investigations': 3600, 'research_report': 17280
 FAILURES = (ValueError, PolicyError, OSError, KeyError, TypeError, AttributeError, RecursionError)
 
 
+def material_report(report):
+    """Compare validated findings, retaining byte provenance in the real payload.
+
+    Only the manifest's raw serialization hash and export-generation clock are
+    provenance here. Evidence/version hashes, explicit revisions, source status,
+    freshness limits and all other report fields retain their existing meaning.
+    """
+    result = c.material_value(report)
+    for info in result.get('sources', {}).values():
+        info.pop('sha256', None)
+        info.pop('generated_at', None)
+    return result
+
+
 def hex64(value):
     c.require(isinstance(value, str) and re.fullmatch('[a-f0-9]{64}', value), 'source_hash')
 

@@ -438,6 +438,283 @@ class ParentTests(Base):
         self.assertEqual(parent.export_parent(self.root, 113, [1], NOW)['status'], 'inconsistent')
 
 
+class RefreshTests(Base):
+    def poll(self, now=NOW):
+        return outbox.poll(self.state, lambda: sources.observations(self.staged, 'manifest.json', now), intent())
+
+    def assert_quiet_restart(self, first, now=NOW+1):
+        before = self.state.read_bytes()
+        again = self.poll(now)
+        self.assertFalse(again['changed'])
+        self.assertEqual(again['changed_sections'], [])
+        self.assertIsNone(again['report'])
+        self.assertEqual(again['pending_outbox'], first['pending_outbox'])
+        self.assertEqual(self.state.read_bytes(), before)
+        # New interpreter, re-read all staged bytes and durable state.
+        child = subprocess.run([sys.executable, '-c',
+            'from automation import coordinator_integration as cli; '
+            f'cli.time.time = lambda: {now}; '
+            'raise SystemExit(cli.main())',
+            'report', '--root', str(self.staged), '--state', str(self.state)],
+            check=True, capture_output=True, text=True)
+        public = json.loads(child.stdout)
+        self.assertFalse(public['changed'])
+        self.assertEqual(len(public['pending_reports']), len(first['pending_outbox']))
+        self.assertEqual(outbox.view(self.state), first['pending_outbox'])
+        self.assertEqual(self.state.read_bytes(), before)
+
+    def test_engineering_observation_refresh_regenerates_bytes_and_pins_but_is_quiet(self):
+        manifest = self.staged_pair()
+        first = self.poll()
+        old_hash = manifest['sources'][0]['sha256']
+        manifest['sources'][0].update(observed_at=NOW+1, collected_at=NOW+1)
+        self.update_source(manifest, 'engineering', lambda r: r.update(observed_at=NOW+1))
+        self.assertNotEqual(manifest['sources'][0]['sha256'], old_hash)
+        self.assertEqual(sources.observations(self.staged, 'manifest.json', NOW+1)['sources']['engineering']['status'], 'available')
+        self.assert_quiet_restart(first)
+        # Retained report provenance remains the original observation/hash.
+        saved = json.loads(first['pending_outbox'][0]['payload'])['report']['sources']['engineering']
+        self.assertEqual(saved['sha256'], old_hash)
+        self.assertEqual(saved['observed_at'], NOW)
+
+    def test_parent_new_read_export_regenerates_bytes_and_pins_but_is_quiet(self):
+        manifest = self.staged_pair()
+        parent_fixture(self.root / 'worker')
+        entry = next(e for e in manifest['sources'] if e['id'] == 'parent_status')
+        def stage(now):
+            value = parent.export_parent(self.root / 'worker', 113, [1], now)
+            put(self.staged, 'parent.json', value)
+            entry.update(path='parent.json', sha256=files.digest(files.encode(value)), collected_at=now)
+            put(self.staged, 'manifest.json', manifest)
+        stage(NOW)
+        first = self.poll()
+        old_hash = entry['sha256']
+        stage(NOW+1)
+        self.assertNotEqual(entry['sha256'], old_hash)
+        self.assertEqual(sources.observations(self.staged, 'manifest.json', NOW+1)['parent']['status'], 'available')
+        self.assert_quiet_restart(first)
+
+    def test_coherent_movie_generation_refresh_regenerates_bytes_and_pins_but_is_quiet(self):
+        manifest = self.staged_pair()
+        first = self.poll()
+        for source in ('investigations', 'research_report'):
+            entry = next(e for e in manifest['sources'] if e['id'] == source)
+            old_hash = entry['sha256']
+            entry.update(generated_at=NOW+1, collected_at=NOW+1)
+            self.update_source(manifest, source, lambda r: r.update(generated_at=NOW+1))
+            self.assertNotEqual(entry['sha256'], old_hash)
+        report = sources.observations(self.staged, 'manifest.json', NOW+1)
+        self.assertEqual(report['sources']['investigations']['status'], 'available')
+        self.assertEqual(report['sources']['research_report']['status'], 'available')
+        self.assertEqual(report['movies']['reason'], 'incomplete_upstream')
+        self.assert_quiet_restart(first)
+
+    def test_actual_movie_evidence_change_is_material_once(self):
+        manifest = self.staged_pair()
+        self.poll()
+        def change(report):
+            row = report['cases'][0]
+            row['proposal']['result']['evidence'][0]['result']['data']['runtime'] = 99
+            report['versions'][row['case_id']] = producer_digest({k: v for k, v in row.items() if k != 'observed_at'})
+            report['changed_cases'] = deepcopy(report['cases'])
+        self.update_source(manifest, 'research_report', change)
+        changed = self.poll(NOW+1)
+        self.assertTrue(changed['changed'])
+        self.assertEqual(changed['changed_sections'], ['movies'])
+        self.assertEqual(len(changed['pending_outbox']), 2)
+        self.assertEqual(changed['report']['sources']['research_report']['status'], 'available')
+        self.assert_quiet_restart(changed)
+
+    def test_engineering_head_and_test_result_changes_remain_material(self):
+        from test_coordinator import evidence
+        manifest = self.staged_pair()
+        self.poll()
+        def completed_test(value):
+            value['goals'][0]['evidence'] = [evidence('test')]
+        self.update_source(manifest, 'engineering', completed_test)
+        tested = self.poll(NOW+1)
+        self.assertTrue(tested['changed'])
+        self.assertEqual(tested['report']['goals'][0]['stages']['test']['status'], 'passed')
+        self.assert_quiet_restart(tested)
+        def new_head(value):
+            value['goals'][0]['head'] = 'f'*40
+            value['github']['details']['112']['head'] = 'f'*40
+        self.update_source(manifest, 'engineering', new_head)
+        changed = self.poll(NOW+1)
+        self.assertTrue(changed['changed'])
+        self.assertIn('goals', changed['changed_sections'])
+        self.assertEqual(changed['report']['sources']['engineering']['status'], 'available')
+        self.assertEqual(changed['report']['goals'][0]['head'], 'f'*40)
+        self.assertEqual(len(changed['pending_outbox']), 3)
+        self.assert_quiet_restart(changed)
+
+    def test_explicit_source_revision_change_is_material_once(self):
+        manifest = self.staged_pair()
+        self.poll()
+        # Explicit producer revision remains material even for identical facts.
+        manifest['sources'][1]['revision'] = 'f'*40
+        put(self.staged, 'manifest.json', manifest)
+        changed = self.poll(NOW+1)
+        self.assertTrue(changed['changed'])
+        self.assertEqual(changed['changed_sections'], ['sources'])
+        self.assertEqual(len(changed['pending_outbox']), 2)
+        self.assert_quiet_restart(changed)
+
+    def test_occurrence_version_change_is_material_once(self):
+        manifest = self.staged_pair()
+        self.poll()
+        # The second case has retained evidence, no current-item version binding.
+        self.update_source(manifest, 'investigations', lambda r: r['cases'][1].update(version='f'*64))
+        def change(report):
+            row = report['cases'][1]
+            row['version'] = 'f'*64
+            report['versions'][row['case_id']] = producer_digest({k: v for k, v in row.items() if k != 'observed_at'})
+            report['changed_cases'] = deepcopy(report['cases'])
+        self.update_source(manifest, 'research_report', change)
+        changed = self.poll(NOW+1)
+        self.assertTrue(changed['changed'])
+        self.assertEqual(changed['changed_sections'], ['movies'])
+        self.assertEqual(changed['report']['sources']['research_report']['status'], 'available')
+        self.assertEqual(len(changed['pending_outbox']), 2)
+        self.assert_quiet_restart(changed)
+
+    def test_freshness_transition_is_material_once(self):
+        manifest = self.staged_pair()
+        # Isolate one source's expiry from engineering/movie freshness transitions.
+        manifest['sources'][0]['max_age_seconds'] = 1
+        put(self.staged, 'manifest.json', manifest)
+        self.poll()
+        changed = self.poll(NOW+1)
+        self.assertTrue(changed['changed'])
+        self.assertEqual(changed['report']['sources']['engineering']['status'], 'stale')
+        self.assertIn('sources', changed['changed_sections'])
+        self.assertEqual(len(changed['pending_outbox']), 2)
+        self.assert_quiet_restart(changed, NOW+2)
+
+    def test_availability_transition_is_material_once_and_raw_verification_remains(self):
+        manifest = self.staged_pair()
+        self.poll()
+        # Regenerated bytes without the matching pin must still be rejected.
+        content = files.read_json(self.staged, 'research_report.json')
+        content['generated_at'] = NOW+1
+        put(self.staged, 'research_report.json', content)
+        changed = self.poll(NOW+1)
+        self.assertTrue(changed['changed'])
+        self.assertEqual(changed['report']['sources']['research_report']['status'], 'inconsistent')
+        self.assertIn('sources', changed['changed_sections'])
+        self.assertEqual(len(changed['pending_outbox']), 2)
+        self.assert_quiet_restart(changed)
+
+    def test_precorrection_pending_v2_recovers_without_rewrite_or_acknowledgement(self):
+        fixture = Path(__file__).parent / 'tests/fixtures/coordinator-pending-v2-task1.json'
+        raw = fixture.read_bytes()
+        self.assertEqual(files.digest(raw), 'dd6cff17bd2f31169800d6cd033069e0e89daabace776355275c5e08bfdf05cc')
+        self.state.write_bytes(raw)
+        old = outbox.read_state(self.state)
+        first = outbox.view(self.state)
+        payload = json.loads(first[0]['payload'])
+        self.assertNotIn('comparison_version', payload)
+        self.assertEqual(old['version'], 2)
+        self.assertEqual(first[0]['publication']['status'], 'pending')
+        self.assertEqual(first[0]['recipient_delivery'], 'not_configured')
+        manifest = self.staged_pair()
+        manifest['sources'][0].update(observed_at=NOW+2, collected_at=NOW+2)
+        self.update_source(manifest, 'engineering', lambda r: r.update(observed_at=NOW+2))
+        self.assert_quiet_restart({'pending_outbox': first}, NOW+2)
+        self.assertEqual(self.state.read_bytes(), raw)
+        destination = self.root / 'recovered.json'
+        self.assertEqual(cli.recover(self.state, first[0]['id'], destination), first[0]['sha256'])
+        self.assertEqual(destination.read_bytes(), first[0]['payload'].encode())
+        # A genuine transition appends a new comparison-v2 payload, preserving old.
+        manifest['sources'][1]['revision'] = 'f'*40
+        put(self.staged, 'manifest.json', manifest)
+        changed = self.poll(NOW+2)
+        self.assertTrue(changed['changed'])
+        self.assertEqual(len(changed['pending_outbox']), 2)
+        self.assertEqual(changed['pending_outbox'][0], first[0])
+        self.assertEqual(json.loads(changed['pending_outbox'][1]['payload'])['comparison_version'], 2)
+        self.assert_quiet_restart(changed, NOW+2)
+
+
+class ParentExportCLITests(Base):
+    def setUp(self):
+        super().setUp()
+        self.worker_root = self.root / 'worker'
+        parent_fixture(self.worker_root)
+
+    def source_bytes(self):
+        return {str(p.relative_to(self.worker_root)): (p.read_bytes(), p.stat().st_mtime_ns)
+                for p in self.worker_root.rglob('*') if p.is_file()}
+
+    def command(self, output, root=None):
+        return subprocess.run([sys.executable, '-m', 'automation.coordinator_integration',
+            'parent-export', '--root', str(root or self.worker_root), '--issue', '113',
+            '--task', '1', '--output', str(output)], capture_output=True, text=True)
+
+    def assert_rejected(self, output, root=None):
+        before = self.source_bytes()
+        paths = set(self.worker_root.rglob('*'))
+        child = self.command(output, root)
+        self.assertEqual(child.returncode, 1)
+        self.assertEqual(child.stdout, json.dumps({'state': 'NEEDS_USER', 'reason': 'invalid_or_unavailable_input'}) + '\n')
+        self.assertEqual(child.stderr, '')
+        self.assertEqual(self.source_bytes(), before)
+        self.assertEqual(set(self.worker_root.rglob('*')), paths)
+
+    def test_direct_source_journal_outputs_rejected_before_write(self):
+        for name in ('state.json', 'execution-1.json', 'terminal-1.json', 'new.json'):
+            with self.subTest(name=name):
+                self.assert_rejected(self.worker_root / '113' / name)
+        self.assert_rejected(self.worker_root)
+
+    def test_resolved_aliases_and_symlink_destinations_rejected(self):
+        alias = self.root / 'alias'
+        alias.symlink_to(self.worker_root, target_is_directory=True)
+        self.assert_rejected(alias / '113/state.json')
+        link = self.staged / 'linked.json'
+        link.symlink_to(self.worker_root / '113/state.json')
+        self.assert_rejected(link)
+        # Reject symlinks even when they point outside the source root.
+        separate = put(self.staged, 'separate.json', {})
+        link.unlink(); link.symlink_to(separate)
+        self.assert_rejected(link)
+        self.assertEqual(separate.read_bytes(), b'{}')
+        link.unlink(); link.symlink_to(link)
+        self.assert_rejected(link)
+        link.unlink(); link.symlink_to(self.staged / 'absent.json')
+        self.assert_rejected(link)
+        self.assert_rejected(self.staged / 'output.json', root=alias)
+        self.assertFalse((self.staged / 'output.json').exists())
+        self.assert_rejected(self.staged / '..' / 'worker/113/state.json')
+
+    def test_case_alias_of_source_root_is_rejected_by_filesystem_identity(self):
+        alias = self.worker_root.with_name('WORKER')
+        if not alias.exists() or not alias.samefile(self.worker_root):
+            self.skipTest('filesystem is case sensitive')
+        self.assert_rejected(alias / '113/state.json')
+
+    def test_hardlink_and_nonregular_destinations_rejected(self):
+        target = self.staged / 'hardlink.json'
+        os.link(self.worker_root / '113/state.json', target)
+        self.assert_rejected(target)
+        target.unlink(); os.mkfifo(target)
+        self.assert_rejected(target)
+
+    def test_separate_staged_output_supported_and_sources_unchanged(self):
+        before = self.source_bytes()
+        destination = self.staged / 'parent.json'
+        for _ in range(2):
+            child = self.command(destination)
+            self.assertEqual(child.returncode, 0, child.stderr)
+            self.assertEqual(child.stderr, '')
+            value = files.read_json(self.staged, 'parent.json')
+            parent.validate_export(value)
+            self.assertEqual(value['records']['state']['value']['consumed'], [1])
+            self.assertEqual(destination.stat().st_mode & 0o777, 0o600)
+            self.assertEqual(self.source_bytes(), before)
+        self.assertEqual({p.name for p in self.staged.iterdir()}, {'parent.json'})
+
+
 class OutboxTests(Base):
     def prepare(self):
         result = outbox.poll(self.state, lambda: self.report, intent())
@@ -601,6 +878,18 @@ class OutboxTests(Base):
         self.assertEqual(verified[0]['recipient_delivery'], 'not_configured')
         self.assertEqual(self.reconcile(item, receipt), verified)
         self.assertFalse(outbox.poll(self.state, lambda: self.report)['changed'])
+
+    def test_precorrection_pending_v2_receipt_binds_original_bytes(self):
+        fixture = Path(__file__).parent / 'tests/fixtures/coordinator-pending-v2-task1.json'
+        self.state.write_bytes(fixture.read_bytes())
+        item = outbox.view(self.state)[0]
+        receipt = self.receipt(item)
+        verified = self.reconcile(item, receipt)[0]
+        self.assertEqual(verified['publication']['status'], 'verified')
+        for field in ('id', 'payload', 'sha256'):
+            self.assertEqual(verified[field], item[field])
+        self.assertEqual(verified['publication']['intent'], item['publication']['intent'])
+        self.assertEqual(verified['recipient_delivery'], 'not_configured')
 
     def test_wrong_missing_conflicting_receipts_never_acknowledge(self):
         item = self.prepare()

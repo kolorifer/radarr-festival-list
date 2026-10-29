@@ -1,6 +1,6 @@
 # Coordinator offline rehearsal and later private pilot
 
-Issue #113 Task 1 is code only. This runbook authorizes no operational read,
+Issue #113 Tasks 1 and 2 are code only. This runbook authorizes no operational read,
 publication, deployment or activation. All runtime/source/destination paths below
 are configuration examples, not discovered installed facts. Do not use this code
 task's network capability to acquire private inputs or inspect hosts.
@@ -69,7 +69,15 @@ The task must establish all of these facts before dependent operations:
    owner-only state/output directories outside any tracked checkout; no discovery
    of home/private state. Establish which repository owns the explicitly allowed
    parent-state root and select only this control issue and exact task numbers.
-   Authorize journal reads separately from coordinator writes. Do not acquire
+   Authorize journal reads separately from coordinator writes. Supply a new,
+   explicitly writable derived staging/state root, separate from the parent's
+   read-only `PRIVATE_INPUTS` directory (mode500 inputs, mode400 files). Derive
+   manifests/parent exports/state there without modifying staged inputs. Do not
+   put derived state or a manifest in the parent artifact output: only the final
+   exact report belongs in that output. These grants are required in the later
+   task; this code task establishes no actual private input or host fact.
+   The parent-export CLI enforces a separate output outside its source root,
+   rejects symlink/path aliases, and never writes source journals. Do not acquire
    dispatcher locks, traverse other issues, launch/replay tasks or infer liveness
    from heartbeat/PID/RUNNING. Independent process-to-inherited-lock evidence would
    require separately verified trusted observations; this exporter leaves it unknown.
@@ -160,10 +168,18 @@ task, if needed, requires exact read-only evidence grants and never replays work
 
 Retrieve and inspect the report itself, not only the hash/READY result. Record
 source times, coverage and limitations; confirm useful engineering facts remain
-when sources fail. Repeat an unchanged poll and restart with the same state:
+when sources fail. Repeat an unchanged poll and restart with the same state.
+With explicit producer/source grants, also check a genuinely unchanged fresh
+source observation from its existing authorized producer, updating exact
+manifest pins/grants as required; no provider acquisition or synthetic
+retimestamping of old evidence. An observation-only refresh must return
 `changed: false`, identical pending payload/ID/hash, one durable entry and no new
-task/publication attempt. Keep report/state/source bytes for recovery. Verified
-private publication still leaves recipient delivery `not_configured` here.
+task/publication attempt. The retained report keeps its original source times
+and raw-byte hashes; quiet refresh is not a new dated report. New evidence,
+versions/revisions and freshness/availability transitions remain material.
+Existing pending-v2 reports recover with original bytes/IDs/hash/intent; new
+payloads use comparison-v2 semantics. Keep report/state/source bytes for recovery.
+Verified private publication still leaves recipient delivery `not_configured` here.
 
 ## Production quality/release evidence and recurring operation gaps
 

@@ -857,11 +857,12 @@ def reconcile(snapshot, state, now):
     return reconcile_report(report, state)
 
 
-def reconcile_report(report, state):
+def reconcile_report(report, state, materializer=material_value):
     """Reconcile an already validated, allowlisted report (including staged sources)."""
     validate_state(state)
-    material = fingerprint(material_value(report))
-    sections = {k: fingerprint(material_value(v)) for k, v in report.items()}
+    comparable = materializer(report)
+    material = fingerprint(comparable)
+    sections = {k: fingerprint(v) for k, v in comparable.items()}
     changed_sections = sorted(k for k, v in sections.items() if state['sections'].get(k) != v)
     changed = material != state['material']
     updated = copy.deepcopy(state)

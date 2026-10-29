@@ -277,10 +277,20 @@ Each source reports `available`, `unavailable`, `stale`, `inconsistent`, or
 `partial`, with fixed reasons and separate read/collection/source times. Declared
 absence and rejected data cannot mean an empty completed review. A bad manifest
 fails closed; a bad source retains independent valid engineering/movie findings.
-Availability transitions and exact staged-content identities participate in
-material reconciliation. Read/collection time changes alone are quiet when the
-staged content identity is unchanged. Changed staged bytes, including a newly
-produced export, have a new identity even if the concise findings look similar.
+Availability/freshness transitions and validated substantive findings participate
+in material reconciliation. An observation-only refresh stays quiet even when
+regeneration changes source bytes and the manifest's matching SHA256/time pins.
+Exact raw-byte verification still runs on every read, and prepared private reports
+retain their original source hashes and times. Only `sources.*.sha256` and
+`sources.*.generated_at` are additionally excluded from semantic comparison;
+the foundation already excludes observation/read/collection clocks. All other
+hashes, movie evidence/occurrence/report versions, task/head/result facts, explicit
+source revisions, source states/reasons and freshness limits remain material.
+Changing evidence is not suppressed merely because a concise summary is unchanged.
+This supersedes Task 1's raw-byte-material choice (issue #113 Task 2); the earlier
+choice preserved byte provenance but incorrectly exhausted the outbox on refresh.
+A quiet poll returns no new report; an old payload's provenance is never relabeled
+as a newer observation.
 
 `engineering` is the existing v1 coordinator snapshot with `movies: null` and
 `quality: []`; those sources must be supplied independently. Existing whole-task
@@ -329,6 +339,12 @@ only `N/state.json`, `N/heartbeat.json` and selected `N/execution-T.json`,
 Each file is at most 256 KiB. No task discovery, adjacent logs, retained patches,
 raw stdout, prompts, source text, private artifact references or credentials are
 exported. This is read-only observation without dispatcher locks/claims or replay.
+The CLI rejects any output at/beneath `ROOT`, including filesystem aliases, before
+writing. Supply a separate existing staging directory outside the checkout.
+Symlink ancestors/final destinations, traversal, hardlinked and nonregular
+outputs are rejected with the fixed sanitized input error. Destination directory
+identity/ancestors are checked and writes/renames use its pinned directory FD;
+source directories/journals are never created or modified by the exporter.
 
 Every present repository/issue/task association is checked; terminal receipts use
 the unchanged parent v1 validator. The caller must independently establish which
@@ -365,13 +381,26 @@ State has exactly `version: 2`, `reconciliation` (v1), `sequence`, `outbox`, and
 `migration`. Each immutable outbox entry has `id`, `sequence`, `material`,
 `payload` (complete canonical JSON bytes represented as a string), `sha256`,
 `publication` and `recipient_delivery`. ID hashes version/sequence/material;
-material binds findings and source identities. Payload hash and its report
-material are revalidated on reads. The suppressing material transition and full
-payload are in the same fsynced, mode600 atomic replacement and directory fsync.
+material binds semantic findings, including source revisions/availability.
+Payload hash and its report material are revalidated on reads. The suppressing
+material transition and full payload are in the same fsynced, mode600 atomic replacement and directory fsync.
 A crash before emission, restart or unchanged poll therefore exposes the same
 pending payload/ID through the outbox API and explicit local recovery; CLI stdout
 exposes only pending metadata. `changed: false` still means no newly prepared material report.
 There is no second task or publication attempt on recovery.
+
+New payloads contain `comparison_version: 2` for the scoped semantic comparison.
+The state envelope and ID formula stay v2. Existing pending-v2 payloads without
+that marker use comparison v1 for validation: their original bytes, IDs, hashes,
+publication intents/status and receipt bindings are unchanged and recoverable.
+Unknown comparison versions fail closed. Before comparing a new observation,
+compute a transient comparison-v2 baseline from the last immutable payload.
+An unchanged poll/restart does not save or migrate state; a substantive transition
+appends one new payload and preserves all earlier entries. Fingerprints from the
+two comparison versions must not be equated as byte identities. Recovery always
+uses the retained original payload and hash, never a reconstructed current report.
+Old validators reject new staged comparison-v2 payloads; upgrade readers with
+writers. This is forward recovery of old state, not a downgrade migration.
 
 At most 20 reports, 512 KiB per payload and 8 MiB total state are retained.
 Exhaustion returns explicit backpressure and `material_change_pending: true`

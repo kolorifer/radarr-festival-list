@@ -40,3 +40,56 @@ owner and do not consume numbered engineering executions.
 Implementation completed for parent review; see the [engineering report](2026-10-29-coordinator-integration.md).
 Supported current-head CI, independent acceptance and all operational activation
 remain separate gates. The unrelated active task is unchanged.
+
+
+## Task 2 — refresh deduplication and source-write boundary, 29 October 2026
+
+**Authority:** latest issue-owner `SUPERVISOR_TASK: 2`, supplied to this fresh
+implementation worker. Exact clean starting HEAD
+`a91d848c59b144d19a2b240400474993203add2f` on the existing
+`automation/issue-113-worker`, retaining PR #114 and all Task 1 history.
+This section is the completed scoped correction brief, not another execution.
+
+Reproduce both defects against that starting head using temporary synthetic
+inputs: timestamp-only source regeneration appends another pending report;
+`parent-export --output <root>/113/state.json` overwrites its source journal.
+Restore observation-only quiet behavior while preserving exact source-byte
+validation/private provenance, all material evidence/version/revision and
+freshness/availability changes, immutable pending payloads and receipt bindings.
+Version comparison semantics explicitly if needed; retain and exercise actual
+pre-correction synthetic pending-v2 bytes. Reject any parent-export output at or
+beneath the supplied source root, including path/filesystem aliases and symlinks,
+before any write; preserve bounded no-follow reads and separate staged outputs.
+Errors must be fixed/sanitized and rejected commands must leave sources unchanged.
+
+Add byte-regenerating engineering/parent/coherent-movie refresh regressions with
+updated manifest pins, quiet restart/recovery, real material transitions, legacy
+pending-state recovery and CLI failure boundaries. Preserve all original 120
+coordinator/integration tests and applicable dispatcher/policy/communication
+checks. Run frozen scoring and diff verification; supported 3.12/3.13 full CI at
+the new parent-published revision remains required. If only unsupported 3.9 is
+present, record that limitation without runtime/dependency changes or repeating
+known irrelevant unsupported full-suite failures.
+
+Edit only necessary coordinator helpers, focused tests and directly related
+brief/report/guide/pilot/project-state documentation. No dispatcher, supervisor
+policy, receipt schema, claims/locks/quota/publication behavior, unrelated active
+task, #86/#110, research packets, scoring/catalog or delivery ledger changes.
+Synthetic task-local data only; no private inputs/host facts, SSH/seedbox, Radarr,
+Telegram/media/provider operations, notification/download tests, paid services,
+daemons/schedules, worker/runner launch, task publication, Git publication,
+merge, deployment or pilot activation. Parent owns commit/push/PR/result.
+
+After independent exact-revision review, current-head supported CI and merge,
+any pilot requires a separate `operations_only` task with verified exact
+source/destination grants and a new explicitly writable derived staging/state
+root outside the parent's read-only `PRIVATE_INPUTS` directory. Only the final
+report belongs in the parent artifact output. Bind receipt reconciliation to
+the exact hash of the actual supplied receipt bytes. Retain the runbook's
+source freshness/coverage, zero-provider, private readback and separate
+publication/recipient-delivery requirements. No current operational fact follows
+from this code correction.
+
+Completed for parent review; see the [Task 2 engineering report](2026-10-29-coordinator-integration.md#task-2-correction-report--29-october-2026).
+Task 1's historical raw-byte-material choice is superseded by this task's explicit
+observation-only-quiet requirement; original Task 1 evidence above is retained.
