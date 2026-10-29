@@ -1,8 +1,8 @@
 # Movie Project coordinator support
 
-Issue #111 Task 1 implements a manual, proposal-only support CLI. It is not an
-activated recurring agent. It has no engineering runner, sender, provider client,
-host integration, scheduler installer or remote mutation API. The existing
+The accepted #111/#112 foundation and issue #113 Task 1 provide manual,
+proposal-only coordinator support. This is not an activated recurring agent. It has no engineering runner, sender, provider client,
+live source collector, scheduler installer or remote mutation API. The existing
 `github_worker.py`, supervisor policy, locks, quota checks, eight-iteration limit,
 permanent claims and publication modes are unchanged.
 
@@ -59,7 +59,9 @@ python -m automation.coordinator draft \
 ```
 
 The example is synthetic; `owner` is a test identity. Its first report is changed;
-the second contains `changed: false` and no report/summary. Drafting never updates
+the second contains `changed: false` and no new report/summary, plus the same
+recoverable `pending_outbox` ID/hash (use explicit `recover` for bytes). The legacy CLI output is local evidence,
+not a publication or delivery acknowledgement. Drafting never updates
 state, reserves a number, creates a claim or publishes a task.
 
 One bounded unauthenticated public read is available:
@@ -99,7 +101,7 @@ Snapshot files are local inputs, not public report artifacts. Never add them,
 state files or raw test logs to Git. No existing operational state is discovered
 or read. No caller-supplied API URL or private repository option exists.
 
-## Version 1 input and durable state interfaces
+## Foundation version 1 snapshot and reconciliation interfaces
 
 `test_coordinator.snapshot()` and `movies()` are executable synthetic fixtures
 for the exact schemas. Unknown top-level keys, duplicate JSON keys, nonfinite
@@ -114,7 +116,7 @@ The snapshot has these required fields:
 | `github` | `default_branch`, exact `revision` or null, status/items collections for `branches`, `issues`, `pulls`; issue-keyed `comments`; PR-keyed `details` with exact head, author, merge facts, reviews and checks. Missing details mean unknown current head. |
 | `goals` | Up to 20 scoped work items. Each has ID; pinned source comment ID/body fingerprint; exact scope, allowed actions and acceptance text; dependencies; issue/task/PR/head; blocker; next proposal; stage evidence; explicit required stages and bounded correction count. |
 | `local` | Supplied, issue-specific consumed/terminal numbers, writer-active fact, branch names associated with worktrees, retained work, active dependencies and preservation evidence. Null means unavailable. This CLI never opens a dispatcher journal, process table or other worktree. |
-| `movies` | Null or `{snapshot, report}`: existing complete collector `/v1/investigations` v1 export plus `identity_investigation_report.py` v1 `review-report.json` shape. **Synthetic only in this build.** |
+| `movies` | Null or `{snapshot, report}`: existing complete collector `/v1/investigations` v1 export plus `identity_investigation_report.py` v1 `review-report.json` shape. The staged integration below validates actual producer contracts; this code task uses synthetic inputs only. |
 | `quality` | Synthetic ID/design/date, supplied rating/count completeness, recognition/score completeness, identity/notification/acquisition-state review records. No ratings are acquired or scores calculated. |
 | `documentation` | Bounded ID/expected/observed comparisons. Differences become reconciliation findings without executing a document's assignment. |
 
@@ -236,24 +238,219 @@ mean that earlier approved objectives lack authority. Drafts preserve an existin
 declaration rather than synthesizing one. The supervisor must still read the
 acceptance criteria and check that the declared stages cover them.
 
-The v1 state contains the current material and section fingerprints, public-safe work records,
-at most 20 distinct proposed report fingerprints and `delivery: not_confirmed`.
-There is no notification acknowledgement importer in this build; rendering never
-means sent. Preserve the state across restart. Changing only observation times
-is quiet; staleness transitions and material evidence/status changes are visible.
-Each material transition is rendered once against the previous state. If a state
-reverts and later returns to a prior state, that transition is reported again.
-There is no automatic resend, task generator or new provider/iteration budget.
-Reports identify changed sections and newly completed stages; an unrelated branch
-observation does not announce already completed stages as new work.
+The pure `reconcile`/`reconcile_report` functions retain the v1 reconciliation
+interface: material/section fingerprints, public-safe work records, at most 20
+proposal fingerprints and `delivery: not_confirmed`. Pure reconciliation does not
+persist or acknowledge anything. Both report CLIs now use the durable v2 envelope
+below rather than saving this fingerprint-only object as the whole state.
 
-Persistence assumes one accountable writer. `atomic_save` rejects destinations
-inside this checkout and symlink files, creates a mode600 temporary file in the
-destination directory, fsyncs it, replaces the destination and fsyncs the directory.
-An interrupted replacement preserves the previous complete file or the new one.
-The operator must provide a new owner-only task-local directory; the CLI does not
-create/discover host configuration, migrate operational state or install a lock
-service. Do not run two independent writers against the same state file.
+## Offline integration, version 1 staged manifest
+
+`python -m automation.coordinator_integration` is the offline entry point. It
+imports no credentials and has no network writer, URL fetcher, provider client,
+executor or scheduler. Only expressly selected staged files are read. See the
+[separate pilot runbook](COORDINATOR_PILOT.md) for exact future grants and
+reproducible synthetic commands. No real sources were inspected by this task.
+
+The manifest has exactly `version: 1`, `repository: kolorifer/radarr-festival-list`
+and `sources`. All five fixed IDs must occur exactly once, including unavailable
+sources. Each entry has exactly these fields:
+
+| Field | Meaning |
+| --- | --- |
+| `id` | `engineering`, `investigations`, `research_report`, `parent_status`, or `quality_release`. |
+| `path`, `sha256` | Exact relative staged filename and SHA256 of its bytes; both null explicitly means unavailable. No duplicate paths, URLs, absolute paths, dot segments or traversal. |
+| `revision` | Known producing Git revision (40 lowercase hex), otherwise null. For engineering, must equal the snapshot revision. This supplied provenance is not independently authenticated by ingestion. |
+| `generated_at`, `observed_at` | True numeric UTC source times or null. Movie generation time must equal the producer's embedded time; engineering observation time must equal the snapshot. Unknown event time remains null. |
+| `collected_at` | Actual collection/read time, or null if unknown; never substitutes for a movie/engineering event time. |
+| `max_age_seconds` | Positive integer, at most 3600 for engineering/investigations/parent, 172800 for report, 3600 for the reserved quality source. Stricter supplied limits are supported. |
+
+Manifest and individual files are bounded to 2 MiB; paths to 240 ASCII characters.
+Every path component, including root ancestors, is opened without following
+symlinks. Only regular files are accepted; reads are bounded and checked for
+concurrent modification. Duplicate JSON keys, exponent overflow/nonfinite
+numbers, conflicting identities and invalid schemas fail without imported text
+or paths in errors. No root enumeration or implicit home lookup occurs. Root
+and manifest selection are caller configuration, never source-supplied authority.
+
+Each source reports `available`, `unavailable`, `stale`, `inconsistent`, or
+`partial`, with fixed reasons and separate read/collection/source times. Declared
+absence and rejected data cannot mean an empty completed review. A bad manifest
+fails closed; a bad source retains independent valid engineering/movie findings.
+Availability/freshness transitions and validated substantive findings participate
+in material reconciliation. An observation-only refresh stays quiet even when
+regeneration changes source bytes and the manifest's matching SHA256/time pins.
+Exact raw-byte verification still runs on every read, and prepared private reports
+retain their original source hashes and times. Only `sources.*.sha256` and
+`sources.*.generated_at` are additionally excluded from semantic comparison;
+the foundation already excludes observation/read/collection clocks. All other
+hashes, movie evidence/occurrence/report versions, task/head/result facts, explicit
+source revisions, source states/reasons and freshness limits remain material.
+Changing evidence is not suppressed merely because a concise summary is unchanged.
+This supersedes Task 1's raw-byte-material choice (issue #113 Task 2); the earlier
+choice preserved byte provenance but incorrectly exhausted the outbox on refresh.
+A quiet poll returns no new report; an old payload's provenance is never relabeled
+as a newer observation.
+
+`engineering` is the existing v1 coordinator snapshot with `movies: null` and
+`quality: []`; those sources must be supplied independently. Existing whole-task
+owner/authority, completion, current-head CI and research separation validators
+still apply. Parent observations never fill review/deploy/live stages.
+
+`investigations` is the complete v1 `/v1/investigations` export validated by
+`identity_research_handoff.validate_snapshot`: all cases, exact occurrence
+versions, eligible `items` subset and the full incomplete-coverage aggregates.
+It must be less than one hour old, with at most five minutes future skew.
+`research_report` is the actual v1 `identity_investigation_report.write_report`
+output, including `cases`, `changed_cases`, `versions`, coverage/budget and fixed
+control fields. It must be less than 48 hours old, with the same future skew.
+The complete case-ID set, every base field and coverage must match. Producer
+`versions` hashes are recomputed over each row excluding `observed_at`;
+`changed_cases` must be an exact subset. A proposal marked current must bind the
+eligible research material digest (the item excluding `observed_at`), not merely
+the collector occurrence version. Proposal times are validated; old proposals
+remain retained, never refreshed by a file read. Missing/incompatible report
+leaves the complete validated snapshot set visible with review incomplete.
+
+Private report payloads retain every validated base case field (including titles),
+all routes, exact eligible IDs/material versions, upstream coverage, proposal
+versions/currentness/times and the foundation's retained-evidence findings.
+Full proposal evidence remains in the exact hash-bound staged source, which must
+be retained for private supervisor inspection; arbitrary raw evidence fields are
+not recopied into reports. The integration CLI emits a separate fixed public
+projection: source states/reasons, report IDs/hashes, publication states and
+backpressure only. It never prints private payloads, paths or intent destinations.
+`recover` writes exact payload bytes locally, outside the checkout, mode600,
+create-only; an existing divergent file is refused.
+
+`parent_status` is the bounded v1 allowlisted export described next. Its manifest
+`generated_at` and `observed_at` must be null; `collected_at` equals export
+`read_at`. Its age limit dates the journal read, not an execution event.
+`quality_release` is reserved and always unavailable with
+`passive_export_missing`, even if a synthetic/empty file is staged. Identity and
+acquisition approval remain unknown, and review is not completed. See passive
+production export requirements in the pilot runbook; #86 research is not that feed.
+
+### Parent status projection and issue binding
+
+`parent-export --root ROOT --issue N --task T [--task T...] --output FILE` reads
+only `N/state.json`, `N/heartbeat.json` and selected `N/execution-T.json`,
+`N/terminal-T.json`, `N/delivery-T.json`, up to eight distinct task numbers.
+Each file is at most 256 KiB. No task discovery, adjacent logs, retained patches,
+raw stdout, prompts, source text, private artifact references or credentials are
+exported. This is read-only observation without dispatcher locks/claims or replay.
+The CLI rejects any output at/beneath `ROOT`, including filesystem aliases, before
+writing. Supply a separate existing staging directory outside the checkout.
+Symlink ancestors/final destinations, traversal, hardlinked and nonregular
+outputs are rejected with the fixed sanitized input error. Destination directory
+identity/ancestors are checked and writes/renames use its pinned directory FD;
+source directories/journals are never created or modified by the exporter.
+
+Every present repository/issue/task association is checked; terminal receipts use
+the unchanged parent v1 validator. The caller must independently establish which
+repository owns the selected root; files lacking repository/issue fields do not
+prove that association themselves. Missing records stay unknown. Read time is
+separate from unknown event time. Contradictory terminal/execution/delivery or
+consumption records yield `inconsistent`, retaining the individual observations.
+A parent write can race these separate reads; the export is not an atomic parent
+snapshot. Reobserve under later authorized scope rather than certifying health.
+
+The output carries an explicit issue plus selected task numbers. #86 Task 1
+cannot fill #113 Task 1 evidence. Optional `local.issue` binds legacy snapshot
+consumed/terminal lists; an explicit mismatch blocks drafts. Old v1 lists without
+it are usable only when goals and comment collections identify exactly one issue;
+multiple-issue snapshots fail closed for drafting. Integration does not copy
+parent evidence into those old lists or infer inactive-writer status.
+
+Heartbeat active/PID values, RUNNING comments, permanent claims and a journal's
+`running` string never establish process liveness. `writer_liveness` remains
+unknown. `exited` proves only the recorded child exit; `completed` only the
+recorded code publication; `posted` only a returned public POST. None proves
+independent review, merge, deployment, recipient receipt or live correctness.
+
+### Durable version 2 outbox and receipt reconciliation
+
+Both report CLIs serialize read, reconciliation, preparation and save under
+`STATE.coordinator.lock`, a coordinator-owned flock distinct from dispatcher
+locks. Supply a stable owner-only directory outside the checkout. Preserve the
+lock file; do not unlink it while any invocation can hold it. File creation is
+exclusive, followed by open-existing on `EEXIST`, avoiding a reproduced concurrent
+macOS create/no-follow race. There is no daemon or execution claim.
+
+State has exactly `version: 2`, `reconciliation` (v1), `sequence`, `outbox`, and
+`migration`. Each immutable outbox entry has `id`, `sequence`, `material`,
+`payload` (complete canonical JSON bytes represented as a string), `sha256`,
+`publication` and `recipient_delivery`. ID hashes version/sequence/material;
+material binds semantic findings, including source revisions/availability.
+Payload hash and its report material are revalidated on reads. The suppressing
+material transition and full payload are in the same fsynced, mode600 atomic replacement and directory fsync.
+A crash before emission, restart or unchanged poll therefore exposes the same
+pending payload/ID through the outbox API and explicit local recovery; CLI stdout
+exposes only pending metadata. `changed: false` still means no newly prepared material report.
+There is no second task or publication attempt on recovery.
+
+New payloads contain `comparison_version: 2` for the scoped semantic comparison.
+The state envelope and ID formula stay v2. Existing pending-v2 payloads without
+that marker use comparison v1 for validation: their original bytes, IDs, hashes,
+publication intents/status and receipt bindings are unchanged and recoverable.
+Unknown comparison versions fail closed. Before comparing a new observation,
+compute a transient comparison-v2 baseline from the last immutable payload.
+An unchanged poll/restart does not save or migrate state; a substantive transition
+appends one new payload and preserves all earlier entries. Fingerprints from the
+two comparison versions must not be equated as byte identities. Recovery always
+uses the retained original payload and hash, never a reconstructed current report.
+Old validators reject new staged comparison-v2 payloads; upgrade readers with
+writers. This is forward recovery of old state, not a downgrade migration.
+
+At most 20 reports, 512 KiB per payload and 8 MiB total state are retained.
+Exhaustion returns explicit backpressure and `material_change_pending: true`
+(`changed: false` means no committed new report), without committing the suppressing
+transition or losing any pending payload. Nothing is silently evicted, even after
+private publication, since recipient delivery is still unacknowledged. This code
+has no automatic archival/acknowledgement policy; resolve retention through a
+separately reviewed owner workflow before recurring activation exhausts the bound.
+
+V1 fingerprint-only state is validated, retained as reconciliation history and
+reprepared once from current inputs (`v1_reprepared_unacknowledged`); it cannot
+recover a lost historical payload or upgrade anything into delivered/reviewed/
+approved evidence. Pure v1 reconciliation is still available to existing callers;
+persistent report callers should use the locked outbox API.
+
+Optional explicit local `--intent FILE` contains exactly `identity` with public
+repository/issue/task, and `destination` with allowlisted private repository,
+exact `operations/` path and `expected_blob` (`absent` or 40-hex CAS baseline).
+The outbox binds this immutable intent to exact payload bytes/hash on preparation.
+It is configuration for the existing publication owner, not authority imported
+from source data. No destination is invented when absent. `pending` means prepared,
+not attempted. The external publication owner records `publication-uncertain`
+before its single authorized attempt; an interruption remains uncertain until
+readback reconciliation. This command never sends. Repeated invocation cannot
+schedule another attempt. There is no automatic resend or network writer here.
+
+`receipt` reads one selected `ISSUE/terminal-TASK.json` under an explicitly trusted
+parent root, an independently supplied exact SHA256 pin, and one staged artifact
+readback. The unchanged parent receipt validator must pass; repository/issue/task,
+artifact-readback flag, artifact repository/path/reference, payload hash and exact
+readback bytes and recomputed Git blob identity must all match the immutable intent/report. Missing, malformed,
+wrong, unpinned or conflicting evidence cannot acknowledge publication. Repeated
+identical reconciliation is idempotent; conflicting later evidence is refused.
+A verified artifact can coexist with a failed terminal/public-comment result.
+Local `terminal-N.json` is the parent's intended receipt, not proof that the receipt
+itself was published or delivered to a recipient.
+
+**Trust boundary:** the operator/supervisor must authenticate the parent-root
+provenance and the pin from actual parent-owned evidence under exact grants.
+A supplied hash proves integrity, not provenance. Structurally valid arbitrary
+JSON or child-written success flags cannot be treated as trusted parent proof.
+No importer can distinguish a forged identical receipt from genuine evidence
+without that external trust. This interface has no credential, sender or GitHub
+mutation authority. Imported evidence grants no execution authorization.
+
+`publication: verified` only records exact private artifact readback. Recipient
+delivery stays `not_configured`; no ChatGPT/Telegram/human acknowledgement is
+manufactured. Reports remain recoverable in `pending_outbox`/`pending` regardless
+of publication. Publication, terminal receipt availability, public result posting,
+recipient receipt, independent review and product acceptance are distinct facts.
 
 ## Task, review and completion lifecycle
 

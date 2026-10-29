@@ -1,5 +1,64 @@
 # Movie List project state
 
+## Movie Project integration correction — 2026-10-29, awaiting parent review
+
+Issue #113 supervisor Task 2 starts from clean
+`a91d848c59b144d19a2b240400474993203add2f`, retaining the issue branch/PR #114.
+Both reported failures reproduced with synthetic data: a timestamp-only source
+refresh created a second outbox entry, and parent-export overwrote its own
+`state.json`. The correction separates raw provenance from material comparison
+and enforces source-root exclusion with no-follow paths and directory identity.
+New pending payloads use comparison version 2; existing pending-v2 bytes, IDs,
+hashes, intents and receipt bindings remain readable/recoverable without a quiet
+poll rewriting them. Old report provenance remains dated to its original inputs.
+Task 1's raw-byte-material choice is superseded; its historical evidence below
+is preserved. See the [Task 2 report](reports/2026-10-29-coordinator-integration.md#task-2-correction-report--29-october-2026)
+and [scoped brief](reports/2026-10-29-coordinator-integration-brief.md#task-2--refresh-deduplication-and-source-write-boundary-29-october-2026).
+
+The owner supplied Task 1 supported CI (1,052 tests/job at `a91d848`, run
+40939700511) and separate 120-test 3.12 evidence; those are prior-head checks,
+not verification of this correction. Local synthetic checks passed 255 tests,
+including 136 coordinator/integration tests; unsupported 3.9.6 runtime limits
+are recorded in the Task 2 report. Parent publication,
+independent review, current-head full 3.12/3.13 CI and merge remain gates.
+No private input, source/host/runtime fact, deployment, live pilot, private
+publication or recipient delivery was established here. The later pilot needs
+a separate `operations_only` task, verified exact grants, a new writable derived
+staging/state root outside read-only `PRIVATE_INPUTS`, only the final report in
+the parent artifact output, and an exact hash of the actual supplied receipt.
+Production quality/release evidence and recurring-owner/receipt gaps remain.
+The unrelated active task, dispatcher/policy/receipt schema, production/scoring,
+#86/#110 and research/delivery state remain unchanged.
+
+## Movie Project offline integration — 2026-10-29, code awaiting review
+
+Issue #113 supervisor Task 1 starts clean at accepted #111/#112 merge
+`1ffa380feb63a321b6c67fdafe32b33824cb1dc4` on
+`automation/issue-113-worker`. It adds explicitly staged, content-bound source
+availability; actual full investigations/research-report contract checks;
+allowlisted issue-bound read-only parent journal export; and locked v2 durable
+report preparation with exact-byte recovery and offline parent receipt matching.
+Local checks passed 239 applicable synthetic tests, followed by the final
+120 coordinator/integration checks (44 new plus all 76 preserved foundation tests).
+Supported 3.12/3.13 CI at the later parent-published head is still required.
+Production quality/release evidence remains unavailable pending a passive producer.
+Private publication verification and recipient acknowledgement remain separate;
+no recipient interface, network sender or recurring execution owner is configured.
+
+Implementation and synthetic verification are recorded in the
+[scoped report](reports/2026-10-29-coordinator-integration.md) and
+[completed brief](reports/2026-10-29-coordinator-integration-brief.md).
+The [pilot runbook](../automation/COORDINATOR_PILOT.md) lists exact later grants,
+fresh coherent movie evidence, zero provider requests and private readback gates.
+No operational source/host/private state was inspected; no deployment, live
+pilot, schedule or daily agent activation occurred. Independent review,
+current-head supported CI, parent publication/merge and the real-input pilot
+remain separate pending steps. The unrelated `CODEX_TASK.md`, #86/#110,
+production/scoring, dispatcher/policy/receipt schema and claims remain unchanged.
+The older #111 entries below retain their historical handoff status; acceptance
+of their foundation merge is supplied by the current trusted owner task, not a
+fresh worker observation of CI or deployment.
+
 ## Movie Project coordinator support — 2026-10-29, awaiting review
 
 Issue #111 Task 1 adds a manual, proposal-only standard-library coordinator CLI
