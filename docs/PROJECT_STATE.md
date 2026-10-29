@@ -1,5 +1,25 @@
 # Movie List project state
 
+## Movie Project coordinator support — 2026-10-29, awaiting review
+
+Issue #111 Task 1 adds a manual, proposal-only standard-library coordinator CLI
+under `automation/`. It validates supplied work/evidence snapshots, binds tasks to
+the existing dispatcher parser, keeps completion stages/revisions separate,
+adapts synthetic whole-set movie and score/notification review fixtures, and
+prepares branch/documentation retention findings. Its bounded public GitHub
+snapshot/report path was exercised twice with quiet unchanged replay. The owner
+selected broader investigation, engineering coordination, repository care,
+documentation, live verification, reporting and improvement responsibilities in
+issue #111; this support build does not activate those recurring responsibilities.
+
+Implementation and focused verification are recorded in the
+[report](reports/2026-10-29-coordinator-support.md); full-suite environment
+limitations are explicit there. Independent review, merge, deployment and product
+acceptance remain pending. No host/service/private-state observation was made;
+earlier deployment facts below were not reverified. Issue #86 / PR #110 and the
+unrelated `CODEX_TASK.md` cleanup assignment remain unchanged. See the
+[operating guide and activation prerequisites](../automation/COORDINATOR.md).
+
 ## Observer timeout and diagnostics — 2026-10-28, deployed
 
 The observer's half-second socket timeout was shorter than the collector's bounded

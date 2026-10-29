@@ -4,6 +4,11 @@ The control plane is an open control issue owned by the authenticated runner
 identity. Normal ChatGPT posts supervisor tasks and reviews the PR through
 GitHub. This runner does not invoke ChatGPT Work or depend on a long conversation.
 
+The manual [Movie Project coordinator support](COORDINATOR.md) prepares validated
+work/review reports and offline task drafts. It has no executor or publication
+path and does not activate the wider agent contract. Dispatcher authority,
+capabilities, claims, locks, quota and publication behavior remain unchanged.
+
 ## Requirements and authentication
 
 Use a dedicated, clean local clone on macOS (Python 3.9+; CI uses 3.12/3.13).
