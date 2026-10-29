@@ -1,5 +1,67 @@
 # Movie List project state
 
+## Movie Project coordinator support — 2026-10-29, awaiting review
+
+Issue #111 Task 1 adds a manual, proposal-only standard-library coordinator CLI
+under `automation/`. It validates supplied work/evidence snapshots, binds tasks to
+the existing dispatcher parser, keeps completion stages/revisions separate,
+adapts synthetic whole-set movie and score/notification review fixtures, and
+prepares branch/documentation retention findings. Its bounded public GitHub
+snapshot/report path was exercised twice with quiet unchanged replay. The owner
+selected broader investigation, engineering coordination, repository care,
+documentation, live verification, reporting and improvement responsibilities in
+issue #111; this support build does not activate those recurring responsibilities.
+
+Implementation and focused verification are recorded in the
+[report](reports/2026-10-29-coordinator-support.md); full-suite environment
+limitations are explicit there. Independent review, merge, deployment and product
+acceptance remain pending. No host/service/private-state observation was made;
+earlier deployment facts below were not reverified. Issue #86 / PR #110 and the
+unrelated `CODEX_TASK.md` cleanup assignment remain unchanged. See the
+[operating guide and activation prerequisites](../automation/COORDINATOR.md).
+
+Task 2 corrects the independent review's three support findings on PR #112:
+informational unresolved notification delivery is distinct from acquisition
+eligibility/approval; current-head CI contradictions block unqualified testing
+completion pending independent applicability evidence; and bounded public CLI
+selectors can observe the actual implementation PR. Synthetic regressions and
+a public #112 smoke are recorded in the same report's Task 2 section. The smoke
+observed original head `9763271299a490a168b0e9bb4163d5e3130becda` on 29 October
+at 16:05:04 UTC; its green 3.12/3.13 CI belongs to Task 1. The revised diff awaits
+parent publication, fresh supported CI and independent review. No deployment,
+notification behavior change or broad agent activation is claimed.
+
+Task 3 is the final authorized correction on the same branch/PR, based on clean
+`b37f5791cba20444272f95fab0565ec9404cb745`. It reconciles owner brief/claim/result
+lifecycle and newer governing instructions; invalidates obsolete component/config
+deployment/live evidence; supports explicitly owner-bound independent-supervisor
+review/CI/merge-lineage receipts through the shared GitHub account; and detects
+material synthetic movie evidence changes with occurrence-bound privacy-safe
+hashes. Prior observations stay visible; the support layer validates bindings,
+while the accountable supervisor must independently verify the underlying facts.
+See the [Task 3 report](reports/2026-10-29-coordinator-support.md#task-3-correction-report--29-october-2026)
+for actual verification, environment limits and parent revision binding.
+Published-head 3.12/3.13 CI at `b37f579` belongs to Task 2; fresh CI and independent
+review of the correction's containing parent commit remain acceptance gates.
+Implementation support is awaiting review; merge, deployment, live verification,
+product acceptance and all wider activation prerequisites remain pending.
+No service/private state was inspected and the unrelated task remains unchanged.
+
+Task 4 applies the owner's one additional narrowly scoped correction, extending
+Task 3's stopping limit only for this fix. From clean baseline
+`1c5286ac8926d3493a47600453c527919f7e7ba3`, deployment reconciliation now selects
+the latest known-component observation before checking configuration completeness.
+Newer incomplete deploy/live records block obsolete passing completion and remain
+visible in history. Two regression methods cover both the same and a different
+revision; all 76 coordinator tests pass locally. See the
+[Task 4 report](reports/2026-10-29-coordinator-support.md#task-4-correction-report--29-october-2026)
+for reproduction, other checks and exact parent-publication binding. The baseline
+3.12/3.13 CI pass belongs to Task 3; fresh supported CI and independent review at
+the Task 4 containing commit remain gates. Parent owns publication on PR #112.
+No merge, deployment, live verification, product acceptance or wider activation
+is claimed. Existing activation prerequisites and unrelated assignments remain
+unchanged; this correction grants no further round.
+
 ## Observer timeout and diagnostics — 2026-10-28, deployed
 
 The observer's half-second socket timeout was shorter than the collector's bounded
