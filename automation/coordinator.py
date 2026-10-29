@@ -388,7 +388,7 @@ def ci_payload(evidence):
 def deployment_status(goal, snapshot, detail, head, stage, now):
     """Reconcile the current component/config first; keep the history visible."""
     history = [e for e in goal['evidence'] if e['stage'] in ('deploy', 'live')]
-    observations = [e for e in history if e['component'] and e['configuration'] and e['observed_at'] <= now]
+    observations = [e for e in history if e['component'] and e['observed_at'] <= now]
     components = sorted({e['component'] for e in observations})
     states, selected = [], []
     for component in components:
@@ -415,7 +415,7 @@ def deployment_status(goal, snapshot, detail, head, stage, now):
         current = deployment if stage == 'deploy' else latest('live')
         if current:
             selected.append(current)
-        valid = applicable and current is not None
+        valid = bool(applicable and current is not None and deployment['configuration'] and current['configuration'])
         if stage == 'live':
             valid = bool(valid and deployment['result'] == 'passed'
                 and current['revision'] == deployment['revision']

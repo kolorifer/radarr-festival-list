@@ -692,6 +692,44 @@ class CorrectionTests(unittest.TestCase):
             self.assertEqual(result['stages'][stage]['observations'][0]['revision'], OLD)
             self.assertEqual(len(result['stages'][stage]['history']), 4)
 
+    def test_newer_deploy_with_unknown_configuration_invalidates_deploy_and_live(self):
+        for revision in (HEAD, OLD):
+            with self.subTest(revision=revision):
+                self.s = snapshot()
+                goal = self.deployed_plan()
+                observation = evidence('deploy', revision=revision, component='actor',
+                    configuration=None, observed_at=NOW-10, reference='incomplete-deploy')
+                goal['evidence'].append(observation)
+                c.validate_snapshot(self.s)
+                result = self.result()
+                for stage in ('deploy', 'live'):
+                    self.assertEqual(len(result['stages'][stage]['history']), 3)
+                    self.assertIn(observation, result['stages'][stage]['history'])
+                self.assertEqual(result['stages']['deploy']['observations'], [
+                    {k: observation[k] for k in ('revision', 'observed_at', 'component', 'configuration')}])
+                self.assertFalse(result['complete'])
+                self.assertEqual(result['stages']['deploy']['status'], 'pending')
+                self.assertEqual(result['stages']['live']['status'], 'pending')
+
+    def test_newer_live_with_unknown_configuration_invalidates_only_live(self):
+        for revision in (HEAD, OLD):
+            with self.subTest(revision=revision):
+                self.s = snapshot()
+                goal = self.deployed_plan()
+                observation = evidence('live', revision=revision, component='actor',
+                    configuration=None, observed_at=NOW-10, reference='incomplete-live')
+                goal['evidence'].append(observation)
+                c.validate_snapshot(self.s)
+                result = self.result()
+                for stage in ('deploy', 'live'):
+                    self.assertEqual(len(result['stages'][stage]['history']), 3)
+                    self.assertIn(observation, result['stages'][stage]['history'])
+                self.assertEqual(result['stages']['live']['observations'], [
+                    {k: observation[k] for k in ('revision', 'observed_at', 'component', 'configuration')}])
+                self.assertFalse(result['complete'])
+                self.assertEqual(result['stages']['deploy']['status'], 'passed')
+                self.assertEqual(result['stages']['live']['status'], 'pending')
+
     def test_configuration_replacement_needs_a_new_live_check(self):
         goal = self.deployed_plan()
         goal['evidence'].append(evidence('deploy', component='actor', configuration='config-b', observed_at=NOW-10))

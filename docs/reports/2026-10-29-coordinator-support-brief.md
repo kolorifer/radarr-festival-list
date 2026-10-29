@@ -149,3 +149,56 @@ launch, cleanup or Git/issue publication. Parent retains publication ownership.
 
 Result: see the **Task 3 correction report** in the existing engineering report;
 its containing parent-created commit binds the exact revised implementation.
+
+## Task 4 — newer incomplete observations, 29 October 2026
+
+**Authority:** Latest trusted issue-owner `SUPERVISOR_TASK: 4`, supplied to this
+fresh worker, records the owner's explicit approval for one additional narrow
+correction after the
+[final Task 3 review](https://github.com/kolorifer/radarr-festival-list/issues/111#issuecomment-6504539307).
+That review supplied a tested candidate, not execution authority. Task 4 extends
+the earlier stopping limit for this fix only; no further correction round is
+authorized. Preserve Task 1–3 history and accepted behavior.
+
+**Baseline and publication:** Verify a clean checkout on the existing
+`automation/issue-111-worker` at `1c5286ac8926d3493a47600453c527919f7e7ba3`,
+using only [PR #112](https://github.com/kolorifer/radarr-festival-list/pull/112).
+The child edits/tests; the parent owns commit, push, PR and result publication.
+
+**Scope and acceptance:**
+
+1. Reproduce the four valid synthetic subcases against baseline logic: start
+   with `CorrectionTests.deployed_plan()` (A/config-a deploy at NOW-30, live at
+   NOW-20), then append an actor deploy or live observation at NOW-10 with
+   `configuration=None`, at either the same A or different B revision.
+2. Apply only the minimal `deployment_status` correction: include known-component
+   valid-time observations before selecting latest evidence; require configuration
+   on both selected deployment/current records to pass. Preserve conflict,
+   component, lineage, revision/configuration, chronology/freshness and history rules.
+3. Add two focused regression methods covering both revisions. Validation accepts
+   the incomplete records and history retains them; overall completion is false.
+   Incomplete deploy leaves deploy/live pending; incomplete live leaves deploy
+   passed and live pending. Never silently reuse obsolete passing evidence.
+4. Run all coordinator tests, existing dispatcher/policy/communication tests,
+   frozen scoring and `git diff --check`. Use the supported project environment
+   for a full local suite if available. If only documented unsupported Python 3.9
+   is available, do not repeat its known full-suite failures; retain full
+   Python 3.12/3.13 CI at the new parent revision as an external acceptance gate.
+5. Append this brief and the scoped report; update only relevant guide/state
+   wording. Inspect the full diff, file scope, documentation links and public
+   privacy. Bind results to baseline and the new containing parent commit,
+   separating implementation, independent review, CI, merge and deployment.
+
+**Boundaries:** Only narrow coordinator logic/tests and directly related
+guide/report/brief/state edits. Synthetic task-local state stays outside tracked
+files. Bounded read-only public #111/#112/CI metadata is permitted. Preserve
+dispatcher/policy/claims/locking/quota/publication, permanent claim refs, protected
+production/scoring/catalog files, #86/#110 research and unrelated `CODEX_TASK.md`.
+No seedbox/SSH, private operational data, credentials, provider acquisition,
+Radarr/media/Telegram/tracker/downloader operations, paid APIs, notifications,
+merge/deployment/activation/schedule changes, daemon/worker launch, branch/worktree
+cleanup, Git publication or task-comment publication. No new task or correction
+loop; return a precise blocker if this specific fix cannot be completed.
+
+**Result:** See the **Task 4 correction report** in the existing engineering
+report; its containing parent-created commit identifies the exact corrected revision.

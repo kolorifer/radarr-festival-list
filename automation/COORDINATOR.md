@@ -304,7 +304,13 @@ service. Do not run two independent writers against the same state file.
    when both review and testing have actually passed.
    Deployment selection first reconciles the latest observation for each
    component across all revisions/configurations, then checks applicability to
-   the implementation. Later rollback/replacement evidence invalidates an old
+   the implementation. Known-component observations with unknown configuration
+   participate in that selection. Both the selected deployment and current
+   observation need configuration before passing; an incomplete newer deploy
+   leaves deploy/live pending, while an incomplete newer live check leaves live
+   pending without invalidating a complete deployment. Neither falls back to an
+   older pass, and the incomplete observation remains visible in history.
+   Later rollback/replacement evidence invalidates an old
    pass. Live evidence must match the latest successful deployment's exact
    component, revision, configuration and time; configuration-only replacements
    need a fresh live check. Equal-time conflicting observations remain unverified.

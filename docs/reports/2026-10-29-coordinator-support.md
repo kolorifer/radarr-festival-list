@@ -524,3 +524,152 @@ remain: one accountable supervisor/controller, authorized private exports and
 state location, parent execution/liveness and durable delivery evidence, scoped
 live verification/rollback, existing provider limits and per-target approvals.
 No follow-on task or unlimited correction loop is created by this report.
+
+## Task 4 correction report — 29 October 2026
+
+**Specification:** [Archived Task 4 brief](2026-10-29-coordinator-support-brief.md#task-4--newer-incomplete-observations-29-october-2026),
+latest trusted owner `SUPERVISOR_TASK: 4`, and the
+[final Task 3 review/candidate](https://github.com/kolorifer/radarr-festival-list/issues/111#issuecomment-6504539307).
+The owner's explicit one-fix extension supersedes Task 3's stopping limit only
+for this correction. The review itself was evidence, not new authority.
+**Result:** Minimal correction implemented and locally tested; awaiting parent
+publication, current-revision supported CI and independent review. Wider agent
+activation and product acceptance are separate and remain pending.
+**Repository revision:** Clean starting branch `automation/issue-111-worker`,
+HEAD `1c5286ac8926d3493a47600453c527919f7e7ba3`; retained
+[PR #112](https://github.com/kolorifer/radarr-festival-list/pull/112), verified open,
+unmerged and at that exact head through read-only public metadata. Task 1–3
+commits/history are preserved. This child leaves an uncommitted scoped diff;
+the containing parent-created commit will identify Task 4, with the same PR.
+**Verification date:** 29 October 2026, local macOS worker, synthetic fixtures;
+public GitHub metadata reads only. No host/private/service observation.
+
+### What changed and original failure
+
+`deployment_status` formerly removed known-component records with
+`configuration=None` before selecting the latest observation. Thus a newer
+valid-time deployment/live record could be ignored while an older pass still
+established overall completion. The schema already accepts unknown configuration.
+
+Before changing runtime code, both new regression methods were run against
+baseline logic: **two methods, four subcase failures**. A separate synthetic
+fixture probe confirmed validation accepted every input and all four incorrectly
+returned `complete: true`, deploy passed and live passed. Each started with the
+shipped `deployed_plan()` (revision A/config-a deploy NOW-30, live NOW-20), then
+added an actor deploy or live record at NOW-10 with unknown configuration, at
+revision A or B. These are synthetic observations, not production events.
+
+The fix is exactly the two reviewed logic changes: include known-component
+valid-time observations in selection regardless of configuration, then require
+configuration on both selected deployment and current observation to pass.
+The selected incomplete record stays current and visible; no older evidence is
+silently substituted. Unknown configuration remains unknown. Equal-time conflict
+handling, component separation, lineage receipts, revision/configuration matches,
+live chronology/freshness and history/projection are unchanged.
+
+### Files and components changed
+
+| File/component | Change and purpose |
+| --- | --- |
+| `automation/coordinator.py` | Two-line deployment reconciliation correction. |
+| `test_coordinator.py` | Two regression methods, each covering revisions A/B, validation, selected observation, completion/stages and retained history. |
+| `automation/COORDINATOR.md` | Explain incomplete current deployment/live observations and absence of older-pass fallback. |
+| `docs/reports/2026-10-29-coordinator-support-brief.md` | Append the scoped Task 4 authority, acceptance criteria and boundaries. |
+| This report | Append reproduction, results, revision binding and remaining gates. |
+| `docs/PROJECT_STATE.md` | Record Task 4 support behavior and publication/CI/review status. |
+
+### Acceptance criteria and evidence
+
+| Criterion | Result | Evidence or remaining gap |
+| --- | --- | --- |
+| Exact baseline / retained branch and PR | Passed | Clean local HEAD and public PR metadata agree at `1c5286ac8926d3493a47600453c527919f7e7ba3`; no branch/claim/publication mutation by child. |
+| Latest observation precedes configuration check | Passed locally | Minimal runtime diff; all original 74 coordinator tests retained and passing. |
+| New incomplete deploy at A/B | Passed locally | Validation accepts it; completion false; deploy/live pending; selected incomplete deployment and three-record history retained. |
+| New incomplete live at A/B | Passed locally | Validation accepts it; completion false; deploy passed/live pending; selected incomplete live observation and three-record history retained. |
+| Scoped checks / frozen scoring / diff/privacy | Recorded below | Local checks concern this diff; supported full CI remains a separate gate. |
+| Documentation and handoff | Implemented | Appended brief/report and narrow guide/state changes; Task 1–3 text and unrelated assignment preserved. |
+| New revision supported CI / independent review | Pending | Must bind to the containing parent-published Task 4 commit, not baseline or the independent in-memory candidate. |
+
+### Tests run and results
+
+Only Python **3.9.6** was available on PATH and at conventional project/runtime
+locations; no project venv or Python 3.12/3.13 interpreter was found. Created a
+new isolated venv at `/private/tmp/coordinator-111-task4.HzkixP/venv` with the
+available interpreter. No runtime/dependency installation or dependency change.
+Logs stayed in that new task-local directory outside tracked files. Commands
+below use that venv's Python:
+
+```sh
+python -m unittest \
+  test_coordinator.CorrectionTests.test_newer_deploy_with_unknown_configuration_invalidates_deploy_and_live \
+  test_coordinator.CorrectionTests.test_newer_live_with_unknown_configuration_invalidates_only_live -v
+python -m unittest test_coordinator -v
+python -m unittest test_github_worker test_supervisor_policy test_supervisor_communication -v
+python production_scoring.py --check
+PYTHONPYCACHEPREFIX=/private/tmp/coordinator-111-task4.HzkixP/pycache \
+  python -m py_compile automation/coordinator.py test_coordinator.py
+git diff --check
+```
+
+The first command ran before the runtime fix and failed in all four revision/stage
+subcases as expected. After the fix, **all 76 coordinator tests passed in 1.076
+seconds**, including the original 74 and the two regressions. **All 111 existing
+dispatcher/policy/communication tests passed in 73.333 seconds** (187 passing
+tests across the two runs). Frozen scoring passed:
+1,909 candidates, 224 grandfathered, 163 new, 387 qualified. Compilation passed.
+
+Final `git diff --check` and a task-local validation script passed: exact six-file
+scope; no nonignored untracked artifacts; unchanged branch/HEAD; historical
+brief/report bytes preserved as prefixes; tested runtime/test SHA256 values
+unchanged; exactly two added test methods and no removed methods; all 122 local
+Markdown targets/anchors resolve; no added-diff credential-pattern matches.
+The complete scoped diff was inspected. Synthetic history/observation assertions
+pass for each incomplete record; no raw snapshots or test logs were added.
+
+Per Task 4, the known unsupported Python 3.9 full-suite failure was **not rerun**.
+No local full-suite pass or new-head CI pass is claimed; no CI dispatch/rerun was
+performed by the child. No `pip check` was needed because dependencies did not
+change. The existing unchanged workflow retains dependency install/check, full
+`python -m unittest -v` and frozen scoring on **both Python 3.12 and 3.13**.
+These must pass on the exact parent-published correction revision.
+
+Read-only public metadata confirmed both jobs and their dependency/full-test/
+frozen-scoring steps succeeded in
+[baseline Actions run 40925676885](https://github.com/kolorifer/radarr-festival-list/actions/runs/40925676885),
+at `1c5286ac8926d3493a47600453c527919f7e7ba3`, completed 17:55:08 UTC.
+The independent review records 1,006 full-suite tests on Python 3.12 and 74
+coordinator tests; this child did not independently inspect that job log or rerun
+those supported-environment tests. All of this is **baseline Task 3 evidence**,
+not proof of Task 4 or the independent in-memory candidate.
+
+### Deployment result, unexpected findings and unresolved gates
+
+No merge, deployment, live verification or activation was authorized/performed.
+There were no unexpected scope findings; the four baseline cases matched the
+review exactly. Local test coverage is synthetic and interpreter-limited.
+Independent review and supported current-revision CI remain pending; the child
+does not assert product acceptance or truth of supplied operational evidence.
+
+All [activation prerequisites](../../automation/COORDINATOR.md#activation-plan--subsequent-authorized-work)
+remain unchanged: one accountable supervisor/controller, separately authorized
+private exports/state, parent execution/liveness and durable delivery evidence,
+scoped live verification/rollback, provider access/limits and per-target approvals.
+No access to seedbox/private operational data, providers or credentials; no live
+notification, movie/media mutation, worker/daemon launch or schedule change.
+Privacy verification concerns the scoped public/synthetic diff and outputs only;
+no downstream/provider logging was inspected or privacy guarantee inferred.
+
+### Commit/PR disposition and project context
+
+The parent owns commit/push, updates to existing PR #112 and issue/result reporting.
+Review/CI must refer to the exact containing parent commit, whose runtime/test
+files must match this locally tested diff. Baseline CI and historical claim
+records cannot establish new-head acceptance or liveness. No additional task,
+branch/PR, correction loop, merge or operational authority is created here.
+
+The brief/report are appended to their existing files. The operating guide and
+project state explain the corrected support behavior. Historical Task 1–3
+reports, unrelated `docs/CODEX_TASK.md`, decisions, movie-notification guide,
+#86/#110/research and protected production files are unchanged. Live notification
+routing/actions did not change. The supervisor reviews this specific correction
+and fresh supported CI through the parent publication path.

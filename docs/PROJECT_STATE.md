@@ -47,6 +47,21 @@ Implementation support is awaiting review; merge, deployment, live verification,
 product acceptance and all wider activation prerequisites remain pending.
 No service/private state was inspected and the unrelated task remains unchanged.
 
+Task 4 applies the owner's one additional narrowly scoped correction, extending
+Task 3's stopping limit only for this fix. From clean baseline
+`1c5286ac8926d3493a47600453c527919f7e7ba3`, deployment reconciliation now selects
+the latest known-component observation before checking configuration completeness.
+Newer incomplete deploy/live records block obsolete passing completion and remain
+visible in history. Two regression methods cover both the same and a different
+revision; all 76 coordinator tests pass locally. See the
+[Task 4 report](reports/2026-10-29-coordinator-support.md#task-4-correction-report--29-october-2026)
+for reproduction, other checks and exact parent-publication binding. The baseline
+3.12/3.13 CI pass belongs to Task 3; fresh supported CI and independent review at
+the Task 4 containing commit remain gates. Parent owns publication on PR #112.
+No merge, deployment, live verification, product acceptance or wider activation
+is claimed. Existing activation prerequisites and unrelated assignments remain
+unchanged; this correction grants no further round.
+
 ## Observer timeout and diagnostics — 2026-10-28, deployed
 
 The observer's half-second socket timeout was shorter than the collector's bounded
