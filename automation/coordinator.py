@@ -172,16 +172,27 @@ def validate_snapshot(value):
         require(goal['next_action'] in ('review', 'prepare_task', 'await_evidence', 'owner_decision', 'none'), 'next_action')
         require(isinstance(goal['evidence'], list) and len(goal['evidence']) <= 100, 'evidence_capacity')
         for evidence in goal['evidence']:
-            keys({k: v for k, v in evidence.items() if k != 'ci_resolution'},
+            keys({k: v for k, v in evidence.items() if k not in ('ci_resolution', 'supervisor_receipt', 'merged_from')},
                  'stage revision observed_at reference result component configuration')
             require(evidence['stage'] in STAGES and evidence['result'] in ('passed', 'failed'), 'evidence_stage')
             sha(evidence['revision']); stamp(evidence['observed_at']); identifier(evidence['reference'])
             for name in ('component', 'configuration'):
                 if evidence[name] is not None:
                     identifier(evidence[name])
+            if 'supervisor_receipt' in evidence:
+                require(evidence['stage'] == 'review', 'review_receipt_stage')
+                validate_binding(evidence['supervisor_receipt'])
+            if 'merged_from' in evidence:
+                require(evidence['stage'] == 'deploy', 'lineage_stage')
+                keys(evidence['merged_from'], 'revision receipt')
+                sha(evidence['merged_from']['revision'])
+                validate_binding(evidence['merged_from']['receipt'])
             if 'ci_resolution' in evidence:
                 resolution = evidence['ci_resolution']
-                keys(resolution, 'checks_fingerprint observed_at reference reviewer disposition')
+                keys({k: v for k, v in resolution.items() if k != 'supervisor_receipt'},
+                     'checks_fingerprint observed_at reference reviewer disposition')
+                if 'supervisor_receipt' in resolution:
+                    validate_binding(resolution['supervisor_receipt'])
                 require(evidence['stage'] == 'test' and isinstance(resolution['checks_fingerprint'], str)
                         and re.fullmatch('[a-f0-9]{64}', resolution['checks_fingerprint']), 'ci_resolution')
                 stamp(resolution['observed_at'])
@@ -198,6 +209,79 @@ def validate_snapshot(value):
     require(isinstance(value['quality'], list) and len(value['quality']) <= 1000, 'quality_capacity')
     require(isinstance(value['documentation'], list) and len(value['documentation']) <= 50, 'documentation_capacity')
     return value
+
+
+def validate_binding(binding):
+    keys(binding, 'comment_id body_sha256')
+    require(type(binding['comment_id']) is int and binding['comment_id'] > 0
+            and isinstance(binding['body_sha256'], str)
+            and re.fullmatch('[a-f0-9]{64}', binding['body_sha256']), 'receipt_binding')
+
+
+def governing_task(comments, owner):
+    """Use dispatcher selection with no consumption filter to recover scope.
+
+    Claims/results consume numbers but never become instructions. A malformed
+    latest brief or a scope-bearing non-ready instruction must block old scope.
+    """
+    selected = dispatcher.choose_task(comments, owner, set())
+    require(selected is not None, 'governing_instructions_unverified')
+    task_sections(selected, owner)
+    n = dispatcher.task_number(selected['body'])
+    briefs = [r for r in comments if r['user']['login'] == owner
+              and dispatcher.task_number(r['body']) == n
+              and ('GOAL' in dispatcher.fields(r['body'])
+                   or dispatcher.fields(r['body']).get('STATE') == 'READY_FOR_CODEX')]
+    require(len(briefs) == 1, 'ambiguous_task_briefs')
+    return selected
+
+
+def task_lifecycle(comments, owner):
+    """Public claim/result history, never process liveness or scope authority."""
+    trusted = [r for r in comments['items'] if r['user']['login'] == owner]
+    numbered = [r for r in trusted if dispatcher.task_number(r['body'])]
+    briefs = [r for r in numbered if 'GOAL' in dispatcher.fields(r['body'])
+              or dispatcher.fields(r['body']).get('STATE') == 'READY_FOR_CODEX']
+    source = max(briefs or numbered, key=lambda r: r['id']) if numbered else None
+    n = dispatcher.task_number(source['body']) if source else None
+    state, reason = 'unknown', 'no_task_records'
+    if source:
+        state, reason = dispatcher.fields(source['body']).get('STATE', 'unknown'), 'owner_brief_metadata'
+        related, invalid = [], len([r for r in briefs if dispatcher.task_number(r['body']) == n]) > 1
+        for row in trusted:
+            fields = dispatcher.fields(row['body'])
+            if row['id'] >= source['id'] and fields.get('STATE') == 'UNKNOWN':
+                invalid = True  # Sanitized adapter marker; raw ambiguous text was discarded.
+            result_number = fields.get('WORKER_RESULT', '')
+            if row['id'] >= source['id'] and 'WORKER_RESULT' in fields and not (
+                    result_number.isdecimal() and int(result_number) > 0):
+                invalid = True
+            if row['id'] < source['id'] or not (dispatcher.task_number(row['body']) == n
+                    or result_number.isdecimal() and int(result_number) == n):
+                continue
+            names = [m[1] for m in dispatcher.FIELDS.finditer(row['body'])]
+            invalid |= len(names) != len(set(names)) or ('SUPERVISOR_TASK' in fields and 'WORKER_RESULT' in fields)
+            for line in row['body'].splitlines():
+                if re.match(r'^\s*(SUPERVISOR_TASK|WORKER_RESULT|STATE)\s*:', line, re.I):
+                    match = dispatcher.FIELDS.fullmatch(line)
+                    invalid |= match is None or match[1] not in ('SUPERVISOR_TASK', 'WORKER_RESULT', 'STATE')
+            if 'WORKER_RESULT' in fields:
+                invalid |= result_number != str(n) or fields.get('STATE') not in ('READY_FOR_REVIEW', 'FAILED', 'NEEDS_USER')
+                related.append(row)
+            else:
+                invalid |= fields.get('STATE') not in ('READY_FOR_CODEX', 'RUNNING', 'DONE', 'NEEDS_USER',
+                                                       'READY_FOR_REVIEW', 'FAILED', 'PAUSED_QUOTA')
+                if fields.get('STATE') != 'READY_FOR_CODEX':
+                    state = fields.get('STATE', 'unknown')
+                    reason = 'historical_claim' if state == 'RUNNING' else 'owner_status_metadata'
+        if related:
+            state = dispatcher.fields(max(related, key=lambda r: r['id'])['body']).get('STATE', 'unknown')
+            reason = 'latest_trusted_terminal_result'
+        if invalid:
+            state, reason = 'unknown', 'ambiguous_task_records'
+    if comments['status'] != 'complete':
+        state, reason = 'unknown', 'task_read_incomplete'
+    return {'latest_owner_task': n, 'state': state, 'reason': reason, 'worker_liveness': 'unknown'}
 
 
 def authorized_goal(goal, snapshot):
@@ -217,10 +301,46 @@ def authorized_goal(goal, snapshot):
     require(dispatcher.task_number(source['body']) == goal['task'], 'authorization_task')
     require(goal['scope'] == sections['GOAL'] and goal['allowed_actions'] == sections['AUTHORIZATION']
             and goal['acceptance_criteria'] == sections['ACCEPTANCE_CRITERIA'], 'authorization_scope_changed')
+    current = governing_task(rows['items'], owner)
+    require(current['id'] == source['id'], 'authorization_newer_instructions_require_rebinding')
     return owner, source, sections
 
 
-def test_checks(detail, snapshot, latest, now):
+def supervisor_receipt(binding, goal, snapshot, purpose, revision, reference, observed_at, payload, now):
+    """Validate an exact owner-published receipt, not the claimed review's truth.
+
+    Shared GitHub identity cannot authenticate which human/agent authored it.
+    Only the accountable supervisor may supply these receipts after independent
+    inspection; worker prose/booleans and same-account approvals are insufficient.
+    """
+    if not binding:
+        return False
+    try:
+        validate_binding(binding)
+        gh = snapshot['github']
+        require(gh['issues']['status'] == 'complete', 'receipt_issues')
+        issue = next(i for i in gh['issues']['items'] if i['number'] == goal['issue'])
+        comments = gh['comments'][str(goal['issue'])]
+        require(comments['status'] == 'complete', 'receipt_comments')
+        source = next(r for r in comments['items'] if r['id'] == binding['comment_id'])
+        require(source['user']['login'] == issue['user']['login']
+                and fingerprint(source['body']) == binding['body_sha256'], 'receipt_source')
+        prefix = 'COORDINATOR_RECEIPT: '
+        require(source['body'].startswith(prefix) and len(source['body'].splitlines()) == 1, 'receipt_format')
+        receipt = json.loads(source['body'][len(prefix):], object_pairs_hook=unique_object)
+        expected = {'version': 1, 'role': 'independent_supervisor', 'repository': REPOSITORY,
+                    'issue': goal['issue'], 'task': goal['task'], 'pr': goal['pr'],
+                    'source': goal['source'], 'revision': revision, 'purpose': purpose,
+                    'reference': reference, 'observed_at': observed_at, 'payload_sha256': fingerprint(payload)}
+        require(isinstance(receipt, dict) and type(receipt.get('version')) is int
+                and fingerprint(receipt) == fingerprint(expected)
+                and observed_at <= now, 'receipt_content')
+        return True
+    except (ValueError, PolicyError, KeyError, TypeError, StopIteration):
+        return False
+
+
+def test_checks(detail, snapshot, latest, now, goal):
     """CI contradictions need a separate dated applicability/rerun artifact.
 
     The artifact remains supplied evidence to inspect, never CLI-proven truth.
@@ -246,7 +366,9 @@ def test_checks(detail, snapshot, latest, now):
         resolution = latest.get('ci_resolution') if latest else None
         if (resolution and checks['status'] == 'complete'
                 and resolution['checks_fingerprint'] == digest
-                and resolution['reviewer'] != detail['author']
+                and supervisor_receipt(resolution.get('supervisor_receipt'), goal, snapshot,
+                    'ci_applicability', head, resolution['reference'], resolution['observed_at'],
+                    ci_payload(latest), now)
                 and max(snapshot['observed_at'], latest['observed_at']) <= resolution['observed_at'] <= now
                 and (resolution['disposition'] == 'unrelated'
                      or snapshot['observed_at'] <= latest['observed_at'] <= now)
@@ -256,6 +378,57 @@ def test_checks(detail, snapshot, latest, now):
             summary['reviewer'] = resolution['reviewer']
             summary['observed_at'] = resolution['observed_at']
     return summary
+
+
+def ci_payload(evidence):
+    return {'resolution': {k: v for k, v in evidence['ci_resolution'].items() if k != 'supervisor_receipt'},
+            'test_evidence': {k: evidence[k] for k in ('revision', 'reference', 'observed_at', 'result')}}
+
+
+def deployment_status(goal, snapshot, detail, head, stage, now):
+    """Reconcile the current component/config first; keep the history visible."""
+    history = [e for e in goal['evidence'] if e['stage'] in ('deploy', 'live')]
+    observations = [e for e in history if e['component'] and e['configuration'] and e['observed_at'] <= now]
+    components = sorted({e['component'] for e in observations})
+    states, selected = [], []
+    for component in components:
+        def latest(kind):
+            rows = [e for e in observations if e['stage'] == kind and e['component'] == component]
+            if not rows:
+                return None
+            timestamp = max(e['observed_at'] for e in rows)
+            newest = [e for e in rows if e['observed_at'] == timestamp]
+            if len({fingerprint({k: e.get(k) for k in
+                    ('revision', 'configuration', 'result', 'merged_from')}) for e in newest}) != 1:
+                return None
+            return newest[-1]
+        deployment = latest('deploy')
+        applicable = bool(deployment and deployment['revision'] == head)
+        lineage = deployment.get('merged_from') if deployment else None
+        if deployment and lineage and detail:
+            applicable = applicable or bool(detail['merged'] and detail['merge_commit'] == deployment['revision']
+                and lineage['revision'] == head
+                and supervisor_receipt(lineage['receipt'], goal, snapshot, 'merge_lineage', head,
+                    deployment['reference'], deployment['observed_at'],
+                    {'deployed_revision': deployment['revision'], 'component': component,
+                     'configuration': deployment['configuration'], 'merge_commit': detail['merge_commit']}, now))
+        current = deployment if stage == 'deploy' else latest('live')
+        if current:
+            selected.append(current)
+        valid = applicable and current is not None
+        if stage == 'live':
+            valid = bool(valid and deployment['result'] == 'passed'
+                and current['revision'] == deployment['revision']
+                and current['configuration'] == deployment['configuration']
+                and deployment['observed_at'] <= current['observed_at']
+                and now - current['observed_at'] <= 86400)
+        states.append(current['result'] if valid else 'pending')
+    status = 'failed' if 'failed' in states else 'passed' if states and all(s == 'passed' for s in states) else 'pending'
+    fields = ('revision', 'observed_at', 'component', 'configuration')
+    return {'status': status, 'reason': 'current_component_evidence' if status == 'passed' else
+            'current_deployment_or_live_unverified', 'evidence': [e['reference'] for e in selected],
+            'observations': [{k: e[k] for k in fields} for e in selected],
+            'history': [{k: e[k] for k in (*fields, 'stage', 'result', 'reference')} for e in history]}
 
 
 def stages_for(goal, snapshot, now):
@@ -270,15 +443,6 @@ def stages_for(goal, snapshot, now):
             candidates = [e for e in goal['evidence'] if e['stage'] == stage]
             current = [e for e in candidates if e['revision'] == head
                        and e['observed_at'] <= now + 300]
-            if stage in ('deploy', 'live'):
-                current = [e for e in current if e['component'] and e['configuration']]
-            if stage == 'live':
-                current = [e for e in current if now - e['observed_at'] <= 86400]
-                deployments = [e for e in goal['evidence'] if e['stage'] == 'deploy'
-                               and e['result'] == 'passed' and e['revision'] == head]
-                current = [e for e in current if any(d['component'] == e['component']
-                    and d['configuration'] == e['configuration'] and
-                    d['observed_at'] <= e['observed_at'] for d in deployments)]
             if current:
                 latest = max(current, key=lambda e: e['observed_at'])
                 status, reason = latest['result'], 'revision_bound_evidence'
@@ -287,24 +451,34 @@ def stages_for(goal, snapshot, now):
             elif candidates:
                 reason = 'stale_or_inapplicable_evidence'
             if stage == 'review' and detail:
+                receipts = [e for e in current if supervisor_receipt(e.get('supervisor_receipt'),
+                    goal, snapshot, 'review', head, e['reference'], e['observed_at'], {'result': e['result']}, now)]
+                receipt = max(receipts, key=lambda e: (e['observed_at'], e['result'] == 'failed')) if receipts else None
                 rows = detail['reviews']
-                reviews = [r for r in rows['items'] if r.get('commit_id') == head
-                           and r['user']['login'] != detail['author']]
+                reviews = [r for r in rows['items'] if r.get('commit_id') == head]
                 # Latest opinion per reviewer; changes requested cannot be hidden by an older approval.
                 latest = {}
                 for r in sorted(reviews, key=lambda r: r['id']):
                     if r['state'] in ('APPROVED', 'CHANGES_REQUESTED', 'DISMISSED'):
                         latest[r['user']['login']] = r['state']
-                status = ('failed' if 'CHANGES_REQUESTED' in latest.values() else
-                          'passed' if 'APPROVED' in latest.values() else 'pending')
+                approved = any(state == 'APPROVED' and reviewer != detail['author']
+                               for reviewer, state in latest.items())
+                status = ('failed' if 'CHANGES_REQUESTED' in latest.values() or receipt and receipt['result'] == 'failed'
+                          else 'passed' if approved or receipt else 'pending')
                 reason = 'current_head_reviews' if rows['status'] == 'complete' else 'review_read_incomplete'
+                refs = [receipt['reference']] if receipt else []
+                observations = [{k: receipt[k] for k in ('revision', 'observed_at', 'component', 'configuration')}] if receipt else []
+                if receipt and rows['status'] == 'complete':
+                    reason = 'independent_supervisor_receipt_and_github_reviews'
                 if rows['status'] != 'complete':
                     status = 'pending'
+            elif stage == 'review':
+                status, reason, refs, observations = 'pending', 'review_source_unavailable', [], []
             if stage == 'merge' and detail:
                 status = 'passed' if detail['merged'] else 'pending'
                 reason = 'github_merge_only'
         if stage == 'test' and detail:
-            ci = test_checks(detail, snapshot, max(current, key=lambda e: e['observed_at']) if current else None, now)
+            ci = test_checks(detail, snapshot, max(current, key=lambda e: e['observed_at']) if current else None, now, goal)
             if status != 'not_applicable':
                 if ci['resolution'] == 'unresolved' and status != 'failed':
                     status, reason = 'pending', 'current_ci_conflict_requires_independent_evidence'
@@ -313,9 +487,105 @@ def stages_for(goal, snapshot, now):
                 elif not current and ci['result'] == 'success':
                     reason = 'current_ci_present_task_test_evidence_missing'
         output[stage] = {'status': status, 'reason': reason, 'evidence': refs, 'observations': observations}
+        if stage in ('deploy', 'live') and stage in goal['required_stages']:
+            output[stage] = deployment_status(goal, snapshot, detail, head, stage, now)
         if stage == 'test' and detail:
             output[stage]['ci'] = ci
     return head, output
+
+
+def movie_material(case, proposal, candidate_rows, raw_evidence):
+    """Hash bounded source-schema fields in their exact occurrence associations.
+
+    Private text is validated and used only inside the aggregate digest. Unknown
+    payload keys, timestamps, source URLs and raw proposal prose are excluded.
+    This digest is a change signal, never an identity or acquisition approval.
+    """
+    from identity_research_provider import clean, ident, IMDB
+
+    def record(row):
+        require(isinstance(row, dict), 'movie_record')
+        result = {}
+        for key in ('id', 'type', 'runtime', 'date', 'year', 'imdb', 'title', 'original_title',
+                    'original_language', 'directors', 'cast', 'aliases', 'translations', 'dates'):
+            if key not in row:
+                continue
+            value = row[key]
+            if value is not None:
+                if key == 'id':
+                    ident(value)
+                elif key == 'type':
+                    require(value in ('movie', 'tv', 'tv_episode_or_season'), 'movie_media_type')
+                elif key == 'runtime':
+                    require(type(value) is int and 0 <= value <= 1440, 'movie_runtime')
+                elif key == 'year':
+                    require(type(value) is int and 1870 <= value <= 2100, 'movie_year')
+                elif key == 'imdb':
+                    require(isinstance(value, str) and IMDB.fullmatch(value), 'movie_imdb')
+                elif key in ('directors', 'cast', 'aliases', 'translations', 'dates'):
+                    require(isinstance(value, list) and len(value) <= 100, 'movie_record_rows')
+                    for text in value:
+                        clean(text, 256)
+                else:
+                    clean(value, 256)
+            result[key] = value
+        return result
+
+    candidates = []
+    for row in candidate_rows:
+        require(isinstance(row, dict), 'movie_candidate')
+        candidate = {'record': record(row.get('record', {}))}
+        for key in ('confidence', 'year_agrees', 'contradictions', 'source_contradictions', 'support_gaps'):
+            if key in row:
+                value = row[key]
+                if key == 'confidence':
+                    require(value in ('review_required', 'search_only_unverified'), 'movie_confidence')
+                elif key == 'year_agrees':
+                    require(type(value) is bool, 'movie_year_agrees')
+                else:
+                    require(isinstance(value, list) and len(value) <= 100, 'movie_candidate_facts')
+                    for text in value:
+                        clean(text, 256)
+                candidate[key] = value
+        candidates.append(candidate)
+    evidence = []
+    for row in raw_evidence:
+        require(isinstance(row, dict), 'movie_observation')
+        method = row.get('method')
+        if method not in ('details', 'find', 'movie_search', 'tv_search'):
+            continue
+        query = row.get('query')
+        if query is None:
+            pass  # Legacy partial observations retain an explicitly unknown association.
+        elif method == 'details':
+            ident(query)
+        elif method == 'find':
+            require(isinstance(query, str) and IMDB.fullmatch(query), 'movie_find_query')
+        else:
+            clean(query, 256)
+        answer = row.get('result', {})
+        require(isinstance(answer, dict), 'movie_answer')
+        reason = answer.get('reason')
+        if reason is not None:
+            clean(reason, 80)
+        data = answer.get('data')
+        require(data is None or isinstance(data, dict), 'movie_data')
+        projected = None
+        if data is not None:
+            projected = record(data) if method == 'details' else {}
+            for key in (('movies', 'tv') if method == 'find' else ('results',) if method.endswith('_search') else ()):
+                if key in data:
+                    require(isinstance(data[key], list) and len(data[key]) <= 20, 'movie_answer_rows')
+                    projected[key] = [record(r) for r in data[key]]
+            if method == 'find' and 'tv_other' in data:
+                require(type(data['tv_other']) is bool, 'movie_tv_other')
+                projected['tv_other'] = data['tv_other']
+        evidence.append({'method': method, 'query': query, 'reason': reason, 'data': projected})
+    version = proposal.get('evidence_version')
+    require(version is None or isinstance(version, str) and re.fullmatch('[a-f0-9]{64}', version),
+            'movie_evidence_version')
+    return fingerprint({'version': 1, 'occurrence': case['case_id'], 'occurrence_version': case['version'],
+                        'evidence_version': version, 'candidates': candidates, 'evidence': evidence})
 
 
 def movie_review(snapshot, report, now):
@@ -354,16 +624,20 @@ def movie_review(snapshot, report, now):
                      and now - created < 172800 else 'retained') if proposal else 'missing'
         result = proposal.get('result') or {}
         require(isinstance(result, dict), 'movie_result')
+        require(isinstance(result.get('candidates', []), list) and
+                isinstance(proposal.get('search_candidates', []), list), 'movie_candidate_rows')
         candidate_rows = result.get('candidates', []) + proposal.get('search_candidates', [])
-        require(isinstance(candidate_rows, list) and len(candidate_rows) <= 23, 'movie_candidate_capacity')
+        require(len(candidate_rows) <= 23, 'movie_candidate_capacity')
         candidates = []
         for item in candidate_rows:
+            require(isinstance(item, dict) and isinstance(item.get('record', {}), dict), 'movie_candidate')
             record = item.get('record', {})
             if record.get('type') in ('movie', 'tv') and type(record.get('id')) is int and 0 < record['id'] < 2**31:
                 candidates.append({'type': record['type'], 'tmdb': record['id']})
         facts = []
         raw_evidence = result.get('evidence', [])
         require(isinstance(raw_evidence, list) and len(raw_evidence) <= 100, 'movie_evidence_capacity')
+        material = movie_material(case, proposal, candidate_rows, raw_evidence)
         for observation in raw_evidence:
             method, answer = observation.get('method'), observation.get('result', {})
             if method not in ('find', 'details', 'movie_search', 'tv_search'):
@@ -379,6 +653,7 @@ def movie_review(snapshot, report, now):
             'occurrence': case['case_id'], 'version': case['version'], 'identity': identity,
             'route': case['route'], 'reason': case['reason'],
             'evidence': freshness, 'proposal_observed_at': created, 'provider_measurement_time': 'unknown',
+            'material_evidence_v1': material,
             'conflicting': case['correlation'] in ('identifier_conflict', 'context_conflict', 'simultaneous_conflict'),
             'candidates': candidates, 'facts': facts, 'disposition': 'review_evidence' if proposal else 'await_evidence',
             'edition': 'unknown', 'identity_approval': 'unknown', 'acquisition_approval': 'unknown'})
@@ -486,6 +761,7 @@ def findings(snapshot, now):
     goals = []
     for goal in snapshot['goals']:
         plan_bound = False
+        authority_reason = 'current_owner_instructions'
         try:
             _, _, sections = authorized_goal(goal, snapshot)
             authority = 'owner_task_bound'
@@ -494,9 +770,16 @@ def findings(snapshot, now):
             # absent declaration leaves observations useful but completion open.
             declared = sections.get('COORDINATOR_STAGES', '').split(',')
             plan_bound = bool(goal['required_stages']) and set(declared) == set(goal['required_stages'])
-        except (ValueError, PolicyError, KeyError, TypeError):
+        except (ValueError, PolicyError, KeyError, TypeError) as exc:
             authority = 'unverified_no_execution'
+            authority_reason = str(exc) if str(exc) in (
+                'authorization_newer_instructions_require_rebinding', 'ambiguous_task_briefs',
+                'authorization_comments_incomplete', 'governing_instructions_unverified') else 'authorization_unverified'
         head, stages = stages_for(goal, snapshot, now)
+        issue = next((i for i in gh['issues']['items'] if i['number'] == goal['issue']), None)
+        records = gh['comments'].get(str(goal['issue']), {'status': 'unavailable', 'items': []})
+        lifecycle = task_lifecycle(records, issue['user']['login'] if issue else None)
+        blocked = bool(goal['blocker']) or lifecycle['state'] in ('unknown', 'FAILED', 'NEEDS_USER')
         if authority != 'owner_task_bound' or freshness != 'fresh':
             for value in stages.values():
                 if value['status'] == 'passed':
@@ -507,10 +790,10 @@ def findings(snapshot, now):
                       'allowed_actions_fingerprint': fingerprint(goal['allowed_actions']),
                       'acceptance_fingerprint': fingerprint(goal['acceptance_criteria']),
                       'completion_plan': 'owner_bound' if plan_bound else 'unverified',
-                      'head': head, 'authority': authority, 'stages': stages,
-                      'dependencies': goal['dependencies'], 'blocked': bool(goal['blocker']),
+                      'head': head, 'authority': authority, 'authority_reason': authority_reason, 'stages': stages,
+                      'dependencies': goal['dependencies'], 'blocked': blocked,
                       'next_proposal': goal['next_action'], 'complete': bool(goal['required_stages']) and
-                      authority == 'owner_task_bound' and plan_bound and freshness == 'fresh' and not goal['blocker']
+                      authority == 'owner_task_bound' and plan_bound and freshness == 'fresh' and not blocked
                       and not goal['dependencies'] and all(stages[k]['status'] == 'passed' for k in goal['required_stages'])})
     movies = {'status': 'not_supplied'}
     if snapshot['movies'] is not None:
@@ -526,15 +809,8 @@ def findings(snapshot, now):
     for number, comments in sorted(gh['comments'].items()):
         issue = next((i for i in gh['issues']['items'] if i['number'] == int(number)), None)
         owner = issue['user']['login'] if issue else None
-        trusted = [r for r in comments['items'] if r['user']['login'] == owner]
-        numbered = [r for r in trusted if dispatcher.task_number(r['body'])]
-        latest = max(numbered, key=lambda r: r['id']) if numbered else None
-        fields = dispatcher.fields(latest['body']) if latest else {}
         task_inventory.append({'issue': int(number), 'read': comments['status'],
-            'latest_owner_task': dispatcher.task_number(latest['body']) if latest else None,
-            'state': fields.get('STATE') if fields.get('STATE') in
-                ('READY_FOR_CODEX', 'RUNNING', 'DONE', 'NEEDS_USER', 'READY_FOR_REVIEW') else 'unknown',
-            'worker_liveness': 'unknown'})
+                               **task_lifecycle(comments, owner)})
     return {'repository': REPOSITORY, 'revision': gh['revision'], 'freshness': freshness,
             'reads': reads, 'goals': goals, 'inventory': inventory(snapshot), 'movies': movies,
             'tasks': task_inventory,
@@ -559,12 +835,13 @@ def validate_state(state):
     require(isinstance(state['work'], list) and isinstance(state['proposals'], list)
             and len(state['work']) <= 20 and len(state['proposals']) <= 20, 'state_capacity')
     for work in state['work']:
-        keys(work, 'id issue task pr source scope_fingerprint allowed_actions_fingerprint acceptance_fingerprint completion_plan head authority stages dependencies blocked next_proposal complete')
+        keys({k: v for k, v in work.items() if k != 'authority_reason'},
+             'id issue task pr source scope_fingerprint allowed_actions_fingerprint acceptance_fingerprint completion_plan head authority stages dependencies blocked next_proposal complete')
         identifier(work['id'])
         keys(work['stages'], ' '.join(STAGES))
         require(work['authority'] in ('owner_task_bound', 'unverified_no_execution'), 'work_authority')
         for stage in work['stages'].values():
-            keys({k: v for k, v in stage.items() if k != 'ci'}, 'status reason evidence observations')
+            keys({k: v for k, v in stage.items() if k not in ('ci', 'history')}, 'status reason evidence observations')
             require(stage['status'] in ('passed', 'failed', 'pending', 'not_applicable'), 'work_stage')
     for proposal in state['proposals']:
         keys(proposal, 'fingerprint status')
@@ -615,8 +892,8 @@ def render_task(snapshot, goal_id, number, author, now):
             and local['writer_active'] is False, 'local_execution_unknown_or_active')
     comments = snapshot['github']['comments'][str(goal['issue'])]['items']
     trusted = [c for c in comments if c['user']['login'] == owner]
-    owner_tasks = [c for c in trusted if dispatcher.task_number(c['body']) is not None]
-    require(source['id'] == max(c['id'] for c in owner_tasks), 'draft_authority_not_latest')
+    require(task_lifecycle(snapshot['github']['comments'][str(goal['issue'])], owner)['state'] != 'unknown',
+            'ambiguous_task_records')
     issue = next(i for i in snapshot['github']['issues']['items'] if i['number'] == goal['issue'])
     require(issue['state'] == 'open', 'draft_issue_closed')
     consumed = set(local['consumed']) | dispatcher.remote_consumed(comments, {owner})
@@ -708,11 +985,20 @@ class PublicGitHub:
             return {'number': row['number'], 'head': {'ref': row['head']['ref']}, 'state': row['state']}
         if path.endswith('/comments'):
             fields = dispatcher.fields(row['body'])
+            headings = list(dispatcher.FIELDS.finditer(row['body']))
+            names = [m[1] for m in headings]
+            canonical = len(names) == len(set(names))
+            for line in row['body'].splitlines():
+                if re.match(r'^\s*(SUPERVISOR_TASK|WORKER_RESULT|STATE)\s*:', line, re.I):
+                    match = dispatcher.FIELDS.fullmatch(line)
+                    canonical &= match is not None and match[1] in ('SUPERVISOR_TASK', 'WORKER_RESULT', 'STATE')
             lines = []
             for name in ('SUPERVISOR_TASK', 'WORKER_RESULT'):
                 if fields.get(name, '').isdecimal():
                     lines.append(name + ': ' + fields[name])
-            if fields.get('STATE') in ('READY_FOR_CODEX', 'RUNNING', 'DONE', 'NEEDS_USER', 'READY_FOR_REVIEW'):
+            if not canonical:
+                lines.append('STATE: UNKNOWN')
+            elif fields.get('STATE') in ('READY_FOR_CODEX', 'RUNNING', 'DONE', 'FAILED', 'NEEDS_USER', 'READY_FOR_REVIEW'):
                 lines.append('STATE: ' + fields['STATE'])
             return {'id': row['id'], 'user': {'login': row['user']['login']}, 'body': '\n'.join(lines)}
         if path.endswith('/reviews'):

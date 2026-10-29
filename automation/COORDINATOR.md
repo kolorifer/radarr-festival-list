@@ -92,6 +92,9 @@ Bodies, titles, URLs, capabilities and unrelated API fields are dropped before
 public-snapshot persistence. Comments retain only author/ID and allowlisted
 task/result number/state lines. Such metadata cannot pass full task preflight;
 the later supervisor must supply the exact trusted task content separately.
+Ambiguous/duplicate/noncanonical protocol fields retain a fixed `STATE: UNKNOWN`
+marker instead of silently becoming valid through projection. No discarded raw
+text is copied into that marker, and it cannot establish authority or completion.
 Snapshot files are local inputs, not public report artifacts. Never add them,
 state files or raw test logs to Git. No existing operational state is discovered
 or read. No caller-supplied API URL or private repository option exists.
@@ -118,6 +121,15 @@ The snapshot has these required fields:
 Work authority is bound to an issue owner's exact comment and the actual
 dispatcher parser. Scope/actions/acceptance must equal those source sections.
 Proposed/worker-authored/changed/missing source text cannot establish that binding.
+The binding must also match the current governing owner brief selected by the
+actual dispatcher with consumption temporarily excluded for scope inspection.
+This inspection does not reserve or replay anything. Any later governing brief
+requires rebinding, even when its text looks similar: free text cannot prove that
+an older acceptance plan continues. Explicit revocation, a corrective assignment,
+an ambiguous duplicate brief or a non-ready scope-bearing instruction prevents
+old-plan completion. `authority_reason` explains the uncertainty; prior evidence
+references and deployment history remain available. Status, claim, terminal
+result and receipt comments never grant scope. Untrusted later text is ignored.
 No text is evaluated as code. The durable public-safe work view retains source
 selectors and fingerprints for scope/actions/acceptance, stage findings, exact
 head, dependencies, blocker presence and next proposal. Full authorized text stays
@@ -140,9 +152,11 @@ the task. Prior-head checks are counted separately and do not contradict current
 tests. CI success alone still cannot establish task-specific test coverage.
 
 An optional `ci_resolution` on the latest same-head test observation documents
-independent applicability evidence. It has exactly `checks_fingerprint`,
-`observed_at`, `reference`, `reviewer`, and `disposition`. The fingerprint must
-match the reported CI fingerprint; the reviewer must differ from the PR author;
+independent applicability evidence. It has `checks_fingerprint`,
+`observed_at`, `reference`, `reviewer`, `disposition` and `supervisor_receipt`.
+The fingerprint must match the reported CI fingerprint; the receipt must bind the
+independent supervisor's inspection as described below (a reviewer name alone
+does not establish independence, including a different account name);
 the reference must identify a separate artifact from the test report. Its date
 must be at or after both the snapshot and test observation and no later than now.
 `disposition: unrelated` means the artifact documents why those checks do not
@@ -154,6 +168,61 @@ Failed supplied tests remain failed. The failed/pending GitHub facts remain in
 the report even after adjudication. These are inspectable supplied assertions;
 the CLI cannot authenticate the reviewer or prove the artifact's contents. The
 supervisor must inspect the dated underlying evidence before accepting it.
+
+### Independent supervisor receipts in the shared-owner workflow
+
+Review and implementation can publish through the same GitHub owner account.
+A same-account GitHub approval is still insufficient. A review observation can
+instead carry `supervisor_receipt: {comment_id, body_sha256}` pointing to one
+exact issue-owner comment whose entire single-line body is
+`COORDINATOR_RECEIPT: <JSON>`. The JSON has exactly these fields:
+
+| Fields | Required binding |
+| --- | --- |
+| `version`, `role`, `repository` | Integer 1, `independent_supervisor`, this fixed public repository. |
+| `issue`, `task`, `pr`, `source` | Exact work selectors and pinned authorization source `{comment_id, body_sha256}`. |
+| `revision`, `purpose` | Exact current implementation head; `review`, `ci_applicability` or `merge_lineage`. |
+| `reference`, `observed_at` | Exact safe artifact ID and dated observation, no later than reconciliation time. |
+| `payload_sha256` | `fingerprint(payload)` using the module's canonical JSON hash. |
+
+For review, the payload is `{result: passed}` or `{result: failed}`, matching the
+observation. For CI applicability, `ci_payload(test_observation)` binds every
+resolution field except the receipt itself, plus the test artifact's revision,
+reference, observation time and result. For merge lineage, the payload binds
+`deployed_revision`, `component`, `configuration`, and `merge_commit`; the
+receipt revision is the reviewed implementation head. The executable synthetic
+constructors `test_coordinator.receipt`, `bind_review`, `bind_ci` and
+`CorrectionTests.lineage` demonstrate exact bindings without publishing anything.
+
+The support layer checks complete issue/comment reads, owner identity, exact
+comment body hash, explicit supervisor role, goal/source/head/purpose/artifact/date
+and payload bindings. It cannot authenticate which person or process used a
+shared account, inspect an artifact's truth, or create independent review itself.
+The accountable supervisor must independently inspect the exact diff, tests,
+CI relevance or merged-content equivalence and publish/supply its own receipt.
+Workers must never issue receipts for their own work. A worker claim, a supplied
+boolean, an altered/unknown/untrusted source or an account name alone is
+insufficient. No receipts were published by this build; only synthetic tests use
+them. This format is evidence, never dispatcher authority or an execution grant.
+
+A valid review receipt survives an empty complete GitHub review list. The latest
+decisive GitHub opinion per reviewer still applies: changes requested block a
+pass, including from the shared owner account. A failed supervisor receipt also
+blocks a pass; conflicting receipts at the same latest observation time fail
+conservatively. Partial relevant reads remain pending, and a new head invalidates
+the receipt. Independent different-account current-head GitHub approvals remain
+supported. The public adapter deliberately drops receipt bodies with other raw
+comment text; the supervisor must supply exact authorized sources separately.
+
+This is a compatible v1 input extension: review observations may add
+`supervisor_receipt`, deploy observations may add `merged_from`, and CI resolutions
+may add `supervisor_receipt`. Old v1 observations still parse; an unreceipted
+review or CI resolution remains unverified and is never upgraded into approval.
+Persisted v1 work accepts optional `authority_reason` and deploy/live `history`.
+Reconciliation recomputes all current facts from the snapshot, never trusting
+earlier state as authority. A schema/projection change may emit one changed report
+on replay; subsequent unchanged replays remain quiet. Unknown fields/versions
+remain refused. Existing v1 snapshot/state top-level keys are unchanged.
 
 For an automated overall `complete` finding, the pinned owner task must explicitly
 declare its stage list, for example
@@ -193,8 +262,14 @@ service. Do not run two independent writers against the same state file.
    assumptions with evidence and validation status; do not call guesses decisions.
 2. Reconcile public observations and explicitly supplied local evidence. A RUNNING
    comment or permanent claim is historical consumption, never worker liveness.
+   Reconcile the latest valid trusted WORKER_RESULT for the relevant task as
+   READY_FOR_REVIEW, FAILED or NEEDS_USER. An older task's late result cannot
+   replace newer work. Duplicate protocol fields, incomplete records/reads and
+   duplicate briefs stay unknown and prevent drafts; later valid terminal records
+   for the same task replace earlier terminal states. Failed/blocked/ambiguous
+   records prevent current completion without erasing individual stage facts.
 3. Supply an exact next number. Draft preflight requires fresh complete comments
-   and claims, the latest owner task, an open issue, known consumed/terminal
+   and claims, the latest actionable owner brief, an open issue, known consumed/terminal
    numbers, no outstanding task/consumption, no writer/dependency/blocker, and the
    existing eight-iteration bound. It reuses `choose_task`, `capabilities` and all
    publication/private/continuation policy functions; it never copies the parser.
@@ -216,7 +291,8 @@ service. Do not run two independent writers against the same state file.
    implementation, test and review evidence. Explicit current-revision evidence
    can establish applicability; prior worker READY prose cannot. GitHub reviews
    require the current head, complete reads and a reviewer other than the PR
-   author; the latest decisive opinion per reviewer wins. Generic CI success is
+   author to approve without a supervisor receipt; the latest decisive opinion
+   per reviewer wins. Generic CI success is
    supplementary and cannot prove the task's required tests were run.
 7. Keep implementation, review, test, merge, component deployment, dated live
    checks, docs and product acceptance separate. Merge proves only merge. Deploy
@@ -226,6 +302,19 @@ service. Do not run two independent writers against the same state file.
    approved future plan may require a different versioned rule. Unsupported stages
    remain pending; this build says “reviewed and tested; deployment pending” only
    when both review and testing have actually passed.
+   Deployment selection first reconciles the latest observation for each
+   component across all revisions/configurations, then checks applicability to
+   the implementation. Later rollback/replacement evidence invalidates an old
+   pass. Live evidence must match the latest successful deployment's exact
+   component, revision, configuration and time; configuration-only replacements
+   need a fresh live check. Equal-time conflicting observations remain unverified.
+   Every observed component must pass for the aggregate stage to pass. `history`
+   retains earlier observations without presenting them as current completion.
+   To support a merge/squash revision, a deploy observation may supply
+   `merged_from: {revision, receipt}`: revision is the reviewed head, receipt is
+   the independently verified lineage binding above. GitHub must report merged
+   and its actual merge commit must equal the deployed revision. An unmerged PR's
+   prospective merge SHA, a missing receipt or unrelated revision proves nothing.
 8. Report meaningful completions, new blockers, documentation/quality corrections
    and prepared decisions. Unchanged replays are quiet. Supervisor delivery and
    evidence readback remain separate work. No automated proposal adoption exists.
@@ -247,6 +336,19 @@ Approval state absent from the supplied schema remains unknown. Proposal freshne
 requires current evidence and a known creation time within the existing report's
 48-hour window; a current version alone cannot make undated/old research fresh.
 Proposal observation time is separate from unknown provider measurement time.
+Each occurrence also carries `material_evidence_v1`, a canonical SHA256 change
+signal bound to its exact occurrence/version and retained evidence version.
+It hashes a validated allowlist from the real provider/report schema: candidate
+records (including runtime, date/year and IMDb crosswalk), confidence/context
+flags and each method/query/result/candidate association. Private title/query text
+is used only inside that aggregate hash and is never emitted. Unknown payload
+keys, URLs, raw source/proposal prose and observation refresh timestamps are
+excluded; unsafe known metadata fields are refused with fixed reasons. Missing
+legacy query associations stay null/unknown, never verified. A digest change
+requests review of the original authorized evidence; it does not reveal the
+changed value, establish identity, or approve an action. Observation-time-only
+refresh and restart replay stay quiet. Real private export access remains an
+activation prerequisite.
 
 Quality review flags missing/undated/stale evidence and incomplete recognition/
 score subtotals. `notification_state` describes delivery (`confirmed` means

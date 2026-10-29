@@ -359,3 +359,168 @@ authorized private evidence mapping, durable context, dispatch liveness and deli
 receipt interfaces, and explicitly scoped live verification. This correction is
 proposal-only support. Parent dispatcher retains commit/push/existing PR update
 and issue result ownership; worker readiness does not establish review or deployment.
+
+## Task 3 correction report — 29 October 2026
+
+**Specification:** Task 3 in the [scoped brief](2026-10-29-coordinator-support-brief.md#task-3--final-authorized-correction-29-october-2026)
+and the [consolidated review](https://github.com/kolorifer/radarr-festival-list/issues/111#issuecomment-6501900446).
+**Result:** Five demonstrated support findings corrected with synthetic
+regressions, ready for independent review after parent publication. This is the
+final authorized correction round; it creates no new assignment or retry loop.
+**Repository revision:** Clean starting checkout on `automation/issue-111-worker`,
+`b37f5791cba20444272f95fab0565ec9404cb745`, retaining Task 1/2 and PR #112.
+Worker changes are uncommitted. The exact correction revision is this report's
+containing parent-created commit on [PR #112](https://github.com/kolorifer/radarr-festival-list/pull/112);
+the parent owns commit/push/PR/terminal reporting. No future hash is invented.
+**Verification:** 29 October 2026, local Python 3.9.6 synthetic tests and bounded
+public GitHub metadata only. No host/private/provider/service observations.
+
+### What changed, files and finding dispositions
+
+All five findings were reproduced offline against unchanged starting code before
+editing: claim/result blocked draft 2 with `draft_authority_not_latest` and left
+RUNNING; newer B deployment/live left A passed; a supplied review disappeared
+under empty GitHub reviews; a later owner brief left old authority bound; changing
+runtime 90 to 120 left `changed: false`. Reproductions used the shipped synthetic
+fixtures and real dispatcher/export validators, not production events.
+
+| Finding / files | Implemented disposition and verification |
+| --- | --- |
+| Lifecycle — `automation/coordinator.py`, `test_coordinator.py` | Actual dispatcher selection recovers the current governing brief without applying consumption to scope inspection. Claims/status/results are reconciled separately; latest valid trusted terminal state applies only to the relevant task. Normal READY_FOR_REVIEW/FAILED/NEEDS_USER histories allow a proposal for the exact next number when the original local terminal/writer/consumption gates pass. Duplicate/partial/noncanonical records stay unknown. Older late results cannot replace newer work. No consumed number is replayed and liveness stays unknown. |
+| Deployment/live — same files | Current component observations are selected across revisions/configurations before applicability. Later rollback/configuration replacement invalidates old completion; live evidence must match the latest successful deployment and postdate it, within the existing 24-hour window. All observed components must pass. Equal-time conflicts remain pending. History is retained separately. An independently receipted exact implementation-to-actual-merge/squash link can establish applicability; unmerged prospective merge SHAs, unrelated revisions, missing/bad lineage cannot. No deployment performed. |
+| Independent review — same files | A pinned owner-published standalone supervisor receipt binds role, goal/source, exact head, purpose, artifact/time and payload digest. Valid independent-supervisor review survives empty complete GitHub reviews, including a shared owner/PR-author account. Worker claims, arbitrary booleans/account names and unreceipted same-account approvals cannot establish independence. Decisive conflicts, partial reads, new heads and conflicting equal-time supervisor receipts stay conservative. CI applicability now uses the same receipt model, binding the exact test artifact as well as checks/disposition. |
+| Superseded scope — same files | Current authority must match the latest governing dispatcher-selected source. Any later corrective/revoking/revising/unclear brief requires explicit rebinding rather than inferred continuity. Non-ready scope-bearing instructions also block historical authority. `authority_reason` exposes the uncertainty. Status/results/receipts/untrusted prose grant no scope. Failed/ambiguous task records prevent overall completion without erasing independently observed stage facts. |
+| Movie materiality — same files | `material_evidence_v1` hashes validated source-schema fields and occurrence/version/evidence associations, including candidate/details runtime, date/year, crosswalk, confidence/context and method/query-to-result/candidate relationships. Raw private text is used only within an aggregate digest; unknown payload keys/source prose/observation timestamps are excluded. Separate regressions cover each material change, timestamp-only replay, restart and privacy. Source schemas, whole unresolved-set coverage and per-occurrence approval boundaries remain unchanged. |
+| `automation/COORDINATOR.md` | Exact optional v1 receipt/lineage schema, payload constructors, compatibility/unknown-state behavior, supervisor trust limitations, lifecycle/current deployment selection, privacy and unchanged activation prerequisites. |
+| Scoped brief/report, `docs/PROJECT_STATE.md` | Task 3 scope, baseline, findings, actual verification, publication binding and remaining acceptance gates. Task 1/2 history preserved. |
+
+Task 2 notification semantics, conflicting-CI handling and selected-PR interface
+remain covered. The dispatcher, policy/capability/locking/claims/quota/publication
+implementation, permanent refs, #86/#110 research, production/scoring/catalog
+files and unrelated `docs/CODEX_TASK.md` were not changed.
+
+### Assumptions, compatibility and independent responsibility
+
+These are conservative support implementation choices, not new product, scoring,
+identity, acquisition or operational authority decisions. Any later governing
+brief requires rebinding because free-text continuity cannot be mechanically
+proved. The support layer does not interpret “stop” as a general executable rule.
+Unknown/partial evidence remains unverified. Original observations remain in the
+input, with deploy/live history also visible in reports.
+
+Optional v1 evidence extensions are `supervisor_receipt` on review or CI
+resolution, and `merged_from: {revision, receipt}` on deployment. Old observations
+still parse but cannot gain review/CI approval without validated provenance.
+V1 persisted work accepts optional `authority_reason` and deploy/live `history`;
+reconciliation always recomputes facts instead of trusting old state approvals.
+The movie digest explicitly identifies its projection as v1. Existing snapshots
+can produce one material report on first reconciliation under the corrected
+projection; subsequent unchanged replay stays quiet. No private state migration.
+
+Receipts validate exact owner-source/binding structure, not independent review's
+truth. The shared GitHub account cannot identify the person/process behind a
+comment. The accountable supervisor must independently inspect the exact diff,
+tests/CI relevance or merged-content equivalence, then publish/supply its own
+receipt. A worker cannot self-approve by supplying passed evidence or naming a
+different reviewer. No real receipt was created/published here. Underlying
+artifacts and source-body readback remain supervisor responsibilities; sanitized
+public snapshots intentionally omit full task/receipt bodies.
+
+### Tests run and results
+
+No project virtual environment or supported Python 3.12/3.13 interpreter was
+available. Created a new task-local Python **3.9.6** environment at
+`/private/tmp/coordinator-111-task3.6HyKOn/venv`, without installing dependencies
+or acquiring a runtime. Dependencies did not change; `pip check` was not run.
+Commands used that environment's Python:
+
+```sh
+python -m unittest test_coordinator -q
+python -m unittest test_coordinator test_github_worker test_supervisor_policy test_supervisor_communication -v
+python -m unittest -v
+python production_scoring.py --check
+PYTHONPYCACHEPREFIX=/private/tmp/coordinator-111-task3.6HyKOn/pycache \
+  python -m py_compile automation/coordinator.py test_coordinator.py
+git diff --check
+```
+
+Coordinator-only: **74 passed** after the final lifecycle/projection/receipt validation
+tightening. Initial combined run: **184 passed in 68.837 seconds**. Initial full
+suite: **704 tests in 200.596 seconds; FAILED, 109 errors, two skips**. Full-suite
+errors comprise 84 missing `requests`, nine missing `bs4`, ten Python 3.9
+`TestCase.enterContext` gaps, three SQLite attribute/constant gaps, and three
+synthetic HTTP `RemoteDisconnected` errors. The HTTP failures remain unverified
+on supported Python and are not silently attributed to dependencies. Import
+errors mean not every repository test was necessarily collected. A full-suite
+pass is not claimed. Final-code rerun results are recorded below.
+
+Final source reruns after the last receipt/projection validation changes:
+
+- **185 focused coordinator/dispatcher/policy/communication tests passed in
+  78.795 seconds**, including all 74 coordinator tests.
+- **705 full-suite tests in 228.713 seconds; FAILED, 109 errors, two skips**.
+  Error categories match the counts above. This is an environment-limited attempt,
+  not full-suite acceptance; the three synthetic HTTP errors remain unresolved
+  on the available interpreter.
+- Frozen scoring, final compilation, `git diff --check`, six-file scope allowlist,
+  119 local Markdown targets, added-diff credential-pattern scan, synthetic movie
+  privacy and final sanitized public report/state privacy checks passed. Legacy
+  v1 state replay remained readable/quiet with unreceipted review pending.
+- Runtime/test byte fingerprints were recorded before the final combined/full
+  runs and compared afterward; they are unchanged. The complete scoped diff was
+  inspected. No raw logs, snapshots or state were added to the checkout. Privacy
+  results concern these public/synthetic artifacts, not uninspected downstream
+  logging. No dependency or protected production-file change.
+
+Frozen scorer **passed**: 1,909 candidates, 224 grandfathered, 163 new, 387
+qualified. Compilation passed. Supported Python 3.12/3.13 current-correction CI
+and independent review are external acceptance gates after parent publication.
+Read-only public metadata inspection of
+[Actions run 40909632850](https://github.com/kolorifer/radarr-festival-list/actions/runs/40909632850)
+confirmed successful 3.12/3.13 jobs at **starting head `b37f579`**, completed
+16:15:57 UTC. That proves Task 2 CI only. The supervisor supplied its independent
+977-test 3.12 observation; this worker did not rerun or independently inspect
+that job log. No CI run was dispatched.
+
+### Bounded public snapshot/report/replay
+
+```sh
+python -m automation.coordinator snapshot --issue 111 --pr 112 \
+  --output /private/tmp/coordinator-111-task3.6HyKOn/public-handoff.json
+python -m automation.coordinator report \
+  --snapshot /private/tmp/coordinator-111-task3.6HyKOn/public-handoff.json \
+  --state /private/tmp/coordinator-111-task3.6HyKOn/handoff-state.json
+# Repeat report with the identical snapshot/state; no second network snapshot.
+```
+
+The initial 17:39:07 UTC smoke was repeated once after final protocol-projection
+hardening, using a new task-local snapshot/state. At final-source observation
+**2026-10-29T17:49:34.464507+00:00**, selected PR #112 head was
+**b37f5791cba20444272f95fab0565ec9404cb745**, not merged. Reviews were complete
+with zero records; checks complete with two completed successes at that head.
+Default branch was `ae11228c45ee72044f30be65e10b3fecd76b1eb1`; branch/issue/PR
+reads were complete and 141 branches observed. The sanitized snapshot was 34,492
+bytes, outside tracked files. First report changed; identical replay returned
+`changed: false`, `report: null`, delivery still `not_confirmed`. Fingerprint:
+`ec3b46ff73641dfcc8c432b8fc730ec42f853973abb031dae011498ceeca7a61`.
+Task 3 RUNNING was historical claim metadata, with worker liveness **unknown**.
+This verifies public GET/selection/projection/reconciliation only, not pending
+correction CI, actual process liveness, delivery, services or deployment.
+
+### Deployment result, remaining gates and disposition
+
+No merge, deployment, activation, schedule/daemon/worker launch, host/private-state
+access, provider acquisition, notification or movie operation was authorized or
+performed. No Git publication or issue comments were made by the child. The
+notification guide is unchanged because live notification behavior did not change.
+The unrelated active task is preserved; this completed scoped brief is archived
+here rather than replacing it. No decision-log policy was invented.
+
+The parent must publish this diff on the retained branch/PR and bind subsequent
+review/CI to the exact new containing commit. Independent review, supported
+full-suite CI and product acceptance remain pending. All existing
+[activation prerequisites](../../automation/COORDINATOR.md#activation-plan--subsequent-authorized-work)
+remain: one accountable supervisor/controller, authorized private exports and
+state location, parent execution/liveness and durable delivery evidence, scoped
+live verification/rollback, existing provider limits and per-target approvals.
+No follow-on task or unlimited correction loop is created by this report.

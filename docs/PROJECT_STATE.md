@@ -31,6 +31,22 @@ at 16:05:04 UTC; its green 3.12/3.13 CI belongs to Task 1. The revised diff awai
 parent publication, fresh supported CI and independent review. No deployment,
 notification behavior change or broad agent activation is claimed.
 
+Task 3 is the final authorized correction on the same branch/PR, based on clean
+`b37f5791cba20444272f95fab0565ec9404cb745`. It reconciles owner brief/claim/result
+lifecycle and newer governing instructions; invalidates obsolete component/config
+deployment/live evidence; supports explicitly owner-bound independent-supervisor
+review/CI/merge-lineage receipts through the shared GitHub account; and detects
+material synthetic movie evidence changes with occurrence-bound privacy-safe
+hashes. Prior observations stay visible; the support layer validates bindings,
+while the accountable supervisor must independently verify the underlying facts.
+See the [Task 3 report](reports/2026-10-29-coordinator-support.md#task-3-correction-report--29-october-2026)
+for actual verification, environment limits and parent revision binding.
+Published-head 3.12/3.13 CI at `b37f579` belongs to Task 2; fresh CI and independent
+review of the correction's containing parent commit remain acceptance gates.
+Implementation support is awaiting review; merge, deployment, live verification,
+product acceptance and all wider activation prerequisites remain pending.
+No service/private state was inspected and the unrelated task remains unchanged.
+
 ## Observer timeout and diagnostics — 2026-10-28, deployed
 
 The observer's half-second socket timeout was shorter than the collector's bounded

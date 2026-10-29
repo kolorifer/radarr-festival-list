@@ -97,3 +97,55 @@ owns the new commit/hash and existing PR/issue update. This correction does not
 adopt new scoring/acquisition policy or activate the wider agent.
 
 Result: see the **Task 2 correction report** in the existing engineering report.
+
+## Task 3 — final authorized correction, 29 October 2026
+
+**Authority:** Latest issue-owner `SUPERVISOR_TASK: 3` and the
+[consolidated independent review](https://github.com/kolorifer/radarr-festival-list/issues/111#issuecomment-6501900446),
+reproduced against clean starting head
+`b37f5791cba20444272f95fab0565ec9404cb745` on the retained
+`automation/issue-111-worker` / [PR #112](https://github.com/kolorifer/radarr-festival-list/pull/112).
+This is the second and final correction round, not authority to generate another
+task, replay a consumed number or activate the broader agent. Task 1/2 history
+above remains preserved.
+
+Implement only these five support corrections with synthetic regressions:
+
+1. Reconcile real dispatcher-selected briefs separately from trusted claim and
+   terminal-result history. Support READY_FOR_REVIEW, FAILED and NEEDS_USER,
+   later goals, duplicate/conflicting/partial records and consumed numbers.
+   Keep exact numbering, incomplete-read refusal, local evidence and writer gates.
+2. Select current component deployment/configuration across observations before
+   checking implementation applicability. Invalidate obsolete rollback/replacement
+   completion, require matching dated live evidence, retain history, and support
+   explicitly independently verified merge/squash lineage. No deployment.
+3. Support explicit validated independent-supervisor review receipts at an exact
+   head through the shared GitHub owner account. Empty complete review collections
+   must preserve valid receipts; new heads, conflicting reviews and incomplete
+   reads stay conservative. Preserve self-review refusal and apply the same
+   accountable provenance model to CI applicability.
+4. Reconcile governing owner instructions before current authorization/completion.
+   A later superseding/revoking/corrective or unclear plan must block historical
+   completion until rebinding; status/results/untrusted text grant no new scope.
+5. Detect substantive runtime/date/year/crosswalk/confidence/query-candidate
+   association changes using validated privacy-safe material fingerprints bound
+   to occurrences. Observation-only refresh/restart stays quiet. No raw proposals,
+   tracker/private references, raw query text or provider acquisition in outputs.
+
+Keep optional schema extensions explicit and conservative for old observations.
+Run focused coordinator and existing dispatcher/policy/communication tests, full
+unittest in the available task-local environment, frozen scoring, bounded public
+#111/#112 snapshot/report/replay, scope/privacy/docs/diff checks. Supported
+Python 3.12/3.13 CI at the parent-published correction head is an external gate;
+older CI does not validate this diff. Preserve existing public GET bounds.
+
+Edit only coordinator support/tests and narrowly related operating guide, scoped
+brief/report and project-state notes. Preserve the dispatcher/policy/claims/locks/
+quota/publication implementation, #86/#110, permanent claim refs, research,
+production/scoring/catalog files and unrelated `docs/CODEX_TASK.md`. No seedbox,
+SSH, private operational inputs, credentials, providers, media/Radarr/Telegram,
+notifications, acquisition, merge/deployment/activation/schedule, daemon/worker
+launch, cleanup or Git/issue publication. Parent retains publication ownership.
+
+Result: see the **Task 3 correction report** in the existing engineering report;
+its containing parent-created commit binds the exact revised implementation.

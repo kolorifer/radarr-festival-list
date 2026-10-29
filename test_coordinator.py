@@ -66,6 +66,32 @@ def evidence(stage, revision=HEAD, **changes):
     return value
 
 
+def receipt(s, purpose, reference, observed_at, payload, revision=HEAD):
+    """Synthetic owner publication; not an assertion of real review by this worker."""
+    goal = s['goals'][0]
+    value = {'version': 1, 'role': 'independent_supervisor', 'repository': c.REPOSITORY,
+             'issue': goal['issue'], 'task': goal['task'], 'pr': goal['pr'], 'source': goal['source'],
+             'revision': revision, 'purpose': purpose, 'reference': reference,
+             'observed_at': observed_at, 'payload_sha256': c.fingerprint(payload)}
+    comments = s['github']['comments'][str(goal['issue'])]['items']
+    row = {'id': max(r['id'] for r in comments) + 1, 'user': {'login': 'owner'},
+           'body': 'COORDINATOR_RECEIPT: ' + json.dumps(value, sort_keys=True)}
+    comments.append(row)
+    return {'comment_id': row['id'], 'body_sha256': c.fingerprint(row['body'])}
+
+
+def bind_ci(s, observation):
+    resolution = observation['ci_resolution']
+    resolution['supervisor_receipt'] = receipt(s, 'ci_applicability', resolution['reference'],
+                                              resolution['observed_at'], c.ci_payload(observation),
+                                              observation['revision'])
+
+
+def bind_review(s, observation):
+    observation['supervisor_receipt'] = receipt(s, 'review', observation['reference'],
+        observation['observed_at'], {'result': observation['result']}, observation['revision'])
+
+
 def quality(**changes):
     value = {'id': 'synthetic-notification', 'design': 'historical', 'observed_at': NOW,
              'rating': 7, 'count': 100, 'recognition_complete': True, 'score_complete': True,
@@ -265,6 +291,7 @@ class CoordinatorTests(unittest.TestCase):
                       'observed_at': NOW, 'reference': 'independent-applicability-artifact',
                       'reviewer': 'independent-reviewer', 'disposition': 'unrelated'}
         self.s['goals'][0]['evidence'] = [evidence('test', ci_resolution=resolution)]
+        bind_ci(self.s, self.s['goals'][0]['evidence'][0])
         result = c.findings(self.s, NOW)['goals'][0]['stages']['test']
         self.assertEqual(result['status'], 'passed')
         self.assertEqual(result['ci']['result'], 'failed')  # Never rewrite GitHub's observation.
@@ -283,6 +310,7 @@ class CoordinatorTests(unittest.TestCase):
         resolution['disposition'] = 'superseded'
         self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'pending')
         self.s['goals'][0]['evidence'][0]['observed_at'] = NOW
+        bind_ci(self.s, self.s['goals'][0]['evidence'][0])
         self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'passed')
         self.s['goals'][0]['evidence'][0]['result'] = 'failed'
         self.assertEqual(c.findings(self.s, NOW)['goals'][0]['stages']['test']['status'], 'failed')
@@ -524,6 +552,358 @@ class CoordinatorTests(unittest.TestCase):
         state, second = c.reconcile(self.s, state, NOW)
         self.assertEqual(second['changed_sections'], ['inventory'])
         self.assertEqual(second['summary']['new_completed_stages'], [{'synthetic-support': []}])
+
+
+class CorrectionTests(unittest.TestCase):
+    def setUp(self):
+        self.s = snapshot()
+
+    def result(self):
+        return c.findings(self.s, NOW)['goals'][0]
+
+    def comments(self):
+        return self.s['github']['comments']['111']['items']
+
+    def test_normal_claim_terminal_lifecycle_all_terminal_states(self):
+        for state in ('READY_FOR_REVIEW', 'FAILED', 'NEEDS_USER'):
+            with self.subTest(state=state):
+                self.s = snapshot()
+                self.comments().extend([task(id=2, body='SUPERVISOR_TASK: 1\nSTATE: RUNNING'),
+                    task(id=3, body='WORKER_RESULT: 1\nSTATE: ' + state)])
+                consumed = c.dispatcher.remote_consumed(self.comments(), {'owner'})
+                self.assertIsNone(c.dispatcher.choose_task(self.comments(), 'owner', consumed))
+                self.assertEqual(c.findings(self.s, NOW)['tasks'][0]['state'], state)
+                self.assertEqual(c.findings(self.s, NOW)['tasks'][0]['worker_liveness'], 'unknown')
+                self.assertEqual(c.render_task(self.s, 'synthetic-support', 2, 'owner', NOW)['status'], 'draft_only')
+                self.assertEqual(self.result()['authority'], 'owner_task_bound')
+
+    def test_latest_result_not_an_older_tasks_late_result(self):
+        self.comments().extend([task(2), task(id=3, body='SUPERVISOR_TASK: 2\nSTATE: RUNNING'),
+                               task(id=4, body='WORKER_RESULT: 1\nSTATE: FAILED')])
+        report = c.findings(self.s, NOW)
+        self.assertEqual(report['tasks'][0]['latest_owner_task'], 2)
+        self.assertEqual(report['tasks'][0]['state'], 'RUNNING')
+        self.comments().extend([task(id=5, body='WORKER_RESULT: 2\nSTATE: FAILED'),
+                               task(id=6, body='WORKER_RESULT: 2\nSTATE: READY_FOR_REVIEW')])
+        self.assertEqual(c.findings(self.s, NOW)['tasks'][0]['state'], 'READY_FOR_REVIEW')
+        with self.assertRaises(ValueError): c.render_task(self.s, 'synthetic-support', 3, 'owner', NOW)
+
+    def test_duplicate_conflicting_partial_lifecycle_records_refuse_drafts(self):
+        for body in ('WORKER_RESULT: 1\nSTATE: FAILED\nSTATE: READY_FOR_REVIEW',
+                     'WORKER_RESULT: 1', 'SUPERVISOR_TASK: 1\nWORKER_RESULT: 1\nSTATE: FAILED',
+                     'SUPERVISOR_TASK: 1', 'WORKER_RESULT: unknown', 'WORKER_RESULT: 01\nSTATE: FAILED',
+                     'SUPERVISOR_TASK: 1\nSTATE: RUNNING\n state: READY_FOR_CODEX', task()['body']):
+            with self.subTest(body=body):
+                self.s = snapshot(); self.comments().append(task(id=2, body=body))
+                self.assertEqual(c.findings(self.s, NOW)['tasks'][0]['state'], 'unknown')
+                with self.assertRaises((ValueError, PolicyError)):
+                    c.render_task(self.s, 'synthetic-support', 2, 'owner', NOW)
+        self.s = snapshot(); self.s['github']['comments']['111']['status'] = 'partial'
+        self.assertEqual(c.findings(self.s, NOW)['tasks'][0]['state'], 'unknown')
+
+    def test_public_projection_keeps_ambiguity_and_failed_terminal_metadata(self):
+        row = task(id=2, body='WORKER_RESULT: 1\nSTATE: FAILED\nSTATE: READY_FOR_REVIEW\nhttps://private.invalid')
+        projected = c.PublicGitHub.project('/issues/111/comments', row)
+        self.assertEqual(projected['body'], 'WORKER_RESULT: 1\nSTATE: UNKNOWN')
+        self.assertNotIn('private.invalid', json.dumps(projected))
+        self.comments().append(projected)
+        self.assertEqual(c.findings(self.s, NOW)['tasks'][0]['state'], 'unknown')
+        row['body'] = 'WORKER_RESULT: 1\nSTATE: FAILED'
+        self.comments()[-1] = c.PublicGitHub.project('/issues/111/comments', row)
+        self.assertEqual(c.findings(self.s, NOW)['tasks'][0]['state'], 'FAILED')
+
+    def test_terminal_metadata_does_not_replace_local_execution_or_consumption(self):
+        self.comments().append(task(id=2, body='WORKER_RESULT: 1\nSTATE: READY_FOR_REVIEW'))
+        for changes in ({'writer_active': None}, {'writer_active': True}, {'terminal_tasks': []}, {'consumed': None}):
+            self.s['local'] = dict(snapshot()['local'], **changes)
+            with self.subTest(changes=changes), self.assertRaises(ValueError):
+                c.render_task(self.s, 'synthetic-support', 2, 'owner', NOW)
+        self.s['local'] = snapshot()['local']
+        self.comments().append(task(id=3, body='WORKER_RESULT: 2\nSTATE: FAILED'))
+        with self.assertRaises(ValueError): c.render_task(self.s, 'synthetic-support', 2, 'owner', NOW)
+
+    def test_failed_or_ambiguous_result_blocks_completion_but_keeps_stage_facts(self):
+        for body in ('WORKER_RESULT: 1\nSTATE: FAILED', 'WORKER_RESULT: 1\nSTATE: NEEDS_USER',
+                     'WORKER_RESULT: 1\nSTATE: FAILED\nSTATE: READY_FOR_REVIEW'):
+            with self.subTest(body=body):
+                self.s = snapshot(); self.passing_plan()
+                self.comments().append(task(id=2, body=body))
+                self.assertFalse(self.result()['complete'])
+                self.assertTrue(self.result()['blocked'])
+                self.assertEqual(self.result()['stages']['test']['status'], 'passed')
+
+    def passing_plan(self):
+        self.s['goals'][0]['evidence'] = [evidence(stage) for stage in ('implementation', 'test', 'docs')]
+        self.s['github']['details']['112']['reviews'] = rows([
+            {'id': 1, 'commit_id': HEAD, 'state': 'APPROVED', 'user': {'login': 'reviewer'}}])
+        self.assertTrue(self.result()['complete'])
+
+    def test_superseding_revoking_corrective_or_unclear_instructions_block_old_completion(self):
+        for scope in ('Stop and revoke the previous plan.', 'Revise previous acceptance criteria.',
+                      'Correct the remaining implementation findings.', 'Implement a later unrelated objective.',
+                      'Implement synthetic coordinator support.'):
+            with self.subTest(scope=scope):
+                self.s = snapshot(); self.passing_plan()
+                self.comments().append(task(2, body=task(2)['body'].replace('Implement synthetic coordinator support.', scope)))
+                self.assertEqual(c.dispatcher.task_number(c.dispatcher.choose_task(self.comments(), 'owner', {1})['body']), 2)
+                result = self.result()
+                self.assertFalse(result['complete'])
+                self.assertEqual(result['authority_reason'], 'authorization_newer_instructions_require_rebinding')
+                self.assertEqual(result['stages']['test']['evidence'], ['synthetic-evidence'])
+
+    def test_status_results_and_untrusted_later_text_do_not_supersede_scope(self):
+        self.passing_plan()
+        self.comments().extend([task(id=2, body='SUPERVISOR_TASK: 1\nSTATE: RUNNING'),
+            task(id=3, body='WORKER_RESULT: 1\nSTATE: READY_FOR_REVIEW'),
+            task(2, author='outsider', id=4), task(id=5, body='Stop the previous goal (unbound prose).')])
+        self.assertTrue(self.result()['complete'])
+        self.s['github']['comments']['111']['status'] = 'partial'
+        self.assertFalse(self.result()['complete'])
+
+    def test_latest_rebound_goal_and_nonready_scope_barrier(self):
+        self.passing_plan()
+        latest = task(2); self.comments().append(latest)
+        self.s['goals'][0].update(task=2, source={'comment_id': 2, 'body_sha256': c.fingerprint(latest['body'])})
+        self.assertTrue(self.result()['complete'])
+        # A scope-bearing non-ready task blocks the dispatcher's selection too.
+        self.comments().append(task(3, body=task(3)['body'].replace('READY_FOR_CODEX', 'DONE')))
+        self.assertIsNone(c.dispatcher.choose_task(self.comments(), 'owner', set()))
+        self.assertFalse(self.result()['complete'])
+
+    def deployed_plan(self):
+        self.passing_plan()
+        goal = self.s['goals'][0]
+        source = self.comments()[0]
+        source['body'] = source['body'].replace('implementation,review,test,docs', 'implementation,review,test,docs,deploy,live')
+        goal['source']['body_sha256'] = c.fingerprint(source['body'])
+        goal['required_stages'] += ['deploy', 'live']
+        goal['evidence'] += [evidence('deploy', component='actor', configuration='config-a', observed_at=NOW-30),
+                             evidence('live', component='actor', configuration='config-a', observed_at=NOW-20)]
+        self.assertTrue(self.result()['complete'])
+        return goal
+
+    def test_later_rollback_invalidates_current_deploy_live_without_erasing_history(self):
+        goal = self.deployed_plan()
+        goal['evidence'] += [evidence(stage, revision=OLD, component='actor', configuration='config-b', observed_at=NOW-t)
+                             for stage, t in (('deploy', 10), ('live', 1))]
+        result = self.result(); self.assertFalse(result['complete'])
+        for stage in ('deploy', 'live'):
+            self.assertEqual(result['stages'][stage]['status'], 'pending')
+            self.assertEqual(result['stages'][stage]['observations'][0]['revision'], OLD)
+            self.assertEqual(len(result['stages'][stage]['history']), 4)
+
+    def test_configuration_replacement_needs_a_new_live_check(self):
+        goal = self.deployed_plan()
+        goal['evidence'].append(evidence('deploy', component='actor', configuration='config-b', observed_at=NOW-10))
+        result = self.result()
+        self.assertEqual(result['stages']['deploy']['status'], 'passed')
+        self.assertEqual(result['stages']['deploy']['observations'][0]['configuration'], 'config-b')
+        self.assertEqual(result['stages']['live']['status'], 'pending')
+        goal['evidence'].append(evidence('live', component='actor', configuration='config-b', observed_at=NOW-1))
+        self.assertTrue(self.result()['complete'])
+
+    def test_live_must_postdate_latest_deployment_and_not_be_stale(self):
+        goal = self.deployed_plan()
+        goal['evidence'].append(evidence('deploy', component='actor', configuration='config-a', observed_at=NOW-10))
+        self.assertEqual(self.result()['stages']['live']['status'], 'pending')
+        for observation in goal['evidence']:
+            if observation['stage'] in ('deploy', 'live'):
+                observation['observed_at'] = NOW-90000 if observation['stage'] == 'live' else NOW-90001
+        self.assertEqual(self.result()['stages']['live']['status'], 'pending')
+
+    def lineage(self, goal):
+        detail = self.s['github']['details']['112']; detail.update(merged=True, merge_commit=OLD)
+        deployment = goal['evidence'][-2]; deployment['revision'] = OLD
+        goal['evidence'][-1]['revision'] = OLD
+        deployment['merged_from'] = {'revision': HEAD, 'receipt': receipt(self.s, 'merge_lineage',
+            deployment['reference'], deployment['observed_at'], {'deployed_revision': OLD, 'component': 'actor',
+            'configuration': 'config-a', 'merge_commit': OLD})}
+        return detail, deployment
+
+    def test_verified_merge_or_squash_lineage_allows_actual_deployed_revision(self):
+        goal = self.deployed_plan(); detail, deployment = self.lineage(goal)
+        self.assertTrue(self.result()['complete'])
+        self.assertEqual(self.result()['stages']['deploy']['observations'][0]['revision'], OLD)
+        self.assertEqual(self.result()['head'], HEAD)
+        # Removing review still leaves deployed/merged facts separate from review.
+        detail['reviews'] = rows()
+        self.assertEqual(self.result()['stages']['deploy']['status'], 'passed')
+        self.assertFalse(self.result()['complete'])
+
+    def test_missing_unrelated_conflicting_or_prospective_lineage_remains_pending(self):
+        for change in ('missing', 'unmerged', 'different_merge', 'wrong_head', 'untrusted_receipt'):
+            with self.subTest(change=change):
+                self.s = snapshot(); goal = self.deployed_plan(); detail, deployment = self.lineage(goal)
+                if change == 'missing': deployment.pop('merged_from')
+                if change == 'unmerged': detail['merged'] = False
+                if change == 'different_merge': detail['merge_commit'] = 'c'*40
+                if change == 'wrong_head': deployment['merged_from']['revision'] = 'c'*40
+                if change == 'untrusted_receipt': self.comments()[-1]['user']['login'] = 'worker'
+                result = self.result()
+                self.assertFalse(result['complete'])
+                self.assertEqual(result['stages']['deploy']['status'], 'pending')
+                self.assertEqual(result['stages']['live']['status'], 'pending')
+
+    def test_conflicting_latest_deployments_and_multiple_components_are_conservative(self):
+        goal = self.deployed_plan()
+        goal['evidence'].append(evidence('deploy', component='actor', configuration='config-b', observed_at=NOW-30))
+        self.assertEqual(self.result()['stages']['deploy']['status'], 'pending')
+        goal['evidence'].pop()
+        goal['evidence'].append(evidence('deploy', component='collector', configuration='config-a', observed_at=NOW-1))
+        self.assertEqual(self.result()['stages']['deploy']['status'], 'passed')
+        self.assertEqual(self.result()['stages']['live']['status'], 'pending')
+
+    def test_same_owner_supervisor_receipt_survives_empty_github_reviews(self):
+        self.s['github']['details']['112']['author'] = 'owner'
+        observation = evidence('review'); bind_review(self.s, observation)
+        self.s['goals'][0]['evidence'] = [observation]
+        result = self.result()['stages']['review']
+        self.assertEqual(result['status'], 'passed')
+        self.assertEqual(result['evidence'], ['synthetic-evidence'])
+        state, _ = c.reconcile(self.s, c.empty_state(), NOW)
+        c.validate_state(state)
+        self.assertFalse(c.reconcile(self.s, state, NOW)[1]['changed'])
+
+    def test_review_receipts_require_bound_independent_provenance(self):
+        for change in ('no_receipt', 'worker_author', 'worker_role', 'different_source', 'different_revision',
+                       'different_result', 'changed_body', 'unknown_comment', 'future', 'different_task',
+                       'boolean_task', 'boolean_source', 'boolean', 'list'):
+            with self.subTest(change=change):
+                self.s = snapshot(); observation = evidence('review'); bind_review(self.s, observation)
+                self.s['goals'][0]['evidence'] = [observation]
+                row = self.comments()[-1]; payload = json.loads(row['body'].split(': ', 1)[1])
+                if change == 'no_receipt': observation.pop('supervisor_receipt')
+                if change == 'worker_author': row['user']['login'] = 'implementer'
+                if change == 'worker_role': payload['role'] = 'worker'
+                if change == 'different_source': payload['source']['body_sha256'] = '0'*64
+                if change == 'different_revision': payload['revision'] = OLD
+                if change == 'different_result': observation['result'] = 'failed'
+                if change == 'changed_body': row['body'] += ' '
+                if change == 'unknown_comment': observation['supervisor_receipt']['comment_id'] = 999
+                if change == 'future': observation['observed_at'] = NOW+1; bind_review(self.s, observation)
+                if change == 'different_task': payload['task'] = 2
+                if change == 'boolean_task': payload['task'] = True
+                if change == 'boolean_source': payload['source']['comment_id'] = True
+                if change == 'boolean': payload = {'approved': True}
+                if change == 'list': payload = []
+                if change in ('worker_role', 'different_source', 'different_revision', 'different_task',
+                              'boolean_task', 'boolean_source', 'boolean', 'list'):
+                    row['body'] = 'COORDINATOR_RECEIPT: ' + json.dumps(payload)
+                    observation['supervisor_receipt']['body_sha256'] = c.fingerprint(row['body'])
+                self.assertEqual(self.result()['stages']['review']['status'], 'pending')
+
+    def test_conflicting_supervisor_receipts_at_same_time_remain_failed(self):
+        passed = evidence('review'); bind_review(self.s, passed)
+        failed = evidence('review', result='failed', reference='correction-required'); bind_review(self.s, failed)
+        self.s['goals'][0]['evidence'] = [passed, failed]
+        self.assertEqual(self.result()['stages']['review']['status'], 'failed')
+        self.s['goals'][0]['evidence'].reverse()
+        self.assertEqual(self.result()['stages']['review']['status'], 'failed')
+
+    def test_receipt_cannot_hide_head_change_conflicts_or_incomplete_reads(self):
+        observation = evidence('review'); bind_review(self.s, observation)
+        self.s['goals'][0]['evidence'] = [observation]
+        detail = self.s['github']['details']['112']; detail['author'] = 'owner'
+        detail['reviews'] = rows([{'id': 1, 'commit_id': HEAD, 'state': 'APPROVED', 'user': {'login': 'owner'}}])
+        self.assertEqual(self.result()['stages']['review']['status'], 'passed')
+        detail['reviews']['items'].append({'id': 2, 'commit_id': HEAD, 'state': 'CHANGES_REQUESTED',
+                                          'user': {'login': 'owner'}})
+        self.assertEqual(self.result()['stages']['review']['status'], 'failed')
+        detail['reviews']['status'] = 'partial'
+        self.assertEqual(self.result()['stages']['review']['status'], 'pending')
+        detail['reviews'] = rows(); detail['head'] = OLD
+        self.assertEqual(self.result()['stages']['review']['status'], 'pending')
+        detail['head'] = HEAD; self.s['github']['comments']['111']['status'] = 'partial'
+        self.assertEqual(self.result()['stages']['review']['status'], 'pending')
+
+    def test_ci_uses_supervisor_receipt_even_through_shared_owner_account(self):
+        detail = self.s['github']['details']['112']; detail['author'] = 'owner'
+        detail['checks'] = rows([{'head_sha': HEAD, 'status': 'completed', 'conclusion': 'failure'}])
+        observation = evidence('test', ci_resolution={'checks_fingerprint': c.fingerprint({'head': HEAD, 'checks': detail['checks']}),
+            'observed_at': NOW, 'reference': 'separate-ci-inspection', 'reviewer': 'owner', 'disposition': 'unrelated'})
+        self.s['goals'][0]['evidence'] = [observation]
+        self.assertEqual(self.result()['stages']['test']['status'], 'pending')
+        bind_ci(self.s, observation)
+        self.assertEqual(self.result()['stages']['test']['status'], 'passed')
+        observation['reference'] = 'worker-replaced-test-artifact'
+        self.assertEqual(self.result()['stages']['test']['status'], 'pending')
+
+    def movie_fixture(self):
+        export, report = movies()
+        self.s['movies'] = {'snapshot': export, 'report': report}
+        proposal = report['cases'][0]['proposal']
+        record = {'id': 321, 'type': 'movie', 'runtime': 90, 'date': '2000-01-01', 'year': 2000,
+                  'imdb': 'tt1234567', 'title': 'Synthetic Candidate'}
+        proposal['result']['candidates'][0].update(record=deepcopy(record), confidence='review_required')
+        proposal['result']['evidence'][0]['result']['data'] = deepcopy(record)
+        return export, report, proposal
+
+    def material_change(self, change):
+        export, report, proposal = self.movie_fixture()
+        state, _ = c.reconcile(self.s, c.empty_state(), NOW)
+        change(export, report, proposal)
+        _, output = c.reconcile(self.s, state, NOW)
+        self.assertTrue(output['changed'])
+        self.assertIn('movies', output['changed_sections'])
+        return output
+
+    def test_movie_runtime_change_is_material(self):
+        def change(export, report, proposal):
+            proposal['result']['candidates'][0]['record']['runtime'] = 120
+            proposal['result']['evidence'][0]['result']['data']['runtime'] = 120
+        self.material_change(change)
+
+    def test_movie_date_change_is_material(self):
+        self.material_change(lambda e, r, p: p['result']['evidence'][0]['result']['data'].update(date='2001-01-01'))
+
+    def test_movie_candidate_year_change_is_material(self):
+        self.material_change(lambda e, r, p: p['result']['candidates'][0]['record'].update(year=2001))
+
+    def test_movie_crosswalk_change_is_material(self):
+        self.material_change(lambda e, r, p: p['result']['evidence'][0]['result']['data'].update(imdb='tt7654321'))
+
+    def test_movie_confidence_change_is_material(self):
+        self.material_change(lambda e, r, p: p['result']['candidates'][0].update(confidence='search_only_unverified'))
+
+    def test_movie_query_association_change_is_material(self):
+        self.material_change(lambda e, r, p: p['result']['evidence'][0].update(query=322))
+
+    def test_movie_search_query_candidate_association_is_material_and_private(self):
+        export, report, proposal = self.movie_fixture()
+        proposal['result']['evidence'].append({'method': 'movie_search', 'query': 'Synthetic Private Query',
+            'result': {'reason': 'ok', 'data': {'results': [proposal['result']['candidates'][0]['record']]}}})
+        state, first = c.reconcile(self.s, c.empty_state(), NOW)
+        proposal['result']['evidence'][-1]['query'] = 'Different Private Query'
+        state, second = c.reconcile(self.s, state, NOW)
+        self.assertTrue(second['changed'])
+        self.assertNotIn('Private Query', json.dumps(second))
+        self.assertNotIn('Synthetic Candidate', json.dumps(second))
+        self.assertNotIn('Synthetic Movie', json.dumps(state))
+
+    def test_movie_evidence_timestamp_refresh_and_restart_are_quiet_and_private(self):
+        export, report, proposal = self.movie_fixture()
+        proposal['private'] = 'SYNTHETIC_PRIVATE_RAW https://tracker.invalid/passkey=SYNTHETIC'
+        state, first = c.reconcile(self.s, c.empty_state(), NOW)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'state.json'; c.atomic_save(path, state)
+            self.s['observed_at'] += 1; export['generated_at'] += 1; report['generated_at'] += 1
+            proposal['created_at'] += 1
+            proposal['result']['evidence'][0]['observed_at'] = NOW
+            state, second = c.reconcile(self.s, c.load(path), NOW+1)
+            self.assertFalse(second['changed']); self.assertIsNone(second['report'])
+            for private in ('SYNTHETIC_PRIVATE_RAW', 'tracker.invalid', 'passkey=', 'Synthetic Candidate'):
+                self.assertNotIn(private, json.dumps(first) + json.dumps(state))
+            proposal['result']['candidates'][0]['record']['runtime'] = 120
+            self.assertTrue(c.reconcile(self.s, c.load(path), NOW+1)[1]['changed'])
+
+    def test_movie_material_invalid_fields_fail_without_echoing_content(self):
+        for key, value in (('runtime', 'private'), ('year', True), ('imdb', 'https://private.invalid'),
+                           ('date', 'https://private.invalid')):
+            with self.subTest(key=key):
+                self.s = snapshot(); export, report, proposal = self.movie_fixture()
+                proposal['result']['candidates'][0]['record'][key] = value
+                with self.assertRaises(ValueError) as error: c.findings(self.s, NOW)
+                self.assertNotIn('private', str(error.exception))
 
 
 class GitHubTests(unittest.TestCase):
