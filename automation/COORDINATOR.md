@@ -630,6 +630,11 @@ with neither movie export imported; the precise host/path cause is unknown.
 
 The caller supplies a **new** output root, outside the source and checkout, under
 an existing stable owner-only parent. Relative roots and traversal are rejected.
+Both roots require the single `/` absolute anchor; `//` spellings are rejected
+before any output creation. Supplied paths are never silently resolved through
+symlinks. Before mkdir or output writes, source **and checkout** exclusion use
+descriptor ancestor identities, including case-insensitive directory aliases;
+an existing final entry aliasing either protected root is also rejected by identity.
 No-follow directory descriptors and ancestor filesystem identities protect writes
 against spelling/alias redirects; source hardlinks are also rejected by this
 reader. Parent ownership/mode are checked. The parent must remain under the
@@ -644,7 +649,9 @@ serialization is written over an export. Each source is at most 2 MiB (4 MiB
 combined); the manifest uses fixed fields, diagnostics at most 40 fixed records,
 and observations at most 512 KiB. Reads use O_NONBLOCK, at most limit+1 bytes,
 regular-file checks and before/after size/inode/time/link-count checks. Every
-opened descriptor is closed on success and failure.
+opened descriptor is closed on success and failure. Ancestor traversal transfers
+cleanup ownership immediately on open, before stat or other fallible operations;
+caller-owned source and parent descriptors remain open.
 
 Manifest v2 adds `diagnostics` to the v1 fields; all five source IDs still occur.
 Nonmovie sources are explicitly unstaged, not inferred. Each movie source has an

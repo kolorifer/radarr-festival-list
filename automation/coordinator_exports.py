@@ -16,7 +16,7 @@ LIMIT = min(c.MAX_BYTES, 2 * 1024 * 1024)
 
 
 def _outside_source(parent_fd, source_fd):
-    """Filesystem identity check catches aliases as well as path spellings."""
+    """Reject ancestors in a protected tree (source or checkout) by identity."""
     source = os.fstat(source_fd)
     ancestor = os.dup(parent_fd)
     try:
@@ -24,10 +24,11 @@ def _outside_source(parent_fd, source_fd):
             here = os.fstat(ancestor)
             identity = (here.st_dev, here.st_ino)
             c.require(identity != (source.st_dev, source.st_ino), 'export_destination')
-            above = os.open('..', os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=ancestor)
-            up = os.fstat(above)
-            os.close(ancestor)
-            ancestor = above
+            # Transfer cleanup ownership before any operation on the new fd.
+            previous, ancestor = ancestor, os.open(
+                '..', os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=ancestor)
+            os.close(previous)
+            up = os.fstat(ancestor)
             if identity == (up.st_dev, up.st_ino):
                 break
     finally:
@@ -85,7 +86,8 @@ def stage_exports(source_root, output_root, now):
     c.require(Path(source_root).is_absolute() and Path(output_root).is_absolute(), 'confined_root')
     source_root, output_root = Path(source_root), Path(output_root)
     for path in (source_root, output_root):
-        c.require(all(p not in ('.', '..') for p in path.parts), 'confined_root')
+        c.require(path.anchor == '/' and all(p not in ('.', '..') for p in path.parts),
+                  'confined_root')
     c.require(output_root != source_root and source_root not in output_root.parents,
               'export_destination')
     checkout = Path(__file__).resolve().parent.parent
@@ -98,8 +100,17 @@ def stage_exports(source_root, output_root, now):
         parent = stack.enter_context(files.directory(output_root.parent))
         info = os.fstat(parent)
         c.require(info.st_uid == os.getuid() and info.st_mode & 0o077 == 0, 'export_parent')
-        if source_fd is not None:
-            _outside_source(parent, source_fd)
+        checkout_fd = stack.enter_context(files.directory(checkout))
+        try:
+            existing = os.stat(output_root.name, dir_fd=parent, follow_symlinks=False)
+        except FileNotFoundError:
+            existing = None
+        for protected_fd in (source_fd, checkout_fd):
+            _outside_source(parent, protected_fd)
+            # A final-entry alias of a protected root has a parent outside it.
+            if existing is not None:
+                c.require(not os.path.samestat(existing, os.fstat(protected_fd)),
+                          'export_destination')
         # mkdir is exclusive even for dangling links, files, aliases or old roots.
         try:
             os.mkdir(output_root.name, mode=0o700, dir_fd=parent)

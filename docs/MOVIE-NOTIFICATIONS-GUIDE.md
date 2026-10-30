@@ -124,7 +124,10 @@ Update this file when notification routing, identification rules, action behavio
 A separate coordinator reader can preserve the original investigation snapshot
 and research report for private review, with distinct diagnostics for unreadable,
 invalid, stale or incompatible evidence. It has been checked with synthetic files
-only. It does not activate a daily reporting agent or change notification routing,
+only. The corrected reader rejects checkout/source destination aliases before
+creating output, including double-leading-slash spellings and filesystem identity
+aliases. Ancestor inspection failures close internally opened handles. It does
+not activate a daily reporting agent or change notification routing,
 identity choices, confirmation buttons or download safeguards. The
 [coordinator guide](../automation/COORDINATOR.md#confined-movie-export-readerstager-issue-115-offline-code)
 explains the contract and separate authorization needed for any real source use.

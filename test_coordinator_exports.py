@@ -149,6 +149,121 @@ class ExportTests(Base):
                     exports._outside_source(parent_fd, source_fd)
         self.assertFalse(self.output.exists())
 
+    def test_checkout_and_double_slash_destinations_rejected_before_writes(self):
+        checkout = self.root / 'synthetic-checkout'
+        (checkout / 'automation').mkdir(parents=True, mode=0o700)
+        checkout.chmod(0o700)
+        before = {p: (self.source / p).read_bytes() for p in exports.EXPORTS.values()}
+        with patch.object(exports, '__file__', str(checkout / 'automation/coordinator_exports.py')):
+            for destination in (checkout, checkout / 'output',
+                                Path('//' + str(checkout / 'alias-output').lstrip('/')),
+                                Path('//' + str(self.source / 'alias-output').lstrip('/'))):
+                with self.subTest(destination=destination):
+                    with patch.object(exports.os, 'mkdir', wraps=os.mkdir) as mkdir:
+                        with self.assertRaises(ValueError):
+                            self.run_stage(destination)
+                    mkdir.assert_not_called()
+                    if destination != checkout:
+                        self.assertFalse(destination.exists())
+            self.assertEqual(list(checkout.iterdir()), [checkout / 'automation'])
+            self.assertEqual(self.run_stage()['sources']['investigations']['status'], 'available')
+        for path, raw in before.items():
+            self.assertEqual((self.source / path).read_bytes(), raw)
+
+    def test_checkout_identity_alias_rejected_before_writes(self):
+        checkout = self.root / 'synthetic-checkout'
+        (checkout / 'automation').mkdir(parents=True, mode=0o700)
+        checkout.chmod(0o700)
+        original = os.fstat
+        # Model an otherwise differently spelled parent aliasing the checkout.
+        checkout_identity, parent_identity = checkout.stat(), self.root.stat()
+        def aliased(fd):
+            info = original(fd)
+            return parent_identity if (info.st_dev, info.st_ino) == (
+                checkout_identity.st_dev, checkout_identity.st_ino) else info
+        with patch.object(exports, '__file__', str(checkout / 'automation/coordinator_exports.py')), \
+             patch.object(exports.os, 'fstat', side_effect=aliased), \
+             patch.object(exports.os, 'mkdir', wraps=os.mkdir) as mkdir:
+            with self.assertRaisesRegex(ValueError, '^export_destination$'):
+                self.run_stage()
+        mkdir.assert_not_called()
+        self.assertFalse(self.output.exists())
+
+    def test_case_insensitive_checkout_alias_rejected_before_writes(self):
+        checkout = self.root / 'synthetic-checkout'
+        (checkout / 'automation').mkdir(parents=True, mode=0o700)
+        checkout.chmod(0o700)
+        alias = checkout.with_name(checkout.name.upper())
+        if not alias.exists() or not alias.samefile(checkout):
+            self.skipTest('requires a case-insensitive directory alias')
+        for destination in (alias, alias / 'output', self.source.with_name('SOURCE'),
+                            self.source.with_name('SOURCE') / 'output'):
+            with self.subTest(destination=destination), \
+                 patch.object(exports, '__file__', str(checkout / 'automation/coordinator_exports.py')), \
+                 patch.object(exports.os, 'mkdir', wraps=os.mkdir) as mkdir:
+                with self.assertRaisesRegex(ValueError, '^export_destination$'):
+                    self.run_stage(destination)
+            mkdir.assert_not_called()
+        self.assertFalse((checkout / 'output').exists())
+
+    def test_new_ancestor_fstat_failure_closes_all_owned_descriptors(self):
+        original_open, original_dup = os.open, os.dup
+        original_close, original_stat = os.close, os.fstat
+        with files.directory(self.source) as source_fd, files.directory(self.root) as parent_fd:
+            scenarios = [(failure, attempt) for failure in
+                         ('fstat', 'later_fstat', 'open', 'later_open', 'success')
+                         for attempt in range(5)]
+            for failure, attempt in scenarios:
+                with self.subTest(failure=failure, attempt=attempt):
+                    acquired, closed, live = Counter(), Counter(), set()
+                    above, seen = [], []
+                    error = OSError(errno.EIO, CANARY)
+                    def opened(*args, **kwargs):
+                        if (failure == 'open' or (failure == 'later_open' and above)):
+                            raise error
+                        fd = original_open(*args, **kwargs)
+                        acquired[fd] += 1
+                        live.add(fd)
+                        above.append(fd)
+                        return fd
+                    def duplicated(fd):
+                        new = original_dup(fd)
+                        acquired[new] += 1
+                        live.add(new)
+                        return new
+                    def close(fd):
+                        original_close(fd)
+                        closed[fd] += 1
+                        live.remove(fd)
+                    def fstat(fd):
+                        if above and fd == above[-1] and (failure == 'fstat' or (
+                                failure == 'later_fstat' and len(above) == 2)):
+                            raise error
+                        info = original_stat(fd)
+                        seen.append((info.st_dev, info.st_ino))
+                        return info
+                    try:
+                        with patch.object(exports.os, 'open', side_effect=opened), \
+                             patch.object(exports.os, 'dup', side_effect=duplicated), \
+                             patch.object(exports.os, 'close', side_effect=close), \
+                             patch.object(exports.os, 'fstat', side_effect=fstat):
+                            if failure == 'success':
+                                exports._outside_source(parent_fd, source_fd)
+                                root = Path('/').stat()
+                                self.assertEqual(seen[-1], (root.st_dev, root.st_ino))
+                            else:
+                                with self.assertRaises(OSError) as caught:
+                                    exports._outside_source(parent_fd, source_fd)
+                                self.assertIs(caught.exception, error)
+                        original_stat(source_fd)
+                        original_stat(parent_fd)
+                        self.assertEqual(acquired, closed)
+                        self.assertFalse(live)
+                    finally:
+                        # Also clean up the deliberately reproduced baseline leak.
+                        for fd in live:
+                            original_close(fd)
+
     def test_partial_missing_no_invented_provenance_no_stale_substitution(self):
         (self.source / 'review-report.json').unlink()
         report = self.run_stage()
@@ -373,6 +488,34 @@ class ExportTests(Base):
             cli.main(['stage-exports', '--private-'+CANARY])
         self.assertNotIn(CANARY, capture.getvalue())
         self.assertEqual(json.loads(capture.getvalue())['reason'], 'invalid_or_unavailable_input')
+
+    def test_cli_preflight_failures_are_sanitized_before_writes(self):
+        args = ['stage-exports', '--source-root', str(self.source), '--output-root', str(self.output)]
+        for failure in ('anchor', 'stat', 'open'):
+            with self.subTest(failure=failure):
+                argv = list(args)
+                if failure == 'anchor':
+                    argv[-1] = '//' + str(self.output).lstrip('/')
+                original_open = os.open
+                def opened(path, *args, **kwargs):
+                    if path == '..':
+                        raise OSError(errno.EIO, CANARY)
+                    return original_open(path, *args, **kwargs)
+                with redirect_stdout(io.StringIO()) as capture, \
+                     patch.object(cli.time, 'time', return_value=NOW), \
+                     patch.object(exports.os, 'mkdir', wraps=os.mkdir) as mkdir:
+                    if failure == 'stat':
+                        with patch.object(exports.os, 'fstat', side_effect=OSError(errno.EIO, CANARY)):
+                            self.assertEqual(cli.main(argv), 1)
+                    elif failure == 'open':
+                        with patch.object(exports.os, 'open', side_effect=opened):
+                            self.assertEqual(cli.main(argv), 1)
+                    else:
+                        self.assertEqual(cli.main(argv), 1)
+                self.assertEqual(json.loads(capture.getvalue()),
+                                 {'state': 'NEEDS_USER', 'reason': 'invalid_or_unavailable_input'})
+                mkdir.assert_not_called()
+                self.assertFalse(self.output.exists())
 
 
 if __name__ == '__main__':

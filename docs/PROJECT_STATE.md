@@ -1323,3 +1323,32 @@ from the contract and actual evidence. No exhausted access task is repeated here
 The unrelated active `docs/CODEX_TASK.md`, #86/PR #110, production scoring,
 research budgets, dispatcher/supervisor/receipt protocols, claims/locks/quota/caps
 and issue #113 retained roots/outboxes/execution artifacts remain unchanged.
+
+### Issue #115 Task 2 — filesystem correction awaiting parent review
+
+From clean PR #116 head `e8e86942cea7e88ef44434cebb6a2e52e4bec622`, both
+review findings reproduced using synthetic temporary roots: `//` output bypassed
+lexical checkout exclusion and created four staged files inside the fixture;
+new-ancestor fstat failure leaked one descriptor per attempt (cleaned up by the
+test). No real exports or actual checkout staging were used.
+
+The correction requires a single `/` root anchor, checks source and checkout
+ancestor identities before mkdir/writes, rejects final-entry aliases of protected
+roots and preserves no-follow traversal. New ancestor descriptors acquire cleanup
+ownership before stat/other fallible operations. Repeated injected stat/open
+failures close acquired descriptors while caller descriptors remain valid.
+Synthetic case-insensitive alias checks passed on this Mac; they explicitly skip
+on filesystems without those aliases, alongside portable injected identity checks.
+
+All 158 coordinator/export/integration tests passed on local Python 3.9.6.
+Compilation, frozen production scoring and diff checks passed. Full unittest ran
+789 tests with 109 errors and two Linux-only skips on this unsupported environment;
+missing dependencies/runtime APIs and HTTP fixture errors are itemized in the
+[Task 2 report](reports/2026-10-30-coordinator-export-ingestion.md#task-2-correction-report--30-october-2026).
+Task 1's supervisor-supplied 3.12/3.13 CI run 41052004267 is historical.
+Parent publication on the existing branch/PR, independent corrected-head review,
+fresh supported CI and merge remain separate pending gates. No worker publication,
+deployment, live source/host observation, operational replay, notification or
+recurring operation occurred. Historical issue #113 Task8's actual host rejection
+remains unknown. The unrelated active task and all existing preservation boundaries
+above remain unchanged.

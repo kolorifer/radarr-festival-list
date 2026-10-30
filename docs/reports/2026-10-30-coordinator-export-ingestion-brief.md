@@ -71,3 +71,50 @@ Task8 established SSH exit0 followed by generic `file_rejected`, with neither
 export imported. The specific host/path cause remains unknown. Later authorized
 source integration must be decided from this contract and actual evidence after
 code acceptance; this brief does not authorize operational replay.
+
+## Task 2 — reviewed filesystem corrections, 30 October 2026
+
+**Authority:** Latest canonical supervisor Task 2 for issue #115.
+**Baseline:** Clean `automation/issue-115-worker` at
+`e8e86942cea7e88ef44434cebb6a2e52e4bec622`, existing PR #116.
+**Status:** Focused corrections implemented; final local results and remaining
+review/CI gates are recorded in the [Task 2 report](2026-10-30-coordinator-export-ingestion.md#task-2-correction-report--30-october-2026).
+Task 1 is consumed, not replayed. Its code boundaries and unrelated preservation
+requirements above continue to apply; no source integration is authorized.
+
+Reproduce the double-leading-slash checkout exclusion bypass and newly opened
+ancestor-fstat descriptor leak before fixing them. Use only synthetic temporary
+sources and staging, and patch module `__file__` to a synthetic checkout.
+Enforce output separation from both protected trees before mkdir/output writes:
+reject noncanonical absolute anchors, retain strict no-follow traversal and
+compare filesystem ancestor/final-root identities rather than just lexical
+prefixes. Reject equivalent case-insensitive paths where applicable. Give each
+new ancestor descriptor a cleanup owner before its next fallible operation.
+Preserve original errors or fixed safe diagnostics and caller descriptor ownership.
+Do not refactor unrelated parent-export or dispatcher/receipt code.
+
+Focused tests must reject ordinary checkout and `//` destinations before writes,
+allow valid external output, retain existing source/alias/no-follow/collision and
+original-byte/privacy/manifest/freshness/full-set/outbox regressions, account for
+every acquired descriptor under repeated injected stat/open failures, preserve
+root-stop traversal and sanitized public failure output. Case-insensitive real
+filesystem tests must explicitly skip where aliases do not exist; an injected
+identity test must remain portable. Run relevant coordinator/export/integration
+and full repository unittest suites, compilation and diff checks on available
+Python. Do not install dependencies or hide unsupported-runtime limitations.
+
+Append scoped results here and in the existing report, and update guide/state
+facts. Preserve `docs/CODEX_TASK.md`. Parent runner alone commits/pushes/updates
+PR #116; independent exact corrected-head review and Python 3.12/3.13 CI remain
+acceptance gates. Historical Task 1 CI is not corrected-head evidence. No SSH,
+private source acquisition, deployment, runtime activation, merge or task replay.
+
+**Local result:** Both findings reproduced before correction; 158 corrected
+coordinator/export/integration tests passed (22 export tests), including real
+case-insensitive aliases on this Mac and repeated stat/open descriptor accounting.
+Compilation, frozen production scoring and diff checks passed. Full unittest on
+unsupported Python 3.9.6 ran 789 tests with 109 errors and two Linux-only skips;
+missing dependencies/unavailable runtime APIs and HTTP fixture failures are
+itemized in the report. Dependencies and unrelated code remain unchanged.
+Corrected parent-head supported CI/review remain pending; no live access or
+deployment occurred.
