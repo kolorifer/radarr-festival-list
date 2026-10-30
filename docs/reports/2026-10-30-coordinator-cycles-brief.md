@@ -77,3 +77,48 @@ merge/deployment, actual private publication or recipient action. No Git
 publication/comments by this worker. Preserve accepted main, retained branches,
 #86/#110, legacy issue #113 state and unrelated tasks. This brief records scope;
 it does not authorize later operations.
+
+## Task 2 — focused independent-review corrections, 30 October 2026
+
+Authority: the latest canonical supervisor Task 2, code/docs/synthetic tests only.
+Starting branch `automation/issue-117-worker`, PR #118, clean exact head
+`d24f3850f1c72652989abf27be4220b1d1af9aae`. Preserve complete Task 1 scope and
+unrelated `docs/CODEX_TASK.md`. Parent retains publication, CI and issue reporting;
+original supervisor retains independent review/progression. No worker publication,
+operational access, dependencies, daemon, schedule, merge or deployment.
+
+Reproduce, then correct only the two independently reproduced findings:
+
+1. Source/evidence aliases and swallowed filesystem-identity guard errors must
+   reject before creation/modification of writable state. Strict no-follow
+   traversal stays in place; no symlink resolution, alternate roots or inferred
+   OS-error causes. Preserve partial reporting after safe separation is proven
+   for genuinely missing/inaccessible export files, plus independent findings.
+2. Capture an immutable exact-name/set/actual-byte evidence binding before
+   preparation and validate it at checkpoint recovery and every record lifecycle
+   entry before publication, promotion, archive or reclamation. Reject missing,
+   changed, substituted and extra evidence and corrupted manifests/checkpoints
+   while preserving recoverable bytes and lifecycle facts. Bind actual captured
+   invalid bytes even when supplied manifests correctly diagnose hash mismatch;
+   do not require claims to equal them or fabricate absent bytes.
+
+Document the smallest coherent new-cycle schema/compatibility choice. Never
+silently retrofit provenance for Task 1 records; preserve their original bytes.
+Legacy outbox v2 and engineering receipt formats/APIs remain unchanged.
+
+Meaningful synthetic regressions must cover both baseline failures, equivalent
+independent-root alias, pre-write error/no-mutation and descriptor ownership,
+valid external roots and safe partial outcomes, all evidence corruptions before
+handoff/receipt/archive/reclamation, invalid claimed hashes, byte-identical
+archive/recovery and idempotency. Keep existing >20 transitions, finite bounds,
+quiet cleanup, interrupted/no-newer-input recovery, privacy and source timing.
+Run focused and combined coordinator/cycle/export/integration suites, full
+unittest, compilation, frozen scoring and diff checks using the available runtime
+without dependency installation. Task 1 supported CI is historical; corrected-head
+Python 3.12/3.13 CI and independent review remain external acceptance gates.
+
+Append actual baseline reproduction, implementation decisions and checks to the
+engineering report; update the cycle/coordinator/pilot/user guides and project
+state, preserving prior rationale and distinguishing tested code, future parent
+publication/review/merge and later operational integration. The containing
+parent-published commit/PR supplies the correction revision reference.

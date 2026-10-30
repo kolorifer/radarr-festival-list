@@ -282,6 +282,15 @@ recipient acknowledgement, restart and 25 verified archives. It performs no live
 publication, source refresh or recipient action. Legacy outboxes and issue #113's
 uncertain state are preserved; Task 8's precise rejection remains unknown.
 
+The Task 2 correction requires cycle format 2 and pre-write proof of source and
+independent-evidence separation. Ambiguous roots and identity-guard errors reject
+before state writes; proven missing inputs remain partial. Actual captured names,
+sizes and hashes are bound in the immutable payload; checkpoint anchors are
+recorded at capture. Corruption, missing anchors and Task 1 format-1 roots fail
+closed while preserving bytes. Do not retrofit existing state or treat a receipt
+hash as authentication. The legacy outbox and retained issue #113 state remain
+untouched. These are synthetic code checks, not live integration evidence.
+
 After code review and exact-head supported CI/merge, the supervisor should scope
 the bounded integration task for this **new** component. Inspect existing owner
 runtime/launcher and source timing before deciding on recurrence. The combined

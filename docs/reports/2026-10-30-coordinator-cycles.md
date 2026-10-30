@@ -199,3 +199,167 @@ state. Decisions are unchanged because no new product policy was chosen.
 The unrelated active task is preserved byte-for-byte, as required by the canonical
 supervisor task. Parent/supervisor review should assess this component and fresh
 supported CI before defining its separate bounded integration task.
+
+## Task 2 correction report — 30 October 2026
+
+**Specification:** [Task 2 scoped brief](2026-10-30-coordinator-cycles-brief.md#task-2--focused-independent-review-corrections-30-october-2026),
+latest canonical issue-owner supervisor Task 2 only. Task 1 requirements and
+prior rationale above remain preserved.
+**Result:** Both reviewed defects corrected and synthetically verified; parent
+publication, corrected-head supported CI and independent review remain pending.
+**Repository revision:** Clean start on `automation/issue-117-worker` at
+[`d24f3850f1c72652989abf27be4220b1d1af9aae`](https://github.com/kolorifer/radarr-festival-list/commit/d24f3850f1c72652989abf27be4220b1d1af9aae),
+existing [PR #118](https://github.com/kolorifer/radarr-festival-list/pull/118).
+The correction's containing parent-published commit supplies its final reference;
+this worker has not committed, pushed, replaced the PR or posted comments.
+**Verification:** 30 October 2026, temporary synthetic fixtures only, local
+`/usr/bin/python3` **3.9.6**. No supported interpreter or project virtual environment
+was available through repository/PATH inspection. No dependencies were installed
+or changed. Prior Task 1 CI run 41064080491 (3.12/3.13) and the supervisor's
+199-test Python 3.12.14 review are historical, not correction-head verification.
+
+### Baseline reproduction before correction
+
+The first four new regression methods ran against the unchanged Task 1 runtime:
+`test_source_and_evidence_aliases_reject_before_writes`,
+`test_initial_and_later_separation_errors_fail_closed`,
+`test_empty_evidence_rejected_before_archive` and
+`test_changed_original_copies_rejected_before_archive`.
+They failed with five failing subcases: both aliases allowed creation of state
+inside the underlying protected tree; a later guard error left a newly created
+directory; empty evidence and one-byte changes to both investigation copies were
+accepted for archive and active reclamation. A separate
+`test_source_identity_guard_eio_is_not_unavailability` failed both initial
+`_outside_source` and later `disjoint` EIO subcases: each was swallowed and the
+invocation continued. All data, aliases, journals, receipts and roots were new
+temporary synthetic fixtures; no private/operational inputs were used.
+
+### What changed and technical decisions
+
+All source/evidence separation checks now occur inside store preflight before
+mkdir, marker creation, locking or temporary cleanup. Existing state is opened
+read-only and compared before any modification. Strict component-by-component
+no-follow traversal checks actual directory identity; errors in traversal,
+open/stat or filesystem guards propagate. A proven missing descendant is allowed
+only when its actual ancestors establish safe separation, including exclusion
+from existing writable state. An inaccessible/ambiguous directory that cannot
+be proved safe rejects without inventing a symlink cause. After safe separation,
+missing or inaccessible export files still yield truthful partial reports and
+retain independent findings. No supplied path is resolved to an alternate root.
+The accepted original-byte reader implementation itself is unchanged.
+
+Final self-review identified a prospective-name alias in the first correction
+pass: if state and a protected path were both absent below the same immediate
+parent, creating state could make a case-aliased protected spelling exist inside
+it. A focused synthetic regression reproduced this before the final correction.
+Preflight now rejects that unproven case, even if the missing names look different;
+it does not guess filesystem case/normalization rules. Proven missing descendants
+below a distinct existing directory, or checked against an existing state identity,
+remain partial-report inputs. This conservative restriction is limited to the new
+component and is documented in its runbook.
+
+The smallest coherent format change is **new cycle format 2**, leaving comparison
+version 2 and cycle receipt JSON version 1 unchanged. Each completed collection
+computes `evidence_binding`, an exact map of captured names to actual decoded-byte
+size and SHA256. The binding enters the immutable payload, so the report ID,
+publication attempt and both receipts bind it too. Source manifest claims are
+retained independently: correctly diagnosed hash mismatches remain invalid
+findings while their actual bytes and original manifests archive unchanged.
+Absent source bytes are never fabricated. Record loading checks the whole map
+before handoff, either receipt promotion, replay cleanup, archive or reclamation.
+Updating a mutable envelope/binding/payload hash cannot preserve its ledger ID.
+
+`checkpoints.independent` and `checkpoints.collection` in each cycle ledger entry
+anchor exact checkpoint bytes when captured, before further preparation. Recovery
+validates these anchors and the completed collection evidence binding; it never
+recomputes trusted provenance from the mutable retained contents. Missing,
+modified, substituted, extra or corrupted evidence/manifests/checkpoints reject
+without promotion, successful handoff/archive, checkpoint reclamation or state replacement.
+A checkpoint-file install followed by a crash before its ledger-anchor commit
+leaves preserved but unverified bytes and a fixed recovery-preserving failure;
+owner investigation is necessary. This is a deliberate fail-closed commit window,
+not permission to discard the checkpoint or reread newer sources.
+
+Task 1 format-1 roots cannot establish the new provenance and are rejected via
+the existing fixed `NEEDS_USER/invalid_or_unavailable_input` projection before
+lock creation/cleanup. No migration, retrofit or deletion occurs. A fresh explicitly
+owned root is required for new format-2 cycles. Legacy outbox v2 payloads, IDs,
+intents, receipts, recovery and frozen fixture remain byte-identical. Engineering
+terminal receipts, dispatcher/policy protocols, claims, locks, caps and quotas
+are unchanged; no receipt API is expanded to manufacture external trust.
+
+### Files and components changed
+
+| Component | Purpose |
+| --- | --- |
+| `automation/coordinator_cycles.py` | Pre-write source/state separation; format 2; capture-time checkpoint anchors; immutable actual-evidence payload binding and lifecycle/replay validation |
+| `test_coordinator_cycles.py` | 12 focused methods covering reproduced failures, no-mutation guards, descriptor ownership, safe partial reporting, corruption across lifecycle/recovery, actual invalid bytes, compatibility and idempotency; intentional no-mutation expectation updates for symlink and unproven missing-root spellings |
+| `automation/COORDINATOR_CYCLES.md` | Exact preflight/schema/binding/checkpoint/compatibility/recovery contract and trust/activation limits |
+| Coordinator and pilot guides, movie user guide | Current offline safeguards and preserved live behavior/ownership |
+| Task 2 brief/report and project state | Scope, reproduction, actual verification, revision and pending acceptance gates |
+
+### Acceptance criteria and evidence
+
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Both failures reproduced unchanged | Passed | Five focused baseline methods, with failures above before runtime edits |
+| Pre-write alias and guard rejection | Passed synthetically | Source/evidence aliases containing intended new or owned state; initial/later EIO; source/ancestor open/stat errors; unchanged tree contents and no new entries |
+| Descriptor ownership and safe partial outcomes | Passed synthetically | Open/stat failures restore descriptor set, caller FD remains usable; valid external roots and proven missing/inaccessible inputs retain independent findings |
+| Immutable actual-evidence binding | Passed synthetically | Empty/missing/removed/substituted/extra/modified evidence, retained manifest and rewritten payload binding reject at handoff, both receipt paths, replay, archive and archive-reference recovery |
+| Checkpoint integrity | Passed synthetically | Missing/changed checkpoints, altered manifests/local bindings, wrong or absent durable anchors reject without reread or reclamation |
+| Valid invalid-content reports | Passed synthetically | Claimed engineering hash mismatch diagnoses invalid input; actual bytes and original manifest are payload-bound and survive archive/replay |
+| Original bytes and idempotency | Passed synthetically | Correct archive and replay retain original bytes/receipts; old v2 recovery fixture unchanged; 25 acknowledged material cycles, quiet staging and crash/restart tests preserved |
+| New-cycle compatibility | Passed synthetically | Format-1 cycle marker rejects with fixed public failure and unchanged bytes; no old outbox changes |
+| Corrected-head supported CI and independent acceptance | Pending | Parent/supervisor gates on the correction's containing revision; historical Task 1 evidence does not satisfy them |
+
+### Actual checks and limitations
+
+All commands used `PYTHONPYCACHEPREFIX=/private/tmp/issue117-task2-pycache`; logs
+remain in new `/private/tmp/issue117-task2-*` files, outside public artifacts.
+
+- Targeted new regression runner (AST-selected methods added to `CycleTests` relative to `HEAD`, loaded with `unittest.defaultTestLoader`): **12 passed in 5.314 seconds**.
+- `python3 -m unittest test_coordinator_cycles test_coordinator_exports test_coordinator_integration test_coordinator -v`: **211 passed in 64.812 seconds**, including 53 cycle tests (12 new) and all 158 preserved coordinator/export/integration tests.
+- `python3 -m unittest -v`: **842 run in 220.886 seconds; 109 errors, 2 skips, no assertion failures; not passing on Python 3.9.6**. Errors: 84 missing `requests`, 9 missing `bs4`, 10 unsupported `TestCase.enterContext`, 3 SQLite exception/error-code API incompatibilities and 3 dependent HTTP disconnects. No dependencies or unrelated code were changed to suppress these environment limitations.
+- `python3 -m compileall -q automation test_coordinator_cycles.py test_coordinator_exports.py test_coordinator_integration.py test_coordinator.py`: **passed**.
+- `python3 production_scoring.py --check`: **passed**; candidate 1909, grandfathered 224, new 163, qualified 387.
+- Diff, documentation links and protected-file verification: **passed**; 141 local documentation targets verified; exactly the nine scoped files changed, branch/HEAD retained and protected task/reader/outbox/engineering/scoring files unchanged.
+
+The earlier 46-cycle-method correction pass and 210-test combined run were green.
+An intermediate full run after the prospective-name guard changed ran 842 tests
+with 110 errors and 2 skips, including one old fixture expectation error: a wholly missing sibling root can no longer initialize new
+state. The fixture now verifies no-mutation rejection, establishes an owned state
+identity, then preserves its original failed/quiet-poll and backpressure checks.
+An intermediate six-method focused run exposed a test assertion expecting a coarse `hash_mismatch` reason.
+The existing validator correctly uses `inconsistent/invalid_or_conflicting` with
+an identity-stage `hash_mismatch` diagnostic. The regression was corrected to that
+existing contract; the final combined run above passes without changing source
+validation or diagnostics. No prior/intermediate run is claimed as fresh supported
+CI or live integration evidence.
+
+### Deployment, unexpected findings and remaining risks
+
+Not deployed or activated; no host/SSH/seedbox, private data, service/database,
+provider/research/refresh, actual publication/recipient action, notification,
+Radarr/media/download, credentials/session discovery, installation or schedule
+was used. Parent retains all publication and issue reporting. External receipt
+origin still requires the accountable owner's authenticated provenance; hashes
+and owner strings do not establish trust. Stable owner-controlled directory and
+finite capacity assumptions remain as documented. The new checkpoint commit
+window preserves bytes and stops rather than implicitly trusting unbound state.
+No broader design, scoring, budget or retention policy was selected.
+
+Corrected-head 3.12/3.13 CI and independent review/merge remain required. Later
+live integration needs a separately bounded task for the existing owner runtime,
+source timing, exact destinations/transport and actual readback/recipient proof
+before recurrence. Production quality/release export remains unavailable and
+movie upstream coverage remains incomplete. Historical issue #113 Task 8's precise
+rejection is still unknown and no exhausted task/state was replayed or reconciled.
+
+### Project handoff
+
+Task 2 scope/results are appended, preserving Task 1 rationale and historical
+results. Runbook and coordinator/pilot/user guides now distinguish pre-write
+safety, immutable evidence, compatibility and synthetic versus live facts.
+Project state records implementation/testing separately from parent publication,
+independent acceptance and later integration. `docs/DECISIONS.md` and unrelated
+`docs/CODEX_TASK.md` remain unchanged; no new product decision or task was invented.

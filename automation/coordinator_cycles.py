@@ -20,7 +20,8 @@ from automation import coordinator_exports as exports
 from automation import coordinator_diagnostics as diagnostics
 from automation.coordinator_integration import PublicParser
 
-VERSION = 1
+VERSION = 2
+RECEIPT_VERSION = 1
 MAX_CYCLES = 4096
 MAX_ACTIVE = 20
 MAX_ARCHIVE = 256
@@ -148,13 +149,69 @@ def disjoint(a, b):
 
 
 @contextlib.contextmanager
-def store(root, runtime, owner):
+def protected_directory(path, existing, output_parent):
+    """Prove a no-follow spelling, allowing only a proven missing descendant.
+
+    A failed open/stat is never evidence of absence or of a particular symlink
+    cause. Accessible ancestors also prove that a missing source is outside an
+    existing writable root. Caller-owned descriptors remain caller-owned.
+    """
+    fd = os.open('/', os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        for part in path.parts[1:]:
+            try:
+                info = os.stat(part, dir_fd=fd, follow_symlinks=False)
+            except FileNotFoundError:
+                if existing is not None:
+                    exports._outside_source(fd, existing)
+                else:
+                    # Both final names can be absent yet alias on this FS. A
+                    # shared immediate parent cannot prove prospective separation.
+                    c.require(not os.path.samestat(os.fstat(fd), os.fstat(output_parent)),
+                              'cycle_source_separation')
+                yield None
+                return
+            c.require(stat.S_ISDIR(info.st_mode), 'cycle_source_path')
+            next_fd = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=fd)
+            previous, fd = fd, next_fd
+            os.close(previous)
+            c.require(os.path.samestat(info, os.fstat(fd)), 'cycle_source_changed')
+        yield fd
+    finally:
+        os.close(fd)
+
+
+@contextlib.contextmanager
+def store(root, runtime, owner, protected=()):
     root = canonical(root)
     c.identifier(runtime); c.identifier(owner)
     checkout = Path(__file__).resolve().parent.parent
     with io.directory(root.parent) as parent, io.directory(checkout) as checkout_fd:
         private(parent, True)
         exports._outside_source(parent, checkout_fd)
+        # Every separation guard runs before mkdir, marker, lock or cleanup.
+        # Missing protected descendants are safe only after checking their actual
+        # no-follow ancestors; ambiguous/inaccessible roots fail closed.
+        with contextlib.ExitStack() as preflight:
+            try:
+                existing = preflight.enter_context(io.directory(root))
+            except FileNotFoundError:
+                # Parent is pinned and accessible; verify the final entry alone.
+                try:
+                    os.stat(root.name, dir_fd=parent, follow_symlinks=False)
+                except FileNotFoundError:
+                    existing = None
+                else:
+                    raise
+            if existing is not None:
+                private(existing, True)
+                disjoint(existing, checkout_fd)
+            for path in protected:
+                with protected_directory(path, existing, parent) as source_fd:
+                    if source_fd is not None:
+                        exports._outside_source(parent, source_fd)
+                        if existing is not None:
+                            disjoint(existing, source_fd)
         created = False
         try:
             os.mkdir(root.name, 0o700, dir_fd=parent)
@@ -164,7 +221,6 @@ def store(root, runtime, owner):
             pass
         with io.directory(root) as fd:
             private(fd, True)
-            disjoint(fd, checkout_fd)
             marker = {**LAYOUT, 'runtime': runtime, 'owner': owner}
             if created:
                 write(fd, 'identity.json', io.encode(marker))
@@ -218,7 +274,11 @@ def validate_state(state):
               and len(state['reports']) <= MAX_ACTIVE + MAX_ARCHIVE, 'cycle_capacity')
     for cid, entry in state['cycles'].items():
         c.identifier(cid)
-        c.keys(entry, 'request status report' + (' collection' if 'collection' in entry else ''))
+        c.keys(entry, 'request status report checkpoints' + (' collection' if 'collection' in entry else ''))
+        c.keys(entry['checkpoints'], 'independent collection')
+        for digest in entry['checkpoints'].values():
+            if digest is not None:
+                sources.hex64(digest)
         c.require(entry['status'] in ('collecting', 'quiet', 'prepared', 'backpressure'), 'cycle_status')
         if 'collection' in entry:
             c.require(entry['collection'] in ('collected', 'movie_unavailable', 'interrupted'), 'cycle_collection')
@@ -300,6 +360,34 @@ def evidence_bound(evidence):
         io.relative_path(name)
 
 
+def evidence_binding(evidence):
+    """Bind captured bytes, including invalid input, independently of claims."""
+    evidence_bound(evidence)
+    return {name: {'sha256': io.digest(unpack(raw)), 'size': len(unpack(raw))}
+            for name, raw in evidence.items()}
+
+
+def checkpoint(stage, name, anchors):
+    try:
+        raw = read(stage, name + '.json')
+    except FileNotFoundError:
+        c.require(anchors[name] is None, 'cycle_checkpoint_missing')
+        return None
+    c.require(anchors[name] is not None and io.digest(raw) == anchors[name],
+              'cycle_checkpoint_binding')
+    return io.decode(raw)
+
+
+def commit_checkpoint(stage, name, value, fd, state, entry):
+    raw = io.encode(value)
+    c.require(len(raw) <= MAX_RECORD, 'cycle_collection_bound')
+    write(stage, name + '.json', raw)
+    # A crash between file and state commits leaves an unverified checkpoint.
+    # Preserve it and reject recovery; never bless mutable bytes after restart.
+    entry['checkpoints'][name] = io.digest(raw)
+    save(fd, state)
+
+
 def independent(root, manifest_name, now):
     """Only explicit engineering/parent sources; never discover worker journals."""
     result = {'entries': [], 'evidence': {}, 'outcome': 'not_supplied'}
@@ -376,24 +464,21 @@ def cleanup_stage(fd):
     os.fsync(fd)
 
 
-def collect(root, handles, request, resume=False):
+def collect(root, handles, request, fd, state, resume=False):
     stage = handles['staging']
     stage_usage(stage)
-    try:
-        raw = read(stage, 'collection.json')
-    except FileNotFoundError:
-        pass
-    else:
-        bound = io.decode(raw)
+    cycle_entry = state['cycles'][request['cycle']]
+    saved = checkpoint(stage, 'independent', cycle_entry['checkpoints'])
+    bound = checkpoint(stage, 'collection', cycle_entry['checkpoints'])
+    if bound is not None:
         c.require(bound['request'] == c.fingerprint(request), 'cycle_collection_identity')
-        evidence_bound(bound['evidence'])
+        c.require(evidence_binding(bound['evidence']) == bound['evidence_binding'],
+                  'cycle_evidence_binding')
         return bound
-    try:
-        saved = io.decode(read(stage, 'independent.json'))
-    except FileNotFoundError:
+    if saved is None:
         saved = independent(request['evidence_root'], request['manifest'], request['now']) if not resume else {
             'entries': [], 'evidence': {}, 'outcome': 'interrupted'}
-        write(stage, 'independent.json', io.encode(saved))
+        commit_checkpoint(stage, 'independent', saved, fd, state, cycle_entry)
     evidence = copy.deepcopy(saved['evidence'])
     value = empty_manifest('io_unknown' if resume else 'missing_entry')
     outcome = 'interrupted' if resume else 'movie_unavailable'
@@ -454,10 +539,9 @@ def collect(root, handles, request, resume=False):
         os.close(combined)
     evidence_bound(evidence)
     result = {'request': c.fingerprint(request), 'report': report, 'evidence': evidence,
-              'collection': outcome, 'independent': saved['outcome']}
-    raw = io.encode(result)
-    c.require(len(raw) <= MAX_RECORD, 'cycle_collection_bound')
-    write(stage, 'collection.json', raw)
+              'collection': outcome, 'independent': saved['outcome'],
+              'evidence_binding': evidence_binding(evidence)}
+    commit_checkpoint(stage, 'collection', result, fd, state, cycle_entry)
     stage_usage(stage)
     return result
 
@@ -492,8 +576,8 @@ def cycle(root, runtime, owner, cycle_id, now, source_root, intended_destination
     source_root = canonical(source_root)
     evidence_root = canonical(evidence_root) if evidence_root is not None else None
     root = canonical(root)
-    # Reject obvious overlap before even creating new state; failed source access
-    # otherwise becomes unavailable movie evidence once state is safe.
+    # Reject lexical overlap first; store then proves actual path/identity
+    # separation before writes. Safely separated file acquisition can be partial.
     for protected in (source_root, evidence_root):
         if protected is not None:
             c.require(root != protected and root not in protected.parents and protected not in root.parents,
@@ -501,27 +585,14 @@ def cycle(root, runtime, owner, cycle_id, now, source_root, intended_destination
     request = {'runtime': runtime, 'owner': owner, 'cycle': cycle_id, 'now': now,
                'source_root': str(source_root), 'evidence_root': str(evidence_root) if evidence_root else None,
                'manifest': manifest, 'destination': copy.deepcopy(intended_destination), 'recipient': recipient}
-    with io.directory(root.parent) as output_parent:
-        private(output_parent, True)
-        for protected in (source_root, evidence_root):
-            if protected is not None:
-                try:
-                    with io.directory(protected) as source_fd:
-                        exports._outside_source(output_parent, source_fd)
-                except OSError:
-                    pass
-    with store(root, runtime, owner) as (root, fd, handles, state):
-        for protected in (source_root, evidence_root):
-            if protected is not None:
-                try:
-                    with io.directory(protected) as source_fd:
-                        disjoint(fd, source_fd)
-                except OSError:
-                    pass  # Reader records inaccessible/ambiguous source roots.
+    with store(root, runtime, owner, tuple(p for p in (source_root, evidence_root) if p is not None)) as (
+            root, fd, handles, state):
         old = state['cycles'].get(cycle_id)
         if old is not None:
             c.require(old['request'] == request, 'cycle_reuse')
             if old['status'] != 'collecting':
+                if old['report'] is not None:
+                    load_record(handles, state, old['report'])
                 # Finish cleanup left after an atomic outcome commit.
                 if state['collecting'] == cycle_id:
                     cleanup_stage(handles['staging'])
@@ -536,14 +607,15 @@ def cycle(root, runtime, owner, cycle_id, now, source_root, intended_destination
             if len(state['cycles']) >= MAX_CYCLES or len(active_names) >= MAX_ACTIVE:
                 return projection(state, cycle_id, True)
             c.require(not os.listdir(handles['staging']), 'cycle_stage_unowned')
-            state['cycles'][cycle_id] = {'request': request, 'status': 'collecting', 'report': None}
+            state['cycles'][cycle_id] = {'request': request, 'status': 'collecting', 'report': None,
+                                         'checkpoints': {'independent': None, 'collection': None}}
             state['collecting'] = cycle_id
             if len(io.encode(state)) + 4096 > MAX_STATE:
                 del state['cycles'][cycle_id]
                 state['collecting'] = None
                 return projection(state, cycle_id, True)
             save(fd, state)  # Intent is durable BEFORE touching any source.
-        collected = collect(root, handles, request, resume=old is not None)
+        collected = collect(root, handles, request, fd, state, resume=old is not None)
         material = c.fingerprint(sources.material_report(collected['report']))
         changed = state['baseline'] != material
         rid = None
@@ -551,7 +623,8 @@ def cycle(root, runtime, owner, cycle_id, now, source_root, intended_destination
         if changed:
             payload = io.encode({'version': VERSION, 'comparison_version': 2,
                                  'identity': {'runtime': runtime, 'cycle': cycle_id},
-                                 'observed_at': now, 'report': collected['report']})
+                                 'observed_at': now, 'report': collected['report'],
+                                 'evidence_binding': collected['evidence_binding']})
             rid = c.fingerprint({'runtime': runtime, 'cycle': cycle_id, 'sha256': io.digest(payload)})
             record = {'version': VERSION, 'runtime': runtime, 'cycle': cycle_id, 'id': rid,
                       'payload': payload.decode(), 'sha256': io.digest(payload),
@@ -604,6 +677,9 @@ def load_record(handles, state, rid):
     payload = value['payload'].encode()
     decoded = io.decode(payload)
     request = state['cycles'][meta['cycle']]['request']
+    c.keys(decoded, 'version comparison_version identity observed_at report evidence_binding')
+    c.require(type(decoded['version']) is int and decoded['version'] == VERSION, 'cycle_schema')
+    c.require(evidence_binding(value['evidence']) == decoded['evidence_binding'], 'cycle_evidence_binding')
     c.require(type(value['version']) is int and value['version'] == VERSION
               and len(payload) <= MAX_PAYLOAD and len(raw) <= MAX_RECORD
               and decoded['identity'] == {'runtime': state['runtime'], 'cycle': meta['cycle']}
@@ -619,7 +695,7 @@ def load_record(handles, state, rid):
             c.require(value['attempt'] is not None, 'cycle_receipt_unbound')
             receipt = io.decode(unpack(retained))
             c.keys(receipt, 'version kind owner issuer binding observed_at reference')
-            c.require(receipt['version'] == VERSION and receipt['kind'] == kind
+            c.require(receipt['version'] == RECEIPT_VERSION and receipt['kind'] == kind
                       and receipt['owner'] == state['owner']
                       and receipt['issuer'] == (state['owner'] if kind == 'publication' else request['recipient'])
                       and receipt['binding'] == value['attempt'], 'cycle_receipt_binding')
@@ -676,7 +752,7 @@ def import_receipt(root, runtime, owner, rid, kind, owner_evidence_root, evidenc
             raw = read(selected, evidence_id + '.json', 16384)
             receipt = io.decode(raw)
             c.keys(receipt, 'version kind owner issuer binding observed_at reference')
-            c.require(type(receipt['version']) is int and receipt['version'] == VERSION
+            c.require(type(receipt['version']) is int and receipt['version'] == RECEIPT_VERSION
                       and receipt['kind'] == kind and receipt['owner'] == owner
                       and receipt['binding'] == value['attempt']
                       and receipt['issuer'] == (owner if kind == 'publication'

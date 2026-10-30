@@ -17,6 +17,24 @@ owner-only directory, outside the checkout, source, staged-evidence and worker
 state trees. An existing root is usable only with this component's matching
 `identity.json`. No existing state is migrated or adopted. A failed initialization
 that leaves an unmarked directory is rejected; preserve it and select a new root.
+Before any mkdir, marker, lock, temporary cleanup or state write, the component
+checks source/evidence spellings and filesystem identities against the intended
+writable root and checkout. Symlink components, ambiguous/inaccessible directory
+opens and errors in identity/separation guards reject the invocation; they are
+not downgraded to movie unavailability. No supplied symlink is resolved and no
+alternate root is guessed. A proven missing descendant is allowed only after
+no-follow ancestor checks establish safe separation. If both the state root and
+a protected entry below its immediate parent are absent, separation is unproven:
+filesystem case/normalization rules could alias their prospective names. This
+case rejects without writes, even for apparently different names, rather than
+guessing those rules. Missing descendants below a distinct existing directory,
+or proven absent paths against an existing state identity, remain reportable.
+Once separation is proved,
+missing or inaccessible export files still produce useful partial reports with
+independent findings. An inaccessible source directory whose separation cannot
+be established rejects before writes; an OS error alone does not identify a
+specific symlink cause. This applies to existing state too, before cleanup.
+
 Concurrent initialization can reject a caller before the identity marker exists;
 retry its identical request after initialization. Subsequent callers serialize
 on the cycle root's `lock`. This is not an engineering lock or liveness evidence.
@@ -174,7 +192,7 @@ use a fake external owner that assumes this role, and prove no real delivery.
 ## Durable state, immutable evidence and recovery
 
 All new files live under the one explicitly owned root. `identity.json` fixes
-component/schema version 1, runtime and owner; `state.json` records full cycle
+component/schema version **2**, runtime and owner; `state.json` records full cycle
 requests, durable outcomes, active/archive references, comparison baseline and
 current observation identity. A cycle ID is an acquisition identity; a report ID
 binds runtime/cycle and original payload bytes; an attempt ID additionally binds
@@ -185,9 +203,15 @@ evidence and cannot complete engineering stages through lifecycle receipts.
 The state records acquisition intent before source reads. A single reserved
 `staging/` slot holds `independent.json` (a checkpoint of selected original
 independent bytes and metadata), the new `movie/` reader bundle, a separate
-`combined/` validator input, and `collection.json`, installed last. The complete
-collection binds the original request, report and original evidence bytes.
-Recovery uses a valid completed collection unchanged. If it is absent, the old
+`combined/` validator input, and `collection.json`, installed last. Each cycle
+ledger entry has `checkpoints.independent` and
+`checkpoints.collection`, initially null. On capture, each checkpoint file is
+written durably and its exact encoded-byte SHA256 is then committed to the cycle
+ledger, before later collection/preparation proceeds. Reload validates these
+anchors before using either checkpoint, including the independent checkpoint
+when a complete collection exists. The complete collection also includes an
+`evidence_binding` map and binds the request, report and actual original bytes.
+Recovery uses a verified completed collection unchanged. If it is absent, the old
 cycle is finalized as `interrupted` with unavailable movies and only durably
 checkpointed independent findings. It never rereads sources, imports a newer
 manifest or substitutes an earlier cycle's successful bundle. A different cycle
@@ -195,14 +219,47 @@ is blocked while an interrupted one awaits resolution; retry the recorded
 identity first. A retained complete collection can finish preparation after an
 active-file/state interruption without another acquisition.
 
-Reports use payload schema version 1 and **comparison_version=2**. Their exact
-payload string/hash never changes. Active envelopes add attempt/receipt evidence;
+A checkpoint missing its recorded bytes, with changed bytes, a mismatched anchor,
+or with no durable anchor is rejected without checkpoint reclamation, rereading or
+recomputing a trusted baseline. A crash between checkpoint-file installation and
+ledger-anchor commit can leave such an unverified file: all bytes and acquisition
+intent are preserved, the CLI returns the fixed failure outcome, and recovery
+requires owner investigation. This deliberately fails closed instead of adopting
+post-crash contents. A missing checkpoint with a null anchor means capture did
+not commit; the existing interrupted-outcome rules still apply.
+
+Reports and envelopes use schema version **2** and **comparison_version=2**.
+Their exact payload string/hash never changes. Active envelopes add attempt/receipt evidence;
 archives freeze the complete envelope. Envelopes encode original evidence using
 base64 without reserialization of source bytes. This includes source JSON,
 original optional manifest, original reader manifest/observations, and the new
-combined manifest. File identity/hash checks and source validation remain those
-of the accepted reader. Raw bytes with invalid embedded content can still be
-retained as truthful acquisition evidence; they do not become valid findings.
+combined manifest. The payload's `evidence_binding` maps every exact captured
+name to
+`{"sha256": "<actual-byte-hash>", "size": <actual-decoded-byte-count>}`. It is
+computed at collection, bound by the collection checkpoint anchor, and included
+in the immutable payload hash/report ID and hence the attempt/receipt bindings.
+Record loading compares the complete captured set and actual decoded bytes to
+that original payload binding before handoff, receipt promotion, replay cleanup,
+archive or reclamation. Missing, changed, substituted or extra members (including
+manifests) reject without replacing the binding or deleting recoverable records.
+Changing the binding and payload hash cannot preserve the ledger's report ID.
+Original optional manifest claims are evidence, not the actual-byte binding:
+a correctly diagnosed `hash_mismatch` remains reportable, retains its original
+manifest and actual invalid source bytes, and can archive/recover unchanged.
+Absent source bytes are never fabricated. File identity/hash checks and source
+validation remain those of the accepted reader. Raw bytes with invalid embedded
+content can still be retained as truthful acquisition evidence; they do not become valid findings.
+
+**Cycle-format compatibility:** Task 1 format-1 roots lack this immutable evidence
+binding and checkpoint provenance. They are rejected with the existing fixed
+`NEEDS_USER/invalid_or_unavailable_input` outcome (library validation failure),
+before lock creation or cleanup. Preserve every old byte; there is no automatic
+migration, retrofit, reconciliation or deletion. Select a new explicitly owned
+format-2 root for new cycles. This version is specific to the new cycle component;
+legacy `coordinator_outbox` v2 payloads, identities, receipts and recovery are
+unchanged. Cycle receipt JSON remains version 1 with the same fields/API; its
+payload/attempt hashes now naturally bind the format-2 report. Engineering
+terminal receipts and external authentication requirements are unchanged.
 
 `state.baseline` retains the comparison-v2 material fingerprint after archives
 release active capacity. Availability/finding transitions produce exactly one

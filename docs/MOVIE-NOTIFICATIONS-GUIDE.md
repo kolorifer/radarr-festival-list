@@ -145,3 +145,11 @@ not mean a human read the report, accepted engineering work or approved a movie
 or download. Existing Telegram routing, digest ownership, identity rules and
 confirmation safeguards continue unchanged. See the
 [cycle owner runbook](../automation/COORDINATOR_CYCLES.md).
+
+The offline cycle correction checks source/state separation before any state
+writes and binds the exact retained evidence into each report. Unsafe paths or
+changed/missing evidence stop the cycle without silently approving publication
+or deleting its recoverable record. Older cycle-format records are preserved
+and require owner investigation; they are not automatically converted. These
+checks were tested with synthetic data only and do not activate live reporting
+or change movie notification or download approval behavior.

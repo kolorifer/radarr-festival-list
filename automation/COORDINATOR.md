@@ -741,6 +741,14 @@ Active, archive, cycle-ledger and source-staging limits remain finite and expose
 backpressure without deleting history. Reports and current observations keep
 separate dates and provenance.
 
+Task 2 adds pre-write no-follow/identity separation and immutable actual-evidence
+bindings in cycle format 2. Unsafe/ambiguous roots or guard errors reject before
+state changes; safely separated missing/inaccessible files still yield partial
+reports. Captured set/name/byte changes and unverified checkpoints reject without
+cleanup or promotion. Format-1 cycle roots are preserved and rejected without
+migration; legacy outbox v2 and cycle receipt v1 APIs remain unchanged. See the
+runbook for the checkpoint commit window and fixed recovery-preserving failure.
+
 No runtime/launcher/schedule/transport was activated or inspected for this task.
 Fresh supported CI, independent review, a separately scoped real integration cycle
 and actual publication/recipient evidence remain gates. The existing Mac owner is

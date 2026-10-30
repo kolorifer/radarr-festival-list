@@ -4,6 +4,7 @@ from contextlib import redirect_stdout
 from copy import deepcopy
 import io as streams
 import json
+import errno
 import os
 from pathlib import Path
 import subprocess
@@ -123,6 +124,301 @@ class CycleTests(unittest.TestCase):
         e.update(sha256=io.digest(raw), revision=value['github']['revision'])
         put(self.evidence, 'manifest.json', manifest).chmod(0o600)
 
+    def tree_bytes(self, root):
+        return {str(p.relative_to(root)): p.read_bytes() if p.is_file() else None
+                for p in root.rglob('*')}
+
+    def test_source_and_evidence_aliases_reject_before_writes(self):
+        for field, target in (('source_root', self.source), ('evidence_root', self.evidence)):
+            alias = self.base / (field + '-alias')
+            alias.symlink_to(target, target_is_directory=True)
+            for existing in (False, True):
+                with self.subTest(field=field, existing=existing):
+                    self.root = target / ('existing' if existing else 'new-state')
+                    if existing:
+                        with cycles.store(self.root, 'synthetic-runtime', 'synthetic-owner') as (_, fd, _, state):
+                            cycles.save(fd, state)
+                    before = self.tree_bytes(self.base)
+                    with self.assertRaises((ValueError, OSError)):
+                        self.run_cycle(**{field: alias})
+                    self.assertEqual(self.tree_bytes(self.base), before)
+
+    def test_missing_source_spelling_cannot_alias_prospective_state(self):
+        # Do not guess a filesystem's case/normalization rules for absent names.
+        for field in ('source_root', 'evidence_root'):
+            with self.subTest(field=field):
+                root = self.base / 'prospective-state'
+                protected = self.base / 'PROSPECTIVE-STATE' / 'missing'
+                before = self.tree_bytes(self.base)
+                with self.assertRaises(ValueError):
+                    self.run_cycle(root=root, **{field: protected})
+                self.assertEqual(self.tree_bytes(self.base), before)
+
+    def test_initial_and_later_separation_errors_fail_closed(self):
+        self.run_cycle()
+        for existing in (False, True):
+            root = self.root if existing else self.base / 'new-state'
+            for guard in (('_outside_source', 'disjoint') if existing else ('_outside_source',)):
+                target = exports if guard == '_outside_source' else cycles
+                with self.subTest(existing=existing, guard=guard):
+                    before = self.tree_bytes(self.base)
+                    with patch.object(target, guard, side_effect=OSError(errno.EIO, 'synthetic guard')):
+                        with self.assertRaises(OSError):
+                            self.run_cycle('guard-failure', root=root)
+                    self.assertEqual(self.tree_bytes(self.base), before)
+
+    def test_source_identity_guard_eio_is_not_unavailability(self):
+        self.run_cycle()
+        source_identity = self.source.stat()
+        real_outside, real_disjoint = exports._outside_source, cycles.disjoint
+        for guard, real in (('_outside_source', real_outside), ('disjoint', real_disjoint)):
+            target = exports if guard == '_outside_source' else cycles
+            def faulty(a, b):
+                if os.path.samestat(os.fstat(b), source_identity):
+                    raise OSError(errno.EIO, 'synthetic source identity guard')
+                return real(a, b)
+            with self.subTest(guard=guard):
+                before = self.tree_bytes(self.base)
+                with patch.object(target, guard, side_effect=faulty):
+                    with self.assertRaises(OSError):
+                        self.run_cycle('source-guard-error')
+                self.assertEqual(self.tree_bytes(self.base), before)
+
+    def test_empty_evidence_rejected_before_archive(self):
+        rid = self.run_cycle()['report_id']
+        self.handoff(rid); self.receipt(rid, 'publication'); self.receipt(rid, 'recipient')
+        path = self.root / 'active' / (rid + '.json')
+        record = self.record(rid)
+        self.assertTrue(record['evidence'])
+        record['evidence'] = {}
+        path.write_bytes(io.encode(record))
+        before = self.tree_bytes(self.root)
+        with self.assertRaises(ValueError):
+            self.archive(rid)
+        self.assertEqual(self.tree_bytes(self.root), before)
+
+    def test_changed_original_copies_rejected_before_archive(self):
+        rid = self.run_cycle()['report_id']
+        self.handoff(rid); self.receipt(rid, 'publication'); self.receipt(rid, 'recipient')
+        path = self.root / 'active' / (rid + '.json')
+        record = self.record(rid)
+        for name in ('investigations.json', 'reader/investigations.json'):
+            record['evidence'][name] = cycles.pack(cycles.unpack(record['evidence'][name]) + b' ')
+        path.write_bytes(io.encode(record))
+        before = self.tree_bytes(self.root)
+        with self.assertRaises(ValueError):
+            self.archive(rid)
+        self.assertEqual(self.tree_bytes(self.root), before)
+
+    def test_prewrite_ancestor_open_stat_errors_close_only_owned_descriptors(self):
+        self.run_cycle()
+        real_open, real_stat, real_fstat = os.open, os.stat, os.fstat
+        caller = real_open(self.source, os.O_RDONLY | os.O_DIRECTORY)
+        self.addCleanup(os.close, caller)
+        def descriptors():
+            result = set()
+            for fd in range(256):
+                try:
+                    real_fstat(fd)
+                    result.add(fd)
+                except OSError:
+                    pass
+            return result
+        source_identity = real_fstat(caller)
+        for existing in (False, True):
+            for operation in ('ancestor_open', 'source_open', 'source_stat', 'source_fstat'):
+                with self.subTest(existing=existing, operation=operation):
+                    def faulty_open(name, *args, **kw):
+                        if name == ('..' if operation == 'ancestor_open' else 'source'):
+                            raise OSError(errno.EIO, 'synthetic open')
+                        return real_open(name, *args, **kw)
+                    def faulty_stat(name, *args, **kw):
+                        if name == 'source':
+                            raise OSError(errno.EIO, 'synthetic stat')
+                        return real_stat(name, *args, **kw)
+                    def faulty_fstat(fd):
+                        info = real_fstat(fd)
+                        if os.path.samestat(info, source_identity):
+                            raise OSError(errno.EIO, 'synthetic fstat')
+                        return info
+                    field = 'open' if operation.endswith('open') else ('stat' if operation == 'source_stat' else 'fstat')
+                    fault = faulty_open if field == 'open' else (faulty_stat if field == 'stat' else faulty_fstat)
+                    before, owned = self.tree_bytes(self.base), descriptors()
+                    with patch.object(cycles.os, field, side_effect=fault):
+                        with self.assertRaises(OSError):
+                            self.run_cycle('prewrite-failure', root=self.root if existing else self.base / 'new-state')
+                    self.assertEqual(self.tree_bytes(self.base), before)
+                    self.assertEqual(descriptors(), owned)
+                    self.assertTrue(os.path.samestat(real_fstat(caller), source_identity))
+
+    def test_safe_missing_and_inaccessible_inputs_preserve_partial_findings(self):
+        real = exports.files.read_from_directory
+        def denied(fd, name, *args, **kw):
+            if name == 'incoming/snapshot.json':
+                raise PermissionError(errno.EACCES, 'synthetic input')
+            return real(fd, name, *args, **kw)
+        for mode in ('missing-root', 'inaccessible-file'):
+            with self.subTest(mode=mode):
+                self.root = self.base / mode
+                with patch.object(exports.files, 'read_from_directory', side_effect=denied):
+                    result = self.run_cycle(source_root=self.source / 'missing' if mode == 'missing-root' else self.source)
+                report = io.decode(self.record(result['report_id'])['payload'].encode())['report']
+                self.assertTrue(report['goals'])
+                self.assertEqual(report['sources']['engineering']['status'], 'available')
+                self.assertNotEqual(report['movies']['reason'], 'incomplete_upstream')
+
+    def test_evidence_corruption_rejected_at_every_record_entry_point(self):
+        rid = self.run_cycle()['report_id']
+        initial = self.record(rid)
+        self.handoff(rid)
+        publication = self.stage_receipt(rid, 'publication')
+        recipient = self.stage_receipt(rid, 'recipient')
+        self.import_receipt(rid, 'publication', publication)
+        self.import_receipt(rid, 'recipient', recipient)
+        complete = self.record(rid)
+        state_initial = self.state()
+        path = self.root / 'active' / (rid + '.json')
+        def corrupt(value, mode):
+            evidence = value['evidence']
+            if mode == 'missing-map':
+                del value['evidence']
+            elif mode == 'empty':
+                evidence.clear()
+            elif mode == 'removed':
+                del evidence['investigations.json']
+            elif mode == 'substituted':
+                evidence['substitute.json'] = evidence.pop('investigations.json')
+            elif mode == 'extra':
+                evidence['extra.json'] = cycles.pack(b'extra')
+            elif mode == 'binding':
+                payload = io.decode(value['payload'].encode())
+                payload['evidence_binding'] = cycles.evidence_binding({})
+                value['payload'] = io.encode(payload).decode()
+                value['sha256'] = io.digest(value['payload'].encode())
+            else:
+                name = 'combined-manifest.json' if mode == 'manifest' else 'investigations.json'
+                evidence[name] = cycles.pack(cycles.unpack(evidence[name]) + b' ')
+        for mode in ('missing-map', 'empty', 'removed', 'substituted', 'extra', 'bytes', 'manifest', 'binding'):
+            for operation in ('handoff', 'publication', 'recipient', 'archive', 'replay'):
+                with self.subTest(mode=mode, operation=operation):
+                    value = deepcopy(initial if operation == 'handoff' else complete)
+                    corrupt(value, mode)
+                    path.write_bytes(io.encode(value))
+                    before = self.tree_bytes(self.root)
+                    with self.assertRaises(sources.FAILURES):
+                        if operation == 'handoff':
+                            self.handoff(rid)
+                        elif operation == 'archive':
+                            self.archive(rid)
+                        elif operation == 'replay':
+                            self.run_cycle()
+                        else:
+                            self.import_receipt(rid, operation, publication if operation == 'publication' else recipient)
+                    self.assertEqual(self.tree_bytes(self.root), before)
+                    self.assertEqual(self.state(), state_initial)
+        path.write_bytes(io.encode(complete))
+        self.assertTrue(self.archive(rid)['archived'])
+        archived = self.root / 'archive' / path.name
+        valid = archived.read_bytes()
+        # Even after the archive reference commit, reject corruption before the
+        # duplicate active/handoff originals can be reclaimed.
+        path.write_bytes(io.encode(complete)); path.chmod(0o600)
+        value = self.record(rid, 'archive')
+        value['evidence'] = {}
+        archived.write_bytes(io.encode(value))
+        before = self.tree_bytes(self.root)
+        with self.assertRaises(ValueError):
+            self.archive(rid)
+        self.assertEqual(self.tree_bytes(self.root), before)
+        archived.write_bytes(valid)
+        self.assertTrue(self.archive(rid)['archived'])
+        self.assertEqual(archived.read_bytes(), valid)
+
+    def test_checkpoint_corruption_never_rebaselines_or_rereads(self):
+        for phase in ('independent', 'collection'):
+            for mode in ('missing', 'bytes', 'manifest', 'binding', 'unanchored'):
+                with self.subTest(phase=phase, mode=mode):
+                    self.root = self.base / (phase + '-' + mode)
+                    if phase == 'independent':
+                        with patch.object(exports, 'stage_exports', side_effect=Crash()):
+                            with self.assertRaises(Crash):
+                                self.run_cycle()
+                    else:
+                        real = cycles.write
+                        def fail_record(fd, name, raw, replace=False):
+                            if len(name) == 69:
+                                raise Crash()
+                            return real(fd, name, raw, replace)
+                        with patch.object(cycles, 'write', side_effect=fail_record):
+                            with self.assertRaises(Crash):
+                                self.run_cycle()
+                    path = self.root / 'staging' / (phase + '.json')
+                    if mode == 'missing':
+                        path.unlink()
+                    elif mode in ('bytes', 'manifest'):
+                        value = io.decode(path.read_bytes())
+                        name = 'independent-manifest.json' if phase == 'independent' else 'combined-manifest.json'
+                        if mode == 'bytes':
+                            value['evidence'] = {}
+                        else:
+                            value['evidence'][name] = cycles.pack(b'{}')
+                        # Updating a mutable local checksum must not grant trust.
+                        if phase == 'collection':
+                            value['evidence_binding'] = cycles.evidence_binding(value['evidence'])
+                        path.write_bytes(io.encode(value))
+                    else:
+                        state = self.state()
+                        state['cycles']['cycle-1']['checkpoints'][phase] = None if mode == 'unanchored' else 'a'*64
+                        (self.root / 'state.json').write_bytes(io.encode(state))
+                    before = self.tree_bytes(self.root)
+                    with patch.object(exports, 'stage_exports', side_effect=AssertionError('reread')):
+                        with self.assertRaises(ValueError):
+                            self.run_cycle()
+                    self.assertEqual(self.tree_bytes(self.root), before)
+
+    def test_actual_hash_mismatch_evidence_archives_and_replays(self):
+        original = (self.evidence / 'engineering.json').read_bytes() + b' '
+        (self.evidence / 'engineering.json').write_bytes(original)
+        result = self.run_cycle()
+        rid = result['report_id']
+        record = self.record(rid)
+        payload = io.decode(record['payload'].encode())
+        source = payload['report']['sources']['engineering']
+        self.assertEqual(source['status'], 'inconsistent')
+        self.assertTrue(any(d['stage'] == 'identity' and d['reason'] == 'hash_mismatch'
+                            for d in source['diagnostics']))
+        bound = payload['evidence_binding']['engineering.json']
+        self.assertEqual(bound, {'sha256': io.digest(original), 'size': len(original)})
+        self.assertNotEqual(bound['sha256'], next(e['sha256'] for e in io.decode(
+            cycles.unpack(record['evidence']['independent-manifest.json']))['sources'] if e['id'] == 'engineering'))
+        self.complete(result)
+        archived = self.record(rid, 'archive')
+        self.assertEqual(cycles.unpack(archived['evidence']['engineering.json']), original)
+        before = self.tree_bytes(self.root)
+        self.assertFalse(self.handoff(rid)['may_attempt'])
+        self.receipt(rid, 'publication'); self.receipt(rid, 'recipient'); self.archive(rid)
+        self.assertEqual(self.run_cycle()['report_id'], rid)
+        self.assertEqual(self.tree_bytes(self.root), before)
+
+    def test_cycle_v1_rejected_without_mutation_legacy_v2_unchanged(self):
+        rid = self.run_cycle()['report_id']
+        for name in ('identity.json', 'state.json'):
+            path = self.root / name
+            value = io.decode(path.read_bytes())
+            value['version'] = 1
+            path.write_bytes(io.encode(value))
+        before = self.tree_bytes(self.root)
+        args = ['--root', str(self.root), '--runtime', 'synthetic-runtime', '--owner', 'synthetic-owner', '--id', rid]
+        for command in ('handoff', 'archive'):
+            with redirect_stdout(streams.StringIO()) as captured:
+                self.assertEqual(cycles.main([command] + args), 1)
+            self.assertEqual(json.loads(captured.getvalue()),
+                             {'state': 'NEEDS_USER', 'reason': 'invalid_or_unavailable_input'})
+            self.assertEqual(self.tree_bytes(self.root), before)
+        with self.assertRaises(ValueError):
+            self.run_cycle()
+        self.assertEqual(self.tree_bytes(self.root), before)
+
     def test_actual_reader_and_independent_sources_originals_survive_archive(self):
         originals = {p: ((self.source / p).stat().st_mtime_ns, (self.source / p).read_bytes())
                      for p in exports.EXPORTS.values()}
@@ -206,6 +502,12 @@ class CycleTests(unittest.TestCase):
                     source = alias
                 if mode == 'hardlink':
                     os.link(source / 'review-report.json', self.base / 'hardlink')
+                if mode == 'symlink':
+                    before = self.tree_bytes(self.base)
+                    with self.assertRaises((ValueError, OSError)):
+                        self.run_cycle('failure-' + mode, source_root=source)
+                    self.assertEqual(self.tree_bytes(self.base), before)
+                    continue
                 result = self.run_cycle('failure-' + mode, source_root=source)
                 record = self.record(result['report_id'])
                 report = io.decode(record['payload'].encode())['report']
@@ -242,6 +544,14 @@ class CycleTests(unittest.TestCase):
 
     def test_many_failed_quiet_polls_and_count_backpressure(self):
         missing = self.base / 'missing'
+        before = self.tree_bytes(self.base)
+        with self.assertRaises(ValueError):
+            self.run_cycle(source_root=missing)
+        self.assertEqual(self.tree_bytes(self.base), before)
+        # An existing state identity proves that this missing sibling cannot
+        # alias it; preserve the original failed/quiet-poll and capacity checks.
+        with cycles.store(self.root, 'synthetic-runtime', 'synthetic-owner') as (_, fd, _, state):
+            cycles.save(fd, state)
         self.run_cycle(source_root=missing)
         for idx in range(25):
             self.assertFalse(self.run_cycle('failed-' + str(idx), source_root=missing)['changed'])
