@@ -272,3 +272,30 @@ as proof of a symlink. Preflight/output failures can leave no diagnostics file;
 installation failures retain a bounded fixed private diagnostic when possible and
 require a new output root for retry. Original sources and old pending reports stay
 unchanged. The reader does not establish recipient delivery or recurring ownership.
+
+## Issue #117 changes the next integration component
+
+The [caller-invoked cycle runbook](COORDINATOR_CYCLES.md) now supplies a separate
+lifecycle instead of trying to schedule legacy issue/task outboxes. Its fake-owner
+rehearsal includes original source evidence, ambiguous publication, independent
+recipient acknowledgement, restart and 25 verified archives. It performs no live
+publication, source refresh or recipient action. Legacy outboxes and issue #113's
+uncertain state are preserved; Task 8's precise rejection remains unknown.
+
+The Task 2 correction requires cycle format 2 and pre-write proof of source and
+independent-evidence separation. Ambiguous roots and identity-guard errors reject
+before state writes; proven missing inputs remain partial. Actual captured names,
+sizes and hashes are bound in the immutable payload; checkpoint anchors are
+recorded at capture. Corruption, missing anchors and Task 1 format-1 roots fail
+closed while preserving bytes. Do not retrofit existing state or treat a receipt
+hash as authentication. The legacy outbox and retained issue #113 state remain
+untouched. These are synthetic code checks, not live integration evidence.
+
+After code review and exact-head supported CI/merge, the supervisor should scope
+the bounded integration task for this **new** component. Inspect existing owner
+runtime/launcher and source timing before deciding on recurrence. The combined
+investigation scan service can also run provider research and is not a read-only
+refresh. Define exact roots/destinations/transport, authenticate owner-selected
+readback and named-system ingestion, verify one actual cycle, and address finite
+retention/backpressure. No budget policy, runtime installation, schedule or
+operational authority is supplied by this code or the older pilot examples.

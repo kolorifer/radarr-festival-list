@@ -1,5 +1,79 @@
 # Movie List project state
 
+## Coordinator cycles Task 2 — 2026-10-30, corrections awaiting parent review
+
+Issue #117 supervisor Task 2 corrects the two reproduced independent-review
+findings from clean PR #118 head `d24f3850f1c72652989abf27be4220b1d1af9aae`
+on `automation/issue-117-worker`. Source/evidence no-follow and filesystem
+separation guards now run before mkdir, marker, lock or cleanup. Unsafe or
+ambiguous roots and identity-guard errors fail closed without state mutation;
+proven missing roots or missing/inaccessible files after safe separation still
+support partial reports with valid independent engineering/parent findings.
+
+Cycle format **2** binds the captured set, names, actual byte sizes and SHA256 in
+the immutable payload/report identity. Original manifests and actual invalid
+bytes remain bound even when a source correctly diagnoses `hash_mismatch`.
+Capture-time checkpoint digests in the cycle ledger guard recovery; corrupted,
+missing or unanchored checkpoints stop while preserving bytes. A crash between
+checkpoint-file installation and anchor commit requires owner investigation;
+contents are never adopted as a fresh baseline. Every record lifecycle entry
+validates the binding before promotion/archive/reclamation. Task 1 cycle-format-1
+roots are preserved and rejected with the fixed failure outcome; no retrofit or
+migration. Legacy outbox v2 and cycle receipt v1 APIs remain unchanged.
+
+Local Python 3.9.6 passes **211 coordinator/cycle/export/integration tests**,
+including 53 cycle methods (12 added), preserved 25-report archive rehearsal and
+quiet/restart bounds. Compilation and frozen scoring checks pass. Full unittest
+ran **842 tests with 109 environment errors and 2 skips**, no assertion failures;
+it is not a passing full-suite result on this unsupported runtime. Details are
+recorded in the [Task 2 report](reports/2026-10-30-coordinator-cycles.md#task-2-correction-report--30-october-2026).
+No dependencies were installed. See also the
+[Task 2 brief](reports/2026-10-30-coordinator-cycles-brief.md#task-2--focused-independent-review-corrections-30-october-2026)
+and [cycle runbook](../automation/COORDINATOR_CYCLES.md).
+
+The supplied Task 1 supported CI run 41064080491 and independent 199-test review
+are historical baseline evidence. Corrected-head parent publication on PR #118,
+fresh Python 3.12/3.13 CI, independent review and merge remain separate gates.
+No operational integration, host/private-input inspection, publication/recipient
+action, runtime/scheduler activation or deployment occurred. All Task 1 operational
+boundaries, source timing/completeness, missing production quality/release export,
+external receipt authentication, issue #113 retained state, #86/#110, existing
+engineering protocol/caps/locks/claims and unrelated `CODEX_TASK.md` remain intact.
+The earlier Task 1 entry below is historical, not current correction acceptance.
+
+## Coordinator reporting cycles — 2026-10-30, code awaiting parent review
+
+Issue #117 supervisor Task 1 starts from accepted main
+`4e85008b161be6b57c52585cc02e8a2e9a5be636` on
+`automation/issue-117-worker`. The separate offline cycle component runs the
+accepted fixed-source reader and explicitly supplied engineering/parent validators,
+checkpoints acquisition identity before reads, retains immutable original-byte
+reports, and keeps current observations separate from comparison-v2 deduplication.
+Its create-only handoff records one uncertain attempt; offline trusted-owner
+publication readback and named-system ingestion receipts remain distinct.
+Verified archives retain original source bytes and receipts before active copies
+are reclaimed. Active/archive/ledger/staging bounds are finite, with no migration
+or deletion of legacy state. Synthetic lifecycle rehearsal covers 25 acknowledged
+material transitions plus quiet polls/restart. Local Python 3.9.6 passed 199
+coordinator/reader/export/integration tests (41 new cycle tests), compilation and
+frozen scoring validation. The full run attempted 830 tests with 109 dependency/
+unsupported-runtime errors and 2 skips; it is not a passing full-suite result.
+See the [brief](reports/2026-10-30-coordinator-cycles-brief.md),
+[engineering report](reports/2026-10-30-coordinator-cycles.md) and
+[owner interface/retention/trust contract](../automation/COORDINATOR_CYCLES.md).
+
+Implementation and synthetic technical verification are separate from acceptance:
+fresh exact published-head Python 3.12/3.13 CI, independent review and merge remain
+parent/supervisor gates. No source host, private input, runtime/launcher, service,
+transport, publication or actual recipient ingestion was inspected or activated.
+A later bounded integration task must inspect the existing Mac owner and source
+producer timing; the combined investigation scan can run provider research and is
+not a read-only refresh. No budget policy is chosen. Production quality/release
+coverage remains unavailable; compatible movie evidence remains incomplete
+upstream. The precise issue #113 Task 8 rejection remains unknown. Existing
+engineering contracts/caps/locks/claims, all retained issue #113 state, #86/#110,
+notification/digest ownership, scoring and unrelated `CODEX_TASK.md` are unchanged.
+
 ## Movie Project integration correction — 2026-10-29, awaiting parent review
 
 Issue #113 supervisor Task 2 starts from clean
