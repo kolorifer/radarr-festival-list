@@ -118,3 +118,16 @@ This pilot is **not the production identification algorithm** and does not appro
 ## Keeping this guide current
 
 Update this file when notification routing, identification rules, action behavior, safety checks or pilot status change. State the verification date and distinguish deployed behavior from experiments. Do not include private tracker links, credentials, personal tokens or private service URLs. Engineering details and deployment records are in [project state](PROJECT_STATE.md), [decisions](DECISIONS.md), and [deployment instructions](../deploy/README.md).
+
+## Offline investigation reporting support — code awaiting review
+
+A separate coordinator reader can preserve the original investigation snapshot
+and research report for private review, with distinct diagnostics for unreadable,
+invalid, stale or incompatible evidence. It has been checked with synthetic files
+only. The corrected reader rejects checkout/source destination aliases before
+creating output, including double-leading-slash spellings and filesystem identity
+aliases. Ancestor inspection failures close internally opened handles. It does
+not activate a daily reporting agent or change notification routing,
+identity choices, confirmation buttons or download safeguards. The
+[coordinator guide](../automation/COORDINATOR.md#confined-movie-export-readerstager-issue-115-offline-code)
+explains the contract and separate authorization needed for any real source use.

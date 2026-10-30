@@ -209,3 +209,66 @@ and recipient receipt before claiming recurring operation. Written configuration
 a heartbeat or historical RUNNING is insufficient. The next concrete action after
 code review/CI/merge is the separately scoped one-report read-only pilot, not
 scheduler installation or broad activation.
+
+## Issue #115 original-byte reader rehearsal (synthetic only)
+
+Issue #115 Task 1 adds the fixed offline reader described in the
+[coordinator guide](COORDINATOR.md#confined-movie-export-readerstager-issue-115-offline-code).
+Its code-only scope supplies no host/private input/refresh/operational replay
+permission. The older pilot checklist above is context, not the next authorized
+operation. After code acceptance the supervisor determines any source-integration
+verification from this contract and direct evidence. Task8's precise cause remains
+unknown; SSH exit0 and generic `file_rejected` did not establish a host/path cause.
+
+Reproduce original-byte ingestion, manifest/observations, immutable report creation,
+quiet replay and exact recovery using only temporary synthetic roots:
+
+```sh
+python3 -m unittest test_coordinator_exports test_coordinator_integration test_coordinator -v
+python3 - <<'PY'
+import json
+from pathlib import Path
+import tempfile
+from automation.coordinator_exports import EXPORTS, stage_exports
+from automation.coordinator_io import digest
+from automation.coordinator_sources import observations
+from automation import coordinator_outbox as outbox
+from automation.coordinator_integration import public_projection, recover
+from test_coordinator_integration import pair, NOW
+with tempfile.TemporaryDirectory() as temporary:
+    root = Path(temporary).resolve()
+    source = root / 'synthetic-source'
+    source.mkdir(mode=0o700)
+    snapshot, report = pair(source)
+    raw = {}
+    for source_id, value in zip(EXPORTS, (snapshot, report)):
+        path = source / EXPORTS[source_id]
+        path.parent.mkdir(exist_ok=True)
+        raw[source_id] = (json.dumps(value, indent=2) + '\n\n').encode()
+        path.write_bytes(raw[source_id])
+    staged = root / 'new-bundle'
+    observation = stage_exports(source, staged, NOW)
+    for source_id, original in raw.items():
+        assert (staged / (source_id + '.json')).read_bytes() == original
+        assert observation['sources'][source_id]['sha256'] == digest(original)
+    assert observation['movies']['reason'] == 'incomplete_upstream'
+    state = root / 'coordinator-state.json'
+    first = outbox.poll(state, lambda: observations(staged, 'manifest.json', NOW))
+    again = outbox.poll(state, lambda: observations(staged, 'manifest.json', NOW+1))
+    assert first['changed'] and not again['changed']
+    assert first['pending_outbox'] == again['pending_outbox']
+    item = first['pending_outbox'][0]
+    recovered = root / 'recovered.json'
+    assert recover(state, item['id'], recovered) == item['sha256']
+    assert recovered.read_bytes() == item['payload'].encode()
+    print(public_projection(first))
+PY
+```
+
+A partial acquisition is a valid rehearsal outcome, not proof of an empty/completed
+review. Never use a previous successful bundle to fill a missing source. Do not
+retimestamp stale exports, lower validators, or interpret `path_component_ambiguous`
+as proof of a symlink. Preflight/output failures can leave no diagnostics file;
+installation failures retain a bounded fixed private diagnostic when possible and
+require a new output root for retry. Original sources and old pending reports stay
+unchanged. The reader does not establish recipient delivery or recurring ownership.

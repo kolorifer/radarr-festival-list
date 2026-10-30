@@ -3,6 +3,7 @@ import copy
 import re
 
 from automation import coordinator as c
+from automation import coordinator_diagnostics as d
 from automation.coordinator_io import read_bytes, decode, digest
 from automation.coordinator_parent import validate_export
 from automation.supervisor_policy import PolicyError
@@ -24,6 +25,9 @@ def material_report(report):
     for info in result.get('sources', {}).values():
         info.pop('sha256', None)
         info.pop('generated_at', None)
+        # Private diagnostic detail does not revise coarse availability semantics
+        # or force an upgrade report for immutable pre-diagnostic payloads.
+        info.pop('diagnostics', None)
     return result
 
 
@@ -32,10 +36,17 @@ def hex64(value):
 
 
 def manifest(value, now):
-    c.keys(value, 'version repository sources')
-    c.require(type(value['version']) is int and value['version'] == 1
+    c.require(isinstance(value, dict), 'manifest_schema')
+    version = value.get('version')
+    c.keys(value, 'version repository sources diagnostics' if version == 2 else 'version repository sources')
+    c.require(type(version) is int and version in (1, 2)
               and value['repository'] == c.REPOSITORY, 'manifest_version')
     c.require(isinstance(value['sources'], list) and len(value['sources']) == len(SOURCES), 'expected_sources')
+    if version == 2:
+        d.validate(value['diagnostics'])
+        c.require(all(x['source'] in ('investigations', 'research_report')
+                      and x['stage'] in ('acquisition', 'staging') for x in value['diagnostics']),
+                  'manifest_diagnostics')
     ids, paths = set(), set()
     for entry in value['sources']:
         c.keys(entry, 'id path sha256 revision generated_at observed_at collected_at max_age_seconds')
@@ -56,6 +67,20 @@ def manifest(value, now):
             relative_path(entry['path']); hex64(entry['sha256'])
             c.require(entry['path'] not in paths, 'source_identity')
             paths.add(entry['path'])
+    if version == 2:
+        by_source = {e['id']: e for e in value['sources']}
+        for source in ('investigations', 'research_report'):
+            entry = by_source[source]
+            facts = {x['stage']: x['reason'] for x in value['diagnostics'] if x['source'] == source}
+            c.require('acquisition' in facts, 'manifest_acquisition')
+            if entry['path'] is None:
+                c.require(facts['acquisition'] != 'read_complete' and 'staging' not in facts
+                          and all(entry[k] is None for k in ('generated_at', 'observed_at', 'collected_at', 'revision')),
+                          'manifest_unread')
+            else:
+                c.require(facts == {'acquisition': 'read_complete', 'staging': 'staged'}
+                          and entry['path'] == source + '.json' and entry['collected_at'] is not None,
+                          'manifest_staged')
     return value
 
 
@@ -81,7 +106,7 @@ def validate_report(report, now, eligible=None):
             c.require(isinstance(proposal, dict) and type(proposal.get('current_evidence')) is bool,
                       'movie_proposal')
             hex64(proposal.get('evidence_version')); c.stamp(proposal.get('created_at'))
-            c.require(proposal['created_at'] <= now + 300, 'movie_proposal_future')
+            d.check(proposal['created_at'] <= now + 300, 'freshness', 'future_evidence')
             if proposal['current_evidence'] and eligible is not None:
                 c.require(cid in eligible and proposal['evidence_version'] == eligible[cid], 'movie_proposal_version')
     c.require(set(report['versions']) == {r['case_id'] for r in report['cases']}, 'movie_report_versions')
@@ -137,37 +162,47 @@ def observations(root, manifest_name, now):
         info = {k: entry[k] for k in ('id', 'sha256', 'revision', 'generated_at', 'observed_at',
                                       'collected_at', 'max_age_seconds')}
         info.update(read_at=now, status='unavailable', reason='not_staged')
+        info['diagnostics'] = [x.copy() for x in value.get('diagnostics', []) if x['source'] == source]
         availability[source] = info
         if entry['path'] is None:
             continue
+        stage = 'acquisition'
         try:
-            c.require(all(entry[k] is None or entry[k] <= now + 300
-                          for k in ('generated_at', 'observed_at', 'collected_at')), 'source_future')
             raw = read_bytes(root, entry['path'])
-            c.require(digest(raw) == entry['sha256'], 'source_identity')
+            stage = 'identity'
+            d.check(digest(raw) == entry['sha256'], 'identity', 'hash_mismatch')
+            stage = 'decoding'
             content = decode(raw)
+            stage = 'schema'
             c.require(isinstance(content, dict), 'source_object')
+            d.check(all(entry[k] is None or entry[k] <= now + 300
+                        for k in ('generated_at', 'observed_at', 'collected_at')),
+                    'freshness', 'future_evidence')
             event = entry['observed_at'] if entry['observed_at'] is not None else entry['generated_at']
             if source in ('investigations', 'research_report'):
-                c.require(entry['generated_at'] == content.get('generated_at') and entry['generated_at'] is not None,
-                          'source_time_identity')
+                c.stamp(content.get('generated_at'))
+                d.check(entry['generated_at'] == content.get('generated_at') and entry['generated_at'] is not None,
+                        'provenance', 'time_mismatch')
                 # Export freshness is generation time, never a later collection.
                 event = content['generated_at']
             elif source == 'engineering':
-                c.require(entry['observed_at'] == content.get('observed_at')
-                          and entry['revision'] == content.get('github', {}).get('revision'), 'source_identity')
+                d.check(entry['observed_at'] == content.get('observed_at'), 'provenance', 'time_mismatch')
+                d.check(entry['revision'] == content.get('github', {}).get('revision'),
+                        'provenance', 'revision_mismatch')
             elif source == 'parent_status':
                 validate_export(content)
-                c.require(entry['collected_at'] == content['read_at']
-                          and entry['generated_at'] is None and entry['observed_at'] is None, 'source_identity')
+                d.check(entry['collected_at'] == content['read_at']
+                        and entry['generated_at'] is None and entry['observed_at'] is None,
+                        'provenance', 'time_mismatch')
                 # Journals have unknown transition times; freshness of a read is
                 # useful coverage, but never freshness of an execution event.
                 event = content['read_at']
             if event is not None:
                 c.stamp(event)
-                c.require(event <= now + 300, 'source_future')
+                d.check(event <= now + 300, 'freshness', 'future_evidence')
                 if now - event >= entry['max_age_seconds']:
                     info.update(status='stale', reason='expired')
+                    info['diagnostics'].append(d.diagnostic(source, 'freshness', 'stale_evidence'))
                     continue
             else:
                 info.update(status='partial', reason='event_time_unknown')
@@ -192,7 +227,17 @@ def observations(root, manifest_name, now):
                 data[source] = content
             if info['reason'] == 'not_staged':
                 info.update(status='available', reason='validated')
-        except FAILURES:
+        except FAILURES as exc:
+            if isinstance(exc, d.ValidationFailure):
+                failure_stage, reason = exc.stage, exc.reason
+            else:
+                failure_stage = stage
+                reason = (d.acquisition_reason(exc) if stage == 'acquisition' else
+                          {'identity': 'hash_mismatch', 'decoding': 'invalid_json',
+                           'schema': 'invalid_source_schema'}[stage])
+            # Replace a prior acquisition success if staged bytes became unreadable.
+            info['diagnostics'] = [x for x in info['diagnostics'] if x['stage'] != failure_stage]
+            info['diagnostics'].append(d.diagnostic(source, failure_stage, reason))
             info.update(status='inconsistent', reason='invalid_or_conflicting')
             data.pop(source, None)
     # No raw paths, manifest text, exception messages or capability strings leave.
@@ -215,6 +260,8 @@ def observations(root, manifest_name, now):
             try:
                 report['movies'] = movie_pair(export, data['research_report'], now)
             except FAILURES:
+                availability['research_report']['diagnostics'].append(
+                    d.diagnostic('research_report', 'pair', 'incompatible_movie_pair'))
                 availability['research_report'].update(status='inconsistent', reason='invalid_or_conflicting')
                 report['movies']['reason'] = 'incompatible_report'
     else:

@@ -606,3 +606,124 @@ and review steps, not assignments or commands to execute now:
 The implementation choices above are documented assumptions/defaults, not new
 accepted scoring, identity, scheduling or acquisition decisions. Record later
 adopted changes with source, rationale, scope and supersession in the decision log.
+
+## Confined movie-export reader/stager (issue #115, offline code)
+
+The reusable library is `automation.coordinator_exports.stage_exports(source_root,
+output_root, now)`; the existing integration CLI exposes `stage-exports`. This is
+code for a later expressly authorized source/reporting owner, with no transport,
+SSH handling, source refresh, credential discovery or recurring execution owner.
+It reads only these exact relative paths under the caller's canonical absolute
+**research-state** root:
+
+| Fixed source ID | Relative source path | Maximum bytes / generation age |
+| --- | --- | --- |
+| `investigations` | `incoming/snapshot.json` | 2 MiB / less than 3600 seconds |
+| `research_report` | `review-report.json` | 2 MiB / less than 172800 seconds |
+
+Do not pass a guessed home. The producer constructs its layout with
+`Path.home().resolve()`; this reader instead requires explicit canonical authority
+and rejects symlink spellings, including ancestor links. Canonical success and
+rejected symlink spelling are compatible facts. Neither establishes why issue
+#113 Task8 failed. That pilot established SSH exit0 followed by `file_rejected`,
+with neither movie export imported; the precise host/path cause is unknown.
+
+The caller supplies a **new** output root, outside the source and checkout, under
+an existing stable owner-only parent. Relative roots and traversal are rejected.
+Both roots require the single `/` absolute anchor; `//` spellings are rejected
+before any output creation. Supplied paths are never silently resolved through
+symlinks. Before mkdir or output writes, source **and checkout** exclusion use
+descriptor ancestor identities, including case-insensitive directory aliases;
+an existing final entry aliasing either protected root is also rejected by identity.
+No-follow directory descriptors and ancestor filesystem identities protect writes
+against spelling/alias redirects; source hardlinks are also rejected by this
+reader. Parent ownership/mode are checked. The parent must remain under the
+caller's control; this is not isolation from a malicious process with the same
+UID that can rename its directories. The reader does not enumerate either root.
+
+The new root is mode0700; fixed `investigations.json`, `research_report.json`,
+`manifest.json` and `observations.json` files are mode0600, fsynced and installed
+atomically without replacing an existing entry. Only successfully acquired movie
+files are present. Original JSON bytes (including whitespace) are preserved; no
+serialization is written over an export. Each source is at most 2 MiB (4 MiB
+combined); the manifest uses fixed fields, diagnostics at most 40 fixed records,
+and observations at most 512 KiB. Reads use O_NONBLOCK, at most limit+1 bytes,
+regular-file checks and before/after size/inode/time/link-count checks. Every
+opened descriptor is closed on success and failure. Ancestor traversal transfers
+cleanup ownership immediately on open, before stat or other fallible operations;
+caller-owned source and parent descriptors remain open.
+
+Manifest v2 adds `diagnostics` to the v1 fields; all five source IDs still occur.
+Nonmovie sources are explicitly unstaged, not inferred. Each movie source has an
+acquisition result; only acquired/staged bytes have a path/hash/collection time.
+The observation `read_at` is an attempt clock, not a successful-read claim.
+A valid embedded generation clock is copied exactly, otherwise null; validation
+still rejects malformed content. No read or staging time refreshes freshness.
+The observed snapshot/report are validated independently before pairing. Existing
+full-case/base-field/eligible/version/coverage/proposal safeguards remain in force.
+An authorized caller may combine separately authorized engineering/parent inputs
+using the existing manifest contract; the reader does not fetch them.
+
+Each private diagnostic is exactly `{version: 1, source, stage, reason}`. Values
+come from `coordinator_diagnostics.REASONS`, never arbitrary exception text:
+
+| Stage | Reasons |
+| --- | --- |
+| `acquisition` | `read_complete`, `missing_entry`, `access_denied`, `path_rejected`, `path_component_ambiguous`, `nonregular_file`, `byte_limit`, `changed_during_read`, `hardlink_rejected`, `io_unknown` |
+| `staging` | `staged`, `destination_collision`, `destination_rejected`, `access_denied`, `io_unknown` |
+| `identity` | `hash_mismatch` |
+| `decoding` | `invalid_json` (including duplicate/nonfinite/overflow/invalid encoding) |
+| `provenance` | `time_mismatch`, `revision_mismatch` |
+| `freshness` | `stale_evidence`, `future_evidence` |
+| `schema` | `invalid_source_schema` |
+| `pair` | `incompatible_movie_pair` |
+
+ENOENT means a missing entry, not necessarily the final file; ENOTDIR means an
+ambiguous/rejected component, **not proof of a symlink**. ELOOP rejects the path;
+unknown OS failures stay `io_unknown`. Generic validator failures describe the
+schema stage, not an invented precise underlying cause. A valid snapshot with a
+missing/invalid report retains all known cases and incomplete review. Report-only
+findings cannot claim a completed movie review; quality/release stays unavailable.
+Successful acquisition/staging does not mean successful source/pair validation.
+
+The CLI emits the existing coarse safe source projection, never diagnostics,
+paths, imported text or private report bodies. Even argument parsing errors use
+fixed safe JSON. Inspect precise diagnostics only in the selected private
+manifest/observations/report. Acquisition errors permit truthful partial staging;
+failed sources are never replaced by an earlier root. Root/path preflight failures
+produce no report; a rejected source-root spelling raises a typed fixed
+`ReadFailure`. Output creation collisions raise `StagingFailure` with fixed
+private diagnostics. Installation failures leave an incomplete root and, if
+writing remains possible, a create-only `diagnostics.json`; its absence is not
+success. `StagingFailure.diagnostics` is the bounded library fallback. No error
+string/path is copied into these records. There is no rollback/delete/resume of
+an existing root. Retry with a separately selected new root; never reuse old files.
+
+The existing `report --root OUTPUT --state STATE` reads manifest v1 or v2 and
+keeps the same outbox/receipt owner. `stage-exports` itself prepares no outbox and
+publishes nothing. Private diagnostics are explanatory observation metadata and
+excluded from comparison-v2, so collecting them cannot manufacture an upgrade
+report. Existing status/reason, expiry and validated findings remain material:
+failed-to-valid sources produce one new report; unchanged observations stay quiet.
+A refinement within the same coarse failed state is available in observations but
+does not itself publish another report. Old pending payloads/IDs/hashes/intents/
+receipt bindings remain unchanged and recoverable; no migration is performed.
+
+Later-authorized invocation (all paths are placeholders, **not access grants**):
+
+```sh
+python3 -m automation.coordinator_integration stage-exports \
+  --source-root /AUTHORIZED_CANONICAL_RESEARCH_STATE \
+  --output-root /AUTHORIZED_PRIVATE_PARENT/NEW_BUNDLE
+python3 -m automation.coordinator_integration report \
+  --root /AUTHORIZED_PRIVATE_PARENT/NEW_BUNDLE \
+  --state /AUTHORIZED_PRIVATE_PARENT/COORDINATOR_STATE.json
+```
+
+After independent exact-revision review and supported CI, the supervisor must
+separately establish actual source-root authority/canonical spelling, transport,
+fresh original export availability, new private destinations and reporting owner.
+Use the fixed stage/reason evidence to select that verification; do not infer a
+host cause or repeat the exhausted access pilot from this code authorization.
+No live access, recurring operation, notification change or product acceptance is
+established by the synthetic rehearsal below.

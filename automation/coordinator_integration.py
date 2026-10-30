@@ -118,14 +118,23 @@ def recover(path, report_id, output):
     raise ValueError('unknown_report')
 
 
+class PublicParser(argparse.ArgumentParser):
+    def error(self, message):
+        # argparse's default error includes untrusted command-line values.
+        self.exit(2, '{"state":"NEEDS_USER","reason":"invalid_or_unavailable_input"}\n')
+
+
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = PublicParser(description=__doc__)
     sub = parser.add_subparsers(dest='command', required=True)
     stage = sub.add_parser('report')
     stage.add_argument('--root', required=True, type=Path)
     stage.add_argument('--manifest', default='manifest.json')
     stage.add_argument('--state', required=True, type=Path)
     stage.add_argument('--intent', type=Path)
+    exports = sub.add_parser('stage-exports')
+    exports.add_argument('--source-root', required=True, type=Path)
+    exports.add_argument('--output-root', required=True, type=Path)
     parent = sub.add_parser('parent-export')
     parent.add_argument('--root', required=True, type=Path)
     parent.add_argument('--issue', required=True, type=int)
@@ -151,6 +160,9 @@ def main(argv=None):
             intent = (decode(read_bytes(args.intent.parent, args.intent.name)) if args.intent else None)
             result = public_projection(outbox.poll(args.state,
                 lambda: observations(args.root, args.manifest, time.time()), intent))
+        elif args.command == 'stage-exports':
+            from automation.coordinator_exports import stage_exports
+            result = public_projection({'report': stage_exports(args.source_root, args.output_root, time.time())})
         elif args.command == 'parent-export':
             value = parent_export_to(args.root, args.issue, args.task, args.output, time.time())
             result = {'status': value['status'], 'reason': value['reason'], 'writer_liveness': 'unknown'}
