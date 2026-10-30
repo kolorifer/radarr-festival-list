@@ -94,6 +94,26 @@ def private_inputs(body):
     return value['inputs']
 
 
+def coordinator_storage(task, supervisor):
+    """One opt-in profile, from the already selected latest owner task only."""
+    value = directive(task['body'], 'COORDINATOR_STORAGE')
+    if value is None:
+        return None
+    # Unlike the older JSON capabilities this directive has one exact wire form.
+    if ('COORDINATOR_STORAGE: {"input":"coordinator-storage.json"}'
+            not in task['body'].splitlines()
+            or value != {'input': 'coordinator-storage.json'}):
+        raise PolicyError('Invalid COORDINATOR_STORAGE')
+    if (publication_mode(task, supervisor) != 'operations_only'
+            or private_artifact(task['body']) is None
+            or private_diagnostic(task['body']) is None):
+        raise PolicyError('COORDINATOR_STORAGE requires exact private operations capabilities')
+    inputs = private_inputs(task['body'])
+    if len([v for v in inputs if v['alias'] == value['input']]) != 1:
+        raise PolicyError('COORDINATOR_STORAGE requires a pinned input')
+    return value
+
+
 def private_diagnostic(body):
     value = directive(body, 'PRIVATE_DIAGNOSTIC')
     if value is None:
