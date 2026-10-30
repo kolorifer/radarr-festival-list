@@ -131,3 +131,17 @@ not activate a daily reporting agent or change notification routing,
 identity choices, confirmation buttons or download safeguards. The
 [coordinator guide](../automation/COORDINATOR.md#confined-movie-export-readerstager-issue-115-offline-code)
 explains the contract and separate authorization needed for any real source use.
+
+## Coordinator reporting cycles (offline implementation, 30 October 2026)
+
+A separate local reporting tool can read supplied investigation exports and
+engineering evidence, retain immutable reports, verify separately supplied
+publication and system-recipient receipts, and archive completed reports with
+their original evidence. Synthetic tests exercise the lifecycle; no recurring
+reporting service or real report delivery has been activated by this work.
+Missing or stale movie evidence remains visible, and production quality/release
+coverage is still unavailable. A receipt for ingestion by a named system does
+not mean a human read the report, accepted engineering work or approved a movie
+or download. Existing Telegram routing, digest ownership, identity rules and
+confirmation safeguards continue unchanged. See the
+[cycle owner runbook](../automation/COORDINATOR_CYCLES.md).

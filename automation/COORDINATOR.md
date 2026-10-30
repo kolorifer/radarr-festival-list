@@ -727,3 +727,22 @@ Use the fixed stage/reason evidence to select that verification; do not infer a
 host cause or repeat the exhausted access pilot from this code authorization.
 No live access, recurring operation, notification change or product acceptance is
 established by the synthetic rehearsal below.
+
+## Separate caller-invoked cycles — issue #117, offline code
+
+The new [cycle interface and owner runbook](COORDINATOR_CYCLES.md) implement a
+complete local reporting cycle with the accepted fixed-path reader, explicit
+engineering/parent observations, immutable cycle/report identities, comparison-v2
+quiet refresh, a one-attempt private handoff, separate owner-authenticated
+publication/recipient receipt imports and verified archival of original evidence.
+Synthetic rehearsal exceeds 20 acknowledged material reports through archival.
+This does not change the legacy issue/task v2 outbox or configure its recipient.
+Active, archive, cycle-ledger and source-staging limits remain finite and expose
+backpressure without deleting history. Reports and current observations keep
+separate dates and provenance.
+
+No runtime/launcher/schedule/transport was activated or inspected for this task.
+Fresh supported CI, independent review, a separately scoped real integration cycle
+and actual publication/recipient evidence remain gates. The existing Mac owner is
+the later integration target. Its dispatcher is not hooked by this feature, and
+engineering execution caps/claims/locks/terminal receipts remain unchanged.

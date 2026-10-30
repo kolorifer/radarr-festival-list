@@ -1,5 +1,38 @@
 # Movie List project state
 
+## Coordinator reporting cycles — 2026-10-30, code awaiting parent review
+
+Issue #117 supervisor Task 1 starts from accepted main
+`4e85008b161be6b57c52585cc02e8a2e9a5be636` on
+`automation/issue-117-worker`. The separate offline cycle component runs the
+accepted fixed-source reader and explicitly supplied engineering/parent validators,
+checkpoints acquisition identity before reads, retains immutable original-byte
+reports, and keeps current observations separate from comparison-v2 deduplication.
+Its create-only handoff records one uncertain attempt; offline trusted-owner
+publication readback and named-system ingestion receipts remain distinct.
+Verified archives retain original source bytes and receipts before active copies
+are reclaimed. Active/archive/ledger/staging bounds are finite, with no migration
+or deletion of legacy state. Synthetic lifecycle rehearsal covers 25 acknowledged
+material transitions plus quiet polls/restart. Local Python 3.9.6 passed 199
+coordinator/reader/export/integration tests (41 new cycle tests), compilation and
+frozen scoring validation. The full run attempted 830 tests with 109 dependency/
+unsupported-runtime errors and 2 skips; it is not a passing full-suite result.
+See the [brief](reports/2026-10-30-coordinator-cycles-brief.md),
+[engineering report](reports/2026-10-30-coordinator-cycles.md) and
+[owner interface/retention/trust contract](../automation/COORDINATOR_CYCLES.md).
+
+Implementation and synthetic technical verification are separate from acceptance:
+fresh exact published-head Python 3.12/3.13 CI, independent review and merge remain
+parent/supervisor gates. No source host, private input, runtime/launcher, service,
+transport, publication or actual recipient ingestion was inspected or activated.
+A later bounded integration task must inspect the existing Mac owner and source
+producer timing; the combined investigation scan can run provider research and is
+not a read-only refresh. No budget policy is chosen. Production quality/release
+coverage remains unavailable; compatible movie evidence remains incomplete
+upstream. The precise issue #113 Task 8 rejection remains unknown. Existing
+engineering contracts/caps/locks/claims, all retained issue #113 state, #86/#110,
+notification/digest ownership, scoring and unrelated `CODEX_TASK.md` are unchanged.
+
 ## Movie Project integration correction — 2026-10-29, awaiting parent review
 
 Issue #113 supervisor Task 2 starts from clean
