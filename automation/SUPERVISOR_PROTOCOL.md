@@ -399,3 +399,97 @@ Official scheduled-task documentation: [Scheduled tasks](https://learn.chatgpt.c
 Saved schedules provide recurring wakeups; this is distinct from the local worker
 poll. The current-chat heartbeat is reported ACTIVE; an observed scheduled
 wakeup and verification of the original cloud schedules are still pending.
+
+## Opt-in coordinator enclosing storage (issue #119 Task 5)
+
+Code installation activates nothing. Only the latest validated issue-owner task
+can add exactly this line (including its JSON spelling and spacing):
+
+```text
+COORDINATOR_STORAGE: {"input":"coordinator-storage.json"}
+```
+
+It requires explicit `PUBLICATION_MODE: operations_only`, exact independent
+`PRIVATE_ARTIFACT` and `PRIVATE_DIAGNOSTIC`, and the existing immutable
+`PRIVATE_INPUTS` pin whose alias is exactly `coordinator-storage.json`. No issue
+body, older task, worker prose, environment variable or raw local path grants
+storage. Omission retains the previous behavior, with no account/path lookup,
+root mutation or extra grant. Task 5 is a **code** task and supplies no capability.
+
+The pinned private file is strict ASCII JSON, at most 16 KiB, with exactly one of:
+
+```json
+{"version":1,"path":"<exact absolute selected enclosing directory>","expected":"absent"}
+```
+
+```json
+{"version":1,"path":"<same exact directory>","expected":{"dev":0,"ino":1}}
+```
+
+The latter numbers are schema examples only; a reuse task must pin the privately
+observed device/inode, never these illustrative values. Booleans are not integers.
+The only profile is the effective UID's OS-account home followed by
+`/.local/state/movie-project-coordinator-private`. Put its actual full spelling
+only in the private pin and private evidence. HOME/USER/task substitutions and
+realpath/case/Unicode/relative/parent/double-slash/trailing-slash alternatives
+are refused. Paths are bounded to 4096 ASCII characters and 128 components.
+Input authentication retains the existing repository/commit/tree/blob/SHA256
+checks before reservation; invalid manifest JSON/path/schema uses the existing
+`INPUT_VALIDATION_FAILED` preflight, with no consumption or root mutation.
+
+After a confirmed atomic claim, under the existing two locks, the parent walks
+from `/` using stable no-follow descriptors and bounded exact entry enumeration
+(8192 entries per component). Home, `.local` and `state` must already exist,
+belong to the effective UID and have no group/other write permission. Ancestors
+must belong to that UID or root, and also prohibit group/other writes. Selected
+storage must be UID-owned mode 0700. Symlinks, entry aliases, changed identities,
+checkout/launcher/journal/input/output overlaps and unsafe or ambiguous ACLs fail
+closed. Protected temporary artifact paths retain the existing staging contract;
+only their parent-owned spelling is resolved for overlap checking. The selected
+storage/home is never resolved through aliases.
+
+The ACL backend is deliberately Darwin-only; other platforms refuse this live
+capability. Native descriptor ACL checks allow empty or deny-only ACLs, reject
+all allow/unknown entries, bound ACLs to 128 entries/16 KiB, and never remove or
+edit ACLs. ENOENT alone is **not** absence proof: require positive
+`_PC_EXTENDED_SECURITY_NP` support, successful descriptor `fstatx_np` into a fresh
+filesec and a successful `FILESEC_ACL` query proving the property absent.
+Unavailable/unsupported APIs and uncertain evidence refuse. This follows Apple's
+[descriptor ACL implementation](https://github.com/apple-oss-distributions/Libc/blob/main/posix1e/acl_file.c)
+and [stat/filesec population](https://github.com/apple-oss-distributions/Libc/blob/main/sys/statx_np.c).
+Synthetic native checks read only temporary fixture directories.
+
+`expected=absent` performs one exclusive, nonrecursive mkdir under umask 077,
+mode 0700; any existing entry refuses, even empty or identical. Reuse requires
+exact existing device/inode and all guards; missing or unsafe entries are never
+created/repaired. No chmod/chown, adoption, rollback, deletion, recovery retry or
+new root is introduced. The parent creates no adapter base, cycle/intake/evidence/
+receipt directories, files, locks, markers or acquisition intent in the root.
+
+Before child launch the parent durably retains `storage-grant-N.json` in its
+existing private per-issue state. It binds issue/task, full source pin/hash,
+selection, ancestor/directory identities and ACL fingerprints, with
+created/reused/refused/uncertain state and fixed reasons. Its serialized payload
+is capped at 900000 bytes; uncertainty is durable before mkdir. Records and any
+created root remain after interruptions/failures. It adds exactly the verified
+enclosing directory as **one additional** `--add-dir` beside the existing exact
+artifact grant, identifies the capability in the private prompt and keeps all
+existing input boundaries, sandbox/config/environment/network/model/locks intact.
+
+Full directory/ancestor/permission/ACL checks run immediately before launch and
+after completion, including failed child execution. A storage failure prohibits
+artifact/READY publication, with the existing terminal `EXECUTION_FAILED` /
+`inspect_local` contract; receipt v1, its four flags and claim rules are unchanged.
+Fixed local reasons are `storage_selection`, `storage_account`, `storage_path`,
+`storage_type`, `storage_owner`, `storage_mode`, `storage_acl`,
+`storage_acl_unsupported`, `storage_spelling`, `storage_missing`,
+`storage_overlap`, `storage_changed`, `storage_exists`, `storage_identity`,
+`storage_filesystem`, `storage_unanchored`, plus intermediate
+`storage_not_prepared`, `storage_create_pending`, `storage_verify_pending` and
+`storage_verified`. Inspect the exact task's local grant/execution/terminal/
+delivery records privately; never publish the selected path or raw errors.
+Successful checks assume the existing stable owner, not hostile-same-account
+isolation. A storage grant is neither coordinator intent nor permission to run a
+cycle. Every create/reuse grant needs a new current owner task and exact private
+pin; interrupted tasks remain consumed without replay. Existing execution/capacity
+history remains intact. See the [later acceptance sequence](OPERATIONS_ACCEPTANCE.md#coordinator-storage-deployment-and-harmless-acceptance).
