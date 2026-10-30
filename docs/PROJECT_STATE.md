@@ -1,5 +1,42 @@
 # Movie List project state
 
+## Issue #119 Task 5 enclosing storage — 2026-10-30, implementation awaiting review
+
+Implemented only the latest supplied Task 5 on the clean parent-created
+`automation/issue-119-worker` baseline `7094cf7042fe67a47d6c149f2af5ba22224b34fb`.
+The sole parent has one optional canonical owner-task storage directive, bound to
+an authenticated immutable private selection, explicit operations-only mode and
+exact independent artifact/diagnostic capabilities. An `expected=absent` selection creates
+only the fixed enclosing 0700 directory after confirmed claim; explicit reuse
+requires exact device/inode. Existing safe intermediates, descriptor no-follow
+spelling/identity/owner/mode/ACL guards and protected-root separation are required.
+Private task-bound grant evidence precedes mkdir/child launch and remains on
+failure. One exact additional child grant and before/after checks preserve the
+existing sandbox, claim/lock/quota/cap, input and publication/receipt contracts.
+Installing this code activates nothing and creates no adapter state or intent.
+
+Focused synthetic checks: **37 storage + 178 parent/policy/receipt/owner tests
+passed** on local Python 3.9.6. Compilation, frozen scoring and diff/preservation
+checks pass. Full suite: **913 run, 109 environment errors, 2 skips, no assertion
+failures**; this is not a passing full-suite result. Exact errors and limits are in
+the [Task 5 engineering report](reports/2026-10-30-issue-119-storage.md), with the
+[completed brief](reports/2026-10-30-issue-119-storage-brief.md). Native ACL tests
+use temporary fixtures only; live grants deliberately support Darwin only and
+unknown/ambiguous ACL evidence fails closed. No local project virtual environment
+or dependency installation was used. Parent-published exact-head Python 3.12/3.13
+CI and independent supervisor review remain separate required acceptance gates.
+
+No deployment, real private selection/home/root/source/service/seedbox access,
+actual persistent target, sandbox write-access probe, report cycle, source repair,
+notification, acquisition, scheduler/plist change or child Git/issue publication
+occurred. The [later bounded launcher update and harmless probe sequence](../automation/OPERATIONS_ACCEPTANCE.md#coordinator-storage-deployment-and-harmless-acceptance)
+is prepared for the supervisor, preserving the deployed quota correction and all
+claims/worktrees/journals/history. Actual deployment revision was supplied by the
+task, not independently inspected here. Source commissioning remains outside
+Task 5; no cycle/recurrence is enabled. Unrelated CODEX_TASK.md, decisions,
+production scoring/notification behavior, retained outboxes and #86/PR #110 are
+preserved. The parent owns publication and the supervisor owns live progression.
+
 ## Issue #119 Task 2 owner commissioning — 2026-10-30, code awaiting review
 
 Started clean on parent-created `automation/issue-119-worker` at accepted PR #118

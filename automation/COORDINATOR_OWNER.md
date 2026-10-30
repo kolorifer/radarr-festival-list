@@ -193,3 +193,18 @@ publication/recipient receipts, archives and restarts. It proves no operational
 publication, authenticated origin or real source freshness. Parent-published
 exact-head Python 3.12/3.13 full CI, independent review and scoped merge remain
 mandatory after worker completion.
+
+## Parent-owned enclosing storage opt-in
+
+Issue #119 Task 5 adds the existing sole parent's optional
+[fixed enclosing storage capability](SUPERVISOR_PROTOCOL.md#opt-in-coordinator-enclosing-storage-issue-119-task-5),
+with a [later deployment/probe sequence](OPERATIONS_ACCEPTANCE.md#coordinator-storage-deployment-and-harmless-acceptance).
+It creates/grants only an expressly selected enclosing private directory, after
+a new current owner task's pinned selection and confirmed claim. It creates no
+adapter state and invokes none of this adapter's commands. An eventual adapter
+`reserve` must still select/create its own new anchored base under that enclosing
+root; it must not adopt the enclosing root itself as an existing adapter base.
+No storage grant implies source access, intent, acquisition, cycle operation,
+publication, authenticated recipient ingestion or recurrence. Every later grant
+requires a new task and pin; all existing finite capacity/history limits remain.
+Task 5 code and synthetic tests establish no deployed or live write access.

@@ -24,14 +24,16 @@ import stat
 
 try:
     from automation.supervisor_policy import (private_artifact, private_inputs, private_diagnostic,
-                                              continuation, snapshot, publication_mode, worker_environment, PolicyError,
+                                              continuation, snapshot, publication_mode, coordinator_storage, worker_environment, PolicyError,
                                               MAX_PRIVATE_BYTES, PRIVATE_REPOSITORY, hex_value, unique_object)
     from automation.terminal_receipt import validate_receipt, NEXT_ACTION, FLAGS
+    from automation import coordinator_storage as storage
 except ModuleNotFoundError:
     from supervisor_policy import (private_artifact, private_inputs, private_diagnostic,
-                                   continuation, snapshot, publication_mode, worker_environment, PolicyError,
+                                   continuation, snapshot, publication_mode, coordinator_storage, worker_environment, PolicyError,
                                    MAX_PRIVATE_BYTES, PRIVATE_REPOSITORY, hex_value, unique_object)
     from terminal_receipt import validate_receipt, NEXT_ACTION, FLAGS
+    import coordinator_storage as storage
 
 MODEL = "gpt-6.1-sol"
 PROBE_COOLDOWN = 30 * 60
@@ -105,6 +107,7 @@ def choose_task(comments, supervisor, consumed):
         private_artifact(latest["body"])
         private_inputs(latest['body'])
         private_diagnostic(latest['body'])
+        coordinator_storage(latest, supervisor)
         continuation(latest["body"])
     except PolicyError as exc:
         raise Stop(str(exc)) from None
@@ -277,6 +280,8 @@ class Runner:
         self.state_file = self.state_dir / "state.json"
         self.state = {"consumed": [], "notifications": {}}
         self.inputs = []
+        self.storage_selection = None
+        self.storage_grant = None
         self.verification = dict.fromkeys(FLAGS, False)
         self.artifact_reference = None
         self.failure_code = 'EXECUTION_FAILED'
@@ -770,6 +775,10 @@ class Runner:
         try:
             self.stage_inputs(task, n)
             self.verify_inputs()
+            capability = coordinator_storage(task, issue['user']['login'])
+            if capability:
+                entry = next(v for v in self.inputs if v['path'].name == capability['input'])
+                self.storage_selection = storage.selection(self.regular_bytes(entry['path']))
         except Exception:
             self.preflight_code = 'INPUT_VALIDATION_FAILED'
             save(self.state_dir / f'input-failure-{n}.json', {'code': 'INPUT_VALIDATION_FAILED', 'consumed': False})
@@ -935,6 +944,37 @@ class Runner:
         if self.inputs:
             prompt += "\nPRIVATE INPUTS (read-only local aliases; no direct GitHub access authorized by these capabilities):\n"
             prompt += "\n".join(str(v['path']) for v in self.inputs)
+        storage_capability = coordinator_storage(task, issue['user']['login'])
+        if storage_capability:
+            self.failure_code = 'EXECUTION_FAILED'
+            if self.claimed_task != n or self.storage_selection is None:
+                raise Stop('Storage requires confirmed claim and validated selection')
+            self.failure_code = 'INPUT_CHANGED'
+            self.verify_inputs()
+            self.failure_code = 'EXECUTION_FAILED'
+            pin = next(v for v in private_inputs(task['body'])
+                       if v['alias'] == storage_capability['input'])
+            def record_grant(evidence):
+                if len(json.dumps(evidence).encode('utf-8')) > MAX_PRIVATE_BYTES:
+                    raise Stop('Storage evidence bound exceeded')
+                save(self.state_dir / f'storage-grant-{n}.json',
+                     dict(evidence, issue=self.args.issue, task=n))
+                fd = os.open(self.state_dir, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+                try:
+                    os.fsync(fd)
+                finally:
+                    os.close(fd)
+            # Existing artifact staging can use the OS temporary-directory alias;
+            # canonicalize that parent-owned path only, never the selected home/root.
+            protected = [self.repo, self.args.repo.resolve(), self.dispatch_dir, staging.resolve()]
+            protected += [v['path'].parent for v in self.inputs]
+            self.storage_grant = storage.Grant(self.storage_selection, pin, protected, record_grant)
+            self.storage_grant.prepare()
+            command[-1:-1] = ['--add-dir', str(self.storage_grant.path)]
+            prompt += (f'\nCOORDINATOR STORAGE: exact verified enclosing directory {self.storage_grant.path}. '
+                       'This is the sole additional persistent storage grant. Use only the current owner task scope. '
+                       'The grant is not coordinator intent or permission to run an adapter/report cycle; '
+                       'create no adapter state unless separately authorized.\n')
         if private:
             if not operations:
                 prompt += ("\nThis private-input/output task must finish with a clean public checkout and unchanged HEAD. "
@@ -962,6 +1002,7 @@ class Runner:
         child_exited = False
         try:
             with (self.state_dir / f"worker-{n}.log").open("w") as log:
+                self.verify_storage()
                 subprocess.run(command, input=prompt, env=worker_environment(),
                                cwd=self.repo, text=True, check=True, stdout=log, stderr=log,
                                pass_fds=self.inherited_locks())
@@ -984,6 +1025,7 @@ class Runner:
                 if self.inputs:
                     self.verification['inputs_unchanged'] = True
             finally:
+                self.verify_storage()
                 if operations and not unchanged:
                     self.failure_code = 'PUBLIC_CHANGE_REFUSED'
                     raise Stop('Public checkout baseline changed; publication refused')
@@ -1044,6 +1086,13 @@ class Runner:
             self.record_outcome(n, code_publication='completed')
         self.terminal(task, n, result['state'],
                       'OK' if result['state'] == 'READY_FOR_REVIEW' else 'WORKER_BLOCKED', pr)
+
+    def verify_storage(self):
+        if self.storage_grant is not None:
+            previous = self.failure_code
+            self.failure_code = 'EXECUTION_FAILED'
+            self.storage_grant.verify()
+            self.failure_code = previous
 
     def start(self):
         if self.args.dry_run:
