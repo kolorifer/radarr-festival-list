@@ -1,5 +1,57 @@
 # Movie List project state
 
+## Issue #119 Task 2 owner commissioning — 2026-10-30, code awaiting review
+
+Started clean on parent-created `automation/issue-119-worker` at accepted PR #118
+merge `c66be2f1e794a1c8bfa4406b7e82e70a98daca25`; local HEAD/origin/main and
+unauthenticated public main ref matched. The public Task 1 assessment review
+6528253227 and canonical Task 2 comment 6528285463 were read. The accepted
+format-2 code and supported CI acceptance supplied by that task supersede older
+pending-review descriptions below; those historical entries remain intact.
+
+New standalone `automation.coordinator_owner` durably reserves one external
+acquisition opportunity before transport, binds canonical private roots and the
+exact caller request, seals fixed original-byte intake, reuses accepted cycle
+preparation and stages one create-only exact parent handoff after uncertain is
+durable. Explicit external-owner-selected publication and distinct recipient
+receipts reuse unchanged import/archive checks. Read-only inspection never
+auto-imports staged JSON. Twenty retained owner intents bound commissioning
+history, including quiet/archive outcomes; no eviction, automatic rotation or
+legacy migration. Directory identity/ancestor guards, private no-follow bounded
+reads and fail-closed restart preserve bytes and original source clocks.
+
+Implementation and actual synthetic validation are in the
+[Task 2 report](reports/2026-10-30-issue-119-owner.md), with the
+[completed brief](reports/2026-10-30-issue-119-owner-brief.md) and
+[exact owner interface/bounds/live gates](../automation/COORDINATOR_OWNER.md).
+Local runtime is unsupported Python 3.9.6; supported exact-head Python 3.12/3.13
+full CI, independent code review, parent publication and scoped merge remain
+mandatory acceptance gates. Synthetic fake transports/publishers/recipients
+establish no real source freshness, origin authentication or delivery.
+
+Final owner checks: **34 passed**; existing coordinator/cycle/export/integration,
+parent launcher/policy/receipt checks: **355 passed**. Final full suite: **876
+run, 109 environment errors, 2 Linux-only skips, no assertion failures**; this is
+not a passing full-suite result on Python 3.9.6. Compilation, dependency consistency,
+frozen scoring, documentation and diff/preservation checks pass. Dependencies
+were not installed or changed; missing project packages and unsupported runtime
+APIs remain explicit in the report.
+
+No deployment, persistent real-root creation, source/private-input/SSH access,
+source refresh/research, provider/media/notification operation, live publication,
+genuine original-supervisor ingestion, first real cycle or recurrence occurred.
+The source-home symlink needs a later explicitly authorized canonical no-follow
+path; producer/handoff discrepancy remains a later exact decision, and the
+historical source rejection remains undiagnosed. Existing Mac engineering
+discovery is not a report schedule. One genuine cycle must complete exact parent
+publication/readback, distinct authentic supervisor ingestion and archive before
+recurrence; actual scheduled invocation must then be observed. Later daily cycles
+must not consume numbered Codex tasks. Accepted lifecycle/receipt schemas,
+dispatcher/policy/terminal contracts and eight-execution protections, issue #113
+history/uncertain outboxes, #86/PR #110, scoring/production, decisions and unrelated
+active `docs/CODEX_TASK.md` remain unchanged. Parent owns all Git/PR/result
+publication; this worker publishes nothing.
+
 ## Coordinator cycles Task 2 — 2026-10-30, corrections awaiting parent review
 
 Issue #117 supervisor Task 2 corrects the two reproduced independent-review

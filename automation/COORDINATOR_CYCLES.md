@@ -1,5 +1,11 @@
 # Caller-invoked reporting cycles (issue #117)
 
+Issue #119 adds the narrow [offline owner commissioning adapter](COORDINATOR_OWNER.md).
+It reserves external acquisition intent before transport, verifies fixed intake
+bytes and stages one exact parent handoff. It leaves this format-2 lifecycle and
+receipt-v1 contract unchanged. The linked runbook records explicit CLI arguments,
+finite retention, replay behavior and remaining live publication/recipient gates.
+
 This is an offline CLI/library component, with synthetic lifecycle verification.
 It runs the accepted original-byte movie reader and existing observation
 validators. It does not run engineering tasks, publish to a network, send a
