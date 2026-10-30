@@ -1284,3 +1284,42 @@ as unwanted. Exact case now `routine/skipped_routine` in collector and report;
 excluded from open review/research export, with evidence/history retained. Silent
 receipt prevents a maintenance notification. No download, identity correction or
 autobrr change. Health200, runtime unchanged. See the status-reconciliation report.
+
+## Coordinator export ingestion — 2026-10-30, implementation awaiting review
+
+Issue #115 supervisor Task 1 starts at accepted PR #114 merge
+`098338e48771ee4c4b705393fa43ba12994b85c2` on
+`automation/issue-115-worker`. The owner supplies acceptance of foundation and
+integration (accepted head `9aaa89a4422e78b4c73f9c1853cebc911f60bf6d`); their older
+pending-review records above are historical, not fresh CI/deployment observations.
+
+Implementation adds a reusable offline fixed-path, descriptor-confined reader for
+`incoming/snapshot.json` and `review-report.json` under a caller-authorized
+canonical research-state root. Original bytes/SHA256 are staged create-only under
+a new private root; manifest v2/observations retain bounded fixed source/stage/
+reason diagnostics and truthful partial outcomes. Existing v1 manifests, coarse
+availability, whole-movie validation, source-write protections, comparison-v2
+refresh suppression and original pending-report/receipt bytes are preserved.
+Quality/release remains unavailable and compatible movie coverage remains
+`incomplete_upstream`. Diagnostic collection itself is not a publication trigger.
+
+Tests are synthetic only, on the available unsupported Python 3.9.6; exact results
+and environment limitations are in the
+[engineering report](reports/2026-10-30-coordinator-export-ingestion.md), with the
+[scoped brief](reports/2026-10-30-coordinator-export-ingestion-brief.md) and
+[reproducible rehearsal](../automation/COORDINATOR_PILOT.md#issue-115-original-byte-reader-rehearsal-synthetic-only).
+Parent publication, independent exact-revision review, current-head supported
+3.12/3.13 CI and merge remain separate gates. No worker publication, deployment,
+seedbox/source/private-state access, real export retrieval, operational replay,
+provider request, notification, media mutation or recurring-agent/product
+acceptance occurred. No dependencies were installed or changed.
+
+Task8's retained evidence establishes SSH exit0 then generic `file_rejected`,
+with neither movie export imported; its specific host/path cause remains unknown.
+The producer's resolved-home contract and this reader's explicit canonical-root
+contract are distinct, not evidence of that cause. After code acceptance the
+supervisor determines a separately authorized source-integration verification
+from the contract and actual evidence. No exhausted access task is repeated here.
+The unrelated active `docs/CODEX_TASK.md`, #86/PR #110, production scoring,
+research budgets, dispatcher/supervisor/receipt protocols, claims/locks/quota/caps
+and issue #113 retained roots/outboxes/execution artifacts remain unchanged.
