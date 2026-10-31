@@ -1,5 +1,69 @@
 # Movie List project state
 
+
+## Issue #122 Task3 final retained-cycle correction — 2026-10-31, awaiting exact review
+
+The owner explicitly added ONE final engineering execution in public
+comment6543142163; latest trusted Task3 is6543198432. Clean starting checkout
+was `automation/issue-122-worker` at `bd789435118e29806766e2e4c72f3996edaa1e07`.
+This supersedes only the earlier issue122 two-execution/no-third limit: exact
+cap3 now persists, Task3 consumption cannot replay, Task4 is refused, and general
+cap8 / issue119 exhausted history remain unchanged. Supplied admission-only
+launcher3f7562cb426cf45c59763fcab36b9610f2cf4a85 and original deployment facts
+were not accessed operationally by this child.
+
+Live review6543043459 disproved Task1/Task2's20-file dependency closure. The
+current23-file manifest includes unchanged identity_research_store.py and
+torrent_research_evidence.py plus the fixed recovery module. A fresh isolated
+`-I -B -S` installed-bundle test uses no checkout/PYTHONPATH/site/test-module
+fallback: both deliberate missing imports are caught; nonempty torrent evidence,
+original-byte staging and complete finite recovery/publication/recipient/archive
+are exercised with static fixtures and forbidden-edge guards.
+
+One new immutable unedited authenticated owner selection can recover ONLY the
+same retained sealed partial-1 cycle at preparation_uncertain/collecting with its
+original confirmed claim/reservation/intent/seal and saved independent checkpoint,
+no collection/report/baseline/handoff/output/publication/recipient/archive.
+Original pins/request/clock/paths/recipient/destination remain immutable; separate
+new reviewed/deployed code pins and exact fixed-role state/file/ACL/identity hashes
+explicitly attest evolution. Separate private authorization and exact retained
+original/checkpoint/staging bytes precede accepted owner.prepare/resume effects.
+Recovery never acquires, preflights credentials, reserves, reseals, refreshes or
+rereads source paths. Existing resume semantics truthfully report interrupted/
+unavailable movies while retaining independent engineering findings and original
+intake/seal/transport. One handoff/PUT, immutable readback, genuine owner-selected
+distinct chat ingestion and accepted archive remain separate gates. Continuation/
+ack evidence links original operation AND recovery/code selection; consumed failed
+recover/continue commands are quiet, and other issue discovery still progresses.
+Ambiguous unanchored checkpoints or an unexposed consumed handoff stop safely.
+
+Final frozen-source focused/native validation: **479 passed**, including44
+runtime/transport and9 new recovery tests, with successful installed-only closure
+and both deliberate missing-module negatives. All23 runtime +2 test files compile
+and parse with native3.9 grammar, frozen hashes unchanged after focused checks;
+scoring remains1909 candidates/387 qualified and documentation/diff preservation
+checks pass. ONE full suite: **966 run,109 environment/API errors,2 skips,no assertion
+failures** (not a pass), with all53 runtime/recovery tests passing again. Error
+categories match Task2:84 requests,9 bs4,10 unittest.enterContext,3 SQLite APIs,
+3 existing HTTP fixture disconnects. Frozen hashes remain unchanged afterward.
+No dependency installation/change or unrelated environment repair was attempted;
+exact-head supported3.12/3.13 CI remains required.
+
+See the [completed Task3 brief](reports/2026-10-31-issue-122-recovery-brief.md),
+[engineering report](reports/2026-10-31-issue-122-recovery.md) and
+[exact selective-install/recovery/ack runbook](../automation/COORDINATOR_RUNTIME.md).
+Task1/Task2 results/history remain below with saved-record errata. **No child
+Git/issue publication, deployment, live recovery, real private-state/home/key/root/
+source/server access, seedbox/SSH, provider/media/Radarr/notification/service,
+permission/admin, schedules/plist/watch, Work, daemon/subagent/worker/runner or
+dependency installation occurred.** The parent alone publishes; supported exact
+CI/independent review and the supervisor's already-authorized bounded deployment,
+same retained cycle recovery, actual immutable publication, designated-chat
+coordinator ingestion/owner-selected acknowledgement and verified archive remain.
+No generic reapproval, Task4, successor, reset, extra source read, recurrence or
+full movie-coverage claim follows. Unrelated CODEX_TASK.md, decisions, notification
+guide, #86/PR110, accepted core modules, configuration and histories are preserved.
+
 ## Issue #122 Task2 final correction — 2026-10-31, awaiting exact review
 
 The second and final authorized engineering execution corrects independent

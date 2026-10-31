@@ -1,5 +1,13 @@
 # Engineering report: issue122 Task1 finite reporting runtime
 
+Task3 historical correction: live review6543043459 disproved the20-file closure
+claim below. The original tests/results remain historical facts, not installed
+closure or live acceptance. The owner separately authorized one final correction
+in6543142163, superseding the earlier two-execution/no-third limit only for
+issue122. See the [Task3 brief](2026-10-31-issue-122-recovery-brief.md),
+[report](2026-10-31-issue-122-recovery.md) and current runtime runbook. No claim,
+clock, source opportunity or other issue's cap/history is reset.
+
 Task2 correction notice: independent review6542515755 reproduced failures in the
 Task1 SSH FD handoff/lock lifetime, preflight ordering and dispatcher eligibility.
 The final scoped [Task2 brief](2026-10-31-issue-122-correction-brief.md) and

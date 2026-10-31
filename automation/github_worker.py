@@ -713,8 +713,8 @@ class Runner:
                             "Maximum 8 worker iterations reached for this control issue; use supervisor review to resolve convergence", 'ITERATION_LIMIT')
             return None
         if (task is not None and self.args.github_repo == 'kolorifer/radarr-festival-list'
-                and self.args.issue == 122 and (task_number(task['body']) > 2 or len(consumed) >= 2)):
-            raise Stop('Issue 122 permits at most two engineering executions')
+                and self.args.issue == 122 and (task_number(task['body']) > 3 or len(consumed) >= 3)):
+            raise Stop('Issue 122 permits at most three engineering executions')
         return (issue, task, consumed) if task is not None else None
 
     def poll(self):

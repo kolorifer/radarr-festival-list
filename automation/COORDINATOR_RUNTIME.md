@@ -1,10 +1,24 @@
 # Issue 122 finite reporting route
 
+Task3 correction: the Task1/Task2 **20-file closure claim was disproved** by
+live review6543043459. The two function-local validator dependencies were absent.
+The current manifest below has **23 files**: the two unchanged reviewed validators
+and the fixed recovery module are added. Repository-wide import/tests alone are
+insufficient. The isolated installed-package test is required independently.
+
+The owner explicitly authorized exactly one additional engineering execution in
+[6543142163](https://github.com/kolorifer/radarr-festival-list/issues/122#issuecomment-6543142163).
+Task3 is final; issue122 cap3, general cap8 and all consumed claims remain.
+The historical Task1/Task2 deployment/start instructions below are retained as
+protocol context. **Do not start another cycle or acquisition.** Use the Task3
+same-cycle recovery section for the retained original operation. No child live
+access, installation, publication or operation is authorized.
+
 Implementation and synthetic tests only. No deployment or real cycle has been
 performed by this worker. The owner already authorized independent review,
 bounded deployment, one supervised partial cycle and its later acknowledgement.
 The supervisor carries out those fixed operations after the gates below; no
-third engineering task, new executor, Work schedule or permission-reset is needed.
+further engineering task, new executor, Work schedule or permission-reset is needed.
 Issue 119's eight consumed claims and exhausted cap remain intact. Task8's
 accepted source-directory correction and Task6's retained Mac probe are supplied
 facts, not reasons to inspect or repair either host again in this code task.
@@ -37,7 +51,7 @@ facts, not reasons to inspect or repair either host again in this code task.
    hash. Release the existing locks for the next ordinary poll. No operation
    comment means no new effects. Do not exercise `operate` through a separate CLI.
 
-Dependency-closed runtime manifest (also `coordinator_runtime.MANIFEST`):
+Current selective runtime manifest (also `coordinator_runtime.MANIFEST`):
 
 ```text
 automation/github_worker.py
@@ -60,9 +74,19 @@ identity_triage_store.py
 identity_research_handoff.py
 identity_research_provider.py
 identity_triage_intake.py
+identity_research_store.py
+torrent_research_evidence.py
+automation/coordinator_recovery.py
 ```
 
-The four top-level producer modules supply offline validators only. Their
+The six top-level modules supply offline validators only. The reachable import
+chain is sources -> handoff.validate_snapshot -> provider.validate_case ->
+research_store.ELIGIBLE and optional torrent_research_evidence.validate. Store
+imports triage_store; all remaining reachable validator imports are stdlib.
+The intake validator's optional torrent evidence uses the same included module.
+SQLite imports are inert; no Store/ResearchStore constructor or transaction is
+called. Torrent HTML extraction's local bs4 import and producer confinement,
+observer and identity-selection imports are unreachable in this offline route. Their
 transport/provider/producer entrypoints are never called. Sandbox modules imported
 only by unused producer confinement functions are outside this reachable closure.
 No dependency installation is introduced. Test modules are review/validation
@@ -78,10 +102,10 @@ honors closed/latest-trusted DONE before selection and selects at most one
 engineering task OR pending fixed operation, ordered by comment ID;
 the operation also takes the existing per-issue lock. It never calls
 `run_selected`, quota probes, Codex, engineering claim refs or the old publisher.
-Issue122's engineering path has a separate two-execution ceiling; the existing
+Issue122's engineering path has a separate three-execution ceiling; the existing
 eight-execution guard remains unchanged elsewhere.
 An explicit newer owner engineering directive supersedes an older operation
-command, preserving the existing latest-task rules and two-execution ceiling.
+command, preserving the existing latest-task rules and three-execution ceiling.
 It does not reset the operation; resumption requires a newer matching explicit
 continuation and the same exact deployed identity. Complete code correction and
 exact-revision review before the pilot; installing new code cannot silently
@@ -325,7 +349,7 @@ claim follows, even if publication, ingestion and archive all succeed.
 | Failed reconcile | Same comment is inert unless its bound publication observation permits interrupted receipt import; a new explicit matching reconcile may select another readback (32-command total cap) |
 | Invalid/wrong/conflicting acknowledgement | No recipient receipt/archive; stop for supervisor review; no recipient substitution or new operation |
 | Receipt/archive interruption | Same genuine selected acknowledgement can finish idempotently with exact retained bytes; never reacquire/republish |
-| Complete | Quiet/inert; no recurrence, retention reset, third engineering execution or automatic successor |
+| Complete | Quiet/inert; no recurrence, retention reset, further engineering execution or automatic successor |
 
 An interruption before usable payload/write intent may leave this single cycle
 unable to finish automatically. This is a deliberate safety limit, not permission
@@ -339,3 +363,188 @@ or new filesystem grant is an escape hatch.
 The supervisor records **deployed**, **publication verified**, **actual distinct
 ingestion selected**, and **archive verified** separately, with exact immutable
 private evidence. None is established by installing this code or passing tests.
+
+
+## Task3: explicit recovery of the retained SAME sealed pilot
+
+This is supervisor-only protocol after independent exact-code review, passing
+exact-head Python3.12/3.13 CI, native3.9 focused validation and installed isolation.
+The worker does not run these steps. The original live failure and original
+selection/start/reviewed/deployment identities remain immutable. The supplied
+admission-only launcher package is `3f7562cb426cf45c59763fcab36b9610f2cf4a85`;
+compare it against the original selective deployment and require only issue122's
+two thresholds and limit message to differ. Selectively install the 23 reviewed
+blobs under the **existing two locks**, preserving clean parent changes; pin the
+resulting new deployment commit and exact SHA256 map privately. Never replace the
+launcher with main wholesale. No service/plist/watch, permission, root or claim
+operation is needed. Preserve old code for code-only rollback; never roll back
+state. Installing code selects no recovery.
+
+Run isolation on a temporary installed bundle copied from those exact blobs,
+using only that bundle and stdlib (Python `-I -B -S`, no PYTHONPATH/site/test-module
+fallback). The reviewed `test_coordinator_recovery` installed harness includes
+both deliberate missing-module refusals, nonempty torrent evidence, original-byte
+reader staging and the finite recovery/publication/recipient/archive sequence.
+Run `python3 -B -m unittest test_coordinator_recovery -v` from the exact reviewed
+source as the test driver; its child imports only the temporary manifest bundle.
+Do not mistake driver/repository smoke imports for isolation evidence. No
+credentials, home, private selections or exports from the live pilot are test
+fixtures. No dependency installation is part of installation or testing.
+
+### Strict recovery selection and owner command
+
+Let P be the **unchanged original** private selection pin, R a new immutable
+private recovery selection pin, and A a later immutable genuine ingestion pin.
+Pin shape, private-repository/commit/tree/blob/SHA256 checks and unedited
+owner-comment authentication are exactly as specified above. All recovery
+selection JSON is canonical `io.encode`, <=65536 bytes. R has exactly:
+
+| Field | Required value |
+| --- | --- |
+| version | integer1 |
+| phase; operation | `issue-122-partial-v1`; `partial-1` |
+| original_selection | P, byte-exact original pin |
+| original_start | authenticated immutable original `{id,body,created_at,updated_at,author}` |
+| request_sha256 | `c.fingerprint(original_selection_value['request'])` |
+| code | exactly `{reviewed_revision,deployed_revision,code_sha256}`; NEW reviewed public commit, NEW clean installed HEAD and all23 installed blob SHA256s |
+| checkpoint | exactly `{directories,files}`, read-only fixed-role inventory described below |
+
+No source/root/path/clock/recipient override is accepted. Original selection
+retains its original20 code pins; R attests the code transition separately. The
+parent authenticates BOTH public reviewed commits and the current clean installed
+code identity. Every later continuation reauthenticates P, R, original start and
+recovery origin; a local journal is never authority.
+
+The supervisor obtains the checkpoint only from the explicitly retained local
+paths already bound in P/request/journal, using the read-only function
+`coordinator_recovery.capture(runtime_view)`. `runtime_view` has exactly the
+selected `req`, `runner.state_dir` and the selected enclosing root's fixed
+`finite-phase-1` evidence path; it is NOT an operational Runtime invocation.
+No credential/source path is opened. The function returns `(checkpoint, contents)`;
+only checkpoint goes in R. Do not post either value publicly.
+
+Directories are fixed roles `phase,adapter,intake,incoming,independent,receipts,
+cycles,active,archive,handoff,stage` and present optional `movie,combined`, each
+`{identity:[dev,ino],acl:<accepted ACL identity>}`. Files are fixed role/name keys,
+with exactly `{metadata,acl,sha256}`. Metadata is the exact ordered list
+`[dev,ino,uid,gid,st_mode,size,mtime_ns,ctime_ns,nlink]`. No arbitrary relative or
+absolute path is accepted. `parent/journal` is the original parent journal.
+Adapter files are identity, lock, exact intent and exact seal; phase files are
+original selection/authorization/transport; intake files are only the two fixed
+exports; independent files are manifest/engineering/parent_status; cycle files
+are identity/state/lock; stage has independent.json and optional bounded reader
+movie/combined files. Active/archive/handoff/receipts must be empty. Parent output
+must be absent. All required directories exist; optional missing paths must be
+proven absent. Private mode0700/0600, owner, no-follow/spelling, stable file
+metadata/ACL, one link, per-file12MiB, tree total32MiB/48 files plus the
+<=64KiB parent journal, and24 entries per directory limits apply.
+Existing lock files are selected; no permission repair is permitted.
+
+For a read-only selection preparation script, after authenticating P using the
+same immutable fetch and original owner origin, the value is constructed as:
+
+```python
+import types
+from pathlib import Path
+from automation import coordinator, coordinator_io, coordinator_recovery
+
+view = types.SimpleNamespace(req=original['request'],
+    runner=types.SimpleNamespace(state_dir=selected_original_issue_state_dir),
+    evidence_root=Path(original['storage']['path']) / 'finite-phase-1')
+checkpoint, _ = coordinator_recovery.capture(view)
+recovery_value = dict(version=1, phase='issue-122-partial-v1', operation='partial-1',
+    original_selection=P, original_start=authenticated_original_origin,
+    request_sha256=coordinator.fingerprint(original['request']),
+    code=dict(reviewed_revision=reviewed_commit, deployed_revision=installed_commit,
+              code_sha256=exact_installed_manifest_hashes), checkpoint=checkpoint)
+raw = coordinator_io.encode(recovery_value)
+```
+
+The snippet does not fetch, reserve, seal,
+prepare, start the dispatcher or perform any live recovery. Retain the canonical
+selection through the existing private immutable-pin publication process and
+independently read it back before posting R. All variables denote the exact
+already selected private identities, never newly discovered homes/roots.
+
+The canonical owner commands are generated by `coordinator_io.encode`, not manual
+JSON editing. Exactly one recovery command is allowed, newer than original start:
+
+```text
+COORDINATOR_OPERATION: {"action":"recover","phase":"issue-122-partial-v1","recovery":R,"selection":P}
+COORDINATOR_OPERATION: {"action":"continue","phase":"issue-122-partial-v1","recovery":R,"selection":P}
+COORDINATOR_OPERATION: {"action":"reconcile","phase":"issue-122-partial-v1","recovery":R,"selection":P}
+COORDINATOR_OPERATION: {"acknowledgement":A,"action":"ack","phase":"issue-122-partial-v1","recovery":R,"selection":P}
+```
+
+Post only `recover` initially; the ordinary sole dispatcher poll selects it
+under its normal global/per-issue locks. No CLI/manual launch is provided.
+Closed/latest trusted DONE still wins. A NEW operation claim, reserve, credential
+preflight, SSH, reseal, source reread/refresh or changed clock is forbidden.
+The initial gate requires original confirmed claim GET and original authorization,
+reservation/intent/seal, exact preparation_uncertain journal, exact collecting
+cycle/request, selected independent checkpoint and no collection/report/baseline,
+output, handoff, receipt, write intent or archive. Compare all exact checkpoint
+bytes/metadata and existing grant baselines before touching adapter state.
+Unsupported or conflicting boundaries stop; do not reset or silently re-pin them.
+
+Before recovery effects the parent separately fsyncs canonical
+`recovery-selection.json`, `recovery-retained.json` (base64 exact original files,
+including parent/cycle/checkpoint/partial-staging bytes) and
+`recovery-authorization.json`, then anchors their selection/authorization hashes
+in the existing parent journal. Original authorization/transport/intake/seal remain
+untouched. The retained copy preserves partial reader bytes when the accepted
+cycle reclaims disposable staging. All evidence stays private in the original
+fixed phase directory; the core's accepted archive retains its immutable report,
+independent evidence and exact publication/recipient receipts. Parent archive.json
+and recovery evidence retain the cross-reference to the original operation and
+new authorization. Verify both the archived record and these retained originals.
+No engineering claims or original journal file are reset. A separate bounded
+private command-consumption ledger in the existing issue state records authentic
+recover/continue handling; a refused command is quiet without modifying the
+original adapter/evidence. It is scheduling evidence only, never authorization.
+
+### Allowed interrupted continuations and completion
+
+Recovery calls only accepted `owner.prepare` on the ORIGINAL request. The existing
+collecting entry forces `collect(resume=True)`: it reuses the authenticated saved
+independent checkpoint and labels movie collection interrupted/unavailable. It
+NEVER rereads the movie source or tries to complete partial reader output. Original
+generation/observation/acquisition clocks remain retained. A successful partial
+report proves no current full movie coverage and does not repair the original
+research-report incompatibility or stale sources.
+
+Each recover/continue command is consumed once. Repeated ordinary polling is
+quiet before private fetch; completed/archive commands do not starve other issues.
+Only a newer explicit matching `continue` may finish interrupted preparation or
+handoff before publication. Safe boundaries:
+
+| Retained boundary | Only allowed continuation |
+| --- | --- |
+| Auth files written without parent recovery binding | Stop: unanchored evidence; no automatic adoption/reset |
+| Bound recovery, interrupted prepare | New `continue`, accepted same-request prepare/resume; unbound core checkpoints still refuse |
+| Prepared core, no handoff attempt/output | New `continue`, accepted first handoff |
+| Core handoff attempt AND exact durable handoff + parent output; parent return lost | New `continue` verifies exact record/binding/output, never repeats handoff |
+| Core handoff attempt but no exact parent output | Stop: accepted owner handoff consumed; no second handoff/exposure is granted |
+| handoff_ready, no write intent | New `continue` may perform the sole PUT |
+| publication_uncertain / lost PUT response | Explicit matching `reconcile`, READBACK ONLY; no second PUT even after404 |
+| Durable publication observation, interrupted import | Same consumed reconcile may finish exact observation import under existing rules |
+| Published, distinct selected ack/import/archive interrupted | Same authenticated ack finishes idempotent accepted receipt/archive; no new write |
+| Archived or consumed failed recovery/continue | Quiet; no source/private-input polling or new opportunity |
+
+A fresh reconcile that fails readback is consumed and quiet until another
+explicit matching reconcile. Core ambiguous checkpoint or unexposed handoff can
+remain impossible to finish under accepted safety boundaries; retain it and report
+the precise reason. No Task4/successor/reset follows automatically.
+
+After actual immutable publication readback, the already-authorized designated
+successor coordinator must fetch that exact pinned payload in the actual chat,
+read its honest partial findings and retain a truthful ingestion reference. Only
+THEN does the owner publish A with the existing ack fields PLUS exactly
+`recovery:R`, preserving original P/binding/publication/recipient_chat. The parent
+constructs a recipient receipt only after fresh authentic owner selection of A.
+A JSON issuer, sender readback, engineering terminal receipt or hash alone proves
+no ingestion. Observe accepted archive=true and exact archived report/receipts,
+verify retained original intake/seal/transport and recovery authorization hashes,
+then confirm later ordinary polling stays quiet and other issues progress. These
+actual publication, distinct ingestion and archive gates remain separate from
+synthetic tests and from installation. No recurrence is enabled.

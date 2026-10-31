@@ -1,5 +1,13 @@
 # Issue122 Task1 — finite reporting runtime brief
 
+Task3 historical correction: live review6543043459 disproved the20-file closure
+claim below. The original tests/results remain historical facts, not installed
+closure or live acceptance. The owner separately authorized one final correction
+in6543142163, superseding the earlier two-execution/no-third limit only for
+issue122. See the [Task3 brief](2026-10-31-issue-122-recovery-brief.md),
+[report](2026-10-31-issue-122-recovery.md) and current runtime runbook. No claim,
+clock, source opportunity or other issue's cap/history is reset.
+
 Source: latest issue-owner supervisor Task1 supplied to this fresh worker on
 2026-10-31. Baseline verified clean `automation/issue-122-worker`, HEAD
 `cc6b90755ba8b71e743517e618a2496163b59815`. The launcher baseline

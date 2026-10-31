@@ -41,7 +41,9 @@ MANIFEST = tuple('automation/' + name + '.py' for name in (
     'coordinator_owner', 'coordinator_cycles', 'coordinator_exports', 'coordinator_sources',
     'coordinator_diagnostics', 'coordinator_integration', 'coordinator_outbox', 'coordinator_parent')) + (
         'identity_triage_store.py', 'identity_research_handoff.py',
-        'identity_research_provider.py', 'identity_triage_intake.py')
+        'identity_research_provider.py', 'identity_triage_intake.py',
+        'identity_research_store.py', 'torrent_research_evidence.py',
+        'automation/coordinator_recovery.py')
 
 
 def require(ok, reason='operation_rejected'):
@@ -121,10 +123,16 @@ def select(comments, issue, repository):
         require(body.startswith(PREFIX) and '\n' not in body and len(body) <= 4096)
         value = io.decode(body[len(PREFIX):])
         action = value.get('action') if isinstance(value, dict) else None
-        keys(value, 'action phase selection acknowledgement' if action == 'ack' else 'action phase selection')
-        require(action in ('start', 'reconcile', 'ack') and value['phase'] == PHASE
+        fields = 'action phase selection' + (' acknowledgement' if action == 'ack' else '')
+        if action in ('recover', 'continue') or 'recovery' in value:
+            fields += ' recovery'
+        keys(value, fields)
+        require(action in ('start', 'reconcile', 'ack', 'recover', 'continue') and value['phase'] == PHASE
                 and body == PREFIX + io.encode(value).decode('ascii'))
         pin(value['selection'])
+        if 'recovery' in value:
+            pin(value['recovery'])
+            require(action != 'start')
         if action == 'ack':
             pin(value['acknowledgement'])
         origin(comment, author)
@@ -142,10 +150,20 @@ def select(comments, issue, repository):
         if value['action'] == 'ack':
             acknowledgements.append(value['acknowledgement'])
     require(not acknowledgements or all(a == acknowledgements[0] for a in acknowledgements))
+    recoveries = [(cm, v) for cm, v in commands if v['action'] == 'recover']
+    require(len(recoveries) <= 1)
+    recovery = recoveries[0] if recoveries else None
+    for cm, v in commands:
+        if 'recovery' in v:
+            require(recovery is not None and cm['id'] >= recovery[0]['id']
+                    and v['recovery'] == recovery[1]['recovery']
+                    and timestamp(cm['created_at']) >= timestamp(recovery[0]['created_at']))
+        elif recovery is not None:
+            require(cm['id'] < recovery[0]['id'])
     latest, value = max(commands, key=lambda item: item[0]['id'])
     # Retain the FIRST exact acknowledgement origin, including on matching replay.
     ack = next(((cm, v) for cm, v in commands if v['action'] == 'ack'), None)
-    return {'id': latest['id'], 'start': start, 'comment': latest, 'command': value, 'ack': ack}
+    return {'id': latest['id'], 'start': start, 'comment': latest, 'command': value, 'ack': ack, 'recovery': recovery}
 
 
 def phase_state(runner, selected, author):
@@ -162,13 +180,16 @@ def phase_state(runner, selected, author):
     except FileNotFoundError:
         return None
     required = set('version selection selection_sha256 start request status claim_confirmed evidence_identity attempt publication acknowledgement'.split())
-    optional = set('reservation remote_write write_attempted_at publication_observed_at reconciled_comment'.split())
+    optional = set('reservation remote_write write_attempted_at publication_observed_at reconciled_comment recovery recovery_last_comment'.split())
     require(isinstance(state, dict) and required <= set(state) <= required | optional
             and type(state['version']) is int and state['version'] == 1
             and state['selection'] == selected['command']['selection']
             and state['selection_sha256'] == state['selection']['sha256']
             and state['start'] == origin(selected['start'], author)
             and type(state['claim_confirmed']) is bool)
+    if 'recovery' in state:
+        from automation import coordinator_recovery as recovery
+        recovery.scheduling_binding(state, selected, author)
     req = state['request']
     require(isinstance(req, dict) and type(req.get('version')) is int and req['version'] == owner.VERSION)
     owner.validate_request(req)
@@ -201,7 +222,9 @@ def phase_state(runner, selected, author):
         keys(acknowledgement, 'origin pin selection')
         pin(acknowledgement['pin'])
         ack = acknowledgement['selection']
-        keys(ack, 'version phase operation selection binding recipient_chat ingestion_reference observed_at publication')
+        keys(ack, 'version phase operation selection binding recipient_chat ingestion_reference observed_at publication'
+             + (' recovery' if 'recovery' in state else ''))
+        require(ack.get('recovery') == (state['recovery']['pin'] if 'recovery' in state else None))
         require(type(ack['version']) is int and ack['version'] == 1 and ack['phase'] == PHASE
                 and ack['operation'] == req['cycle'] and ack['selection'] == state['selection']
                 and ack['binding'] == state['attempt'] and ack['publication'] == state['publication'])
@@ -211,7 +234,8 @@ def phase_state(runner, selected, author):
         require(type(retained['id']) is int and retained['id'] >= state['start']['id']
                 and retained['author'] == author and retained['created_at'] == retained['updated_at']
                 and retained['body'] == PREFIX + io.encode(dict(action='ack', phase=PHASE,
-                    selection=state['selection'], acknowledgement=acknowledgement['pin'])).decode()
+                    selection=state['selection'], acknowledgement=acknowledgement['pin'],
+                    **({'recovery': state['recovery']['pin']} if 'recovery' in state else {}))).decode()
                 and state['publication_observed_at'] <= ack['observed_at'] <= timestamp(retained['created_at']) + 300)
         if selected['ack'] is not None:
             require(retained == origin(selected['ack'][0], author)
@@ -244,13 +268,23 @@ def publication_observation(state):
 
 
 def pending(runner, selected, author):
-    state = phase_state(runner, selected, author)
     action = selected['command']['action']
+    if action in ('recover', 'continue'):
+        from automation import coordinator_recovery as recovery
+        if recovery.consumed(runner, origin(selected['comment'], author)):
+            return False
+    state = phase_state(runner, selected, author)
     if state is None:
         require(action == 'start')
         return True
     if action == 'start' or state['status'] == 'archived':
         return False
+    if action in ('recover', 'continue'):
+        if state.get('recovery_last_comment') == origin(selected['comment'], author):
+            return False
+        if action == 'recover':
+            return 'recovery' not in state and state['status'] == 'preparation_uncertain'
+        return 'recovery' in state and state['status'] in ('preparation_uncertain', 'handoff_uncertain', 'handoff_ready')
     if action == 'reconcile':
         if not state['claim_confirmed'] or state['status'] not in ('publication_uncertain', 'published'):
             return False  # No safe publication recovery exists at this boundary.
@@ -276,19 +310,29 @@ def file_identity(value):
             and type(value['ino']) is int and value['ino'] > 0)
 
 
-def validate(value, runner, author):
+def validate(value, runner, author, transition=None):
     keys(value, 'version repository issue phase operation reviewed_revision deployed_revision code_sha256 storage staging source request recipient_chat independent')
     require(type(value['version']) is int and value['version'] == 1 and value['repository'] == REPOSITORY
             and type(value['issue']) is int and value['issue'] == ISSUE and value['phase'] == PHASE)
     c.identifier(value['operation']); c.identifier(value['recipient_chat'])
-    require(value['deployed_revision'] == runner.runner_revision and hex_value(runner.runner_revision, 40))
+    code = value if transition is None else transition
+    require(code['deployed_revision'] == runner.runner_revision and hex_value(runner.runner_revision, 40))
     require(hex_value(value['reviewed_revision'], 40))
-    reviewed = runner.api(f'repos/{REPOSITORY}/git/commits/{value["reviewed_revision"]}')
-    require(reviewed.get('sha') == value['reviewed_revision'] and hex_value(reviewed.get('tree', {}).get('sha'), 40))
-    hashes = value['code_sha256']
+    for revision in {value['reviewed_revision'], code['reviewed_revision']}:
+        require(hex_value(revision, 40))
+        reviewed = runner.api(f'repos/{REPOSITORY}/git/commits/{revision}')
+        require(reviewed.get('sha') == revision and hex_value(reviewed.get('tree', {}).get('sha'), 40))
+    if transition is not None:
+        legacy = set(MANIFEST) - {'identity_research_store.py', 'torrent_research_evidence.py',
+                                  'automation/coordinator_recovery.py'}
+        require(hex_value(value['deployed_revision'], 40) and set(value['code_sha256']) == legacy
+                and all(hex_value(v, 64) for v in value['code_sha256'].values())
+                and code['reviewed_revision'] != value['reviewed_revision']
+                and code['deployed_revision'] != value['deployed_revision'])
+    hashes = code['code_sha256']
     require(isinstance(hashes, dict) and set(hashes) == set(MANIFEST))
     code_root = Path(__file__).resolve().parent.parent
-    require(runner.repo == code_root and runner.git('rev-parse', 'HEAD').strip() == value['deployed_revision']
+    require(runner.repo == code_root and runner.git('rev-parse', 'HEAD').strip() == code['deployed_revision']
             and runner.git('status', '--porcelain', '--', *MANIFEST) == '')
     for name in MANIFEST:
         require(hex_value(hashes[name], 64) and io.digest(io.read_bytes(code_root, name, transport.LIMIT)) == hashes[name])
@@ -379,10 +423,17 @@ class Runtime:
             require(os.path.samestat(os.fstat(fd), os.stat(path, follow_symlinks=False)))
         self.start_origin = authenticate(runner, selected['start'], self.author)
         self.command_origin = authenticate(runner, selected['comment'], self.author)
+        if selected['command']['action'] in ('recover', 'continue'):
+            from automation import coordinator_recovery as recovery
+            recovery.consume(runner, self.command_origin)
         self.pin = selected['command']['selection']
         self.raw_selection = fetch(runner, self.pin)
         self.value = io.decode(self.raw_selection)
-        validate(self.value, runner, self.author)
+        self.recovery = None
+        if selected.get('recovery') is not None:
+            from automation import coordinator_recovery as recovery
+            self.recovery = recovery.Selection(self)
+        validate(self.value, runner, self.author, self.recovery.value['code'] if self.recovery else None)
         self.evidence = {}
         self.req = self.value['request']
         self.evidence_root = Path(self.value['storage']['path']) / 'finite-phase-1'
@@ -654,7 +705,9 @@ class Runtime:
         selected_origin = authenticate(self.runner, comment, self.author)
         selected_pin = command['acknowledgement']
         ack = io.decode(fetch(self.runner, selected_pin))
-        keys(ack, 'version phase operation selection binding recipient_chat ingestion_reference observed_at publication')
+        keys(ack, 'version phase operation selection binding recipient_chat ingestion_reference observed_at publication'
+             + (' recovery' if self.recovery else ''))
+        require(ack.get('recovery') == (self.recovery.pin if self.recovery else None))
         require(type(ack['version']) is int and ack['version'] == 1 and ack['phase'] == PHASE
                 and ack['operation'] == self.value['operation'] and ack['selection'] == self.pin
                 and ack['binding'] == self.state['attempt'] and ack['recipient_chat'] == self.value['recipient_chat']
@@ -677,7 +730,9 @@ class Runtime:
         owner.receipt(self.req, 'recipient', 'recipient')
         result = owner.archive(self.req)
         require(result['archived'] is True)
-        self.record('archive.json', result)
+        self.record('archive.json', {**result, 'recovery': self.state['recovery'],
+                                    'selection': self.pin, 'binding': self.state['attempt']}
+                    if self.recovery else result)
         self.persist(status='archived')
 
     def run(self):
@@ -702,6 +757,13 @@ class Runtime:
         else:
             self.verify()
             require(self.state['claim_confirmed'])
+            if self.recovery is not None:
+                self.recovery.authorize()
+            else:
+                require('recovery' not in self.state)
+            if action in ('recover', 'continue'):
+                self.recovery.run()
+                return
             if self.state['status'] == 'archived':
                 if action == 'ack':
                     require(self.selected['ack'][1]['acknowledgement'] == self.state['acknowledgement']['pin'])
