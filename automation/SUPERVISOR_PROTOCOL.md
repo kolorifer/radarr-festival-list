@@ -1,5 +1,12 @@
 # Supervisor protocol and deployed responsibilities
 
+Issue #122 adds one explicit opt-in [finite reporting route](COORDINATOR_RUNTIME.md)
+inside the sole dispatcher's ordinary poll. Its owner-comment start/reconcile/ack
+protocol is separate from numbered engineering tasks, quota probes and terminal
+receipts. Installing code activates nothing. That runbook governs only the newly
+authorized finite phase; historical operational gaps below remain history, not
+authority to repeat issue119 repairs, reset eight claims or enable recurrence.
+
 ## Ownership
 
 ChatGPT/user posts an issue-owner numbered task. The macOS LaunchAgent launches

@@ -1,5 +1,10 @@
 # Harmless operations-only acceptance after review
 
+For the separately authorized issue122 implementation/review/deployment/one-cycle
+phase, use [the finite runtime runbook](COORDINATOR_RUNTIME.md). It supersedes the
+historical numbered-task probe sequence below for this phase only. This worker
+has performed code/synthetic checks only; no live operation or deployment.
+
 Prepared for issue #35; **not executed and not authorized for execution here**.
 The supervisor owns merge, deployment of the reviewed runner to the launcher,
 and authorization/posting of a fresh owner task after review. Do not replay issue

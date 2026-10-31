@@ -1,5 +1,9 @@
 # Caller-invoked reporting cycles (issue #117)
 
+Issue122's [finite runtime runbook](COORDINATOR_RUNTIME.md) adds the sole parent's
+explicit owner-selected operational boundary. This accepted format2 lifecycle,
+receipt schema, original-clock semantics and retention limits remain unchanged.
+
 Issue #119 adds the narrow [offline owner commissioning adapter](COORDINATOR_OWNER.md).
 It reserves external acquisition intent before transport, verifies fixed intake
 bytes and stages one exact parent handoff. It leaves this format-2 lifecycle and

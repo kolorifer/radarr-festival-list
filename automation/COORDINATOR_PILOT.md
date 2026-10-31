@@ -1,5 +1,9 @@
 # Coordinator offline rehearsal and later private pilot
 
+For issue122, the separately authorized [finite runtime pilot](COORDINATOR_RUNTIME.md)
+defines the current owner-command/deployment/one-cycle contract. Historical pilot
+plans below do not authorize new engineering executions or repeated repairs.
+
 Issue #113 Tasks 1 and 2 are code only. This runbook authorizes no operational read,
 publication, deployment or activation. All runtime/source/destination paths below
 are configuration examples, not discovered installed facts. Do not use this code
