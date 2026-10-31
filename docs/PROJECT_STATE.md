@@ -1,5 +1,49 @@
 # Movie List project state
 
+## Issue #122 Task2 final correction — 2026-10-31, awaiting exact review
+
+The second and final authorized engineering execution corrects independent
+review6542515755 on clean baseline PR123 head
+`70ad14ebf23c1f68e79a6a073056c0d29303e465`. OpenSSH now uses the selected
+canonical original credential files, with held/revalidated descriptor/namespace/
+owner/mode/ACL/device/inode evidence. A bounded fixed transport keeper actually
+holds both dispatcher locks across parent death and SSH FD closure. Local
+credential preflight precedes all phase effects and optional independent-export
+reads. The fixed remote helper requires the selected non-root effective UID/GID,
+explicit `-B` and its own30s deadline. DONE/closed now precede reporting selection;
+consumed/inert/completed commands become quiet before private fetch, while exact
+genuine interrupted reconciliation/acknowledgement/archive recovery remains.
+Stable-owner change detection is explicit; SSH pathname opening does not promise
+hostile same-account atomicity. Accepted schemas, publication observation,
+owner-selected actual-ingestion contract, original source freshness, one-cycle
+limit, issue122 cap2/general cap8 and all issue119 claims/history remain intact.
+
+Final frozen-code native3.9 validation: **44 runtime/transport tests passed**;
+full unittest **957 run,109 environment/API errors,2 skips,no assertion failures**,
+including all44 runtime tests passing again. This is NOT a full-suite pass.
+Missing requests/bs4, unavailable unittest/SQLite APIs and three existing HTTP
+fixture errors match the retained local baseline categories. A broader470-test
+focused run passed before final additional journal-schema refusals; final44 and
+full957 runs include those refusals. Compilation/3.9 grammar for all20 closure
+files plus tests, frozen scoring (1909 candidates/387 qualified), final source
+hashes, document links and diff/preservation checks pass. No local virtualenv or
+dependency installation/change; supported exact-head3.12/3.13 CI remains required.
+
+See the [saved Task2 brief](reports/2026-10-31-issue-122-correction-brief.md),
+[engineering report](reports/2026-10-31-issue-122-correction.md) and
+[exact runbook](../automation/COORDINATOR_RUNTIME.md). The Task1 records below are
+historical; the correction supersedes their SSH FD/preflight/idle claims.
+**Not deployed, operated or live-accepted.** Supplied launcher229148 remains a
+supplied fact, not re-inspected. Parent alone publishes; independent exact review
+and supported3.12/3.13 CI precede the supervisor's already-authorized bounded
+installation, one supervised partial cycle, actual distinct coordinator ingestion,
+owner-selected acknowledgement and verified archive. No third engineering task,
+new generic approval, reset, recurrence or full movie-coverage claim is implied.
+No seedbox/live host/private-state exploration, live SSH, operational/media/
+notification/provider action, dependency installation, Work, subagent, additional
+worker/runner or worker publication occurred. Unrelated CODEX_TASK.md, decisions,
+#86/PR110, operational configuration and histories are preserved.
+
 ## Issue #122 Task1 finite reporting runtime — 2026-10-31, awaiting review
 
 On clean parent-created `automation/issue-122-worker` at

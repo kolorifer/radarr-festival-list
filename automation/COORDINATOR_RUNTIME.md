@@ -74,7 +74,8 @@ Only unedited comments by the authenticated current **issue owner** on open
 `kolorifer/radarr-festival-list#122` select this phase. The parent account must be
 that owner. The description, tasks, other authors, source prose and worker JSON
 are never operational authority. The existing poll, under its clone-wide lock,
-selects at most one engineering task OR fixed operation, ordered by comment ID;
+honors closed/latest-trusted DONE before selection and selects at most one
+engineering task OR pending fixed operation, ordered by comment ID;
 the operation also takes the existing per-issue lock. It never calls
 `run_selected`, quota probes, Codex, engineering claim refs or the old publisher.
 Issue122's engineering path has a separate two-execution ceiling; the existing
@@ -93,7 +94,12 @@ keys, unsupported actions, edited comments or conflicting pins reject. There
 must be exactly ONE start comment and at most 32 total phase commands. Start must
 be at most one hour old when first consumed; its pinned request clock must be
 at most five minutes before the first poll and cannot be in the future. Once
-consumed, age never reauthorizes it.
+consumed, age never reauthorizes it. Bound local phase state filters consumed
+starts, consumed inert reconciles and completed archive acknowledgements before
+private-input fetch/validation, so they cannot starve another issue. Malformed or
+unbound journals grant no work. A fresh explicit matching reconcile/ack remains
+eligible. A consumed reconcile can finish receipt import only when the exact
+anchored durable publication observation exists; completed publication is quiet.
 Comments are fetched again individually and compared byte-exactly with their
 authenticated owner/ID/creation/update/body origin before use.
 
@@ -142,8 +148,10 @@ options, IPv6, trailing dot or shell syntax); port is integer 1..65535; account 
 bounded lowercase Unix account spelling. Key/known_hosts each select an existing
 private regular mode0600 file with `{path,dev,ino}`. They must be outside writable
 coordinator/staging/public/Git trees. Exact ancestor spelling, UID/mode/ACL and
-stable file identity are checked without printing or copying credentials. SSH
-receives retained descriptors through `/dev/fd`, no agent or ambient config.
+stable file identity are checked before consumption without reading, printing or
+copying key bytes. SSH uses the selected canonical original file paths; the fixed
+keeper and parent retain descriptors for before/after validation. No agent or
+ambient config is used. The stable-owner limitation is stated below.
 
 Root is the canonical absolute **physical** source root, not a symlinked home.
 UID/GID are explicit numeric source ownership. Ancestors is the exact ordered
@@ -187,41 +195,72 @@ Missing/invalid/stale movie exports cannot erase valid independent findings.
    one-cycle authorization, then observes **ordinary** dispatcher pickup. Do not
    launch another parent, engineer a task, invoke owner CLI manually or refresh a
    producer. There is no new generic approval question.
-2. The private issue journal `finite-reporting-phase-1.json` is created/fsynced
+2. Before any phase journal, cross-host claim, evidence/adapter creation or
+   acquisition reservation, the parent performs deterministic LOCAL credential
+   preflight. Both selected files and ancestors must have exact canonical spelling,
+   no links, trusted OS-account ownership, accepted mode/ACL, pinned device/inode,
+   separate identities, private-state separation and size bounds (1..65536 bytes).
+   File parents remain 0700; files remain 0600 with one hardlink. Unsafe/missing/
+   replaced inputs cause zero phase consumption, claims, adapter/source access or
+   publication. No chmod, alternative path or permission repair is attempted.
+   The OS account profile comes from pwd, including for short SSH-parent paths.
+   Held descriptors and namespace/ACL evidence are revalidated before and after
+   transport in both keeper and parent. Network source checks still occur only
+   after the one durable acquisition grant. Optional independently pinned
+   engineering/parent export reads also wait for successful local preflight.
+3. The private issue journal `finite-reporting-phase-1.json` is created/fsynced
    with full request/origin/pin before the separate create-only GitHub ref
    `refs/heads/automation/reporting-operation-issue-122-phase-1`. Only a confirmed
    exact create response targeting reviewed_revision permits effects. The local
    selective deployment commit need not be published. Existing refs or lost responses never
    grant ownership. That namespace never touches numbered engineering claims.
-3. After confirmed claim, retain new `finite-phase-1/` alongside the retained probe
+4. After confirmed claim, retain new `finite-phase-1/` alongside the retained probe
    and a NEW anchored adapter base. Reuse storage is guarded read-only; no chmod,
    chown, adoption, enclosing mkdir, ACL repair or probe modification. Accepted
    owner.reserve durably records the whole immutable request/original clock before
    its first acquisition_grant permits one external acquisition. Lost grant burns it.
-4. One `/usr/bin/ssh` uses `/dev/null` config, exact selected key/known-host FDs,
-   strict host-key checks, publickey only, no forwarding/proxy/multiplex/password /
-   agent/TOFU. It executes only `/usr/bin/python3 -I -` and the reviewed helper on
-   stdin, with data embedded as Python-escaped JSON, never shell interpolation.
-   Both dispatcher locks are inherited. Wall bound45s; stdout6MiB; stderr16KiB.
-   The helper descriptor-traverses exact canonical components and only reads
-   `incoming/snapshot.json` and `review-report.json` (2MiB each), checking metadata
-   and ACLs before/after, including directory entries. It never writes remotely,
-   runs source handoff/scan/research, inspects DBs or calls providers.
-5. Retain exact bounded transport stdout/stderr/exit/completeness/acquisition time
+5. One `/usr/bin/ssh` uses `/dev/null` config and the already selected exact
+   canonical key/known-host FILE PATHS, strict host-key/publickey checks and no
+   forwarding/proxy/multiplex/password/agent/TOFU. OpenSSH9.0p1 closes FDs above2
+   before parsing options; `/dev/fd/N` is not a supported credential handoff here
+   ([upstream source](https://github.com/openssh/openssh-portable/blob/V_9_0_P1/ssh.c#L599-L606)).
+   No private-key bytes are read/copied/hashed/staged by the dispatcher/keeper.
+   OpenSSH opens the guarded original files itself. Before/after descriptors,
+   namespace, owner/mode/ACL/device/inode checks detect changes under the accepted
+   stable-owner threat model; they do **not** provide atomic protection against
+   a hostile same-account swap-and-restore while OpenSSH opens a pathname.
+   A fixed forked transport keeper holds both dispatcher lock descriptions and
+   supervises exactly one SSH child, even after initiating-parent death and SSH
+   descriptor closure. It has no command/request execution protocol, CLI, worker,
+   scheduler, daemon, retry or persistent loop. Only fixed reviewed transport code
+   runs. SSH gets no inherited credential/lock FDs. The keeper kills/reaps only its
+   own SSH subprocess on deadline/output/error failure; all diagnostics stay in
+   bounded private pipes, never inherited public stdout/stderr. Local SSH bound45s,
+   stdout6MiB, stderr16KiB; result transfer adds at most5s (parent wait55s).
+   SSH executes only `/usr/bin/python3 -I -B -` and the reviewed helper on stdin,
+   with JSON data escaped into Python literals, never shell interpolation.
+   Before source path access, actual effective UID must be nonzero and match the
+   selected numeric UID; effective GID must match too. An independent remote30s
+   alarm bounds helper lifetime after code loading even if SSH is lost. `-B`
+   explicitly disables bytecode writes. The helper descriptor-traverses the same
+   exact components and only reads `incoming/snapshot.json` and
+   `review-report.json` (2MiB each), checking metadata/ACLs before/after. No remote
+   writes, source handoff/scan/research, DB reads or provider calls occur.
+6. Retain exact bounded transport stdout/stderr/exit/completeness/acquisition time
    privately in `finite-phase-1/transport.json` (base64 bytes, at most about8.1MiB
    including encoding). Successful original file bytes, hashes and original file
    metadata remain bound there and in accepted intake/seal/report evidence. No
    Task8 bundle is reused as new acquisition. Failed/unsafe/uncertain transport
    yields unavailable movie inputs, without transport retry; remote failures do
    not prove missing source files. Stale original generation times stay stale.
-6. Accepted seal/prepare/handoff use the reserved clock. Format2 and existing
+7. Accepted seal/prepare/handoff use the reserved clock. Format2 and existing
    byte/capacity/fsync guards remain intact. The one <=512KiB handoff records
    uncertain before exposing exact parent output. Publication verifies private
    destination/absence, durably consumes the write, then makes at most ONE PUT
    without a replacement blob. Authenticated byte-exact readback is verified
    again against an immutable commit/tree/blob/SHA256 pin. Lost PUT/readback can
    only be reconciled by reads. No old issue-global private-receipt.json is written.
-7. Separately retained `publication-observation.json` and `publication.json` bind
+8. Separately retained `publication-observation.json` and `publication.json` bind
    runtime/cycle/report/destination/recipient/hash/attempt, observed immutable
    remote pin, actual readback and accepted publication receipt. The candidate is
    durable before import, so interruptions reuse its exact observation time/bytes.
@@ -277,13 +316,13 @@ claim follows, even if publication, ingestion and archive all succeed.
 | Boundary | Allowed next observation/action |
 | --- | --- |
 | No command | Existing behavior; no new private lookup, SSH, storage or publication |
-| Validation/unsafe root/pin/revision/author/conflict | Fixed refusal, no operational consumption; correct the selection before an accepted start, never repair private permissions through this code task |
+| Validation/unsafe root/credential/pin/revision/author/conflict | Fixed refusal, no operational consumption; correct the selection before an accepted start, never repair private permissions through this code task |
 | Lost/contended claim | Local consumption retained, no acquisition/effects; inspect exact private claim/history; never adopt a preexisting ref or replay |
 | Reserve/acquisition/seal/prepare/handoff interruption | Opportunity consumed; retain all bytes; repeated start inert; no transport/preparation/publication retry or new cycle |
 | Successful failed/uncertain transport return | Honest unavailable movie evidence can still prepare/publish independent findings, once |
 | Existing private destination | No PUT; retained handoff stays consumed; no overwrite |
 | PUT/readback ambiguity | Supervisor posts matching reconcile; one read-only remote attempt for each distinct reconcile comment, local verification/receipt import only; never another PUT |
-| Failed reconcile | Same comment is inert; a new explicit matching reconcile may select another readback (32-command total cap) |
+| Failed reconcile | Same comment is inert unless its bound publication observation permits interrupted receipt import; a new explicit matching reconcile may select another readback (32-command total cap) |
 | Invalid/wrong/conflicting acknowledgement | No recipient receipt/archive; stop for supervisor review; no recipient substitution or new operation |
 | Receipt/archive interruption | Same genuine selected acknowledgement can finish idempotently with exact retained bytes; never reacquire/republish |
 | Complete | Quiet/inert; no recurrence, retention reset, third engineering execution or automatic successor |

@@ -148,6 +148,121 @@ def select(comments, issue, repository):
     return {'id': latest['id'], 'start': start, 'comment': latest, 'command': value, 'ack': ack}
 
 
+def phase_state(runner, selected, author):
+    """Bound private local consumption, without fetching any private selection.
+
+    This is a scheduling filter, never authority for transport/receipts. Runtime
+    still authenticates immutable inputs and all evidence before continuation.
+    Malformed/weak/unbound local records fail closed rather than granting work.
+    """
+    try:
+        with owner.exact_directory(runner.state_dir) as fd:
+            owner.identity(fd)
+            state = io.decode(owner.private_read(fd, JOURNAL, LIMIT))
+    except FileNotFoundError:
+        return None
+    required = set('version selection selection_sha256 start request status claim_confirmed evidence_identity attempt publication acknowledgement'.split())
+    optional = set('reservation remote_write write_attempted_at publication_observed_at reconciled_comment'.split())
+    require(isinstance(state, dict) and required <= set(state) <= required | optional
+            and type(state['version']) is int and state['version'] == 1
+            and state['selection'] == selected['command']['selection']
+            and state['selection_sha256'] == state['selection']['sha256']
+            and state['start'] == origin(selected['start'], author)
+            and type(state['claim_confirmed']) is bool)
+    req = state['request']
+    require(isinstance(req, dict) and type(req.get('version')) is int and req['version'] == owner.VERSION)
+    owner.validate_request(req)
+    require(req['owner'] == author and req['runtime'] == PHASE)
+    status = state['status']
+    require(status in ('claim_uncertain', 'reserved', 'acquisition_uncertain', 'preparation_uncertain',
+                       'handoff_uncertain', 'handoff_ready', 'publication_uncertain', 'published', 'archived'))
+    require(state['claim_confirmed'] or status == 'claim_uncertain')
+    if status not in ('claim_uncertain', 'reserved'):
+        identity = state['evidence_identity']
+        require(isinstance(identity, list) and len(identity) == 2
+                and all(type(n) is int for n in identity) and identity[0] >= 0 and identity[1] > 0)
+    if state['attempt'] is not None:
+        binding = state['attempt']
+        c.identifier(binding['report'])
+        require(hex_value(binding['payload_sha256'], 64)
+                and binding == cycles.binding_for(PHASE, req['cycle'], binding['report'], req, binding['payload_sha256']))
+    if status in ('handoff_ready', 'publication_uncertain', 'published', 'archived'):
+        require(state['attempt'] is not None)
+    if state['publication'] is not None:
+        pin(state['publication'])
+        require(state['publication']['path'] == req['destination']['path']
+                and state['publication']['sha256'] == state['attempt']['payload_sha256'])
+    if status in ('published', 'archived'):
+        require(state['publication'] is not None)
+        c.stamp(state['publication_observed_at'])
+    acknowledgement = state['acknowledgement']
+    if acknowledgement is not None:
+        require(status in ('published', 'archived'))
+        keys(acknowledgement, 'origin pin selection')
+        pin(acknowledgement['pin'])
+        ack = acknowledgement['selection']
+        keys(ack, 'version phase operation selection binding recipient_chat ingestion_reference observed_at publication')
+        require(type(ack['version']) is int and ack['version'] == 1 and ack['phase'] == PHASE
+                and ack['operation'] == req['cycle'] and ack['selection'] == state['selection']
+                and ack['binding'] == state['attempt'] and ack['publication'] == state['publication'])
+        c.identifier(ack['recipient_chat']); c.identifier(ack['ingestion_reference']); c.stamp(ack['observed_at'])
+        retained = acknowledgement['origin']
+        keys(retained, 'id body created_at updated_at author')
+        require(type(retained['id']) is int and retained['id'] >= state['start']['id']
+                and retained['author'] == author and retained['created_at'] == retained['updated_at']
+                and retained['body'] == PREFIX + io.encode(dict(action='ack', phase=PHASE,
+                    selection=state['selection'], acknowledgement=acknowledgement['pin'])).decode()
+                and state['publication_observed_at'] <= ack['observed_at'] <= timestamp(retained['created_at']) + 300)
+        if selected['ack'] is not None:
+            require(retained == origin(selected['ack'][0], author)
+                    and acknowledgement['pin'] == selected['ack'][1]['acknowledgement'])
+    if status == 'archived':
+        require(acknowledgement is not None)
+    return state
+
+
+def publication_observation(state):
+    root = Path(state['request']['base']).parent / 'finite-phase-1'
+    try:
+        with owner.exact_directory(root) as fd:
+            require(owner.identity(fd) == state['evidence_identity'])
+            value = io.decode(owner.private_read(fd, 'publication-observation.json', LIMIT))
+    except FileNotFoundError:
+        return False
+    keys(value, 'remote receipt')
+    pin(value['remote'])
+    keys(value['receipt'], 'version kind owner issuer binding observed_at reference')
+    require(type(value['receipt']['version']) is int and value['receipt']['version'] == 1
+            and value['remote']['path'] == state['request']['destination']['path']
+            and value['remote']['sha256'] == state['attempt']['payload_sha256']
+            and value['receipt']['binding'] == state['attempt']
+            and value['receipt']['kind'] == 'publication'
+            and value['receipt']['owner'] == value['receipt']['issuer'] == state['request']['owner']
+            and value['receipt']['reference'] == 'publication-' + c.fingerprint(value['remote']))
+    c.stamp(value['receipt']['observed_at'])
+    return True
+
+
+def pending(runner, selected, author):
+    state = phase_state(runner, selected, author)
+    action = selected['command']['action']
+    if state is None:
+        require(action == 'start')
+        return True
+    if action == 'start' or state['status'] == 'archived':
+        return False
+    if action == 'reconcile':
+        if not state['claim_confirmed'] or state['status'] not in ('publication_uncertain', 'published'):
+            return False  # No safe publication recovery exists at this boundary.
+        if state['publication'] is not None:
+            return False
+        # A new explicit command may inspect uncertain publication. An already
+        # consumed command only resumes exact retained observation/import work.
+        if state.get('reconciled_comment') == origin(selected['comment'], author):
+            return publication_observation(state)
+    return True
+
+
 def authenticate(runner, comment, author):
     current = runner.api(f'repos/{REPOSITORY}/issues/comments/{comment["id"]}')
     require(origin(current, author) == origin(comment, author)
@@ -208,6 +323,21 @@ def validate(value, runner, author):
             and ancestors[-1][2:4] == [src['uid'], src['gid']]
             and stat.S_IMODE(ancestors[-1][4]) == 0o700)
     independent = value['independent']
+    if independent is None:
+        require(req['evidence_manifest_sha256'] is None)
+    else:
+        keys(independent, 'manifest engineering parent_status')
+        for selected in independent.values():
+            if selected is not None:
+                pin(selected)
+        require(independent['manifest'] is not None)
+
+
+def independent_evidence(value, runner):
+    # Optional original engineering/parent exports are source reads too. Defer
+    # them until deterministic local credentials have passed without consumption.
+    req = value['request']
+    independent = value['independent']
     evidence = {}
     if independent is None:
         require(req['evidence_manifest_sha256'] is None)
@@ -252,7 +382,8 @@ class Runtime:
         self.pin = selected['command']['selection']
         self.raw_selection = fetch(runner, self.pin)
         self.value = io.decode(self.raw_selection)
-        self.evidence = validate(self.value, runner, self.author)
+        validate(self.value, runner, self.author)
+        self.evidence = {}
         self.req = self.value['request']
         self.evidence_root = Path(self.value['storage']['path']) / 'finite-phase-1'
         require(Path(self.req['base']) != self.evidence_root)
@@ -292,6 +423,48 @@ class Runtime:
             for root in protected + [Path(self.value['storage']['path']), Path(self.value['staging']['path'])]:
                 require(root != path and root not in path.parents and path not in root.parents)
 
+    @contextlib.contextmanager
+    def credentials(self):
+        """Deterministic local preflight before consumption; never read key bytes.
+
+        Hold exact descriptors/ancestor evidence through acquisition. OpenSSH
+        opens canonical paths itself: this detects stable-owner changes, not a
+        hostile same-account swap-and-restore between checks.
+        """
+        with contextlib.ExitStack() as stack:
+            held, parents = [], []
+            for field in ('key', 'known_hosts'):
+                selected = self.value['source'][field]
+                path = Path(selected['path'])
+                grant = storage.Grant({'version': 1, 'path': str(path.parent), 'expected': 'unused'},
+                                      self.pin, [], lambda _: None)
+                grant.home = storage.pwd.getpwuid(os.geteuid()).pw_dir
+                parent, baseline = stack.enter_context(grant.chain(path.parent, guard=True))
+                require(storage.exact_entry(parent, path.name))
+                fd = os.open(path.name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
+                stack.callback(os.close, fd)
+                st = os.fstat(fd)
+                require(stat.S_ISREG(st.st_mode) and st.st_uid == os.geteuid()
+                        and st.st_nlink == 1 and stat.S_IMODE(st.st_mode) == 0o600
+                        and 0 < st.st_size <= LIMIT
+                        and [st.st_dev, st.st_ino] == [selected['dev'], selected['ino']])
+                held.append((fd, parent, path.name, transport.metadata(fd), storage.acl_identity(fd)))
+                parents.append((grant, baseline))
+            require(held[0][3][:2] != held[1][3][:2])
+
+            def check():
+                for grant, before in parents:
+                    with grant.chain(grant.path, guard=True) as (_, current):
+                        require(current == before)
+                for fd, parent, name, before, before_acl in held:
+                    require(transport.metadata(fd) == before and storage.acl_identity(fd) == before_acl
+                            and storage.exact_entry(parent, name)
+                            and os.path.samestat(os.fstat(fd), os.stat(name, dir_fd=parent, follow_symlinks=False)))
+            check()
+            self.credential_check = check
+            yield
+            check()
+
     def verify(self):
         for grant in self.grants:
             grant.verify()
@@ -300,16 +473,10 @@ class Runtime:
                 require(owner.identity(fd) == self.state['evidence_identity'])
 
     def load(self):
-        with owner.exact_directory(self.runner.state_dir) as fd:
-            owner.identity(fd)
-            try:
-                raw = owner.private_read(fd, JOURNAL, LIMIT)
-            except FileNotFoundError:
-                return False
-        self.state = io.decode(raw)
-        require(self.state['version'] == 1 and self.state['selection'] == self.pin
-                and self.state['start'] == self.start_origin
-                and self.state['selection_sha256'] == io.digest(self.raw_selection)
+        self.state = phase_state(self.runner, self.selected, self.author)
+        if self.state is None:
+            return False
+        require(self.state['selection_sha256'] == io.digest(self.raw_selection)
                 and self.state['request'] == self.req)
         return True
 
@@ -344,38 +511,15 @@ class Runtime:
         reservation = owner.reserve(self.req)
         require(reservation['acquisition_grant'] is True)
         self.persist(status='acquisition_uncertain', reservation=reservation)
-        # Keys stay in this parent process and its one SSH process; never a child
-        # worker, helper request or environment. Exact private FDs avoid link races.
-        with contextlib.ExitStack() as stack:
-            descriptors, held_files = [], []
-            for field in ('key', 'known_hosts'):
-                pin_file = self.value['source'][field]
-                path = Path(pin_file['path'])
-                grant = storage.Grant({'version': 1, 'path': str(path.parent), 'expected': 'unused'},
-                                      self.pin, [], lambda _: None)
-                grant.home = storage.pwd.getpwuid(os.geteuid()).pw_dir
-                parent, _ = stack.enter_context(grant.chain(path.parent, guard=True))
-                require(storage.exact_entry(parent, path.name))
-                fd = os.open(path.name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
-                stack.callback(os.close, fd)
-                cycles.private(fd)
-                st = os.fstat(fd)
-                require([st.st_dev, st.st_ino] == [pin_file['dev'], pin_file['ino']]
-                        and stat.S_IMODE(st.st_mode) == 0o600 and st.st_size <= LIMIT)
-                storage.acl_identity(fd)
-                descriptors.append(fd)
-                held_files.append((fd, parent, path.name, transport.metadata(fd), storage.acl_identity(fd)))
-            helper = io.read_bytes(self.runner.repo, 'automation/coordinator_transport.py', LIMIT)
-            require(io.digest(helper) == self.value['code_sha256']['automation/coordinator_transport.py'])
-            result = transport.acquire(self.value['source'], *descriptors, helper,
-                                       lock_fds=self.runner.inherited_locks())
-            self.record('transport.json', {'complete': result['complete'], 'returncode': result['returncode'],
-                        'stdout': base64.b64encode(result['stdout']).decode(),
-                        'stderr': base64.b64encode(result['stderr']).decode(), 'acquired_at': time.time()})
-            for fd, parent, name, before, before_acl in held_files:
-                require(transport.metadata(fd) == before and storage.acl_identity(fd) == before_acl
-                        and storage.exact_entry(parent, name)
-                        and os.path.samestat(os.fstat(fd), os.stat(name, dir_fd=parent, follow_symlinks=False)))
+        self.credential_check()
+        helper = io.read_bytes(self.runner.repo, 'automation/coordinator_transport.py', LIMIT)
+        require(io.digest(helper) == self.value['code_sha256']['automation/coordinator_transport.py'])
+        result = transport.acquire(self.value['source'], helper, self.credential_check,
+                                   lock_fds=self.runner.inherited_locks())
+        self.credential_check()
+        self.record('transport.json', {'complete': result['complete'], 'returncode': result['returncode'],
+                    'stdout': base64.b64encode(result['stdout']).decode(),
+                    'stderr': base64.b64encode(result['stderr']).decode(), 'acquired_at': time.time()})
         # A failed/uncertain transport burns the opportunity but can still produce
         # an honest unavailable report with independently pinned engineering facts.
         files = {}
@@ -550,7 +694,9 @@ class Runtime:
             output = Path(self.req['parent_output'])
             with owner.exact_directory(output.parent) as fd:
                 require(not owner.exists(fd, output.name))
-            self.claim_and_start()
+            with self.credentials():
+                self.evidence = independent_evidence(self.value, self.runner)
+                self.claim_and_start()
         elif action == 'start':
             return  # Never continue uncertain work from an ordinary repeated poll.
         else:
@@ -564,7 +710,7 @@ class Runtime:
             # ack/archive replay can finish idempotently after an interruption.
             if action == 'reconcile':
                 if self.state.get('reconciled_comment') == self.command_origin:
-                    return
+                    require(publication_observation(self.state))
                 self.persist(reconciled_comment=self.command_origin)
                 self.reconcile()
             else:

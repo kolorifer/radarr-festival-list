@@ -1,7 +1,7 @@
 """Synthetic real-parent poll -> authenticated pins -> finite runtime. No SSH/live data."""
 import argparse
 import base64
-from contextlib import redirect_stdout
+from contextlib import redirect_stdout, ExitStack
 from copy import deepcopy
 import datetime as dt
 import errno
@@ -11,6 +11,8 @@ import json
 import os
 from pathlib import Path
 import stat
+import sys
+import time
 import subprocess
 import tempfile
 import types
@@ -306,6 +308,196 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(before, {str(p): p.read_bytes() for p in self.enclosing.rglob('*') if p.is_file()})
         self.assertEqual((self.runner.claims, self.runner.acquisitions, self.runner.puts), (1, 1, 1))
 
+    def test_bad_credentials_have_zero_phase_claim_adapter_source_or_publication_effects(self):
+        for problem in ('missing', 'mode', 'symlink', 'inode', 'owner', 'acl', 'parent-mode',
+                        'parent-owner', 'same-file', 'empty', 'oversized', 'hardlink', 'spelling',
+                        'hosts-mode', 'hosts-missing'):
+            with self.subTest(problem=problem):
+                fixture = RuntimeTests()
+                fixture.setUp()
+                try:
+                    key = fixture.ssh/'key'
+                    local_patches = []
+                    if problem == 'hosts-mode': (fixture.ssh/'known-hosts').chmod(0o644)
+                    elif problem == 'hosts-missing': (fixture.ssh/'known-hosts').unlink()
+                    elif problem == 'missing': key.unlink()
+                    elif problem == 'mode': key.chmod(0o644)
+                    elif problem == 'symlink':
+                        key.rename(fixture.ssh/'saved'); key.symlink_to(fixture.ssh/'saved')
+                    elif problem == 'inode': fixture.value['source']['key']['ino'] += 1
+                    elif problem == 'owner' or problem == 'parent-owner':
+                        target = key if problem == 'owner' else fixture.ssh
+                        original = os.fstat
+                        ino = target.stat().st_ino
+                        def wrong(fd):
+                            value = original(fd)
+                            if value.st_ino == ino:
+                                values = list(value); values[4] = os.geteuid()+1
+                                return os.stat_result(values)
+                            return value
+                        local_patches.append(patch.object(storage.os, 'fstat', side_effect=wrong))
+                    elif problem == 'acl':
+                        local_patches.append(patch.object(storage, 'acl_identity', side_effect=storage.StorageError('storage_acl')))
+                    elif problem == 'parent-mode': fixture.ssh.chmod(0o755)
+                    elif problem == 'same-file': fixture.value['source']['known_hosts'] = deepcopy(fixture.value['source']['key'])
+                    elif problem == 'empty': key.write_bytes(b'')
+                    elif problem == 'oversized': key.write_bytes(b'x'*(r.LIMIT+1))
+                    elif problem == 'hardlink': os.link(key, fixture.ssh/'linked')
+                    elif problem == 'spelling':
+                        fixture.value['source']['key']['path'] = str(fixture.ssh/'KEY')
+                    fixture.start()
+                    with ExitStack() as stack:
+                        for item in local_patches: stack.enter_context(item)
+                        with self.assertRaises(PolicyError): fixture.poll()
+                    fixture.assert_no_op()
+                    self.assertFalse(Path(fixture.req['base']).exists())
+                finally:
+                    fixture.doCleanups()
+
+    def test_bad_credentials_do_not_fetch_optional_independent_source_exports(self):
+        manifest_pin = self.runner.pin('selected/manifest.json', b'{}')
+        self.value['independent'] = dict(manifest=manifest_pin, engineering=None, parent_status=None)
+        self.req['evidence_manifest_sha256'] = manifest_pin['sha256']
+        (self.ssh/'key').chmod(0o644)
+        self.start()
+        with patch.object(r, 'fetch', wraps=r.fetch) as fetch:
+            with self.assertRaises(PolicyError): self.poll()
+        self.assertEqual([call.args[1] for call in fetch.call_args_list], [self.selection])
+        self.assert_no_op()
+
+    def test_short_ssh_parent_uses_os_account_profile_and_safe_system_ancestors(self):
+        # Keep this canonical parent shorter than SUFFIX: long default macOS
+        # temp paths previously concealed accidental home slicing.
+        with tempfile.TemporaryDirectory(dir='/private/tmp' if sys.platform == 'darwin' else '/tmp') as directory:
+            short = Path(directory).resolve()/'.ssh'; short.mkdir(mode=0o700)
+            self.assertLess(len(str(short)), len(storage.SUFFIX))
+            for field, name in (('key', 'key'), ('known_hosts', 'known-hosts')):
+                (short/name).write_bytes(b'synthetic fixture'); (short/name).chmod(0o600)
+                self.value['source'][field] = self.identity(short/name)
+            original_stat, original_fstat = os.stat, os.fstat
+            shared = {p.stat().st_ino for p in short.parents if p != Path(directory).resolve()}
+            def safe(info):
+                if info.st_ino in shared:
+                    values = list(info); values[0] &= ~0o022; values[4] = 0
+                    return os.stat_result(values)
+                return info
+            chain = storage.Grant.chain
+            from contextlib import contextmanager
+            @contextmanager
+            def profile(grant, *args, **kwargs):
+                if kwargs.get('guard'): self.assertEqual(grant.home, str(self.home))
+                with chain(grant, *args, **kwargs) as result: yield result
+            self.start()
+            with patch.object(storage.os, 'stat', side_effect=lambda *a, **k: safe(original_stat(*a, **k))), \
+                    patch.object(storage.os, 'fstat', side_effect=lambda *a, **k: safe(original_fstat(*a, **k))), \
+                    patch.object(storage.Grant, 'chain', profile):
+                self.poll()
+            self.assertEqual(self.runner.journal()['status'], 'published')
+
+    def test_credential_replacement_during_acquisition_fails_postcheck_before_publication(self):
+        self.start()
+        def replaced(*args, **kwargs):
+            result = self.acquire(*args, **kwargs)
+            key = self.ssh/'key'; key.rename(self.ssh/'original')
+            key.write_bytes(b'replaced'); key.chmod(0o600)
+            return result
+        with patch.object(t, 'acquire', side_effect=replaced):
+            with self.assertRaises(PolicyError): self.poll()
+        self.assertEqual((self.runner.claims, self.runner.acquisitions, self.runner.puts), (1, 1, 0))
+        self.poll(); self.assertEqual(self.runner.acquisitions, 1)
+
+    def test_done_closed_stop_before_start_and_before_genuine_continuation(self):
+        self.start()
+        done = self.runner.comment({}, body='STATE: DONE')
+        self.poll(); self.assert_no_op()
+        self.runner.messages.remove(done)
+        self.poll()
+        self.acknowledgement()
+        self.runner.comment({}, body='STATE: DONE')
+        with patch.object(r, 'fetch', side_effect=AssertionError('DONE fetched private input')):
+            self.poll()
+        self.assertEqual(self.runner.journal()['status'], 'published')
+        self.runner.messages.pop(); self.runner.issue['state'] = 'closed'
+        self.poll(); self.assertEqual(self.runner.journal()['status'], 'published')
+
+    def test_consumed_start_and_completed_archive_poll_are_quiet_before_private_fetch(self):
+        self.start(); self.poll()
+        with patch.object(r, 'fetch', side_effect=AssertionError('inert start fetched private input')):
+            self.assertIn('No eligible', self.poll())
+        self.acknowledgement(); self.poll()
+        with patch.object(r, 'fetch', side_effect=AssertionError('completed ack fetched private input')), \
+                patch.object(r, 'validate', side_effect=AssertionError('completed validation')):
+            self.assertIn('No eligible', self.poll())
+
+    def test_real_discovery_consumed_phase_does_not_starve_different_issue(self):
+        from test_github_worker import DiscoveryRunner, comment
+        self.start(); self.poll()
+        for status, number in (('published', 124), ('archived', 125)):
+            if status == 'archived':
+                self.acknowledgement(); self.poll()
+            other = DiscoveryRunner(self.root/('other-'+str(number)))
+            other.args.github_repo = r.REPOSITORY
+            other.origin = 'https://github.com/'+r.REPOSITORY+'.git'
+            other.dispatch_dir = self.runner.dispatch_dir
+            other.issues = [deepcopy(self.runner.issue), dict(self.runner.issue, number=number)]
+            newer = comment(TASK, 100)
+            other.issue_messages = {122: deepcopy(self.runner.messages), number: [newer]}
+            with patch.object(worker, 'quota_remaining', return_value=80), redirect_stdout(streams.StringIO()), \
+                    patch.object(r, 'fetch', side_effect=AssertionError('inert phase fetched private input')):
+                other.start()
+            self.assertEqual([call[1] for call in other.calls if call[0] == 'execute'], [(number, 1)])
+        self.assertEqual(self.runner.acquisitions, 1)
+
+    def test_consumed_failed_reconcile_quiet_and_new_explicit_reconcile_eligible(self):
+        self.start(); self.runner.put_error=True
+        with self.assertRaises(PolicyError): self.poll()
+        self.runner.readback_error=True
+        self.command('reconcile')
+        with self.assertRaises(PolicyError): self.poll()
+        with patch.object(r, 'fetch', side_effect=AssertionError('inert reconcile fetched private input')):
+            self.assertIn('No eligible', self.poll())
+        self.runner.readback_error=False
+        self.command('reconcile'); self.poll()
+        self.assertEqual(self.runner.journal()['status'], 'published')
+        with patch.object(r, 'fetch', side_effect=AssertionError('completed reconcile fetched private input')):
+            self.assertIn('No eligible', self.poll())
+
+    def test_same_genuine_ack_and_reconcile_resume_interrupted_receipt_archive(self):
+        self.start(); self.runner.put_error=True
+        with self.assertRaises(PolicyError): self.poll()
+        self.command('reconcile')
+        with patch.object(owner, 'receipt', side_effect=Crash()):
+            with self.assertRaises(Crash): self.poll()
+        self.poll()
+        self.assertEqual(self.runner.journal()['status'], 'published')
+        self.acknowledgement()
+        original = owner.archive
+        def interrupted(req):
+            original(req)
+            raise Crash()
+        with patch.object(owner, 'archive', side_effect=interrupted):
+            with self.assertRaises(Crash): self.poll()
+        self.poll()
+        self.assertEqual(self.runner.journal()['status'], 'archived')
+        self.assertEqual((self.runner.claims, self.runner.acquisitions, self.runner.puts), (1,1,1))
+
+    def test_weak_unbound_or_malformed_phase_state_cannot_grant_continuation(self):
+        self.start(); self.poll(); self.acknowledgement()
+        original = (self.runner.state_dir/r.JOURNAL).read_bytes()
+        for change in (lambda s:s.update(version=True), lambda s:s.update(selection_sha256='0'*64),
+                       lambda s:s.update(start=dict(s['start'], id=999)), lambda s:s.update(status='retry'),
+                       lambda s:s.update(claim_confirmed=False), lambda s:s.pop('request'),
+                       lambda s:s['request'].update(version=True), lambda s:s.update(evidence_identity=None),
+                       lambda s:s.update(acknowledgement={'pin': self.selection}),
+                       lambda s:s.update(status='archived', acknowledgement={'pin': self.selection}),
+                       lambda s:s.update(attempt=dict(s['attempt'], attempt='0'*64)),
+                       lambda s:s.update(publication=None)):
+            state = io.decode(original); change(state)
+            (self.runner.state_dir/r.JOURNAL).write_bytes(io.encode(state))
+            with self.assertRaises(PolicyError): self.poll()
+            self.assertFalse(owner.inspect(self.req)['archived'])
+        (self.runner.state_dir/r.JOURNAL).write_bytes(original)
+
     def test_untrusted_prose_issue_body_and_no_request_do_nothing(self):
         self.start()
         self.runner.issue['body'] = self.runner.messages[0]['body']
@@ -384,7 +576,8 @@ class RuntimeTests(unittest.TestCase):
         self.assertFalse(Path(self.req['base']).exists())
         self.poll()
         self.command('reconcile')
-        with self.assertRaises(PolicyError): self.poll()
+        with patch.object(r, 'fetch', side_effect=AssertionError('ambiguous claim is inert')):
+            self.assertIn('No eligible', self.poll())
         self.assertEqual((self.runner.claims, self.runner.acquisitions, self.runner.puts), (1, 0, 0))
 
     def test_lost_put_response_readback_only_then_real_ack(self):
@@ -633,6 +826,9 @@ class TransportTests(unittest.TestCase):
                 config = dict(root=str(root), uid=os.getuid(), gid=os.getgid(),
                               ancestors=[[p.stat().st_dev, p.stat().st_ino, p.stat().st_uid,
                                           p.stat().st_gid, p.stat().st_mode] for p in ancestors])
+                if os.geteuid() == 0:
+                    with self.assertRaises(ValueError): t.remote(config)
+                    return
                 self.assertEqual(set(t.remote(config)['files']), set(t.PATHS))
                 config['ancestors'][-1][1] += 1
                 with self.assertRaises(ValueError): t.remote(config)
@@ -664,21 +860,130 @@ class TransportTests(unittest.TestCase):
             with patch.object(t.os, 'getxattr', return_value=b'extended-acl', create=True):
                 with self.assertRaises(ValueError): t.acl(0, True)
 
-    def test_fixed_argv_no_config_shell_alias_password_or_ambient_credentials(self):
-        selected = dict(host='synthetic.invalid', account='synthetic', port=2200,
-                        root='/synthetic/source', uid=1234, gid=0, ancestors=[])
-        with patch.object(t, 'bounded_process', return_value={}) as process:
-            t.acquire(selected, 7, 8, b'# fixed helper')
-        argv, script, fds = process.call_args.args
-        self.assertEqual(argv[:5], ['/usr/bin/ssh', '-F', '/dev/null', '-T', '-o'])
-        self.assertEqual(argv[-2:], ['synthetic@synthetic.invalid', '/usr/bin/python3 -I -'])
-        self.assertIn('StrictHostKeyChecking=yes', argv)
-        self.assertIn('IdentityAgent=none', argv)
-        self.assertIn('ProxyCommand=none', argv)
-        self.assertIn('/dev/fd/7', argv)
-        self.assertEqual(fds, (7, 8))
-        self.assertNotIn('shell', argv)
-        compile(script, 'synthetic-helper', 'exec')
+    def selected(self, root):
+        return dict(host='synthetic.invalid', account='synthetic', port=2200,
+                    root='/synthetic/source', uid=1234, gid=0, ancestors=[],
+                    key={'path': str(root/'key')}, known_hosts={'path': str(root/'known-hosts')})
+
+    def test_fixed_argv_and_native_connection_free_openssh_configuration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            for name in ('key', 'known-hosts'):
+                (root/name).write_bytes(b'harmless synthetic fixture, not a credential\n')
+                (root/name).chmod(0o600)
+            selected = self.selected(root)
+            argv = t.ssh_argv(selected)
+            self.assertEqual(argv[:5], ['/usr/bin/ssh', '-F', '/dev/null', '-T', '-o'])
+            self.assertEqual(argv[-2:], ['synthetic@synthetic.invalid', '/usr/bin/python3 -I -B -'])
+            for option in ('StrictHostKeyChecking=yes', 'IdentityAgent=none', 'ProxyCommand=none',
+                           'IdentitiesOnly=yes', 'ConnectionAttempts=1'):
+                self.assertIn(option, argv)
+            self.assertIn(str(root/'key'), argv)
+            self.assertNotIn('/dev/fd/', ' '.join(argv))
+            # -G exits after configuration evaluation; no connection/DNS/server.
+            result = subprocess.run(argv[:1]+['-G']+argv[1:], stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE, timeout=5,
+                                    env={'PATH': '/usr/bin:/bin', 'LANG': 'C'})
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertNotIn(b'not accessible', result.stderr)
+            self.assertIn(('identityfile '+str(root/'key')).encode(), result.stdout)
+            self.assertIn(('userknownhostsfile '+str(root/'known-hosts')).encode(), result.stdout)
+            script = t.remote_script(selected, (CODE/'automation/coordinator_transport.py').read_bytes())
+            compile(script, 'synthetic-helper', 'exec')
+            self.assertNotIn(str(root/'key').encode(), script)
+
+    def test_effective_root_wrong_uid_or_gid_fail_before_any_source_access(self):
+        for uid, gid in ((0, 0), (1235, 0), (1234, 1)):
+            with self.subTest(uid=uid, gid=gid), patch.object(t.os, 'geteuid', return_value=uid), \
+                    patch.object(t.os, 'getegid', return_value=gid), patch.object(t, 'chain') as chain:
+                with self.assertRaises(ValueError): t.remote(dict(uid=1234, gid=0))
+                chain.assert_not_called()
+
+    def test_fixed_remote_deadline_and_no_bytecode_flag(self):
+        selected = self.selected(Path('/synthetic'))
+        helper = (CODE/'automation/coordinator_transport.py').read_bytes()
+        helper += b'\ndef remote(config): time.sleep(10)\n'
+        with patch.object(t, 'REMOTE_SECONDS', 1):
+            script = t.remote_script(selected, helper)
+        started = time.monotonic()
+        result = subprocess.run([sys.executable, '-I', '-B', '-'], input=script,
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=4)
+        self.assertEqual(result.returncode, 124, result.stderr)
+        self.assertLess(time.monotonic()-started, 4)
+
+    def test_keeper_holds_both_locks_after_initiator_dies_and_child_closes_fds(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            # No network: replace only the SSH launch with one fixed synthetic
+            # child that proves its lock FDs are closed and waits for our marker.
+            child = """import os,sys,time
+from pathlib import Path
+root=Path(sys.argv[1])
+for fd in map(int,sys.argv[2:]):
+    try: os.fstat(fd)
+    except OSError: pass
+    else: raise AssertionError('child retained lock descriptor')
+(root/'ready').write_text('ready')
+end=time.monotonic()+5
+while not (root/'release').exists() and time.monotonic()<end: time.sleep(.02)
+"""
+            initiator = """import sys
+from pathlib import Path
+from automation import coordinator_transport as t
+from automation.github_worker import lock
+root=Path(sys.argv[1])
+original=t.bounded_process
+t.LOCAL_SECONDS=6
+with lock(root/'dispatcher.lock') as first, lock(root/'runner.lock') as second:
+    def synthetic(argv,script,fds):
+        assert fds == ()
+        return original([sys.executable,'-c',sys.argv[2],str(root),str(first),str(second)],b'',())
+    t.bounded_process=synthetic
+    selected=dict(host='synthetic.invalid',port=22,account='synthetic',root='/synthetic',uid=1234,gid=0,ancestors=[],key={'path':'/synthetic/key'},known_hosts={'path':'/synthetic/hosts'})
+    t.acquire(selected,b'# synthetic',lambda:None,(first,second))
+"""
+            proc = subprocess.Popen([sys.executable, '-B', '-c', initiator, str(root), child],
+                                    cwd=CODE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            try:
+                end = time.monotonic()+5
+                while not (root/'ready').exists() and proc.poll() is None and time.monotonic()<end:
+                    time.sleep(.02)
+                self.assertTrue((root/'ready').exists())
+                proc.kill(); proc.wait(timeout=2)
+                for name in ('dispatcher.lock', 'runner.lock'):
+                    with self.assertRaises(worker.Stop):
+                        with worker.lock(root/name): pass
+                (root/'release').write_text('release')
+                end = time.monotonic()+5
+                while time.monotonic()<end:
+                    try:
+                        with worker.lock(root/'dispatcher.lock'), worker.lock(root/'runner.lock'): pass
+                        break
+                    except worker.Stop:
+                        time.sleep(.02)
+                else:
+                    self.fail('keeper did not release locks after its child finished')
+            finally:
+                (root/'release').write_text('release')
+                if proc.poll() is None: proc.kill()
+                proc.communicate(timeout=8)
+
+    def test_keeper_runs_pre_and_postchecks_and_bounds_its_single_child(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            selected = self.selected(root)
+            original = t.bounded_process
+            def synthetic(argv, script, fds):
+                self.assertEqual(argv, t.ssh_argv(selected))
+                self.assertEqual(fds, ())
+                return original([sys.executable, '-c', 'import time;time.sleep(5)'], b'', ())
+            def check():
+                with (root/'checks').open('a') as handle: handle.write('checked\n')
+            with worker.lock(root/'first') as first, worker.lock(root/'second') as second, \
+                    patch.object(t, 'LOCAL_SECONDS', .2), patch.object(t, 'bounded_process', side_effect=synthetic):
+                result = t.acquire(selected, b'# fixed helper', check, (first, second))
+            self.assertFalse(result['complete'])
+            self.assertEqual((root/'checks').read_text(), 'checked\nchecked\n')
 
     def test_actual_helper_reads_only_fixed_original_bytes_and_refuses_links_acl_modes(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -710,6 +1015,9 @@ class TransportTests(unittest.TestCase):
         with patch.object(t, 'OUTPUT_LIMIT', 10):
             result = t.bounded_process([sys.executable, '-c', 'print("x"*100)'], b'', ())
         self.assertFalse(result['complete'])
+        with patch.object(t, 'ERROR_LIMIT', 10):
+            result = t.bounded_process([sys.executable, '-c', 'import sys;sys.stderr.write("x"*100)'], b'', ())
+        self.assertFalse(result['complete']); self.assertLessEqual(len(result['stderr']), 10)
 
 
 if __name__ == '__main__':

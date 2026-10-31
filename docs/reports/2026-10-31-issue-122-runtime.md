@@ -1,5 +1,13 @@
 # Engineering report: issue122 Task1 finite reporting runtime
 
+Task2 correction notice: independent review6542515755 reproduced failures in the
+Task1 SSH FD handoff/lock lifetime, preflight ordering and dispatcher eligibility.
+The final scoped [Task2 brief](2026-10-31-issue-122-correction-brief.md) and
+[correction report](2026-10-31-issue-122-correction.md) supersede the operational
+claims below about inherited SSH FDs, local credential preflight and quiet polling.
+This Task1 report remains historical evidence of its original implementation and
+tests; its earlier supported CI is not acceptance of the correction or live route.
+
 **Specification:** [completed brief](2026-10-31-issue-122-runtime-brief.md), latest
 owner supervisor Task1 supplied to this fresh worker on 2026-10-31.
 **Result:** implemented; synthetic validation recorded below; independent exact

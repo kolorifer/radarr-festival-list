@@ -60,3 +60,8 @@ through actual publication, distinct designated ingestion and verified archive.
 
 Implementation handoff: [engineering report](2026-10-31-issue-122-runtime.md) and
 [runtime schema/deployment/pilot runbook](../../automation/COORDINATOR_RUNTIME.md).
+
+Final correction: [Task2 brief](2026-10-31-issue-122-correction-brief.md) and
+[report](2026-10-31-issue-122-correction.md) address independently reproduced
+review6542515755. Task2 is the second and final engineering execution; this
+historical Task1 brief grants no additional work or operational authority.

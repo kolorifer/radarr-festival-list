@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 import selectors
+import signal
 import stat
 import subprocess
 import time
@@ -18,6 +19,8 @@ LIMIT = 2097152
 OUTPUT_LIMIT = 6 * 1024 * 1024
 ERROR_LIMIT = 16384
 PATHS = ('incoming/snapshot.json', 'review-report.json')
+LOCAL_SECONDS = 45
+REMOTE_SECONDS = 30
 
 
 def need(value):
@@ -137,6 +140,8 @@ def read_export(root, path, uid, gid=None):
 def remote(config):
     # No output until all guards (including post-read ancestry) succeed. Unsafe
     # origin conditions discard acquired bytes rather than presenting them as safe.
+    need(os.geteuid() > 0 and os.geteuid() == config['uid']
+         and os.getegid() == config['gid'])
     with chain(config) as fd:
         files = {p: read_export(fd, p, config['uid'], config['gid']) for p in PATHS}
     return {'version': 1, 'files': files}
@@ -148,7 +153,7 @@ def bounded_process(argv, script, pass_fds):
                           stderr=subprocess.PIPE, pass_fds=pass_fds,
                           env={'PATH': '/usr/bin:/bin', 'LANG': 'C'}) as proc:
         streams = {'out': bytearray(), 'err': bytearray()}
-        deadline = time.monotonic() + 45
+        deadline = time.monotonic() + LOCAL_SECONDS
         try:
             # The reviewed helper is small enough for the pipe; use nonblocking
             # selector-driven stdin too, so an unresponsive SSH cannot block us.
@@ -159,6 +164,9 @@ def bounded_process(argv, script, pass_fds):
                     os.set_blocking(stream.fileno(), False)
                     sel.register(stream, events, label)
                 offset = 0
+                if not script:
+                    sel.unregister(proc.stdin)
+                    proc.stdin.close()
                 while sel.get_map():
                     need(time.monotonic() < deadline)
                     for key, _ in sel.select(min(0.1, max(0, deadline - time.monotonic()))):
@@ -180,14 +188,14 @@ def bounded_process(argv, script, pass_fds):
                 proc.wait(timeout=max(0.01, deadline - time.monotonic()))
             return {'returncode': proc.returncode, 'stdout': bytes(streams['out']),
                     'stderr': bytes(streams['err']), 'complete': True}
-        except (OSError, ValueError, subprocess.SubprocessError):
+        except BaseException:
             proc.kill()
             proc.wait()
             return {'returncode': proc.returncode, 'stdout': bytes(streams['out']),
                     'stderr': bytes(streams['err']), 'complete': False}
 
 
-def acquire(selected, key_fd, hosts_fd, helper, lock_fds=()):
+def ssh_argv(selected):
     options = ('BatchMode=yes', 'IdentitiesOnly=yes', 'IdentityAgent=none',
                'ForwardAgent=no', 'PasswordAuthentication=no', 'KbdInteractiveAuthentication=no',
                'PreferredAuthentications=publickey', 'StrictHostKeyChecking=yes',
@@ -201,10 +209,92 @@ def acquire(selected, key_fd, hosts_fd, helper, lock_fds=()):
     argv = ['/usr/bin/ssh', '-F', '/dev/null', '-T']
     for option in options:
         argv.extend(('-o', option))
-    argv.extend(('-o', 'UserKnownHostsFile=/dev/fd/' + str(hosts_fd),
-                 '-i', '/dev/fd/' + str(key_fd), '-p', str(selected['port']),
-                 selected['account'] + '@' + selected['host'], '/usr/bin/python3 -I -'))
+    argv.extend(('-o', 'UserKnownHostsFile=' + selected['known_hosts']['path'],
+                 '-i', selected['key']['path'], '-p', str(selected['port']),
+                 selected['account'] + '@' + selected['host'], '/usr/bin/python3 -I -B -'))
+    return argv
+
+
+def remote_script(selected, helper):
     # repr protects literal data in Python; it is never part of the SSH command.
     config = {k: selected[k] for k in ('root', 'uid', 'gid', 'ancestors')}
-    script = helper + b'\ntry:\n print(json.dumps(remote(json.loads(' + repr(json.dumps(config)).encode() + b'))))\nexcept Exception:\n print("{\\"error\\":\\"source_guard\\"}")\n'
-    return bounded_process(argv, script, (key_fd, hosts_fd) + tuple(lock_fds))
+    return (helper + b'\nsignal.signal(signal.SIGALRM, lambda *_: os._exit(124))\n'
+            + ('signal.alarm(%d)\n' % REMOTE_SECONDS).encode()
+            + b'try:\n print(json.dumps(remote(json.loads(' + repr(json.dumps(config)).encode()
+            + b'))))\nexcept Exception:\n print("{\\"error\\":\\"source_guard\\"}")\n')
+
+
+def acquire(selected, helper, check, lock_fds=()):
+    """Fork only fixed transport code, never an argv/script from a request.
+
+    The keeper owns one bounded SSH child and holds the inherited open lock
+    descriptions even if the dispatcher dies and OpenSSH closes its own FDs.
+    It has no CLI, exec protocol, retry, detached loop or persistent service.
+    """
+    # OpenSSH opens the guarded original canonical files. Held descriptor and
+    # namespace checks detect stable-owner changes; they cannot give atomicity
+    # against hostile same-account swap-and-restore during pathname opening.
+    need(len(lock_fds) == 2 and len(set(lock_fds)) == 2)
+    for fd in lock_fds:
+        os.fstat(fd)
+    reader, writer = os.pipe()
+    try:
+        pid = os.fork()
+    except BaseException:
+        os.close(reader); os.close(writer)
+        raise
+    if pid == 0:
+        os.close(reader)
+        # Parent death must not kill the keeper via its terminal/process group.
+        # Only this keeper's bounded subprocess is killed by bounded_process.
+        try:
+            os.setsid()
+            check()
+            result = bounded_process(ssh_argv(selected), remote_script(selected, helper), ())
+            check()
+            raw = json.dumps({**result, 'stdout': base64.b64encode(result['stdout']).decode(),
+                              'stderr': base64.b64encode(result['stderr']).decode()}).encode()
+            offset = 0
+            os.set_blocking(writer, False)
+            deadline = time.monotonic() + 5
+            with selectors.DefaultSelector() as sel:
+                sel.register(writer, selectors.EVENT_WRITE)
+                while offset < len(raw):
+                    need(time.monotonic() < deadline)
+                    if sel.select(0.1):
+                        offset += os.write(writer, raw[offset:offset+65536])
+        except BaseException:
+            pass  # No private diagnostics on inherited public stdout/stderr.
+        finally:
+            os.close(writer)
+            os._exit(0)
+    os.close(writer)
+    raw = bytearray()
+    try:
+        os.set_blocking(reader, False)
+        deadline = time.monotonic() + LOCAL_SECONDS + 10
+        with selectors.DefaultSelector() as sel:
+            sel.register(reader, selectors.EVENT_READ)
+            while True:
+                need(time.monotonic() < deadline)
+                if not sel.select(0.1):
+                    continue
+                chunk = os.read(reader, 65536)
+                if not chunk:
+                    break
+                raw.extend(chunk)
+                need(len(raw) <= (OUTPUT_LIMIT + ERROR_LIMIT) * 2 + 4096)
+        os.waitpid(pid, 0)  # EOF: keeper has finished its child/transfer cleanup.
+        result = json.loads(raw)
+        for name in ('stdout', 'stderr'):
+            result[name] = base64.b64decode(result[name], validate=True)
+        need(len(result['stdout']) <= OUTPUT_LIMIT and len(result['stderr']) <= ERROR_LIMIT)
+        return result
+    finally:
+        os.close(reader)
+        # A failed initiating parent never kills a keeper that still owns SSH.
+        # Its own deadline/cleanup governs the single child; no connection retry.
+        try:
+            os.waitpid(pid, os.WNOHANG)
+        except ChildProcessError:
+            pass

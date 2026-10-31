@@ -661,6 +661,10 @@ class Runner:
         if issue["state"] != "open" or "pull_request" in issue:
             return None
         comments = self.comments()
+        trusted = {login, issue["user"]["login"]}
+        trusted_comments = [c for c in comments if c["user"]["login"] in trusted]
+        if trusted_comments and fields(max(trusted_comments, key=lambda c: c["id"])["body"]).get("STATE") == "DONE":
+            return None
         # Only explicit owner comments can enter the fixed finite route. Keep
         # imports and all new operational effects absent for ordinary tasks.
         operation_comments = [c for c in comments if c['user']['login'] == issue['user']['login']
@@ -678,13 +682,11 @@ class Runner:
             from automation import coordinator_runtime as reporting
             try:
                 selected = reporting.select(comments, issue, self.args.github_repo)
+                if not reporting.pending(self, selected, issue['user']['login']):
+                    return None
             except (ValueError, PolicyError, KeyError, TypeError):
                 raise Stop('Invalid finite reporting owner request') from None
             return (issue, {'id': selected['id'], 'reporting_operation': selected}, set())
-        trusted = {login, issue["user"]["login"]}
-        trusted_comments = [c for c in comments if c["user"]["login"] in trusted]
-        if trusted_comments and fields(max(trusted_comments, key=lambda c: c["id"])["body"]).get("STATE") == "DONE":
-            return None
         refs = self.api(f"repos/{self.args.github_repo}/git/matching-refs/heads/automation/issue-{self.args.issue}-claim-")
         claimed = {int(r["ref"].rsplit("-", 1)[1]) for r in refs
                    if r["ref"].rsplit("-", 1)[1].isdecimal()}
