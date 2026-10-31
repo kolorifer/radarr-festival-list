@@ -648,8 +648,13 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(self.runner.state['consumed'], [])
         self.assertEqual(self.runner.claims, 1)
 
-    def test_phase_two_engineering_limit_and_issue119_eight_claim_history_preserved(self):
+    def test_phase_three_engineering_limit_and_issue119_eight_claim_history_preserved(self):
         self.runner.comment({}, body=TASK.replace('SUPERVISOR_TASK: 1', 'SUPERVISOR_TASK: 3'))
+        self.runner.state['consumed'] = [1, 2]
+        self.assertIsNotNone(self.runner.eligible(self.runner.issue, 'owner'))
+        self.runner.state['consumed'] = [1, 2, 3]
+        self.assertIsNone(self.runner.eligible(self.runner.issue, 'owner'))
+        self.runner.messages[0]['body'] = TASK.replace('SUPERVISOR_TASK: 1', 'SUPERVISOR_TASK: 4')
         with self.assertRaises(worker.Stop): self.runner.eligible(self.runner.issue, 'owner')
         self.runner.args.issue = 119
         self.runner.discovery = True
