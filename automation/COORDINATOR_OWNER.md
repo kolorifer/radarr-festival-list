@@ -1,5 +1,11 @@
 # Owner commissioning adapter — issue #119 Task 2
 
+Issue122's [finite parent runtime](COORDINATOR_RUNTIME.md) supplies a narrowly
+authenticated transport/publication/owner-selected acknowledgement boundary over
+this accepted adapter. It leaves the offline APIs, schemas and limits unchanged.
+Its code/synthetic validation is separate from deployment and live acceptance;
+the historical remaining-operation descriptions below are not new assignments.
+
 `automation.coordinator_owner` is a finite offline adapter over the accepted
 format-2 reader/cycle/handoff/receipt/archive API. This runbook grants no operations
 authority. There is no transport, publisher, authentication implementation,

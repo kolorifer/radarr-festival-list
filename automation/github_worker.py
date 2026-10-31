@@ -661,6 +661,26 @@ class Runner:
         if issue["state"] != "open" or "pull_request" in issue:
             return None
         comments = self.comments()
+        # Only explicit owner comments can enter the fixed finite route. Keep
+        # imports and all new operational effects absent for ordinary tasks.
+        operation_comments = [c for c in comments if c['user']['login'] == issue['user']['login']
+                              and re.search(r'(?im)^\s*COORDINATOR_OPERATION\b', c['body'])]
+        engineering_comments = [c for c in comments if c['user']['login'] == issue['user']['login']
+                                and task_number(c['body']) is not None
+                                and (fields(c['body']).get('STATE') == 'READY_FOR_CODEX'
+                                     or 'GOAL' in fields(c['body']))]
+        if (operation_comments and max(c['id'] for c in operation_comments) >=
+                max((c['id'] for c in engineering_comments), default=0)):
+            if not __package__:
+                source_root = str(Path(__file__).resolve().parent.parent)
+                if source_root not in sys.path:
+                    sys.path.insert(0, source_root)
+            from automation import coordinator_runtime as reporting
+            try:
+                selected = reporting.select(comments, issue, self.args.github_repo)
+            except (ValueError, PolicyError, KeyError, TypeError):
+                raise Stop('Invalid finite reporting owner request') from None
+            return (issue, {'id': selected['id'], 'reporting_operation': selected}, set())
         trusted = {login, issue["user"]["login"]}
         trusted_comments = [c for c in comments if c["user"]["login"] in trusted]
         if trusted_comments and fields(max(trusted_comments, key=lambda c: c["id"])["body"]).get("STATE") == "DONE":
@@ -690,6 +710,9 @@ class Runner:
                 self.notify(task_number(task["body"]), "NEEDS_USER",
                             "Maximum 8 worker iterations reached for this control issue; use supervisor review to resolve convergence", 'ITERATION_LIMIT')
             return None
+        if (task is not None and self.args.github_repo == 'kolorifer/radarr-festival-list'
+                and self.args.issue == 122 and (task_number(task['body']) > 2 or len(consumed) >= 2)):
+            raise Stop('Issue 122 permits at most two engineering executions')
         return (issue, task, consumed) if task is not None else None
 
     def poll(self):
@@ -722,6 +745,16 @@ class Runner:
         issue, task, consumed = min(choices, key=lambda c: (c[1]["id"], c[0].get("number", self.args.issue)))
         if self.discovery:
             self.select_issue(issue["number"])
+        if 'reporting_operation' in task:
+            if self.args.dry_run:
+                print('Finite reporting request selected; dry run has no effects', flush=True)
+                return
+            self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+            with lock(self.state_dir / 'runner.lock') as self.lock_fd:
+                from automation.coordinator_runtime import operate
+                operate(self, issue, task['reporting_operation'], login)
+            print('Finite reporting request consumed or awaiting owner continuation', flush=True)
+            return
         print(f"Selected issue {self.args.issue} task {task_number(task['body'])}", flush=True)
         if self.args.dry_run:
             self.run_selected(issue, task, consumed)

@@ -1,5 +1,50 @@
 # Movie List project state
 
+## Issue #122 Task1 finite reporting runtime — 2026-10-31, awaiting review
+
+On clean parent-created `automation/issue-122-worker` at
+`cc6b90755ba8b71e743517e618a2496163b59815`, implemented one opt-in finite
+reporting route in the existing sole dispatcher's ordinary poll. Current unedited
+owner comments and exact authenticated private pins bind deployed code, operation,
+existing commissioned root/staging, fixed source selections, private absent report
+destination and distinct successor coordinator chat. Separate durable operation
+claim/consumption and accepted reserve precede one fixed read-only acquisition;
+accepted original-clock seal/prepare/handoff, one PUT with immutable readback,
+owner-selected genuine ingestion receipt and verified archive complete the route.
+No operation goes through Codex or numbered engineering tasks. Issue122 permits
+at most two engineering executions; issue119's eight consumed claims/cap/history,
+all existing engineering guards, retained probe/outboxes and unrelated work remain.
+
+The [saved Task1 brief](reports/2026-10-31-issue-122-runtime-brief.md),
+[engineering report](reports/2026-10-31-issue-122-runtime.md) and
+[exact schema/selective deployment/pilot runbook](../automation/COORDINATOR_RUNTIME.md)
+separate implementation/synthetic validation from review/CI/deployment/live gates.
+The parent owns publication and exact-head supported3.12/3.13 CI; independent
+supervisor review remains required. Installing code activates nothing. Recipient
+authentication is explicitly owner-attested selection after actual designated-chat
+ingestion, not cryptographic proof from a JSON issuer, hash or engineering receipt.
+
+Final frozen-code Python3.9.6 validation: **423 focused tests passed**, including
+all30 new runtime/helper cases. Full unittest: **943 run,109 environment errors,
+two skips, no assertion failures**; this is not a passing full-suite result.
+Missing requests/bs4, unavailable newer unittest/SQLite APIs and existing HTTP
+fixture disconnects are itemized in the report. All20 runtime closure files and
+the new tests compile;3.9 grammar, frozen scoring, deployment-manifest/document
+links, diff and unrelated-task/policy/history preservation checks pass. There is
+no local project virtual environment, dependency installation or dependency change.
+
+**Not deployed or live-accepted.** No real private selection/root/source/key/home,
+host/SSH, refresh/provider/service, notification/media/Radarr, permission repair,
+schedule/plist, Work, subagent, second runner or worker Git/issue publication was
+accessed or performed. Supplied clean launcher229148 and accepted issue119
+Task6/Task8 commissioning/source correction were not independently inspected;
+historical unresolved-permission prose below does not authorize repeated repairs.
+The supervisor carries the already authorized exact review, bounded installation,
+ONE partial cycle and actual distinct ingestion/archive through the documented
+commands. No third engineering execution, reset, recurrence, source refresh or
+full movie-coverage claim is implied. Unrelated CODEX_TASK.md, decisions,
+notification guide and #86/PR110 remain untouched.
+
 ## Issue #119 Task 5 enclosing storage — 2026-10-30, implementation awaiting review
 
 Implemented only the latest supplied Task 5 on the clean parent-created
