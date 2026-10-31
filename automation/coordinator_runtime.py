@@ -310,10 +310,11 @@ def file_identity(value):
             and type(value['ino']) is int and value['ino'] > 0)
 
 
-def validate(value, runner, author, transition=None):
+def validate(value, runner, author, transition=None, protocol=None):
+    issue_number, phase, manifest = protocol or (ISSUE, PHASE, MANIFEST)
     keys(value, 'version repository issue phase operation reviewed_revision deployed_revision code_sha256 storage staging source request recipient_chat independent')
     require(type(value['version']) is int and value['version'] == 1 and value['repository'] == REPOSITORY
-            and type(value['issue']) is int and value['issue'] == ISSUE and value['phase'] == PHASE)
+            and type(value['issue']) is int and value['issue'] == issue_number and value['phase'] == phase)
     c.identifier(value['operation']); c.identifier(value['recipient_chat'])
     code = value if transition is None else transition
     require(code['deployed_revision'] == runner.runner_revision and hex_value(runner.runner_revision, 40))
@@ -330,11 +331,11 @@ def validate(value, runner, author, transition=None):
                 and code['reviewed_revision'] != value['reviewed_revision']
                 and code['deployed_revision'] != value['deployed_revision'])
     hashes = code['code_sha256']
-    require(isinstance(hashes, dict) and set(hashes) == set(MANIFEST))
+    require(isinstance(hashes, dict) and set(hashes) == set(manifest))
     code_root = Path(__file__).resolve().parent.parent
     require(runner.repo == code_root and runner.git('rev-parse', 'HEAD').strip() == code['deployed_revision']
-            and runner.git('status', '--porcelain', '--', *MANIFEST) == '')
-    for name in MANIFEST:
+            and runner.git('status', '--porcelain', '--', *manifest) == '')
+    for name in manifest:
         require(hex_value(hashes[name], 64) and io.digest(io.read_bytes(code_root, name, transport.LIMIT)) == hashes[name])
     enclosing = storage.selection(io.encode(value['storage']))
     require(isinstance(enclosing['expected'], dict))  # REUSE ONLY; never mkdir/repair.
@@ -342,11 +343,11 @@ def validate(value, runner, author, transition=None):
     req = value['request']
     require(isinstance(req, dict) and type(req.get('version')) is int and req['version'] == owner.VERSION)
     owner.validate_request(req)
-    require(req['owner'] == author and req['cycle'] == value['operation'] and req['runtime'] == PHASE
+    require(req['owner'] == author and req['cycle'] == value['operation'] and req['runtime'] == phase
             and req['recipient'] != author and value['recipient_chat'] != author
             and Path(req['base']).parent == Path(enclosing['path'])
             and Path(req['parent_output']).parent == Path(value['staging']['path']))
-    require(req['destination']['path'] == f'operations/issue-122/{value["operation"]}.json')
+    require(req['destination']['path'] == f'operations/issue-{issue_number}/{value["operation"]}.json')
     src = value['source']
     keys(src, 'host port account key known_hosts root uid gid ancestors')
     require(isinstance(src['host'], str) and re.fullmatch(r'[a-z0-9][a-z0-9.-]{0,252}', src['host'])
@@ -563,6 +564,10 @@ class Runtime:
         require(reservation['acquisition_grant'] is True)
         self.persist(status='acquisition_uncertain', reservation=reservation)
         self.credential_check()
+        self.acquire_prepare()
+
+    def acquire_prepare(self):
+        """One already-reserved transport; callers must never resume this edge."""
         helper = io.read_bytes(self.runner.repo, 'automation/coordinator_transport.py', LIMIT)
         require(io.digest(helper) == self.value['code_sha256']['automation/coordinator_transport.py'])
         result = transport.acquire(self.value['source'], helper, self.credential_check,
@@ -605,6 +610,9 @@ class Runtime:
         owner.seal(self.req)
         self.persist(status='preparation_uncertain')
         prepared = owner.prepare(self.req)
+        self.finish_preparation(prepared)
+
+    def finish_preparation(self, prepared):
         require(prepared['status'] == 'prepared')
         self.persist(status='handoff_uncertain')
         handoff = owner.handoff(self.req)

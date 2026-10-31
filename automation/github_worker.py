@@ -668,7 +668,7 @@ class Runner:
         # Only explicit owner comments can enter the fixed finite route. Keep
         # imports and all new operational effects absent for ordinary tasks.
         operation_comments = [c for c in comments if c['user']['login'] == issue['user']['login']
-                              and re.search(r'(?im)^\s*COORDINATOR_OPERATION\b', c['body'])]
+                              and re.search(r'(?im)^\s*COORDINATOR_(?:OPERATION|TRIAL)\b', c['body'])]
         engineering_comments = [c for c in comments if c['user']['login'] == issue['user']['login']
                                 and task_number(c['body']) is not None
                                 and (fields(c['body']).get('STATE') == 'READY_FOR_CODEX'
@@ -680,13 +680,18 @@ class Runner:
                 if source_root not in sys.path:
                     sys.path.insert(0, source_root)
             from automation import coordinator_runtime as reporting
+            trial = bool(re.search(r'(?im)^\s*COORDINATOR_TRIAL\b',
+                                   max(operation_comments, key=lambda c: c['id'])['body']))
+            if trial:
+                from automation import coordinator_trial as reporting
             try:
                 selected = reporting.select(comments, issue, self.args.github_repo)
                 if not reporting.pending(self, selected, issue['user']['login']):
                     return None
             except (ValueError, PolicyError, KeyError, TypeError):
                 raise Stop('Invalid finite reporting owner request') from None
-            return (issue, {'id': selected['id'], 'reporting_operation': selected}, set())
+            return (issue, {'id': selected['id'], 'reporting_operation': selected,
+                            'reporting_trial': trial}, set())
         refs = self.api(f"repos/{self.args.github_repo}/git/matching-refs/heads/automation/issue-{self.args.issue}-claim-")
         claimed = {int(r["ref"].rsplit("-", 1)[1]) for r in refs
                    if r["ref"].rsplit("-", 1)[1].isdecimal()}
@@ -715,6 +720,9 @@ class Runner:
         if (task is not None and self.args.github_repo == 'kolorifer/radarr-festival-list'
                 and self.args.issue == 122 and (task_number(task['body']) > 3 or len(consumed) >= 3)):
             raise Stop('Issue 122 permits at most three engineering executions')
+        if (task is not None and self.args.github_repo == 'kolorifer/radarr-festival-list'
+                and self.args.issue == 125 and (task_number(task['body']) > 3 or len(consumed) >= 3)):
+            raise Stop('Issue 125 permits at most three consumed engineering slots')
         return (issue, task, consumed) if task is not None else None
 
     def poll(self):
@@ -754,6 +762,8 @@ class Runner:
             self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
             with lock(self.state_dir / 'runner.lock') as self.lock_fd:
                 from automation.coordinator_runtime import operate
+                if task.get('reporting_trial'):
+                    from automation.coordinator_trial import operate
                 operate(self, issue, task['reporting_operation'], login)
             print('Finite reporting request consumed or awaiting owner continuation', flush=True)
             return
