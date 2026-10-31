@@ -1,3 +1,11 @@
+# Issue125 continuation
+
+The distinct authorized seven-window trial is specified in
+[COORDINATOR_TRIAL.md](COORDINATOR_TRIAL.md). It does not restart or reinterpret
+the completed issue122 cycle below. The issue125 worker implements/tests only;
+parent review, CI, selective deployment, activation and actual ingestion remain
+separate stages.
+
 # Issue 122 finite reporting route
 
 Task3 correction: the Task1/Task2 **20-file closure claim was disproved** by

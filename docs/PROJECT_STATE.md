@@ -1,5 +1,48 @@
 # Movie List project state
 
+## Issue #125 Task3 — implemented, awaiting independent review, 2026-10-31
+
+Latest supplied owner-supervisor Task3 authorizes only this child's code/tests/
+documentation in the clean parent-created checkout at93762ee. Issue125's THREE
+consumed slots preserve failed/unexecuted1, accepted operations preflight2 and
+final code3; no Task4, replacement reset or third actual execution follows.
+Issue119 cap8, issue122 cap3/closed archived cycle and general8 remain unchanged.
+
+The paired reader now selects explicit legacy ResearchStore versus declared
+recurring-v1 evidence semantics, preserving original daily/weekly budget names
+and values. New fixed issue125 seven-day code runs only through the existing
+sole dispatcher's ordinary poll with authenticated owner selection and exact
+private/code/root/source pins. The selected UTC11:30–11:40 windows are a supervisor
+choice from two supplied export times; installed producer identity/timer remain
+UNKNOWN. Seven consumed opportunities, no SSH/PUT retries, quiet suppression,
+missed windows, genuine designated-chat ack and accepted archive remain separate.
+
+Frozen24-file runtime: **21 new focused tests passed**; an additional4-test
+reader run passed with a direct public-writer admission oracle and synthetic
+408/17/all17 wrong-version coverage. Fresh installed-only `-I -B -S` closure,
+both missing-function-local-dependency negatives, seven simulated acquisitions
+through actual poll, quiet/missed/restart/rollback/lock/stop, immutable publication,
+distinct selected synthetic receipt/archive and bounds/race refusals pass.
+Every installed blob must match a regular file in the reviewed public commit.
+Full native3.9.6 unittest: **987 run,109 errors,two skips,no assertion failures**;
+all356 coordinator tests passed. Full suite is NOT a pass:84 requests,9 bs4,
+10 unittest.enterContext,3 SQLite API and3 existing HTTP fixture disconnect errors.
+No virtualenv/dependency installation or unsupported-environment repair occurred.
+Native compile/3.9 grammar, frozen runtime hashes, scoring1909/387 and documentation/
+diff/preservation checks pass. Supported exact-head3.12/3.13 CI remains required.
+
+See the [Task3 brief](reports/2026-10-31-issue-125-trial-brief.md),
+[engineering report](reports/2026-10-31-issue-125-trial.md) and
+[exact selective deployment/activation/receipt runbook](../automation/COORDINATOR_TRIAL.md).
+Implementation and synthetic checks do not establish review, supported CI,
+deployment, activation, real acquisition/publication/ingestion or archive.
+The parent exclusively handles those already authorized later stages and Git/PR/
+issue publication. This child performed no live/private/host/source/credential/
+SSH/provider/Radarr/media/notification/service/schedule operations, dependency
+installation, worker/subagent or Git publication. The unrelated active
+CODEX_TASK.md/#86/PR110, old histories and production policies are preserved.
+
+
 
 ## Issue #122 Task3 final retained-cycle correction — 2026-10-31, awaiting exact review
 

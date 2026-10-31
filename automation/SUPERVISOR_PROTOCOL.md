@@ -1,3 +1,13 @@
+# Issue125 fixed trial protocol
+
+Issue125 has an explicit ceiling of THREE consumed engineering slots (including
+failed/unexecuted Task1); Task3 is final. The already authorized seven daily
+reporting opportunities use the separate authenticated owner-selected
+[trial protocol](COORDINATOR_TRIAL.md), not more engineering executions. The
+existing sole dispatcher, normal arbitration, issue119 eight consumed claims,
+issue122 three/closed archived cycle, general eight, quota and locks remain.
+No repository brief grants the child operational authority or another task.
+
 # Supervisor protocol and deployed responsibilities
 
 Issue #122 adds one explicit opt-in [finite reporting route](COORDINATOR_RUNTIME.md)
