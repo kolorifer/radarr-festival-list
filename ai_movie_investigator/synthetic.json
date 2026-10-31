@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "event": "identity.outcome",
+  "id": "00000000-0000-4000-8000-000000000127",
+  "timestamp": "2026-10-31T10:00:00+00:00",
+  "data": {
+    "release": {
+      "type": "movie",
+      "protocol": "torrent",
+      "implementation": "IRC",
+      "title": "Synthetic Harbor",
+      "year": 2026,
+      "name": "Synthetic.Harbor.2026.FIXTURE",
+      "external_id": "synthetic-001"
+    },
+    "indexer": {"name": "Synthetic Index", "identifier": "synthetic"},
+    "outcome": {"status": "unresolved", "category": "unknown_movie", "reason": "no_exact_match"}
+  }
+}
