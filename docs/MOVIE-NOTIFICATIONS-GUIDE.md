@@ -2,6 +2,26 @@
 
 This guide follows a movie release from an autobrr announcement to Radarr, Telegram and, when you choose, a download. It describes the setup checked on **27 October 2026**. Your own Radarr profiles and autobrr filters determine many outcomes, so individual messages can differ. Features marked **shadow pilot** are being tested; they do not make production decisions.
 
+**31 October code-only addition — inactive AI investigator:** a new standalone
+module can review a captured failed-identification event using retained evidence
+and prior choices for that exact occurrence. Its offline proof uses synthetic
+data and simulated model replies; it has not identified a real new movie.
+Real model use is blocked until the client's complete tool and context boundary
+is independently established. It is not connected to Telegram or a daily
+schedule. Its private daily view shows evidence, prior decisions, uncertainty
+and next actions without marking anything delivered or acknowledged. A skipped
+or completed occurrence stays scoped to that occurrence; an earlier shadow
+success remains dated knowledge, and a known film may still need source, runtime
+or edition verification. This code does not change original notifications,
+identity choices or the separate download-confirmation step. See the
+[inactive investigator documentation](AI-MOVIE-INVESTIGATOR.md). The corrective
+pass rechecks evidence and earlier choices as time passes; an expired or changed
+choice cannot silently authorize a later result. Real-client isolation still
+needs independent proof, and the investigator remains disabled.
+The latest code correction removes an unsupported client setting. Read-only
+client checks accept the remaining settings; that does not prove that skills,
+tools or inherited instructions are isolated and does not enable real use.
+
 ## The people and programs involved
 
 - **Tracker:** announces a torrent release, such as a particular Blu-ray version of a film.
