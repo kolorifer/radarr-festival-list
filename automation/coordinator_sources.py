@@ -14,6 +14,35 @@ MAX_AGE = {'engineering': 3600, 'investigations': 3600, 'research_report': 17280
 FAILURES = (ValueError, PolicyError, OSError, KeyError, TypeError, AttributeError, RecursionError)
 
 
+def producer_epoch(budget):
+    """Select a documented writer contract, never infer it by trying hashes.
+
+    The original ResearchStore has no epoch. Both observed recurring-v1 budget
+    shapes use the SAME evidence semantics. Budget values remain observations,
+    with their original names; they confer no request or scheduling authority.
+    """
+    c.require(isinstance(budget, dict), 'movie_budget_schema')
+    if 'epoch' not in budget:
+        return 'research-store-v1'
+    c.require(budget['epoch'] == 'recurring-v1', 'movie_producer_epoch')
+    daily = {'daily_case_cap', 'daily_request_cap', 'cases_rolling_day', 'requests_rolling_day'}
+    weekly = {'weekly_case_cap', 'weekly_request_cap', 'cases_rolling_week', 'requests_rolling_week'}
+    present = set(budget) & (daily | weekly)
+    c.require(present in (daily, weekly), 'movie_budget_schema')
+    c.require(all(type(budget[k]) is int and budget[k] >= 0 for k in present), 'movie_budget_schema')
+    return 'recurring-v1'
+
+
+def evidence_version(item, epoch):
+    """Pure writer digest; no Store, transaction, entrypoint or provider call."""
+    from identity_triage_store import digest
+    c.require(epoch in ('research-store-v1', 'recurring-v1'), 'movie_producer_epoch')
+    material = {k: v for k, v in item.items() if k != 'observed_at'}
+    if epoch == 'recurring-v1':
+        material['provenance'] = [{**p, 'observed_at': 1} for p in item['provenance']]
+    return digest(material)
+
+
 def material_report(report):
     """Compare validated findings, retaining byte provenance in the real payload.
 
@@ -89,6 +118,7 @@ def validate_report(report, now, eligible=None):
     from identity_triage_store import digest as producer_digest
     c.keys(report, 'version generated_at coverage oldest_unresolved_age_seconds budget cases changed_cases versions telegram_digest_enabled review_controls_enabled unassessed_policy historical_seeds')
     c.require(type(report['version']) is int and report['version'] == 1, 'movie_report_version')
+    producer_epoch(report['budget'])
     c.require(report['telegram_digest_enabled'] is False and report['review_controls_enabled'] is False,
               'movie_report_controls')
     c.stamp(report['generated_at'])
@@ -121,9 +151,9 @@ def validate_report(report, now, eligible=None):
 def movie_pair(snapshot, report, now):
     """Actual write_report v1, not a made-up list or digest/sender projection."""
     from identity_research_handoff import validate_snapshot
-    from identity_triage_store import digest as producer_digest
     validate_snapshot(snapshot, now)
-    eligible = {item['case_id']: producer_digest({k: v for k, v in item.items() if k != 'observed_at'})
+    epoch = producer_epoch(report['budget'])
+    eligible = {item['case_id']: evidence_version(item, epoch)
                 for item in snapshot['items']}
     validate_report(report, now, eligible)
     # The foundation compares the complete ID set, every base field and coverage,
@@ -139,6 +169,8 @@ def movie_pair(snapshot, report, now):
                       'current_evidence': (r.get('proposal') or {}).get('current_evidence'),
                       'created_at': (r.get('proposal') or {}).get('created_at')}
                       for r in report['cases']})
+    if epoch == 'recurring-v1':
+        result.update(producer_epoch=epoch, research_budget=copy.deepcopy(report['budget']))
     return result
 
 
