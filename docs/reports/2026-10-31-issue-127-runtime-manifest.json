@@ -2,7 +2,7 @@
   "base_commit": "be2fb324e59a20e8bf2feb3128c2855553731d41",
   "files": {
     "ai_movie_investigator/__init__.py": "77de306e92eaa34593ea69e88766ffbb7799d86197e915f661b652ac7b7717c4",
-    "ai_movie_investigator/codex_transport.py": "cdb0dfb3b37b96af9c34c60c7dec86ddc6614dfc64e6042a183b8d78c84b1568",
+    "ai_movie_investigator/codex_transport.py": "9c441a8c9fceb23898987897650beb0f80e6b6bad7f9d6f02a33f472ea66d77a",
     "ai_movie_investigator/contracts.py": "cd3f06aa951a8733333d96242d1da745f4a27d2db05bdf0861f75fbd249859c3",
     "ai_movie_investigator/controller.py": "aa66b3d8ddb2e7f408e3378fc1e6e57fb2539c3b35852e3faeabb5652bbd37e3",
     "ai_movie_investigator/history.py": "95d1c6d24fd95d1798ff832932770e4db26a07511ac72ad4b01dd3c29c0358e2",
@@ -14,14 +14,14 @@
     "identity_selection.py": "c56f9ed9bf82d3edce42ae2430fbc4bd9b51f253f1764bac1be3996e6c2ed197",
     "identity_triage_intake.py": "21cb20434c4cf7dff344b4c2acdd13e00ec5737e51f1cbad24c75fea9b160c22",
     "identity_triage_store.py": "c3cdfe8c54a7103387b1a0b3ed20d287041fb2faf5b065f3488a331716ea17e3",
-    "test_ai_movie_investigator.py": "b5c508eeece995ed6e1ca3ed653f3ec9c3a680c210cbc5b9948f11569f3c0c19",
-    "tests/fixtures/ai_movie_investigator/fake_codex.py": "c74bdfcd4cd4486b6b0cf4be35881d38047ffecaa52d0aaafad99fb456b99fe0",
+    "test_ai_movie_investigator.py": "7a682c306904af8eb8b9b20fdf303f5074526d73f72cd8442e136a030dbf0c76",
+    "tests/fixtures/ai_movie_investigator/fake_codex.py": "187d58a7643a8fc25d79fb344237a1a5ef12df030f62426c646847434845d11c",
     "torrent_research_evidence.py": "de794d62ca4a7b52687ae4722838c5181f858817805b7e5f34c01b001d1645c5"
   },
-  "purpose": "Inactive issue127 Task2 corrective implementation and synthetic validation; no live-client approval",
+  "purpose": "Inactive issue127 Task3 bootstrap correction and offline/metadata-only validation; no live-client approval",
   "retained_task1_snapshot": "a9c3e5f64be30d52653d28c673694bb2e57f6330cec90a7cc261eaa83cd18b1f",
-  "schema": 2,
-  "task": 2,
+  "schema": 3,
+  "task": 3,
   "task1_files": {
     "ai_movie_investigator/__init__.py": "77de306e92eaa34593ea69e88766ffbb7799d86197e915f661b652ac7b7717c4",
     "ai_movie_investigator/codex_transport.py": "23f04978d62178e90d98527132a7bf27dfbf8fbe9f288bf7fdeda826d59ee4cb",
@@ -39,5 +39,25 @@
     "test_ai_movie_investigator.py": "5508dcbb02697513f38504d6c469ee2c2b9d25a10e3492f875bd5072a7cf48b6",
     "tests/fixtures/ai_movie_investigator/fake_codex.py": "1fd371a20415cea2b5b107e42a49a0bee44a86a73e1fe5c1aed352943fcb59c2",
     "torrent_research_evidence.py": "de794d62ca4a7b52687ae4722838c5181f858817805b7e5f34c01b001d1645c5"
-  }
+  },
+  "task2_files": {
+    "ai_movie_investigator/__init__.py": "77de306e92eaa34593ea69e88766ffbb7799d86197e915f661b652ac7b7717c4",
+    "ai_movie_investigator/codex_transport.py": "cdb0dfb3b37b96af9c34c60c7dec86ddc6614dfc64e6042a183b8d78c84b1568",
+    "ai_movie_investigator/contracts.py": "cd3f06aa951a8733333d96242d1da745f4a27d2db05bdf0861f75fbd249859c3",
+    "ai_movie_investigator/controller.py": "aa66b3d8ddb2e7f408e3378fc1e6e57fb2539c3b35852e3faeabb5652bbd37e3",
+    "ai_movie_investigator/history.py": "95d1c6d24fd95d1798ff832932770e4db26a07511ac72ad4b01dd3c29c0358e2",
+    "ai_movie_investigator/replay.py": "386838aba7e3019de9bf7a3bc10baa20e1dc49da34bf5950e09ce3d8223ffd4f",
+    "ai_movie_investigator/review.py": "101a8b9b2563668965cd83b978c6057fb60639590b745a556923373ee2836e4f",
+    "ai_movie_investigator/synthetic.json": "e425037c034b7baba21eda464d697797b8a6d44ab710efbdf0d5cb93ead429ba",
+    "identity_research_handoff.py": "ef7232c0b5480c61b86d2284d37588037203cb7e7c2343fab23182c85a97c10c",
+    "identity_research_provider.py": "2301d7b3cb88e463bd55ad20ead536e3de3e767acee9b09aef109a64cdc0466f",
+    "identity_selection.py": "c56f9ed9bf82d3edce42ae2430fbc4bd9b51f253f1764bac1be3996e6c2ed197",
+    "identity_triage_intake.py": "21cb20434c4cf7dff344b4c2acdd13e00ec5737e51f1cbad24c75fea9b160c22",
+    "identity_triage_store.py": "c3cdfe8c54a7103387b1a0b3ed20d287041fb2faf5b065f3488a331716ea17e3",
+    "test_ai_movie_investigator.py": "b5c508eeece995ed6e1ca3ed653f3ec9c3a680c210cbc5b9948f11569f3c0c19",
+    "tests/fixtures/ai_movie_investigator/fake_codex.py": "c74bdfcd4cd4486b6b0cf4be35881d38047ffecaa52d0aaafad99fb456b99fe0",
+    "torrent_research_evidence.py": "de794d62ca4a7b52687ae4722838c5181f858817805b7e5f34c01b001d1645c5"
+  },
+  "task3_start_commit": "3f06470dbe04e8ce26e48ccdc5b73135a7b07beb",
+  "task3_start_tree": "8f1a0a4101053f2bf397b76f85166e4c841c2aae"
 }

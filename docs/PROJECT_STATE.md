@@ -1,5 +1,40 @@
 # Movie List project state
 
+## Issue #127 Task3 — bootstrap correction, 2026-10-31
+
+Corrected the single configuration incompatibility reproduced by independent
+Task2 review on clean PR128 head `3f06470dbe04e8ce26e48ccdc5b73135a7b07beb`.
+The transport and fixture no longer select `skills.max_context_tokens=0`;
+no positive catalogue budget replaces it. Catalogue size is not enforcement
+of skill instructions or tool availability. Historical Task1/Task2 records
+remain dated evidence; this status and the [corrective report](reports/2026-10-31-issue-127-task3.md)
+supersede their complete-config/zero-budget claims.
+
+An explicit optional finite metadata checker shares the exact complete actual
+control vector, pins version/help evidence and refuses unknown schema/features,
+unsupported values, inspection failure and drift. The installed
+`codex-cli 0.166.0-alpha.5.1` accepted all23 selected settings and reported all17
+selected feature families false in0.602s on the frozen helper, without inference.
+This establishes configuration acceptance only. **The real-client registry and adapter set remain
+empty; effective tool/context/policy isolation and a stable dependency lease
+remain unresolved activation prerequisites.** No real safe adapter, movie
+investigation, deployment or new identification is established.
+
+Frozen local Python3.12.16/3.13.18 focused checks: **67 passed on each**, including
+nonempty installed-only closure and all6 removal negatives. Full suites:
+**1,355 run on each version, two skips each, zero failures/errors and exit0**.
+Dependency consistency, scoring1909/387, simulated replay, source hashes and
+documentation/diff/preservation checks pass. **Inactive code READY_FOR_REVIEW.**
+Parent alone publishes and obtains direct final exact-head CI and independent
+review; the previous
+workflow checked a tree-identical merge preview. Earlier expiry/currentness,
+rollback and in-lock safeguards, consumed attempts, all bounds/budgets, evidence
+loop/private review, original notification/download confirmation, claims/caps
+and the separate reporting trial remain intact. No credentials, live/private/
+seedbox/SSH/model/provider/media/service/schedule/config/operational action or
+child publication occurred. See the [completed brief](reports/2026-10-31-issue-127-task3-brief.md)
+and report. The unrelated active task remains unchanged; no next task is inferred.
+
 ## Issue #127 Task2 — inactive corrective implementation, 2026-10-31
 
 Continued the existing worker branch/base and reconciled all16 retained Task1

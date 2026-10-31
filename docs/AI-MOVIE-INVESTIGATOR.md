@@ -114,7 +114,8 @@ The existing configured model must be supplied explicitly; no account/model
 access is inferred from its name. Environment key/loader/proxy overrides are
 not inherited. Authentication stays with the existing client.
 
-Task2 assessed these official references on 2026-10-31:
+Task2 assessed these official references on 2026-10-31; Task3 rechecked the
+configuration reference and corrected the bootstrap/audit claim below:
 
 - [Non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode):
   fresh exec, bounded stdin/JSONL/schema use and user-config/rules controls.
@@ -128,16 +129,39 @@ Task2 assessed these official references on 2026-10-31:
 - [Developer commands](https://learn.chatgpt.com/docs/developer-commands):
   command and metadata surfaces, distinct from actual session execution.
 
-Metadata-only version/help, feature listing with explicit false overrides and
-local protocol-schema generation succeeded. No prompt, model turn, auth/config
-inspection or account operation was performed. Raw diagnostics stay private.
-The eleven additional feature overrides were reported false by the installed
-feature list. This establishes accepted metadata settings, **not effective exec
-isolation**. Generated app-server protocol schemas did not expose the skill
-configuration keys and cannot resolve that gap. Exec help advertises
-`--strict-config`; this transport now requires it for exec. The features command
-does not support that option; its absence there says nothing about the validity
-of the feature overrides. Only exec help was inspected; no inference-mode exec invocation was run.
+**Task3 correction:** the Task1/Task2 reports remain dated evidence. Their
+synthetic checks did not establish complete real-client configuration
+compatibility. Independent review [5725098181](https://github.com/kolorifer/radarr-festival-list/pull/128#pullrequestreview-5725098181)
+reproduced rejection of `skills.max_context_tokens=0`; the official reference
+requires a positive integer and describes an available-skills catalogue budget.
+Task3 removes that setting without substituting a positive budget. A catalogue
+budget cannot suppress skill instructions or enforce tool availability.
+
+The explicit optional `codex_transport.inspect_configuration_metadata` checks
+the exact complete `configuration_args()` vector shared with the transport.
+It accepts caller-selected version and root/features/exec help hashes, runs
+only version/help/features-list metadata commands, and returns safe hashes and
+selected feature states. It never registers a profile or inspects a real client from runtime
+preflight or ordinary tests. Each subprocess gets empty stdin, a temporary cwd,
+filtered environment, five seconds and at most 32 KiB combined output (4 KiB
+for version); all six commands share a ten-second deadline. Process groups are
+killed on failure; no retry or inference fallback exists. Unknown non-feature
+schema, unsupported values, missing selected features, unknown listing schema,
+enabled states, missing client, failed inspection and executable/version/help
+drift refuse visibly. Synthetic tests exercise the mechanism and an independent
+TOML parser's nonzero-integer rejection; they do not attest a real client.
+
+Task3's actual installed `codex-cli 0.166.0-alpha.5.1` check accepted all 23
+selected controls and reported all 17 selected feature families false in 0.602s
+using the final frozen helper.
+See the [corrective report](reports/2026-10-31-issue-127-task3.md) for exact
+commands, vector and pins. `features list` does not support exec's
+`--strict-config`, `--ignore-user-config` or `--ignore-rules`; none was guessed
+or removed from the actual exec route to obtain a pass. Root config overrides
+are accepted by metadata; effective non-feature semantics and exec isolation
+remain unproved. No prompt, account inspection, app server or model turn ran.
+Metadata acceptance does not establish effective tool inventory, skill/context
+isolation, mandatory-policy preservation or a stable dependency lease.
 
 The control audit is deliberately incomplete for real activation:
 
@@ -150,7 +174,7 @@ The control audit is deliberately incomplete for real activation:
 | Subagents and permissions | multi_agent and agents.enabled false; request_permissions_tool false. Prove all collaboration/escalation tools absent. No subagent is launched by this feature. |
 | Hooks and memories | Both feature families false. Bind effective loaders, local/remote sources and retained context; an event filter cannot undo a hook effect. |
 | User/project/history | Ignore user config and user/project rules; zero project-document bytes, no resume, ephemeral session. Bind effective config, cwd ancestry and instructions; an empty cwd alone does not establish an empty inherited context. |
-| Skills | skill_search false and root skills.max_context_tokens zero request constrained discovery and a zero catalogue budget. They do not prove no skill instructions or skill execution. Custom-agent docs describe skills.include_instructions=false, skills.bundled.enabled=false and per-skill disabling, but root exec applicability is unproved. Those custom-agent-only examples are not copied into this command as an attestation. |
+| Skills | skill_search false requests constrained discovery only. No catalogue token budget is set: zero is unsupported, and a positive value is not enforcement of instruction or tool isolation. A supported independently proven root-route skill/context boundary is unresolved. Custom-agent examples alone do not establish root exec applicability and are not copied as an attestation. |
 | Mandatory policy and system context | Preserve built-in client system instructions and all mandatory managed security instructions/requirements. These are legitimate dependencies, distinct from unintended ambient user/project/history content. Never blank model_instructions_file, developer instructions or managed requirements to create apparent isolation. Refuse if policy requires an incompatible context/tool or cannot be attested. |
 
 All listed controls are compatibility candidates, not operational proof. Model
@@ -276,7 +300,8 @@ identity_research_provider.py
 
 These existing files are imported without changes; no historical shadow runtime
 is promoted into product operation. The existing `movie-intel-test.yml` matrix
-runs all root unittest tests on Python 3.12/3.13 for the parent's exact PR head.
+runs all root unittest tests on Python 3.12/3.13. The prior PR run checked a
+tree-identical merge preview; the parent must arrange direct final exact-head CI.
 Local supported tests do not establish published exact-head CI or independent
 review; the parent owns both publication and that review path.
 

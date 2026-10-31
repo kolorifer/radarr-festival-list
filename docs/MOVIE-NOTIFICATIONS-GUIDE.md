@@ -18,6 +18,9 @@ identity choices or the separate download-confirmation step. See the
 pass rechecks evidence and earlier choices as time passes; an expired or changed
 choice cannot silently authorize a later result. Real-client isolation still
 needs independent proof, and the investigator remains disabled.
+The latest code correction removes an unsupported client setting. Read-only
+client checks accept the remaining settings; that does not prove that skills,
+tools or inherited instructions are isolated and does not enable real use.
 
 ## The people and programs involved
 

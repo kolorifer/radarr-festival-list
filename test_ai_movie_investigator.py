@@ -781,6 +781,112 @@ class CLIProtocolTests(unittest.TestCase):
     def repin(self):
         self.pin = hashlib.sha256(self.fake.read_bytes()).hexdigest()
 
+    def metadata_pins(self):
+        return dict(root=hashlib.sha256(b'Synthetic --config features\n').hexdigest(),
+                    features=hashlib.sha256(b'Synthetic --config list\n').hexdigest(),
+                    exec=self.profile['exec_help_hash'])
+
+    def inspect_metadata(self, **kwargs):
+        return cli.inspect_configuration_metadata(
+            self.fake, expected_version='synthetic-codex-fixture-1',
+            expected_help_hashes=self.metadata_pins(), **kwargs)
+
+    def test_metadata_uses_complete_exec_vector_without_attesting_a_safe_route(self):
+        original = cli.bounded_process
+        calls = []
+        def record(argv, payload, **kwargs):
+            calls.append(argv)
+            self.assertEqual(payload, b'{}' if 'exec' in argv and argv[-1] == '-' else b'')
+            self.assertLessEqual(kwargs['timeout'], 5)
+            return original(argv, payload, **kwargs)
+        with patch.object(cli, 'bounded_process', record):
+            result = self.inspect_metadata()
+        self.assertTrue(result['configuration_accepted'])
+        self.assertFalse(result['exec_isolation_verified'])
+        self.assertEqual(cli.REVIEWED_CLIENTS, {})
+        self.assertEqual(len(calls), 6)
+        vector = calls[4][1:-2]
+        with patch.dict(cli.REVIEWED_CLIENTS, {self.pin: self.profile}):
+            transport = CodexCLI(enabled=True, executable=self.fake, configured_model='synthetic-model')
+            self.assertIsNone(transport.preflight())
+            with patch.object(cli, 'bounded_process', record):
+                transport.complete(b'{}', schema=output_schema(), timeout=2)
+        args = calls[-1]
+        exec_vector = [part for i, arg in enumerate(args[:-1]) if arg == '-c' for part in args[i:i+2]]
+        # The pre-existing root approval override precedes exec as well.
+        self.assertEqual(exec_vector[2:], vector)
+
+    def test_metadata_schema_rejects_skill_budget_unknown_keys_and_unsupported_values(self):
+        for key, value in (('skills.max_context_tokens', '0'), ('skills.max_context_tokens', '1'),
+                           ('unknown.config', 'false'), ('features.plugins', 'true')):
+            with self.subTest(key=key, value=value), patch.dict(cli.CONTROLS, {key: value}), \
+                    patch.object(cli, 'bounded_process', side_effect=AssertionError('schema must refuse first')):
+                with self.assertRaises(Refusal):
+                    self.inspect_metadata()
+
+    def test_independent_synthetic_toml_parser_reproduces_zero_budget_bootstrap_failure(self):
+        # Not an assertion copied from CONTROLS: exercise the independent parser
+        # against the old complete vector and then the corrected vector.
+        argv = [str(self.fake)] + cli.configuration_args()
+        with self.assertRaisesRegex(Refusal, 'client_failed_or_auth_unavailable'):
+            cli.bounded_process(argv + ['-c', 'skills.max_context_tokens=0', 'features', 'list'],
+                                b'', cwd=self.directory, timeout=5, limit=32768)
+        self.assertTrue(self.inspect_metadata()['configuration_accepted'])
+
+    def test_metadata_refuses_missing_client_version_help_and_executable_drift(self):
+        original = cli.bounded_process
+        for mode in ('version', 'help', 'final_version', 'executable', 'inspection'):
+            calls = []
+            def changed(argv, payload, **kwargs):
+                calls.append(argv)
+                if mode == 'inspection':
+                    raise OSError('synthetic inspection failure')
+                raw = original(argv, payload, **kwargs)
+                if (mode == 'version' and len(calls) == 1) or (mode == 'final_version' and len(calls) == 6):
+                    return b'changed-version\n'
+                if mode == 'help' and len(calls) == 2:
+                    return raw + b'changed help\n'
+                if mode == 'executable' and len(calls) == 6:
+                    self.fake.write_text(self.fake.read_text() + '\n# drift\n')
+                return raw
+            with self.subTest(mode=mode), patch.object(cli, 'bounded_process', changed):
+                with self.assertRaises(Refusal):
+                    self.inspect_metadata()
+        with self.assertRaisesRegex(Refusal, 'metadata_inspection_failed'):
+            cli.inspect_configuration_metadata(self.directory / 'absent', expected_version='synthetic',
+                                               expected_help_hashes=self.metadata_pins())
+
+    def test_metadata_refuses_unknown_features_output_schema_and_enabled_states(self):
+        original = cli.bounded_process
+        for output, reason in ((b'new-format', 'schema_unknown'),
+                               (b'shell_tool\tstable\tfalse\n', 'features_unknown'),
+                               (b'shell_tool\tstable\tfalse\n'*2, 'schema_unknown')):
+            def changed(argv, *args, **kwargs):
+                return output if argv[-2:] == ['features', 'list'] else original(argv, *args, **kwargs)
+            with self.subTest(output=output), patch.object(cli, 'bounded_process', changed):
+                with self.assertRaisesRegex(Refusal, reason):
+                    self.inspect_metadata()
+        def enabled(argv, *args, **kwargs):
+            raw = original(argv, *args, **kwargs)
+            return raw.replace(b'false', b'true') if argv[-2:] == ['features', 'list'] else raw
+        with patch.object(cli, 'bounded_process', enabled):
+            with self.assertRaisesRegex(Refusal, 'features_enabled'):
+                self.inspect_metadata()
+        with patch.dict(cli.CONTROLS, {'features.unknown_future_feature': 'false'}):
+            with self.assertRaisesRegex(Refusal, 'features_unknown'):
+                self.inspect_metadata()
+
+    def test_optional_metadata_failure_and_deadline_never_fall_back_or_register(self):
+        for reason in ('model_timeout', 'transport_output_limit', 'client_failed_or_auth_unavailable'):
+            with patch.object(cli, 'bounded_process', side_effect=Refusal(reason)) as process:
+                with self.assertRaisesRegex(Refusal, reason):
+                    self.inspect_metadata()
+                self.assertEqual(process.call_count, 1)
+        with patch.object(cli, 'PREFLIGHT_SECONDS', 0), \
+                patch.object(cli, 'bounded_process', side_effect=AssertionError('deadline')):
+            with self.assertRaisesRegex(Refusal, 'metadata_timeout'):
+                self.inspect_metadata()
+        self.assertEqual(cli.REVIEWED_CLIENTS, {})
 
     def test_fake_executable_exercises_preflight_flags_schema_stdin_and_jsonl(self):
         with patch.dict(cli.REVIEWED_CLIENTS, {self.pin: self.profile}), patch.dict(os.environ, {'OPENAI_API_KEY': 'synthetic-value', 'CODEX_API_KEY': 'synthetic-value'}):
