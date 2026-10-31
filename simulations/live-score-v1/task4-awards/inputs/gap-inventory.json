@@ -1,0 +1,4634 @@
+{
+  "task": 4,
+  "prepared_before_new_checks": true,
+  "research_cutoff": "2026-10-28",
+  "baseline_commit": "824ed090e93c69e7ee5af6fe7df398725d8a6056",
+  "method": "Derived only from Task 1/2; all 8 x 14 institutions. Edition envelope is an audit window, never inferred eligibility. Exact category/edition coverage expanded in coverage.json. Reuse adequate dated evidence; new checks must state their purpose.",
+  "entries": [
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: cannes_main, cannes_grand_prix, cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: venice_main, venice_grand_jury, venice_jury, venice_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: berlin_main, berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {
+        "bafta_best_film": {
+          "family": "european_recognition",
+          "venue": "BAFTA",
+          "normalized_points": 25,
+          "evidence": [
+            {
+              "component": "bafta_best_film",
+              "status": "nominee",
+              "category": "BAFTA: bafta film award / best film (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt14905854",
+              "component": "bafta_best_film",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Film",
+              "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: bafta_non_english"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: efa_best_film"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: spirit_best_feature, spirit_first_feature"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {
+        "gotham_best_feature": {
+          "family": "independent_cinema",
+          "venue": "Gotham",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "component": "gotham_best_feature",
+              "status": "nominee",
+              "category": "Gotham Best Feature (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt14905854",
+              "component": "gotham_best_feature",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Feature",
+              "source_url": "https://letterboxd.com/thegotham/list/2025-gotham-film-awards-best-feature-nominees/detail/",
+              "verification": "institution_authored_indexed_page",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            },
+            {
+              "imdb_id": "tt14905854",
+              "tmdb_id": 858024,
+              "film_title": "Hamnet",
+              "component": "gotham_best_feature",
+              "status": "nominee",
+              "category": "Best Feature",
+              "event_year": 2025,
+              "event_date": "2025-10-28",
+              "event_date_kind": "nomination_announcement",
+              "source_id": "gotham25",
+              "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854"
+          ],
+          "venue": "Gotham",
+          "status": "verified_positive",
+          "scope": "2025 Best Feature nomination list only; no whole-family absence",
+          "components": [
+            "gotham_best_feature"
+          ],
+          "event_year": 2025,
+          "source_id": "gotham25",
+          "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {
+        "academy_best_picture": {
+          "family": "us_institutional",
+          "venue": "Academy",
+          "normalized_points": 65,
+          "evidence": [
+            {
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "category": "Academy: oscar / best motion picture of the year (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt14905854",
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Picture",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            },
+            {
+              "imdb_id": "tt14905854",
+              "tmdb_id": 858024,
+              "film_title": "Hamnet",
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "category": "Best Picture",
+              "event_year": 2026,
+              "event_date": "2026-03-15",
+              "event_date_kind": "ceremony",
+              "source_id": "academy26",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+          "observed_at": "2026-10-25"
+        },
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+          "components": [
+            "academy_best_picture",
+            "academy_international"
+          ],
+          "event_year": 2026,
+          "source_id": "academy26",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: academy_animated, academy_documentary"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {
+        "globe_best_picture": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 25,
+          "evidence": [
+            {
+              "component": "globe_best_picture",
+              "status": "winner",
+              "category": "Golden Globes: golden globe / best motion picture - drama (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt14905854",
+              "component": "globe_best_picture",
+              "status": "winner",
+              "event_year": 2026,
+              "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+              "source_url": "https://goldenglobes.com/nominations/2026/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854"
+          ],
+          "venue": "Golden Globes",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+          "source_url": "https://goldenglobes.com/nominations/2026/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: globe_non_english, globe_animated"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854"
+          ],
+          "venue": "NSFC",
+          "status": "verified_no_award",
+          "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nsfc_best_picture"
+          ],
+          "event_year": 2025,
+          "source_id": "nsfc25",
+          "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854"
+          ],
+          "venue": "NYFCC",
+          "status": "verified_no_award",
+          "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nyfcc_best_film"
+          ],
+          "event_year": 2025,
+          "source_id": "nyfcc",
+          "source_url": "https://www.nyfcc.com/awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854",
+            "tt27714581",
+            "tt36491653",
+            "tt32298285",
+            "tt30144839",
+            "tt31193180",
+            "tt21349688",
+            "tt32843349",
+            "tt29768334",
+            "tt28690468",
+            "tt32928666"
+          ],
+          "venue": "LAFCA",
+          "status": "unavailable",
+          "scope": "2025 direct official archive retrieval failed; not proof of absence",
+          "components": [
+            "lafca_best_film"
+          ],
+          "event_year": 2025,
+          "source_url": "https://www.lafca.net/Years/2025.php",
+          "observed_at": "2026-10-26",
+          "verification": "failed_web_open"
+        }
+      ],
+      "known_gaps": [
+        "Official record access failed in Task 2; do not treat as zero evidence."
+      ],
+      "focus_edition": 2025,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt14905854",
+      "title": "Hamnet",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {
+        "critics_choice_best_picture": {
+          "family": "critics_groups_consensus",
+          "venue": "Critics Choice",
+          "normalized_points": 8,
+          "evidence": [
+            {
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "category": "Critics Choice Best Picture (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt14905854",
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Picture",
+              "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854"
+          ],
+          "venue": "Critics Choice",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2026,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {
+        "cannes_main": {
+          "family": "european_recognition",
+          "venue": "Cannes",
+          "normalized_points": 70,
+          "evidence": [
+            {
+              "component": "cannes_main",
+              "status": "winner",
+              "category": "Cannes: palme d'or / palme d'or (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "component": "cannes_main",
+              "status": "winner",
+              "event_year": 2024,
+              "category": "Palme d'or",
+              "source_url": "https://www.festival-cannes.com/en/press/press-releases/the-77th-festival-de-cannes-winners-list/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: cannes_grand_prix, cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: venice_main, venice_grand_jury, venice_jury, venice_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: berlin_main, berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {
+        "bafta_best_film": {
+          "family": "european_recognition",
+          "venue": "BAFTA",
+          "normalized_points": 25,
+          "evidence": [
+            {
+              "component": "bafta_best_film",
+              "status": "nominee",
+              "category": "BAFTA: bafta film award / best film (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "component": "bafta_best_film",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Film",
+              "source_url": "https://www.bafta.org/awards/film/?award-year=2025",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: bafta_non_english"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: efa_best_film"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {
+        "spirit_best_feature": {
+          "family": "independent_cinema",
+          "venue": "Spirit",
+          "normalized_points": 50,
+          "evidence": [
+            {
+              "component": "spirit_best_feature",
+              "status": "winner",
+              "category": "Spirit: independent spirit award / best feature (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "component": "spirit_best_feature",
+              "status": "winner",
+              "event_year": 2025,
+              "category": "Best Feature",
+              "source_url": "https://www.filmindependent.org/press-releases/film-independent-celebrates-2025-spirit-awards-winners-organizations-history-at-40th-annual-ceremony/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: spirit_first_feature"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {
+        "gotham_best_feature": {
+          "family": "independent_cinema",
+          "venue": "Gotham",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "component": "gotham_best_feature",
+              "status": "nominee",
+              "category": "Gotham Best Feature (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "tmdb_id": 1064213,
+              "film_title": "Anora",
+              "component": "gotham_best_feature",
+              "status": "nominee",
+              "category": "Best Feature",
+              "event_year": 2024,
+              "event_date": "2024-10-29",
+              "event_date_kind": "nomination_announcement",
+              "source_id": "gotham24",
+              "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951"
+          ],
+          "venue": "Gotham",
+          "status": "verified_positive",
+          "scope": "2024 Best Feature nomination list only; no whole-family absence",
+          "components": [
+            "gotham_best_feature"
+          ],
+          "event_year": 2024,
+          "source_id": "gotham24",
+          "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {
+        "academy_best_picture": {
+          "family": "us_institutional",
+          "venue": "Academy",
+          "normalized_points": 100,
+          "evidence": [
+            {
+              "component": "academy_best_picture",
+              "status": "winner",
+              "category": "Academy: oscar / best motion picture of the year (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "component": "academy_best_picture",
+              "status": "winner",
+              "event_year": 2025,
+              "category": "Best Picture",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: academy_international, academy_animated, academy_documentary"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {
+        "globe_best_picture": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "component": "globe_best_picture",
+              "status": "nominee",
+              "category": "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "component": "globe_best_picture",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+              "source_url": "https://goldenglobes.com/nominations/2025/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951"
+          ],
+          "venue": "Golden Globes",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+          "source_url": "https://goldenglobes.com/nominations/2025/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: globe_non_english, globe_animated"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951"
+          ],
+          "venue": "NSFC",
+          "status": "verified_no_award",
+          "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nsfc_best_picture"
+          ],
+          "event_year": 2024,
+          "source_id": "nsfc24",
+          "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951"
+          ],
+          "venue": "NYFCC",
+          "status": "verified_no_award",
+          "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nyfcc_best_film"
+          ],
+          "event_year": 2024,
+          "source_id": "nyfcc",
+          "source_url": "https://www.nyfcc.com/awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {
+        "lafca_best_film": {
+          "family": "critics_groups_consensus",
+          "venue": "LAFCA",
+          "normalized_points": 35,
+          "evidence": [
+            {
+              "component": "lafca_best_film",
+              "status": "winner",
+              "category": "LAFCA Best Film (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "tmdb_id": 1064213,
+              "film_title": "Anora",
+              "component": "lafca_best_film",
+              "status": "winner",
+              "category": "Best Picture",
+              "event_year": 2024,
+              "event_date": null,
+              "event_date_kind": "edition",
+              "source_id": "lafca24",
+              "source_url": "https://www.lafca.net/Years/2024.php",
+              "observed_at": "2026-10-26",
+              "verification": "indexed_primary_page",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951",
+            "tt8999762",
+            "tt17526714",
+            "tt15239678",
+            "tt20221436",
+            "tt14961016",
+            "tt4772188",
+            "tt21097228",
+            "tt30057084"
+          ],
+          "venue": "LAFCA",
+          "status": "unavailable",
+          "scope": "2024 direct official archive retrieval failed; not proof of absence",
+          "components": [
+            "lafca_best_film"
+          ],
+          "event_year": 2024,
+          "source_url": "https://www.lafca.net/Years/2024.php",
+          "observed_at": "2026-10-26",
+          "verification": "failed_web_open"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "Official record access failed in Task 2; do not treat as zero evidence."
+      ],
+      "focus_edition": 2024,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt28607951",
+      "title": "Anora",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {
+        "critics_choice_best_picture": {
+          "family": "critics_groups_consensus",
+          "venue": "Critics Choice",
+          "normalized_points": 25,
+          "evidence": [
+            {
+              "component": "critics_choice_best_picture",
+              "status": "winner",
+              "category": "Critics Choice Best Picture (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt28607951",
+              "component": "critics_choice_best_picture",
+              "status": "winner",
+              "event_year": 2025,
+              "category": "Best Picture",
+              "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951"
+          ],
+          "venue": "Critics Choice",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: cannes_main, cannes_grand_prix, cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {
+        "venice_main": {
+          "family": "european_recognition",
+          "venue": "Venice",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "component": "venice_main",
+              "status": "competition",
+              "category": "Venice: golden lion / best film (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "tmdb_id": 549509,
+              "film_title": "The Brutalist",
+              "component": "venice_main",
+              "status": "competition",
+              "category": "Venezia 81 Competition",
+              "event_year": 2024,
+              "event_date": null,
+              "event_date_kind": "edition",
+              "source_id": "venice24",
+              "source_url": "https://www.labiennale.org/en/cinema/2024/venezia-81-competition",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        },
+        "venice_director": {
+          "family": "european_recognition",
+          "venue": "Venice",
+          "normalized_points": 30,
+          "evidence": [
+            {
+              "component": "venice_director",
+              "status": "winner",
+              "category": "Venice: silver lion / best director (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "component": "venice_director",
+              "status": "winner",
+              "event_year": 2024,
+              "category": "Silver Lion, Best Director: Brady Corbet for this film",
+              "source_url": "https://www.labiennale.org/en/news/official-awards-81st-venice-international-film-festival",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: venice_grand_jury, venice_jury"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: berlin_main, berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {
+        "bafta_best_film": {
+          "family": "european_recognition",
+          "venue": "BAFTA",
+          "normalized_points": 25,
+          "evidence": [
+            {
+              "component": "bafta_best_film",
+              "status": "nominee",
+              "category": "BAFTA: bafta film award / best film (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "component": "bafta_best_film",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Film",
+              "source_url": "https://www.bafta.org/awards/film/?award-year=2025",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: bafta_non_english"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: efa_best_film"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: spirit_best_feature, spirit_first_feature"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt8999762"
+          ],
+          "venue": "Gotham",
+          "status": "verified_no_award",
+          "scope": "2024 Best Feature nomination list only; no whole-family absence",
+          "components": [
+            "gotham_best_feature"
+          ],
+          "event_year": 2024,
+          "source_id": "gotham24",
+          "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {
+        "academy_best_picture": {
+          "family": "us_institutional",
+          "venue": "Academy",
+          "normalized_points": 65,
+          "evidence": [
+            {
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "category": "Academy: oscar / best motion picture of the year (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Picture",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt8999762"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: academy_international, academy_animated, academy_documentary"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {
+        "globe_best_picture": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 25,
+          "evidence": [
+            {
+              "component": "globe_best_picture",
+              "status": "winner",
+              "category": "Golden Globes: golden globe / best motion picture - drama (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "component": "globe_best_picture",
+              "status": "winner",
+              "event_year": 2025,
+              "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+              "source_url": "https://goldenglobes.com/nominations/2025/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt8999762"
+          ],
+          "venue": "Golden Globes",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+          "source_url": "https://goldenglobes.com/nominations/2025/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: globe_non_english, globe_animated"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt8999762"
+          ],
+          "venue": "NSFC",
+          "status": "verified_no_award",
+          "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nsfc_best_picture"
+          ],
+          "event_year": 2024,
+          "source_id": "nsfc24",
+          "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {
+        "nyfcc_best_film": {
+          "family": "critics_groups_consensus",
+          "venue": "NYFCC",
+          "normalized_points": 35,
+          "evidence": [
+            {
+              "component": "nyfcc_best_film",
+              "status": "winner",
+              "category": "NYFCC Best Film (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "component": "nyfcc_best_film",
+              "status": "winner",
+              "event_year": 2024,
+              "category": "Best Film",
+              "source_url": "https://www.nyfcc.com/awards/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "tmdb_id": 549509,
+              "film_title": "The Brutalist",
+              "component": "nyfcc_best_film",
+              "status": "winner",
+              "category": "Best Film",
+              "event_year": 2024,
+              "event_date": null,
+              "event_date_kind": "edition",
+              "source_id": "nyfcc",
+              "source_url": "https://www.nyfcc.com/awards/",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt8999762"
+          ],
+          "venue": "NYFCC",
+          "status": "verified_positive",
+          "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nyfcc_best_film"
+          ],
+          "event_year": 2024,
+          "source_id": "nyfcc",
+          "source_url": "https://www.nyfcc.com/awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951",
+            "tt8999762",
+            "tt17526714",
+            "tt15239678",
+            "tt20221436",
+            "tt14961016",
+            "tt4772188",
+            "tt21097228",
+            "tt30057084"
+          ],
+          "venue": "LAFCA",
+          "status": "unavailable",
+          "scope": "2024 direct official archive retrieval failed; not proof of absence",
+          "components": [
+            "lafca_best_film"
+          ],
+          "event_year": 2024,
+          "source_url": "https://www.lafca.net/Years/2024.php",
+          "observed_at": "2026-10-26",
+          "verification": "failed_web_open"
+        }
+      ],
+      "known_gaps": [
+        "Official record access failed in Task 2; do not treat as zero evidence."
+      ],
+      "focus_edition": 2024,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt8999762",
+      "title": "The Brutalist",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {
+        "critics_choice_best_picture": {
+          "family": "critics_groups_consensus",
+          "venue": "Critics Choice",
+          "normalized_points": 8,
+          "evidence": [
+            {
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "category": "Critics Choice Best Picture (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt8999762",
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Picture",
+              "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt8999762"
+          ],
+          "venue": "Critics Choice",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {
+        "cannes_main": {
+          "family": "european_recognition",
+          "venue": "Cannes",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "component": "cannes_main",
+              "status": "competition",
+              "category": "Cannes: palme d'or / palme d'or (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt17526714",
+              "tmdb_id": 933260,
+              "film_title": "The Substance",
+              "component": "cannes_main",
+              "status": "competition",
+              "category": "In Competition (feature film, not screenplay points)",
+              "event_year": 2024,
+              "event_date": null,
+              "event_date_kind": "edition",
+              "source_id": "cannes24",
+              "source_url": "https://www.festival-cannes.com/en/f/the-substance/",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: cannes_grand_prix, cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: venice_main, venice_grand_jury, venice_jury, venice_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: berlin_main, berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: bafta_best_film, bafta_non_english"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {
+        "efa_best_film": {
+          "family": "european_recognition",
+          "venue": "EFA",
+          "normalized_points": 12,
+          "evidence": [
+            {
+              "component": "efa_best_film",
+              "status": "nominee",
+              "category": "European Film Awards Best Film (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt17526714",
+              "component": "efa_best_film",
+              "status": "nominee",
+              "event_year": 2024,
+              "category": "European Film",
+              "source_url": "https://www.europeanfilmawards.eu/efa-movie/the-substance/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2024,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {
+        "spirit_best_feature": {
+          "family": "independent_cinema",
+          "venue": "Spirit",
+          "normalized_points": 20,
+          "evidence": [
+            {
+              "component": "spirit_best_feature",
+              "status": "nominee",
+              "category": "Spirit: independent spirit award / best feature (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt17526714",
+              "tmdb_id": 933260,
+              "film_title": "The Substance",
+              "component": "spirit_best_feature",
+              "status": "nominee",
+              "category": "Best Feature",
+              "event_year": 2025,
+              "event_date": "2024-12-04",
+              "event_date_kind": "nomination_announcement",
+              "source_id": "spirit25",
+              "source_url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-40th-anniversary-2025-spirit-awards/",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: spirit_first_feature"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt17526714"
+          ],
+          "venue": "Gotham",
+          "status": "verified_no_award",
+          "scope": "2024 Best Feature nomination list only; no whole-family absence",
+          "components": [
+            "gotham_best_feature"
+          ],
+          "event_year": 2024,
+          "source_id": "gotham24",
+          "source_url": "https://thegotham.org/press/the-gothams-announce-award-nominees-for-34th-edition/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {
+        "academy_best_picture": {
+          "family": "us_institutional",
+          "venue": "Academy",
+          "normalized_points": 65,
+          "evidence": [
+            {
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "category": "Academy: oscar / best motion picture of the year (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt17526714",
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Picture",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt17526714"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2025",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: academy_international, academy_animated, academy_documentary"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {
+        "globe_best_picture": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "component": "globe_best_picture",
+              "status": "nominee",
+              "category": "Golden Globes: golden globe / best motion picture - musical or comedy (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt17526714",
+              "component": "globe_best_picture",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+              "source_url": "https://goldenglobes.com/nominations/2025/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt17526714"
+          ],
+          "venue": "Golden Globes",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+          "source_url": "https://goldenglobes.com/nominations/2025/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: globe_non_english, globe_animated"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt17526714"
+          ],
+          "venue": "NSFC",
+          "status": "verified_no_award",
+          "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nsfc_best_picture"
+          ],
+          "event_year": 2024,
+          "source_id": "nsfc24",
+          "source_url": "https://nationalsocietyoffilmcritics.com/2025/01/04/nickel-boys-voted-best-picture-of-2024/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt17526714"
+          ],
+          "venue": "NYFCC",
+          "status": "verified_no_award",
+          "scope": "2024 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nyfcc_best_film"
+          ],
+          "event_year": 2024,
+          "source_id": "nyfcc",
+          "source_url": "https://www.nyfcc.com/awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2024,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt28607951",
+            "tt8999762",
+            "tt17526714",
+            "tt15239678",
+            "tt20221436",
+            "tt14961016",
+            "tt4772188",
+            "tt21097228",
+            "tt30057084"
+          ],
+          "venue": "LAFCA",
+          "status": "unavailable",
+          "scope": "2024 direct official archive retrieval failed; not proof of absence",
+          "components": [
+            "lafca_best_film"
+          ],
+          "event_year": 2024,
+          "source_url": "https://www.lafca.net/Years/2024.php",
+          "observed_at": "2026-10-26",
+          "verification": "failed_web_open"
+        }
+      ],
+      "known_gaps": [
+        "Official record access failed in Task 2; do not treat as zero evidence."
+      ],
+      "focus_edition": 2024,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt17526714",
+      "title": "The Substance",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {
+        "critics_choice_best_picture": {
+          "family": "critics_groups_consensus",
+          "venue": "Critics Choice",
+          "normalized_points": 8,
+          "evidence": [
+            {
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "category": "Critics Choice Best Picture (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt17526714",
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "event_year": 2025,
+              "category": "Best Picture",
+              "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt17526714"
+          ],
+          "venue": "Critics Choice",
+          "status": "verified_positive",
+          "scope": "2025 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.criticschoice.com/30th-annual-critics-choice-awards-list-of-nominees-and-winners-2025/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {
+        "cannes_main": {
+          "family": "european_recognition",
+          "venue": "Cannes",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "cannes_main",
+              "status": "competition",
+              "event_year": 2025,
+              "category": "Main Competition; not a Palme win",
+              "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        },
+        "cannes_grand_prix": {
+          "family": "european_recognition",
+          "venue": "Cannes",
+          "normalized_points": 55,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "cannes_grand_prix",
+              "status": "winner",
+              "event_year": 2025,
+              "category": "Grand Prix",
+              "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: venice_main, venice_grand_jury, venice_jury, venice_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: berlin_main, berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {
+        "bafta_best_film": {
+          "family": "european_recognition",
+          "venue": "BAFTA",
+          "normalized_points": 25,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "bafta_best_film",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Film",
+              "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        },
+        "bafta_non_english": {
+          "family": "european_recognition",
+          "venue": "BAFTA",
+          "normalized_points": 35,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "bafta_non_english",
+              "status": "winner",
+              "event_year": 2026,
+              "category": "Film Not in the English Language",
+              "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2026,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {
+        "efa_best_film": {
+          "family": "european_recognition",
+          "venue": "EFA",
+          "normalized_points": 40,
+          "evidence": [
+            {
+              "component": "efa_best_film",
+              "status": "winner",
+              "category": "European Film Awards Best Film (winner)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt27714581",
+              "component": "efa_best_film",
+              "status": "winner",
+              "event_year": 2026,
+              "category": "European Film",
+              "source_url": "https://www.europeanfilmawards.eu/efa-movie/sentimental-value/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2026,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: spirit_best_feature, spirit_first_feature"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt27714581"
+          ],
+          "venue": "Gotham",
+          "status": "verified_no_award",
+          "scope": "2025 Best Feature nomination list only; no whole-family absence",
+          "components": [
+            "gotham_best_feature"
+          ],
+          "event_year": 2025,
+          "source_id": "gotham25",
+          "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {
+        "academy_best_picture": {
+          "family": "us_institutional",
+          "venue": "Academy",
+          "normalized_points": 65,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Picture",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            },
+            {
+              "imdb_id": "tt27714581",
+              "tmdb_id": 1124566,
+              "film_title": "Sentimental Value",
+              "component": "academy_best_picture",
+              "status": "nominee",
+              "category": "Best Picture",
+              "event_year": 2026,
+              "event_date": "2026-03-15",
+              "event_date_kind": "ceremony",
+              "source_id": "academy26",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        },
+        "academy_international": {
+          "family": "us_institutional",
+          "venue": "Academy",
+          "normalized_points": 70,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "academy_international",
+              "status": "winner",
+              "event_year": 2026,
+              "category": "International Feature Film",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            },
+            {
+              "imdb_id": "tt27714581",
+              "tmdb_id": 1124566,
+              "film_title": "Sentimental Value",
+              "component": "academy_international",
+              "status": "winner",
+              "category": "International Feature Film",
+              "event_year": 2026,
+              "event_date": "2026-03-15",
+              "event_date_kind": "ceremony",
+              "source_id": "academy26",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt27714581"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+          "observed_at": "2026-10-25"
+        },
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt27714581"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+          "components": [
+            "academy_best_picture",
+            "academy_international"
+          ],
+          "event_year": 2026,
+          "source_id": "academy26",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: academy_animated, academy_documentary"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {
+        "globe_best_picture": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "globe_best_picture",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+              "source_url": "https://goldenglobes.com/nominations/2026/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        },
+        "globe_non_english": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 5,
+          "evidence": [
+            {
+              "imdb_id": "tt27714581",
+              "component": "globe_non_english",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Motion Picture, Non-English Language",
+              "source_url": "https://goldenglobes.com/nominations/2026/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt27714581"
+          ],
+          "venue": "Golden Globes",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+          "source_url": "https://goldenglobes.com/nominations/2026/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: globe_animated"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt27714581"
+          ],
+          "venue": "NSFC",
+          "status": "verified_no_award",
+          "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nsfc_best_picture"
+          ],
+          "event_year": 2025,
+          "source_id": "nsfc25",
+          "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt27714581"
+          ],
+          "venue": "NYFCC",
+          "status": "verified_no_award",
+          "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nyfcc_best_film"
+          ],
+          "event_year": 2025,
+          "source_id": "nyfcc",
+          "source_url": "https://www.nyfcc.com/awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854",
+            "tt27714581",
+            "tt36491653",
+            "tt32298285",
+            "tt30144839",
+            "tt31193180",
+            "tt21349688",
+            "tt32843349",
+            "tt29768334",
+            "tt28690468",
+            "tt32928666"
+          ],
+          "venue": "LAFCA",
+          "status": "unavailable",
+          "scope": "2025 direct official archive retrieval failed; not proof of absence",
+          "components": [
+            "lafca_best_film"
+          ],
+          "event_year": 2025,
+          "source_url": "https://www.lafca.net/Years/2025.php",
+          "observed_at": "2026-10-26",
+          "verification": "failed_web_open"
+        }
+      ],
+      "known_gaps": [
+        "Official record access failed in Task 2; do not treat as zero evidence."
+      ],
+      "focus_edition": 2025,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt27714581",
+      "title": "Sentimental Value",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {
+        "critics_choice_best_picture": {
+          "family": "critics_groups_consensus",
+          "venue": "Critics Choice",
+          "normalized_points": 8,
+          "evidence": [
+            {
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "category": "Critics Choice Best Picture (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt27714581",
+              "component": "critics_choice_best_picture",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Picture",
+              "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt27714581"
+          ],
+          "venue": "Critics Choice",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2026,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {
+        "cannes_main": {
+          "family": "european_recognition",
+          "venue": "Cannes",
+          "normalized_points": 70,
+          "evidence": [
+            {
+              "imdb_id": "tt36491653",
+              "component": "cannes_main",
+              "status": "winner",
+              "event_year": 2025,
+              "category": "Palme d'or",
+              "source_url": "https://www.festival-cannes.com/en/retrospective/2025/awards/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: cannes_grand_prix, cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: venice_main, venice_grand_jury, venice_jury, venice_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: berlin_main, berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {
+        "bafta_non_english": {
+          "family": "european_recognition",
+          "venue": "BAFTA",
+          "normalized_points": 15,
+          "evidence": [
+            {
+              "imdb_id": "tt36491653",
+              "component": "bafta_non_english",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Film Not in the English Language",
+              "source_url": "https://www.bafta.org/awards/film/?award-year=2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: bafta_best_film"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {
+        "efa_best_film": {
+          "family": "european_recognition",
+          "venue": "EFA",
+          "normalized_points": 12,
+          "evidence": [
+            {
+              "component": "efa_best_film",
+              "status": "nominee",
+              "category": "European Film Awards Best Film (nominee)",
+              "source_url": "https://github.com/kolorifer/radarr-festival-list/blob/9c5a0f06e1c39e48653338fd0865ddabdc525a61/sources/evidence-families.json",
+              "verification": "archived_secondary",
+              "event_year": null,
+              "observed_at": null
+            },
+            {
+              "imdb_id": "tt36491653",
+              "component": "efa_best_film",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "European Film",
+              "source_url": "https://www.europeanfilmawards.eu/efa-movie/it-was-just-an-accident/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions."
+      ],
+      "focus_edition": 2026,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2025,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: spirit_best_feature, spirit_first_feature"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt36491653"
+          ],
+          "venue": "Gotham",
+          "status": "verified_no_award",
+          "scope": "2025 Best Feature nomination list only; no whole-family absence",
+          "components": [
+            "gotham_best_feature"
+          ],
+          "event_year": 2025,
+          "source_id": "gotham25",
+          "source_url": "https://thegotham.org/press/nominations-announced-for-35th-annual-gotham-film-awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {
+        "academy_international": {
+          "family": "us_institutional",
+          "venue": "Academy",
+          "normalized_points": 35,
+          "evidence": [
+            {
+              "imdb_id": "tt36491653",
+              "component": "academy_international",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "International Feature Film",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            },
+            {
+              "imdb_id": "tt36491653",
+              "tmdb_id": 1456349,
+              "film_title": "It Was Just an Accident",
+              "component": "academy_international",
+              "status": "nominee",
+              "category": "International Feature Film",
+              "event_year": 2026,
+              "event_date": "2026-03-15",
+              "event_date_kind": "ceremony",
+              "source_id": "academy26",
+              "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+              "observed_at": "2026-10-26",
+              "verification": "primary_page_via_web",
+              "unique_film_attribution": true,
+              "identity_binding": "Named film and director/producers matched to unchanged Task 1 exact-ID identity; institution page does not assert IMDb ID."
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt36491653"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Best Picture / International / Animated / Documentary Feature; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+          "observed_at": "2026-10-25"
+        },
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt36491653"
+          ],
+          "venue": "Academy",
+          "status": "verified_positive",
+          "scope": "2026 ceremony Best Picture and International Feature Film nominee/winner lists only; not all Academy awards",
+          "components": [
+            "academy_best_picture",
+            "academy_international"
+          ],
+          "event_year": 2026,
+          "source_id": "academy26",
+          "source_url": "https://www.oscars.org/oscars/ceremonies/2026",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: academy_animated, academy_documentary"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {
+        "globe_best_picture": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "imdb_id": "tt36491653",
+              "component": "globe_best_picture",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Motion Picture, Drama or Musical/Comedy (one shared historical component)",
+              "source_url": "https://goldenglobes.com/nominations/2026/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        },
+        "globe_non_english": {
+          "family": "us_institutional",
+          "venue": "Golden Globes",
+          "normalized_points": 5,
+          "evidence": [
+            {
+              "imdb_id": "tt36491653",
+              "component": "globe_non_english",
+              "status": "nominee",
+              "event_year": 2026,
+              "category": "Best Motion Picture, Non-English Language",
+              "source_url": "https://goldenglobes.com/nominations/2026/",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt36491653"
+          ],
+          "venue": "Golden Globes",
+          "status": "verified_positive",
+          "scope": "2026 ceremony, Motion Picture Drama, Comedy/Musical, Animated, Non-English; no assertion about acting/other categories or other editions",
+          "source_url": "https://goldenglobes.com/nominations/2026/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: globe_animated"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt36491653"
+          ],
+          "venue": "NSFC",
+          "status": "verified_no_award",
+          "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nsfc_best_picture"
+          ],
+          "event_year": 2025,
+          "source_id": "nsfc25",
+          "source_url": "https://nationalsocietyoffilmcritics.com/2026/01/03/one-battle-after-another-named-best-picture-of-2025/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt36491653"
+          ],
+          "venue": "NYFCC",
+          "status": "verified_no_award",
+          "scope": "2025 Best Film/Picture winner only; no other category or edition absence",
+          "components": [
+            "nyfcc_best_film"
+          ],
+          "event_year": 2025,
+          "source_id": "nyfcc",
+          "source_url": "https://www.nyfcc.com/awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [],
+      "focus_edition": 2025,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt14905854",
+            "tt27714581",
+            "tt36491653",
+            "tt32298285",
+            "tt30144839",
+            "tt31193180",
+            "tt21349688",
+            "tt32843349",
+            "tt29768334",
+            "tt28690468",
+            "tt32928666"
+          ],
+          "venue": "LAFCA",
+          "status": "unavailable",
+          "scope": "2025 direct official archive retrieval failed; not proof of absence",
+          "components": [
+            "lafca_best_film"
+          ],
+          "event_year": 2025,
+          "source_url": "https://www.lafca.net/Years/2025.php",
+          "observed_at": "2026-10-26",
+          "verification": "failed_web_open"
+        }
+      ],
+      "known_gaps": [
+        "Official record access failed in Task 2; do not treat as zero evidence."
+      ],
+      "focus_edition": 2025,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt36491653",
+      "title": "It Was Just an Accident",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt36491653"
+          ],
+          "venue": "Critics Choice",
+          "status": "verified_no_award",
+          "scope": "2026 ceremony, Best Picture only; no assertion about acting/other categories or other editions",
+          "source_url": "https://www.criticschoice.com/31st-annual-critics-choice-awards-list-of-nominees-and-winners-2026/",
+          "observed_at": "2026-10-25"
+        }
+      ],
+      "known_gaps": [
+        "No component-specific retained check: critics_choice_best_picture"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: cannes_main, cannes_grand_prix, cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: venice_main, venice_grand_jury, venice_jury, venice_director"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {
+        "berlin_main": {
+          "family": "european_recognition",
+          "venue": "Berlin",
+          "normalized_points": 10,
+          "evidence": [
+            {
+              "imdb_id": "tt29271639",
+              "component": "berlin_main",
+              "status": "competition",
+              "event_year": 2026,
+              "category": "Main Competition",
+              "source_url": "https://www.berlinale-talents.de/bt/page/c/festival-returnees-2026",
+              "verification": "primary_web_observation",
+              "observed_at": "2026-10-25",
+              "source_measurement_date": null
+            }
+          ]
+        }
+      },
+      "retained_checks": [],
+      "known_gaps": [
+        "Positive facts do not establish absence in remaining categories/editions.",
+        "No component-specific retained check: berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: bafta_best_film, bafta_non_english"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: efa_best_film"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: spirit_best_feature, spirit_first_feature"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: gotham_best_feature"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt29271639"
+          ],
+          "venue": "Academy",
+          "status": "not_yet_announced",
+          "scope": "99th Oscars: nominations scheduled 2027-01-21; eligible 2026 season, eligibility of this film not asserted",
+          "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+          "observed_at": "2026-10-25"
+        },
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt29271639"
+          ],
+          "venue": "Academy",
+          "status": "not_yet_announced",
+          "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+          "components": [
+            "academy_best_picture",
+            "academy_international",
+            "academy_animated",
+            "academy_documentary"
+          ],
+          "event_year": 2027,
+          "source_id": "academy27",
+          "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Next release-season record remains pending; no film eligibility asserted."
+      ],
+      "focus_edition": 2027,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: globe_best_picture, globe_non_english, globe_animated"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: nsfc_best_picture"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: nyfcc_best_film"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: lafca_best_film"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt29271639",
+      "title": "Nina Roza",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt29271639"
+          ],
+          "venue": "Critics Choice",
+          "status": "not_yet_announced",
+          "scope": "32nd ceremony scheduled 2027-01-03; 2026-season awards not yet awarded",
+          "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+          "observed_at": "2026-10-25"
+        },
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt29271639"
+          ],
+          "venue": "Critics Choice",
+          "status": "not_yet_announced",
+          "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+          "components": [
+            "critics_choice_best_picture"
+          ],
+          "event_year": 2027,
+          "source_id": "cc27",
+          "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Next release-season record remains pending; no film eligibility asserted."
+      ],
+      "focus_edition": 2027,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Cannes",
+      "family": "european_recognition",
+      "components": [
+        "cannes_main",
+        "cannes_grand_prix",
+        "cannes_jury",
+        "cannes_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: cannes_main, cannes_grand_prix, cannes_jury, cannes_director"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Venice",
+      "family": "european_recognition",
+      "components": [
+        "venice_main",
+        "venice_grand_jury",
+        "venice_jury",
+        "venice_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: venice_main, venice_grand_jury, venice_jury, venice_director"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Berlin",
+      "family": "european_recognition",
+      "components": [
+        "berlin_main",
+        "berlin_grand_jury",
+        "berlin_jury",
+        "berlin_director"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: berlin_main, berlin_grand_jury, berlin_jury, berlin_director"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "BAFTA",
+      "family": "european_recognition",
+      "components": [
+        "bafta_best_film",
+        "bafta_non_english"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: bafta_best_film, bafta_non_english"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "EFA",
+      "family": "european_recognition",
+      "components": [
+        "efa_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: efa_best_film"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Sundance",
+      "family": "independent_cinema",
+      "components": [
+        "sundance_grand_jury",
+        "sundance_audience",
+        "sundance_director",
+        "sundance_special_jury"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: sundance_grand_jury, sundance_audience, sundance_director, sundance_special_jury"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Spirit",
+      "family": "independent_cinema",
+      "components": [
+        "spirit_best_feature",
+        "spirit_first_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: spirit_best_feature, spirit_first_feature"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Gotham",
+      "family": "independent_cinema",
+      "components": [
+        "gotham_best_feature"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: gotham_best_feature"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Academy",
+      "family": "us_institutional",
+      "components": [
+        "academy_best_picture",
+        "academy_international",
+        "academy_animated",
+        "academy_documentary"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt38991615"
+          ],
+          "venue": "Academy",
+          "status": "not_yet_announced",
+          "scope": "99th Oscars: nominations scheduled 2027-01-21; eligible 2026 season, eligibility of this film not asserted",
+          "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+          "observed_at": "2026-10-25"
+        },
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt38991615"
+          ],
+          "venue": "Academy",
+          "status": "not_yet_announced",
+          "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+          "components": [
+            "academy_best_picture",
+            "academy_international",
+            "academy_animated",
+            "academy_documentary"
+          ],
+          "event_year": 2027,
+          "source_id": "academy27",
+          "source_url": "https://press.oscars.org/news/academy-and-abc-announce-show-dates-99th-and-100th-oscarsr",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Next release-season record remains pending; no film eligibility asserted."
+      ],
+      "focus_edition": 2027,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Golden Globes",
+      "family": "us_institutional",
+      "components": [
+        "globe_best_picture",
+        "globe_non_english",
+        "globe_animated"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: globe_best_picture, globe_non_english, globe_animated"
+      ],
+      "focus_edition": 2027,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "NSFC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nsfc_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: nsfc_best_picture"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "NYFCC",
+      "family": "critics_groups_consensus",
+      "components": [
+        "nyfcc_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: nyfcc_best_film"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "unchecked_scope",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "LAFCA",
+      "family": "critics_groups_consensus",
+      "components": [
+        "lafca_best_film"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [],
+      "known_gaps": [
+        "No retained fact or scoped check; absence unsupported.",
+        "No component-specific retained check: lafca_best_film"
+      ],
+      "focus_edition": 2026,
+      "research_priority": "access_or_attribution",
+      "edition_envelope": [
+        2024,
+        2025,
+        2026
+      ]
+    },
+    {
+      "imdb_id": "tt38991615",
+      "title": "I See Buildings Fall Like Lightning",
+      "institution": "Critics Choice",
+      "family": "critics_groups_consensus",
+      "components": [
+        "critics_choice_best_picture"
+      ],
+      "retained_scored_components": {},
+      "retained_checks": [
+        {
+          "packet": "inputs/observations.json",
+          "imdb_ids": [
+            "tt38991615"
+          ],
+          "venue": "Critics Choice",
+          "status": "not_yet_announced",
+          "scope": "32nd ceremony scheduled 2027-01-03; 2026-season awards not yet awarded",
+          "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+          "observed_at": "2026-10-25"
+        },
+        {
+          "packet": "task2/inputs/observations.json",
+          "imdb_ids": [
+            "tt38991615"
+          ],
+          "venue": "Critics Choice",
+          "status": "not_yet_announced",
+          "scope": "2026 release season / 2027 ceremony; pending, no assumed eligibility",
+          "components": [
+            "critics_choice_best_picture"
+          ],
+          "event_year": 2027,
+          "source_id": "cc27",
+          "source_url": "https://www.criticschoice.com/critics-choice-awards/",
+          "observed_at": "2026-10-26",
+          "verification": "primary_page_via_web"
+        }
+      ],
+      "known_gaps": [
+        "Next release-season record remains pending; no film eligibility asserted."
+      ],
+      "focus_edition": 2027,
+      "research_priority": "reuse_adequate_evidence",
+      "edition_envelope": [
+        2025,
+        2026,
+        2027
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+imdb_id,tmdb_id,title,retained_year,european_recognition,independent_cinema,us_institutional,critics_groups_consensus,coverage_status,complete_recognition_score,task2_base,new_base_observed_subtotal,signed_evidence_delta,base_subtotal,base_bonus_delta,base_evidence_delta_vs_task2_same_variant,tiff_subtotal,tiff_bonus_delta,tiff_evidence_delta_vs_task2_same_variant,screenplay_subtotal,screenplay_bonus_delta,screenplay_evidence_delta_vs_task2_same_variant,both_subtotal,both_bonus_delta,both_evidence_delta_vs_task2_same_variant
+tt14905854,858024,Hamnet,2025,5.0,1.0,9.0,0.8,partial_observed_subtotal,,15.8,15.8,0.0,15.8,0.0,0.0,19.8,4.0,0.0,15.8,0.0,0.0,19.8,4.0,0.0
+tt28607951,1064213,Anora,2024,19.0,6.0,10.0,6.0,partial_observed_subtotal,,41.0,41.0,0.0,41.0,0.0,0.0,41.0,0.0,0.0,41.0,0.0,0.0,41.0,0.0,0.0
+tt8999762,549509,The Brutalist,2024,13.0,0.0,9.0,4.3,partial_observed_subtotal,,26.3,26.3,0.0,26.3,0.0,0.0,26.3,0.0,0.0,26.3,0.0,0.0,26.3,0.0,0.0
+tt17526714,933260,The Substance,2024,4.4,2.0,7.5,0.8,partial_observed_subtotal,,14.7,14.7,0.0,14.7,0.0,0.0,14.7,0.0,0.0,20.7,6.0,0.0,20.7,6.0,0.0
+tt27714581,1124566,Sentimental Value,2025,20.0,0.0,10.0,0.8,partial_observed_subtotal,,30.8,30.8,0.0,30.8,0.0,0.0,30.8,0.0,0.0,30.8,0.0,0.0,30.8,0.0,0.0
+tt36491653,1456349,It Was Just an Accident,2025,19.4,0.0,5.0,0.0,partial_observed_subtotal,,24.4,24.4,0.0,24.4,0.0,0.0,24.4,0.0,0.0,24.4,0.0,0.0,24.4,0.0,0.0
+tt29271639,1527449,Nina Roza,2026,2.0,0.0,0.0,0.0,partial_observed_subtotal,,2.0,2.0,0.0,2.0,0.0,0.0,2.0,0.0,0.0,8.0,6.0,0.0,8.0,6.0,0.0
+tt38991615,1455247,I See Buildings Fall Like Lightning,2026,0.0,0.0,0.0,0.0,partial_observed_subtotal,,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

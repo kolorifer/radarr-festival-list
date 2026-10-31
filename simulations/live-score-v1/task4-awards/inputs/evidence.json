@@ -1,0 +1,1286 @@
+{
+  "task": 4,
+  "research_cutoff": "2026-10-28",
+  "method": "Bounded public web-reader research. Normalized facts only; no page archives. Sources inspected at day precision, origin freshness unknown. Failed/index-only sources never prove absence. No audience reads. Purpose-bound new checks follow pre-research gap inventory. Earlier positive facts reused without inflated re-verification counts.",
+  "sources": {
+    "spirit25": {
+      "url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-40th-anniversary-2025-spirit-awards/",
+      "institution": "Spirit",
+      "scope": "2025 Best Feature and Best First Feature final nominations",
+      "why_check_needed": "Close unchecked First Feature and Brutalist Best Feature scopes; reuse Anora/Substance positive nominations.",
+      "event_year": 2025,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "spirit_best_feature",
+          "selection_or_nomination"
+        ],
+        [
+          "spirit_first_feature",
+          "selection_or_nomination"
+        ]
+      ],
+      "category_members": {
+        "Best Feature": [
+          "Anora",
+          "I Saw the TV Glow",
+          "Nickel Boys",
+          "Sing Sing",
+          "The Substance"
+        ],
+        "Best First Feature": [
+          "Dìdi",
+          "In the Summers",
+          "Janet Planet",
+          "The Piano Lesson",
+          "Problemista"
+        ]
+      }
+    },
+    "spirit26": {
+      "url": "https://www.filmindependent.org/press-releases/film-independent-announces-nominees-for-the-2026-spirit-awards/",
+      "institution": "Spirit",
+      "scope": "2026 Best Feature and Best First Feature final nominations",
+      "why_check_needed": "2025 films have no retained Spirit scoped checks; test absence without guessing eligibility.",
+      "event_year": 2026,
+      "event_date": "2025-12-03",
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "spirit_best_feature",
+          "selection_or_nomination"
+        ],
+        [
+          "spirit_first_feature",
+          "selection_or_nomination"
+        ]
+      ],
+      "category_members": {
+        "Best Feature": [
+          "Peter Hujar’s Day",
+          "The Plague",
+          "Sorry, Baby",
+          "Train Dreams",
+          "Twinless"
+        ],
+        "Best First Feature": [
+          "Blue Sun Palace",
+          "Dust Bunny",
+          "East of Wall",
+          "Lurker",
+          "One of Them Days"
+        ]
+      }
+    },
+    "efa24": {
+      "url": "https://www.europeanfilmawards.eu/award-edition/awards-2024/",
+      "institution": "EFA",
+      "scope": "37th awards: European Film nominations and winner",
+      "why_check_needed": "Close unchecked Anora/Brutalist scope and Substance winner stage; no new EFA categories.",
+      "event_year": 2024,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "efa_best_film",
+          "selection_or_nomination"
+        ],
+        [
+          "efa_best_film",
+          "winner"
+        ]
+      ],
+      "category_members": {
+        "European Film": [
+          "Emilia Pérez",
+          "Bye Bye Tiberias",
+          "Dahomey",
+          "Flow",
+          "In Limbo",
+          "Living Large",
+          "No Other Land",
+          "Savages",
+          "Soundtrack to a Coup d’État",
+          "Sultana’s Dream",
+          "The Room Next Door",
+          "The Seed of the Sacred Fig",
+          "The Substance",
+          "They Shot the Piano Player",
+          "Vermiglio"
+        ]
+      },
+      "winner": "Emilia Pérez"
+    },
+    "efa26": {
+      "url": "https://www.europeanfilmawards.eu/award-edition/awards-2026/",
+      "institution": "EFA",
+      "scope": "38th awards: European Film nominations and winner",
+      "why_check_needed": "Close unchecked Hamnet and non-winning stage scopes; retain Sentimental Value/Accident positives.",
+      "event_year": 2026,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "efa_best_film",
+          "selection_or_nomination"
+        ],
+        [
+          "efa_best_film",
+          "winner"
+        ]
+      ],
+      "category_members": {
+        "European Film": [
+          "Sentimental Value",
+          "Afternoons of Solitude",
+          "Arco",
+          "Dog of God",
+          "Fiume o morte!",
+          "It Was Just an Accident",
+          "Little Amélie",
+          "Olivia and the Invisible Earthquake",
+          "Riefenstahl",
+          "Sirāt",
+          "Songs of Slow Burning Earth",
+          "Sound of Falling",
+          "Tales from the Magic Garden",
+          "The Voice of Hind Rajab",
+          "With Hasan in Gaza"
+        ]
+      },
+      "winner": "Sentimental Value"
+    },
+    "efa27": {
+      "url": "https://www.europeanfilmawards.eu/campaign-rules/",
+      "institution": "EFA",
+      "scope": "39th awards: nominations 2026-11-14, ceremony 2027-01-16; shortlist is separate",
+      "why_check_needed": "Resolve forthcoming nomination/award state; do not score shortlist.",
+      "event_year": 2027,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "gotham24final": {
+      "url": "https://thegotham.org/press/34th-gothams-winners/",
+      "institution": "Gotham",
+      "scope": "34th awards: Best Feature winner only",
+      "why_check_needed": "Retained nomination checks do not establish final winner outcome.",
+      "event_year": 2024,
+      "event_date": "2024-12-02",
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "gotham_best_feature",
+          "winner"
+        ]
+      ],
+      "winner": "A Different Man"
+    },
+    "gotham25final": {
+      "url": "https://thegotham.org/press/winners-2025-gotham-film-awards/",
+      "institution": "Gotham",
+      "scope": "35th awards: Best Feature winner; other categories contextual only",
+      "why_check_needed": "Close final-winner stage, distinguish Accident International Feature from scored Best Feature.",
+      "event_year": 2025,
+      "event_date": "2025-12-01",
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "gotham_best_feature",
+          "winner"
+        ]
+      ],
+      "winner": "One Battle After Another"
+    },
+    "bafta26": {
+      "url": "https://www.bafta.org/awards/film/?award-year=2026",
+      "institution": "BAFTA",
+      "scope": "2026 Best Film and Film Not in the English Language final nominees/winners",
+      "why_check_needed": "Close missing Hamnet non-English and Accident Best Film scopes; do not rescore acting/British Film.",
+      "event_year": 2026,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "bafta_best_film",
+          "selection_or_nomination"
+        ],
+        [
+          "bafta_best_film",
+          "winner"
+        ],
+        [
+          "bafta_non_english",
+          "selection_or_nomination"
+        ],
+        [
+          "bafta_non_english",
+          "winner"
+        ]
+      ],
+      "category_members": {
+        "Best Film": [
+          "One Battle After Another",
+          "Hamnet",
+          "Marty Supreme",
+          "Sentimental Value",
+          "Sinners"
+        ],
+        "Film Not in the English Language": [
+          "Sentimental Value",
+          "It Was Just an Accident",
+          "The Secret Agent",
+          "Sirāt",
+          "The Voice of Hind Rajab"
+        ]
+      },
+      "winners": {
+        "Best Film": "One Battle After Another",
+        "Film Not in the English Language": "Sentimental Value"
+      }
+    },
+    "sundance26": {
+      "url": "https://www.sundance.org/blogs/2026-sundance-film-festival-announces-award-winners",
+      "institution": "Sundance",
+      "scope": "2026 four feature Competition sections: Grand Jury, Audience, Directing and Special Jury winners only; no participation inference",
+      "why_check_needed": "Sparse 2026 films have no retained Sundance scoped check. Winners list cannot settle Grand Jury competition credit.",
+      "event_year": 2026,
+      "event_date": "2026-01-30",
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache",
+      "complete_category_scopes": [
+        [
+          "sundance_grand_jury",
+          "winner"
+        ],
+        [
+          "sundance_audience",
+          "winner"
+        ],
+        [
+          "sundance_director",
+          "winner"
+        ],
+        [
+          "sundance_special_jury",
+          "winner"
+        ]
+      ],
+      "category_winners": {
+        "Grand Jury": [
+          "Josephine",
+          "Nuisance Bear",
+          "Shame and Money",
+          "To Hold a Mountain"
+        ],
+        "Audience": [
+          "Josephine",
+          "American Pachuco: The Legend of Luis Valdez",
+          "HOLD ONTO ME",
+          "One In A Million"
+        ],
+        "Directing": [
+          "Ha-chan, Shake Your Booty!",
+          "Soul Patrol",
+          "How to Divorce During the War",
+          "One In A Million"
+        ],
+        "Special Jury": [
+          "Bedford Park",
+          "The Friend’s House is Here",
+          "Who Killed Alex Odeh?",
+          "The Lake",
+          "Filipiñana",
+          "LADY",
+          "Birds of War",
+          "Everybody To Kenmure Street"
+        ]
+      }
+    },
+    "fortnight26": {
+      "url": "https://www.quinzaine-cineastes.fr/en/film/i-see-buildings-fall-like-lightning",
+      "institution": "Cannes",
+      "scope": "2026 Directors’ Fortnight film dossier; world premiere, Clio Barnard",
+      "why_check_needed": "Resolve sparse film section attribution; avoid treating Cannes-adjacent selection as main Competition.",
+      "event_year": 2026,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_page_via_web",
+      "source_class": "primary_origin_page_cache_possible",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "berlin26mirror": {
+      "url": "https://infomedia.sh/wp-content/uploads/2026/02/berlinale-preise-2026.pdf",
+      "institution": "Berlin",
+      "scope": "76th awards official-jury press document mirrored by infomedia.sh, p4",
+      "why_check_needed": "Strengthen unique screenplay attribution beyond Talents alumni list; mirror is not direct festival-origin retrieval.",
+      "event_year": 2026,
+      "event_date": "2026-02-21",
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "mirrored_primary_pdf_via_web",
+      "source_class": "cached_or_mirrored_primary_document",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "ninaidentity": {
+      "url": "https://www.ciffcalgary.ca/films/2026/nina-roza",
+      "institution": "Berlin",
+      "scope": "Film dossier: Geneviève Dulude-De Celles, Galin Stoev, 2026; corroborating screenplay award",
+      "why_check_needed": "Film-context attribution cross-check for Nina Roza; retained exact IDs unchanged; CIFF is not Berlin origin.",
+      "event_year": 2026,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "primary_host_film_dossier_via_web",
+      "source_class": "secondary_for_berlin_award",
+      "result": "read",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "tiff25indexed": {
+      "url": "https://ebs.publicnow.com/view/66AC456BAB1E8414DECF54463E5ACC650BF8355D",
+      "institution": "TIFF",
+      "scope": "TIFF 50 award announcement indexed primary-origin syndicated release: main winner Hamnet; international runner-up Sentimental Value",
+      "why_check_needed": "Disambiguate main/international awards; producer evidence retained. Indexed result supports positives, never absence.",
+      "event_year": 2025,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "indexed_primary_syndicated_release",
+      "source_class": "cached_or_indexed_primary",
+      "result": "403_on_open_indexed_text_only",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "lafca24": {
+      "url": "https://www.lafca.net/Years/2024.php",
+      "institution": "LAFCA",
+      "scope": "2024 Best Picture winner",
+      "why_check_needed": "Target documented access/attribution gap. Failure is not absence; stop without bypass.",
+      "event_year": 2024,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "failed_web_open",
+      "source_class": "unavailable",
+      "result": "timeout",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "lafca25": {
+      "url": "https://www.lafca.net/Years/2025.php",
+      "institution": "LAFCA",
+      "scope": "2025 Best Picture winner",
+      "why_check_needed": "Target documented access/attribution gap. Failure is not absence; stop without bypass.",
+      "event_year": 2025,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "failed_web_open",
+      "source_class": "unavailable",
+      "result": "timeout",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "lafca25press": {
+      "url": "https://www.lafca.net/pressReleases/7Dec25.php",
+      "institution": "LAFCA",
+      "scope": "2025 Best Picture winner press release",
+      "why_check_needed": "Target documented access/attribution gap. Failure is not absence; stop without bypass.",
+      "event_year": 2025,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "failed_web_open",
+      "source_class": "unavailable",
+      "result": "502",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "berlin26origin": {
+      "url": "https://www.berlinale.de/en/2026/awards/overview.html",
+      "institution": "Berlin",
+      "scope": "2026 official awards overview; attempted URL, not validated canonical record",
+      "why_check_needed": "Target documented access/attribution gap. Failure is not absence; stop without bypass.",
+      "event_year": 2026,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "failed_web_open",
+      "source_class": "unavailable",
+      "result": "inaccessible_via_web_tool",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "cannes26origin": {
+      "url": "https://www.festival-cannes.com/en/2026/the-films-of-the-official-selection-2026/",
+      "institution": "Cannes",
+      "scope": "2026 official selection; attempted URL, not validated final/canonical list",
+      "why_check_needed": "Target documented access/attribution gap. Failure is not absence; stop without bypass.",
+      "event_year": 2026,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "failed_web_open",
+      "source_class": "unavailable",
+      "result": "inaccessible_via_web_tool",
+      "origin_freshness": "not independently established; web reader may cache"
+    },
+    "tiff25origin": {
+      "url": "https://tiff.net/press/news/hamnet-wins-the-tiff-2025-peoples-choice-award",
+      "institution": "TIFF",
+      "scope": "2025 main People’s Choice; attempted URL, not validated canonical release",
+      "why_check_needed": "Target documented access/attribution gap. Failure is not absence; stop without bypass.",
+      "event_year": 2025,
+      "event_date": null,
+      "observed_at": "2026-10-28",
+      "observation_precision": "day",
+      "access_method": "failed_web_open",
+      "source_class": "unavailable",
+      "result": "inaccessible_via_web_tool",
+      "origin_freshness": "not independently established; web reader may cache"
+    }
+  },
+  "checks": [
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "spirit_best_feature",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit26",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "spirit_first_feature",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit26",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "efa_best_film",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "efa26",
+      "reason": "Absent from complete European Film final nomination list, including expanded documentary/animated nominees; not an eligibility claim."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "gotham_best_feature",
+      "event_year": 2025,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "gotham25final",
+      "reason": "Complete Best Feature winner record names another film; retained nominations remain scored. International Feature is distinct."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "bafta_best_film",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "bafta26",
+      "reason": "Another film is the category winner; nomination remains scored."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "bafta_non_english",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "bafta26",
+      "reason": "Absent from complete final category nomination list; no eligibility inference."
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "component": "lafca_best_film",
+      "event_year": 2025,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "lafca25",
+      "reason": "Direct official record timed out; indexed excerpts alone do not establish scoped absence. Retained Anora positive is preserved independently."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "component": "spirit_first_feature",
+      "event_year": 2025,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit25",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "component": "efa_best_film",
+      "event_year": 2024,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "efa24",
+      "reason": "Absent from complete European Film final nomination list, including expanded documentary/animated nominees; not an eligibility claim."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "component": "gotham_best_feature",
+      "event_year": 2024,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "gotham24final",
+      "reason": "Complete Best Feature winner record names another film; retained nominations remain scored. International Feature is distinct."
+    },
+    {
+      "imdb_id": "tt28607951",
+      "tmdb_id": 1064213,
+      "component": "lafca_best_film",
+      "event_year": 2024,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "lafca24",
+      "reason": "Direct official record timed out; indexed excerpts alone do not establish scoped absence. Retained Anora positive is preserved independently."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "component": "spirit_best_feature",
+      "event_year": 2025,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit25",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "component": "spirit_first_feature",
+      "event_year": 2025,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit25",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "component": "efa_best_film",
+      "event_year": 2024,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "efa24",
+      "reason": "Absent from complete European Film final nomination list, including expanded documentary/animated nominees; not an eligibility claim."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "component": "gotham_best_feature",
+      "event_year": 2024,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "gotham24final",
+      "reason": "Complete Best Feature winner record names another film; retained nominations remain scored. International Feature is distinct."
+    },
+    {
+      "imdb_id": "tt8999762",
+      "tmdb_id": 549509,
+      "component": "lafca_best_film",
+      "event_year": 2024,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "lafca24",
+      "reason": "Direct official record timed out; indexed excerpts alone do not establish scoped absence. Retained Anora positive is preserved independently."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "component": "spirit_first_feature",
+      "event_year": 2025,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit25",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "component": "efa_best_film",
+      "event_year": 2024,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "efa24",
+      "reason": "Complete winner record names another film; retained nomination still contributes."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "component": "gotham_best_feature",
+      "event_year": 2024,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "gotham24final",
+      "reason": "Complete Best Feature winner record names another film; retained nominations remain scored. International Feature is distinct."
+    },
+    {
+      "imdb_id": "tt17526714",
+      "tmdb_id": 933260,
+      "component": "lafca_best_film",
+      "event_year": 2024,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "lafca24",
+      "reason": "Direct official record timed out; indexed excerpts alone do not establish scoped absence. Retained Anora positive is preserved independently."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "component": "spirit_best_feature",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit26",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "component": "spirit_first_feature",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit26",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "component": "gotham_best_feature",
+      "event_year": 2025,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "gotham25final",
+      "reason": "Complete Best Feature winner record names another film; retained nominations remain scored. International Feature is distinct."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "component": "bafta_best_film",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "bafta26",
+      "reason": "Another film is the category winner; nomination remains scored."
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "component": "lafca_best_film",
+      "event_year": 2025,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "lafca25",
+      "reason": "Direct official record timed out; indexed excerpts alone do not establish scoped absence. Retained Anora positive is preserved independently."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "spirit_best_feature",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit26",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "spirit_first_feature",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "spirit26",
+      "reason": "Absent from complete final category nomination list; only this category/edition. No eligibility inference. A winner must be a nominee."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "efa_best_film",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "efa26",
+      "reason": "Complete winner record names another film; retained nomination still contributes."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "gotham_best_feature",
+      "event_year": 2025,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "gotham25final",
+      "reason": "Complete Best Feature winner record names another film; retained nominations remain scored. International Feature is distinct."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "bafta_best_film",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "bafta26",
+      "reason": "Absent from complete final category nomination list; no eligibility inference."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "bafta_non_english",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "bafta26",
+      "reason": "Another film is the category winner; nomination remains scored."
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "component": "lafca_best_film",
+      "event_year": 2025,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "lafca25",
+      "reason": "Direct official record timed out; indexed excerpts alone do not establish scoped absence. Retained Anora positive is preserved independently."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "efa_best_film",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "efa26",
+      "reason": "Absent from complete European Film final nomination list, including expanded documentary/animated nominees; not an eligibility claim."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "sundance_grand_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "sundance_audience",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "sundance_director",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "sundance_special_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "cannes_main",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "cannes_grand_prix",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "cannes_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "cannes_director",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "efa_best_film",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "verified_no_award",
+      "source_id": "efa26",
+      "reason": "Absent from complete European Film final nomination list, including expanded documentary/animated nominees; not an eligibility claim."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "selection_or_nomination",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "39th European Film nominations scheduled 2026-11-14; shortlist is not a nomination, film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "efa_best_film",
+      "event_year": 2027,
+      "stage": "winner",
+      "status": "not_yet_announced",
+      "source_id": "efa27",
+      "reason": "Ceremony scheduled 2027-01-16; film eligibility unasserted."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "sundance_grand_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "sundance_audience",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "sundance_director",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "sundance_special_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "verified_no_award",
+      "source_id": "sundance26",
+      "reason": "Complete award list for four feature Competition sections names no cohort film in this category; Grand Jury participation/nominee points remain unchecked."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "cannes_main",
+      "event_year": 2026,
+      "stage": "selection_or_nomination",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "cannes_grand_prix",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "cannes_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "component": "cannes_director",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "cannes26origin",
+      "reason": "Official selection URL inaccessible; no complete final category record inspected. Fortnight dossier is not an absence list."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "berlin_main",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "berlin26origin",
+      "reason": "Direct festival overview inaccessible. Mirrored official-jury PDF corroborates the screenplay positive, but this packet conservatively does not certify negative outcomes from the mirror. Competition positive retained independently."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "berlin_grand_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "berlin26origin",
+      "reason": "Direct festival overview inaccessible. Mirrored official-jury PDF corroborates the screenplay positive, but this packet conservatively does not certify negative outcomes from the mirror. Competition positive retained independently."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "berlin_jury",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "berlin26origin",
+      "reason": "Direct festival overview inaccessible. Mirrored official-jury PDF corroborates the screenplay positive, but this packet conservatively does not certify negative outcomes from the mirror. Competition positive retained independently."
+    },
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "component": "berlin_director",
+      "event_year": 2026,
+      "stage": "winner",
+      "status": "unavailable",
+      "source_id": "berlin26origin",
+      "reason": "Direct festival overview inaccessible. Mirrored official-jury PDF corroborates the screenplay positive, but this packet conservatively does not certify negative outcomes from the mirror. Competition positive retained independently."
+    }
+  ],
+  "facts": [
+    {
+      "imdb_id": "tt29271639",
+      "tmdb_id": 1527449,
+      "film_title": "Nina Roza",
+      "institution": "Berlin",
+      "original_category": "Silver Bear for Best Screenplay",
+      "edition": "76th Berlinale",
+      "event_year": 2026,
+      "event_date": "2026-02-21",
+      "status": "winner",
+      "source_id": "berlin26mirror",
+      "component": null,
+      "candidate_kind": "screenplay",
+      "section": "main_competition",
+      "unique_film_attribution": true,
+      "person": "Geneviève Dulude-de Celles",
+      "effect": "score_invariant_corroboration"
+    },
+    {
+      "imdb_id": "tt38991615",
+      "tmdb_id": 1455247,
+      "film_title": "I See Buildings Fall Like Lightning",
+      "institution": "Cannes",
+      "original_category": "Directors’ Fortnight feature selection",
+      "edition": "Quinzaine 2026",
+      "event_year": 2026,
+      "event_date": null,
+      "status": "selection",
+      "source_id": "fortnight26",
+      "component": null,
+      "candidate_kind": null,
+      "section": "directors_fortnight",
+      "unique_film_attribution": true,
+      "person": "Clio Barnard",
+      "effect": "excluded_side_section"
+    },
+    {
+      "imdb_id": "tt36491653",
+      "tmdb_id": 1456349,
+      "film_title": "It Was Just an Accident",
+      "institution": "Gotham",
+      "original_category": "Best International Feature",
+      "edition": "35th Gotham Film Awards",
+      "event_year": 2025,
+      "event_date": "2025-12-01",
+      "status": "winner",
+      "source_id": "gotham25final",
+      "component": null,
+      "candidate_kind": null,
+      "section": null,
+      "unique_film_attribution": true,
+      "person": "Jafar Panahi",
+      "effect": "excluded_unmodeled_category"
+    },
+    {
+      "imdb_id": "tt14905854",
+      "tmdb_id": 858024,
+      "film_title": "Hamnet",
+      "institution": "TIFF",
+      "original_category": "People’s Choice Award presented by Rogers (main)",
+      "edition": "TIFF 50",
+      "event_year": 2025,
+      "event_date": null,
+      "status": "winner",
+      "source_id": "tiff25indexed",
+      "component": null,
+      "candidate_kind": "tiff",
+      "section": "main",
+      "unique_film_attribution": true,
+      "person": "Chloé Zhao",
+      "effect": "score_invariant_corroboration"
+    },
+    {
+      "imdb_id": "tt27714581",
+      "tmdb_id": 1124566,
+      "film_title": "Sentimental Value",
+      "institution": "TIFF",
+      "original_category": "International People’s Choice Award — first runner-up",
+      "edition": "TIFF 50",
+      "event_year": 2025,
+      "event_date": null,
+      "status": "runner_up",
+      "source_id": "tiff25indexed",
+      "component": null,
+      "candidate_kind": null,
+      "section": "international",
+      "unique_film_attribution": true,
+      "person": "Joachim Trier",
+      "effect": "excluded_other_category_and_runner_up"
+    }
+  ],
+  "scored_awards_added": [],
+  "corrections": [],
+  "excluded_policy_questions": [
+    "European Film expanded category lists include documentary/animated nominees; preserve exact retained efa_best_film mapping, do not add categories.",
+    "Grand Jury winner absence cannot settle Sundance competition credit. Preserve historical convergence and section eligibility unchanged.",
+    "No demonstrated misattribution in retained scored facts; no correction invented."
+  ]
+}
