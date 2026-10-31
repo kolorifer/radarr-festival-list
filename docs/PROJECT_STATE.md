@@ -1,5 +1,80 @@
 # Movie List project state
 
+## Issue #127 Task2 — inactive corrective implementation, 2026-10-31
+
+Continued the existing worker branch/base and reconciled all16 retained Task1
+manifest hashes against the independently reviewed snapshot. The Task1 archive,
+brief/report, consumed claim and unrelated task remain preserved. Task2 fixes
+invocation-start-time acceptance with advancing effective time, fresh decision
+reconciliation and in-lock final validation. It strengthens finite metadata
+startup/protocol handling and exact invocation/dependency refusal. The actual
+retained-evidence loop, durable reservations, scoped history and private daily
+review remain; no report-only substitute or production integration was added.
+
+Frozen local Python3.12.16/3.13.18 focused verification: **61 passed on each**,
+including nonempty installed-only closure and all6 removed-dependency negatives.
+Full suites: **1,349 run on each, two skips and zero failures/errors, exit0**.
+Dependency consistency and scoring1909/387 pass. The controlled expiry regression
+failed before and passed after;
+original intermittent preflight failures have no confirmed root cause. Controlled
+startup delay proves finite headroom, not that historical diagnosis.
+
+**Inactive code READY_FOR_REVIEW; operational boundary unproved.**
+Metadata-only inspection accepts additional feature disables
+but cannot attest effective exec isolation. The real-client registry and real
+boundary-adapter set remain empty. A future independently reviewed adapter must
+bind complete effective tool/context/policy dependencies for each invocation and
+prevent their drift while preserving mandatory managed instructions/requirements.
+No real model/provider request, activation/deployment, source/seedbox/SSH/private
+input, credential inspection, configuration change, notification/Radarr/media
+operation or publication
+occurred. Current queue/health and deployed producer identity/timing remain unknown;
+actual daily/historical-weekly limits, dispatcher/claims/caps and the separate
+reporting trial are unchanged. No new owner decision or automatic next task follows.
+
+See the [Task2 brief](reports/2026-10-31-issue-127-task2-brief.md),
+[engineering report](reports/2026-10-31-issue-127-task2.md) and
+[updated contracts and route audit](AI-MOVIE-INVESTIGATOR.md). Parent alone
+publishes and obtains exact-head supported CI and independent review. The later
+real-case demonstration retains all exact code/client/input/storage/destination/
+quota authorization prerequisites. Task1 facts below are historical; Task2's
+report records the independent review corrections and current verification.
+
+## Issue #127 Task 1 — inactive AI investigator, 2026-10-31
+
+New standalone `ai_movie_investigator` code imports captured observer outcomes,
+joins exact occurrence/evidence-scoped owner decisions and dated shadow evidence,
+reserves bounded model attempts durably, executes selected retained-evidence
+queries, validates cited review proposals and renders private daily/case views.
+It uses a separate owner-only append history and leaves all existing production,
+collector/research/trial schemas, ledgers, notification and approval code intact.
+The [synthetic command and contracts](AI-MOVIE-INVESTIGATOR.md) distinguish
+simulation, candidate proposal, verification, production identity and delivery.
+
+Technical verification in isolated local Python 3.12.16 and 3.13.18 environments:
+**46 focused tests passed on each; full suite 1,334 run on each, two skips and
+zero failures/errors.** Nonempty installed-only closure and all six removed-
+dependency negatives pass; the fourteen-case proof is explicitly simulated.
+Dependency consistency, scoring 1,909/387, source hashes and scope checks pass.
+These results establish neither independent review nor product acceptance.
+
+**Inactive; real-client boundary blocked.** The optional bounded Codex exec
+transport is implemented, but no actual client's complete tool/context boundary
+is established. Its reviewed-client profile set ships empty, so real activation
+fails closed before invocation. Fake-executable protocol checks do not prove
+real-client isolation or model access. No real identification, deployment,
+schedule, private/source/seedbox/credential read, live model/provider/probe,
+Telegram or Radarr/media operation occurred. Current deployed identity/timing,
+queue and health are unknown. Existing daily-versus-weekly producer-budget
+differences are preserved. Parent owns publication and independent review;
+supported exact published-head CI remains an acceptance prerequisite.
+
+See the [commissioned brief](reports/2026-10-31-issue-127-investigator-brief.md)
+and [engineering report](reports/2026-10-31-issue-127-investigator.md) for actual
+tests, implementation limits and the exact later one-case demonstration plan.
+The unrelated `CODEX_TASK.md` assignment is preserved verbatim; no next product
+task or operational authority is inferred.
+
 ## Issue #125 Task3 — implemented, awaiting independent review, 2026-10-31
 
 Latest supplied owner-supervisor Task3 authorizes only this child's code/tests/
