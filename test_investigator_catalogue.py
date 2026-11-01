@@ -10,6 +10,7 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import threading
 import unittest
 from unittest.mock import Mock, patch
 
@@ -52,10 +53,10 @@ class OfflineTests(unittest.TestCase):
         self.dns = patch('socket.getaddrinfo', side_effect=AssertionError('live DNS forbidden')).start()
         self.addCleanup(patch.stopall)
 
-    def case(self):
+    def case(self, number=1276):
         directory = self.root / ('case-' + str(len(list(self.root.iterdir()))))
         directory.mkdir(mode=0o700)
-        return setup_case(directory)
+        return setup_case(directory, number=number)
 
     def broker(self, case, rows=None):
         h, store, clock, original, job, plan = case
@@ -730,6 +731,318 @@ class SpendingTests(unittest.TestCase):
             self.assertFalse(t.http.requests)
 
 
+class ResearchHandoffTests(unittest.TestCase):
+    """R1: research succeeds before retirement; use the ordinary model loop."""
+    setUp = OfflineTests.setUp
+    case = OfflineTests.case
+    broker = OfflineTests.broker
+
+    def enriched(self, number=1276):
+        case = self.case(number)
+        job, packet, receipts = self.broker(case).run(case[4], case[5])
+        return case, job, packet, receipts
+
+    def retire(self, case, *, job=None, plan_hash=None):
+        with case[0].transaction(write=True) as (_, append):
+            append(dict(type='research_revoked', at=case[2](),
+                        job=case[4] if job is None else job,
+                        plan_hash=digest(case[5]) if plan_hash is None else plan_hash))
+
+    def transport(self, case, packet):
+        replies = simulated_replies(packet)
+        for cite in replies[-1]['result']['citations']:
+            if cite['evidence_id'] == 'catalogue-1':
+                cite['evidence_id'] = 'research-1'
+        spending = SimulatedSpending(case[0], binding=packet['binding'],
+                                     ceiling=[1, 1], expires_at=NOW+120)
+        transport = simulated_transport(packet, spending=spending,
+            responses=[simulated_response(r, n) for n, r in enumerate(replies, 1)])
+        transport.clock = case[2]
+        return transport
+
+    def check_retirement(self, phase):
+        case, job, packet, _ = self.enriched()
+        h = case[0]
+        t = self.transport(case, packet)
+        post = t.http.post
+        def respond(*args, **kwargs):
+            answer = post(*args, **kwargs)
+            if (phase == 'first' and len(t.http.requests) == 1 or
+                    phase == 'second' and len(t.http.requests) == 2):
+                self.retire(case)
+            return answer
+        record = h.record
+        def commit(event, **kwargs):
+            if phase == 'commit' and event['type'] == 'result' and event['status'] == 'supported_candidate':
+                self.retire(case)
+            return record(event, **kwargs)
+        if phase == 'before':
+            self.retire(case)
+        with patch.object(t.http, 'post', side_effect=respond), patch.object(h, 'record', side_effect=commit):
+            result = investigate(h, job, 'SIMULATED-task7-retirement', t, monotonic=case[2])
+        self.assertEqual(result['status'], 'blocked')
+        self.assertEqual(result['reason'], 'research_plan_revoked')
+        expected = {'before': 0, 'first': 1, 'second': 2, 'commit': 2}[phase]
+        self.assertEqual(len(t.http.requests), expected)
+        events = History(h.directory, clock=case[2]).read()
+        self.assertEqual(sum(e['type'] == 'model_reserved' for e in events), expected)
+        self.assertEqual(sum(e['type'] == 'api_response' for e in events), expected)
+        self.assertEqual(sum(e['type'] == 'spending_settled' for e in events), expected)
+        self.assertEqual(sum(e['type'] == 'spending_reserved' for e in events), expected)
+        if phase == 'first':
+            self.assertFalse(any(e['type'] == 'lookup' for e in events))
+        self.assertEqual(case[1].summary()['requests_rolling_week'], 2)
+        with self.assertRaisesRegex(Refusal, 'invocation_already_consumed'):
+            investigate(History(h.directory, clock=case[2]), job, 'SIMULATED-no-replay',
+                        self.transport(case, packet), monotonic=case[2])
+
+    def test_retirement_before_model_work(self):
+        self.check_retirement('before')
+
+    def test_retirement_after_first_response(self):
+        self.check_retirement('first')
+
+    def test_retirement_after_second_response(self):
+        self.check_retirement('second')
+
+    def test_retirement_at_final_durable_boundary(self):
+        self.check_retirement('commit')
+
+    def test_direct_supported_commit_cannot_omit_model_result_to_bypass_retirement(self):
+        case, job, packet, _ = self.enriched()
+        self.retire(case)
+        h = case[0]
+        h.start(job, 'SIMULATED-direct-final', self.transport(case, packet).identity())
+        with self.assertRaisesRegex(Refusal, 'research_plan_revoked'):
+            h.record(dict(type='result', job=job, invocation='SIMULATED-direct-final',
+                          status='supported_candidate'))
+        self.assertFalse(any(e['type'] == 'result' for e in h.read()))
+
+    def test_retired_dependency_pilot_and_daily_are_truthful(self):
+        case, job, packet, _ = self.enriched()
+        args = dict(selected_job=job, provenance='synthetic', ceiling=[1, 1], expires_at=NOW+120)
+        selected = build_plan(case[0], case[3], case[5], **args)
+        self.retire(case)
+        with self.assertRaisesRegex(Refusal, 'pilot_changed_or_stale'):
+            validate_pilot(selected, case[0], case[3])
+        retired = build_plan(case[0], case[3], case[5], **args)
+        self.assertIn('research_plan_revoked', retired['missing_live_facts'])
+        self.assertIn('research_plan_revoked', readable_plan(retired))
+        from ai_movie_investigator.review import case_view, daily_digest
+        view = case_view(case[0].read(), job, at=NOW)
+        self.assertIn('research_plan_revoked', view)
+        self.assertIn(digest(case[5]), view)
+        self.assertIn('research_plan_revoked', daily_digest(case[0],
+            selected_date='2026-10-31', timezone='Europe/Warsaw')['text'])
+
+
+    def test_foreign_plan_or_occurrence_retirement_does_not_suppress_control(self):
+        for foreign in ('plan', 'occurrence', 'other_case'):
+            with self.subTest(foreign=foreign):
+                case, job, packet, _ = self.enriched()
+                if foreign == 'other_case':
+                    other = self.case(12777)
+                    self.retire(case, job=other[4], plan_hash=digest(other[5]))
+                else:
+                    self.retire(case, plan_hash=digest('another exact plan') if foreign == 'plan' else None,
+                                job=digest('another original occurrence') if foreign == 'occurrence' else None)
+                t = self.transport(case, packet)
+                result = investigate(case[0], job, 'SIMULATED-unaffected', t, monotonic=case[2])
+                self.assertEqual(result['status'], 'supported_candidate')
+                self.assertEqual(len(t.http.requests), 2)
+                self.assertEqual(case[1].summary()['requests_rolling_week'], 2)
+
+    def test_retirement_between_reservation_and_send_preserves_unknown_cost(self):
+        for boundary in ('prepared', 'reserved', 'spending_sent'):
+            with self.subTest(boundary=boundary):
+                case, job, packet, _ = self.enriched()
+                h = case[0]
+                t = self.transport(case, packet)
+                if boundary == 'prepared':
+                    original = t.prepare
+                    def guarded(*args, **kwargs):
+                        result = original(*args, **kwargs)
+                        self.retire(case)
+                        return result
+                    hook = patch.object(t, 'prepare', side_effect=guarded)
+                elif boundary == 'reserved':
+                    original = h.record
+                    def guarded(event, **kwargs):
+                        result = original(event, **kwargs)
+                        if event['type'] == 'model_reserved':
+                            self.retire(case)
+                        return result
+                    hook = patch.object(h, 'record', side_effect=guarded)
+                else:
+                    original = t.spending.before_send
+                    def guarded(*args, **kwargs):
+                        result = original(*args, **kwargs)
+                        self.retire(case)
+                        return result
+                    hook = patch.object(t.spending, 'before_send', side_effect=guarded)
+                with hook:
+                    result = investigate(h, job, 'SIMULATED-retire-before-send', t, monotonic=case[2])
+                self.assertEqual(result['reason'], 'research_plan_revoked')
+                self.assertFalse(t.http.requests)
+                events = History(h.directory, clock=case[2]).read()
+                self.assertEqual(sum(e['type'] == 'spending_reserved' for e in events), 1)
+                self.assertFalse(any(e['type'] == 'spending_settled' for e in events))
+                self.assertFalse(any(e['type'] == 'model_send' for e in events))
+                self.assertEqual(sum(e['type'] == 'model_reserved' for e in events),
+                                 0 if boundary == 'prepared' else 1)
+                with self.assertRaisesRegex(Refusal, 'invocation_already_consumed'):
+                    investigate(h, job, 'SIMULATED-no-refund-retry', self.transport(case, packet), monotonic=case[2])
+
+    def test_retirement_at_retained_lookup_boundary_stops_evidence_use(self):
+        case, job, packet, _ = self.enriched()
+        h = case[0]
+        t = self.transport(case, packet)
+        lookup = h.retained_lookup
+        def retired(*args, **kwargs):
+            self.retire(case)
+            return lookup(*args, **kwargs)
+        with patch.object(h, 'retained_lookup', side_effect=retired):
+            result = investigate(h, job, 'SIMULATED-retained-boundary', t, monotonic=case[2])
+        self.assertEqual(result['reason'], 'research_plan_revoked')
+        self.assertEqual(len(t.http.requests), 1)
+        self.assertFalse(any(e['type'] == 'lookup' for e in h.read()))
+        self.assertEqual(sum(e['type'] == 'spending_settled' for e in h.read()), 1)
+
+    def test_reopened_unstarted_retired_handoff_sends_nothing(self):
+        case, job, packet, _ = self.enriched()
+        self.retire(case)
+        reopened = list(case)
+        reopened[0] = History(case[0].directory, clock=case[2])
+        t = self.transport(reopened, packet)
+        result = investigate(reopened[0], job, 'SIMULATED-reopened-retirement', t, monotonic=case[2])
+        self.assertEqual(result['reason'], 'research_plan_revoked')
+        self.assertFalse(t.http.requests)
+        self.assertFalse(any(e['type'] == 'spending_reserved' for e in reopened[0].read()))
+
+    def test_later_retirement_keeps_committed_result_immutable_and_historical(self):
+        case, job, packet, _ = self.enriched()
+        t = self.transport(case, packet)
+        result = investigate(case[0], job, 'SIMULATED-committed-before-retirement', t, monotonic=case[2])
+        self.assertEqual(result['status'], 'supported_candidate')
+        before = encoded(next(e for e in case[0].read() if e['type'] == 'result'))
+        self.retire(case)
+        reopened = History(case[0].directory, clock=case[2])
+        self.assertEqual(before, encoded(next(e for e in reopened.read() if e['type'] == 'result')))
+        from ai_movie_investigator.review import case_view, daily_digest
+        for view in (case_view(reopened.read(), job, at=NOW), daily_digest(reopened,
+                selected_date='2026-10-31', timezone='Europe/Warsaw')['text']):
+            self.assertIn('Outcome: supported_candidate', view)
+            self.assertIn('research_plan_revoked', view)
+            self.assertIn('earlier result remains historical', view)
+
+    def test_final_commit_waits_for_real_history_lock_then_sees_retirement(self):
+        case, job, packet, _ = self.enriched()
+        h = case[0]
+        reopened = History(h.directory, clock=case[2])
+        t = self.transport(case, packet)
+        record = h.record
+        attempted = threading.Event()
+        def commit(event, **kwargs):
+            if event['type'] != 'result' or event['status'] != 'supported_candidate':
+                return record(event, **kwargs)
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                with reopened.transaction(write=True) as (_, append):
+                    append(dict(type='research_revoked', job=case[4], plan_hash=digest(case[5]), at=case[2]()))
+                    def waiting_commit():
+                        attempted.set()
+                        return record(event, **kwargs)
+                    future = pool.submit(waiting_commit)
+                    self.assertTrue(attempted.wait(1))
+                    self.assertFalse(future.done())
+                return future.result(timeout=3)
+        with patch.object(h, 'record', side_effect=commit):
+            result = investigate(h, job, 'SIMULATED-locked-final-boundary', t, monotonic=case[2])
+        self.assertEqual(result['reason'], 'research_plan_revoked')
+        self.assertEqual(len(t.http.requests), 2)
+        results = [e for e in reopened.read() if e['type'] == 'result']
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]['status'], 'blocked')
+
+    def test_missing_altered_ambiguous_or_foreign_retained_binding_fails_closed(self):
+        modes = ('dependency', 'completion', 'started', 'plan_missing', 'plan_changed', 'foreign_plan',
+                 'original', 'binding', 'receipt_missing', 'receipt_changed', 'foreign_receipt',
+                 'reservation', 'incomplete', 'duplicate_completion', 'duplicate_receipt', 'hash_only')
+        for mode in modes:
+            with self.subTest(mode=mode):
+                case, job, packet, receipts = self.enriched()
+                events = copy.deepcopy(case[0].read())
+                intake = next(e for e in events if e['type'] == 'intake' and e['job'] == job)
+                dependency = intake['research_dependency']
+                completion = next(e for e in events if e['type'] == 'research_complete')
+                started = next(e for e in events if e['type'] == 'research_started')
+                if mode == 'dependency': del intake['research_dependency']
+                elif mode == 'completion': events.remove(completion)
+                elif mode == 'started': events.remove(started)
+                elif mode == 'plan_missing': del started['plan']
+                elif mode == 'plan_changed': started['plan']['expires_at'] += 1
+                elif mode == 'foreign_plan':
+                    other = self.case(12777)
+                    started['plan'] = other[5]
+                    started['plan_hash'] = dependency['plan_hash'] = completion['plan_hash'] = digest(other[5])
+                elif mode == 'original': dependency['original_job'] = digest('foreign original job')
+                elif mode == 'binding': dependency['binding']['occurrence']['delivery_id'] += 1
+                elif mode == 'receipt_missing':
+                    events.remove(next(e for e in events if e['type'] == 'research_observed'))
+                elif mode == 'receipt_changed':
+                    next(e for e in events if e['type'] == 'research_observed')['result']['data']['page'] = 2
+                elif mode == 'foreign_receipt':
+                    other_case, _, _, foreign_receipts = self.enriched(12777)
+                    foreign = foreign_receipts[0]
+                    events.append(foreign)
+                    dependency['receipts'][0] = digest(foreign)
+                    completion['receipts'][0] = digest(foreign)
+                elif mode == 'reservation':
+                    events.remove(next(e for e in events if e['type'] == 'research_reserved'))
+                elif mode == 'incomplete': dependency['receipts'].pop()
+                elif mode == 'duplicate_completion': events.append(copy.deepcopy(completion))
+                elif mode == 'duplicate_receipt': events.append(copy.deepcopy(receipts[0]))
+                else:
+                    # A caller-supplied plausible hash cannot replace retained plan state.
+                    del started['plan']
+                    started['plan_hash'] = dependency['plan_hash'] = completion['plan_hash'] = digest('template')
+                directory = self.root / ('corrupt-' + mode)
+                directory.mkdir(mode=0o700)
+                h = History(directory, clock=case[2])
+                # Rebuild a valid hash-linked fixture journal through real locks;
+                # this is dependency corruption, not just a broken file checksum.
+                with h.transaction(write=True) as (_, append):
+                    for event in events:
+                        append(event)
+                changed_case = list(case)
+                changed_case[0] = h
+                t = self.transport(changed_case, packet)
+                result = investigate(h, job, 'SIMULATED-invalid-handoff', t, monotonic=case[2])
+                self.assertEqual(result['status'], 'blocked')
+                self.assertTrue(result['reason'].startswith('research_'), result)
+                self.assertFalse(t.http.requests)
+                self.assertFalse(any(e['type'] == 'model_reserved' for e in h.read()))
+                self.assertEqual(case[1].summary()['requests_rolling_week'], 2)
+
+    def test_changed_evidence_cannot_drop_or_forge_dependency_to_evade_retirement(self):
+        for mode in ('digest', 'origin', 'scope', 'stripped'):
+            with self.subTest(mode=mode):
+                case, _, packet, _ = self.enriched()
+                self.retire(case)
+                changed = copy.deepcopy(packet)
+                if mode == 'digest': changed['evidence'][-1]['provenance']['digest'] = digest('invented receipt')
+                elif mode == 'origin': changed['evidence'][-1]['provenance']['origin'] = 'invented'
+                elif mode == 'scope': changed['evidence'][-1]['scope']['occurrence']['delivery_id'] += 1
+                else:
+                    changed['evidence'] = [e for e in changed['evidence'] if e['kind'] == 'source']
+                    changed['evidence'][0]['text'] += ' Invented replacement input.'
+                job, _ = case[0].intake(changed)
+                t = self.transport(case, changed)
+                result = investigate(case[0], job, 'SIMULATED-no-replacement', t, monotonic=case[2])
+                self.assertEqual(result['status'], 'blocked')
+                self.assertEqual(result['reason'], 'research_dependency_missing')
+                self.assertFalse(t.http.requests)
+
+
 class CatalogueInstalledTests(unittest.TestCase):
     def test_installed_nonempty_workflow_and_every_individually_removed_dependency(self):
         script='''
@@ -748,6 +1061,24 @@ with tempfile.TemporaryDirectory() as tmp:
  assert len([e for e in d['history'].read() if e['type']=='spending_settled'])==2
  assert not d['plan']['real_readiness'] and d['revoked_requests']==0
  assert '2 SIMULATED GETs' in d['review']['text']
+ # Exercise Task7 through installed code, with the same finite wire/real locks.
+from ai_movie_investigator.catalogue_replay import setup_case,fixture_rows
+from ai_movie_investigator.research import OfflineResearch,FixtureConnection,SyntheticResearch
+from ai_movie_investigator.contracts import digest
+from ai_movie_investigator.controller import investigate
+from ai_movie_investigator.responses_replay import simulated_transport
+with tempfile.TemporaryDirectory() as tmp:
+ h,store,clock,original,original_job,plan=setup_case(pathlib.Path(tmp).resolve())
+ wire=FixtureConnection(fixture_rows())
+ job,packet,_=OfflineResearch(enabled=True,history=h,store=store,connection=wire,
+  authorization=SyntheticResearch(digest(original),digest(plan)),monotonic=clock).run(original_job,plan)
+ with h.transaction(write=True) as (_,append):
+  append(dict(type='research_revoked',job=original_job,plan_hash=digest(plan),at=clock()))
+ t=simulated_transport(packet)
+ t.clock=clock
+ result=investigate(h,job,'SIMULATED-installed-retired',t,monotonic=clock)
+ assert result['status']=='blocked' and result['reason']=='research_plan_revoked'
+ assert len(wire.requests)==2 and not t.http.requests
 installed=pathlib.Path(sys.argv[1])
 for name,module in list(sys.modules.items()):
  if name.startswith('ai_movie_investigator') or name.startswith('identity_') or name=='torrent_research_evidence':

@@ -12,7 +12,7 @@ from identity_recurring_store import RecurringStore
 from identity_research_provider import Provider, route, validate_case
 from .contracts import (MAX_INPUT, decode, digest, encoded, evidence_row,
                         reconcile, require, scope, shape, stamp, text, validate_packet)
-from .history import History, checked
+from .history import History, checked, plan_retired, research_dependency
 
 RESEARCH_SECONDS = 60
 FIXTURE_TOKEN = 'SIMULATED-CATALOGUE-NOT-A-KEY'
@@ -223,7 +223,7 @@ class OfflineResearch:
             latest = [e for e in events if e['type'] == 'intake' and
                       e['packet']['binding']['case_id'] == packet['binding']['case_id']][-1]
             require(latest['job'] == selected, 'research_case_superseded')
-            require(not any(e['type'] == 'research_revoked' and e['plan_hash'] == plan_hash for e in events),
+            require(not plan_retired(events, job, plan_hash),
                     'research_plan_revoked')
             reconciliation = reconcile(packet, current)
             require(reconciliation['admission'] == 'eligible', 'research_case_ineligible')
@@ -245,7 +245,7 @@ class OfflineResearch:
             require(not any(e['type'] == 'research_started' and e['binding'] == packet['binding'] for e in events),
                     'research_attempt_consumed')
             append(dict(type='research_started', at=at, job=job, plan_hash=plan_hash,
-                        binding=packet['binding'], provider_version=plan['provider_version'], synthetic=True))
+                        binding=packet['binding'], provider_version=plan['provider_version'], plan=plan, synthetic=True))
         # Admission happens only in the explicit synthetic demonstration setup;
         # the broker never creates a replacement ledger, admits or resets jobs.
         with self.store.tx() as c:
@@ -337,31 +337,15 @@ class OfflineResearch:
                     receipts.append(receipt)
             with self.history.transaction() as (events, _):
                 guard(events)
-            enriched = copy.deepcopy(packet)
-            for receipt in receipts:
-                data = receipt['result']['data']
-                candidate = (dict(imdb=data['imdb'], tmdb=data['id'])
-                             if receipt['kind'] == 'details' and data['imdb'] else None)
-                catalogue_rows = ([data] if receipt['kind'] == 'details' else
-                                  data.get('movies', []) + data.get('tv', []) + data.get('results', []))
-                claims = ['title'] if catalogue_rows else []
-                if any(r.get('date') and len(r['date']) >= 4 and r['date'][:4].isdigit()
-                       for r in catalogue_rows):
-                    claims.append('year')
-                if candidate:
-                    claims.append('crosswalk')
-                row = dict(id='research-' + str(receipt['step']), kind='catalogue', scope=packet['binding'],
-                           observed_at=receipt['result']['observed_at'], expires_at=receipt['result']['expires_at'],
-                           provenance=dict(origin='SIMULATED_catalogue', digest=digest(receipt)), candidate=candidate,
-                           text='Synthetic catalogue ' + receipt['kind'] + ' evidence ' + encoded(data).decode(),
-                           claims=claims, image_references=0)
-                enriched['evidence'].append(evidence_row(row))
-            validate_packet(enriched)
+            enriched = enriched_packet(packet, receipts)
             self.store.finish(lease, dict(reason='candidate_review', evidence_hash=digest(receipts), synthetic=True))
-            new_job, _ = self.history.intake(enriched, guard=guard)
+            dependency = dict(original_job=job, binding=packet['binding'], plan_hash=plan_hash,
+                              receipts=[digest(r) for r in receipts])
+            new_job, _ = self.history.intake(enriched, guard=guard, research_binding=dependency)
             with self.history.transaction(write=True) as (events, append):
                 guard(events, selected=new_job)
                 require(all(current < r['result']['expires_at'] for r in receipts), 'research_evidence_expired')
+                research_dependency(events, new_job, completing=True)
                 append(dict(type='research_complete', at=current, job=new_job, original_job=job,
                             plan_hash=plan_hash, receipts=[digest(r) for r in receipts],
                             simulated_gets=sum(r['provenance']['request'] is not None for r in receipts), synthetic=True))
@@ -397,3 +381,28 @@ def safe_projection(value):
     elif isinstance(value, list):
         for child in value:
             safe_projection(child)
+
+
+def enriched_packet(packet, receipts):
+    """Deterministic projection shared by the broker and locked handoff verifier."""
+    enriched = copy.deepcopy(packet)
+    for receipt in receipts:
+        data = receipt['result']['data']
+        candidate = (dict(imdb=data['imdb'], tmdb=data['id'])
+                     if receipt['kind'] == 'details' and data['imdb'] else None)
+        catalogue_rows = ([data] if receipt['kind'] == 'details' else
+                          data.get('movies', []) + data.get('tv', []) + data.get('results', []))
+        claims = ['title'] if catalogue_rows else []
+        if any(r.get('date') and len(r['date']) >= 4 and r['date'][:4].isdigit()
+               for r in catalogue_rows):
+            claims.append('year')
+        if candidate:
+            claims.append('crosswalk')
+        row = dict(id='research-' + str(receipt['step']), kind='catalogue', scope=packet['binding'],
+                   observed_at=receipt['result']['observed_at'], expires_at=receipt['result']['expires_at'],
+                   provenance=dict(origin='SIMULATED_catalogue', digest=digest(receipt)), candidate=candidate,
+                   text='Synthetic catalogue ' + receipt['kind'] + ' evidence ' + encoded(data).decode(),
+                   claims=claims, image_references=0)
+        enriched['evidence'].append(evidence_row(row))
+    validate_packet(enriched)
+    return enriched

@@ -54,7 +54,17 @@ def build_plan(history, original, research_plan, *, selected_job, provenance,
         credential=ExplicitCredential(SYNTHETIC_CREDENTIAL),
         authorization=SimulatedAuthorization(encoded(packet), now, expires_at), clock=lambda: now)
     payload = decode(transport._body(encoded(prompt), output_schema()), 65536)
+    from .contracts import Refusal
+    from .history import plan_retired, research_dependency
     blockers = list(MISSING_LIVE)
+    dependency = selected.get('research_dependency')
+    try:
+        if packet != original:
+            research_dependency(events, selected_job)
+        if plan_retired(events, digest(original), digest(research_plan)):
+            require(False, 'research_plan_revoked')
+    except Refusal as exc:
+        blockers.append(str(exc))
     if packet['binding']['occurrence'] is None or packet['event'] is None:
         blockers.append('historical_occurrence_and_source_currentness_unknown')
     if selected_job != latest['job']:
@@ -75,6 +85,7 @@ def build_plan(history, original, research_plan, *, selected_job, provenance,
         evidence_hash=digest(packet['evidence']), decision_hash=digest(packet['decisions']),
         evidence=packet['evidence'], decisions=packet['decisions'], research_plan=research_plan,
         research_plan_hash=digest(research_plan), research_receipts=completions[-1]['receipts'] if completions else [],
+        research_dependency=dependency,
         source_version=packet['binding']['version'], provider_version=research_plan['provider_version'],
         clocks=dict(original_event=packet['event'], selected_at=now, currentness_checked_at=now,
                     currentness_provenance='synthetic_only' if provenance == 'synthetic' else 'unverified',

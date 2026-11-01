@@ -1,5 +1,53 @@
 # Movie List project state
 
+## Issue #127 Task7 — retired research dependency correction, 2026-11-01
+
+The latest trusted supervisor Task7 commissions only review R1 from exact
+Task6 head `e7bc1edb480b9f0b8f96ff813a1d3da60a63263c`, tree
+`1758a9c3b97ca2f14decfa0e984dfa23ca274095`. Clean baseline and both trusted
+reviews were verified. This is one new slot under unchanged cap8; Tasks1..6
+remain consumed. The unrelated active task and all dated Task6 evidence remain.
+
+**Implementation:** disabled/offline research now durably links its derived intake
+to the original job, occurrence, complete selected plan and receipts/reservations.
+Every downstream model reservation/send, retained lookup and accepted model result
+rechecks that dependency under the private History locks. Missing/altered/foreign/
+ambiguous/incomplete links fail closed. Exact original-job/plan retirement blocks
+later use without replacement GET/plan, fallback, refund, retry or invocation/budget
+rename. Consumed accounting stays recorded; earlier immutable results remain
+historical. Pilot validation/projection and original/derived case/daily views show
+the exact retired dependency. Installer references the separate current Task7
+manifest; dated Task6 records are unchanged. Real-send refusals remain.
+
+**Technical verification:** before-fix tests and separate baseline-only synthetic
+proofs reproduced R1 on Python 3.12.16/3.13.18. Retirement before analysis/after first
+response/after second response/at final commit formerly returned supported_candidate
+with two fake sends. Task7 blocks at all four points (0/1/2/2 sends), while the
+nonempty control succeeds with two fake GETs/two fake model sends. Frozen focused
+suites passed 151 tests each, including actual History lock contention, retained
+binding corruption, reopening, accounting/no replay, installed-only nonempty
+`-I -B -S` control/retirement and all 25 dependency-removal checks. Full suites ran
+1,439 tests each, with two platform skips each, zero failures/errors and exit 0.
+Dependency consistency, unchanged scoring 1,909/387, all 28 current source/test
+hashes and 878 protected paths pass.
+**Inactive code READY_FOR_REVIEW**.
+Parent independent exact-terminal-head review/direct supported CI remain required.
+
+**Deployment/product acceptance:** neither authorized nor attempted. No live API
+compatibility, real affordability or actual identification is established. Source/
+provider/model access and all real-case demonstration prerequisites remain as
+listed in the guide. No credential/account/config/credit/billing/private input/
+output/host grant, SSH/seedbox/service/schedule/deployment, Radarr/Telegram/media/
+download, worker/subagent/daemon/Work or child publication action occurred.
+Both real sends stay refused; no usable real authorizer was added. Original
+notification and explicit release download confirmation are unchanged.
+
+See the [Task7 brief](reports/2026-11-01-issue-127-task7-brief.md),
+[report](reports/2026-11-01-issue-127-task7.md),
+[current manifest](reports/2026-11-01-issue-127-task7-runtime-manifest.json) and
+[current guide](AI-MOVIE-INVESTIGATOR.md#task7--retirement-across-the-research-to-model-handoff).
+No Task8, merge, activation or additional operational authority follows.
+
 ## Issue #127 Task6 — offline catalogue research and pilot preparation, 2026-11-01
 
 Trusted supervisor Task6 authorizes repository code/tests/docs only, under the

@@ -46,6 +46,16 @@ class ResponsesTransport:
         self.last_accounting = None
         self.used = set()
         self.spending = spending
+        self.history_binding = None
+
+    def bind_history(self, history, job, invocation):
+        """Controller-selected journal, not an authorization for real sends."""
+        from .history import History
+        require(type(history) is History and job == digest(decode(self.authorization.packet_json, MAX_INPUT)),
+                'responses_history_binding')
+        require(self.history_binding is None and (self.spending is None or self.spending.history is history),
+                'responses_history_binding')
+        self.history_binding = (history, job, invocation)
 
     def identity(self):
         return dict(transport='openai_responses', model=MODEL, client='fixed_https_v1',
@@ -112,10 +122,20 @@ class ResponsesTransport:
         require(self.credential.value.encode() not in body, 'responses_credential_in_input')
         return body
 
+    def _checked_body(self, payload, schema):
+        if self.history_binding is None:
+            return self._body(payload, schema)
+        from .history import research_dependency, selected_current
+        history, job, _ = self.history_binding
+        with history.transaction() as (events, _):
+            research_dependency(events, job)
+            selected_current(events, job)
+            return self._body(payload, schema)
+
     def prepare(self, payload, *, schema):
         """Build before durable controller reservation; no HTTP side effect."""
         require(self.pending is None, 'responses_pending_request')
-        body = self._body(payload, schema)
+        body = self._checked_body(payload, schema)
         fingerprint = digest(decode(body, 65536))
         require(fingerprint not in self.used, 'responses_request_already_consumed')
         reservation = dict(local_request_id='simulated-' + uuid.uuid4().hex,
@@ -124,7 +144,8 @@ class ResponsesTransport:
                            monetary_reservation='unverified_no_live_send', simulated=True)
         if self.spending is not None:
             reservation['monetary_reservation'] = self.spending.reserve(
-                body, reservation, decode(self.authorization.packet_json, MAX_INPUT)['binding'])
+                body, reservation, decode(self.authorization.packet_json, MAX_INPUT)['binding'],
+                job=self.history_binding[1] if self.history_binding else None)
         self.pending = (body, reservation, digest(decode(payload, MAX_INPUT)))
         return dict(reservation)
 
@@ -137,13 +158,20 @@ class ResponsesTransport:
         # Consume before any fallible action; no same-object replay on timeout.
         self.pending = None
         self.used.add(reservation['request_hash'])
-        require(prompt_hash == digest(decode(payload, MAX_INPUT)) and body == self._body(payload, schema),
+        require(prompt_hash == digest(decode(payload, MAX_INPUT)) and body == self._checked_body(payload, schema),
                 'responses_reserved_input_changed')
         remaining = timeout - (self.monotonic() - started)
         require(remaining > 0, 'responses_deadline_exceeded')
         try:
             if self.spending is not None:
-                self.spending.before_send(body, reservation)
+                self.spending.before_send(body, reservation,
+                    job=self.history_binding[1] if self.history_binding else None)
+                remaining = timeout - (self.monotonic() - started)
+                require(remaining > 0, 'responses_deadline_exceeded')
+            if self.history_binding is not None:
+                history, job, invocation = self.history_binding
+                history.record(dict(type='model_send', job=job, invocation=invocation,
+                    call=len(self.used), api_request=reservation))
                 remaining = timeout - (self.monotonic() - started)
                 require(remaining > 0, 'responses_deadline_exceeded')
             result = self.http.post(body, credential=self.credential, project=SYNTHETIC_PROJECT, timeout=remaining)

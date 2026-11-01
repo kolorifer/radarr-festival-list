@@ -7,7 +7,7 @@ restart. Only validated, bound usage can release a known unused reservation.
 from fractions import Fraction
 
 from .contracts import decode, digest, encoded, require, scope, stamp
-from .history import History
+from .history import History, research_dependency, selected_current
 from .responses_protocol import INPUT_TOKENS, MODEL, OUTPUT_TOKENS
 
 POLICY = dict(model=MODEL, service_tier='default', prompt_cache_options=dict(ttl='30m'))
@@ -67,7 +67,7 @@ class SimulatedSpending:
         settled = [e for e in rows if e['type'] == 'spending_settled']
         return now, reserved, settled
 
-    def reserve(self, body, reservation, binding):
+    def reserve(self, body, reservation, binding, *, job=None):
         require(binding == self.spec['binding'], 'spending_case_changed')
         request = decode(body, 65536)
         require(all(request.get(k) == v for k, v in POLICY.items()), 'spending_policy_unknown')
@@ -78,6 +78,9 @@ class SimulatedSpending:
         cost = tokens * max(rational(PRICING[k]) for k in ('input', 'cache_read', 'cache_write'))
         cost += OUTPUT_TOKENS * rational(PRICING['output'])
         with self.history.transaction(write=True) as (events, append):
+            if job is not None:
+                research_dependency(events, job)
+                selected_current(events, job)
             now, reserved, settled = self._rows(events)
             require(len(reserved) < 2, 'spending_request_limit')
             require(len(reserved) == len(settled), 'spending_previous_charge_unknown')
@@ -94,9 +97,12 @@ class SimulatedSpending:
         return dict(budget=self.identity, reserved=pair(cost), counter=COUNTER,
                     pricing=PRICING['identity'], currency='USD', synthetic=True)
 
-    def before_send(self, body, reservation):
+    def before_send(self, body, reservation, *, job=None):
         """Recheck and consume the single send under the durable lock."""
         with self.history.transaction(write=True) as (events, append):
+            if job is not None:
+                research_dependency(events, job)
+                selected_current(events, job)
             now, reserved, settled = self._rows(events)
             require(len(reserved) == len(settled) + 1, 'spending_send_sequence')
             row = reserved[-1]

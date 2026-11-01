@@ -46,6 +46,13 @@ review. These are synthetic tests, not a newly identified real film or a live
 pilot. Real research/model use remains blocked. Notifications, identity choices
 and the separate release-specific download confirmation behave as before.
 
+**1 November offline retirement correction:** retiring a selected catalogue plan
+now also stops the later AI analysis that depends on it. Its case and daily view
+show the exact retired plan, and a previously selected pilot becomes stale.
+Already consumed attempts stay recorded; an earlier completed result remains
+historical. This was verified with invented cases and fake replies only. The
+investigator remains inactive, and download confirmation behaves as before.
+
 ## The people and programs involved
 
 - **Tracker:** announces a torrent release, such as a particular Blu-ray version of a film.

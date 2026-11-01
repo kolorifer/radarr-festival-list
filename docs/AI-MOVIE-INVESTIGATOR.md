@@ -1,5 +1,51 @@
 # Inactive AI movie investigator
 
+## Task7 — retirement across the research-to-model handoff
+
+Task7 corrects independently reproduced Task6 review R1. This remains disabled,
+standalone code with synthetic fixtures only. It does not activate a model,
+provider, service, schedule, notification or download.
+
+The private journal now retains the complete selected research plan at research
+start and an exact dependency on the derived intake: original job, full occurrence
+binding, plan hash and ordered receipt hashes. Downstream validation resolves the
+original intake, single selected start/plan, every matching observation/reservation,
+complete research result and deterministic enriched packet from retained trusted
+state. A label, supplied hash, completed template or caller boolean is insufficient.
+Missing, changed, foreign, ambiguous or incomplete dependencies block. Older
+Task6 handoffs lacking these durable records also block; there is no migration,
+replacement plan, repeated GET or fallback to original input to bypass this check.
+
+Retirement is matched to **both original job and exact selected plan**, which
+already pins the occurrence. It blocks before model preparation/reservation,
+at the one-use durable send decision, before each retained lookup and before
+accepting a model result. These decisions re-read the journal under its existing
+private locks. Responses request reconstruction also checks the dependency while
+holding the read lock. TEST spending reservation/send checks use the same journal;
+validated accounting from an already consumed response can still settle honestly.
+An unknown/consumed reservation is never refunded or retried to continue analysis.
+
+Before the first model stage, retirement permits zero fake sends. After the first
+response it prevents the second send and retained lookup. After the second response,
+or immediately before final durable commit, it prevents a supported result. An
+immutable result committed earlier remains historical; later retirement is shown
+separately. The original and derived case/daily views identify the exact retired
+plan and the derived view includes its original job, occurrence and receipts.
+Pilot rebuilding adds the concrete `research_plan_revoked` blocker, so an earlier
+selected pilot cannot validate unchanged after retirement. Real readiness remains
+false regardless of all template fields.
+
+The nonempty installed-only proof includes the successful control and a retired
+handoff under `-I -B -S` outside the checkout. All 25 individually removed local
+dependencies still fail without source/PYTHONPATH/site fallback. The installer now
+uses the separate [Task7 manifest](reports/2026-11-01-issue-127-task7-runtime-manifest.json);
+the dated Task6 manifest/report remain historical evidence. See the
+[Task7 brief](reports/2026-11-01-issue-127-task7-brief.md) and
+[report](reports/2026-11-01-issue-127-task7.md). Parent independent exact-head
+review and supported CI remain required. The future real-case demonstration
+prerequisites below are unchanged; no real identification, API compatibility or
+affordability is established by this correction.
+
 ## Task6 — offline catalogue stage and one-case plan
 
 Task6 adds a standalone **synthetic-only** catalogue broker, an inspectable
@@ -188,8 +234,8 @@ No new live task, cost, access or owner decision is needed to run this offline
 proof. The missing prerequisites above are for a future real demonstration only.
 
 `installation.install_runtime` explicitly copies the exact 25-file code closure
-and verifies its Task6 manifest hashes into a caller-selected empty private
-directory. It installs/starts no service and copies no ledger, private input or
+and verifies its current Task7 manifest hashes into a caller-selected empty
+private directory. It installs/starts no service and copies no ledger, private input or
 credential. The installed-only test runs the nonempty workflow under `-I -B -S`
 outside the repository with no source/PYTHONPATH/site fallback; every individually
 removed file and selected drifted files must fail. The manifest and this installer

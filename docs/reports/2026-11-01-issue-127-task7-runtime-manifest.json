@@ -1,0 +1,38 @@
+{
+  "base_commit": "e7bc1edb480b9f0b8f96ff813a1d3da60a63263c",
+  "base_tree": "1758a9c3b97ca2f14decfa0e984dfa23ca274095",
+  "purpose": "Task7 R1 exact durable retired-research dependency correction. Offline only; no real authorization or activation.",
+  "runtime_files": {
+    "ai_movie_investigator/__init__.py": "77de306e92eaa34593ea69e88766ffbb7799d86197e915f661b652ac7b7717c4",
+    "ai_movie_investigator/catalogue_replay.py": "0feafbd2d3120e13228898741ad3a8c4d65e52fde39456c9a2823eb6c8aa04d0",
+    "ai_movie_investigator/codex_transport.py": "9c441a8c9fceb23898987897650beb0f80e6b6bad7f9d6f02a33f472ea66d77a",
+    "ai_movie_investigator/contracts.py": "cd3f06aa951a8733333d96242d1da745f4a27d2db05bdf0861f75fbd249859c3",
+    "ai_movie_investigator/controller.py": "1ca2ec08801c0891b02d59b4be6170c374e6bdb45f445e9f3518c5dd02313e7d",
+    "ai_movie_investigator/history.py": "594f4089c447b7895c292102cbe77ccd82c6d8c6bc42f3ae60580a9685905ef7",
+    "ai_movie_investigator/installation.py": "80d183394202f4ffb19a3dd212011cfcd223ad481505863d9fcc22d9d634cddd",
+    "ai_movie_investigator/pilot.py": "4cf21519eb6f2148646bfeca0e110b9a7a259b55397a58b8d72ee748f18ab6bb",
+    "ai_movie_investigator/replay.py": "386838aba7e3019de9bf7a3bc10baa20e1dc49da34bf5950e09ce3d8223ffd4f",
+    "ai_movie_investigator/research.py": "3342435a9c4124163c16de9b553d6fbba88fa7255166af0c295b8afa0bd4a5cf",
+    "ai_movie_investigator/responses_http.py": "b873138672671c6002e0a0560812a5e72cd0ee3acff983c90d08003b0ebd65cb",
+    "ai_movie_investigator/responses_protocol.py": "22af3c94288a277ca6ee43b2f04228203309555d13f38478367e079b2aff6c82",
+    "ai_movie_investigator/responses_replay.py": "0827952c517210e4cb0be4016523e7cc62ab52b94ab0785fc814e6c4b02b71c7",
+    "ai_movie_investigator/responses_transport.py": "eaefd810718f9c9b40eb30394a94e4bcd6d1664d10d1a7766e1b649cb00f4b45",
+    "ai_movie_investigator/review.py": "e4939155e64ed9dc5e8c23a75ba7b44fdfd0bc566e53abaccfbd5bb43d3d66ba",
+    "ai_movie_investigator/spending.py": "ce169410bf5c178913c15b7976d6cf123779a5f158d377dfa25c0cae72cb7757",
+    "ai_movie_investigator/synthetic.json": "e425037c034b7baba21eda464d697797b8a6d44ab710efbdf0d5cb93ead429ba",
+    "identity_recurring_store.py": "a4988aee1537e3d57de9522317bc651cbdbaa65f11db83c54aba845738a9e3c2",
+    "identity_research_handoff.py": "ef7232c0b5480c61b86d2284d37588037203cb7e7c2343fab23182c85a97c10c",
+    "identity_research_provider.py": "2301d7b3cb88e463bd55ad20ead536e3de3e767acee9b09aef109a64cdc0466f",
+    "identity_research_store.py": "5f3202dfded91a48efb882ee7c4a6c3690e6f80785863a1bf171b79b02a33464",
+    "identity_selection.py": "c56f9ed9bf82d3edce42ae2430fbc4bd9b51f253f1764bac1be3996e6c2ed197",
+    "identity_triage_intake.py": "21cb20434c4cf7dff344b4c2acdd13e00ec5737e51f1cbad24c75fea9b160c22",
+    "identity_triage_store.py": "c3cdfe8c54a7103387b1a0b3ed20d287041fb2faf5b065f3488a331716ea17e3",
+    "torrent_research_evidence.py": "de794d62ca4a7b52687ae4722838c5181f858817805b7e5f34c01b001d1645c5"
+  },
+  "task": 7,
+  "tests": {
+    "test_ai_movie_investigator.py": "931559ed3379cbee747853bb44ac06bee694678ffb064e8eaad040c15b11aced",
+    "test_investigator_catalogue.py": "b8ff9ff087a61b0413eed450efd13142b3590e6287e2044bc3528527f22af9eb",
+    "test_responses_transport.py": "dc90aa1daa9d099dfc64877b4b83038159944a418366cd9ea15c1a066fce66c0"
+  }
+}

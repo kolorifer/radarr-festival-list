@@ -63,7 +63,7 @@ def install_runtime(source, destination):
     if list(destination.iterdir()):
         raise ValueError('installation_not_empty')
     frozen = {}
-    source_manifest = json.loads(_read(source / 'docs/reports/2026-11-01-issue-127-task6-runtime-manifest.json'))
+    source_manifest = json.loads(_read(source / 'docs/reports/2026-11-01-issue-127-task7-runtime-manifest.json'))
     expected = source_manifest['runtime_files']
     if set(expected) != set(RUNTIME_FILES):
         raise ValueError('installation_closure')
