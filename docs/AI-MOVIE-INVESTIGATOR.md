@@ -6,6 +6,22 @@ schedule. Importing it starts nothing. No real identification has been made.
 Only synthetic temporary storage and fake transports were exercised. Task2 also
 inspected installed-client metadata without inference or configuration changes.
 
+Task4 adds an optional fixed-origin Responses HTTP adapter for explicit
+`gpt-6.1-sol` requests. It remains inactive. Only synthetic grants and HTTP
+fixtures have exercised the complete investigator loop. No real API key,
+account entitlement, model access, network isolation or billing condition was
+verified. The real-send authorization verifier is deliberately unimplemented;
+turning on a constructor flag cannot authorize a real request. The Codex
+registry remains empty. See the [Task4 report](reports/2026-11-01-issue-127-task4.md)
+and [completed brief](reports/2026-11-01-issue-127-task4-brief.md).
+
+Task5 corrects the jointly reported input-token partition after independent
+Task4 review reproduced an inconsistency. See the
+[corrective report](reports/2026-11-01-issue-127-task5.md) and
+[completed brief](reports/2026-11-01-issue-127-task5-brief.md). Historical Task4
+test results did not cover this defect; new exact-head review and CI remain
+required. The adapter stays disabled and no live access follows this correction.
+
 ## Explicit interfaces and trust
 
 `contracts.captured_outcome(envelope, sources=..., binding=..., evidence=...,
@@ -102,6 +118,113 @@ owner-target conflict block that claim. This is a conservative validation of a
 `intentionally_skipped` stay distinct. Only concise evidence rationale and
 actual query/answer traces are retained; internal model reasoning is not stored.
 No result is learned into a verified identity cache or grants download consent.
+
+## Optional Responses API transport — Task4, inactive
+
+`responses_transport.ResponsesTransport()` implements the existing
+`identity/preflight/complete` interface and defaults to disabled. Import,
+construction and preflight do not read credentials or send requests. There is
+no production wiring, schedule, CLI activation option or automatic fallback.
+Both the transport and HTTP entry point refuse real sends through
+`real_activation_refusal`: no authoritative external verifier ships. A true
+flag, profile hash, arbitrary grant or fake HTTP subclass cannot satisfy it.
+This is an intentional activation gap, not verified live API access.
+
+The actual wire implementation uses only
+`https://api.openai.com/v1/responses`. It builds a fresh request containing fixed
+instructions, one selected text envelope, the existing strict schema under
+`text.format`, explicit `gpt-6.1-sol`, empty tools, `tool_choice=none`,
+`store=false`, `background=false`, `stream=false` and disabled truncation.
+No previous response/conversation ID, remote prompt/file/image, SDK, hosted
+tool, MCP, browser, shell or generated command is used. No ambient user,
+project, home, AGENTS, skills, rules, config or chat history is collected.
+Retained lookup requests remain JSON data for the controller's existing broker.
+
+`ExplicitCredential` is a transport-only explicit value with a redacted repr;
+there is no environment/keychain/Codex/private-config discovery. The only
+admitted simulation client is the exact finite `SimulatedHTTP` class, which
+cannot open a socket. It requires `SIMULATED-NOT-A-KEY` and `proj_SIMULATED`.
+`SimulatedAuthorization` pins the exact synthetic packet and a maximum300s
+window; changed facts, scope, decisions, evidence, lookups, schema or fixed
+instructions refuse before HTTP. These are simulation checks, not an account,
+privacy, budget, real-input or storage authorization mechanism.
+
+The HTTP code validates public DNS answers and connects to one checked numeric
+peer on443, with certificate/hostname validation and fixed `api.openai.com`
+TLS SNI. It uses compiled platform trust paths explicitly, without
+SSL_CERT_FILE/SSL_CERT_DIR/SSLKEYLOGFILE overrides. Raw direct sockets ignore
+proxy environment variables. There is no alternate address attempt, redirect,
+SDK/HTTP/429 retry or failure replay. A main-thread POSIX interval timer covers
+DNS, TCP, TLS, headers and slow body reads together. Unsupported platform/thread
+or an occupied process timer refuses; this is a deliberate implementation
+constraint to avoid a DNS or slow-read timeout escape. It does not attest an
+installed host's mandatory network policy. Tests replace DNS, TLS, sockets and
+the absent external verifier; one also uses the real standard-library HTTP
+serializer against a synthetic socket. No test reaches the real endpoint.
+
+Bounds preserve49,152-byte selected prompts,8,192-byte answer JSON,25s/call and
+60s/whole investigation. The complete encoded API request is capped at65,536
+bytes; HTTP response bodies at32,768 bytes; reported input tokens at65,536;
+`max_output_tokens=4096` includes visible and reasoning tokens. These static
+simulation ceilings are not a verified tokenizer estimate or monetary
+reservation. A future real verifier must establish those before transmission.
+The API reservation records contain a local simulated identity, exact request
+hash/bytes and ceilings, explicitly `unverified_no_live_send` for money.
+No price, spending, credit balance or final charge is fabricated.
+
+The controller durably syncs each reservation before `complete`. Duplicate/
+out-of-order reservations and a second reservation after an unknown first
+attempt refuse. The HTTP adapter consumes its prepared request before a send;
+no reuse follows interruption/failure. Actual validated response identity,
+optional request-header identity and sanitized token usage are retained only
+when present, separately from model semantic acceptance and provider GETs.
+Missing accounting blocks completion. Daily review labels simulated accounting
+and unverified final billing. Shared quota remains a separate gate: real routes
+still require supplied current telemetry and reject unknown/stale or <=15%
+remaining allowance. Simulation never claims to measure that allowance.
+
+Accepted usage requires exact nonnegative integers and the existing per-component,
+total and token ceilings. Cached tokens plus separately billed cache-write
+tokens must also be at most the input total: the ordinary input remainder
+cannot be negative. Zero components and exact equality are valid. This follows
+the [official accounting example](https://developers.openai.com/cookbook/articles/per_run_spending_controller_responses_api)
+and validates recorded usage only; no price or live financial authorization is
+inferred. Invalid usage on either response leaves that attempt reserved with
+unknown consumption, without accepted API accounting or model completion for
+that response. A valid earlier response and its retained lookups stay recorded;
+there is no further send, supported candidate, refund, retry or replay.
+
+Only one completed assistant text body is accepted. Model, foreground/store/
+tool/schema echoes and token accounting must agree. Actions, refusals,
+unsupported shapes, malformed/truncated/oversized JSON, multiple answers,
+failed/incomplete status and invalid usage block. The documented optional
+opaque encrypted reasoning payload is type/size checked and discarded; it is
+never logged, hashed, stored, decrypted or included in the next request.
+Unencrypted reasoning content and requested summaries are unsupported.
+Remote error bodies and credential/header values are never logged; success
+bodies echoing the supplied credential are also rejected. Existing controller
+binding, citation, evidence/ID, freshness and decision checks still decide
+whether text is an evidence-supported review proposal. No response executes
+anything or changes production identity/download consent.
+
+Official documentation verified on2026-11-01:
+
+- [Responses create reference](https://developers.openai.com/api/reference/resources/responses/methods/create):
+  request/response fields, status/items and detailed usage, including current
+  `cache_write_tokens` and optional encrypted reasoning metadata.
+- [Structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs):
+  strict `text.format` schema and incomplete/refusal handling.
+- [Tool choice](https://developers.openai.com/api/docs/guides/function-calling):
+  explicit no-tool selection; model requests do not confer controller authority.
+- [Selected model](https://developers.openai.com/api/docs/models/gpt-6.1-sol):
+  exact model supports Responses and structured text output; a public model page
+  does not verify this user's access.
+- [Data controls](https://developers.openai.com/api/docs/guides/your-data):
+  `store=false` is not zero retention; account-specific conditions remain unverified.
+
+The reference was fetched as official Markdown because the web reader rejected
+its large HTML page. No inference/account endpoint was queried. Static fixture
+acceptance establishes offline protocol behavior, not live API compatibility.
 
 ## Codex CLI transport and current blocker
 
@@ -257,7 +380,8 @@ Run in a suitable Python 3.12/3.13 project environment:
 
 ```sh
 python -m ai_movie_investigator.replay --synthetic
-python -m unittest -v test_ai_movie_investigator
+python -m ai_movie_investigator.responses_replay --synthetic
+python -m unittest -v test_ai_movie_investigator test_responses_transport
 python -m unittest -v
 ```
 
@@ -283,12 +407,13 @@ production code automatically.
 
 The isolated installed-only test copies these exact runtime dependencies into a
 temporary installation, invokes Python with `-I -B -S` outside the repository,
-and runs nonempty replay plus legacy import. No site packages, PYTHONPATH, test
-module or checkout fallback is available. Removing each existing dependency
-must fail the proof:
+and runs both nonempty replays plus legacy import. No site packages, PYTHONPATH, test
+module or checkout fallback is available. Removing each of the six existing shared dependencies and each of the four
+new Responses modules must fail the proof (ten removal negatives):
 
 ```text
 ai_movie_investigator/{__init__,contracts,history,controller,codex_transport,review,replay}.py
+ai_movie_investigator/{responses_http,responses_protocol,responses_transport,responses_replay}.py
 ai_movie_investigator/synthetic.json
 identity_triage_intake.py
 identity_triage_store.py
@@ -310,13 +435,21 @@ review; the parent owns both publication and that review path.
 This is a plan, not operational authority. The later sanctioned demonstration
 must specify:
 
-1. Independently reviewed exact public code and pinned runtime/dependency files,
-   passing exact-head Python 3.12/3.13 CI, and the real client's complete audited
-   tool/context boundary profile. A safe profile is a required code follow-up,
-   not a reason to bypass a missing boundary or managed requirement.
-2. Evidence of existing ChatGPT sign-in/model access and current shared quota
-   through an already authorized route, with no credential copying or new API.
-   No model/probe is commissioned by this document.
+1. Independently reviewed exact public code, pinned runtime/dependencies,
+   direct exact-head Python3.12/3.13 CI and a reviewed real authorization verifier.
+   The optional API route requires authoritative external verification and
+   stable mandatory host/network controls; neither simulated grants nor arbitrary
+   booleans/hashes attest them. The alternate Codex route still requires its
+   complete safe tool/context boundary and remains unregistered.
+2. A separately authorized dedicated API project/key, verified exact
+   `gpt-6.1-sol` access and account/privacy/billing conditions. Supply a key only
+   through the narrow transport interface, never by ambient discovery. A verified
+   tokenizer/bounded pricing plan and durable token/monetary reservation must
+   precede each real send and include reasoning/cache-write costs. No such verifier
+   or paid fallback is implemented. Possible subscription credits are not this
+   user's verified entitlement; paid credits can be consumed after free credits.
+   `store=false` does not establish zero retention. The older Codex ChatGPT-sign-in
+   route has no API-key fallback and remains independently blocked.
 3. Exactly one sanctioned captured outcome, original bytes/hash, source/case/
    version/event/delivery binding, dated retained evidence and full trusted owner
    decision/revocation/supersession history. Redact capabilities before import.

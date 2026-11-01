@@ -1056,7 +1056,8 @@ class CLIProtocolTests(unittest.TestCase):
 class InstalledOnlyTests(unittest.TestCase):
     def test_nonempty_installed_closure_without_checkout_site_or_test_fallback(self):
         package = ['__init__.py', 'contracts.py', 'history.py', 'controller.py', 'codex_transport.py',
-                   'review.py', 'replay.py', 'synthetic.json']
+                   'review.py', 'replay.py', 'synthetic.json', 'responses_http.py', 'responses_protocol.py',
+                   'responses_transport.py', 'responses_replay.py']
         dependencies = ['identity_triage_intake.py', 'identity_triage_store.py', 'identity_selection.py',
                         'torrent_research_evidence.py', 'identity_research_handoff.py', 'identity_research_provider.py']
         script = '''
@@ -1065,6 +1066,18 @@ sys.path.insert(0, sys.argv[1])
 from ai_movie_investigator.replay import run_synthetic, NOW, packet_for
 from ai_movie_investigator.contracts import legacy_snapshot
 from ai_movie_investigator.codex_transport import CodexCLI
+from ai_movie_investigator.responses_replay import run_responses_synthetic
+from ai_movie_investigator.responses_transport import ResponsesTransport
+import socket
+socket.socket=lambda *a, **k: (_ for _ in ()).throw(AssertionError('network forbidden'))
+assert ResponsesTransport().preflight()=='model_transport_disabled'
+with tempfile.TemporaryDirectory() as tmp:
+ h,r,v,t=run_responses_synthetic(pathlib.Path(tmp).resolve())
+ assert r['status']=='supported_candidate' and r['model_calls']==2 and len(t.http.requests)==2
+ assert len([e for e in h.read() if e['type']=='api_response'])==2
+ assert any(e['type']=='lookup' and e['answer']['rows'] for e in h.read())
+ assert 'req_SIMULATED_1' in v['text'] and 'SIMULATED; not a real identification' in v['text']
+ assert not t.audit_identity()['live_access_verified']
 p=packet_for()
 legacy_snapshot(dict(case_id=p['binding']['case_id'],version=p['binding']['version'],observed_at=NOW-10,
  first_observed_at=NOW-20,title='Synthetic Harbor',year=2026,route='eligible',reason='no_exact_match',
@@ -1097,7 +1110,8 @@ print('INSTALLED_SYNTHETIC_PASS')
             result = execute()
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn('INSTALLED_SYNTHETIC_PASS', result.stdout)
-            for name in dependencies:
+            for name in dependencies + ['ai_movie_investigator/' + n for n in
+                                         ('responses_http.py', 'responses_protocol.py', 'responses_transport.py', 'responses_replay.py')]:
                 path = installed / name
                 content = path.read_bytes()
                 path.unlink()

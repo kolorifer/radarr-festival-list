@@ -701,3 +701,29 @@ six-letter handling, numeric/Roman sequel distinctions and all ID/year/source
 gates. Parse one General-section NFO Duration/Runtime/Length, including seconds;
 exclude track durations and do not guess malformed/ambiguous values. Recheck
 source and runtime before acquisition. No live test downloads or notifications.
+
+
+## 2026-11-01 — Issue127 offline Responses route, inactive
+
+- **Status/source:** Accepted bounded route change; latest issue-owner supervisor
+  Task4 explicitly approves the offline alternative from
+  [assessment6550170282](https://github.com/kolorifer/radarr-festival-list/issues/127#issuecomment-6550170282).
+- **Decision:** Permit disabled-by-default code and synthetic HTTP tests for an
+  optional fixed-origin OpenAI Responses transport, explicit `gpt-6.1-sol`, no
+  tools and only selected retained evidence. This supersedes Task1's
+  ChatGPT-sign-in-only restriction solely for this inactive implementation.
+- **Rationale:** Accepted Task3 metadata checks did not establish the complete
+  Codex tool/context boundary. A finite explicit HTTP request can be examined
+  offline without treating client settings as isolation proof.
+- **Consequences:** The real Codex boundary registry remains empty. Real API
+  authorization verification is unimplemented and fails closed. No credential,
+  account/billing inspection, entitlement, spending, runtime activation,
+  deployment, live inference, identification or private-input/output grant is
+  approved. Dedicated project/key/model access, privacy/account/billing,
+  verified pricing/token reservation, exact case/evidence/decision and storage/
+  destination grants remain separate. Possible subscription credits are not
+  verified entitlement; paid credits can follow free-credit use, and
+  `store=false` is not zero retention. Original notification/download safeguards,
+  consumed tasks/budgets and the independent reporting trial stay unchanged.
+- **Implementation:** [completed brief](reports/2026-11-01-issue-127-task4-brief.md)
+  and [report](reports/2026-11-01-issue-127-task4.md). No automatic next execution.
