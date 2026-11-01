@@ -1,5 +1,51 @@
 # Movie List project state
 
+## Issue #127 Task5 — inactive input-token accounting correction, 2026-11-01
+
+Latest trusted supervisor Task5 authorizes only the single accounting defect
+correction from [issue review6555457647](https://github.com/kolorifer/radarr-festival-list/issues/127#issuecomment-6555457647)
+and [PR review5727140317](https://github.com/kolorifer/radarr-festival-list/pull/129#pullrequestreview-5727140317).
+Clean branch/head/tree matched `automation/issue-127-worker` at
+`1af611333116ce7df40a6cac83cf38948c93afce` /
+`3917b9b91b5d92a3e58744ed1f4cde86dfca8153`. Both exact reviews were read;
+no previous Codex session was resumed or forked.
+
+Before the fix, both supported interpreters accepted cached/write600/601 and
+1200/1200 with input1200/output300/total1500; the latter full fake-HTTP loop
+returned a supported candidate and two accepted API records. The parser now
+requires the joint cached/write partition to fit the input total without
+altering reported fields or monetary accounting. New first/second-response
+regressions preserve durable unknown-consumed reservations, earlier valid
+accounting/lookups and no further send/refund/retry/replay. Zero components,
+valid400/500 and equality600/600 remain accepted. This is simulation evidence,
+not a real movie identification or proof of live compatibility.
+
+Focused verification: **98 passed on each Python3.12.16/3.13.18**, including
+nonempty installed-only closure and all10 required dependency-removal negatives.
+Full suites: **1,386 run on each version, two Linux-only skips each, zero
+failures/errors and exit0**. Dependency consistency, unchanged scoring1909/387,
+21 current source hashes, documentation/diff and preservation checks pass;
+exact Task1..4 manifest snapshots are retained. **Inactive code READY_FOR_REVIEW.**
+Parent publication and independent final exact-head review/direct supported CI
+remain pending. Old Task4 CI does not cover this fix. Product acceptance and
+operation are unproved.
+
+Real authorization verification remains absent and both real entry points fail
+closed; the Codex safe registry remains empty. Existing model/tool/ambient-data,
+TLS/endpoint/deadline, evidence/currentness/quota and notification/download
+safeguards are unchanged. No live API/provider/model, credentials/account/billing,
+source/seedbox/SSH/private input, deployment/service/schedule/configuration,
+notification/Radarr/media/download, daemon/worker/subagent/Work or child
+publication action occurred. Deployment/health were not inspected. The specific
+later real-case demonstration prerequisites remain in the investigator guide.
+
+Historical Tasks1..4 reports and consumed evidence, claims/caps, dispatcher/trial,
+issue119/122/125, issue86/PR110 and unrelated `docs/CODEX_TASK.md` are preserved.
+PR129 ancestry reconciliation stays parent-owned; no history rewrite or next
+execution is inferred. See the [completed Task5 brief](reports/2026-11-01-issue-127-task5-brief.md),
+[corrective report](reports/2026-11-01-issue-127-task5.md) and
+[current contracts](AI-MOVIE-INVESTIGATOR.md). Task4 results below are historical.
+
 ## Issue #127 Task4 — inactive Responses transport, 2026-11-01
 
 Latest trusted issue-owner supervisor Task4 explicitly approves the offline

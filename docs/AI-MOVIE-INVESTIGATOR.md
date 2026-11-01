@@ -15,6 +15,13 @@ turning on a constructor flag cannot authorize a real request. The Codex
 registry remains empty. See the [Task4 report](reports/2026-11-01-issue-127-task4.md)
 and [completed brief](reports/2026-11-01-issue-127-task4-brief.md).
 
+Task5 corrects the jointly reported input-token partition after independent
+Task4 review reproduced an inconsistency. See the
+[corrective report](reports/2026-11-01-issue-127-task5.md) and
+[completed brief](reports/2026-11-01-issue-127-task5-brief.md). Historical Task4
+test results did not cover this defect; new exact-head review and CI remain
+required. The adapter stays disabled and no live access follows this correction.
+
 ## Explicit interfaces and trust
 
 `contracts.captured_outcome(envelope, sources=..., binding=..., evidence=...,
@@ -175,6 +182,17 @@ Missing accounting blocks completion. Daily review labels simulated accounting
 and unverified final billing. Shared quota remains a separate gate: real routes
 still require supplied current telemetry and reject unknown/stale or <=15%
 remaining allowance. Simulation never claims to measure that allowance.
+
+Accepted usage requires exact nonnegative integers and the existing per-component,
+total and token ceilings. Cached tokens plus separately billed cache-write
+tokens must also be at most the input total: the ordinary input remainder
+cannot be negative. Zero components and exact equality are valid. This follows
+the [official accounting example](https://developers.openai.com/cookbook/articles/per_run_spending_controller_responses_api)
+and validates recorded usage only; no price or live financial authorization is
+inferred. Invalid usage on either response leaves that attempt reserved with
+unknown consumption, without accepted API accounting or model completion for
+that response. A valid earlier response and its retained lookups stay recorded;
+there is no further send, supported candidate, refund, retry or replay.
 
 Only one completed assistant text body is accepted. Model, foreground/store/
 tool/schema echoes and token accounting must agree. Actions, refusals,

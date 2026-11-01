@@ -348,6 +348,131 @@ class ResponsesTests(unittest.TestCase):
         with self.assertRaises(Refusal):
             parse_response(encoded(original), self.schema)
 
+    def partition_response(self, reply, number, cached, written):
+        response = simulated_response(reply, number)
+        body = decode(response.body, wire.MAX_RESPONSE)
+        body['usage']['input_tokens_details'] = dict(cached_tokens=cached, cache_write_tokens=written)
+        return replace(response, body=encoded(body))
+
+    def test_input_partition_accepts_zero_components_remainder_and_exact_equality(self):
+        for cached, written in ((0, 0), (0, 1200), (1200, 0), (400, 500), (600, 600)):
+            with self.subTest(cached=cached, written=written):
+                response = self.partition_response(simulated_replies(self.packet)[0], 1, cached, written)
+                answer, accounting = parse_response(response.body, self.schema)
+                self.assertEqual(decode(answer), simulated_replies(self.packet)[0])
+                # Preserve every reported field verbatim, without normalization.
+                self.assertEqual(accounting['usage'], decode(response.body, wire.MAX_RESPONSE)['usage'])
+
+    def test_input_partition_rejects_one_token_overflow_and_double_counting(self):
+        for cached, written in ((600, 601), (601, 600), (1200, 1), (1, 1200), (1200, 1200)):
+            with self.subTest(cached=cached, written=written):
+                response = self.partition_response(simulated_replies(self.packet)[0], 1, cached, written)
+                with self.assertRaisesRegex(Refusal, '^responses_usage_invalid$'):
+                    parse_response(response.body, self.schema)
+
+    def test_input_partition_still_requires_both_exact_nonnegative_integer_components(self):
+        for field in ('cached_tokens', 'cache_write_tokens'):
+            for value in (True, False, -1, 1.0, '1', None, 1201):
+                with self.subTest(field=field, value=value):
+                    response = self.partition_response(simulated_replies(self.packet)[0], 1, 0, 0)
+                    body = decode(response.body, wire.MAX_RESPONSE)
+                    body['usage']['input_tokens_details'][field] = value
+                    with self.assertRaisesRegex(Refusal, '^responses_usage_invalid$'):
+                        parse_response(encoded(body), self.schema)
+            body = decode(response.body, wire.MAX_RESPONSE)
+            del body['usage']['input_tokens_details'][field]
+            with self.subTest(missing=field), self.assertRaisesRegex(Refusal, '^responses_usage_invalid$'):
+                parse_response(encoded(body), self.schema)
+
+    def test_valid_input_partitions_complete_simulated_http_loop_without_normalization(self):
+        for cached, written in ((400, 500), (600, 600)):
+            with self.subTest(cached=cached, written=written), tempfile.TemporaryDirectory() as tmp:
+                history = History(Path(tmp).resolve(), clock=lambda: NOW)
+                job, _ = history.intake(self.packet)
+                responses = [self.partition_response(r, n, cached, written)
+                             for n, r in enumerate(simulated_replies(self.packet), 1)]
+                t = simulated_transport(self.packet, responses)
+                result = investigate(history, job, 'SIMULATED-valid-partition', t)
+                self.assertEqual(result['status'], 'supported_candidate')
+                self.assertEqual(len(t.http.requests), 2)
+                accounting = [e['accounting'] for e in history.read() if e['type'] == 'api_response']
+                self.assertEqual(len(accounting), 2)
+                for recorded, response in zip(accounting, responses):
+                    self.assertTrue(recorded['simulated'])
+                    self.assertEqual(recorded['usage'], decode(response.body, wire.MAX_RESPONSE)['usage'])
+
+    def assert_invalid_partition_consumed(self, failed_call):
+        for cached, written in ((600, 601), (1200, 1200)):
+            with self.subTest(call=failed_call, cached=cached, written=written), \
+                    tempfile.TemporaryDirectory() as tmp, \
+                    patch('socket.socket', side_effect=AssertionError('real socket forbidden')) as sockets, \
+                    patch('socket.getaddrinfo', side_effect=AssertionError('real DNS forbidden')) as dns:
+                directory = Path(tmp).resolve()
+                history = History(directory, clock=lambda: NOW)
+                job, _ = history.intake(self.packet)
+                replies = simulated_replies(self.packet)
+                responses = [self.partition_response(r, n, 400, 500) for n, r in enumerate(replies, 1)]
+                responses[failed_call-1] = self.partition_response(replies[failed_call-1], failed_call, cached, written)
+                t = simulated_transport(self.packet, responses)
+                result = investigate(history, job, 'SIMULATED-invalid-partition', t)
+                self.assertEqual(result['status'], 'blocked')
+                self.assertEqual(result['reason'], 'responses_usage_invalid')
+                self.assertIsNone(result['model_result'])
+                self.assertFalse(result['production_identity_verified'])
+                self.assertFalse(result['download_consent'])
+                self.assertEqual(result['provider_gets'], 0)
+                self.assertEqual(result['model_calls'], failed_call)
+                self.assertEqual(len(t.http.requests), failed_call)
+                self.assertIsNone(t.completion_accounting())
+                self.assertIsNone(t.pending)
+                self.assertEqual(len(t.used), failed_call)
+                events = history.read()
+                reservations = [e for e in events if e['type'] == 'model_reserved']
+                accepted = [e for e in events if e['type'] == 'api_response']
+                completed = [e for e in events if e['type'] == 'model_completed']
+                self.assertEqual([e['call'] for e in reservations], list(range(1, failed_call+1)))
+                self.assertEqual([e['call'] for e in accepted], list(range(1, failed_call)))
+                self.assertEqual([e['call'] for e in completed], list(range(1, failed_call)))
+                lookups = [e for e in events if e['type'] == 'lookup']
+                self.assertEqual(len(lookups), 2 if failed_call == 2 else 0)
+                self.assertTrue(all(e['answer']['rows'] for e in lookups))
+                self.assertFalse(any(e.get('status') == 'supported_candidate' for e in events))
+                for reservation in reservations:
+                    self.assertTrue(reservation['api_request']['simulated'])
+                    self.assertEqual(reservation['api_request']['monetary_reservation'], 'unverified_no_live_send')
+                if accepted:
+                    self.assertEqual(accepted[0]['accounting']['usage'], decode(responses[0].body, wire.MAX_RESPONSE)['usage'])
+                    self.assertEqual(accepted[0]['accounting']['response_id'], 'resp_SIMULATED_1')
+                    self.assertEqual(accepted[0]['accounting']['request_hash'], reservations[0]['api_request']['request_hash'])
+                    self.assertLess(events.index(accepted[0]), events.index(reservations[1]))
+                review = daily_digest(history, selected_date='2026-10-31', timezone='UTC')['text']
+                self.assertIn('SIMULATED; not a real identification', review)
+                self.assertIn('do not replay an unknown attempt', review)
+                self.assertEqual(review.count('API accounting (SIMULATED)'), failed_call-1)
+                # Restart preserves the uncompleted reservation; neither a new invocation
+                # nor the same prepared request can refund, retry or replay it.
+                reopened = History(directory, clock=lambda: NOW)
+                fresh = simulated_transport(self.packet)
+                with self.assertRaisesRegex(Refusal, 'already_consumed'):
+                    investigate(reopened, job, 'SIMULATED-retry-partition', fresh)
+                payload = decode(decode(t.http.requests[-1]['body'], 65536)['input'][0]['content'][0]['text'])
+                payload['instruction'] = INSTRUCTIONS
+                with self.assertRaisesRegex(Refusal, 'already_consumed'):
+                    t.prepare(encoded(payload), schema=self.schema)
+                with self.assertRaisesRegex(Refusal, 'reservation_required'):
+                    t.complete(encoded(payload), schema=self.schema, timeout=25)
+                self.assertFalse(fresh.http.requests)
+                self.assertEqual(len(t.http.requests), failed_call)
+                self.assertEqual(reopened.read(), events)
+                sockets.assert_not_called()
+                dns.assert_not_called()
+
+    def test_invalid_input_partition_on_first_response_stops_without_accounting_or_lookup(self):
+        self.assert_invalid_partition_consumed(1)
+
+    def test_invalid_input_partition_on_second_response_preserves_valid_lookup_accounting(self):
+        self.assert_invalid_partition_consumed(2)
+
     def test_deadline_and_request_byte_bounds_no_auto_retry(self):
         ticks = iter([0, 0, 26])
         self.transport.monotonic = lambda: next(ticks)

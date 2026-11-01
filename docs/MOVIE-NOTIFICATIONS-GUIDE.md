@@ -31,6 +31,11 @@ credits do not establish entitlement, and disabling response storage does not
 promise zero retention. This option does not change notifications, identity
 choices or download confirmation.
 
+**1 November offline correction:** the inactive API option now rejects replies
+with inconsistent token usage. A rejected attempt stays recorded and is not
+retried automatically; earlier valid evidence remains available for review.
+This was tested only with simulated replies and does not enable real use.
+
 ## The people and programs involved
 
 - **Tracker:** announces a torrent release, such as a particular Blu-ray version of a film.

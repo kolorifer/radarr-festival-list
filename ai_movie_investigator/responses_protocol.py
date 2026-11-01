@@ -115,6 +115,10 @@ def parse_response(raw, schema, request_id=None):
     for detail in ('cached_tokens', 'cache_write_tokens'):
         require(type(input_details[detail]) is int and 0 <= input_details[detail] <= usage['input_tokens'],
                 'responses_usage_invalid')
+    # Cached and separately billed cache-write tokens partition the input;
+    # accepting both individually must not leave a negative ordinary remainder.
+    require(input_details['cached_tokens'] + input_details['cache_write_tokens'] <= usage['input_tokens'],
+            'responses_usage_invalid')
     output_details = usage['output_tokens_details']
     require(isinstance(output_details, dict) and set(output_details) == {'reasoning_tokens'}
             and type(output_details['reasoning_tokens']) is int
