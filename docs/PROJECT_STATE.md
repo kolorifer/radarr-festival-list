@@ -1,5 +1,47 @@
 # Movie List project state
 
+## Issue #127 Task4 — inactive Responses transport, 2026-11-01
+
+Latest trusted issue-owner supervisor Task4 explicitly approves the offline
+Responses alternative to Task1's ChatGPT-sign-in-only route. The clean starting
+branch/head/tree matched `automation/issue-127-worker` at
+`aaac20d8794275df17b591de222f9cc688c183b9` /
+`c088fe4b7655c784717a38033a24270add689270`. Public runtime assessment6550170282
+and accepted Task3 review6550060870 were read; no prior session was resumed.
+
+New fixed-origin HTTPS/request/response code selects `gpt-6.1-sol`, explicit
+selected evidence, strict schema and no tools. It defaults to disabled. The
+simulated HTTP proof performs two bounded model calls, retained search/get,
+durable cited result and daily review. Requests/usage are separate from zero
+provider GETs. Pre-send reservations, no replay/automatic retry, current-time,
+locked source/occurrence/decision checks and original notification/download
+confirmation remain. **Real authorization verification is unimplemented and
+both real entry points fail closed; the existing real Codex registry stays empty.**
+Simulated grants/usage prove no live access, isolation, entitlement or new movie.
+
+Final frozen-source focused tests: **92 passed on each Python3.12.16/3.13.18**,
+including both nonempty installed-only proofs and all10 removal negatives.
+Full suites: **1,380 run on each version, two skips each, zero failures/errors
+and exit0**. Dependency consistency, unchanged scoring1909/387, both explicit
+simulated replay commands, final21 source hashes, documentation/diff and
+preservation checks pass. **Inactive code READY_FOR_REVIEW.** Parent owns publication, independent final exact-head review and
+direct supported CI. No operational/product acceptance follows.
+
+A dedicated API project/key and verified model access, privacy/account/billing,
+verified tokenizer/pricing and durable monetary reservation, exact sanctioned
+case/evidence/owner-decision pins and narrow state/output grants remain separate
+activation prerequisites. Subscription credits are unverified for this user;
+paid credits may follow free-credit use, and `store=false` is not zero retention.
+No credentials, account/billing/private input, seedbox/SSH/model/provider, Work,
+daemon/worker/subagent, service/config/schedule/deployment, notification/Radarr/
+media/download or child publication action occurred. Deployment/queue/health
+were not inspected. Historical Tasks1..3, all claims/caps, dispatcher/trial,
+issue86/PR110 and the unrelated active task are preserved. See the
+[completed brief](reports/2026-11-01-issue-127-task4-brief.md),
+[report](reports/2026-11-01-issue-127-task4.md) and
+[current contracts](AI-MOVIE-INVESTIGATOR.md). No next execution is inferred.
+
+
 ## Issue #127 Task3 — bootstrap correction, 2026-10-31
 
 Corrected the single configuration incompatibility reproduced by independent

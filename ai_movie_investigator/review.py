@@ -58,6 +58,11 @@ def case_view(events, job, *, at):
     else:
         lines.append('Next action: inspect pending or unknown state; no inference completion or delivery is established.')
     for e in rows:
+        if e['type'] == 'api_response':
+            a = e['accounting']
+            lines.append(f"API accounting ({'SIMULATED' if a['simulated'] else 'real'}): "
+                         f"response {a['response_id']}; request {a.get('request_id', 'not supplied')}; "
+                         f"usage {a['usage']}; final billing not verified.")
         if e['type'] == 'lookup':
             a = e['answer']
             lines.append(f"Tool used: {a['operation']}; returned {[r['id'] for r in a['rows']]}; retained replay, zero provider GETs.")

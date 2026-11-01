@@ -196,7 +196,16 @@ class History:
             require(any(e['type'] == 'invocation' and e['job'] == job for e in events), 'invocation_missing')
             require(not any(e['type'] == 'result' and e['job'] == job for e in events), 'result_immutable')
             if event['type'] == 'model_reserved':
-                require(sum(e['type'] == 'model_reserved' and e['job'] == job for e in events) < 2, 'model_call_budget')
+                reservations = [e for e in events if e['type'] == 'model_reserved' and e['job'] == job]
+                require(len(reservations) < 2, 'model_call_budget')
+                require(type(event['call']) is int and event['call'] == len(reservations) + 1,
+                        'model_reservation_sequence')
+                require(any(e['type'] == 'invocation' and e['job'] == job
+                            and e['invocation'] == event['invocation'] for e in events), 'invocation_missing')
+                if reservations:
+                    require(any(e['type'] == 'model_completed' and e['job'] == job
+                                and e['call'] == reservations[-1]['call'] for e in events),
+                            'previous_model_attempt_unknown')
             if event['type'] == 'model_reserved' or event['type'] == 'result' and event.get('status') == 'supported_candidate':
                 original = next(e for e in events if e['type'] == 'intake' and e['job'] == job)
                 current = [e for e in events if e['type'] == 'intake' and

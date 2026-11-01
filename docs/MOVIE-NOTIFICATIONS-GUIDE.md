@@ -22,6 +22,15 @@ The latest code correction removes an unsupported client setting. Read-only
 client checks accept the remaining settings; that does not prove that skills,
 tools or inherited instructions are isolated and does not enable real use.
 
+**1 November code-only option:** the inactive investigator now also has an
+OpenAI API adapter tested with synthetic HTTP replies. Real sends remain
+blocked: account/model access, privacy and billing conditions, budgets and
+permission for a specific case and private destination have not been verified.
+No real API key was used and no new movie was identified. Possible subscription
+credits do not establish entitlement, and disabling response storage does not
+promise zero retention. This option does not change notifications, identity
+choices or download confirmation.
+
 ## The people and programs involved
 
 - **Tracker:** announces a torrent release, such as a particular Blu-ray version of a film.
