@@ -21,12 +21,14 @@ def simulated_response(reply, number):
     return HTTPResult(200, encoded(dict(
         id='resp_SIMULATED_' + str(number), object='response', status='completed', model=MODEL,
         error=None, incomplete_details=None, store=False, background=False, tools=[], tool_choice='none',
+        service_tier='default', prompt_cache_options=dict(ttl='30m'),
         max_output_tokens=OUTPUT_TOKENS,
         text=dict(format=dict(type='json_schema', name='retained_investigator_v1', strict=True, schema=output_schema())),
         output=[dict(id='rs_SIMULATED_' + str(number), type='reasoning', summary=[], encrypted_content='SIMULATED-OPAQUE-NOT-RETAINED'),
                 dict(id='msg_SIMULATED_' + str(number), type='message', role='assistant', status='completed',
                      content=[dict(type='output_text', text=encoded(reply).decode(), annotations=[])])],
-        usage=dict(input_tokens=1200, input_tokens_details=dict(cached_tokens=0, cache_write_tokens=0), output_tokens=300,
+        usage=dict(input_tokens=1200, input_tokens_details=dict(cached_tokens=0, cache_write_tokens=0,
+                   cache_write_tokens_details=dict(ttl_30m_tokens=0, ttl_12h_tokens=0)), output_tokens=300,
                    output_tokens_details=dict(reasoning_tokens=50), total_tokens=1500))),
         'req_SIMULATED_' + str(number))
 

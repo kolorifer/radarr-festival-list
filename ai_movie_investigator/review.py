@@ -2,7 +2,8 @@
 from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
-from .contracts import digest, require, text
+from .contracts import Refusal, digest, require, text
+from .history import research_dependency
 
 
 def case_view(events, job, *, at):
@@ -20,6 +21,23 @@ def case_view(events, job, *, at):
                   'historical input; superseded by ' + latest['job'])
     status = result['status'] if result else ('failed_unknown' if any(e['type'] == 'model_reserved' for e in rows)
                                              else 'pending')
+    if result is None and any(e['type'] == 'research_started' for e in rows):
+        status = ('research_evidence_retained' if any(e['type'] == 'research_complete' and
+                  e['original_job'] == job for e in events) else 'research_failed_unknown')
+    if result is None and any(e['type'] == 'research_revoked' for e in rows):
+        status = 'research_retired'
+    dependency = intake.get('research_dependency')
+    dependency_reason = None
+    # Original research jobs have their own retirement records below. A derived
+    # input must independently resolve its exact receipt/plan dependency.
+    if dependency is not None or any(e['id'].startswith('research-') or
+            e['provenance']['origin'] == 'SIMULATED_catalogue' for e in packet['evidence']):
+        try:
+            research_dependency(events, job)
+        except Refusal as exc:
+            dependency_reason = str(exc)
+            if result is None:
+                status = 'research_retired' if dependency_reason == 'research_plan_revoked' else 'research_dependency_blocked'
     lines = [f"{packet['facts']['title']} ({packet['facts']['year']})", f'Case: {job}',
              f"Scope: {packet['binding']}", f"Intake: {intake['reason']}",
              f'Input currentness: {currentness}',
@@ -27,6 +45,13 @@ def case_view(events, job, *, at):
              f"Outcome: {status}", f"Prior disposition: {rec['disposition']}",
              'Novelty: unknown; missing history does not establish a new film.',
              'Operational closure: unavailable; identity review and download confirmation remain separate.']
+    if dependency is not None:
+        lines.append(f"Research dependency: original {dependency['original_job']}; "
+                     f"plan {dependency['plan_hash']}; occurrence {dependency['binding']['occurrence']}; "
+                     f"receipts {dependency['receipts']}.")
+    if dependency_reason:
+        lines.append('Research dependency unusable: ' + dependency_reason +
+                     '; no further model/evidence use. Any immutable earlier result remains historical.')
     for prior in rec['prior_decisions']:
         d = prior['decision']
         lines.append(f"Decision {d['id']} revision {d['revision']}: {d['kind']}; {prior['applicability']}; "
@@ -58,6 +83,14 @@ def case_view(events, job, *, at):
     else:
         lines.append('Next action: inspect pending or unknown state; no inference completion or delivery is established.')
     for e in rows:
+        if e['type'] == 'research_revoked':
+            lines.append(f"Research plan {e['plan_hash']} retired (research_plan_revoked); "
+                         'no research or model approval follows.')
+        if e['type'] == 'research_complete':
+            lines.append(f"Catalogue research: {e['simulated_gets']} SIMULATED GETs through shared ledger; "
+                         f"plan {e['plan_hash']}; receipts {e['receipts']}; zero live GETs.")
+        if e['type'] == 'pilot_plan':
+            lines.append(f"Offline pilot plan: {e['plan_hash']}; real readiness blocked; template is not authority.")
         if e['type'] == 'api_response':
             a = e['accounting']
             lines.append(f"API accounting ({'SIMULATED' if a['simulated'] else 'real'}): "
@@ -90,6 +123,10 @@ def daily_digest(history, *, selected_date, timezone, previous_result_ids=()):
     for intake in intakes:
         lines.extend(['', case_view(events, intake['job'], at=end)])
     proposals = [e for e in events if e['type'] == 'proposal']
+    for e in events:
+        if e['type'] in ('spending_reserved', 'spending_settled'):
+            lines.append(f"SIMULATED spending {e['type']}: request {e['local_request_id']}; "
+                         f"USD rational {e['cost']}; no real affordability or final billing established.")
     for p in proposals:
         lines.extend(['', f"Generic-rule proposal {p['proposal_id']}: {p['failure_pattern']}",
                       f"Supporting results: {p['supporting_results']}",

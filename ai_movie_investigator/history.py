@@ -12,11 +12,113 @@ from pathlib import Path
 import stat
 import time
 
-from .contracts import Refusal, decode, digest, encoded, require, stamp
+from .contracts import Refusal, decode, digest, encoded, require, shape, stamp
 
 MAX_HISTORY = 16 * 1024 * 1024
 MAX_RECORDS = 10000
 FILENAME = 'ai-investigator-v1.jsonl'
+
+
+def plan_retired(events, original_job, plan_hash):
+    return any(e['type'] == 'research_revoked' and e.get('job') == original_job
+               and e.get('plan_hash') == plan_hash for e in events)
+
+
+def research_dependency(events, job, *, completing=False):
+    try:
+        return _research_dependency(events, job, completing=completing)
+    except Refusal:
+        raise
+    except (KeyError, TypeError, ValueError, IndexError):
+        raise Refusal('research_dependency_invalid') from None
+
+
+def _research_dependency(events, job, *, completing=False):
+    """Resolve authority only from the locked journal, never a packet assertion.
+
+    Older incomplete handoffs fail closed. Receipt hashes and origin labels are
+    discovery hints only; the entire derivation must match retained trusted state.
+    This is local synthetic provenance, never a real research/model capability.
+    """
+    intakes = [e for e in events if e['type'] == 'intake' and e['job'] == job]
+    require(len(intakes) == 1, 'research_input_ambiguous_or_missing')
+    intake = intakes[0]
+    packet = intake['packet']
+    dependency = intake.get('research_dependency')
+    starts = [e for e in events if e['type'] == 'research_started'
+              and e['binding'] == packet['binding']]
+    observed = [e for e in events if e['type'] == 'research_observed']
+    receipt_hashes = {digest(e) for e in observed}
+    marked = any(r['id'].startswith('research-') or
+                 r['provenance']['origin'] == 'SIMULATED_catalogue' or
+                 r['provenance']['digest'] in receipt_hashes for r in packet['evidence'])
+    completions = [e for e in events if e['type'] == 'research_complete' and e['job'] == job]
+    if dependency is None:
+        require(not (marked or starts or completions), 'research_dependency_missing')
+        return None
+    shape(dependency, 'original_job binding plan_hash receipts')
+    require(dependency['binding'] == packet['binding'], 'research_dependency_binding_changed')
+    originals = [e for e in events if e['type'] == 'intake' and e['job'] == dependency['original_job']]
+    require(len(originals) == 1 and originals[0]['job'] == digest(originals[0]['packet'])
+            and originals[0].get('research_dependency') is None, 'research_original_unbound')
+    original = originals[0]['packet']
+    require(original['binding'] == dependency['binding'] and digest(packet) == job,
+            'research_dependency_binding_changed')
+    require(len(starts) == 1 and starts[0]['job'] == dependency['original_job'] and
+            starts[0]['plan_hash'] == dependency['plan_hash'] and 'plan' in starts[0],
+            'research_plan_unbound')
+    plan = starts[0]['plan']
+    require(digest(plan) == dependency['plan_hash'], 'research_plan_changed')
+    # Lazy import keeps the original retained-only installed closure independent
+    # of the catalogue dependencies when no research has occurred.
+    from .research import enriched_packet, validate_plan
+    validate_plan(plan, original)
+    hashes = dependency['receipts']
+    require(isinstance(hashes, list) and len(hashes) == len(plan['operations'])
+            and len(set(hashes)) == len(hashes), 'research_receipts_incomplete')
+    receipts = []
+    for step, fingerprint in enumerate(hashes):
+        matches = [e for e in observed if digest(e) == fingerprint]
+        require(len(matches) == 1, 'research_receipt_missing_or_ambiguous')
+        receipt = matches[0]
+        require(receipt['job'] == dependency['original_job'] and
+                receipt['binding'] == original['binding'] and
+                receipt['original_hash'] == original['original_hash'] and
+                receipt['plan_hash'] == dependency['plan_hash'] and receipt['step'] == step
+                and receipt['synthetic'] is True, 'research_receipt_binding_changed')
+        op = plan['operations'][step]
+        value = op['value']
+        if isinstance(value, dict):
+            prior = receipts[value['from_step']]['result']['data']
+            require(value['id'] in {r['id'] for r in prior.get('movies', prior.get('results', []))
+                                    if r['type'] == 'movie'}, 'research_detail_not_returned')
+            value = value['id']
+        provenance = receipt['provenance']
+        require(receipt['kind'] == op['kind'] and receipt['value'] == value and
+                receipt['key'] == digest([op['kind'], value]) and
+                provenance['source_version'] == original['binding']['version'] and
+                provenance['material_version'] == plan['provider_version'] and
+                receipt['result']['reason'] == 'ok', 'research_receipt_binding_changed')
+        reservations = [e for e in events if e['type'] == 'research_reserved' and
+                        e['job'] == dependency['original_job'] and
+                        e['binding'] == original['binding'] and e['plan_hash'] == dependency['plan_hash'] and
+                        e['provider_version'] == plan['provider_version'] and e['provenance'] == provenance]
+        require(len(reservations) == 1, 'research_receipt_reservation_unbound')
+        receipts.append(receipt)
+    require(enriched_packet(original, receipts) == packet, 'research_derived_input_changed')
+    require((completing and not completions) or len(completions) == 1 and
+            all(completions[0].get(k) == v for k, v in dependency.items() if k != 'binding'),
+            'research_completion_unbound')
+    require(not plan_retired(events, dependency['original_job'], dependency['plan_hash']),
+            'research_plan_revoked')
+    return dependency
+
+
+def selected_current(events, job):
+    original = next(e for e in events if e['type'] == 'intake' and e['job'] == job)
+    current = [e for e in events if e['type'] == 'intake' and
+               e['packet']['binding']['case_id'] == original['packet']['binding']['case_id']][-1]
+    require(current['job'] == job, 'selected_case_superseded')
 
 
 def checked(info, directory=False):
@@ -128,7 +230,7 @@ class History:
         with self.transaction() as (events, _):
             return events
 
-    def intake(self, packet):
+    def intake(self, packet, *, guard=None, research_binding=None):
         # Deep-copy before taking the lock so a caller cannot mutate stored input.
         packet = decode(encoded(packet), 49152)
         from .contracts import validate_packet
@@ -136,6 +238,8 @@ class History:
         job = digest(packet)
         now = stamp(self.clock())
         with self.transaction(write=True) as (events, append):
+            if guard is not None:
+                guard(events)
             intakes = [e for e in events if e['type'] == 'intake']
             if any(e['job'] == job for e in intakes):
                 return job, 'exact_redelivery'
@@ -180,8 +284,30 @@ class History:
                     require(new['revision'] >= old['revision'] and
                             (new == old or new['revision'] > old['revision']), 'decision_revision_conflict')
                     require(old['revoked_at'] is None or new['revoked_at'] == old['revoked_at'], 'decision_revocation_rollback')
-            append(dict(type='intake', at=now, job=job, packet=packet, reason=reason))
+            event = dict(type='intake', at=now, job=job, packet=packet, reason=reason)
+            if research_binding is not None:
+                event['research_dependency'] = decode(encoded(research_binding), 8192)
+                research_dependency(events + [event], job, completing=True)
+            append(event)
             return job, reason
+
+    def check_research(self, job):
+        with self.transaction() as (events, _):
+            return research_dependency(events, job)
+
+    def retained_lookup(self, job, tools, operation, *, guard=None):
+        # Validate and use retained rows in one current journal transaction.
+        with self.transaction(write=True) as (events, append):
+            research_dependency(events, job)
+            selected_current(events, job)
+            require(any(e['type'] == 'invocation' and e['job'] == job for e in events), 'invocation_missing')
+            if guard is not None:
+                guard()
+            require(not any(e['type'] == 'result' and e['job'] == job for e in events), 'result_immutable')
+            require(sum(e['type'] == 'lookup' and e['job'] == job for e in events) < 5, 'lookup_budget')
+            answer = tools.lookup(operation)
+            append(dict(type='lookup', job=job, answer=answer, at=stamp(self.clock())))
+            return answer
 
     def start(self, job, invocation, runtime):
         with self.transaction(write=True) as (events, append):
@@ -206,13 +332,23 @@ class History:
                     require(any(e['type'] == 'model_completed' and e['job'] == job
                                 and e['call'] == reservations[-1]['call'] for e in events),
                             'previous_model_attempt_unknown')
-            if event['type'] == 'model_reserved' or event['type'] == 'result' and event.get('status') == 'supported_candidate':
-                original = next(e for e in events if e['type'] == 'intake' and e['job'] == job)
-                current = [e for e in events if e['type'] == 'intake' and
-                           e['packet']['binding']['case_id'] == original['packet']['binding']['case_id']][-1]
-                require(current['job'] == job, 'selected_case_superseded')
+            if (event['type'] in ('model_reserved', 'model_send', 'lookup') or
+                    event['type'] == 'result' and (event.get('status') == 'supported_candidate' or
+                                                  event.get('model_result') is not None)):
+                selected_current(events, job)
             if event['type'] == 'lookup':
                 require(sum(e['type'] == 'lookup' and e['job'] == job for e in events) < 5, 'lookup_budget')
+            if (event['type'] in ('model_reserved', 'model_send', 'lookup') or
+                    event['type'] == 'result' and (event.get('status') == 'supported_candidate' or
+                                                  event.get('model_result') is not None)):
+                research_dependency(events, job)
+            if event['type'] == 'model_send':
+                reserved = [e for e in events if e['type'] == 'model_reserved' and e['job'] == job]
+                require(bool(reserved) and reserved[-1]['invocation'] == event['invocation'] and
+                        reserved[-1]['call'] == event['call'] and
+                        reserved[-1].get('api_request') == event.get('api_request'), 'model_send_unbound')
+                require(not any(e['type'] == 'model_send' and e['job'] == job and
+                                e['call'] == event['call'] for e in events), 'model_send_consumed')
             if guard is not None:
                 guard()  # Validate time/policy inside the same currentness lock.
             append(dict(event, at=stamp(self.clock())))

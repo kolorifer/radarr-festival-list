@@ -177,13 +177,15 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
     reconciliation = reconcile(packet, current_time())
     initial_decisions = digest(reconciliation['prior_decisions'])
 
-    def refresh():
+    def refresh(*, locked=False):
         nonlocal reconciliation
         require(monotonic() < deadline, 'investigation_timeout')
         reconciliation = reconcile(packet, current_time())
         require(reconciliation['admission'] == 'eligible', 'admission_changed')
         require(digest(reconciliation['prior_decisions']) == initial_decisions,
                 'decision_applicability_changed')
+        if not locked:
+            history.check_research(job)
         return current_time()
     runtime = transport.identity()
     # Identity values are explicit public metadata, never inferred from auth files.
@@ -207,7 +209,7 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
                       production_identity_verified=False, download_consent=False, delivery_acknowledged=False)
         def final_guard():
             if status == 'supported_candidate':
-                checked_at = refresh()
+                checked_at = refresh(locked=True)
                 validate_final(model_result, supplied, reconciliation, checked_at)
             record['reconciliation'] = reconciliation
             record['checked_at'] = current_time()
@@ -236,6 +238,8 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
                                   for r in tools.rows.values()], query_results=[],
                   instruction=INSTRUCTIONS)
     try:
+        if hasattr(transport, 'bind_history'):
+            transport.bind_history(history, job, invocation)
         for call in range(1, MAX_CALLS + 1):
             refresh()
             prompt['reconciliation'] = reconciliation
@@ -245,7 +249,7 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
                 refusal = quota_gate(quota, current_time())
                 require(refusal is None, refusal or 'shared_quota_unknown')
             def reservation_guard():
-                checked_at = refresh()
+                checked_at = refresh(locked=True)
                 if not runtime['simulated']:
                     refusal = quota_gate(quota, checked_at)
                     require(refusal is None, refusal or 'shared_quota_unknown')
@@ -257,6 +261,8 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
                 reservation['api_request'] = api_reservation
             history.record(reservation, guard=reservation_guard)
             calls += 1
+            if not hasattr(transport, 'bind_history'):
+                history.check_research(job)
             reply = transport.complete(raw, schema=output_schema(), timeout=min(CALL_SECONDS, deadline - monotonic()))
             if hasattr(transport, 'completion_accounting'):
                 accounting = transport.completion_accounting()
@@ -280,8 +286,7 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
             for operation in reply['lookups']:
                 require(monotonic() < deadline, 'investigation_timeout')
                 refresh()
-                answer = tools.lookup(operation)
-                history.record(dict(type='lookup', job=job, answer=answer))
+                answer = history.retained_lookup(job, tools, operation, guard=reservation_guard)
                 trace.append(answer)
                 supplied.update((r['id'], r) for r in answer['rows'])
                 prompt['query_results'].append(answer)

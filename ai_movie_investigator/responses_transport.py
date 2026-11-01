@@ -35,7 +35,7 @@ def real_activation_refusal(authorization):
 
 class ResponsesTransport:
     def __init__(self, *, enabled=False, http=None, credential=None, authorization=None,
-                 clock=time.time, monotonic=time.monotonic):
+                 clock=time.time, monotonic=time.monotonic, spending=None):
         self.enabled = enabled
         self.http = FixedResponsesHTTP() if http is None else http
         self.credential = credential
@@ -45,6 +45,17 @@ class ResponsesTransport:
         self.pending = None
         self.last_accounting = None
         self.used = set()
+        self.spending = spending
+        self.history_binding = None
+
+    def bind_history(self, history, job, invocation):
+        """Controller-selected journal, not an authorization for real sends."""
+        from .history import History
+        require(type(history) is History and job == digest(decode(self.authorization.packet_json, MAX_INPUT)),
+                'responses_history_binding')
+        require(self.history_binding is None and (self.spending is None or self.spending.history is history),
+                'responses_history_binding')
+        self.history_binding = (history, job, invocation)
 
     def identity(self):
         return dict(transport='openai_responses', model=MODEL, client='fixed_https_v1',
@@ -62,6 +73,10 @@ class ResponsesTransport:
             return real_activation_refusal(self.authorization)
         if type(self.authorization) is not SimulatedAuthorization:
             return 'responses_simulation_authorization_missing'
+        if self.spending is not None:
+            from .spending import SimulatedSpending
+            if type(self.spending) is not SimulatedSpending:
+                return 'responses_spending_implementation_unknown'
         try:
             now = stamp(self.clock())
             require(stamp(self.authorization.issued_at) <= now < stamp(self.authorization.expires_at)
@@ -97,6 +112,7 @@ class ResponsesTransport:
         # fixed string as the API instruction. No ambient conversation is read.
         del prompt['instruction']
         body = encoded(dict(model=MODEL, instructions=INSTRUCTIONS,
+                            service_tier='default', prompt_cache_options=dict(ttl='30m'),
                             input=[dict(role='user', content=[dict(type='input_text', text=encoded(prompt).decode())])],
                             tools=[], tool_choice='none', store=False, background=False, stream=False,
                             max_output_tokens=OUTPUT_TOKENS, truncation='disabled',
@@ -106,16 +122,30 @@ class ResponsesTransport:
         require(self.credential.value.encode() not in body, 'responses_credential_in_input')
         return body
 
+    def _checked_body(self, payload, schema):
+        if self.history_binding is None:
+            return self._body(payload, schema)
+        from .history import research_dependency, selected_current
+        history, job, _ = self.history_binding
+        with history.transaction() as (events, _):
+            research_dependency(events, job)
+            selected_current(events, job)
+            return self._body(payload, schema)
+
     def prepare(self, payload, *, schema):
         """Build before durable controller reservation; no HTTP side effect."""
         require(self.pending is None, 'responses_pending_request')
-        body = self._body(payload, schema)
+        body = self._checked_body(payload, schema)
         fingerprint = digest(decode(body, 65536))
         require(fingerprint not in self.used, 'responses_request_already_consumed')
         reservation = dict(local_request_id='simulated-' + uuid.uuid4().hex,
                            request_hash=fingerprint, request_bytes=len(body),
                            input_token_ceiling=INPUT_TOKENS, output_token_ceiling=OUTPUT_TOKENS,
                            monetary_reservation='unverified_no_live_send', simulated=True)
+        if self.spending is not None:
+            reservation['monetary_reservation'] = self.spending.reserve(
+                body, reservation, decode(self.authorization.packet_json, MAX_INPUT)['binding'],
+                job=self.history_binding[1] if self.history_binding else None)
         self.pending = (body, reservation, digest(decode(payload, MAX_INPUT)))
         return dict(reservation)
 
@@ -128,11 +158,22 @@ class ResponsesTransport:
         # Consume before any fallible action; no same-object replay on timeout.
         self.pending = None
         self.used.add(reservation['request_hash'])
-        require(prompt_hash == digest(decode(payload, MAX_INPUT)) and body == self._body(payload, schema),
+        require(prompt_hash == digest(decode(payload, MAX_INPUT)) and body == self._checked_body(payload, schema),
                 'responses_reserved_input_changed')
         remaining = timeout - (self.monotonic() - started)
         require(remaining > 0, 'responses_deadline_exceeded')
         try:
+            if self.spending is not None:
+                self.spending.before_send(body, reservation,
+                    job=self.history_binding[1] if self.history_binding else None)
+                remaining = timeout - (self.monotonic() - started)
+                require(remaining > 0, 'responses_deadline_exceeded')
+            if self.history_binding is not None:
+                history, job, invocation = self.history_binding
+                history.record(dict(type='model_send', job=job, invocation=invocation,
+                    call=len(self.used), api_request=reservation))
+                remaining = timeout - (self.monotonic() - started)
+                require(remaining > 0, 'responses_deadline_exceeded')
             result = self.http.post(body, credential=self.credential, project=SYNTHETIC_PROJECT, timeout=remaining)
             require(self.monotonic() - started < timeout, 'responses_deadline_exceeded')
             require(result.status == 200, 'responses_http_rejected')
@@ -141,9 +182,15 @@ class ResponsesTransport:
                          and self.credential.value not in result.request_id),
                     'responses_credential_echo_refused')
             answer, accounting = parse_response(result.body, schema, result.request_id)
+            require(self.credential.value.encode() not in answer and
+                    self.credential.value.encode() not in encoded(accounting),
+                    'responses_credential_echo_refused')
             require(self.monotonic() - started < timeout, 'responses_deadline_exceeded')
-            self.last_accounting = dict(accounting, local_request_id=reservation['local_request_id'],
-                                        request_hash=reservation['request_hash'], simulated=True)
+            bound = dict(accounting, local_request_id=reservation['local_request_id'],
+                         request_hash=reservation['request_hash'], simulated=True)
+            if self.spending is not None:
+                self.spending.settle(reservation, bound)
+            self.last_accounting = bound
             return answer
         except Refusal:
             raise
