@@ -1,5 +1,223 @@
 # Inactive AI movie investigator
 
+## Task6 — offline catalogue stage and one-case plan
+
+Task6 adds a standalone **synthetic-only** catalogue broker, an inspectable
+pilot-plan builder and durable simulated spending. It activates no service,
+schedule or real send. The Task4/5 descriptions below describe the earlier
+retained-evidence slice; its unpriced simulation remains available for those
+protocol regressions. The new complete Task6 demonstration explicitly supplies
+the durable spending controller. Neither route can send a real request.
+
+Run the nonempty demonstration in a supported Python 3.12/3.13 environment:
+
+```sh
+python -m ai_movie_investigator.catalogue_replay --synthetic
+python -m unittest -v test_ai_movie_investigator test_responses_transport test_investigator_catalogue
+```
+
+All source occurrences, movie metadata, owner decisions, provider responses,
+model responses, counters, prices, ceilings and destinations in this command
+are invented fixtures. It creates and removes its own private temporary state.
+This is not a historical case replay, real identification, access check or bill.
+
+### Catalogue research contract
+
+`research.select_plan` selects one exact source/case/material-version/event/
+delivery plus original input, evidence and decision hashes, finite operations
+and a maximum 300-second selection window. This is trusted supervisor input,
+never model output. `OfflineResearch()` defaults to disabled. Its enabled route
+accepts only the exact `SyntheticResearch`, `FixtureConnection`, `History`,
+`RecurringStore` and shared `SyntheticClock` types. Custom connections, claimed
+live authorizers and subclasses refuse. The finite wire contains only data;
+it cannot invoke a caller callback, resolve a host or open a socket. No real
+research entry point exists: `real_research_refusal` always refuses.
+
+Only the existing `identity_research_provider.route` GET kinds are admitted:
+find by a selected retained IMDb ID, first-page movie/TV search for a selected
+sanitized title, and movie details for a selected scoped candidate or an exact
+movie ID returned by an earlier bound find/movie-search result. This conservative
+slice selects the original sanitized title as its title-variant set; it does
+not invent title normalization or ask the model to generate variants. A TV
+result cannot authorize a movie-details dependency. Arbitrary queries, paths,
+hosts, URLs, pagination, redirects, web/tracker/NFO/image fetches, browser,
+subprocesses, extra providers and model-selected research tools are absent.
+
+The broker calls the existing `Provider.get`, including its actual projection,
+deadline, reservation, cache, cooldown, authentication-suspension and 429 rules.
+It uses the **actual supplied temporary shared ledger**, never a report's counts
+or caller counters. It does not construct/admit/reset another ledger. The
+demonstration explicitly admits invented material into a newly created synthetic
+epoch before calling the broker. The repository's `RecurringStore` enforces
+**rolling weekly five cases / 25 GETs / five requests per material version**.
+The previously observed installed report used daily fields; installed recurring
+code identity is **UNKNOWN**. No daily field is renamed or normalized into a
+weekly field. A future real bridge needs the exact existing installed ledger,
+epoch, code identity and separate live grant; copying an empty ledger or treating
+a report projection as reservation authority is prohibited.
+
+`material_for`/`provider_material` establish an exact deterministic material
+correspondence. The original source/intake version remains distinct from the
+provider's normalized material digest. Both appear in every receipt; equality
+is never assumed and title is never used as a join. A provider job must already
+exist as the selected queued material. Other cases, changed material, retirement
+and arbitrary historical records cannot be substituted.
+
+Selection is consumed durably before the lease. Every GET reserves in the shared
+SQLite ledger before the finite wire, with an additional journal record linking
+binding, plan, epoch/directory-file identity digest, run, lease, request, material
+version and effective time. A crash between those records can leave an unknown
+consumed request; there is no replay, refund, retry, attempt reset or automatic
+new plan. Before every operation and final use, the broker rechecks current
+intake, decisions/applicability, retirement/revocation, source clocks/freshness,
+deadline and ledger namespace/permissions. The enriched intake has an in-lock
+guard. The controller independently guards later model reservations and results.
+An explicitly retired plan cannot revive when an owner skip is revoked. Revoking
+an old skip alone remains retained decision history, not a new approval.
+
+Shared cache use requires the exact selected occurrence/plan and a matching
+durable receipt, original observation and unexpired result. A cross-case/title
+cache hit has no such authority and blocks; it does not spend again to bypass
+the cache. Expired cache entries require a new reserved GET within the existing
+budget. Requests with failure, timeout, interruption or unknown completion stay
+consumed. Authentication failures suspend the shared provider and 429s keep
+the existing shared cooldown. Unsafe projections/credential echoes are rejected
+without retaining raw bodies; no real credential is supplied in the first place.
+Decoded projections and model answer/accounting also reject JSON-escaped fixture
+echoes before cache/journal retention or simulated spending settlement.
+
+Research has a separate **60-second total deadline**, at most five planned
+operations and at most the existing five per-version GET reservations; a stricter
+shared gate wins. The unchanged model stage allows two calls, five retained
+lookups, 25 seconds per call and 60 seconds total. These are separate stages,
+not a claim that both fit the original model-stage deadline: their aggregate
+stage ceilings are 120 seconds. Original source input hashes, event times,
+source evidence expiry and case/occurrence never advance with catalogue data.
+
+Only bounded sanitized catalogue projections cross into retained evidence.
+The model can inspect actual projected titles, dates, IDs and catalogue facts
+through the existing retained queries. Catalogue rows carry receipt digests,
+actual observation/expiry, original scope and zero image analysis. They cannot
+assert source identity, source runtime/edition verification, owner consent or a
+production match. Missing crosswalks stay unresolved; conflicting IDs remain
+visible and cannot pass the existing candidate/source citation checks. The
+49,152-byte input, 8,192-byte output, 24-evidence and other existing bounds remain.
+
+### Simulated spending and request policy
+
+The request now explicitly pins `model=gpt-6.1-sol`, `service_tier=default` and
+`prompt_cache_options={"ttl":"30m"}`. There is no prewarm, diagnostics, token-count
+API, model tool or additional model call. Returned tier/cache policy must match.
+Mandatory cache-write details partition writes into 30-minute and 12-hour counts;
+30-minute writes must equal the reported write total and 12-hour writes must be
+zero. Missing fields are unknown, never zero. Task5's joint
+`cached_tokens + cache_write_tokens <= input_tokens` guard and all input/output/
+total/reasoning accounting remain enforced.
+
+`spending.SimulatedSpending` uses exact `Fraction` arithmetic and the existing
+owner-only locked, hash-linked, fsynced journal. Its sole counter treats **every
+byte of the complete encoded request** (including instructions and schema) as a
+TEST token. Its rates are explicitly illustrative TEST data: ordinary/read/write/
+output USD 4/2/8/20 per million TEST tokens. These are **not reviewed real prices
+or a verified tokenizer**. An explicit rational ceiling is required; the demo's
+USD 1 is only an invented test ceiling and never a default real budget.
+
+Before each fake send, reserve complete counted input at the maximum applicable
+ordinary/cache-read/cache-write rate plus the entire bounded output. A second
+locked check consumes the exact one-use send binding. Sequential validated usage
+settles ordinary/read/write/output once; reasoning is already in output. Known
+unused reservation may become available only after this bound settlement.
+Restart, concurrency, unknown/missing/invalid usage, uncertain charge, duplicate
+request/response, late response, wall rollback and storage/permission failure
+cannot refund or authorize a further send. A second request that would exceed
+the remaining selected ceiling stops before the fake HTTP send. No estimate,
+project alert or simulation establishes a hard real spending cap.
+
+The unchanged fixed HTTPS origin, no redirects/retries/proxies, no tools,
+`store=false`, foreground-only and ambient-data isolation still apply. Public
+documentation does not establish account/project/key access, billing eligibility
+or privacy terms; `store=false` is not zero retention.
+
+### Inspectable pilot and remaining activation requirements
+
+`pilot.build_plan` and `validate_pilot` bind a selected occurrence, original and
+selected input/evidence/decision hashes, research plan, linked receipts, original
+and currentness clocks, source/provider versions, selected redacted first model
+payload and its hash, policy and request/token/deadline bounds. A later lookup
+turn is not precomputed: the complete actual second request is counted and
+reserved separately before sending. The plan retains its own hash, synthetic
+versus unverified historical provenance, TEST pricing/counter identity, selected
+TEST ceiling, exact output/receipt binding fields and expiry. The private journal
+retains the complete simulated plan; the readable projection lists the selected
+operations, clocks, limits and blockers. No public artifact contains private movie
+inputs or real destination paths. Hashes are inspectable pins, not external grants.
+
+**Every plan remains blocked for real execution.** A completed template, caller
+booleans, hashes, TEST rates or asserted account credit cannot activate it. A
+historical snapshot without verified occurrence/currentness is assessed with
+those explicit blockers; it never acquires an invented delivery or current pilot.
+The real Responses authorizer stays unimplemented, both real-send entry points
+fail closed, and the reviewed Codex-client registry stays empty.
+
+A later separately authorized one-case demonstration still needs all of:
+
+1. One current algorithm-unidentified occurrence, exact original bytes/hash,
+   source/case/version/event/delivery, source-currentness proof, retained evidence
+   and full trusted decisions including skip, expiry, revocation and supersession.
+2. A sanctioned API project/key and verified exact model access; reviewed account,
+   billing and privacy terms and the specifically approved redacted payload.
+   No account/key/credit discovery is implemented or authorized here.
+3. Confirmed current model/default-tier/30-minute-cache prices and charging rules,
+   a reviewed complete-input counter and an explicit owner currency ceiling.
+   Real affordability and final billing remain unverified.
+4. Exact installed shared provider ledger/epoch/code/access, validated material
+   correspondence and a separate narrow live catalogue-research grant.
+5. Exact private state/output/review/receipt destinations, current expiry and
+   one-case execution grants, reviewed host/network controls and an implemented,
+   independently reviewed authoritative real-send verifier. These are missing
+   external facts; filling configuration cannot verify them.
+6. Parent publication, independent final exact-head review and supported direct
+   Python 3.12/3.13 CI, plus current shared model-quota telemetry using the existing
+   five-hour freshness and greater-than-15-percent allowance gates. A future real
+   attempt must retain unknown consumption and
+   separate model inference, review proposal, system verification, production
+   identity and delivery acknowledgement. No download or remembered-identity
+   approval transfers.
+
+No new live task, cost, access or owner decision is needed to run this offline
+proof. The missing prerequisites above are for a future real demonstration only.
+
+`installation.install_runtime` explicitly copies the exact 25-file code closure
+and verifies its Task6 manifest hashes into a caller-selected empty private
+directory. It installs/starts no service and copies no ledger, private input or
+credential. The installed-only test runs the nonempty workflow under `-I -B -S`
+outside the repository with no source/PYTHONPATH/site fallback; every individually
+removed file and selected drifted files must fail. The manifest and this installer
+are code-integrity evidence for a stable owning account, not a host-isolation or
+live authorization mechanism. No external package dependency changed.
+
+Technical references consulted on 2026-11-01:
+
+- [TMDB search then details](https://developer.themoviedb.org/docs/search-and-query-for-details)
+  and [rate limits](https://developer.themoviedb.org/docs/rate-limiting): bounded
+  catalogue workflow; respect 429 independently of local caps.
+- [Selected model](https://developers.openai.com/api/docs/models/gpt-6.1-sol),
+  [pricing](https://developers.openai.com/api/docs/pricing) and
+  [prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching):
+  model/default-tier/cache policy and lifetime-specific usage. Public rates are
+  not an account grant or this fixture's prices.
+- [Spending-controller example](https://developers.openai.com/cookbook/articles/per_run_spending_controller_responses_api):
+  illustrative rational reservation/settlement principles, not real rates or a
+  guarantee of a bill; durable shared locking is implemented locally here.
+- [Data controls](https://developers.openai.com/api/docs/guides/your-data):
+  retention/privacy review is still required.
+
+See the [Task6 brief](reports/2026-11-01-issue-127-task6-brief.md),
+[report](reports/2026-11-01-issue-127-task6.md) and
+[exact manifest](reports/2026-11-01-issue-127-task6-runtime-manifest.json).
+
+## Historical retained-evidence slice (Tasks1–5)
+
 Issue #127 adds an isolated product module, `ai_movie_investigator`. It is not
 connected to movie-intel, the collector, the recurring producer, Telegram or a
 schedule. Importing it starts nothing. No real identification has been made.

@@ -128,7 +128,7 @@ class History:
         with self.transaction() as (events, _):
             return events
 
-    def intake(self, packet):
+    def intake(self, packet, *, guard=None):
         # Deep-copy before taking the lock so a caller cannot mutate stored input.
         packet = decode(encoded(packet), 49152)
         from .contracts import validate_packet
@@ -136,6 +136,8 @@ class History:
         job = digest(packet)
         now = stamp(self.clock())
         with self.transaction(write=True) as (events, append):
+            if guard is not None:
+                guard(events)
             intakes = [e for e in events if e['type'] == 'intake']
             if any(e['job'] == job for e in intakes):
                 return job, 'exact_redelivery'

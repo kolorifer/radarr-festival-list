@@ -96,7 +96,8 @@ class ResponsesTests(unittest.TestCase):
         body = decode(request['body'], 65536)
         self.assertEqual(request['endpoint'], 'https://api.openai.com/v1/responses')
         self.assertEqual(set(body), {'model', 'instructions', 'input', 'tools', 'tool_choice', 'store',
-                                    'background', 'stream', 'max_output_tokens', 'truncation', 'text'})
+                                    'background', 'stream', 'max_output_tokens', 'truncation', 'text',
+                                    'service_tier', 'prompt_cache_options'})
         self.assertEqual(body['model'], 'gpt-6.1-sol')
         self.assertEqual(body['instructions'], INSTRUCTIONS)
         self.assertEqual(body['tools'], [])
@@ -351,7 +352,8 @@ class ResponsesTests(unittest.TestCase):
     def partition_response(self, reply, number, cached, written):
         response = simulated_response(reply, number)
         body = decode(response.body, wire.MAX_RESPONSE)
-        body['usage']['input_tokens_details'] = dict(cached_tokens=cached, cache_write_tokens=written)
+        body['usage']['input_tokens_details'] = dict(cached_tokens=cached, cache_write_tokens=written,
+            cache_write_tokens_details=dict(ttl_30m_tokens=written, ttl_12h_tokens=0))
         return replace(response, body=encoded(body))
 
     def test_input_partition_accepts_zero_components_remainder_and_exact_equality(self):

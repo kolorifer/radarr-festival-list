@@ -36,6 +36,16 @@ with inconsistent token usage. A rejected attempt stays recorded and is not
 retried automatically; earlier valid evidence remains available for review.
 This was tested only with simulated replies and does not enable real use.
 
+**1 November offline preparation:** the inactive investigator also has an
+invented one-case demonstration that gathers catalogue evidence through a
+temporary shared request ledger before analyzing simulated model replies. Its
+private view includes the evidence, recorded test spending and a pilot plan
+listing every missing permission and access requirement. Skipped occurrences
+and retired plans do no research; missing or conflicting IDs stay open for
+review. These are synthetic tests, not a newly identified real film or a live
+pilot. Real research/model use remains blocked. Notifications, identity choices
+and the separate release-specific download confirmation behave as before.
+
 ## The people and programs involved
 
 - **Tracker:** announces a torrent release, such as a particular Blu-ray version of a film.

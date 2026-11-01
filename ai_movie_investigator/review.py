@@ -20,6 +20,11 @@ def case_view(events, job, *, at):
                   'historical input; superseded by ' + latest['job'])
     status = result['status'] if result else ('failed_unknown' if any(e['type'] == 'model_reserved' for e in rows)
                                              else 'pending')
+    if result is None and any(e['type'] == 'research_started' for e in rows):
+        status = ('research_evidence_retained' if any(e['type'] == 'research_complete' and
+                  e['original_job'] == job for e in events) else 'research_failed_unknown')
+    if result is None and any(e['type'] == 'research_revoked' for e in rows):
+        status = 'research_retired'
     lines = [f"{packet['facts']['title']} ({packet['facts']['year']})", f'Case: {job}',
              f"Scope: {packet['binding']}", f"Intake: {intake['reason']}",
              f'Input currentness: {currentness}',
@@ -58,6 +63,13 @@ def case_view(events, job, *, at):
     else:
         lines.append('Next action: inspect pending or unknown state; no inference completion or delivery is established.')
     for e in rows:
+        if e['type'] == 'research_revoked':
+            lines.append(f"Research plan {e['plan_hash']} retired; no research or model approval follows.")
+        if e['type'] == 'research_complete':
+            lines.append(f"Catalogue research: {e['simulated_gets']} SIMULATED GETs through shared ledger; "
+                         f"plan {e['plan_hash']}; receipts {e['receipts']}; zero live GETs.")
+        if e['type'] == 'pilot_plan':
+            lines.append(f"Offline pilot plan: {e['plan_hash']}; real readiness blocked; template is not authority.")
         if e['type'] == 'api_response':
             a = e['accounting']
             lines.append(f"API accounting ({'SIMULATED' if a['simulated'] else 'real'}): "
@@ -90,6 +102,10 @@ def daily_digest(history, *, selected_date, timezone, previous_result_ids=()):
     for intake in intakes:
         lines.extend(['', case_view(events, intake['job'], at=end)])
     proposals = [e for e in events if e['type'] == 'proposal']
+    for e in events:
+        if e['type'] in ('spending_reserved', 'spending_settled'):
+            lines.append(f"SIMULATED spending {e['type']}: request {e['local_request_id']}; "
+                         f"USD rational {e['cost']}; no real affordability or final billing established.")
     for p in proposals:
         lines.extend(['', f"Generic-rule proposal {p['proposal_id']}: {p['failure_pattern']}",
                       f"Supporting results: {p['supporting_results']}",

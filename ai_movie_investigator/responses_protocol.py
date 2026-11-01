@@ -71,6 +71,11 @@ def parse_response(raw, schema, request_id=None):
             and response.get('text', {}).get('format') ==
             dict(type='json_schema', name='retained_investigator_v1', strict=True, schema=schema),
             'responses_contract_changed')
+    require(response.get('service_tier') == 'default' and
+            response.get('prompt_cache_options') == {'ttl': '30m'} and
+            response.get('prompt_cache_diagnostics') is None and
+            response.get('prompt_cache_retention') is None and
+            response.get('prompt_cache_key') is None, 'responses_cache_or_tier_changed')
     output = response.get('output')
     require(isinstance(output, list) and 1 <= len(output) <= 3, 'responses_output_shape')
     answers = []
@@ -101,7 +106,16 @@ def parse_response(raw, schema, request_id=None):
         schema_value(answer, schema)
         answers.append(encoded(answer))
     require(len(answers) == 1, 'responses_answer_count')
-    usage = response.get('usage')
+    usage = validate_usage(response.get('usage'))
+    accounting = dict(response_id=rid, model=MODEL, usage=usage,
+                      policy=dict(model=MODEL, service_tier='default', prompt_cache_options=dict(ttl='30m')))
+    if request_id is not None:
+        accounting['request_id'] = response_id(request_id)
+    return answers[0], accounting
+
+
+def validate_usage(usage):
+    """Exact mandatory usage; writes partition by the selected cache lifetime."""
     require(isinstance(usage, dict) and set(usage) == {'input_tokens', 'input_tokens_details',
             'output_tokens', 'output_tokens_details', 'total_tokens'}, 'responses_usage_required')
     for key, ceiling in (('input_tokens', INPUT_TOKENS), ('output_tokens', OUTPUT_TOKENS),
@@ -110,7 +124,8 @@ def parse_response(raw, schema, request_id=None):
     require(usage['input_tokens'] > 0 and usage['output_tokens'] > 0
             and usage['total_tokens'] == usage['input_tokens'] + usage['output_tokens'], 'responses_usage_invalid')
     input_details = usage['input_tokens_details']
-    require(isinstance(input_details, dict) and set(input_details) == {'cached_tokens', 'cache_write_tokens'},
+    require(isinstance(input_details, dict) and set(input_details) ==
+            {'cached_tokens', 'cache_write_tokens', 'cache_write_tokens_details'},
             'responses_usage_invalid')
     for detail in ('cached_tokens', 'cache_write_tokens'):
         require(type(input_details[detail]) is int and 0 <= input_details[detail] <= usage['input_tokens'],
@@ -119,11 +134,13 @@ def parse_response(raw, schema, request_id=None):
     # accepting both individually must not leave a negative ordinary remainder.
     require(input_details['cached_tokens'] + input_details['cache_write_tokens'] <= usage['input_tokens'],
             'responses_usage_invalid')
+    writes = input_details['cache_write_tokens_details']
+    require(isinstance(writes, dict) and set(writes) == {'ttl_30m_tokens', 'ttl_12h_tokens'} and
+            all(type(v) is int and v >= 0 for v in writes.values()) and
+            writes['ttl_12h_tokens'] == 0 and
+            writes['ttl_30m_tokens'] == input_details['cache_write_tokens'], 'responses_cache_partition')
     output_details = usage['output_tokens_details']
     require(isinstance(output_details, dict) and set(output_details) == {'reasoning_tokens'}
             and type(output_details['reasoning_tokens']) is int
             and 0 <= output_details['reasoning_tokens'] <= usage['output_tokens'], 'responses_usage_invalid')
-    accounting = dict(response_id=rid, model=MODEL, usage=usage)
-    if request_id is not None:
-        accounting['request_id'] = response_id(request_id)
-    return answers[0], accounting
+    return usage

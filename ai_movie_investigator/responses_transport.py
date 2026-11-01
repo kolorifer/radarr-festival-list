@@ -35,7 +35,7 @@ def real_activation_refusal(authorization):
 
 class ResponsesTransport:
     def __init__(self, *, enabled=False, http=None, credential=None, authorization=None,
-                 clock=time.time, monotonic=time.monotonic):
+                 clock=time.time, monotonic=time.monotonic, spending=None):
         self.enabled = enabled
         self.http = FixedResponsesHTTP() if http is None else http
         self.credential = credential
@@ -45,6 +45,7 @@ class ResponsesTransport:
         self.pending = None
         self.last_accounting = None
         self.used = set()
+        self.spending = spending
 
     def identity(self):
         return dict(transport='openai_responses', model=MODEL, client='fixed_https_v1',
@@ -62,6 +63,10 @@ class ResponsesTransport:
             return real_activation_refusal(self.authorization)
         if type(self.authorization) is not SimulatedAuthorization:
             return 'responses_simulation_authorization_missing'
+        if self.spending is not None:
+            from .spending import SimulatedSpending
+            if type(self.spending) is not SimulatedSpending:
+                return 'responses_spending_implementation_unknown'
         try:
             now = stamp(self.clock())
             require(stamp(self.authorization.issued_at) <= now < stamp(self.authorization.expires_at)
@@ -97,6 +102,7 @@ class ResponsesTransport:
         # fixed string as the API instruction. No ambient conversation is read.
         del prompt['instruction']
         body = encoded(dict(model=MODEL, instructions=INSTRUCTIONS,
+                            service_tier='default', prompt_cache_options=dict(ttl='30m'),
                             input=[dict(role='user', content=[dict(type='input_text', text=encoded(prompt).decode())])],
                             tools=[], tool_choice='none', store=False, background=False, stream=False,
                             max_output_tokens=OUTPUT_TOKENS, truncation='disabled',
@@ -116,6 +122,9 @@ class ResponsesTransport:
                            request_hash=fingerprint, request_bytes=len(body),
                            input_token_ceiling=INPUT_TOKENS, output_token_ceiling=OUTPUT_TOKENS,
                            monetary_reservation='unverified_no_live_send', simulated=True)
+        if self.spending is not None:
+            reservation['monetary_reservation'] = self.spending.reserve(
+                body, reservation, decode(self.authorization.packet_json, MAX_INPUT)['binding'])
         self.pending = (body, reservation, digest(decode(payload, MAX_INPUT)))
         return dict(reservation)
 
@@ -133,6 +142,10 @@ class ResponsesTransport:
         remaining = timeout - (self.monotonic() - started)
         require(remaining > 0, 'responses_deadline_exceeded')
         try:
+            if self.spending is not None:
+                self.spending.before_send(body, reservation)
+                remaining = timeout - (self.monotonic() - started)
+                require(remaining > 0, 'responses_deadline_exceeded')
             result = self.http.post(body, credential=self.credential, project=SYNTHETIC_PROJECT, timeout=remaining)
             require(self.monotonic() - started < timeout, 'responses_deadline_exceeded')
             require(result.status == 200, 'responses_http_rejected')
@@ -141,9 +154,15 @@ class ResponsesTransport:
                          and self.credential.value not in result.request_id),
                     'responses_credential_echo_refused')
             answer, accounting = parse_response(result.body, schema, result.request_id)
+            require(self.credential.value.encode() not in answer and
+                    self.credential.value.encode() not in encoded(accounting),
+                    'responses_credential_echo_refused')
             require(self.monotonic() - started < timeout, 'responses_deadline_exceeded')
-            self.last_accounting = dict(accounting, local_request_id=reservation['local_request_id'],
-                                        request_hash=reservation['request_hash'], simulated=True)
+            bound = dict(accounting, local_request_id=reservation['local_request_id'],
+                         request_hash=reservation['request_hash'], simulated=True)
+            if self.spending is not None:
+                self.spending.settle(reservation, bound)
+            self.last_accounting = bound
             return answer
         except Refusal:
             raise

@@ -1,5 +1,60 @@
 # Movie List project state
 
+## Issue #127 Task6 — offline catalogue research and pilot preparation, 2026-11-01
+
+Trusted supervisor Task6 authorizes repository code/tests/docs only, under the
+existing cap8. Clean baseline is `automation/issue-127-worker` at
+`caa7d40ee6e418326702a44910524e7a01ab4ada`, tree
+`dc24ce566164df9f0e14514efa2beeda7b6946a6`; accepted Task5 head485afc8 and
+PR129 merge05371ee have that same tree. Parent alone publishes code and obtains
+independent final exact-head review/direct supported CI. No previous session,
+worker or subagent was resumed/launched. The unrelated active task is intact.
+
+**Implementation:** inactive finite catalogue broker over existing Provider and
+actual temporary shared RecurringStore ledger; exact occurrence/plan/material/
+decision/currentness pins and durable sanitized receipts feed the existing
+two-call investigator. A separate inspectable private one-case plan always
+lists missing live facts. Exact rational TEST spending reserves before each fake
+send, consumes send bindings once and settles only bound validated usage.
+Requests pin `gpt-6.1-sol`, default tier and30m cache; unexpected policy or invalid
+cache-write partition blocks. Original source clocks/hash, consent separation,
+all existing bounds and real-send refusals remain. Codex registry stays empty.
+
+**Technical verification:** final frozen-source focused suites passed137 tests
+on each supported Python3.12.16/3.13.18. Full suites ran1,425 tests on each, two
+Linux-only skips each, no failures/errors and exit0. Dependency consistency,
+unchanged scoring1909/387, all28 source/test hashes and scoped preservation/diff/
+documentation checks pass. **Inactive code READY_FOR_REVIEW**; independent final
+exact-head review/direct supported CI remain parent-owned and pending. The nonempty
+synthetic demonstration produces two fake catalogue GETs, two fake model sends,
+durable cited result, daily review and inspectable plan. Ineligible skips and
+retired plans do no research; conflicts/missing crosswalks do not become a
+verified identity. Exact25-file installed-only closure/removal checks are part
+of the focused tests. This is not live access, affordability or a new real film.
+
+**Deployment/product acceptance:** neither authorized nor attempted. Real
+provider/model authorization verification remains deliberately absent. Installed
+recurring code identity is UNKNOWN: repository weekly5cases/25GET/5per-version
+and a previously observed installed daily report are not interchangeable.
+A future real bridge needs the exact existing installed ledger/epoch/code,
+material mapping and separate grants, never report/caller counters. Live pilot
+still needs a current unresolved occurrence and decisions/currentness, sanctioned
+project/key/model access, approved redacted payload/privacy, verified tier/cache/
+pricing/counter and explicit owner currency ceiling, current shared quota,
+private state/output/receipt/execution grants and reviewed external authorization/
+host/network controls. A plan template cannot assert these facts.
+
+No live source/movie/provider/model, credentials/account/config/billing/spend,
+SSH/seedbox/private inputs/outputs, Radarr/Telegram/media/download, service/
+schedule/deployment, daemon/worker/subagent/Work or child publication action
+occurred. Launcher/dispatcher/caps/claims, issue119/122/125 and reporting trial,
+issue86/PR110, both histories and all Task1..5 records remain untouched.
+See [Task6 brief](reports/2026-11-01-issue-127-task6-brief.md),
+[report](reports/2026-11-01-issue-127-task6.md),
+[hash manifest](reports/2026-11-01-issue-127-task6-runtime-manifest.json) and
+[current contracts](AI-MOVIE-INVESTIGATOR.md#task6--offline-catalogue-stage-and-one-case-plan).
+No Task7/8 or operational authority follows.
+
 ## Issue #127 Task5 — inactive input-token accounting correction, 2026-11-01
 
 Latest trusted supervisor Task5 authorizes only the single accounting defect
