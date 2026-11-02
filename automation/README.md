@@ -94,7 +94,8 @@ is eligible. Its SHA-256 covers the UTF-8 comment body without the file's final
 newline. The unedited owner comment must follow review 6579481611. The dispatcher
 requires the original eight local reservations, eight pinned GitHub claim refs
 and the recorded `NEEDS_USER` Task 8 snapshot at the existing checkout. It
-revalidates the selection and retained bytes before reserving slot 9. The usual
+revalidates the selection and retained bytes before reserving slot 9 and compares
+the final checkout fingerprint with the selected snapshot before launching the child. The usual
 quota, locks, atomic remote claim and no-replay behavior apply. A ninth
 reservation exhausts this allowance even if the remote claim is uncertain.
 

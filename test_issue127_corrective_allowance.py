@@ -114,6 +114,24 @@ class CorrectionTests(unittest.TestCase):
             with self.assertRaisesRegex(worker.Stop, 'immediately preceding retained state'):
                 worker.Runner.execute(r, r.issue, r.messages[0], 9)
 
+    def test_changed_final_baseline_never_marks_child_running_or_launches(self):
+        r = self.fixture()
+        r.state['consumed'].append(9)
+        worker.save(r.state_file, r.state)
+        r.repo = r.checkout
+        task = r.messages[0]
+        # The retained checks see the approved snapshot. The separate final
+        # sample sees different bytes before any child is allowed to start.
+        with patch.object(worker, 'snapshot', side_effect=[SNAPSHOT, SNAPSHOT, '0'*64]), \
+                patch.object(worker.subprocess, 'run') as launch:
+            with self.assertRaisesRegex(worker.Stop, 'Correction checkout changed before child execution'):
+                worker.Runner.execute_in_checkout(r, r.issue, task, 9)
+        launch.assert_not_called()
+        self.assertFalse((r.state_dir / 'worker-9.log').exists())
+        outcome = json.loads((r.state_dir / 'execution-9.json').read_bytes())
+        self.assertNotEqual(outcome['child_process'], 'running')
+        self.assertEqual(json.loads(r.state_file.read_bytes())['consumed'], list(range(1, 10)))
+
     def test_quota_pause_does_not_consume_and_lost_claim_is_never_replayed(self):
         r = self.fixture()
         with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=15):

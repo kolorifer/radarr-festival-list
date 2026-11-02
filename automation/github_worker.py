@@ -36,6 +36,7 @@ except ModuleNotFoundError:
     import coordinator_storage as storage
 
 MODEL = "gpt-6.1-sol"
+CORRECTION_127_SNAPSHOT = '66925204ee394f632ed6ef1991f034c729127f2aec1fe91bb91c537b536168df'
 PROBE_COOLDOWN = 30 * 60
 FIELDS = re.compile(r"^([A-Z_]+):[ \t]*(.*)$", re.M)
 
@@ -657,10 +658,13 @@ class Runner:
             self.state["notifications"][str(n)] = body
             save(self.state_file, self.state)
 
+    def is_correction_127(self, number):
+        return self.args.github_repo == 'kolorifer/radarr-festival-list' and self.args.issue == 127 and number == 9
+
     def retained_correction_127(self, issue, task, refs, consumed):
         """The owner approved these exact comment bytes for one retained correction."""
         repo = 'kolorifer/radarr-festival-list'
-        if self.args.github_repo != repo or self.args.issue != 127 or task_number(task['body']) != 9:
+        if not self.is_correction_127(task_number(task['body'])):
             return False
         expected = list(range(1, 9))
         checkout = self.state_dir / 'checkout'
@@ -683,7 +687,7 @@ class Runner:
                     for ref in refs)
             and not checkout.is_symlink() and checkout.is_dir()
             and self.state.get('retained') == dict(task=8, state='NEEDS_USER',
-                snapshot='66925204ee394f632ed6ef1991f034c729127f2aec1fe91bb91c537b536168df',
+                snapshot=CORRECTION_127_SNAPSHOT,
                 checkout=str(checkout.resolve()))
         )
 
@@ -924,7 +928,7 @@ class Runner:
                 raise
         checkout = self.state_dir / "checkout"
         self.git("fetch", "origin")
-        if self.args.github_repo == 'kolorifer/radarr-festival-list' and self.args.issue == 127 and n == 9:
+        if self.is_correction_127(n):
             if not checkout.is_dir() or checkout.is_symlink() or not self.retained(task, checkout):
                 raise Stop('Corrective claim requires the original retained checkout')
         if not checkout.exists():
@@ -1085,6 +1089,8 @@ class Runner:
         if continuing:
             self.retained(task, self.repo)
         before = snapshot(self.repo)
+        if self.is_correction_127(n) and before != CORRECTION_127_SNAPSHOT:
+            raise Stop('Correction checkout changed before child execution')
         if operations and before != expected_baseline:
             raise Stop('Operations checkout changed before child execution')
         self.record_outcome(n, checkout_baseline=before, child_process='running')
