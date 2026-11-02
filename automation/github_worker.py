@@ -657,6 +657,36 @@ class Runner:
             self.state["notifications"][str(n)] = body
             save(self.state_file, self.state)
 
+    def retained_correction_127(self, issue, task, refs, consumed):
+        """The owner approved these exact comment bytes for one retained correction."""
+        repo = 'kolorifer/radarr-festival-list'
+        if self.args.github_repo != repo or self.args.issue != 127 or task_number(task['body']) != 9:
+            return False
+        expected = list(range(1, 9))
+        checkout = self.state_dir / 'checkout'
+        claim_prefix = 'refs/heads/automation/issue-127-claim-'
+        original_claims = {claim_prefix + str(n) for n in expected}
+        return (
+            issue.get('url') == f'https://api.github.com/repos/{repo}/issues/127'
+            and issue.get('number') == 127
+            and issue['user']['login'] == task['user']['login'] == 'kolorifer'
+            and task.get('issue_url') == issue['url']
+            and type(task.get('id')) is int and task['id'] > 6579481611
+            and bool(task.get('created_at')) and task['created_at'] == task.get('updated_at')
+            and hashlib.sha256(task['body'].encode()).hexdigest()
+                == '3407e7e25d4149c59867d0e645ecf52e9f63e6fa1af0b08109ceee1e57474966'
+            and consumed == set(expected) and self.state['consumed'] == expected
+            and all(type(n) is int for n in self.state['consumed'])
+            and len(refs) == len(expected)
+            and {ref['ref'] for ref in refs} == original_claims
+            and all(ref.get('object', {}).get('sha') == 'b463a2bae25c0efd7c77ea9911be87fb3993efa1'
+                    for ref in refs)
+            and not checkout.is_symlink() and checkout.is_dir()
+            and self.state.get('retained') == dict(task=8, state='NEEDS_USER',
+                snapshot='66925204ee394f632ed6ef1991f034c729127f2aec1fe91bb91c537b536168df',
+                checkout=str(checkout.resolve()))
+        )
+
     def eligible(self, issue, login):
         if issue["state"] != "open" or "pull_request" in issue:
             return None
@@ -710,7 +740,9 @@ class Runner:
             self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
             self.notify(task_number(max(candidates, key=lambda c: c["id"])["body"]), "NEEDS_USER", str(exc), 'INVALID_TASK')
             return None
-        if task is not None and len(consumed) >= 8:
+        beyond_limit = len(consumed) >= 8 or (self.args.github_repo == 'kolorifer/radarr-festival-list'
+            and self.args.issue == 127 and task is not None and task_number(task['body']) > 8)
+        if task is not None and beyond_limit and not self.retained_correction_127(issue, task, refs, consumed):
             print(f"Issue {self.args.issue}: maximum iterations reached", flush=True)
             if not self.discovery and not self.args.dry_run:
                 self.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -784,6 +816,8 @@ class Runner:
     def run_selected(self, issue, task, consumed):
         n = task_number(task["body"])
         current = self.git("branch", "--show-current").strip()
+        if len(consumed) == 8 and current == self.branch:
+            raise Stop('The retained correction requires the separate launcher and issue checkout')
         if self.git("status", "--porcelain").strip():
             if current != self.branch or not self.retained(task, self.repo):
                 raise Stop("Working tree is dirty; preserve/reconcile it before running")
@@ -828,6 +862,14 @@ class Runner:
             self.preflight_code = 'INPUT_VALIDATION_FAILED'
             save(self.state_dir / f'input-failure-{n}.json', {'code': 'INPUT_VALIDATION_FAILED', 'consumed': False})
             raise Stop('INPUT_VALIDATION_FAILED; task not consumed; inspect local staging') from None
+        if len(consumed) == 8:
+            # This is the single pinned exception. Recheck the latest owner
+            # assignment, all claims and the retained bytes under the issue lock.
+            current_issue = self.api(f'repos/{self.args.github_repo}/issues/{self.args.issue}')
+            fresh = self.eligible(current_issue, issue['user']['login'])
+            if (not fresh or fresh[1].get('id') != task['id'] or fresh[1].get('body') != task['body']
+                    or fresh[2] != consumed or not self.retained(task, checkout)):
+                raise Stop('Retained corrective authorization changed before claim')
         # Reserve locally before any network claim: ambiguous failures never rerun.
         self.state["consumed"] = sorted(consumed | {n})
         save(self.state_file, self.state)
@@ -882,6 +924,9 @@ class Runner:
                 raise
         checkout = self.state_dir / "checkout"
         self.git("fetch", "origin")
+        if self.args.github_repo == 'kolorifer/radarr-festival-list' and self.args.issue == 127 and n == 9:
+            if not checkout.is_dir() or checkout.is_symlink() or not self.retained(task, checkout):
+                raise Stop('Corrective claim requires the original retained checkout')
         if not checkout.exists():
             local = self.git("branch", "--list", self.branch).strip()
             remote = self.git("branch", "-r", "--list", f"origin/{self.branch}").strip()

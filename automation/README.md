@@ -66,7 +66,8 @@ python3 automation/github_worker.py --interval 60
 Omitting `--issue` enables discovery: paginate open issues created by the
 authenticated GitHub identity, exclude PRs, and validate only issue-owner tasks.
 Closed/DONE issues, malformed/untrusted tasks, consumed/claimed numbers and
-issues with eight consumed iterations are ineligible. Each poll selects at most
+issues with eight consumed iterations are ineligible, apart from the single
+retained correction for #127 described below. Each poll selects at most
 one task: the oldest outstanding valid latest READY task by GitHub comment ID,
 with issue number as a deterministic tie-breaker. `--issue N` keeps the explicit
 operator/debug override, including the existing issue-owner trust policy.
@@ -86,6 +87,23 @@ launch work. The authenticated worker and issue author's RUNNING/result comments
 also prevent duplicate execution. Closing the issue or posting `STATE: DONE`
 as its latest trusted state stops new launches. Keep one issue per goal; the
 maximum of eight consumed iterations is deliberately not reset inside an issue.
+
+The owner approved one additional assignment for `kolorifer/radarr-festival-list#127`.
+Only number 9 with the exact [corrective task](authorizations/issue-127-task-9.txt)
+is eligible. Its SHA-256 covers the UTF-8 comment body without the file's final
+newline. The unedited owner comment must follow review 6579481611. The dispatcher
+requires the original eight local reservations, eight pinned GitHub claim refs
+and the recorded `NEEDS_USER` Task 8 snapshot at the existing checkout. It
+revalidates the selection and retained bytes before reserving slot 9. The usual
+quota, locks, atomic remote claim and no-replay behavior apply. A ninth
+reservation exhausts this allowance even if the remote claim is uncertain.
+
+The active #125 trial verifies its selected launcher revision and runtime file
+hashes on every opportunity. An installation that changes the launcher revision
+or `github_worker.py` must wait until that trial and its outstanding receipt
+work have finished. Keep the reviewed code in a separate checkout until the
+owner authorizes installation. Publish and verify the approved installation on
+the existing launcher ref before posting the canonical task as an owner comment.
 
 ## Task and result protocol
 

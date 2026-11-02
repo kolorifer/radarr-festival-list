@@ -1,5 +1,16 @@
 # Movie List project state
 
+## Issue #127 · Retained Task 8 correction
+
+Task 8 returned `WORKER_BLOCKED` with all eight executions consumed and its
+implementation retained at snapshot `66925204ee394f632ed6ef1991f034c729127f2aec1fe91bb91c537b536168df`.
+Its [independent review](https://github.com/kolorifer/radarr-festival-list/issues/127#issuecomment-6579481611)
+reproduced three defects involving admission, runtime/edition evidence and
+receipt settlement. The owner authorized one corrective assignment. The
+[dispatcher instructions](../automation/README.md#task-and-result-protocol)
+and [exact task](../automation/authorizations/issue-127-task-9.txt) describe
+its scope. Installation and worker start are separate operational stages.
+
 ## Issue #127 Task7 — retired research dependency correction, 2026-11-01
 
 The latest trusted supervisor Task7 commissions only review R1 from exact
