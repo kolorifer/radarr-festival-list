@@ -660,14 +660,20 @@ class Runner:
             save(self.state_file, self.state)
 
     def is_correction_127(self, number):
-        return self.args.github_repo == 'kolorifer/radarr-festival-list' and self.args.issue == 127 and number == 9
+        return self.args.github_repo == 'kolorifer/radarr-festival-list' and self.args.issue == 127 and number in (9, 10)
 
     def retained_correction_127(self, issue, task, refs, consumed):
         """The owner approved these exact comment bytes for one retained correction."""
         repo = 'kolorifer/radarr-festival-list'
-        if not self.is_correction_127(task_number(task['body'])):
+        number = task_number(task['body'])
+        if not self.is_correction_127(number):
             return False
-        expected = list(range(1, 9))
+        expected = list(range(1, number))
+        task_hash, after = (
+            ('3407e7e25d4149c59867d0e645ecf52e9f63e6fa1af0b08109ceee1e57474966', 6579481611)
+            if number == 9 else
+            ('f0797e7f1da3681d0e82f885a3d0efaf40daeee730d1a3f7e5daa4c265bc1c4e', 6605436294)
+        )
         checkout = self.state_dir / 'checkout'
         claim_prefix = 'refs/heads/automation/issue-127-claim-'
         original_claims = {claim_prefix + str(n) for n in expected}
@@ -676,18 +682,18 @@ class Runner:
             and issue.get('number') == 127
             and issue['user']['login'] == task['user']['login'] == 'kolorifer'
             and task.get('issue_url') == issue['url']
-            and type(task.get('id')) is int and task['id'] > 6579481611
+            and type(task.get('id')) is int and task['id'] > after
             and bool(task.get('created_at')) and task['created_at'] == task.get('updated_at')
-            and hashlib.sha256(task['body'].encode()).hexdigest()
-                == '3407e7e25d4149c59867d0e645ecf52e9f63e6fa1af0b08109ceee1e57474966'
+            and hashlib.sha256(task['body'].encode()).hexdigest() == task_hash
             and consumed == set(expected) and self.state['consumed'] == expected
             and all(type(n) is int for n in self.state['consumed'])
             and len(refs) == len(expected)
             and {ref['ref'] for ref in refs} == original_claims
-            and all(ref.get('object', {}).get('sha') == 'b463a2bae25c0efd7c77ea9911be87fb3993efa1'
-                    for ref in refs)
+            and all(ref.get('object', {}).get('sha') == (
+                '2d3b54376f8f18f0936162b1f1282c1fa0560999' if ref['ref'] == claim_prefix + '9'
+                else 'b463a2bae25c0efd7c77ea9911be87fb3993efa1') for ref in refs)
             and not checkout.is_symlink() and checkout.is_dir()
-            and self.state.get('retained') == dict(task=8, state='NEEDS_USER',
+            and self.state.get('retained') == dict(task=number - 1, state='NEEDS_USER',
                 snapshot=CORRECTION_127_SNAPSHOT,
                 checkout=str(checkout.resolve()))
         )
@@ -821,7 +827,7 @@ class Runner:
     def run_selected(self, issue, task, consumed):
         n = task_number(task["body"])
         current = self.git("branch", "--show-current").strip()
-        if len(consumed) == 8 and current == self.branch:
+        if (len(consumed) == 8 or (len(consumed) == 9 and self.is_correction_127(n))) and current == self.branch:
             raise Stop('The retained correction requires the separate launcher and issue checkout')
         if self.git("status", "--porcelain").strip():
             if current != self.branch or not self.retained(task, self.repo):
@@ -867,7 +873,7 @@ class Runner:
             self.preflight_code = 'INPUT_VALIDATION_FAILED'
             save(self.state_dir / f'input-failure-{n}.json', {'code': 'INPUT_VALIDATION_FAILED', 'consumed': False})
             raise Stop('INPUT_VALIDATION_FAILED; task not consumed; inspect local staging') from None
-        if len(consumed) == 8:
+        if len(consumed) == 8 or (len(consumed) == 9 and self.is_correction_127(n)):
             # This is the single pinned exception. Recheck the latest owner
             # assignment, all claims and the retained bytes under the issue lock.
             current_issue = self.api(f'repos/{self.args.github_repo}/issues/{self.args.issue}')
@@ -1025,7 +1031,7 @@ class Runner:
                 or len(self.inputs) != len(private_inputs(task['body']))):
             raise Stop('Private input staging is required before child launch')
         staging = None
-        # Only the separately authorized, exact retained #127 correction is
+        # Only the separately authorized, exact retained #127 corrections are
         # routed to Terra. Other tasks and the quota probe keep their model.
         model = CORRECTION_127_MODEL if self.is_correction_127(n) else MODEL
         command = codex_command(self.repo, output, schema, effort, network, model)
