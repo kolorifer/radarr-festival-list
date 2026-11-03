@@ -132,6 +132,45 @@ class CorrectionTests(unittest.TestCase):
         self.assertNotEqual(outcome['child_process'], 'running')
         self.assertEqual(json.loads(r.state_file.read_bytes())['consumed'], list(range(1, 10)))
 
+    def test_authorized_correction_launches_terra_with_high_reasoning(self):
+        r = self.fixture()
+        r.state['consumed'].append(9)
+        worker.save(r.state_file, r.state)
+        r.repo = r.checkout
+        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), \
+                patch.object(r, 'verify_storage'), \
+                patch.object(worker.subprocess, 'run', side_effect=RuntimeError('intercepted')) as launch:
+            with self.assertRaisesRegex(RuntimeError, 'intercepted'):
+                worker.Runner.execute_in_checkout(r, r.issue, r.messages[0], 9)
+        command = launch.call_args.args[0]
+        self.assertEqual(command[command.index('--model') + 1], 'gpt-6.1-terra')
+        self.assertIn('model_reasoning_effort="high"', command)
+        self.assertIn('sandbox_workspace_write.network_access=false', command)
+        self.assertEqual(command[command.index('--sandbox') + 1], 'workspace-write')
+        self.assertNotIn('resume', command)
+
+    def test_other_roles_and_issues_keep_their_existing_model(self):
+        for repo, issue in ((REPO, 125), ('other/repo', 127)):
+            with self.subTest(repo=repo, issue=issue):
+                r = self.fixture()
+                r.args.github_repo, r.args.issue = repo, issue
+                r.state['consumed'].append(9)
+                worker.save(r.state_file, r.state)
+                r.repo = r.checkout
+                with patch.object(worker, 'snapshot', return_value=SNAPSHOT), \
+                        patch.object(r, 'verify_storage'), \
+                        patch.object(worker.subprocess, 'run', side_effect=RuntimeError('intercepted')) as launch:
+                    with self.assertRaisesRegex(RuntimeError, 'intercepted'):
+                        worker.Runner.execute_in_checkout(r, r.issue, r.messages[0], 9)
+                command = launch.call_args.args[0]
+                self.assertEqual(command[command.index('--model') + 1], 'gpt-6.1-sol')
+        r = self.fixture()
+        self.assertFalse(r.is_correction_127(8))
+        command = worker.codex_command(Path('repo'), Path('output'), Path('schema'))
+        self.assertEqual(command[command.index('--model') + 1], 'gpt-6.1-sol')
+        probe = worker.quota_probe_command(Path('repo'))
+        self.assertEqual(probe[probe.index('--model') + 1], 'gpt-6.1-sol')
+
     def test_quota_pause_does_not_consume_and_lost_claim_is_never_replayed(self):
         r = self.fixture()
         with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=15):
