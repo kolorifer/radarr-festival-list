@@ -46,18 +46,27 @@ class RecurringStore(ResearchStore):
             c.execute('update pilot set active_run=?,until=?',(run,now+600))
         return run
 
-    def lease(self,run):
+    def lease(self,run, *, selected=None):
         now=self.clock()
         with self.tx() as c:
             self._run(c,run)
-            # An interrupted attempt has an unknown outcome; do not rerun it.
-            c.execute('update jobs set status="awaiting_evidence",lease=NULL where status="leased" and until<=?',(now,))
+            # Opt-in selected leasing performs no housekeeping of foreign jobs.
+            # Selection, gates and attempt creation share this transaction.
+            if selected is None:
+                c.execute('update jobs set status="awaiting_evidence",lease=NULL where status="leased" and until<=?',(now,))
             if c.execute('select count(*) from attempts where started>?',(now-WEEK,)).fetchone()[0]>=5:raise Stop('weekly_case_budget')
             if c.execute('select count(*) from requests where reserved>?',(now-WEEK,)).fetchone()[0]>=25:raise Stop('weekly_request_budget')
             p=c.execute('select * from provider').fetchone()
             if p['suspended']:raise Stop('provider_suspended')
             if p['not_before']>now:raise Stop('provider_cooldown')
             row=c.execute('select j.*,e.material from jobs j join evidence e on e.version=j.version where j.status="queued" and j.due<=? order by j.due,j.case_id limit 1',(now,)).fetchone()
+            if selected is not None:
+                if (not row or set(selected) != {'case_id','version','material'} or
+                    row['case_id'] != selected['case_id'] or row['version'] != selected['version'] or
+                    json.loads(row['material']) != selected['material']):
+                    raise Stop('selected_oldest_job_changed')
+                if c.execute('select 1 from attempts where version=?',(row['version'],)).fetchone():
+                    raise Stop('selected_version_consumed')
             if not row:return None
             token=uuid.uuid4().hex
             c.execute('update jobs set status="leased",lease=?,until=? where case_id=?',(token,now+600,row['case_id']))

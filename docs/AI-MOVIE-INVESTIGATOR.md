@@ -1,5 +1,198 @@
 # Inactive AI movie investigator
 
+## Issue 127 offline correction — current synthetic boundary
+
+The coordinator's isolated correction continues the retained Task 8 work. An
+original collector route must be eligible, and the current occurrence and exact
+oldest due native ledger material are checked under control, history and ledger
+locks before a pilot claim. The selected lease rechecks its gates. A conflicting
+or unavailable input refuses without a claim.
+
+Source runtime and edition labels are withheld when no approved typed evidence
+exists; source free text is not parsed or disclosed. Returned citations must
+match the claims in the approved projection, including alternative candidates.
+This withholds unsupported claims; it does not verify an edition or runtime.
+
+The fixture's pre-effect selection binds project, run, issuer, body, quote and
+limits, not future receipt IDs or usage. Count and generation reservations bind
+distinct local IDs. Only a post-effect observation from the exact enrolled fake
+issuer may settle; it must match the actual returned response, request, IDs and
+usage. Invalid or uncertain observations retain the hold and cannot be retried.
+The fixture issuer models only a local invented system. It is not a live provider
+verifier, a real price, a grant to send, or proof of production readiness.
+
+The current installation closure uses the separate
+[correction manifest](reports/2026-11-03-issue-127-coordinator-repair-runtime-manifest.json).
+The Task 8 report and manifest remain historical records.
+See the [offline correction report](reports/2026-11-03-issue-127-offline-correction.md).
+
+## Task8 — fixed one-occurrence pilot, disabled and synthetic only
+
+The fixed package operation is `ai_movie_investigator.parent_pilot.run_pilot`.
+Importing it does nothing. Calling it without `enabled=True` refuses. Its enabled
+implementation accepts only the exact finite `FixtureParent` and invented
+catalogue/count/model boundaries. There is **no real parent verifier, registered
+real project or operational grant**. Fixture inputs, signed-looking data, flags
+and caller-selected hashes cannot reach a real provider, count or model endpoint.
+The existing sole engineering dispatcher and all earlier consumed slots remain.
+
+This operation runs the complete selected path; it is distinct from Task6's
+inspectable plan and two-generation replay. Existing two-call callers remain
+supported. A working offline path is not live readiness or a real identification.
+
+### Admission and independent bindings
+
+The original fake owner event authenticates repo/issue/owner and the exact
+unedited `investigate-one <selected blob SHA256>` command against an independently
+retained fake repository record. Commit, tree, fixed private path, regular blob
+mode, Git blob identity, byte count and raw SHA256 must agree. The operation never
+executes that string or offers a general command channel. The selected bytes pin
+one run, code closure, original input, full decisions, native provider plan,
+disclosure, counter, quote, project, ceiling, storage and expiry.
+
+Original captured event bytes are recomputed through the existing importer and
+compared with retained evidence and the complete owner decision/revocation/prior
+review history. A separate delivery receipt binds those bytes to the actual event,
+delivery, collector version, source/release and native provider item. A native
+receipt independently links its full material/provenance, including optional
+torrent evidence. The selected job must be in the nominated unresolved eligible
+set. Changing a caller delivery label for identical event bytes cannot supply
+that receipt. Legacy snapshots, skip/completed occurrences, omitted history,
+superseded inputs, invalid destinations and expired selections refuse.
+
+Authentication of that original selection does not assert external site facts.
+A separate finite site record pins the exact account project/run namespace,
+canonical control-store identity, model, quote and supported ledger profile. Both
+the local private history and canonical parent account store are separately pinned
+by canonical path, directory and regular-file device/inode and permissions. A
+second history cannot create a second claim; an independent original selection
+cannot reset an already consumed canonical account. A replaced control root fails
+the independent site pin. Before reading any journal or opening the ledger, the fixed operation also
+requires each storage identity to be in the process-local invented-storage set.
+Only the fixture factory enrolls identities after exclusively creating new
+invented directories and files; no path, receipt, flag or enrollment API can add
+an existing store. Matching a schema and supplying fake site facts therefore
+cannot point this operation at real existing state. The owning account must
+still be trusted: local journal hashes do not defend against a compromised host
+rewriting all trusted records or executing arbitrary replacement Python code.
+
+The private claim durably retains original selection bytes, original owner and
+repository records and the independent occurrence receipt record. Evidence and
+decisions remain exact and local. Selection, storage, code, original records,
+expiry, source/decision currentness and exact plan retirement are rechecked
+through research, before generation and in the final result/review transactions.
+Consumed/unknown effects are never refunded or replayed.
+
+### Existing shared ledger and atomic lease
+
+`weekly_ledger.ExistingWeeklyLedger` supports precisely
+`repository-recurring-v1-weekly-5cases-25gets-5perversion`: schema1, the exact
+repository recurring-v1 schema and existing WAL mode, with the reviewed code
+closure pinned separately. Unknown schemas, journal modes and installed profiles
+refuse. Profile inspection uses a read-only connection before any write transaction.
+There is no ledger creation, migration, admission or reconciliation method on
+this adapter. D039's installed daily behavior is not this weekly profile, and an
+export never proves installed compatibility. Actual installed identity remains
+unknown; no real ledger was inspected.
+
+The positive fixture ingests independently constructed native material into a new
+invented ledger **before** calling the pilot. It does not admit `material_for`'s
+packet reconstruction. Native torrent material and original provenance survive
+normalization, and source/version and ledger/material-version remain distinct.
+The pilot uses the existing fixed Provider routes and shared reservations, cache,
+cooldown, suspension, rolling weekly 5 cases / 25 GETs and5GETs per material version.
+The selected plan allows at most five operations; the positive fixture uses two.
+
+The optional `RecurringStore.lease(run, selected=...)` compares the exact oldest
+due job/material/version and gates inside the same transaction that creates the
+lease/attempt. Queue changes cannot consume a foreign attempt. This opt-in path
+does not perform expired foreign-job housekeeping or reset interrupted attempts.
+Existing unqualified lease callers retain their behavior. A preliminary diagnostic
+is retained for compatibility; it grants no lease authority. No transient process
+broker is needed: the fixed operation is synchronous and bounded. Actual local
+fixture processes test duplicate claims and abrupt parent/reply loss; reopening
+cannot recover by another GET or a second generation.
+
+### One minimized generation and exact TEST accounting
+
+The pilot preselects and retrieves one to five exact retained rows through the
+existing locked local lookup interface. Its first and only generation can cite
+those supplied rows. Preview and wire construction share `disclosure.project`'s
+strict allowlist: approved title/year/movie IDs, contradictions and selected
+structured catalogue facts/candidate/claims. Source text, original event/delivery,
+tracker/source/case/owner/provenance identities, torrent/decision hashes, raw
+history and unapproved free text stay local. Run and evidence aliases use separate
+domains. Newly returned disclosed catalogue facts must equal the original approved
+projection; unknown/foreign/stale/unapproved/duplicate rows and cross-run or
+unreturned citation aliases refuse. Citations are translated back before the
+existing original-bound validators and locked final commit. Runtime, edition,
+source verification, scoring and acquisition remain separate questions.
+
+The canonical parent account permits one count and one generation, across all
+histories/processes. Its finite counter models the fixed
+`/v1/responses/input_tokens` boundary for the **entire exact minimized request**,
+including instructions/schema, default tier, 30m cache policy and output ceiling.
+The complete count disclosure is recorded at the fixture boundary. A selected
+independent TEST quote covers count maximum fee, all rational token prices and
+absence of ancillary fees. Reserve that fee before counting; settle a known
+count receipt even if the generation ceiling then refuses. Reserve the maximum
+generation charge before sending. This is an exact count/quote fixture contract,
+**not verified compatibility with a live token-count API, tokenizer or price**.
+Historical rates and byte estimates cannot certify live spend.
+
+One scoped fixture permit and exact project reach the fixed-origin HTTP fixture.
+Unknown count coverage, prices, ancillary charges or owner ceiling refuse before
+the affected request. Usage partitions, request/response identity and project/run
+receipts decide settlement. A known response can settle even when retirement
+prevents accepting its proposal; unknown receipts/timeouts/process loss hold the
+maximum. No retry, refill, invocation rename or new account root continues it.
+Existing real HTTP origin/DNS/TLS/size/deadline guards and unconditional real-send
+refusals are unchanged. No usable real permit is implemented.
+
+The private `pilot_review` record binds exact durable result/review hashes and
+selected storage; the canonical account terminal binds that archive hash. The
+existing daily review remains private rendering, with TEST accounting and explicit
+simulation labels. It never marks a message sent, acknowledged or archived.
+
+### Offline proof and future operational dependencies
+
+Run the affected suite on supported Python 3.12/3.13:
+
+```sh
+python -m unittest -v test_ai_movie_investigator test_responses_transport test_investigator_catalogue test_parent_pilot
+python -m unittest -v
+```
+
+`test_parent_pilot` calls the actual fixed operation against invented external
+systems. It also installs the exact 30-file closure from the
+[correction manifest](reports/2026-11-03-issue-127-coordinator-repair-runtime-manifest.json),
+runs a nonempty cited path under `-I -B -S` outside the checkout without source/
+PYTHONPATH/site fallback, and refuses each individually removed and altered file.
+The [Task8 report](reports/2026-11-02-issue-127-task8.md) records actual results.
+Historical manifests/reports remain unchanged; Task7's closure below is historical.
+
+Before a separately authorized real demonstration, the parent must establish:
+independent exact-terminal-head review and supported direct CI; authoritative
+original-owner/private-repository selection verification and expiry; actual
+original event/delivery/release/collector/native-material receipts and complete
+current eligible-set/decision history; actual installed ledger/code/schema/epoch/
+policy compatibility and current shared capacity; sanctioned exact project/key/
+model/privacy/billing conditions; approved minimized preview and count disclosure;
+independently verified live count-route coverage and maximum fee, exact current
+rational model/tier/cache/ancillary prices and explicit owner currency ceiling;
+canonical project/run budget store and exact private output/receipt grants;
+current shared model quota; reviewed real permit/site verifiers and mandatory
+host/network isolation. None of these live facts was inspected or established.
+The installed daily profile and real owner/count/model authorization branches
+remain unsupported. Missing facts refuse rather than downgrade to fixture claims.
+
+The later demonstration must authorize exactly one current unresolved occurrence,
+report actual sends and known/unknown consumption separately from cited proposal,
+system identity verification and product acceptance, and stop without retry on
+uncertainty. It grants no identity override, notification replay, source refresh,
+movie addition, download consent, service or schedule change. This final Task8
+creates no additional implementation slot or continuing task chain.
+
 ## Task7 — retirement across the research-to-model handoff
 
 Task7 corrects independently reproduced Task6 review R1. This remains disabled,
@@ -37,8 +230,8 @@ false regardless of all template fields.
 
 The nonempty installed-only proof includes the successful control and a retired
 handoff under `-I -B -S` outside the checkout. All 25 individually removed local
-dependencies still fail without source/PYTHONPATH/site fallback. The installer now
-uses the separate [Task7 manifest](reports/2026-11-01-issue-127-task7-runtime-manifest.json);
+dependencies still fail without source/PYTHONPATH/site fallback. At Task7 the installer
+used the separate [Task7 manifest](reports/2026-11-01-issue-127-task7-runtime-manifest.json);
 the dated Task6 manifest/report remain historical evidence. See the
 [Task7 brief](reports/2026-11-01-issue-127-task7-brief.md) and
 [report](reports/2026-11-01-issue-127-task7.md). Parent independent exact-head
@@ -234,7 +427,7 @@ No new live task, cost, access or owner decision is needed to run this offline
 proof. The missing prerequisites above are for a future real demonstration only.
 
 `installation.install_runtime` explicitly copies the exact 25-file code closure
-and verifies its current Task7 manifest hashes into a caller-selected empty
+and verifies its current Task8 manifest hashes into a caller-selected empty
 private directory. It installs/starts no service and copies no ledger, private input or
 credential. The installed-only test runs the nonempty workflow under `-I -B -S`
 outside the repository with no source/PYTHONPATH/site fallback; every individually

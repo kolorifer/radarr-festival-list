@@ -53,6 +53,16 @@ Already consumed attempts stay recorded; an earlier completed result remains
 historical. This was verified with invented cases and fake replies only. The
 investigator remains inactive, and download confirmation behaves as before.
 
+**2 November fixed offline pilot:** one selected invented unresolved occurrence
+can now pass through independent delivery and native catalogue receipts, a shared
+request ledger, one minimized simulated AI reply and a durable private review.
+Duplicate attempts, changed evidence or choices, retired plans and unknown costs
+remain blocked or recorded for investigation. The review distinguishes a cited
+proposal from verified identity, runtime/edition checks, scoring and permission
+to acquire a release. All examples, prices and replies are simulated; real use
+remains disabled and has not identified a real new movie. Original notifications
+and the separate release-specific download confirmation behave as before.
+
 ## The people and programs involved
 
 - **Tracker:** announces a torrent release, such as a particular Blu-ray version of a film.

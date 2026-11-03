@@ -15,6 +15,9 @@ RUNTIME_FILES = (
     'ai_movie_investigator/research.py', 'ai_movie_investigator/spending.py',
     'ai_movie_investigator/pilot.py', 'ai_movie_investigator/catalogue_replay.py',
     'ai_movie_investigator/installation.py',
+    'ai_movie_investigator/weekly_ledger.py', 'ai_movie_investigator/disclosure.py',
+    'ai_movie_investigator/pilot_account.py', 'ai_movie_investigator/parent_pilot.py',
+    'ai_movie_investigator/pilot_fixture.py',
     'identity_triage_intake.py', 'identity_triage_store.py', 'identity_selection.py',
     'torrent_research_evidence.py', 'identity_research_handoff.py',
     'identity_research_provider.py', 'identity_research_store.py', 'identity_recurring_store.py',
@@ -63,7 +66,7 @@ def install_runtime(source, destination):
     if list(destination.iterdir()):
         raise ValueError('installation_not_empty')
     frozen = {}
-    source_manifest = json.loads(_read(source / 'docs/reports/2026-11-01-issue-127-task7-runtime-manifest.json'))
+    source_manifest = json.loads(_read(source / 'docs/reports/2026-11-03-issue-127-coordinator-repair-runtime-manifest.json'))
     expected = source_manifest['runtime_files']
     if set(expected) != set(RUNTIME_FILES):
         raise ValueError('installation_closure')

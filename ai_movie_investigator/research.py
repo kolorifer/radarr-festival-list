@@ -45,19 +45,21 @@ def provider_material(item):
     return result
 
 
-def select_plan(packet, operations, *, issued_at, expires_at):
+def select_plan(packet, operations, *, issued_at, expires_at, native_item=None):
     """Trusted supervisor selection, usable only with synthetic capability.
 
     There is no real-authorizer implementation. Supplying this template, even
     with real-looking hashes/timestamps, does not grant a live capability.
     """
-    material = provider_material(material_for(packet))
+    material = provider_material(material_for(packet) if native_item is None else validate_case(native_item))
     plan = dict(schema=1, binding=packet['binding'], packet_hash=digest(packet),
                 original_hash=packet['original_hash'], evidence_hash=digest(packet['evidence']),
                 decision_hash=digest(packet['decisions']), material=material,
                 provider_version=digest(material), operations=operations,
                 source_observed_at=packet['event']['observed_at'] if packet['event'] else None,
                 issued_at=issued_at, expires_at=expires_at, synthetic=True)
+    if native_item is not None:
+        plan.update(schema=2, native_item=validate_case(native_item))
     plan = decode(encoded(plan), MAX_INPUT)
     validate_plan(plan, packet)
     return plan
@@ -65,14 +67,25 @@ def select_plan(packet, operations, *, issued_at, expires_at):
 
 def validate_plan(plan, packet):
     validate_packet(packet)
-    shape(plan, 'schema binding packet_hash original_hash evidence_hash decision_hash material provider_version operations source_observed_at issued_at expires_at synthetic')
-    require(type(plan['schema']) is int and plan['schema'] == 1 and plan['synthetic'] is True,
+    fields = 'schema binding packet_hash original_hash evidence_hash decision_hash material provider_version operations source_observed_at issued_at expires_at synthetic'
+    shape(plan, fields + (' native_item' if plan.get('schema') == 2 else ''))
+    require(type(plan['schema']) is int and plan['schema'] in (1, 2) and plan['synthetic'] is True,
             'research_plan_schema')
     require(scope(plan['binding']) == packet['binding'] and
             plan['packet_hash'] == digest(packet) and plan['original_hash'] == packet['original_hash'] and
             plan['evidence_hash'] == digest(packet['evidence']) and
             plan['decision_hash'] == digest(packet['decisions']), 'research_binding_changed')
-    material = provider_material(material_for(packet))
+    if plan['schema'] == 2:
+        native = validate_case(plan['native_item'])
+        require(native['case_id'] == packet['binding']['case_id'] and not native['seed'] and
+                all(native['facts'][k] == packet['facts'][k] for k in ('title','year','imdb','tmdb')),
+                'research_native_correspondence')
+        torrent = native['facts'].get('torrent_evidence')
+        require((digest(torrent) if torrent is not None else None) ==
+                packet['facts'].get('retained_torrent_hash'), 'research_native_torrent_changed')
+        material = provider_material(native)
+    else:
+        material = provider_material(material_for(packet))
     require(plan['material'] == material and plan['provider_version'] == digest(material),
             'research_material_correspondence')
     require(plan['source_observed_at'] == (packet['event']['observed_at'] if packet['event'] else None),
@@ -169,17 +182,19 @@ class _FixtureResponse:
 
 class OfflineResearch:
     def __init__(self, *, enabled=False, history=None, store=None, connection=None,
-                 authorization=None, monotonic=time.monotonic):
+                 authorization=None, monotonic=time.monotonic, boundary_guard=None):
         self.enabled, self.history, self.store = enabled, history, store
         self.connection, self.authorization = connection, authorization
         self.monotonic = monotonic
+        self.boundary_guard = boundary_guard
 
     def preflight(self):
         if self.enabled is not True:
             return 'research_disabled'
         if type(self.authorization) is not SyntheticResearch or type(self.connection) is not FixtureConnection:
             return real_research_refusal()
-        if type(self.store) is not RecurringStore or type(self.history) is not History:
+        from .weekly_ledger import ExistingWeeklyLedger
+        if type(self.store) not in (RecurringStore, ExistingWeeklyLedger) or type(self.history) is not History:
             return 'research_shared_store_required'
         if type(self.store.clock) is not SyntheticClock or self.history.clock is not self.store.clock:
             return 'research_synthetic_clock_required'
@@ -220,6 +235,8 @@ class OfflineResearch:
             require(self.store.clock() >= current - .001 and self.store.clock() <= current + .001,
                     'research_ledger_clock_changed')
             check_ledger()
+            if self.boundary_guard is not None:
+                self.boundary_guard(events)
             latest = [e for e in events if e['type'] == 'intake' and
                       e['packet']['binding']['case_id'] == packet['binding']['case_id']][-1]
             require(latest['job'] == selected, 'research_case_superseded')
@@ -248,6 +265,8 @@ class OfflineResearch:
                         binding=packet['binding'], provider_version=plan['provider_version'], plan=plan, synthetic=True))
         # Admission happens only in the explicit synthetic demonstration setup;
         # the broker never creates a replacement ledger, admits or resets jobs.
+        # Compatibility diagnostic only: the selected lease below repeats the
+        # comparison atomically with all gates and attempt creation.
         with self.store.tx() as c:
             row = c.execute('select j.*,e.material from jobs j join evidence e on e.version=j.version '
                             'where j.status="queued" order by j.due,j.case_id limit 1').fetchone()
@@ -257,7 +276,8 @@ class OfflineResearch:
         run = self.store.start()
         results, receipts = [], []
         try:
-            lease = self.store.lease(run)
+            lease = self.store.lease(run, selected=dict(case_id=plan['binding']['case_id'],
+                version=plan['provider_version'], material=plan['material']))
             require(lease is not None and lease['case_id'] == plan['binding']['case_id'] and
                     lease['version'] == plan['provider_version'] and lease['item'] == plan['material'],
                     'research_lease_unbound')

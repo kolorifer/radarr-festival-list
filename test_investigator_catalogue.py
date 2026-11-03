@@ -303,8 +303,8 @@ class OfflineTests(unittest.TestCase):
                     store.end(run)
                 else:
                     actual_lease = store.lease
-                    def filled(run):
-                        lease = actual_lease(run)
+                    def filled(run, **kwargs):
+                        lease = actual_lease(run, **kwargs)
                         with store.tx() as c:
                             for n in range(25 if gate == 'weekly_requests' else 5):
                                 c.execute('insert into requests values(NULL,?, ?,"tmdb",?,?,NULL)',

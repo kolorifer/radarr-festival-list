@@ -147,7 +147,8 @@ def validate_final(result, supplied, reconciliation, now):
     return result
 
 
-def investigate(history, job, invocation, transport, *, quota=None, now=None, monotonic=time.monotonic):
+def investigate(history, job, invocation, transport, *, quota=None, now=None, monotonic=time.monotonic,
+                preselected=None):
     """Explicit call only. Reservations survive interruption and are never retried.
 
     A killed process leaves a pending/unknown attempt. Another invocation for
@@ -213,7 +214,8 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
                 validate_final(model_result, supplied, reconciliation, checked_at)
             record['reconciliation'] = reconciliation
             record['checked_at'] = current_time()
-        history.record(record, guard=final_guard)
+        history.record(record, guard=final_guard,
+                       locked_guard=getattr(transport, 'final_boundary', None) if model_result is not None else None)
         return record
 
     latest = [e for e in events if e['type'] == 'intake' and
@@ -240,7 +242,22 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
     try:
         if hasattr(transport, 'bind_history'):
             transport.bind_history(history, job, invocation)
-        for call in range(1, MAX_CALLS + 1):
+        call_limit = MAX_CALLS
+        if preselected is not None:
+            require(isinstance(preselected, list) and 1 <= len(preselected) <= MAX_LOOKUPS and
+                    len(set(preselected)) == len(preselected), 'preselection_limit')
+            call_limit = 1
+            for eid in preselected:
+                refresh()
+                operation = dict(operation='retained_get', case_id=packet['binding']['case_id'],
+                    version=packet['binding']['version'], evidence_id=eid, kind=None, query=None)
+                answer = history.retained_lookup(job, tools, operation, guard=lambda: refresh(locked=True))
+                require(len(answer['rows']) == 1 and answer['rows'][0]['expires_at'] is not None and
+                        answer['rows'][0]['expires_at'] > current_time(), 'preselection_missing_or_stale')
+                trace.append(answer)
+                supplied.update((r['id'], r) for r in answer['rows'])
+                prompt['query_results'].append(answer)
+        for call in range(1, call_limit + 1):
             refresh()
             prompt['reconciliation'] = reconciliation
             raw = encoded(prompt)
@@ -280,7 +297,7 @@ def investigate(history, job, invocation, transport, *, quota=None, now=None, mo
                 history.record(dict(type='model_completed', job=job, call=call, output_hash=digest(reply)))
                 return finish(result['status'], 'retained_evidence_review', result)
             require(reply['kind'] == 'lookup' and reply['result'] is None and bool(reply['lookups']), 'model_protocol')
-            require(call < MAX_CALLS, 'model_call_budget')
+            require(call < call_limit, 'model_call_budget')
             require(len(trace) + len(reply['lookups']) <= MAX_LOOKUPS, 'lookup_budget')
             history.record(dict(type='model_completed', job=job, call=call, output_hash=digest(reply)))
             for operation in reply['lookups']:

@@ -316,7 +316,7 @@ class History:
                             for e in events), 'invocation_already_consumed')
             append(dict(type='invocation', job=job, invocation=invocation, at=stamp(self.clock()), runtime=runtime))
 
-    def record(self, event, *, guard=None):
+    def record(self, event, *, guard=None, locked_guard=None):
         with self.transaction(write=True) as (events, append):
             job = event['job']
             require(any(e['type'] == 'invocation' and e['job'] == job for e in events), 'invocation_missing')
@@ -351,4 +351,6 @@ class History:
                                 e['call'] == event['call'] for e in events), 'model_send_consumed')
             if guard is not None:
                 guard()  # Validate time/policy inside the same currentness lock.
+            if locked_guard is not None:
+                locked_guard(events)
             append(dict(event, at=stamp(self.clock())))
