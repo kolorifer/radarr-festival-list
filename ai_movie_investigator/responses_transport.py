@@ -174,7 +174,7 @@ class ResponsesTransport:
                     call=len(self.used), api_request=reservation))
                 remaining = timeout - (self.monotonic() - started)
                 require(remaining > 0, 'responses_deadline_exceeded')
-            result = self.http.post(body, credential=self.credential, project=SYNTHETIC_PROJECT, timeout=remaining)
+            result = self._post(body, timeout=remaining)
             require(self.monotonic() - started < timeout, 'responses_deadline_exceeded')
             require(result.status == 200, 'responses_http_rejected')
             require(type(result.body) is bytes and self.credential.value.encode() not in result.body
@@ -199,3 +199,6 @@ class ResponsesTransport:
 
     def completion_accounting(self):
         return self.last_accounting
+
+    def _post(self, body, *, timeout):
+        return self.http.post(body, credential=self.credential, project=SYNTHETIC_PROJECT, timeout=timeout)

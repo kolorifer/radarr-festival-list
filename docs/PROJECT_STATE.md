@@ -1,5 +1,81 @@
 # Movie List project state
 
+## Issue #127 offline correction, 2026-11-03
+
+The retained Task 8 code has an offline-only correction for original-route and
+native-ledger admission, withheld unsupported runtime/edition claims, and
+fixture-only post-effect receipt binding. It uses a separate runtime manifest;
+the Task 8 report and manifest below are historical. The correction does not
+enable real providers, investigator use, spending, downloads or deployment.
+Independent review and supported exact-head CI are required for acceptance.
+
+
+## Issue #127 Task8 — fixed disabled one-occurrence pilot, 2026-11-02
+
+The latest trusted owner supervisor Task8 is the final slot8. The clean starting
+branch/head/tree matched `automation/issue-127-worker` /
+`39ce2935c7033fbcdb5882061c986ea687ea40fe` /
+`30478d060dca3ad41c2d292bca665be737af9c07`. Only the supplied Task8 engineering
+scope was performed; unrelated `CODEX_TASK.md`, all earlier consumed records and
+historical manifests remain intact. Parent alone publishes and obtains independent
+exact-terminal-head review and supported direct CI.
+
+**Implementation:** fixed package operation `parent_pilot.run_pilot`, inert on
+import and disabled by default, proves one original selected unresolved occurrence
+through independently retained event/delivery/native material and full decision
+history, existing-only shared weekly catalogue ledger, exact atomic selected
+oldest-job lease, local preselected evidence, one minimized/counted/priced fake
+model generation, original-bound citations and durable private result/review.
+The positive native ledger is independently populated with torrent material and
+original provenance, rather than the adapter's packet reconstruction. A canonical
+parent-selected project/run account and exact storage identity serialize claims
+and spending across histories/processes. Only exclusively created invented
+storage identities are enrolled; fake data cannot point the fixed operation at
+an existing unregistered journal or ledger. Unknown charges remain held. Existing
+expiry/currentness/retirement, fixed provider routes/cache/cooldown/suspension/
+weekly/per-version limits and original two-call mode remain. No production scoring,
+notification, occurrence choice or release confirmation behavior changed.
+
+**Technical verification:** final affected suites passed 187 tests on each
+Python 3.12.16/3.13.18 environment, including the final invented-storage fence;
+one parallel-load subprocess timeout on 3.13 passed on unchanged repeat and is
+recorded in the report. Both before/after proofs reproduce the old queue
+race consuming 1 foreign attempt with 0 GETs; Task8 refuses with 0 attempts and preserves
+the queued foreign job. The installed-only nonempty fixed operation runs under
+`-I -B -S` without source/site fallback; all 30 individually removed and 30 altered
+closure files refuse. Actual local fixture processes prove one concurrent claim/
+generation and no new-GET recovery after abrupt parent/reply loss. Dependency
+consistency and unchanged scoring 1,909 / 387 pass. Both full suites ran 1,475 tests, exiting 1 with
+20 failures /131 errors /2 skips each in unchanged tests. Loopback binds are denied
+and the shared platform temporary ancestor exceeds the existing 8,192-entry bound
+(9,455 observed). No Task8 test failed in either full run. **NEEDS_USER for required
+full-suite verification in CI permitting local fixtures and using a suitable clean
+temporary ancestor**; parent independent exact-head review/CI remain pending.
+
+**Deployment/product acceptance:** neither authorized nor attempted. Only finite
+invented external systems are admitted; both real transports still refuse. Real
+owner/site/count/project verifiers, live full-input counter/prices/billing/privacy/
+ceiling, actual original source/decision/native receipts and currentness, exact
+installed ledger profile/epoch/material mapping/quota, private execution/output
+and receipt grants and mandatory host/network isolation remain unverified.
+The installed daily profile is unsupported by this exact repository weekly adapter;
+no export/profile relabel or migration is performed. Offline success establishes
+no real identification, access, affordability, operational or product acceptance.
+
+No network/live model/provider/count/spend/account/credential/configuration,
+SSH/seedbox/private source/state/input/output, production DB/service/schedule/
+deployment, Radarr/Telegram/media/download, daemon/Work/subagent/second worker/
+runner or worker Git publication/comment action occurred. All new test data and
+state are invented; secrets were never copied, printed or logged. Existing sole
+dispatcher/claims/locks/quota/caps, issue 119 slots 1..8, issue 122 slots 1..3/archived,
+issue 125 slots 1..3 and its seven reporting opportunities, separate reporting trial
+and issue 86 / PR110 remain unchanged. No Task9 or additional execution follows.
+
+See the [completed Task8 brief](reports/2026-11-02-issue-127-task8-brief.md),
+[engineering report](reports/2026-11-02-issue-127-task8.md),
+[current manifest](reports/2026-11-02-issue-127-task8-runtime-manifest.json) and
+[current guide](AI-MOVIE-INVESTIGATOR.md#task8--fixed-one-occurrence-pilot-disabled-and-synthetic-only).
+
 ## Issue #127 Task7 — retired research dependency correction, 2026-11-01
 
 The latest trusted supervisor Task7 commissions only review R1 from exact
