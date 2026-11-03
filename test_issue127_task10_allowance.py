@@ -119,4 +119,3 @@ class Task10Tests(unittest.TestCase):
             self.assertFalse(r.is_correction_127(n))
         probe = worker.quota_probe_command(Path('repo'))
         self.assertEqual(probe[probe.index('--model') + 1], 'gpt-6.1-sol')
-
