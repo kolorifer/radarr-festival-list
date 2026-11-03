@@ -1,5 +1,17 @@
 # Movie List project state
 
+## Issue #127 corrective worker model, 2026-11-03
+
+The separately authorized corrective Task 9 uses `gpt-6.1-terra` at its
+existing explicit high reasoning level. This selection is limited to the exact
+repository, issue and task guarded by the retained-correction allowance. Other
+tasks and the quota probe keep their existing model. The change is repository
+code only; installation, actual worker execution and live investigator use
+are separate stages and have not been authorized by this change.
+
+See the [routing brief](reports/2026-11-03-issue-127-terra-routing-brief.md)
+and [engineering report](reports/2026-11-03-issue-127-terra-routing.md).
+
 ## Issue #127 · Retained Task 8 correction
 
 Task 8 returned `WORKER_BLOCKED` with all eight executions consumed and its

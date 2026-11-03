@@ -36,6 +36,7 @@ except ModuleNotFoundError:
     import coordinator_storage as storage
 
 MODEL = "gpt-6.1-sol"
+CORRECTION_127_MODEL = "gpt-6.1-terra"
 CORRECTION_127_SNAPSHOT = '66925204ee394f632ed6ef1991f034c729127f2aec1fe91bb91c537b536168df'
 PROBE_COOLDOWN = 30 * 60
 FIELDS = re.compile(r"^([A-Z_]+):[ \t]*(.*)$", re.M)
@@ -242,8 +243,8 @@ CURRENT GIT STATE:
 """
 
 
-def codex_command(repo, output, schema, effort="high", network_access=False):
-    return ["codex", "-c", 'approval_policy="never"', "exec", "--ignore-user-config", "--ignore-rules", "--model", MODEL,
+def codex_command(repo, output, schema, effort="high", network_access=False, model=MODEL):
+    return ["codex", "-c", 'approval_policy="never"', "exec", "--ignore-user-config", "--ignore-rules", "--model", model,
             "--sandbox", "workspace-write", "--config", f'model_reasoning_effort="{effort}"',
             "--config", f'sandbox_workspace_write.network_access={str(network_access).lower()}',
             "--cd", str(repo), "--output-schema", str(schema), "--output-last-message", str(output), "-"]
@@ -1024,7 +1025,10 @@ class Runner:
                 or len(self.inputs) != len(private_inputs(task['body']))):
             raise Stop('Private input staging is required before child launch')
         staging = None
-        command = codex_command(self.repo, output, schema, effort, network)
+        # Only the separately authorized, exact retained #127 correction is
+        # routed to Terra. Other tasks and the quota probe keep their model.
+        model = CORRECTION_127_MODEL if self.is_correction_127(n) else MODEL
+        command = codex_command(self.repo, output, schema, effort, network, model)
         if authorization:
             staging = Path(tempfile.mkdtemp(prefix=f'codex-private-{self.args.issue}-{n}-'))
             staging.chmod(0o700)
