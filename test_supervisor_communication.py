@@ -266,7 +266,7 @@ class IntegrationTests(unittest.TestCase):
                     shutil.rmtree(path)
 
     def run_task(self):
-        with patch.object(w, 'quota_remaining', return_value=80), \
+        with patch.object(w, 'quota_windows', return_value=(w.QuotaWindow('primary', 300, 20),)), \
                 patch.object(w.subprocess, 'run', side_effect=self.runner.child), \
                 patch.dict(os.environ, GH_TOKEN='SYNTHETIC_HOST_TOKEN', GITHUB_TOKEN='SYNTHETIC_HOST_TOKEN',
                            SSH_AUTH_SOCK='/synthetic/socket'), contextlib.redirect_stdout(io.StringIO()) as stdout:
@@ -439,7 +439,7 @@ class IntegrationTests(unittest.TestCase):
 
     def run_selection(self, runner, selection):
         runner.state_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
-        with patch.object(w, 'quota_remaining', return_value=80), \
+        with patch.object(w, 'quota_windows', return_value=(w.QuotaWindow('primary', 300, 20),)), \
                 patch.object(w.subprocess, 'run', side_effect=runner.child), \
                 contextlib.redirect_stdout(io.StringIO()) as stdout, \
                 w.lock(runner.dispatch_dir/'dispatcher.lock') as runner.global_lock_fd, \

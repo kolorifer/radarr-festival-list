@@ -220,11 +220,14 @@ The runner reads only `event_msg` / `token_count` quota metadata from local
 shape. It selects the latest timestamped Codex quota snapshot, not the most
 recently modified file. Window durations are account-dependent: primary may be
 weekly with no secondary window. It validates all reported primary/secondary
-windows and uses the lowest remaining percentage; a malformed or expired latest
+windows before applying each window's own floor; a malformed or expired latest
 snapshot fails closed rather than falling back to an older allowance. Context usage/history is never placed in a
 prompt, nor used to resume a session.
 
-At <=15% remaining it posts `STATE: PAUSED_QUOTA` with the percentage, does not
+For a verified 10,080-minute weekly window it pauses at <=5% remaining. Every
+other reported duration retains the <=15% floor. Any blocked window pauses the
+task, even when a different window has a lower raw remaining percentage. It
+posts `STATE: PAUSED_QUOTA` with the blocking window, duration and floor, does not
 consume the task, and checks again on a later poll. Identical notifications are
 suppressed. Fresh observations are used without a probe. Missing, malformed,
 expired or >5h-old observations trigger one minimal fresh non-interactive quota probe, only
@@ -239,8 +242,9 @@ Session persistence stays enabled so token-count telemetry can be refreshed.
 These flags require a current Codex CLI supporting `--ignore-user-config` and
 `--ignore-rules` (the installed CLI parser was checked during implementation).
 
-After the probe, re-read telemetry: >15% proceeds, <=15% posts/retains PAUSED_QUOTA,
-and failure/no trustworthy refresh posts a generic NEEDS_USER without consuming
+After the probe, re-read telemetry and apply the same per-window floors. Any
+blocked window posts/retains PAUSED_QUOTA; failure or no trustworthy refresh
+posts a generic NEEDS_USER without consuming
 the task. A clone-wide private cooldown journal is written before probing and
 backs off for 30 minutes after failure/crash (probe timeout: 60 seconds). Fresh
 usable telemetry clears the cooldown immediately, even during that interval.
