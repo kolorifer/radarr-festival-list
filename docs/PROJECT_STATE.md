@@ -10,9 +10,56 @@ enable real providers, investigator use, spending, downloads or deployment.
 Independent review and supported exact-head CI are required for acceptance.
 
 
-## Issue #127 Task8 — fixed disabled one-occurrence pilot, 2026-11-02
+## Dispatcher weekly quota floor, 2026-11-03
 
-The latest trusted owner supervisor Task8 is the final slot8. The clean starting
+The owner selected a 5% floor for a verified 10,080-minute Codex quota window.
+The dispatcher validates all reported windows and applies their individual
+floors: weekly pauses at 5% or less; all other durations retain 15% or less.
+Unknown, stale or malformed metadata remains fail-closed. This is a dispatcher
+policy change only; unrelated investigator quota and production services are
+unchanged. Installation and an actual worker start are separate milestones.
+
+See the [brief](reports/2026-11-03-weekly-quota-floor-brief.md) and
+[report](reports/2026-11-03-weekly-quota-floor.md).
+
+## Issue #127 Task 10 allowance, 2026-11-03
+
+Task 9 ran with Terra/high but returned `NEEDS_USER` without changes because the
+network-disabled worker could not access the required prior review. The owner
+approved a single new retained correction. This change pins the exact Task 10
+body, which embeds that review, the nine prior claims and unchanged snapshot.
+Implementation and tests are repository-only; installation and Task 10
+execution are separate milestones and must be independently verified.
+
+See the [brief](reports/2026-11-03-issue-127-task10-allowance-brief.md) and
+[engineering report](reports/2026-11-03-issue-127-task10-allowance.md).
+
+## Issue #127 corrective worker model, 2026-11-03
+
+The separately authorized corrective Task 9 uses `gpt-6.1-terra` at its
+existing explicit high reasoning level. This selection is limited to the exact
+repository, issue and task guarded by the retained-correction allowance. Other
+tasks and the quota probe keep their existing model. The change is repository
+code only; installation, actual worker execution and live investigator use
+are separate stages and have not been authorized by this change.
+
+See the [routing brief](reports/2026-11-03-issue-127-terra-routing-brief.md)
+and [engineering report](reports/2026-11-03-issue-127-terra-routing.md).
+
+## Issue #127 · Retained Task 8 correction
+
+Task 8 returned `WORKER_BLOCKED` with all eight executions consumed and its
+implementation retained at snapshot `66925204ee394f632ed6ef1991f034c729127f2aec1fe91bb91c537b536168df`.
+Its [independent review](https://github.com/kolorifer/radarr-festival-list/issues/127#issuecomment-6579481611)
+reproduced three defects involving admission, runtime/edition evidence and
+receipt settlement. The owner authorized one corrective assignment. The
+[dispatcher instructions](../automation/README.md#task-and-result-protocol)
+and [exact task](../automation/authorizations/issue-127-task-9.txt) describe
+its scope. Installation and worker start are separate operational stages.
+
+## Issue #127 Task8 — historical fixed one-occurrence pilot, 2026-11-02
+
+At that time, trusted owner supervisor Task8 was the final slot8. The clean starting
 branch/head/tree matched `automation/issue-127-worker` /
 `39ce2935c7033fbcdb5882061c986ea687ea40fe` /
 `30478d060dca3ad41c2d292bca665be737af9c07`. Only the supplied Task8 engineering
@@ -69,7 +116,7 @@ runner or worker Git publication/comment action occurred. All new test data and
 state are invented; secrets were never copied, printed or logged. Existing sole
 dispatcher/claims/locks/quota/caps, issue 119 slots 1..8, issue 122 slots 1..3/archived,
 issue 125 slots 1..3 and its seven reporting opportunities, separate reporting trial
-and issue 86 / PR110 remain unchanged. No Task9 or additional execution follows.
+and issue 86 / PR110 remain unchanged. The later Task 9 and Task 10 records above supersede this historical slot statement.
 
 See the [completed Task8 brief](reports/2026-11-02-issue-127-task8-brief.md),
 [engineering report](reports/2026-11-02-issue-127-task8.md),

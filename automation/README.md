@@ -66,7 +66,8 @@ python3 automation/github_worker.py --interval 60
 Omitting `--issue` enables discovery: paginate open issues created by the
 authenticated GitHub identity, exclude PRs, and validate only issue-owner tasks.
 Closed/DONE issues, malformed/untrusted tasks, consumed/claimed numbers and
-issues with eight consumed iterations are ineligible. Each poll selects at most
+issues with eight consumed iterations are ineligible, apart from the narrowly
+pinned retained corrections for #127 described below. Each poll selects at most
 one task: the oldest outstanding valid latest READY task by GitHub comment ID,
 with issue number as a deterministic tie-breaker. `--issue N` keeps the explicit
 operator/debug override, including the existing issue-owner trust policy.
@@ -86,6 +87,38 @@ launch work. The authenticated worker and issue author's RUNNING/result comments
 also prevent duplicate execution. Closing the issue or posting `STATE: DONE`
 as its latest trusted state stops new launches. Keep one issue per goal; the
 maximum of eight consumed iterations is deliberately not reset inside an issue.
+
+The owner approved one additional assignment for `kolorifer/radarr-festival-list#127`.
+Only number 9 with the exact [corrective task](authorizations/issue-127-task-9.txt)
+is eligible. Its SHA-256 covers the UTF-8 comment body without the file's final
+newline. The unedited owner comment must follow review 6579481611. The dispatcher
+requires the original eight local reservations, eight pinned GitHub claim refs
+and the recorded `NEEDS_USER` Task 8 snapshot at the existing checkout. It
+revalidates the selection and retained bytes before reserving slot 9 and compares
+the final checkout fingerprint with the selected snapshot before launching the child. The usual
+quota, locks, atomic remote claim and no-replay behavior apply. A ninth
+reservation exhausts this allowance even if the remote claim is uncertain.
+
+Task 9 exited `NEEDS_USER` with the retained snapshot unchanged because its
+network-disabled worker could not read the earlier review comment. The owner
+then approved one distinct Task 10 correction. Only the exact
+[Task 10 comment](authorizations/issue-127-task-10.txt), with the earlier review
+included in the body, may use this allowance. Its unedited owner comment must
+follow review 6605436294. Local consumed slots must be exactly 1–9, with remote
+claims 1–8 at `b463a2bae25c0efd7c77ea9911be87fb3993efa1` and claim 9 at
+`2d3b54376f8f18f0936162b1f1282c1fa0560999`. The retained Task 9 must be
+`NEEDS_USER` at the same exact snapshot and existing checkout. The dispatcher
+rechecks authority, claims and snapshot before reservation and the snapshot
+again before child launch. The Task 10 coding child selects Terra with high
+reasoning. A reservation consumes the allowance even if its claim is uncertain;
+there is no Task 11 exception or reset. Other issues and the quota probe retain
+their existing model, quota, lock and cap behavior.
+
+The #125 trial was stopped by owner command 6604086667 after its first three
+opportunities; both applicable reports and receipts were archived. Its retained
+evidence and stop remain in force. Keep later launcher changes in a separate
+checkout until installation is authorized. Publish and verify each approved
+installation on the existing launcher ref before posting the canonical task.
 
 ## Task and result protocol
 
@@ -187,11 +220,14 @@ The runner reads only `event_msg` / `token_count` quota metadata from local
 shape. It selects the latest timestamped Codex quota snapshot, not the most
 recently modified file. Window durations are account-dependent: primary may be
 weekly with no secondary window. It validates all reported primary/secondary
-windows and uses the lowest remaining percentage; a malformed or expired latest
+windows before applying each window's own floor; a malformed or expired latest
 snapshot fails closed rather than falling back to an older allowance. Context usage/history is never placed in a
 prompt, nor used to resume a session.
 
-At <=15% remaining it posts `STATE: PAUSED_QUOTA` with the percentage, does not
+For a verified 10,080-minute weekly window it pauses at <=5% remaining. Every
+other reported duration retains the <=15% floor. Any blocked window pauses the
+task, even when a different window has a lower raw remaining percentage. It
+posts `STATE: PAUSED_QUOTA` with the blocking window, duration and floor, does not
 consume the task, and checks again on a later poll. Identical notifications are
 suppressed. Fresh observations are used without a probe. Missing, malformed,
 expired or >5h-old observations trigger one minimal fresh non-interactive quota probe, only
@@ -206,8 +242,9 @@ Session persistence stays enabled so token-count telemetry can be refreshed.
 These flags require a current Codex CLI supporting `--ignore-user-config` and
 `--ignore-rules` (the installed CLI parser was checked during implementation).
 
-After the probe, re-read telemetry: >15% proceeds, <=15% posts/retains PAUSED_QUOTA,
-and failure/no trustworthy refresh posts a generic NEEDS_USER without consuming
+After the probe, re-read telemetry and apply the same per-window floors. Any
+blocked window posts/retains PAUSED_QUOTA; failure or no trustworthy refresh
+posts a generic NEEDS_USER without consuming
 the task. A clone-wide private cooldown journal is written before probing and
 backs off for 30 minutes after failure/crash (probe timeout: 60 seconds). Fresh
 usable telemetry clears the cooldown immediately, even during that interval.

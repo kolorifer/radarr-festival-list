@@ -280,7 +280,7 @@ class LifecycleTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.runner = FakeRunner(Path(self.temp.name))
-        self.quota = patch.object(w, "quota_remaining", return_value=80)
+        self.quota = patch.object(w, "quota_windows", return_value=(w.QuotaWindow("primary", 300, 20),))
         self.quota.start()
         self.addCleanup(self.quota.stop)
 
@@ -323,7 +323,7 @@ class LifecycleTests(unittest.TestCase):
             self.assertEqual(any(c[0] == "execute" for c in self.runner.calls), executes)
 
     def test_quota_pause_not_consumed_and_retries_when_refreshed(self):
-        with patch.object(w, "quota_remaining", return_value=15):
+        with patch.object(w, "quota_windows", return_value=(w.QuotaWindow("primary", 300, 85),)):
             self.runner.start()
             self.runner.poll()
         self.assertEqual(len([c for c in self.runner.calls if c[0] == "post"]), 1)
@@ -333,7 +333,7 @@ class LifecycleTests(unittest.TestCase):
         self.assertTrue(any(c[0] == "execute" for c in self.runner.calls))
 
     def test_unknown_quota_needs_user(self):
-        with patch.object(w, "quota_remaining", side_effect=w.Stop("missing telemetry")), \
+        with patch.object(w, "quota_windows", side_effect=w.Stop("missing telemetry")), \
                 patch.object(w.subprocess, "run", side_effect=OSError("synthetic auth failure")):
             self.runner.start()
         self.assertEqual(self.runner.state["consumed"], [])
@@ -341,7 +341,7 @@ class LifecycleTests(unittest.TestCase):
 
     def test_enabled_capabilities_preserve_quota_and_duplicate_protection(self):
         self.runner.messages = [comment(TASK + "NETWORK_ACCESS: enabled\nSEEDBOX_PERMISSION: authorized-mutations\n")]
-        with patch.object(w, "quota_remaining", return_value=15):
+        with patch.object(w, "quota_windows", return_value=(w.QuotaWindow("primary", 300, 85),)):
             self.runner.start()
         self.assertEqual(self.runner.state["consumed"], [])
         self.assertFalse(any(c[0] == "execute" for c in self.runner.calls))
@@ -537,7 +537,7 @@ class DispatcherTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.runner = DiscoveryRunner(self.root)
-        quota = patch.object(w, 'quota_remaining', return_value=80)
+        quota = patch.object(w, 'quota_windows', return_value=(w.QuotaWindow('primary', 300, 20),))
         self.quota = quota.start()
         self.addCleanup(quota.stop)
 
@@ -657,7 +657,7 @@ class QuotaRefreshTests(unittest.TestCase):
         self.runner = FakeRunner(Path(self.temp.name))
 
     def run_case(self, observations, failure=None):
-        with patch.object(w, 'quota_remaining', side_effect=observations), \
+        with patch.object(w, 'quota_windows', side_effect=[(w.QuotaWindow('primary', 300, 100 - x),) if isinstance(x, (int, float)) else x for x in observations]), \
                 patch.object(w.subprocess, 'run', side_effect=failure) as probe:
             self.runner.start()
         return probe
@@ -691,7 +691,7 @@ class QuotaRefreshTests(unittest.TestCase):
             self.assertEqual(kwargs['stdout'], subprocess.DEVNULL)
             self.assertEqual(kwargs['stderr'], subprocess.DEVNULL)
             self.assertEqual(len(kwargs['pass_fds']), 2)
-        with patch.object(w, 'quota_remaining', side_effect=[w.Stop('stale'), 80]), \
+        with patch.object(w, 'quota_windows', side_effect=[w.Stop('stale'), (w.QuotaWindow('primary', 300, 20),)]), \
                 patch.object(w.subprocess, 'run', side_effect=probe) as process:
             self.runner.start()
         self.assertEqual(process.call_count, 1)
@@ -718,12 +718,12 @@ class QuotaRefreshTests(unittest.TestCase):
                 self.assertIn('NEEDS_USER', notifications)
                 self.assertNotIn('PRIVATE_ERROR', notifications + out.getvalue())
                 other = FakeRunner(Path(root), issue=12)
-                with patch.object(w, 'quota_remaining', side_effect=w.Stop('missing')), \
+                with patch.object(w, 'quota_windows', side_effect=w.Stop('missing')), \
                         patch.object(w.subprocess, 'run') as process:
                     other.start()
                 process.assert_not_called()
                 self.assertEqual(other.state['consumed'], [])
-                with patch.object(w, 'quota_remaining', return_value=80), \
+                with patch.object(w, 'quota_windows', return_value=(w.QuotaWindow('primary', 300, 20),)), \
                         patch.object(w.subprocess, 'run') as process:
                     other.start()
                 process.assert_not_called()
@@ -745,14 +745,121 @@ class QuotaRefreshTests(unittest.TestCase):
                 runner.start()
                 executions = [c for c in runner.calls if c[0] == 'execute']
                 claims = [c for c in runner.calls if c[0].endswith('/git/refs')]
-                self.assertEqual(len(executions), int(used < 85))
-                self.assertEqual(len(claims), int(used < 85))
-                self.assertEqual(runner.state['consumed'], [1] if used < 85 else [])
+                self.assertEqual(len(executions), int(used < 95))
+                self.assertEqual(len(claims), int(used < 95))
+                self.assertEqual(runner.state['consumed'], [1] if used < 95 else [])
 
     def test_cooldown_expiry_allows_exactly_one_new_probe(self):
         w.save(self.runner.probe_file, {'retry_at': 0})
         process = self.run_case([w.Stop('missing'), 80])
         self.assertEqual(process.call_count, 1)
+
+
+class QuotaWindowPolicyTests(unittest.TestCase):
+    @staticmethod
+    def event(weekly, short, weekly_position):
+        now = w.time.time()
+        window = lambda minutes, remaining: {'window_minutes': minutes, 'used_percent': 100 - remaining,
+                                             'resets_at': now + 3600}
+        values = {'primary': window(10080, weekly), 'secondary': window(300, short)}
+        if weekly_position == 'secondary':
+            values['primary'], values['secondary'] = values['secondary'], values['primary']
+        return {'type': 'event_msg', 'timestamp': w.dt.datetime.fromtimestamp(now, w.dt.timezone.utc).isoformat(),
+                'payload': {'type': 'token_count', 'rate_limits': dict(values, limit_id='codex')}}
+
+    def test_normal_dispatch_uses_each_window_floor_in_both_positions(self):
+        cases = ((5.01, 16, True, None), (5, 90, False, '10080-minute'),
+                 (4.99, 90, False, '10080-minute'), (90, 15.01, True, None),
+                 (90, 15, False, '300-minute'), (90, 14.99, False, '300-minute'),
+                 (6, 14, False, '300-minute'), (6, 15, False, '300-minute'),
+                 (6, 16, True, None), (4, 90, False, '10080-minute'))
+        for position in ('primary', 'secondary'):
+            for weekly, short, allowed, binding in cases:
+                with self.subTest(position=position, weekly=weekly, short=short), tempfile.TemporaryDirectory() as root:
+                    runner = FakeRunner(Path(root))
+                    runner.args.sessions.mkdir()
+                    (runner.args.sessions / 'quota.jsonl').write_text(json.dumps(self.event(weekly, short, position))+'\n')
+                    with patch.object(w.subprocess, 'run', side_effect=AssertionError('unexpected probe')):
+                        runner.start()
+                        runner.start()
+                    self.assertEqual(runner.state['consumed'], [1] if allowed else [])
+                    self.assertEqual(len([c for c in runner.calls if c[0] == 'execute']), int(allowed))
+                    self.assertEqual(len([c for c in runner.calls if c[0].endswith('/git/refs')]), int(allowed))
+                    if not allowed:
+                        notices = [c[1] for c in runner.calls if c[0] == 'post']
+                        self.assertEqual(len(notices), 1)
+                        self.assertIn(binding, notices[0])
+                        self.assertIn('<=5%' if binding == '10080-minute' else '<=15%', notices[0])
+
+    def test_only_exact_weekly_duration_receives_five_percent_floor(self):
+        for duration, floor in ((10080, 5), ('10080', 5), (10080.0, 5),
+                                (10079.9, 15), (10080.1, 15), (20160, 15)):
+            with self.subTest(duration=duration), tempfile.TemporaryDirectory() as root:
+                event = self.event(10, 90, 'primary')
+                event['payload']['rate_limits']['primary']['window_minutes'] = duration
+                event['payload']['rate_limits']['secondary'] = None
+                Path(root, 'quota.jsonl').write_text(json.dumps(event)+'\n')
+                windows = w.quota_windows(Path(root))
+                self.assertEqual(windows[0].floor, floor)
+                self.assertEqual(w.blocking_quota(windows) is None, floor == 5)
+
+    def test_near_weekly_json_numbers_and_numeric_strings_never_round_into_weekly(self):
+        for duration in ('10080.0000000000001', '10079.9999999999999'):
+            for quoted in (False, True):
+                with self.subTest(duration=duration, quoted=quoted), tempfile.TemporaryDirectory() as root:
+                    event = self.event(10, 90, 'primary')
+                    event['payload']['rate_limits']['primary']['window_minutes'] = 'DURATION_MARKER'
+                    event['payload']['rate_limits']['secondary'] = None
+                    raw = json.dumps(event).replace('"DURATION_MARKER"', json.dumps(duration) if quoted else duration)
+                    Path(root, 'quota.jsonl').write_text(raw+'\n')
+                    window = w.quota_windows(Path(root))[0]
+                    self.assertEqual(window.floor, 15)
+                    self.assertIsNotNone(w.blocking_quota((window,)))
+
+    def test_underflowing_newest_duration_fails_closed_without_old_fallback(self):
+        for quoted in (False, True):
+            with self.subTest(quoted=quoted), tempfile.TemporaryDirectory() as root:
+                older = self.event(90, 90, 'primary')
+                older['timestamp'] = w.dt.datetime.fromtimestamp(w.time.time() - 30, w.dt.timezone.utc).isoformat()
+                newest = self.event(90, 90, 'primary')
+                newest['payload']['rate_limits']['primary']['window_minutes'] = 'DURATION_MARKER'
+                raw = json.dumps(newest).replace('"DURATION_MARKER"', '"1e-400"' if quoted else '1e-400')
+                Path(root, 'quota.jsonl').write_text(json.dumps(older)+'\n'+raw+'\n')
+                with self.assertRaises(w.Stop):
+                    w.quota_windows(Path(root))
+
+    def test_exact_used_percent_compared_without_float_or_decimal_rounding(self):
+        cases = ((10080, '94.9999999999999999999999999999999999', False),
+                 (10080, '95.0000000000000000000000000000000001', True),
+                 (300, '84.9999999999999999999999999999999999', False),
+                 (300, '85.0000000000000000000000000000000001', True))
+        for minutes, used, blocked in cases:
+            for quoted in (False, True):
+                with self.subTest(minutes=minutes, used=used, quoted=quoted), tempfile.TemporaryDirectory() as root:
+                    event = self.event(90, 90, 'primary')
+                    event['payload']['rate_limits']['primary'].update(window_minutes=minutes, used_percent='USED_MARKER')
+                    event['payload']['rate_limits']['secondary'] = None
+                    raw = json.dumps(event).replace('"USED_MARKER"', json.dumps(used) if quoted else used)
+                    Path(root, 'quota.jsonl').write_text(raw+'\n')
+                    self.assertEqual(w.blocking_quota(w.quota_windows(Path(root))) is not None, blocked)
+
+    def test_invalid_other_window_fails_closed_before_any_claim(self):
+        for position in ('primary', 'secondary'):
+            for bad in ({}, {'window_minutes': True, 'used_percent': 0, 'resets_at': 9999999999},
+                        {'window_minutes': 300, 'used_percent': float('nan'), 'resets_at': 9999999999},
+                        {'window_minutes': 300, 'used_percent': 0, 'resets_at': 0}):
+                with self.subTest(position=position, bad=bad), tempfile.TemporaryDirectory() as root:
+                    runner = FakeRunner(Path(root))
+                    runner.args.sessions.mkdir()
+                    event = self.event(6, 90, position)
+                    other = 'secondary' if position == 'primary' else 'primary'
+                    event['payload']['rate_limits'][other] = bad
+                    (runner.args.sessions / 'quota.jsonl').write_text(json.dumps(event)+'\n')
+                    with patch.object(w.subprocess, 'run', side_effect=OSError('synthetic probe unavailable')) as probe:
+                        runner.start()
+                    self.assertEqual(probe.call_count, 1)
+                    self.assertEqual(runner.state['consumed'], [])
+                    self.assertFalse(any(c[0] == 'execute' or c[0].endswith('/git/refs') for c in runner.calls))
 
 
 class WorktreePreservationTests(unittest.TestCase):
@@ -820,7 +927,7 @@ class WorktreePreservationTests(unittest.TestCase):
             (runner.state_dir / 'checkout').mkdir()
             original_git = runner.git
             runner.git = lambda *args: 'dirty' if args[:1] == ('-C',) else original_git(*args)
-            with patch.object(w, 'quota_remaining') as quota, self.assertRaises(w.Stop):
+            with patch.object(w, 'quota_windows') as quota, self.assertRaises(w.Stop):
                 runner.start()
             quota.assert_not_called()
             self.assertEqual(json.loads(runner.state_file.read_text())['consumed'], [])

@@ -1,0 +1,25 @@
+SUPERVISOR_TASK: 9
+STATE: READY_FOR_CODEX
+REASONING: high
+NETWORK_ACCESS: disabled
+SEEDBOX_PERMISSION: none
+PUBLICATION_MODE: code
+CONTINUE_FROM: {"task":8,"snapshot":"66925204ee394f632ed6ef1991f034c729127f2aec1fe91bb91c537b536168df"}
+
+GOAL:
+Correct only the three independently reproduced defects in retained Task 8, reviewed in issue #127 comment 6579481611. Preserve its successful one-case offline path and all existing protections. Deliver the corrected code and reproducible tests for independent review.
+
+AUTHORIZATION:
+The owner has authorized one corrective continuation of this exact snapshot after eight consumed slots. The sole existing dispatcher reserves task 9 once and the parent alone publishes code. Work only in the verified retained checkout based on 39ce2935c7033fbcdb5882061c986ea687ea40fe. All examples must be invented. No private inputs, host grants or operational effects.
+
+ACCEPTANCE_CRITERIA:
+1. Derive eligibility from the original authenticated collector event and current occurrence, independently selected eligible set and exact native ledger material together. A positive nomination or queued job cannot override an exhausted, deferred, unmatched, skipped, reviewed or otherwise ineligible source. In particular retry_exhausted/review_only and metadata_rate_limited/retry_later must consume zero claims, leases, GETs, counts or generations. Keep explicit owner decisions, event/delivery scopes and Task 7 retirement checks intact.
+2. Preserve approved typed source observations that materially distinguish movie identity and release editions: measured runtime, cut/edition evidence, provenance/freshness clock and contradictions with catalogue facts. Only disclose fields and derived facts selected for this occurrence. For two independently authorized 91-minute and 124-minute source fixtures with a 91-minute catalogue record, the model must receive distinct relevant evidence or the unsupported claim must be withheld/blocked. Never send raw NFO text or private identifiers to correct this. Keep identity, cut, score, suitability and acquisition permission distinct.
+3. Separate pre-effect authority for project, run, local request ID, exact wire body, price, count-fee bounds and expiry from independently observed post-effect receipts. Accept a genuine response-time request/response ID and matching selected-origin receipt without requiring advance knowledge of the result or token count. Authenticate and bind the actual count and generation receipts to their exact operation and body. Settle validated usage once under the existing durable budget lock. An unknown, malformed, foreign, conflicting or replayed receipt keeps the appropriate hold and permits no resend, refund, replacement or second model generation. Keep every real capability disabled.
+4. Reproduce all three failures on the starting snapshot, keep a nonempty control, and verify fixes through the normal pilot operation with finite fake boundaries on supported Python 3.12 and 3.13. Exercise scoped admission, privacy/citation integrity, count and generation uncertainty, concurrency/restart and exact installed-only dependency closure. Run focused and required full tests and report exact results. Use a new private, small, primary-group-matching temporary fixture directory. Keep the child network-disabled. If unrelated full-suite loopback fixtures are blocked by the worker sandbox, report exact affected tests for required parent validation/CI; never call that run green. With the specific corrective work passing its offline requirements and no other code blocker, use READY_FOR_REVIEW for independent review; this status grants no acceptance. Update the relevant dated report, current manifest and guide while preserving original Task 8 records.
+
+FORBIDDEN:
+No further execution, cap changes, launcher edits, claims/lock/quota/isolation changes, source refresh, research, model/provider/count requests on a real network, credential/account access, spending, deployment, activation, acquisition, new service/schedule, replay or second worker. Preserve issues #119, #122, #125, #86/PR110, original trial and all eight prior #127 claims. Do not reset the retained checkout, rewrite historical decisions, publish private data, or approve downloads.
+
+INSTRUCTIONS:
+Use the existing retained-work continuation protocol and the existing issue worker branch. Read the accepted project instructions and exact supervisor findings. Complete only this corrective scope. Parent independently verifies the terminal bytes, tests, CI and findings before any integration decision.

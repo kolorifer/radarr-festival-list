@@ -442,7 +442,7 @@ class RuntimeTests(unittest.TestCase):
             other.issues = [deepcopy(self.runner.issue), dict(self.runner.issue, number=number)]
             newer = comment(TASK, 100)
             other.issue_messages = {122: deepcopy(self.runner.messages), number: [newer]}
-            with patch.object(worker, 'quota_remaining', return_value=80), redirect_stdout(streams.StringIO()), \
+            with patch.object(worker, 'quota_windows', return_value=(worker.QuotaWindow('primary', 300, 20),)), redirect_stdout(streams.StringIO()), \
                     patch.object(r, 'fetch', side_effect=AssertionError('inert phase fetched private input')):
                 other.start()
             self.assertEqual([call[1] for call in other.calls if call[0] == 'execute'], [(number, 1)])

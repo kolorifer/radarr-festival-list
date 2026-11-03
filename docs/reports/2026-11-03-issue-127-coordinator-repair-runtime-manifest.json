@@ -1,7 +1,7 @@
 {
   "base_commit": "39ce2935c7033fbcdb5882061c986ea687ea40fe",
   "base_tree": "30478d060dca3ad41c2d292bca665be737af9c07",
-  "purpose": "Disabled fixed Task8 pilot; invented finite boundaries only; no live authority.",
+  "purpose": "Coordinator offline correction of the disabled synthetic pilot; no live authority.",
   "runtime_files": {
     "ai_movie_investigator/__init__.py": "77de306e92eaa34593ea69e88766ffbb7799d86197e915f661b652ac7b7717c4",
     "ai_movie_investigator/catalogue_replay.py": "0feafbd2d3120e13228898741ad3a8c4d65e52fde39456c9a2823eb6c8aa04d0",
@@ -34,11 +34,12 @@
     "identity_triage_store.py": "c3cdfe8c54a7103387b1a0b3ed20d287041fb2faf5b065f3488a331716ea17e3",
     "torrent_research_evidence.py": "de794d62ca4a7b52687ae4722838c5181f858817805b7e5f34c01b001d1645c5"
   },
-  "task": 8,
+  "task": "coordinator-offline-correction",
   "tests": {
     "test_ai_movie_investigator.py": "931559ed3379cbee747853bb44ac06bee694678ffb064e8eaad040c15b11aced",
     "test_investigator_catalogue.py": "538b1dd78b95dd6c4ac903a4814c4f578300c3604ea4266a07c33b7016b10c13",
-    "test_parent_pilot.py": "7e05a763d6d7060fcbff7bc7904d117f333ad13a9ab36be165a8afb924feacb5",
+    "test_issue127_correction.py": "a4fb1d76aa2b523baf86a326e6b08e8e2d3dc642d33d0853b1729647707557f6",
+    "test_parent_pilot.py": "1cb85f3d723de01425c7634cf4a6903979d18c39bd9083ec1fdb650050db562d",
     "test_responses_transport.py": "dc90aa1daa9d099dfc64877b4b83038159944a418366cd9ea15c1a066fce66c0"
   }
 }
