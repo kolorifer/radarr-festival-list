@@ -54,7 +54,7 @@ class Task10Tests(unittest.TestCase):
     def test_only_exact_task_claims_once_and_restart_does_not_relaunch(self):
         r = self.fixture()
         original = copy.deepcopy(r.refs)
-        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=80):
+        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=(worker.QuotaWindow('primary', 300, 20),)):
             r.start()
         self.assertEqual(r.state['consumed'], list(range(1, 11)))
         self.assertEqual(r.refs[:9], original)
@@ -90,7 +90,7 @@ class Task10Tests(unittest.TestCase):
         r = self.fixture()
         def quota():
             r.messages[0]['body'] += ' '
-            return 80
+            return (worker.QuotaWindow('primary', 300, 20),)
         with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', side_effect=quota):
             with self.assertRaises(worker.Stop):
                 r.start()

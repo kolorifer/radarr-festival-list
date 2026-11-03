@@ -10,11 +10,13 @@ import tarfile
 from urllib.parse import quote
 import contextlib
 import datetime as dt
+from decimal import Decimal, InvalidOperation
 import fcntl
 import json
 import math
 import os
 from pathlib import Path
+from typing import NamedTuple
 import re
 import subprocess
 import sys
@@ -130,7 +132,22 @@ def remote_consumed(comments, trusted):
     return result
 
 
-def quota_remaining(root, now=None):
+class QuotaWindow(NamedTuple):
+    position: str
+    minutes: Decimal
+    used: Decimal
+
+    @property
+    def remaining(self):
+        # A display/compatibility value, not the authority for floor checks.
+        return float(Decimal(100) - self.used)
+
+    @property
+    def floor(self):
+        return 5 if self.minutes == 10080 else 15
+
+
+def quota_windows(root, now=None):
     """Read only token_count quota metadata; never return conversation/context."""
     now = time.time() if now is None else now
     newest = None
@@ -141,7 +158,9 @@ def quota_remaining(root, now=None):
                 if '"token_count"' not in line:
                     continue
                 try:
-                    event = json.loads(line)
+                    # Preserve duration precision so a near-weekly value cannot
+                    # round to 10,080 and acquire the lower weekly floor.
+                    event = json.loads(line, parse_float=str)
                     payload = event.get("payload") or {}
                     if event.get("type") != "event_msg" or payload.get("type") != "token_count":
                         continue
@@ -169,16 +188,28 @@ def quota_remaining(root, now=None):
                                     ("window_minutes", "used_percent", "resets_at"))
             if any(isinstance(v, bool) for v in (minutes, used, reset)):
                 raise ValueError
-            minutes, used, reset = map(float, (minutes, used, reset))
-            if (not all(math.isfinite(v) for v in (minutes, used, reset))
-                    or minutes <= 0 or not 0 <= used <= 100 or reset <= now):
+            minutes = Decimal(str(minutes))
+            used, reset = Decimal(str(used)), float(reset)
+            if (not minutes.is_finite() or minutes <= 0 or not math.isfinite(float(minutes)) or float(minutes) <= 0
+                    or not used.is_finite() or not math.isfinite(reset)
+                    or not 0 <= used <= 100 or reset <= now):
                 raise ValueError
-            remaining.append(100 - used)
+            remaining.append(QuotaWindow(key, minutes, used))
         if not remaining:
             raise ValueError
-        return min(remaining)
-    except (ValueError, KeyError, TypeError, AttributeError):
+        return tuple(remaining)
+    except (ValueError, KeyError, TypeError, AttributeError, InvalidOperation, OverflowError):
         raise Stop("No current valid quota telemetry") from None
+
+
+def quota_remaining(root, now=None):
+    """Compatibility summary; never use this minimum to apply window policy."""
+    return min(window.remaining for window in quota_windows(root, now))
+
+
+def blocking_quota(windows):
+    """Compare exact used percentages to each verified window's own floor."""
+    return next((window for window in windows if window.used >= 100 - window.floor), None)
 
 
 @contextlib.contextmanager
@@ -301,7 +332,7 @@ class Runner:
 
     def refresh_quota(self):
         try:
-            remaining = quota_remaining(self.args.sessions)
+            remaining = quota_windows(self.args.sessions)
         except Stop:
             pass
         else:
@@ -321,7 +352,7 @@ class Runner:
                                text=True, check=True, stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, timeout=60, pass_fds=self.inherited_locks(),
                                env=worker_environment())
-            remaining = quota_remaining(self.args.sessions)
+            remaining = quota_windows(self.args.sessions)
         except (Stop, OSError, subprocess.SubprocessError):
             raise Stop("Quota refresh failed or no current valid telemetry; inspect the local quota probe; task not consumed") from None
         self.probe_file.unlink(missing_ok=True)
@@ -851,14 +882,17 @@ class Runner:
             if self.git("-C", str(checkout), "branch", "--show-current").strip() != self.branch:
                 raise Stop("Retained worktree branch mismatch; inspect local checkout")
         try:
-            remaining = self.refresh_quota()
+            windows = self.refresh_quota()
         except Stop as exc:
             print("Quota refresh NEEDS_USER; task not consumed", flush=True)
             self.notify(n, "NEEDS_USER", str(exc), 'QUOTA_UNAVAILABLE')
             return
-        if remaining <= 15:
-            print("Quota paused (<=15%); task not consumed", flush=True)
-            self.notify(n, "PAUSED_QUOTA", f"Limiting allowance remaining: {remaining:g}% (<=15%); task not consumed", 'QUOTA_PAUSED')
+        blocked = blocking_quota(windows)
+        if blocked is not None:
+            reason = (f"{blocked.position} {blocked.minutes:g}-minute allowance remaining: "
+                      f"{blocked.remaining:g}% (<={blocked.floor}%); task not consumed")
+            print("Quota paused; task not consumed", flush=True)
+            self.notify(n, "PAUSED_QUOTA", reason, 'QUOTA_PAUSED')
             return
         # All private inputs must validate before reservation/claim or child launch.
         # A failed/partial stage is retained locally and never supplied to a child.

@@ -1,5 +1,17 @@
 # Movie List project state
 
+## Dispatcher weekly quota floor, 2026-11-03
+
+The owner selected a 5% floor for a verified 10,080-minute Codex quota window.
+The dispatcher validates all reported windows and applies their individual
+floors: weekly pauses at 5% or less; all other durations retain 15% or less.
+Unknown, stale or malformed metadata remains fail-closed. This is a dispatcher
+policy change only; unrelated investigator quota and production services are
+unchanged. Installation and an actual worker start are separate milestones.
+
+See the [brief](reports/2026-11-03-weekly-quota-floor-brief.md) and
+[report](reports/2026-11-03-weekly-quota-floor.md).
+
 ## Issue #127 Task 10 allowance, 2026-11-03
 
 Task 9 ran with Terra/high but returned `NEEDS_USER` without changes because the

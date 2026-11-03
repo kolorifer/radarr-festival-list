@@ -58,7 +58,7 @@ class CorrectionTests(unittest.TestCase):
     def test_only_exact_continuation_runs_once_and_restart_is_inert(self):
         r = self.fixture()
         original_refs = copy.deepcopy(r.refs)
-        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=80):
+        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=(worker.QuotaWindow('primary', 300, 20),)):
             r.start()
         self.assertEqual(r.state['consumed'], list(range(1, 10)))
         self.assertEqual(r.refs[:8], original_refs)
@@ -173,11 +173,11 @@ class CorrectionTests(unittest.TestCase):
 
     def test_quota_pause_does_not_consume_and_lost_claim_is_never_replayed(self):
         r = self.fixture()
-        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=15):
+        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=(worker.QuotaWindow('primary', 300, 85),)):
             r.start()
         self.assertEqual(r.state['consumed'], list(range(1, 9)))
         r.claim_error = True
-        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=80):
+        with patch.object(worker, 'snapshot', return_value=SNAPSHOT), patch.object(r, 'refresh_quota', return_value=(worker.QuotaWindow('primary', 300, 20),)):
             r.start()
         self.assertEqual(r.state['consumed'], list(range(1, 10)))
         self.assertTrue((r.state_dir/'claim-failure-9.json').is_file())
@@ -191,7 +191,7 @@ class CorrectionTests(unittest.TestCase):
                 def check_quota():
                     if kind=='owner':
                         r.messages.append(dict(r.messages[0], id=7000000001,body='STATE: DONE'))
-                    return 80
+                    return (worker.QuotaWindow('primary', 300, 20),)
                 with patch.object(r,'refresh_quota',side_effect=check_quota), patch.object(worker,'snapshot',
                         side_effect=[SNAPSHOT, '0'*64] if kind=='bytes' else [SNAPSHOT]):
                     with self.assertRaises(worker.Stop):
