@@ -66,8 +66,8 @@ python3 automation/github_worker.py --interval 60
 Omitting `--issue` enables discovery: paginate open issues created by the
 authenticated GitHub identity, exclude PRs, and validate only issue-owner tasks.
 Closed/DONE issues, malformed/untrusted tasks, consumed/claimed numbers and
-issues with eight consumed iterations are ineligible, apart from the single
-retained correction for #127 described below. Each poll selects at most
+issues with eight consumed iterations are ineligible, apart from the narrowly
+pinned retained corrections for #127 described below. Each poll selects at most
 one task: the oldest outstanding valid latest READY task by GitHub comment ID,
 with issue number as a deterministic tie-breaker. `--issue N` keeps the explicit
 operator/debug override, including the existing issue-owner trust policy.
@@ -99,12 +99,26 @@ the final checkout fingerprint with the selected snapshot before launching the c
 quota, locks, atomic remote claim and no-replay behavior apply. A ninth
 reservation exhausts this allowance even if the remote claim is uncertain.
 
-The active #125 trial verifies its selected launcher revision and runtime file
-hashes on every opportunity. An installation that changes the launcher revision
-or `github_worker.py` must wait until that trial and its outstanding receipt
-work have finished. Keep the reviewed code in a separate checkout until the
-owner authorizes installation. Publish and verify the approved installation on
-the existing launcher ref before posting the canonical task as an owner comment.
+Task 9 exited `NEEDS_USER` with the retained snapshot unchanged because its
+network-disabled worker could not read the earlier review comment. The owner
+then approved one distinct Task 10 correction. Only the exact
+[Task 10 comment](authorizations/issue-127-task-10.txt), with the earlier review
+included in the body, may use this allowance. Its unedited owner comment must
+follow review 6605436294. Local consumed slots must be exactly 1–9, with remote
+claims 1–8 at `b463a2bae25c0efd7c77ea9911be87fb3993efa1` and claim 9 at
+`2d3b54376f8f18f0936162b1f1282c1fa0560999`. The retained Task 9 must be
+`NEEDS_USER` at the same exact snapshot and existing checkout. The dispatcher
+rechecks authority, claims and snapshot before reservation and the snapshot
+again before child launch. The Task 10 coding child selects Terra with high
+reasoning. A reservation consumes the allowance even if its claim is uncertain;
+there is no Task 11 exception or reset. Other issues and the quota probe retain
+their existing model, quota, lock and cap behavior.
+
+The #125 trial was stopped by owner command 6604086667 after its first three
+opportunities; both applicable reports and receipts were archived. Its retained
+evidence and stop remain in force. Keep later launcher changes in a separate
+checkout until installation is authorized. Publish and verify each approved
+installation on the existing launcher ref before posting the canonical task.
 
 ## Task and result protocol
 

@@ -1,5 +1,17 @@
 # Movie List project state
 
+## Issue #127 Task 10 allowance, 2026-11-03
+
+Task 9 ran with Terra/high but returned `NEEDS_USER` without changes because the
+network-disabled worker could not access the required prior review. The owner
+approved a single new retained correction. This change pins the exact Task 10
+body, which embeds that review, the nine prior claims and unchanged snapshot.
+Implementation and tests are repository-only; installation and Task 10
+execution are separate milestones and must be independently verified.
+
+See the [brief](reports/2026-11-03-issue-127-task10-allowance-brief.md) and
+[engineering report](reports/2026-11-03-issue-127-task10-allowance.md).
+
 ## Issue #127 corrective worker model, 2026-11-03
 
 The separately authorized corrective Task 9 uses `gpt-6.1-terra` at its
