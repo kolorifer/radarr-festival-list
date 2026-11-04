@@ -4,7 +4,7 @@
   "purpose": "Disabled investigator runtime including the dormant disclosed-request binding; no live authority.",
   "runtime_files": {
     "ai_movie_investigator/__init__.py": "77de306e92eaa34593ea69e88766ffbb7799d86197e915f661b652ac7b7717c4",
-    "ai_movie_investigator/bound_send.py": "f13c39afc1816779af0cbcf346c58793da9360da0aed17463fc6a623f975c8c8",
+    "ai_movie_investigator/bound_send.py": "5e7fe579cad2abbc257283d595f9d000925a9eefbf7ba5d92cde79f5e30e45be",
     "ai_movie_investigator/catalogue_replay.py": "0feafbd2d3120e13228898741ad3a8c4d65e52fde39456c9a2823eb6c8aa04d0",
     "ai_movie_investigator/codex_transport.py": "9c441a8c9fceb23898987897650beb0f80e6b6bad7f9d6f02a33f472ea66d77a",
     "ai_movie_investigator/contracts.py": "cd3f06aa951a8733333d96242d1da745f4a27d2db05bdf0861f75fbd249859c3",
@@ -18,7 +18,7 @@
     "ai_movie_investigator/pilot_fixture.py": "965e9614adaa2e8a8a00950dee552e8f7908ec43a7fe2616ef8fa8de9500e54e",
     "ai_movie_investigator/replay.py": "386838aba7e3019de9bf7a3bc10baa20e1dc49da34bf5950e09ce3d8223ffd4f",
     "ai_movie_investigator/research.py": "6907ac33bee6ffa1dc63c561eee4802b7769fd8bc98bb1f3fdad6760bdc17dd0",
-    "ai_movie_investigator/responses_http.py": "b873138672671c6002e0a0560812a5e72cd0ee3acff983c90d08003b0ebd65cb",
+    "ai_movie_investigator/responses_http.py": "8edc0d1c9087502489a056e147b00c64cfa268e3ce767cf3a432fa04698c7427",
     "ai_movie_investigator/responses_protocol.py": "22af3c94288a277ca6ee43b2f04228203309555d13f38478367e079b2aff6c82",
     "ai_movie_investigator/responses_replay.py": "0827952c517210e4cb0be4016523e7cc62ab52b94ab0785fc814e6c4b02b71c7",
     "ai_movie_investigator/responses_transport.py": "6ec9c77d14508fe3dd29c2473875233b4c1466c38fac495c942a4a91d80e4b00",

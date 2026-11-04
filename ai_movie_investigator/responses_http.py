@@ -6,6 +6,7 @@ Unsupported timer/thread state refuses before creating a socket.
 """
 from contextlib import contextmanager
 from dataclasses import dataclass, field
+import hashlib
 import http.client
 import ipaddress
 import signal
@@ -38,6 +39,9 @@ class HTTPResult:
     status: int
     body: bytes = field(repr=False)
     request_id: str = None
+    # Stamped locally by the fixed I/O boundary, never parsed from model JSON.
+    request_sha256: str = None
+    project: str = None
 
 
 def headers(credential, project):
@@ -144,7 +148,8 @@ class FixedResponsesHTTP:
                 require(not lengths or len(data) == int(lengths[0]), 'responses_body_truncated')
                 ids = [v for k, v in hs if k.lower() == 'x-request-id']
                 require(len(ids) <= 1, 'responses_http_shape')
-                return HTTPResult(200, bytes(data), ids[0] if ids else None)
+                return HTTPResult(200, bytes(data), ids[0] if ids else None,
+                                  hashlib.sha256(body).hexdigest(), project)
         except Refusal:
             raise
         except (TimeoutError, OSError, ValueError, http.client.HTTPException):

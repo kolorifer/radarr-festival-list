@@ -2,6 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 import copy
+import hashlib
 import importlib
 import io
 import http.client
@@ -546,11 +547,15 @@ class WireTests(unittest.TestCase):
 
     def test_exact_wire_origin_tls_sni_and_proxy_independence(self):
         with patch.dict(os.environ, {'HTTPS_PROXY':'https://example.invalid', 'OPENAI_BASE_URL':'https://example.invalid'}):
-            self.assertEqual(self.exchange().body, b'{}')
+            result = self.exchange()
+            self.assertEqual(result.body, b'{}')
         socket.getaddrinfo.assert_called_once_with('api.openai.com',443,type=socket.SOCK_STREAM,proto=socket.IPPROTO_TCP)
         self.context.wrap_socket.assert_called_once_with(self.sock,server_hostname='api.openai.com')
         self.connection.request.assert_called_once_with('POST','/v1/responses',body=b'{}',
                                                          headers=wire.headers(self.credential, wire.SYNTHETIC_PROJECT))
+        sent = self.connection.request.call_args.kwargs
+        self.assertEqual(result.request_sha256, hashlib.sha256(sent['body']).hexdigest())
+        self.assertEqual(result.project, sent['headers']['OpenAI-Project'])
         self.connection.close.assert_called_once()
         self.sock.connect.assert_called_once_with(('8.8.8.8',443))
 
