@@ -1,7 +1,8 @@
-"""One-case historical projection rehearsal. This module cannot call a provider.
+"""Historical manual workflow; this module cannot call a provider.
 
-The response is invented, not a model result. This route does not admit a case
-into the pilot or establish identity, currentness, approval, or a real budget.
+Default rehearsal invents a fixture response. Explicit prepare/complete accepts
+a separately supplied reply without authenticating its author. Neither path
+admits a production case or establishes identity, approval or a real budget.
 """
 import argparse
 import contextlib
@@ -73,32 +74,37 @@ def private_chain(path):
             os.close(fd)
 
 
-def read_packet(path):
+def read_private(path, limit=65536):
     path = Path(path)
     with private_chain(path.parent) as dfd:
         fd = os.open(path.name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=dfd)
         try:
             info = os.fstat(fd)
             checked(info)
-            require(info.st_size <= 65536 and
+            require(info.st_size <= limit and
                     identity(os.stat(path.name, dir_fd=dfd, follow_symlinks=False)) == identity(info), 'unsafe_packet')
             file_acl = safe_acl(fd, False)
             data = bytearray()
-            while len(data) <= 65536:
-                part = os.read(fd, min(4096, 65537 - len(data)))
+            while len(data) <= limit:
+                part = os.read(fd, min(4096, (limit + 1) - len(data)))
                 if not part:
                     break
                 data.extend(part)
             after = os.fstat(fd)
             checked(after)
-            require(len(data) <= 65536 and identity(after) == identity(info) and
+            require(len(data) <= limit and identity(after) == identity(info) and
                     (after.st_size, after.st_mtime_ns, after.st_ctime_ns) ==
                     (info.st_size, info.st_mtime_ns, info.st_ctime_ns) and
                     identity(os.stat(path.name, dir_fd=dfd, follow_symlinks=False)) == identity(info) and
                     safe_acl(fd, False) == file_acl, 'packet_changed')
         finally:
             os.close(fd)
-    return parse_packet(bytes(data))
+    return bytes(data)
+
+
+
+def read_packet(path):
+    return parse_packet(read_private(path))
 
 
 def parse_packet(data):
@@ -376,12 +382,31 @@ def rehearse(packet, packet_sha256, directory, *, ceiling, response=None):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--live', action='store_true', help='Always refused; no live implementation exists')
+    parser.add_argument('--prepare', action='store_true', help='Freeze a supervised historical request; no generation')
+    parser.add_argument('--complete', action='store_true', help='Validate one externally supplied supervised reply')
+    parser.add_argument('--reply', type=Path)
+    parser.add_argument('--provenance', type=Path)
     parser.add_argument('--input', type=Path)
     parser.add_argument('--output-dir', type=Path, help='Existing owner-only private directory')
     parser.add_argument('--simulated-ceiling-millionths', type=int, default=500000)
     args = parser.parse_args()
     if args.live:
         parser.exit(2, real_activation_refusal(None) + '\n')
+    if args.prepare or args.complete:
+        from .manual_supervised import prepare, complete
+        if args.prepare == args.complete or args.output_dir is None:
+            parser.error('Select exactly one manual operation and an output directory')
+        try:
+            if args.prepare:
+                if args.input is None: parser.error('--prepare requires --input')
+                prepare(args.input, args.output_dir)
+            else:
+                if args.reply is None or args.provenance is None: parser.error('--complete requires --reply and --provenance')
+                complete(args.output_dir, args.reply, args.provenance)
+            print('Supervised manual ' + ('prepared' if args.prepare else 'validated') + '; no generation or approval.')
+        except (Refusal, StorageError, OSError, ValueError, TypeError, KeyError, IndexError) as exc:
+            parser.exit(2, 'Supervised manual refused: ' + (str(exc) if isinstance(exc, Refusal) else 'local_input_or_storage_error') + '\n')
+        return
     if args.input is None or args.output_dir is None:
         parser.error('--input and --output-dir are required')
     try:
