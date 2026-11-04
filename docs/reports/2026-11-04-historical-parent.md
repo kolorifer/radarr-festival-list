@@ -53,7 +53,9 @@ remains separate from current-case admission, identification or acquisition appr
 
 ## References and context
 
-The containing commit/PR supplies the exact revision and CI evidence. PROJECT_STATE
-records dormant implementation separately from live acceptance. The completed
+The containing commit/PR supplies the exact revision and CI evidence. The local
+PROJECT_STATE addition records dormant implementation separately from live acceptance;
+that large historical file is omitted from publication after approval review rejected
+its payload. This focused report carries the published status instead. The completed
 brief is archived above; unrelated CODEX_TASK.md, claims and uncertain source
 attempt remain unchanged. No new product rule or deployment decision was made.

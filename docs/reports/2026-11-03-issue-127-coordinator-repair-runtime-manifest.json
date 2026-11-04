@@ -38,9 +38,12 @@
   "task": "coordinator-offline-correction",
   "tests": {
     "test_ai_movie_investigator.py": "931559ed3379cbee747853bb44ac06bee694678ffb064e8eaad040c15b11aced",
+    "test_bound_integration.py": "24274681020f1641befafb36e0a780df0fb970bad586960935b2df31076b8856",
+    "test_bound_send.py": "995d61d8df102079055672cf50d88a27ef439ee5e173e44a7906733c5e2ac514",
+    "test_historical_parent.py": "1c7c4860667c12c5849729803862e80db3e2c5ca3100a5a6045d67bfec84b9d0",
     "test_investigator_catalogue.py": "538b1dd78b95dd6c4ac903a4814c4f578300c3604ea4266a07c33b7016b10c13",
     "test_issue127_correction.py": "a4fb1d76aa2b523baf86a326e6b08e8e2d3dc642d33d0853b1729647707557f6",
     "test_parent_pilot.py": "1cb85f3d723de01425c7634cf4a6903979d18c39bd9083ec1fdb650050db562d",
-    "test_responses_transport.py": "dc90aa1daa9d099dfc64877b4b83038159944a418366cd9ea15c1a066fce66c0"
+    "test_responses_transport.py": "5b9d2e938358d74ad41ae5fdec2177633d8ca06a1b280f31e64bd3c26c004f17"
   }
 }
