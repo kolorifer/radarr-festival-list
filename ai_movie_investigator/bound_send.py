@@ -3,7 +3,7 @@
 The internal path is exercised with injected trusted-parent and recording-sink
 fixtures only. It does not enroll authority or establish prices or live access.
 """
-from .contracts import decode, digest, encoded, require, shape, scope, stamp, hash_id
+from .contracts import decode, digest, encoded, require, shape, scope, stamp, hash_id, text
 from .history import History
 from .responses_protocol import MODEL, parse_response
 from .controller import output_schema
@@ -30,9 +30,16 @@ def _send_bound(history, body, *, case, run, parent, credential, context_sha256=
     selected = dict(run=run, case=case, request_sha256=digest(request))
     if context_sha256 is not None:
         selected['local_context_sha256'] = hash_id(context_sha256)
+    if type(parent) is HistoricalDiagnosticParent:
+        parent.validate_history(history)
+        parent.validate_credential(credential)
     # The trusted parent's result is the sole source of project and limits.
     permit = decode(encoded(parent.authorize(selected, body)), 8192)
-    shape(permit, 'selection project model expires_at input_limit output_limit maximum_debit currency')
+    fields = 'selection project model expires_at input_limit output_limit maximum_debit currency'
+    if 'authority_context_sha256' in permit:
+        hash_id(permit['authority_context_sha256'])
+        fields += ' authority_context_sha256'
+    shape(permit, fields)
     require(permit['selection'] == selected and permit['model'] == MODEL, 'binding_authority')
     require(isinstance(permit['project'], str) and permit['project'].startswith('proj_'), 'binding_project')
     require(stamp(permit['expires_at']) > history.clock(), 'binding_expired')
@@ -66,3 +73,177 @@ def _send_bound(history, body, *, case, run, parent, credential, context_sha256=
                     accounting=accounting, retained_debit=permit['maximum_debit'],
                     currency=permit['currency'], at=history.clock()))
     return answer
+
+
+# An explicit trusted integration input, not an authentication mechanism. The
+# operator must pin independently checked originals before constructing this.
+# Movie/model data cannot enroll evidence. Production still refuses all sends.
+from dataclasses import dataclass, field
+from .responses_http import ExplicitCredential, HTTPResult
+from .responses_protocol import INPUT_TOKENS, OUTPUT_TOKENS, response_id
+from .spending import POLICY, pair
+from .pilot_account import COVERAGE
+
+
+@dataclass(frozen=True)
+class OperatorContext:
+    record_json: bytes = field(repr=False)
+    record_sha256: str
+    evidence_pins: tuple
+
+
+class HistoricalDiagnosticParent:
+    """Validate a selected operator evidence bundle for one historical request.
+
+    Pins prove correspondence, not authenticity. Trusted integration supplies
+    the context and credential object after independently checking originals.
+    No flags, environment discovery, credential reads or external calls occur.
+    Fixture contexts exercise this code but cannot open the production gate.
+    """
+    def __init__(self, context, *, history, credential=None):
+        require(type(context) is OperatorContext and type(history) is History, 'operator_context_missing')
+        self.context, self.history, self._credential = context, history, credential
+        self._body = self._permit_bytes = None
+
+    def _record(self):
+        import hashlib
+        c = self.context
+        require(type(c.record_json) is bytes and
+                hashlib.sha256(c.record_json).hexdigest() == hash_id(c.record_sha256), 'operator_context_pin')
+        r = decode(c.record_json, 32768)
+        shape(r, 'mode selection project model issued_at expires_at history_identity currency ceiling output_limit evidence')
+        require(r['mode'] == 'historical_manual_diagnostic' and type(self._credential) is ExplicitCredential,
+                'operator_route_missing')
+        require(bool(self._credential.value), 'operator_route_missing')
+        require(r['history_identity'] == list(self.history.identity), 'operator_history_changed')
+        now = self.history.clock()
+        require(stamp(r['issued_at']) <= now < stamp(r['expires_at']), 'operator_authority_stale')
+        require(r['model'] == MODEL and isinstance(r['project'], str) and
+                __import__('re').fullmatch(r'proj_[A-Za-z0-9_-]+', r['project']), 'operator_account_unknown')
+        require(r['currency'] in ('USD', 'TEST-USD') and rational(r['ceiling']) > 0 and
+                r['output_limit'] == OUTPUT_TOKENS, 'operator_limits_unknown')
+        roles = {'owner', 'privacy', 'account', 'credential_route', 'coverage', 'pricing'}
+        require(type(r['evidence']) is dict and set(r['evidence']) == roles and
+                type(c.evidence_pins) is tuple and len(c.evidence_pins) == len(roles), 'operator_evidence_missing')
+        pins = dict(c.evidence_pins)
+        require(set(pins) == roles, 'operator_evidence_missing')
+        binding = digest({k: v for k, v in r.items() if k != 'evidence'})
+        for role, e in r['evidence'].items():
+            shape(e, 'binding_hash issuer reference observed_at expires_at facts')
+            require(digest(e) == hash_id(pins[role]) and e['binding_hash'] == binding,
+                    'operator_evidence_pin')
+            require(isinstance(e['issuer'], str) and e['issuer'] not in ('', 'unknown') and
+                    isinstance(e['reference'], str) and e['reference'] not in ('', 'unknown'), 'operator_evidence_unknown')
+            require(stamp(e['observed_at']) <= now < stamp(e['expires_at']) and
+                    r['expires_at'] <= e['expires_at'], 'operator_evidence_stale')
+        return r
+
+    def validate_credential(self, credential):
+        require(credential is self._credential and type(credential) is ExplicitCredential,
+                'operator_credential_route_changed')
+        return True
+
+    def validate_history(self, history):
+        require(history is self.history, 'operator_history_changed')
+        return True
+
+    def _permit(self, selected, body):
+        r = self._record()
+        shape(selected, 'run case request_sha256 local_context_sha256')
+        scope(selected['case'])
+        require(selected == r['selection'] and selected['case']['occurrence'] is None,
+                'operator_selection_changed')
+        hash_id(selected['local_context_sha256'])
+        request = decode(body, 65536)
+        require(encoded(request) == body and digest(request) == selected['request_sha256'], 'operator_request_changed')
+        require(self._credential.value.encode() not in body and
+                self._credential.value.encode() not in self.context.record_json, 'operator_credential_disclosed')
+        from .controller import INSTRUCTIONS
+        require(request.get('instructions') == INSTRUCTIONS and request.get('model') == MODEL and
+                request.get('text') == dict(format=dict(type='json_schema', name='retained_investigator_v1',
+                    strict=True, schema=output_schema())) and
+                all(request.get(k) == v for k, v in POLICY.items()) and
+                request.get('tools') == [] and request.get('tool_choice') == 'none' and
+                request.get('store') is False and request.get('background') is False and
+                request.get('stream') is False and request.get('truncation') == 'disabled' and
+                request.get('max_output_tokens') == r['output_limit'], 'operator_request_policy')
+        shape(request, 'model instructions service_tier prompt_cache_options input tools tool_choice store background stream max_output_tokens truncation text')
+        require(type(request['input']) is list and len(request['input']) == 1, 'operator_disclosure_changed')
+        message = request['input'][0]
+        shape(message, 'role content')
+        require(message['role'] == 'user' and type(message['content']) is list and len(message['content']) == 1,
+                'operator_disclosure_changed')
+        part = message['content'][0]
+        shape(part, 'type text')
+        require(part['type'] == 'input_text', 'operator_disclosure_changed')
+        data = decode(part['text'], 32768)
+        shape(data, 'protocol binding_hash facts conflicting_ids evidence')
+        from .disclosure import aliases
+        require(data['protocol'] == 'single-pilot-v1' and data['binding_hash'] == aliases(selected['run']),
+                'operator_disclosure_changed')
+        f = data['facts']
+        shape(f, 'title year imdb tmdb asserted_imdb asserted_tmdb contradiction')
+        text(f['title'], 200); text(f['contradiction'], 100)
+        require(type(f['year']) is int and 1800 <= f['year'] <= 2100 and
+                f['imdb'] is None and f['tmdb'] is None and f['asserted_tmdb'] is None and
+                (f['asserted_imdb'] is None or isinstance(f['asserted_imdb'], str) and
+                 __import__('re').fullmatch(r'tt[0-9]{7,10}', f['asserted_imdb'])), 'operator_disclosure_changed')
+        require(type(data['evidence']) is list and 1 <= len(data['evidence']) <= 5, 'operator_disclosure_changed')
+        for row in data['evidence']:
+            shape(row, 'alias kind candidate claims facts')
+            require(row['kind'] == 'source' and row['candidate'] is None and row['claims'] == [] and row['facts'] == {},
+                    'operator_disclosure_changed')
+        facts = {role: e['facts'] for role, e in r['evidence'].items()}
+        require(facts['owner'] == dict(operation=r['mode'], max_calls=1, currency=r['currency'], ceiling=r['ceiling']),
+                'operator_owner_authority_missing')
+        require(facts['privacy'] == dict(request_sha256=selected['request_sha256'], store=False, tools=[]),
+                'operator_privacy_missing')
+        require(facts['account'] == dict(project=r['project'], model=MODEL, policy=POLICY), 'operator_account_unknown')
+        route = facts['credential_route']
+        shape(route, 'project injection_route')
+        require(route['project'] == r['project'] and isinstance(route['injection_route'], str) and
+                route['injection_route'] not in ('', 'unknown'), 'operator_route_missing')
+        coverage = facts['coverage']
+        shape(coverage, 'request_sha256 policy coverage counter_identity input_upper_bound')
+        require(coverage['request_sha256'] == selected['request_sha256'] and coverage['policy'] == POLICY and
+                coverage['coverage'] == COVERAGE and isinstance(coverage['counter_identity'], str) and
+                coverage['counter_identity'] not in ('', 'unknown') and type(coverage['input_upper_bound']) is int and
+                0 < coverage['input_upper_bound'] <= INPUT_TOKENS, 'operator_coverage_unknown')
+        pricing = facts['pricing']
+        shape(pricing, 'policy currency input cache_read cache_write output ancillary_maximum')
+        require(pricing['policy'] == POLICY and pricing['currency'] == r['currency'], 'operator_pricing_unknown')
+        rates = {k: rational(pricing[k]) for k in ('input', 'cache_read', 'cache_write', 'output', 'ancillary_maximum')}
+        maximum = coverage['input_upper_bound'] * max(rates[k] for k in ('input', 'cache_read', 'cache_write'))
+        maximum += r['output_limit'] * rates['output'] + rates['ancillary_maximum']
+        require(0 < maximum <= rational(r['ceiling']), 'operator_coverage_above_cap')
+        return dict(selection=selected, project=r['project'], model=MODEL, expires_at=r['expires_at'],
+                    input_limit=coverage['input_upper_bound'], output_limit=r['output_limit'],
+                    maximum_debit=pair(maximum), currency=r['currency'], authority_context_sha256=self.context.record_sha256)
+
+    def authorize(self, selected, body):
+        permit = self._permit(selected, body)
+        self._body, self._permit_bytes = bytes(body), encoded(permit)
+        return permit
+
+    def validate(self, permit, body):
+        require(encoded(permit) == self._permit_bytes and body == self._body and
+                permit == self._permit(permit['selection'], body), 'operator_permit_changed')
+        return True
+
+    def validate_receipt(self, permit, result, accounting):
+        require(self._body is not None and encoded(permit) == self._permit_bytes and
+                type(result) is HTTPResult and result.status == 200, 'operator_receipt_unbound')
+        require(result.request_sha256 == permit['selection']['request_sha256'] and
+                result.project == permit['project'], 'operator_receipt_correlation')
+        response_id(result.request_id)
+        require(self._credential.value.encode() not in result.body and
+                self._credential.value not in result.request_id, 'operator_credential_echo')
+        _, parsed = parse_response(result.body, output_schema(), result.request_id)
+        require(parsed == accounting and parsed['model'] == permit['model'] and
+                parsed['usage']['input_tokens'] <= permit['input_limit'] and
+                parsed['usage']['output_tokens'] <= permit['output_limit'], 'operator_receipt_mismatch')
+        # Correlation comes from the fixed TLS transport, not a provider signature
+        # or independent billing attestation. Never accept model-supplied stamps.
+        # Retain the entire verified worst-case debit; no price estimate/refund
+        # is inferred from a response or from historical budget metadata.
+        return True
