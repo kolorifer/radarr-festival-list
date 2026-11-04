@@ -1,4 +1,6 @@
 import tempfile
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -110,3 +112,23 @@ class BoundIntegrationTest(unittest.TestCase):
         self.assertEqual(self.history.read()[-1]['type'], 'bound_send_receipt')
         with self.assertRaisesRegex(Refusal, 'binding_attempt_consumed'):
             self.complete()
+
+    def test_connected_path_from_installed_files_only(self):
+        from ai_movie_investigator.installation import install_runtime
+        with tempfile.TemporaryDirectory() as tmp:
+            base = Path(tmp).resolve()
+            target = base / 'installed'
+            target.mkdir(mode=0o700)
+            install_runtime(Path(__file__).resolve().parent, target)
+            test_source = Path(__file__).read_text()
+            script = (
+                "import sys, pathlib, unittest; sys.path.insert(0, sys.argv[1]); "
+                "ns={'__name__':'installed_probe'}; exec(compile(sys.argv[2], '<probe>', 'exec'), ns); "
+                "suite=unittest.TestSuite([ns['BoundIntegrationTest']('test_connected_path_only_replaces_http_io')]); "
+                "result=unittest.TextTestRunner().run(suite); assert result.wasSuccessful(); "
+                "assert all(pathlib.Path(m.__file__).resolve().is_relative_to(pathlib.Path(sys.argv[1])) "
+                "for n,m in sys.modules.items() if n.startswith('ai_movie_investigator'))"
+            )
+            result = subprocess.run([sys.executable, '-I', '-B', '-S', '-c', script, str(target), test_source],
+                                    cwd=base, capture_output=True, text=True, timeout=20)
+            self.assertEqual(result.returncode, 0, result.stderr)
