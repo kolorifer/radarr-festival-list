@@ -30,7 +30,7 @@ def packet():
 
 class ManualOfflineTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
+        self.tmp = tempfile.TemporaryDirectory(dir=Path.cwd())
         self.addCleanup(self.tmp.cleanup)
         self.directory = Path(self.tmp.name).resolve()
         self.path = self.directory / 'input.json'
