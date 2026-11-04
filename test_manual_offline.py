@@ -7,9 +7,10 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
+from automation.coordinator_storage import StorageError
 from ai_movie_investigator.contracts import Refusal, digest
 from ai_movie_investigator.disclosure import aliases
-from ai_movie_investigator.manual_offline import read_packet, rehearse
+from ai_movie_investigator.manual_offline import private_chain, read_packet, rehearse
 from ai_movie_investigator.responses_http import HTTPResult
 from ai_movie_investigator.responses_replay import simulated_response
 
@@ -30,7 +31,22 @@ def packet():
 
 class ManualOfflineTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory(dir=Path.cwd())
+        self.tmp = None
+        for parent in (Path.cwd(), Path.home()):
+            try:
+                candidate = tempfile.TemporaryDirectory(dir=parent)
+                try:
+                    with private_chain(Path(candidate.name).resolve()):
+                        pass
+                except (OSError, ValueError, StorageError):
+                    candidate.cleanup()
+                    continue
+                self.tmp = candidate
+                break
+            except OSError:
+                continue
+        if self.tmp is None:
+            self.fail('No private fixture directory meets the unchanged guard')
         self.addCleanup(self.tmp.cleanup)
         self.directory = Path(self.tmp.name).resolve()
         self.path = self.directory / 'input.json'
