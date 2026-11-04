@@ -1,4 +1,5 @@
 import json
+import hashlib
 import os
 from pathlib import Path
 import subprocess
@@ -29,30 +30,13 @@ def packet():
                 currentness='unknown', decisions='unknown', identity_approval='unknown', acquisition_approval='unknown')
 
 
-class ManualOfflineTest(unittest.TestCase):
+class ManualOfflineSimulationTest(unittest.TestCase):
     def setUp(self):
-        self.tmp = None
-        for parent in (Path.cwd(), Path.home()):
-            try:
-                candidate = tempfile.TemporaryDirectory(dir=parent)
-                try:
-                    with private_chain(Path(candidate.name).resolve()):
-                        pass
-                except (OSError, ValueError, StorageError):
-                    candidate.cleanup()
-                    continue
-                self.tmp = candidate
-                break
-            except OSError:
-                continue
-        if self.tmp is None:
-            self.fail('No private fixture directory meets the unchanged guard')
+        self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.directory = Path(self.tmp.name).resolve()
-        self.path = self.directory / 'input.json'
-        self.path.write_text(json.dumps(packet()))
-        self.path.chmod(0o600)
-        self.p, self.sha = read_packet(self.path)
+        self.p = packet()
+        self.sha = hashlib.sha256(json.dumps(self.p).encode()).hexdigest()
         self.run_dir = self.directory / 'result'
         self.run_dir.mkdir(mode=0o700)
 
@@ -90,11 +74,32 @@ class ManualOfflineTest(unittest.TestCase):
             with self.assertRaisesRegex(Refusal, 'spending_ceiling'):
                 rehearse(self.p, self.sha, self.run_dir, ceiling=[0, 1])
 
-    def test_live_route_refuses_before_any_input_or_network(self):
-        proc = subprocess.run([sys.executable, '-m', 'ai_movie_investigator.manual_offline', '--live'],
-                              capture_output=True, text=True, timeout=10)
-        self.assertEqual(proc.returncode, 2)
-        self.assertIn('responses_real_authorization_unimplemented', proc.stderr)
+class ManualOfflinePrivatePathTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = None
+        for parent in (Path.cwd(), Path.home()):
+            try:
+                candidate = tempfile.TemporaryDirectory(dir=parent)
+                try:
+                    with private_chain(Path(candidate.name).resolve()):
+                        pass
+                except (OSError, ValueError, StorageError):
+                    candidate.cleanup()
+                    continue
+                self.tmp = candidate
+                break
+            except OSError:
+                continue
+        if self.tmp is None:
+            self.skipTest('No fixture directory meets the unchanged private path guard')
+        self.addCleanup(self.tmp.cleanup)
+        self.directory = Path(self.tmp.name).resolve()
+        self.path = self.directory / 'input.json'
+        self.path.write_text(json.dumps(packet()))
+        self.path.chmod(0o600)
+        self.p, self.sha = read_packet(self.path)
+        self.run_dir = self.directory / 'result'
+        self.run_dir.mkdir(mode=0o700)
 
     def test_cli_writes_private_report_and_refuses_existing_history(self):
         cmd = [sys.executable, '-m', 'ai_movie_investigator.manual_offline', '--input', str(self.path),
@@ -117,6 +122,14 @@ class ManualOfflineTest(unittest.TestCase):
         self.path.write_text(json.dumps(p))
         with self.assertRaisesRegex(Refusal, 'normalized_unknowns_required'):
             read_packet(self.path)
+
+
+class ManualOfflineLiveRefusalTest(unittest.TestCase):
+    def test_live_route_refuses_before_any_input_or_network(self):
+        proc = subprocess.run([sys.executable, '-m', 'ai_movie_investigator.manual_offline', '--live'],
+                              capture_output=True, text=True, timeout=10)
+        self.assertEqual(proc.returncode, 2)
+        self.assertIn('responses_real_authorization_unimplemented', proc.stderr)
 
 
 if __name__ == '__main__':
