@@ -40,6 +40,19 @@ def envelope(case=None):
                         retained_case_sha256=digest(case)))
 
 
+def no_id_envelope():
+    """Synthetic absent identity/catalogue, not a searched-negative observation."""
+    e = decode(envelope())
+    e['packet'].update(asserted_imdb=None, reported_candidate_tmdb=None)
+    c = e['retained_case']
+    c['source_identity']['asserted_imdb'] = None
+    r = c['proposal']['result']
+    r['original_facts']['imdb'] = None
+    r.update(evidence=[], candidates=[], missing_crosswalk=True)
+    e['retained_case_sha256'] = digest(c)
+    return encoded(e)
+
+
 class ExpandedManualTest(unittest.TestCase):
     def project(self, case=None):
         p, sha = parse_packet(envelope(case))
@@ -146,3 +159,62 @@ class ExpandedManualTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             report=rehearse(p,sha,Path(tmp).resolve(),ceiling=[1,2])
         self.assertIn('incomplete evidence',report['disclosure_limit'])
+
+
+class UnknownIdentityTest(unittest.TestCase):
+    def test_explicit_unknowns_and_absence_are_visible(self):
+        p, sha = parse_packet(no_id_envelope())
+        self.assertEqual(p['reported_movie_search'], 'not_observed')
+        _, _, _, body = build_request(p, sha, now=300)
+        data = decode(decode(body)['input'][0]['content'][0]['text'])
+        self.assertIsNone(data['facts']['asserted_imdb'])
+        o = data['historical_observations']
+        self.assertEqual(o['catalogue'], [])
+        self.assertEqual(o['missing_observations'], dict(find='not_observed', details='not_observed', movie_search='not_observed'))
+        self.assertTrue({'asserted_imdb', 'reported_candidate_tmdb', 'evidence.find', 'evidence.details', 'evidence.movie_search'} <= set(o['missing_fields']))
+        self.assertNotIn('verified_negative', body.decode())
+
+    def test_malformed_ids_and_legacy_unknowns_refuse(self):
+        for key, bad in [('asserted_imdb', ''), ('asserted_imdb', 'ttx'), ('asserted_imdb', 123),
+                         ('reported_candidate_tmdb', True), ('reported_candidate_tmdb', 0),
+                         ('reported_candidate_tmdb', '12345')]:
+            e = decode(no_id_envelope()); e['packet'][key] = bad
+            with self.subTest(key=key, bad=bad), self.assertRaises(Refusal): parse_packet(encoded(e))
+        for key in ('asserted_imdb', 'reported_candidate_tmdb'):
+            p = packet(); p[key] = None
+            with self.subTest(legacy=key), self.assertRaises(Refusal): parse_packet(encoded(p))
+            e = decode(no_id_envelope()); del e['packet'][key]
+            with self.subTest(absent_key=key), self.assertRaises(Refusal): parse_packet(encoded(e))
+
+    def test_supplied_bindings_still_refuse_mismatch_or_null_lookup(self):
+        for key, bad in [('asserted_imdb', 'tt99999999'), ('reported_candidate_tmdb', 999),
+                         ('asserted_imdb', None), ('reported_candidate_tmdb', None)]:
+            e = decode(envelope()); e['packet'][key] = bad
+            with self.subTest(key=key,bad=bad), self.assertRaises(Refusal): parse_packet(encoded(e))
+        e = decode(no_id_envelope())
+        r = e['retained_case']['proposal']['result']
+        r['evidence'] = [dict(method='find', query=None, result=dict(data=dict(movies=[])))]
+        e['retained_case_sha256'] = digest(e['retained_case'])
+        with self.assertRaisesRegex(Refusal, 'retained_find_binding'): parse_packet(encoded(e))
+
+
+    def test_unknown_identity_requires_explicit_retained_fields(self):
+        for where in ('source_identity', 'asserted_imdb', 'original_imdb'):
+            e = decode(no_id_envelope()); c = e['retained_case']
+            if where == 'source_identity': del c['source_identity']
+            elif where == 'asserted_imdb': del c['source_identity']['asserted_imdb']
+            else: del c['proposal']['result']['original_facts']['imdb']
+            e['retained_case_sha256'] = digest(c)
+            with self.subTest(where=where), self.assertRaises(Refusal): parse_packet(encoded(e))
+
+
+    def test_unknown_route_does_not_hide_other_supplied_identities(self):
+        for location, keys in [('source_identity', ('imdb', 'tmdb', 'asserted_tmdb')),
+                               ('original_facts', ('tmdb', 'asserted_imdb', 'asserted_tmdb'))]:
+            for key in keys:
+                e = decode(no_id_envelope()); c = e['retained_case']
+                target = c['source_identity'] if location == 'source_identity' else c['proposal']['result']['original_facts']
+                target[key] = 'tt76543210' if 'imdb' in key else 7654321
+                e['retained_case_sha256'] = digest(c)
+                with self.subTest(location=location,key=key), self.assertRaisesRegex(Refusal, 'retained_unprojected_identity'):
+                    parse_packet(encoded(e))

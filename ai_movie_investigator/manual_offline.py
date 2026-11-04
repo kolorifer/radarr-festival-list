@@ -112,14 +112,14 @@ def parse_packet(data):
     if p.get('kind') == 'historical_retained_case':
         shape(p, 'kind packet retained_case retained_case_sha256')
         require(digest(p['retained_case']) == hash_id(p['retained_case_sha256']), 'retained_case_hash')
-        validate_packet(p['packet'])
+        validate_packet(p['packet'], allow_unknown_ids=True)
         return expand_retained(p['packet'], p['retained_case']), hashlib.sha256(bytes(data)).hexdigest()
     require(len(data) <= 16384, 'legacy_packet_size')
     validate_packet(p)
     return p, hashlib.sha256(bytes(data)).hexdigest()
 
 
-def validate_packet(p):
+def validate_packet(p, *, allow_unknown_ids=False):
     shape(p, 'kind source_sha256 source_report_sha256 case_id version material_evidence title year asserted_imdb reported_candidate_tmdb reason first_observed last_observed source_generated_at source_acquired_at report_partial reported_movie_search event_id delivery_id captured_bytes currentness decisions identity_approval acquisition_approval')
     require(p['kind'] == 'historical_normalized_projection' and p['captured_bytes'] is False and
             p['event_id'] is None and p['delivery_id'] is None and
@@ -131,30 +131,40 @@ def validate_packet(p):
     text(p['title'], 200)
     require(type(p['year']) is int and 1800 <= p['year'] <= 2100, 'year')
     import re
-    require(isinstance(p['asserted_imdb'], str) and re.fullmatch(r'tt[0-9]{7,10}', p['asserted_imdb']), 'imdb')
-    require(type(p['reported_candidate_tmdb']) is int and 0 < p['reported_candidate_tmdb'] < 2**31, 'tmdb')
+    require((allow_unknown_ids and p['asserted_imdb'] is None) or
+            (isinstance(p['asserted_imdb'], str) and re.fullmatch(r'tt[0-9]{7,10}', p['asserted_imdb'])), 'imdb')
+    require((allow_unknown_ids and p['reported_candidate_tmdb'] is None) or
+            (type(p['reported_candidate_tmdb']) is int and 0 < p['reported_candidate_tmdb'] < 2**31), 'tmdb')
     text(p['reason'], 100)
     require(stamp(p['first_observed']) <= stamp(p['last_observed']), 'observation_order')
     text(p['source_generated_at'], 64)
     text(p['source_acquired_at'], 64)
-    require(p['report_partial'] is True and p['reported_movie_search'] == 'verified_negative_measurement_time_unknown', 'historical_limits_required')
+    require(p['report_partial'] is True and (p['reported_movie_search'] == 'verified_negative_measurement_time_unknown' or
+            allow_unknown_ids and p['reported_movie_search'] == 'not_observed'), 'historical_limits_required')
     return p
 
 
 def expand_retained(packet, case):
     """Typed offline projection of one retained case; hashes are not authenticity."""
-    validate_packet(packet)
+    validate_packet(packet, allow_unknown_ids=True)
     require(isinstance(case, dict) and len(encoded(case)) <= 49152, 'retained_case_size')
     require(all(case.get(k) == packet[k] for k in ('case_id', 'version', 'title', 'year', 'reason')),
             'retained_case_binding')
     require(case.get('first_observed_at') == packet['first_observed'] and
             case.get('observed_at') == packet['last_observed'], 'retained_occurrence_clock_binding')
-    require(case.get('source_identity', {}).get('asserted_imdb') == packet['asserted_imdb'], 'retained_case_binding')
+    source_identity = case.get('source_identity', {})
+    require(type(source_identity) is dict and 'asserted_imdb' in source_identity
+            and source_identity['asserted_imdb'] == packet['asserted_imdb'], 'retained_case_binding')
     result = case.get('proposal', {}).get('result', {})
     original = result.get('original_facts', {})
     require(original.get('title') == packet['title'] and original.get('year') == packet['year']
-            and original.get('imdb') == packet['asserted_imdb'], 'retained_original_binding')
-    missing = []
+            and 'imdb' in original and original['imdb'] == packet['asserted_imdb'], 'retained_original_binding')
+    if packet['asserted_imdb'] is None or packet['reported_candidate_tmdb'] is None:
+        # This narrow route cannot silently discard other supplied identity bindings.
+        require(all(source_identity.get(k) is None for k in ('imdb', 'tmdb', 'asserted_tmdb'))
+                and all(original.get(k) is None for k in ('tmdb', 'asserted_imdb', 'asserted_tmdb')),
+                'retained_unprojected_identity')
+    missing = [key for key in ('asserted_imdb', 'reported_candidate_tmdb') if packet[key] is None]
 
     def value(obj, key, path, check):
         v = obj.get(key)
@@ -191,12 +201,14 @@ def expand_retained(packet, case):
         require(type(data) is dict, 'retained_data')
         query = e.get('query')
         if method == 'find':
-            require(query == packet['asserted_imdb'], 'retained_find_binding')
+            require(packet['asserted_imdb'] is not None and query == packet['asserted_imdb'], 'retained_find_binding')
             movies = value(data, 'movies', method, lambda x: type(x) is list and len(x) <= 5)
             selected = None if movies is None else [catalogue(m, missing, 'find.movie') for m in movies]
             detail = dict(movies=selected)
         elif method == 'details':
-            require(query == packet['reported_candidate_tmdb'] and data.get('id') == query
+            require(packet['asserted_imdb'] is not None and packet['reported_candidate_tmdb'] is not None
+                    and type(query) is int and type(data.get('id')) is int
+                    and query == packet['reported_candidate_tmdb'] and data.get('id') == query
                     and data.get('imdb') == packet['asserted_imdb'], 'retained_details_binding')
             detail = catalogue(data, missing, 'details', full=True)
         else:
@@ -266,6 +278,12 @@ def expand_retained(packet, case):
                       unavailable_images=torrent.get('unavailable_images'), missing_fields=sorted(set(missing)),
                       omitted_fields=['raw NFO and description text', 'images and URLs', 'catalogue aliases and translations',
                                       'original source identifiers and private bindings']))
+    # Absence is not a negative search result; preserve full-input bytes when all methods exist.
+    absent = {method: 'not_observed' for method in ('find', 'details', 'movie_search') if method not in seen}
+    if absent:
+        expanded['observations']['missing_observations'] = absent
+    if 'movie_search' in absent:
+        expanded['reported_movie_search'] = 'not_observed'
     require(len(encoded(expanded)) <= 16384, 'expanded_packet_size')
     return expanded
 

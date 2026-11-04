@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 from ai_movie_investigator.contracts import Refusal, decode, encoded
 from ai_movie_investigator.manual_supervised import prepare, complete, constraints, validate_answer
-from test_manual_expanded import envelope
+from test_manual_expanded import envelope, no_id_envelope
 
 
 @contextlib.contextmanager
@@ -118,3 +118,29 @@ class SupervisedManualTest(unittest.TestCase):
         e=decode((self.out/'input.json').read_bytes(),65536);e['packet']['source_sha256']='0'*64
         self.write(self.out/'input.json',encoded(e))
         with self.assertRaisesRegex(Refusal,'manual_prepared_changed'):self.submit(self.answer())
+
+
+    def test_no_ids_prepare_complete_unresolved_and_invented_candidate_refuses(self):
+        self.out = self.root/'unknown'; self.out.mkdir(mode=0o700)
+        self.write(self.input, no_id_envelope())
+        self.selected = prepare(self.input, self.out)
+        self.data = decode((self.out/'model-input.json').read_bytes(),32768)
+        conflicts, missing = constraints(self.data)
+        answer = dict(**{k:self.selected[k] for k in ('assessment_id','input_sha256','request_sha256')},
+            kind='supervised_historical_assessment',status='unresolved',candidate=None,
+            support=[dict(path='historical_observations/missing_observations',
+                          value=encoded(self.data['historical_observations']['missing_observations']).decode())],
+            rationale='SYNTHETIC supplied unresolved reply: identity and catalogue evidence were not observed.',
+            uncertainty='No candidate identity is established.',contradictions=conflicts,missing_facts=missing,
+            disposition='human_review_no_approval')
+        invented = copy.deepcopy(answer)
+        invented.update(status='historical_candidate_proposal',candidate=dict(imdb='tt12345678',tmdb=12345,title='Example',year=2026))
+        with self.assertRaisesRegex(Refusal,'manual_crosswalk_missing'):
+            validate_answer(invented,self.selected,self.data)
+        report = self.submit(answer)
+        self.assertIsNone(report['assessment']['candidate'])
+        self.assertEqual(report['assessment']['status'],'unresolved')
+        self.assertIn('asserted_imdb',report['assessment']['missing_facts'])
+        self.assertIn('reported_candidate_tmdb',report['assessment']['missing_facts'])
+        self.assertEqual(report['observations']['missing_observations']['movie_search'],'not_observed')
+        self.assertIsNone(report['provider_receipt'])
