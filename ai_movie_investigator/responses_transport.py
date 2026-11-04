@@ -200,5 +200,43 @@ class ResponsesTransport:
     def completion_accounting(self):
         return self.last_accounting
 
+    def complete_disclosed(self, payload, *, schema, history, run, disclosure, parent):
+        """Dormant parent-callable connection; fixed HTTP activation stays closed.
+
+        Uses the existing disclosure projection and result validators. The parent
+        is trusted integration code, not a movie field or a caller's permit JSON.
+        The parent must independently authenticate the local context digest and
+        current decisions; computing a digest is not evidence of authority.
+        This does not bypass run_pilot's independent real-case admission fences.
+        """
+        from .bound_send import _send_bound
+        from .contracts import scope
+        from .controller import validate_final
+        from .disclosure import project, restore
+        require(self.enabled is True, 'model_transport_disabled')
+        require(type(self.http) is FixedResponsesHTTP and self.pending is None and
+                self.history_binding is None and self.spending is None and self.authorization is None,
+                'responses_bound_mode_conflict')
+        require(schema == output_schema(), 'responses_schema_unsupported')
+        prompt = decode(payload, MAX_INPUT)
+        shape(prompt, 'protocol binding_hash binding facts reconciliation evidence_index query_results instruction')
+        require(prompt['protocol'] == 'retained-investigator-v1' and prompt['instruction'] == INSTRUCTIONS,
+                'responses_input_protocol')
+        scope(prompt['binding'])
+        require(prompt['binding_hash'] == digest(prompt['binding']), 'responses_selected_input_changed')
+        body = project(prompt, run=run, disclosure=disclosure)
+        if self.credential is not None:
+            require(type(self.credential) is ExplicitCredential and
+                    self.credential.value.encode() not in body, 'responses_credential_in_input')
+        answer = _send_bound(history, body, case=prompt['binding'], run=run,
+                             parent=parent, credential=self.credential,
+                             context_sha256=digest(dict(prompt=prompt, disclosure=disclosure)))
+        if self.credential is not None:
+            require(self.credential.value.encode() not in answer, 'responses_credential_echo_refused')
+        reply = restore(decode(answer), run=run, disclosure=disclosure, binding_hash=prompt['binding_hash'])
+        supplied = {row['id']: row for query in prompt['query_results'] for row in query['rows']}
+        validate_final(reply['result'], supplied, prompt['reconciliation'], self.clock())
+        return encoded(reply)
+
     def _post(self, body, *, timeout):
         return self.http.post(body, credential=self.credential, project=SYNTHETIC_PROJECT, timeout=timeout)

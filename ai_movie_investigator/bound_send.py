@@ -3,7 +3,7 @@
 The internal path is exercised with injected trusted-parent and recording-sink
 fixtures only. It does not enroll authority or establish prices or live access.
 """
-from .contracts import decode, digest, encoded, require, shape, scope, stamp
+from .contracts import decode, digest, encoded, require, shape, scope, stamp, hash_id
 from .history import History
 from .responses_protocol import MODEL, parse_response
 from .controller import output_schema
@@ -15,7 +15,7 @@ def send(*args, **kwargs):
     raise ValueError('responses_real_authorization_unimplemented')
 
 
-def _send_bound(history, body, *, case, run, parent, credential):
+def _send_bound(history, body, *, case, run, parent, credential, context_sha256=None):
     """Only trusted integration code supplies parent, never movie data. The HTTP boundary is fixed.
 
     Keep the whole monetary reservation as a conservative debit. A future real
@@ -28,6 +28,8 @@ def _send_bound(history, body, *, case, run, parent, credential):
     require(type(body) is bytes and encoded(request) == body, 'binding_body')
     require(request.get('model') == MODEL, 'binding_model')
     selected = dict(run=run, case=case, request_sha256=digest(request))
+    if context_sha256 is not None:
+        selected['local_context_sha256'] = hash_id(context_sha256)
     # The trusted parent's result is the sole source of project and limits.
     permit = decode(encoded(parent.authorize(selected, body)), 8192)
     shape(permit, 'selection project model expires_at input_limit output_limit maximum_debit currency')

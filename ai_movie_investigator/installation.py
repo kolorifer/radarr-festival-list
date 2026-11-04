@@ -17,7 +17,7 @@ RUNTIME_FILES = (
     'ai_movie_investigator/installation.py',
     'ai_movie_investigator/weekly_ledger.py', 'ai_movie_investigator/disclosure.py',
     'ai_movie_investigator/pilot_account.py', 'ai_movie_investigator/parent_pilot.py',
-    'ai_movie_investigator/pilot_fixture.py',
+    'ai_movie_investigator/pilot_fixture.py', 'ai_movie_investigator/bound_send.py',
     'identity_triage_intake.py', 'identity_triage_store.py', 'identity_selection.py',
     'torrent_research_evidence.py', 'identity_research_handoff.py',
     'identity_research_provider.py', 'identity_research_store.py', 'identity_recurring_store.py',
