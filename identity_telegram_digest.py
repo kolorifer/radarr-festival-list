@@ -143,7 +143,14 @@ class Digest:
         finally:
             c.close()
 
-    def tick(self, rows, send, now):
+    def tick(self, rows, send, now, *, exact_message=None, record_outcome=None):
+        # Optional single selected draft; default production digest is unchanged.
+        # Validate before reservation, then retain the same uncertainty protocol.
+        if exact_message is not None:
+            if (not isinstance(exact_message, str) or not exact_message or
+                    len(exact_message.encode('utf-8')) > 4096 or
+                    len(rows) != 1 or rows[0][3] != exact_message):
+                raise ValueError('digest_exact_message')
         selected = []
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE')
@@ -160,8 +167,11 @@ class Digest:
                     break
         if not selected:
             return 0
-        message = 'Movie identification update\n\n' + '\n\n'.join(x[2] for x in selected)
-        message += '\n\nNo correction or download performed. Any proposed identity correction needs your review in the main ChatGPT conversation.'
+        if exact_message is None:
+            message = 'Movie identification update\n\n' + '\n\n'.join(x[2] for x in selected)
+            message += '\n\nNo correction or download performed. Any proposed identity correction needs your review in the main ChatGPT conversation.'
+        else:
+            message = exact_message
         state = 'sent'; due = now
         try:
             if send(message) != 200:
@@ -180,6 +190,8 @@ class Digest:
                 state = 'retry'; due = now + delay
         except Exception:
             state = 'uncertain'
+        if record_outcome is not None:
+            record_outcome(state, due)
         with self.connect() as c:
             c.executemany('UPDATE delivery SET state=?,due=? WHERE case_id=? AND version=?',
                           [(state, due, cid, key) for cid, key, _ in selected])
