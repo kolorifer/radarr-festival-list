@@ -1,4 +1,6 @@
 import io
+import errno
+import sys
 import tempfile
 import time
 import unittest
@@ -18,6 +20,12 @@ from ai_movie_investigator.responses_transport import real_activation_refusal
 
 class SupervisedCreditTests(unittest.TestCase):
     def setUp(self):
+        if sys.platform.startswith('linux'):
+            # Hosted runner ancestors may have ACLs. Replace only kernel ACL
+            # metadata I/O for this fixture; never relax the runtime guard.
+            acl_io=patch('ai_movie_investigator.private_files.os.getxattr',
+                         side_effect=OSError(errno.ENODATA,'fixture absent ACL'))
+            acl_io.start();self.addCleanup(acl_io.stop)
         self.tmp=tempfile.TemporaryDirectory(dir=Path.cwd());self.addCleanup(self.tmp.cleanup)
         self.root=Path(self.tmp.name).resolve()
         self.state=self.root/'state';self.state.mkdir(mode=0o700)
@@ -224,3 +232,15 @@ class SupervisedCreditTests(unittest.TestCase):
             return raw
         with patch.object(command,'read_private',side_effect=changed):
             with self.assertRaisesRegex(Refusal,'supervised_evidence_changed'):self.selected.revalidate()
+
+    def test_linux_acl_absence_presence_and_unknown_are_distinct(self):
+        from ai_movie_investigator.private_files import linux_acl
+        with patch('os.getxattr',side_effect=OSError(errno.ENODATA,'absent'),create=True) as read:
+            linux_acl(123,True)
+            self.assertEqual([c.args[1] for c in read.call_args_list],
+                             ['system.posix_acl_access','system.posix_acl_default'])
+        for result in (b'present', OSError(errno.ENOTSUP,'unknown')):
+            with patch('os.getxattr',create=True) as read:
+                if isinstance(result,Exception):read.side_effect=result
+                else:read.return_value=result
+                with self.assertRaisesRegex(Refusal,'storage_acl'):linux_acl(123,False)

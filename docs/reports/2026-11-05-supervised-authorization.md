@@ -34,7 +34,7 @@ movie/research paths. No new service, worker, claim, credentials or API call.
 
 ## Validation and remaining limits
 
-78 focused command, credit, bound-send and Responses tests passed on the available
+79 focused command, credit, bound-send and Responses tests passed on the available
 system Python 3.9, with terminal and HTTP I/O replaced by fixtures. New regressions
 cover actual expiry with a frozen caller clock, wall rollback, missing/forged/
 expired transactions, missing prompt provenance and ACL/ancestor refusal.
@@ -53,3 +53,10 @@ individual read still checks ctime before/after, and every revalidation checks
 current ownership, mode, link count, ACL and ancestor safety. This does not detect
 all same-owner changes restored between reads (including restored mtime); it is
 not swap-and-restore protection. Two regressions cover both boundaries.
+
+The first supported CI run refused all command fixtures because the Linux hosted
+runner ancestors carry ACLs. Portable command tests now supply explicit absent
+ACL syscall metadata on Linux only; separate tests require rejection of present
+or unsupported ACL metadata. The runtime guard is unchanged. The independent
+macOS installed run exercised native ACL inspection, while Linux positive command
+CI proves behavior with fixture ACL facts, not hosted-runner privacy.
