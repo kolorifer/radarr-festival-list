@@ -41,7 +41,8 @@ def refusal_category(error):
             'storage_acl_unsupported','acl_unsupported','parent_changed','supervised_storage_changed','supervised_root_changed'),
         'state_or_binding_refused':('supervised_not_enrolled','supervised_enrollment_binding','supervised_attempt_consumed',
             'supervised_enrollment_exists','supervised_reauthorization_state','supervised_reauthorization_binding',
-            'supervised_reauthorization_uncertain','supervised_reauthorization_evidence'),
+            'supervised_reauthorization_uncertain','supervised_reauthorization_evidence',
+            'supervised_recovery_state','supervised_recovery_binding','supervised_recovery_evidence'),
         'credit_limit_refused':('credit_total_ceiling','supervised_credit_only'),
         'interactive_input_refused':('supervised_interactive_terminal_required','supervised_prompt_required'),
         'credential_format_invalid':('responses_credential_invalid',),
@@ -153,6 +154,11 @@ def validate_evidence(e,now):
 def selection_binding(events,enrolled,selected,slot):
     """Resolve one manual renewal without replacing enrollment or old slots."""
     require(enrolled.get('project')==selected.data['project'],'supervised_enrollment_binding')
+    if slot==3:
+        recovery_binding(events,enrolled,selected)
+        return
+    require(not any(e['type'].startswith('supervised_recovery') for e in events),
+            'supervised_attempt_consumed')
     renewals=[e for e in events if e.get('type')=='supervised_reauthorized']
     if not renewals:
         require(enrolled.get('evidence_sha256')==selected.sha256,'supervised_enrollment_binding')
@@ -214,6 +220,119 @@ def reauthorize(directory,previous,selected):
     return dict(status='reauthorized_no_api_call',permitted_slot=2)
 
 
+def recovery_binding(events,enrolled,selected):
+    """One explicit local extension; neither a new enrollment nor a refund."""
+    require(len(events)>=7 and events[5]['type']=='supervised_recovery_started' and
+            events[6]['type']=='supervised_recovery_authorized','supervised_recovery_binding')
+    start,grant=events[5:7]
+    shape(start,'type at prefix_sha256 evidence_sha256 project expires_at previous_sha256 '
+                'credit_sha256 attempt_sha256 request_sha256 permitted_slot cumulative_usd')
+    shape(grant,'type at start_sha256 attempt')
+    require(start['prefix_sha256']==digest(events[:5]) and grant['start_sha256']==digest(start) and
+            start['evidence_sha256']==selected.sha256 and start['project']==enrolled['project'] and
+            start['expires_at']==selected.data['expires_at'] and
+            start['previous_sha256']==events[3]['evidence_sha256'] and
+            type(start['permitted_slot']) is int and start['permitted_slot']==3 and
+            start['cumulative_usd']==[6,100] and
+            start['request_sha256']==digest(decode(request('synthetic-integration-3'))) and
+            selected.data['observed_at']<=stamp(start['at'])<=stamp(grant['at'])<start['expires_at'] and
+            all(e['type'] in ('supervised_started','supervised_completed') and e.get('slot')==3
+                for e in events[7:]),'supervised_recovery_binding')
+    require(rational(selected.data['available_usd'])>=rational([6,100]),'supervised_credit_only')
+    return start,grant
+
+
+def attempt_pin(events,enrolled,slot):
+    return events[6]['attempt'] if slot==3 else enrolled['attempts'][str(slot)]
+
+
+def recovery_retained(root,events,enrolled,selected,credit):
+    """Recheck the retained debit/attempt before admission and each wire check."""
+    start,_=recovery_binding(events,enrolled,selected)
+    require(enrolled['root']==list(root.identity) and enrolled['credit']==list(credit.identity) and
+            enrolled['credit_file']==file_identity(credit),'supervised_storage_changed')
+    for slot in (1,2):
+        old=History(root.directory/f'attempt-{slot}')
+        require(list(old.identity)==enrolled['attempts'][str(slot)],'supervised_storage_changed')
+        if slot==1:require(not any(old.directory.iterdir()),'supervised_recovery_state')
+        else:require(digest(old.read())==start['attempt_sha256'],'supervised_recovery_state')
+    reservations=credit.read()
+    require(len(reservations) in (1,2) and digest(reservations[:1])==start['credit_sha256'],
+            'supervised_recovery_state')
+    if len(reservations)==2:
+        require(reservations[1]['request_hash']==start['request_sha256'] and
+                reservations[1]['reserved_usd']==[3,100],'supervised_recovery_state')
+    return rational([6,100])
+
+
+def recover_once(directory,previous,selected):
+    """Manual, append-only slot3 for the exact retained two-slot failure shape.
+
+    A failure after the start append is terminal. Never recreate or repair it.
+    This command has no credential, HTTP or automatic run path.
+    """
+    require(type(previous) is SelectedEvidence and type(selected) is SelectedEvidence,
+            'supervised_evidence_selection')
+    previous.revalidate();selected.revalidate()
+    old,new=previous.data,selected.data
+    validate_evidence(old,stamp(old['observed_at']))
+    validate_evidence(new,time.time())
+    require(previous.path!=selected.path and previous.identity[:2]!=selected.identity[:2] and
+            previous.sha256!=selected.sha256 and old['project']==new['project'] and
+            old['expires_at']<=new['observed_at'] and rational(new['available_usd'])>=rational([6,100]),
+            'supervised_recovery_evidence')
+    root=History(Path(directory))
+    with root.transaction(write=True) as (events,append):
+        require(len(events)==5 and [e['type'] for e in events]==[
+            'supervised_enrollment_started','supervised_enrolled','supervised_started',
+            'supervised_reauthorized','supervised_started'],'supervised_recovery_state')
+        enrolled=events[1]
+        selection_binding(events,enrolled,previous,2)
+        shape(events[4],'type slot at evidence_hash')
+        require(type(events[4]['slot']) is int and events[4]['slot']==2 and
+                events[4]['evidence_hash']==digest(old) and
+                old['observed_at']<=stamp(events[4]['at'])<old['expires_at'], 'supervised_recovery_state')
+        credit=History(root.directory/'credit')
+        require(enrolled['root']==list(root.identity) and enrolled['credit']==list(credit.identity) and
+                enrolled['credit_file']==file_identity(credit),'supervised_storage_changed')
+        for slot in (1,2):
+            attempt=History(root.directory/f'attempt-{slot}')
+            require(list(attempt.identity)==enrolled['attempts'][str(slot)],'supervised_storage_changed')
+            if slot==1:require(not any(attempt.directory.iterdir()),'supervised_recovery_state')
+        with credit.transaction(file_identity=enrolled['credit_file']) as (reservations,_), \
+             attempt.transaction() as (prior,_):
+            fingerprint=digest(decode(request('synthetic-integration-2')))
+            require(len(reservations)==1 and ledger_total(reservations,new['project'])==PER_REQUEST and
+                    reservations[0]['request_hash']==fingerprint,'supervised_recovery_state')
+            require(len(prior)==2 and prior[0]['type']=='bound_send_reserved' and
+                    prior[1]['type']=='bound_send_attempted' and
+                    prior[1]['request_sha256']==fingerprint,'supervised_recovery_state')
+            permit=prior[0]['permit']
+            require(permit['selection']['run']=='synthetic-integration-2' and
+                    permit['selection']['request_sha256']==fingerprint and
+                    permit['selection']['local_context_sha256']==digest(old) and
+                    permit['project']==new['project'] and permit['model']==INTEGRATION_MODEL and
+                    permit['maximum_debit']==[3,100] and permit['input_limit']==CONTEXT_TOKENS and
+                    permit['output_limit']==OUTPUT_TOKENS,'supervised_recovery_state')
+            # Refuse preexisting files/directories, including broken symlinks.
+            target=root.directory/'attempt-3'
+            require(not os.path.lexists(target),'supervised_recovery_state')
+            previous.revalidate();selected.revalidate()
+            now=time.time();validate_evidence(new,now)
+            root.require_write_transaction(events)
+            start=dict(type='supervised_recovery_started',at=now,prefix_sha256=digest(events),
+                evidence_sha256=selected.sha256,project=new['project'],expires_at=new['expires_at'],
+                previous_sha256=previous.sha256,credit_sha256=digest(reservations),attempt_sha256=digest(prior),
+                request_sha256=digest(decode(request('synthetic-integration-3'))),
+                permitted_slot=3,cumulative_usd=[6,100])
+            append(start)
+            target.mkdir(mode=0o700)
+            new_attempt=History(target)
+            append(dict(type='supervised_recovery_authorized',at=time.time(),
+                        start_sha256=digest(start),attempt=list(new_attempt.identity)))
+    return dict(status='recovery_authorized_no_api_call',permitted_slot=3,cumulative_usd=[6,100])
+
+
 def prompt_credential():
     require(sys.stdin.isatty() and sys.stderr.isatty(),'supervised_interactive_terminal_required')
     # getpass falls back to echoed input if terminal setup fails; forbid that.
@@ -247,7 +366,7 @@ def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None)
 
 
 def run(directory,selected,slot,*,clock=time.time):
-    require(type(slot) is int and slot in (1,2),'supervised_slot')
+    require(type(slot) is int and slot in (1,2,3),'supervised_slot')
     require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
     selected.revalidate()
     evidence=selected.data
@@ -263,9 +382,10 @@ def run(directory,selected,slot,*,clock=time.time):
         credit=History(root.directory/'credit',clock=clock)
         history=History(root.directory/f'attempt-{slot}',clock=clock)
         require(enrolled['credit']==list(credit.identity) and enrolled['credit_file']==file_identity(credit) and
-                enrolled['attempts'][str(slot)]==list(history.identity),'supervised_storage_changed')
+                attempt_pin(events,enrolled,slot)==list(history.identity),'supervised_storage_changed')
+        ceiling=recovery_retained(root,events,enrolled,selected,credit) if slot==3 else TOTAL
         with credit.transaction(file_identity=enrolled['credit_file']) as (old,_):
-            require(ledger_total(old,evidence['project'])+PER_REQUEST<=TOTAL,'credit_total_ceiling')
+            require(ledger_total(old,evidence['project'],ceiling=ceiling)+PER_REQUEST<=ceiling,'credit_total_ceiling')
         require(not history.read(),'supervised_attempt_consumed')
         run_id=f'synthetic-integration-{slot}'
         case=dict(source='synthetic-credit-integration',case_id='outcome-'+digest('synthetic-example'),
@@ -307,8 +427,11 @@ def main(argv=None):
     renewal=sub.add_parser('reauthorize')
     renewal.add_argument('--previous-evidence',required=True,type=Path)
     renewal.add_argument('--evidence',required=True,type=Path)
+    recovery=sub.add_parser('recover-once')
+    recovery.add_argument('--previous-evidence',required=True,type=Path)
+    recovery.add_argument('--evidence',required=True,type=Path)
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
-    send.add_argument('--slot',required=True,type=int,choices=(1,2))
+    send.add_argument('--slot',required=True,type=int,choices=(1,2,3))
     args=parser.parse_args(argv)
     try:
         if args.action=='enroll':
@@ -317,6 +440,8 @@ def main(argv=None):
         elif args.action=='reauthorize':
             previous=read_evidence(args.previous_evidence);selected=read_evidence(args.evidence)
             result=reauthorize(args.state,previous,selected)
+        elif args.action=='recover-once':
+            result=recover_once(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence))
         else:result=run(args.state,read_evidence(args.evidence),args.slot)
         print(encoded(result).decode());return 0
     except (Exception,KeyboardInterrupt) as error:

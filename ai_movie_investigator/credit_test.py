@@ -32,13 +32,14 @@ def request(run):
         text=dict(format=dict(type='json_schema',name='retained_investigator_v1',strict=True,schema=output_schema()))))
 
 
-def ledger_total(events, project):
+def ledger_total(events, project, *, ceiling=TOTAL):
+    require(ceiling in (TOTAL, Fraction(6,100)), 'credit_total_ceiling')
     require(all(e['type']=='credit_test_reserved' and e['project']==project and
                 e['model']==INTEGRATION_MODEL and type(e['reserved_usd']) is list and
                 all(type(v) is int for v in e['reserved_usd']) and e['reserved_usd'] in ([1,100],[3,100])
                 for e in events), 'credit_budget_changed')
     total=sum((Fraction(*e['reserved_usd']) for e in events), Fraction(0))
-    require(total <= TOTAL, 'credit_total_ceiling')
+    require(total <= ceiling, 'credit_total_ceiling')
     return total
 
 
@@ -54,10 +55,12 @@ def reserve(history, *, project, request_hash, input_bound, now, file_identity, 
     require(type(input_bound) is int and (input_bound==CONTEXT_TOKENS if full_context else 0<input_bound<=INPUT_TOKENS), 'credit_input_bound')
     maximum = input_bound * INPUT_RATE + OUTPUT_TOKENS * OUTPUT_RATE
     require(maximum <= Fraction(*debit), 'credit_request_ceiling')
+    from .supervised_authorization import reservation_ceiling
+    ceiling=reservation_ceiling(history,project,request_hash)
     with history.transaction(write=True, file_identity=file_identity) as (events, append):
-        retained=ledger_total(events,project)
+        retained=ledger_total(events,project,ceiling=ceiling)
         require(not any(e['request_hash'] == request_hash for e in events), 'credit_request_consumed')
-        require(retained + Fraction(*debit) <= TOTAL, 'credit_total_ceiling')
+        require(retained + Fraction(*debit) <= ceiling, 'credit_total_ceiling')
         require(all(now >= e['at'] for e in events), 'credit_clock_rollback')
         append(dict(type='credit_test_reserved', project=project, model=INTEGRATION_MODEL,
                     request_hash=request_hash, reserved_usd=list(debit), at=now))
