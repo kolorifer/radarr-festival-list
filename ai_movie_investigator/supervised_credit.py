@@ -32,6 +32,8 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
     'transport_refused': frozenset((
+        'responses_observation_profile responses_observation_transition '
+        'responses_setup_deadline_exceeded responses_observation_deadline_exceeded '
         'responses_cleanup_failed '
         'responses_body_limit responses_body_truncated responses_credential_invalid responses_deadline '
         'responses_deadline_exceeded responses_dns_failed responses_http_rejected responses_http_shape '
@@ -47,6 +49,7 @@ _SAFE_REASON_GROUPS = {
         'responses_unsupported_shape responses_usage_invalid responses_usage_limit responses_usage_required '
     ).split()),
     'binding_refused': frozenset((
+        'supervised_observation_binding '
         'binding_attempt_consumed binding_authority binding_body binding_debit '
         'binding_expired binding_history binding_history_changed binding_model '
         'binding_parent_refused binding_project binding_receipt_refused binding_response_unknown '
@@ -142,6 +145,7 @@ def refusal_category(error):
         'credential_format_invalid':('responses_credential_invalid',),
         'http_rejected':('responses_http_rejected',),
         'network_outcome_unknown':('responses_network_completion_unknown',),
+        'local_deadline_outcome_unknown':('responses_setup_deadline_exceeded','responses_observation_deadline_exceeded'),
         'send_or_response_refused':('supervised_authorization_refused','responses_real_authorization_unimplemented',
             'binding_response_unknown','binding_usage_unknown','binding_receipt_refused'),
     }

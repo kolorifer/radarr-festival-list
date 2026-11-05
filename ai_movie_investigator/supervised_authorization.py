@@ -115,6 +115,21 @@ def authorization_for(path,body,credential,project,fallback=None):
     return token
 
 
+def response_observation_window(token,body,credential,project,path):
+    """Observation of one bound synthetic response, never extra send authority."""
+    session=_ACTIVE.get()
+    if session is None:return None
+    session.root.require_write_transaction(session.events)
+    require(type(token) is _Permit and token in session.issued and
+            session.issued[token]==(path,body,credential,project,True) and
+            credential is session.credential and path=='/v1/responses' and
+            body==request(session.run) and project==session.enrolled['project'],
+            'supervised_observation_binding')
+    # HTTP just consumed this exact token after full pre-send validation. The
+    # existing pre-connect/pre-POST checks still require unexpired authority.
+    return 120
+
+
 def refusal(token,*,body=None,credential=None,project=None,path=None,consume=True):
     session=_ACTIVE.get()
     if type(token) is not _Permit or session is None or token not in session.issued:
