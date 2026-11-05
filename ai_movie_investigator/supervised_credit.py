@@ -216,4 +216,7 @@ def main(argv=None):
 
 
 if __name__=='__main__':
-    raise SystemExit(main())
+    # -m executes this file as __main__; authority imports the canonical module.
+    # Use its classes and prompt ContextVar throughout the executable command.
+    from ai_movie_investigator.supervised_credit import main as canonical_main
+    raise SystemExit(canonical_main())
