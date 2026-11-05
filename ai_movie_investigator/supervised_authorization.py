@@ -9,7 +9,7 @@ import os
 import time
 
 from .contracts import Refusal, decode, digest, require
-from .credit_test import request, ledger_total, CONTEXT_TOKENS
+from .credit_test import request, ledger_total, CONTEXT_TOKENS, TOTAL
 from .history import checked, FILENAME
 from .responses_protocol import INTEGRATION_SHUTDOWN
 
@@ -47,7 +47,7 @@ class _Session:
 
     def check(self,path,body,credential,project):
         from .supervised_credit import validate_evidence, file_identity
-        from .supervised_credit import require_prompted, selection_binding
+        from .supervised_credit import require_prompted, selection_binding, attempt_pin
         self.root.require_write_transaction(self.events)
         require(self.events[1] is self.enrolled, 'supervised_enrollment_binding')
         require_prompted(self.root,credential)
@@ -60,7 +60,7 @@ class _Session:
         require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
         require(credential is self.credential,'supervised_credential_binding')
         for h,pin in ((self.root,self.enrolled['root']),(self.credit,self.enrolled['credit']),
-                      (self.history,self.enrolled['attempts'][str(self.slot)])):
+                      (self.history,attempt_pin(self.events,self.enrolled,self.slot))):
             info=h.directory.lstat();checked(info,True)
             require([info.st_dev,info.st_ino]==pin,'supervised_storage_changed')
         require(file_identity(self.credit)==self.enrolled['credit_file'],'supervised_storage_changed')
@@ -69,7 +69,7 @@ class _Session:
         require(type(body) is bytes and body==expected,'supervised_request_binding')
         fingerprint=digest(decode(body))
         reservations=self.credit.read()
-        ledger_total(reservations,project)
+        ledger_total(reservations,project,ceiling=reservation_ceiling(self.credit,project,fingerprint))
         selected=[r for r in reservations if r['request_hash']==fingerprint]
         require(len(selected)==1 and selected[0]['reserved_usd']==[3,100],'supervised_reservation_required')
         rows=[r for r in self.events if r.get('slot')==self.slot]
@@ -89,7 +89,7 @@ class _Session:
 
 @contextmanager
 def command_authority(root,events,enrolled,selected,slot,credit,history,credential):
-    from .supervised_credit import SelectedEvidence, require_prompted, selection_binding
+    from .supervised_credit import SelectedEvidence, require_prompted, selection_binding, attempt_pin
     root.require_write_transaction(events)
     require(len(events)>1 and events[1] is enrolled, "supervised_enrollment_binding")
     require_prompted(root,credential)
@@ -129,3 +129,21 @@ def refusal(token,*,body=None,credential=None,project=None,path=None,consume=Tru
         return None
     except (Refusal,OSError,ValueError,TypeError,KeyError):
         return 'supervised_authorization_refused'
+
+
+def reservation_ceiling(history,project,request_hash):
+    """Only an active root-locked manual slot3 can exceed the normal five cents."""
+    session=_ACTIVE.get()
+    if session is None or session.slot!=3:return TOTAL
+    from .supervised_credit import recovery_retained, selection_binding, require_prompted, validate_evidence
+    session.root.require_write_transaction(session.events)
+    require(session.events[1] is session.enrolled and history is session.credit and
+            project==session.enrolled['project'] and request_hash==digest(decode(request(session.run))),
+            'supervised_recovery_binding')
+    require_prompted(session.root,session.credential)
+    session.selected.revalidate()
+    validate_evidence(session.selected.data,session.check_time())
+    selection_binding(session.events,session.enrolled,session.selected,3)
+    ceiling=recovery_retained(session.root,session.events,session.enrolled,session.selected,history)
+    session.check_time()
+    return ceiling
