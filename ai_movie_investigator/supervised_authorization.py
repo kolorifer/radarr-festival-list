@@ -33,7 +33,7 @@ class _Session:
 
     def check(self,path,body,credential,project):
         from .supervised_credit import validate_evidence, file_identity
-        from .supervised_credit import require_prompted
+        from .supervised_credit import require_prompted, selection_binding
         self.root.require_write_transaction(self.events)
         require(self.events[1] is self.enrolled, 'supervised_enrollment_binding')
         require_prompted(self.root,credential)
@@ -45,8 +45,8 @@ class _Session:
         e=self.selected.data
         validate_evidence(e,now)
         require(now<INTEGRATION_SHUTDOWN,'integration_model_retired')
-        require(self.enrolled.get('evidence_sha256')==self.selected.sha256 and
-                self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
+        selection_binding(self.events,self.enrolled,self.selected,self.slot)
+        require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
         require(credential is self.credential,'supervised_credential_binding')
         for h,pin in ((self.root,self.enrolled['root']),(self.credit,self.enrolled['credit']),
                       (self.history,self.enrolled['attempts'][str(self.slot)])):
@@ -77,14 +77,13 @@ class _Session:
 
 @contextmanager
 def command_authority(root,events,enrolled,selected,slot,credit,history,credential):
-    from .supervised_credit import SelectedEvidence, require_prompted
+    from .supervised_credit import SelectedEvidence, require_prompted, selection_binding
     root.require_write_transaction(events)
     require(len(events)>1 and events[1] is enrolled, "supervised_enrollment_binding")
     require_prompted(root,credential)
     require(type(selected) is SelectedEvidence and _ACTIVE.get() is None,'supervised_operator_boundary')
     selected.revalidate()
-    require(enrolled.get('evidence_sha256')==selected.sha256 and enrolled.get('project')==selected.data['project'],
-            'supervised_enrollment_binding')
+    selection_binding(events,enrolled,selected,slot)
     session=_Session(root,events,enrolled,selected,slot,credit,history,credential)
     marker=_ACTIVE.set(session)
     try:yield
