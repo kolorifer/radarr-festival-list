@@ -405,27 +405,31 @@ def main():
     parser.add_argument('--reply', type=Path)
     parser.add_argument('--provenance', type=Path)
     parser.add_argument('--input', type=Path)
+    parser.add_argument('--selector', type=Path, help='Explicit case/version/title selector for prepare with a selected companion')
     parser.add_argument('--companion', type=Path, help='Optional private normalized observation, prepare only')
     parser.add_argument('--output-dir', type=Path, help='Existing owner-only private directory')
     parser.add_argument('--simulated-ceiling-millionths', type=int, default=500000)
     args = parser.parse_args()
     if args.live:
         parser.exit(2, real_activation_refusal(None) + '\n')
+    if args.selector is not None and (not args.prepare or args.complete or args.companion is None):
+        parser.error('--selector requires --prepare and --companion')
     if args.companion is not None and (not args.prepare or args.complete):
         parser.error('--companion requires --prepare only')
     if args.prepare or args.complete:
         from .manual_supervised import prepare, complete
+        from .source_case import Refused as SourceRefused
         if args.prepare == args.complete or args.output_dir is None:
             parser.error('Select exactly one manual operation and an output directory')
         try:
             if args.prepare:
                 if args.input is None: parser.error('--prepare requires --input')
-                prepare(args.input, args.output_dir, companion_path=args.companion)
+                prepare(args.input, args.output_dir, companion_path=args.companion, selector_path=args.selector)
             else:
                 if args.reply is None or args.provenance is None: parser.error('--complete requires --reply and --provenance')
                 complete(args.output_dir, args.reply, args.provenance)
             print('Supervised manual ' + ('prepared' if args.prepare else 'validated') + '; no generation or approval.')
-        except (Refusal, StorageError, OSError, ValueError, TypeError, KeyError, IndexError) as exc:
+        except (Refusal, SourceRefused, StorageError, OSError, ValueError, TypeError, KeyError, IndexError) as exc:
             parser.exit(2, 'Supervised manual refused: ' + (str(exc) if isinstance(exc, Refusal) else 'local_input_or_storage_error') + '\n')
         return
     if args.input is None or args.output_dir is None:

@@ -115,3 +115,28 @@ class CompanionTests(unittest.TestCase):
         projected=data['source_observation']['prior_reviews'][0]
         self.assertEqual(projected['occurrence'],'prior-occurrence-1');self.assertFalse(projected['selected_occurrence'])
         self.assertFalse(data['source_observation']['identity_approval'])
+
+
+    def test_explicit_selector_bytes_bind_assessment_request_and_freeze(self):
+        raw=paired_input();packet,fingerprint=parse_packet(raw)
+        selector={k:packet[k] for k in ('case_id','version','title')}
+        compact=encoded(selector);spaced=json.dumps(selector,indent=2).encode()
+        a,ar,_=context(packet,fingerprint,2000000000,companion=encoded(companion()),historical_raw=raw,selector_raw=compact)
+        b,br,_=context(packet,fingerprint,2000000000,companion=encoded(companion()),historical_raw=raw,selector_raw=spaced)
+        self.assertNotEqual(a['selector_sha256'],b['selector_sha256']);self.assertNotEqual(a['assessment_id'],b['assessment_id']);self.assertNotEqual(ar,br)
+        self.out=self.root/'selected';self.out.mkdir(mode=0o700)
+        selector_path=self.root/'selector.json';self.write(selector_path,compact)
+        self.selected=prepare(self.input,self.out,companion_path=self.source,selector_path=selector_path)
+        self.data=decode((self.out/'model-input.json').read_bytes(),32768)
+        self.assertEqual((self.out/'selector.json').read_bytes(),compact)
+        self.assertEqual(self.data['selector_binding'],self.selected['selector_sha256'])
+        self.write(self.out/'selector.json',spaced)
+        with self.assertRaisesRegex(Refusal,'manual_prepared_changed'):self.submit(self.answer())
+
+    def test_selector_mismatch_cannot_prepare_or_choose_fallback(self):
+        raw=paired_input();packet,fingerprint=parse_packet(raw)
+        selector={k:packet[k] for k in ('case_id','version','title')}
+        for key,value in [('case_id','outcome-'+'f'*64),('version','e'*64),('title','Other Film')]:
+            bad=dict(selector);bad[key]=value
+            with self.subTest(key=key),self.assertRaises(Refusal):
+                context(packet,fingerprint,2000000000,companion=encoded(companion()),historical_raw=raw,selector_raw=encoded(bad))

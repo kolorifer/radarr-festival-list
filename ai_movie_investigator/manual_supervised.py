@@ -33,7 +33,7 @@ def schema():
         disposition=dict(type='string', enum=['human_review_no_approval'])))
 
 
-def context(packet, fingerprint, prepared_at, *, companion=None, historical_raw=None):
+def context(packet, fingerprint, prepared_at, *, companion=None, historical_raw=None, selector_raw=None):
     binding, _, _, raw = build_request(packet, fingerprint, now=prepared_at)
     aid_fields = dict(binding=binding, input_sha256=fingerprint, prepared_at=prepared_at,
                       purpose='supervised_historical_assessment')
@@ -43,10 +43,19 @@ def context(packet, fingerprint, prepared_at, *, companion=None, historical_raw=
         require(historical_raw is not None and sha(historical_raw) == fingerprint, 'companion_historical_binding')
         observation = project(companion, packet, historical_raw, prepared_at)
         aid_fields['companion_sha256'] = sha(companion)
+    if selector_raw is not None:
+        from .source_selector import pair, validate_artifact
+        require(companion is not None and historical_raw is not None, 'selected_companion_required')
+        selector = decode(selector_raw, 4096)
+        pair(selector, historical_raw)
+        validate_artifact(companion, selector)
+        aid_fields['selector_sha256'] = sha(selector_raw)
     aid = digest(aid_fields)
     request = decode(raw, 65536)
     data = decode(request['input'][0]['content'][0]['text'], 32768)
     data['assessment_id'] = aid
+    if selector_raw is not None:
+        data['selector_binding'] = sha(selector_raw)
     if observation is not None:
         data['source_observation'] = observation
     data['qualifications']['output_limit'] = 'historical proposal or unresolved or blocked; human review, no approval'
@@ -59,6 +68,8 @@ def context(packet, fingerprint, prepared_at, *, companion=None, historical_raw=
                 request_sha256=sha(raw), prepared_at=prepared_at)
     if companion is not None:
         selected['companion_sha256'] = sha(companion)
+    if selector_raw is not None:
+        selected['selector_sha256'] = sha(selector_raw)
     return selected, raw, data
 
 
@@ -76,18 +87,22 @@ def write_once(dfd, name, raw):
         os.close(fd)
 
 
-def prepare(input_path, directory, *, companion_path=None):
+def prepare(input_path, directory, *, companion_path=None, selector_path=None):
     raw = read_private(input_path)
     packet, fingerprint = parse_packet(raw)
     require(packet['kind'] == 'historical_expanded_projection', 'manual_full_input_required')
     companion = read_private(companion_path, 32768) if companion_path is not None else None
-    selected, request, data = context(packet, fingerprint, time.time(), companion=companion, historical_raw=raw)
+    selector_raw = read_private(selector_path, 4096) if selector_path is not None else None
+    selected, request, data = context(packet, fingerprint, time.time(), companion=companion,
+                                      historical_raw=raw, selector_raw=selector_raw)
     directory = Path(directory)
     with private_chain(directory) as dfd:
         history = History(directory)
         with history.transaction(write=True) as (events, append):
             require(not events and set(os.listdir(dfd)) == {FILENAME}, 'manual_directory_consumed')
             append(dict(type='manual_prepare_started', selection=selected))
+            if selector_raw is not None:
+                write_once(dfd, 'selector.json', selector_raw)
             if companion is not None:
                 write_once(dfd, 'companion.json', companion)
             for name, body in [('input.json', raw), ('request.json', request),
@@ -181,8 +196,11 @@ def complete(directory, reply_path, provenance_path):
             companion = (read_private(directory / 'companion.json', 32768)
                          if 'companion_sha256' in selected else None)
             require(companion is not None or not os.path.lexists(directory / 'companion.json'), 'manual_unselected_companion')
+            selector_raw = (read_private(directory / 'selector.json', 4096)
+                            if 'selector_sha256' in selected else None)
+            require(selector_raw is not None or not os.path.lexists(directory / 'selector.json'), 'manual_unselected_selector')
             expected, request, data = context(packet, fingerprint, selected['prepared_at'],
-                                              companion=companion, historical_raw=raw)
+                companion=companion, historical_raw=raw, selector_raw=selector_raw)
             require(expected == selected and read_private(directory / 'request.json') == request
                     and read_private(directory / 'model-input.json') == encoded(data)
                     and read_private(directory / 'selection.json') == encoded(selected), 'manual_prepared_changed')

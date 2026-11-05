@@ -1,0 +1,19 @@
+# Explicit selected source reader
+
+## Completed brief
+
+Remove only fixed case, version and title constants from the accepted read-only collector/observer path. An explicit three-field JSON selector supplies `case_id`, `version` and the exact title disclosure binding. Keep fixed host-approved source paths, schema/query allowlists, safe-file and no-create controls, review/event/delivery reconciliation, refusal of stale, ambiguous and already-reviewed cases, and the final collector recheck. No scan, automatic fallback, new real occurrence selection, provider call, spending, deployment or production activation is authorized by this engineering change.
+
+## Implementation
+
+The existing reviewed query, row-budget, output-validation and journal-aware observer code is packaged as optional source-reader modules. All source query values remain bound SQLite parameters; the selector never becomes SQL or shell text. The original title-conflict status gate remains unchanged. The caller must provide the reviewed host adapter with read-only SQLite connections, fixed paths and inode/ownership/ACL checks, no-create/unlink confinement and bounded transport. Incidental atime, read locks and existing SHM bookkeeping remain permitted; this is not an absolute no-write claim or a requirement for an extra child process.
+
+The existing manual CLI now accepts `--prepare --selector ... --input ... --companion ... --output-dir ...`. It requires the explicit selection to match both retained historical input and completed source observation, freezes the original selector bytes, and binds their hash into assessment, request and selection. Completion revalidates all frozen inputs. Earlier runs without a selector remain unchanged. Source authenticity, complete decision coverage and physical identity remain external or unknown; source status is not production admission or acquisition approval.
+
+The host-specific standard pinned-SSH adapter remains private with its existing exact source paths and credential metadata. Its operator arguments select data files and the private preparation destination, not commands or new source paths. It captures selector bytes once, validates and pairs that value before transport, passes JSON bytes as data to the reviewed reader, retains each observation separately, releases bounded exclusion locks and feeds the exact artifact to prepare. Old helpers and private evidence are retained unchanged.
+
+## Validation
+
+72 focused tests passed on each supported Python version. Tests cover two distinct selections including a non-ASCII title, stale/missing/mismatched selectors, ambiguous delivery, current-occurrence review refusal, post-observer changes, unknown decision scope, minimized output, exact selector-to-request binding, frozen-byte tampering and historical compatibility. Network use is prohibited by test tripwires. Independent review identified and corrected exact selector binding and a double-read race in the private adapter; a synthetic swap test verifies one captured selector is paired and sent.
+
+The already-authorized case completed a new selected read and automatic preparation, followed by a supplied coordinator assessment and validated report. Independent artifact review verified all hashes and frozen bindings. A separate retained clarification corrects an overbroad phrase about event identity: normalized case and observation time match, while historical event/delivery identity remains unproven. The immutable report was preserved. Supported exact-head full CI is required before merge. No other actual case may be selected by this change. Private host configuration and artifacts are excluded from the repository. This report preserves the unrelated current implementation task and records the scoped state without republishing unrelated historical material.
