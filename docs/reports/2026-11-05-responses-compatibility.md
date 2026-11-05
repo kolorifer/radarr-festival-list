@@ -91,3 +91,8 @@ Projection preserves the audited known checks; it cannot interpret future
 provider context or billing fields. Newly documented material semantics require
 review. Existing instruction/sampling/truncation echo handling is unchanged;
 the fixed request and local correlation remain the authority for selected input.
+
+Initial public-head CI ran 1752 tests and found one older integration assertion
+that required rejecting a zero cache-write field. The assertion now requires
+acceptance with identical accounting for zero and refusal for nonzero writes.
+No runtime change was needed; the corrected head requires fresh CI.
