@@ -321,7 +321,7 @@ class ResponsesTests(unittest.TestCase):
         original = decode(simulated_response(simulated_replies(self.packet)[0], 1).body, wire.MAX_RESPONSE)
         mutations = [('status', 'incomplete'), ('status', 'failed'), ('model', 'gpt-other'), ('store', True),
                      ('background', True), ('tools', [dict(type='web_search')]), ('tool_choice', 'auto'),
-                     ('text', {}), ('text', None), ('unknown_schema', {}), ('output_text', 'extra answer'), ('max_output_tokens', OUTPUT_TOKENS+1), ('usage', None), ('id', 'PRIVATE/ID')]
+                     ('text', {}), ('text', None), ('conversation', {'id':'conv_FIXTURE'}), ('previous_response_id', 'resp_OTHER'), ('max_output_tokens', OUTPUT_TOKENS+1), ('usage', None), ('id', 'PRIVATE/ID')]
         for key, value in mutations:
             r = dict(original, **{key: value})
             with self.subTest(key=key), self.assertRaises(Refusal):

@@ -23,13 +23,13 @@
     "ai_movie_investigator/replay.py": "386838aba7e3019de9bf7a3bc10baa20e1dc49da34bf5950e09ce3d8223ffd4f",
     "ai_movie_investigator/research.py": "6907ac33bee6ffa1dc63c561eee4802b7769fd8bc98bb1f3fdad6760bdc17dd0",
     "ai_movie_investigator/responses_http.py": "65aadb7470eea8f4b61e08b24b95f227772cc218bc96d92a70029e818a237cfa",
-    "ai_movie_investigator/responses_protocol.py": "02512e5c310f45d2934a1a9afbcb10c45b93ec3f8203fd25d2d6503d0de9c804",
+    "ai_movie_investigator/responses_protocol.py": "0e495f8ee7c96fc0d4a68b4eb5b7ef5ced42cba07e3330a47f67ac665f0cdbc8",
     "ai_movie_investigator/responses_replay.py": "0827952c517210e4cb0be4016523e7cc62ab52b94ab0785fc814e6c4b02b71c7",
     "ai_movie_investigator/responses_transport.py": "5d3ed200362cebd9f93f02040174476f09c30132beb3c90abf3ef66f13798621",
     "ai_movie_investigator/review.py": "e4939155e64ed9dc5e8c23a75ba7b44fdfd0bc566e53abaccfbd5bb43d3d66ba",
     "ai_movie_investigator/spending.py": "ce169410bf5c178913c15b7976d6cf123779a5f158d377dfa25c0cae72cb7757",
     "ai_movie_investigator/supervised_authorization.py": "ae33426435d1b13f5094de91ebefdb04a67841b88cecf36f7929de2ce21c97a6",
-    "ai_movie_investigator/supervised_credit.py": "b9fa6444d622ef4337a16c68edfb98372ec69a0367dd37c33f25cdc9e66c7225",
+    "ai_movie_investigator/supervised_credit.py": "8e3c3be31c8600e1552d7877fa1afe7673120792095c752f7b26d8b9154a1c56",
     "ai_movie_investigator/synthetic.json": "e425037c034b7baba21eda464d697797b8a6d44ab710efbdf0d5cb93ead429ba",
     "ai_movie_investigator/weekly_ledger.py": "8d4baa073e6350729a05d7eaa241bc987a6b6a5df73a382542a379a9ca1c5f1a",
     "identity_recurring_store.py": "b90324300ac8e6348714bd2b5c5c3b67a537c3996294d02201edc0e7903e89bd",
@@ -52,6 +52,6 @@
     "test_investigator_catalogue.py": "538b1dd78b95dd6c4ac903a4814c4f578300c3604ea4266a07c33b7016b10c13",
     "test_issue127_correction.py": "a4fb1d76aa2b523baf86a326e6b08e8e2d3dc642d33d0853b1729647707557f6",
     "test_parent_pilot.py": "1cb85f3d723de01425c7634cf4a6903979d18c39bd9083ec1fdb650050db562d",
-    "test_responses_transport.py": "5b9d2e938358d74ad41ae5fdec2177633d8ca06a1b280f31e64bd3c26c004f17"
+    "test_responses_transport.py": "ee8b4e7d1af3c03732c870e8166bb131c3a70a2095f248f9934e9635f5cbba2f"
   }
 }

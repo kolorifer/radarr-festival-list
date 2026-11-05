@@ -60,26 +60,31 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
             and response.get('status') == 'completed' and response.get('model') == expected_model
             and response.get('error') is None and response.get('incomplete_details') is None,
             'responses_not_completed')
-    allowed = set(('id object status model error incomplete_details store background tools tool_choice '
-                   'max_output_tokens text output usage access_programs created_at completed_at instructions '
-                   'metadata parallel_tool_calls temperature top_p conversation max_tool_calls moderation '
-                   'output_text previous_response_id prompt prompt_cache_diagnostics prompt_cache_key '
-                   'prompt_cache_options prompt_cache_retention reasoning safety_identifier service_tier '
-                   'tool_usage top_logprobs truncation user').split())
-    require(not set(response) - allowed and all(response.get(key) is None for key in
-            ('conversation', 'previous_response_id', 'prompt', 'output_text'))
-            and response.get('tool_usage') in (None, {}), 'responses_unsupported_shape')
+    # Project only fields used by this protocol. Additive envelope metadata is
+    # bounded by decode(), never evaluated or returned in accounting.
+    require(all(response.get(key) is None for key in
+            ('conversation', 'previous_response_id', 'prompt')), 'responses_context_changed')
+    validate_tool_usage(response.get('tool_usage'))
     rid = response_id(response.get('id'))
     # Require echoes of the selected privacy/foreground/tool/output contract.
     require(isinstance(response.get('text'), dict), 'responses_contract_changed')
+    format_value = response['text'].get('format')
+    selected_format = dict(type='json_schema', name='retained_investigator_v1', strict=True, schema=schema)
+    require(isinstance(format_value, dict) and set(format_value) <= set(selected_format) | {'description'}
+            and all(format_value.get(k) == v for k, v in selected_format.items())
+            and format_value.get('strict') is True
+            and (format_value.get('description') is None or isinstance(format_value['description'], str)),
+            'responses_contract_changed')
     require(response.get('store') is False and response.get('background') is False
             and response.get('tools') == [] and response.get('tool_choice') == 'none'
-            and response.get('max_output_tokens') == OUTPUT_TOKENS
-            and response.get('text', {}).get('format') ==
-            dict(type='json_schema', name='retained_investigator_v1', strict=True, schema=schema),
+            and response.get('max_output_tokens') == OUTPUT_TOKENS,
             'responses_contract_changed')
-    require(response.get('service_tier') == 'default' and
-            response.get('prompt_cache_options') == ({'ttl': '30m'} if expected_model == MODEL else None) and
+    cache = response.get('prompt_cache_options')
+    cache_ok = cache is None if expected_model == INTEGRATION_MODEL else (
+        isinstance(cache, dict) and set(cache) <= {'ttl', 'mode', 'comparison_response_id'}
+        and cache.get('ttl') == '30m' and cache.get('mode', 'implicit') == 'implicit'
+        and cache.get('comparison_response_id') is None)
+    require(response.get('service_tier') == 'default' and cache_ok and
             response.get('prompt_cache_diagnostics') is None and
             response.get('prompt_cache_retention') is None and
             response.get('prompt_cache_key') is None, 'responses_cache_or_tier_changed')
@@ -99,7 +104,9 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
                     and item.get('status') in (None, 'completed'), 'responses_reasoning_shape')
             response_id(item.get('id'))
             continue
-        require(set(item) == {'id', 'type', 'role', 'status', 'content'}
+        require({'id', 'type', 'role', 'status', 'content'} <= set(item)
+                <= {'id', 'type', 'role', 'status', 'content', 'phase'}
+                and item.get('phase') in (None, 'final_answer')
                 and item['type'] == 'message' and item['role'] == 'assistant'
                 and item['status'] == 'completed', 'responses_action_or_output_denied')
         response_id(item['id'])
@@ -134,18 +141,22 @@ def validate_usage(usage, *, legacy=False):
     require(usage['input_tokens'] > 0 and usage['output_tokens'] > 0
             and usage['total_tokens'] == usage['input_tokens'] + usage['output_tokens'], 'responses_usage_invalid')
     input_details = usage['input_tokens_details']
+    require(isinstance(input_details, dict) and {'cached_tokens'} <= set(input_details)
+            <= {'cached_tokens', 'cache_write_tokens', 'cache_write_tokens_details'}, 'responses_usage_invalid')
     if legacy:
-        require(isinstance(input_details, dict) and set(input_details) == {'cached_tokens'} and
-                type(input_details['cached_tokens']) is int and
+        require(type(input_details['cached_tokens']) is int and
                 0 <= input_details['cached_tokens'] <= usage['input_tokens'], 'responses_usage_invalid')
+        writes = input_details.get('cache_write_tokens', 0)
+        require(type(writes) is int and writes == 0, 'responses_cache_partition')
+        partition = input_details.get('cache_write_tokens_details')
+        require(partition is None or zero_counts(partition, {'ttl_30m_tokens', 'ttl_12h_tokens'}),
+                'responses_cache_partition')
         output_details = usage['output_tokens_details']
         require(isinstance(output_details, dict) and set(output_details) == {'reasoning_tokens'} and
                 type(output_details['reasoning_tokens']) is int and
                 0 <= output_details['reasoning_tokens'] <= usage['output_tokens'], 'responses_usage_invalid')
-        return usage
-    require(isinstance(input_details, dict) and set(input_details) ==
-            {'cached_tokens', 'cache_write_tokens', 'cache_write_tokens_details'},
-            'responses_usage_invalid')
+        return dict(usage, input_tokens_details={'cached_tokens': input_details['cached_tokens']})
+    require('cache_write_tokens' in input_details, 'responses_usage_invalid')
     for detail in ('cached_tokens', 'cache_write_tokens'):
         require(type(input_details[detail]) is int and 0 <= input_details[detail] <= usage['input_tokens'],
                 'responses_usage_invalid')
@@ -153,7 +164,9 @@ def validate_usage(usage, *, legacy=False):
     # accepting both individually must not leave a negative ordinary remainder.
     require(input_details['cached_tokens'] + input_details['cache_write_tokens'] <= usage['input_tokens'],
             'responses_usage_invalid')
-    writes = input_details['cache_write_tokens_details']
+    writes = input_details.get('cache_write_tokens_details')
+    if writes is None and input_details['cache_write_tokens'] == 0:
+        writes = {'ttl_30m_tokens': 0, 'ttl_12h_tokens': 0}
     require(isinstance(writes, dict) and set(writes) == {'ttl_30m_tokens', 'ttl_12h_tokens'} and
             all(type(v) is int and v >= 0 for v in writes.values()) and
             writes['ttl_12h_tokens'] == 0 and
@@ -162,4 +175,36 @@ def validate_usage(usage, *, legacy=False):
     require(isinstance(output_details, dict) and set(output_details) == {'reasoning_tokens'}
             and type(output_details['reasoning_tokens']) is int
             and 0 <= output_details['reasoning_tokens'] <= usage['output_tokens'], 'responses_usage_invalid')
-    return usage
+    return dict(usage, input_tokens_details=dict(input_details, cache_write_tokens_details=writes))
+
+
+def zero_counts(value, keys):
+    return (isinstance(value, dict) and set(value) == keys
+            and all(type(v) is int and v == 0 for v in value.values()))
+
+
+def validate_tool_usage(value):
+    """Known zero billing counters are metadata, never permission for a tool."""
+    if value is None:
+        return
+    require(isinstance(value, dict) and set(value) <= {'image_gen', 'web_search'},
+            'responses_tool_usage_denied')
+    if 'web_search' in value:
+        require(zero_counts(value['web_search'], {'num_requests'}), 'responses_tool_usage_denied')
+    if 'image_gen' not in value:
+        return
+    image = value['image_gen']
+    required = {'input_tokens', 'output_tokens', 'total_tokens', 'input_tokens_details'}
+    optional = {'cached_tokens', 'cached_tokens_details', 'output_tokens_details'}
+    require(isinstance(image, dict) and required <= set(image) <= required | optional,
+            'responses_tool_usage_denied')
+    require(all(type(image[k]) is int and image[k] == 0 for k in
+                ('input_tokens', 'output_tokens', 'total_tokens')) and
+            zero_counts(image['input_tokens_details'], {'image_tokens', 'text_tokens'}),
+            'responses_tool_usage_denied')
+    require(image.get('cached_tokens') is None or
+            type(image['cached_tokens']) is int and image['cached_tokens'] == 0,
+            'responses_tool_usage_denied')
+    for key, keys in (('cached_tokens_details', {'cached_image_tokens', 'cached_text_tokens'}),
+                      ('output_tokens_details', {'image_tokens', 'text_tokens'})):
+        require(image.get(key) is None or zero_counts(image[key], keys), 'responses_tool_usage_denied')

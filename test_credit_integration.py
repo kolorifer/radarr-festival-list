@@ -177,11 +177,13 @@ class CreditIntegrationTest(unittest.TestCase):
         raw=response().body
         _, accounting=parse_response(raw,output_schema(),expected_model=INTEGRATION_MODEL)
         self.assertEqual(accounting['policy'],POLICY)
+        zero=decode(raw);zero['usage']['input_tokens_details']['cache_write_tokens']=0
+        self.assertEqual(parse_response(encoded(zero),output_schema(),expected_model=INTEGRATION_MODEL)[1],accounting)
         self.assertEqual(accounting['usage']['output_tokens_details']['reasoning_tokens'],50)
         with self.assertRaisesRegex(Refusal,'responses_not_completed'):parse_response(raw,output_schema())
         for mutate in (lambda r:r.update(model='gpt-5-nano'),
                        lambda r:r.update(prompt_cache_options={'ttl':'30m'}),
-                       lambda r:r['usage']['input_tokens_details'].update(cache_write_tokens=0),
+                       lambda r:r['usage']['input_tokens_details'].update(cache_write_tokens=1),
                        lambda r:r['usage']['input_tokens_details'].update(cached_tokens=True),
                        lambda r:r['usage']['output_tokens_details'].update(reasoning_tokens=301),
                        lambda r:r['usage'].update(output_tokens=4097,total_tokens=5297)):
