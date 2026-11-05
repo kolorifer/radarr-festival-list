@@ -42,6 +42,7 @@ class HTTPResult:
     # Stamped locally by the fixed I/O boundary, never parsed from model JSON.
     request_sha256: str = None
     project: str = None
+    path: str = None
 
 
 def headers(credential, project):
@@ -91,6 +92,16 @@ def tls_context():
 class FixedResponsesHTTP:
     """No configurable URL, headers, proxy, redirect, TLS mode or retry policy."""
     def post(self, body, *, credential, project, timeout, authorization=None):
+        return self._request(body, credential=credential, project=project, timeout=timeout,
+                             authorization=authorization, path=PATH)
+
+    def count(self, body, *, credential, project, timeout, authorization=None):
+        """Dormant token-count route; identical fixed-origin safety boundary."""
+        return self._request(body, credential=credential, project=project, timeout=timeout,
+                             authorization=authorization, path='/v1/responses/input_tokens')
+
+    def _request(self, body, *, credential, project, timeout, authorization, path):
+        require(path in (PATH, '/v1/responses/input_tokens'), 'responses_path_denied')
         from .responses_transport import real_activation_refusal
         refusal = real_activation_refusal(authorization)
         require(refusal is None, refusal or 'responses_denied')
@@ -123,7 +134,7 @@ class FixedResponsesHTTP:
                 connection.sock = secure
                 raw_socket = None  # connection now owns the TLS socket
                 check()
-                connection.request('POST', PATH, body=body, headers=selected_headers)
+                connection.request('POST', path, body=body, headers=selected_headers)
                 check()
                 response = connection.getresponse()
                 check()
@@ -149,7 +160,7 @@ class FixedResponsesHTTP:
                 ids = [v for k, v in hs if k.lower() == 'x-request-id']
                 require(len(ids) <= 1, 'responses_http_shape')
                 return HTTPResult(200, bytes(data), ids[0] if ids else None,
-                                  hashlib.sha256(body).hexdigest(), project)
+                                  hashlib.sha256(body).hexdigest(), project, path)
         except Refusal:
             raise
         except (TimeoutError, OSError, ValueError, http.client.HTTPException):

@@ -4,7 +4,7 @@ Reuse the existing transport and History. Five one-cent reservations maximum;
 unknown and successful attempts both retain the full debit. Never reset by run.
 """
 from fractions import Fraction
-from .contracts import encoded, require, stamp, hash_id
+from .contracts import decode, digest, encoded, require, stamp, hash_id, shape
 from .controller import INSTRUCTIONS, output_schema
 from .disclosure import aliases
 from .history import History
@@ -50,3 +50,28 @@ def reserve(history, *, project, request_hash, input_bound, now, file_identity):
         append(dict(type='credit_test_reserved', project=project, model=INTEGRATION_MODEL,
                     request_hash=request_hash, reserved_usd=[1,100], at=now))
     return [1,100]
+
+
+def count_request(run):
+    """All input-bearing fields, including the output schema; no generation."""
+    generation = decode(request(run))
+    return encoded({key: generation[key] for key in
+                    ('model', 'instructions', 'input', 'text', 'tools', 'tool_choice', 'truncation')})
+
+
+def count_receipt(result, *, run, project):
+    """Correlate fixed-transport stamps; not provider-signed billing proof."""
+    from .responses_http import HTTPResult
+    from .responses_protocol import response_id
+    require(type(result) is HTTPResult and result.status == 200 and
+            result.project == project and result.path == '/v1/responses/input_tokens' and
+            result.request_sha256 == digest(decode(count_request(run))),
+            'credit_count_correlation')
+    response_id(result.request_id)
+    value = decode(result.body, 1024)
+    shape(value, 'object input_tokens')
+    require(value['object'] == 'response.input_tokens' and type(value['input_tokens']) is int and
+            0 < value['input_tokens'] <= INPUT_TOKENS, 'credit_count_invalid')
+    return dict(generation_sha256=digest(decode(request(run))), count_sha256=result.request_sha256,
+                project=project, model=INTEGRATION_MODEL, input_tokens=value['input_tokens'],
+                request_id=result.request_id)
