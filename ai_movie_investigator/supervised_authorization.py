@@ -55,7 +55,7 @@ class _Session:
         now=self.check_time()
         self.selected.revalidate()
         e=self.selected.data
-        validate_evidence(e,now)
+        validate_evidence(e,now,standing=self.slot>=7)
         require(now<INTEGRATION_SHUTDOWN,'integration_model_retired')
         selection_binding(self.events,self.enrolled,self.selected,self.slot)
         require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
@@ -70,7 +70,11 @@ class _Session:
         require(type(body) is bytes and body==expected,'supervised_request_binding')
         fingerprint=digest(decode(body))
         reservations=self.credit.read()
-        ledger_total(reservations,project,ceiling=reservation_ceiling(self.credit,project,fingerprint))
+        ceiling=reservation_ceiling(self.credit,project,fingerprint)
+        if self.slot>=7:
+            from .credit_test import retained_total
+            require(retained_total(reservations,project)<=ceiling,'credit_total_ceiling')
+        else:ledger_total(reservations,project,ceiling=ceiling)
         selected=[r for r in reservations if r['request_hash']==fingerprint]
         require(len(selected)==1 and selected[0]['reserved_usd']==[3,100],'supervised_reservation_required')
         rows=[r for r in self.events if r.get('slot')==self.slot]
@@ -186,8 +190,17 @@ def refusal(token,*,body=None,credential=None,project=None,path=None,consume=Tru
 
 
 def reservation_ceiling(history,project,request_hash):
-    """Only a root-locked manual slot3/4/5/6 session can exceed the normal five cents."""
+    """Only a root-locked selected manual session can exceed the normal five cents."""
     session=_ACTIVE.get()
+    if session is not None and session.slot>=7:
+        from .supervised_credit import standing_retained,require_prompted
+        session.root.require_write_transaction(session.events)
+        require(history is session.credit and project==session.enrolled['project'] and
+                request_hash==digest(decode(request(session.run))),'supervised_recovery_binding')
+        require_prompted(session.root,session.credential)
+        ceiling=standing_retained(session.root,session.events,session.enrolled,session.selected,history,session.slot)
+        session.check_time()
+        return ceiling
     if session is None or session.slot not in (3,4,5,6):return TOTAL
     from .supervised_credit import recovery_retained, selection_binding, require_prompted, validate_evidence
     session.root.require_write_transaction(session.events)

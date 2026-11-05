@@ -31,6 +31,8 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
+    'standing_credit_refused': frozenset(('supervised_standing_missing supervised_standing_binding '
+        'supervised_standing_interrupted supervised_standing_history supervised_standing_credit').split()),
     'evidence_changed': frozenset((
         'supervised_evidence_changed_read_device supervised_evidence_changed_read_inode '
         'supervised_evidence_changed_read_size supervised_evidence_changed_read_mtime '
@@ -261,9 +263,10 @@ def read_evidence(path):
     return SelectedEvidence(path,raw,identity,_EVIDENCE_READER)
 
 
-def validate_evidence(e,now):
+def validate_evidence(e,now,*,standing=False):
     shape(e,'project account_reference observed_at expires_at credit_expires_at available_usd '
-          'billing_reference paid_fallback owner_reference model policy context_window pricing_reference context_reference model_access_reference input_rate cached_input_rate output_rate')
+          'billing_reference paid_fallback owner_reference model policy context_window pricing_reference context_reference model_access_reference input_rate cached_input_rate output_rate'+(' credit_kind' if standing else ''))
+    if standing:require(e['credit_kind']=='promotional','supervised_standing_credit')
     require(isinstance(e['project'],str) and e['project'].startswith('proj_'),'supervised_project')
     require(stamp(e['observed_at'])<=now<stamp(e['expires_at'])<=stamp(e['credit_expires_at']) and
             e['expires_at']-e['observed_at']<=ACCOUNT_EVIDENCE_SECONDS,'supervised_evidence_stale')
@@ -280,6 +283,9 @@ def validate_evidence(e,now):
 def selection_binding(events,enrolled,selected,slot):
     """Resolve one manual renewal without replacing enrollment or old slots."""
     require(enrolled.get('project')==selected.data['project'],'supervised_enrollment_binding')
+    if slot>=7:
+        standing_binding(events,enrolled,selected,slot)
+        return
     if slot in (3,4,5,6):
         recovery_binding(events,enrolled,selected,slot)
         return
@@ -372,6 +378,10 @@ def recovery_binding(events,enrolled,selected,slot=3):
 
 
 def attempt_pin(events,enrolled,slot):
+    if slot>=7:
+        matches=[g for start,g in _standing_attempts(events,enrolled) if start['slot']==slot]
+        require(len(matches)==1,'supervised_standing_binding')
+        return matches[0]['attempt']
     if slot in (3,4,5,6):return events[{3:6,4:9,5:13,6:17}[slot]]['attempt']
     return enrolled['attempts'][str(slot)]
 
@@ -539,27 +549,36 @@ def safe_diagnostic(error):
 
 
 def _run(directory,selected,slot,*,clock=time.time):
-    require(type(slot) is int and slot in (1,2,3,4,5,6),'supervised_slot')
+    next_attempt=slot is None
+    require(next_attempt or (type(slot) is int and slot>=1),'supervised_slot')
     require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
     selected.revalidate()
     evidence=selected.data
-    validate_evidence(evidence,max(clock(),time.time())) # Before prompt, journal mutation or HTTP.
+    validate_evidence(evidence,max(clock(),time.time()),standing=next_attempt or slot>=7) # Before prompt, journal mutation or HTTP.
     root=History(Path(directory),clock=clock)
     with root.transaction(write=True) as (events,append):
         require(len(events)>=2 and events[0]['type']=='supervised_enrollment_started' and
                 events[1]['type']=='supervised_enrolled','supervised_not_enrolled')
         enrolled=events[1]
         require(enrolled['root']==list(root.identity),'supervised_root_changed')
-        selection_binding(events,enrolled,selected,slot)
-        require(not any(e.get('slot')==slot for e in events),'supervised_attempt_consumed')
-        credit=History(root.directory/'credit',clock=clock)
-        history=History(root.directory/f'attempt-{slot}',clock=clock)
-        require(enrolled['credit']==list(credit.identity) and enrolled['credit_file']==file_identity(credit) and
-                attempt_pin(events,enrolled,slot)==list(history.identity),'supervised_storage_changed')
-        ceiling=recovery_retained(root,events,enrolled,selected,credit,slot) if slot in (3,4,5,6) else TOTAL
-        with credit.transaction(file_identity=enrolled['credit_file']) as (old,_):
-            require(ledger_total(old,evidence['project'],ceiling=ceiling)+PER_REQUEST<=ceiling,'credit_total_ceiling')
-        require(not history.read(),'supervised_attempt_consumed')
+        if next_attempt:
+            slot=_prepare_next_locked(root,events,append,selected,create=False)
+            credit=History(root.directory/'credit')
+        else:
+            selection_binding(events,enrolled,selected,slot)
+            require(not any(e.get('slot')==slot and (slot<7 or e.get('type') not in
+                    ('supervised_standing_attempt_started','supervised_standing_attempt_authorized'))
+                    for e in events),'supervised_attempt_consumed')
+            credit=History(root.directory/'credit',clock=clock)
+            history=History(root.directory/f'attempt-{slot}',clock=clock)
+            require(enrolled['credit']==list(credit.identity) and enrolled['credit_file']==file_identity(credit) and
+                    attempt_pin(events,enrolled,slot)==list(history.identity),'supervised_storage_changed')
+            ceiling=(standing_retained(root,events,enrolled,selected,credit,slot) if slot>=7 else
+                     recovery_retained(root,events,enrolled,selected,credit,slot) if slot in (3,4,5,6) else TOTAL)
+            with credit.transaction(file_identity=enrolled['credit_file']) as (old,_):
+                from .credit_test import retained_total
+                require(retained_total(old,evidence['project'])+PER_REQUEST<=ceiling,'credit_total_ceiling')
+            require(not history.read(),'supervised_attempt_consumed')
         run_id=f'synthetic-integration-{slot}'
         case=dict(source='synthetic-credit-integration',case_id='outcome-'+digest('synthetic-example'),
                   version=digest(decode(request(run_id))),occurrence=None)
@@ -569,10 +588,13 @@ def _run(directory,selected,slot,*,clock=time.time):
             # Conservative typo/identifier filter, not authentication. Keep the
             # root lock held; no slot/debit is consumed by invalid input.
             require(credential.value.startswith('sk-'),'responses_credential_invalid')
+            if next_attempt:
+                require(slot==_prepare_next_locked(root,events,append,selected,create=True),'supervised_standing_binding')
+                history=History(root.directory/f'attempt-{slot}')
             append(dict(type='supervised_started',slot=slot,at=clock(),evidence_hash=digest(evidence)))
             observe_phase('slot_started')
             try:
-                validate_evidence(evidence,max(clock(),time.time()))
+                validate_evidence(evidence,max(clock(),time.time()),standing=slot>=7)
                 body=request(run_id)
                 require(credential.value.encode() not in body and credential.value.encode() not in encoded(evidence),
                         'supervised_credential_disclosed')
@@ -602,6 +624,206 @@ def _run(directory,selected,slot,*,clock=time.time):
 
 
 
+# Standing promotional authority is append-only and applies only to future
+# manually started synthetic attempts. Historical requests are never rebuilt.
+def _standing_base(events,enrolled):
+    require(len(events)>=21 and events[20].get('type')=='supervised_standing_authorized',
+            'supervised_standing_missing')
+    grant=events[20]
+    shape(grant,'type at project account_reference policy ceiling_usd credit_expires_at evidence_sha256 prefix_sha256 credit_sha256 attempts')
+    require(grant['prefix_sha256']==digest(events[:20]) and grant['project']==enrolled['project'] and
+            grant['policy']==POLICY and rational(grant['ceiling_usd'])>=PER_REQUEST and
+            stamp(grant['at'])<stamp(grant['credit_expires_at']), 'supervised_standing_binding')
+    return grant
+
+
+def _standing_attempts(events,enrolled):
+    _standing_base(events,enrolled)
+    result=[];index=21;slot=7
+    while index<len(events):
+        start=events[index]
+        shape(start,'type at slot project policy prefix_sha256 evidence_sha256 evidence_hash expires_at request_sha256 '
+                    'credit_sha256 credit_count previous_attempt_sha256 ceiling_usd')
+        require(start['type']=='supervised_standing_attempt_started' and type(start['slot']) is int and
+                start['slot']==slot and start['prefix_sha256']==digest(events[:index]) and
+                start['project']==enrolled['project'] and start['policy']==POLICY,
+                'supervised_standing_binding')
+        require(index+1<len(events),'supervised_standing_interrupted')
+        granted=events[index+1];shape(granted,'type at slot start_sha256 attempt')
+        require(granted['type']=='supervised_standing_attempt_authorized' and granted['slot']==slot and
+                granted['start_sha256']==digest(start) and stamp(start['at'])<=stamp(granted['at'])<stamp(start['expires_at']),
+                'supervised_standing_binding')
+        index+=2
+        if index<len(events) and events[index]['type']=='supervised_started':
+            row=events[index];shape(row,'type slot at evidence_hash')
+            require(row['slot']==slot and row['evidence_hash']==start['evidence_hash'] and
+                    stamp(granted['at'])<=stamp(row['at'])<start['expires_at'],'supervised_standing_binding')
+            index+=1
+            if index<len(events) and events[index]['type'] in ('supervised_completed','supervised_diagnostic'):
+                row=events[index]
+                require(row['slot']==slot and stamp(row['at'])>=events[index-1]['at'],'supervised_standing_binding')
+                if row['type']=='supervised_completed':
+                    require(row['request_hash']==start['request_sha256'] and row['reserved_usd']==[3,100],
+                            'supervised_standing_binding')
+                index+=1
+        result.append((start,granted));slot+=1
+    return result
+
+
+def _standing_history(root,events,enrolled,credit):
+    from .credit_test import retained_total
+    grant=_standing_base(events,enrolled);attempts=_standing_attempts(events,enrolled)
+    require(enrolled['root']==list(root.identity) and enrolled['credit']==list(credit.identity) and
+            enrolled['credit_file']==file_identity(credit),'supervised_storage_changed')
+    require(set(grant['attempts'])==set(map(str,range(1,7))),'supervised_standing_binding')
+    for number,pin in grant['attempts'].items():
+        h=History(root.directory/f'attempt-{number}')
+        require(list(h.identity)==pin['identity'] and digest(h.read())==pin['sha256'],'supervised_standing_history')
+    for i,(start,authorized) in enumerate(attempts):
+        h=History(root.directory/f"attempt-{start['slot']}")
+        require(list(h.identity)==authorized['attempt'],'supervised_storage_changed')
+        rows=h.read()
+        require(not rows or any(e.get('type')=='supervised_started' and e.get('slot')==start['slot'] for e in events),
+                'supervised_standing_history')
+        if i+1<len(attempts):
+            require(digest(rows)==attempts[i+1][0]['previous_attempt_sha256'],'supervised_standing_history')
+        require(len(rows)<=3 and [r['type'] for r in rows]==
+                ['bound_send_reserved','bound_send_attempted','bound_send_receipt'][:len(rows)],
+                'supervised_standing_history')
+        if rows:
+            permit=rows[0]['permit']
+            require(permit['selection']['run']==f"synthetic-integration-{start['slot']}" and
+                    permit['selection']['request_sha256']==start['request_sha256'] and
+                    permit['project']==enrolled['project'] and permit['model']==INTEGRATION_MODEL and
+                    permit['maximum_debit']==[3,100],'supervised_standing_history')
+        if len(rows)>1:require(rows[1]['request_sha256']==start['request_sha256'],'supervised_standing_history')
+    reservations=credit.read();total=retained_total(reservations,enrolled['project'])
+    require(len(reservations)>=5 and digest(reservations[:5])==grant['credit_sha256'],'supervised_standing_history')
+    if attempts:
+        require(attempts[0][0]['previous_attempt_sha256']==grant['attempts']['6']['sha256'],'supervised_standing_history')
+    known={start['request_sha256'] for start,_ in attempts}
+    require(all(r['request_hash'] in known and r['reserved_usd']==[3,100] for r in reservations[5:]) and
+            len({r['request_hash'] for r in reservations})==len(reservations),'supervised_standing_history')
+    if attempts:
+        start=attempts[-1][0];n=start['credit_count']
+        require(type(n) is int and n>=5 and len(reservations) in (n,n+1) and
+                digest(reservations[:n])==start['credit_sha256'],'supervised_standing_history')
+        if len(reservations)==n+1:
+            require(reservations[-1]['request_hash']==start['request_sha256'],'supervised_standing_history')
+    return grant,attempts,reservations,total
+
+
+def standing_binding(events,enrolled,selected,slot):
+    grant=_standing_base(events,enrolled);attempts=_standing_attempts(events,enrolled)
+    require(attempts and slot==attempts[-1][0]['slot'],'supervised_standing_binding')
+    start,authorized=attempts[-1]
+    e=selected.data
+    require(start['evidence_sha256']==selected.sha256 and start['evidence_hash']==digest(e) and
+            start['expires_at']==e['expires_at'] and start['project']==e['project']==grant['project'] and
+            start['request_sha256']==digest(decode(request(f'synthetic-integration-{slot}'))) and
+            e['observed_at']<=start['at']<e['expires_at'],'supervised_standing_binding')
+    return start,authorized
+
+
+def standing_retained(root,events,enrolled,selected,credit,slot):
+    selected.revalidate();e=selected.data;validate_evidence(e,time.time(),standing=True)
+    grant,_,_,total=_standing_history(root,events,enrolled,credit)
+    start,_=standing_binding(events,enrolled,selected,slot)
+    ceiling=min(rational(grant['ceiling_usd']),rational(e['available_usd']))
+    require(e['account_reference']==grant['account_reference'] and e['credit_expires_at']<=grant['credit_expires_at'] and time.time()<grant['credit_expires_at'] and
+            rational(start['ceiling_usd'])==ceiling and total<=ceiling,'supervised_standing_credit')
+    return ceiling
+
+
+def authorize_standing(directory,selected):
+    """Append authority on the same closed six-attempt history; never send."""
+    require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
+    selected.revalidate();e=selected.data;validate_evidence(e,time.time(),standing=True)
+    root=History(Path(directory))
+    with root.transaction(write=True) as (events,append):
+        expected=['supervised_enrollment_started','supervised_enrolled','supervised_started',
+                  'supervised_reauthorized','supervised_started','supervised_recovery_started',
+                  'supervised_recovery_authorized','supervised_started']
+        expected+=['supervised_continuation_started','supervised_continuation_authorized','supervised_started','supervised_diagnostic']*3
+        require([r['type'] for r in events]==expected,'supervised_standing_history')
+        enrolled=events[1]
+        require([r['slot'] for r in events if r['type']=='supervised_started']==list(range(1,7)) and
+                [r['slot'] for r in events if r['type']=='supervised_diagnostic']==[4,5,6], 'supervised_standing_history')
+        require(enrolled['root']==list(root.identity) and enrolled['project']==e['project'],'supervised_enrollment_binding')
+        credit=History(root.directory/'credit')
+        require(enrolled['credit']==list(credit.identity) and enrolled['credit_file']==file_identity(credit),'supervised_storage_changed')
+        reservations=credit.read()
+        require(len(reservations)==5 and all(r['reserved_usd']==[3,100] for r in reservations) and
+                ledger_total(reservations,e['project'],ceiling=rational([15,100]))==rational([15,100]),
+                'supervised_standing_history')
+        pins={}
+        for slot in range(1,7):
+            h=History(root.directory/f'attempt-{slot}');rows=h.read()
+            require(list(h.identity)==attempt_pin(events,enrolled,slot),'supervised_storage_changed')
+            if slot==1:require(not rows and not any(h.directory.iterdir()),'supervised_standing_history')
+            else:
+                require(len(rows)==2 and rows[0]['type']=='bound_send_reserved' and rows[1]['type']=='bound_send_attempted',
+                        'supervised_standing_history')
+                permit=rows[0]['permit'];old_hash=reservations[slot-2]['request_hash']
+                require(permit['selection']['run']==f'synthetic-integration-{slot}' and
+                        permit['selection']['request_sha256']==rows[1]['request_sha256']==old_hash and
+                        permit['project']==e['project'] and permit['model']==INTEGRATION_MODEL and
+                        permit['maximum_debit']==[3,100] and permit['input_limit']==CONTEXT_TOKENS and
+                        permit['output_limit']==OUTPUT_TOKENS,'supervised_standing_history')
+                if slot>=3:
+                    index={3:5,4:8,5:12,6:16}[slot];old=events[index];authorized=events[index+1]
+                    require(old['prefix_sha256']==digest(events[:index]) and authorized['start_sha256']==digest(old) and
+                            old['request_sha256']==old_hash and old['credit_sha256']==digest(reservations[:slot-2]) and
+                            old['attempt_sha256']==pins[str(slot-1)]['sha256'],'supervised_standing_history')
+            pins[str(slot)]=dict(identity=list(h.identity),sha256=digest(rows))
+        selected.revalidate();now=time.time();validate_evidence(e,now,standing=True)
+        require(rational(e['available_usd'])>=rational([18,100]),'supervised_standing_credit')
+        append(dict(type='supervised_standing_authorized',at=now,project=e['project'],account_reference=e['account_reference'],policy=POLICY,
+            ceiling_usd=e['available_usd'],credit_expires_at=e['credit_expires_at'],evidence_sha256=selected.sha256,
+            prefix_sha256=digest(events),credit_sha256=digest(reservations),attempts=pins))
+    return dict(status='standing_authorized_no_api_call',per_request_usd=[3,100],ceiling_usd=e['available_usd'])
+
+
+def _prepare_next_locked(root,events,append,selected,*,create):
+    root.require_write_transaction(events)
+    e=selected.data
+    require(len(events)>=21,'supervised_standing_missing');enrolled=events[1]
+    credit=History(root.directory/'credit')
+    grant,attempts,reservations,total=_standing_history(root,events,enrolled,credit)
+    require(e['project']==grant['project'] and e['account_reference']==grant['account_reference'] and e['credit_expires_at']<=grant['credit_expires_at'] and
+            time.time()<grant['credit_expires_at'],'supervised_standing_credit')
+    ceiling=min(rational(grant['ceiling_usd']),rational(e['available_usd']))
+    require(total+PER_REQUEST<=ceiling,'supervised_standing_credit')
+    slot=7+len(attempts);target=root.directory/f'attempt-{slot}'
+    require(not os.path.lexists(target),'supervised_standing_history')
+    prior=digest(History(root.directory/f'attempt-{slot-1}').read())
+    selected.revalidate();now=time.time();validate_evidence(e,now,standing=True)
+    from .spending import pair
+    start=dict(type='supervised_standing_attempt_started',at=now,slot=slot,project=e['project'],policy=POLICY,
+        prefix_sha256=digest(events),evidence_sha256=selected.sha256,evidence_hash=digest(e),expires_at=e['expires_at'],
+        request_sha256=digest(decode(request(f'synthetic-integration-{slot}'))),credit_sha256=digest(reservations),
+        credit_count=len(reservations),previous_attempt_sha256=prior,ceiling_usd=pair(ceiling))
+    if not create:return slot
+    append(start);target.mkdir(mode=0o700);attempt=History(target)
+    append(dict(type='supervised_standing_attempt_authorized',at=time.time(),slot=slot,start_sha256=digest(start),
+                attempt=list(attempt.identity)))
+    return slot
+
+
+def prepare_next(directory,selected):
+    """Allocate a distinct attempt; partial preparation refuses without repair."""
+    require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
+    selected.revalidate();validate_evidence(selected.data,time.time(),standing=True)
+    root=History(Path(directory))
+    with root.transaction(write=True) as (events,append):
+        return _prepare_next_locked(root,events,append,selected,create=True)
+
+
+def run_next(directory,selected):
+    require(sys.stdin.isatty() and sys.stderr.isatty(),'supervised_interactive_terminal_required')
+    return run(directory,selected,None)
+
+
 class _SafeParser(argparse.ArgumentParser):
     def error(self,message):
         self.exit(2,'Supervised synthetic command refused: category=invalid_arguments; action=unknown. '
@@ -623,6 +845,8 @@ def main(argv=None):
     continuation.add_argument('--previous-evidence',required=True,type=Path)
     continuation.add_argument('--evidence',required=True,type=Path)
     continuation.add_argument('--slot',type=int,choices=(4,5,6),default=4)
+    standing=sub.add_parser('authorize-standing');standing.add_argument('--evidence',required=True,type=Path)
+    next_send=sub.add_parser('run-next');next_send.add_argument('--evidence',required=True,type=Path)
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
     send.add_argument('--slot',required=True,type=int,choices=(1,2,3,4,5,6))
     args=parser.parse_args(argv)
@@ -638,13 +862,15 @@ def main(argv=None):
             result=recover_once(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence))
         elif args.action=='continue-once':
             result=recover_once(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence),slot=args.slot)
+        elif args.action=='authorize-standing':result=authorize_standing(args.state,read_evidence(args.evidence))
+        elif args.action=='run-next':result=run_next(args.state,read_evidence(args.evidence))
         else:result=run(args.state,read_evidence(args.evidence),args.slot)
         print(encoded(result).decode());return 0
     except (Exception,KeyboardInterrupt) as error:
         # Never print raw exceptions, remote bodies, credentials or a traceback.
         diagnostic=_LAST_DIAGNOSTIC.get() or safe_diagnostic(error)
         print('Supervised synthetic command refused: category='+refusal_category(error)+
-              '; action='+args.action+'; '+('request status unconfirmed' if args.action=='run' else 'no API request')+
+              '; action='+args.action+'; '+('request status unconfirmed' if args.action in ('run','run-next') else 'no API request')+
               '; phase='+diagnostic['phase']+'; reason='+diagnostic['reason']+
               '. Retain state; do not retry automatically.',file=sys.stderr)
         return 1

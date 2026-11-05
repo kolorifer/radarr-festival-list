@@ -32,13 +32,19 @@ def request(run):
         text=dict(format=dict(type='json_schema',name='retained_investigator_v1',strict=True,schema=output_schema()))))
 
 
-def ledger_total(events, project, *, ceiling=TOTAL):
-    require(ceiling in (TOTAL, Fraction(6,100), Fraction(9,100), Fraction(12,100), Fraction(15,100)), 'credit_total_ceiling')
+def retained_total(events, project):
+    """Pure ledger validation/sum; this grants no spending authority."""
     require(all(e['type']=='credit_test_reserved' and e['project']==project and
                 e['model']==INTEGRATION_MODEL and type(e['reserved_usd']) is list and
                 all(type(v) is int for v in e['reserved_usd']) and e['reserved_usd'] in ([1,100],[3,100])
                 for e in events), 'credit_budget_changed')
     total=sum((Fraction(*e['reserved_usd']) for e in events), Fraction(0))
+    return total
+
+
+def ledger_total(events, project, *, ceiling=TOTAL):
+    require(ceiling in (TOTAL, Fraction(6,100), Fraction(9,100), Fraction(12,100), Fraction(15,100)), 'credit_total_ceiling')
+    total=retained_total(events,project)
     require(total <= ceiling, 'credit_total_ceiling')
     return total
 
@@ -58,7 +64,7 @@ def reserve(history, *, project, request_hash, input_bound, now, file_identity, 
     from .supervised_authorization import reservation_ceiling
     ceiling=reservation_ceiling(history,project,request_hash)
     with history.transaction(write=True, file_identity=file_identity) as (events, append):
-        retained=ledger_total(events,project,ceiling=ceiling)
+        retained=retained_total(events,project)
         require(not any(e['request_hash'] == request_hash for e in events), 'credit_request_consumed')
         require(retained + Fraction(*debit) <= ceiling, 'credit_total_ceiling')
         require(all(now >= e['at'] for e in events), 'credit_clock_rollback')
