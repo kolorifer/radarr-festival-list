@@ -48,10 +48,11 @@ def response_id(value):
     return value
 
 
-def parse_response(raw, schema, request_id=None, *, expected_model=MODEL):
-    from .responses_http import MAX_RESPONSE
+def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_result=None):
+    from .supervised_authorization import response_limits
     require(expected_model in (MODEL, INTEGRATION_MODEL), 'responses_model_profile')
-    response = decode(raw, MAX_RESPONSE)
+    envelope_limit,opaque_limit=response_limits(http_result,raw,request_id,expected_model)
+    response = decode(raw, envelope_limit)
     require(isinstance(response, dict) and response.get('object') == 'response'
             and response.get('status') == 'completed' and response.get('model') == expected_model
             and response.get('error') is None and response.get('incomplete_details') is None,
@@ -91,7 +92,7 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL):
             opaque = item.get('encrypted_content')
             require(set(item) <= {'id', 'type', 'summary', 'status', 'content', 'encrypted_content'}
                     and item.get('summary') == [] and item.get('content') in (None, [])
-                    and (opaque is None or isinstance(opaque, str) and len(opaque) <= 16384)
+                    and (opaque is None or isinstance(opaque, str) and len(opaque) <= opaque_limit)
                     and item.get('status') in (None, 'completed'), 'responses_reasoning_shape')
             response_id(item.get('id'))
             continue

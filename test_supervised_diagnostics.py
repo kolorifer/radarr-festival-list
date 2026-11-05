@@ -29,7 +29,7 @@ def wire_fixture(variant,run='synthetic-integration-1'):
     if variant=='usage':value['usage']['total_tokens']=1
     if variant=='schema':value['output'][1]['content'][0]['text']='{}'
     raw=b'{' if variant=='malformed' else encoded(value)
-    if variant=='large':raw=b'X'*32769
+    if variant=='large':raw=b'X'*1048577
     status=401 if variant=='rejected' else 200
     hs=['HTTP/1.1 '+str(status)+' Fixture','Content-Type: application/json','Content-Length: '+str(len(raw)+(1 if variant=='truncated' else 0)),'Connection: keep-alive' if variant in ('close_failure','close_success') else 'Connection: close']
     if variant!='missing_id':hs.append('x-request-id: req_FIXTURE')
@@ -86,7 +86,7 @@ class DiagnosticTests(unittest.TestCase):
             'missing_id':('receipt_validation','responses_identity_invalid'),
             'rejected':('http_response_received','responses_http_rejected'),
             'shape':('http_response_received','responses_http_shape'),
-            'large':('http_response_received','responses_body_limit'),
+            'large':('http_response_received','responses_declared_body_limit'),
             'truncated':('http_body_read','responses_body_truncated'),
             'dns':('dns_lookup','responses_dns_failed'),
             'timer':('http_setup','responses_timer_busy'),
