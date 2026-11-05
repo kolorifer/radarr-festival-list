@@ -36,7 +36,8 @@ class SupervisedExecutableTests(unittest.TestCase):
         recovery.preserved()
 
     def execute_fixture(self,fixture,slot,renewal=None,*,recovery=None,dummy=b'sk-DUMMY_EXECUTABLE_FIXTURE_ONLY',
-                        failure='binding_response_unknown',category='send_or_response_refused',invalid=False):
+                        failure='binding_response_unknown',category='send_or_response_refused',invalid=False,
+                        hook_extension='',expected_reason=None,expected_phase=None,expect_boundary=True):
         installed=fixture.root/'installed';installed.mkdir(mode=0o700)
         install_runtime(Path(__file__).resolve().parent,installed)
         hooks=fixture.root/'hooks';hooks.mkdir(mode=0o700)
@@ -44,6 +45,7 @@ class SupervisedExecutableTests(unittest.TestCase):
 import errno,os,socket,ssl,sys
 from ai_movie_investigator.contracts import Refusal
 from ai_movie_investigator.responses_http import FixedResponsesHTTP
+original_post=FixedResponsesHTTP.post
 from ai_movie_investigator.responses_transport import real_activation_refusal
 if sys.platform.startswith('linux'):
     def absent(*args,**kwargs):raise OSError(errno.ENODATA,'fixture ACL absence')
@@ -64,7 +66,7 @@ def sink(self,body,**kw):
 FixedResponsesHTTP.post=sink
 '''
         hook=hook.replace("raise Refusal('binding_response_unknown')",'raise Refusal('+repr(failure)+')')
-        (hooks/'sitecustomize.py').write_text(hook)
+        (hooks/'sitecustomize.py').write_text(hook+hook_extension)
         env=dict(os.environ,PYTHONPATH=os.pathsep.join((str(hooks),str(installed))),PYTHONDONTWRITEBYTECODE='1')
         # No inherited provider credential is needed or forwarded to the fixture.
         env={k:v for k,v in env.items() if not any(s in k.upper() for s in ('KEY','TOKEN','SECRET','PASSWORD'))}
@@ -110,12 +112,16 @@ FixedResponsesHTTP.post=sink
             if proc.poll() is None:proc.kill();proc.wait()
         self.assertTrue(entered,'actual terminal prompt was not reached: '+output.decode(errors='replace'))
         self.assertNotIn(dummy,output,'dummy input echoed')
-        if invalid:
+        if invalid or not expect_boundary:
             self.assertNotIn(b'OFFLINE_AUTHORIZED_BOUNDARY',output)
         else:self.assertIn(b'OFFLINE_AUTHORIZED_BOUNDARY',output,'actual -m did not reach authorized offline boundary')
         self.assertEqual(code,1) # Deliberate offline stop, never a provider call.
         self.assertIn(('category='+category+'; action=run; request status unconfirmed').encode(),output)
-        self.assertNotIn(failure.encode(),output)
+        self.assertIn(b'; phase=',output)
+        self.assertIn(b'; reason=',output)
+        if expected_reason:self.assertIn(('reason='+expected_reason).encode(),output)
+        if expected_phase:self.assertIn(('phase='+expected_phase).encode(),output)
+        self.assertNotIn(b'PRIVATE_FIXTURE_SENTINEL',output)
         self.assertNotIn(b'Traceback',output)
         self.assertNotIn(str(fixture.path).encode(),output)
         if invalid:

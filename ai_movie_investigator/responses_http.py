@@ -101,6 +101,8 @@ class FixedResponsesHTTP:
                              authorization=authorization, path='/v1/responses/input_tokens')
 
     def _request(self, body, *, credential, project, timeout, authorization, path):
+        from .supervised_authorization import observe_phase
+        observe_phase('http_setup')
         require(path in (PATH, '/v1/responses/input_tokens'), 'responses_path_denied')
         from .responses_transport import real_activation_refusal
         refusal = real_activation_refusal(authorization, body=body, credential=credential,
@@ -110,10 +112,13 @@ class FixedResponsesHTTP:
         selected_headers = headers(credential, project)
         connection = None
         raw_socket = None
+        primary = False
         try:
             with total_deadline(timeout) as check:
+                observe_phase('tls_setup')
                 context = tls_context()
                 check()
+                observe_phase('dns_lookup')
                 addresses = socket.getaddrinfo(HOST, 443, type=socket.SOCK_STREAM, proto=socket.IPPROTO_TCP)
                 check()
                 require(bool(addresses), 'responses_dns_failed')
@@ -128,11 +133,13 @@ class FixedResponsesHTTP:
                 refusal = real_activation_refusal(authorization, body=body, credential=credential,
                     project=project, path=path, consume=False)
                 require(refusal is None, refusal or 'responses_denied')
+                observe_phase('socket_connect')
                 raw_socket = socket.socket(family, kind, proto)
                 raw_socket.settimeout(timeout)
                 raw_socket.connect(address)
                 check()
                 require(raw_socket.getpeername()[0] == address[0], 'responses_peer_changed')
+                observe_phase('tls_handshake')
                 secure = context.wrap_socket(raw_socket, server_hostname=HOST)
                 connection = http.client.HTTPConnection(HOST, port=443, timeout=timeout)
                 connection.sock = secure
@@ -141,9 +148,12 @@ class FixedResponsesHTTP:
                 refusal = real_activation_refusal(authorization, body=body, credential=credential,
                     project=project, path=path, consume=False)
                 require(refusal is None, refusal or 'responses_denied')
+                observe_phase('http_send')
                 connection.request('POST', path, body=body, headers=selected_headers)
                 check()
+                observe_phase('http_receive')
                 response = connection.getresponse()
+                observe_phase('http_response_received')
                 check()
                 # Never follow Location or consume/echo error bodies.
                 require(response.status == 200, 'responses_http_rejected')
@@ -155,6 +165,7 @@ class FixedResponsesHTTP:
                         and encodings in ([], ['identity']), 'responses_http_shape')
                 require(len(lengths) <= 1 and (not lengths or lengths[0].isascii() and lengths[0].isdigit()
                         and int(lengths[0]) <= MAX_RESPONSE), 'responses_body_limit')
+                observe_phase('http_body_read')
                 data = bytearray()
                 while True:
                     part = response.read1(min(4096, MAX_RESPONSE + 1 - len(data)))
@@ -164,19 +175,30 @@ class FixedResponsesHTTP:
                     data.extend(part)
                     require(len(data) <= MAX_RESPONSE, 'responses_body_limit')
                 require(not lengths or len(data) == int(lengths[0]), 'responses_body_truncated')
+                observe_phase('http_body_received')
                 ids = [v for k, v in hs if k.lower() == 'x-request-id']
                 require(len(ids) <= 1, 'responses_http_shape')
                 return HTTPResult(200, bytes(data), ids[0] if ids else None,
                                   hashlib.sha256(body).hexdigest(), project, path)
         except Refusal:
+            primary = True
             raise
         except (TimeoutError, OSError, ValueError, http.client.HTTPException):
+            primary = True
             raise Refusal('responses_network_completion_unknown') from None
+        except BaseException:
+            primary = True
+            raise
         finally:
-            if connection is not None:
-                connection.close()
-            if raw_socket is not None:
-                raw_socket.close()
+            # Preserve a primary failure, but never report success after a
+            # failed cleanup. Attempt both closes without exposing their text.
+            cleanup_failed=False
+            for resource in (connection,raw_socket):
+                if resource is not None:
+                    try:resource.close()
+                    except BaseException:cleanup_failed=True
+            if cleanup_failed and not primary:
+                raise Refusal('responses_cleanup_failed') from None
 
 
 class SimulatedHTTP:
