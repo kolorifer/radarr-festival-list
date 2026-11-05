@@ -73,7 +73,7 @@ class ObservationTests(fixtures.DiagnosticTests):
                 return super().readline(*a,**kw)
         with self.inputs(),fixtures.wire_fixture('completed'),patch('io.BytesIO',Later),patch('time.time',side_effect=lambda:wall()+offset[0]),patch('time.monotonic',side_effect=lambda:mono()+offset[0]):
             self.assertEqual(command.run(f.state,f.selected,1,clock=lambda:wall()+offset[0])['status'],'completed')
-        self.assertEqual(refusals,['supervised_authorization_refused']*2)
+        self.assertEqual(refusals,['supervised_session_expired','supervised_wire_consumed'])
         self.assertEqual(len(History(f.state/'credit').read()),1);self.restored()
 
     def test_real_alarm_reason_and_single_observation_transition(self):

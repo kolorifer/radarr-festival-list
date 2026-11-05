@@ -169,8 +169,20 @@ def refusal(token,*,body=None,credential=None,project=None,path=None,consume=Tru
         session.check(path,body,credential,project)
         session.issued[token]=(path,body,credential,project,True)
         return None
-    except (Refusal,OSError,ValueError,TypeError,KeyError):
-        return 'supervised_authorization_refused'
+    except Refusal as error:
+        # Preserve only existing literal diagnostic codes. Unknown/subclassed
+        # refusals stay generic; exception text never crosses this boundary.
+        from .supervised_credit import safe_reason
+        reason=safe_reason(error)
+        return reason if reason!='unexpected_exception' else 'supervised_authorization_refused'
+    except OSError:
+        return 'supervised_authorization_io_error'
+    except TypeError:
+        return 'supervised_authorization_type_error'
+    except KeyError:
+        return 'supervised_authorization_key_error'
+    except ValueError:
+        return 'supervised_authorization_value_error'
 
 
 def reservation_ceiling(history,project,request_hash):

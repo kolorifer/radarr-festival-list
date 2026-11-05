@@ -82,9 +82,9 @@ class HandoffTests(unittest.TestCase):
             self.assertEqual(permit['expires_at'],session.deadline)
             with patch('time.monotonic',return_value=session.started_monotonic+60):
                 self.assertEqual(auth.refusal(kw['authorization'],body=body,credential=kw['credential'],
-                    project=kw['project'],path='/v1/responses'),'supervised_authorization_refused')
+                    project=kw['project'],path='/v1/responses'),'supervised_session_expired')
             self.assertEqual(auth.refusal(kw['authorization'],body=body,credential=kw['credential'],
-                project=kw['project'],path='/v1/responses'),'supervised_authorization_refused')
+                project=kw['project'],path='/v1/responses'),'supervised_session_expired')
             raise Refusal('binding_response_unknown')
         with patch.object(command.sys.stdin,'isatty',return_value=True),patch.object(command.sys.stderr,'isatty',return_value=True),\
              patch('getpass.getpass',return_value=f.key),patch('socket.socket',side_effect=AssertionError('network')),\

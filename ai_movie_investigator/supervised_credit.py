@@ -31,6 +31,17 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
+    'evidence_changed': frozenset((
+        'supervised_evidence_changed_read_device supervised_evidence_changed_read_inode '
+        'supervised_evidence_changed_read_size supervised_evidence_changed_read_mtime '
+        'supervised_evidence_changed_read_ctime supervised_evidence_changed_selected_bytes '
+        'supervised_evidence_changed_selected_device supervised_evidence_changed_selected_inode '
+        'supervised_evidence_changed_selected_size supervised_evidence_changed_selected_mtime '
+    ).split()),
+    'send_or_response_refused': frozenset((
+        'supervised_authorization_io_error supervised_authorization_type_error '
+        'supervised_authorization_key_error supervised_authorization_value_error '
+    ).split()),
     'transport_refused': frozenset((
         'responses_observation_profile responses_observation_transition '
         'responses_setup_deadline_exceeded responses_observation_deadline_exceeded '
@@ -209,10 +220,15 @@ def _read_evidence(path):
     raw=read_private(path,16384)
     after=path.lstat()
     identity=lambda info:(info.st_dev,info.st_ino,info.st_size,info.st_mtime_ns,info.st_ctime_ns)
-    require(identity(before)==identity(after),'supervised_evidence_changed')
+    before_identity,after_identity=identity(before),identity(after)
+    for old,new,reason in zip(before_identity,after_identity,(
+            'supervised_evidence_changed_read_device','supervised_evidence_changed_read_inode',
+            'supervised_evidence_changed_read_size','supervised_evidence_changed_read_mtime',
+            'supervised_evidence_changed_read_ctime')):
+        require(old==new,reason)
     # Persistent selection binds bytes and dev/inode/size/mtime. ctime is a
     # per-read race check, not proof against same-owner change-and-restore.
-    return raw,identity(after)[:4]
+    return raw,after_identity[:4]
 
 
 _EVIDENCE_READER = object()
@@ -228,7 +244,15 @@ class SelectedEvidence:
     def data(self):return decode(self.raw,16384)
     def revalidate(self):
         raw,identity=_read_evidence(self.path)
-        require(raw==self.raw and identity==self.identity,'supervised_evidence_changed')
+        require(raw==self.raw,'supervised_evidence_changed_selected_bytes')
+        if identity!=self.identity:
+            for old,new,reason in zip(self.identity,identity,(
+                    'supervised_evidence_changed_selected_device','supervised_evidence_changed_selected_inode',
+                    'supervised_evidence_changed_selected_size','supervised_evidence_changed_selected_mtime')):
+                require(old==new,reason)
+            # Preserve exact tuple equality even for a malformed selection.
+            require(False,'supervised_evidence_changed')
+
 
 
 def read_evidence(path):
