@@ -5,6 +5,7 @@ descriptor access and namespace identity checks guard every read and append.
 An incomplete tail fails closed; recovery never replays a model reservation.
 """
 from contextlib import contextmanager
+from contextvars import ContextVar
 import fcntl
 import json
 import os
@@ -17,6 +18,7 @@ from .contracts import Refusal, decode, digest, encoded, require, shape, stamp
 MAX_HISTORY = 16 * 1024 * 1024
 MAX_RECORDS = 10000
 FILENAME = 'ai-investigator-v1.jsonl'
+_WRITE_TRANSACTIONS = ContextVar('history_write_transactions', default=())
 
 
 def plan_retired(events, original_job, plan_hash):
@@ -223,12 +225,30 @@ class History:
                 check()
                 events.append(event)
                 previous = record['hash']
+                raw.extend(body)
 
-            yield events, append
+            def prove(candidate):
+                require(candidate is events, 'history_transaction_required')
+                check()
+                persisted = os.pread(fd, MAX_HISTORY + 1, 0)
+                require(persisted == bytes(raw), 'history_transaction_changed')
+                durable = [decode(line, 196608)['event'] for line in persisted.splitlines()]
+                require(durable == events, 'history_transaction_changed')
+            marker = _WRITE_TRANSACTIONS.set(_WRITE_TRANSACTIONS.get() + ((self, prove),)) if write else None
+            try:
+                yield events, append
+            finally:
+                if marker is not None:
+                    _WRITE_TRANSACTIONS.reset(marker)
         finally:
             if fd is not None:
                 os.close(fd)
             os.close(dfd)
+
+    def require_write_transaction(self, events):
+        matches = [prove for owner, prove in _WRITE_TRANSACTIONS.get() if owner is self]
+        require(len(matches) == 1, 'history_transaction_required')
+        matches[0](events)
 
     def read(self):
         with self.transaction() as (events, _):

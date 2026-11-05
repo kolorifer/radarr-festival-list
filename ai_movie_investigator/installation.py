@@ -9,7 +9,7 @@ RUNTIME_FILES = (
     'ai_movie_investigator/__init__.py', 'ai_movie_investigator/contracts.py',
     'ai_movie_investigator/new_case.py', 'identity_telegram_digest.py', 'private_text.py',
     'ai_movie_investigator/draft_delivery.py', 'ai_movie_investigator/credit_test.py',
-    'ai_movie_investigator/supervised_credit.py',
+    'ai_movie_investigator/private_files.py', 'ai_movie_investigator/supervised_credit.py', 'ai_movie_investigator/supervised_authorization.py',
     'ai_movie_investigator/history.py', 'ai_movie_investigator/controller.py',
     'ai_movie_investigator/codex_transport.py', 'ai_movie_investigator/review.py',
     'ai_movie_investigator/replay.py', 'ai_movie_investigator/synthetic.json',

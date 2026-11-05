@@ -103,7 +103,8 @@ class FixedResponsesHTTP:
     def _request(self, body, *, credential, project, timeout, authorization, path):
         require(path in (PATH, '/v1/responses/input_tokens'), 'responses_path_denied')
         from .responses_transport import real_activation_refusal
-        refusal = real_activation_refusal(authorization)
+        refusal = real_activation_refusal(authorization, body=body, credential=credential,
+                                           project=project, path=path)
         require(refusal is None, refusal or 'responses_denied')
         require(type(body) is bytes and len(body) <= 65536, 'responses_request_size')
         selected_headers = headers(credential, project)
@@ -124,6 +125,9 @@ class FixedResponsesHTTP:
                             and ipaddress.ip_address(address[0]).is_global
                             and address[1] == 443, 'responses_network_denied')
                 family, kind, proto, _, address = addresses[0]
+                refusal = real_activation_refusal(authorization, body=body, credential=credential,
+                    project=project, path=path, consume=False)
+                require(refusal is None, refusal or 'responses_denied')
                 raw_socket = socket.socket(family, kind, proto)
                 raw_socket.settimeout(timeout)
                 raw_socket.connect(address)
@@ -134,6 +138,9 @@ class FixedResponsesHTTP:
                 connection.sock = secure
                 raw_socket = None  # connection now owns the TLS socket
                 check()
+                refusal = real_activation_refusal(authorization, body=body, credential=credential,
+                    project=project, path=path, consume=False)
+                require(refusal is None, refusal or 'responses_denied')
                 connection.request('POST', path, body=body, headers=selected_headers)
                 check()
                 response = connection.getresponse()

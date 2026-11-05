@@ -24,13 +24,11 @@ class SimulatedAuthorization:
     expires_at: float
 
 
-def real_activation_refusal(authorization):
-    # Deliberately no registered external verifier. A future implementation must
-    # authoritatively verify account/project/key/model access, privacy/billing,
-    # pricing + durable monetary/token reservation, input/decision/currentness
-    # pins, storage/destination grants and stable mandatory network controls.
-    # Do not accept a caller's assertions as evidence of those external facts.
-    return 'responses_real_authorization_unimplemented'
+def real_activation_refusal(authorization, **wire):
+    # Only the ephemeral enrolled interactive synthetic command can authorize
+    # its exact reserved operations. Generic/movie/boolean callers stay closed.
+    from .supervised_authorization import refusal
+    return refusal(authorization, **wire)
 
 
 class ResponsesTransport:
