@@ -58,17 +58,38 @@ def headers(credential, project):
 
 
 @contextmanager
-def total_deadline(seconds):
+def total_deadline(seconds, *, response_observation=None):
     require(type(seconds) in (int, float) and 0 < seconds <= 25, 'responses_deadline')
+    require(response_observation in (None,120), 'responses_observation_profile')
     require(threading.current_thread() is threading.main_thread()
             and hasattr(signal, 'setitimer'), 'responses_timer_unavailable')
     require(signal.getitimer(signal.ITIMER_REAL) == (0.0, 0.0)
             and signal.getsignal(signal.SIGALRM) == signal.SIG_DFL, 'responses_timer_busy')
+    reason='responses_setup_deadline_exceeded' if response_observation is not None else None
     def expired(*_):
+        if reason is not None:raise Refusal(reason)
         raise TimeoutError()
     deadline = time.monotonic() + seconds
+    observing=False
     def check():
-        require(time.monotonic() < deadline, 'responses_deadline_exceeded')
+        require(time.monotonic() < deadline, reason or 'responses_deadline_exceeded')
+    def remaining():
+        check()
+        return max(0.000001,deadline-time.monotonic())
+    def begin_observation(post_completed):
+        nonlocal deadline,reason,observing
+        # Single transition after the one POST, never a sliding read timeout.
+        check()
+        require(response_observation==120 and not observing and
+                type(post_completed) in (int,float) and
+                post_completed<=time.monotonic() and post_completed<deadline,
+                'responses_observation_transition')
+        observing=True
+        deadline=post_completed+response_observation
+        reason='responses_observation_deadline_exceeded'
+        signal.setitimer(signal.ITIMER_REAL,remaining())
+    check.begin_observation=begin_observation
+    check.remaining=remaining
     previous = signal.signal(signal.SIGALRM, expired)
     try:
         signal.setitimer(signal.ITIMER_REAL, seconds)
@@ -101,7 +122,7 @@ class FixedResponsesHTTP:
                              authorization=authorization, path='/v1/responses/input_tokens')
 
     def _request(self, body, *, credential, project, timeout, authorization, path):
-        from .supervised_authorization import observe_phase
+        from .supervised_authorization import observe_phase, response_observation_window
         observe_phase('http_setup')
         require(path in (PATH, '/v1/responses/input_tokens'), 'responses_path_denied')
         from .responses_transport import real_activation_refusal
@@ -110,11 +131,12 @@ class FixedResponsesHTTP:
         require(refusal is None, refusal or 'responses_denied')
         require(type(body) is bytes and len(body) <= 65536, 'responses_request_size')
         selected_headers = headers(credential, project)
+        observation=response_observation_window(authorization,body,credential,project,path)
         connection = None
         raw_socket = None
         primary = False
         try:
-            with total_deadline(timeout) as check:
+            with total_deadline(timeout,response_observation=observation) as check:
                 observe_phase('tls_setup')
                 context = tls_context()
                 check()
@@ -150,7 +172,11 @@ class FixedResponsesHTTP:
                 require(refusal is None, refusal or 'responses_denied')
                 observe_phase('http_send')
                 connection.request('POST', path, body=body, headers=selected_headers)
+                post_completed=time.monotonic()
                 check()
+                if observation is not None:
+                    check.begin_observation(post_completed)
+                    secure.settimeout(check.remaining())
                 observe_phase('http_receive')
                 response = connection.getresponse()
                 observe_phase('http_response_received')
