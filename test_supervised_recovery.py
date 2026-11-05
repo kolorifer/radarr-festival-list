@@ -20,7 +20,7 @@ class RecoveryTests(unittest.TestCase):
         with patch('time.time',return_value=self.now-600):
             self.f.setUp();self.f.renew()
             with self.inputs(),patch.object(FixedResponsesHTTP,'post',side_effect=TimeoutError):
-                with self.assertRaises(TimeoutError):command.run(self.f.state,self.f.selected,2,clock=lambda:self.now-600)
+                with self.assertRaises(TimeoutError):command._run(self.f.state,self.f.selected,2,clock=lambda:self.now-600)
         self.addCleanup(self.f.doCleanups)
         self.state=self.f.state
         self.path=self.f.f.root/'recovery-evidence.json'

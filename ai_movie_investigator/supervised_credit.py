@@ -21,12 +21,106 @@ from .history import History, FILENAME, checked
 from .responses_http import ExplicitCredential, headers
 from .responses_protocol import INTEGRATION_MODEL, OUTPUT_TOKENS
 from .responses_transport import ResponsesTransport
-from .supervised_authorization import command_authority
+from .supervised_authorization import command_authority, diagnostic_scope, diagnostic_phase, observe_phase
 from .spending import rational
 from .private_files import read_private
 
 _PROMPTED = ContextVar("supervised_prompted_credential", default=None)
 ACCOUNT_EVIDENCE_SECONDS = 900
+
+
+# Finite literal codes only; arbitrary exceptions and remote values are excluded.
+_SAFE_REASON_GROUPS = {
+    'transport_refused': frozenset((
+        'responses_cleanup_failed '
+        'responses_body_limit responses_body_truncated responses_credential_invalid responses_deadline '
+        'responses_deadline_exceeded responses_dns_failed responses_http_rejected responses_http_shape '
+        'responses_network_completion_unknown responses_network_denied responses_path_denied responses_peer_changed '
+        'responses_project_invalid responses_request_size responses_timer_busy responses_timer_unavailable '
+        'responses_tls_required responses_tls_roots_unavailable simulation_credential_required simulation_response_invalid '
+        'simulation_response_missing '
+    ).split()),
+    'protocol_refused': frozenset((
+        'responses_action_or_output_denied responses_answer_count responses_answer_schema responses_cache_or_tier_changed '
+        'responses_cache_partition responses_contract_changed responses_identity_invalid responses_model_profile '
+        'responses_not_completed responses_output_shape responses_reasoning_shape responses_text_required '
+        'responses_unsupported_shape responses_usage_invalid responses_usage_limit responses_usage_required '
+    ).split()),
+    'binding_refused': frozenset((
+        'binding_attempt_consumed binding_authority binding_body binding_debit '
+        'binding_expired binding_history binding_history_changed binding_model '
+        'binding_parent_refused binding_project binding_receipt_refused binding_response_unknown '
+        'binding_tokens binding_usage_unknown credit_history_missing credit_parent_required '
+        'credit_pricing_changed credit_project_changed credit_result_binding credit_scope_or_model_expired '
+        'credit_synthetic_input_required credit_synthetic_result integration_model_retired model_transport_disabled '
+        'operator_account_unknown operator_authority_stale operator_context_missing operator_context_pin '
+        'operator_coverage_above_cap operator_coverage_unknown operator_credential_disclosed operator_credential_echo '
+        'operator_credential_route_changed operator_disclosure_changed operator_evidence_missing operator_evidence_pin '
+        'operator_evidence_stale operator_evidence_unknown operator_expanded_disclosure_unpinned operator_expanded_observations '
+        'operator_historical_qualification operator_history_changed operator_limits_unknown operator_owner_authority_missing '
+        'operator_permit_changed operator_pricing_unknown operator_privacy_missing operator_receipt_correlation '
+        'operator_receipt_mismatch operator_receipt_unbound operator_request_changed operator_request_policy '
+        'operator_route_missing operator_selection_changed responses_authorization_stale responses_bound_mode_conflict '
+        'responses_completion_unknown_or_rejected responses_credential_echo_refused responses_credential_in_input responses_deadline '
+        'responses_deadline_exceeded responses_decisions_changed responses_history_binding responses_http_rejected '
+        'responses_input_protocol responses_pending_request responses_request_already_consumed responses_request_size '
+        'responses_reservation_required responses_reserved_input_changed responses_retained_evidence_changed responses_schema_unsupported '
+        'responses_selected_input_changed simulation_credential_required supervised_attempt_consumed supervised_clock_rollback '
+        'supervised_credential_binding supervised_diagnostic_phase supervised_endpoint supervised_enrollment_binding '
+        'supervised_generation_binding supervised_generation_not_reserved supervised_operator_boundary supervised_recovery_binding '
+        'supervised_request_binding supervised_reservation_required supervised_session_expired supervised_storage_changed '
+        'supervised_wire_binding supervised_wire_consumed '
+    ).split()),
+    'validation_refused': frozenset((
+        'case_id claims credit_budget_changed credit_clock_rollback '
+        'credit_count_correlation credit_count_invalid credit_file_identity credit_history_missing '
+        'credit_input_bound credit_project credit_request_ceiling credit_request_consumed '
+        'credit_total_ceiling decision_evidence decision_evidence_hashes decision_kind '
+        'decision_limit decision_revision decision_supersession decision_target '
+        'decision_time delivery_id duplicate_decision_id duplicate_evidence_id '
+        'event_hash_changed event_mismatch evidence_expiry evidence_kind '
+        'evidence_limit facts_schema hash hash_basis '
+        'identifier images imdb input_limit '
+        'integration_model_retired invalid_json legacy_occurrence_invented legacy_route '
+        'outcome_codes outcome_schema packet_version quarantined_outcome '
+        'release_fields responses_credential_invalid route schema '
+        'size_limit source_basis source_case_mismatch spending_binding_changed '
+        'spending_budget_changed spending_case_changed spending_ceiling spending_clock_or_expiry '
+        'spending_counter_limit spending_history spending_policy_unknown spending_previous_charge_unknown '
+        'spending_rational spending_receipt_changed spending_request_changed spending_request_consumed '
+        'spending_request_limit spending_response_consumed spending_send_binding spending_send_consumed '
+        'spending_send_missing spending_send_sequence spending_settlement_sequence spending_usage_exceeds_reservation '
+        'supervised_attempt_consumed supervised_credential_disclosed supervised_credit_only supervised_enrollment_binding '
+        'supervised_enrollment_exists supervised_evidence_changed supervised_evidence_missing supervised_evidence_selection '
+        'supervised_evidence_stale supervised_interactive_terminal_required supervised_model_pricing_unknown supervised_not_enrolled '
+        'supervised_project supervised_prompt_required supervised_reauthorization_binding supervised_reauthorization_evidence '
+        'supervised_reauthorization_state supervised_reauthorization_uncertain supervised_recovery_binding supervised_recovery_evidence '
+        'supervised_recovery_state supervised_root_changed supervised_slot supervised_storage_changed '
+        'timestamp tmdb trusted_issuers unsafe_text '
+        'year '
+    ).split()),
+    'storage_refused': frozenset((
+        'acl_unsupported decision_history_omitted decision_revision_conflict decision_revocation_rollback '
+        'history_busy history_capacity history_directory_changed history_file_changed '
+        'history_file_identity_changed history_file_missing history_incomplete_tail history_integrity '
+        'history_read_only history_schema history_transaction_changed history_transaction_required '
+        'history_write_failed immutable_event_conflict invocation_already_consumed invocation_missing '
+        'lookup_budget model_call_budget model_reservation_sequence model_send_consumed '
+        'model_send_unbound packet_changed parent_changed previous_model_attempt_unknown '
+        'research_completion_unbound research_dependency_binding_changed research_dependency_invalid research_dependency_missing '
+        'research_derived_input_changed research_detail_not_returned research_input_ambiguous_or_missing research_original_unbound '
+        'research_plan_changed research_plan_revoked research_plan_unbound research_receipt_binding_changed '
+        'research_receipt_missing_or_ambiguous research_receipt_reservation_unbound research_receipts_incomplete result_immutable '
+        'selected_case_superseded storage_acl storage_acl_unsupported supervised_handoff_already_consumed '
+        'unknown_job unsafe_history_path unsafe_history_permissions unsafe_packet '
+        'unsafe_parent '
+    ).split()),
+}
+
+
+def safe_reason(error):
+    code=error.args[0] if type(error) is Refusal and len(error.args)==1 and type(error.args[0]) is str else None
+    return code if any(code in codes for codes in _SAFE_REASON_GROUPS.values()) else "unexpected_exception"
 
 
 def refusal_category(error):
@@ -52,6 +146,8 @@ def refusal_category(error):
             'binding_response_unknown','binding_usage_unknown','binding_receipt_refused'),
     }
     for category,codes in groups.items():
+        if code in codes:return category
+    for category,codes in _SAFE_REASON_GROUPS.items():
         if code in codes:return category
     if isinstance(error,(EOFError,getpass.GetPassWarning,KeyboardInterrupt)):return 'interactive_input_cancelled'
     if isinstance(error,OSError):return 'io_refused'
@@ -236,7 +332,7 @@ def recovery_binding(events,enrolled,selected):
             start['cumulative_usd']==[6,100] and
             start['request_sha256']==digest(decode(request('synthetic-integration-3'))) and
             selected.data['observed_at']<=stamp(start['at'])<=stamp(grant['at'])<start['expires_at'] and
-            all(e['type'] in ('supervised_started','supervised_completed') and e.get('slot')==3
+            all(e['type'] in ('supervised_started','supervised_completed','supervised_diagnostic') and e.get('slot')==3
                 for e in events[7:]),'supervised_recovery_binding')
     require(rational(selected.data['available_usd'])>=rational([6,100]),'supervised_credit_only')
     return start,grant
@@ -365,7 +461,25 @@ def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None)
     return OperatorContext(raw,hashlib.sha256(raw).hexdigest(),tuple((k,digest(v)) for k,v in r['evidence'].items())),selection
 
 
+_LAST_DIAGNOSTIC = ContextVar('supervised_last_diagnostic',default=None)
+
+
 def run(directory,selected,slot,*,clock=time.time):
+    _LAST_DIAGNOSTIC.set(None)
+    with diagnostic_scope():
+        try:return _run(directory,selected,slot,clock=clock)
+        except (Exception,KeyboardInterrupt) as error:
+            if _LAST_DIAGNOSTIC.get() is None:
+                _LAST_DIAGNOSTIC.set(safe_diagnostic(error))
+            raise
+
+
+def safe_diagnostic(error):
+    return dict(phase=diagnostic_phase() or 'preflight',reason=safe_reason(error),
+                category=refusal_category(error))
+
+
+def _run(directory,selected,slot,*,clock=time.time):
     require(type(slot) is int and slot in (1,2,3),'supervised_slot')
     require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
     selected.revalidate()
@@ -397,20 +511,36 @@ def run(directory,selected,slot,*,clock=time.time):
             # root lock held; no slot/debit is consumed by invalid input.
             require(credential.value.startswith('sk-'),'responses_credential_invalid')
             append(dict(type='supervised_started',slot=slot,at=clock(),evidence_hash=digest(evidence)))
-            validate_evidence(evidence,max(clock(),time.time()))
-            body=request(run_id)
-            require(credential.value.encode() not in body and credential.value.encode() not in encoded(evidence),
-                    'supervised_credential_disclosed')
-            with command_authority(root,events,enrolled,selected,slot,credit,history,credential) as authority:
-                context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,clock(),
-                    expires_at=authority.deadline)
-                parent=HistoricalDiagnosticParent(context,history=history,credit_history=credit,credential=credential)
-                answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
-                    history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
-                append(dict(type='supervised_completed',slot=slot,at=clock(),answer=decode(answer),
-                            request_hash=selection['request_sha256'],reserved_usd=[3,100]))
-                return dict(status='completed',slot=slot,request_hash=selection['request_sha256'],
-                            input_upper_bound=CONTEXT_TOKENS,reserved_usd=[3,100])
+            observe_phase('slot_started')
+            try:
+                validate_evidence(evidence,max(clock(),time.time()))
+                body=request(run_id)
+                require(credential.value.encode() not in body and credential.value.encode() not in encoded(evidence),
+                        'supervised_credential_disclosed')
+                with command_authority(root,events,enrolled,selected,slot,credit,history,credential) as authority:
+                    context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,clock(),
+                        expires_at=authority.deadline)
+                    parent=HistoricalDiagnosticParent(context,history=history,credit_history=credit,credential=credential)
+                    answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
+                        history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
+                    observe_phase('completion_recording')
+                    append(dict(type='supervised_completed',slot=slot,at=clock(),answer=decode(answer),
+                                request_hash=selection['request_sha256'],reserved_usd=[3,100]))
+                    observe_phase('completed')
+                    return dict(status='completed',slot=slot,request_hash=selection['request_sha256'],
+                                input_upper_bound=CONTEXT_TOKENS,reserved_usd=[3,100])
+            except (Exception,KeyboardInterrupt) as error:
+                diagnostic=safe_diagnostic(error)
+                _LAST_DIAGNOSTIC.set(diagnostic)
+                # Diagnostics cannot clear a consumed slot or mask its failure.
+                # A partial failed append remains a corrupt, fail-closed history.
+                if diagnostic_phase() is not None:
+                    try:
+                        append(dict(type='supervised_diagnostic',slot=slot,at=clock(),**diagnostic))
+                    except BaseException:
+                        pass
+                raise
+
 
 
 class _SafeParser(argparse.ArgumentParser):
@@ -433,6 +563,7 @@ def main(argv=None):
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
     send.add_argument('--slot',required=True,type=int,choices=(1,2,3))
     args=parser.parse_args(argv)
+    _LAST_DIAGNOSTIC.set(None)
     try:
         if args.action=='enroll':
             selected=read_evidence(args.evidence)
@@ -446,8 +577,10 @@ def main(argv=None):
         print(encoded(result).decode());return 0
     except (Exception,KeyboardInterrupt) as error:
         # Never print raw exceptions, remote bodies, credentials or a traceback.
+        diagnostic=_LAST_DIAGNOSTIC.get() or safe_diagnostic(error)
         print('Supervised synthetic command refused: category='+refusal_category(error)+
               '; action='+args.action+'; '+('request status unconfirmed' if args.action=='run' else 'no API request')+
+              '; phase='+diagnostic['phase']+'; reason='+diagnostic['reason']+
               '. Retain state; do not retry automatically.',file=sys.stderr)
         return 1
 

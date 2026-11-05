@@ -147,3 +147,31 @@ def reservation_ceiling(history,project,request_hash):
     ceiling=recovery_retained(session.root,session.events,session.enrolled,session.selected,history)
     session.check_time()
     return ceiling
+
+
+# Diagnostic state has no authority and is never consulted for admission.
+_DIAGNOSTIC = ContextVar('supervised_diagnostic', default=None)
+_PHASES = frozenset(('preflight slot_started request_validation attempt_recording '
+    'credit_reservation wire_authorization http_setup tls_setup dns_lookup socket_connect '
+    'tls_handshake http_send http_receive http_response_received http_body_read '
+    'http_body_received response_parsing receipt_validation receipt_recording '
+    'receipt_recorded completion_recording completed').split())
+
+
+@contextmanager
+def diagnostic_scope():
+    state={'phase':'preflight'}
+    token=_DIAGNOSTIC.set(state)
+    try:yield state
+    finally:_DIAGNOSTIC.reset(token)
+
+
+def observe_phase(phase):
+    require(phase in _PHASES,'supervised_diagnostic_phase')
+    state=_DIAGNOSTIC.get()
+    if state is not None:state['phase']=phase
+
+
+def diagnostic_phase():
+    state=_DIAGNOSTIC.get()
+    return state['phase'] if state is not None else None
