@@ -1,5 +1,14 @@
 # Movie notifications: a practical guide
 
+**5 November follow-up — disabled delivery connection:** a selected investigator
+draft can now use the existing notification ledger and final sender boundary in
+code. Duplicate suppression and uncertain-send handling are retained. It has not
+been installed or activated; tests use a synthetic final sender. Automatic assessment remains separate: the owner has selected a bounded
+Responses API pilot using claimed credits, with account/budget facts and live
+authorization still outstanding. See the
+[delivery integration report](reports/2026-11-05-investigator-delivery.md).
+
+
 **5 November code-only addition — supervised new-case drafts:** an explicitly
 selected normalized occurrence can now pass through retained-evidence review to
 an unsent draft using the existing identification-update format. Missing or stale
