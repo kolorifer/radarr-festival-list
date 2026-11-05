@@ -33,7 +33,7 @@ def request(run):
 
 
 def ledger_total(events, project, *, ceiling=TOTAL):
-    require(ceiling in (TOTAL, Fraction(6,100), Fraction(9,100)), 'credit_total_ceiling')
+    require(ceiling in (TOTAL, Fraction(6,100), Fraction(9,100), Fraction(12,100)), 'credit_total_ceiling')
     require(all(e['type']=='credit_test_reserved' and e['project']==project and
                 e['model']==INTEGRATION_MODEL and type(e['reserved_usd']) is list and
                 all(type(v) is int for v in e['reserved_usd']) and e['reserved_usd'] in ([1,100],[3,100])
