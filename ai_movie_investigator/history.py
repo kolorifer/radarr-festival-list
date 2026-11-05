@@ -312,6 +312,8 @@ class History:
     def start(self, job, invocation, runtime):
         with self.transaction(write=True) as (events, append):
             require(any(e['type'] == 'intake' and e['job'] == job for e in events), 'unknown_job')
+            require(not any(e['type'] == 'new_case_prepared' and e['job'] == job for e in events),
+                    'supervised_handoff_already_consumed')
             require(not any(e['type'] == 'invocation' and (e['job'] == job or e['invocation'] == invocation)
                             for e in events), 'invocation_already_consumed')
             append(dict(type='invocation', job=job, invocation=invocation, at=stamp(self.clock()), runtime=runtime))

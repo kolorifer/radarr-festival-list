@@ -1,5 +1,15 @@
 # Movie notifications: a practical guide
 
+**5 November code-only addition — supervised new-case drafts:** an explicitly
+selected normalized occurrence can now pass through retained-evidence review to
+an unsent draft using the existing identification-update format. Missing or stale
+evidence and prior occurrence decisions remain visible. This does not generate
+an assessment unattended or send a notification. A supported Pro-chat invocation
+bridge and actual notification delivery integration are still missing code and
+verification, not merely activation switches. See the
+[connected workflow report](reports/2026-11-05-new-case-connected.md).
+
+
 This guide follows a movie release from an autobrr announcement to Radarr, Telegram and, when you choose, a download. It describes the setup checked on **27 October 2026**. Your own Radarr profiles and autobrr filters determine many outcomes, so individual messages can differ. Features marked **shadow pilot** are being tested; they do not make production decisions.
 
 **31 October code-only addition — inactive AI investigator:** a new standalone
