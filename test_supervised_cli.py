@@ -35,7 +35,7 @@ class SupervisedExecutableTests(unittest.TestCase):
         self.execute_fixture(recovery.f.f,3,recovery=recovery)
         recovery.preserved()
 
-    def execute_fixture(self,fixture,slot,renewal=None,*,recovery=None,dummy=b'sk-DUMMY_EXECUTABLE_FIXTURE_ONLY',
+    def execute_fixture(self,fixture,slot,renewal=None,*,recovery=None,continuation=None,dummy=b'sk-DUMMY_EXECUTABLE_FIXTURE_ONLY',
                         failure='binding_response_unknown',category='send_or_response_refused',invalid=False,
                         hook_extension='',expected_reason=None,expected_phase=None,expect_boundary=True):
         installed=fixture.root/'installed';installed.mkdir(mode=0o700)
@@ -88,6 +88,15 @@ FixedResponsesHTTP.post=sink
             self.assertEqual(json.loads(result.stdout),dict(status='recovery_authorized_no_api_call',
                 permitted_slot=3,cumulative_usd=[6,100]))
             self.assertEqual(len(History(fixture.state/'credit').read()),1)
+        if continuation is not None:
+            selected=continuation.path
+            result=subprocess.run([sys.executable,'-B','-m','ai_movie_investigator.supervised_credit',
+                '--state',str(fixture.state),'continue-once','--previous-evidence',str(continuation.r.path),
+                '--evidence',str(selected)],cwd=installed,env=env,capture_output=True,timeout=15)
+            self.assertEqual(result.returncode,0,result.stderr.decode())
+            self.assertEqual(json.loads(result.stdout),dict(status='recovery_authorized_no_api_call',
+                permitted_slot=4,cumulative_usd=[9,100]))
+            self.assertEqual(len(History(fixture.state/'credit').read()),2)
         before=(fixture.state/'ai-investigator-v1.jsonl').read_bytes()
         master,slave=pty.openpty()
         proc=subprocess.Popen([sys.executable,'-B','-m','ai_movie_investigator.supervised_credit',
@@ -130,6 +139,6 @@ FixedResponsesHTTP.post=sink
             self.assertEqual(list((fixture.state/f'attempt-{slot}').iterdir()),[])
             return
         self.assertEqual([r['reserved_usd'] for r in History(fixture.state/'credit').read()],
-                         [[3,100]]*(2 if recovery is not None else 1))
+                         [[3,100]]*(3 if continuation is not None else 2 if recovery is not None else 1))
         self.assertEqual([r['type'] for r in History(fixture.state/f'attempt-{slot}').read()],
                          ['bound_send_reserved','bound_send_attempted'])
