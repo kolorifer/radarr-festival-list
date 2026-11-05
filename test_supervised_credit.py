@@ -39,7 +39,7 @@ class SupervisedCreditTests(unittest.TestCase):
         self.path=self.root/'evidence.json';self.path.write_bytes(encoded(self.evidence));self.path.chmod(0o600)
         self.selected=command.read_evidence(self.path)
         command.enroll(self.state,self.selected)
-        self.key='sk_SYNTHETIC_NOT_REAL';self.seen=[];self.tokens=[]
+        self.key='sk-SYNTHETIC_NOT_REAL';self.seen=[];self.tokens=[]
 
     def authorize(self,path,body,kw):
         token=kw['authorization'];self.tokens.append(token)

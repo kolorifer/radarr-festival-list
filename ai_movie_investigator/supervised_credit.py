@@ -44,6 +44,9 @@ def refusal_category(error):
             'supervised_reauthorization_uncertain','supervised_reauthorization_evidence'),
         'credit_limit_refused':('credit_total_ceiling','supervised_credit_only'),
         'interactive_input_refused':('supervised_interactive_terminal_required','supervised_prompt_required'),
+        'credential_format_invalid':('responses_credential_invalid',),
+        'http_rejected':('responses_http_rejected',),
+        'network_outcome_unknown':('responses_network_completion_unknown',),
         'send_or_response_refused':('supervised_authorization_refused','responses_real_authorization_unimplemented',
             'binding_response_unknown','binding_usage_unknown','binding_receipt_refused'),
     }
@@ -216,7 +219,7 @@ def prompt_credential():
     # getpass falls back to echoed input if terminal setup fails; forbid that.
     with warnings.catch_warnings():
         warnings.simplefilter('error',getpass.GetPassWarning)
-        value=getpass.getpass('Restricted project API key (not saved): ')
+        value=getpass.getpass('Secret API key (not Tracking ID or project ID; hidden): ')
     return ExplicitCredential(value)
 
 
@@ -267,10 +270,13 @@ def run(directory,selected,slot,*,clock=time.time):
         run_id=f'synthetic-integration-{slot}'
         case=dict(source='synthetic-credit-integration',case_id='outcome-'+digest('synthetic-example'),
                   version=digest(decode(request(run_id))),occurrence=None)
-        append(dict(type='supervised_started',slot=slot,at=clock(),evidence_hash=digest(evidence)))
         with interactive_credential(root) as credential:
             # Validate format without serializing or storing the resulting headers.
             headers(credential,evidence['project'])
+            # Conservative typo/identifier filter, not authentication. Keep the
+            # root lock held; no slot/debit is consumed by invalid input.
+            require(credential.value.startswith('sk-'),'responses_credential_invalid')
+            append(dict(type='supervised_started',slot=slot,at=clock(),evidence_hash=digest(evidence)))
             validate_evidence(evidence,max(clock(),time.time()))
             body=request(run_id)
             require(credential.value.encode() not in body and credential.value.encode() not in encoded(evidence),

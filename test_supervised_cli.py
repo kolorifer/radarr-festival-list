@@ -28,11 +28,12 @@ class SupervisedExecutableTests(unittest.TestCase):
         self.assertTrue((renewal.state/'ai-investigator-v1.jsonl').read_bytes().startswith(renewal.prefix))
         self.assertEqual(list((renewal.state/'attempt-1').iterdir()),[])
 
-    def execute_fixture(self,fixture,slot,renewal=None):
+    def execute_fixture(self,fixture,slot,renewal=None,*,dummy=b'sk-DUMMY_EXECUTABLE_FIXTURE_ONLY',
+                        failure='binding_response_unknown',category='send_or_response_refused',invalid=False):
         installed=fixture.root/'installed';installed.mkdir(mode=0o700)
         install_runtime(Path(__file__).resolve().parent,installed)
         hooks=fixture.root/'hooks';hooks.mkdir(mode=0o700)
-        (hooks/'sitecustomize.py').write_text('''
+        hook='''
 import errno,os,socket,ssl,sys
 from ai_movie_investigator.contracts import Refusal
 from ai_movie_investigator.responses_http import FixedResponsesHTTP
@@ -54,7 +55,9 @@ def sink(self,body,**kw):
     print('OFFLINE_AUTHORIZED_BOUNDARY',flush=True)
     raise Refusal('binding_response_unknown')
 FixedResponsesHTTP.post=sink
-''')
+'''
+        hook=hook.replace("raise Refusal('binding_response_unknown')",'raise Refusal('+repr(failure)+')')
+        (hooks/'sitecustomize.py').write_text(hook)
         env=dict(os.environ,PYTHONPATH=os.pathsep.join((str(hooks),str(installed))),PYTHONDONTWRITEBYTECODE='1')
         # No inherited provider credential is needed or forwarded to the fixture.
         env={k:v for k,v in env.items() if not any(s in k.upper() for s in ('KEY','TOKEN','SECRET','PASSWORD'))}
@@ -67,6 +70,7 @@ FixedResponsesHTTP.post=sink
             self.assertEqual(result.returncode,0,result.stderr.decode())
             self.assertEqual(json.loads(result.stdout),dict(status='reauthorized_no_api_call',permitted_slot=2))
             self.assertEqual(History(fixture.state/'credit').read(),[])
+        before=(fixture.state/'ai-investigator-v1.jsonl').read_bytes()
         master,slave=pty.openpty()
         proc=subprocess.Popen([sys.executable,'-B','-m','ai_movie_investigator.supervised_credit',
             '--state',str(fixture.state),'run','--evidence',str(selected),'--slot',str(slot)],
@@ -80,8 +84,8 @@ FixedResponsesHTTP.post=sink
                     except OSError:break
                     if not part:break
                     output.extend(part)
-                    if b'Restricted project API key (not saved):' in output and not entered:
-                        os.write(master,b'sk_DUMMY_EXECUTABLE_FIXTURE_ONLY\n');entered=True
+                    if b'Secret API key (not Tracking ID or project ID; hidden):' in output and not entered:
+                        os.write(master,dummy+b'\n');entered=True
                 if proc.poll() is not None and not ready:break
             if proc.poll() is None:proc.kill()
             code=proc.wait(timeout=5)
@@ -89,11 +93,20 @@ FixedResponsesHTTP.post=sink
             os.close(master)
             if proc.poll() is None:proc.kill();proc.wait()
         self.assertTrue(entered,'actual terminal prompt was not reached: '+output.decode(errors='replace'))
-        self.assertNotIn(b'sk_DUMMY_EXECUTABLE_FIXTURE_ONLY',output,'dummy input echoed')
-        self.assertIn(b'OFFLINE_AUTHORIZED_BOUNDARY',output,'actual -m did not reach authorized offline boundary')
+        self.assertNotIn(dummy,output,'dummy input echoed')
+        if invalid:
+            self.assertNotIn(b'OFFLINE_AUTHORIZED_BOUNDARY',output)
+        else:self.assertIn(b'OFFLINE_AUTHORIZED_BOUNDARY',output,'actual -m did not reach authorized offline boundary')
         self.assertEqual(code,1) # Deliberate offline stop, never a provider call.
-        self.assertIn(b'category=send_or_response_refused; action=run; request status unconfirmed',output)
-        self.assertNotIn(b'binding_response_unknown',output)
+        self.assertIn(('category='+category+'; action=run; request status unconfirmed').encode(),output)
+        self.assertNotIn(failure.encode(),output)
+        self.assertNotIn(b'Traceback',output)
+        self.assertNotIn(str(fixture.path).encode(),output)
+        if invalid:
+            self.assertEqual((fixture.state/'ai-investigator-v1.jsonl').read_bytes(),before)
+            self.assertEqual(History(fixture.state/'credit').read(),[])
+            self.assertEqual(list((fixture.state/f'attempt-{slot}').iterdir()),[])
+            return
         self.assertEqual([r['reserved_usd'] for r in History(fixture.state/'credit').read()],[[3,100]])
         self.assertEqual([r['type'] for r in History(fixture.state/f'attempt-{slot}').read()],
                          ['bound_send_reserved','bound_send_attempted'])
