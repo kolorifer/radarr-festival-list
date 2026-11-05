@@ -26,12 +26,38 @@ from .spending import rational
 from .private_files import read_private
 
 _PROMPTED = ContextVar("supervised_prompted_credential", default=None)
+ACCOUNT_EVIDENCE_SECONDS = 900
+
+
+def refusal_category(error):
+    # Exact static membership only: never echo an exception, path or input.
+    code=error.args[0] if type(error) is Refusal and len(error.args)==1 and type(error.args[0]) is str else None
+    groups={
+        'evidence_expired_or_invalid_window':('supervised_evidence_stale',),
+        'evidence_changed':('supervised_evidence_changed','packet_changed'),
+        'session_expired':('supervised_session_expired','binding_expired','operator_authority_stale'),
+        'clock_changed':('supervised_clock_rollback',),
+        'privacy_or_storage_refused':('unsafe_parent','unsafe_packet','unsafe_history_path','storage_acl',
+            'storage_acl_unsupported','acl_unsupported','parent_changed','supervised_storage_changed','supervised_root_changed'),
+        'state_or_binding_refused':('supervised_not_enrolled','supervised_enrollment_binding','supervised_attempt_consumed',
+            'supervised_enrollment_exists','supervised_reauthorization_state','supervised_reauthorization_binding',
+            'supervised_reauthorization_uncertain','supervised_reauthorization_evidence'),
+        'credit_limit_refused':('credit_total_ceiling','supervised_credit_only'),
+        'interactive_input_refused':('supervised_interactive_terminal_required','supervised_prompt_required'),
+        'send_or_response_refused':('supervised_authorization_refused','responses_real_authorization_unimplemented',
+            'binding_response_unknown','binding_usage_unknown','binding_receipt_refused'),
+    }
+    for category,codes in groups.items():
+        if code in codes:return category
+    if isinstance(error,(EOFError,getpass.GetPassWarning,KeyboardInterrupt)):return 'interactive_input_cancelled'
+    if isinstance(error,OSError):return 'io_refused'
+    return 'unclassified_refusal'
 
 
 @contextmanager
 def interactive_credential(root):
     credential = prompt_credential()
-    marker = _PROMPTED.set((root, credential))
+    marker = _PROMPTED.set((root, credential,time.time(),time.monotonic()))
     try:
         yield credential
     finally:
@@ -42,6 +68,7 @@ def require_prompted(root, credential):
     selected = _PROMPTED.get()
     require(selected is not None and selected[0] is root and selected[1] is credential,
             "supervised_prompt_required")
+    return selected[2:]
 
 
 def file_identity(history):
@@ -109,7 +136,7 @@ def validate_evidence(e,now):
           'billing_reference paid_fallback owner_reference model policy context_window pricing_reference context_reference model_access_reference input_rate cached_input_rate output_rate')
     require(isinstance(e['project'],str) and e['project'].startswith('proj_'),'supervised_project')
     require(stamp(e['observed_at'])<=now<stamp(e['expires_at'])<=stamp(e['credit_expires_at']) and
-            e['expires_at']-e['observed_at']<=300,'supervised_evidence_stale')
+            e['expires_at']-e['observed_at']<=ACCOUNT_EVIDENCE_SECONDS,'supervised_evidence_stale')
     require(rational(e['available_usd'])>=rational([5,100]) and e['paid_fallback'] is False,
             'supervised_credit_only')
     for name in ('account_reference','billing_reference','owner_reference','pricing_reference','context_reference','model_access_reference'):
@@ -193,11 +220,11 @@ def prompt_credential():
     return ExplicitCredential(value)
 
 
-def operator_context(e,history,credit,enrollment,run,case,now):
+def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None):
     selection=dict(run=run,case=case,request_sha256=digest(decode(request(run))),
                    local_context_sha256=digest(e))
     r=dict(mode='synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
-        issued_at=now,expires_at=e['expires_at'],history_identity=list(history.identity),currency='USD',
+        issued_at=now,expires_at=min(e['expires_at'],expires_at) if expires_at is not None else e['expires_at'],history_identity=list(history.identity),currency='USD',
         ceiling=[3,100],output_limit=OUTPUT_TOKENS,credit_history_identity=enrollment['credit'],
         credit_history_file_identity=enrollment['credit_file'])
     facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=[3,100]),
@@ -248,8 +275,9 @@ def run(directory,selected,slot,*,clock=time.time):
             body=request(run_id)
             require(credential.value.encode() not in body and credential.value.encode() not in encoded(evidence),
                     'supervised_credential_disclosed')
-            with command_authority(root,events,enrolled,selected,slot,credit,history,credential):
-                context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,clock())
+            with command_authority(root,events,enrolled,selected,slot,credit,history,credential) as authority:
+                context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,clock(),
+                    expires_at=authority.deadline)
                 parent=HistoricalDiagnosticParent(context,history=history,credit_history=credit,credential=credential)
                 answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
                     history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
@@ -259,8 +287,14 @@ def run(directory,selected,slot,*,clock=time.time):
                             input_upper_bound=CONTEXT_TOKENS,reserved_usd=[3,100])
 
 
+class _SafeParser(argparse.ArgumentParser):
+    def error(self,message):
+        self.exit(2,'Supervised synthetic command refused: category=invalid_arguments; action=unknown. '
+                  'Retain state; do not retry automatically.\n')
+
+
 def main(argv=None):
-    parser=argparse.ArgumentParser(description=__doc__)
+    parser=_SafeParser(description=__doc__)
     parser.add_argument('--state',required=True,type=Path)
     sub=parser.add_subparsers(dest='action',required=True)
     registration=sub.add_parser('enroll');registration.add_argument('--evidence',required=True,type=Path)
@@ -272,14 +306,18 @@ def main(argv=None):
     args=parser.parse_args(argv)
     try:
         if args.action=='enroll':
-            enroll(args.state,read_evidence(args.evidence));result=dict(status='enrolled_no_api_call')
+            selected=read_evidence(args.evidence)
+            enroll(args.state,selected);result=dict(status='enrolled_no_api_call')
         elif args.action=='reauthorize':
-            result=reauthorize(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence))
+            previous=read_evidence(args.previous_evidence);selected=read_evidence(args.evidence)
+            result=reauthorize(args.state,previous,selected)
         else:result=run(args.state,read_evidence(args.evidence),args.slot)
         print(encoded(result).decode());return 0
-    except (Refusal,OSError,ValueError,TypeError,KeyError,EOFError,getpass.GetPassWarning):
+    except (Exception,KeyboardInterrupt) as error:
         # Never print raw exceptions, remote bodies, credentials or a traceback.
-        print('Supervised synthetic command refused; retain state, do not retry automatically.',file=sys.stderr)
+        print('Supervised synthetic command refused: category='+refusal_category(error)+
+              '; action='+args.action+'; '+('request status unconfirmed' if args.action=='run' else 'no API request')+
+              '. Retain state; do not retry automatically.',file=sys.stderr)
         return 1
 
 
