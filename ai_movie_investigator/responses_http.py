@@ -21,6 +21,7 @@ ENDPOINT = 'https://api.openai.com/v1/responses'
 HOST = 'api.openai.com'
 PATH = '/v1/responses'
 MAX_RESPONSE = 32768
+SYNTHETIC_MAX_RESPONSE = 1048576  # Local resource bound, not a provider guarantee.
 SYNTHETIC_CREDENTIAL = 'SIMULATED-NOT-A-KEY'
 SYNTHETIC_PROJECT = 'proj_SIMULATED'
 
@@ -122,7 +123,7 @@ class FixedResponsesHTTP:
                              authorization=authorization, path='/v1/responses/input_tokens')
 
     def _request(self, body, *, credential, project, timeout, authorization, path):
-        from .supervised_authorization import observe_phase, response_observation_window
+        from .supervised_authorization import observe_phase, response_observation_window, bind_observed_response
         observe_phase('http_setup')
         require(path in (PATH, '/v1/responses/input_tokens'), 'responses_path_denied')
         from .responses_transport import real_activation_refusal
@@ -132,6 +133,7 @@ class FixedResponsesHTTP:
         require(type(body) is bytes and len(body) <= 65536, 'responses_request_size')
         selected_headers = headers(credential, project)
         observation=response_observation_window(authorization,body,credential,project,path)
+        response_limit=SYNTHETIC_MAX_RESPONSE if observation is not None else MAX_RESPONSE
         connection = None
         raw_socket = None
         primary = False
@@ -189,23 +191,36 @@ class FixedResponsesHTTP:
                 encodings = [v for k, v in hs if k.lower() == 'content-encoding']
                 require(len(types) == 1 and types[0].split(';')[0].strip().lower() == 'application/json'
                         and encodings in ([], ['identity']), 'responses_http_shape')
-                require(len(lengths) <= 1 and (not lengths or lengths[0].isascii() and lengths[0].isdigit()
-                        and int(lengths[0]) <= MAX_RESPONSE), 'responses_body_limit')
+                transfers=[v for k,v in hs if k.lower()=='transfer-encoding']
+                require(len(lengths)<=1,'responses_length_duplicate')
+                require(not lengths or lengths[0].isascii() and lengths[0].isdigit(),'responses_length_invalid')
+                require(not (lengths and transfers),'responses_framing_conflict')
+                require(not transfers or len(transfers)==1 and transfers[0].lower()=='chunked',
+                        'responses_transfer_encoding_invalid')
+                declared=None
+                if lengths:
+                    significant=lengths[0].lstrip('0') or '0'
+                    require(len(significant)<=len(str(response_limit)) and int(significant)<=response_limit,
+                            'responses_declared_body_limit')
+                    declared=int(significant)
                 observe_phase('http_body_read')
                 data = bytearray()
                 while True:
-                    part = response.read1(min(4096, MAX_RESPONSE + 1 - len(data)))
+                    part = response.read1(min(4096, response_limit + 1 - len(data)))
                     check()
                     if not part:
                         break
                     data.extend(part)
-                    require(len(data) <= MAX_RESPONSE, 'responses_body_limit')
-                require(not lengths or len(data) == int(lengths[0]), 'responses_body_truncated')
+                    require(len(data) <= response_limit, 'responses_observed_body_limit')
+                require(declared is None or len(data)==declared, 'responses_body_truncated')
                 observe_phase('http_body_received')
                 ids = [v for k, v in hs if k.lower() == 'x-request-id']
                 require(len(ids) <= 1, 'responses_http_shape')
-                return HTTPResult(200, bytes(data), ids[0] if ids else None,
+                result=HTTPResult(200, bytes(data), ids[0] if ids else None,
                                   hashlib.sha256(body).hexdigest(), project, path)
+                if observation is not None:
+                    bind_observed_response(authorization,result,body,credential,project,path)
+                return result
         except Refusal:
             primary = True
             raise

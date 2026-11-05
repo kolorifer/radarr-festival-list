@@ -35,6 +35,8 @@ _SAFE_REASON_GROUPS = {
         'responses_observation_profile responses_observation_transition '
         'responses_setup_deadline_exceeded responses_observation_deadline_exceeded '
         'responses_cleanup_failed '
+        'responses_length_duplicate responses_length_invalid responses_framing_conflict '
+        'responses_transfer_encoding_invalid responses_declared_body_limit responses_observed_body_limit '
         'responses_body_limit responses_body_truncated responses_credential_invalid responses_deadline '
         'responses_deadline_exceeded responses_dns_failed responses_http_rejected responses_http_shape '
         'responses_network_completion_unknown responses_network_denied responses_path_denied responses_peer_changed '

@@ -28,6 +28,7 @@ class _Session:
         self.selected,self.slot,self.credit,self.history,self.credential=selected,slot,credit,history,credential
         self.run=f'synthetic-integration-{slot}'
         self.issued={}
+        self.received=None
         from .supervised_credit import require_prompted
         self.started_wall,self.started_monotonic=require_prompted(root,credential)
         self.last_wall=self.started_wall
@@ -101,6 +102,7 @@ def command_authority(root,events,enrolled,selected,slot,credit,history,credenti
     marker=_ACTIVE.set(session)
     try:yield session
     finally:
+        session.received=None
         session.issued.clear()
         _ACTIVE.reset(marker)
 
@@ -128,6 +130,31 @@ def response_observation_window(token,body,credential,project,path):
     # HTTP just consumed this exact token after full pre-send validation. The
     # existing pre-connect/pre-POST checks still require unexpired authority.
     return 120
+
+
+
+def bind_observed_response(token,result,body,credential,project,path):
+    """Bind the actual immutable HTTP result in memory; never persist its body."""
+    from .responses_http import HTTPResult
+    response_observation_window(token,body,credential,project,path)
+    session=_ACTIVE.get()
+    require(session is not None and session.received is None and type(result) is HTTPResult and
+            result.status==200 and result.project==project and result.path==path and
+            result.request_sha256==digest(decode(body)), 'supervised_observation_binding')
+    session.received=result
+
+
+def response_limits(result,raw,request_id,model):
+    """No caller flag/model name grants the larger parser envelope."""
+    from .responses_http import MAX_RESPONSE,SYNTHETIC_MAX_RESPONSE
+    from .responses_protocol import INTEGRATION_MODEL
+    session=_ACTIVE.get()
+    if session is None or result is None or result is not session.received:
+        return MAX_RESPONSE,16384
+    session.root.require_write_transaction(session.events)
+    require(model==INTEGRATION_MODEL and raw is result.body and request_id==result.request_id,
+            'supervised_observation_binding')
+    return SYNTHETIC_MAX_RESPONSE,SYNTHETIC_MAX_RESPONSE
 
 
 def refusal(token,*,body=None,credential=None,project=None,path=None,consume=True):

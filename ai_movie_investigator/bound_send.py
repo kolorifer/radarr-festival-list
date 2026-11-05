@@ -73,7 +73,7 @@ def _send_bound(history, body, *, case, run, parent, credential, context_sha256=
                        authorization=wire_authority, timeout=25)
     require(result.status == 200, 'binding_response_unknown')
     observe_phase('response_parsing')
-    answer, accounting = parse_response(result.body, output_schema(), result.request_id, expected_model=permit['model'])
+    answer, accounting = parse_response(result.body, output_schema(), result.request_id, expected_model=permit['model'], http_result=result)
     usage = accounting['usage']
     require(usage['input_tokens'] <= permit['input_limit'] and
             usage['output_tokens'] <= permit['output_limit'], 'binding_usage_unknown')
@@ -307,7 +307,7 @@ class HistoricalDiagnosticParent:
         response_id(result.request_id)
         require(self._credential.value.encode() not in result.body and
                 self._credential.value not in result.request_id, 'operator_credential_echo')
-        _, parsed = parse_response(result.body, output_schema(), result.request_id, expected_model=permit['model'])
+        _, parsed = parse_response(result.body, output_schema(), result.request_id, expected_model=permit['model'], http_result=result)
         require(parsed == accounting and parsed['model'] == permit['model'] and
                 parsed['usage']['input_tokens'] <= permit['input_limit'] and
                 parsed['usage']['output_tokens'] <= permit['output_limit'], 'operator_receipt_mismatch')
