@@ -50,7 +50,7 @@ class ReauthorizationTests(unittest.TestCase):
             status='unresolved',candidate=None,alternatives=[],citations=[],rationale='Synthetic only',
             uncertainty='No real evidence',next_action='human_review'))
         raw=decode(simulated_response(reply,1).body);raw['model']=INTEGRATION_MODEL
-        raw.pop('prompt_cache_options');raw['usage']['input_tokens_details']={'cached_tokens':0}
+        raw.pop('prompt_cache_options');raw['prompt_cache_retention']='in_memory';raw['usage']['input_tokens_details']={'cached_tokens':0}
         return HTTPResult(200,encoded(raw),'req_fixture_reauthorized',digest(decode(body)),kw['project'],'/v1/responses')
 
     def test_manual_command_preserves_prefix_and_allows_only_unused_slot(self):

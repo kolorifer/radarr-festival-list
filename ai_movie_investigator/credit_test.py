@@ -8,9 +8,9 @@ from .contracts import decode, digest, encoded, require, stamp, hash_id, shape
 from .controller import INSTRUCTIONS, output_schema
 from .disclosure import aliases
 from .history import History
-from .responses_protocol import INTEGRATION_MODEL, INTEGRATION_SHUTDOWN, INPUT_TOKENS, OUTPUT_TOKENS
+from .responses_protocol import INTEGRATION_MODEL, INTEGRATION_RETENTION, INTEGRATION_SHUTDOWN, INPUT_TOKENS, OUTPUT_TOKENS
 
-POLICY = dict(model=INTEGRATION_MODEL, service_tier='default')
+POLICY = dict(model=INTEGRATION_MODEL, service_tier='default', prompt_cache_retention=INTEGRATION_RETENTION)
 # Standard USD/token, verified against official model page 2026-11-05.
 INPUT_RATE = Fraction(5, 100000000)
 OUTPUT_RATE = Fraction(4, 10000000)

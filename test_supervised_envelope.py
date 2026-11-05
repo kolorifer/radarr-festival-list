@@ -26,7 +26,7 @@ def envelope(*,target=None,opaque=20000,two=False,answer_size=None,change=None,u
     reply=dict(binding_hash=aliases(run),kind='final',lookups=[],result=dict(status='unresolved',candidate=None,alternatives=[],citations=[],rationale='',uncertainty='No real evidence',next_action='human_review'))
     if answer_size is not None:reply['result']['rationale']='A'*(answer_size-len(encoded(reply)))
     req=json.loads(request(run));v=json.loads(simulated_response(reply,1).body)
-    v['model']=INTEGRATION_MODEL;v.pop('prompt_cache_options');v['usage']['input_tokens_details']={'cached_tokens':0}
+    v['model']=INTEGRATION_MODEL;v.pop('prompt_cache_options');v['prompt_cache_retention']='in_memory';v['usage']['input_tokens_details']={'cached_tokens':0}
     v['usage'].update(output_tokens=4096,total_tokens=5296)
     v.update(instructions=req['instructions'],created_at=1793900000,completed_at=1793900001,metadata={},parallel_tool_calls=True,reasoning={'effort':'medium','summary':None},temperature=1,top_p=1,truncation='disabled',previous_response_id=None)
     v['text']=req['text']

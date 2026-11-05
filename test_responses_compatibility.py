@@ -29,7 +29,7 @@ def documented(model='gpt-5-nano-2025-08-07'):
         'moderation':None,'access_programs':None,'safety_identifier':None,'user':None,
         'service_tier':'default','prompt_cache_options':None if model.startswith('gpt-5-nano') else
             {'ttl':'30m','mode':'implicit','comparison_response_id':None},
-        'prompt_cache_key':None,'prompt_cache_retention':None,'prompt_cache_diagnostics':None,
+        'prompt_cache_key':None,'prompt_cache_retention':'in_memory' if model.startswith('gpt-5-nano') else None,'prompt_cache_diagnostics':None,
         'reasoning':{'effort':'medium','summary':None},
         'text':{'verbosity':'medium','format':{'type':'json_schema','name':'retained_investigator_v1',
             'schema':output_schema(),'strict':True,'description':None}},
@@ -113,16 +113,18 @@ class CompatibilityTests(unittest.TestCase):
         v=documented();v['tool_usage']['web_search']['num_requests']=1
         helper.exercise(encoded(v),reason='responses_tool_usage_denied')
 
-    def test_documented_retention_defaults_remain_an_explicit_unresolved_boundary(self):
+    def test_explicit_synthetic_retention_and_unchanged_generic_policy(self):
         from ai_movie_investigator.credit_test import request
         selected=json.loads(request('synthetic-integration-1'))
         self.assertFalse(selected['store'])
-        self.assertNotIn('prompt_cache_retention',selected)
-        for model in (MODEL,INTEGRATION_MODEL):
-            for policy in ('in_memory','24h'):
+        self.assertEqual(selected['prompt_cache_retention'],'in_memory')
+        for model,policies in ((MODEL,('in_memory','24h')),(INTEGRATION_MODEL,(None,'24h','unknown'))):
+            for policy in policies:
                 v=documented(model);v['prompt_cache_retention']=policy
                 with self.subTest(model=model,policy=policy),self.assertRaisesRegex(Refusal,'responses_cache_or_tier_changed'):
                     self.parse(v)
+        v=documented();del v['prompt_cache_retention']
+        with self.assertRaisesRegex(Refusal,'responses_cache_or_tier_changed'):self.parse(v)
 
     def test_genuine_installed_command_reaches_usage_validation(self):
         f=fixtures.SupervisedCreditTests('test_executable_generation_only_no_count_and_no_restart');f.setUp();self.addCleanup(f.doCleanups)

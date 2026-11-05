@@ -197,7 +197,7 @@ class HistoricalDiagnosticParent:
                 request.get('stream') is False and request.get('truncation') == 'disabled' and
                 request.get('max_output_tokens') == r['output_limit'], 'operator_request_policy')
         shape(request, 'model instructions service_tier input tools tool_choice store background stream max_output_tokens truncation text' +
-              ('' if integration else ' prompt_cache_options'))
+              (' prompt_cache_retention' if integration else ' prompt_cache_options'))
         require(type(request['input']) is list and len(request['input']) == 1, 'operator_disclosure_changed')
         message = request['input'][0]
         shape(message, 'role content')
