@@ -120,6 +120,70 @@ def validate_evidence(e,now):
             'supervised_model_pricing_unknown')
 
 
+def selection_binding(events,enrolled,selected,slot):
+    """Resolve one manual renewal without replacing enrollment or old slots."""
+    require(enrolled.get('project')==selected.data['project'],'supervised_enrollment_binding')
+    renewals=[e for e in events if e.get('type')=='supervised_reauthorized']
+    if not renewals:
+        require(enrolled.get('evidence_sha256')==selected.sha256,'supervised_enrollment_binding')
+        return
+    require(len(renewals)==1 and len(events)>=4 and events[3] is renewals[0],
+            'supervised_reauthorization_binding')
+    renewal=renewals[0]
+    shape(renewal,'type at previous_sha256 evidence_sha256 project expires_at prefix_sha256 permitted_slot')
+    require(slot==2 and type(renewal['permitted_slot']) is int and renewal['permitted_slot']==2 and
+            renewal['previous_sha256']==enrolled['evidence_sha256'] and
+            renewal['evidence_sha256']==selected.sha256 and
+            renewal['project']==enrolled['project'] and
+            renewal['expires_at']==selected.data['expires_at'] and
+            renewal['prefix_sha256']==digest(events[:3]) and
+            events[2].get('type')=='supervised_started' and events[2].get('slot')==1 and
+            selected.data['observed_at']<=stamp(renewal['at'])<renewal['expires_at'],
+            'supervised_reauthorization_binding')
+
+
+def reauthorize(directory,previous,selected):
+    """Append once for unused slot2 only when slot1 provably never reserved."""
+    require(type(previous) is SelectedEvidence and type(selected) is SelectedEvidence,
+            'supervised_evidence_selection')
+    previous.revalidate();selected.revalidate()
+    old,new=previous.data,selected.data
+    now=time.time()
+    validate_evidence(old,stamp(old['observed_at'])) # Retained facts, not fresh authority.
+    validate_evidence(new,now)
+    require(previous.path!=selected.path and previous.identity[:2]!=selected.identity[:2] and
+            previous.sha256!=selected.sha256 and old['project']==new['project'] and
+            old['expires_at']<=new['observed_at']<=now,'supervised_reauthorization_evidence')
+    root=History(Path(directory))
+    with root.transaction(write=True) as (events,append):
+        require(len(events)==3 and events[0].get('type')=='supervised_enrollment_started' and
+                events[1].get('type')=='supervised_enrolled','supervised_reauthorization_state')
+        enrolled=events[1];started=events[2]
+        shape(started,'type slot at evidence_hash')
+        require(started['type']=='supervised_started' and type(started['slot']) is int and started['slot']==1 and
+                started['evidence_hash']==digest(old) and old['observed_at']<=stamp(started['at'])<old['expires_at'],
+                'supervised_reauthorization_state')
+        require(enrolled['root']==list(root.identity),'supervised_root_changed')
+        selection_binding(events,enrolled,previous,1)
+        credit=History(root.directory/'credit')
+        require(enrolled['credit']==list(credit.identity) and enrolled['credit_file']==file_identity(credit),
+                'supervised_storage_changed')
+        with credit.transaction(file_identity=enrolled['credit_file']) as (reservations,_):
+            require(not reservations,'supervised_reauthorization_uncertain')
+            for slot in (1,2):
+                attempt=History(root.directory/f'attempt-{slot}')
+                require(enrolled['attempts'][str(slot)]==list(attempt.identity),'supervised_storage_changed')
+                # Even an empty/unknown journal is outside this precise no-reservation case.
+                require(not any(attempt.directory.iterdir()),'supervised_reauthorization_uncertain')
+            previous.revalidate();selected.revalidate()
+            now=time.time();validate_evidence(new,now)
+            root.require_write_transaction(events)
+            append(dict(type='supervised_reauthorized',at=now,previous_sha256=previous.sha256,
+                evidence_sha256=selected.sha256,project=new['project'],expires_at=new['expires_at'],
+                prefix_sha256=digest(events),permitted_slot=2))
+    return dict(status='reauthorized_no_api_call',permitted_slot=2)
+
+
 def prompt_credential():
     require(sys.stdin.isatty() and sys.stderr.isatty(),'supervised_interactive_terminal_required')
     # getpass falls back to echoed input if terminal setup fails; forbid that.
@@ -164,8 +228,7 @@ def run(directory,selected,slot,*,clock=time.time):
                 events[1]['type']=='supervised_enrolled','supervised_not_enrolled')
         enrolled=events[1]
         require(enrolled['root']==list(root.identity),'supervised_root_changed')
-        require(enrolled.get('evidence_sha256')==selected.sha256 and
-                enrolled.get('project')==evidence['project'],'supervised_enrollment_binding')
+        selection_binding(events,enrolled,selected,slot)
         require(not any(e.get('slot')==slot for e in events),'supervised_attempt_consumed')
         credit=History(root.directory/'credit',clock=clock)
         history=History(root.directory/f'attempt-{slot}',clock=clock)
@@ -201,12 +264,17 @@ def main(argv=None):
     parser.add_argument('--state',required=True,type=Path)
     sub=parser.add_subparsers(dest='action',required=True)
     registration=sub.add_parser('enroll');registration.add_argument('--evidence',required=True,type=Path)
+    renewal=sub.add_parser('reauthorize')
+    renewal.add_argument('--previous-evidence',required=True,type=Path)
+    renewal.add_argument('--evidence',required=True,type=Path)
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
     send.add_argument('--slot',required=True,type=int,choices=(1,2))
     args=parser.parse_args(argv)
     try:
         if args.action=='enroll':
             enroll(args.state,read_evidence(args.evidence));result=dict(status='enrolled_no_api_call')
+        elif args.action=='reauthorize':
+            result=reauthorize(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence))
         else:result=run(args.state,read_evidence(args.evidence),args.slot)
         print(encoded(result).decode());return 0
     except (Refusal,OSError,ValueError,TypeError,KeyError,EOFError,getpass.GetPassWarning):
