@@ -147,9 +147,9 @@ def refusal(token,*,body=None,credential=None,project=None,path=None,consume=Tru
 
 
 def reservation_ceiling(history,project,request_hash):
-    """Only a root-locked manual slot3/4 session can exceed the normal five cents."""
+    """Only a root-locked manual slot3/4/5 session can exceed the normal five cents."""
     session=_ACTIVE.get()
-    if session is None or session.slot not in (3,4):return TOTAL
+    if session is None or session.slot not in (3,4,5):return TOTAL
     from .supervised_credit import recovery_retained, selection_binding, require_prompted, validate_evidence
     session.root.require_write_transaction(session.events)
     require(session.events[1] is session.enrolled and history is session.credit and
