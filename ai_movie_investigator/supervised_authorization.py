@@ -9,7 +9,7 @@ import os
 import time
 
 from .contracts import Refusal, decode, digest, require
-from .credit_test import request, count_request
+from .credit_test import request, ledger_total, CONTEXT_TOKENS
 from .history import checked, FILENAME
 from .responses_protocol import INTEGRATION_SHUTDOWN
 
@@ -53,33 +53,26 @@ class _Session:
             info=h.directory.lstat();checked(info,True)
             require([info.st_dev,info.st_ino]==pin,'supervised_storage_changed')
         require(file_identity(self.credit)==self.enrolled['credit_file'],'supervised_storage_changed')
-        require(path in ('/v1/responses/input_tokens','/v1/responses'),'supervised_endpoint')
-        expected=count_request(self.run) if path.endswith('/input_tokens') else request(self.run)
+        require(path=='/v1/responses','supervised_endpoint')
+        expected=request(self.run)
         require(type(body) is bytes and body==expected,'supervised_request_binding')
         fingerprint=digest(decode(body))
         reservations=self.credit.read()
-        require(1<=len(reservations)<=5 and all(r['type']=='credit_test_reserved' and
-                r['project']==project and r['reserved_usd']==[1,100] for r in reservations) and
-                sum(r['request_hash']==fingerprint for r in reservations)==1,'supervised_reservation_required')
+        ledger_total(reservations,project)
+        selected=[r for r in reservations if r['request_hash']==fingerprint]
+        require(len(selected)==1 and selected[0]['reserved_usd']==[3,100],'supervised_reservation_required')
         rows=[r for r in self.events if r.get('slot')==self.slot]
         require(len([r for r in rows if r['type']=='supervised_started'])==1 and
                 not any(r['type']=='supervised_completed' for r in rows),'supervised_attempt_consumed')
-        attempted=[r for r in rows if r['type']=='supervised_count_attempted']
-        require(len(attempted)==1 and attempted[0]['request_hash']==digest(decode(count_request(self.run))),
-                'supervised_count_not_reserved')
-        counts=[r for r in rows if r['type']=='supervised_count_observed']
-        if path.endswith('/input_tokens'):
-            require(not counts,'supervised_count_consumed')
-        else:
-            require(len(counts)==1 and counts[0]['receipt']['generation_sha256']==fingerprint and
-                    counts[0]['receipt']['project']==project,'supervised_count_binding')
-            local=self.history.read()
-            require(len(local)==2 and local[0]['type']=='bound_send_reserved' and
-                    local[1]['type']=='bound_send_attempted','supervised_generation_not_reserved')
-            permit=local[0]['permit']
-            require(permit['selection']['run']==self.run and permit['selection']['request_sha256']==fingerprint and
-                    permit['project']==project and permit['maximum_debit']==[1,100] and
-                    permit['input_limit']==counts[0]['receipt']['input_tokens'],'supervised_generation_binding')
+        require(not any(r['type'] in ('supervised_count_attempted','supervised_count_observed') for r in rows),
+                'supervised_attempt_consumed')
+        local=self.history.read()
+        require(len(local)==2 and local[0]['type']=='bound_send_reserved' and
+                local[1]['type']=='bound_send_attempted','supervised_generation_not_reserved')
+        permit=local[0]['permit']
+        require(permit['selection']['run']==self.run and permit['selection']['request_sha256']==fingerprint and
+                permit['project']==project and permit['maximum_debit']==[3,100] and
+                permit['input_limit']==CONTEXT_TOKENS,'supervised_generation_binding')
 
 
 @contextmanager

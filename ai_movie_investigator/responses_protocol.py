@@ -123,8 +123,9 @@ def validate_usage(usage, *, legacy=False):
     """Exact mandatory usage; writes partition by the selected cache lifetime."""
     require(isinstance(usage, dict) and set(usage) == {'input_tokens', 'input_tokens_details',
             'output_tokens', 'output_tokens_details', 'total_tokens'}, 'responses_usage_required')
-    for key, ceiling in (('input_tokens', INPUT_TOKENS), ('output_tokens', OUTPUT_TOKENS),
-                         ('total_tokens', INPUT_TOKENS + OUTPUT_TOKENS)):
+    input_ceiling = 400000 if legacy else INPUT_TOKENS
+    for key, ceiling in (('input_tokens', input_ceiling), ('output_tokens', OUTPUT_TOKENS),
+                         ('total_tokens', input_ceiling + OUTPUT_TOKENS)):
         require(type(usage[key]) is int and 0 <= usage[key] <= ceiling, 'responses_usage_limit')
     require(usage['input_tokens'] > 0 and usage['output_tokens'] > 0
             and usage['total_tokens'] == usage['input_tokens'] + usage['output_tokens'], 'responses_usage_invalid')
