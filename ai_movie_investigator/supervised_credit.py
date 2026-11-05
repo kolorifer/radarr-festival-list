@@ -48,7 +48,7 @@ _SAFE_REASON_GROUPS = {
         'responses_action_or_output_denied responses_answer_count responses_answer_schema responses_cache_or_tier_changed '
         'responses_cache_partition responses_contract_changed responses_identity_invalid responses_model_profile '
         'responses_not_completed responses_output_shape responses_reasoning_shape responses_text_required '
-        'responses_unsupported_shape responses_usage_invalid responses_usage_limit responses_usage_required '
+        'responses_context_changed responses_tool_usage_denied responses_unsupported_shape responses_usage_invalid responses_usage_limit responses_usage_required '
     ).split()),
     'binding_refused': frozenset((
         'supervised_observation_binding '

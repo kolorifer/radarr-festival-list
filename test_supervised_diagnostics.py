@@ -25,7 +25,7 @@ def wire_fixture(variant,run='synthetic-integration-1'):
     value=decode(simulated_response(reply,1).body);value['model']=INTEGRATION_MODEL
     value.pop('prompt_cache_options');value['usage']['input_tokens_details']={'cached_tokens':0}
     if variant=='incomplete':value.update(status='incomplete',incomplete_details={'reason':'max_output_tokens'})
-    if variant=='unsupported':value['invented_unknown_field']=True
+    if variant=='unsupported':value['conversation']={'id':'conv_FIXTURE'}
     if variant=='usage':value['usage']['total_tokens']=1
     if variant=='schema':value['output'][1]['content'][0]['text']='{}'
     raw=b'{' if variant=='malformed' else encoded(value)
@@ -79,7 +79,7 @@ class DiagnosticTests(unittest.TestCase):
     def test_complete_fixed_http_and_parser_variants(self):
         variants={
             'incomplete':('response_parsing','responses_not_completed'),
-            'unsupported':('response_parsing','responses_unsupported_shape'),
+            'unsupported':('response_parsing','responses_context_changed'),
             'usage':('response_parsing','responses_usage_invalid'),
             'schema':('response_parsing','responses_answer_schema'),
             'malformed':('response_parsing','invalid_json'),

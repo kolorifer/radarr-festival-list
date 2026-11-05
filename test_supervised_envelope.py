@@ -38,7 +38,7 @@ def envelope(*,target=None,opaque=20000,two=False,answer_size=None,change=None,u
     if unicode_opaque:v['output'][0]['encrypted_content']='é'*200000
     if change=='usage':v['usage']['total_tokens']=1
     if change=='incomplete':v.update(status='incomplete',incomplete_details={'reason':'max_output_tokens'})
-    if change=='unknown':v['unknown_field']=True
+    if change=='unknown':v['conversation']={'id':'conv_FIXTURE'}
     if change=='schema':v['output'][-1]['content'][0]['text']='{}'
     if change=='refusal':v['output'][-1]['content']=[{'type':'refusal','refusal':'FIXTURE'}]
     return json.dumps(v,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode() if unicode_opaque else encoded(v)
@@ -119,7 +119,7 @@ class EnvelopeTests(unittest.TestCase):
 
     def test_answer_and_protocol_guards_survive_wider_envelope(self):
         self.exercise(envelope(answer_size=8192));self.exercise(envelope(answer_size=8193),reason='size_limit')
-        for change,reason in [('usage','responses_usage_invalid'),('incomplete','responses_not_completed'),('unknown','responses_unsupported_shape'),('schema','responses_answer_schema'),('refusal','responses_text_required')]:
+        for change,reason in [('usage','responses_usage_invalid'),('incomplete','responses_not_completed'),('unknown','responses_context_changed'),('schema','responses_answer_schema'),('refusal','responses_text_required')]:
             with self.subTest(change=change):self.exercise(envelope(change=change),reason=reason)
 
     def test_model_name_or_fabricated_result_cannot_select_profile(self):
