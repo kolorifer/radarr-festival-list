@@ -16,13 +16,12 @@ import warnings
 
 from .bound_send import HistoricalDiagnosticParent, OperatorContext
 from .contracts import Refusal, decode, digest, encoded, require, shape, stamp
-from .credit_test import POLICY, PER_REQUEST, count_request, count_receipt, request, reserve
+from .credit_test import POLICY, PER_REQUEST, CONTEXT_TOKENS, CONTEXT_COVERAGE, INPUT_RATE, OUTPUT_RATE, request, ledger_total, TOTAL
 from .history import History, FILENAME, checked
-from .pilot_account import COVERAGE
-from .responses_http import ExplicitCredential, FixedResponsesHTTP, headers
+from .responses_http import ExplicitCredential, headers
 from .responses_protocol import INTEGRATION_MODEL, OUTPUT_TOKENS
 from .responses_transport import ResponsesTransport
-from .supervised_authorization import command_authority, authorization_for
+from .supervised_authorization import command_authority
 from .spending import rational
 from .private_files import read_private
 
@@ -107,15 +106,18 @@ def read_evidence(path):
 
 def validate_evidence(e,now):
     shape(e,'project account_reference observed_at expires_at credit_expires_at available_usd '
-          'billing_reference paid_fallback owner_reference count_fee_reference count_fee_maximum count_coverage_reference')
+          'billing_reference paid_fallback owner_reference model policy context_window pricing_reference context_reference model_access_reference input_rate cached_input_rate output_rate')
     require(isinstance(e['project'],str) and e['project'].startswith('proj_'),'supervised_project')
     require(stamp(e['observed_at'])<=now<stamp(e['expires_at'])<=stamp(e['credit_expires_at']) and
             e['expires_at']-e['observed_at']<=300,'supervised_evidence_stale')
     require(rational(e['available_usd'])>=rational([5,100]) and e['paid_fallback'] is False,
             'supervised_credit_only')
-    for name in ('account_reference','billing_reference','owner_reference','count_fee_reference','count_coverage_reference'):
+    for name in ('account_reference','billing_reference','owner_reference','pricing_reference','context_reference','model_access_reference'):
         require(isinstance(e[name],str) and 1<=len(e[name])<=300 and e[name]!='unknown','supervised_evidence_missing')
-    require(0<=rational(e['count_fee_maximum'])<=PER_REQUEST,'supervised_count_fee_unknown')
+    require(e['model']==INTEGRATION_MODEL and e['policy']==POLICY and type(e['context_window']) is int and
+            e['context_window']==CONTEXT_TOKENS and rational(e['input_rate'])==INPUT_RATE and
+            rational(e['cached_input_rate'])==INPUT_RATE/10 and rational(e['output_rate'])==OUTPUT_RATE,
+            'supervised_model_pricing_unknown')
 
 
 def prompt_credential():
@@ -127,19 +129,19 @@ def prompt_credential():
     return ExplicitCredential(value)
 
 
-def operator_context(e,history,credit,enrollment,run,case,count,now):
+def operator_context(e,history,credit,enrollment,run,case,now):
     selection=dict(run=run,case=case,request_sha256=digest(decode(request(run))),
-                   local_context_sha256=digest(dict(evidence=e,count=count)))
+                   local_context_sha256=digest(e))
     r=dict(mode='synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
         issued_at=now,expires_at=e['expires_at'],history_identity=list(history.identity),currency='USD',
-        ceiling=[1,100],output_limit=OUTPUT_TOKENS,credit_history_identity=enrollment['credit'],
+        ceiling=[3,100],output_limit=OUTPUT_TOKENS,credit_history_identity=enrollment['credit'],
         credit_history_file_identity=enrollment['credit_file'])
-    facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=[1,100]),
+    facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=[3,100]),
         privacy=dict(request_sha256=selection['request_sha256'],store=False,tools=[]),
         account=dict(project=e['project'],model=INTEGRATION_MODEL,policy=POLICY),
         credential_route=dict(project=e['project'],injection_route='local-no-echo-memory-only'),
-        coverage=dict(request_sha256=selection['request_sha256'],policy=POLICY,coverage=COVERAGE,
-            counter_identity=count['request_id'],input_upper_bound=count['input_tokens']),
+        coverage=dict(request_sha256=selection['request_sha256'],policy=POLICY,coverage=CONTEXT_COVERAGE,
+            counter_identity=e['context_reference'],input_upper_bound=CONTEXT_TOKENS),
         pricing=dict(policy=POLICY,currency='USD',input=[5,100000000],cache_read=[5,1000000000],
             cache_write=[0,1],output=[4,10000000],ancillary_maximum=[0,1]))
     binding=digest(r)
@@ -169,7 +171,8 @@ def run(directory,selected,slot,*,clock=time.time):
         history=History(root.directory/f'attempt-{slot}',clock=clock)
         require(enrolled['credit']==list(credit.identity) and enrolled['credit_file']==file_identity(credit) and
                 enrolled['attempts'][str(slot)]==list(history.identity),'supervised_storage_changed')
-        with credit.transaction(file_identity=enrolled['credit_file']):pass
+        with credit.transaction(file_identity=enrolled['credit_file']) as (old,_):
+            require(ledger_total(old,evidence['project'])+PER_REQUEST<=TOTAL,'credit_total_ceiling')
         require(not history.read(),'supervised_attempt_consumed')
         run_id=f'synthetic-integration-{slot}'
         case=dict(source='synthetic-credit-integration',case_id='outcome-'+digest('synthetic-example'),
@@ -179,29 +182,18 @@ def run(directory,selected,slot,*,clock=time.time):
             # Validate format without serializing or storing the resulting headers.
             headers(credential,evidence['project'])
             validate_evidence(evidence,max(clock(),time.time()))
-            body=count_request(run_id)
+            body=request(run_id)
             require(credential.value.encode() not in body and credential.value.encode() not in encoded(evidence),
                     'supervised_credential_disclosed')
-            reserve(credit,project=evidence['project'],request_hash=digest(decode(body)),input_bound=65536,
-                    now=clock(),file_identity=enrolled['credit_file'])
-            append(dict(type='supervised_count_attempted',slot=slot,at=clock(),request_hash=digest(decode(body))))
-            validate_evidence(evidence,max(clock(),time.time()))
             with command_authority(root,events,enrolled,selected,slot,credit,history,credential):
-                result=FixedResponsesHTTP().count(body,credential=credential,project=evidence['project'],timeout=25,
-                    authorization=authorization_for('/v1/responses/input_tokens',body,credential,evidence['project']))
-                require(credential.value.encode() not in result.body and
-                        credential.value not in (result.request_id or ''),'supervised_credential_echo')
-                counted=count_receipt(result,run=run_id,project=evidence['project'])
-                validate_evidence(evidence,max(clock(),time.time()))
-                append(dict(type='supervised_count_observed',slot=slot,at=clock(),receipt=counted))
-                context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,counted,clock())
+                context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,clock())
                 parent=HistoricalDiagnosticParent(context,history=history,credit_history=credit,credential=credential)
                 answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
                     history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
                 append(dict(type='supervised_completed',slot=slot,at=clock(),answer=decode(answer),
-                            request_hash=selection['request_sha256'],reserved_usd=[2,100]))
+                            request_hash=selection['request_sha256'],reserved_usd=[3,100]))
                 return dict(status='completed',slot=slot,request_hash=selection['request_sha256'],
-                            input_tokens=counted['input_tokens'],reserved_usd=[2,100])
+                            input_upper_bound=CONTEXT_TOKENS,reserved_usd=[3,100])
 
 
 def main(argv=None):

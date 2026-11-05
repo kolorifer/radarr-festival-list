@@ -32,8 +32,10 @@ class SupervisedCreditTests(unittest.TestCase):
         self.now=time.time()
         self.evidence=dict(project='proj_fixture',account_reference='FIXTURE-account',observed_at=self.now-1,
             expires_at=self.now+200,credit_expires_at=self.now+300,available_usd=[19,1],billing_reference='FIXTURE-no-billing',
-            paid_fallback=False,owner_reference='FIXTURE-owner',count_fee_reference='FIXTURE-fee',
-            count_fee_maximum=[1,100],count_coverage_reference='FIXTURE-coverage')
+            paid_fallback=False,owner_reference='FIXTURE-owner',model=INTEGRATION_MODEL,
+            policy=dict(model=INTEGRATION_MODEL,service_tier='default'),context_window=400000,
+            pricing_reference='FIXTURE-pricing',context_reference='FIXTURE-context',model_access_reference='FIXTURE-access',
+            input_rate=[5,100000000],cached_input_rate=[5,1000000000],output_rate=[4,10000000])
         self.path=self.root/'evidence.json';self.path.write_bytes(encoded(self.evidence));self.path.chmod(0o600)
         self.selected=command.read_evidence(self.path)
         command.enroll(self.state,self.selected)
@@ -51,19 +53,12 @@ class SupervisedCreditTests(unittest.TestCase):
         self.assertIsNotNone(real_activation_refusal(token,**dict(args,credential=ExplicitCredential(self.key)),consume=False))
         self.assertIsNotNone(real_activation_refusal(token,**dict(args,path='/v1/responses/other'),consume=False))
 
-    def count(self,body,**kw):
-        self.authorize('/v1/responses/input_tokens',body,kw)
-        self.assertEqual(len(History(self.state/'credit').read()),1)
-        self.assertEqual(body,count_request('synthetic-integration-1'))
-        self.seen.append('count')
-        return HTTPResult(200,encoded(dict(object='response.input_tokens',input_tokens=1200)),
-            'req_fixture_count',digest(decode(body)),kw['project'],'/v1/responses/input_tokens')
-
     def generate(self,body,**kw):
         self.authorize('/v1/responses',body,kw)
-        self.assertEqual(len(History(self.state/'credit').read()),2)
+        self.assertEqual(len(History(self.state/'credit').read()),1)
+        self.assertEqual(History(self.state/'credit').read()[0]['reserved_usd'],[3,100])
         self.assertEqual(body,request('synthetic-integration-1'))
-        self.assertEqual(History(self.state/'attempt-1').read()[0]['permit']['input_limit'],1200)
+        self.assertEqual(History(self.state/'attempt-1').read()[0]['permit']['input_limit'],400000)
         self.seen.append('generation')
         reply=dict(binding_hash=aliases('synthetic-integration-1'),kind='final',lookups=[],result=dict(
             status='unresolved',candidate=None,alternatives=[],citations=[],rationale='Synthetic only',
@@ -75,25 +70,25 @@ class SupervisedCreditTests(unittest.TestCase):
     def invoke(self,selected=None):
         return command.run(self.state,selected or self.selected,1,clock=lambda:self.now)
 
-    def test_executable_command_actual_authorizer_count_generation_restart(self):
+    def test_executable_generation_only_no_count_and_no_restart(self):
         args=['--state',str(self.state),'run','--evidence',str(self.path),'--slot','1']
         out=io.StringIO()
         with patch('socket.socket',side_effect=AssertionError('network')),patch.object(command.sys.stdin,'isatty',return_value=True),\
              patch.object(command.sys.stderr,'isatty',return_value=True),patch('getpass.getpass',return_value=self.key) as prompt,\
-             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.count',side_effect=self.count),\
+             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.count',side_effect=AssertionError('count forbidden')),\
              patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.post',side_effect=self.generate):
             with redirect_stdout(out):self.assertEqual(command.main(args),0)
             with redirect_stdout(out):self.assertEqual(command.main(args),1)
             self.assertEqual(prompt.call_count,1)
-        self.assertEqual(self.seen,['count','generation'])
+        self.assertEqual(self.seen,['generation'])
         self.assertNotIn(self.key,out.getvalue())
         for path in self.state.rglob('*.jsonl'):self.assertNotIn(self.key,path.read_text())
-        self.assertEqual(History(self.state).read()[-1]['reserved_usd'],[2,100])
+        self.assertEqual(History(self.state).read()[-1]['reserved_usd'],[3,100])
         for token in self.tokens:self.assertIsNotNone(real_activation_refusal(token))
 
-    def test_unknown_fee_or_coverage_refuses_before_prompt_and_debit(self):
-        for change in ({'count_fee_reference':None},{'count_fee_maximum':None},
-                       {'count_coverage_reference':'unknown'},{'paid_fallback':True},{'expires_at':self.now-1}):
+    def test_unknown_model_pricing_or_account_refuses_before_prompt_and_debit(self):
+        for change in ({'pricing_reference':None},{'input_rate':None},
+                       {'context_reference':'unknown'},{'model':'gpt-5-nano'},{'context_window':399999},{'paid_fallback':True},{'expires_at':self.now-1}):
             self.path.write_bytes(encoded(dict(self.evidence,**change)))
             selected=command.read_evidence(self.path)
             with patch.object(command,'prompt_credential') as prompt:
@@ -101,16 +96,16 @@ class SupervisedCreditTests(unittest.TestCase):
             prompt.assert_not_called()
         self.assertEqual(History(self.state/'credit').read(),[])
 
-    def test_count_timeout_burns_cent_and_never_generates_or_replays(self):
+    def test_generation_timeout_burns_three_cents_and_never_replays(self):
         def timeout(body,**kw):
-            self.authorize('/v1/responses/input_tokens',body,kw)
+            self.authorize('/v1/responses',body,kw)
             raise TimeoutError()
         with patch.object(command.sys.stdin,'isatty',return_value=True), patch.object(command.sys.stderr,'isatty',return_value=True), patch('getpass.getpass',return_value=self.key),\
-             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.count',side_effect=timeout) as count,\
-             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.post') as generate:
+             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.post',side_effect=timeout) as generate,\
+             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.count') as count:
             with self.assertRaises(TimeoutError):self.invoke()
             with self.assertRaisesRegex(Refusal,'supervised_attempt_consumed'):self.invoke()
-        self.assertEqual(count.call_count,1);generate.assert_not_called()
+        self.assertEqual(generate.call_count,1);count.assert_not_called()
         self.assertEqual(len(History(self.state/'credit').read()),1)
         for token in self.tokens:self.assertIsNotNone(real_activation_refusal(token))
 
@@ -145,24 +140,24 @@ class SupervisedCreditTests(unittest.TestCase):
 
     def test_evidence_change_after_reservation_refuses_authorization(self):
         def changed(body,**kw):
-            self.path.write_bytes(encoded(dict(self.evidence,count_fee_reference='changed')))
+            self.path.write_bytes(encoded(dict(self.evidence,pricing_reference='changed')))
             self.assertIsNotNone(real_activation_refusal(kw['authorization'],body=body,
-                credential=kw['credential'],project=kw['project'],path='/v1/responses/input_tokens'))
+                credential=kw['credential'],project=kw['project'],path='/v1/responses'))
             raise Refusal('refused')
         with patch.object(command.sys.stdin,'isatty',return_value=True), patch.object(command.sys.stderr,'isatty',return_value=True), patch('getpass.getpass',return_value=self.key),\
-             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.count',side_effect=changed):
+             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.post',side_effect=changed):
             with self.assertRaises(Refusal):self.invoke()
         self.assertEqual(len(History(self.state/'credit').read()),1)
 
-    def test_expiry_after_count_blocks_generation_without_refund(self):
-        def count_then_expire(body,**kw):
-            result=self.count(body,**kw);self.now+=201;return result
-        with patch.object(command.sys.stdin,'isatty',return_value=True), patch.object(command.sys.stderr,'isatty',return_value=True), patch('getpass.getpass',return_value=self.key),\
-             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.count',side_effect=count_then_expire),\
-             patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.post') as generation:
+    def test_expiry_after_prompt_blocks_generation_without_debit(self):
+        def late_prompt(*args):
+            self.now+=201
+            return self.key
+        with patch.object(command.sys.stdin,'isatty',return_value=True),patch.object(command.sys.stderr,'isatty',return_value=True),\
+             patch('getpass.getpass',side_effect=late_prompt),patch.object(FixedResponsesHTTP,'post') as generation:
             with self.assertRaisesRegex(Refusal,'supervised_evidence_stale'):self.invoke()
         generation.assert_not_called()
-        self.assertEqual(len(History(self.state/'credit').read()),1)
+        self.assertEqual(History(self.state/'credit').read(),[])
 
     def test_frozen_clock_cannot_bypass_actual_expiry_before_prompt(self):
         with patch('time.time',return_value=self.now+201),patch('getpass.getpass') as prompt:
@@ -175,10 +170,10 @@ class SupervisedCreditTests(unittest.TestCase):
             for wall in (self.now+201,self.now-10):
                 with patch('time.time',return_value=wall):
                     self.assertIsNotNone(real_activation_refusal(kw['authorization'],body=body,
-                        credential=kw['credential'],project=kw['project'],path='/v1/responses/input_tokens'))
+                        credential=kw['credential'],project=kw['project'],path='/v1/responses'))
             raise Refusal('clock_refused')
         with patch.object(command.sys.stdin,'isatty',return_value=True),patch.object(command.sys.stderr,'isatty',return_value=True),\
-             patch('getpass.getpass',return_value=self.key),patch.object(FixedResponsesHTTP,'count',side_effect=expired):
+             patch('getpass.getpass',return_value=self.key),patch.object(FixedResponsesHTTP,'post',side_effect=expired):
             with self.assertRaisesRegex(Refusal,'clock_refused'):self.invoke()
         self.assertEqual(len(History(self.state/'credit').read()),1)
 
@@ -244,3 +239,37 @@ class SupervisedCreditTests(unittest.TestCase):
                 if isinstance(result,Exception):read.side_effect=result
                 else:read.return_value=result
                 with self.assertRaisesRegex(Refusal,'storage_acl'):linux_acl(123,False)
+
+    def test_two_legacy_cents_plus_generation_preserves_five_cent_total(self):
+        from ai_movie_investigator.credit_test import reserve
+        credit=History(self.state/'credit')
+        for n in range(2):
+            reserve(credit,project='proj_fixture',request_hash=digest(['old',n]),input_bound=65536,
+                    now=self.now-1,file_identity=command.file_identity(credit))
+        with patch.object(command.sys.stdin,'isatty',return_value=True),patch.object(command.sys.stderr,'isatty',return_value=True),\
+             patch('getpass.getpass',return_value=self.key),patch.object(FixedResponsesHTTP,'post',side_effect=TimeoutError):
+            with self.assertRaises(TimeoutError):self.invoke()
+        self.assertEqual([e['reserved_usd'] for e in credit.read()],[[1,100],[1,100],[3,100]])
+        with patch('getpass.getpass') as prompt:
+            with self.assertRaisesRegex(Refusal,'credit_total_ceiling'):
+                command.run(self.state,self.selected,2,clock=lambda:self.now)
+        prompt.assert_not_called()
+
+    def test_old_consumed_slot_is_never_reused(self):
+        with History(self.state).transaction(write=True) as (_,append):
+            append(dict(type='supervised_count_attempted',slot=1,request_hash=digest('old'),at=self.now-1))
+        with patch('getpass.getpass') as prompt:
+            with self.assertRaisesRegex(Refusal,'supervised_attempt_consumed'):self.invoke()
+        prompt.assert_not_called()
+
+    def test_invalid_usage_keeps_full_three_cent_debit(self):
+        def bad(body,**kw):
+            result=self.generate(body,**kw)
+            from dataclasses import replace
+            raw=decode(result.body);raw['usage']['input_tokens']=400001
+            return replace(result,body=encoded(raw))
+        with patch.object(command.sys.stdin,'isatty',return_value=True),patch.object(command.sys.stderr,'isatty',return_value=True),\
+             patch('getpass.getpass',return_value=self.key),patch.object(FixedResponsesHTTP,'post',side_effect=bad):
+            with self.assertRaises(Refusal):self.invoke()
+        self.assertEqual(History(self.state/'credit').read()[0]['reserved_usd'],[3,100])
+        self.assertFalse(any(e['type']=='supervised_completed' for e in History(self.state).read()))

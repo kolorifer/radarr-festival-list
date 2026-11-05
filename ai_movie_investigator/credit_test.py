@@ -1,6 +1,6 @@
 """Fixed synthetic Responses integration profile; no credentials or live authority.
 
-Reuse the existing transport and History. Five one-cent reservations maximum;
+Reuse the existing transport and History. Five-cent cumulative reservations; legacy one-cent debits are retained;
 unknown and successful attempts both retain the full debit. Never reset by run.
 """
 from fractions import Fraction
@@ -14,7 +14,9 @@ POLICY = dict(model=INTEGRATION_MODEL, service_tier='default')
 # Standard USD/token, verified against official model page 2026-11-05.
 INPUT_RATE = Fraction(5, 100000000)
 OUTPUT_RATE = Fraction(4, 10000000)
-PER_REQUEST = Fraction(1, 100)
+PER_REQUEST = Fraction(3, 100)
+CONTEXT_TOKENS = 400000
+CONTEXT_COVERAGE = "documented-full-model-context-v1"
 TOTAL = Fraction(5, 100)
 
 
@@ -30,26 +32,36 @@ def request(run):
         text=dict(format=dict(type='json_schema',name='retained_investigator_v1',strict=True,schema=output_schema()))))
 
 
-def reserve(history, *, project, request_hash, input_bound, now, file_identity):
+def ledger_total(events, project):
+    require(all(e['type']=='credit_test_reserved' and e['project']==project and
+                e['model']==INTEGRATION_MODEL and type(e['reserved_usd']) is list and
+                all(type(v) is int for v in e['reserved_usd']) and e['reserved_usd'] in ([1,100],[3,100])
+                for e in events), 'credit_budget_changed')
+    total=sum((Fraction(*e['reserved_usd']) for e in events), Fraction(0))
+    require(total <= TOTAL, 'credit_total_ceiling')
+    return total
+
+
+def reserve(history, *, project, request_hash, input_bound, now, file_identity, debit=(1,100)):
     require(type(history) is History, 'credit_history_missing')
     require(type(file_identity) in (tuple, list) and len(file_identity) == 2 and
             all(type(v) is int and v >= 0 for v in file_identity), 'credit_file_identity')
     hash_id(request_hash)
     require(isinstance(project, str) and __import__('re').fullmatch(r'proj_[A-Za-z0-9_-]+', project), 'credit_project')
     require(stamp(now) < INTEGRATION_SHUTDOWN, 'integration_model_retired')
-    require(type(input_bound) is int and 0 < input_bound <= INPUT_TOKENS, 'credit_input_bound')
+    require(tuple(debit) in ((1,100),(3,100)), 'credit_request_ceiling')
+    full_context=tuple(debit)==(3,100)
+    require(type(input_bound) is int and (input_bound==CONTEXT_TOKENS if full_context else 0<input_bound<=INPUT_TOKENS), 'credit_input_bound')
     maximum = input_bound * INPUT_RATE + OUTPUT_TOKENS * OUTPUT_RATE
-    require(maximum <= PER_REQUEST, 'credit_request_ceiling')
+    require(maximum <= Fraction(*debit), 'credit_request_ceiling')
     with history.transaction(write=True, file_identity=file_identity) as (events, append):
-        require(all(e['type'] == 'credit_test_reserved' and e['project'] == project and
-                    e['model'] == INTEGRATION_MODEL and e['reserved_usd'] == [1,100] for e in events),
-                'credit_budget_changed')
+        retained=ledger_total(events,project)
         require(not any(e['request_hash'] == request_hash for e in events), 'credit_request_consumed')
-        require((len(events) + 1) * PER_REQUEST <= TOTAL, 'credit_total_ceiling')
+        require(retained + Fraction(*debit) <= TOTAL, 'credit_total_ceiling')
         require(all(now >= e['at'] for e in events), 'credit_clock_rollback')
         append(dict(type='credit_test_reserved', project=project, model=INTEGRATION_MODEL,
-                    request_hash=request_hash, reserved_usd=[1,100], at=now))
-    return [1,100]
+                    request_hash=request_hash, reserved_usd=list(debit), at=now))
+    return list(debit)
 
 
 def count_request(run):

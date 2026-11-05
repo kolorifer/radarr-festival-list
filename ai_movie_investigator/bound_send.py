@@ -137,7 +137,7 @@ class HistoricalDiagnosticParent:
             require(type(self.credit_history) is History and self.credit_history is not self.history and
                     self.credit_history.identity != self.history.identity and
                     list(self.credit_history.identity) == r['credit_history_identity'], 'credit_history_missing')
-            require(rational(r['ceiling']) <= rational([1,100]) and now < INTEGRATION_SHUTDOWN and
+            require(rational(r['ceiling']) <= rational([3,100]) and now < INTEGRATION_SHUTDOWN and
                     r['expires_at'] <= INTEGRATION_SHUTDOWN, 'credit_scope_or_model_expired')
         roles = {'owner', 'privacy', 'account', 'credential_route', 'coverage', 'pricing'}
         require(type(r['evidence']) is dict and set(r['evidence']) == roles and
@@ -167,7 +167,7 @@ class HistoricalDiagnosticParent:
     def _permit(self, selected, body):
         r = self._record()
         integration = r['mode'] == 'synthetic_api_integration'
-        from .credit_test import POLICY as CREDIT_POLICY, request as credit_request
+        from .credit_test import POLICY as CREDIT_POLICY, request as credit_request, CONTEXT_TOKENS, CONTEXT_COVERAGE
         policy = CREDIT_POLICY if integration else POLICY
         shape(selected, 'run case request_sha256 local_context_sha256')
         scope(selected['case'])
@@ -247,9 +247,9 @@ class HistoricalDiagnosticParent:
         coverage = facts['coverage']
         shape(coverage, 'request_sha256 policy coverage counter_identity input_upper_bound')
         require(coverage['request_sha256'] == selected['request_sha256'] and coverage['policy'] == policy and
-                coverage['coverage'] == COVERAGE and isinstance(coverage['counter_identity'], str) and
+                coverage['coverage'] == (CONTEXT_COVERAGE if integration and r['ceiling']==[3,100] else COVERAGE) and isinstance(coverage['counter_identity'], str) and
                 coverage['counter_identity'] not in ('', 'unknown') and type(coverage['input_upper_bound']) is int and
-                0 < coverage['input_upper_bound'] <= INPUT_TOKENS, 'operator_coverage_unknown')
+                (coverage['input_upper_bound']==CONTEXT_TOKENS if integration and r['ceiling']==[3,100] else 0<coverage['input_upper_bound']<=INPUT_TOKENS), 'operator_coverage_unknown')
         pricing = facts['pricing']
         shape(pricing, 'policy currency input cache_read cache_write output ancillary_maximum')
         require(pricing['policy'] == policy and pricing['currency'] == r['currency'], 'operator_pricing_unknown')
@@ -261,9 +261,9 @@ class HistoricalDiagnosticParent:
             from .credit_test import INPUT_RATE, OUTPUT_RATE, PER_REQUEST
             require(rates['input'] == INPUT_RATE and rates['cache_read'] == INPUT_RATE / 10 and
                     rates['cache_write'] == 0 and rates['output'] == OUTPUT_RATE and
-                    rates['ancillary_maximum'] == 0 and rational(r['ceiling']) == PER_REQUEST,
+                    rates['ancillary_maximum'] == 0 and rational(r['ceiling']) in (rational([1,100]), PER_REQUEST),
                     'credit_pricing_changed')
-            maximum = PER_REQUEST  # Full one-cent debit survives every outcome.
+            maximum = rational(r['ceiling'])  # Full selected debit survives every outcome.
 
         return dict(selection=selected, project=r['project'], model=r['model'], expires_at=r['expires_at'],
                     input_limit=coverage['input_upper_bound'], output_limit=r['output_limit'],
@@ -278,7 +278,7 @@ class HistoricalDiagnosticParent:
         reserve(self.credit_history, project=permit['project'],
                 request_hash=permit['selection']['request_sha256'],
                 input_bound=permit['input_limit'], now=self.history.clock(),
-                file_identity=r['credit_history_file_identity'])
+                file_identity=r['credit_history_file_identity'], debit=permit['maximum_debit'])
 
     def authorize(self, selected, body):
         permit = self._permit(selected, body)
