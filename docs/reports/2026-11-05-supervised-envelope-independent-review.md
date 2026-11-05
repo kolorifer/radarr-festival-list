@@ -17,3 +17,7 @@ Reviewed SHA-256 values:
 - `test_supervised_envelope.py`: `1b9ae1a6df95a6bed458796e4f444114b5e3e6870a178dc4c188d7330610f7e7`
 
 No code blocker was found in this bounded offline review. Supported exact-head CI remains required. No actual runtime, history, account evidence, credential, provider or network was accessed, and no extra opportunity or expenditure was authorized by this review.
+
+## Installed-only correction
+
+The initial exact-head CI completed the supported suites with one failure: a generic minimal installation could not import the newly unconditional supervised authorization dependency. The correction keeps the existing generic response and opaque limits without that dependency when no HTTP result is supplied, and imports the supervised result-binding logic only when a result is supplied. There is no exception-based fallback; the bound profile retains its exact-result checks. Static review accepts this narrow correction, subject to fresh exact-head CI. The corrected `ai_movie_investigator/responses_protocol.py` SHA-256 is `02512e5c310f45d2934a1a9afbcb10c45b93ec3f8203fd25d2d6503d0de9c804`, and its runtime manifest entry matches. This paragraph supersedes the earlier protocol hash; no additional independent test run was performed for this delta.

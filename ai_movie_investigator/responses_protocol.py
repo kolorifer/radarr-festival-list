@@ -49,9 +49,12 @@ def response_id(value):
 
 
 def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_result=None):
-    from .supervised_authorization import response_limits
+    from .responses_http import MAX_RESPONSE
     require(expected_model in (MODEL, INTEGRATION_MODEL), 'responses_model_profile')
-    envelope_limit,opaque_limit=response_limits(http_result,raw,request_id,expected_model)
+    envelope_limit,opaque_limit=MAX_RESPONSE,16384
+    if http_result is not None:
+        from .supervised_authorization import response_limits
+        envelope_limit,opaque_limit=response_limits(http_result,raw,request_id,expected_model)
     response = decode(raw, envelope_limit)
     require(isinstance(response, dict) and response.get('object') == 'response'
             and response.get('status') == 'completed' and response.get('model') == expected_model

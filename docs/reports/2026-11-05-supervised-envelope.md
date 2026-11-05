@@ -48,3 +48,14 @@ prior real outcomes remain unknown; this code does not retry them, refund their
 reservations, create another opportunity, or prove the historical rejection was
 an oversized body. No production activation occurred. The unrelated active
 cleanup task remains unchanged; this focused report is the project record.
+
+The first full CI found one installed-only regression on both supported versions:
+the generic parser imported supervised authorization even when no bound HTTP
+result was supplied. The minimal older generic installation omits that module.
+The import is now conditional on a supplied HTTP result; the no-result path
+keeps its original dependencies and limits. No missing-module fallback or weaker
+validation was introduced. On corrected source, the affected installed-only test and eight of nine new
+envelope tests passed (nine of ten total). The answer/protocol test stopped at
+the initial HTTP authorization gate with supervised_authorization_refused; its
+underlying cause was not established. This separate failure is retained without
+a retry-to-green. New exact-head CI is required.
