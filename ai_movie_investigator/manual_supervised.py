@@ -33,21 +33,33 @@ def schema():
         disposition=dict(type='string', enum=['human_review_no_approval'])))
 
 
-def context(packet, fingerprint, prepared_at):
+def context(packet, fingerprint, prepared_at, *, companion=None, historical_raw=None):
     binding, _, _, raw = build_request(packet, fingerprint, now=prepared_at)
-    aid = digest(dict(binding=binding, input_sha256=fingerprint, prepared_at=prepared_at,
-                      purpose='supervised_historical_assessment'))
+    aid_fields = dict(binding=binding, input_sha256=fingerprint, prepared_at=prepared_at,
+                      purpose='supervised_historical_assessment')
+    observation = None
+    if companion is not None:
+        from .manual_companion import project
+        require(historical_raw is not None and sha(historical_raw) == fingerprint, 'companion_historical_binding')
+        observation = project(companion, packet, historical_raw, prepared_at)
+        aid_fields['companion_sha256'] = sha(companion)
+    aid = digest(aid_fields)
     request = decode(raw, 65536)
     data = decode(request['input'][0]['content'][0]['text'], 32768)
     data['assessment_id'] = aid
+    if observation is not None:
+        data['source_observation'] = observation
     data['qualifications']['output_limit'] = 'historical proposal or unresolved or blocked; human review, no approval'
     request['input'][0]['content'][0]['text'] = encoded(data).decode()
     request['text']['format']['schema'] = schema()
     # This is a request template for this chat, not an API model invocation.
     raw = encoded(request)
     require(len(raw) <= 65536, 'manual_request_size')
-    return dict(assessment_id=aid, binding=binding, input_sha256=fingerprint,
-                request_sha256=sha(raw), prepared_at=prepared_at), raw, data
+    selected = dict(assessment_id=aid, binding=binding, input_sha256=fingerprint,
+                request_sha256=sha(raw), prepared_at=prepared_at)
+    if companion is not None:
+        selected['companion_sha256'] = sha(companion)
+    return selected, raw, data
 
 
 def write_once(dfd, name, raw):
@@ -64,17 +76,20 @@ def write_once(dfd, name, raw):
         os.close(fd)
 
 
-def prepare(input_path, directory):
+def prepare(input_path, directory, *, companion_path=None):
     raw = read_private(input_path)
     packet, fingerprint = parse_packet(raw)
     require(packet['kind'] == 'historical_expanded_projection', 'manual_full_input_required')
-    selected, request, data = context(packet, fingerprint, time.time())
+    companion = read_private(companion_path, 32768) if companion_path is not None else None
+    selected, request, data = context(packet, fingerprint, time.time(), companion=companion, historical_raw=raw)
     directory = Path(directory)
     with private_chain(directory) as dfd:
         history = History(directory)
         with history.transaction(write=True) as (events, append):
             require(not events and set(os.listdir(dfd)) == {FILENAME}, 'manual_directory_consumed')
             append(dict(type='manual_prepare_started', selection=selected))
+            if companion is not None:
+                write_once(dfd, 'companion.json', companion)
             for name, body in [('input.json', raw), ('request.json', request),
                                ('model-input.json', encoded(data)), ('selection.json', encoded(selected))]:
                 write_once(dfd, name, body)
@@ -90,12 +105,14 @@ def constraints(data):
         conflicts.update(row['source_contradictions'] or [])
     missing = set(o['missing_fields']) | {'currentness', 'complete occurrence decisions', 'physical source identity',
         'edition and suitability', 'identity approval', 'acquisition approval'}
+    if 'source_observation' in data:
+        missing.update(('source observation authenticity', 'original delivery acknowledgement'))
     return sorted(conflicts), sorted(missing)
 
 
 def resolve(data, path):
     require(isinstance(path, str) and len(path) <= 250 and
-            path.startswith(('historical_observations/', 'qualifications/', 'facts/')), 'manual_evidence_path')
+            path.startswith(('historical_observations/', 'qualifications/', 'facts/', 'source_observation/')), 'manual_evidence_path')
     value = data
     for key in path.split('/'):
         if isinstance(value, list):
@@ -121,6 +138,9 @@ def validate_answer(answer, selected, data):
         require(claim['path'] not in paths and claim['value'] == encoded(resolve(data, claim['path'])).decode(),
                 'manual_evidence_claim_mismatch')
         paths.add(claim['path'])
+    if 'source_observation' in data:
+        require({'source_observation/observer_pending', 'source_observation/collector_rechecked_at'} <= paths,
+                'manual_companion_citations_missing')
     candidate = answer['candidate']
     require((candidate is not None) == (answer['status'] == 'historical_candidate_proposal'), 'manual_candidate_status')
     if candidate is not None:
@@ -158,7 +178,11 @@ def complete(directory, reply_path, provenance_path):
             selected = events[1]['selection']
             raw = read_private(directory / 'input.json')
             packet, fingerprint = parse_packet(raw)
-            expected, request, data = context(packet, fingerprint, selected['prepared_at'])
+            companion = (read_private(directory / 'companion.json', 32768)
+                         if 'companion_sha256' in selected else None)
+            require(companion is not None or not os.path.lexists(directory / 'companion.json'), 'manual_unselected_companion')
+            expected, request, data = context(packet, fingerprint, selected['prepared_at'],
+                                              companion=companion, historical_raw=raw)
             require(expected == selected and read_private(directory / 'request.json') == request
                     and read_private(directory / 'model-input.json') == encoded(data)
                     and read_private(directory / 'selection.json') == encoded(selected), 'manual_prepared_changed')
@@ -185,6 +209,8 @@ def complete(directory, reply_path, provenance_path):
                 completion_invoked_generation=False,
                 provider_receipt=None, token_bill=None, identity_approval=False, acquisition_approval=False,
                 scope='Local byte binding and structured evidence validation only. Retained-case self-hash and source hashes are caller assertions, not archive provenance, source authenticity or current-fact proof. Semantic reasoning, chat authorship, simulation status and context isolation require independent external review. Null provider receipt and token bill mean not recorded, not independently proved absent.')
+            if 'source_observation' in data:
+                report['source_observation'] = data['source_observation']
             body = encoded(report)
             write_once(dfd, 'review-report.json', body)
             append(dict(type='manual_completed', reply_sha256=sha(reply), report_sha256=sha(body)))
