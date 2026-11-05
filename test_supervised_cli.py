@@ -52,7 +52,7 @@ def sink(self,body,**kw):
     reason=real_activation_refusal(kw['authorization'],body=body,credential=kw['credential'],project=kw['project'],path='/v1/responses')
     if reason is not None:raise Refusal(reason)
     print('OFFLINE_AUTHORIZED_BOUNDARY',flush=True)
-    raise Refusal('offline_stop_before_network')
+    raise Refusal('binding_response_unknown')
 FixedResponsesHTTP.post=sink
 ''')
         env=dict(os.environ,PYTHONPATH=os.pathsep.join((str(hooks),str(installed))),PYTHONDONTWRITEBYTECODE='1')
@@ -92,6 +92,8 @@ FixedResponsesHTTP.post=sink
         self.assertNotIn(b'sk_DUMMY_EXECUTABLE_FIXTURE_ONLY',output,'dummy input echoed')
         self.assertIn(b'OFFLINE_AUTHORIZED_BOUNDARY',output,'actual -m did not reach authorized offline boundary')
         self.assertEqual(code,1) # Deliberate offline stop, never a provider call.
+        self.assertIn(b'category=send_or_response_refused; action=run; request status unconfirmed',output)
+        self.assertNotIn(b'binding_response_unknown',output)
         self.assertEqual([r['reserved_usd'] for r in History(fixture.state/'credit').read()],[[3,100]])
         self.assertEqual([r['type'] for r in History(fixture.state/f'attempt-{slot}').read()],
                          ['bound_send_reserved','bound_send_attempted'])

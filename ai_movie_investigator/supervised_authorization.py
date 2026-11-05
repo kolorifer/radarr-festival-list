@@ -14,6 +14,7 @@ from .history import checked, FILENAME
 from .responses_protocol import INTEGRATION_SHUTDOWN
 
 _ACTIVE = ContextVar('supervised_synthetic_authority', default=None)
+SEND_AUTHORITY_SECONDS = 60
 
 
 class _Permit:
@@ -27,9 +28,22 @@ class _Session:
         self.selected,self.slot,self.credit,self.history,self.credential=selected,slot,credit,history,credential
         self.run=f'synthetic-integration-{slot}'
         self.issued={}
-        self.last_wall=time.time()
-        self.started_wall=self.last_wall
-        self.started_monotonic=time.monotonic()
+        from .supervised_credit import require_prompted
+        self.started_wall,self.started_monotonic=require_prompted(root,credential)
+        self.last_wall=self.started_wall
+        self.expired=False
+        self.deadline=min(self.started_wall+SEND_AUTHORITY_SECONDS,selected.data['expires_at'],
+                          selected.data['credit_expires_at'],INTEGRATION_SHUTDOWN)
+
+    def check_time(self):
+        require(not self.expired,'supervised_session_expired')
+        wall=time.time();elapsed=time.monotonic()-self.started_monotonic
+        require(wall>=self.last_wall and elapsed>=0,'supervised_clock_rollback')
+        self.last_wall=wall
+        now=max(wall,self.root.clock(),self.started_wall+elapsed)
+        if now>=self.deadline:self.expired=True
+        require(not self.expired,'supervised_session_expired')
+        return now
 
     def check(self,path,body,credential,project):
         from .supervised_credit import validate_evidence, file_identity
@@ -37,10 +51,7 @@ class _Session:
         self.root.require_write_transaction(self.events)
         require(self.events[1] is self.enrolled, 'supervised_enrollment_binding')
         require_prompted(self.root,credential)
-        wall=time.time()
-        require(wall>=self.last_wall, 'supervised_clock_rollback')
-        self.last_wall=wall
-        now=max(wall,self.root.clock(),self.started_wall+time.monotonic()-self.started_monotonic)
+        now=self.check_time()
         self.selected.revalidate()
         e=self.selected.data
         validate_evidence(e,now)
@@ -73,6 +84,7 @@ class _Session:
         require(permit['selection']['run']==self.run and permit['selection']['request_sha256']==fingerprint and
                 permit['project']==project and permit['maximum_debit']==[3,100] and
                 permit['input_limit']==CONTEXT_TOKENS,'supervised_generation_binding')
+        self.check_time() # Metadata/ledger checks must not outlive prompt authority.
 
 
 @contextmanager
@@ -85,8 +97,9 @@ def command_authority(root,events,enrolled,selected,slot,credit,history,credenti
     selected.revalidate()
     selection_binding(events,enrolled,selected,slot)
     session=_Session(root,events,enrolled,selected,slot,credit,history,credential)
+    session.check_time()
     marker=_ACTIVE.set(session)
-    try:yield
+    try:yield session
     finally:
         session.issued.clear()
         _ACTIVE.reset(marker)
