@@ -256,7 +256,7 @@ def validate_evidence(e,now):
 def selection_binding(events,enrolled,selected,slot):
     """Resolve one manual renewal without replacing enrollment or old slots."""
     require(enrolled.get('project')==selected.data['project'],'supervised_enrollment_binding')
-    if slot in (3,4,5):
+    if slot in (3,4,5,6):
         recovery_binding(events,enrolled,selected,slot)
         return
     require(not any(e['type'].startswith('supervised_recovery') for e in events),
@@ -324,8 +324,8 @@ def reauthorize(directory,previous,selected):
 
 def recovery_binding(events,enrolled,selected,slot=3):
     """One explicit local extension; neither a new enrollment nor a refund."""
-    require(type(slot) is int and slot in (3,4,5),'supervised_slot')
-    index={3:5,4:8,5:12}[slot]
+    require(type(slot) is int and slot in (3,4,5,6),'supervised_slot')
+    index={3:5,4:8,5:12,6:16}[slot]
     kind='supervised_recovery' if slot==3 else 'supervised_continuation'
     require(len(events)>=index+2 and events[index]['type']==kind+'_started' and
             events[index+1]['type']==kind+'_authorized','supervised_recovery_binding')
@@ -336,19 +336,19 @@ def recovery_binding(events,enrolled,selected,slot=3):
     require(start['prefix_sha256']==digest(events[:index]) and grant['start_sha256']==digest(start) and
             start['evidence_sha256']==selected.sha256 and start['project']==enrolled['project'] and
             start['expires_at']==selected.data['expires_at'] and
-            start['previous_sha256']==events[{3:3,4:5,5:8}[slot]]['evidence_sha256'] and
+            start['previous_sha256']==events[{3:3,4:5,5:8,6:12}[slot]]['evidence_sha256'] and
             type(start['permitted_slot']) is int and start['permitted_slot']==slot and
-            start['cumulative_usd']==[{3:6,4:9,5:12}[slot],100] and
+            start['cumulative_usd']==[{3:6,4:9,5:12,6:15}[slot],100] and
             start['request_sha256']==digest(decode(request(f'synthetic-integration-{slot}'))) and
             selected.data['observed_at']<=stamp(start['at'])<=stamp(grant['at'])<start['expires_at'] and
             all(e['type'] in ('supervised_started','supervised_completed','supervised_diagnostic') and e.get('slot')==slot
                 for e in events[index+2:]),'supervised_recovery_binding')
-    require(rational(selected.data['available_usd'])>=rational([{3:6,4:9,5:12}[slot],100]),'supervised_credit_only')
+    require(rational(selected.data['available_usd'])>=rational([{3:6,4:9,5:12,6:15}[slot],100]),'supervised_credit_only')
     return start,grant
 
 
 def attempt_pin(events,enrolled,slot):
-    if slot in (3,4,5):return events[{3:6,4:9,5:13}[slot]]['attempt']
+    if slot in (3,4,5,6):return events[{3:6,4:9,5:13,6:17}[slot]]['attempt']
     return enrolled['attempts'][str(slot)]
 
 
@@ -362,29 +362,29 @@ def recovery_retained(root,events,enrolled,selected,credit,slot=3):
         require(list(old.identity)==attempt_pin(events,enrolled,previous_slot),'supervised_storage_changed')
         if previous_slot==1:require(not any(old.directory.iterdir()),'supervised_recovery_state')
         else:
-            pin=events[{2:5,3:8,4:12}[previous_slot]]['attempt_sha256']
+            pin=events[{2:5,3:8,4:12,5:16}[previous_slot]]['attempt_sha256']
             require(digest(old.read())==pin,'supervised_recovery_state')
     reservations=credit.read()
-    retained_count={3:1,4:2,5:3}[slot]
+    retained_count={3:1,4:2,5:3,6:4}[slot]
     require(len(reservations) in (retained_count,retained_count+1) and
             digest(reservations[:retained_count])==start['credit_sha256'],
             'supervised_recovery_state')
     if len(reservations)==retained_count+1:
         require(reservations[-1]['request_hash']==start['request_sha256'] and
                 reservations[-1]['reserved_usd']==[3,100],'supervised_recovery_state')
-    return rational([{3:6,4:9,5:12}[slot],100])
+    return rational([{3:6,4:9,5:12,6:15}[slot],100])
 
 
 def recover_once(directory,previous,selected,*,slot=3):
-    """Manual, append-only slots3/4/5 for their individually fixed retained shapes.
+    """Manual, append-only slots3/4/5/6 for their individually fixed retained shapes.
 
     A failure after the start append is terminal. Never recreate or repair it.
     This command has no credential, HTTP or automatic run path.
     """
-    require(type(slot) is int and slot in (3,4,5),'supervised_slot')
-    prior_count={3:1,4:2,5:3}[slot]
-    cap=[{3:6,4:9,5:12}[slot],100]
-    index={3:5,4:8,5:12}[slot]
+    require(type(slot) is int and slot in (3,4,5,6),'supervised_slot')
+    prior_count={3:1,4:2,5:3,6:4}[slot]
+    cap=[{3:6,4:9,5:12,6:15}[slot],100]
+    index={3:5,4:8,5:12,6:16}[slot]
     kind='supervised_recovery' if slot==3 else 'supervised_continuation'
     require(type(previous) is SelectedEvidence and type(selected) is SelectedEvidence,
             'supervised_evidence_selection')
@@ -401,28 +401,29 @@ def recover_once(directory,previous,selected,*,slot=3):
         expected=[
             'supervised_enrollment_started','supervised_enrolled','supervised_started',
             'supervised_reauthorized','supervised_started']
-        if slot in (4,5):expected+=['supervised_recovery_started','supervised_recovery_authorized','supervised_started']
-        if slot==5:expected+=['supervised_continuation_started','supervised_continuation_authorized','supervised_started','supervised_diagnostic']
+        if slot in (4,5,6):expected+=['supervised_recovery_started','supervised_recovery_authorized','supervised_started']
+        if slot in (5,6):expected+=['supervised_continuation_started','supervised_continuation_authorized','supervised_started','supervised_diagnostic']
+        if slot==6:expected+=['supervised_continuation_started','supervised_continuation_authorized','supervised_started','supervised_diagnostic']
         require(len(events)==index and [e['type'] for e in events]==expected,'supervised_recovery_state')
         enrolled=events[1]
         selection_binding(events,enrolled,previous,slot-1)
-        started=events[10 if slot==5 else index-1]
+        started=events[index-2 if slot in (5,6) else index-1]
         shape(started,'type slot at evidence_hash')
         require(type(started['slot']) is int and started['slot']==slot-1 and
                 started['evidence_hash']==digest(old) and
                 old['observed_at']<=stamp(started['at'])<old['expires_at'], 'supervised_recovery_state')
-        if slot==5:
-            terminal=events[11]
+        if slot in (5,6):
+            terminal=events[index-1]
             shape(terminal,'type slot at phase reason category')
-            require(type(terminal['slot']) is int and terminal['slot']==4 and
-                    terminal['phase']=='http_receive' and
-                    terminal['reason']=='responses_network_completion_unknown' and
-                    terminal['category']=='network_outcome_unknown' and
+            require(type(terminal['slot']) is int and terminal['slot']==slot-1 and
+                    terminal['phase']=={5:'http_receive',6:'http_response_received'}[slot] and
+                    terminal['reason']=={5:'responses_network_completion_unknown',6:'responses_body_limit'}[slot] and
+                    terminal['category']=={5:'network_outcome_unknown',6:'transport_refused'}[slot] and
                     stamp(terminal['at'])>=stamp(started['at']), 'supervised_recovery_state')
         credit=History(root.directory/'credit')
         require(enrolled['root']==list(root.identity) and enrolled['credit']==list(credit.identity) and
                 enrolled['credit_file']==file_identity(credit),'supervised_storage_changed')
-        if slot in (4,5):
+        if slot in (4,5,6):
             recovery_retained(root,events,enrolled,previous,credit,slot-1)
         for previous_slot in range(1,slot):
             attempt=History(root.directory/f'attempt-{previous_slot}')
@@ -432,7 +433,7 @@ def recover_once(directory,previous,selected,*,slot=3):
              attempt.transaction() as (prior,_):
             fingerprint=digest(decode(request(f'synthetic-integration-{slot-1}')))
             require(len(reservations)==prior_count and
-                    ledger_total(reservations,new['project'],ceiling=TOTAL if slot==3 else rational([{4:6,5:9}[slot],100]))==PER_REQUEST*prior_count and
+                    ledger_total(reservations,new['project'],ceiling=TOTAL if slot==3 else rational([{4:6,5:9,6:12}[slot],100]))==PER_REQUEST*prior_count and
                     reservations[-1]['request_hash']==fingerprint,'supervised_recovery_state')
             require(len(prior)==2 and prior[0]['type']=='bound_send_reserved' and
                     prior[1]['type']=='bound_send_attempted' and
@@ -514,7 +515,7 @@ def safe_diagnostic(error):
 
 
 def _run(directory,selected,slot,*,clock=time.time):
-    require(type(slot) is int and slot in (1,2,3,4,5),'supervised_slot')
+    require(type(slot) is int and slot in (1,2,3,4,5,6),'supervised_slot')
     require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
     selected.revalidate()
     evidence=selected.data
@@ -531,7 +532,7 @@ def _run(directory,selected,slot,*,clock=time.time):
         history=History(root.directory/f'attempt-{slot}',clock=clock)
         require(enrolled['credit']==list(credit.identity) and enrolled['credit_file']==file_identity(credit) and
                 attempt_pin(events,enrolled,slot)==list(history.identity),'supervised_storage_changed')
-        ceiling=recovery_retained(root,events,enrolled,selected,credit,slot) if slot in (3,4,5) else TOTAL
+        ceiling=recovery_retained(root,events,enrolled,selected,credit,slot) if slot in (3,4,5,6) else TOTAL
         with credit.transaction(file_identity=enrolled['credit_file']) as (old,_):
             require(ledger_total(old,evidence['project'],ceiling=ceiling)+PER_REQUEST<=ceiling,'credit_total_ceiling')
         require(not history.read(),'supervised_attempt_consumed')
@@ -597,9 +598,9 @@ def main(argv=None):
     continuation=sub.add_parser('continue-once')
     continuation.add_argument('--previous-evidence',required=True,type=Path)
     continuation.add_argument('--evidence',required=True,type=Path)
-    continuation.add_argument('--slot',type=int,choices=(4,5),default=4)
+    continuation.add_argument('--slot',type=int,choices=(4,5,6),default=4)
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
-    send.add_argument('--slot',required=True,type=int,choices=(1,2,3,4,5))
+    send.add_argument('--slot',required=True,type=int,choices=(1,2,3,4,5,6))
     args=parser.parse_args(argv)
     _LAST_DIAGNOSTIC.set(None)
     try:
