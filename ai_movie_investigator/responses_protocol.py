@@ -4,6 +4,8 @@ import re
 from .contracts import MAX_OUTPUT, decode, encoded, require
 
 MODEL = 'gpt-6.1-sol'
+INTEGRATION_MODEL = 'gpt-5-nano-2025-08-07'
+INTEGRATION_SHUTDOWN = 1796947200  # 2026-12-11 UTC; no automatic replacement
 INPUT_TOKENS = 65536
 OUTPUT_TOKENS = 4096
 
@@ -46,11 +48,12 @@ def response_id(value):
     return value
 
 
-def parse_response(raw, schema, request_id=None):
+def parse_response(raw, schema, request_id=None, *, expected_model=MODEL):
     from .responses_http import MAX_RESPONSE
+    require(expected_model in (MODEL, INTEGRATION_MODEL), 'responses_model_profile')
     response = decode(raw, MAX_RESPONSE)
     require(isinstance(response, dict) and response.get('object') == 'response'
-            and response.get('status') == 'completed' and response.get('model') == MODEL
+            and response.get('status') == 'completed' and response.get('model') == expected_model
             and response.get('error') is None and response.get('incomplete_details') is None,
             'responses_not_completed')
     allowed = set(('id object status model error incomplete_details store background tools tool_choice '
@@ -72,7 +75,7 @@ def parse_response(raw, schema, request_id=None):
             dict(type='json_schema', name='retained_investigator_v1', strict=True, schema=schema),
             'responses_contract_changed')
     require(response.get('service_tier') == 'default' and
-            response.get('prompt_cache_options') == {'ttl': '30m'} and
+            response.get('prompt_cache_options') == ({'ttl': '30m'} if expected_model == MODEL else None) and
             response.get('prompt_cache_diagnostics') is None and
             response.get('prompt_cache_retention') is None and
             response.get('prompt_cache_key') is None, 'responses_cache_or_tier_changed')
@@ -106,15 +109,17 @@ def parse_response(raw, schema, request_id=None):
         schema_value(answer, schema)
         answers.append(encoded(answer))
     require(len(answers) == 1, 'responses_answer_count')
-    usage = validate_usage(response.get('usage'))
-    accounting = dict(response_id=rid, model=MODEL, usage=usage,
-                      policy=dict(model=MODEL, service_tier='default', prompt_cache_options=dict(ttl='30m')))
+    usage = validate_usage(response.get('usage'), legacy=expected_model == INTEGRATION_MODEL)
+    policy = dict(model=expected_model, service_tier='default')
+    if expected_model == MODEL:
+        policy['prompt_cache_options'] = dict(ttl='30m')
+    accounting = dict(response_id=rid, model=expected_model, usage=usage, policy=policy)
     if request_id is not None:
         accounting['request_id'] = response_id(request_id)
     return answers[0], accounting
 
 
-def validate_usage(usage):
+def validate_usage(usage, *, legacy=False):
     """Exact mandatory usage; writes partition by the selected cache lifetime."""
     require(isinstance(usage, dict) and set(usage) == {'input_tokens', 'input_tokens_details',
             'output_tokens', 'output_tokens_details', 'total_tokens'}, 'responses_usage_required')
@@ -124,6 +129,15 @@ def validate_usage(usage):
     require(usage['input_tokens'] > 0 and usage['output_tokens'] > 0
             and usage['total_tokens'] == usage['input_tokens'] + usage['output_tokens'], 'responses_usage_invalid')
     input_details = usage['input_tokens_details']
+    if legacy:
+        require(isinstance(input_details, dict) and set(input_details) == {'cached_tokens'} and
+                type(input_details['cached_tokens']) is int and
+                0 <= input_details['cached_tokens'] <= usage['input_tokens'], 'responses_usage_invalid')
+        output_details = usage['output_tokens_details']
+        require(isinstance(output_details, dict) and set(output_details) == {'reasoning_tokens'} and
+                type(output_details['reasoning_tokens']) is int and
+                0 <= output_details['reasoning_tokens'] <= usage['output_tokens'], 'responses_usage_invalid')
+        return usage
     require(isinstance(input_details, dict) and set(input_details) ==
             {'cached_tokens', 'cache_write_tokens', 'cache_write_tokens_details'},
             'responses_usage_invalid')

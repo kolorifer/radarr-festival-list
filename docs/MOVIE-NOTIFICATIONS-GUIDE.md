@@ -233,3 +233,12 @@ or deleting its recoverable record. Older cycle-format records are preserved
 and require owner investigation; they are not automatically converted. These
 checks were tested with synthetic data only and do not activate live reporting
 or change movie notification or download approval behavior.
+
+### Low-cost synthetic API integration
+
+A disabled integration path uses a fixed nonsensitive example with the pinned
+Nano snapshot, a one-cent attempt reservation and a five-cent shared envelope.
+Unknown attempts retain their debit; there is no automatic retry or upgrade.
+This does not identify a real movie, send a notification or authorize a download.
+Live account/credit/credential verification remains incomplete. See the
+[implementation and setup limits](reports/2026-11-05-credit-integration.md).
