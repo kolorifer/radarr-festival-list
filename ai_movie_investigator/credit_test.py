@@ -1,0 +1,52 @@
+"""Fixed synthetic Responses integration profile; no credentials or live authority.
+
+Reuse the existing transport and History. Five one-cent reservations maximum;
+unknown and successful attempts both retain the full debit. Never reset by run.
+"""
+from fractions import Fraction
+from .contracts import encoded, require, stamp, hash_id
+from .controller import INSTRUCTIONS, output_schema
+from .disclosure import aliases
+from .history import History
+from .responses_protocol import INTEGRATION_MODEL, INTEGRATION_SHUTDOWN, INPUT_TOKENS, OUTPUT_TOKENS
+
+POLICY = dict(model=INTEGRATION_MODEL, service_tier='default')
+# Standard USD/token, verified against official model page 2026-11-05.
+INPUT_RATE = Fraction(5, 100000000)
+OUTPUT_RATE = Fraction(4, 10000000)
+PER_REQUEST = Fraction(1, 100)
+TOTAL = Fraction(5, 100)
+
+
+def request(run):
+    data = dict(protocol='single-pilot-v1', binding_hash=aliases(run), conflicting_ids=False,
+        facts=dict(title='Synthetic Example', year=2026, imdb=None, tmdb=None,
+                   asserted_imdb=None, asserted_tmdb=None, contradiction='synthetic_missing_evidence'),
+        evidence=[dict(alias='synthetic-empty-source', kind='source', candidate=None, claims=[], facts={})])
+    return encoded(dict(**POLICY, instructions=INSTRUCTIONS,
+        input=[dict(role='user', content=[dict(type='input_text', text=encoded(data).decode())])],
+        tools=[], tool_choice='none', store=False, background=False, stream=False,
+        max_output_tokens=OUTPUT_TOKENS, truncation='disabled',
+        text=dict(format=dict(type='json_schema',name='retained_investigator_v1',strict=True,schema=output_schema()))))
+
+
+def reserve(history, *, project, request_hash, input_bound, now, file_identity):
+    require(type(history) is History, 'credit_history_missing')
+    require(type(file_identity) in (tuple, list) and len(file_identity) == 2 and
+            all(type(v) is int and v >= 0 for v in file_identity), 'credit_file_identity')
+    hash_id(request_hash)
+    require(isinstance(project, str) and __import__('re').fullmatch(r'proj_[A-Za-z0-9_-]+', project), 'credit_project')
+    require(stamp(now) < INTEGRATION_SHUTDOWN, 'integration_model_retired')
+    require(type(input_bound) is int and 0 < input_bound <= INPUT_TOKENS, 'credit_input_bound')
+    maximum = input_bound * INPUT_RATE + OUTPUT_TOKENS * OUTPUT_RATE
+    require(maximum <= PER_REQUEST, 'credit_request_ceiling')
+    with history.transaction(write=True, file_identity=file_identity) as (events, append):
+        require(all(e['type'] == 'credit_test_reserved' and e['project'] == project and
+                    e['model'] == INTEGRATION_MODEL and e['reserved_usd'] == [1,100] for e in events),
+                'credit_budget_changed')
+        require(not any(e['request_hash'] == request_hash for e in events), 'credit_request_consumed')
+        require((len(events) + 1) * PER_REQUEST <= TOTAL, 'credit_total_ceiling')
+        require(all(now >= e['at'] for e in events), 'credit_clock_rollback')
+        append(dict(type='credit_test_reserved', project=project, model=INTEGRATION_MODEL,
+                    request_hash=request_hash, reserved_usd=[1,100], at=now))
+    return [1,100]

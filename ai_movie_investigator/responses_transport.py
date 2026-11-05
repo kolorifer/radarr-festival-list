@@ -238,5 +238,29 @@ class ResponsesTransport:
         validate_final(reply['result'], supplied, prompt['reconciliation'], self.clock())
         return encoded(reply)
 
+    def complete_credit_test(self, *, history, run, case, context_sha256, parent):
+        """Fixed nonsensitive integration request; real HTTP still refuses.
+
+        Never accepts movie input, a model override or a retry policy. The
+        selected parent's separate shared history retains every one-cent debit.
+        """
+        from .bound_send import HistoricalDiagnosticParent, _send_bound
+        from .credit_test import request
+        from .disclosure import aliases
+        require(self.enabled is True, 'model_transport_disabled')
+        require(type(self.http) is FixedResponsesHTTP and self.pending is None and
+                self.history_binding is None and self.spending is None and self.authorization is None,
+                'responses_bound_mode_conflict')
+        require(type(parent) is HistoricalDiagnosticParent, 'credit_parent_required')
+        answer = _send_bound(history, request(run), case=case, run=run, parent=parent,
+                             credential=self.credential, context_sha256=context_sha256)
+        reply = decode(answer)
+        require(reply['binding_hash'] == aliases(run) and reply['kind'] == 'final' and
+                reply['lookups'] == [] and reply['result'] is not None, 'credit_result_binding')
+        result = reply['result']
+        require(result['status'] in ('unresolved', 'blocked') and result['candidate'] is None and
+                result['alternatives'] == [] and result['citations'] == [], 'credit_synthetic_result')
+        return answer
+
     def _post(self, body, *, timeout):
         return self.http.post(body, credential=self.credential, project=SYNTHETIC_PROJECT, timeout=timeout)

@@ -137,7 +137,7 @@ class History:
         self.clock = clock
 
     @contextmanager
-    def transaction(self, *, write=False):
+    def transaction(self, *, write=False, file_identity=None):
         flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
         dfd = os.open(self.directory, flags)
         fd = None
@@ -147,7 +147,7 @@ class History:
             require((ds.st_dev, ds.st_ino) == self.identity, 'history_directory_changed')
             open_flags = (os.O_RDWR | os.O_APPEND) if write else os.O_RDONLY
             try:
-                if write:
+                if write and file_identity is None:
                     try:
                         fd = os.open(FILENAME, open_flags | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW | os.O_NONBLOCK,
                                      0o600, dir_fd=dfd)
@@ -156,6 +156,8 @@ class History:
                 else:
                     fd = os.open(FILENAME, open_flags | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=dfd)
             except FileNotFoundError:
+                if file_identity is not None:
+                    raise Refusal('history_file_missing') from None
                 if write:
                     raise
                 yield [], None
@@ -176,6 +178,8 @@ class History:
                 require((current.st_dev, current.st_ino) == self.identity, 'history_directory_changed')
                 s = os.fstat(fd)
                 checked(s)
+                if file_identity is not None:
+                    require((s.st_dev, s.st_ino) == tuple(file_identity), 'history_file_identity_changed')
                 ns = os.stat(FILENAME, dir_fd=dfd, follow_symlinks=False)
                 checked(ns)
                 require((s.st_dev, s.st_ino) == (ns.st_dev, ns.st_ino), 'history_file_changed')
