@@ -34,7 +34,7 @@ def response(run='fixture', model=INTEGRATION_MODEL):
         uncertainty='No evidence supplied', next_action='human_review')), 1)
     body = decode(result.body)
     body['model'] = model
-    body.pop('prompt_cache_options')
+    body.pop('prompt_cache_options');body['prompt_cache_retention']='in_memory'
     body['usage']['input_tokens_details'] = dict(cached_tokens=100)
     return replace(result, body=encoded(body))
 

@@ -5,6 +5,7 @@ from .contracts import MAX_OUTPUT, decode, encoded, require
 
 MODEL = 'gpt-6.1-sol'
 INTEGRATION_MODEL = 'gpt-5-nano-2025-08-07'
+INTEGRATION_RETENTION = 'in_memory'  # Explicit synthetic contract; not zero retention.
 INTEGRATION_SHUTDOWN = 1796947200  # 2026-12-11 UTC; no automatic replacement
 INPUT_TOKENS = 65536
 OUTPUT_TOKENS = 4096
@@ -86,7 +87,8 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
         and cache.get('comparison_response_id') is None)
     require(response.get('service_tier') == 'default' and cache_ok and
             response.get('prompt_cache_diagnostics') is None and
-            response.get('prompt_cache_retention') is None and
+            response.get('prompt_cache_retention') ==
+            (INTEGRATION_RETENTION if expected_model == INTEGRATION_MODEL else None) and
             response.get('prompt_cache_key') is None, 'responses_cache_or_tier_changed')
     output = response.get('output')
     require(isinstance(output, list) and 1 <= len(output) <= 3, 'responses_output_shape')
@@ -124,6 +126,8 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
     policy = dict(model=expected_model, service_tier='default')
     if expected_model == MODEL:
         policy['prompt_cache_options'] = dict(ttl='30m')
+    else:
+        policy['prompt_cache_retention'] = INTEGRATION_RETENTION
     accounting = dict(response_id=rid, model=expected_model, usage=usage, policy=policy)
     if request_id is not None:
         accounting['request_id'] = response_id(request_id)

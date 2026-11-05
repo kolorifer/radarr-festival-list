@@ -23,7 +23,7 @@ def wire_fixture(variant,run='synthetic-integration-1'):
     from ai_movie_investigator.disclosure import aliases
     reply=dict(binding_hash=aliases(run),kind='final',lookups=[],result=dict(status='unresolved',candidate=None,alternatives=[],citations=[],rationale='Synthetic only',uncertainty='No real evidence',next_action='human_review'))
     value=decode(simulated_response(reply,1).body);value['model']=INTEGRATION_MODEL
-    value.pop('prompt_cache_options');value['usage']['input_tokens_details']={'cached_tokens':0}
+    value.pop('prompt_cache_options');value['prompt_cache_retention']='in_memory';value['usage']['input_tokens_details']={'cached_tokens':0}
     if variant=='incomplete':value.update(status='incomplete',incomplete_details={'reason':'max_output_tokens'})
     if variant=='unsupported':value['conversation']={'id':'conv_FIXTURE'}
     if variant=='usage':value['usage']['total_tokens']=1

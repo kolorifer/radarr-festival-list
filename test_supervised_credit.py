@@ -33,7 +33,7 @@ class SupervisedCreditTests(unittest.TestCase):
         self.evidence=dict(project='proj_fixture',account_reference='FIXTURE-account',observed_at=self.now-1,
             expires_at=self.now+200,credit_expires_at=self.now+300,available_usd=[19,1],billing_reference='FIXTURE-no-billing',
             paid_fallback=False,owner_reference='FIXTURE-owner',model=INTEGRATION_MODEL,
-            policy=dict(model=INTEGRATION_MODEL,service_tier='default'),context_window=400000,
+            policy=dict(model=INTEGRATION_MODEL,service_tier='default',prompt_cache_retention='in_memory'),context_window=400000,
             pricing_reference='FIXTURE-pricing',context_reference='FIXTURE-context',model_access_reference='FIXTURE-access',
             input_rate=[5,100000000],cached_input_rate=[5,1000000000],output_rate=[4,10000000])
         self.path=self.root/'evidence.json';self.path.write_bytes(encoded(self.evidence));self.path.chmod(0o600)
@@ -64,7 +64,7 @@ class SupervisedCreditTests(unittest.TestCase):
             status='unresolved',candidate=None,alternatives=[],citations=[],rationale='Synthetic only',
             uncertainty='No real evidence',next_action='human_review'))
         raw=decode(simulated_response(reply,1).body);raw['model']=INTEGRATION_MODEL
-        raw.pop('prompt_cache_options');raw['usage']['input_tokens_details']={'cached_tokens':0}
+        raw.pop('prompt_cache_options');raw['prompt_cache_retention']='in_memory';raw['usage']['input_tokens_details']={'cached_tokens':0}
         return HTTPResult(200,encoded(raw),'req_fixture_generation',digest(decode(body)),kw['project'],'/v1/responses')
 
     def invoke(self,selected=None):
