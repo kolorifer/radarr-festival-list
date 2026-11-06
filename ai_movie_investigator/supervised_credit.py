@@ -55,6 +55,8 @@ _SAFE_REASON_GROUPS = {
         'responses_transfer_encoding_invalid responses_declared_body_limit responses_observed_body_limit '
         'responses_body_limit responses_body_truncated responses_credential_invalid responses_deadline '
         'responses_deadline_exceeded responses_dns_failed responses_http_rejected responses_http_shape '
+        'responses_http_400 responses_http_401 responses_http_403 responses_http_404 responses_http_408 '
+        'responses_http_409 responses_http_422 responses_http_429 responses_http_5xx responses_http_other '
         'responses_network_completion_unknown responses_network_denied responses_path_denied responses_peer_changed '
         'responses_project_invalid responses_request_size responses_timer_busy responses_timer_unavailable '
         'responses_tls_required responses_tls_roots_unavailable simulation_credential_required simulation_response_invalid '
