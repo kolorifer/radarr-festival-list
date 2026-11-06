@@ -66,14 +66,15 @@ def _send_bound(history, body, *, case, run, parent, credential, context_sha256=
     require(history.clock() < permit['expires_at'], 'binding_expired')
     if request['model'] == INTEGRATION_MODEL:
         require(history.clock() < INTEGRATION_SHUTDOWN, 'integration_model_retired')
-    from .supervised_authorization import authorization_for
+    from .supervised_authorization import authorization_for, selected_response_contract
     observe_phase('wire_authorization')
     wire_authority = authorization_for('/v1/responses', body, credential, permit['project'], fallback=permit)
     result = FixedResponsesHTTP().post(body, credential=credential, project=permit['project'],
                        authorization=wire_authority, timeout=25)
     require(result.status == 200, 'binding_response_unknown')
     observe_phase('response_parsing')
-    answer, accounting = parse_response(result.body, request['text']['format']['schema'], result.request_id, expected_model=permit['model'], http_result=result)
+    _,selected_schema=selected_response_contract(selected['request_sha256'])
+    answer, accounting = parse_response(result.body, selected_schema, result.request_id, expected_model=permit['model'], http_result=result)
     usage = accounting['usage']
     require(usage['input_tokens'] <= permit['input_limit'] and
             usage['output_tokens'] <= permit['output_limit'], 'binding_usage_unknown')

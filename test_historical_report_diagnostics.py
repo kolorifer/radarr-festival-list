@@ -75,4 +75,20 @@ class ReportContractTests(unittest.TestCase):
             self.assertEqual(command.safe_reason(error),'unexpected_exception')
             self.assertNotIn('PRIVATE_REMOTE_TEXT',repr(command.safe_diagnostic(error)))
 
+class GenericParserTests(unittest.TestCase):
+    def test_custom_parent_cannot_select_a_non_generic_response_schema(self):
+        import dataclasses
+        import test_bound_integration as fixtures
+        from ai_movie_investigator.bound_send import _send_bound
+        from ai_movie_investigator.responses_replay import simulated_response
+        f=fixtures.BoundIntegrationTest('test_connected_path_only_replaces_http_io');f.setUp();self.addCleanup(f.doCleanups)
+        request=decode(f.body);request['text']['format']['schema']['properties']['kind']['enum']=['final']
+        body=encoded(request);f.parent.expected=body
+        answer=dict(binding_hash=aliases('fixture'),kind='final',lookups=[],result=dict(status='unresolved',candidate=None,alternatives=[],citations=[],rationale='Fixture',uncertainty='Unknown',next_action='human_review'))
+        response=simulated_response(answer,1);value=decode(response.body);value['text']['format']['schema']=request['text']['format']['schema']
+        response=dataclasses.replace(response,body=encoded(value))
+        with patch('socket.socket',side_effect=AssertionError('network')),patch('ai_movie_investigator.responses_http.FixedResponsesHTTP.post',return_value=response),self.assertRaisesRegex(Refusal,'responses_contract_changed'):
+            _send_bound(f.history,body,run='fixture',case=f.parent.case,parent=f.parent,credential=None,context_sha256=f.parent.context)
+        self.assertEqual(len(f.history.read()),2)
+
 if __name__=='__main__':unittest.main()

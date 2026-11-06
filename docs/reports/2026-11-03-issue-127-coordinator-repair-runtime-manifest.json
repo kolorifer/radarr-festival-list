@@ -4,7 +4,7 @@
   "purpose": "Disabled investigator runtime including the dormant disclosed-request binding; no live authority.",
   "runtime_files": {
     "ai_movie_investigator/__init__.py": "77de306e92eaa34593ea69e88766ffbb7799d86197e915f661b652ac7b7717c4",
-    "ai_movie_investigator/bound_send.py": "710a77a161de676fc407ad05e43cff42f659eccdb02a5912704670eb105df212",
+    "ai_movie_investigator/bound_send.py": "6a55da83255b9c4c3602af568633a6080efb7566c88ba798207f2d6787c0ff53",
     "ai_movie_investigator/catalogue_replay.py": "0feafbd2d3120e13228898741ad3a8c4d65e52fde39456c9a2823eb6c8aa04d0",
     "ai_movie_investigator/codex_transport.py": "9c441a8c9fceb23898987897650beb0f80e6b6bad7f9d6f02a33f472ea66d77a",
     "ai_movie_investigator/contracts.py": "cd3f06aa951a8733333d96242d1da745f4a27d2db05bdf0861f75fbd249859c3",

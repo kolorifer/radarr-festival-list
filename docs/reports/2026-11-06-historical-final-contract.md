@@ -78,3 +78,8 @@ completion, null-result parser refusal, wrong schema echo and altered authority.
 The installed text-policy case stopped in old-lineage setup at the existing
 ctime guard; it did not exercise its target. The added pure schema-narrowing
 test passed separately. Those limitations remain retained, not retried away.
+
+Final review tightened the first parser selection to the root-locked contract
+helper, which defaults to the original generic schema outside that session.
+A custom generic parent cannot choose a different parser schema merely by
+changing its request. A focused regression exercises that refusal.
