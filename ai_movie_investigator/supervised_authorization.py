@@ -8,13 +8,26 @@ from contextvars import ContextVar
 import os
 import time
 
-from .contracts import Refusal, decode, digest, require
+from .contracts import Refusal, decode, digest, require, encoded
 from .credit_test import request, ledger_total, CONTEXT_TOKENS, TOTAL
 from .history import checked, FILENAME
 from .responses_protocol import INTEGRATION_SHUTDOWN
 
 _ACTIVE = ContextVar('supervised_synthetic_authority', default=None)
 SEND_AUTHORITY_SECONDS = 60
+# In-process integration provenance only. Never read from owner/model JSON, CLI
+# or environment and never consulted for authorization. Tests replace I/O and
+# must explicitly mark that replacement; the production gate stays closed.
+_CAPTURED_SIMULATED_IO = ContextVar('captured_simulated_io', default=None)
+
+
+@contextmanager
+def _simulated_captured_io():
+    marker=object()
+    token=_CAPTURED_SIMULATED_IO.set(marker)
+    try:yield
+    finally:_CAPTURED_SIMULATED_IO.reset(token)
+
 
 
 class _Permit:
@@ -31,8 +44,14 @@ class _Session:
             from .supervised_credit import _standing_attempts
             start=next(s for s,_ in _standing_attempts(events,enrolled) if s['slot']==slot)
             if 'historical' in start:self.run=start['historical']['run']
+            if 'captured' in start:
+                from .new_case import locked_captured
+                self.captured=locked_captured(start['captured'])
+                self.captured_io_marker=_CAPTURED_SIMULATED_IO.get()
+                self.run=start['captured']['run']
         self.issued={}
         self.received=None
+        self.captured_receipt=None
         from .supervised_credit import require_prompted
         self.started_wall,self.started_monotonic=require_prompted(root,credential)
         self.last_wall=self.started_wall
@@ -54,6 +73,7 @@ class _Session:
         from .supervised_credit import validate_evidence, file_identity
         from .supervised_credit import require_prompted, selection_binding, attempt_pin, expected_request
         self.root.require_write_transaction(self.events)
+        if hasattr(self,'captured'):self.captured.validate()
         require(self.events[1] is self.enrolled, 'supervised_enrollment_binding')
         require_prompted(self.root,credential)
         now=self.check_time()
@@ -102,6 +122,28 @@ class _Session:
         self.check_time() # Metadata/ledger checks must not outlive prompt authority.
 
 
+    def bind_captured_receipt(self,result,answer):
+        if not hasattr(self,'captured'):return
+        from .responses_protocol import parse_response,INTEGRATION_MODEL
+        from .supervised_credit import expected_request
+        self.captured.validate()
+        require(_ACTIVE.get() is self and self.captured_receipt is None and self.received is result and
+            _CAPTURED_SIMULATED_IO.get() is self.captured_io_marker, 'captured_receipt_unbound')
+        body=decode(expected_request(self.events,self.enrolled,self.slot),65536)
+        parsed,accounting=parse_response(result.body,body['text']['format']['schema'],result.request_id,
+            expected_model=INTEGRATION_MODEL,http_result=result)
+        rows=self.history.read()
+        require(parsed==answer and len(rows)==3 and rows[-1]['type']=='bound_send_receipt' and
+            rows[-1]['request_sha256']==digest(body) and rows[-1]['accounting']==accounting and
+            result.project==self.enrolled['project'], 'captured_receipt_unbound')
+        self.captured_receipt=(answer,digest(rows[-1]))
+
+    def complete_captured(self,answer):
+        require(_ACTIVE.get() is self and hasattr(self,'captured') and self.captured_receipt is not None and
+            self.captured_receipt[0]==answer, 'captured_receipt_unbound')
+        return self.captured.complete(decode(answer))
+
+
 @contextmanager
 def command_authority(root,events,enrolled,selected,slot,credit,history,credential):
     from .supervised_credit import SelectedEvidence, require_prompted, selection_binding, attempt_pin
@@ -117,6 +159,7 @@ def command_authority(root,events,enrolled,selected,slot,credit,history,credenti
     try:yield session
     finally:
         session.received=None
+        session.captured_receipt=None
         session.issued.clear()
         _ACTIVE.reset(marker)
 
@@ -182,6 +225,11 @@ def selected_output_limit(request_hash):
     session.root.require_write_transaction(session.events)
     body=expected_request(session.events,session.enrolled,session.slot)
     require(request_hash==digest(decode(body)),'supervised_request_binding')
+    if hasattr(session,'captured'):
+        from .new_case import CAPTURED_OUTPUT_TOKENS
+        session.captured.validate()
+        require(decode(body,65536)['max_output_tokens']==CAPTURED_OUTPUT_TOKENS,'supervised_request_binding')
+        return CAPTURED_OUTPUT_TOKENS
     if session.slot>=7:
         grant=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot).get('historical',{})
         if grant.get('renewal',{}).get('authorization',{}).get('purpose')in (OUTPUT_HEADROOM_PURPOSE,FINAL_CONTRACT_PURPOSE):
@@ -199,10 +247,40 @@ def selected_response_contract(request_hash):
     session.root.require_write_transaction(session.events)
     body=expected_request(session.events,session.enrolled,session.slot)
     require(request_hash==digest(decode(body)),'supervised_request_binding')
+    if hasattr(session,'captured'):
+        session.captured.validate()
+        selected=decode(body,65536)
+        return selected['instructions'],selected['text']['format']['schema']
     if session.slot>=7:
         grant=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot).get('historical',{})
         if grant.get('response_contract')==FINAL_CONTRACT_VERSION:return final_contract(grant['run'])
     return INSTRUCTIONS,output_schema()
+
+
+
+def selected_captured_request(selected,body):
+    session=_ACTIVE.get()
+    require(session is not None and hasattr(session,'captured'), 'captured_lock_required')
+    expected=session.captured.validate()
+    require(body==expected and selected['run']==session.run and
+        selected['case']==session.captured.grant['case'], 'captured_selection_changed')
+    return True
+
+
+def consume_captured_completion(held,answer):
+    session=_ACTIVE.get()
+    require(session is not None and getattr(session,'captured',None) is held and
+        session.captured_receipt is not None and session.captured_receipt[0]==encoded(answer),
+        'captured_receipt_unbound')
+    require(_CAPTURED_SIMULATED_IO.get() is session.captured_io_marker, 'captured_receipt_unbound')
+    proof=dict(receipt_hash=session.captured_receipt[1],simulated=session.captured_io_marker is not None)
+    session.captured_receipt=None # consumed even if validation/draft persistence fails
+    return proof
+
+
+def bind_captured_receipt(result,answer):
+    session=_ACTIVE.get()
+    if session is not None:session.bind_captured_receipt(result,answer)
 
 
 def response_output_limit(result):
@@ -273,7 +351,7 @@ _PHASES = frozenset(('preflight slot_started request_validation attempt_recordin
     'credit_reservation wire_authorization http_setup tls_setup dns_lookup socket_connect '
     'tls_handshake http_send http_receive http_response_received http_body_read '
     'http_body_received response_parsing receipt_validation receipt_recording '
-    'receipt_recorded historical_alias_validation historical_result_validation historical_report_preparation completion_recording completed').split())
+    'receipt_recorded captured_result_validation historical_alias_validation historical_result_validation historical_report_preparation completion_recording completed').split())
 
 
 @contextmanager
