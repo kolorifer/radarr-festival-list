@@ -78,7 +78,7 @@ class DiagnosticTests(unittest.TestCase):
 
     def test_complete_fixed_http_and_parser_variants(self):
         variants={
-            'incomplete':('response_parsing','responses_not_completed'),
+            'incomplete':('response_parsing','responses_incomplete_max_output_tokens'),
             'unsupported':('response_parsing','responses_context_changed'),
             'usage':('response_parsing','responses_usage_invalid'),
             'schema':('response_parsing','responses_answer_schema'),
@@ -134,7 +134,7 @@ class DiagnosticTests(unittest.TestCase):
                     return append(event)
                 yield events,wrapped
         with self.inputs(),wire_fixture('incomplete'),patch.object(History,'transaction',transaction):
-            with self.assertRaisesRegex(Refusal,'responses_not_completed'):command.run(f.state,f.selected,1)
+            with self.assertRaisesRegex(Refusal,'responses_incomplete_max_output_tokens'):command.run(f.state,f.selected,1)
         self.assertEqual(History(f.state).read()[-1]['type'],'supervised_started')
         self.assertEqual(len(History(f.state/'credit').read()),1)
         with self.assertRaises(Refusal):command.run(f.state,f.selected,1)
@@ -150,7 +150,7 @@ class DiagnosticTests(unittest.TestCase):
                 if isinstance(reason,ast.Constant) and isinstance(reason.value,str):
                     self.assertEqual(command.safe_reason(Refusal(reason.value)),reason.value)
                     self.assertNotEqual(command.refusal_category(Refusal(reason.value)),'unclassified_refusal')
-        for error in (RuntimeError('PRIVATE_FIXTURE_SENTINEL'),Refusal('PRIVATE_FIXTURE_SENTINEL'),Refusal('responses_not_completed','PRIVATE_FIXTURE_SENTINEL')):
+        for error in (RuntimeError('PRIVATE_FIXTURE_SENTINEL'),Refusal('PRIVATE_FIXTURE_SENTINEL'),Refusal('responses_incomplete_max_output_tokens','PRIVATE_FIXTURE_SENTINEL')):
             self.assertEqual(command.safe_reason(error),'unexpected_exception')
             self.assertNotIn('PRIVATE_FIXTURE_SENTINEL',str(command.safe_diagnostic(error)))
 
@@ -158,7 +158,7 @@ class DiagnosticTests(unittest.TestCase):
         f=self.fixture()
         extension=WIRE_CODE+"\nFixedResponsesHTTP.post=original_post\nwire_fixture('incomplete').__enter__()\n"
         executable.SupervisedExecutableTests().execute_fixture(f,1,hook_extension=extension,
-            category='protocol_refused',expected_reason='responses_not_completed',expected_phase='response_parsing')
+            category='protocol_refused',expected_reason='responses_incomplete_max_output_tokens',expected_phase='response_parsing')
 
     def test_installed_module_unknown_exception_does_not_echo(self):
         f=self.fixture()

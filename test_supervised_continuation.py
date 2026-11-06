@@ -43,7 +43,7 @@ class ContinuationTests(unittest.TestCase):
             self.assertEqual(self.extend(),dict(status='recovery_authorized_no_api_call',permitted_slot=4,cumulative_usd=[9,100]))
         prompt.assert_not_called();post.assert_not_called();self.preserved()
         with self.r.inputs(),diagnostics.wire_fixture('incomplete','synthetic-integration-4'):
-            with self.assertRaisesRegex(Refusal,'responses_not_completed'):command.run(self.state,self.selected,4)
+            with self.assertRaisesRegex(Refusal,'responses_incomplete_max_output_tokens'):command.run(self.state,self.selected,4)
         self.assertEqual(History(self.state).read()[-1]['phase'],'response_parsing')
         self.assertEqual(ledger_total(History(self.state/'credit').read(),'proj_fixture',ceiling=Fraction(9,100)),Fraction(9,100))
         with self.assertRaises(Refusal):ledger_total(History(self.state/'credit').read(),'proj_fixture')
@@ -98,7 +98,7 @@ class ContinuationTests(unittest.TestCase):
                     return append(e)
                 yield events,wrapped
         with self.r.inputs(),diagnostics.wire_fixture('incomplete','synthetic-integration-4'),patch.object(History,'transaction',transaction):
-            with self.assertRaisesRegex(Refusal,'responses_not_completed'):command.run(self.state,self.selected,4)
+            with self.assertRaisesRegex(Refusal,'responses_incomplete_max_output_tokens'):command.run(self.state,self.selected,4)
         self.assertEqual(len(History(self.state/'credit').read()),3)
         with self.assertRaises(Refusal):command.run(self.state,self.selected,4)
         self.preserved()
@@ -106,5 +106,5 @@ class ContinuationTests(unittest.TestCase):
     def test_genuine_installed_module_continuation_and_full_http_parser(self):
         extension=diagnostics.WIRE_CODE+"\nFixedResponsesHTTP.post=original_post\nwire_fixture('incomplete','synthetic-integration-4').__enter__()\n"
         executable.SupervisedExecutableTests().execute_fixture(self.fixture,4,continuation=self,
-            hook_extension=extension,category='protocol_refused',expected_reason='responses_not_completed',expected_phase='response_parsing')
+            hook_extension=extension,category='protocol_refused',expected_reason='responses_incomplete_max_output_tokens',expected_phase='response_parsing')
         self.preserved()

@@ -1,7 +1,7 @@
 """Finite Responses text protocol. Never retain reasoning or remote error bodies."""
 import re
 
-from .contracts import MAX_OUTPUT, decode, encoded, require
+from .contracts import Refusal, MAX_OUTPUT, decode, encoded, require
 
 MODEL = 'gpt-6.1-sol'
 INTEGRATION_MODEL = 'gpt-5-nano-2025-08-07'
@@ -57,10 +57,22 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
         from .supervised_authorization import response_limits
         envelope_limit,opaque_limit=response_limits(http_result,raw,request_id,expected_model)
     response = decode(raw, envelope_limit)
-    require(isinstance(response, dict) and response.get('object') == 'response'
-            and response.get('status') == 'completed' and response.get('model') == expected_model
-            and response.get('error') is None and response.get('incomplete_details') is None,
-            'responses_not_completed')
+    require(isinstance(response,dict) and response.get('object')=='response','responses_object_invalid')
+    require(response.get('model')==expected_model,'responses_model_mismatch')
+    require(response.get('error') is None,'responses_error_present')
+    status=response.get('status')
+    if status=='incomplete':
+        detail=response.get('incomplete_details')
+        reason=detail.get('reason') if type(detail) is dict else None
+        if reason=='max_output_tokens':raise Refusal('responses_incomplete_max_output_tokens')
+        if reason=='content_filter':raise Refusal('responses_incomplete_content_filter')
+        raise Refusal('responses_incomplete_other')
+    if status=='failed':raise Refusal('responses_status_failed')
+    if status=='cancelled':raise Refusal('responses_status_cancelled')
+    if status=='queued':raise Refusal('responses_status_queued')
+    if status=='in_progress':raise Refusal('responses_status_in_progress')
+    require(status=='completed','responses_status_other')
+    require(response.get('incomplete_details') is None,'responses_incomplete_details_present')
     # Project only fields used by this protocol. Additive envelope metadata is
     # bounded by decode(), never evaluated or returned in accounting.
     require(all(response.get(key) is None for key in

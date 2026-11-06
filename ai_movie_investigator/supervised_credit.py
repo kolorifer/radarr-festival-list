@@ -32,6 +32,7 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
+    'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid').split()),
     'historical_refused': frozenset(('historical_expanded_required historical_disclosure_size historical_disclosure_changed historical_owner_confirmation_required historical_receipt_missing historical_route_required historical_pending_grant historical_assessment_consumed').split()),
     'standing_credit_refused': frozenset(('supervised_standing_missing supervised_standing_binding '
         'supervised_standing_interrupted supervised_standing_history supervised_standing_credit').split()),
@@ -62,7 +63,7 @@ _SAFE_REASON_GROUPS = {
     'protocol_refused': frozenset((
         'responses_action_or_output_denied responses_answer_count responses_answer_schema responses_cache_or_tier_changed '
         'responses_cache_partition responses_contract_changed responses_identity_invalid responses_model_profile '
-        'responses_not_completed responses_output_shape responses_reasoning_shape responses_text_required '
+        'responses_not_completed responses_object_invalid responses_model_mismatch responses_error_present responses_incomplete_max_output_tokens responses_incomplete_content_filter responses_incomplete_other responses_status_failed responses_status_cancelled responses_status_queued responses_status_in_progress responses_status_other responses_incomplete_details_present responses_output_shape responses_reasoning_shape responses_text_required '
         'responses_context_changed responses_tool_usage_denied responses_unsupported_shape responses_usage_invalid responses_usage_limit responses_usage_required '
     ).split()),
     'binding_refused': frozenset((
@@ -184,6 +185,15 @@ def interactive_credential(root):
         yield credential
     finally:
         _PROMPTED.reset(marker)
+
+
+@contextmanager
+def keychain_credential(root,project):
+    from .keychain_credential import credential as retrieve
+    credential=retrieve(project)
+    marker=_PROMPTED.set((root,credential,time.time(),time.monotonic()))
+    try:yield credential
+    finally:_PROMPTED.reset(marker)
 
 
 def require_prompted(root, credential):
@@ -510,7 +520,7 @@ def prompt_credential():
     return ExplicitCredential(value)
 
 
-def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,historical=None):
+def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,historical=None,keychain=False):
     body=encoded(historical['request']) if historical else request(run)
     selection=dict(run=run,case=case,request_sha256=digest(decode(body)),
                    local_context_sha256=digest(e))
@@ -521,7 +531,7 @@ def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,
     facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=[3,100]),
         privacy=dict(request_sha256=selection['request_sha256'],store=False,tools=[]),
         account=dict(project=e['project'],model=INTEGRATION_MODEL,policy=POLICY),
-        credential_route=dict(project=e['project'],injection_route='local-no-echo-memory-only'),
+        credential_route=dict(project=e['project'],injection_route='fixed-project-keychain-memory-only' if keychain else 'local-no-echo-memory-only'),
         coverage=dict(request_sha256=selection['request_sha256'],policy=POLICY,coverage=CONTEXT_COVERAGE,
             counter_identity=e['context_reference'],input_upper_bound=CONTEXT_TOKENS),
         pricing=dict(policy=POLICY,currency='USD',input=[5,100000000],cache_read=[5,1000000000],
@@ -539,10 +549,10 @@ def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,
 _LAST_DIAGNOSTIC = ContextVar('supervised_last_diagnostic',default=None)
 
 
-def run(directory,selected,slot,*,clock=time.time,historical=False):
+def run(directory,selected,slot,*,clock=time.time,historical=False,keychain=False):
     _LAST_DIAGNOSTIC.set(None)
     with diagnostic_scope():
-        try:return _run(directory,selected,slot,clock=clock,historical=historical)
+        try:return _run(directory,selected,slot,clock=clock,historical=historical,keychain=keychain)
         except (Exception,KeyboardInterrupt) as error:
             if _LAST_DIAGNOSTIC.get() is None:
                 _LAST_DIAGNOSTIC.set(safe_diagnostic(error))
@@ -554,7 +564,7 @@ def safe_diagnostic(error):
                 category=refusal_category(error))
 
 
-def _run(directory,selected,slot,*,clock=time.time,historical=False):
+def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=False):
     next_attempt=slot is None
     require(next_attempt or (type(slot) is int and slot>=1),'supervised_slot')
     require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
@@ -594,7 +604,7 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False):
         case=dict(source='synthetic-credit-integration',case_id='outcome-'+digest('synthetic-example'),
                   version=digest(decode(request(run_id))),occurrence=None)
         if historical_grant:case=historical_grant['case']
-        with interactive_credential(root) as credential:
+        with (keychain_credential(root,evidence['project']) if keychain else interactive_credential(root)) as credential:
             # Validate format without serializing or storing the resulting headers.
             headers(credential,evidence['project'])
             # Conservative typo/identifier filter, not authentication. Keep the
@@ -612,7 +622,7 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False):
                         'supervised_credential_disclosed')
                 with command_authority(root,events,enrolled,selected,slot,credit,history,credential) as authority:
                     context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,clock(),
-                        expires_at=authority.deadline,historical=historical_grant)
+                        expires_at=authority.deadline,historical=historical_grant,keychain=keychain)
                     parent=HistoricalDiagnosticParent(context,history=history,credit_history=credit,credential=credential)
                     if historical_grant:
                         from .bound_send import _send_bound
@@ -884,6 +894,8 @@ def main(argv=None):
     continuation.add_argument('--slot',type=int,choices=(4,5,6),default=4)
     standing=sub.add_parser('authorize-standing');standing.add_argument('--evidence',required=True,type=Path)
     next_send=sub.add_parser('run-next');next_send.add_argument('--evidence',required=True,type=Path)
+    k=sub.add_parser('run-next-keychain');k.add_argument('--evidence',required=True,type=Path)
+    k=sub.add_parser('run-historical-keychain');k.add_argument('--evidence',required=True,type=Path);k.add_argument('--slot',required=True,type=int)
     h=sub.add_parser('authorize-historical');h.add_argument('--evidence',required=True,type=Path);h.add_argument('--input',required=True,type=Path)
     h=sub.add_parser('run-historical');h.add_argument('--evidence',required=True,type=Path);h.add_argument('--slot',required=True,type=int)
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
@@ -907,13 +919,15 @@ def main(argv=None):
             result=authorize(args.state,read_evidence(args.evidence),args.input)
         elif args.action=='run-historical':result=run(args.state,read_evidence(args.evidence),args.slot,historical=True)
         elif args.action=='run-next':result=run_next(args.state,read_evidence(args.evidence))
+        elif args.action=='run-next-keychain':result=run(args.state,read_evidence(args.evidence),None,keychain=True)
+        elif args.action=='run-historical-keychain':result=run(args.state,read_evidence(args.evidence),args.slot,historical=True,keychain=True)
         else:result=run(args.state,read_evidence(args.evidence),args.slot)
         print(encoded(result).decode());return 0
     except (Exception,KeyboardInterrupt) as error:
         # Never print raw exceptions, remote bodies, credentials or a traceback.
         diagnostic=_LAST_DIAGNOSTIC.get() or safe_diagnostic(error)
         print('Supervised synthetic command refused: category='+refusal_category(error)+
-              '; action='+args.action+'; '+('request status unconfirmed' if args.action in ('run','run-next','run-historical') else 'no API request')+
+              '; action='+args.action+'; '+('request status unconfirmed' if args.action in ('run','run-next','run-historical','run-next-keychain','run-historical-keychain') else 'no API request')+
               '; phase='+diagnostic['phase']+'; reason='+diagnostic['reason']+
               '. Retain state; do not retry automatically.',file=sys.stderr)
         return 1
