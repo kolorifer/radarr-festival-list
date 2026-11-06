@@ -176,7 +176,7 @@ def selected_output_limit(request_hash):
     """Larger generation only for the exact root-locked historical headroom grant."""
     from .responses_protocol import OUTPUT_TOKENS
     from .supervised_credit import expected_request, _standing_attempts
-    from .historical_nano import OUTPUT_HEADROOM_PURPOSE, HISTORICAL_OUTPUT_TOKENS
+    from .historical_nano import OUTPUT_HEADROOM_PURPOSE, FINAL_CONTRACT_PURPOSE, HISTORICAL_OUTPUT_TOKENS
     session=_ACTIVE.get()
     if session is None:return OUTPUT_TOKENS
     session.root.require_write_transaction(session.events)
@@ -184,10 +184,25 @@ def selected_output_limit(request_hash):
     require(request_hash==digest(decode(body)),'supervised_request_binding')
     if session.slot>=7:
         grant=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot).get('historical',{})
-        if grant.get('renewal',{}).get('authorization',{}).get('purpose')==OUTPUT_HEADROOM_PURPOSE:
+        if grant.get('renewal',{}).get('authorization',{}).get('purpose')in (OUTPUT_HEADROOM_PURPOSE,FINAL_CONTRACT_PURPOSE):
             require(decode(body)['max_output_tokens']==HISTORICAL_OUTPUT_TOKENS,'supervised_request_binding')
             return HISTORICAL_OUTPUT_TOKENS
     return OUTPUT_TOKENS
+
+
+def selected_response_contract(request_hash):
+    from .controller import INSTRUCTIONS,output_schema
+    session=_ACTIVE.get()
+    if session is None:return INSTRUCTIONS,output_schema()
+    from .supervised_credit import expected_request,_standing_attempts
+    from .historical_nano import FINAL_CONTRACT_VERSION,final_contract
+    session.root.require_write_transaction(session.events)
+    body=expected_request(session.events,session.enrolled,session.slot)
+    require(request_hash==digest(decode(body)),'supervised_request_binding')
+    if session.slot>=7:
+        grant=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot).get('historical',{})
+        if grant.get('response_contract')==FINAL_CONTRACT_VERSION:return final_contract(grant['run'])
+    return INSTRUCTIONS,output_schema()
 
 
 def response_output_limit(result):
@@ -258,7 +273,7 @@ _PHASES = frozenset(('preflight slot_started request_validation attempt_recordin
     'credit_reservation wire_authorization http_setup tls_setup dns_lookup socket_connect '
     'tls_handshake http_send http_receive http_response_received http_body_read '
     'http_body_received response_parsing receipt_validation receipt_recording '
-    'receipt_recorded completion_recording completed').split())
+    'receipt_recorded historical_alias_validation historical_result_validation historical_report_preparation completion_recording completed').split())
 
 
 @contextmanager
