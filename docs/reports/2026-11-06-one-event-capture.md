@@ -25,7 +25,7 @@ configuration/health behavior is unchanged, including no capture-file I/O or
 nonce initialization. The documented collector closure now includes the one
 new sibling module; no investigator runtime or sandbox changes.
 
-Validation: 22 new focused tests pass, including real Handler + fake socket and
+Validation: 23 new focused tests pass, including real Handler + fake socket and
 SQLite, races/restart/reload, reservation/fsync/commit/partial/cleanup failure,
 raw receipt linkage, privacy/path checks, config revocation, atime-only versus
 mtime/ctime/size changes, first-matching mode and isolated six-module startup.
@@ -42,3 +42,11 @@ nonforking instance verification is a future deployment prerequisite, not an
 inference from these fixtures. Owner-created grants/destination and all actual
 operations remain closed. Future activation contract is documented in
 `deploy/IDENTITY_TRIAGE.md`. Unrelated current task documents were preserved.
+
+
+Final closure correction: the shared store module is also pinned by the
+existing 42-file investigator manifest. Its hash is updated without adding the
+optional collector capture module to that installer. An isolated 42-file copy
+passes installation verification and ordinary Store.ingest with capture=None;
+no capture import occurs. Initial public head d8500891 omitted this manifest
+update; retain its CI result. Only the corrected exact head may merge.

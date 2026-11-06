@@ -289,5 +289,35 @@ print('isolated_default_startup_passed')
                     with self.assertRaises(ValueError):capture.read_at(parent,capture.GRANT,4096)
                 else:self.assertTrue(capture.read_at(parent,capture.GRANT,4096))
 
+    def test_investigator_42_file_closure_without_capture_module(self):
+        import subprocess,sys
+        from ai_movie_investigator.installation import RUNTIME_FILES
+        source=Path(__file__).parent
+        manifest=json.loads((source/'docs/reports/2026-11-03-issue-127-coordinator-repair-runtime-manifest.json').read_text())['runtime_files']
+        self.assertEqual(set(manifest),set(RUNTIME_FILES));self.assertEqual(len(manifest),42)
+        self.assertNotIn('identity_triage_capture.py',manifest)
+        runtime=self.root/'investigator';runtime.mkdir(mode=0o700)
+        for name,sha in manifest.items():
+            raw=(source/name).read_bytes();self.assertEqual(hashlib.sha256(raw).hexdigest(),sha,name)
+            target=runtime/name;target.parent.mkdir(mode=0o700,parents=True,exist_ok=True)
+            target.write_bytes(raw);target.chmod(0o600)
+        m=runtime/'runtime-files.json';m.write_text(json.dumps(manifest));m.chmod(0o600)
+        code="""import sys,json
+from pathlib import Path
+sys.path.insert(0,sys.argv[1])
+def audit(event,args):
+ if event.startswith('socket.'):raise RuntimeError('socket tripwire')
+sys.addaudithook(audit)
+from ai_movie_investigator.installation import verify_installation
+assert len(verify_installation(Path(sys.argv[1])))==42
+from identity_triage_store import Store
+from identity_triage_intake import normalize
+s=Store(sys.argv[2]);assert s.ingest(normalize(json.loads(sys.argv[3]),{'example':'Example'}),'release_new')=='accepted'
+assert 'identity_triage_capture' not in sys.modules
+print('investigator_closure_passed')
+"""
+        result=subprocess.run([sys.executable,'-I','-S','-B','-c',code,str(runtime),str(self.root/'investigator-state'),json.dumps(self.p)],capture_output=True,text=True,timeout=10)
+        self.assertEqual(result.returncode,0,result.stderr);self.assertIn('investigator_closure_passed',result.stdout)
+
 
 if __name__=='__main__':unittest.main()
