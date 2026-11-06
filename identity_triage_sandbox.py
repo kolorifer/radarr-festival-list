@@ -68,6 +68,120 @@ def restrict(read_paths, state):
     return abi
 
 
+def verify_isolation(home=None):
+    # Mandatory at every service start, not a configurable bypass. A unit setting
+    # alone is insufficient: some user managers silently ignore mount restrictions.
+    home = Path.home() if home is None else Path(home)
+    for relative in ('.config/movie-intel', '.local/state/movie-intel', '.apps', '.ssh', 'radarr-festival-list'):
+        try:
+            fd = os.open(home / relative, os.O_RDONLY | os.O_DIRECTORY)
+        except OSError as exc:
+            if exc.errno in (errno.EACCES, errno.ENOENT):
+                continue  # Missing paths are harmless; Landlock denies all ungranted paths.
+            raise ValueError('isolation') from None
+        else:
+            os.close(fd)
+            raise ValueError('isolation')
+    # No inherited credentials. Collector launcher/unit must use a clean env.
+    if any(k.startswith(('RADARR_', 'TELEGRAM_', 'TMDB_', 'MOVIE_INTEL_', 'PROWLARR_')) for k in os.environ):
+        raise ValueError('credential_environment')
+
+
+
+# Trusted-code capability, not an isolation boundary against malicious Python.
+# Only confine mints one; main completes it after isolation_check and a recheck.
+_STARTUP_KEY = object()
+
+
+class _StartupEvidence:
+    __slots__ = ('_values', '_complete', '_owner')
+
+    def __init__(self, key, values):
+        if key is not _STARTUP_KEY:
+            raise ValueError('startup_evidence')
+        self._values = values
+        self._complete = False
+        self._owner = None
+
+
+def _runtime_identity():
+    libc = _kernel()
+    libc.prctl.restype = ctypes.c_int
+    if libc.prctl(39, 0, 0, 0, 0) != 1 or libc.prctl(21, 0, 0, 0, 0) != 2:
+        raise ValueError('startup_runtime_flags')
+    # Linux rejects this invalid uid/gid BEFORE prepare_creds/commit_creds,
+    # returning the old filesystem ID. Never pass a valid replacement ID.
+    filesystem_ids = []
+    for number in (122, 123):  # native x86-64 setfsuid/setfsgid
+        ctypes.set_errno(0)
+        value = libc.syscall(ctypes.c_long(number), ctypes.c_uint(0xffffffff))
+        if value < 0 or ctypes.get_errno() != 0 or value != 1094:
+            raise ValueError('startup_filesystem_identity')
+        filesystem_ids.append(value)
+    uids, gids = os.getresuid(), os.getresgid()
+    if uids != (1094, 1094, 1094) or gids != (1094, 1094, 1094):
+        raise ValueError('startup_identity')
+    return (os.getpid(), 1, 2, uids + (filesystem_ids[0],), gids + (filesystem_ids[1],))
+
+
+def prepare_startup(evidence, enabled):
+    """No new capture-only syscalls at all when preparation is disabled."""
+    if (type(evidence) is not _StartupEvidence or evidence._complete is not False
+            or evidence._values[1] is not None):
+        return None
+    evidence._complete = None
+    if enabled is not True:
+        return None
+    try:
+        values = _runtime_identity()
+        if values[0] != evidence._values[0]:
+            return None
+    except (OSError, ValueError):
+        return None
+    evidence._values = values + (evidence._values[5],)
+    evidence._complete = False
+    return evidence
+
+
+def complete_startup(evidence):
+    """Capture-only recheck, after isolation/Store and before app workers.
+
+    Failure never weakens old confinement or blocks ordinary default-off intake.
+    An attempted/failed capability cannot be completed or bound later.
+    """
+    if type(evidence) is not _StartupEvidence or evidence._complete is not False:
+        return None
+    evidence._complete = None  # terminal until this one recheck succeeds
+    try:
+        verify_isolation()
+        if evidence._values[:5] != _runtime_identity():
+            return None
+    except (OSError, ValueError):
+        return None
+    evidence._complete = True
+    return evidence
+
+
+def bind_startup(evidence, owner):
+    if (type(evidence) is not _StartupEvidence or evidence._complete is not True
+            or evidence._owner is not None or evidence._values[0] != os.getpid()):
+        return None
+    evidence._owner = owner
+    return evidence
+
+
+def startup_statement(evidence, owner):
+    if (type(evidence) is not _StartupEvidence or evidence._complete is not True
+            or evidence._owner is not owner or evidence._values[0] != os.getpid()):
+        return None
+    pid, nnp, seccomp, uids, gids, abi = evidence._values
+    return dict(version=1, pid=pid, no_new_privileges=nnp, seccomp_mode=seccomp,
+                uids=list(uids), gids=list(gids), landlock_abi=abi,
+                denial_suite='collector-startup-v1', isolation_check=True,
+                evidence_kind='trusted_startup_self_observation',
+                loaded_code_identity='not_attested')
+
+
 def _private_directory(path):
     path = Path(path)
     info = path.lstat()
@@ -139,4 +253,5 @@ def confine(config, state):
     # fails startup before the receiver reads requests. Unit forbids the full
     # chmod/chown/xattr/time syscall families, which ABI6 cannot mediate itself.
     deny_check(lambda: os.chmod(state_dir, 0o700))
-    return listener, abi
+    evidence = _StartupEvidence(_STARTUP_KEY, (os.getpid(), None, None, None, None, abi))
+    return listener, abi, evidence
