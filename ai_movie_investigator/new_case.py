@@ -5,6 +5,7 @@ prepare/complete exchange JSON directly with the supervising chat. There is no
 unattended chat bridge: an externally supplied answer is not generation proof.
 """
 import argparse
+from contextvars import ContextVar
 import copy
 import re
 import sys
@@ -16,6 +17,8 @@ from .controller import INSTRUCTIONS, output_schema, validate_final
 from .history import History, selected_current, research_dependency
 from .responses_protocol import schema_value
 
+
+_OFFLINE_COMPLETION = ContextVar('new_case_offline_completion', default=None)
 
 def admitted(packet, selection, now):
     validate_packet(packet)
@@ -98,12 +101,13 @@ def request_for(packet, rec, now):
     return request
 
 
-def prepare(history, packet, selection):
+def prepare(history, packet, selection, *, require_empty=False):
     """Return the actual minimized chat handoff; no manual input/reply file paths."""
     packet = decode(encoded(packet), MAX_INPUT)
     now = stamp(history.clock())
     rec = admitted(packet, selection, now)
     def intake_guard(events):
+        if require_empty:require(not events,'offline_history_not_empty')
         # Refused research must not supersede a valid selected snapshot.
         candidate = events if any(e['type'] == 'intake' and e['job'] == digest(packet) for e in events) else [
             *events, dict(type='intake', job=digest(packet), packet=packet)]
@@ -162,6 +166,15 @@ def complete(history, request_hash, answer, provenance):
         prepared = [e for e in events if e['type'] == 'new_case_prepared' and e['request_hash'] == request_hash]
         require(len(prepared) == 1, 'unknown_handoff')
         p = prepared[0]; job = p['job']
+        simulated = [e for e in events if e['type']=='new_case_simulated_send_started' and e['job']==job]
+        simulation_receipt = None
+        if simulated:
+            token = _OFFLINE_COMPLETION.get()
+            receipts = [e for e in events if e['type']=='new_case_simulated_response' and e['job']==job]
+            require(len(simulated)==1 and len(receipts)==1 and token is not None and
+                    token[0] is history and token[1:]==(request_hash,digest(answer),digest(receipts[0])),
+                    'simulated_completion_unbound')
+            simulation_receipt = receipts[0]
         require(not any(e['type'] == 'new_case_completion_started' and e['job'] == job for e in events),
                 'completion_already_consumed')
         append(dict(type='new_case_completion_started', job=job, at=stamp(history.clock()),
@@ -191,11 +204,76 @@ def complete(history, request_hash, answer, provenance):
                 request_hash=request_hash, reply_hash=digest(answer), assessment=answer['result'],
                 provenance=provenance, provenance_verified=False, generation_invoked=False,
                 qualifications=data['qualifications'], draft=draft)
+            if simulation_receipt is not None:
+                report.update(simulated_transport_invoked=True, simulated_response_hash=digest(simulation_receipt))
             append(dict(type='new_case_completed', job=job, at=now, report=report, report_hash=digest(report)))
             return report
         except (ValueError, TypeError, KeyError, IndexError):
             append(dict(type='new_case_completion_rejected', job=job, at=stamp(history.clock())))
             raise
+
+
+def offline_request(request):
+    """Serialize the existing minimized handoff; this grants no network authority."""
+    from .credit_test import POLICY
+    from .responses_protocol import OUTPUT_TOKENS
+    require(request['kind']=='supervised_new_case_handoff' and request['generation_invoked'] is False,
+            'handoff_changed')
+    body=encoded(dict(**POLICY,instructions=request['instructions'],
+        input=[dict(role='user',content=[dict(type='input_text',text=encoded(dict(
+            binding_hash=request['binding_hash'],input=request['input'])).decode())])],
+        tools=[],tool_choice='none',store=False,background=False,stream=False,
+        max_output_tokens=OUTPUT_TOKENS,truncation='disabled',text=dict(format=dict(
+            type='json_schema',name='retained_investigator_v1',strict=True,schema=output_schema()))))
+    require(len(body)<=65536,'handoff_size')
+    return body
+
+
+def assess_offline(history,packet,selection,frame,*,enabled=False):
+    """One simulated transport invocation, never model generation or live authority.
+
+    A static response frame exercises the actual serializer/framing/parser. Its
+    receipt proves only local fixture correlation. No supplied-answer fallback
+    may finish an uncertain simulated invocation, and prepare forbids replay.
+    """
+    from .responses_http import SimulatedHTTP,ExplicitCredential,SYNTHETIC_CREDENTIAL,SYNTHETIC_PROJECT,PATH
+    from .responses_protocol import parse_response,INTEGRATION_MODEL
+    require(enabled is True,'offline_assessment_disabled')
+    require(type(frame) is bytes and len(frame)<=40960,'offline_transport_required')
+    packet=decode(encoded(packet),MAX_INPUT)
+    admitted(packet,selection,stamp(history.clock()))
+    # Finite invented fixture only; this is not a generic offline movie runner.
+    from .replay import synthetic_case
+    from .contracts import captured_outcome
+    raw,binding,evidence=synthetic_case(165)
+    fixture=captured_outcome(encoded(raw),sources={'synthetic':'Synthetic Index'},binding=binding,
+        evidence=evidence,decisions=[],trusted_issuers=['synthetic_owner'])
+    require(packet==fixture,'offline_fixture_required')
+    http=SimulatedHTTP([frame])
+    request=prepare(history,packet,selection,require_empty=True);request_hash=digest(request);job=digest(packet)
+    body=offline_request(request)
+    with history.transaction(write=True) as (events,append):
+        selected_current(events,job);research_dependency(events,job)
+        require(not any(e.get('job')==job and e['type'] in ('new_case_completion_started',
+            'new_case_completed','new_case_completion_rejected','new_case_simulated_send_started')
+            for e in events),'completion_already_consumed')
+        append(dict(type='new_case_simulated_send_started',job=job,at=stamp(history.clock()),
+                    request_hash=request_hash,wire_hash=digest(decode(body)),simulated=True))
+    result=http.post(body,credential=ExplicitCredential(SYNTHETIC_CREDENTIAL),project=SYNTHETIC_PROJECT,timeout=25)
+    require(http.framed_result is result and result.status==200 and result.request_sha256==digest(decode(body)) and
+            result.project==SYNTHETIC_PROJECT and result.path==PATH,'simulated_response_unbound')
+    answer,accounting=parse_response(result.body,output_schema(),result.request_id,expected_model=INTEGRATION_MODEL)
+    answer=decode(answer,MAX_OUTPUT)
+    receipt=dict(type='new_case_simulated_response',job=job,at=stamp(history.clock()),
+        request_hash=request_hash,wire_hash=digest(decode(body)),reply_hash=digest(answer),
+        accounting=accounting,simulated=True,provider_verified=False,request_count=len(http.requests))
+    with history.transaction(write=True) as (events,append):
+        selected_current(events,job);research_dependency(events,job)
+        append(receipt)
+    marker=_OFFLINE_COMPLETION.set((history,request_hash,digest(answer),digest(receipt)))
+    try:
+        return complete(history,request_hash,answer,dict(mode='simulation',chat_reference='Offline framed transport fixture; no real generation'))
+    finally:_OFFLINE_COMPLETION.reset(marker)
 
 
 def main():

@@ -111,6 +111,47 @@ def tls_context():
     return context
 
 
+def read_response(response, body, project, path, response_limit, check):
+    """Shared bounded framing reader; correlation stamps are local, not billing proof."""
+    from .supervised_authorization import observe_phase
+    # Never follow Location or consume/echo error bodies.
+    require(response.status == 200, 'responses_http_rejected')
+    hs = response.getheaders()
+    lengths = [v for k, v in hs if k.lower() == 'content-length']
+    types = [v for k, v in hs if k.lower() == 'content-type']
+    encodings = [v for k, v in hs if k.lower() == 'content-encoding']
+    require(len(types) == 1 and types[0].split(';')[0].strip().lower() == 'application/json'
+            and encodings in ([], ['identity']), 'responses_http_shape')
+    transfers=[v for k,v in hs if k.lower()=='transfer-encoding']
+    require(len(lengths)<=1,'responses_length_duplicate')
+    require(not lengths or lengths[0].isascii() and lengths[0].isdigit(),'responses_length_invalid')
+    require(not (lengths and transfers),'responses_framing_conflict')
+    require(not transfers or len(transfers)==1 and transfers[0].lower()=='chunked',
+            'responses_transfer_encoding_invalid')
+    declared=None
+    if lengths:
+        significant=lengths[0].lstrip('0') or '0'
+        require(len(significant)<=len(str(response_limit)) and int(significant)<=response_limit,
+                'responses_declared_body_limit')
+        declared=int(significant)
+    observe_phase('http_body_read')
+    data = bytearray()
+    while True:
+        part = response.read1(min(4096, response_limit + 1 - len(data)))
+        check()
+        if not part:
+            break
+        data.extend(part)
+        require(len(data) <= response_limit, 'responses_observed_body_limit')
+    require(declared is None or len(data)==declared, 'responses_body_truncated')
+    observe_phase('http_body_received')
+    ids = [v for k, v in hs if k.lower() == 'x-request-id']
+    require(len(ids) <= 1, 'responses_http_shape')
+    result=HTTPResult(200, bytes(data), ids[0] if ids else None,
+                      hashlib.sha256(body).hexdigest(), project, path)
+    return result
+
+
 class FixedResponsesHTTP:
     """No configurable URL, headers, proxy, redirect, TLS mode or retry policy."""
     def post(self, body, *, credential, project, timeout, authorization=None):
@@ -183,41 +224,7 @@ class FixedResponsesHTTP:
                 response = connection.getresponse()
                 observe_phase('http_response_received')
                 check()
-                # Never follow Location or consume/echo error bodies.
-                require(response.status == 200, 'responses_http_rejected')
-                hs = response.getheaders()
-                lengths = [v for k, v in hs if k.lower() == 'content-length']
-                types = [v for k, v in hs if k.lower() == 'content-type']
-                encodings = [v for k, v in hs if k.lower() == 'content-encoding']
-                require(len(types) == 1 and types[0].split(';')[0].strip().lower() == 'application/json'
-                        and encodings in ([], ['identity']), 'responses_http_shape')
-                transfers=[v for k,v in hs if k.lower()=='transfer-encoding']
-                require(len(lengths)<=1,'responses_length_duplicate')
-                require(not lengths or lengths[0].isascii() and lengths[0].isdigit(),'responses_length_invalid')
-                require(not (lengths and transfers),'responses_framing_conflict')
-                require(not transfers or len(transfers)==1 and transfers[0].lower()=='chunked',
-                        'responses_transfer_encoding_invalid')
-                declared=None
-                if lengths:
-                    significant=lengths[0].lstrip('0') or '0'
-                    require(len(significant)<=len(str(response_limit)) and int(significant)<=response_limit,
-                            'responses_declared_body_limit')
-                    declared=int(significant)
-                observe_phase('http_body_read')
-                data = bytearray()
-                while True:
-                    part = response.read1(min(4096, response_limit + 1 - len(data)))
-                    check()
-                    if not part:
-                        break
-                    data.extend(part)
-                    require(len(data) <= response_limit, 'responses_observed_body_limit')
-                require(declared is None or len(data)==declared, 'responses_body_truncated')
-                observe_phase('http_body_received')
-                ids = [v for k, v in hs if k.lower() == 'x-request-id']
-                require(len(ids) <= 1, 'responses_http_shape')
-                result=HTTPResult(200, bytes(data), ids[0] if ids else None,
-                                  hashlib.sha256(body).hexdigest(), project, path)
+                result=read_response(response,body,project,path,response_limit,check)
                 if observation is not None:
                     bind_observed_response(authorization,result,body,credential,project,path)
                 return result
@@ -251,17 +258,47 @@ class SimulatedHTTP:
     def __init__(self, responses):
         self.responses = list(responses)
         self.requests = []
+        self.framed_result = None
         self.lock = threading.Lock()
 
     def post(self, body, *, credential, project, timeout):
         require(type(credential) is ExplicitCredential and credential.value == SYNTHETIC_CREDENTIAL
                 and project == SYNTHETIC_PROJECT, 'simulation_credential_required')
         with self.lock:
+            self.framed_result = None
             self.requests.append(dict(endpoint=ENDPOINT, body=body, timeout=timeout,
                                       header_names=sorted(headers(credential, project))))
             require(bool(self.responses), 'simulation_response_missing')
             response = self.responses.pop(0)
         if isinstance(response, BaseException):
             raise response
+        if type(response) is bytes:
+            result=self._framed(body,response,credential,project,timeout)
+            self.framed_result=result
+            return result
         require(type(response) is HTTPResult, 'simulation_response_invalid')
         return response
+
+    def _framed(self,body,frame,credential,project,timeout):
+        # A static memory socket, never an injected callback or live connection.
+        # The normal fixed HTTPS authorizer and its refusal are untouched.
+        import io
+        require(len(frame)<=MAX_RESPONSE+8192,'simulation_response_invalid')
+        class MemorySocket:
+            def __init__(self):self.sent=bytearray()
+            def sendall(self,data):self.sent.extend(data)
+            def makefile(self,*args,**kwargs):return io.BytesIO(frame)
+            def close(self):pass
+        memory=MemorySocket();connection=http.client.HTTPConnection(HOST,443,timeout=timeout)
+        connection.sock=memory
+        try:
+            with total_deadline(timeout) as check:
+                connection.request('POST',PATH,body=body,headers=headers(credential,project))
+                check();response=connection.getresponse();check()
+                result=read_response(response,body,project,PATH,MAX_RESPONSE,check)
+                require(bytes(memory.sent).split(b'\r\n\r\n',1)[-1]==body,'simulation_response_invalid')
+                return result
+        except Refusal:raise
+        except (TimeoutError,OSError,ValueError,http.client.HTTPException):
+            raise Refusal('responses_network_completion_unknown') from None
+        finally:connection.close()
