@@ -258,6 +258,8 @@ def offline_request(request):
 
 CAPTURED_CONTRACT = 'captured-final-v1'
 CAPTURED_OUTPUT_TOKENS = 25000
+CAPTURED_REQUEST_BYTES = 65536
+CAPTURED_AUTHORITY_BYTES = 131072
 
 
 def captured_activation_refusal():
@@ -280,7 +282,10 @@ def captured_request(request):
     schema['properties']['lookups']['maxItems'] = 0
     schema['properties']['result'] = schema['properties']['result']['anyOf'][0]
     body['instructions'] += ' Return one final result, never null, with no lookups. Keep rationale and uncertainty each within 600 characters.'
-    return encoded(body)
+    result=encoded(body)
+    require(len(result)<=CAPTURED_REQUEST_BYTES,'handoff_size')
+    decode(body['input'][0]['content'][0]['text'],MAX_INPUT)
+    return result
 
 
 def _prepared_locked(history, events, request_hash):
@@ -298,19 +303,51 @@ def _prepared_locked(history, events, request_hash):
             'decision_or_evidence_applicability_changed')
     request=request_for(packet,rec,p['at'])
     require(request==p['request'] and digest(request)==request_hash, 'handoff_changed')
-    return p,packet,captured_request(request)
+    return p,packet,captured_request(request),rec
+
+
+def captured_material_hash(packet, rec, *, prepared_at=None):
+    """Conservative root replay identity, not an assessment/citation projection.
+
+    Paired retained and prepared-time usable keys prevent both clock-only
+    changes and future-only additions from minting new work. Exact retained
+    text is used, not redaction affected by caller reference IDs.
+    Evidence clocks/labels/order cannot mint a new opportunity. Actual scoped
+    content/claims or effective decisions may change it; occurrence stays bound.
+    """
+    def unique(rows):
+        return [value for _,value in sorted({encoded(row):row for row in rows}.items())]
+    evidence=[]
+    for row in packet['evidence']:
+        if row['scope']!=packet['binding']:continue
+        if prepared_at is not None and row['observed_at']>prepared_at:continue
+        claims=sorted(c for c in row['claims'] if row['kind']!='source' or c not in ('runtime','edition'))
+        evidence.append(dict(kind=row['kind'],candidate=row['candidate'],text=row['text'],
+            claims=claims,image_references=row['image_references']))
+    decisions=[dict(kind=row['decision']['kind'],applicability=row['applicability'],
+        chosen_target=row['decision']['chosen_target']) for row in rec['prior_decisions']]
+    case={k:v for k,v in packet['binding'].items() if k!='version'}
+    f=packet['facts']
+    facts={k:f[k] for k in ('title','year','imdb','tmdb')}
+    facts.update(asserted_imdb=f['outcome'].get('asserted_imdb'),
+        asserted_tmdb=f['outcome'].get('asserted_tmdb'),reason=f['outcome']['reason'])
+    return digest(dict(case=case,capture_event=packet['event'],facts=facts,
+        evidence=unique(evidence),decisions=unique(decisions),disposition=rec['disposition'],
+        conflicting_ids=rec['conflicting_ids']))
 
 
 def captured_consent(root, root_events, history, events, request_hash, evidence):
     """Pure exact consent proposal, only under root then selected-case locks."""
     from .supervised_credit import file_identity
     root.require_write_transaction(root_events)
-    p,packet,body=_prepared_locked(history,events,request_hash)
+    p,packet,body,rec=_prepared_locked(history,events,request_hash)
     return dict(kind='captured_occurrence_generation_v1', response_contract=CAPTURED_CONTRACT,
         root_identity=list(root.identity), root_prefix_sha256=digest(root_events),
         case_directory=str(history.directory), case_identity=list(history.identity),
         case_file_identity=file_identity(history), prepared_hash=digest(p), request_hash=request_hash,
-        job=p['job'], case=packet['binding'], reconciliation_hash=p['reconciliation_hash'],
+        job=p['job'], case=packet['binding'], material_hash=captured_material_hash(packet,rec),
+        disclosure_material_hash=captured_material_hash(packet,rec,prepared_at=p['at']),
+        capture_event=packet['event'], reconciliation_hash=p['reconciliation_hash'],
         request=decode(body,65536), request_sha256=digest(decode(body,65536)),
         project=evidence['project'], account_reference=evidence['account_reference'],
         evidence_hash=digest(evidence), maximum_debit_usd=[3,100], max_calls=1,
@@ -325,8 +362,8 @@ def validate_captured(grant, project):
     from .supervised_credit import _read_evidence
     require_captured_activation()
     shape(grant,'authority_path authority_sha256 authority_identity authorization run case request')
-    raw,identity=_read_evidence(Path(grant['authority_path']))
-    authority=decode(raw,65536)
+    raw,identity=_read_evidence(Path(grant['authority_path']),CAPTURED_AUTHORITY_BYTES)
+    authority=decode(raw,CAPTURED_AUTHORITY_BYTES)
     require(raw==encoded(authority) and digest(authority)==grant['authority_sha256'] and
         list(identity)==grant['authority_identity'] and authority==grant['authorization'], 'captured_authority_changed')
     require(authority['kind']=='captured_occurrence_generation_v1' and
@@ -338,7 +375,10 @@ def validate_captured(grant, project):
         grant['run']=='captured-'+digest(authority) and
         digest(grant['request'])==authority['request_sha256'], 'captured_authority_changed')
     require(stamp(authority['issued_at'])<=time.time()<stamp(authority['expires_at']), 'captured_authority_expired')
-    return encoded(grant['request'])
+    body=encoded(grant['request'])
+    require(len(body)<=CAPTURED_REQUEST_BYTES,'handoff_size')
+    decode(grant['request']['input'][0]['content'][0]['text'],MAX_INPUT)
+    return body
 
 
 class _CapturedCase:
@@ -353,11 +393,13 @@ class _CapturedCase:
         self.history.require_write_transaction(self.events)
         a=self.grant['authorization']
         body=validate_captured(self.grant,self.evidence['project'])
-        p,packet,expected=_prepared_locked(self.history,self.events,a['request_hash'])
+        p,packet,expected,rec=_prepared_locked(self.history,self.events,a['request_hash'])
         require(list(self.root.identity)==a['root_identity'] and
             list(self.history.identity)==a['case_identity'] and file_identity(self.history)==a['case_file_identity'] and
             str(self.history.directory)==a['case_directory'] and digest(p)==a['prepared_hash'] and
-            p['job']==a['job'] and p['reconciliation_hash']==a['reconciliation_hash'] and
+            p['job']==a['job'] and captured_material_hash(packet,rec)==a['material_hash'] and
+            captured_material_hash(packet,rec,prepared_at=p['at'])==a['disclosure_material_hash'] and
+            packet['event']==a['capture_event'] and p['reconciliation_hash']==a['reconciliation_hash'] and
             packet['binding']==a['case'] and expected==body and digest(self.evidence)==a['evidence_hash'] and
             self.evidence['account_reference']==a['account_reference'], 'captured_selection_changed')
         require(not any(e.get('job')==p['job'] and e['type'] in ('invocation','result',
@@ -424,7 +466,7 @@ def authorize_captured(directory,selected,case_directory,request_hash,authority_
         require(root.identity!=history.identity,'captured_selection_changed')
         with history.transaction(write=True) as (events,append):
             expected=captured_consent(root,root_events,history,events,request_hash,selected.data)
-            raw,identity=c._read_evidence(Path(authority_path));a=decode(raw,65536)
+            raw,identity=c._read_evidence(Path(authority_path),CAPTURED_AUTHORITY_BYTES);a=decode(raw,CAPTURED_AUTHORITY_BYTES)
             require(raw==encoded(a) and digest(a)==authority_sha256 and a==expected,'captured_authority_changed')
             grant=dict(authority_path=str(Path(authority_path)),authority_sha256=authority_sha256,
                 authority_identity=list(identity),authorization=a,run='captured-'+digest(a),case=a['case'],request=a['request'])

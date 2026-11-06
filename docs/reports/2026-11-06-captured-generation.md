@@ -60,3 +60,66 @@ observed historical 4,096-token incomplete result, without guaranteeing future
 completion or enabling an expensive fallback. Independent
 review and exact supported full CI are required before acceptance.
 No actual credential/source/account/provider access or deployment occurred.
+
+## Independent size correction
+
+Main reproduced an admitted request above 8 KiB that failed because request
+fingerprints reused the answer decoder's default limit. The same correction
+covers all captured request/session/observation/budget fingerprints, privacy
+serialization, the parent's disclosure decoder and canonical authority reads.
+Captured disclosure is bounded to 49,152 bytes, the final canonical wire to
+65,536 and its canonical local authority envelope to 131,072. Final wire and
+disclosure limits are checked before grant/start allocation. Old account
+evidence remains 16,384 bytes, old request defaults remain unchanged and
+answers remain 8,192 bytes. The installed regression uses 16 safe evidence
+rows to cross the old answer, authority and disclosure limits, and checks an
+over-bound refusal without a slot, send or case-generation marker.
+
+Old candidate CI 42253784062 ran 1,861 tests on Python 3.12 and found one
+negative-test expectation mismatch: a copied HTTP result correctly loses the
+selected 25,000-token parser contract and is refused before receipt recording,
+rather than at the later receipt-capability check. The test now asserts that
+earlier refusal and two retained attempt rows; no guard was weakened. The
+3.13 job was cancelled by matrix fail-fast. Those results are retained and
+cannot qualify the corrected candidate. Fresh exact-head CI is required.
+
+The larger installed regression and corrected copied-result rejection both
+passed locally (2 tests, 6.819 seconds). Earlier size-correction runs retained
+two ctime-guard stops; the over-bound refusal and all 14 generic bound-send /
+historical-parent checks passed. No retry of actual work or guard relaxation.
+
+## Root-retained material replay check
+
+Main demonstrated that a consumed event copied into a fresh case-history
+with only advanced evidence timestamps could obtain another root slot. The
+canonical authority now binds the immutable capture and a conservative
+material key retained in the existing root grant. The key includes selected
+case/occurrence (including delivery boundary), captured event, facts, scoped
+retained evidence content/claims and effective decision kind/applicability/
+target, disposition and conflicts. Evidence freshness, caller correlation
+versions/labels/provenance references, ordering and duplicate rows do not mint
+a new opportunity. Exact retained text is used rather than redaction that
+caller ID renaming could alter. Same-event immutable input changes refuse.
+
+This canonicalization is only for root replay refusal. Original capture,
+admission, reconciliation, request ordering, evidence/decision records and
+citation validation are untouched. Genuinely distinct occurrences and changed
+retained content/claims or effective decisions can still require their own
+exact grant; this creates no automatic retry or actual activation authority.
+The existing per-history intake rule is unchanged.
+
+Five focused material tests passed in 3.435 seconds: timestamp-only copy,
+version/label/order/duplicate copy, actual claim change, retained-content
+change and distinct occurrence. The earlier first material run retained one
+ctime-guard stop before the intended injected uncertainty; the other 22
+checks passed, including all 20 original new-case tests.
+
+Independent review further checked no-content changes: the final grant binds
+paired retained-material and usable-at-preparation material keys. Both must
+change for the same occurrence to become a different candidate opportunity.
+This prevents advancing clocks alone as well as adding only withheld future
+rows. Facts are limited to the actual projected fact fields; an undisclosed
+retained hash cannot mint work. Effective decisions and immutable capture
+remain bound. Evidence source/runtime claims already withheld by the existing
+projection also cannot mint work. This only makes replay refusal conservative;
+assessment, citation and source-authenticity semantics are unchanged.

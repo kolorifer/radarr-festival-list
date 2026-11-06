@@ -30,6 +30,11 @@ def _simulated_captured_io():
 
 
 
+def _request_value(session,body):
+    from .supervised_credit import request_value
+    return request_value(body,captured=hasattr(session,'captured'))
+
+
 class _Permit:
     def __repr__(self):
         return 'SupervisedSyntheticPermit(<opaque>)'
@@ -98,7 +103,7 @@ class _Session:
         require(path=='/v1/responses','supervised_endpoint')
         expected=expected_request(self.events,self.enrolled,self.slot)
         require(type(body) is bytes and body==expected,'supervised_request_binding')
-        fingerprint=digest(decode(body))
+        fingerprint=digest(_request_value(self,body))
         reservations=self.credit.read()
         ceiling=reservation_ceiling(self.credit,project,fingerprint)
         if self.slot>=7:
@@ -198,7 +203,7 @@ def bind_observed_response(token,result,body,credential,project,path):
     session=_ACTIVE.get()
     require(session is not None and session.received is None and type(result) is HTTPResult and
             result.status==200 and result.project==project and result.path==path and
-            result.request_sha256==digest(decode(body)), 'supervised_observation_binding')
+            result.request_sha256==digest(_request_value(session,body)), 'supervised_observation_binding')
     session.received=result
 
 
@@ -224,7 +229,7 @@ def selected_output_limit(request_hash):
     if session is None:return OUTPUT_TOKENS
     session.root.require_write_transaction(session.events)
     body=expected_request(session.events,session.enrolled,session.slot)
-    require(request_hash==digest(decode(body)),'supervised_request_binding')
+    require(request_hash==digest(_request_value(session,body)),'supervised_request_binding')
     if hasattr(session,'captured'):
         from .new_case import CAPTURED_OUTPUT_TOKENS
         session.captured.validate()
@@ -246,7 +251,7 @@ def selected_response_contract(request_hash):
     from .historical_nano import FINAL_CONTRACT_VERSION,final_contract
     session.root.require_write_transaction(session.events)
     body=expected_request(session.events,session.enrolled,session.slot)
-    require(request_hash==digest(decode(body)),'supervised_request_binding')
+    require(request_hash==digest(_request_value(session,body)),'supervised_request_binding')
     if hasattr(session,'captured'):
         session.captured.validate()
         selected=decode(body,65536)
@@ -325,7 +330,7 @@ def reservation_ceiling(history,project,request_hash):
         from .supervised_credit import standing_retained,require_prompted,expected_request
         session.root.require_write_transaction(session.events)
         require(history is session.credit and project==session.enrolled['project'] and
-                request_hash==digest(decode(expected_request(session.events,session.enrolled,session.slot))),'supervised_recovery_binding')
+                request_hash==digest(_request_value(session,expected_request(session.events,session.enrolled,session.slot))),'supervised_recovery_binding')
         require_prompted(session.root,session.credential)
         ceiling=standing_retained(session.root,session.events,session.enrolled,session.selected,history,session.slot)
         session.check_time()

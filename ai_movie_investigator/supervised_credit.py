@@ -16,7 +16,7 @@ import time
 import warnings
 
 from .bound_send import HistoricalDiagnosticParent, OperatorContext
-from .contracts import Refusal, decode, digest, encoded, require, shape, stamp
+from .contracts import Refusal, decode, digest, encoded, require, shape, stamp, MAX_INPUT, MAX_OUTPUT
 from .credit_test import POLICY, PER_REQUEST, CONTEXT_TOKENS, CONTEXT_COVERAGE, INPUT_RATE, OUTPUT_RATE, request, ledger_total, TOTAL
 from .history import History, FILENAME, checked
 from .responses_http import ExplicitCredential, headers
@@ -233,10 +233,10 @@ def enroll(directory, selected=None):
             project=selected.data['project'] if selected else None))
 
 
-def _read_evidence(path):
+def _read_evidence(path, limit=16384):
     path=Path(path)
     before=path.lstat()
-    raw=read_private(path,16384)
+    raw=read_private(path,limit)
     after=path.lstat()
     identity=lambda info:(info.st_dev,info.st_ino,info.st_size,info.st_mtime_ns,info.st_ctime_ns)
     before_identity,after_identity=identity(before),identity(after)
@@ -524,14 +524,26 @@ def prompt_credential():
     return ExplicitCredential(value)
 
 
+def request_value(body, *, captured=False):
+    """Captured request parsing has its own bound, never the answer allowance."""
+    from .contracts import MAX_OUTPUT
+    if captured:
+        from .new_case import CAPTURED_REQUEST_BYTES
+        return decode(body,CAPTURED_REQUEST_BYTES)
+    return decode(body,MAX_OUTPUT)
+
+
 def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,historical=None,keychain=False,captured=None):
     grant=historical or captured
     body=encoded(grant['request']) if grant else request(run)
-    selection=dict(run=run,case=case,request_sha256=digest(decode(body)),
+    wire=request_value(body,captured=bool(captured))
+    disclosure=(decode(grant['request']['input'][0]['content'][0]['text'],
+        MAX_INPUT if captured else MAX_OUTPUT) if grant else None)
+    selection=dict(run=run,case=case,request_sha256=digest(wire),
                    local_context_sha256=digest(e))
     r=dict(mode='captured_nano_dormant' if captured else 'historical_nano_manual' if historical else 'synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
         issued_at=now,expires_at=min(e['expires_at'],expires_at) if expires_at is not None else e['expires_at'],history_identity=list(history.identity),currency='USD',
-        ceiling=[3,100],output_limit=decode(body)['max_output_tokens'],credit_history_identity=enrollment['credit'],
+        ceiling=[3,100],output_limit=wire['max_output_tokens'],credit_history_identity=enrollment['credit'],
         credit_history_file_identity=enrollment['credit_file'])
     facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=[3,100]),
         privacy=dict(request_sha256=selection['request_sha256'],store=False,tools=[]),
@@ -541,14 +553,14 @@ def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,
             counter_identity=e['context_reference'],input_upper_bound=CONTEXT_TOKENS),
         pricing=dict(policy=POLICY,currency='USD',input=[5,100000000],cache_read=[5,1000000000],
             cache_write=[0,1],output=[4,10000000],ancillary_maximum=[0,1]))
-    if grant:facts['privacy']['disclosure_sha256']=digest(decode(grant['request']['input'][0]['content'][0]['text']))
+    if grant:facts['privacy']['disclosure_sha256']=digest(disclosure)
     binding=digest(r)
     r['evidence']={role:dict(binding_hash=binding,issuer='supervised-operator',
         reference=digest(e),observed_at=e['observed_at'],expires_at=e['expires_at'],facts=value)
         for role,value in facts.items()}
     raw=encoded(r)
     return OperatorContext(raw,hashlib.sha256(raw).hexdigest(),tuple((k,digest(v)) for k,v in r['evidence'].items()),
-        encoded(decode(grant['request']['input'][0]['content'][0]['text'])) if grant else None),selection
+        encoded(disclosure) if grant else None),selection
 
 
 _LAST_DIAGNOSTIC = ContextVar('supervised_last_diagnostic',default=None)
@@ -788,7 +800,7 @@ def standing_binding(events,enrolled,selected,slot):
     e=selected.data
     require(start['evidence_sha256']==selected.sha256 and start['evidence_hash']==digest(e) and
             start['expires_at']==e['expires_at'] and start['project']==e['project']==grant['project'] and
-            start['request_sha256']==digest(decode(expected_request(events,enrolled,slot))) and
+            start['request_sha256']==digest(request_value(expected_request(events,enrolled,slot),captured='captured' in start)) and
             e['observed_at']<=start['at']<e['expires_at'],'supervised_standing_binding')
     return start,authorized
 
@@ -873,7 +885,17 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
     if attempts and 'captured' in attempts[-1][0]:
         require(any(e.get('type')=='supervised_started' and e.get('slot')==attempts[-1][0]['slot'] for e in events),'captured_pending_grant')
     if captured:
-        require(not any(s.get('captured',{}).get('authorization',{}).get('job')==captured['authorization']['job'] for s,_ in attempts),'captured_generation_consumed')
+        authority=captured['authorization']
+        for old,_ in attempts:
+            if 'captured' not in old:continue
+            prior=old['captured']['authorization']
+            require(all(k in prior for k in ('material_hash','disclosure_material_hash','capture_event')),'captured_authority_changed')
+            require(prior['material_hash']!=authority['material_hash'] and
+                prior['disclosure_material_hash']!=authority['disclosure_material_hash'],'captured_generation_consumed')
+            if (prior['case']['source']==authority['case']['source'] and
+                    prior['capture_event']['id']==authority['capture_event']['id']):
+                require(prior['capture_event']==authority['capture_event'] and
+                    prior['case']['case_id']==authority['case']['case_id'],'captured_selection_changed')
     if historical:
         if 'renewal' in historical:
             from .historical_nano import renewal_history

@@ -218,7 +218,8 @@ class HistoricalDiagnosticParent:
         part = message['content'][0]
         shape(part, 'type text')
         require(part['type'] == 'input_text', 'operator_disclosure_changed')
-        data = decode(part['text'], 32768)
+        from .contracts import MAX_INPUT
+        data = decode(part['text'], MAX_INPUT if r['mode']=='captured_nano_dormant' else 32768)
         if r['mode']=='captured_nano_dormant':
             from .supervised_authorization import selected_captured_request
             selected_captured_request(selected,body)

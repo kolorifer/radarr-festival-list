@@ -173,8 +173,10 @@ class CapturedGenerationTests(unittest.TestCase):
         with self.gate():
             self.authorize()
             with patch.object(responses_http.FixedResponsesHTTP,'post',replaced):
-                with self.assertRaisesRegex(Refusal,'captured_receipt_unbound'):self.run_case()
-        self.assertEqual(len(History(self.f.state/'attempt-7').read()),3)
+                with self.assertRaisesRegex(Refusal,'responses_contract_changed'):self.run_case()
+        # A copied object cannot select the 25k parser contract, so it is
+        # rejected before receipt recording, earlier than the 4096 profile.
+        self.assertEqual(len(History(self.f.state/'attempt-7').read()),2)
         self.assertFalse(any(row['type']=='new_case_completed' for row in self.case.read()))
 
     def test_grant_alone_cannot_mint_inprocess_completion(self):
@@ -220,6 +222,167 @@ class CapturedGenerationTests(unittest.TestCase):
             self.authorize();value=decode(self.response());value['usage'].update(output_tokens=25001,total_tokens=value['usage']['input_tokens']+25001)
             with self.assertRaises(Refusal):self.run_case(encoded(value))
         self.assertEqual(len(History(self.f.state/'attempt-7').read()),2)
+
+    def large_case(self):
+        path=self.f.f.root/'large-captured';path.mkdir(mode=0o700);self.case=History(path)
+        self.packet=copy.deepcopy(self.packet)
+        rows=[]
+        for i in range(16):
+            row=copy.deepcopy(self.packet['evidence'][i%2]);row['id']='large-evidence-'+str(i)
+            row['text']=('Invented retained observation for Harbor. '*45)
+            rows.append(row)
+        self.packet['evidence']=rows
+        self.request=n.prepare(self.case,self.packet,self.packet['binding']);self.body=n.captured_request(self.request)
+        self.reply['binding_hash']=self.request['binding_hash']
+        with self.root.transaction(write=True) as (events,_):
+            with self.case.transaction(write=True) as (rows,_):
+                self.consent=n.captured_consent(self.root,events,self.case,rows,digest(self.request),self.selected.data)
+        self.path.write_bytes(encoded(self.consent));self.path.chmod(0o600)
+        self.assertGreater(len(self.body),32768);self.assertLess(len(self.body),65536)
+        self.assertGreater(len(encoded(self.consent)),16384)
+        self.assertGreater(len(decode(self.body,65536)['input'][0]['content'][0]['text']),32768)
+
+    def test_installed_large_valid_captured_request_completes(self):
+        self.large_case()
+        from ai_movie_investigator.contracts import MAX_OUTPUT
+        self.assertEqual(MAX_OUTPUT,8192)
+        with self.assertRaisesRegex(Refusal,'size_limit'):c.request_value(self.body)
+        self.assertEqual(c.request_value(self.body,captured=True)['max_output_tokens'],25000)
+        result,out=self.installed('authorize-captured',opened=True);self.assertEqual(result.returncode,0,out)
+        result,out=self.installed('run-captured-keychain',opened=True);self.assertEqual(result.returncode,0,out)
+        self.assertEqual(out.count(b'OFFLINE_AUTHORIZED_BOUNDARY'),1)
+        report=self.case.read()[-1]['report'];self.assertEqual(report['assessment']['status'],'supported_candidate')
+        self.assertFalse(report['generation_invoked']);self.assertTrue(report['connected_transport_invoked'])
+        self.assertEqual(History(self.f.state/'attempt-7').read()[-1]['request_sha256'],digest(decode(self.body,65536)))
+
+    def test_overbound_request_and_installed_authority_refuse_before_consumption(self):
+        before={p:p.read_bytes() for p in self.f.f.root.rglob(FILENAME)}
+        request=copy.deepcopy(self.request);request['input']['qualifications']['oversize']='x'*65536
+        with self.assertRaisesRegex(Refusal,'handoff_size'):n.captured_request(request)
+        self.consent['request']['input'][0]['content'][0]['text']='x'*131073
+        self.path.write_bytes(encoded(self.consent))
+        result,out=self.installed('authorize-captured',opened=True);self.assertEqual(result.returncode,1,out)
+        self.assertNotIn(b'DUMMY_LOOKUP',out);self.assertNotIn(b'OFFLINE_AUTHORIZED_BOUNDARY',out)
+        self.assertEqual(before,{p:p.read_bytes() for p in self.f.f.root.rglob(FILENAME)})
+        self.assertFalse((self.f.state/'attempt-7').exists())
+
+    def consume_uncertain(self):
+        from ai_movie_investigator.responses_http import FixedResponsesHTTP
+        self.authorize()
+        with diagnostics.DiagnosticTests().inputs(),patch.object(FixedResponsesHTTP,'post',side_effect=Refusal('responses_network_completion_unknown')):
+            with self.assertRaisesRegex(Refusal,'responses_network_completion_unknown'):
+                c.run(self.f.state,self.selected,7,captured=True)
+        self.assertEqual(self.case.read()[-1]['type'],'new_case_generation_started')
+
+    def copied_selection(self,packet,name):
+        path=self.f.f.root/name;path.mkdir(mode=0o700);self.case=History(path)
+        self.packet=packet;self.request=n.prepare(self.case,packet,packet['binding']);self.body=n.captured_request(self.request)
+        self.reply['binding_hash']=self.request['binding_hash']
+        with self.root.transaction(write=True) as (events,_):
+            with self.case.transaction(write=True) as (rows,_):
+                self.consent=n.captured_consent(self.root,events,self.case,rows,digest(self.request),self.selected.data)
+        self.path=self.f.f.root/(name+'-authority.json');self.path.write_bytes(encoded(self.consent));self.path.chmod(0o600)
+
+    def test_same_captured_material_freshness_copy_cannot_get_new_root_slot(self):
+        with self.gate():
+            self.consume_uncertain();original=self.consent['material_hash'];old_job=self.consent['job']
+            packet=copy.deepcopy(self.packet)
+            for row in packet['evidence']:row['observed_at']+=1;row['expires_at']+=1
+            self.copied_selection(packet,'freshness-copy')
+            self.assertNotEqual(self.consent['job'],old_job);self.assertEqual(self.consent['material_hash'],original)
+            before=self.root.read();case=self.case.read()
+            with self.assertRaisesRegex(Refusal,'captured_generation_consumed'):self.authorize()
+            self.assertEqual(self.root.read(),before);self.assertEqual(self.case.read(),case)
+            self.assertFalse((self.f.state/'attempt-8').exists())
+
+    def test_materially_changed_retained_evidence_can_receive_distinct_grant(self):
+        with self.gate():
+            self.consume_uncertain();original=self.consent['material_hash'];packet=copy.deepcopy(self.packet)
+            packet['evidence'][0]['text']+=' Additional invented retained assertion.'
+            packet['evidence'][0]['provenance']['digest']=digest('different-material')
+            self.copied_selection(packet,'material-change')
+            self.assertNotEqual(self.consent['material_hash'],original)
+            self.assertEqual(self.authorize()['slot'],8)
+        self.assertEqual(History(self.f.state/'attempt-8').read(),[])
+
+    def test_distinct_captured_occurrence_is_not_blocked_by_prior_material(self):
+        with self.gate():
+            self.consume_uncertain();raw,binding,evidence=synthetic_case(166)
+            for row in evidence:row.update(observed_at=time.time()-10,expires_at=time.time()+150)
+            packet=captured_outcome(encoded(raw),sources={'synthetic':'Synthetic Index'},binding=binding,
+                evidence=evidence,decisions=[],trusted_issuers=['synthetic_owner'])
+            self.copied_selection(packet,'distinct-occurrence')
+            self.assertEqual(self.authorize()['slot'],8)
+        self.assertEqual(History(self.f.state/'attempt-8').read(),[])
+
+    def test_version_labels_order_and_duplicate_rows_cannot_mint_root_material(self):
+        with self.gate():
+            self.consume_uncertain();original=self.consent['material_hash'];packet=copy.deepcopy(self.packet)
+            packet['binding']['version']=digest('new-version-label-only')
+            packet['evidence'].reverse()
+            for i,row in enumerate(packet['evidence']):
+                row['scope']=copy.deepcopy(packet['binding']);row['id']='renamed-'+str(i)
+                row['provenance']=dict(origin='different-label',digest=digest('different-reference-'+str(i)))
+                row['claims'].reverse();row['observed_at']+=1;row['expires_at']+=1
+            duplicate=copy.deepcopy(packet['evidence'][0]);duplicate['id']='duplicate-label';packet['evidence'].append(duplicate)
+            self.copied_selection(packet,'label-copy')
+            self.assertEqual(self.consent['material_hash'],original)
+            before=self.root.read()
+            with self.assertRaisesRegex(Refusal,'captured_generation_consumed'):self.authorize()
+            self.assertEqual(self.root.read(),before);self.assertFalse((self.f.state/'attempt-8').exists())
+
+    def test_actual_scoped_claim_change_changes_material_without_alias_dependency(self):
+        rec=n.admitted(self.packet,self.packet['binding'],time.time())
+        original=n.captured_material_hash(self.packet,rec);packet=copy.deepcopy(self.packet)
+        packet['evidence'][0]['claims'].remove('year')
+        self.assertNotEqual(n.captured_material_hash(packet,n.admitted(packet,packet['binding'],time.time())),original)
+        # Renaming a label occurring in retained text cannot alter the replay key.
+        packet=copy.deepcopy(self.packet);packet['evidence'][0]['text']+=' catalogue-1'
+        first=n.captured_material_hash(packet,n.admitted(packet,packet['binding'],time.time()))
+        packet['evidence'][0]['id']='new-label'
+        self.assertEqual(n.captured_material_hash(packet,n.admitted(packet,packet['binding'],time.time())),first)
+
+    def test_effective_decision_changes_material_but_preserves_admission(self):
+        from ai_movie_investigator.replay import owner_decision
+        packet=copy.deepcopy(self.packet)
+        original=n.captured_material_hash(packet,n.admitted(packet,packet['binding'],time.time()))
+        row=owner_decision(packet['binding'],'technical_gap',evidence=packet['evidence'])
+        row['decided_at']=time.time()-1;packet['decisions']=[row]
+        rec=n.admitted(packet,packet['binding'],time.time())
+        self.assertEqual(rec['disposition'],'technical_gap')
+        self.assertNotEqual(n.captured_material_hash(packet,rec),original)
+
+    def test_same_event_changed_immutable_capture_refuses_root_grant(self):
+        with self.gate():
+            self.consume_uncertain();packet=copy.deepcopy(self.packet)
+            packet['original_hash']=digest('changed-immutable-capture');packet['event']['input_hash']=packet['original_hash']
+            self.copied_selection(packet,'changed-event')
+            before=self.root.read()
+            with self.assertRaisesRegex(Refusal,'captured_selection_changed'):self.authorize()
+            self.assertEqual(self.root.read(),before);self.assertFalse((self.f.state/'attempt-8').exists())
+
+    def test_future_only_row_change_cannot_mint_root_opportunity(self):
+        with self.gate():
+            self.consume_uncertain();old=self.consent;packet=copy.deepcopy(self.packet)
+            row=copy.deepcopy(packet['evidence'][0]);row['id']='future-row';row['text']='Different invented future-only evidence.'
+            row['observed_at']=time.time()+60;row['expires_at']=time.time()+150;packet['evidence'].append(row)
+            self.copied_selection(packet,'future-only')
+            self.assertNotEqual(self.consent['material_hash'],old['material_hash'])
+            self.assertEqual(self.consent['disclosure_material_hash'],old['disclosure_material_hash'])
+            before=self.root.read()
+            with self.assertRaisesRegex(Refusal,'captured_generation_consumed'):self.authorize()
+            self.assertEqual(self.root.read(),before);self.assertFalse((self.f.state/'attempt-8').exists())
+
+    def test_undisclosed_fact_change_cannot_mint_root_opportunity(self):
+        with self.gate():
+            self.consume_uncertain();old=self.consent;packet=copy.deepcopy(self.packet)
+            packet['facts']['retained_torrent_hash']=digest('unused-field-only')
+            self.copied_selection(packet,'undisclosed-only')
+            self.assertEqual(self.consent['material_hash'],old['material_hash'])
+            self.assertEqual(self.consent['disclosure_material_hash'],old['disclosure_material_hash'])
+            before=self.root.read()
+            with self.assertRaisesRegex(Refusal,'captured_generation_consumed'):self.authorize()
+            self.assertEqual(self.root.read(),before);self.assertFalse((self.f.state/'attempt-8').exists())
 
     def installed(self,action,*,opened=False,malformed=False):
         from ai_movie_investigator.installation import install_runtime,verify_installation
