@@ -140,8 +140,12 @@ class HistoricalDiagnosticParent:
         require(stamp(r['issued_at']) <= now < stamp(r['expires_at']), 'operator_authority_stale')
         require(r['model'] == (INTEGRATION_MODEL if integration else MODEL) and isinstance(r['project'], str) and
                 __import__('re').fullmatch(r'proj_[A-Za-z0-9_-]+', r['project']), 'operator_account_unknown')
+        output_limit=OUTPUT_TOKENS
+        if r['mode']=='historical_nano_manual':
+            from .supervised_authorization import selected_output_limit
+            output_limit=selected_output_limit(r['selection']['request_sha256'])
         require(r['currency'] in ('USD', 'TEST-USD') and rational(r['ceiling']) > 0 and
-                r['output_limit'] == OUTPUT_TOKENS, 'operator_limits_unknown')
+                type(r['output_limit']) is int and r['output_limit'] == output_limit, 'operator_limits_unknown')
         if integration:
             require(type(self.credit_history) is History and self.credit_history is not self.history and
                     self.credit_history.identity != self.history.identity and

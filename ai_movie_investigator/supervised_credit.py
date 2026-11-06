@@ -528,7 +528,7 @@ def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,
                    local_context_sha256=digest(e))
     r=dict(mode='historical_nano_manual' if historical else 'synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
         issued_at=now,expires_at=min(e['expires_at'],expires_at) if expires_at is not None else e['expires_at'],history_identity=list(history.identity),currency='USD',
-        ceiling=[3,100],output_limit=OUTPUT_TOKENS,credit_history_identity=enrollment['credit'],
+        ceiling=[3,100],output_limit=decode(body)['max_output_tokens'],credit_history_identity=enrollment['credit'],
         credit_history_file_identity=enrollment['credit_file'])
     facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=[3,100]),
         privacy=dict(request_sha256=selection['request_sha256'],store=False,tools=[]),

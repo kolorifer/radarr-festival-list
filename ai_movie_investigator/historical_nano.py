@@ -40,7 +40,7 @@ def validate(grant,project,*,authorization_at=None):
         raw=read_private(Path(selected['path']))
         require(encoded(decode(raw))==raw and digest(decode(raw))==selected['sha256'] and decode(raw)==selected['authorization'],'historical_renewal_changed')
         authorization=selected['authorization'];validate_renewal_authority(authorization,project,at=authorization_at)
-        expected=renewed_proposal(expected,authorization['diagnostic_id'],prior_run=authorization.get('prior_run'))
+        expected=renewed_proposal(expected,authorization['diagnostic_id'],prior_run=authorization.get('prior_run'),output_limit=authorization.get('max_output_tokens'))
         require(authorization['input_sha256']==expected['input_sha256'] and authorization['request_sha256']==digest(expected['request']),'historical_renewal_changed')
         expected['renewal']=selected
     require({k:v for k,v in grant.items() if k not in ('owner_confirmation','authorization_binding','consent')}==expected and
@@ -77,9 +77,11 @@ def authorize(directory,selected,input_path):
 RENEWAL_PURPOSE='observe_current_response_with_finite_diagnostics'
 HTTP_RENEWAL_PURPOSE='observe_http_rejection_with_finite_diagnostics'
 CREDENTIAL_CORRECTION_PURPOSE='verify_owner_reported_credential_correction'
+OUTPUT_HEADROOM_PURPOSE='observe_incomplete_output_with_reasoning_headroom'
+HISTORICAL_OUTPUT_TOKENS=25000
 
 
-def renewed_proposal(prior,diagnostic_id,*,prior_run=None):
+def renewed_proposal(prior,diagnostic_id,*,prior_run=None,output_limit=None):
     """Same disclosed content and clocks; only explicit diagnostic correlation changes."""
     from .disclosure import aliases,evidence_alias
     hash_id(diagnostic_id)
@@ -91,23 +93,28 @@ def renewed_proposal(prior,diagnostic_id,*,prior_run=None):
     data['binding_hash']=aliases(run)
     for row in data['evidence']:
         require(row['alias'] in mapping,'historical_renewal_changed');row['alias']=mapping[row['alias']]
+    if output_limit is not None:
+        require(type(output_limit) is int and output_limit==HISTORICAL_OUTPUT_TOKENS,'historical_renewal_authority')
+        result['request']['max_output_tokens']=output_limit
     result['run']=run;result['request']['input'][0]['content'][0]['text']=encoded(data).decode()
     return result
 
 
 def validate_renewal_authority(a,project,*,at=None):
+    headroom=a.get('purpose')==OUTPUT_HEADROOM_PURPOSE
     correction=a.get('purpose')==CREDENTIAL_CORRECTION_PURPOSE
-    chained=a.get('purpose') in (HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE)
+    chained=a.get('purpose') in (HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE,OUTPUT_HEADROOM_PURPOSE)
     shape(a,'kind diagnostic_id purpose owner_reference root_prefix_sha256 prior_slot prior_grant_sha256 '
         'prior_attempt_sha256 prior_terminal_sha256 project input_sha256 prior_request_sha256 request_sha256 '
-        'policy maximum_debit_usd max_requests not_before expires_at'+(' prior_run' if chained else '')+(' material_credential_correction_attested' if correction else ''))
+        'policy maximum_debit_usd max_requests not_before expires_at'+(' prior_run' if chained else '')+(' material_credential_correction_attested' if correction else '')+(' max_output_tokens' if headroom else ''))
     if chained:hash_id(a['prior_run'])
+    if headroom:require(type(a['max_output_tokens']) is int and a['max_output_tokens']==HISTORICAL_OUTPUT_TOKENS,'historical_renewal_authority')
     if correction:require(a['material_credential_correction_attested'] is True,'historical_renewal_authority')
     for key in ('diagnostic_id','root_prefix_sha256','prior_grant_sha256','prior_attempt_sha256',
                 'prior_terminal_sha256','input_sha256','prior_request_sha256','request_sha256'):hash_id(a[key])
     reference=text(a['owner_reference'],500).strip()
     require(bool(reference) and reference.casefold()!='unknown','historical_renewal_authority')
-    require(a['kind']=='historical_forward_diagnostic_authorization' and a['purpose'] in (RENEWAL_PURPOSE,HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE) and
+    require(a['kind']=='historical_forward_diagnostic_authorization' and a['purpose'] in (RENEWAL_PURPOSE,HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE,OUTPUT_HEADROOM_PURPOSE) and
         a['project']==project and a['policy']==POLICY and a['maximum_debit_usd']==[3,100] and
         type(a['max_requests']) is int and a['max_requests']==1 and type(a['prior_slot']) is int and a['prior_slot']>=7,
         'historical_renewal_authority')
@@ -124,20 +131,23 @@ def renewal_history(root,events,grant,*,creating,_authorization_at=None):
     prior=[s for s,_ in attempts if s['slot']==a['prior_slot']]
     require(len(prior)==1 and 'historical' in prior[0],'historical_renewal_prior')
     old=prior[0]['historical'];terminal=[e for e in events if e.get('slot')==a['prior_slot'] and e['type']=='supervised_diagnostic']
+    headroom=a['purpose']==OUTPUT_HEADROOM_PURPOSE
     correction=a['purpose']==CREDENTIAL_CORRECTION_PURPOSE
-    http=a['purpose'] in (HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE)
+    http=a['purpose'] in (HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE,OUTPUT_HEADROOM_PURPOSE)
     require(http or 'renewal' not in old,'historical_renewal_prior')
     if http:require(a['prior_run']==old['run'],'historical_renewal_changed')
+    # No purpose silently carries an expanded predecessor into another grant.
+    require(old['request']['max_output_tokens']==4096,'historical_renewal_prior')
     rows=History(root.directory/f"attempt-{a['prior_slot']}").read()
-    require(len(terminal)==1 and terminal[0]['reason']==('responses_http_401' if correction else 'responses_http_rejected' if http else 'responses_not_completed') and
-        terminal[0]['phase']==('http_response_received' if http else 'response_parsing') and
+    require(len(terminal)==1 and terminal[0]['reason']==('responses_incomplete_max_output_tokens' if headroom else 'responses_http_401' if correction else 'responses_http_rejected' if http else 'responses_not_completed') and
+        terminal[0]['phase']==('http_response_received' if http and not headroom else 'response_parsing') and
         len(rows)==2 and [r['type'] for r in rows]==['bound_send_reserved','bound_send_attempted'] and
         not any(e.get('slot')==a['prior_slot'] and e['type']=='supervised_completed' for e in events),'historical_renewal_prior')
     require(digest(old)==a['prior_grant_sha256'] and digest(rows)==a['prior_attempt_sha256'] and
         digest(terminal[0])==a['prior_terminal_sha256'] and digest(old['request'])==a['prior_request_sha256'] and
         old['input_sha256']==a['input_sha256']==grant['input_sha256'] and old['case']==grant['case'] and
         old['fingerprint']==grant['fingerprint'] and old['prepared_at']==grant['prepared_at'],'historical_renewal_changed')
-    expected=renewed_proposal(old,a['diagnostic_id'])
+    expected=renewed_proposal(old,a['diagnostic_id'],output_limit=a.get('max_output_tokens'))
     require(all(grant[k]==v for k,v in expected.items()),'historical_renewal_changed')
     uses=[s for s,_ in attempts if 'renewal' in s.get('historical',{}) and
           (s['historical']['renewal']['authorization']['prior_slot']==a['prior_slot'] or
@@ -174,7 +184,7 @@ def authorize_renewal(directory,selected,path,authorization_sha256):
         attempts=c._standing_attempts(events,events[1])
         matches=[s for s,_ in attempts if s['slot']==a['prior_slot']]
         require(len(matches)==1 and 'historical' in matches[0],'historical_renewal_prior')
-        grant=renewed_proposal(matches[0]['historical'],a['diagnostic_id'])
+        grant=renewed_proposal(matches[0]['historical'],a['diagnostic_id'],output_limit=a.get('max_output_tokens'))
         grant['renewal']=dict(path=str(Path(path)),sha256=digest(a),authorization=a)
         grant['consent']=consent(grant,selected.data['project']);grant['authorization_binding']=digest(grant['consent'])
         renewal_history(root,events,grant,creating=True)
@@ -201,4 +211,6 @@ def report(grant,answer,history):
 
     if 'renewal' in grant:
         a=grant['renewal']['authorization'];result_report['forward_diagnostic']=dict(purpose=a['purpose'],diagnostic_id=a['diagnostic_id'],prior_slot=a['prior_slot'],prior_cause='unknown',prior_outcome_reinterpreted=False,authorization_method='selected_private_owner_authorization',authorization_sha256=grant['renewal']['sha256'],direct_interactive_confirmation=False)
+    if grant.get('renewal',{}).get('authorization',{}).get('purpose')==OUTPUT_HEADROOM_PURPOSE:
+        result_report['generation_allowance']=dict(max_output_tokens=HISTORICAL_OUTPUT_TOKENS,includes_reasoning_and_formatting=True,maximum_debit_usd=[3,100])
     return result_report

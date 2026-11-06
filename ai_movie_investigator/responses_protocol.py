@@ -53,9 +53,11 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
     from .responses_http import MAX_RESPONSE
     require(expected_model in (MODEL, INTEGRATION_MODEL), 'responses_model_profile')
     envelope_limit,opaque_limit=MAX_RESPONSE,16384
+    output_limit=OUTPUT_TOKENS
     if http_result is not None:
-        from .supervised_authorization import response_limits
+        from .supervised_authorization import response_limits,response_output_limit
         envelope_limit,opaque_limit=response_limits(http_result,raw,request_id,expected_model)
+        output_limit=response_output_limit(http_result)
     response = decode(raw, envelope_limit)
     require(isinstance(response,dict) and response.get('object')=='response','responses_object_invalid')
     require(response.get('model')==expected_model,'responses_model_mismatch')
@@ -90,7 +92,7 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
             'responses_contract_changed')
     require(response.get('store') is False and response.get('background') is False
             and response.get('tools') == [] and response.get('tool_choice') == 'none'
-            and response.get('max_output_tokens') == OUTPUT_TOKENS,
+            and response.get('max_output_tokens') == output_limit,
             'responses_contract_changed')
     cache = response.get('prompt_cache_options')
     cache_ok = cache is None if expected_model == INTEGRATION_MODEL else (
@@ -134,7 +136,7 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
         schema_value(answer, schema)
         answers.append(encoded(answer))
     require(len(answers) == 1, 'responses_answer_count')
-    usage = validate_usage(response.get('usage'), legacy=expected_model == INTEGRATION_MODEL)
+    usage = validate_usage(response.get('usage'), legacy=expected_model == INTEGRATION_MODEL, output_limit=output_limit)
     policy = dict(model=expected_model, service_tier='default')
     if expected_model == MODEL:
         policy['prompt_cache_options'] = dict(ttl='30m')
@@ -146,13 +148,14 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
     return answers[0], accounting
 
 
-def validate_usage(usage, *, legacy=False):
+def validate_usage(usage, *, legacy=False, output_limit=OUTPUT_TOKENS):
     """Exact mandatory usage; writes partition by the selected cache lifetime."""
     require(isinstance(usage, dict) and set(usage) == {'input_tokens', 'input_tokens_details',
             'output_tokens', 'output_tokens_details', 'total_tokens'}, 'responses_usage_required')
+    require(type(output_limit) is int and (output_limit==OUTPUT_TOKENS or legacy and output_limit==25000),'responses_usage_limit')
     input_ceiling = 400000 if legacy else INPUT_TOKENS
-    for key, ceiling in (('input_tokens', input_ceiling), ('output_tokens', OUTPUT_TOKENS),
-                         ('total_tokens', input_ceiling + OUTPUT_TOKENS)):
+    for key, ceiling in (('input_tokens', input_ceiling), ('output_tokens', output_limit),
+                         ('total_tokens', input_ceiling + output_limit)):
         require(type(usage[key]) is int and 0 <= usage[key] <= ceiling, 'responses_usage_limit')
     require(usage['input_tokens'] > 0 and usage['output_tokens'] > 0
             and usage['total_tokens'] == usage['input_tokens'] + usage['output_tokens'], 'responses_usage_invalid')
