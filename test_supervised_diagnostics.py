@@ -84,14 +84,14 @@ class DiagnosticTests(unittest.TestCase):
             'schema':('response_parsing','responses_answer_schema'),
             'malformed':('response_parsing','invalid_json'),
             'missing_id':('receipt_validation','responses_identity_invalid'),
-            'rejected':('http_response_received','responses_http_rejected'),
+            'rejected':('http_response_received','responses_http_401'),
             'shape':('http_response_received','responses_http_shape'),
             'large':('http_response_received','responses_declared_body_limit'),
             'truncated':('http_body_read','responses_body_truncated'),
             'dns':('dns_lookup','responses_dns_failed'),
             'timer':('http_setup','responses_timer_busy'),
             'tls':('tls_setup','responses_tls_roots_unavailable'),
-            'close_failure':('http_response_received','responses_http_rejected'),
+            'close_failure':('http_response_received','responses_http_401'),
             'close_success':('http_body_received','responses_cleanup_failed')}
         for variant,(phase,reason) in variants.items():
             with self.subTest(variant=variant):

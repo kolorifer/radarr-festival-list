@@ -12,7 +12,7 @@
     "ai_movie_investigator/credit_test.py": "b35489c39e1bd1719fda4aaaeb58520a371c74b999474a699341cb8dba5a24c1",
     "ai_movie_investigator/disclosure.py": "b232ace8aac8385114dc3bd3680cdba3108f35ac4684d21f422a9801d2f78af5",
     "ai_movie_investigator/draft_delivery.py": "bc08fb3fe01e88472a3ccc4147c1ed2c854c59fd96aaa0a4c74c12d19f10d4dd",
-    "ai_movie_investigator/historical_nano.py": "df4a60ee92283aa5b7d6dc9d42ae7b895482d3835822e4b17e9be13c6212d09b",
+    "ai_movie_investigator/historical_nano.py": "7835c72248faa1df60a03e8f1a44fc3eb3fa6ac4839834f0161cd42ea3eff904",
     "ai_movie_investigator/history.py": "fa8049601ce129c10603823eb4a05b64065d5963ede41ead48d72fd33855eb3d",
     "ai_movie_investigator/installation.py": "5f8a7aabb79decb7114dc73f6ea3bc5df1ebc9cf1add6f74723767fa7463499c",
     "ai_movie_investigator/keychain_credential.py": "72ff5336857dd8577c51d6ea1b86e15f260033d2a90eecf0ea0b696026421810",
@@ -25,14 +25,14 @@
     "ai_movie_investigator/private_files.py": "b2a25e9164ba02edb4e9bb489bd107eb908447c4dd4390b1aa66e2e6bd3f996a",
     "ai_movie_investigator/replay.py": "386838aba7e3019de9bf7a3bc10baa20e1dc49da34bf5950e09ce3d8223ffd4f",
     "ai_movie_investigator/research.py": "6907ac33bee6ffa1dc63c561eee4802b7769fd8bc98bb1f3fdad6760bdc17dd0",
-    "ai_movie_investigator/responses_http.py": "f6a16da7788ecf4c50c4df0583858f40452032df47336e36f2a5ef04b178edb3",
+    "ai_movie_investigator/responses_http.py": "3366afd2b0a1a337a4cb0eda7104f01cf658649a12aef5e8626cfb9c143fd881",
     "ai_movie_investigator/responses_protocol.py": "45f6958c8babfa85349d1232012df0efa362ae60d9c19258a792236328b921d0",
     "ai_movie_investigator/responses_replay.py": "0827952c517210e4cb0be4016523e7cc62ab52b94ab0785fc814e6c4b02b71c7",
     "ai_movie_investigator/responses_transport.py": "5d3ed200362cebd9f93f02040174476f09c30132beb3c90abf3ef66f13798621",
     "ai_movie_investigator/review.py": "e4939155e64ed9dc5e8c23a75ba7b44fdfd0bc566e53abaccfbd5bb43d3d66ba",
     "ai_movie_investigator/spending.py": "ce169410bf5c178913c15b7976d6cf123779a5f158d377dfa25c0cae72cb7757",
     "ai_movie_investigator/supervised_authorization.py": "f35249d42ac97bff9dcf8290d21d0bc0b7a5371bf9853ba815521da59e407fcb",
-    "ai_movie_investigator/supervised_credit.py": "ffc2981502f92e9c191dbe7c2d6cdd020eb16d9a22d1cb185e474e9ca3d0c385",
+    "ai_movie_investigator/supervised_credit.py": "4ec839a38f8159297ec656376d602a133075429f8ea8b43a908eddcda33b6a7f",
     "ai_movie_investigator/synthetic.json": "e425037c034b7baba21eda464d697797b8a6d44ab710efbdf0d5cb93ead429ba",
     "ai_movie_investigator/weekly_ledger.py": "8d4baa073e6350729a05d7eaa241bc987a6b6a5df73a382542a379a9ca1c5f1a",
     "identity_recurring_store.py": "b90324300ac8e6348714bd2b5c5c3b67a537c3996294d02201edc0e7903e89bd",
@@ -55,6 +55,6 @@
     "test_investigator_catalogue.py": "538b1dd78b95dd6c4ac903a4814c4f578300c3604ea4266a07c33b7016b10c13",
     "test_issue127_correction.py": "a4fb1d76aa2b523baf86a326e6b08e8e2d3dc642d33d0853b1729647707557f6",
     "test_parent_pilot.py": "1cb85f3d723de01425c7634cf4a6903979d18c39bd9083ec1fdb650050db562d",
-    "test_responses_transport.py": "ee8b4e7d1af3c03732c870e8166bb131c3a70a2095f248f9934e9635f5cbba2f"
+    "test_responses_transport.py": "c695a898927d8af0a10ff5489610c56ab2535a3a8281f4417be60e0278787a0f"
   }
 }

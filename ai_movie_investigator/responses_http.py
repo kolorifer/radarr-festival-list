@@ -115,7 +115,16 @@ def read_response(response, body, project, path, response_limit, check):
     """Shared bounded framing reader; correlation stamps are local, not billing proof."""
     from .supervised_authorization import observe_phase
     # Never follow Location or consume/echo error bodies.
-    require(response.status == 200, 'responses_http_rejected')
+    status = response.status
+    if status != 200:
+        # Finite observations only, not a diagnosis of key/account or billing.
+        reasons = {400:'responses_http_400',401:'responses_http_401',403:'responses_http_403',
+                   404:'responses_http_404',408:'responses_http_408',409:'responses_http_409',
+                   422:'responses_http_422',429:'responses_http_429'}
+        reason = reasons.get(status) if type(status) is int else None
+        if reason is None:
+            reason = 'responses_http_5xx' if type(status) is int and 500<=status<=599 else 'responses_http_other'
+        raise Refusal(reason)
     hs = response.getheaders()
     lengths = [v for k, v in hs if k.lower() == 'content-length']
     types = [v for k, v in hs if k.lower() == 'content-type']
