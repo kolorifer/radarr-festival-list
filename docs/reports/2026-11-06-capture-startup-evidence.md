@@ -48,6 +48,6 @@ Default-off startup makes none of these new queries. Enabled deployment remains
 held until this specific operational constraint is resolved within owner authority;
 no live probe, extra restart or unit-policy change is authorized by this patch.
 
-Focused local verification: 125 tests passed, one Linux-only kernel test skipped
-on macOS. Private preflight/health verifier: 15 invented tests passed. Exact-head
+Focused local verification: 125 tests ran: 124 passed and one Linux-only kernel test skipped
+on macOS. Private preflight/health verifier: 16 invented tests passed. Exact-head
 CI supplies supported Linux/Python checks; it is not provider-host proof.
