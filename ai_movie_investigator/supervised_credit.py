@@ -32,8 +32,8 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
-    'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid').split()),
-    'historical_refused': frozenset(('historical_expanded_required historical_disclosure_size historical_disclosure_changed historical_owner_confirmation_required historical_receipt_missing historical_route_required historical_pending_grant historical_assessment_consumed').split()),
+    'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid keychain_process_required keychain_lookup_timeout keychain_lookup_busy keychain_framework_unavailable keychain_interaction_get_failed keychain_interaction_disable_failed keychain_interaction_restore_failed keychain_query_build_failed keychain_query_failed keychain_release_failed keychain_not_available keychain_parameter_invalid keychain_entitlement_missing').split()),
+    'historical_refused': frozenset(('historical_expanded_required historical_disclosure_size historical_disclosure_changed historical_owner_confirmation_required historical_receipt_missing historical_route_required historical_pending_grant historical_assessment_consumed historical_renewal_changed historical_renewal_authority historical_renewal_expired historical_renewal_prior historical_renewal_consumed').split()),
     'standing_credit_refused': frozenset(('supervised_standing_missing supervised_standing_binding '
         'supervised_standing_interrupted supervised_standing_history supervised_standing_credit').split()),
     'evidence_changed': frozenset((
@@ -560,8 +560,10 @@ def run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fals
 
 
 def safe_diagnostic(error):
-    return dict(phase=diagnostic_phase() or 'preflight',reason=safe_reason(error),
-                category=refusal_category(error))
+    result=dict(phase=diagnostic_phase() or 'preflight',reason=safe_reason(error),category=refusal_category(error))
+    cleanup=getattr(error,'keychain_cleanup_reason',None)
+    if cleanup in ('keychain_release_failed','keychain_interaction_restore_failed'):result['cleanup_reason']=cleanup
+    return result
 
 
 def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=False):
@@ -599,6 +601,9 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
         if slot>=7 and not next_attempt:
             start,_=standing_binding(events,enrolled,selected,slot)
             historical_grant=start.get('historical')
+            if historical_grant and 'renewal' in historical_grant:
+                from .historical_nano import renewal_history
+                renewal_history(root,events,historical_grant,creating=False)
         require(bool(historical_grant)==historical,'historical_route_required')
         run_id=historical_grant['run'] if historical_grant else f'synthetic-integration-{slot}'
         case=dict(source='synthetic-credit-integration',case_id='outcome-'+digest('synthetic-example'),
@@ -837,7 +842,11 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None):
     if attempts and 'historical' in attempts[-1][0]:
         require(any(e.get('type')=='supervised_started' and e.get('slot')==attempts[-1][0]['slot'] for e in events),'historical_pending_grant')
     if historical:
-        require(not any(s.get('historical',{}).get('fingerprint')==historical['fingerprint'] for s,_ in attempts),'historical_assessment_consumed')
+        if 'renewal' in historical:
+            from .historical_nano import renewal_history
+            renewal_history(root,events,historical,creating=True)
+        else:
+            require(not any(s.get('historical',{}).get('fingerprint')==historical['fingerprint'] for s,_ in attempts),'historical_assessment_consumed')
     slot=7+len(attempts);target=root.directory/f'attempt-{slot}'
     require(not os.path.lexists(target),'supervised_standing_history')
     prior=digest(History(root.directory/f'attempt-{slot-1}').read())
@@ -871,6 +880,24 @@ def run_next(directory,selected):
     return run(directory,selected,None)
 
 
+def check_keychain(directory,selected):
+    """One-shot credential availability/format only; shared lock, no send authority."""
+    require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
+    selected.revalidate();e=selected.data;validate_evidence(e,time.time(),standing=True)
+    root=History(Path(directory))
+    with root.transaction() as (events,_):
+        require(len(events)>=21,'supervised_standing_missing')
+        grant,_,_,total=_standing_history(root,events,events[1],History(root.directory/'credit'))
+        require(e['project']==grant['project'] and e['account_reference']==grant['account_reference'] and
+            time.time()<grant['credit_expires_at'] and e['credit_expires_at']<=grant['credit_expires_at'] and
+            total+PER_REQUEST<=min(rational(grant['ceiling_usd']),rational(e['available_usd'])),'supervised_standing_credit')
+        selected.revalidate()
+        from .keychain_credential import credential
+        value=credential(e['project'])
+        headers(value,e['project'])
+    return dict(status='credential_available_format_only_no_api_call')
+
+
 class _SafeParser(argparse.ArgumentParser):
     def error(self,message):
         self.exit(2,'Supervised synthetic command refused: category=invalid_arguments; action=unknown. '
@@ -894,8 +921,10 @@ def main(argv=None):
     continuation.add_argument('--slot',type=int,choices=(4,5,6),default=4)
     standing=sub.add_parser('authorize-standing');standing.add_argument('--evidence',required=True,type=Path)
     next_send=sub.add_parser('run-next');next_send.add_argument('--evidence',required=True,type=Path)
+    k=sub.add_parser('check-keychain');k.add_argument('--evidence',required=True,type=Path)
     k=sub.add_parser('run-next-keychain');k.add_argument('--evidence',required=True,type=Path)
     k=sub.add_parser('run-historical-keychain');k.add_argument('--evidence',required=True,type=Path);k.add_argument('--slot',required=True,type=int)
+    r=sub.add_parser('authorize-historical-renewal');r.add_argument('--evidence',required=True,type=Path);r.add_argument('--authorization',required=True,type=Path);r.add_argument('--authorization-sha256',required=True)
     h=sub.add_parser('authorize-historical');h.add_argument('--evidence',required=True,type=Path);h.add_argument('--input',required=True,type=Path)
     h=sub.add_parser('run-historical');h.add_argument('--evidence',required=True,type=Path);h.add_argument('--slot',required=True,type=int)
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
@@ -914,11 +943,15 @@ def main(argv=None):
         elif args.action=='continue-once':
             result=recover_once(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence),slot=args.slot)
         elif args.action=='authorize-standing':result=authorize_standing(args.state,read_evidence(args.evidence))
+        elif args.action=='authorize-historical-renewal':
+            from .historical_nano import authorize_renewal
+            result=authorize_renewal(args.state,read_evidence(args.evidence),args.authorization,args.authorization_sha256)
         elif args.action=='authorize-historical':
             from .historical_nano import authorize
             result=authorize(args.state,read_evidence(args.evidence),args.input)
         elif args.action=='run-historical':result=run(args.state,read_evidence(args.evidence),args.slot,historical=True)
         elif args.action=='run-next':result=run_next(args.state,read_evidence(args.evidence))
+        elif args.action=='check-keychain':result=check_keychain(args.state,read_evidence(args.evidence))
         elif args.action=='run-next-keychain':result=run(args.state,read_evidence(args.evidence),None,keychain=True)
         elif args.action=='run-historical-keychain':result=run(args.state,read_evidence(args.evidence),args.slot,historical=True,keychain=True)
         else:result=run(args.state,read_evidence(args.evidence),args.slot)
@@ -929,6 +962,7 @@ def main(argv=None):
         print('Supervised synthetic command refused: category='+refusal_category(error)+
               '; action='+args.action+'; '+('request status unconfirmed' if args.action in ('run','run-next','run-historical','run-next-keychain','run-historical-keychain') else 'no API request')+
               '; phase='+diagnostic['phase']+'; reason='+diagnostic['reason']+
+              ('; cleanup_reason='+diagnostic['cleanup_reason'] if 'cleanup_reason' in diagnostic else '')+
               '. Retain state; do not retry automatically.',file=sys.stderr)
         return 1
 
@@ -937,4 +971,6 @@ if __name__=='__main__':
     # -m executes this file as __main__; authority imports the canonical module.
     # Use its classes and prompt ContextVar throughout the executable command.
     from ai_movie_investigator.supervised_credit import main as canonical_main
-    raise SystemExit(canonical_main())
+    from ai_movie_investigator.keychain_credential import one_shot_process
+    with one_shot_process():
+        raise SystemExit(canonical_main())
