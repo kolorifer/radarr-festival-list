@@ -76,6 +76,7 @@ def authorize(directory,selected,input_path):
 
 RENEWAL_PURPOSE='observe_current_response_with_finite_diagnostics'
 HTTP_RENEWAL_PURPOSE='observe_http_rejection_with_finite_diagnostics'
+CREDENTIAL_CORRECTION_PURPOSE='verify_owner_reported_credential_correction'
 
 
 def renewed_proposal(prior,diagnostic_id,*,prior_run=None):
@@ -95,15 +96,18 @@ def renewed_proposal(prior,diagnostic_id,*,prior_run=None):
 
 
 def validate_renewal_authority(a,project,*,at=None):
+    correction=a.get('purpose')==CREDENTIAL_CORRECTION_PURPOSE
+    chained=a.get('purpose') in (HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE)
     shape(a,'kind diagnostic_id purpose owner_reference root_prefix_sha256 prior_slot prior_grant_sha256 '
         'prior_attempt_sha256 prior_terminal_sha256 project input_sha256 prior_request_sha256 request_sha256 '
-        'policy maximum_debit_usd max_requests not_before expires_at'+(' prior_run' if a.get('purpose')==HTTP_RENEWAL_PURPOSE else ''))
-    if a['purpose']==HTTP_RENEWAL_PURPOSE:hash_id(a['prior_run'])
+        'policy maximum_debit_usd max_requests not_before expires_at'+(' prior_run' if chained else '')+(' material_credential_correction_attested' if correction else ''))
+    if chained:hash_id(a['prior_run'])
+    if correction:require(a['material_credential_correction_attested'] is True,'historical_renewal_authority')
     for key in ('diagnostic_id','root_prefix_sha256','prior_grant_sha256','prior_attempt_sha256',
                 'prior_terminal_sha256','input_sha256','prior_request_sha256','request_sha256'):hash_id(a[key])
     reference=text(a['owner_reference'],500).strip()
     require(bool(reference) and reference.casefold()!='unknown','historical_renewal_authority')
-    require(a['kind']=='historical_forward_diagnostic_authorization' and a['purpose'] in (RENEWAL_PURPOSE,HTTP_RENEWAL_PURPOSE) and
+    require(a['kind']=='historical_forward_diagnostic_authorization' and a['purpose'] in (RENEWAL_PURPOSE,HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE) and
         a['project']==project and a['policy']==POLICY and a['maximum_debit_usd']==[3,100] and
         type(a['max_requests']) is int and a['max_requests']==1 and type(a['prior_slot']) is int and a['prior_slot']>=7,
         'historical_renewal_authority')
@@ -120,11 +124,12 @@ def renewal_history(root,events,grant,*,creating,_authorization_at=None):
     prior=[s for s,_ in attempts if s['slot']==a['prior_slot']]
     require(len(prior)==1 and 'historical' in prior[0],'historical_renewal_prior')
     old=prior[0]['historical'];terminal=[e for e in events if e.get('slot')==a['prior_slot'] and e['type']=='supervised_diagnostic']
-    http=a['purpose']==HTTP_RENEWAL_PURPOSE
+    correction=a['purpose']==CREDENTIAL_CORRECTION_PURPOSE
+    http=a['purpose'] in (HTTP_RENEWAL_PURPOSE,CREDENTIAL_CORRECTION_PURPOSE)
     require(http or 'renewal' not in old,'historical_renewal_prior')
     if http:require(a['prior_run']==old['run'],'historical_renewal_changed')
     rows=History(root.directory/f"attempt-{a['prior_slot']}").read()
-    require(len(terminal)==1 and terminal[0]['reason']==('responses_http_rejected' if http else 'responses_not_completed') and
+    require(len(terminal)==1 and terminal[0]['reason']==('responses_http_401' if correction else 'responses_http_rejected' if http else 'responses_not_completed') and
         terminal[0]['phase']==('http_response_received' if http else 'response_parsing') and
         len(rows)==2 and [r['type'] for r in rows]==['bound_send_reserved','bound_send_attempted'] and
         not any(e.get('slot')==a['prior_slot'] and e['type']=='supervised_completed' for e in events),'historical_renewal_prior')
