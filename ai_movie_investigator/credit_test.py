@@ -59,7 +59,9 @@ def reserve(history, *, project, request_hash, input_bound, now, file_identity, 
     require(tuple(debit) in ((1,100),(3,100)), 'credit_request_ceiling')
     full_context=tuple(debit)==(3,100)
     require(type(input_bound) is int and (input_bound==CONTEXT_TOKENS if full_context else 0<input_bound<=INPUT_TOKENS), 'credit_input_bound')
-    maximum = input_bound * INPUT_RATE + OUTPUT_TOKENS * OUTPUT_RATE
+    from .supervised_authorization import selected_output_limit
+    output_limit=selected_output_limit(request_hash)
+    maximum = input_bound * INPUT_RATE + output_limit * OUTPUT_RATE
     require(maximum <= Fraction(*debit), 'credit_request_ceiling')
     from .supervised_authorization import reservation_ceiling
     ceiling=reservation_ceiling(history,project,request_hash)

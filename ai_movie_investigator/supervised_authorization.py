@@ -172,6 +172,31 @@ def response_limits(result,raw,request_id,model):
     return SYNTHETIC_MAX_RESPONSE,SYNTHETIC_MAX_RESPONSE
 
 
+def selected_output_limit(request_hash):
+    """Larger generation only for the exact root-locked historical headroom grant."""
+    from .responses_protocol import OUTPUT_TOKENS
+    from .supervised_credit import expected_request, _standing_attempts
+    from .historical_nano import OUTPUT_HEADROOM_PURPOSE, HISTORICAL_OUTPUT_TOKENS
+    session=_ACTIVE.get()
+    if session is None:return OUTPUT_TOKENS
+    session.root.require_write_transaction(session.events)
+    body=expected_request(session.events,session.enrolled,session.slot)
+    require(request_hash==digest(decode(body)),'supervised_request_binding')
+    if session.slot>=7:
+        grant=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot).get('historical',{})
+        if grant.get('renewal',{}).get('authorization',{}).get('purpose')==OUTPUT_HEADROOM_PURPOSE:
+            require(decode(body)['max_output_tokens']==HISTORICAL_OUTPUT_TOKENS,'supervised_request_binding')
+            return HISTORICAL_OUTPUT_TOKENS
+    return OUTPUT_TOKENS
+
+
+def response_output_limit(result):
+    from .responses_protocol import OUTPUT_TOKENS
+    session=_ACTIVE.get()
+    if session is None or result is None or result is not session.received:return OUTPUT_TOKENS
+    return selected_output_limit(result.request_sha256)
+
+
 def refusal(token,*,body=None,credential=None,project=None,path=None,consume=True):
     session=_ACTIVE.get()
     if type(token) is not _Permit or session is None or token not in session.issued:
