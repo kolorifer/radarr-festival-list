@@ -2,7 +2,7 @@
 import sys
 import time
 from pathlib import Path
-from .contracts import decode,digest,encoded,require,shape
+from .contracts import decode,digest,encoded,require,shape,hash_id,stamp,text
 from .private_files import read_private
 from .credit_test import POLICY
 from .history import History
@@ -22,19 +22,30 @@ def proposal(path,at):
 
 
 def consent(proposed,project):
-    return dict(request_sha256=digest(proposed['request']),project=project,
+    result=dict(request_sha256=digest(proposed['request']),project=project,
         selected_case=proposed['case'],input_sha256=proposed['input_sha256'],
         policy=POLICY,maximum_debit_usd=[3,100],endpoint='https://api.openai.com/v1/responses',
         purpose='one_historical_manual_diagnostic',currentness='unknown',decisions='unknown',
         identity_approval=False,acquisition_approval=False)
+    if 'renewal' in proposed:result['renewal_authorization_sha256']=proposed['renewal']['sha256']
+    return result
 
 
 def validate(grant,project):
-    shape(grant,'input_path input_sha256 prepared_at fingerprint case run disclosure request consent owner_confirmation')
+    attestation='authorization_binding' if 'renewal' in grant else 'owner_confirmation'
+    shape(grant,'input_path input_sha256 prepared_at fingerprint case run disclosure request consent '+attestation+(' renewal' if 'renewal' in grant else ''))
     expected=proposal(grant['input_path'],grant['prepared_at'])
-    require({k:v for k,v in grant.items() if k not in ('owner_confirmation','consent')}==expected and
+    if 'renewal' in grant:
+        selected=grant['renewal'];shape(selected,'path sha256 authorization')
+        raw=read_private(Path(selected['path']))
+        require(encoded(decode(raw))==raw and digest(decode(raw))==selected['sha256'] and decode(raw)==selected['authorization'],'historical_renewal_changed')
+        authorization=selected['authorization'];validate_renewal_authority(authorization,project)
+        expected=renewed_proposal(expected,authorization['diagnostic_id'])
+        require(authorization['input_sha256']==expected['input_sha256'] and authorization['request_sha256']==digest(expected['request']),'historical_renewal_changed')
+        expected['renewal']=selected
+    require({k:v for k,v in grant.items() if k not in ('owner_confirmation','authorization_binding','consent')}==expected and
             grant['consent']==consent(expected,project) and
-            grant['owner_confirmation']==digest(grant['consent']),'historical_disclosure_changed')
+            grant[attestation]==digest(grant['consent']),'historical_disclosure_changed')
     return encoded(grant['request'])
 
 
@@ -62,6 +73,91 @@ def authorize(directory,selected,input_path):
     return dict(status='historical_disclosure_authorized_no_api_call',slot=slot,request_sha256=digest(grant['request']),grant_sha256=fingerprint)
 
 
+
+RENEWAL_PURPOSE='observe_current_response_with_finite_diagnostics'
+
+
+def renewed_proposal(prior,diagnostic_id):
+    """Same disclosed content and clocks; only explicit diagnostic correlation changes."""
+    from .disclosure import aliases,evidence_alias
+    hash_id(diagnostic_id)
+    result={k:decode(encoded(v)) for k,v in prior.items() if k not in ('consent','owner_confirmation','authorization_binding','renewal')}
+    run=digest(dict(kind='historical_forward_diagnostic',diagnostic_id=diagnostic_id,prior_run=prior['run']))
+    data=decode(result['request']['input'][0]['content'][0]['text'],32768)
+    mapping={evidence_alias(prior['run'],eid):evidence_alias(run,eid) for eid in prior['disclosure']['rows']}
+    require(data['binding_hash']==aliases(prior['run']),'historical_renewal_changed')
+    data['binding_hash']=aliases(run)
+    for row in data['evidence']:
+        require(row['alias'] in mapping,'historical_renewal_changed');row['alias']=mapping[row['alias']]
+    result['run']=run;result['request']['input'][0]['content'][0]['text']=encoded(data).decode()
+    return result
+
+
+def validate_renewal_authority(a,project):
+    shape(a,'kind diagnostic_id purpose owner_reference root_prefix_sha256 prior_slot prior_grant_sha256 '
+        'prior_attempt_sha256 prior_terminal_sha256 project input_sha256 prior_request_sha256 request_sha256 '
+        'policy maximum_debit_usd max_requests not_before expires_at')
+    for key in ('diagnostic_id','root_prefix_sha256','prior_grant_sha256','prior_attempt_sha256',
+                'prior_terminal_sha256','input_sha256','prior_request_sha256','request_sha256'):hash_id(a[key])
+    reference=text(a['owner_reference'],500).strip()
+    require(bool(reference) and reference.casefold()!='unknown','historical_renewal_authority')
+    require(a['kind']=='historical_forward_diagnostic_authorization' and a['purpose']==RENEWAL_PURPOSE and
+        a['project']==project and a['policy']==POLICY and a['maximum_debit_usd']==[3,100] and
+        type(a['max_requests']) is int and a['max_requests']==1 and type(a['prior_slot']) is int and a['prior_slot']>=7,
+        'historical_renewal_authority')
+    require(stamp(a['not_before'])<=time.time()<stamp(a['expires_at']) and
+        a['expires_at']-a['not_before']<=14400,'historical_renewal_expired')
+
+
+def renewal_history(root,events,grant,*,creating):
+    from . import supervised_credit as c
+    a=grant['renewal']['authorization'];validate_renewal_authority(a,events[1]['project'])
+    # The owner-selected file is required, even when a caller constructs a grant object.
+    validate(grant,events[1]['project'])
+    attempts=c._standing_attempts(events,events[1])
+    prior=[s for s,_ in attempts if s['slot']==a['prior_slot']]
+    require(len(prior)==1 and 'historical' in prior[0] and 'renewal' not in prior[0]['historical'],'historical_renewal_prior')
+    old=prior[0]['historical'];terminal=[e for e in events if e.get('slot')==a['prior_slot'] and e['type']=='supervised_diagnostic']
+    rows=History(root.directory/f"attempt-{a['prior_slot']}").read()
+    require(len(terminal)==1 and terminal[0]['reason']=='responses_not_completed' and terminal[0]['phase']=='response_parsing' and
+        len(rows)==2 and [r['type'] for r in rows]==['bound_send_reserved','bound_send_attempted'] and
+        not any(e.get('slot')==a['prior_slot'] and e['type']=='supervised_completed' for e in events),'historical_renewal_prior')
+    require(digest(old)==a['prior_grant_sha256'] and digest(rows)==a['prior_attempt_sha256'] and
+        digest(terminal[0])==a['prior_terminal_sha256'] and digest(old['request'])==a['prior_request_sha256'] and
+        old['input_sha256']==a['input_sha256']==grant['input_sha256'] and old['case']==grant['case'] and
+        old['fingerprint']==grant['fingerprint'] and old['prepared_at']==grant['prepared_at'],'historical_renewal_changed')
+    expected=renewed_proposal(old,a['diagnostic_id'])
+    require(all(grant[k]==v for k,v in expected.items()),'historical_renewal_changed')
+    uses=[s for s,_ in attempts if 'renewal' in s.get('historical',{}) and
+          (s['historical']['renewal']['authorization']['prior_slot']==a['prior_slot'] or
+           s['historical']['renewal']['authorization']['diagnostic_id']==a['diagnostic_id'])]
+    if creating:
+        require(not uses and digest(events)==a['root_prefix_sha256'],'historical_renewal_consumed')
+    else:
+        require(len(uses)==1 and uses[0]['historical']==grant and uses[0]['prefix_sha256']==a['root_prefix_sha256'],
+            'historical_renewal_consumed')
+
+
+def authorize_renewal(directory,selected,path,authorization_sha256):
+    """Consume one exact private owner authorization; no key lookup or provider call."""
+    from . import supervised_credit as c
+    require(type(selected) is c.SelectedEvidence,'supervised_evidence_selection')
+    selected.revalidate();c.validate_evidence(selected.data,time.time(),standing=True)
+    raw=read_private(Path(path));a=decode(raw,16384)
+    require(encoded(a)==raw and digest(a)==hash_id(authorization_sha256),'historical_renewal_changed')
+    validate_renewal_authority(a,selected.data['project'])
+    root=History(Path(directory))
+    with root.transaction(write=True) as (events,append):
+        attempts=c._standing_attempts(events,events[1])
+        matches=[s for s,_ in attempts if s['slot']==a['prior_slot']]
+        require(len(matches)==1 and 'historical' in matches[0],'historical_renewal_prior')
+        grant=renewed_proposal(matches[0]['historical'],a['diagnostic_id'])
+        grant['renewal']=dict(path=str(Path(path)),sha256=digest(a),authorization=a)
+        grant['consent']=consent(grant,selected.data['project']);grant['authorization_binding']=digest(grant['consent'])
+        renewal_history(root,events,grant,creating=True)
+        slot=c._prepare_next_locked(root,events,append,selected,create=True,historical=grant)
+    return dict(status='historical_forward_grant_no_api_call',slot=slot,diagnostic_id=a['diagnostic_id'],request_sha256=a['request_sha256'])
+
 def report(grant,answer,history):
     from .disclosure import restore
     from .controller import validate_final
@@ -72,10 +168,14 @@ def report(grant,answer,history):
     rows=history.read();require(len(rows)==3 and rows[-1]['type']=='bound_send_receipt' and
         rows[-1]['request_sha256']==digest(grant['request']),'historical_receipt_missing')
     data=decode(grant['request']['input'][0]['content'][0]['text'],32768)
-    return dict(kind='receipt_bound_historical_manual_review',request_sha256=digest(grant['request']),
+    result_report=dict(kind='receipt_bound_historical_manual_review',request_sha256=digest(grant['request']),
         input_sha256=grant['input_sha256'],case=grant['case'],result=result,
         qualifications=data['qualifications'],observations=data['historical_observations'],
         receipt=rows[-1],generation_invoked=True,provider_signed=False,token_bill_verified=False,
         source_authenticity_verified=False,currentness='unknown',decisions='unknown',captured_bytes=False,
         identity_approval=False,acquisition_approval=False,sent=False,
         qualification='Historical unresolved/blocked review only; proposals in rationale are not current identity or acquisition approval.')
+
+    if 'renewal' in grant:
+        a=grant['renewal']['authorization'];result_report['forward_diagnostic']=dict(purpose=a['purpose'],diagnostic_id=a['diagnostic_id'],prior_slot=a['prior_slot'],prior_cause='unknown',prior_outcome_reinterpreted=False,authorization_method='selected_private_owner_authorization',authorization_sha256=grant['renewal']['sha256'],direct_interactive_confirmation=False)
+    return result_report

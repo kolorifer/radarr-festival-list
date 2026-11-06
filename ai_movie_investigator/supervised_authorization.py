@@ -62,6 +62,12 @@ class _Session:
         validate_evidence(e,now,standing=self.slot>=7)
         require(now<INTEGRATION_SHUTDOWN,'integration_model_retired')
         selection_binding(self.events,self.enrolled,self.selected,self.slot)
+        if self.slot>=7:
+            from .supervised_credit import _standing_attempts
+            grant=next(s for s,_ in _standing_attempts(self.events,self.enrolled) if s['slot']==self.slot).get('historical')
+            if grant and 'renewal' in grant:
+                from .historical_nano import renewal_history
+                renewal_history(self.root,self.events,grant,creating=False)
         require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
         require(credential is self.credential,'supervised_credential_binding')
         for h,pin in ((self.root,self.enrolled['root']),(self.credit,self.enrolled['credit']),
