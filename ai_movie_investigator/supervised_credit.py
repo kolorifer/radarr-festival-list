@@ -130,6 +130,7 @@ _SAFE_REASON_GROUPS = {
         'research_plan_changed research_plan_revoked research_plan_unbound research_receipt_binding_changed '
         'research_receipt_missing_or_ambiguous research_receipt_reservation_unbound research_receipts_incomplete result_immutable '
         'selected_case_superseded storage_acl storage_acl_unsupported supervised_handoff_already_consumed '
+        'offline_fixture_required offline_history_not_empty offline_assessment_disabled offline_transport_required simulated_completion_unbound simulated_response_unbound '
         'unknown_job unsafe_history_path unsafe_history_permissions unsafe_packet '
         'unsafe_parent '
     ).split()),
