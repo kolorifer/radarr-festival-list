@@ -1,11 +1,15 @@
 """Disabled supervised new-case path: normalized intake -> chat -> unsent draft.
 
-No historical contract, model process, provider, notification sender or approval.
-prepare/complete exchange JSON directly with the supervising chat. There is no
-unattended chat bridge: an externally supplied answer is not generation proof.
+prepare/complete exchange JSON directly with the supervising chat; externally
+supplied answers are not generation proof. The distinct captured generation
+route remains default-closed, with no notification sender
+or approval authority.
 """
 import argparse
 from contextvars import ContextVar
+from contextlib import contextmanager
+from pathlib import Path
+import time
 import copy
 import re
 import sys
@@ -19,6 +23,8 @@ from .responses_protocol import schema_value
 
 
 _OFFLINE_COMPLETION = ContextVar('new_case_offline_completion', default=None)
+_CAPTURED = ContextVar('locked_captured_case', default=None)
+_CONNECTED_COMPLETION = ContextVar('connected_captured_completion', default=None)
 
 def admitted(packet, selection, now):
     validate_packet(packet)
@@ -135,6 +141,7 @@ def notification(packet, answer, data, provenance):
                          'done', {'assessment': True} if has_evidence else {}, current, candidates)
     lines = ['Movie identification update', '', body,
         'SIMULATED assessment; plumbing test only.' if provenance['mode'] == 'simulation' else
+        'Receipt-correlated model assessment; identity and acquisition still need review.' if provenance['mode']=='receipt_correlated_generation' else
         'Supervised supplied assessment; chat authorship requires external verification.',
         'Assessment: ' + result['status'].replace('_', ' '),
         'Evidence rationale: ' + result['rationale'], 'Uncertainty: ' + result['uncertainty'],
@@ -163,55 +170,74 @@ def complete(history, request_hash, answer, provenance):
     answer = decode(encoded(answer), MAX_OUTPUT)
     provenance = decode(encoded(provenance), 4096)
     with history.transaction(write=True) as (events, append):
-        prepared = [e for e in events if e['type'] == 'new_case_prepared' and e['request_hash'] == request_hash]
-        require(len(prepared) == 1, 'unknown_handoff')
-        p = prepared[0]; job = p['job']
-        simulated = [e for e in events if e['type']=='new_case_simulated_send_started' and e['job']==job]
-        simulation_receipt = None
-        if simulated:
-            token = _OFFLINE_COMPLETION.get()
-            receipts = [e for e in events if e['type']=='new_case_simulated_response' and e['job']==job]
-            require(len(simulated)==1 and len(receipts)==1 and token is not None and
-                    token[0] is history and token[1:]==(request_hash,digest(answer),digest(receipts[0])),
-                    'simulated_completion_unbound')
-            simulation_receipt = receipts[0]
-        require(not any(e['type'] == 'new_case_completion_started' and e['job'] == job for e in events),
-                'completion_already_consumed')
-        append(dict(type='new_case_completion_started', job=job, at=stamp(history.clock()),
-                    reply_hash=digest(answer), provenance=provenance))
-        try:
-            selected_current(events, job)
-            research_dependency(events, job)
-            packet = next(e['packet'] for e in events if e['type'] == 'intake' and e['job'] == job)
-            now = stamp(history.clock())
-            require(now >= p['at'], 'clock_rollback')
-            rec = admitted(packet, packet['binding'], now)
-            require(digest(rec) == p['reconciliation_hash'], 'decision_or_evidence_applicability_changed')
-            request = request_for(packet, rec, p['at'])
-            require(request == p['request'] and digest(request) == request_hash, 'handoff_changed')
-            shape(provenance, 'mode chat_reference')
-            require(provenance['mode'] in ('simulation', 'supervised_supplied'), 'assessment_provenance')
-            text(provenance['chat_reference'], 240)
-            require(provenance['chat_reference'].strip(), 'assessment_provenance')
-            schema_value(answer, output_schema())
-            require(answer['binding_hash'] == request['binding_hash'] and answer['kind'] == 'final'
-                    and answer['lookups'] == [] and answer['result'] is not None, 'reply_handoff_binding')
-            data, supplied = projection(packet, rec, p['at'])
-            validate_final(answer['result'], supplied, rec, now)
-            data, _ = projection(packet, rec, now)
-            draft = notification(packet, answer, data, provenance)
-            report = dict(kind='supervised_new_case_review', job=job, binding=packet['binding'],
-                request_hash=request_hash, reply_hash=digest(answer), assessment=answer['result'],
-                provenance=provenance, provenance_verified=False, generation_invoked=False,
-                qualifications=data['qualifications'], draft=draft)
-            if simulation_receipt is not None:
-                report.update(simulated_transport_invoked=True, simulated_response_hash=digest(simulation_receipt))
-            append(dict(type='new_case_completed', job=job, at=now, report=report, report_hash=digest(report)))
-            return report
-        except (ValueError, TypeError, KeyError, IndexError):
-            append(dict(type='new_case_completion_rejected', job=job, at=stamp(history.clock())))
-            raise
+        return _complete_locked(history, events, append, request_hash, answer, provenance)
 
+
+def _complete_locked(history, events, append, request_hash, answer, provenance):
+    history.require_write_transaction(events)
+    prepared = [e for e in events if e['type'] == 'new_case_prepared' and e['request_hash'] == request_hash]
+    require(len(prepared) == 1, 'unknown_handoff')
+    p = prepared[0]; job = p['job']
+    connected = _CONNECTED_COMPLETION.get()
+    started = [e for e in events if e['type']=='new_case_generation_started' and e['job']==job]
+    if started:
+        require(len(started)==1 and connected is not None and connected[0] is history and
+                connected[1:3]==(request_hash,digest(answer)), 'captured_completion_unbound')
+    else:require(connected is None,'captured_completion_unbound')
+    simulated = [e for e in events if e['type']=='new_case_simulated_send_started' and e['job']==job]
+    simulation_receipt = None
+    if simulated:
+        token = _OFFLINE_COMPLETION.get()
+        receipts = [e for e in events if e['type']=='new_case_simulated_response' and e['job']==job]
+        require(len(simulated)==1 and len(receipts)==1 and token is not None and
+                token[0] is history and token[1:]==(request_hash,digest(answer),digest(receipts[0])),
+                'simulated_completion_unbound')
+        simulation_receipt = receipts[0]
+    require(not any(e['type'] == 'new_case_completion_started' and e['job'] == job for e in events),
+            'completion_already_consumed')
+    append(dict(type='new_case_completion_started', job=job, at=stamp(history.clock()),
+                reply_hash=digest(answer), provenance=provenance))
+    try:
+        selected_current(events, job)
+        research_dependency(events, job)
+        packet = next(e['packet'] for e in events if e['type'] == 'intake' and e['job'] == job)
+        now = stamp(history.clock())
+        require(now >= p['at'], 'clock_rollback')
+        rec = admitted(packet, packet['binding'], now)
+        require(digest(rec) == p['reconciliation_hash'], 'decision_or_evidence_applicability_changed')
+        request = request_for(packet, rec, p['at'])
+        require(request == p['request'] and digest(request) == request_hash, 'handoff_changed')
+        shape(provenance, 'mode chat_reference')
+        require(provenance['mode'] in ('simulation', 'supervised_supplied') or
+                (connected is not None and not connected[3]['simulated'] and
+                 provenance['mode']=='receipt_correlated_generation'), 'assessment_provenance')
+        text(provenance['chat_reference'], 240)
+        require(provenance['chat_reference'].strip(), 'assessment_provenance')
+        schema_value(answer, output_schema())
+        require(answer['binding_hash'] == request['binding_hash'] and answer['kind'] == 'final'
+                and answer['lookups'] == [] and answer['result'] is not None, 'reply_handoff_binding')
+        data, supplied = projection(packet, rec, p['at'])
+        validate_final(answer['result'], supplied, rec, now)
+        data, _ = projection(packet, rec, now)
+        draft = notification(packet, answer, data, provenance)
+        report = dict(kind='supervised_new_case_review', job=job, binding=packet['binding'],
+            request_hash=request_hash, reply_hash=digest(answer), assessment=answer['result'],
+            provenance=provenance, provenance_verified=False, generation_invoked=False,
+            qualifications=data['qualifications'], draft=draft)
+        if connected is not None:
+            simulated=connected[3]['simulated']
+            report.update(connected_transport_invoked=True, receipt_hash=connected[3]['receipt_hash'],
+                generation_invoked=not simulated, provenance_verified=not simulated,
+                transport_provenance='simulated local fixture; unauthenticated' if simulated else
+                    'exact fixed TLS transport response correlated to request and project',
+                provider_receipt_correlated=not simulated, provider_verified=False)
+        if simulation_receipt is not None:
+            report.update(simulated_transport_invoked=True, simulated_response_hash=digest(simulation_receipt))
+        append(dict(type='new_case_completed', job=job, at=now, report=report, report_hash=digest(report)))
+        return report
+    except (ValueError, TypeError, KeyError, IndexError):
+        append(dict(type='new_case_completion_rejected', job=job, at=stamp(history.clock())))
+        raise
 
 def offline_request(request):
     """Serialize the existing minimized handoff; this grants no network authority."""
@@ -228,6 +254,228 @@ def offline_request(request):
     require(len(body)<=65536,'handoff_size')
     return body
 
+
+
+CAPTURED_CONTRACT = 'captured-final-v1'
+CAPTURED_OUTPUT_TOKENS = 25000
+CAPTURED_REQUEST_BYTES = 65536
+CAPTURED_AUTHORITY_BYTES = 131072
+
+
+def captured_activation_refusal():
+    """No actual captured-case grant has been issued. No flag/JSON enables it."""
+    return 'captured_real_activation_unissued'
+
+
+def require_captured_activation():
+    reason = captured_activation_refusal()
+    require(reason is None, reason or 'captured_real_activation_unissued')
+
+
+def captured_request(request):
+    """Final-only contract retains the original candidate/citation semantics."""
+    body = decode(offline_request(request), 65536)
+    body['max_output_tokens'] = CAPTURED_OUTPUT_TOKENS
+    schema = body['text']['format']['schema']
+    schema['properties']['binding_hash']['enum'] = [request['binding_hash']]
+    schema['properties']['kind']['enum'] = ['final']
+    schema['properties']['lookups']['maxItems'] = 0
+    schema['properties']['result'] = schema['properties']['result']['anyOf'][0]
+    body['instructions'] += ' Return one final result, never null, with no lookups. Keep rationale and uncertainty each within 600 characters.'
+    result=encoded(body)
+    require(len(result)<=CAPTURED_REQUEST_BYTES,'handoff_size')
+    decode(body['input'][0]['content'][0]['text'],MAX_INPUT)
+    return result
+
+
+def _prepared_locked(history, events, request_hash):
+    history.require_write_transaction(events)
+    rows = [e for e in events if e['type']=='new_case_prepared' and e['request_hash']==request_hash]
+    require(len(rows)==1, 'unknown_handoff')
+    p=rows[0]; job=p['job']
+    selected_current(events,job); research_dependency(events,job)
+    packet=next(e['packet'] for e in events if e['type']=='intake' and e['job']==job)
+    now=stamp(history.clock())
+    require(now>=p['at'], 'clock_rollback')
+    rec=admitted(packet,packet['binding'],now)
+    require(digest(rec)==p['reconciliation_hash'], 'decision_or_evidence_applicability_changed')
+    require(projection(packet,rec,now)[0]==projection(packet,rec,p['at'])[0],
+            'decision_or_evidence_applicability_changed')
+    request=request_for(packet,rec,p['at'])
+    require(request==p['request'] and digest(request)==request_hash, 'handoff_changed')
+    return p,packet,captured_request(request),rec
+
+
+def captured_material_hash(packet, rec, *, prepared_at=None):
+    """Conservative root replay identity, not an assessment/citation projection.
+
+    Paired retained and prepared-time usable keys prevent both clock-only
+    changes and future-only additions from minting new work. Exact retained
+    text is used, not redaction affected by caller reference IDs.
+    Evidence clocks/labels/order cannot mint a new opportunity. Actual scoped
+    content/claims or effective decisions may change it; occurrence stays bound.
+    """
+    def unique(rows):
+        return [value for _,value in sorted({encoded(row):row for row in rows}.items())]
+    evidence=[]
+    for row in packet['evidence']:
+        if row['scope']!=packet['binding']:continue
+        if prepared_at is not None and row['observed_at']>prepared_at:continue
+        claims=sorted(c for c in row['claims'] if row['kind']!='source' or c not in ('runtime','edition'))
+        evidence.append(dict(kind=row['kind'],candidate=row['candidate'],text=row['text'],
+            claims=claims,image_references=row['image_references']))
+    decisions=[dict(kind=row['decision']['kind'],applicability=row['applicability'],
+        chosen_target=row['decision']['chosen_target']) for row in rec['prior_decisions']]
+    case={k:v for k,v in packet['binding'].items() if k!='version'}
+    f=packet['facts']
+    facts={k:f[k] for k in ('title','year','imdb','tmdb')}
+    facts.update(asserted_imdb=f['outcome'].get('asserted_imdb'),
+        asserted_tmdb=f['outcome'].get('asserted_tmdb'),reason=f['outcome']['reason'])
+    return digest(dict(case=case,capture_event=packet['event'],facts=facts,
+        evidence=unique(evidence),decisions=unique(decisions),disposition=rec['disposition'],
+        conflicting_ids=rec['conflicting_ids']))
+
+
+def captured_consent(root, root_events, history, events, request_hash, evidence):
+    """Pure exact consent proposal, only under root then selected-case locks."""
+    from .supervised_credit import file_identity
+    root.require_write_transaction(root_events)
+    p,packet,body,rec=_prepared_locked(history,events,request_hash)
+    return dict(kind='captured_occurrence_generation_v1', response_contract=CAPTURED_CONTRACT,
+        root_identity=list(root.identity), root_prefix_sha256=digest(root_events),
+        case_directory=str(history.directory), case_identity=list(history.identity),
+        case_file_identity=file_identity(history), prepared_hash=digest(p), request_hash=request_hash,
+        job=p['job'], case=packet['binding'], material_hash=captured_material_hash(packet,rec),
+        disclosure_material_hash=captured_material_hash(packet,rec,prepared_at=p['at']),
+        capture_event=packet['event'], reconciliation_hash=p['reconciliation_hash'],
+        request=decode(body,65536), request_sha256=digest(decode(body,65536)),
+        project=evidence['project'], account_reference=evidence['account_reference'],
+        evidence_hash=digest(evidence), maximum_debit_usd=[3,100], max_calls=1,
+        issued_at=evidence['observed_at'], expires_at=evidence['expires_at'],
+        owner_reference=evidence['owner_reference'],
+        source_authenticity='unknown', live_currentness='unknown', decision_coverage='unknown',
+        identity_approval=False, acquisition_approval=False, notification_authority=False)
+
+
+def validate_captured(grant, project):
+    """Validate exact private authority; JSON alone never opens the closed gate."""
+    from .supervised_credit import _read_evidence
+    require_captured_activation()
+    shape(grant,'authority_path authority_sha256 authority_identity authorization run case request')
+    raw,identity=_read_evidence(Path(grant['authority_path']),CAPTURED_AUTHORITY_BYTES)
+    authority=decode(raw,CAPTURED_AUTHORITY_BYTES)
+    require(raw==encoded(authority) and digest(authority)==grant['authority_sha256'] and
+        list(identity)==grant['authority_identity'] and authority==grant['authorization'], 'captured_authority_changed')
+    require(authority['kind']=='captured_occurrence_generation_v1' and
+        authority['response_contract']==CAPTURED_CONTRACT and authority['project']==project and
+        authority['max_calls']==1 and
+        authority['maximum_debit_usd']==[3,100] and
+        authority['case']['occurrence'] is not None and
+        authority['request']==grant['request'] and authority['case']==grant['case'] and
+        grant['run']=='captured-'+digest(authority) and
+        digest(grant['request'])==authority['request_sha256'], 'captured_authority_changed')
+    require(stamp(authority['issued_at'])<=time.time()<stamp(authority['expires_at']), 'captured_authority_expired')
+    body=encoded(grant['request'])
+    require(len(body)<=CAPTURED_REQUEST_BYTES,'handoff_size')
+    decode(grant['request']['input'][0]['content'][0]['text'],MAX_INPUT)
+    return body
+
+
+class _CapturedCase:
+    def __init__(self, root, root_events, history, events, append, grant, evidence):
+        self.root,self.root_events,self.history,self.events,self.append=root,root_events,history,events,append
+        self.grant,self.evidence=grant,evidence
+        self.started=False
+
+    def validate(self):
+        from .supervised_credit import file_identity
+        self.root.require_write_transaction(self.root_events)
+        self.history.require_write_transaction(self.events)
+        a=self.grant['authorization']
+        body=validate_captured(self.grant,self.evidence['project'])
+        p,packet,expected,rec=_prepared_locked(self.history,self.events,a['request_hash'])
+        require(list(self.root.identity)==a['root_identity'] and
+            list(self.history.identity)==a['case_identity'] and file_identity(self.history)==a['case_file_identity'] and
+            str(self.history.directory)==a['case_directory'] and digest(p)==a['prepared_hash'] and
+            p['job']==a['job'] and captured_material_hash(packet,rec)==a['material_hash'] and
+            captured_material_hash(packet,rec,prepared_at=p['at'])==a['disclosure_material_hash'] and
+            packet['event']==a['capture_event'] and p['reconciliation_hash']==a['reconciliation_hash'] and
+            packet['binding']==a['case'] and expected==body and digest(self.evidence)==a['evidence_hash'] and
+            self.evidence['account_reference']==a['account_reference'], 'captured_selection_changed')
+        require(not any(e.get('job')==p['job'] and e['type'] in ('invocation','result',
+            'new_case_completion_started','new_case_simulated_send_started') for e in self.events), 'assessment_already_consumed')
+        starts=[e for e in self.events if e.get('job')==p['job'] and e['type']=='new_case_generation_started']
+        require((not starts and not self.started) or (self.started and len(starts)==1 and
+            starts[0]['grant_sha256']==digest(self.grant)), 'captured_generation_consumed')
+        return body
+
+    def start(self):
+        self.validate()
+        require(not self.started, 'captured_generation_consumed')
+        self.append(dict(type='new_case_generation_started',job=self.grant['authorization']['job'],
+            at=stamp(self.history.clock()),grant_sha256=digest(self.grant)))
+        self.started=True
+
+    def complete(self, answer):
+        self.validate()
+        require(self.started,'captured_completion_unbound')
+        from .supervised_authorization import consume_captured_completion,observe_phase
+        proof=consume_captured_completion(self,answer)
+        observe_phase('captured_result_validation')
+        request_hash=self.grant['authorization']['request_hash']
+        marker=_CONNECTED_COMPLETION.set((self.history,request_hash,digest(answer),proof))
+        try:
+            return _complete_locked(self.history,self.events,self.append,request_hash,answer,
+                dict(mode='simulation' if proof['simulated'] else 'receipt_correlated_generation',
+                     chat_reference='Connected fake socket fixture; no authenticated provider or delivery' if proof['simulated'] else
+                         'Fixed transport request/project correlation; not chat ingestion or delivery'))
+        finally:_CONNECTED_COMPLETION.reset(marker)
+
+
+@contextmanager
+def captured_case_lock(root,root_events,grant,evidence):
+    """Lock order: root -> case -> short attempt/credit locks. Never reacquire case."""
+    require_captured_activation()
+    root.require_write_transaction(root_events)
+    require(_CAPTURED.get() is None,'captured_lock_required')
+    a=grant['authorization']; history=History(Path(a['case_directory']),clock=root.clock)
+    require(history.identity!=root.identity,'captured_selection_changed')
+    with history.transaction(write=True) as (events,append):
+        held=_CapturedCase(root,root_events,history,events,append,grant,evidence)
+        held.validate()
+        marker=_CAPTURED.set(held)
+        try:yield held
+        finally:_CAPTURED.reset(marker)
+
+
+def locked_captured(grant):
+    held=_CAPTURED.get()
+    require(type(held) is _CapturedCase and held.grant==grant,'captured_lock_required')
+    held.validate()
+    return held
+
+
+def authorize_captured(directory,selected,case_directory,request_hash,authority_path,authority_sha256):
+    """Dormant exact grant preparation; gate precedes any private read/mutation."""
+    from . import supervised_credit as c
+    require_captured_activation()
+    require(type(selected) is c.SelectedEvidence,'supervised_evidence_selection')
+    selected.revalidate();c.validate_evidence(selected.data,time.time(),standing=True)
+    root=History(Path(directory)); history=History(Path(case_directory))
+    with root.transaction(write=True) as (root_events,root_append):
+        require(root.identity!=history.identity,'captured_selection_changed')
+        with history.transaction(write=True) as (events,append):
+            expected=captured_consent(root,root_events,history,events,request_hash,selected.data)
+            raw,identity=c._read_evidence(Path(authority_path),CAPTURED_AUTHORITY_BYTES);a=decode(raw,CAPTURED_AUTHORITY_BYTES)
+            require(raw==encoded(a) and digest(a)==authority_sha256 and a==expected,'captured_authority_changed')
+            grant=dict(authority_path=str(Path(authority_path)),authority_sha256=authority_sha256,
+                authority_identity=list(identity),authorization=a,run='captured-'+digest(a),case=a['case'],request=a['request'])
+            validate_captured(grant,selected.data['project'])
+            held=_CapturedCase(root,root_events,history,events,append,grant,selected.data);held.validate()
+            marker=_CAPTURED.set(held)
+            try:slot=c._prepare_next_locked(root,root_events,root_append,selected,create=True,captured=grant)
+            finally:_CAPTURED.reset(marker)
+    return dict(status='captured_authorized_no_send',slot=slot,request_sha256=a['request_sha256'])
 
 def assess_offline(history,packet,selection,frame,*,enabled=False):
     """One simulated transport invocation, never model generation or live authority.

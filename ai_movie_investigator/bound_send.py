@@ -89,6 +89,8 @@ def _send_bound(history, body, *, case, run, parent, credential, context_sha256=
                     accounting=accounting, retained_debit=permit['maximum_debit'],
                     currency=permit['currency'], at=history.clock()))
     observe_phase('receipt_recorded')
+    from .supervised_authorization import bind_captured_receipt
+    bind_captured_receipt(result,answer)
     return answer
 
 
@@ -130,10 +132,10 @@ class HistoricalDiagnosticParent:
         require(type(c.record_json) is bytes and
                 hashlib.sha256(c.record_json).hexdigest() == hash_id(c.record_sha256), 'operator_context_pin')
         r = decode(c.record_json, 32768)
-        integration = r.get('mode') in ('synthetic_api_integration','historical_nano_manual')
+        integration = r.get('mode') in ('synthetic_api_integration','historical_nano_manual','captured_nano_dormant')
         shape(r, 'mode selection project model issued_at expires_at history_identity currency ceiling output_limit evidence' +
               (' credit_history_identity credit_history_file_identity' if integration else ''))
-        require(r['mode'] in ('historical_manual_diagnostic', 'synthetic_api_integration','historical_nano_manual') and type(self._credential) is ExplicitCredential,
+        require(r['mode'] in ('historical_manual_diagnostic', 'synthetic_api_integration','historical_nano_manual','captured_nano_dormant') and type(self._credential) is ExplicitCredential,
                 'operator_route_missing')
         require(bool(self._credential.value), 'operator_route_missing')
         require(r['history_identity'] == list(self.history.identity), 'operator_history_changed')
@@ -142,7 +144,7 @@ class HistoricalDiagnosticParent:
         require(r['model'] == (INTEGRATION_MODEL if integration else MODEL) and isinstance(r['project'], str) and
                 __import__('re').fullmatch(r'proj_[A-Za-z0-9_-]+', r['project']), 'operator_account_unknown')
         output_limit=OUTPUT_TOKENS
-        if r['mode']=='historical_nano_manual':
+        if r['mode'] in ('historical_nano_manual','captured_nano_dormant'):
             from .supervised_authorization import selected_output_limit
             output_limit=selected_output_limit(r['selection']['request_sha256'])
         require(r['currency'] in ('USD', 'TEST-USD') and rational(r['ceiling']) > 0 and
@@ -180,12 +182,13 @@ class HistoricalDiagnosticParent:
 
     def _permit(self, selected, body):
         r = self._record()
-        integration = r['mode'] in ('synthetic_api_integration','historical_nano_manual')
+        integration = r['mode'] in ('synthetic_api_integration','historical_nano_manual','captured_nano_dormant')
         from .credit_test import POLICY as CREDIT_POLICY, request as credit_request, CONTEXT_TOKENS, CONTEXT_COVERAGE
         policy = CREDIT_POLICY if integration else POLICY
         shape(selected, 'run case request_sha256 local_context_sha256')
         scope(selected['case'])
-        require(selected == r['selection'] and selected['case']['occurrence'] is None,
+        require(selected == r['selection'] and
+                (selected['case']['occurrence'] is not None if r['mode']=='captured_nano_dormant' else selected['case']['occurrence'] is None),
                 'operator_selection_changed')
         hash_id(selected['local_context_sha256'])
         request = decode(body, 65536)
@@ -194,7 +197,7 @@ class HistoricalDiagnosticParent:
                 self._credential.value.encode() not in self.context.record_json, 'operator_credential_disclosed')
         from .controller import INSTRUCTIONS
         instructions,schema=INSTRUCTIONS,output_schema()
-        if r['mode']=='historical_nano_manual':
+        if r['mode'] in ('historical_nano_manual','captured_nano_dormant'):
             from .supervised_authorization import selected_response_contract
             instructions,schema=selected_response_contract(selected['request_sha256'])
         require(request.get('instructions') == instructions and request.get('model') == r['model'] and
@@ -215,41 +218,48 @@ class HistoricalDiagnosticParent:
         part = message['content'][0]
         shape(part, 'type text')
         require(part['type'] == 'input_text', 'operator_disclosure_changed')
-        data = decode(part['text'], 32768)
-        expanded = 'historical_observations' in data or 'qualifications' in data
-        shape(data, 'protocol binding_hash facts conflicting_ids evidence' +
-              (' historical_observations qualifications' if expanded else ''))
-        if r['mode']=='historical_nano_manual':require(expanded,'operator_historical_qualification')
-        if r['mode']=='synthetic_api_integration':
-            require(body == credit_request(selected['run']), 'credit_synthetic_input_required')
-        if expanded:
-            # Independently selected exact minimized disclosure, never a model-
-            # supplied expansion. Original input pin and complete request remain
-            # bound by the trusted operator record and privacy evidence.
-            require(type(self.context.disclosure_json) is bytes and
-                    self.context.disclosure_json == encoded(data), 'operator_expanded_disclosure_unpinned')
-            q = data['qualifications']
-            require(isinstance(q, dict) and q.get('historical') is True and
-                    q.get('captured_bytes') is False and q.get('authenticated_provider_receipt') is False and
-                    q.get('physical_source_verified') is False and
-                    q.get('identity_approval') == q.get('acquisition_approval') == 'unknown' and
-                    q.get('currentness') == q.get('decisions') == 'unknown', 'operator_historical_qualification')
-            require(isinstance(data['historical_observations'], dict), 'operator_expanded_observations')
-        from .disclosure import aliases
-        require(data['protocol'] == 'single-pilot-v1' and data['binding_hash'] == aliases(selected['run']),
-                'operator_disclosure_changed')
-        f = data['facts']
-        shape(f, 'title year imdb tmdb asserted_imdb asserted_tmdb contradiction')
-        text(f['title'], 200); text(f['contradiction'], 100)
-        require(type(f['year']) is int and 1800 <= f['year'] <= 2100 and
-                f['imdb'] is None and f['tmdb'] is None and f['asserted_tmdb'] is None and
-                (f['asserted_imdb'] is None or isinstance(f['asserted_imdb'], str) and
-                 __import__('re').fullmatch(r'tt[0-9]{7,10}', f['asserted_imdb'])), 'operator_disclosure_changed')
-        require(type(data['evidence']) is list and 1 <= len(data['evidence']) <= 5, 'operator_disclosure_changed')
-        for row in data['evidence']:
-            shape(row, 'alias kind candidate claims facts')
-            require(row['kind'] == 'source' and row['candidate'] is None and row['claims'] == [] and row['facts'] == {},
+        from .contracts import MAX_INPUT
+        data = decode(part['text'], MAX_INPUT if r['mode']=='captured_nano_dormant' else 32768)
+        if r['mode']=='captured_nano_dormant':
+            from .supervised_authorization import selected_captured_request
+            selected_captured_request(selected,body)
+            require(self.context.disclosure_json==encoded(data),'operator_expanded_disclosure_unpinned')
+            expanded=True
+        else:
+            expanded = 'historical_observations' in data or 'qualifications' in data
+            shape(data, 'protocol binding_hash facts conflicting_ids evidence' +
+                  (' historical_observations qualifications' if expanded else ''))
+            if r['mode']=='historical_nano_manual':require(expanded,'operator_historical_qualification')
+            if r['mode']=='synthetic_api_integration':
+                require(body == credit_request(selected['run']), 'credit_synthetic_input_required')
+            if expanded:
+                # Independently selected exact minimized disclosure, never a model-
+                # supplied expansion. Original input pin and complete request remain
+                # bound by the trusted operator record and privacy evidence.
+                require(type(self.context.disclosure_json) is bytes and
+                        self.context.disclosure_json == encoded(data), 'operator_expanded_disclosure_unpinned')
+                q = data['qualifications']
+                require(isinstance(q, dict) and q.get('historical') is True and
+                        q.get('captured_bytes') is False and q.get('authenticated_provider_receipt') is False and
+                        q.get('physical_source_verified') is False and
+                        q.get('identity_approval') == q.get('acquisition_approval') == 'unknown' and
+                        q.get('currentness') == q.get('decisions') == 'unknown', 'operator_historical_qualification')
+                require(isinstance(data['historical_observations'], dict), 'operator_expanded_observations')
+            from .disclosure import aliases
+            require(data['protocol'] == 'single-pilot-v1' and data['binding_hash'] == aliases(selected['run']),
                     'operator_disclosure_changed')
+            f = data['facts']
+            shape(f, 'title year imdb tmdb asserted_imdb asserted_tmdb contradiction')
+            text(f['title'], 200); text(f['contradiction'], 100)
+            require(type(f['year']) is int and 1800 <= f['year'] <= 2100 and
+                    f['imdb'] is None and f['tmdb'] is None and f['asserted_tmdb'] is None and
+                    (f['asserted_imdb'] is None or isinstance(f['asserted_imdb'], str) and
+                     __import__('re').fullmatch(r'tt[0-9]{7,10}', f['asserted_imdb'])), 'operator_disclosure_changed')
+            require(type(data['evidence']) is list and 1 <= len(data['evidence']) <= 5, 'operator_disclosure_changed')
+            for row in data['evidence']:
+                shape(row, 'alias kind candidate claims facts')
+                require(row['kind'] == 'source' and row['candidate'] is None and row['claims'] == [] and row['facts'] == {},
+                        'operator_disclosure_changed')
         facts = {role: e['facts'] for role, e in r['evidence'].items()}
         require(facts['owner'] == dict(operation=r['mode'], max_calls=1, currency=r['currency'], ceiling=r['ceiling']),
                 'operator_owner_authority_missing')
