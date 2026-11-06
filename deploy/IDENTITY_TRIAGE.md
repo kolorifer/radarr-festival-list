@@ -112,7 +112,8 @@ Do not point either new route at movie-intel's Telegram-forwarding webhook.
    dependency/scoring/leak checks. Review and pin the exact code revision.
 2. Create mode700 collector code/config/state directories. Copy only
    `identity_triage_service.py`, `identity_triage_intake.py`,
-   `identity_triage_store.py`, `identity_triage_sandbox.py`, `identity_selection.py` to `~/.local/lib/movie-identity-triage`. Use stdlib
+   `identity_triage_store.py`, `identity_triage_sandbox.py`, `identity_selection.py`,
+   `identity_triage_capture.py` to `~/.local/lib/movie-identity-triage`. Use stdlib
    `/usr/bin/python3`3.12/3.13; no movie-intel env/venv/config inheritance. Record
    source SHA and file hashes privately. Install both `identity-triage.service` and
    `identity-triage.socket` after confirming the boundary works. Verify the child
@@ -334,3 +335,61 @@ actor runtime. Rollback must preserve review receipts/history and regenerate
 projections/report with the compatible code, never restore old action state.
 A new accepted delivery reopens the source; an exact duplicate does not. This
 maintenance command does not make a permanent exception or grant download rights.
+
+
+### Dormant one-event private capture (not deployed or armed)
+
+The six collector modules above form a stdlib-only closure. No investigator
+runtime, permission change or service change is needed by the code. Existing
+configurations omit `capture_prepare` and `capture_grant_sha256`; health and
+intake behavior remain unchanged and no capture files are read or written.
+
+Future activation requires separate explicit approval and verification of one
+non-forking collector instance. Only then enable `capture_prepare: true`, obtain
+its nonsecret nonce from the existing authenticated `/health`, and privately
+create mode0600 `capture-grant.json` in the existing owner-only state directory.
+Pin its exact bytes with `capture_grant_sha256` in private configuration. This is
+not an instruction or authorization to deploy, restart, observe or arm now.
+
+The strict grant has exactly these fields: version=1; nonce from this collector
+lifetime; source identifier; channel=`outcome`; filter with mode=`first_matching` and exact status/reason, or
+mode=`exact_external_id` with exact external_id/status/reason; finite expires_at (no more than one hour ahead); destination
+with body=`capture-body.json` and receipt=`capture-receipt.json`; privacy=
+`private_local_raw_observer_body_no_api_disclosure`. The owner must approve
+retaining this raw observer body, including release name/source identifier.
+Version1 refuses unknown envelope fields and torrent evidence entirely. This
+narrower supported input is deliberate; no arbitrary raw request is retained.
+
+Only a new accepted unresolved/needs_review outcome that is also the current
+strongly correlated eligible selection can consume the opportunity. Its exact
+native delivery row, source UUID, internal selection event, evidence and case
+version come from the same transaction. The global lifetime latch burns before
+reservation; successful file and directory fsync precede raw retention; the
+body and receipt are written only after ingest commit. All three output names
+are create-only 0600 regular files with no symlinks/overwrite. A partial or
+missing output is terminal for this lifetime, not an invitation to replace it.
+
+Restart rejects the old grant using a fresh nonce, including when storage could
+not record consumption. Config toggles/reloads never reset the latch. Initialization occurs once when preparation is first used. Nonce
+initialization failure disables capture for the lifetime without retry. A new
+explicit owner grant is required for any future lifetime; no automatic re-arm,
+cleanup, retry or recovery is implemented. Do not remove uncertain artifacts.
+Ordinary ingestion and its existing duplicate/conflict/commit-failure HTTP
+semantics remain independent of capture-only errors. No source query, API
+submission, identity confirmation or acquisition is authorized by capture.
+
+Preparation health exposes only a finite **volatile** phase and nonsecret nonce;
+it does not validate the grant or prove durable completion. Grant-read/storage
+validation errors disable capture for that lifetime without consuming any raw
+body. They cannot recover into a later replacement. Configuration is rechecked
+against the authenticated snapshot immediately before burning the opportunity.
+The first-matching mode still requires one exact source/channel/status/reason;
+it does not need a prior case scan or authorize all-source capture.
+
+Privacy limitation: syntax validation rejects recognized capability patterns,
+but cannot prove arbitrary raw text contains no secret. Explicit local raw-body
+privacy approval remains required. Timing limitation: synchronous filesystem
+operations, including fsync, can stall on an unhealthy filesystem; the existing
+HTTP deadline may expire. No bounded kernel-I/O latency is claimed. Raised
+capture errors preserve ordinary ingest results; uncertain transport ACKs keep
+the existing sender retry/duplicate semantics, never a replacement capture.

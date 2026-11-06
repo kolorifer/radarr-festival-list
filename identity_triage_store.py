@@ -133,7 +133,7 @@ class Store:
             self.count(c, channel, 'rejected')
             c.commit()
 
-    def ingest(self, record, channel):
+    def ingest(self, record, channel, *, capture=None, capture_raw=None, capture_cfg=None, capture_validate=None):
         # record is the normalizer's allowlisted output, never an upstream payload.
         if channel not in CHANNELS:
             raise ValueError('channel')
@@ -188,12 +188,23 @@ class Store:
                     s = record['seed']
                     c.execute('INSERT OR IGNORE INTO seeds VALUES (?,?,?)',
                               (evidence_id, s['provenance'], json.dumps(s['contradictions'])))
-            c.execute('INSERT INTO deliveries VALUES (?,?,?,?,?,?,?)',
+            delivery = c.execute('INSERT INTO deliveries VALUES (?,?,?,?,?,?,?)',
                       (channel, record['event_id'], signature, evidence_id, reason, record.get('time'), now))
             self.count(c, channel, result)
             import identity_selection
             identity_selection.ingest(c, record, channel, evidence_id, now)
-            c.commit()  # HTTP success is permitted only after this returns.
+            ticket = None
+            if capture is not None and channel == 'outcome' and result == 'accepted':
+                ticket = capture.prepare(c, record, evidence_id, delivery.lastrowid,
+                                         capture_raw, capture_cfg, now, capture_validate)
+            try:
+                c.commit()  # HTTP success is permitted only after this returns.
+            except BaseException:
+                if capture is not None:
+                    capture.abandon(ticket)
+                raise
+            if capture is not None:
+                capture.finish(ticket)
         return result
 
     def metrics(self):
