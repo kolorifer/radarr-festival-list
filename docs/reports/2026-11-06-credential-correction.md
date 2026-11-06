@@ -43,3 +43,7 @@ fixture setups refused with the retained macOS ctime check. The denied-key test
 correctly observed no debit/send but wrongly expected no directory: history
 locking creates an empty attempt directory. Its assertion now checks zero
 attempt events and the exact denied-key refusal; no runtime guard was changed.
+
+Independent review found a fixture copy using the decoder default size limit
+for a larger accumulated history. It now uses an ordinary deep copy so the
+wrong-terminal assertions are actually reached; runtime validation is unchanged.

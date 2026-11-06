@@ -1,5 +1,5 @@
 """Owner-attested credential correction; invented ledger and complete offline wire."""
-import io,os,subprocess,sys,time,unittest
+import copy,io,os,subprocess,sys,time,unittest
 from pathlib import Path
 from contextlib import redirect_stdout
 from unittest.mock import patch
@@ -58,7 +58,7 @@ class CorrectionTests(unittest.TestCase):
         with self.assertRaises(Refusal):historical.authorize_renewal(self.f.state,self.f.selected,self.path,digest(a))
     def test_other_terminal_reason_cannot_use_correction(self):
         for reason in ('responses_http_rejected','responses_http_403','responses_http_429','responses_not_completed'):
-            events=decode(encoded(self.events));events[-1]['reason']=reason
+            events=copy.deepcopy(self.events);events[-1]['reason']=reason
             a=dict(self.a,root_prefix_sha256=digest(events),prior_terminal_sha256=digest(events[-1]));self.write(a)
             grant=historical.renewed_proposal(self.prior,a['diagnostic_id']);grant['renewal']=dict(path=str(self.path),sha256=digest(a),authorization=a)
             grant['consent']=historical.consent(grant,'proj_fixture');grant['authorization_binding']=digest(grant['consent'])
