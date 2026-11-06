@@ -1,6 +1,7 @@
-"""One supervised fixed-synthetic command with ephemeral interactive authority.
+"""Supervised synthetic and separately consented historical Nano commands.
 
-No automatic enrollment, retry, reset, credential discovery or movie inputs.
+No automatic enrollment, retry, reset or credential discovery. Historical inputs
+require their own exact disclosure grant; synthetic authority is insufficient.
 Operator evidence pins are correspondence, never live authentication by themselves.
 """
 from contextlib import contextmanager
@@ -31,6 +32,7 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
+    'historical_refused': frozenset(('historical_expanded_required historical_disclosure_size historical_disclosure_changed historical_owner_confirmation_required historical_receipt_missing historical_route_required historical_pending_grant historical_assessment_consumed').split()),
     'standing_credit_refused': frozenset(('supervised_standing_missing supervised_standing_binding '
         'supervised_standing_interrupted supervised_standing_history supervised_standing_credit').split()),
     'evidence_changed': frozenset((
@@ -508,10 +510,11 @@ def prompt_credential():
     return ExplicitCredential(value)
 
 
-def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None):
-    selection=dict(run=run,case=case,request_sha256=digest(decode(request(run))),
+def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,historical=None):
+    body=encoded(historical['request']) if historical else request(run)
+    selection=dict(run=run,case=case,request_sha256=digest(decode(body)),
                    local_context_sha256=digest(e))
-    r=dict(mode='synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
+    r=dict(mode='historical_nano_manual' if historical else 'synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
         issued_at=now,expires_at=min(e['expires_at'],expires_at) if expires_at is not None else e['expires_at'],history_identity=list(history.identity),currency='USD',
         ceiling=[3,100],output_limit=OUTPUT_TOKENS,credit_history_identity=enrollment['credit'],
         credit_history_file_identity=enrollment['credit_file'])
@@ -523,21 +526,23 @@ def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None)
             counter_identity=e['context_reference'],input_upper_bound=CONTEXT_TOKENS),
         pricing=dict(policy=POLICY,currency='USD',input=[5,100000000],cache_read=[5,1000000000],
             cache_write=[0,1],output=[4,10000000],ancillary_maximum=[0,1]))
+    if historical:facts['privacy']['disclosure_sha256']=digest(decode(historical['request']['input'][0]['content'][0]['text']))
     binding=digest(r)
     r['evidence']={role:dict(binding_hash=binding,issuer='supervised-operator',
         reference=digest(e),observed_at=e['observed_at'],expires_at=e['expires_at'],facts=value)
         for role,value in facts.items()}
     raw=encoded(r)
-    return OperatorContext(raw,hashlib.sha256(raw).hexdigest(),tuple((k,digest(v)) for k,v in r['evidence'].items())),selection
+    return OperatorContext(raw,hashlib.sha256(raw).hexdigest(),tuple((k,digest(v)) for k,v in r['evidence'].items()),
+        encoded(decode(historical['request']['input'][0]['content'][0]['text'])) if historical else None),selection
 
 
 _LAST_DIAGNOSTIC = ContextVar('supervised_last_diagnostic',default=None)
 
 
-def run(directory,selected,slot,*,clock=time.time):
+def run(directory,selected,slot,*,clock=time.time,historical=False):
     _LAST_DIAGNOSTIC.set(None)
     with diagnostic_scope():
-        try:return _run(directory,selected,slot,clock=clock)
+        try:return _run(directory,selected,slot,clock=clock,historical=historical)
         except (Exception,KeyboardInterrupt) as error:
             if _LAST_DIAGNOSTIC.get() is None:
                 _LAST_DIAGNOSTIC.set(safe_diagnostic(error))
@@ -549,7 +554,7 @@ def safe_diagnostic(error):
                 category=refusal_category(error))
 
 
-def _run(directory,selected,slot,*,clock=time.time):
+def _run(directory,selected,slot,*,clock=time.time,historical=False):
     next_attempt=slot is None
     require(next_attempt or (type(slot) is int and slot>=1),'supervised_slot')
     require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
@@ -580,9 +585,15 @@ def _run(directory,selected,slot,*,clock=time.time):
                 from .credit_test import retained_total
                 require(retained_total(old,evidence['project'])+PER_REQUEST<=ceiling,'credit_total_ceiling')
             require(not history.read(),'supervised_attempt_consumed')
-        run_id=f'synthetic-integration-{slot}'
+        historical_grant=None
+        if slot>=7 and not next_attempt:
+            start,_=standing_binding(events,enrolled,selected,slot)
+            historical_grant=start.get('historical')
+        require(bool(historical_grant)==historical,'historical_route_required')
+        run_id=historical_grant['run'] if historical_grant else f'synthetic-integration-{slot}'
         case=dict(source='synthetic-credit-integration',case_id='outcome-'+digest('synthetic-example'),
                   version=digest(decode(request(run_id))),occurrence=None)
+        if historical_grant:case=historical_grant['case']
         with interactive_credential(root) as credential:
             # Validate format without serializing or storing the resulting headers.
             headers(credential,evidence['project'])
@@ -596,18 +607,26 @@ def _run(directory,selected,slot,*,clock=time.time):
             observe_phase('slot_started')
             try:
                 validate_evidence(evidence,max(clock(),time.time()),standing=slot>=7)
-                body=request(run_id)
+                body=expected_request(events,enrolled,slot)
                 require(credential.value.encode() not in body and credential.value.encode() not in encoded(evidence),
                         'supervised_credential_disclosed')
                 with command_authority(root,events,enrolled,selected,slot,credit,history,credential) as authority:
                     context,selection=operator_context(evidence,history,credit,enrolled,run_id,case,clock(),
-                        expires_at=authority.deadline)
+                        expires_at=authority.deadline,historical=historical_grant)
                     parent=HistoricalDiagnosticParent(context,history=history,credit_history=credit,credential=credential)
-                    answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
-                        history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
+                    if historical_grant:
+                        from .bound_send import _send_bound
+                        answer=_send_bound(history,body,run=run_id,case=case,parent=parent,credential=credential,
+                                           context_sha256=selection['local_context_sha256'])
+                        from .historical_nano import report
+                        historical_report=report(historical_grant,decode(answer),history)
+                    else:
+                        answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
+                            history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
                     observe_phase('completion_recording')
                     append(dict(type='supervised_completed',slot=slot,at=clock(),answer=decode(answer),
-                                request_hash=selection['request_sha256'],reserved_usd=[3,100]))
+                                request_hash=selection['request_sha256'],reserved_usd=[3,100],
+                                **({'historical_report':historical_report} if historical_grant else {})))
                     observe_phase('completed')
                     return dict(status='completed',slot=slot,request_hash=selection['request_sha256'],
                                 input_upper_bound=CONTEXT_TOKENS,reserved_usd=[3,100])
@@ -644,7 +663,7 @@ def _standing_attempts(events,enrolled):
     while index<len(events):
         start=events[index]
         shape(start,'type at slot project policy prefix_sha256 evidence_sha256 evidence_hash expires_at request_sha256 '
-                    'credit_sha256 credit_count previous_attempt_sha256 ceiling_usd')
+                    'credit_sha256 credit_count previous_attempt_sha256 ceiling_usd'+(' historical' if 'historical' in start else ''))
         require(start['type']=='supervised_standing_attempt_started' and type(start['slot']) is int and
                 start['slot']==slot and start['prefix_sha256']==digest(events[:index]) and
                 start['project']==enrolled['project'] and start['policy']==POLICY,
@@ -693,7 +712,7 @@ def _standing_history(root,events,enrolled,credit):
                 'supervised_standing_history')
         if rows:
             permit=rows[0]['permit']
-            require(permit['selection']['run']==f"synthetic-integration-{start['slot']}" and
+            require(permit['selection']['run']==(start['historical']['run'] if 'historical' in start else f"synthetic-integration-{start['slot']}") and
                     permit['selection']['request_sha256']==start['request_sha256'] and
                     permit['project']==enrolled['project'] and permit['model']==INTEGRATION_MODEL and
                     permit['maximum_debit']==[3,100],'supervised_standing_history')
@@ -714,6 +733,16 @@ def _standing_history(root,events,enrolled,credit):
     return grant,attempts,reservations,total
 
 
+def expected_request(events,enrolled,slot):
+    if slot>=7:
+        matches=[s for s,_ in _standing_attempts(events,enrolled) if s['slot']==slot]
+        require(len(matches)==1,'supervised_standing_binding')
+        if 'historical' in matches[0]:
+            from .historical_nano import validate
+            return validate(matches[0]['historical'],enrolled['project'])
+    return request(f'synthetic-integration-{slot}')
+
+
 def standing_binding(events,enrolled,selected,slot):
     grant=_standing_base(events,enrolled);attempts=_standing_attempts(events,enrolled)
     require(attempts and slot==attempts[-1][0]['slot'],'supervised_standing_binding')
@@ -721,7 +750,7 @@ def standing_binding(events,enrolled,selected,slot):
     e=selected.data
     require(start['evidence_sha256']==selected.sha256 and start['evidence_hash']==digest(e) and
             start['expires_at']==e['expires_at'] and start['project']==e['project']==grant['project'] and
-            start['request_sha256']==digest(decode(request(f'synthetic-integration-{slot}'))) and
+            start['request_sha256']==digest(decode(expected_request(events,enrolled,slot))) and
             e['observed_at']<=start['at']<e['expires_at'],'supervised_standing_binding')
     return start,authorized
 
@@ -785,7 +814,7 @@ def authorize_standing(directory,selected):
     return dict(status='standing_authorized_no_api_call',per_request_usd=[3,100],ceiling_usd=e['available_usd'])
 
 
-def _prepare_next_locked(root,events,append,selected,*,create):
+def _prepare_next_locked(root,events,append,selected,*,create,historical=None):
     root.require_write_transaction(events)
     e=selected.data
     require(len(events)>=21,'supervised_standing_missing');enrolled=events[1]
@@ -795,6 +824,10 @@ def _prepare_next_locked(root,events,append,selected,*,create):
             time.time()<grant['credit_expires_at'],'supervised_standing_credit')
     ceiling=min(rational(grant['ceiling_usd']),rational(e['available_usd']))
     require(total+PER_REQUEST<=ceiling,'supervised_standing_credit')
+    if attempts and 'historical' in attempts[-1][0]:
+        require(any(e.get('type')=='supervised_started' and e.get('slot')==attempts[-1][0]['slot'] for e in events),'historical_pending_grant')
+    if historical:
+        require(not any(s.get('historical',{}).get('fingerprint')==historical['fingerprint'] for s,_ in attempts),'historical_assessment_consumed')
     slot=7+len(attempts);target=root.directory/f'attempt-{slot}'
     require(not os.path.lexists(target),'supervised_standing_history')
     prior=digest(History(root.directory/f'attempt-{slot-1}').read())
@@ -804,6 +837,9 @@ def _prepare_next_locked(root,events,append,selected,*,create):
         prefix_sha256=digest(events),evidence_sha256=selected.sha256,evidence_hash=digest(e),expires_at=e['expires_at'],
         request_sha256=digest(decode(request(f'synthetic-integration-{slot}'))),credit_sha256=digest(reservations),
         credit_count=len(reservations),previous_attempt_sha256=prior,ceiling_usd=pair(ceiling))
+    if historical:
+        start['historical']=historical
+        start['request_sha256']=digest(historical['request'])
     if not create:return slot
     append(start);target.mkdir(mode=0o700);attempt=History(target)
     append(dict(type='supervised_standing_attempt_authorized',at=time.time(),slot=slot,start_sha256=digest(start),
@@ -848,6 +884,8 @@ def main(argv=None):
     continuation.add_argument('--slot',type=int,choices=(4,5,6),default=4)
     standing=sub.add_parser('authorize-standing');standing.add_argument('--evidence',required=True,type=Path)
     next_send=sub.add_parser('run-next');next_send.add_argument('--evidence',required=True,type=Path)
+    h=sub.add_parser('authorize-historical');h.add_argument('--evidence',required=True,type=Path);h.add_argument('--input',required=True,type=Path)
+    h=sub.add_parser('run-historical');h.add_argument('--evidence',required=True,type=Path);h.add_argument('--slot',required=True,type=int)
     send=sub.add_parser('run');send.add_argument('--evidence',required=True,type=Path)
     send.add_argument('--slot',required=True,type=int,choices=(1,2,3,4,5,6))
     args=parser.parse_args(argv)
@@ -864,6 +902,10 @@ def main(argv=None):
         elif args.action=='continue-once':
             result=recover_once(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence),slot=args.slot)
         elif args.action=='authorize-standing':result=authorize_standing(args.state,read_evidence(args.evidence))
+        elif args.action=='authorize-historical':
+            from .historical_nano import authorize
+            result=authorize(args.state,read_evidence(args.evidence),args.input)
+        elif args.action=='run-historical':result=run(args.state,read_evidence(args.evidence),args.slot,historical=True)
         elif args.action=='run-next':result=run_next(args.state,read_evidence(args.evidence))
         else:result=run(args.state,read_evidence(args.evidence),args.slot)
         print(encoded(result).decode());return 0
@@ -871,7 +913,7 @@ def main(argv=None):
         # Never print raw exceptions, remote bodies, credentials or a traceback.
         diagnostic=_LAST_DIAGNOSTIC.get() or safe_diagnostic(error)
         print('Supervised synthetic command refused: category='+refusal_category(error)+
-              '; action='+args.action+'; '+('request status unconfirmed' if args.action in ('run','run-next') else 'no API request')+
+              '; action='+args.action+'; '+('request status unconfirmed' if args.action in ('run','run-next','run-historical') else 'no API request')+
               '; phase='+diagnostic['phase']+'; reason='+diagnostic['reason']+
               '. Retain state; do not retry automatically.',file=sys.stderr)
         return 1

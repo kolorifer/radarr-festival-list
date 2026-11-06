@@ -129,10 +129,10 @@ class HistoricalDiagnosticParent:
         require(type(c.record_json) is bytes and
                 hashlib.sha256(c.record_json).hexdigest() == hash_id(c.record_sha256), 'operator_context_pin')
         r = decode(c.record_json, 32768)
-        integration = r.get('mode') == 'synthetic_api_integration'
+        integration = r.get('mode') in ('synthetic_api_integration','historical_nano_manual')
         shape(r, 'mode selection project model issued_at expires_at history_identity currency ceiling output_limit evidence' +
               (' credit_history_identity credit_history_file_identity' if integration else ''))
-        require(r['mode'] in ('historical_manual_diagnostic', 'synthetic_api_integration') and type(self._credential) is ExplicitCredential,
+        require(r['mode'] in ('historical_manual_diagnostic', 'synthetic_api_integration','historical_nano_manual') and type(self._credential) is ExplicitCredential,
                 'operator_route_missing')
         require(bool(self._credential.value), 'operator_route_missing')
         require(r['history_identity'] == list(self.history.identity), 'operator_history_changed')
@@ -175,7 +175,7 @@ class HistoricalDiagnosticParent:
 
     def _permit(self, selected, body):
         r = self._record()
-        integration = r['mode'] == 'synthetic_api_integration'
+        integration = r['mode'] in ('synthetic_api_integration','historical_nano_manual')
         from .credit_test import POLICY as CREDIT_POLICY, request as credit_request, CONTEXT_TOKENS, CONTEXT_COVERAGE
         policy = CREDIT_POLICY if integration else POLICY
         shape(selected, 'run case request_sha256 local_context_sha256')
@@ -210,7 +210,8 @@ class HistoricalDiagnosticParent:
         expanded = 'historical_observations' in data or 'qualifications' in data
         shape(data, 'protocol binding_hash facts conflicting_ids evidence' +
               (' historical_observations qualifications' if expanded else ''))
-        if integration:
+        if r['mode']=='historical_nano_manual':require(expanded,'operator_historical_qualification')
+        if r['mode']=='synthetic_api_integration':
             require(body == credit_request(selected['run']), 'credit_synthetic_input_required')
         if expanded:
             # Independently selected exact minimized disclosure, never a model-
