@@ -31,6 +31,11 @@ which earlier refusal rejects an incompatible original-purpose grant. Subsequent
 local runs retained intermittent `supervised_evidence_changed_read_ctime` fixture
 failures; no guard was weakened and no dependencies were changed. Supported CI
 and independent exact-head review remain acceptance gates, recorded in the PR.
+The first supported CI run found nine subcases in one older transport test still
+expecting the generic rejection label. Its assertions now require the exact
+finite labels while retaining one-request/no-body checks and adding an explicit
+no-header-read assertion. Runtime code was unchanged by this test correction;
+the initial CI failure remains recorded and corrected-head CI is required.
 
 No repository-wide state/task documents were changed: their unrelated work is
 preserved. No deployment, live access, spending, output, notification or production

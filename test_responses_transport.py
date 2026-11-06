@@ -592,10 +592,12 @@ class WireTests(unittest.TestCase):
         for status in (301,302,303,307,308,401,429,500,503):
             self.response.status = status
             self.connection.request.reset_mock()
-            with self.subTest(status=status), self.assertRaisesRegex(Refusal,'http_rejected'):
+            expected={401:'responses_http_401',429:'responses_http_429',500:'responses_http_5xx',503:'responses_http_5xx'}.get(status,'responses_http_other')
+            with self.subTest(status=status), self.assertRaisesRegex(Refusal,'^'+expected+'$'):
                 self.exchange()
             self.connection.request.assert_called_once()
         self.response.read1.assert_not_called()
+        self.response.getheaders.assert_not_called()
 
     def test_header_length_encoding_size_truncation_and_header_injection_denied(self):
         for hs, parts in [([('Content-Type','text/html')], []),
