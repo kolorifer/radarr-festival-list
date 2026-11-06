@@ -28,7 +28,12 @@ def read_config(path):
     if path.stat().st_size > 8192:
         raise ValueError('configuration')
     cfg = decode(path.read_bytes())
-    if set(cfg)-{'source_mode'} != {'version', 'enabled', 'port', 'sources', 'release_key', 'outcome_key'} or cfg.get('source_mode', 'announcements') not in ('announcements', 'selected_only'):
+    if set(cfg)-{'source_mode', 'capture_prepare', 'capture_grant_sha256'} != {'version', 'enabled', 'port', 'sources', 'release_key', 'outcome_key'} or cfg.get('source_mode', 'announcements') not in ('announcements', 'selected_only'):
+        raise ValueError('configuration')
+    if ('capture_prepare' in cfg and type(cfg['capture_prepare']) != bool
+            or 'capture_grant_sha256' in cfg and (not cfg.get('capture_prepare')
+                or not isinstance(cfg['capture_grant_sha256'], str)
+                or not re.fullmatch('[0-9a-f]{64}', cfg['capture_grant_sha256']))):
         raise ValueError('configuration')
     if cfg['version'] != 1 or type(cfg['enabled']) != bool or type(cfg['port']) != int or not 1024 <= cfg['port'] <= 65535:
         raise ValueError('configuration')
@@ -71,6 +76,8 @@ class Server(ThreadingHTTPServer):
         if address[0] != '127.0.0.1':
             raise ValueError('loopback_only')
         self.config_path, self.store = config_path, store
+        from identity_triage_capture import Capture
+        self.capture = Capture(store.directory)
         self.slots = threading.BoundedSemaphore(8)
         self.failure_lock = threading.Lock()
         self.storage_failures = 0  # volatile: cannot claim durable disk-failure counters
@@ -204,9 +211,13 @@ class Handler(BaseHTTPRequestHandler):
                 self.reply(200,{'items':items,'research_enabled':False})
                 return
             metrics = self.server.store.metrics()
-            metrics['source_mode'] = read_config(self.server.config_path).get('source_mode', 'announcements')
+            current_cfg = read_config(self.server.config_path)
+            metrics['source_mode'] = current_cfg.get('source_mode', 'announcements')
             metrics['storage_failures_since_start'] = self.server.storage_failures
-            self.reply(200, metrics if self.path == '/metrics' else None)
+            context = None
+            if self.path == '/health' and current_cfg.get('capture_prepare', False):
+                context = self.server.capture.context()
+            self.reply(200, metrics if self.path == '/metrics' else context)
         except (ValueError, OSError, sqlite3.Error) as exc:
             self.server.storage_failed(exc)
             self.reply(503)
@@ -242,7 +253,9 @@ class Handler(BaseHTTPRequestHandler):
             if len(raw) != length:
                 raise Reject('truncated')
             record = normalize(decode(raw), cfg['sources'], channel)
-            result = self.server.store.ingest(record, channel)
+            result = self.server.store.ingest(record, channel, capture=self.server.capture,
+                                            capture_raw=raw, capture_cfg=cfg,
+                                            capture_validate=lambda: read_config(self.server.config_path) == cfg)
             self.reply(409 if result == 'event_conflict' else 200)
         except Reject:
             try:
