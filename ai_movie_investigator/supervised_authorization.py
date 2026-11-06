@@ -1,7 +1,7 @@
-"""Ephemeral authority for the sole interactive fixed-synthetic command.
+"""Ephemeral authority for the sole interactive supervised command.
 
 No JSON/boolean enrollment at the HTTP boundary. Authority exists only while the
-command holds its enrolled root transaction. It is not unattended/movie access.
+command holds its enrolled root transaction. Historical movie disclosure additionally requires its exact owner grant.
 """
 from contextlib import contextmanager
 from contextvars import ContextVar
@@ -27,6 +27,10 @@ class _Session:
         self.root,self.events,self.enrolled=root,events,enrolled
         self.selected,self.slot,self.credit,self.history,self.credential=selected,slot,credit,history,credential
         self.run=f'synthetic-integration-{slot}'
+        if slot>=7:
+            from .supervised_credit import _standing_attempts
+            start=next(s for s,_ in _standing_attempts(events,enrolled) if s['slot']==slot)
+            if 'historical' in start:self.run=start['historical']['run']
         self.issued={}
         self.received=None
         from .supervised_credit import require_prompted
@@ -48,7 +52,7 @@ class _Session:
 
     def check(self,path,body,credential,project):
         from .supervised_credit import validate_evidence, file_identity
-        from .supervised_credit import require_prompted, selection_binding, attempt_pin
+        from .supervised_credit import require_prompted, selection_binding, attempt_pin, expected_request
         self.root.require_write_transaction(self.events)
         require(self.events[1] is self.enrolled, 'supervised_enrollment_binding')
         require_prompted(self.root,credential)
@@ -66,7 +70,7 @@ class _Session:
             require([info.st_dev,info.st_ino]==pin,'supervised_storage_changed')
         require(file_identity(self.credit)==self.enrolled['credit_file'],'supervised_storage_changed')
         require(path=='/v1/responses','supervised_endpoint')
-        expected=request(self.run)
+        expected=expected_request(self.events,self.enrolled,self.slot)
         require(type(body) is bytes and body==expected,'supervised_request_binding')
         fingerprint=digest(decode(body))
         reservations=self.credit.read()
@@ -122,6 +126,7 @@ def authorization_for(path,body,credential,project,fallback=None):
 
 
 def response_observation_window(token,body,credential,project,path):
+    from .supervised_credit import expected_request
     """Observation of one bound synthetic response, never extra send authority."""
     session=_ACTIVE.get()
     if session is None:return None
@@ -129,7 +134,7 @@ def response_observation_window(token,body,credential,project,path):
     require(type(token) is _Permit and token in session.issued and
             session.issued[token]==(path,body,credential,project,True) and
             credential is session.credential and path=='/v1/responses' and
-            body==request(session.run) and project==session.enrolled['project'],
+            body==expected_request(session.events,session.enrolled,session.slot) and project==session.enrolled['project'],
             'supervised_observation_binding')
     # HTTP just consumed this exact token after full pre-send validation. The
     # existing pre-connect/pre-POST checks still require unexpired authority.
@@ -193,10 +198,10 @@ def reservation_ceiling(history,project,request_hash):
     """Only a root-locked selected manual session can exceed the normal five cents."""
     session=_ACTIVE.get()
     if session is not None and session.slot>=7:
-        from .supervised_credit import standing_retained,require_prompted
+        from .supervised_credit import standing_retained,require_prompted,expected_request
         session.root.require_write_transaction(session.events)
         require(history is session.credit and project==session.enrolled['project'] and
-                request_hash==digest(decode(request(session.run))),'supervised_recovery_binding')
+                request_hash==digest(decode(expected_request(session.events,session.enrolled,session.slot))),'supervised_recovery_binding')
         require_prompted(session.root,session.credential)
         ceiling=standing_retained(session.root,session.events,session.enrolled,session.selected,history,session.slot)
         session.check_time()

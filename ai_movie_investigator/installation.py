@@ -6,6 +6,7 @@ from pathlib import Path
 import stat
 
 RUNTIME_FILES = (
+    'ai_movie_investigator/manual_offline.py', 'ai_movie_investigator/historical_nano.py',
     'ai_movie_investigator/__init__.py', 'ai_movie_investigator/contracts.py',
     'ai_movie_investigator/new_case.py', 'identity_telegram_digest.py', 'private_text.py',
     'ai_movie_investigator/draft_delivery.py', 'ai_movie_investigator/credit_test.py',

@@ -23,11 +23,11 @@ from .responses_protocol import parse_response
 from .responses_replay import simulated_response
 from .responses_transport import real_activation_refusal
 from .spending import SimulatedSpending
-from automation.coordinator_storage import acl_identity, StorageError
-from automation.coordinator_transport import acl as linux_acl
 
 
 def safe_acl(fd, directory):
+    from automation.coordinator_storage import acl_identity
+    from automation.coordinator_transport import acl as linux_acl
     if sys.platform == 'darwin':
         return acl_identity(fd)
     if sys.platform.startswith('linux'):
@@ -398,6 +398,7 @@ def rehearse(packet, packet_sha256, directory, *, ceiling, response=None):
 
 
 def main():
+    from automation.coordinator_storage import StorageError
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--live', action='store_true', help='Always refused; no live implementation exists')
     parser.add_argument('--prepare', action='store_true', help='Freeze a supervised historical request; no generation')
