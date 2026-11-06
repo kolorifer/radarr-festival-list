@@ -119,7 +119,7 @@ class EnvelopeTests(unittest.TestCase):
 
     def test_answer_and_protocol_guards_survive_wider_envelope(self):
         self.exercise(envelope(answer_size=8192));self.exercise(envelope(answer_size=8193),reason='size_limit')
-        for change,reason in [('usage','responses_usage_invalid'),('incomplete','responses_not_completed'),('unknown','responses_context_changed'),('schema','responses_answer_schema'),('refusal','responses_text_required')]:
+        for change,reason in [('usage','responses_usage_invalid'),('incomplete','responses_incomplete_max_output_tokens'),('unknown','responses_context_changed'),('schema','responses_answer_schema'),('refusal','responses_text_required')]:
             with self.subTest(change=change):self.exercise(envelope(change=change),reason=reason)
 
     def test_model_name_or_fabricated_result_cannot_select_profile(self):
@@ -147,4 +147,4 @@ class EnvelopeTests(unittest.TestCase):
     def test_genuine_installed_command_full_large_envelope(self):
         f=fixtures.SupervisedCreditTests('test_executable_generation_only_no_count_and_no_restart');f.setUp();self.addCleanup(f.doCleanups)
         extension=ENVELOPE_CODE+"\nselected_raw=envelope(opaque=40000,two=True,change='incomplete')\nframing='chunked'\n"+wire_code()+"\nFixedResponsesHTTP.post=original_post\nwire_fixture('completed').__enter__()\n"
-        executable.SupervisedExecutableTests().execute_fixture(f,1,hook_extension=extension,category='protocol_refused',expected_reason='responses_not_completed',expected_phase='response_parsing')
+        executable.SupervisedExecutableTests().execute_fixture(f,1,hook_extension=extension,category='protocol_refused',expected_reason='responses_incomplete_max_output_tokens',expected_phase='response_parsing')

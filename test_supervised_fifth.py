@@ -122,5 +122,5 @@ io.BytesIO=LateHeaders
 time.monotonic=lambda:_mono()+_offset[0]
 '''
         executable.SupervisedExecutableTests().execute_fixture(self.fixture,5,fifth=self,hook_extension=extension,
-            category='protocol_refused',expected_reason='responses_not_completed',expected_phase='response_parsing')
+            category='protocol_refused',expected_reason='responses_incomplete_max_output_tokens',expected_phase='response_parsing')
         self.preserved()
