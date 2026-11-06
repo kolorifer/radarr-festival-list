@@ -192,10 +192,10 @@ def selected_output_limit(request_hash):
 
 def selected_response_contract(request_hash):
     from .controller import INSTRUCTIONS,output_schema
-    from .supervised_credit import expected_request,_standing_attempts
-    from .historical_nano import FINAL_CONTRACT_VERSION,final_contract
     session=_ACTIVE.get()
     if session is None:return INSTRUCTIONS,output_schema()
+    from .supervised_credit import expected_request,_standing_attempts
+    from .historical_nano import FINAL_CONTRACT_VERSION,final_contract
     session.root.require_write_transaction(session.events)
     body=expected_request(session.events,session.enrolled,session.slot)
     require(request_hash==digest(decode(body)),'supervised_request_binding')

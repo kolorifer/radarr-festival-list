@@ -83,3 +83,6 @@ Final review tightened the first parser selection to the root-locked contract
 helper, which defaults to the original generic schema outside that session.
 A custom generic parent cannot choose a different parser schema merely by
 changing its request. A focused regression exercises that refusal.
+
+The no-session generic contract returns before importing historical/supervisor
+modules; a targeted import tripwire verifies that compatibility boundary.

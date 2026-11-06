@@ -76,6 +76,17 @@ class ReportContractTests(unittest.TestCase):
             self.assertNotIn('PRIVATE_REMOTE_TEXT',repr(command.safe_diagnostic(error)))
 
 class GenericParserTests(unittest.TestCase):
+    def test_no_session_contract_does_not_import_historical_or_supervisor(self):
+        import builtins
+        from ai_movie_investigator.supervised_authorization import selected_response_contract
+        from ai_movie_investigator.controller import INSTRUCTIONS
+        real=builtins.__import__
+        def guarded(name,*a,**kw):
+            if name in ('supervised_credit','historical_nano'):raise AssertionError('generic dependency')
+            return real(name,*a,**kw)
+        with patch('builtins.__import__',side_effect=guarded):
+            self.assertEqual(selected_response_contract('a'*64),(INSTRUCTIONS,output_schema()))
+
     def test_custom_parent_cannot_select_a_non_generic_response_schema(self):
         import dataclasses
         import test_bound_integration as fixtures
