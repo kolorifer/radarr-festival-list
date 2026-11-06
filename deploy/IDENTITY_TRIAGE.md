@@ -393,3 +393,49 @@ operations, including fsync, can stall on an unhealthy filesystem; the existing
 HTTP deadline may expire. No bounded kernel-I/O latency is claimed. Raised
 capture errors preserve ordinary ingest results; uncertain transport ACKs keep
 the existing sender retry/duplicate semantics, never a replacement capture.
+
+
+### Startup-bound capture evidence
+
+Capture additionally requires a one-use in-process startup capability from
+`identity_triage_sandbox.confine`, completed immediately before Server creation
+(after Store initialization) by rechecking identity and the real isolation check.
+The original mandatory Landlock, descriptor, socket and metadata denial checks
+remain unchanged. New runtime queries execute only when startup configuration
+explicitly enables capture preparation; default-off startup never invokes them.
+A default-off lifetime cannot become capture-ready by a later config toggle. New capture-only evidence failures permanently leave capture
+unready for that instance; they do not stop ordinary intake that passed all old
+gates. A plain dict or fixture Server cannot assert capture readiness.
+
+Finite self-observation checks no-new-privileges, seccomp mode, all real/effective/
+saved/filesystem UIDs/GIDs for the selected owner, and the unchanged denial suite.
+Filesystem identities use native Linux x86-64 invalid-ID queries only; no valid
+replacement ID is passed and a denied/ambiguous query never qualifies. No `/proc`
+access or extra path/network grant is introduced. Authenticated preparation health
+binds the observation to the same Capture lifetime nonce and creator PID. An
+inherited child cannot acquire its copied mutex, reserve or finish capture using
+that lifetime. Evidence is checked again immediately before the latch burns.
+
+This is trusted-code self-report, not independent kernel attestation, loaded-code
+identity, all filter contents or proof of every later thread's credentials. The
+existing malicious-host/same-user limitation remains. Disk hashes describe
+installed files, not loaded Python. Manager configuration alone is insufficient.
+
+For a separately authorized operation, verify the exact selected case/source,
+installed baseline and required manager/cgroup readability BEFORE deployment or
+restart. Do not claim old runtime confinement newly verified. Preserve the exact
+unit, verifier restrictions and query budget. After the single authorized restart,
+require completed startup evidence through existing authenticated health, matching
+PID/nonce and stable manager identity, exact single-process cgroup membership,
+no child cgroups and an observed TasksCurrent in 1..20. Then, and only then, may
+an exact grant arm capture. Source failure stops before deployment; new-instance
+proof failure stops before grant, with no extra restart or automatic re-arm.
+This procedure is not authorization for any live action.
+
+Operational limitation: new-query compatibility with the host's complete inherited
+seccomp stack is not established. A fatal filter action cannot be caught as an
+errno failure. The unchanged unit's Restart=on-failure can then cause additional
+automatic starts. One explicit restart command does not guarantee one actual start.
+Default-off startup makes none of these new queries. Enabled deployment remains
+held until this specific operational constraint is resolved within owner authority;
+no live probe, extra restart or unit-policy change is authorized by this patch.

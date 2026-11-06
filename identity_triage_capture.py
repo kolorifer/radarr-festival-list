@@ -91,7 +91,10 @@ def strict_envelope(raw, record):
 
 
 class Capture:
-    def __init__(self, directory):
+    def __init__(self, directory, startup_evidence=None):
+        from identity_triage_sandbox import bind_startup
+        self.creator_pid = os.getpid()
+        self.startup = bind_startup(startup_evidence, self)
         self.directory = directory
         self.lock = threading.Lock()
         self.burned = False
@@ -99,6 +102,12 @@ class Capture:
         self.initialized = False
         self.unavailable = False
         self.phase = 'disabled'
+
+    def _proof(self):
+        from identity_triage_sandbox import startup_statement
+        if os.getpid() != self.creator_pid:
+            return None
+        return startup_statement(self.startup, self)
 
     def _initialize(self):
         if self.initialized:
@@ -112,16 +121,23 @@ class Capture:
             self.phase = 'nonce_unavailable'
 
     def context(self):
+        # Check before acquiring a potentially inherited locked mutex.
+        if self._proof() is None:
+            return {'capture_nonce': None, 'capture_ready': False,
+                    'capture_phase': 'startup_unverified', 'capture_phase_volatile': True}
         with self.lock:
             self._initialize()
             return {'capture_nonce': self.nonce, 'capture_consumed': self.burned,
                     'capture_ready': not self.unavailable and not self.burned,
                     'capture_phase': self.phase, 'capture_phase_volatile': True,
-                    'capture_grant_validation': 'not_checked_by_health'}
+                    'capture_grant_validation': 'not_checked_by_health',
+                    'startup_evidence': self._proof()}
 
     def prepare(self, c, record, evidence, delivery, raw, cfg, now, validate_config):
         """Called only for a new accepted delivery inside its ingest transaction."""
         if not cfg.get('capture_prepare', False) or not cfg.get('capture_grant_sha256'):
+            return None
+        if self._proof() is None:
             return None
         with self.lock:
             self._initialize()
@@ -184,7 +200,7 @@ class Capture:
                            'privacy': g['privacy'], 'api_disclosure_authorized': False}
                 # Burn before ANY durable reservation attempt; never reset, even
                 # when reservation/commit/fsync fails. Restart invalidates nonce.
-                if not time.time() < expires or not validate_config():
+                if not time.time() < expires or not validate_config() or self._proof() is None:
                     return None
                 self.burned = True
                 self.phase = 'reserving'
@@ -205,6 +221,9 @@ class Capture:
             return
         parent, raw, receipt = ticket
         try:
+            if self._proof() is None:
+                self.phase = 'startup_unverified'
+                return
             self.phase = 'writing_body'
             write_at(parent, BODY, raw)
             self.phase = 'writing_receipt'

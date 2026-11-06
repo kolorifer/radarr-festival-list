@@ -20,6 +20,7 @@ import identity_triage_service as service
 from identity_triage_store import Store
 from identity_triage_intake import normalize
 from test_identity_triage import payload, SOURCES
+from test_identity_startup import startup_fixture
 
 
 class FakeSocket:
@@ -41,7 +42,7 @@ class CaptureTests(unittest.TestCase):
         # Real Server initialization using an inherited fake listener, no bind.
         class Listener:
             def getsockname(self): return ('127.0.0.1', 12345)
-        self.server = service.Server(('127.0.0.1', 12345), self.config, self.store, Listener())
+        self.server = service.Server(('127.0.0.1', 12345), self.config, self.store, Listener(), startup_evidence=startup_fixture())
         self.save()
         self.p = payload(); self.store.ingest(normalize(self.p, SOURCES), 'release_new')
 
@@ -107,14 +108,14 @@ class CaptureTests(unittest.TestCase):
         self.request(self.outcome());self.arm();self.request(self.outcome())
         self.assertFalse((self.store.directory/capture.BODY).exists())
         old=self.server.capture.nonce
-        self.server.capture=capture.Capture(self.store.directory)
+        self.server.capture=capture.Capture(self.store.directory, startup_fixture())
         self.assertNotEqual(old,self.server.capture.nonce)
         self.request(self.outcome());self.assertFalse(self.server.capture.burned)
         self.assertFalse((self.store.directory/capture.BODY).exists())
 
     def test_nonce_failure_never_retried(self):
         with patch.object(capture.secrets,'token_hex',side_effect=OSError('entropy')) as gen:
-            self.server.capture=capture.Capture(self.store.directory)
+            self.server.capture=capture.Capture(self.store.directory, startup_fixture())
             self.arm();self.request(self.outcome());self.cfg['capture_prepare']=False;self.save()
             self.request(self.outcome());self.arm();self.request(self.outcome())
             self.assertEqual(gen.call_count,1)
@@ -204,8 +205,29 @@ class CaptureTests(unittest.TestCase):
         with patch.object(self.server.capture,'finish',side_effect=self.server.capture.abandon):
             self.assertIn(b'200 OK',self.request(self.outcome())[0])
         self.request(self.outcome());self.assertFalse((self.store.directory/capture.BODY).exists())
-        self.server.capture=capture.Capture(self.store.directory)
+        self.server.capture=capture.Capture(self.store.directory, startup_fixture())
         self.request(self.outcome());self.assertFalse((self.store.directory/capture.BODY).exists())
+
+    def test_missing_startup_proof_preserves_intake_but_never_capture(self):
+        self.server.capture = capture.Capture(self.store.directory)
+        self.cfg['capture_prepare'] = True; self.save()
+        response, _ = self.request(get=True)
+        health = json.loads(response.split(b'\r\n\r\n')[1])
+        self.assertFalse(health['capture_ready']); self.assertIsNone(health['capture_nonce'])
+        self.cfg['capture_grant_sha256'] = 'a' * 64; self.save()
+        with patch.object(capture, 'read_at', side_effect=AssertionError('capture read')), \
+             patch.object(capture, 'write_at', side_effect=AssertionError('capture write')):
+            self.assertIn(b'200 OK', self.request(self.outcome())[0])
+        self.assertFalse(self.server.capture.burned)
+
+    def test_proof_revoked_after_grant_read_refuses_before_burn(self):
+        self.arm(); original = capture.read_at
+        def revoke(*args):
+            raw = original(*args); self.server.capture.startup = None; return raw
+        with patch.object(capture, 'read_at', side_effect=revoke):
+            self.assertIn(b'200 OK', self.request(self.outcome())[0])
+        self.assertFalse(self.server.capture.burned)
+        self.assertFalse((self.store.directory / capture.RESERVATION).exists())
 
     def test_strict_capture_configuration(self):
         for changes in ({'capture_prepare':1},{'capture_grant_sha256':'a'*64},

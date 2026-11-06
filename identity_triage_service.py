@@ -50,34 +50,20 @@ def read_config(path):
 
 
 def isolation_check(home=None):
-    # Mandatory at every service start, not a configurable bypass. A unit setting
-    # alone is insufficient: some user managers silently ignore mount restrictions.
-    home = Path.home() if home is None else Path(home)
-    for relative in ('.config/movie-intel', '.local/state/movie-intel', '.apps', '.ssh', 'radarr-festival-list'):
-        try:
-            fd = os.open(home / relative, os.O_RDONLY | os.O_DIRECTORY)
-        except OSError as exc:
-            if exc.errno in (errno.EACCES, errno.ENOENT):
-                continue  # Missing paths are harmless; Landlock denies all ungranted paths.
-            raise ValueError('isolation') from None
-        else:
-            os.close(fd)
-            raise ValueError('isolation')
-    # No inherited credentials. Collector launcher/unit must use a clean env.
-    if any(k.startswith(('RADARR_', 'TELEGRAM_', 'TMDB_', 'MOVIE_INTEL_', 'PROWLARR_')) for k in os.environ):
-        raise ValueError('credential_environment')
+    from identity_triage_sandbox import verify_isolation
+    return verify_isolation(home)
 
 
 class Server(ThreadingHTTPServer):
     daemon_threads = True
     request_queue_size = 8
 
-    def __init__(self, address, config_path, store, listener=None):
+    def __init__(self, address, config_path, store, listener=None, startup_evidence=None):
         if address[0] != '127.0.0.1':
             raise ValueError('loopback_only')
         self.config_path, self.store = config_path, store
         from identity_triage_capture import Capture
-        self.capture = Capture(store.directory)
+        self.capture = Capture(store.directory, startup_evidence)
         self.slots = threading.BoundedSemaphore(8)
         self.failure_lock = threading.Lock()
         self.storage_failures = 0  # volatile: cannot claim durable disk-failure counters
@@ -280,19 +266,21 @@ def main(argv=None):
     args.config = str(Path(args.config).resolve())
     args.state = str(Path(args.state).resolve())
     try:
-        from identity_triage_sandbox import confine
-        listener, abi = confine(args.config, args.state)
+        from identity_triage_sandbox import confine, prepare_startup, complete_startup
+        listener, abi, startup = confine(args.config, args.state)
         cfg = read_config(args.config)
         if listener.getsockname()[1] != cfg['port']:
             raise ValueError('listener_port')
         if not cfg['enabled']:
             raise ValueError('disabled')
         isolation_check()
+        startup = prepare_startup(startup, cfg.get('capture_prepare', False))
         store = Store(args.state)
         if args.check_config:
             print('triage preflight_ok')
             return 0
-        with Server(('127.0.0.1', cfg['port']), args.config, store, listener=listener) as server:
+        startup = complete_startup(startup)
+        with Server(('127.0.0.1', cfg['port']), args.config, store, listener=listener, startup_evidence=startup) as server:
             print('triage sandbox_verified abi=' + str(abi) + ' shadow_observation_only coverage_incomplete', flush=True)
             stop = threading.Event()
             def monitor():
