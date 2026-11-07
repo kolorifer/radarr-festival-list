@@ -22,8 +22,8 @@
   },
   "watch_policy": "watched films remain candidates but recommended_monitored=false",
   "universe_count": 951,
-  "resolved_count": 949,
-  "unresolved_count": 2,
+  "resolved_count": 948,
+  "unresolved_count": 3,
   "candidates": [
     {
       "title": "Moonlight",
@@ -11382,22 +11382,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "Elena",
-      "year": 2011,
-      "imdb_id": "tt1925421",
-      "tspdt_rank": 733,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #733"
-      ],
-      "director": "Zvyagintsev, Andrey",
-      "country": "Russia",
-      "runtime": 109,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "13th",
       "year": 2016,
       "imdb_id": "tt5895028",
@@ -15296,6 +15280,11 @@
       "title": "La Libertad",
       "year": 2001,
       "tspdt_rank": 401
+    },
+    {
+      "title": "Elena",
+      "year": 2011,
+      "tspdt_rank": 733
     }
   ]
 }
