@@ -1,5 +1,15 @@
 # Movie List project state
 
+## Exact captured-case wrapper boundary, 2026-11-07
+
+The existing captured assessment route now supports an exact-artifact-bound
+context issued only by the separately reviewed private supervisor wrapper.
+Ordinary CLI/environment use remains closed. Capture/consent/runtime and
+receipt-derived packet checks precede the unchanged one-send budget path.
+Focused invented validation does not authorize an actual request or prove
+provider/host access. Independent review and exact-head CI are required.
+See the [engineering record](reports/2026-11-07-exact-captured-activation.md).
+
 ## Issue #127 offline correction, 2026-11-03
 
 The retained Task 8 code has an offline-only correction for original-route and

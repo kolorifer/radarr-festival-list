@@ -6,6 +6,7 @@ route remains default-closed, with no notification sender
 or approval authority.
 """
 import argparse
+import hashlib
 from contextvars import ContextVar
 from contextlib import contextmanager
 from pathlib import Path
@@ -25,6 +26,7 @@ from .responses_protocol import schema_value
 _OFFLINE_COMPLETION = ContextVar('new_case_offline_completion', default=None)
 _CAPTURED = ContextVar('locked_captured_case', default=None)
 _CONNECTED_COMPLETION = ContextVar('connected_captured_completion', default=None)
+_APPROVED_CAPTURE = ContextVar('approved_captured_wrapper_context', default=None)
 
 def admitted(packet, selection, now):
     validate_packet(packet)
@@ -262,14 +264,88 @@ CAPTURED_REQUEST_BYTES = 65536
 CAPTURED_AUTHORITY_BYTES = 131072
 
 
+class _ApprovedCapture:
+    """Exact local wrapper trust, not a provider or owner signature."""
+    def __init__(self, path, sha256):
+        from .supervised_credit import _read_evidence
+        self.path=Path(path);self.sha256=sha256
+        raw,self.identity=_read_evidence(self.path,CAPTURED_AUTHORITY_BYTES)
+        require(hashlib.sha256(raw).hexdigest()==sha256,'captured_activation_changed')
+        self.record=decode(raw,CAPTURED_AUTHORITY_BYTES)
+        shape(self.record,'kind owner_scope main_review authority body receipt sources runtime_manifest_sha256 issued_at expires_at')
+        require(self.record['kind']=='trusted_wrapper_one_captured_case_v1','captured_activation_kind')
+        require(raw==encoded(self.record),'captured_activation_canonical')
+        self.pins={};self.last_time=stamp(self.record['issued_at'])
+        for name,limit in (('owner_scope',32768),('main_review',32768),('authority',CAPTURED_AUTHORITY_BYTES),('body',65536),('receipt',8192)):
+            pin=self.record[name];shape(pin,'path sha256')
+            data,identity=_read_evidence(Path(pin['path']),limit)
+            require(hashlib.sha256(data).hexdigest()==pin['sha256'],'captured_activation_artifact')
+            self.pins[name]=(data,identity,limit)
+        self.authority=decode(self.pins['authority'][0],CAPTURED_AUTHORITY_BYTES)
+        require(self.pins['authority'][0]==encoded(self.authority),'captured_authority_changed')
+        self.receipt=decode(self.pins['receipt'][0],8192)
+        shape(self.receipt,'version source channel case_id case_version event_id selection_event delivery_rowid evidence_id source_time received_at grant_sha256 body_sha256 body_bytes privacy api_disclosure_authorized')
+        r=self.receipt;body=self.pins['body'][0]
+        require(r['version']==1 and r['channel']=='outcome' and r['privacy']=='private_local_raw_observer_body_no_api_disclosure' and r['api_disclosure_authorized'] is False,'captured_receipt_scope')
+        require(r['body_sha256']==hashlib.sha256(body).hexdigest() and r['body_bytes']==len(body),'captured_receipt_body')
+        self.binding=dict(source=r['source'],case_id=r['case_id'],version=r['case_version'],occurrence=dict(event_id=r['event_id'],delivery_id=r['delivery_rowid']))
+        scope(self.binding)
+        require(self.authority['case']==self.binding and self.authority['max_calls']==1 and self.authority['maximum_debit_usd']==[3,100],'captured_activation_scope')
+        require(self.last_time<stamp(self.record['expires_at'])<=stamp(self.authority['expires_at']),'captured_activation_expiry')
+        self.revalidate()
+
+    def revalidate(self):
+        from .supervised_credit import _read_evidence
+        from .installation import verify_installation
+        raw,identity=_read_evidence(self.path,CAPTURED_AUTHORITY_BYTES)
+        require(identity==self.identity and hashlib.sha256(raw).hexdigest()==self.sha256 and decode(raw,CAPTURED_AUTHORITY_BYTES)==self.record,'captured_activation_changed')
+        now=time.time()
+        require(self.last_time<=now<self.record['expires_at'],'captured_activation_expired')
+        self.last_time=now
+        for name,(raw,identity,limit) in self.pins.items():
+            current=_read_evidence(Path(self.record[name]['path']),limit)
+            require(current==(raw,identity),'captured_activation_artifact_changed')
+        manifest=verify_installation(Path(__file__).resolve().parent.parent)
+        require(digest(manifest)==self.record['runtime_manifest_sha256'],'captured_activation_runtime')
+
+    def bind(self,authority,packet=None):
+        self.revalidate()
+        require(authority==self.authority,'captured_activation_authority')
+        if packet is not None:
+            from .contracts import captured_outcome
+            reconstructed=captured_outcome(self.pins['body'][0],sources=self.record['sources'],binding=self.binding,
+                evidence=packet['evidence'],decisions=packet['decisions'],trusted_issuers=packet['trusted_issuers'])
+            require(reconstructed==packet,'captured_activation_packet')
+
+
+@contextmanager
+def approved_captured_wrapper(path,sha256):
+    """Only for the separately accepted private operational wrapper.
+
+    The caller is the trusted issuer and must independently pin this exact
+    main-reviewed record, runtime, invocation and owner scope. A caller-selected
+    hash is NOT owner authentication. No ordinary CLI/env option exposes this
+    API; arbitrary same-process code is outside this local trust boundary.
+    Reading/verifying these local artifacts neither prompts nor sends.
+    """
+    require(_APPROVED_CAPTURE.get() is None,'captured_activation_nested')
+    active=_ApprovedCapture(path,sha256)
+    token=_APPROVED_CAPTURE.set(active)
+    try:yield
+    finally:_APPROVED_CAPTURE.reset(token)
+
+
 def captured_activation_refusal():
-    """No actual captured-case grant has been issued. No flag/JSON enables it."""
-    return 'captured_real_activation_unissued'
+    return None if type(_APPROVED_CAPTURE.get()) is _ApprovedCapture else 'captured_real_activation_unissued'
 
 
 def require_captured_activation():
     reason = captured_activation_refusal()
     require(reason is None, reason or 'captured_real_activation_unissued')
+    active=_APPROVED_CAPTURE.get()
+    if active is not None:
+        require(type(active) is _ApprovedCapture,'captured_activation_untrusted')
+        active.revalidate()
 
 
 def captured_request(request):
@@ -375,6 +451,8 @@ def validate_captured(grant, project):
         grant['run']=='captured-'+digest(authority) and
         digest(grant['request'])==authority['request_sha256'], 'captured_authority_changed')
     require(stamp(authority['issued_at'])<=time.time()<stamp(authority['expires_at']), 'captured_authority_expired')
+    active=_APPROVED_CAPTURE.get()
+    if active is not None:active.bind(authority)
     body=encoded(grant['request'])
     require(len(body)<=CAPTURED_REQUEST_BYTES,'handoff_size')
     decode(grant['request']['input'][0]['content'][0]['text'],MAX_INPUT)
@@ -394,6 +472,8 @@ class _CapturedCase:
         a=self.grant['authorization']
         body=validate_captured(self.grant,self.evidence['project'])
         p,packet,expected,rec=_prepared_locked(self.history,self.events,a['request_hash'])
+        active=_APPROVED_CAPTURE.get()
+        if active is not None:active.bind(a,packet)
         require(list(self.root.identity)==a['root_identity'] and
             list(self.history.identity)==a['case_identity'] and file_identity(self.history)==a['case_file_identity'] and
             str(self.history.directory)==a['case_directory'] and digest(p)==a['prepared_hash'] and

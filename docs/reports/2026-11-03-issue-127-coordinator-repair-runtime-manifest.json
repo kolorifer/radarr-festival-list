@@ -17,7 +17,7 @@
     "ai_movie_investigator/installation.py": "5f8a7aabb79decb7114dc73f6ea3bc5df1ebc9cf1add6f74723767fa7463499c",
     "ai_movie_investigator/keychain_credential.py": "72ff5336857dd8577c51d6ea1b86e15f260033d2a90eecf0ea0b696026421810",
     "ai_movie_investigator/manual_offline.py": "00735b230ded54a89ce6e3729dc0d463c70b91c309ef654faa8e14efbf046d5d",
-    "ai_movie_investigator/new_case.py": "44b4ecf85d7ffbf42e3f7c4e9419c8a2b938ba7c7d5d724ceb6f031ece1a07bc",
+    "ai_movie_investigator/new_case.py": "9546f467fd5f78941e71478ed2a6c594644e49acb0256d57cf205487195cbf77",
     "ai_movie_investigator/parent_pilot.py": "aa31d785f502ef7d06512d6b471c3194eed6be8cb5b82305e6cb2e981da4016d",
     "ai_movie_investigator/pilot.py": "4cf21519eb6f2148646bfeca0e110b9a7a259b55397a58b8d72ee748f18ab6bb",
     "ai_movie_investigator/pilot_account.py": "a57bac2a5e8188fc3665bccd0524d37855d7433c2c15de4f20c2d996ff2874a3",
