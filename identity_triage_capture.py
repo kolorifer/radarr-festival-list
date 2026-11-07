@@ -15,6 +15,7 @@ GRANT = 'capture-grant.json'
 RESERVATION = 'capture-reservation.json'
 BODY = 'capture-body.json'
 RECEIPT = 'capture-receipt.json'
+MAX_CAPTURE_HORIZON_SECONDS = 21600
 
 
 def encoded(value):
@@ -163,7 +164,7 @@ class Capture:
                         or g['destination'] != {'body': BODY, 'receipt': RECEIPT}
                         or g['privacy'] != 'private_local_raw_observer_body_no_api_disclosure'
                         or type(expires) not in (int, float) or not math.isfinite(expires)
-                        or not now < expires <= now + 3600
+                        or not now < expires <= now + MAX_CAPTURE_HORIZON_SECONDS
                         or not isinstance(f, dict)):
                     return None
                 mode = f.get('mode')

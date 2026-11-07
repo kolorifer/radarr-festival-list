@@ -1,5 +1,12 @@
 # Movie List project state
 
+## Finite six-hour capture horizon, 2026-11-07
+
+The dormant collector permits a finite six-hour remaining grant horizon while
+retaining every one-event and source/privacy gate. Operational deployment and
+a new window remain held for separate exact-package verification. See the
+[engineering record](reports/2026-11-07-six-hour-capture.md).
+
 ## Exact captured-case wrapper boundary, 2026-11-07
 
 The existing captured assessment route now supports an exact-artifact-bound
