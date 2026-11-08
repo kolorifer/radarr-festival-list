@@ -1887,22 +1887,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "The Son",
-      "year": 2002,
-      "imdb_id": "tt0291172",
-      "tspdt_rank": 106,
-      "score": 2.0,
-      "signals": [
-        "TSPDT 21st-century #106"
-      ],
-      "director": "Dardenne, Jean-Pierre & Luc Dardenne",
-      "country": "Belgium",
-      "runtime": 103,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "Trouble Every Day",
       "year": 2001,
       "imdb_id": "tt0204700",
@@ -11382,6 +11366,22 @@
       "recommended_monitored": true
     },
     {
+      "title": "Elena",
+      "year": 2011,
+      "imdb_id": "tt1925421",
+      "tspdt_rank": 733,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #733"
+      ],
+      "director": "Zvyagintsev, Andrey",
+      "country": "Russia",
+      "runtime": 109,
+      "status": "candidate",
+      "watch_state": "unknown",
+      "recommended_monitored": true
+    },
+    {
       "title": "13th",
       "year": 2016,
       "imdb_id": "tt5895028",
@@ -15272,6 +15272,11 @@
   ],
   "unresolved": [
     {
+      "title": "The Son",
+      "year": 2002,
+      "tspdt_rank": 106
+    },
+    {
       "title": "Ten",
       "year": 2002,
       "tspdt_rank": 209
@@ -15280,11 +15285,6 @@
       "title": "La Libertad",
       "year": 2001,
       "tspdt_rank": 401
-    },
-    {
-      "title": "Elena",
-      "year": 2011,
-      "tspdt_rank": 733
     }
   ]
 }
