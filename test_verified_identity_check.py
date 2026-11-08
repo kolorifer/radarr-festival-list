@@ -53,6 +53,12 @@ class AdmissionAudit(unittest.TestCase):
   raw,b,e=synthetic_case(165);raw['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
   decisions=[owner_decision(b,kind,evidence=e,chosen=kind=='confirmed_identity')] if kind else []
   return k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=decisions,trusted_issuers=['synthetic_owner'])
+ def test_audit_refusals_are_finite_and_sanitized(self):
+  from ai_movie_investigator import supervised_credit as credit
+  for reason in ('verified_identity_check_scope','assessment_purpose','verified_capture_grant'):
+   self.assertEqual(credit.safe_reason(k.Refusal(reason)),reason)
+   self.assertEqual(credit.refusal_category(k.Refusal(reason)),'captured_refused')
+  self.assertEqual(credit.safe_reason(k.Refusal('PRIVATE_UNKNOWN')),'unexpected_exception')
  def test_explicit_mode_only_preserves_facts(self):
   p=self.packet();before=copy.deepcopy(p)
   self.assertEqual(k.reconcile(p,NOW)['admission'],'intentionally_skipped')
