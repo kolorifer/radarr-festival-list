@@ -17,7 +17,8 @@ import sys
 
 from identity_telegram_digest import readable_case
 from .contracts import (MAX_INPUT, MAX_OUTPUT, Refusal, decode, digest, encoded,
-                        require, scope, shape, stamp, text, validate_packet, reconcile)
+                        require, scope, shape, stamp, text, validate_packet, reconcile,
+                        VERIFIED_IDENTITY_CHECK, reconcile_verified_identity_check)
 from .controller import INSTRUCTIONS, output_schema, validate_final
 from .history import History, selected_current, research_dependency
 from .responses_protocol import schema_value
@@ -28,15 +29,19 @@ _CAPTURED = ContextVar('locked_captured_case', default=None)
 _CONNECTED_COMPLETION = ContextVar('connected_captured_completion', default=None)
 _APPROVED_CAPTURE = ContextVar('approved_captured_wrapper_context', default=None)
 
-def admitted(packet, selection, now):
+def admitted(packet, selection, now, *, purpose=None):
     validate_packet(packet)
     scope(selection)
     require(selection == packet['binding'], 'selected_occurrence_changed')
     require(packet['hash_basis'] == 'captured_bytes' and packet['event'] is not None
             and selection['occurrence'] is not None, 'captured_occurrence_required')
-    require(packet['facts']['route'] == 'eligible' and
-            packet['facts']['outcome']['status'] in ('unresolved', 'needs_review'), 'original_route_not_eligible')
-    rec = reconcile(packet, now)
+    require(purpose in (None, VERIFIED_IDENTITY_CHECK), 'assessment_purpose')
+    if purpose == VERIFIED_IDENTITY_CHECK:
+        rec = reconcile_verified_identity_check(packet, now)
+    else:
+        require(packet['facts']['route'] == 'eligible' and
+                packet['facts']['outcome']['status'] in ('unresolved', 'needs_review'), 'original_route_not_eligible')
+        rec = reconcile(packet, now)
     require(rec['admission'] == 'eligible', 'occurrence_not_eligible')
     return rec
 
@@ -94,6 +99,11 @@ def projection(packet, rec, now):
         image_analysis='not performed', runtime_edition_claims='untyped source claims withheld')
     data = dict(facts=facts, evidence=rows, decisions=decisions, disposition=rec['disposition'],
                 conflicting_ids=rec['conflicting_ids'], qualifications=qualifications)
+    if rec.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK:
+        data['assessment_purpose'] = VERIFIED_IDENTITY_CHECK
+        data['facts']['producer_assertion'] = dict(route=f['route'], status=f['outcome']['status'],
+            category=f['outcome']['category'], reason=f['outcome']['reason'], independently_approved=False)
+        data['qualifications']['producer_identity'] = 'assertion only; independent identity not established'
     return data, supplied
 
 
@@ -105,15 +115,17 @@ def request_for(packet, rec, now):
     request = dict(kind='supervised_new_case_handoff', binding_hash=binding,
                    instructions=INSTRUCTIONS.replace('Request only retained lookups. ', '') + ' No lookups; use only supplied evidence. Missing is not a verified negative.',
                    input=data, output_schema=output_schema(), generation_invoked=False)
+    if rec.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK:
+        request['instructions'] += ' Independently check the producer assertion; verified_tmdb is not independent approval or evidence of correctness. Do not assume a conflict. Missing support must remain unresolved or blocked.'
     require(len(encoded(request)) <= MAX_INPUT, 'handoff_size')
     return request
 
 
-def prepare(history, packet, selection, *, require_empty=False):
+def prepare(history, packet, selection, *, require_empty=False, purpose=None):
     """Return the actual minimized chat handoff; no manual input/reply file paths."""
     packet = decode(encoded(packet), MAX_INPUT)
     now = stamp(history.clock())
-    rec = admitted(packet, selection, now)
+    rec = admitted(packet, selection, now, purpose=purpose)
     def intake_guard(events):
         if require_empty:require(not events,'offline_history_not_empty')
         # Refused research must not supersede a valid selected snapshot.
@@ -128,8 +140,10 @@ def prepare(history, packet, selection, *, require_empty=False):
         require(not any(e.get('job') == job and e['type'] in
                        ('new_case_prepared', 'invocation', 'result') for e in events), 'assessment_already_consumed')
         request = request_for(packet, rec, now)
-        append(dict(type='new_case_prepared', job=job, at=now, request=request,
-                    request_hash=digest(request), reconciliation_hash=digest(rec)))
+        prepared = dict(type='new_case_prepared', job=job, at=now, request=request,
+                    request_hash=digest(request), reconciliation_hash=digest(rec))
+        if purpose is not None: prepared['assessment_purpose'] = purpose
+        append(prepared)
     return request
 
 
@@ -147,7 +161,7 @@ def notification(packet, answer, data, provenance):
         'Supervised supplied assessment; chat authorship requires external verification.',
         'Assessment: ' + result['status'].replace('_', ' '),
         'Evidence rationale: ' + result['rationale'], 'Uncertainty: ' + result['uncertainty'],
-        'Source conflict: ' + f['outcome']['reason'].replace('_', ' '),
+        ('Producer assertion (not independent approval): ' if data.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK else 'Source conflict: ') + f['outcome']['reason'].replace('_', ' '),
         'Conflicting IDs: ' + ('present; unresolved' if data['conflicting_ids'] else 'none established in this snapshot'),
         'Prior disposition: ' + data['disposition'].replace('_', ' '),
         'Evidence: catalogue ' + data['qualifications']['catalogue_evidence'] + '; source ' +
@@ -205,7 +219,7 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
         packet = next(e['packet'] for e in events if e['type'] == 'intake' and e['job'] == job)
         now = stamp(history.clock())
         require(now >= p['at'], 'clock_rollback')
-        rec = admitted(packet, packet['binding'], now)
+        rec = admitted(packet, packet['binding'], now, purpose=p.get('assessment_purpose'))
         require(digest(rec) == p['reconciliation_hash'], 'decision_or_evidence_applicability_changed')
         request = request_for(packet, rec, p['at'])
         require(request == p['request'] and digest(request) == request_hash, 'handoff_changed')
@@ -226,6 +240,9 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
             request_hash=request_hash, reply_hash=digest(answer), assessment=answer['result'],
             provenance=provenance, provenance_verified=False, generation_invoked=False,
             qualifications=data['qualifications'], draft=draft)
+        if p.get('assessment_purpose') is not None:
+            report['assessment_purpose'] = p['assessment_purpose']
+            report['producer_assertion'] = data['facts']['producer_assertion']
         if connected is not None:
             simulated=connected[3]['simulated']
             report.update(connected_transport_invoked=True, receipt_hash=connected[3]['receipt_hash'],
@@ -272,11 +289,16 @@ class _ApprovedCapture:
         raw,self.identity=_read_evidence(self.path,CAPTURED_AUTHORITY_BYTES)
         require(hashlib.sha256(raw).hexdigest()==sha256,'captured_activation_changed')
         self.record=decode(raw,CAPTURED_AUTHORITY_BYTES)
-        shape(self.record,'kind owner_scope main_review authority body receipt sources runtime_manifest_sha256 issued_at expires_at')
-        require(self.record['kind']=='trusted_wrapper_one_captured_case_v1','captured_activation_kind')
+        self.audit = self.record.get('kind') == 'trusted_wrapper_verified_identity_check_v1'
+        fields = 'kind owner_scope main_review authority body receipt sources runtime_manifest_sha256 issued_at expires_at'
+        shape(self.record, fields + (' capture_grant assessment_purpose' if self.audit else ''))
+        require(self.audit or self.record['kind']=='trusted_wrapper_one_captured_case_v1','captured_activation_kind')
+        if self.audit: require(self.record['assessment_purpose']==VERIFIED_IDENTITY_CHECK,'assessment_purpose')
         require(raw==encoded(self.record),'captured_activation_canonical')
         self.pins={};self.last_time=stamp(self.record['issued_at'])
-        for name,limit in (('owner_scope',32768),('main_review',32768),('authority',CAPTURED_AUTHORITY_BYTES),('body',65536),('receipt',8192)):
+        pin_limits = [('owner_scope',32768),('main_review',32768),('authority',CAPTURED_AUTHORITY_BYTES),('body',65536),('receipt',8192)]
+        if self.audit: pin_limits.append(('capture_grant',4096))
+        for name,limit in pin_limits:
             pin=self.record[name];shape(pin,'path sha256')
             data,identity=_read_evidence(Path(pin['path']),limit)
             require(hashlib.sha256(data).hexdigest()==pin['sha256'],'captured_activation_artifact')
@@ -288,6 +310,16 @@ class _ApprovedCapture:
         r=self.receipt;body=self.pins['body'][0]
         require(r['version']==1 and r['channel']=='outcome' and r['privacy']=='private_local_raw_observer_body_no_api_disclosure' and r['api_disclosure_authorized'] is False,'captured_receipt_scope')
         require(r['body_sha256']==hashlib.sha256(body).hexdigest() and r['body_bytes']==len(body),'captured_receipt_body')
+        if self.audit:
+            raw_grant = self.pins['capture_grant'][0]
+            g = decode(raw_grant,4096)
+            shape(g,'version nonce source channel filter expires_at destination privacy')
+            require(hashlib.sha256(raw_grant).hexdigest()==r['grant_sha256'] and g['version']==1 and
+                g['source']==r['source'] and g['channel']=='outcome' and
+                g['filter']==dict(mode='first_verified_identity_check',category='unknown_movie',status='verified_tmdb',reason='external_id_verified') and
+                g['destination']==dict(body='capture-body.json',receipt='capture-receipt.json') and
+                g['privacy']==r['privacy'] and stamp(r['received_at'])<stamp(g['expires_at']), 'verified_capture_grant')
+        require(self.authority.get('assessment_purpose')==(VERIFIED_IDENTITY_CHECK if self.audit else None),'assessment_purpose')
         self.binding=dict(source=r['source'],case_id=r['case_id'],version=r['case_version'],occurrence=dict(event_id=r['event_id'],delivery_id=r['delivery_rowid']))
         scope(self.binding)
         require(self.authority['case']==self.binding and self.authority['max_calls']==1 and self.authority['maximum_debit_usd']==[3,100],'captured_activation_scope')
@@ -316,6 +348,7 @@ class _ApprovedCapture:
             reconstructed=captured_outcome(self.pins['body'][0],sources=self.record['sources'],binding=self.binding,
                 evidence=packet['evidence'],decisions=packet['decisions'],trusted_issuers=packet['trusted_issuers'])
             require(reconstructed==packet,'captured_activation_packet')
+            admitted(packet,self.binding,self.last_time,purpose=VERIFIED_IDENTITY_CHECK if self.audit else None)
 
 
 @contextmanager
@@ -373,7 +406,7 @@ def _prepared_locked(history, events, request_hash):
     packet=next(e['packet'] for e in events if e['type']=='intake' and e['job']==job)
     now=stamp(history.clock())
     require(now>=p['at'], 'clock_rollback')
-    rec=admitted(packet,packet['binding'],now)
+    rec=admitted(packet,packet['binding'],now,purpose=p.get('assessment_purpose'))
     require(digest(rec)==p['reconciliation_hash'], 'decision_or_evidence_applicability_changed')
     require(projection(packet,rec,now)[0]==projection(packet,rec,p['at'])[0],
             'decision_or_evidence_applicability_changed')
@@ -417,7 +450,7 @@ def captured_consent(root, root_events, history, events, request_hash, evidence)
     from .supervised_credit import file_identity
     root.require_write_transaction(root_events)
     p,packet,body,rec=_prepared_locked(history,events,request_hash)
-    return dict(kind='captured_occurrence_generation_v1', response_contract=CAPTURED_CONTRACT,
+    consent = dict(kind='captured_occurrence_generation_v1', response_contract=CAPTURED_CONTRACT,
         root_identity=list(root.identity), root_prefix_sha256=digest(root_events),
         case_directory=str(history.directory), case_identity=list(history.identity),
         case_file_identity=file_identity(history), prepared_hash=digest(p), request_hash=request_hash,
@@ -431,6 +464,8 @@ def captured_consent(root, root_events, history, events, request_hash, evidence)
         owner_reference=evidence['owner_reference'],
         source_authenticity='unknown', live_currentness='unknown', decision_coverage='unknown',
         identity_approval=False, acquisition_approval=False, notification_authority=False)
+    if p.get('assessment_purpose') is not None: consent['assessment_purpose'] = p['assessment_purpose']
+    return consent
 
 
 def validate_captured(grant, project):
@@ -472,6 +507,7 @@ class _CapturedCase:
         a=self.grant['authorization']
         body=validate_captured(self.grant,self.evidence['project'])
         p,packet,expected,rec=_prepared_locked(self.history,self.events,a['request_hash'])
+        require(a.get('assessment_purpose')==p.get('assessment_purpose'),'assessment_purpose')
         active=_APPROVED_CAPTURE.get()
         if active is not None:active.bind(a,packet)
         require(list(self.root.identity)==a['root_identity'] and

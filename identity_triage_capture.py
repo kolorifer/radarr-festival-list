@@ -168,16 +168,22 @@ class Capture:
                         or not isinstance(f, dict)):
                     return None
                 mode = f.get('mode')
-                if (mode not in ('first_matching', 'exact_external_id')
+                if (mode not in ('first_matching', 'exact_external_id', 'first_verified_identity_check')
                         or set(f) != ({'mode', 'status', 'reason', 'external_id'}
-                                      if mode == 'exact_external_id' else {'mode', 'status', 'reason'})):
+                                      if mode == 'exact_external_id' else
+                                      {'mode', 'category', 'status', 'reason'} if mode == 'first_verified_identity_check'
+                                      else {'mode', 'status', 'reason'})):
                     return None
                 envelope = decode(raw)
                 o = record['outcome']
+                audit = mode == 'first_verified_identity_check'
+                if audit and (f != dict(mode=mode, category='unknown_movie', status='verified_tmdb',
+                                       reason='external_id_verified') or o['category'] != f['category']):
+                    return None
                 if (mode == 'exact_external_id' and (f['external_id'] != envelope['data']['release'].get('external_id')
                         or not isinstance(f['external_id'], str) or not f['external_id'])
                         or f['status'] != o['status'] or f['reason'] != o['reason']
-                        or o['status'] not in ('unresolved', 'needs_review')):
+                        or (not audit and o['status'] not in ('unresolved', 'needs_review'))):
                     return None
                 observed = record['time']
                 if observed is None or observed > now + 300:
@@ -188,7 +194,7 @@ class Capture:
                 row = c.execute('select h.case_key,h.version,h.evidence,h.route,h.correlation,h.material '
                                 'from selection_current s join selection_history h on h.version=s.version where s.release=?',
                                 (record['release'],)).fetchone()
-                if (latest != (event,) or not row or row[2] != evidence or row[3:5] != ('eligible', 'strong_source_id')):
+                if (latest != (event,) or not row or row[2] != evidence or row[3:5] != ('verified' if audit else 'eligible', 'strong_source_id')):
                     return None
                 material = json.loads(row[5])
                 if material['metadata'] != record['metadata'] or material['outcome'] != o:

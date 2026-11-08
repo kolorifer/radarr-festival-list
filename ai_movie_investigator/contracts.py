@@ -283,7 +283,32 @@ def legacy_snapshot(case, *, source, evidence, decisions, trusted_issuers=()):
                    None, facts, evidence, decisions, trusted_issuers, digest(case), 'legacy_canonical_snapshot')
 
 
+VERIFIED_IDENTITY_CHECK = 'producer_verified_identity_check_v1'
+
+
+def verified_identity_check_facts(packet):
+    f = packet['facts']; o = f['outcome']
+    require(f['route'] == 'verified' and o['category'] == 'unknown_movie' and
+            o['status'] == 'verified_tmdb' and o['reason'] == 'external_id_verified',
+            'verified_identity_check_scope')
+
+
+def reconcile_verified_identity_check(packet, now):
+    """Explicit audit only: keep producer facts and all earlier decision gates."""
+    verified_identity_check_facts(packet)
+    result = _reconcile(packet, now, verified_identity_check=True)
+    # A producer assertion never authorizes reuse of remembered owner identity.
+    if result['admission'] == 'eligible' and result['known_identity'] is not None:
+        result.update(admission='blocked', disposition='remembered_identity_confirmation_required')
+    result['assessment_purpose'] = VERIFIED_IDENTITY_CHECK
+    return result
+
+
 def reconcile(packet, now):
+    return _reconcile(packet, now)
+
+
+def _reconcile(packet, now, *, verified_identity_check=False):
     """Join scoped owner decisions and dated shadow knowledge before AI admission."""
     stamp(now)
     binding = packet['binding']
@@ -334,7 +359,7 @@ def reconcile(packet, now):
     ids = packet['facts']
     result['conflicting_ids'] = any(ids.get(k) and ids['outcome'].get('asserted_' + k)
                                     and ids[k] != ids['outcome']['asserted_' + k] for k in ('imdb', 'tmdb'))
-    if ids['route'] in ('routine', 'verified'):
+    if ids['route'] == 'routine' or (ids['route'] == 'verified' and not verified_identity_check):
         result.update(admission='intentionally_skipped', disposition='existing_' + ids['route'])
     elif ids['route'] in ('quarantine', 'unassessed') and result['admission'] == 'eligible':
         result.update(admission='blocked', disposition='outcome_not_admitted')
