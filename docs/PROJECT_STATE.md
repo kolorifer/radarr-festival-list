@@ -1,5 +1,12 @@
 # Movie List project state
 
+## Dormant verified-identity check, 2026-11-08
+
+An explicit one-event audit mode preserves producer-verified facts while binding
+a separate independent-check purpose through capture and private assessment.
+Existing unresolved behavior and all live permissions remain unchanged.
+See [implementation and held operation](reports/2026-11-08-verified-identity-check.md).
+
 ## Finite six-hour capture horizon, 2026-11-07
 
 The dormant collector permits a finite six-hour remaining grant horizon while
