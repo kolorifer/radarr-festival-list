@@ -194,7 +194,10 @@ class Capture:
                 row = c.execute('select h.case_key,h.version,h.evidence,h.route,h.correlation,h.material '
                                 'from selection_current s join selection_history h on h.version=s.version where s.release=?',
                                 (record['release'],)).fetchone()
-                if (latest != (event,) or not row or row[2] != evidence or row[3:5] != ('verified' if audit else 'eligible', 'strong_source_id')):
+                if (latest != (event,) or not row or row[2] != evidence
+                        or row[3] != ('verified' if audit else 'eligible')
+                        or row[4] not in (('strong_source_id', 'outcome_only') if audit else ('strong_source_id',))
+                        or record['metadata']['release_key_basis'] != 'external_id'):
                     return None
                 material = json.loads(row[5])
                 if material['metadata'] != record['metadata'] or material['outcome'] != o:
@@ -205,6 +208,11 @@ class Capture:
                            'source_time': observed, 'received_at': now, 'grant_sha256': cfg['capture_grant_sha256'],
                            'body_sha256': hashlib.sha256(raw).hexdigest(), 'body_bytes': len(raw),
                            'privacy': g['privacy'], 'api_disclosure_authorized': False}
+                if audit:
+                    receipt['capture_qualification'] = {
+                        'correlation': row[4],
+                        'source_support': ('no_prior_selected_observation' if row[4]=='outcome_only'
+                                           else 'prior_selected_observation_correlated')}
                 # Burn before ANY durable reservation attempt; never reset, even
                 # when reservation/commit/fsync fails. Restart invalidates nonce.
                 if not time.time() < expires or not validate_config() or self._proof() is None:

@@ -36,12 +36,12 @@ class CaptureAudit(unittest.TestCase):
     f=self.fixture();f.arm(filter=FILTER);e=f.outcome()
     e['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'};e['data']['outcome'][field]=value
     f.request(e);self.assertFalse((f.store.directory/cap.BODY).exists());self.assertFalse(f.server.capture.burned)
- def test_mismatch_source_and_uncorrelated_refuse(self):
+ def test_mismatch_source_and_name_fallback_refuse(self):
   for change in ('source','external_id'):
    with self.subTest(change=change):
     f=self.fixture();f.arm(filter=FILTER,**({'source':'different'} if change=='source' else {}))
     e=f.outcome();e['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
-    if change=='external_id':e['data']['release']['external_id']='different'
+    if change=='external_id':e['data']['release'].pop('external_id')
     f.request(e);self.assertFalse((f.store.directory/cap.BODY).exists())
  def test_reservation_failure_burns_audit(self):
   f=self.fixture();f.arm(filter=FILTER);e=f.outcome();e['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
@@ -55,7 +55,7 @@ class AdmissionAudit(unittest.TestCase):
   return k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=decisions,trusted_issuers=['synthetic_owner'])
  def test_audit_refusals_are_finite_and_sanitized(self):
   from ai_movie_investigator import supervised_credit as credit
-  for reason in ('verified_identity_check_scope','assessment_purpose','verified_capture_grant'):
+  for reason in ('verified_identity_check_scope','assessment_purpose','verified_capture_grant','verified_capture_qualification'):
    self.assertEqual(credit.safe_reason(k.Refusal(reason)),reason)
    self.assertEqual(credit.refusal_category(k.Refusal(reason)),'captured_refused')
   self.assertEqual(credit.safe_reason(k.Refusal('PRIVATE_UNKNOWN')),'unexpected_exception')
@@ -83,14 +83,15 @@ class ConnectedAudit(unittest.TestCase):
   raw['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
   f.cfg['sources']={'synthetic':'Synthetic Index'};f.save()
   release=copy.deepcopy(raw);release['event']='release.new';release['id']=str(uuid.uuid4());del release['data']['outcome']
-  f.store.ingest(normalize(release,f.cfg['sources']),'release_new')
+  if getattr(self,'support','strong_source_id')=='strong_source_id':
+   f.store.ingest(normalize(release,f.cfg['sources']),'release_new')
   f.arm(source='synthetic',filter=FILTER);response,self.body=f.request(raw);self.assertIn(b'200 OK',response)
   self.receipt=json.loads((f.store.directory/cap.RECEIPT).read_bytes());self.grant=(f.store.directory/cap.GRANT).read_bytes()
   r=self.receipt;b=dict(source=r['source'],case_id=r['case_id'],version=r['case_version'],occurrence=dict(event_id=r['event_id'],delivery_id=r['delivery_rowid']))
   for row in e:row['scope']=copy.deepcopy(b)
   original_prepare=n.prepare;original_capture=k.captured_outcome
   # Fixture assembly adapts only invented input; no admission/activation gate patch.
-  with patch.object(generation,'synthetic_case',return_value=(raw,b,e)),patch.object(activation,'synthetic_case',return_value=(raw,b,e)),patch.object(generation,'captured_outcome',side_effect=lambda ignored,**kwargs:original_capture(self.body,**kwargs)),patch.object(n,'prepare',side_effect=lambda *args,**kwargs:original_prepare(*args,purpose=k.VERIFIED_IDENTITY_CHECK,**kwargs)):
+  with patch.object(generation,'synthetic_case',return_value=(raw,b,e)),patch.object(activation,'synthetic_case',return_value=(raw,b,e)),patch.object(generation,'captured_outcome',side_effect=lambda ignored,**kwargs:original_capture(self.body,qualification=self.receipt['capture_qualification'],**kwargs)),patch.object(n,'prepare',side_effect=lambda *args,**kwargs:original_prepare(*args,purpose=k.VERIFIED_IDENTITY_CHECK,**kwargs)):
    self.a=activation.Activation('test_exact_context_receipt_report_and_reset_without_gate_patch');self.a.setUp();self.addCleanup(self.a.doCleanups)
   self.a.record.update(kind='trusted_wrapper_verified_identity_check_v1',assessment_purpose=k.VERIFIED_IDENTITY_CHECK)
   for name,data in [('body',self.body),('receipt',k.encoded(self.receipt)),('capture_grant',self.grant)]:
@@ -104,6 +105,8 @@ class ConnectedAudit(unittest.TestCase):
   report=self.a.f.case.read()[-1]['report'];receipt=History(self.a.f.f.state/'attempt-7').read()[-1]
   self.assertEqual(report['receipt_hash'],k.digest(receipt));self.assertEqual(report['assessment_purpose'],k.VERIFIED_IDENTITY_CHECK)
   self.assertEqual(report['producer_assertion']['status'],'verified_tmdb');self.assertFalse(report['producer_assertion']['independently_approved'])
+  self.assertEqual(report['capture_qualification'],self.receipt['capture_qualification'])
+  self.assertEqual(self.a.f.case.read()[1]['request']['input']['qualifications']['capture_source_support'],self.receipt['capture_qualification'])
   self.assertFalse(report['draft']['sent']);self.assertTrue(report['connected_transport_invoked']);self.assertFalse(report['generation_invoked'])
   self.assertNotIn('Source conflict:',json.dumps(report));self.assertEqual(self.a.f.packet['facts']['route'],'verified')
  def test_wrong_purpose_and_grant_refuse_before_credit(self):
@@ -157,3 +160,36 @@ class ConnectedAudit(unittest.TestCase):
    self.assertEqual((target/name).read_bytes(),(Path(__file__).parent/name).read_bytes())
 
 if __name__=='__main__':unittest.main()
+
+
+class ConnectedOutcomeOnly(ConnectedAudit):
+ support="outcome_only"
+
+class OutcomeOnlyAdmission(unittest.TestCase):
+ def fixture(self):
+  f=capfixture.CaptureTests('test_raw_native_receipt_and_default_health');f.setUp();self.addCleanup(f.doCleanups)
+  f.cfg['source_mode']='selected_only';f.save();f.arm(filter=FILTER)
+  e=f.outcome();e['data']['release']['external_id']='new-audit-release';e['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
+  return f,e
+ def test_outcome_first_later_selected_duplicate_and_new_delivery_do_not_replay(self):
+  from test_identity_selected import selected
+  import identity_triage_service as service
+  f,e=self.fixture();response,raw=f.request(e);self.assertIn(b'200 OK',response)
+  receipt=(f.store.directory/cap.RECEIPT).read_bytes();r=json.loads(receipt)
+  self.assertEqual(r['capture_qualification'],dict(correlation='outcome_only',source_support='no_prior_selected_observation'))
+  p=selected(external_id='new-audit-release');body=json.dumps(p).encode()
+  request=(f"POST /v1/selected HTTP/1.0\r\nX-Identity-Intake-Key: {f.cfg['release_key']}\r\nContent-Type: application/json\r\nContent-Length: {len(body)}\r\n\r\n").encode()+body
+  sock=capfixture.FakeSocket(request);service.Handler(sock,('127.0.0.1',1),f.server);self.assertIn(b'200 OK',sock.output)
+  f.request(e);e['id']=str(uuid.uuid4());f.request(e)
+  self.assertEqual((f.store.directory/cap.RECEIPT).read_bytes(),receipt);self.assertEqual((f.store.directory/cap.BODY).read_bytes(),raw)
+ def test_conflicting_asserted_identity_and_wrong_route_refuse(self):
+  for change in ('conflict','route','fallback'):
+   with self.subTest(change=change):
+    f,e=self.fixture()
+    if change=='conflict':e['data']['outcome']['asserted_imdb']='tt7654321'
+    elif change=='route':e['data']['outcome']['category']='existing'
+    else:e['data']['release'].pop('external_id')
+    f.request(e);self.assertFalse((f.store.directory/cap.BODY).exists());self.assertFalse(f.server.capture.burned)
+ def test_qualification_cannot_be_forged_or_added_to_generic_packet(self):
+  raw,b,e=synthetic_case(165);raw['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
+  with self.assertRaises(k.Refusal):k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=[],qualification=dict(correlation='outcome_only',source_support='prior_selected_observation_correlated'))

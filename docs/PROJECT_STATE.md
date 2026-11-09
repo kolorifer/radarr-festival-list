@@ -1,3 +1,12 @@
+## Qualified outcome-only audit check, 2026-11-09
+
+The explicit producer-verified check can retain an externally identified outcome
+without an earlier selected notification, while carrying `outcome_only` and its
+missing source support through the trusted receipt and private assessment.
+Generic capture, conflict/owner-decision gates and one-case limits are unchanged.
+Implementation is separate from deployment and actual capture/assessment.
+See [scope, tests and operational hold](reports/2026-11-09-audit-outcome-only.md).
+
 # Movie List project state
 
 ## Dormant verified-identity check, 2026-11-08
