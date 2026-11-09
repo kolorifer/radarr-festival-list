@@ -242,3 +242,10 @@ Unknown attempts retain their debit; there is no automatic retry or upgrade.
 This does not identify a real movie, send a notification or authorize a download.
 Live account/credit/credential verification remains incomplete. See the
 [implementation and setup limits](reports/2026-11-05-credit-integration.md).
+
+### Private producer-verified checks
+
+An explicitly authorized private check may inspect a matcher assertion before a
+separate selected notification is available. Its draft states that supporting
+observation is missing; it does not imply strong source correlation, confirmed
+identity or download approval. These private drafts are not sent automatically.

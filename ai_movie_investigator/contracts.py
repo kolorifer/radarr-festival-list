@@ -189,7 +189,7 @@ def validate_packet(packet):
     else:
         require(binding['occurrence'] is None, 'legacy_occurrence_invented')
     f = packet['facts']
-    require(isinstance(f, dict) and set(f) - {'retained_torrent_hash', 'image_references'} ==
+    require(isinstance(f, dict) and set(f) - {'retained_torrent_hash', 'image_references', 'capture_qualification'} ==
             {'title', 'year', 'imdb', 'tmdb', 'release_key_basis', 'outcome', 'route'}, 'facts_schema')
     text(f['title'], 250)
     require(type(f['year']) is int and 1888 <= f['year'] <= 2100, 'year')
@@ -204,6 +204,9 @@ def validate_packet(packet):
     for row in (f, dict(imdb=o.get('asserted_imdb'), tmdb=o.get('asserted_tmdb'))):
         require(row['imdb'] is None or isinstance(row['imdb'], str) and re.fullmatch(r'tt[0-9]{7,10}', row['imdb']), 'imdb')
         require(row['tmdb'] is None or type(row['tmdb']) is int and 0 < row['tmdb'] < 2**31, 'tmdb')
+    if 'capture_qualification' in f:
+        verified_identity_check_facts(packet)
+        capture_qualification(f['capture_qualification'])
     if 'retained_torrent_hash' in f:
         hash_id(f['retained_torrent_hash'])
     if 'image_references' in f:
@@ -212,7 +215,7 @@ def validate_packet(packet):
     return packet
 
 
-def captured_outcome(envelope, *, sources, binding, evidence, decisions, trusted_issuers=()):
+def captured_outcome(envelope, *, sources, binding, evidence, decisions, trusted_issuers=(), qualification=None):
     """Side-effect-free import of an actual observer-shaped captured envelope.
 
     binding.version is the caller's exact collector version, not a guessed
@@ -254,6 +257,11 @@ def captured_outcome(envelope, *, sources, binding, evidence, decisions, trusted
         # The controller never mistakes a reference count for visual analysis.
         facts['retained_torrent_hash'] = digest(te)
         facts['image_references'] = len(te['images'])
+    if qualification is not None:
+        require(facts['release_key_basis']=='external_id' and facts['route']=='verified'
+                and outcome['category']=='unknown_movie' and outcome['status']=='verified_tmdb'
+                and outcome['reason']=='external_id_verified', 'verified_identity_check_scope')
+        facts['capture_qualification']=copy.deepcopy(capture_qualification(qualification))
     return _packet(binding, dict(id=record['event_id'], observed_at=record['time'],
                                 input_hash=original_hash), facts, evidence, decisions,
                    trusted_issuers, original_hash, hash_basis)
@@ -286,9 +294,18 @@ def legacy_snapshot(case, *, source, evidence, decisions, trusted_issuers=()):
 VERIFIED_IDENTITY_CHECK = 'producer_verified_identity_check_v1'
 
 
+def capture_qualification(value):
+    shape(value, 'scope correlation source_support')
+    require(value in (
+        dict(scope='retained_collector_observations_at_capture',correlation='outcome_only',source_support='no_prior_supporting_observation'),
+        dict(scope='retained_collector_observations_at_capture',correlation='strong_source_id',source_support='prior_supporting_observation_correlated')),
+        'verified_capture_qualification')
+    return value
+
+
 def verified_identity_check_facts(packet):
     f = packet['facts']; o = f['outcome']
-    require(f['route'] == 'verified' and o['category'] == 'unknown_movie' and
+    require(f['release_key_basis']=='external_id' and f['route'] == 'verified' and o['category'] == 'unknown_movie' and
             o['status'] == 'verified_tmdb' and o['reason'] == 'external_id_verified',
             'verified_identity_check_scope')
 

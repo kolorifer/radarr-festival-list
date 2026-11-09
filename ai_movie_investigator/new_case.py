@@ -18,7 +18,7 @@ import sys
 from identity_telegram_digest import readable_case
 from .contracts import (MAX_INPUT, MAX_OUTPUT, Refusal, decode, digest, encoded,
                         require, scope, shape, stamp, text, validate_packet, reconcile,
-                        VERIFIED_IDENTITY_CHECK, reconcile_verified_identity_check)
+                        VERIFIED_IDENTITY_CHECK, reconcile_verified_identity_check, capture_qualification)
 from .controller import INSTRUCTIONS, output_schema, validate_final
 from .history import History, selected_current, research_dependency
 from .responses_protocol import schema_value
@@ -101,6 +101,8 @@ def projection(packet, rec, now):
                 conflicting_ids=rec['conflicting_ids'], qualifications=qualifications)
     if rec.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK:
         data['assessment_purpose'] = VERIFIED_IDENTITY_CHECK
+        data['qualifications']['capture_source_support'] = copy.deepcopy(f.get('capture_qualification',
+            dict(scope='not_recorded',correlation='not_recorded',source_support='not_recorded')))
         data['facts']['producer_assertion'] = dict(route=f['route'], status=f['outcome']['status'],
             category=f['outcome']['category'], reason=f['outcome']['reason'], independently_approved=False)
         data['qualifications']['producer_identity'] = 'assertion only; independent identity not established'
@@ -116,7 +118,7 @@ def request_for(packet, rec, now):
                    instructions=INSTRUCTIONS.replace('Request only retained lookups. ', '') + ' No lookups; use only supplied evidence. Missing is not a verified negative.',
                    input=data, output_schema=output_schema(), generation_invoked=False)
     if rec.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK:
-        request['instructions'] += ' Independently check the producer assertion; verified_tmdb is not independent approval or evidence of correctness. Do not assume a conflict. Missing support must remain unresolved or blocked.'
+        request['instructions'] += ' Independently check the producer assertion; verified_tmdb is not independent approval or evidence of correctness. Do not assume a conflict. Missing support must remain unresolved or blocked. Capture source support is explicitly qualified; outcome_only means no prior release, retained or selected observation, not strong correlation. This describes retained collector observations at capture, not upstream absence or unpersisted/in-flight events.'
     require(len(encoded(request)) <= MAX_INPUT, 'handoff_size')
     return request
 
@@ -162,6 +164,9 @@ def notification(packet, answer, data, provenance):
         'Assessment: ' + result['status'].replace('_', ' '),
         'Evidence rationale: ' + result['rationale'], 'Uncertainty: ' + result['uncertainty'],
         ('Producer assertion (not independent approval): ' if data.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK else 'Source conflict: ') + f['outcome']['reason'].replace('_', ' '),
+        *(['Capture source support: ' + data['qualifications']['capture_source_support']['source_support'].replace('_',' ') +
+           '; correlation: ' + data['qualifications']['capture_source_support']['correlation'] + '; retained collector observations at capture, not upstream absence.']
+          if data.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK else []),
         'Conflicting IDs: ' + ('present; unresolved' if data['conflicting_ids'] else 'none established in this snapshot'),
         'Prior disposition: ' + data['disposition'].replace('_', ' '),
         'Evidence: catalogue ' + data['qualifications']['catalogue_evidence'] + '; source ' +
@@ -243,6 +248,7 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
         if p.get('assessment_purpose') is not None:
             report['assessment_purpose'] = p['assessment_purpose']
             report['producer_assertion'] = data['facts']['producer_assertion']
+            report['capture_qualification'] = data['qualifications']['capture_source_support']
         if connected is not None:
             simulated=connected[3]['simulated']
             report.update(connected_transport_invoked=True, receipt_hash=connected[3]['receipt_hash'],
@@ -306,7 +312,8 @@ class _ApprovedCapture:
         self.authority=decode(self.pins['authority'][0],CAPTURED_AUTHORITY_BYTES)
         require(self.pins['authority'][0]==encoded(self.authority),'captured_authority_changed')
         self.receipt=decode(self.pins['receipt'][0],8192)
-        shape(self.receipt,'version source channel case_id case_version event_id selection_event delivery_rowid evidence_id source_time received_at grant_sha256 body_sha256 body_bytes privacy api_disclosure_authorized')
+        shape(self.receipt,'version source channel case_id case_version event_id selection_event delivery_rowid evidence_id source_time received_at grant_sha256 body_sha256 body_bytes privacy api_disclosure_authorized' + (' capture_qualification' if self.audit else ''))
+        if self.audit:capture_qualification(self.receipt['capture_qualification'])
         r=self.receipt;body=self.pins['body'][0]
         require(r['version']==1 and r['channel']=='outcome' and r['privacy']=='private_local_raw_observer_body_no_api_disclosure' and r['api_disclosure_authorized'] is False,'captured_receipt_scope')
         require(r['body_sha256']==hashlib.sha256(body).hexdigest() and r['body_bytes']==len(body),'captured_receipt_body')
@@ -346,7 +353,8 @@ class _ApprovedCapture:
         if packet is not None:
             from .contracts import captured_outcome
             reconstructed=captured_outcome(self.pins['body'][0],sources=self.record['sources'],binding=self.binding,
-                evidence=packet['evidence'],decisions=packet['decisions'],trusted_issuers=packet['trusted_issuers'])
+                evidence=packet['evidence'],decisions=packet['decisions'],trusted_issuers=packet['trusted_issuers'],
+                qualification=self.receipt['capture_qualification'] if self.audit else None)
             require(reconstructed==packet,'captured_activation_packet')
             admitted(packet,self.binding,self.last_time,purpose=VERIFIED_IDENTITY_CHECK if self.audit else None)
 
