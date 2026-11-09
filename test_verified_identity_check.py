@@ -192,4 +192,10 @@ class OutcomeOnlyAdmission(unittest.TestCase):
     f.request(e);self.assertFalse((f.store.directory/cap.BODY).exists());self.assertFalse(f.server.capture.burned)
  def test_qualification_cannot_be_forged_or_added_to_generic_packet(self):
   raw,b,e=synthetic_case(165);raw['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
-  with self.assertRaises(k.Refusal):k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=[],qualification=dict(correlation='outcome_only',source_support='prior_supporting_observation_correlated'))
+  good=dict(scope='retained_collector_observations_at_capture',correlation='outcome_only',source_support='no_prior_supporting_observation')
+  for qualification in (dict(good,source_support='prior_supporting_observation_correlated'),{x:y for x,y in good.items() if x!='scope'}):
+   with self.subTest(qualification=qualification),self.assertRaises(k.Refusal):
+    k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=[],qualification=qualification)
+  raw['data']['outcome'].update(status='unresolved',reason='no_exact_match')
+  with self.assertRaises(k.Refusal):
+   k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=[],qualification=good)
