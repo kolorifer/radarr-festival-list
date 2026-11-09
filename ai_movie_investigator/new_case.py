@@ -102,7 +102,7 @@ def projection(packet, rec, now):
     if rec.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK:
         data['assessment_purpose'] = VERIFIED_IDENTITY_CHECK
         data['qualifications']['capture_source_support'] = copy.deepcopy(f.get('capture_qualification',
-            dict(correlation='not_recorded',source_support='not_recorded')))
+            dict(scope='not_recorded',correlation='not_recorded',source_support='not_recorded')))
         data['facts']['producer_assertion'] = dict(route=f['route'], status=f['outcome']['status'],
             category=f['outcome']['category'], reason=f['outcome']['reason'], independently_approved=False)
         data['qualifications']['producer_identity'] = 'assertion only; independent identity not established'
@@ -118,7 +118,7 @@ def request_for(packet, rec, now):
                    instructions=INSTRUCTIONS.replace('Request only retained lookups. ', '') + ' No lookups; use only supplied evidence. Missing is not a verified negative.',
                    input=data, output_schema=output_schema(), generation_invoked=False)
     if rec.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK:
-        request['instructions'] += ' Independently check the producer assertion; verified_tmdb is not independent approval or evidence of correctness. Do not assume a conflict. Missing support must remain unresolved or blocked. Capture source support is explicitly qualified; outcome_only means no prior selected observation, not strong correlation.'
+        request['instructions'] += ' Independently check the producer assertion; verified_tmdb is not independent approval or evidence of correctness. Do not assume a conflict. Missing support must remain unresolved or blocked. Capture source support is explicitly qualified; outcome_only means no prior release, retained or selected observation, not strong correlation. This describes retained collector observations at capture, not upstream absence or unpersisted/in-flight events.'
     require(len(encoded(request)) <= MAX_INPUT, 'handoff_size')
     return request
 
@@ -165,7 +165,7 @@ def notification(packet, answer, data, provenance):
         'Evidence rationale: ' + result['rationale'], 'Uncertainty: ' + result['uncertainty'],
         ('Producer assertion (not independent approval): ' if data.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK else 'Source conflict: ') + f['outcome']['reason'].replace('_', ' '),
         *(['Capture source support: ' + data['qualifications']['capture_source_support']['source_support'].replace('_',' ') +
-           '; correlation: ' + data['qualifications']['capture_source_support']['correlation'] + '.']
+           '; correlation: ' + data['qualifications']['capture_source_support']['correlation'] + '; retained collector observations at capture, not upstream absence.']
           if data.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK else []),
         'Conflicting IDs: ' + ('present; unresolved' if data['conflicting_ids'] else 'none established in this snapshot'),
         'Prior disposition: ' + data['disposition'].replace('_', ' '),

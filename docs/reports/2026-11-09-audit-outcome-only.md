@@ -17,7 +17,9 @@ evidence/material, configuration, startup, expiry, private-file and one-case
 checks remain mandatory. All conflict correlations and quarantined/reviewed
 routes remain excluded. Generic unresolved capture is unchanged.
 
-Audit receipts carry an explicit correlation/source-support qualification. The
+Audit receipts carry an explicit correlation/source-support qualification.
+Supporting observations mean release_new, retained or selected deliveries,
+exactly as the existing correlation predicate defines them. The
 trusted captured wrapper binds that qualification into the reconstructed packet,
 minimized request and private unsent report; it cannot be relabeled as strong
 correlation. The matcher status remains an assertion rather than independent

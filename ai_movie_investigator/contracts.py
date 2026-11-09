@@ -295,10 +295,10 @@ VERIFIED_IDENTITY_CHECK = 'producer_verified_identity_check_v1'
 
 
 def capture_qualification(value):
-    shape(value, 'correlation source_support')
+    shape(value, 'scope correlation source_support')
     require(value in (
-        dict(correlation='outcome_only',source_support='no_prior_selected_observation'),
-        dict(correlation='strong_source_id',source_support='prior_selected_observation_correlated')),
+        dict(scope='retained_collector_observations_at_capture',correlation='outcome_only',source_support='no_prior_supporting_observation'),
+        dict(scope='retained_collector_observations_at_capture',correlation='strong_source_id',source_support='prior_supporting_observation_correlated')),
         'verified_capture_qualification')
     return value
 

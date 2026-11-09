@@ -176,7 +176,7 @@ class OutcomeOnlyAdmission(unittest.TestCase):
   import identity_triage_service as service
   f,e=self.fixture();response,raw=f.request(e);self.assertIn(b'200 OK',response)
   receipt=(f.store.directory/cap.RECEIPT).read_bytes();r=json.loads(receipt)
-  self.assertEqual(r['capture_qualification'],dict(correlation='outcome_only',source_support='no_prior_selected_observation'))
+  self.assertEqual(r['capture_qualification'],dict(scope='retained_collector_observations_at_capture',correlation='outcome_only',source_support='no_prior_supporting_observation'))
   p=selected(external_id='new-audit-release');body=json.dumps(p).encode()
   request=(f"POST /v1/selected HTTP/1.0\r\nX-Identity-Intake-Key: {f.cfg['release_key']}\r\nContent-Type: application/json\r\nContent-Length: {len(body)}\r\n\r\n").encode()+body
   sock=capfixture.FakeSocket(request);service.Handler(sock,('127.0.0.1',1),f.server);self.assertIn(b'200 OK',sock.output)
@@ -192,4 +192,4 @@ class OutcomeOnlyAdmission(unittest.TestCase):
     f.request(e);self.assertFalse((f.store.directory/cap.BODY).exists());self.assertFalse(f.server.capture.burned)
  def test_qualification_cannot_be_forged_or_added_to_generic_packet(self):
   raw,b,e=synthetic_case(165);raw['data']['outcome']={k:v for k,v in FILTER.items() if k!='mode'}
-  with self.assertRaises(k.Refusal):k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=[],qualification=dict(correlation='outcome_only',source_support='prior_selected_observation_correlated'))
+  with self.assertRaises(k.Refusal):k.captured_outcome(k.encoded(raw),sources={'synthetic':'Synthetic Index'},binding=b,evidence=e,decisions=[],qualification=dict(correlation='outcome_only',source_support='prior_supporting_observation_correlated'))

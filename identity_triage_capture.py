@@ -210,9 +210,10 @@ class Capture:
                            'privacy': g['privacy'], 'api_disclosure_authorized': False}
                 if audit:
                     receipt['capture_qualification'] = {
+                        'scope': 'retained_collector_observations_at_capture',
                         'correlation': row[4],
-                        'source_support': ('no_prior_selected_observation' if row[4]=='outcome_only'
-                                           else 'prior_selected_observation_correlated')}
+                        'source_support': ('no_prior_supporting_observation' if row[4]=='outcome_only'
+                                           else 'prior_supporting_observation_correlated')}
                 # Burn before ANY durable reservation attempt; never reset, even
                 # when reservation/commit/fsync fails. Restart invalidates nonce.
                 if not time.time() < expires or not validate_config() or self._proof() is None:
