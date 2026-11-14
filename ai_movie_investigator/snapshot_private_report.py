@@ -62,6 +62,9 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
     if report.get('previous_structure_refusal') is not None:
         prior_html=('<h2>Earlier structural refusal</h2><p>The earlier assessment received a receipt but its findings failed structural validation. '
             'Its answer was not retained. This is a distinct corrected assessment.</p>')
+    if report.get('previous_field_refusal') is not None:
+        prior_html=('<h2>Earlier field-validation refusal</h2><p>The earlier assessment received a receipt but failed a field validation check. '
+            'Its answer was not retained, so the specific failed comparison is unknown. This is a distinct corrected assessment.</p>')
     findings_html=''
     if 'film_findings' in result:
         def field_label(field, default):
@@ -73,6 +76,16 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
             '<h3>Remaining film identity blockers</h3><ul>'+(''.join(
             li(b['aspect'].replace('_',' '),b['reason'].replace('_',' ')+'; cited '+', '.join(b['evidence']))
             for b in result['film_blockers']) if result['film_blockers'] else '<li>None reported</li>')+'</ul>')
+    if 'film_comparisons' in result:
+        findings_html=('<h3>Computed evidence comparisons</h3><p>These are local comparisons, not film identity conclusions. '
+            'Duration differences do not establish an edition or an identity cutoff.</p><ul>'+''.join(
+            li(aspect.replace('_',' '),item['left_origin']+' '+item['left_field'].replace('_',' ')+' versus '+
+                item['right_origin']+' '+item['right_field'].replace('_',' ')+': '+item['relation'].replace('_',' ')+
+                (('; difference in minutes '+show(item['difference_minutes'])) if item.get('difference_minutes') is not None else '')+
+                (('; difference in milliseconds '+show(item['difference_milliseconds'])) if item.get('difference_milliseconds') is not None else '')+
+                (('; NFO stream '+item['nfo_kind']) if 'nfo_kind' in item else ''))
+            for aspect,items in result['film_comparisons'].items() for item in items)+'</ul><h3>Model-reported film blockers</h3><ul>'+
+            (''.join(li(b['aspect'].replace('_',' '),b['reason'].replace('_',' ')) for b in result['film_blockers']) if result['film_blockers'] else '<li>None reported</li>')+'</ul>')
     text=['<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Private movie review</title></head><body>',
           '<h1>Private movie review</h1><p><a rel="noreferrer noopener" href="'+escape(local['tracker_url'],quote=True)+'">Open the exact source listing</a></p>',
           '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
@@ -83,7 +96,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
           li('Collector source IMDb',ids['imdb']),li('Collector source TMDb',ids['tmdb']),
           li('Producer asserted IMDb',ids['asserted_imdb']),li('Producer asserted TMDb',ids['asserted_tmdb']),
           li('Identity fields conflict',projection['conflicting_ids']),'</ul>',
-          prior_html,'<h2>Assessment</h2><ul>',li('Result',result['status']),li('Proposed IMDb',candidate.get('imdb') if candidate else None),
+          prior_html,('<h2>Model assessment</h2><ul>' if 'film_comparisons' in result else '<h2>Assessment</h2><ul>'),li('Result',result['status']),li('Proposed IMDb',candidate.get('imdb') if candidate else None),
           li('Proposed TMDb',candidate.get('tmdb') if candidate else None),li('Rationale',result['rationale']),
           li('Uncertainty',result['uncertainty']),li('Next action',result['next_action']),'</ul>',
           findings_html,
@@ -91,9 +104,9 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
           *[li('Listing' if c['evidence_id']=='source' else 'Catalogue',c['claim'].replace('_',' ')) for c in result['citations']],'</ul>',
           '<p>The model proposal was checked against the bound identifiers and citations. No numeric score was assigned.</p>',
           '<p>Producer conflict remains for human review; matching IDs alone do not resolve it. This is an unsent review proposal, not identity or download approval.</p>',
-          ('<h3>Separate nonblocking limitations</h3>' if 'film_findings' in result else '')+
+          ('<h3>Separate nonblocking limitations</h3>' if 'film_findings' in result or 'film_comparisons' in result else '')+
           '<p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. '+
-          ('Identity and acquisition remain unapproved. ' if 'film_findings' in result else '')+
+          ('Identity and acquisition remain unapproved. ' if 'film_findings' in result or 'film_comparisons' in result else '')+
           'Listing and catalogue provenance were independently reviewed by the supervisor; provider receipt is correlated, not provider-signed billing proof.</p>',
           '<details><summary>Retained NFO text</summary><pre>'+escape(show(local['nfo_text']))+'</pre></details></body></html>']
     return ''.join(text)

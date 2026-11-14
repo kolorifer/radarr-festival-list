@@ -135,7 +135,11 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
         require(isinstance(part, dict) and set(part) <= {'type', 'text', 'annotations', 'logprobs'}
                 and part.get('type') == 'output_text' and part.get('annotations') == []
                 and part.get('logprobs') in (None, []), 'responses_text_required')
-        answer = decode(part.get('text'), MAX_OUTPUT)
+        answer_limit=MAX_OUTPUT
+        if http_result is not None:
+            from .supervised_authorization import selected_answer_limit
+            answer_limit=selected_answer_limit(http_result)
+        answer = decode(part.get('text'), answer_limit)
         schema_value(answer, schema)
         answers.append(encoded(answer))
     require(len(answers) == 1, 'responses_answer_count')
