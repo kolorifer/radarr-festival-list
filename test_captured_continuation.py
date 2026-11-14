@@ -70,11 +70,12 @@ class CapturedContinuation(unittest.TestCase):
     e=dict(self.f.selected.data,owner_reference='Another changed key')
     with self.assertRaisesRegex(Refusal,'captured_continuation_owner'):
      n.captured_continuation_consent(self.f.root,events,self.f.case,rows,digest(self.f.request),e,prior_slot=8,owner_reference=e['owner_reference'])
- def test_installed_module_completes_from_preserved_failure(self):
+ def test_installed_module_completes_or_refuses_unsafe_host(self):
   from ai_movie_investigator.installation import install_runtime
   self.fail_first();self.propose()
   runtime=self.x.root/'installed-successor';runtime.mkdir(mode=0o700)
-  manifest=install_runtime(Path(__file__).resolve().parent,runtime)
+  install_runtime(Path(__file__).resolve().parent,runtime)
+  manifest=json.loads((runtime/'runtime-files.json').read_bytes())
   self.x.record['runtime_manifest_sha256']=digest(manifest);self.x.write_record()
   code="""import sys,runpy,atexit,ctypes
 attempts=[]
@@ -92,6 +93,8 @@ from ai_movie_investigator.history import History
 from ai_movie_investigator.contracts import digest
 k._native=lambda project:b'sk-DUMMY_CAPTURED'
 """
+  code+='from ai_movie_investigator.private_files import private_chain\nfrom ai_movie_investigator.contracts import Refusal\n'
+  code+='try:\n with private_chain(Path('+repr(str(self.x.root))+')):pass\nexcept Refusal as error:\n if str(error)!="storage_acl":raise\n print("INSTALLED_HOST_REFUSAL=storage_acl");raise SystemExit(0)\n'
   code+='selected_raw='+repr(self.f.response())+"\nframing='chunked'\n"+framing.wire_code()
   code+='\nwith n.approved_captured_wrapper('+repr(str(self.x.path))+','+repr(self.x.sha)+'),a._simulated_captured_io(),wire_fixture("completed"):\n'
   code+=' n.authorize_captured('+','.join(map(repr,[str(self.f.f.state)]))+',c.read_evidence('+repr(str(self.f.selected.path))+'),'+repr(str(self.f.case.directory))+','+repr(digest(self.f.request))+','+repr(str(self.f.path))+','+repr(digest(self.f.consent))+')\n'
@@ -100,7 +103,15 @@ k._native=lambda project:b'sk-DUMMY_CAPTURED'
   script=self.x.root/'installed-successor.py';script.write_text(code)
   result=subprocess.run([sys.executable,'-I','-S','-B',str(script)],cwd=runtime,env={'PATH':'/usr/bin:/bin'},capture_output=True,timeout=40)
   output=result.stdout+result.stderr
-  self.assertEqual(result.returncode,0,output);self.assertIn(b'TRIPWIRE=0',output);self.assertEqual(output.count(b'OFFLINE_AUTHORIZED_BOUNDARY'),1)
+  self.assertEqual(result.returncode,0,output);self.assertIn(b'TRIPWIRE=0',output)
+  if b'INSTALLED_HOST_REFUSAL=storage_acl' in output:
+   # Hosted ancestors may carry ACLs. Prove fail-closed behavior; never mask ACL I/O.
+   self.assertNotIn(b'OFFLINE_AUTHORIZED_BOUNDARY',output)
+   self.assertFalse((self.f.f.state/'attempt-8').exists())
+   self.assertEqual((self.f.f.state/FILENAME).read_bytes(),self.oldroot)
+   self.assertEqual((self.f.case.directory/FILENAME).read_bytes(),self.oldcase)
+   return
+  self.assertEqual(output.count(b'OFFLINE_AUTHORIZED_BOUNDARY'),1)
   report=self.f.case.read()[-1]['report'];self.assertEqual(report['receipt_hash'],digest(History(self.f.f.state/'attempt-8').read()[-1]))
   self.assertEqual((self.f.f.state/'attempt-7'/FILENAME).read_bytes(),self.oldattempt)
  def test_no_supplied_answer_fallback_after_failure(self):

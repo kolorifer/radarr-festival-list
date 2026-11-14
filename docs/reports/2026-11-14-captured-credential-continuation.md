@@ -47,3 +47,16 @@ Local real-guard run: 5/8 passed, including connected successor completion and
 no chained correction; three stopped at the existing ctime guard before their
 intended checks. The installed-module test did not reach its child process in
 that run. These are recorded failures, not an installed-path pass.
+
+First supported CI run: Python 3.12 ran 1,987 tests, with one failure: the new
+installed subprocess correctly refused a hosted ancestor POSIX ACL. Python 3.13
+was cancelled by the matrix failure. No evidence-reader or ACL bypass was added.
+The installed fixture now verifies this host refusal before any allocation when
+an ACL is present; on a guard-compatible host it must complete via the installed
+module. A real guarded Mac installed success is separately required before live
+handoff acceptance; a hosted refusal is not labelled an installed success.
+
+Independent Mac review also caught a fixture-only manifest binding: the inherited
+parent mock affected install_runtime’s return value. The installed test now
+binds the actual written runtime-files.json, as the existing installed fixture
+does. Product runtime and closure verification are unchanged.
