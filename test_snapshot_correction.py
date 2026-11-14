@@ -30,7 +30,7 @@ class CorrectionTests(unittest.TestCase):
   self.terminal=next(r for r in self.prior if r.get('type')=='supervised_diagnostic' and r.get('slot')==7)
   self.attempt=History(self.f.state/'attempt-7').read();self.credit_rows=self.credit.read()
   assert self.terminal['reason']=='candidate_status' and self.terminal['phase']=='receipt_recorded'
-  proof=dict(kind='snapshot_candidate_status_correction_v1',prior_slot=7,prior_start_sha256=digest(self.oldstart),prior_grant_sha256=digest(grant),prior_terminal_sha256=digest(self.terminal),prior_attempt_sha256=digest(self.attempt),prior_receipt_sha256=digest(self.attempt[-1]),prior_credit_sha256=digest(self.credit_rows),prior_credit_count=len(self.credit_rows),prior_request_sha256=digest(grant['request']),root_prefix_sha256=digest(self.prior),new_request_sha256=digest(review.build(p)['request']),reviewed=True)
+  proof=dict(kind='snapshot_candidate_status_correction_v1',prior_slot=7,prior_start_sha256=digest(self.oldstart),prior_grant_sha256=digest(grant),prior_terminal_sha256=digest(self.terminal),prior_attempt_sha256=digest(self.attempt),prior_receipt_sha256=digest(self.attempt[-1]),prior_credit_sha256=digest(self.credit_rows),prior_credit_count=len(self.credit_rows),prior_request_sha256=digest(grant['request']),root_prefix_sha256=digest(self.prior),new_request_sha256=digest(review.build(p,prose_limited=False)['request']),reviewed=True)
   self.proof=proof;self.p=p;self.make_authority(proof)
  def make_authority(self,proof):
   f=self.f;record=copy.deepcopy(f.record);record.update(root_prefix_sha256=digest(self.prior),root_count=len(self.prior),correction=copy.deepcopy(proof))

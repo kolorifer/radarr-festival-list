@@ -82,6 +82,26 @@ class ProjectionTests(unittest.TestCase):
         snap,src,cat,a=fixture();p=self.project(snap,src,cat,a)
         frozen=Path('tests/fixtures/snapshot-v1-invented-build.json').read_bytes()
         self.assertEqual(encoded(s.build(p,corrected=False)),frozen)
+    def test_v2_wire_matches_frozen_predecessor_bytes(self):
+        from pathlib import Path
+        snap,src,cat,a=fixture();p=self.project(snap,src,cat,a)
+        self.assertEqual(encoded(s.build(p,prose_limited=False)),Path('tests/fixtures/snapshot-v2-invented-build.json').read_bytes())
+    def test_v3_string_boundaries_are_locally_enforced(self):
+        from ai_movie_investigator.responses_protocol import schema_value
+        from ai_movie_investigator.disclosure import aliases
+        from ai_movie_investigator.new_case import _captured_prose_copy
+        snap,src,cat,a=fixture();p=self.project(snap,src,cat,a);prepared=s.build(p);schema=prepared['request']['text']['format']['schema']
+        answer=dict(binding_hash=aliases(prepared['run']),kind='final',lookups=[],result=dict(status='unresolved',candidate=None,alternatives=[],citations=[],rationale='x',uncertainty='y',next_action='human_review'))
+        for field in ('rationale','uncertainty'):
+            for size,accepted in ((0,False),(1,True),(600,True),(601,False)):
+                item=copy.deepcopy(answer);item['result'][field]='x'*size
+                with self.subTest(field=field,size=size):
+                    if accepted:schema_value(item,schema)
+                    else:
+                        with self.assertRaises(ValueError):schema_value(item,schema)
+        item=copy.deepcopy(answer);item['result']['rationale']='A source/path observation.';schema_value(item,schema)
+        retained,handling=_captured_prose_copy(item)
+        self.assertEqual(handling['rationale']['status'],'withheld');self.assertNotIn('source/path',retained['result']['rationale'])
     def test_no_eligible_pair_omits_supported_variant(self):
         from ai_movie_investigator.responses_protocol import schema_value
         from ai_movie_investigator.disclosure import aliases

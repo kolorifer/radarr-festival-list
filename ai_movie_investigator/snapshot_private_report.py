@@ -51,6 +51,12 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
           row('Catalogue runtime in minutes',None,cat['runtime_minutes']),row('Cast',source['cast'],cat['cast']),
           row('Directors',source['directors'],cat['directors']),row('Listing IMDb versus catalogue IMDb',source['imdb'],cat['imdb']),
           row('Catalogue TMDb',None,cat['tmdb'])]
+    prior=report.get('previous_assessment')
+    prior_html=''
+    if prior is not None:
+        prior_html=('<h2>Earlier distinct assessment</h2><p>Status: '+escape(show(prior['status']))+
+            '; proposed identity: '+escape(show(prior['candidate']))+'. Its original rationale was withheld and cannot be recovered. '
+            'The assessment below is a distinct new result, not a reconstruction of that rationale.</p>')
     text=['<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Private movie review</title></head><body>',
           '<h1>Private movie review</h1><p><a rel="noreferrer noopener" href="'+escape(local['tracker_url'],quote=True)+'">Open the exact source listing</a></p>',
           '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
@@ -61,7 +67,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
           li('Collector source IMDb',ids['imdb']),li('Collector source TMDb',ids['tmdb']),
           li('Producer asserted IMDb',ids['asserted_imdb']),li('Producer asserted TMDb',ids['asserted_tmdb']),
           li('Identity fields conflict',projection['conflicting_ids']),'</ul>',
-          '<h2>Assessment</h2><ul>',li('Result',result['status']),li('Proposed IMDb',candidate.get('imdb') if candidate else None),
+          prior_html,'<h2>Assessment</h2><ul>',li('Result',result['status']),li('Proposed IMDb',candidate.get('imdb') if candidate else None),
           li('Proposed TMDb',candidate.get('tmdb') if candidate else None),li('Rationale',result['rationale']),
           li('Uncertainty',result['uncertainty']),li('Next action',result['next_action']),'</ul>',
           '<h3>Evidence cited by the model</h3><ul>',
