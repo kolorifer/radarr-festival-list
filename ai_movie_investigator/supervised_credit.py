@@ -729,7 +729,7 @@ def _credit_grant(events,enrolled,slot):
     return renewal if renewal and slot>=renewal['next_slot'] else _standing_base(events,enrolled)
 
 
-def renew_promotional(directory,selected):
+def renew_promotional(directory,selected,*,expected=None):
     """Append a verified same-account successor; never reset, allocate or send."""
     require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
     selected.revalidate();e=selected.data;validate_evidence(e,time.time(),standing=True)
@@ -737,6 +737,12 @@ def renew_promotional(directory,selected):
     with root.transaction(write=True) as (events,append):
         enrolled=events[1];credit=History(root.directory/'credit')
         base,attempts,reservations,total=_standing_history(root,events,enrolled,credit)
+        if expected is not None:
+            shape(expected,'root_identity root_prefix_sha256 credit_identity credit_file_identity credit_sha256 original_grant_sha256')
+            require(expected==dict(root_identity=list(root.identity),root_prefix_sha256=digest(events),
+                credit_identity=list(credit.identity),credit_file_identity=file_identity(credit),
+                credit_sha256=digest(reservations),original_grant_sha256=digest(base)),
+                'supervised_standing_binding')
         require(_promotional_renewal(events,enrolled) is None,'supervised_standing_binding')
         require(not attempts or any(r.get('type') in ('supervised_completed','supervised_diagnostic') and r.get('slot')==attempts[-1][0]['slot'] for r in events),
                 'supervised_standing_interrupted')

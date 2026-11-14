@@ -50,3 +50,12 @@ class PromotionalRenewalTests(unittest.TestCase):
   self.assertEqual(retained_total(self.f.credit.read(),'proj_fixture'),Fraction(18,100))
   with patch.object(c.time,'time',return_value=self.now),self.assertRaises(Refusal):c.run(self.f.state,self.selected,7)
   self.f.preserved()
+
+ def test_exact_original_state_binding_checked_under_append_lock(self):
+  root=History(self.f.state);rows=root.read();credit=self.f.credit
+  expected=dict(root_identity=list(root.identity),root_prefix_sha256=digest(rows),credit_identity=list(credit.identity),credit_file_identity=c.file_identity(credit),credit_sha256=digest(credit.read()),original_grant_sha256=digest(rows[20]))
+  for key in expected:
+   bad=copy.deepcopy(expected);bad[key]=None
+   with patch.object(c.time,'time',return_value=self.now),self.assertRaises(Refusal):c.renew_promotional(self.f.state,self.selected,expected=bad)
+   self.assertEqual((self.f.state/FILENAME).read_bytes(),self.before)
+  with patch.object(c.time,'time',return_value=self.now):self.assertEqual(c.renew_promotional(self.f.state,self.selected,expected=expected)['next_slot'],7)
