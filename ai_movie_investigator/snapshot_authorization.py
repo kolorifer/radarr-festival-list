@@ -22,7 +22,7 @@ class _Approved:
         raw,self.identity=_read_evidence(self.path,65536)
         require(hashlib.sha256(raw).hexdigest()==pin,'snapshot_authority_changed')
         self.record=decode(raw,65536)
-        shape(self.record,'kind owner_scope main_review root_identity root_prefix_sha256 root_count project account_reference output_dir output_identity snapshot source catalogue source_original catalogue_original local_context attestation runtime_manifest_sha256 issued_at expires_at'+(' correction' if 'correction' in self.record else '')+(' reassessment' if 'reassessment' in self.record else ''))
+        shape(self.record,'kind owner_scope main_review root_identity root_prefix_sha256 root_count project account_reference output_dir output_identity snapshot source catalogue source_original catalogue_original local_context attestation runtime_manifest_sha256 issued_at expires_at'+(' correction' if 'correction' in self.record else '')+(' reassessment' if 'reassessment' in self.record else '')+(' film_reassessment' if 'film_reassessment' in self.record else ''))
         require(raw==encoded(self.record) and self.record['kind']=='trusted_main_normalized_snapshot_v1','snapshot_authority_changed')
         self.pins={}
         for name in ('owner_scope','main_review','snapshot','source','catalogue','source_original','catalogue_original','local_context'):
@@ -61,23 +61,25 @@ class _Approved:
         from .snapshot_private_report import validate_local_context
         validate_local_context(self.pins['local_context'][0])
         scope=decode(self.pins['owner_scope'][0],65536)
-        correcting='correction' in a;reassessing='reassessment' in a
-        require(not (correcting and reassessing),'snapshot_reassessment_changed')
-        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed'+(' prior_slot' if correcting or reassessing else ''))
+        correcting='correction' in a;reassessing='reassessment' in a;film='film_reassessment' in a
+        require(sum((correcting,reassessing,film)) <= 1,'snapshot_reassessment_changed')
+        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed'+(' prior_slot' if correcting or reassessing or film else ''))
         att=a['attestation']
-        expected_scope=dict(kind='snapshot_correction_scope_v1' if correcting else 'snapshot_reassessment_scope_v1' if reassessing else 'snapshot_assessment_scope_v1',
+        expected_scope=dict(kind='snapshot_correction_scope_v1' if correcting else 'snapshot_reassessment_scope_v1' if reassessing else 'snapshot_film_scope_v1' if film else 'snapshot_assessment_scope_v1',
             case_id=att['case_id'],version=att['version'],max_calls=1,disclosure_allowed=True,production_allowed=False)
         if correcting:expected_scope['prior_slot']=a['correction']['prior_slot']
         if reassessing:expected_scope['prior_slot']=a['reassessment']['prior_slot']
+        if film:expected_scope['prior_slot']=a['film_reassessment']['prior_slot']
         require(scope==expected_scope,'snapshot_owner_scope')
         review=decode(self.pins['main_review'][0],65536)
-        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed'+(' correction_sha256' if correcting else '')+(' reassessment_sha256' if reassessing else ''))
+        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed'+(' correction_sha256' if correcting else '')+(' reassessment_sha256' if reassessing else '')+(' film_reassessment_sha256' if film else ''))
         expected_review=dict(kind='snapshot_main_review_v1',owner_scope_sha256=a['owner_scope']['sha256'],
             snapshot_sha256=a['snapshot']['sha256'],source_sha256=a['source']['sha256'],catalogue_sha256=a['catalogue']['sha256'],
             source_original_sha256=a['source_original']['sha256'],catalogue_original_sha256=a['catalogue_original']['sha256'],
             local_context_sha256=a['local_context']['sha256'],provenance_reviewed=True)
         if correcting:expected_review['correction_sha256']=digest(a['correction'])
         if reassessing:expected_review['reassessment_sha256']=digest(a['reassessment'])
+        if film:expected_review['film_reassessment_sha256']=digest(a['film_reassessment'])
         require(review==expected_review,'snapshot_main_review')
         require(att['snapshot_sha256']==a['snapshot']['sha256'] and
                 att['source_sha256']==a['source']['sha256'] and att['catalogue_sha256']==a['catalogue']['sha256'] and
@@ -111,27 +113,29 @@ def active():
 
 
 def proposal(root,events,evidence):
-    from .snapshot_review import build
+    from .snapshot_review import build,build_film_scope
     held=active();p=held.check_root(root,events,evidence);require_operation_window(p)
-    b=build(p,prose_limited='correction' not in held.record)
+    b=build_film_scope(p) if 'film_reassessment' in held.record else build(p,prose_limited='correction' not in held.record)
     case=dict(source='normalized',case_id=p['case_id'],version=p['version'],occurrence=None)
     a=held.record
     return dict(snapshot_profile='normalized_snapshot_v1',authority_path=str(held.path),authority_sha256=held.pin,
         case=case,run=b['run'],fingerprint=digest(dict(case_id=p['case_id'])),request=b['request'],
         projection_sha256=digest(p),local_context_sha256=a['local_context']['sha256'],selected_evidence=b['selected_evidence'],disclosure=b['disclosure'],
         root_prefix_sha256=a['root_prefix_sha256'],root_count=a['root_count'],
-        contract_version='status_candidate_v2' if 'correction' in a else 'prose_length_v3',
+        contract_version='film_scope_v4' if 'film_reassessment' in a else 'status_candidate_v2' if 'correction' in a else 'prose_length_v3',
         **({'correction':a['correction']} if 'correction' in a else {}),
-        **({'reassessment':a['reassessment']} if 'reassessment' in a else {}))
+        **({'reassessment':a['reassessment']} if 'reassessment' in a else {}),
+        **({'film_reassessment':a['film_reassessment']} if 'film_reassessment' in a else {}))
 
 
 def validate_grant(grant,project):
     held=active();p=held.revalidate();a=held.record
-    from .snapshot_review import build
-    version=grant.get('contract_version');corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
+    from .snapshot_review import build,build_film_scope
+    version=grant.get('contract_version');film=version=='film_scope_v4';corrected=version in ('status_candidate_v2','prose_length_v3') or film;limited=version=='prose_length_v3'
     require(('correction' not in grant or version=='status_candidate_v2') and ('reassessment' not in grant or limited),'snapshot_correction_changed')
-    b=build(p,corrected=corrected,prose_limited=limited)
-    shape(grant,'snapshot_profile authority_path authority_sha256 case run fingerprint request projection_sha256 local_context_sha256 selected_evidence disclosure root_prefix_sha256 root_count'+(' contract_version' if corrected else '')+(' correction' if 'correction' in grant else '')+(' reassessment' if 'reassessment' in grant else ''))
+    require(('film_reassessment' in grant)==film,'snapshot_correction_changed')
+    b=build_film_scope(p) if film else build(p,corrected=corrected,prose_limited=limited)
+    shape(grant,'snapshot_profile authority_path authority_sha256 case run fingerprint request projection_sha256 local_context_sha256 selected_evidence disclosure root_prefix_sha256 root_count'+(' contract_version' if corrected else '')+(' correction' if 'correction' in grant else '')+(' reassessment' if 'reassessment' in grant else '')+(' film_reassessment' if 'film_reassessment' in grant else ''))
     expected=dict(snapshot_profile='normalized_snapshot_v1',authority_path=str(held.path),authority_sha256=held.pin,
         case=dict(source='normalized',case_id=p['case_id'],version=p['version'],occurrence=None),run=b['run'],
         fingerprint=digest(dict(case_id=p['case_id'])),request=b['request'],projection_sha256=digest(p),
@@ -139,11 +143,12 @@ def validate_grant(grant,project):
     if corrected:expected['contract_version']=version
     if 'correction' in a:expected['correction']=a['correction']
     if 'reassessment' in a:expected['reassessment']=a['reassessment']
+    if 'film_reassessment' in a:expected['film_reassessment']=a['film_reassessment']
     require(project==a['project'] and grant==expected,'snapshot_grant_changed')
     return encoded(b['request'])
 
 
-def validate_correction(root,events,grant,*,creating,descendant=None):
+def validate_correction(root,events,grant,*,creating,descendant=None,next_descendant=None,projection_override=None):
     """Bind one successor to the exact consumed, receipt-backed schema failure."""
     from . import supervised_credit as c
     from .history import History
@@ -184,7 +189,7 @@ def validate_correction(root,events,grant,*,creating,descendant=None):
             'snapshot_correction_credit')
     require(all(old[k]==grant[k] for k in ('case','run','fingerprint','projection_sha256','local_context_sha256','selected_evidence','disclosure')),
             'snapshot_correction_disclosure')
-    p=active().revalidate();legacy=build(p,corrected=False)['request'];corrected=build(p,corrected=True,prose_limited=False)['request']
+    p=projection_override if projection_override is not None else active().revalidate();legacy=build(p,corrected=False)['request'];corrected=build(p,corrected=True,prose_limited=False)['request']
     require(old['request']==legacy and grant['request']==corrected and legacy!=corrected and
             digest(legacy)==proof['prior_request_sha256'], 'snapshot_correction_disclosure')
     prior_wire=dict(legacy);new_wire=dict(corrected);prior_text=dict(prior_wire.pop('text'));new_text=dict(new_wire.pop('text'))
@@ -200,6 +205,10 @@ def validate_correction(root,events,grant,*,creating,descendant=None):
         is_last=children and children[0] is attempts[-1][0]
         if descendant is not None:
             is_last=len(attempts)>=2 and children and children[0] is attempts[-2][0] and attempts[-1][0].get('historical')==descendant
+        if next_descendant is not None:
+            require(descendant is not None,'snapshot_correction_consumed')
+            is_last=(len(attempts)>=3 and children and children[0] is attempts[-3][0] and
+                     attempts[-2][0].get('historical')==descendant and attempts[-1][0].get('historical')==next_descendant)
         require(len(children)==1 and is_last and children[0]['slot']==proof['prior_slot']+1 and
                 children[0]['historical']==grant and children[0]['prefix_sha256']==grant['root_prefix_sha256'] and
                 children[0]['credit_count']==count and children[0]['credit_sha256']==proof['prior_credit_sha256'],
@@ -207,7 +216,7 @@ def validate_correction(root,events,grant,*,creating,descendant=None):
     return proof['prior_slot']
 
 
-def validate_reassessment(root,events,grant,*,creating):
+def validate_reassessment(root,events,grant,*,creating,descendant=None,projection_override=None):
     """Permit one distinct assessment after the exact completed length withholding."""
     from . import supervised_credit as c
     from .history import History
@@ -255,7 +264,7 @@ def validate_reassessment(root,events,grant,*,creating):
         'snapshot_reassessment_credit')
     require(all(old[k]==grant[k] for k in ('case','run','fingerprint','projection_sha256','local_context_sha256','selected_evidence','disclosure')),
         'snapshot_reassessment_disclosure')
-    p=active().revalidate();old_wire=build(p,corrected=True,prose_limited=False)['request'];new_wire=build(p,corrected=True,prose_limited=True)['request']
+    p=projection_override if projection_override is not None else active().revalidate();old_wire=build(p,corrected=True,prose_limited=False)['request'];new_wire=build(p,corrected=True,prose_limited=True)['request']
     require(old['request']==old_wire and grant['request']==new_wire and old_wire!=new_wire and
         digest(old_wire)==proof['prior_request_sha256'] and old_wire['input']==new_wire['input'],
         'snapshot_reassessment_disclosure')
@@ -263,14 +272,99 @@ def validate_reassessment(root,events,grant,*,creating):
     if creating:
         require(not children and attempts[-1][0] is start and len(credit)==count and len(events)==grant['root_count'],
             'snapshot_reassessment_consumed')
-        ancestor=validate_correction(root,events,old,creating=False)
+        ancestor=validate_correction(root,events,old,creating=False,projection_override=projection_override)
+    else:
+        is_last=children and children[0] is attempts[-1][0]
+        if descendant is not None:
+            is_last=len(attempts)>=2 and children and children[0] is attempts[-2][0] and attempts[-1][0].get('historical')==descendant
+        require(len(children)==1 and is_last and children[0]['slot']==proof['prior_slot']+1 and
+            children[0]['historical']==grant and children[0]['prefix_sha256']==grant['root_prefix_sha256'] and
+            children[0]['credit_count']==count and children[0]['credit_sha256']==proof['prior_credit_sha256'],
+            'snapshot_reassessment_consumed')
+        ancestor=validate_correction(root,events,old,creating=False,descendant=grant,
+                                     next_descendant=descendant,projection_override=projection_override)
+    return (ancestor,proof['prior_slot'])
+
+
+def validate_film_reassessment(root,events,grant,*,creating):
+    """Allow one fresh film-scope child of the exact completed v3 attempt."""
+    from . import supervised_credit as c
+    from .history import History
+    from .snapshot_review import projection, build
+    from .snapshot_private_report import validate_local_context
+    root.require_write_transaction(events)
+    proof=grant.get('film_reassessment')
+    shape(proof,'kind prior_slot prior_start_sha256 prior_grant_sha256 prior_completion_sha256 prior_report_sha256 prior_retained_reply_sha256 prior_attempt_sha256 prior_receipt_sha256 prior_credit_sha256 prior_credit_count prior_request_sha256 root_prefix_sha256 new_request_sha256 prior_status prior_candidate prior_rationale_status reviewed')
+    require(proof['kind']=='snapshot_film_scope_reassessment_v1' and proof['reviewed'] is True and
+        type(proof['prior_slot']) is int and proof['prior_slot']>=9 and
+        type(proof['prior_credit_count']) is int and proof['prior_credit_count']>=1 and
+        grant.get('contract_version')=='film_scope_v4' and proof['root_prefix_sha256']==grant['root_prefix_sha256'] and
+        proof['new_request_sha256']==digest(grant['request']),'snapshot_film_reassessment_changed')
+    for key in ('prior_start_sha256','prior_grant_sha256','prior_completion_sha256','prior_report_sha256',
+                'prior_retained_reply_sha256','prior_attempt_sha256','prior_receipt_sha256','prior_credit_sha256',
+                'prior_request_sha256','root_prefix_sha256','new_request_sha256'):hash_id(proof[key])
+    attempts=c._standing_attempts(events,events[1]);prior=[s for s,_ in attempts if s['slot']==proof['prior_slot']]
+    require(len(prior)==1 and 'historical' in prior[0],'snapshot_film_reassessment_prior')
+    start=prior[0];old=start['historical']
+    require(old.get('snapshot_profile')=='normalized_snapshot_v1' and old.get('contract_version')=='prose_length_v3' and
+        'reassessment' in old and 'film_reassessment' not in old and digest(start)==proof['prior_start_sha256'] and
+        digest(old)==proof['prior_grant_sha256'] and start['request_sha256']==proof['prior_request_sha256'],
+        'snapshot_film_reassessment_prior')
+    completions=[r for r in events[:grant['root_count']] if r.get('slot')==proof['prior_slot'] and r.get('type')=='supervised_completed']
+    require(len(completions)==1 and digest(completions[0])==proof['prior_completion_sha256'] and
+        not any(r.get('slot')==proof['prior_slot'] and r.get('type')=='supervised_diagnostic' for r in events[:grant['root_count']]),
+        'snapshot_film_reassessment_prior')
+    complete=completions[0];report=complete.get('historical_report');answer=complete.get('answer')
+    require(type(report) is dict and report.get('kind')=='receipt_bound_snapshot_review_v1' and
+        report.get('generation_invoked') is True and report.get('provider_receipt_correlated') is True and
+        report.get('sent') is False and digest(report)==proof['prior_report_sha256'] and
+        digest(answer)==proof['prior_retained_reply_sha256']==report.get('retained_reply_hash') and
+        complete.get('request_hash')==report.get('request_sha256')==proof['prior_request_sha256'] and
+        report['result']['status']==answer['result']['status']==proof['prior_status'] and
+        report['result']['candidate']==answer['result']['candidate']==proof['prior_candidate'] and
+        report.get('prose_handling',{}).get('rationale',{}).get('status')==proof['prior_rationale_status'] and
+        proof['prior_rationale_status'] in ('retained','withheld'),
+        'snapshot_film_reassessment_result')
+    rows=History(root.directory/f"attempt-{proof['prior_slot']}").read()
+    require([r.get('type') for r in rows]==['bound_send_reserved','bound_send_attempted','bound_send_receipt'] and
+        digest(rows)==proof['prior_attempt_sha256'] and digest(rows[-1])==proof['prior_receipt_sha256']==report.get('receipt_hash') and
+        rows[-1]==report.get('receipt') and rows[-1].get('request_sha256')==proof['prior_request_sha256'],
+        'snapshot_film_reassessment_receipt')
+    credit=History(root.directory/'credit').read();count=proof['prior_credit_count']
+    require(len(credit)>=count and digest(credit[:count])==proof['prior_credit_sha256'] and
+        len([r for r in credit[:count] if r.get('request_hash')==proof['prior_request_sha256'] and r.get('reserved_usd')==[3,100]])==1,
+        'snapshot_film_reassessment_credit')
+    from .supervised_credit import _read_evidence
+    old_raw,_=_read_evidence(Path(old['authority_path']),65536)
+    require(hashlib.sha256(old_raw).hexdigest()==old['authority_sha256'],'snapshot_film_prior_authority')
+    authority=decode(old_raw,65536);att=authority['attestation'];artifacts={}
+    for name in ('snapshot','source','catalogue','local_context'):
+        pin=authority[name];raw,_=_read_evidence(Path(pin['path']),1048576 if name=='snapshot' else 65536)
+        require(hashlib.sha256(raw).hexdigest()==pin['sha256'],'snapshot_film_prior_authority')
+        artifacts[name]=raw
+    old_p=projection(artifacts['snapshot'],authority['snapshot']['sha256'],old['case']['case_id'],old['case']['version'],
+        artifacts['source'],artifacts['catalogue'],att,now=start['at'])
+    p=active().revalidate()
+    require(digest(old_p)==old['projection_sha256'] and build(old_p)['request']==old['request'] and
+        old['case']==grant['case'] and old_p['source_identifiers']==p['source_identifiers'] and
+        old_p['listing']['imdb']==p['listing']['imdb'] and
+        (old_p['catalogue']['imdb'],old_p['catalogue']['tmdb'])==(p['catalogue']['imdb'],p['catalogue']['tmdb']) and
+        p['generated_at']>old_p['generated_at'] and p['listing']['observed_at']>old_p['listing']['observed_at'] and
+        p['catalogue']['observed_at']>old_p['catalogue']['observed_at'] and
+        validate_local_context(artifacts['local_context'])['tracker_url']==
+        validate_local_context(active().pins['local_context'][0])['tracker_url'], 'snapshot_film_freshness')
+    children=[s for s,_ in attempts if s.get('historical',{}).get('film_reassessment',{}).get('prior_slot')==proof['prior_slot']]
+    if creating:
+        require(not children and attempts[-1][0] is start and len(credit)==count and len(events)==grant['root_count'],
+                'snapshot_film_reassessment_consumed')
+        ancestors=validate_reassessment(root,events,old,creating=False,projection_override=old_p)
     else:
         require(len(children)==1 and children[0] is attempts[-1][0] and children[0]['slot']==proof['prior_slot']+1 and
             children[0]['historical']==grant and children[0]['prefix_sha256']==grant['root_prefix_sha256'] and
             children[0]['credit_count']==count and children[0]['credit_sha256']==proof['prior_credit_sha256'],
-            'snapshot_reassessment_consumed')
-        ancestor=validate_correction(root,events,old,creating=False,descendant=grant)
-    return (ancestor,proof['prior_slot'])
+            'snapshot_film_reassessment_consumed')
+        ancestors=validate_reassessment(root,events,old,creating=False,descendant=grant,projection_override=old_p)
+    return (*ancestors,proof['prior_slot'])
 
 
 def authorize(directory,selected):
@@ -289,18 +383,18 @@ def authorize(directory,selected):
 
 def report(grant,answer,history):
     """Finish only after the existing bound transport stored its real receipt."""
-    from .snapshot_review import build, validate_answer
+    from .snapshot_review import build, validate_answer,build_film_scope,validate_film_scope
     from .supervised_authorization import consume_snapshot_completion
     proof=consume_snapshot_completion(grant,answer)
     held=active();validate_grant(grant,held.record['project']);p=held.revalidate()
     from .responses_protocol import schema_value
     from .new_case import _captured_prose_copy
-    version=grant.get('contract_version');corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
-    prepared=build(p,corrected=corrected,prose_limited=limited);schema_value(answer,prepared['request']['text']['format']['schema'])
-    require(answer['binding_hash']==decode(prepared['request']['input'][0]['content'][0]['text'],8192)['binding_hash'] and
+    version=grant.get('contract_version');film=version=='film_scope_v4';corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
+    prepared=build_film_scope(p) if film else build(p,corrected=corrected,prose_limited=limited);schema_value(answer,prepared['request']['text']['format']['schema'])
+    require(answer['binding_hash']==decode(prepared['request']['input'][0]['content'][0]['text'],65536 if film else 8192)['binding_hash'] and
             answer['kind']=='final' and answer['lookups']==[],'snapshot_reply_binding')
     retained,handling=_captured_prose_copy(answer)
-    result=validate_answer(p,prepared,retained,now=time.time(),corrected=corrected,prose_limited=limited)
+    result=validate_film_scope(p,prepared,retained,now=time.time()) if film else validate_answer(p,prepared,retained,now=time.time(),corrected=corrected,prose_limited=limited)
     rows=history.read()
     require(len(rows)==3 and rows[-1]['type']=='bound_send_receipt' and
             rows[-1]['request_sha256']==digest(grant['request']) and digest(rows[-1])==proof['receipt_hash'],'snapshot_receipt_missing')
@@ -318,6 +412,11 @@ def report(grant,answer,history):
         result_report['previous_assessment']=dict(slot=prior['prior_slot'],status=prior['prior_status'],
             candidate=prior['prior_candidate'],report_sha256=prior['prior_report_sha256'],rationale='withheld_unrecoverable')
         result_report['assessment_label']='distinct_new_assessment'
+    if 'film_reassessment' in grant:
+        prior=grant['film_reassessment']
+        result_report['previous_assessment']=dict(slot=prior['prior_slot'],status=prior['prior_status'],
+            candidate=prior['prior_candidate'],report_sha256=prior['prior_report_sha256'],rationale=prior['prior_rationale_status'])
+        result_report['assessment_label']='distinct_film_scope_assessment'
     return result_report
 
 
@@ -349,7 +448,7 @@ def write_completed(directory,selected,slot,output_dir):
     """Render the one durable, receipt-bound result; never send or allocate."""
     from . import supervised_credit as c
     from .history import History
-    from .snapshot_review import build,validate_answer
+    from .snapshot_review import build,validate_answer,build_film_scope,validate_film_scope
     from .snapshot_private_report import render
     from .private_files import private_chain
     import os
@@ -373,14 +472,21 @@ def write_completed(directory,selected,slot,output_dir):
                 receipt[-1]==result['receipt'] and digest(receipt[-1])==result['receipt_hash'] and
                 receipt[-1]['request_sha256']==result['request_sha256'],
                 'snapshot_receipt_missing')
-        version=grant.get('contract_version');corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
-        require(validate_answer(p,build(p,corrected=corrected,prose_limited=limited),answer,now=time.time(),corrected=corrected,prose_limited=limited)==result['result'],'snapshot_result_changed')
+        version=grant.get('contract_version');film=version=='film_scope_v4';corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
+        checked=validate_film_scope(p,build_film_scope(p),answer,now=time.time()) if film else validate_answer(p,build(p,corrected=corrected,prose_limited=limited),answer,now=time.time(),corrected=corrected,prose_limited=limited)
+        require(checked==result['result'],'snapshot_result_changed')
         if 'reassessment' in grant:
             prior=grant['reassessment']
             require(result.get('assessment_label')=='distinct_new_assessment' and
                 result.get('previous_assessment')==dict(slot=prior['prior_slot'],status=prior['prior_status'],
                     candidate=prior['prior_candidate'],report_sha256=prior['prior_report_sha256'],rationale='withheld_unrecoverable'),
                 'snapshot_reassessment_result')
+        if 'film_reassessment' in grant:
+            prior=grant['film_reassessment']
+            require(result.get('assessment_label')=='distinct_film_scope_assessment' and
+                result.get('previous_assessment')==dict(slot=prior['prior_slot'],status=prior['prior_status'],
+                    candidate=prior['prior_candidate'],report_sha256=prior['prior_report_sha256'],rationale=prior['prior_rationale_status']),
+                'snapshot_film_reassessment_result')
         local_raw=held.pins['local_context'][0]
         html=render(result,digest(result),p,local_raw,held.record['local_context']['sha256']).encode('utf-8')
         output_dir=Path(output_dir)

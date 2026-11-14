@@ -2238,3 +2238,7 @@ deployment, live source/host observation, operational replay, notification or
 recurring operation occurred. Historical issue #113 Task8's actual host rejection
 remains unknown. The unrelated active task and all existing preservation boundaries
 above remain unchanged.
+
+### Film-scope snapshot contract
+
+The dormant normalized-snapshot path has a separately versioned film-scope contract and a receipt-bound, one-child reassessment gate. It distinguishes film identity from edition, queue and approval, retains field-level findings, and preserves earlier serialized contracts and attempt history. See [the film-scope report](reports/2026-11-14-snapshot-film-scope.md). No live operation is authorized by this code change.
