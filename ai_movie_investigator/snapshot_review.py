@@ -128,7 +128,7 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
         source_evidence_sha256=attestation['source_sha256'], catalogue_evidence_sha256=attestation['catalogue_sha256'])
 
 
-def build(projection):
+def build(projection, *, corrected=True):
     """Build only the minimized request; never serialise local identifiers."""
     from .controller import output_schema
     from .credit_test import POLICY
@@ -178,6 +178,23 @@ def build(projection):
     citation=props['citations']['items']['properties']
     citation['evidence_id']={'type':'string','enum':[evidence_alias(run,'source'),evidence_alias(run,'catalogue')]}
     citation['claim']={'type':'string','enum':['source_identity','crosswalk']}
+    if corrected:
+        # Constrain the generated shape as well as retaining all local semantic
+        # checks. Distinct closed result variants prevent inconsistent pairs.
+        import copy
+        negative=copy.deepcopy(result_schema)
+        negative['properties']['status']={'type':'string','enum':['unresolved','blocked']}
+        negative['properties']['candidate']={'type':'null'}
+        variants=[negative]
+        if pair is not None:
+            positive=copy.deepcopy(result_schema)
+            positive['properties']['status']={'type':'string','enum':['supported_candidate']}
+            candidate=positive['properties']['candidate']['anyOf'][0]
+            candidate['properties']['imdb']={'type':'string','enum':[pair['imdb']]}
+            candidate['properties']['tmdb']={'type':'integer','enum':[pair['tmdb']]}
+            positive['properties']['candidate']=candidate
+            variants.insert(0,positive)
+        schema['properties']['result']={'anyOf':variants}
     wire=dict(**POLICY,instructions=instructions,
         input=[dict(role='user',content=[dict(type='input_text',text=encoded(data).decode())])],
         tools=[],tool_choice='none',store=False,background=False,stream=False,
@@ -188,11 +205,11 @@ def build(projection):
     return dict(run=run,disclosure=disclosure,request=wire,selected_evidence=selected)
 
 
-def validate_answer(projection, prepared, reply, *, now):
+def validate_answer(projection, prepared, reply, *, now, corrected=True):
     """Validate one exact bound model reply; does not authenticate a receipt."""
     from .disclosure import restore
     from .controller import validate_final
-    require(prepared == build(projection), 'snapshot_prepared_changed')
+    require(prepared == build(projection,corrected=corrected), 'snapshot_prepared_changed')
     restored=restore(reply, run=prepared['run'], disclosure=prepared['disclosure'],
                      binding_hash=digest(dict(source='normalized',case_id=projection['case_id'],
                                               version=projection['version'],occurrence=None)))

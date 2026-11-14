@@ -22,7 +22,7 @@ class _Approved:
         raw,self.identity=_read_evidence(self.path,65536)
         require(hashlib.sha256(raw).hexdigest()==pin,'snapshot_authority_changed')
         self.record=decode(raw,65536)
-        shape(self.record,'kind owner_scope main_review root_identity root_prefix_sha256 root_count project account_reference output_dir output_identity snapshot source catalogue source_original catalogue_original local_context attestation runtime_manifest_sha256 issued_at expires_at')
+        shape(self.record,'kind owner_scope main_review root_identity root_prefix_sha256 root_count project account_reference output_dir output_identity snapshot source catalogue source_original catalogue_original local_context attestation runtime_manifest_sha256 issued_at expires_at'+(' correction' if 'correction' in self.record else ''))
         require(raw==encoded(self.record) and self.record['kind']=='trusted_main_normalized_snapshot_v1','snapshot_authority_changed')
         self.pins={}
         for name in ('owner_scope','main_review','snapshot','source','catalogue','source_original','catalogue_original','local_context'):
@@ -61,16 +61,21 @@ class _Approved:
         from .snapshot_private_report import validate_local_context
         validate_local_context(self.pins['local_context'][0])
         scope=decode(self.pins['owner_scope'][0],65536)
-        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed')
+        correcting='correction' in a
+        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed'+(' prior_slot' if correcting else ''))
         att=a['attestation']
-        require(scope==dict(kind='snapshot_assessment_scope_v1',case_id=att['case_id'],version=att['version'],
-            max_calls=1,disclosure_allowed=True,production_allowed=False),'snapshot_owner_scope')
+        expected_scope=dict(kind='snapshot_correction_scope_v1' if correcting else 'snapshot_assessment_scope_v1',
+            case_id=att['case_id'],version=att['version'],max_calls=1,disclosure_allowed=True,production_allowed=False)
+        if correcting:expected_scope['prior_slot']=a['correction']['prior_slot']
+        require(scope==expected_scope,'snapshot_owner_scope')
         review=decode(self.pins['main_review'][0],65536)
-        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed')
-        require(review==dict(kind='snapshot_main_review_v1',owner_scope_sha256=a['owner_scope']['sha256'],
+        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed'+(' correction_sha256' if correcting else ''))
+        expected_review=dict(kind='snapshot_main_review_v1',owner_scope_sha256=a['owner_scope']['sha256'],
             snapshot_sha256=a['snapshot']['sha256'],source_sha256=a['source']['sha256'],catalogue_sha256=a['catalogue']['sha256'],
             source_original_sha256=a['source_original']['sha256'],catalogue_original_sha256=a['catalogue_original']['sha256'],
-            local_context_sha256=a['local_context']['sha256'],provenance_reviewed=True),'snapshot_main_review')
+            local_context_sha256=a['local_context']['sha256'],provenance_reviewed=True)
+        if correcting:expected_review['correction_sha256']=digest(a['correction'])
+        require(review==expected_review,'snapshot_main_review')
         require(att['snapshot_sha256']==a['snapshot']['sha256'] and
                 att['source_sha256']==a['source']['sha256'] and att['catalogue_sha256']==a['catalogue']['sha256'] and
                 att['source_original_sha256']==a['source_original']['sha256'] and
@@ -110,20 +115,86 @@ def proposal(root,events,evidence):
     return dict(snapshot_profile='normalized_snapshot_v1',authority_path=str(held.path),authority_sha256=held.pin,
         case=case,run=b['run'],fingerprint=digest(dict(case_id=p['case_id'])),request=b['request'],
         projection_sha256=digest(p),local_context_sha256=a['local_context']['sha256'],selected_evidence=b['selected_evidence'],disclosure=b['disclosure'],
-        root_prefix_sha256=a['root_prefix_sha256'],root_count=a['root_count'])
+        root_prefix_sha256=a['root_prefix_sha256'],root_count=a['root_count'],contract_version='status_candidate_v2',
+        **({'correction':a['correction']} if 'correction' in a else {}))
 
 
 def validate_grant(grant,project):
     held=active();p=held.revalidate();a=held.record
     from .snapshot_review import build
-    b=build(p)
-    shape(grant,'snapshot_profile authority_path authority_sha256 case run fingerprint request projection_sha256 local_context_sha256 selected_evidence disclosure root_prefix_sha256 root_count')
+    corrected=grant.get('contract_version')=='status_candidate_v2'
+    require('correction' not in grant or corrected,'snapshot_correction_changed')
+    b=build(p,corrected=corrected)
+    shape(grant,'snapshot_profile authority_path authority_sha256 case run fingerprint request projection_sha256 local_context_sha256 selected_evidence disclosure root_prefix_sha256 root_count'+(' contract_version' if corrected else '')+(' correction' if 'correction' in grant else ''))
     expected=dict(snapshot_profile='normalized_snapshot_v1',authority_path=str(held.path),authority_sha256=held.pin,
         case=dict(source='normalized',case_id=p['case_id'],version=p['version'],occurrence=None),run=b['run'],
         fingerprint=digest(dict(case_id=p['case_id'])),request=b['request'],projection_sha256=digest(p),
         local_context_sha256=a['local_context']['sha256'],selected_evidence=b['selected_evidence'],disclosure=b['disclosure'],root_prefix_sha256=a['root_prefix_sha256'],root_count=a['root_count'])
+    if corrected:expected['contract_version']='status_candidate_v2'
+    if 'correction' in a:expected['correction']=a['correction']
     require(project==a['project'] and grant==expected,'snapshot_grant_changed')
     return encoded(b['request'])
+
+
+def validate_correction(root,events,grant,*,creating):
+    """Bind one successor to the exact consumed, receipt-backed schema failure."""
+    from . import supervised_credit as c
+    from .history import History
+    from .snapshot_review import build
+    root.require_write_transaction(events)
+    proof=grant.get('correction')
+    shape(proof,'kind prior_slot prior_start_sha256 prior_grant_sha256 prior_terminal_sha256 prior_attempt_sha256 prior_receipt_sha256 prior_credit_sha256 prior_credit_count prior_request_sha256 root_prefix_sha256 new_request_sha256 reviewed')
+    require(proof['kind']=='snapshot_candidate_status_correction_v1' and proof['reviewed'] is True and
+            type(proof['prior_slot']) is int and proof['prior_slot']>=7 and
+            type(proof['prior_credit_count']) is int and proof['prior_credit_count']>=1 and
+            proof['root_prefix_sha256']==grant['root_prefix_sha256'] and
+            grant.get('contract_version')=='status_candidate_v2' and
+            proof['new_request_sha256']==digest(grant['request']), 'snapshot_correction_changed')
+    for key in ('prior_start_sha256','prior_grant_sha256','prior_terminal_sha256','prior_attempt_sha256',
+                'prior_receipt_sha256','prior_credit_sha256','prior_request_sha256','root_prefix_sha256','new_request_sha256'):
+        hash_id(proof[key])
+    attempts=c._standing_attempts(events,events[1]);prior=[s for s,_ in attempts if s['slot']==proof['prior_slot']]
+    require(len(prior)==1 and 'historical' in prior[0],'snapshot_correction_prior')
+    start=prior[0];old=start['historical']
+    require(old.get('snapshot_profile')=='normalized_snapshot_v1' and 'correction' not in old and
+            'contract_version' not in old and digest(start)==proof['prior_start_sha256'] and
+            digest(old)==proof['prior_grant_sha256'] and start['request_sha256']==proof['prior_request_sha256'],
+            'snapshot_correction_prior')
+    terminal=[r for r in events[:grant['root_count']] if r.get('slot')==proof['prior_slot'] and r.get('type')=='supervised_diagnostic']
+    require(len(terminal)==1 and terminal[0].get('phase')=='receipt_recorded' and
+            terminal[0].get('reason')=='candidate_status' and terminal[0].get('category')=='historical_report_refused' and
+            'cleanup_reason' not in terminal[0] and digest(terminal[0])==proof['prior_terminal_sha256'] and
+            not any(r.get('slot')==proof['prior_slot'] and r.get('type')=='supervised_completed' for r in events),
+            'snapshot_correction_prior')
+    rows=History(root.directory/f"attempt-{proof['prior_slot']}").read()
+    require([r.get('type') for r in rows]==['bound_send_reserved','bound_send_attempted','bound_send_receipt'] and
+            rows[-1].get('request_sha256')==proof['prior_request_sha256'] and
+            digest(rows)==proof['prior_attempt_sha256'] and digest(rows[-1])==proof['prior_receipt_sha256'],
+            'snapshot_correction_receipt')
+    credit=History(root.directory/'credit').read();count=proof['prior_credit_count']
+    require(len(credit)>=count and digest(credit[:count])==proof['prior_credit_sha256'] and
+            len([r for r in credit[:count] if r.get('request_hash')==proof['prior_request_sha256'] and r.get('reserved_usd')==[3,100]])==1,
+            'snapshot_correction_credit')
+    require(all(old[k]==grant[k] for k in ('case','run','fingerprint','projection_sha256','local_context_sha256','selected_evidence','disclosure')),
+            'snapshot_correction_disclosure')
+    p=active().revalidate();legacy=build(p,corrected=False)['request'];corrected=build(p,corrected=True)['request']
+    require(old['request']==legacy and grant['request']==corrected and legacy!=corrected and
+            digest(legacy)==proof['prior_request_sha256'], 'snapshot_correction_disclosure')
+    prior_wire=dict(legacy);new_wire=dict(corrected);prior_text=dict(prior_wire.pop('text'));new_text=dict(new_wire.pop('text'))
+    prior_format=dict(prior_text.pop('format'));new_format=dict(new_text.pop('format'))
+    prior_format.pop('schema');new_format.pop('schema')
+    require(prior_wire==new_wire and prior_text==new_text and prior_format==new_format,
+            'snapshot_correction_disclosure')
+    children=[s for s,_ in attempts if s.get('historical',{}).get('correction',{}).get('prior_slot')==proof['prior_slot']]
+    if creating:
+        require(not children and attempts[-1][0] is start and len(credit)==count and len(events)==grant['root_count'],
+                'snapshot_correction_consumed')
+    else:
+        require(len(children)==1 and children[0] is attempts[-1][0] and children[0]['slot']==proof['prior_slot']+1 and
+                children[0]['historical']==grant and children[0]['prefix_sha256']==grant['root_prefix_sha256'] and
+                children[0]['credit_count']==count and children[0]['credit_sha256']==proof['prior_credit_sha256'],
+                'snapshot_correction_consumed')
+    return proof['prior_slot']
 
 
 def authorize(directory,selected):
@@ -148,11 +219,12 @@ def report(grant,answer,history):
     held=active();validate_grant(grant,held.record['project']);p=held.revalidate()
     from .responses_protocol import schema_value
     from .new_case import _captured_prose_copy
-    prepared=build(p);schema_value(answer,prepared['request']['text']['format']['schema'])
+    corrected=grant.get('contract_version')=='status_candidate_v2'
+    prepared=build(p,corrected=corrected);schema_value(answer,prepared['request']['text']['format']['schema'])
     require(answer['binding_hash']==decode(prepared['request']['input'][0]['content'][0]['text'],8192)['binding_hash'] and
             answer['kind']=='final' and answer['lookups']==[],'snapshot_reply_binding')
     retained,handling=_captured_prose_copy(answer)
-    result=validate_answer(p,prepared,retained,now=time.time())
+    result=validate_answer(p,prepared,retained,now=time.time(),corrected=corrected)
     rows=history.read()
     require(len(rows)==3 and rows[-1]['type']=='bound_send_receipt' and
             rows[-1]['request_sha256']==digest(grant['request']) and digest(rows[-1])==proof['receipt_hash'],'snapshot_receipt_missing')
@@ -219,7 +291,8 @@ def write_completed(directory,selected,slot,output_dir):
                 receipt[-1]==result['receipt'] and digest(receipt[-1])==result['receipt_hash'] and
                 receipt[-1]['request_sha256']==result['request_sha256'],
                 'snapshot_receipt_missing')
-        require(validate_answer(p,build(p),answer,now=time.time())==result['result'],'snapshot_result_changed')
+        corrected=grant.get('contract_version')=='status_candidate_v2'
+        require(validate_answer(p,build(p,corrected=corrected),answer,now=time.time(),corrected=corrected)==result['result'],'snapshot_result_changed')
         local_raw=held.pins['local_context'][0]
         html=render(result,digest(result),p,local_raw,held.record['local_context']['sha256']).encode('utf-8')
         output_dir=Path(output_dir)

@@ -1,3 +1,10 @@
+## Snapshot result contract correction, 2026-11-14
+
+The one-case snapshot request constrains status and candidate together and has a
+separately bound single-child correction for an exact receipt-backed schema
+failure. Existing captured admission and prior reservations are retained. See
+[scope and validation](reports/2026-11-14-snapshot-status-correction.md).
+
 ## Normalized snapshot assessment, 2026-11-14
 
 A separately gated one-case normalized-snapshot review retains four independent
