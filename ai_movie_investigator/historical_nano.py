@@ -32,6 +32,9 @@ def consent(proposed,project):
 
 
 def validate(grant,project,*,authorization_at=None):
+    if grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+        from .snapshot_authorization import validate_grant
+        return validate_grant(grant,project)
     attestation='authorization_binding' if 'renewal' in grant else 'owner_confirmation'
     shape(grant,'input_path input_sha256 prepared_at fingerprint case run disclosure request consent '+attestation+(' renewal' if 'renewal' in grant else '')+(' response_contract' if 'response_contract' in grant else ''))
     expected=proposal(grant['input_path'],grant['prepared_at'])
@@ -221,6 +224,9 @@ def authorize_renewal(directory,selected,path,authorization_sha256):
     return dict(status='historical_forward_grant_no_api_call',slot=slot,diagnostic_id=a['diagnostic_id'],request_sha256=a['request_sha256'])
 
 def report(grant,answer,history):
+    if grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+        from .snapshot_authorization import report as snapshot_report
+        return snapshot_report(grant,answer,history)
     from .disclosure import restore
     from .controller import validate_final
     from .supervised_authorization import observe_phase

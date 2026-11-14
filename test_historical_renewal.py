@@ -93,7 +93,7 @@ class RenewalTests(unittest.TestCase):
     def test_installed_authorization_then_forward_report_and_restart(self):
         from ai_movie_investigator.installation import install_runtime,verify_installation
         runtime=self.f.f.root/'renewal-runtime';runtime.mkdir(mode=0o700)
-        manifest=install_runtime(Path(__file__).resolve().parent,runtime);self.assertEqual(len(manifest),44)
+        manifest=install_runtime(Path(__file__).resolve().parent,runtime);self.assertEqual(len(manifest),47)
         hooks=self.f.f.root/'renewal-hooks';hooks.mkdir(mode=0o700)
         hook='''
 import atexit,errno,os,sys
