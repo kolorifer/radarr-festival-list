@@ -37,7 +37,7 @@
     "ai_movie_investigator/snapshot_review.py": "5fccd0b2159b0fe53add35fb8097e9bdb026b0e740712793f8230fbc94f79531",
     "ai_movie_investigator/spending.py": "ce169410bf5c178913c15b7976d6cf123779a5f158d377dfa25c0cae72cb7757",
     "ai_movie_investigator/supervised_authorization.py": "8c73c685583fba5fab59f3da4d3e90833f0ae517fd498c5ec6d4db56b2665372",
-    "ai_movie_investigator/supervised_credit.py": "f1136bf20e8ddad57478ccf67dcdda2e5aca8f98f0e0f8345aa8359a63f879ef",
+    "ai_movie_investigator/supervised_credit.py": "ce839f0c96ca5369f6c1b0bb97200265ffc648cd630bcd713fe59d3b8109779b",
     "ai_movie_investigator/synthetic.json": "e425037c034b7baba21eda464d697797b8a6d44ab710efbdf0d5cb93ead429ba",
     "ai_movie_investigator/weekly_ledger.py": "8d4baa073e6350729a05d7eaa241bc987a6b6a5df73a382542a379a9ca1c5f1a",
     "identity_recurring_store.py": "b90324300ac8e6348714bd2b5c5c3b67a537c3996294d02201edc0e7903e89bd",
