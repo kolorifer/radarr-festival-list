@@ -12,7 +12,7 @@ preserving the consumed attempt and every previous record. Use invented offline 
 The real completion branch supplied `request/project` in its own provenance
 label. The existing text guard rejects slashes before checking the model answer,
 so even a valid response could not complete. The label now says `request and
-project`. The guard and all runtime control flow remain unchanged.
+project`. The text guard and existing answer-validation checks remain unchanged.
 
 `ai_movie_investigator/new_case.py` also implements the exact correction consent
 and locked lineage checks. `supervised_credit.py` and
