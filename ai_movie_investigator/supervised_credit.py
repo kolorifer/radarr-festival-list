@@ -32,7 +32,7 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
-    'captured_refused': frozenset(('captured_continuation_prior captured_continuation_owner captured_continuation_changed captured_continuation_consumed verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
+    'captured_refused': frozenset(('captured_freshness_state captured_freshness_started captured_freshness_not_expired captured_freshness_changed captured_freshness_access_fix captured_freshness_consumed captured_continuation_prior captured_continuation_owner captured_continuation_changed captured_continuation_consumed verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
     'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid keychain_process_required keychain_lookup_timeout keychain_lookup_busy keychain_framework_unavailable keychain_interaction_get_failed keychain_interaction_disable_failed keychain_interaction_restore_failed keychain_query_build_failed keychain_query_failed keychain_release_failed keychain_not_available keychain_parameter_invalid keychain_entitlement_missing').split()),
     'historical_report_refused': frozenset(('pilot_run_alias_changed pilot_one_generation_required pilot_citation_alias_unknown pilot_citation_claim_not_disclosed model_status next_action alternative_limit citation_limit unsupported_citation unsupported_claim unsupported_candidate candidate_status alternative_evidence_missing candidate_evidence_missing conflicting_ids_require_review owner_target_conflict stale_candidate_support insufficient_candidate_support normalized_identity_not_established').split()),
     'historical_refused': frozenset(('historical_expanded_required historical_disclosure_size historical_disclosure_changed historical_owner_confirmation_required historical_receipt_missing historical_route_required historical_pending_grant historical_assessment_consumed historical_renewal_changed historical_renewal_authority historical_renewal_expired historical_renewal_prior historical_renewal_consumed').split()),
@@ -606,7 +606,7 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
         else:
             selection_binding(events,enrolled,selected,slot)
             require(not any(e.get('slot')==slot and (slot<7 or e.get('type') not in
-                    ('supervised_standing_attempt_started','supervised_standing_attempt_authorized'))
+                    ('supervised_standing_attempt_started','supervised_standing_attempt_authorized','supervised_captured_freshness_authorized'))
                     for e in events),'supervised_attempt_consumed')
             credit=History(root.directory/'credit',clock=clock)
             history=History(root.directory/f'attempt-{slot}',clock=clock)
@@ -760,6 +760,40 @@ def renew_promotional(directory,selected,*,expected=None):
     return dict(status='promotional_renewed_no_api_call',next_slot=row['next_slot'],prior_reservations_retained=True)
 
 
+
+def _freshened_start(start, row, prefix):
+    """Resolve one effective selection; original journal records stay immutable."""
+    shape(row,'type slot at prefix_sha256 prior_start_sha256 captured evidence_sha256 evidence ceiling_usd')
+    require(row['type']=='supervised_captured_freshness_authorized' and row['slot']==start['slot'] and
+        row['prefix_sha256']==digest(prefix) and row['prior_start_sha256']==digest(start) and
+        'captured' in start,'captured_freshness_changed')
+    old=start['captured'];oa=old['authorization'];g=row['captured'];a=g['authorization'];e=row['evidence']
+    require('freshness' not in oa and 'freshness' in a,'captured_freshness_consumed')
+    f=a['freshness'];shape(f,'slot prior_start_sha256 prior_grant_sha256 root_prefix_sha256 case_prefix_sha256 credit_prefix_sha256 access_fix access_fix_identity')
+    require(f['slot']==start['slot'] and f['prior_start_sha256']==digest(start) and
+        f['prior_grant_sha256']==digest(old) and f['root_prefix_sha256']==digest(prefix) and
+        f['credit_prefix_sha256']==start['credit_sha256'],'captured_freshness_changed')
+    shape(g,'authority_path authority_sha256 authority_identity authorization run case request')
+    require(g['authority_sha256']==digest(a) and g['run']=='captured-'+digest(a) and
+        g['case']==old['case'] and g['request']==old['request'],'captured_freshness_changed')
+    changed={'evidence_hash','issued_at','expires_at','owner_reference','continuation','freshness'}
+    require({k:v for k,v in a.items() if k not in changed}=={k:v for k,v in oa.items() if k not in changed},
+        'captured_freshness_changed')
+    require(a.get('continuation')==(dict(oa['continuation'],owner_reference=e['owner_reference']) if 'continuation' in oa else None),
+        'captured_freshness_changed')
+    validate_evidence(e,stamp(row['at']),standing=True)
+    require(stamp(row['at'])>=start['expires_at'] and e['observed_at']>=start['expires_at'] and
+        e['project']==start['project'] and e['account_reference']==oa['account_reference'] and
+        a['evidence_hash']==digest(e) and a['issued_at']==e['observed_at'] and
+        a['expires_at']==e['expires_at'] and a['owner_reference']==e['owner_reference'], 'captured_freshness_changed')
+    shape(f['access_fix'],'path sha256');hash_id(f['access_fix']['sha256'])
+    require(isinstance(f['access_fix']['path'],str) and Path(f['access_fix']['path']).is_absolute() and
+        type(f['access_fix_identity']) is list and len(f['access_fix_identity'])==4 and
+        all(type(v) is int and v>=0 for v in f['access_fix_identity']), 'captured_freshness_access_fix')
+    hash_id(row['evidence_sha256']);hash_id(f['case_prefix_sha256'])
+    return dict(start,at=row['at'],captured=g,evidence_sha256=row['evidence_sha256'],
+        evidence_hash=digest(e),expires_at=e['expires_at'],ceiling_usd=row['ceiling_usd'])
+
 def _standing_attempts(events,enrolled):
     _standing_base(events,enrolled)
     result=[];index=21;slot=7;renewal=_promotional_renewal(events,enrolled)
@@ -783,6 +817,8 @@ def _standing_attempts(events,enrolled):
                 granted['start_sha256']==digest(start) and stamp(start['at'])<=stamp(granted['at'])<stamp(start['expires_at']),
                 'supervised_standing_binding')
         index+=2
+        if index<len(events) and events[index]['type']=='supervised_captured_freshness_authorized':
+            start=_freshened_start(start,events[index],events[:index]);index+=1
         if index<len(events) and events[index]['type']=='supervised_started':
             row=events[index];shape(row,'type slot at evidence_hash')
             require(row['slot']==slot and row['evidence_hash']==start['evidence_hash'] and

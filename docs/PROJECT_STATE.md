@@ -1,3 +1,12 @@
+## Unstarted captured freshness, 2026-11-14
+
+A single append-only freshness record can reauthorize the same expired but
+unstarted captured slot after an exact verified owner access correction and
+fresh same-account evidence. Original grants, attempts, requests and credit
+history remain retained. No automatic replay or new slot. Independent checks,
+repository integration and actual activation are separate gates. See the
+[scope and validation](reports/2026-11-14-captured-unstarted-freshness.md).
+
 ## Explicit captured credential continuation, 2026-11-14
 
 One owner-resumed successor after a precisely bound terminal HTTP 401 preserves
