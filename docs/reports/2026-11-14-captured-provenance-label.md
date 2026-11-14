@@ -35,7 +35,10 @@ rejection → corrected successor test passed independently of the initial set.
 A later nine-test invocation passed eight (including that complete lineage)
 and hit the same existing read-ctime refusal in one negative fixture. No
 local full-pass claim is made. Supported Python 3.12/3.13 full-suite CI is
-required on the exact PR head.
+required on the exact PR head. The installed-module correction test also passed
+with a nonempty runtime manifest and zero external-I/O tripwires. It uses
+explicit invented file/credential/HTTP adapters and the real one-shot CLI;
+it is not a claim that host private-storage or Keychain access passed.
 
 ## Operational limits and continuation finding
 

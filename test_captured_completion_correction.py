@@ -119,4 +119,44 @@ class CompletionCorrection(unittest.TestCase):
         self.prior_slot=9
         with self.assertRaisesRegex(Refusal,'captured_correction_prior'):self.propose()
 
+    def test_installed_correction_module_with_fake_wire(self):
+        import json, subprocess, sys
+        import test_supervised_envelope as framing
+        from ai_movie_investigator.installation import install_runtime
+        self.fail_label();self.propose()
+        runtime=self.activation.root/'installed-correction';runtime.mkdir(mode=0o700)
+        install_runtime(Path(__file__).resolve().parent,runtime)
+        manifest=json.loads((runtime/'runtime-files.json').read_bytes());self.assertGreater(len(manifest),0)
+        self.activation.record['runtime_manifest_sha256']=digest(manifest);self.activation.write_record()
+        code='''import sys,atexit,ctypes
+attempts=[]
+def audit(event,args):
+ if event.startswith('socket.') or event=='subprocess.Popen' or (event=='ctypes.dlopen' and args[0] not in (None,'/usr/lib/libSystem.B.dylib')):
+  attempts.append(event);raise AssertionError('external IO')
+sys.addaudithook(audit)
+@atexit.register
+def done():print('TRIPWIRE='+str(len(attempts)))
+'''
+        code+='sys.path.insert(0,'+repr(str(runtime))+')\n'
+        code+='''from pathlib import Path
+from ai_movie_investigator import new_case as n,supervised_credit as c,supervised_authorization as a,keychain_credential as k
+# Invented fixture file and credential adapters; installed contract code intact.
+c.read_private=lambda p,limit:Path(p).read_bytes()
+k._native=lambda project:b'sk-DUMMY_CAPTURED'
+'''
+        code+='selected_raw='+repr(self.f.response())+"\nframing='chunked'\n"+framing.wire_code()
+        code+='\nwith n.approved_captured_wrapper('+repr(str(self.activation.path))+','+repr(self.activation.sha)+'),a._simulated_captured_io(),wire_fixture("completed"):\n'
+        code+=' selected=c.read_evidence('+repr(str(self.f.selected.path))+')\n'
+        code+=' result=n.authorize_captured('+','.join(map(repr,[str(self.f.f.state)]))+',selected,'+','.join(map(repr,[str(self.f.case.directory),digest(self.f.request),str(self.f.path),digest(self.f.consent)]))+')\n'
+        code+=' assert result["slot"]==8\n'
+        code+=' sys.argv='+repr(['ai_movie_investigator.supervised_credit','--state',str(self.f.f.state),'run-captured-keychain','--evidence',str(self.f.selected.path),'--slot','8'])+'\n'
+        code+=" import runpy;runpy.run_module('ai_movie_investigator.supervised_credit',run_name='__main__',alter_sys=True)\n"
+        script=self.activation.root/'installed-correction.py';script.write_text(code)
+        result=subprocess.run([sys.executable,'-I','-S','-B',str(script)],cwd=runtime,env={'PATH':'/usr/bin:/bin'},capture_output=True,timeout=40)
+        output=result.stdout+result.stderr
+        self.assertEqual(result.returncode,0,output);self.assertIn(b'TRIPWIRE=0',output)
+        self.assertEqual(output.count(b'OFFLINE_AUTHORIZED_BOUNDARY'),1)
+        self.assertEqual((self.f.f.state/'attempt-7'/FILENAME).read_bytes(),self.oldattempt)
+        self.assertFalse(self.f.case.read()[-1]['report']['draft']['sent'])
+
 if __name__=='__main__':unittest.main()
