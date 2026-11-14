@@ -110,7 +110,8 @@ class _Session:
             from .credit_test import retained_total
             require(retained_total(reservations,project)<=ceiling,'credit_total_ceiling')
         else:ledger_total(reservations,project,ceiling=ceiling)
-        selected=[r for r in reservations if r['request_hash']==fingerprint]
+        binding=selected_reservation_binding(self.credit,project,fingerprint)
+        selected=[r for r in reservations if all(r.get(k)==v for k,v in binding.items())]
         require(len(selected)==1 and selected[0]['reserved_usd']==[3,100],'supervised_reservation_required')
         rows=[r for r in self.events if r.get('slot')==self.slot]
         require(len([r for r in rows if r['type']=='supervised_started'])==1 and
@@ -322,6 +323,18 @@ def refusal(token,*,body=None,credential=None,project=None,path=None,consume=Tru
     except ValueError:
         return 'supervised_authorization_value_error'
 
+
+
+def selected_reservation_binding(history,project,request_hash):
+    session=_ACTIVE.get()
+    if session is None or not hasattr(session,'captured') or 'continuation' not in session.captured.grant['authorization']:
+        return dict(request_hash=request_hash)
+    from .supervised_credit import _standing_attempts,reservation_binding
+    session.captured.validate()
+    require(history is session.credit and project==session.enrolled['project'],'supervised_recovery_binding')
+    start=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot)
+    require(start['captured']==session.captured.grant and start['request_sha256']==request_hash,'supervised_request_binding')
+    return reservation_binding(start)
 
 def reservation_ceiling(history,project,request_hash):
     """Only a root-locked selected manual session can exceed the normal five cents."""

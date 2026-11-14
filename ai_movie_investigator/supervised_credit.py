@@ -32,7 +32,7 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
-    'captured_refused': frozenset(('verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
+    'captured_refused': frozenset(('captured_continuation_prior captured_continuation_owner captured_continuation_changed captured_continuation_consumed verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
     'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid keychain_process_required keychain_lookup_timeout keychain_lookup_busy keychain_framework_unavailable keychain_interaction_get_failed keychain_interaction_disable_failed keychain_interaction_restore_failed keychain_query_build_failed keychain_query_failed keychain_release_failed keychain_not_available keychain_parameter_invalid keychain_entitlement_missing').split()),
     'historical_report_refused': frozenset(('pilot_run_alias_changed pilot_one_generation_required pilot_citation_alias_unknown pilot_citation_claim_not_disclosed model_status next_action alternative_limit citation_limit unsupported_citation unsupported_claim unsupported_candidate candidate_status alternative_evidence_missing candidate_evidence_missing conflicting_ids_require_review owner_target_conflict stale_candidate_support insufficient_candidate_support normalized_identity_not_established').split()),
     'historical_refused': frozenset(('historical_expanded_required historical_disclosure_size historical_disclosure_changed historical_owner_confirmation_required historical_receipt_missing historical_route_required historical_pending_grant historical_assessment_consumed historical_renewal_changed historical_renewal_authority historical_renewal_expired historical_renewal_prior historical_renewal_consumed').split()),
@@ -421,7 +421,7 @@ def recovery_retained(root,events,enrolled,selected,credit,slot=3):
             digest(reservations[:retained_count])==start['credit_sha256'],
             'supervised_recovery_state')
     if len(reservations)==retained_count+1:
-        require(reservations[-1]['request_hash']==start['request_sha256'] and
+        require(reservations[-1]['request_hash']==reservation_binding(start)['request_hash'] and
                 reservations[-1]['reserved_usd']==[3,100],'supervised_recovery_state')
     return rational([{3:6,4:9,5:12,6:15}[slot],100])
 
@@ -799,6 +799,14 @@ def _standing_attempts(events,enrolled):
     return result
 
 
+
+def reservation_binding(start):
+    """Keep wire hash; namespace only a selected captured successor's debit."""
+    a=start.get('captured',{}).get('authorization',{})
+    if 'continuation' not in a:return dict(request_hash=start['request_sha256'])
+    binding=dict(wire_request_hash=start['request_sha256'],continuation_authority_sha256=digest(a))
+    return dict(request_hash=digest(dict(kind='captured_credential_continuation_reservation',**binding)),**binding)
+
 def _standing_history(root,events,enrolled,credit):
     from .credit_test import retained_total
     grant=_standing_base(events,enrolled);attempts=_standing_attempts(events,enrolled)
@@ -834,15 +842,17 @@ def _standing_history(root,events,enrolled,credit):
     require(len(reservations)>=5 and digest(reservations[:5])==grant['credit_sha256'],'supervised_standing_history')
     if attempts:
         require(attempts[0][0]['previous_attempt_sha256']==grant['attempts']['6']['sha256'],'supervised_standing_history')
-    known={start['request_sha256'] for start,_ in attempts}
-    require(all(r['request_hash'] in known and r['reserved_usd']==[3,100] for r in reservations[5:]) and
+    known={reservation_binding(start)['request_hash']:reservation_binding(start) for start,_ in attempts}
+    require(all(r['request_hash'] in known and r['reserved_usd']==[3,100] and
+            all(r.get(k)==known[r['request_hash']].get(k) for k in
+                ('request_hash','wire_request_hash','continuation_authority_sha256')) for r in reservations[5:]) and
             len({r['request_hash'] for r in reservations})==len(reservations),'supervised_standing_history')
     if attempts:
         start=attempts[-1][0];n=start['credit_count']
         require(type(n) is int and n>=5 and len(reservations) in (n,n+1) and
                 digest(reservations[:n])==start['credit_sha256'],'supervised_standing_history')
         if len(reservations)==n+1:
-            require(reservations[-1]['request_hash']==start['request_sha256'],'supervised_standing_history')
+            require(reservations[-1]['request_hash']==reservation_binding(start)['request_hash'],'supervised_standing_history')
     return grant,attempts,reservations,total
 
 
@@ -957,6 +967,10 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
         for old,_ in attempts:
             if 'captured' not in old:continue
             prior=old['captured']['authorization']
+            if authority.get('continuation',{}).get('prior_slot')==old['slot']:
+                # locked_captured above already checked the exact terminal 401,
+                # preserved request/history and single-use owner continuation.
+                continue
             require(all(k in prior for k in ('material_hash','disclosure_material_hash','capture_event')),'captured_authority_changed')
             require(prior['material_hash']!=authority['material_hash'] and
                 prior['disclosure_material_hash']!=authority['disclosure_material_hash'],'captured_generation_consumed')
