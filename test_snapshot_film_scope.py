@@ -26,11 +26,11 @@ class FilmScopeTests(unittest.TestCase):
             rationale='The film details support the same underlying film.',
             uncertainty='Physical edition and current queue are unknown.', next_action='human_review'),
             film_findings=[finding('title','supports','title','title','The titles match.'),
-                finding('year','supports','year','festival_years','The listing year matches the festival year.'),
+                finding('year','supports','year','festival_years','Listing matches festival year.'),
                 finding('people','supports','cast','cast','An actor matches.'),
                 finding('runtime_description','conflicts','description_runtime_minutes','runtime_minutes',
-                        'Listing and catalogue durations differ.'),
-                finding('runtime_nfo','reconciled','nfo_runtime_milliseconds','runtime_minutes','The uploader video duration differs.'),
+                        'Listed and catalogue times differ.'),
+                finding('runtime_nfo','reconciled','nfo_runtime_milliseconds','runtime_minutes','Uploader video time differs.'),
                 finding('ids','supports','imdb','imdb','The listed identifiers match.')], film_blockers=[])
 
     def test_supported_film_does_not_require_edition_or_queue(self):
@@ -103,6 +103,19 @@ class FilmScopeTests(unittest.TestCase):
         self.assertEqual(request_value(raw,film_scope=True),self.prepared['request'])
         with self.assertRaises(ValueError):request_value(raw)
 
+    def test_schema_valid_worst_case_unicode_answer_fits_parser(self):
+        answer=copy.deepcopy(self.answer);answer['result']['rationale']='🎞'*80
+        answer['result']['uncertainty']='🎞'*80
+        answer['result']['next_action']='verify_source_runtime_edition'
+        for citation in answer['result']['citations']:citation['claim']='source_identity'
+        refs=[evidence_alias(self.prepared['run'],'collector'),evidence_alias(self.prepared['run'],'catalogue')]
+        for f in answer['film_findings']:
+            f.update(aspect='runtime_description',disposition='reconciled',source_field='description_runtime_minutes',
+                     catalogue_field='theatrical_year',explanation='🎞'*40,evidence=refs)
+        answer['film_blockers']=[dict(aspect='runtime_description',reason='conflicting_film_evidence',evidence=refs) for _ in range(6)]
+        schema_value(answer,self.prepared['request']['text']['format']['schema'])
+        self.assertLessEqual(len(encoded(answer)),8192)
+
     def test_false_conflicts_on_overlapping_evidence_are_refused(self):
         for index in (0,1,2):
             answer=copy.deepcopy(self.answer);answer['film_findings'][index]['disposition']='conflicts'
@@ -116,3 +129,20 @@ class FilmScopeTests(unittest.TestCase):
         p=copy.deepcopy(self.p);p['listing']['title']='Unrelated Invented Title'
         answer=copy.deepcopy(self.answer);answer['film_findings'][0]['disposition']='conflicts'
         with self.assertRaises(ValueError):s.validate_film_scope(p,s.build_film_scope(p),answer,now=NOW)
+
+    def test_renderer_separates_limitations_and_prior_rationale(self):
+        import hashlib
+        from ai_movie_investigator.contracts import digest
+        from ai_movie_investigator.snapshot_private_report import render
+        local=encoded(dict(tracker_url='https://example.invalid/listing',release_name='Invented',nfo_text='Invented'))
+        result=s.validate_film_scope(self.p,self.prepared,self.answer,now=NOW)
+        report=dict(kind='receipt_bound_snapshot_review_v1',projection_sha256=digest(self.p),
+            local_context_sha256=hashlib.sha256(local).hexdigest(),generation_invoked=True,
+            provider_receipt_correlated=True,sent=False,result=result,
+            previous_assessment=dict(status='unresolved',candidate=None,rationale='retained'))
+        html=render(report,digest(report),self.p,local,hashlib.sha256(local).hexdigest())
+        self.assertIn('None reported',html);self.assertIn('Separate nonblocking limitations',html)
+        self.assertIn('previous explanation remains',html)
+        report['previous_assessment']['rationale']='withheld'
+        html=render(report,digest(report),self.p,local,hashlib.sha256(local).hexdigest())
+        self.assertIn('rationale was withheld',html)

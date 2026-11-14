@@ -62,14 +62,14 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
     findings_html=''
     if 'film_findings' in result:
         def field_label(field, default):
-            return ('collector or producer field ' if field.startswith(('collector_','asserted_')) else default)+field
+            return ('collector or producer field ' if field.startswith(('collector_','asserted_')) else default)+field.replace('_',' ')
         findings_html=('<h3>Film identity findings</h3><p>Reconciliations are model interpretations for human review, not verified facts.</p><ul>'+''.join(
             li(f['aspect'].replace('_',' '),f['disposition']+': '+f['explanation']+
                 ' ('+field_label(f['source_field'],'listing field ')+'; '+field_label(f['catalogue_field'],'catalogue field ')+
                 '; cited '+', '.join(f['evidence'])+')') for f in result['film_findings'])+'</ul>'+
-            '<h3>Remaining film identity blockers</h3><ul>'+''.join(
+            '<h3>Remaining film identity blockers</h3><ul>'+(''.join(
             li(b['aspect'].replace('_',' '),b['reason'].replace('_',' ')+'; cited '+', '.join(b['evidence']))
-            for b in result['film_blockers'])+'</ul>')
+            for b in result['film_blockers']) if result['film_blockers'] else '<li>None reported</li>')+'</ul>')
     text=['<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Private movie review</title></head><body>',
           '<h1>Private movie review</h1><p><a rel="noreferrer noopener" href="'+escape(local['tracker_url'],quote=True)+'">Open the exact source listing</a></p>',
           '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
@@ -88,6 +88,9 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
           *[li('Listing' if c['evidence_id']=='source' else 'Catalogue',c['claim'].replace('_',' ')) for c in result['citations']],'</ul>',
           '<p>The model proposal was checked against the bound identifiers and citations. No numeric score was assigned.</p>',
           '<p>Producer conflict remains for human review; matching IDs alone do not resolve it. This is an unsent review proposal, not identity or download approval.</p>',
-          '<p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. Listing and catalogue provenance were independently reviewed by the supervisor; provider receipt is correlated, not provider-signed billing proof.</p>',
+          ('<h3>Separate nonblocking limitations</h3>' if 'film_findings' in result else '')+
+          '<p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. '+
+          ('Identity and acquisition remain unapproved. ' if 'film_findings' in result else '')+
+          'Listing and catalogue provenance were independently reviewed by the supervisor; provider receipt is correlated, not provider-signed billing proof.</p>',
           '<details><summary>Retained NFO text</summary><pre>'+escape(show(local['nfo_text']))+'</pre></details></body></html>']
     return ''.join(text)

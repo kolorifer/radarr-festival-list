@@ -267,7 +267,8 @@ def build_film_scope(projection):
         'For each film blocker choose the appropriate missing, conflicting or ambiguous evidence reason and cite observed conflicts. '
         'A supported result requires no film blockers and an exact non-ID film comparison; source independence is unknown. '
         'A nonblocking runtime difference can remain a conflict. '
-        'Write brief plain text without URLs, paths, slashes, markup or credential terminology.'
+        'Keep each finding explanation to at most 40 characters and rationale and uncertainty each to at most 80. '
+        'Write plain text without URLs, paths, slashes, markup or credential terminology.'
     )
     aliases = [evidence_alias(prepared['run'], key) for key in ('source', 'catalogue','collector')]
     obj = lambda props: dict(type='object', properties=props, required=list(props), additionalProperties=False)
@@ -277,12 +278,15 @@ def build_film_scope(projection):
             'nfo_runtime_milliseconds','imdb','collector_imdb','collector_tmdb','asserted_imdb','asserted_tmdb','none']),
         catalogue_field=dict(type='string', enum=['title','theatrical_year','festival_years','cast','directors',
             'runtime_minutes','imdb','tmdb','collector_imdb','collector_tmdb','asserted_imdb','asserted_tmdb','none']),
-        explanation=dict(type='string', minLength=1, maxLength=300),
+        explanation=dict(type='string', minLength=1, maxLength=40),
         evidence=dict(type='array', maxItems=2, items=dict(type='string', enum=aliases))))
     blocker = obj(dict(aspect=dict(type='string', enum=['title','year','people','runtime_description','runtime_nfo','ids']),
         reason=dict(type='string', enum=['missing_film_evidence','conflicting_film_evidence','ambiguous_film_evidence']),
         evidence=dict(type='array', maxItems=2, items=dict(type='string', enum=aliases))))
     schema = wire['text']['format']['schema']
+    for variant in schema['properties']['result']['anyOf']:
+        for field in ('rationale','uncertainty'):
+            variant['properties'][field]['maxLength']=80
     schema['properties']['film_findings'] = dict(type='array', minItems=6, maxItems=6, items=finding)
     schema['properties']['film_blockers'] = dict(type='array', maxItems=6, items=blocker)
     schema['required'] += ['film_findings','film_blockers']
@@ -338,7 +342,7 @@ def validate_film_scope(projection, prepared, reply, *, now):
         sf, cf = finding['source_field'], finding['catalogue_field']
         allowed_source, allowed_catalogue = permitted[finding['aspect']]
         require(sf in allowed_source | {'none'} and cf in allowed_catalogue | {'none'}, 'snapshot_film_field')
-        text(finding['explanation'], 300)
+        text(finding['explanation'], 40)
         finding['evidence'] = evidence(finding['evidence'])
         if finding['disposition'] != 'unknown':
             require(set(finding['evidence']) == {origin('source',sf),origin('catalogue',cf)}, 'snapshot_film_evidence')
@@ -398,6 +402,8 @@ def validate_film_scope(projection, prepared, reply, *, now):
             require(finding['disposition'] == 'unknown' and blocker['evidence'] == finding['evidence'] and
                     bool(blocker['evidence']), 'snapshot_film_blockers')
     # Restore the legacy envelope and apply its original candidate/citation gates.
+    require(all(type(reply['result'][field]) is str and len(reply['result'][field]) <= 80
+                for field in ('rationale','uncertainty')), 'snapshot_film_prose')
     legacy = build(projection)
     validated = validate_answer(projection, legacy, reply, now=now)
     if validated['status'] == 'supported_candidate':

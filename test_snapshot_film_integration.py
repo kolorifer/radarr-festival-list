@@ -91,7 +91,7 @@ class FilmIntegrationTests(unittest.TestCase):
    f('year','supports','year','festival_years','The festival year matches.'),
    f('people','supports','cast','cast','A cast member matches.'),
    f('runtime_description','conflicts','description_runtime_minutes','runtime_minutes','Listing and catalogue duration differ.'),
-   f('runtime_nfo','reconciled','nfo_runtime_milliseconds','runtime_minutes','The uploader video duration differs.'),
+   f('runtime_nfo','reconciled','nfo_runtime_milliseconds','runtime_minutes','Uploader video time differs.'),
    f('ids','supports','imdb','imdb','The listed identifiers match.')]
   answer['film_blockers']=[]
   response['output'][-1]['content'][0]['text']=encoded(answer).decode()
