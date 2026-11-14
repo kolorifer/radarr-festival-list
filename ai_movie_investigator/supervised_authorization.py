@@ -100,9 +100,10 @@ class _Session:
                 from .historical_nano import renewal_history
                 renewal_history(self.root,self.events,grant,creating=False)
             if grant and grant.get('snapshot_profile') == 'normalized_snapshot_v1':
-                from .snapshot_authorization import active,validate_grant
+                from .snapshot_authorization import active,validate_grant,validate_correction
                 active().check_root(self.root,self.events,e)
                 validate_grant(grant,e['project'])
+                if 'correction' in grant:validate_correction(self.root,self.events,grant,creating=False)
         require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
         require(credential is self.credential,'supervised_credential_binding')
         for h,pin in ((self.root,self.enrolled['root']),(self.credit,self.enrolled['credit']),

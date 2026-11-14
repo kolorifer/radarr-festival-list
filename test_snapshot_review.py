@@ -61,6 +61,34 @@ class ProjectionTests(unittest.TestCase):
         snap,src,cat,a=fixture();p=self.project(snap,src,cat,a);prep=s.build(p)
         result=dict(status='supported_candidate',candidate=p['citation_eligible_pair'],alternatives=[],citations=[dict(evidence_id=evidence_alias(prep['run'],'source'),claim='source_identity'),dict(evidence_id=evidence_alias(prep['run'],'catalogue'),claim='crosswalk')],rationale='Matching identifiers.',uncertainty='Edition unknown.',next_action='human_review')
         with self.assertRaises(ValueError):s.validate_answer(p,prep,dict(binding_hash=aliases(prep['run']),kind='final',lookups=[],result=result),now=NOW+31)
+    def test_result_schema_binds_status_and_exact_candidate(self):
+        from ai_movie_investigator.responses_protocol import schema_value
+        from ai_movie_investigator.disclosure import aliases
+        snap,src,cat,a=fixture();p=self.project(snap,src,cat,a);prepared=s.build(p)
+        schema=prepared['request']['text']['format']['schema']
+        base=dict(binding_hash=aliases(prepared['run']),kind='final',lookups=[],result=dict(status='unresolved',candidate=None,alternatives=[],citations=[],rationale='No resolution.',uncertainty='Evidence incomplete.',next_action='human_review'))
+        schema_value(base,schema)
+        for status,candidate,valid in [('supported_candidate',None,False),('unresolved',{'imdb':'tt1234567','tmdb':123},False),('blocked',{'imdb':'tt1234567','tmdb':123},False),('supported_candidate',{'imdb':'tt7654321','tmdb':123},False),('supported_candidate',{'imdb':'tt1234567','tmdb':124},False),('supported_candidate',{'imdb':'tt1234567','tmdb':123},True),('blocked',None,True)]:
+            answer=copy.deepcopy(base);answer['result'].update(status=status,candidate=candidate)
+            with self.subTest(status=status,candidate=candidate):
+                if valid:schema_value(answer,schema)
+                else:
+                    with self.assertRaises(ValueError):schema_value(answer,schema)
+        old=s.build(p,corrected=False)
+        self.assertNotEqual(old['request'],prepared['request'])
+        self.assertEqual(old['request']['input'],prepared['request']['input'])
+    def test_legacy_wire_matches_frozen_predecessor_bytes(self):
+        from pathlib import Path
+        snap,src,cat,a=fixture();p=self.project(snap,src,cat,a)
+        frozen=Path('tests/fixtures/snapshot-v1-invented-build.json').read_bytes()
+        self.assertEqual(encoded(s.build(p,corrected=False)),frozen)
+    def test_no_eligible_pair_omits_supported_variant(self):
+        from ai_movie_investigator.responses_protocol import schema_value
+        from ai_movie_investigator.disclosure import aliases
+        snap,src,cat,a=fixture();obj=s.decode(src);obj['imdb']=None;src=encoded(obj);a['source_sha256']=hashlib.sha256(src).hexdigest()
+        p=self.project(snap,src,cat,a);prepared=s.build(p)
+        answer=dict(binding_hash=aliases(prepared['run']),kind='final',lookups=[],result=dict(status='supported_candidate',candidate={'imdb':'tt1234567','tmdb':123},alternatives=[],citations=[],rationale='No.',uncertainty='Unknown.',next_action='human_review'))
+        with self.assertRaises(ValueError):schema_value(answer,prepared['request']['text']['format']['schema'])
     def test_source_must_assert_catalogue_imdb(self):
         snap,src,cat,a=fixture();obj=s.decode(src);obj['imdb']=None;src=encoded(obj);a['source_sha256']=hashlib.sha256(src).hexdigest()
         self.assertIsNone(self.project(snap,src,cat,a)['citation_eligible_pair'])
