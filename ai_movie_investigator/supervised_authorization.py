@@ -327,7 +327,7 @@ def refusal(token,*,body=None,credential=None,project=None,path=None,consume=Tru
 
 def selected_reservation_binding(history,project,request_hash):
     session=_ACTIVE.get()
-    if session is None or not hasattr(session,'captured') or 'continuation' not in session.captured.grant['authorization']:
+    if session is None or not hasattr(session,'captured') or not any(k in session.captured.grant['authorization'] for k in ('continuation','completion_correction')):
         return dict(request_hash=request_hash)
     from .supervised_credit import _standing_attempts,reservation_binding
     session.captured.validate()
