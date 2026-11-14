@@ -89,8 +89,9 @@ def _send_bound(history, body, *, case, run, parent, credential, context_sha256=
                     accounting=accounting, retained_debit=permit['maximum_debit'],
                     currency=permit['currency'], at=history.clock()))
     observe_phase('receipt_recorded')
-    from .supervised_authorization import bind_captured_receipt
+    from .supervised_authorization import bind_captured_receipt,bind_snapshot_receipt
     bind_captured_receipt(result,answer)
+    bind_snapshot_receipt(result,answer)
     return answer
 
 
@@ -220,9 +221,14 @@ class HistoricalDiagnosticParent:
         require(part['type'] == 'input_text', 'operator_disclosure_changed')
         from .contracts import MAX_INPUT
         data = decode(part['text'], MAX_INPUT if r['mode']=='captured_nano_dormant' else 32768)
+        from .supervised_authorization import selected_snapshot_request
+        is_snapshot = r['mode']=='historical_nano_manual' and selected_snapshot_request(selected,body)
         if r['mode']=='captured_nano_dormant':
             from .supervised_authorization import selected_captured_request
             selected_captured_request(selected,body)
+            require(self.context.disclosure_json==encoded(data),'operator_expanded_disclosure_unpinned')
+            expanded=True
+        elif is_snapshot:
             require(self.context.disclosure_json==encoded(data),'operator_expanded_disclosure_unpinned')
             expanded=True
         else:

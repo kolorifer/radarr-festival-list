@@ -155,7 +155,7 @@ class ConnectedAudit(unittest.TestCase):
   target=self.a.root/'audit-runtime';target.mkdir(mode=0o700)
   manifest=installation.install_runtime(Path(__file__).resolve().parent,target)
   manifest=json.loads((target/'runtime-files.json').read_bytes())
-  self.assertEqual(len(manifest),44)
+  self.assertEqual(len(manifest),47)
   for name in ('ai_movie_investigator/new_case.py','ai_movie_investigator/contracts.py'):
    self.assertEqual((target/name).read_bytes(),(Path(__file__).parent/name).read_bytes())
 

@@ -119,7 +119,7 @@ class HistoricalNanoTests(unittest.TestCase):
         from test_supervised_envelope import wire_code
         installed=self.f.f.root/'installed';installed.mkdir(mode=0o700)
         manifest=install_runtime(Path(__file__).resolve().parent,installed)
-        self.assertEqual(len(manifest),44)
+        self.assertEqual(len(manifest),47)
         hooks=self.f.f.root/'hooks';hooks.mkdir(mode=0o700)
         hook="""
 import atexit,errno,os,sys

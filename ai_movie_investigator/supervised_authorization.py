@@ -15,6 +15,7 @@ from .responses_protocol import INTEGRATION_SHUTDOWN
 
 _ACTIVE = ContextVar('supervised_synthetic_authority', default=None)
 SEND_AUTHORITY_SECONDS = 60
+RESPONSE_OBSERVATION_SECONDS = 120
 # In-process integration provenance only. Never read from owner/model JSON, CLI
 # or environment and never consulted for authorization. Tests replace I/O and
 # must explicitly mark that replacement; the production gate stays closed.
@@ -48,7 +49,11 @@ class _Session:
         if slot>=7:
             from .supervised_credit import _standing_attempts
             start=next(s for s,_ in _standing_attempts(events,enrolled) if s['slot']==slot)
-            if 'historical' in start:self.run=start['historical']['run']
+            if 'historical' in start:
+                self.run=start['historical']['run']
+                if start['historical'].get('snapshot_profile') == 'normalized_snapshot_v1':
+                    self.snapshot_grant=start['historical']
+                    self.snapshot_io_marker=_CAPTURED_SIMULATED_IO.get()
             if 'captured' in start:
                 from .new_case import locked_captured
                 self.captured=locked_captured(start['captured'])
@@ -57,6 +62,7 @@ class _Session:
         self.issued={}
         self.received=None
         self.captured_receipt=None
+        self.snapshot_receipt=None
         from .supervised_credit import require_prompted
         self.started_wall,self.started_monotonic=require_prompted(root,credential)
         self.last_wall=self.started_wall
@@ -93,6 +99,10 @@ class _Session:
             if grant and 'renewal' in grant:
                 from .historical_nano import renewal_history
                 renewal_history(self.root,self.events,grant,creating=False)
+            if grant and grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+                from .snapshot_authorization import active,validate_grant
+                active().check_root(self.root,self.events,e)
+                validate_grant(grant,e['project'])
         require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
         require(credential is self.credential,'supervised_credential_binding')
         for h,pin in ((self.root,self.enrolled['root']),(self.credit,self.enrolled['credit']),
@@ -127,6 +137,31 @@ class _Session:
                 permit['input_limit']==CONTEXT_TOKENS,'supervised_generation_binding')
         self.check_time() # Metadata/ledger checks must not outlive prompt authority.
 
+
+    def bind_snapshot_receipt(self,result,answer):
+        if not hasattr(self,'snapshot_grant'):return
+        from .responses_protocol import parse_response,INTEGRATION_MODEL
+        from .supervised_credit import expected_request
+        from .snapshot_authorization import active,validate_grant
+        active().check_root(self.root,self.events,self.selected.data)
+        body=validate_grant(self.snapshot_grant,self.enrolled['project'])
+        require(body==expected_request(self.events,self.enrolled,self.slot) and _ACTIVE.get() is self and
+                self.snapshot_receipt is None and self.received is result and
+                _CAPTURED_SIMULATED_IO.get() is self.snapshot_io_marker, 'snapshot_receipt_unbound')
+        wire=decode(body,65536)
+        parsed,accounting=parse_response(result.body,wire['text']['format']['schema'],result.request_id,
+            expected_model=INTEGRATION_MODEL,http_result=result)
+        rows=self.history.read()
+        require(parsed==answer and len(rows)==3 and rows[-1]['type']=='bound_send_receipt' and
+                rows[-1]['request_sha256']==digest(wire) and rows[-1]['accounting']==accounting and
+                result.project==self.enrolled['project'],'snapshot_receipt_unbound')
+        self.snapshot_receipt=(answer,digest(rows[-1]))
+
+    def complete_snapshot(self,answer):
+        require(_ACTIVE.get() is self and hasattr(self,'snapshot_grant') and self.snapshot_receipt is not None and
+                self.snapshot_receipt[0]==answer,'snapshot_receipt_unbound')
+        from .snapshot_authorization import report
+        return report(self.snapshot_grant,decode(answer),self.history)
 
     def bind_captured_receipt(self,result,answer):
         if not hasattr(self,'captured'):return
@@ -166,6 +201,7 @@ def command_authority(root,events,enrolled,selected,slot,credit,history,credenti
     finally:
         session.received=None
         session.captured_receipt=None
+        session.snapshot_receipt=None
         session.issued.clear()
         _ACTIVE.reset(marker)
 
@@ -193,7 +229,7 @@ def response_observation_window(token,body,credential,project,path):
             'supervised_observation_binding')
     # HTTP just consumed this exact token after full pre-send validation. The
     # existing pre-connect/pre-POST checks still require unexpired authority.
-    return 120
+    return RESPONSE_OBSERVATION_SECONDS
 
 
 
@@ -238,6 +274,11 @@ def selected_output_limit(request_hash):
         return CAPTURED_OUTPUT_TOKENS
     if session.slot>=7:
         grant=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot).get('historical',{})
+        if grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+            from .snapshot_authorization import validate_grant
+            require(validate_grant(grant,session.enrolled['project'])==body and
+                    decode(body,65536)['max_output_tokens']==HISTORICAL_OUTPUT_TOKENS,'snapshot_selection_changed')
+            return HISTORICAL_OUTPUT_TOKENS
         if grant.get('renewal',{}).get('authorization',{}).get('purpose')in (OUTPUT_HEADROOM_PURPOSE,FINAL_CONTRACT_PURPOSE):
             require(decode(body)['max_output_tokens']==HISTORICAL_OUTPUT_TOKENS,'supervised_request_binding')
             return HISTORICAL_OUTPUT_TOKENS
@@ -259,9 +300,32 @@ def selected_response_contract(request_hash):
         return selected['instructions'],selected['text']['format']['schema']
     if session.slot>=7:
         grant=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot).get('historical',{})
+        if grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+            from .snapshot_authorization import validate_grant
+            selected=decode(validate_grant(grant,session.enrolled['project']),65536)
+            return selected['instructions'],selected['text']['format']['schema']
         if grant.get('response_contract')==FINAL_CONTRACT_VERSION:return final_contract(grant['run'])
     return INSTRUCTIONS,output_schema()
 
+
+
+def selected_snapshot_request(selected,body):
+    """Match only the live trusted-main snapshot grant under the root lock."""
+    session=_ACTIVE.get()
+    if session is None or session.slot < 7:
+        return False
+    from .supervised_credit import _standing_attempts
+    session.root.require_write_transaction(session.events)
+    start=next(s for s,_ in _standing_attempts(session.events,session.enrolled) if s['slot']==session.slot)
+    grant=start.get('historical',{})
+    if grant.get('snapshot_profile') != 'normalized_snapshot_v1':
+        return False
+    from .snapshot_authorization import active,validate_grant
+    active().check_root(session.root,session.events,session.selected.data)
+    require(validate_grant(grant,session.enrolled['project'])==body and selected['run']==grant['run'] and
+            selected['case']==grant['case'] and selected['request_sha256']==digest(decode(body,65536)),
+            'snapshot_selection_changed')
+    return True
 
 
 def selected_captured_request(selected,body):
@@ -282,6 +346,21 @@ def consume_captured_completion(held,answer):
     proof=dict(receipt_hash=session.captured_receipt[1],simulated=session.captured_io_marker is not None)
     session.captured_receipt=None # consumed even if validation/draft persistence fails
     return proof
+
+
+def consume_snapshot_completion(grant,answer):
+    session=_ACTIVE.get()
+    require(session is not None and getattr(session,'snapshot_grant',None)==grant and
+            session.snapshot_receipt is not None and session.snapshot_receipt[0]==encoded(answer) and
+            _CAPTURED_SIMULATED_IO.get() is session.snapshot_io_marker,'snapshot_receipt_unbound')
+    proof=dict(receipt_hash=session.snapshot_receipt[1],simulated=session.snapshot_io_marker is not None)
+    session.snapshot_receipt=None
+    return proof
+
+
+def bind_snapshot_receipt(result,answer):
+    session=_ACTIVE.get()
+    if session is not None:session.bind_snapshot_receipt(result,answer)
 
 
 def bind_captured_receipt(result,answer):

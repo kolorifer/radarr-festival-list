@@ -32,6 +32,7 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
+    'snapshot_refused': frozenset(('snapshot_alternatives_unavailable snapshot_attestation snapshot_candidate_not_bound snapshot_disclosure_size snapshot_future_clock snapshot_imdb snapshot_names snapshot_observation_binding snapshot_observation_clock snapshot_observation_pin snapshot_pin snapshot_prepared_changed snapshot_runtime snapshot_runtime_kind snapshot_selection snapshot_tmdb snapshot_year snapshot_activation_unissued snapshot_authority_artifact snapshot_authority_artifact_changed snapshot_authority_changed snapshot_authority_expired snapshot_grant_changed snapshot_main_review snapshot_nested snapshot_output_not_empty snapshot_output_changed snapshot_owner_scope snapshot_receipt_missing snapshot_receipt_unbound snapshot_reply_binding snapshot_result_changed snapshot_result_missing snapshot_root_changed snapshot_runner_failed snapshot_runtime_changed snapshot_window_too_short snapshot_case_consumed snapshot_selection_changed snapshot_retained_reply_changed snapshot_report_binding snapshot_report_local snapshot_report_url').split()),
     'captured_refused': frozenset(('evidence_prior_missing evidence_prior_invalid evidence_prior_changed evidence_successor_consumed evidence_successor_not_refreshable attested_citations_required attested_alternatives_unavailable captured_projection_mode source_identity_unproven captured_retained_answer_changed captured_correction_proof captured_correction_prior captured_correction_changed captured_correction_consumed captured_freshness_state captured_freshness_started captured_freshness_not_expired captured_freshness_changed captured_freshness_access_fix captured_freshness_consumed captured_continuation_prior captured_continuation_owner captured_continuation_changed captured_continuation_consumed verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
     'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid keychain_process_required keychain_lookup_timeout keychain_lookup_busy keychain_framework_unavailable keychain_interaction_get_failed keychain_interaction_disable_failed keychain_interaction_restore_failed keychain_query_build_failed keychain_query_failed keychain_release_failed keychain_not_available keychain_parameter_invalid keychain_entitlement_missing').split()),
     'historical_report_refused': frozenset(('pilot_run_alias_changed pilot_one_generation_required pilot_citation_alias_unknown pilot_citation_claim_not_disclosed model_status next_action alternative_limit citation_limit unsupported_citation unsupported_claim unsupported_candidate candidate_status alternative_evidence_missing candidate_evidence_missing conflicting_ids_require_review owner_target_conflict stale_candidate_support insufficient_candidate_support normalized_identity_not_established').split()),
@@ -627,6 +628,9 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
                 renewal_history(root,events,historical_grant,creating=False)
         require(bool(historical_grant)==historical,'historical_route_required')
         require(bool(captured_grant)==captured,'captured_route_required')
+        if historical_grant and historical_grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+            from .snapshot_authorization import active,require_operation_window
+            require_operation_window(active().check_root(root,events,evidence))
         if captured_grant:
             from .new_case import captured_case_lock
             captured_case=case_locks.enter_context(captured_case_lock(root,events,captured_grant,evidence))
@@ -662,6 +666,8 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
                                            context_sha256=selection['local_context_sha256'])
                         if captured_grant:
                             captured_report=authority.complete_captured(answer)
+                        elif historical_grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+                            historical_report=authority.complete_snapshot(answer)
                         else:
                             from .historical_nano import report
                             historical_report=report(historical_grant,decode(answer),history)
@@ -670,6 +676,10 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
                             history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
                     observe_phase('completion_recording')
                     retained_answer=decode(answer)
+                    if historical_grant and historical_grant.get('snapshot_profile') == 'normalized_snapshot_v1':
+                        from .new_case import _captured_prose_copy
+                        retained_answer,_=_captured_prose_copy(retained_answer)
+                        require(digest(retained_answer)==historical_report['retained_reply_hash'], 'snapshot_retained_reply_changed')
                     if captured_grant:
                         # Original response remains in memory only. Both durable
                         # answer locations retain the same policy-filtered copy.
@@ -1017,6 +1027,9 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
             from .new_case import _captured_completion_correction
             correction_lineage=_captured_completion_correction(root,events,held.history,held.events,authority,captured)
         for old,_ in attempts:
+            previous_snapshot=old.get('historical',{})
+            if previous_snapshot.get('snapshot_profile') == 'normalized_snapshot_v1':
+                require(previous_snapshot['case']['case_id'] != authority['case']['case_id'], 'snapshot_case_consumed')
             if old['slot'] in correction_lineage:continue
             if 'captured' not in old:continue
             prior=old['captured']['authorization']
@@ -1032,7 +1045,20 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
                 require(prior['capture_event']==authority['capture_event'] and
                     prior['case']['case_id']==authority['case']['case_id'],'captured_selection_changed')
     if historical:
-        if 'renewal' in historical:
+        if historical.get('snapshot_profile') == 'normalized_snapshot_v1':
+            from .snapshot_authorization import active, validate_grant
+            held_snapshot=active();held_snapshot.check_root(root,events,e)
+            require(len(events)==historical['root_count'],'snapshot_root_changed')
+            validate_grant(historical,e['project'])
+            for old,_ in attempts:
+                if 'captured' in old:
+                    prior=old['captured']['authorization']['case']
+                elif 'historical' in old:
+                    prior=old['historical']['case']
+                else:
+                    continue
+                require(prior['case_id'] != historical['case']['case_id'], 'snapshot_case_consumed')
+        elif 'renewal' in historical:
             from .historical_nano import renewal_history
             renewal_history(root,events,historical,creating=True)
         else:

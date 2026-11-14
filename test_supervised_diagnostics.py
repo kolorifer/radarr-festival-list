@@ -141,7 +141,7 @@ class DiagnosticTests(unittest.TestCase):
 
     def test_finite_reason_coverage_and_unknown_exception_no_leak(self):
         root=Path(command.__file__).parent
-        for module in ('responses_http','responses_protocol','bound_send','supervised_authorization','responses_transport','contracts','spending','credit_test','supervised_credit','history','private_files'):
+        for module in ('responses_http','responses_protocol','bound_send','supervised_authorization','responses_transport','contracts','spending','credit_test','supervised_credit','history','private_files','snapshot_review','snapshot_authorization','snapshot_private_report'):
             for node in ast.walk(ast.parse((root/(module+'.py')).read_text())):
                 if not isinstance(node,ast.Call) or not isinstance(node.func,ast.Name):continue
                 index=1 if node.func.id=='require' else 0 if node.func.id=='Refusal' else None

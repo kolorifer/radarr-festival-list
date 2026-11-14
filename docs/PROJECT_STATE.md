@@ -1,3 +1,10 @@
+## Normalized snapshot assessment, 2026-11-14
+
+A separately gated one-case normalized-snapshot review retains four independent
+identity assertions and binds source/catalogue observations to an unsent private
+report. It preserves captured admission and the existing spending history. The
+runtime and live operation are separate gates; see [scope and operator contract](reports/2026-11-14-normalized-snapshot-review.md).
+
 ## Captured evidence successor and private report, 2026-11-14
 
 A scoped material-evidence successor uses a minimized prepared request and
