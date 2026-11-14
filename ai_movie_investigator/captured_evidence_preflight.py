@@ -39,7 +39,7 @@ def derive_candidate_evidence(binding, catalogue_raw, catalogue_pin, source_raw,
         stamp(pin['observed_at'])
         require(pin['expires_at'] is not None,'observation_stale')
         stamp(pin['expires_at'])
-    shape(attestation, 'kind binding catalogue_sha256 source_sha256 catalogue_pin_sha256 source_pin_sha256 catalogue_original_sha256 source_original_sha256 source_occurrence_verified provenance_reviewed attested_at expires_at')
+    shape(attestation, 'kind binding catalogue_sha256 source_sha256 catalogue_pin_sha256 source_pin_sha256 catalogue_original_sha256 source_original_sha256 local_context_sha256 source_occurrence_verified provenance_reviewed attested_at expires_at')
     require(attestation['kind']=='main_reviewed_source_derivation_v1' and attestation['binding']==binding and
         attestation['catalogue_sha256']==catalogue_pin['sha256'] and attestation['source_sha256']==source_pin['sha256'] and
         attestation['catalogue_pin_sha256']==digest(catalogue_pin) and attestation['source_pin_sha256']==digest(source_pin) and
@@ -47,7 +47,7 @@ def derive_candidate_evidence(binding, catalogue_raw, catalogue_pin, source_raw,
         stamp(attestation['attested_at'])<=now<stamp(attestation['expires_at']) and
         all(p['expires_at'] is not None and p['observed_at']<=attestation['attested_at'] and p['expires_at']<=attestation['expires_at'] for p in (catalogue_pin,source_pin)), 'source_attestation_required')
     from .contracts import hash_id
-    hash_id(attestation['catalogue_original_sha256']);hash_id(attestation['source_original_sha256'])
+    hash_id(attestation['catalogue_original_sha256']);hash_id(attestation['source_original_sha256']);hash_id(attestation['local_context_sha256'])
     cat = verified_observation(catalogue_raw, catalogue_pin, 'catalogue_external_ids')
     source = verified_observation(source_raw, source_pin, 'source_release_identity')
     shape(cat, 'kind imdb tmdb'); shape(source, 'kind binding asserted_imdb')
@@ -101,14 +101,39 @@ def preflight_successor(original, catalogue_raw, catalogue_pin, source_raw,
     require(all(value is None or value==candidate[key] for key in ('imdb','tmdb')
         for value in (facts.get(key),outcome.get('asserted_'+key))), 'conflicting_ids_require_review')
     require(rec['known_identity'] in (None,candidate),'owner_target_conflict')
+    data,supplied=strict_factual_projection(packet,rec,now)
+    return dict(packet=packet,projection=data,candidate=candidate,
+                citation_eligibility=data['citation_eligibility'])
+
+
+def strict_factual_projection(packet, rec, now):
+    """Minimized view for a separately authenticated, materially enriched job."""
+    from .new_case import projection
     data,supplied=projection(packet,rec,now)
-    # Only deterministic labels reach this proposed provider view, never local
-    # release names, tracker links, NFO, origin strings or raw observation text.
+    bound={row['id']:row for row in packet['evidence'] if row['id'] in ('bound_catalogue','bound_source')}
+    require(set(bound)=={'bound_catalogue','bound_source'}, 'source_identity_unproven')
+    catalogue=bound['bound_catalogue'];source=bound['bound_source'];candidate=catalogue['candidate']
+    require(candidate is not None and source['candidate']==candidate and catalogue['kind']=='catalogue' and
+        source['kind']=='source' and catalogue['claims']==['crosswalk'] and source['claims']==['source_identity'] and
+        all(r['scope']==packet['binding'] and r['observed_at']<=now and r['expires_at'] is not None and now<r['expires_at'] for r in bound.values()),
+        'source_identity_unproven')
+    facts=packet['facts'];outcome=facts['outcome']
+    require(not rec['conflicting_ids'] and rec['known_identity'] in (None,candidate) and
+        all(value is None or value==candidate[key] for key in ('imdb','tmdb')
+            for value in (facts.get(key),outcome.get('asserted_'+key))), 'conflicting_ids_require_review')
     for row in data['evidence']:
         row['text']='Retained scoped evidence; inspect typed claims and candidate.'
-    eligible={alias for alias,row in supplied.items() if row['candidate']==candidate}
-    catalogue=[alias for alias in eligible if supplied[alias]['kind']=='catalogue' and 'crosswalk' in supplied[alias]['claims']]
-    source=[alias for alias in eligible if supplied[alias]['kind']=='source' and 'source_identity' in supplied[alias]['claims']]
-    require(catalogue and source,'source_identity_unproven')
-    return dict(packet=packet,projection=data,candidate=candidate,
-                citation_eligibility=dict(catalogue=catalogue,source=source))
+    aliases={r['id']:alias for alias,r in supplied.items()}
+    require(set(bound)<=set(aliases),'source_identity_unproven')
+    data['citation_eligibility']=dict(catalogue=[aliases['bound_catalogue']],source=[aliases['bound_source']])
+    return data,supplied
+
+
+def validate_attested_citations(result, data):
+    """Positive output may rely only on the two explicitly attested aliases."""
+    require(not result['alternatives'], 'attested_alternatives_unavailable')
+    if result['status'] != 'supported_candidate':return
+    eligible=data['citation_eligibility'];allowed={(eligible['catalogue'][0],'crosswalk'),(eligible['source'][0],'source_identity')}
+    cites=result['citations']
+    actual={(c['evidence_id'],c['claim']) for c in cites}
+    require(actual==allowed and len(cites)==2, 'attested_citations_required')

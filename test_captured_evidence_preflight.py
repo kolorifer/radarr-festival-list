@@ -1,7 +1,7 @@
 """Pure invented observations; no account, provider, or private state."""
 import copy, hashlib, time, unittest
 from ai_movie_investigator.contracts import Refusal, encoded, digest
-from ai_movie_investigator.captured_evidence_preflight import derive_candidate_evidence, assemble_successor_packet, preflight_successor
+from ai_movie_investigator.captured_evidence_preflight import derive_candidate_evidence, assemble_successor_packet, preflight_successor, validate_attested_citations
 
 class Preflight(unittest.TestCase):
  def setUp(self):
@@ -9,7 +9,7 @@ class Preflight(unittest.TestCase):
   self.cat=dict(kind='catalogue_external_ids',imdb='tt9000127',tmdb=9000127)
   self.source=dict(kind='source_release_identity',binding=self.binding,asserted_imdb='tt9000127')
  def pin(self,raw,origin):return dict(sha256=hashlib.sha256(raw).hexdigest(),origin=origin,observed_at=self.now-1,expires_at=self.now+60)
- def attestation(self,cp,sp):return dict(kind='main_reviewed_source_derivation_v1',binding=self.binding,catalogue_sha256=cp['sha256'],source_sha256=sp['sha256'],catalogue_pin_sha256=digest(cp),source_pin_sha256=digest(sp),attested_at=self.now-0.5,expires_at=self.now+60,catalogue_original_sha256='c'*64,source_original_sha256='d'*64,source_occurrence_verified=True,provenance_reviewed=True)
+ def attestation(self,cp,sp):return dict(kind='main_reviewed_source_derivation_v1',binding=self.binding,catalogue_sha256=cp['sha256'],source_sha256=sp['sha256'],catalogue_pin_sha256=digest(cp),source_pin_sha256=digest(sp),attested_at=self.now-0.5,expires_at=self.now+60,catalogue_original_sha256='c'*64,source_original_sha256='d'*64,local_context_sha256='e'*64,source_occurrence_verified=True,provenance_reviewed=True)
  def derive(self,cat=None,source=None):
   c=encoded(self.cat if cat is None else cat);s=encoded(self.source if source is None else source)
   cp=self.pin(c,'catalogue');sp=self.pin(s,'source')
@@ -61,6 +61,12 @@ class Preflight(unittest.TestCase):
   proposal=preflight_successor(packet,cat,cp,src,sp,self.attestation(cp,sp),now=self.now)
   self.assertNotIn('Synthetic retained',str(proposal['projection']))
   self.assertTrue(proposal['citation_eligibility']['catalogue']);self.assertTrue(proposal['citation_eligibility']['source'])
+  good=dict(status='supported_candidate',citations=[dict(evidence_id=proposal['citation_eligibility']['catalogue'][0],claim='crosswalk'),dict(evidence_id=proposal['citation_eligibility']['source'][0],claim='source_identity')],alternatives=[])
+  validate_attested_citations(good,proposal['projection'])
+  bad_cites=copy.deepcopy(good);bad_cites['citations'][0]['evidence_id']='evidence-1'
+  with self.assertRaisesRegex(Refusal,'attested_citations_required'):validate_attested_citations(bad_cites,proposal['projection'])
+  self.assertEqual(proposal['citation_eligibility']['catalogue'],sorted(proposal['citation_eligibility']['catalogue']))
+  self.assertEqual(proposal['citation_eligibility']['source'],sorted(proposal['citation_eligibility']['source']))
   self.assertNotIn('evidence-1',proposal['citation_eligibility']['catalogue'])
   bad=copy.deepcopy(packet);bad['facts']['imdb']='tt9000999'
   with self.assertRaisesRegex(Refusal,'conflicting_ids_require_review'):

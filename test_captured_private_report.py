@@ -9,12 +9,12 @@ class PrivateReport(unittest.TestCase):
   raw,self.binding,evidence=synthetic_case(165)
   self.packet=captured_outcome(encoded(raw),sources={'synthetic':'Synthetic Index'},binding=self.binding,evidence=evidence,decisions=[],trusted_issuers=['synthetic_owner'])
   self.r=dict(kind='supervised_new_case_review',job=digest(self.packet),binding=self.binding,provenance=dict(mode='simulation'),generation_invoked=False,qualifications=dict(currentness='unknown'),draft=dict(sent=False),assessment=dict(status='unresolved',candidate=None,citations=[],alternatives=[],rationale='<script>bad</script>',uncertainty='Edition unknown',next_action='human_review'))
-  self.c=dict(tracker_url='https://example.invalid/item?key=local',release_name='<img src=x onerror=bad>',nfo='Unknown',provenance='Invented fixture',job=digest(self.packet),binding=self.binding,report_sha256=digest(self.r),source_evidence_sha256=self.packet['evidence'][1]['provenance']['digest'],catalogue_evidence_sha256=self.packet['evidence'][0]['provenance']['digest'],prior_failure='unsupported_candidate',source_facts=dict(title='Film',year=1995,runtime=None,cast=None,edition='Uploader assertion'),catalogue_facts=dict(title='Film',year=1995,runtime=112,cast=None,imdb='tt9000127',tmdb=9000127))
+  self.c=dict(tracker_url='https://example.invalid/item?key=local',release_name='<img src=x onerror=bad>',nfo='Unknown',provenance='Invented fixture',job=digest(self.packet),binding=self.binding,report_sha256=digest(self.r),source_evidence_sha256=self.packet['evidence'][1]['provenance']['digest'],catalogue_evidence_sha256=self.packet['evidence'][0]['provenance']['digest'],prior_failure='unsupported_candidate',source_facts=dict(title='Film',year=1995,runtime=None,cast=None,edition='Uploader assertion',imdb='tt9000127',tmdb=None),catalogue_facts=dict(title='Film',year=1995,runtime=112,cast=None,imdb='tt9000127',tmdb=9000127))
  def test_hostile_content_escaped_and_source_facts_qualified(self):
   output=render_private_report(self.r,digest(self.r),self.c,digest(self.c),self.packet)
   self.assertNotIn('<script>bad</script>',output);self.assertNotIn('<img src=x',output)
-  self.assertIn('&lt;script&gt;bad&lt;/script&gt;',output);self.assertIn('physical edition remain unverified',output)
-  self.assertIn('<h3>Retained NFO</h3><pre>',output);self.assertIn('unresolved',output);self.assertIn('unsupported_candidate',output);self.assertIn('Missing fact; cannot compare',output);self.assertNotIn('<a ',output)
+  self.assertIn('&lt;script&gt;bad&lt;/script&gt;',output);self.assertIn('Physical edition remains unverified',output)
+  self.assertIn('<summary>Retained NFO</summary><pre>',output);self.assertIn('unresolved',output);self.assertIn('unsupported_candidate',output);self.assertIn('Missing fact; cannot compare',output);self.assertIn('href="https://example.invalid/item?key=local"',output)
  def test_wrong_pin_or_sent_refused(self):
   with self.assertRaisesRegex(Refusal,'private_report_pin'):render_private_report(self.r,'0'*64,self.c,digest(self.c),self.packet)
   self.r['draft']['sent']=True;self.c['report_sha256']=digest(self.r)
@@ -24,11 +24,19 @@ class PrivateReport(unittest.TestCase):
   with self.assertRaisesRegex(Refusal,'private_report_binding'):render_private_report(self.r,digest(self.r),self.c,digest(self.c),self.packet)
   self.c['job']=digest(self.packet);self.r['provenance']['mode']='receipt_correlated_generation';self.c['report_sha256']=digest(self.r)
   with self.assertRaisesRegex(Refusal,'private_report_provenance'):render_private_report(self.r,digest(self.r),self.c,digest(self.c),self.packet)
+ def test_cast_reordering_and_subset_are_not_conflicts(self):
+  self.c['source_facts']['cast']=['Actor One','Actor Two'];self.c['catalogue_facts']['cast']=['Actor Two','Actor One','Actor Three']
+  output=render_private_report(self.r,digest(self.r),self.c,digest(self.c),self.packet)
+  self.assertIn('Shared cast; lists may be incomplete',output);self.assertNotIn('cast comparison: Observed values differ',output)
  def test_unknown_is_not_reported_as_agreement(self):
   self.c['source_facts']['cast']='unknown';self.c['catalogue_facts']['cast']='unknown'
   output=render_private_report(self.r,digest(self.r),self.c,digest(self.c),self.packet)
   self.assertIn('Missing fact; cannot compare',output)
-  self.assertNotIn('<strong>cast comparison:</strong> Observed values agree',output)
+  self.assertNotIn('<th>Cast</th><td>unknown</td><td>unknown</td><td>Values agree',output)
+ def test_placeholder_cast_entries_are_missing(self):
+  self.c['source_facts']['cast']=['Unknown'];self.c['catalogue_facts']['cast']='Not established, N/A'
+  output=render_private_report(self.r,digest(self.r),self.c,digest(self.c),self.packet)
+  self.assertIn('Missing fact; cannot compare',output);self.assertNotIn('Shared cast; lists may be incomplete',output)
  def test_unrelated_source_evidence_refused(self):
   self.c['source_evidence_sha256']='e'*64
   with self.assertRaisesRegex(Refusal,'private_report_evidence_binding'):render_private_report(self.r,digest(self.r),self.c,digest(self.c),self.packet)
