@@ -33,7 +33,8 @@ def _simulated_captured_io():
 
 def _request_value(session,body):
     from .supervised_credit import request_value
-    return request_value(body,captured=hasattr(session,'captured'))
+    return request_value(body,captured=hasattr(session,'captured'),
+        film_scope=getattr(session,'snapshot_grant',{}).get('contract_version')=='film_scope_v4')
 
 
 class _Permit:
@@ -100,11 +101,12 @@ class _Session:
                 from .historical_nano import renewal_history
                 renewal_history(self.root,self.events,grant,creating=False)
             if grant and grant.get('snapshot_profile') == 'normalized_snapshot_v1':
-                from .snapshot_authorization import active,validate_grant,validate_correction,validate_reassessment
+                from .snapshot_authorization import active,validate_grant,validate_correction,validate_reassessment,validate_film_reassessment
                 active().check_root(self.root,self.events,e)
                 validate_grant(grant,e['project'])
                 if 'correction' in grant:validate_correction(self.root,self.events,grant,creating=False)
                 if 'reassessment' in grant:validate_reassessment(self.root,self.events,grant,creating=False)
+                if 'film_reassessment' in grant:validate_film_reassessment(self.root,self.events,grant,creating=False)
         require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
         require(credential is self.credential,'supervised_credential_binding')
         for h,pin in ((self.root,self.enrolled['root']),(self.credit,self.enrolled['credit']),
