@@ -110,25 +110,40 @@ def projection(packet, rec, now):
     return data, supplied
 
 
-def request_for(packet, rec, now):
-    data, _ = projection(packet, rec, now)
+def request_for(packet, rec, now, *, minimized_evidence=False):
+    if minimized_evidence:
+        from .captured_evidence_preflight import strict_factual_projection
+        data, _ = strict_factual_projection(packet, rec, now)
+    else:data, _ = projection(packet, rec, now)
     # The request binds the entire local packet (including the exact occurrence),
     # but exposes no operational identifiers or authority-bearing receipt.
     binding = digest(dict(purpose='supervised_new_case_draft_v1', packet=digest(packet), prepared_at=now, data=data))
     request = dict(kind='supervised_new_case_handoff', binding_hash=binding,
                    instructions=INSTRUCTIONS.replace('Request only retained lookups. ', '') + ' No lookups; use only supplied evidence. Missing is not a verified negative.',
                    input=data, output_schema=output_schema(), generation_invoked=False)
+    if minimized_evidence:
+        request['evidence_profile']='main_attested_minimized_v1'
+        result_schema=request['output_schema']['properties']['result']['anyOf'][0]['properties']
+        result_schema['alternatives']['maxItems']=0;result_schema['citations']['maxItems']=2
+        request['instructions'] += (' A supported_candidate is an evidence-backed film identity proposal, not approval. '
+            'For supported_candidate cite exactly the two eligible aliases: catalogue with crosswalk and source with source_identity; no other citations. '
+            'Do not provide alternative candidates. If support is insufficient, return unresolved or blocked; do not force a positive result. '
+            'Physical edition, measured media runtime, current queue, identity approval and acquisition approval remain separate and unverified.')
     if rec.get('assessment_purpose') == VERIFIED_IDENTITY_CHECK:
         request['instructions'] += ' Independently check the producer assertion; verified_tmdb is not independent approval or evidence of correctness. Do not assume a conflict. Missing support must remain unresolved or blocked. Capture source support is explicitly qualified; outcome_only means no prior release, retained or selected observation, not strong correlation. This describes retained collector observations at capture, not upstream absence or unpersisted/in-flight events.'
     require(len(encoded(request)) <= MAX_INPUT, 'handoff_size')
     return request
 
 
-def prepare(history, packet, selection, *, require_empty=False, purpose=None):
+def prepare(history, packet, selection, *, require_empty=False, purpose=None, minimized_evidence=False):
     """Return the actual minimized chat handoff; no manual input/reply file paths."""
+    require(type(minimized_evidence) is bool,'captured_projection_mode')
     packet = decode(encoded(packet), MAX_INPUT)
     now = stamp(history.clock())
     rec = admitted(packet, selection, now, purpose=purpose)
+    if minimized_evidence:
+        from .captured_evidence_preflight import strict_factual_projection
+        strict_factual_projection(packet,rec,now) # Refuse unsuitable evidence before intake append.
     def intake_guard(events):
         if require_empty:require(not events,'offline_history_not_empty')
         # Refused research must not supersede a valid selected snapshot.
@@ -142,10 +157,11 @@ def prepare(history, packet, selection, *, require_empty=False, purpose=None):
         research_dependency(events, job)
         require(not any(e.get('job') == job and e['type'] in
                        ('new_case_prepared', 'invocation', 'result') for e in events), 'assessment_already_consumed')
-        request = request_for(packet, rec, now)
+        request = request_for(packet, rec, now, minimized_evidence=minimized_evidence)
         prepared = dict(type='new_case_prepared', job=job, at=now, request=request,
                     request_hash=digest(request), reconciliation_hash=digest(rec))
         if purpose is not None: prepared['assessment_purpose'] = purpose
+        if minimized_evidence:prepared['minimized_evidence']=True
         append(prepared)
     return request
 
@@ -268,7 +284,7 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
         require(now >= p['at'], 'clock_rollback')
         rec = admitted(packet, packet['binding'], now, purpose=p.get('assessment_purpose'))
         require(digest(rec) == p['reconciliation_hash'], 'decision_or_evidence_applicability_changed')
-        request = request_for(packet, rec, p['at'])
+        request = request_for(packet, rec, p['at'], minimized_evidence=p.get('minimized_evidence',False))
         require(request == p['request'] and digest(request) == request_hash, 'handoff_changed')
         shape(provenance, 'mode chat_reference')
         require(provenance['mode'] in ('simulation', 'supervised_supplied') or
@@ -276,13 +292,17 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
                  provenance['mode']=='receipt_correlated_generation'), 'assessment_provenance')
         text(provenance['chat_reference'], 240)
         require(provenance['chat_reference'].strip(), 'assessment_provenance')
-        schema_value(answer, output_schema())
+        schema_value(answer, request['output_schema'])
         require(answer['binding_hash'] == request['binding_hash'] and answer['kind'] == 'final'
                 and answer['lookups'] == [] and answer['result'] is not None, 'reply_handoff_binding')
         prose_handling=None
         if connected is not None:answer,prose_handling=_captured_prose_copy(answer)
-        data, supplied = projection(packet, rec, p['at'])
+        if p.get('minimized_evidence',False):
+            from .captured_evidence_preflight import strict_factual_projection,validate_attested_citations
+            data,supplied=strict_factual_projection(packet,rec,p['at'])
+        else:data,supplied=projection(packet,rec,p['at'])
         validate_final(answer['result'], supplied, rec, now)
+        if p.get('minimized_evidence',False):validate_attested_citations(answer['result'],data)
         data, _ = projection(packet, rec, now)
         try:draft = notification(packet, answer, data, provenance)
         except Refusal as error:
@@ -328,7 +348,8 @@ def offline_request(request):
             binding_hash=request['binding_hash'],input=request['input'])).decode())])],
         tools=[],tool_choice='none',store=False,background=False,stream=False,
         max_output_tokens=OUTPUT_TOKENS,truncation='disabled',text=dict(format=dict(
-            type='json_schema',name='retained_investigator_v1',strict=True,schema=output_schema()))))
+            type='json_schema',name='retained_investigator_v1',strict=True,
+            schema=request['output_schema'] if request.get('evidence_profile')=='main_attested_minimized_v1' else output_schema()))))
     require(len(body)<=65536,'handoff_size')
     return body
 
@@ -350,20 +371,30 @@ class _ApprovedCapture:
         self.record=decode(raw,CAPTURED_AUTHORITY_BYTES)
         self.audit = self.record.get('kind') == 'trusted_wrapper_verified_identity_check_v1'
         fields = 'kind owner_scope main_review authority body receipt sources runtime_manifest_sha256 issued_at expires_at'
-        shape(self.record, fields + (' capture_grant assessment_purpose' if self.audit else ''))
+        enriched='evidence_artifacts' in self.record
+        shape(self.record, fields + (' capture_grant assessment_purpose' if self.audit else '') + (' evidence_artifacts' if enriched else ''))
         require(self.audit or self.record['kind']=='trusted_wrapper_one_captured_case_v1','captured_activation_kind')
         if self.audit: require(self.record['assessment_purpose']==VERIFIED_IDENTITY_CHECK,'assessment_purpose')
         require(raw==encoded(self.record),'captured_activation_canonical')
-        self.pins={};self.last_time=stamp(self.record['issued_at'])
+        self.pins={};self.pin_records={};self.last_time=stamp(self.record['issued_at'])
         pin_limits = [('owner_scope',32768),('main_review',32768),('authority',CAPTURED_AUTHORITY_BYTES),('body',65536),('receipt',8192)]
         if self.audit: pin_limits.append(('capture_grant',4096))
         for name,limit in pin_limits:
-            pin=self.record[name];shape(pin,'path sha256')
+            pin=self.record[name];self.pin_records[name]=pin;shape(pin,'path sha256')
             data,identity=_read_evidence(Path(pin['path']),limit)
             require(hashlib.sha256(data).hexdigest()==pin['sha256'],'captured_activation_artifact')
             self.pins[name]=(data,identity,limit)
+        if enriched:
+            group=self.record['evidence_artifacts']
+            shape(group,'attestation catalogue source catalogue_original source_original')
+            for name in ('attestation','catalogue','source','catalogue_original','source_original'):
+                pin=group[name];shape(pin,'path sha256');key='evidence_'+name;self.pin_records[key]=pin
+                data,identity=_read_evidence(Path(pin['path']),65536)
+                require(hashlib.sha256(data).hexdigest()==pin['sha256'],'captured_activation_artifact')
+                self.pins[key]=(data,identity,65536)
         self.authority=decode(self.pins['authority'][0],CAPTURED_AUTHORITY_BYTES)
         require(self.pins['authority'][0]==encoded(self.authority),'captured_authority_changed')
+        require(enriched == (self.authority.get('evidence_profile')=='main_attested_minimized_v1'),'captured_activation_scope')
         self.receipt=decode(self.pins['receipt'][0],8192)
         shape(self.receipt,'version source channel case_id case_version event_id selection_event delivery_rowid evidence_id source_time received_at grant_sha256 body_sha256 body_bytes privacy api_disclosure_authorized' + (' capture_qualification' if self.audit else ''))
         if self.audit:capture_qualification(self.receipt['capture_qualification'])
@@ -395,7 +426,7 @@ class _ApprovedCapture:
         require(self.last_time<=now<self.record['expires_at'],'captured_activation_expired')
         self.last_time=now
         for name,(raw,identity,limit) in self.pins.items():
-            current=_read_evidence(Path(self.record[name]['path']),limit)
+            current=_read_evidence(Path(self.pin_records[name]['path']),limit)
             require(current==(raw,identity),'captured_activation_artifact_changed')
         manifest=verify_installation(Path(__file__).resolve().parent.parent)
         require(digest(manifest)==self.record['runtime_manifest_sha256'],'captured_activation_runtime')
@@ -409,6 +440,17 @@ class _ApprovedCapture:
                 evidence=packet['evidence'],decisions=packet['decisions'],trusted_issuers=packet['trusted_issuers'],
                 qualification=self.receipt['capture_qualification'] if self.audit else None)
             require(reconstructed==packet,'captured_activation_packet')
+            if authority.get('evidence_profile')=='main_attested_minimized_v1':
+                from .captured_evidence_preflight import derive_candidate_evidence
+                att=decode(self.pins['evidence_attestation'][0],65536)
+                require(self.pins['evidence_attestation'][0]==encoded(att),'captured_activation_artifact')
+                for name in ('catalogue','source'):
+                    require(hashlib.sha256(self.pins['evidence_'+name+'_original'][0]).hexdigest()==att[name+'_original_sha256'], 'captured_activation_artifact')
+                require(len(packet['evidence'])>=2,'captured_activation_packet')
+                def pin(row):return dict(sha256=row['provenance']['digest'],origin=row['provenance']['origin'],observed_at=row['observed_at'],expires_at=row['expires_at'])
+                cat,src=packet['evidence'][-2:]
+                derived=derive_candidate_evidence(self.binding,self.pins['evidence_catalogue'][0],pin(cat),self.pins['evidence_source'][0],pin(src),att,now=self.last_time)
+                require(derived==[cat,src],'captured_activation_packet')
             admitted(packet,self.binding,self.last_time,purpose=VERIFIED_IDENTITY_CHECK if self.audit else None)
 
 
@@ -471,7 +513,7 @@ def _prepared_locked(history, events, request_hash):
     require(digest(rec)==p['reconciliation_hash'], 'decision_or_evidence_applicability_changed')
     require(projection(packet,rec,now)[0]==projection(packet,rec,p['at'])[0],
             'decision_or_evidence_applicability_changed')
-    request=request_for(packet,rec,p['at'])
+    request=request_for(packet,rec,p['at'],minimized_evidence=p.get('minimized_evidence',False))
     require(request==p['request'] and digest(request)==request_hash, 'handoff_changed')
     return p,packet,captured_request(request),rec
 
@@ -506,6 +548,62 @@ def captured_material_hash(packet, rec, *, prepared_at=None):
         conflicting_ids=rec['conflicting_ids']))
 
 
+def _evidence_prior(root,root_events,history,events,packet,prepared,authority=None,grant=None):
+    """Bind an enriched job to exactly one retained unsupported-candidate failure."""
+    from . import supervised_credit as c
+    root.require_write_transaction(root_events);history.require_write_transaction(events)
+    attempts=c._standing_attempts(root_events,root_events[1])
+    require(bool(attempts),'evidence_prior_missing')
+    a=authority.get('evidence_prior') if authority is not None else None
+    slot=a['slot'] if a is not None else attempts[-1][0]['slot']
+    matches=[s for s,_ in attempts if s['slot']==slot]
+    require(len(matches)==1 and 'captured' in matches[0],'evidence_prior_missing')
+    prior=matches[0];old=prior['captured'];oa=old['authorization'];oldjob=oa['job']
+    terminal=[e for e in root_events if e.get('slot')==slot and e['type']=='supervised_diagnostic']
+    priorrows=History(root.directory/f'attempt-{slot}').read()
+    require(len(terminal)==1 and terminal[0]['phase']=='captured_result_validation' and
+        terminal[0]['reason']=='unsupported_candidate' and terminal[0]['category']=='historical_report_refused' and
+        'cleanup_reason' not in terminal[0] and
+        [r['type'] for r in priorrows]==['bound_send_reserved','bound_send_attempted','bound_send_receipt'] and
+        priorrows[-1]['request_sha256']==oa['request_sha256'] and
+        not any(e.get('slot')==slot and e['type']=='supervised_completed' for e in root_events), 'evidence_prior_invalid')
+    oldintakes=[e for e in events if e['type']=='intake' and e['job']==oldjob]
+    require(len(oldintakes)==1,'evidence_prior_invalid')
+    oldpacket=oldintakes[0]['packet'];oldrows=[e for e in events if e.get('job')==oldjob]
+    completion=[e for e in oldrows if e['type'] in ('new_case_completion_started','new_case_completion_rejected','new_case_completed')]
+    starts=[e for e in oldrows if e['type']=='new_case_generation_started']
+    require(starts and starts[-1]['grant_sha256']==digest(old),'evidence_prior_changed')
+    require(len(completion)>=2 and completion[-2]['type']=='new_case_completion_started' and
+        completion[-1]['type']=='new_case_completion_rejected' and
+        not any(e['type']=='new_case_completed' for e in completion) and
+        oldpacket['evidence']==packet['evidence'][:-2] and
+        {k:v for k,v in oldpacket.items() if k!='evidence'}=={k:v for k,v in packet.items() if k!='evidence'} and
+        oa['case']==packet['binding'] and oa['capture_event']==packet['event'], 'evidence_prior_changed')
+    credit=History(root.directory/'credit').read(); count=len(events) if a is None else a['case_count']
+    require(type(count) is int and 2<=count<=len(events),'evidence_prior_changed')
+    prefix=events[:count];require(prefix[-2]['type']=='intake' and prefix[-2]['job']==prepared['job'] and
+        prefix[-1]==prepared,'evidence_prior_changed')
+    uses=[s for s,_ in attempts if s.get('captured',{}).get('authorization',{}).get('evidence_prior',{}).get('slot')==slot]
+    if uses:
+        require(len(uses)==1 and grant is not None and uses[0]['captured']==grant and uses[0] is attempts[-1][0] and
+            uses[0]['slot']==slot+1,'evidence_successor_consumed')
+        require(not any(e.get('type')=='supervised_captured_freshness_authorized' and e.get('slot')==uses[0]['slot'] for e in root_events),'evidence_successor_not_refreshable')
+        allocations=[i for i,e in enumerate(root_events) if e.get('type')=='supervised_standing_attempt_started' and e.get('slot')==uses[0]['slot']]
+        require(len(allocations)==1,'evidence_successor_consumed');rootprefix=root_events[:allocations[0]]
+    else:
+        require(prior is attempts[-1][0],'evidence_successor_consumed');rootprefix=root_events
+    info=dict(slot=slot,grant_sha256=digest(old),attempt_sha256=digest(priorrows),terminal_sha256=digest(terminal[0]),
+        old_job=oldjob,old_packet_sha256=digest(oldpacket),root_prefix_sha256=digest(rootprefix),
+        case_prefix_sha256=digest(prefix),case_count=count,credit_prefix_sha256=digest(credit[:prior['credit_count']+1]),
+        credit_count=prior['credit_count']+1)
+    require(len(credit)>=info['credit_count'] and any(r['request_hash']==c.reservation_binding(prior)['request_hash'] for r in credit[:info['credit_count']]),'evidence_prior_changed')
+    if a is not None:require(info==a,'evidence_prior_changed')
+    suffix=events[count:]
+    require(not suffix or (grant is not None and len(suffix)==1 and suffix[0]['type']=='new_case_generation_started' and
+        suffix[0]['job']==prepared['job'] and suffix[0]['grant_sha256']==digest(grant)),'evidence_successor_consumed')
+    return info
+
+
 def captured_consent(root, root_events, history, events, request_hash, evidence):
     """Pure exact consent proposal, only under root then selected-case locks."""
     from .supervised_credit import file_identity
@@ -526,6 +624,9 @@ def captured_consent(root, root_events, history, events, request_hash, evidence)
         source_authenticity='unknown', live_currentness='unknown', decision_coverage='unknown',
         identity_approval=False, acquisition_approval=False, notification_authority=False)
     if p.get('assessment_purpose') is not None: consent['assessment_purpose'] = p['assessment_purpose']
+    if p.get('minimized_evidence',False):
+        consent['evidence_profile']='main_attested_minimized_v1'
+        consent['evidence_prior']=_evidence_prior(root,root_events,history,events,packet,p)
     return consent
 
 
@@ -777,6 +878,7 @@ def _unstarted_freshness(root, root_events, history, events, evidence, access_fi
     require(bool(attempts),'captured_freshness_state')
     start,authorized=attempts[-1];old=start.get('captured')
     require(old is not None and 'freshness' not in old['authorization'],'captured_freshness_state')
+    require(old['authorization'].get('evidence_profile')!='main_attested_minimized_v1','evidence_successor_not_refreshable')
     slot=start['slot'];now=time.time()
     require([e for e in root_events if e.get('slot')==slot]==[start,authorized] and
         not History(root.directory/f'attempt-{slot}').read() and
@@ -899,6 +1001,9 @@ class _CapturedCase:
         require(a.get('assessment_purpose')==p.get('assessment_purpose'),'assessment_purpose')
         active=_APPROVED_CAPTURE.get()
         if active is not None:active.bind(a,packet)
+        if a.get('evidence_profile')=='main_attested_minimized_v1':
+            require(active is not None and p.get('minimized_evidence') is True,'captured_activation_scope')
+            _evidence_prior(self.root,self.root_events,self.history,self.events,packet,p,a,self.grant)
         require(list(self.root.identity)==a['root_identity'] and
             list(self.history.identity)==a['case_identity'] and file_identity(self.history)==a['case_file_identity'] and
             str(self.history.directory)==a['case_directory'] and digest(p)==a['prepared_hash'] and

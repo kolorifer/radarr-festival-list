@@ -1,3 +1,10 @@
+## Captured evidence successor and private report, 2026-11-14
+
+A scoped material-evidence successor uses a minimized prepared request and
+retains the original failed history. Reviewed source and catalogue assertions
+support an unsent local report; source authenticity, physical edition and
+approval remain separate. See [scope and validation](reports/2026-11-14-captured-evidence-successor.md).
+
 ## Captured prose withholding, 2026-11-14
 
 Connected final assessments retain validated structured judgment while explicitly

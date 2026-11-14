@@ -47,7 +47,7 @@ def deliver(history, outbox, selection, send, *, enabled=False):
         require(now >= event['at'] >= prepared['at'], 'notification_clock_rollback')
         rec = admitted(packet, selection['binding'], now)
         require(digest(rec) == prepared['reconciliation_hash'], 'notification_applicability_changed')
-        request = request_for(packet, rec, prepared['at'])
+        request = request_for(packet, rec, prepared['at'], minimized_evidence=prepared.get('minimized_evidence',False))
         require(request == prepared['request'] and digest(request) == report['request_hash'], 'notification_request_changed')
         _, supplied = projection(packet, rec, prepared['at'])
         validate_final(report['assessment'], supplied, rec, now)

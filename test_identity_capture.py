@@ -311,12 +311,13 @@ print('isolated_default_startup_passed')
                     with self.assertRaises(ValueError):capture.read_at(parent,capture.GRANT,4096)
                 else:self.assertTrue(capture.read_at(parent,capture.GRANT,4096))
 
-    def test_investigator_42_file_closure_without_capture_module(self):
+    def test_investigator_44_file_closure_without_capture_module(self):
         import subprocess,sys
         from ai_movie_investigator.installation import RUNTIME_FILES
         source=Path(__file__).parent
         manifest=json.loads((source/'docs/reports/2026-11-03-issue-127-coordinator-repair-runtime-manifest.json').read_text())['runtime_files']
-        self.assertEqual(set(manifest),set(RUNTIME_FILES));self.assertEqual(len(manifest),42)
+        self.assertEqual(set(manifest),set(RUNTIME_FILES));self.assertEqual(len(manifest),44)
+        self.assertTrue({'ai_movie_investigator/captured_evidence_preflight.py','ai_movie_investigator/captured_private_report.py'} <= set(manifest))
         self.assertNotIn('identity_triage_capture.py',manifest)
         runtime=self.root/'investigator';runtime.mkdir(mode=0o700)
         for name,sha in manifest.items():
@@ -331,7 +332,7 @@ def audit(event,args):
  if event.startswith('socket.'):raise RuntimeError('socket tripwire')
 sys.addaudithook(audit)
 from ai_movie_investigator.installation import verify_installation
-assert len(verify_installation(Path(sys.argv[1])))==42
+assert len(verify_installation(Path(sys.argv[1])))==44
 from identity_triage_store import Store
 from identity_triage_intake import normalize
 s=Store(sys.argv[2]);assert s.ingest(normalize(json.loads(sys.argv[3]),{'example':'Example'}),'release_new')=='accepted'
