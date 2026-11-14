@@ -1,3 +1,11 @@
+## Append-only promotional renewal, 2026-11-11
+
+A single explicit successor promotional-grant record can extend the expired
+standing credit authority for future attempts on the same account/project.
+Original grants, all reservations, no-replay and policy checks remain unchanged.
+Implementation is separate from live renewal or provider execution.
+See [scope and verification](reports/2026-11-11-promotional-renewal.md).
+
 ## Qualified outcome-only audit check, 2026-11-09
 
 The explicit producer-verified check can retain an externally identified outcome

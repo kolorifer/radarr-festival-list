@@ -16,7 +16,7 @@ import time
 import warnings
 
 from .bound_send import HistoricalDiagnosticParent, OperatorContext
-from .contracts import Refusal, decode, digest, encoded, require, shape, stamp, MAX_INPUT, MAX_OUTPUT
+from .contracts import Refusal, decode, digest, encoded, require, shape, stamp, hash_id, MAX_INPUT, MAX_OUTPUT
 from .credit_test import POLICY, PER_REQUEST, CONTEXT_TOKENS, CONTEXT_COVERAGE, INPUT_RATE, OUTPUT_RATE, request, ledger_total, TOTAL
 from .history import History, FILENAME, checked
 from .responses_http import ExplicitCredential, headers
@@ -703,13 +703,75 @@ def _standing_base(events,enrolled):
     return grant
 
 
+def _promotional_renewal(events,enrolled):
+    """Validate one successor grant without rewriting the original authority."""
+    base=_standing_base(events,enrolled)
+    matches=[(i,r) for i,r in enumerate(events) if r.get('type')=='supervised_promotional_renewed']
+    require(len(matches)<=1,'supervised_standing_binding')
+    if not matches:return None
+    index,row=matches[0]
+    shape(row,'type at project account_reference policy original_grant_sha256 prefix_sha256 credit_sha256 credit_count next_slot ceiling_usd credit_expires_at evidence_sha256 evidence')
+    e=row['evidence'];validate_evidence(e,stamp(row['at']),standing=True)
+    require(index>=21 and row['prefix_sha256']==digest(events[:index]) and
+            row['original_grant_sha256']==digest(base) and row['project']==base['project']==e['project'] and
+            row['account_reference']==base['account_reference']==e['account_reference'] and row['policy']==POLICY and
+            row['credit_expires_at']==e['credit_expires_at']>base['credit_expires_at'] and
+            base['credit_expires_at']<=row['at'] and row['ceiling_usd']==e['available_usd'] and
+            type(row['next_slot']) is int and row['next_slot']>=7 and
+            type(row['credit_count']) is int and row['credit_count']>=5,
+            'supervised_standing_credit')
+    hash_id(row['evidence_sha256'])
+    return row
+
+
+def _credit_grant(events,enrolled,slot):
+    renewal=_promotional_renewal(events,enrolled)
+    return renewal if renewal and slot>=renewal['next_slot'] else _standing_base(events,enrolled)
+
+
+def renew_promotional(directory,selected,*,expected=None):
+    """Append a verified same-account successor; never reset, allocate or send."""
+    require(type(selected) is SelectedEvidence,'supervised_evidence_selection')
+    selected.revalidate();e=selected.data;validate_evidence(e,time.time(),standing=True)
+    root=History(Path(directory))
+    with root.transaction(write=True) as (events,append):
+        enrolled=events[1];credit=History(root.directory/'credit')
+        base,attempts,reservations,total=_standing_history(root,events,enrolled,credit)
+        if expected is not None:
+            shape(expected,'root_identity root_prefix_sha256 credit_identity credit_file_identity credit_sha256 original_grant_sha256')
+            require(expected==dict(root_identity=list(root.identity),root_prefix_sha256=digest(events),
+                credit_identity=list(credit.identity),credit_file_identity=file_identity(credit),
+                credit_sha256=digest(reservations),original_grant_sha256=digest(base)),
+                'supervised_standing_binding')
+        require(_promotional_renewal(events,enrolled) is None,'supervised_standing_binding')
+        require(not attempts or any(r.get('type') in ('supervised_completed','supervised_diagnostic') and r.get('slot')==attempts[-1][0]['slot'] for r in events),
+                'supervised_standing_interrupted')
+        selected.revalidate();now=time.time();validate_evidence(e,now,standing=True)
+        require(e['project']==base['project'] and e['account_reference']==base['account_reference'] and
+                base['credit_expires_at']<=now<e['credit_expires_at'] and
+                e['credit_expires_at']>base['credit_expires_at'] and total+PER_REQUEST<=rational(e['available_usd']),
+                'supervised_standing_credit')
+        row=dict(type='supervised_promotional_renewed',at=now,project=e['project'],account_reference=e['account_reference'],
+            policy=POLICY,original_grant_sha256=digest(base),prefix_sha256=digest(events),credit_sha256=digest(reservations),
+            credit_count=len(reservations),next_slot=7+len(attempts),ceiling_usd=e['available_usd'],
+            credit_expires_at=e['credit_expires_at'],evidence_sha256=selected.sha256,evidence=e)
+        _promotional_renewal([*events,row],enrolled)
+        append(row)
+    return dict(status='promotional_renewed_no_api_call',next_slot=row['next_slot'],prior_reservations_retained=True)
+
+
 def _standing_attempts(events,enrolled):
     _standing_base(events,enrolled)
-    result=[];index=21;slot=7
+    result=[];index=21;slot=7;renewal=_promotional_renewal(events,enrolled)
     while index<len(events):
         start=events[index]
+        if start.get('type')=='supervised_promotional_renewed':
+            require(start is renewal and start['next_slot']==slot,'supervised_standing_binding')
+            index+=1;continue
         shape(start,'type at slot project policy prefix_sha256 evidence_sha256 evidence_hash expires_at request_sha256 '
-                    'credit_sha256 credit_count previous_attempt_sha256 ceiling_usd'+(' historical' if 'historical' in start else '')+(' captured' if 'captured' in start else ''))
+                    'credit_sha256 credit_count previous_attempt_sha256 ceiling_usd'+(' historical' if 'historical' in start else '')+(' captured' if 'captured' in start else '')+(' promotional_renewal_sha256' if 'promotional_renewal_sha256' in start else ''))
+        effective=_credit_grant(events,enrolled,slot)
+        require(start.get('promotional_renewal_sha256')==(digest(effective) if effective.get('type')=='supervised_promotional_renewed' else None),'supervised_standing_binding')
         require(not ('historical' in start and 'captured' in start),'captured_route_required')
         require(start['type']=='supervised_standing_attempt_started' and type(start['slot']) is int and
                 start['slot']==slot and start['prefix_sha256']==digest(events[:index]) and
@@ -765,6 +827,10 @@ def _standing_history(root,events,enrolled,credit):
                     permit['maximum_debit']==[3,100],'supervised_standing_history')
         if len(rows)>1:require(rows[1]['request_sha256']==start['request_sha256'],'supervised_standing_history')
     reservations=credit.read();total=retained_total(reservations,enrolled['project'])
+    renewal=_promotional_renewal(events,enrolled)
+    if renewal:
+        count=renewal['credit_count']
+        require(len(reservations)>=count and digest(reservations[:count])==renewal['credit_sha256'],'supervised_standing_history')
     require(len(reservations)>=5 and digest(reservations[:5])==grant['credit_sha256'],'supervised_standing_history')
     if attempts:
         require(attempts[0][0]['previous_attempt_sha256']==grant['attempts']['6']['sha256'],'supervised_standing_history')
@@ -809,6 +875,7 @@ def standing_retained(root,events,enrolled,selected,credit,slot):
     selected.revalidate();e=selected.data;validate_evidence(e,time.time(),standing=True)
     grant,_,_,total=_standing_history(root,events,enrolled,credit)
     start,_=standing_binding(events,enrolled,selected,slot)
+    grant=_credit_grant(events,enrolled,slot)
     ceiling=min(rational(grant['ceiling_usd']),rational(e['available_usd']))
     require(e['account_reference']==grant['account_reference'] and e['credit_expires_at']<=grant['credit_expires_at'] and time.time()<grant['credit_expires_at'] and
             rational(start['ceiling_usd'])==ceiling and total<=ceiling,'supervised_standing_credit')
@@ -876,6 +943,7 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
     require(len(events)>=21,'supervised_standing_missing');enrolled=events[1]
     credit=History(root.directory/'credit')
     grant,attempts,reservations,total=_standing_history(root,events,enrolled,credit)
+    grant=_credit_grant(events,enrolled,7+len(attempts))
     require(e['project']==grant['project'] and e['account_reference']==grant['account_reference'] and e['credit_expires_at']<=grant['credit_expires_at'] and
             time.time()<grant['credit_expires_at'],'supervised_standing_credit')
     ceiling=min(rational(grant['ceiling_usd']),rational(e['available_usd']))
@@ -911,6 +979,7 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
         prefix_sha256=digest(events),evidence_sha256=selected.sha256,evidence_hash=digest(e),expires_at=e['expires_at'],
         request_sha256=digest(decode(request(f'synthetic-integration-{slot}'))),credit_sha256=digest(reservations),
         credit_count=len(reservations),previous_attempt_sha256=prior,ceiling_usd=pair(ceiling))
+    if grant.get('type')=='supervised_promotional_renewed':start['promotional_renewal_sha256']=digest(grant)
     if historical:
         start['historical']=historical
         start['request_sha256']=digest(historical['request'])
@@ -945,7 +1014,8 @@ def check_keychain(directory,selected):
     root=History(Path(directory))
     with root.transaction() as (events,_):
         require(len(events)>=21,'supervised_standing_missing')
-        grant,_,_,total=_standing_history(root,events,events[1],History(root.directory/'credit'))
+        grant,attempts,_,total=_standing_history(root,events,events[1],History(root.directory/'credit'))
+        grant=_credit_grant(events,events[1],7+len(attempts))
         require(e['project']==grant['project'] and e['account_reference']==grant['account_reference'] and
             time.time()<grant['credit_expires_at'] and e['credit_expires_at']<=grant['credit_expires_at'] and
             total+PER_REQUEST<=min(rational(grant['ceiling_usd']),rational(e['available_usd'])),'supervised_standing_credit')
@@ -978,6 +1048,7 @@ def main(argv=None):
     continuation.add_argument('--evidence',required=True,type=Path)
     continuation.add_argument('--slot',type=int,choices=(4,5,6),default=4)
     standing=sub.add_parser('authorize-standing');standing.add_argument('--evidence',required=True,type=Path)
+    renewal=sub.add_parser('renew-promotional');renewal.add_argument('--evidence',required=True,type=Path)
     next_send=sub.add_parser('run-next');next_send.add_argument('--evidence',required=True,type=Path)
     k=sub.add_parser('check-keychain');k.add_argument('--evidence',required=True,type=Path)
     k=sub.add_parser('run-next-keychain');k.add_argument('--evidence',required=True,type=Path)
@@ -1009,6 +1080,7 @@ def main(argv=None):
             result=recover_once(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence))
         elif args.action=='continue-once':
             result=recover_once(args.state,read_evidence(args.previous_evidence),read_evidence(args.evidence),slot=args.slot)
+        elif args.action=='renew-promotional':result=renew_promotional(args.state,read_evidence(args.evidence))
         elif args.action=='authorize-standing':result=authorize_standing(args.state,read_evidence(args.evidence))
         elif args.action=='authorize-historical-renewal':
             from .historical_nano import authorize_renewal
