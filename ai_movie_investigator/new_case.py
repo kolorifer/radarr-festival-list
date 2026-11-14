@@ -554,6 +554,105 @@ def _captured_continuation(root, root_events, history, events, authority, grant=
     require(digest(prefix)==a['case_prefix_sha256'],'captured_continuation_changed')
     return digest(old)
 
+
+def _freshness_access_fix(access_fix, slot, prefix, owner_reference, expires_at, now):
+    from . import supervised_credit as c
+    shape(access_fix,'path sha256')
+    raw,identity=c._read_evidence(Path(access_fix['path']),32768);fix=decode(raw,32768)
+    require(raw==encoded(fix) and digest(fix)==access_fix['sha256'],'captured_freshness_access_fix')
+    shape(fix,'kind slot root_prefix_sha256 owner_reference material_access_fix_verified prior_failure issued_at expires_at')
+    require(fix['kind']=='captured_slot_access_fix' and fix['slot']==slot and
+        fix['root_prefix_sha256']==prefix and fix['material_access_fix_verified'] is True and
+        fix['prior_failure']=='keychain_denied' and isinstance(fix['owner_reference'],str) and
+        bool(fix['owner_reference'].strip()) and fix['owner_reference'] in owner_reference and
+        access_fix['sha256'] in owner_reference and
+        stamp(fix['issued_at'])<=now<stamp(fix['expires_at']) and
+        fix['expires_at']>=expires_at, 'captured_freshness_access_fix')
+    return list(identity)
+
+
+def _unstarted_freshness(root, root_events, history, events, evidence, access_fix):
+    from . import supervised_credit as c
+    root.require_write_transaction(root_events);history.require_write_transaction(events)
+    _,attempts,credit,_=c._standing_history(root,root_events,root_events[1],History(root.directory/'credit'))
+    require(bool(attempts),'captured_freshness_state')
+    start,authorized=attempts[-1];old=start.get('captured')
+    require(old is not None and 'freshness' not in old['authorization'],'captured_freshness_state')
+    slot=start['slot'];now=time.time()
+    require([e for e in root_events if e.get('slot')==slot]==[start,authorized] and
+        not History(root.directory/f'attempt-{slot}').read() and
+        len(credit)==start['credit_count'] and digest(credit)==start['credit_sha256'],
+        'captured_freshness_started')
+    oa=old['authorization']
+    require(now>=start['expires_at'] and now>=oa['expires_at'],'captured_freshness_not_expired')
+    require(str(history.directory)==oa['case_directory'],'captured_freshness_changed')
+    starts=[e for e in events if e.get('job')==oa['job'] and e['type']=='new_case_generation_started']
+    if 'continuation' in oa:
+        _captured_continuation(root,root_events,history,events,oa,old)
+        require(len(starts)==1,'captured_freshness_started')
+    else:require(not starts,'captured_freshness_started')
+    require(not any(e.get('job')==oa['job'] and e['type'] in ('invocation','result',
+        'new_case_completion_started','new_case_completed','new_case_completion_rejected',
+        'new_case_simulated_send_started') for e in events),'captured_freshness_started')
+    _freshness_access_fix(access_fix,slot,digest(root_events),evidence['owner_reference'],evidence['expires_at'],now)
+    c.validate_evidence(evidence,now,standing=True)
+    require(evidence['project']==start['project'] and
+        evidence['account_reference']==oa['account_reference'] and
+        evidence['observed_at']>=start['expires_at'],'captured_freshness_changed')
+    return start,authorized,credit
+
+
+def captured_freshness_consent(root, root_events, history, events, evidence, access_fix):
+    """One exact proposal for an expired, allocated but never-started slot."""
+    start,_,credit=_unstarted_freshness(root,root_events,history,events,evidence,access_fix)
+    old=start['captured'];oa=old['authorization']
+    result=captured_consent(root,root_events,history,events,oa['request_hash'],evidence)
+    # The original allocation prefix still identifies this slot; the new
+    # freshness prefix identifies the later append, never a new allocation.
+    result['root_prefix_sha256']=oa['root_prefix_sha256']
+    if 'continuation' in oa:
+        result['continuation']=dict(oa['continuation'],owner_reference=evidence['owner_reference'])
+    result['freshness']=dict(slot=start['slot'],prior_start_sha256=digest(start),
+        prior_grant_sha256=digest(old),root_prefix_sha256=digest(root_events),
+        case_prefix_sha256=digest(events),credit_prefix_sha256=digest(credit),access_fix=access_fix,
+        access_fix_identity=_freshness_access_fix(access_fix,start['slot'],digest(root_events),
+            evidence['owner_reference'],evidence['expires_at'],time.time()))
+    return result
+
+
+def refresh_captured(directory,selected,case_directory,authority_path,authority_sha256,access_fix):
+    """Append freshness authority once; never allocate a slot, debit or credential."""
+    from . import supervised_credit as c
+    require_captured_activation()
+    require(type(selected) is c.SelectedEvidence,'supervised_evidence_selection')
+    selected.revalidate();root=History(Path(directory));history=History(Path(case_directory))
+    require(root.identity!=history.identity,'captured_freshness_changed')
+    with root.transaction(write=True) as (events,append):
+        with history.transaction(write=True) as (rows,_):
+            expected=captured_freshness_consent(root,events,history,rows,selected.data,access_fix)
+            raw,identity=c._read_evidence(Path(authority_path),CAPTURED_AUTHORITY_BYTES)
+            a=decode(raw,CAPTURED_AUTHORITY_BYTES)
+            require(raw==encoded(a) and digest(a)==authority_sha256 and a==expected,'captured_authority_changed')
+            grant=dict(authority_path=str(Path(authority_path)),authority_sha256=authority_sha256,
+                authority_identity=list(identity),authorization=a,run='captured-'+digest(a),case=a['case'],request=a['request'])
+            validate_captured(grant,selected.data['project'])
+            start,authorized,credit=_unstarted_freshness(root,events,history,rows,selected.data,access_fix)
+            effective=c._credit_grant(events,events[1],start['slot'])
+            from .spending import rational,pair
+            from .credit_test import retained_total,PER_REQUEST
+            ceiling=min(rational(effective['ceiling_usd']),rational(selected.data['available_usd']))
+            require(selected.data['account_reference']==effective['account_reference'] and
+                selected.data['credit_expires_at']<=effective['credit_expires_at'] and
+                time.time()<effective['credit_expires_at'] and
+                retained_total(credit,selected.data['project'])+PER_REQUEST<=ceiling,'supervised_standing_credit')
+            selected.revalidate();at=time.time();c.validate_evidence(selected.data,at,standing=True)
+            row=dict(type='supervised_captured_freshness_authorized',slot=start['slot'],at=at,
+                prefix_sha256=digest(events),prior_start_sha256=digest(start),captured=grant,
+                evidence_sha256=selected.sha256,evidence=selected.data,ceiling_usd=pair(ceiling))
+            c._freshened_start(start,row,events)
+            append(row)
+    return dict(status='captured_freshness_authorized_no_send',slot=start['slot'],request_sha256=start['request_sha256'])
+
 def validate_captured(grant, project):
     """Validate exact private authority; JSON alone never opens the closed gate."""
     from .supervised_credit import _read_evidence
@@ -572,6 +671,11 @@ def validate_captured(grant, project):
         grant['run']=='captured-'+digest(authority) and
         digest(grant['request'])==authority['request_sha256'], 'captured_authority_changed')
     require(stamp(authority['issued_at'])<=time.time()<stamp(authority['expires_at']), 'captured_authority_expired')
+    if 'freshness' in authority:
+        f=authority['freshness']
+        require(_freshness_access_fix(f['access_fix'],f['slot'],f['root_prefix_sha256'],
+            authority['owner_reference'],authority['expires_at'],time.time())==f['access_fix_identity'],
+            'captured_freshness_access_fix')
     active=_APPROVED_CAPTURE.get()
     if active is not None:active.bind(authority)
     body=encoded(grant['request'])
@@ -607,6 +711,9 @@ class _CapturedCase:
         require(not any(e.get('job')==p['job'] and e['type'] in ('invocation','result',
             'new_case_completion_started','new_case_simulated_send_started') for e in self.events), 'assessment_already_consumed')
         starts=[e for e in self.events if e.get('job')==p['job'] and e['type']=='new_case_generation_started']
+        if 'freshness' in a:
+            prefix=self.events[:-1] if self.started else self.events
+            require(digest(prefix)==a['freshness']['case_prefix_sha256'], 'captured_freshness_changed')
         if 'continuation' in a:
             _captured_continuation(self.root,self.root_events,self.history,self.events,a,self.grant)
             require(len(starts)==(2 if self.started else 1),'captured_generation_consumed')
