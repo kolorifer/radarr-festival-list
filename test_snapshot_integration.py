@@ -103,8 +103,14 @@ class IntegrationTests(unittest.TestCase):
   issued=dict(runtime=str(runtime),runtime_files=manifest,python_sha256=hashlib.sha256(interpreter.read_bytes()).hexdigest(),main_acceptance_path=str(self.root/'acceptance.json'),authority=self.authority,account_evidence=dict(path=str(self.f.selected.path),sha256=self.f.selected.sha256),state=str(self.state),output_dir=str(self.output),root_prefix_sha256=self.record['root_prefix_sha256'],expected_slot=7)
   wrapper=self.root/'issued-wrapper.py';wrapper.write_text(template.replace('ISSUED = None','ISSUED = '+repr(issued),1));wrapper.chmod(0o600)
   self.pin('acceptance.json',encoded(dict(decision='accepted_exact_normalized_snapshot_assessment',wrapper_sha256=hashlib.sha256(wrapper.read_bytes()).hexdigest(),issued_pins=issued)))
-  driver="""import sys,runpy,contextlib,io
+  driver="""import sys,runpy,contextlib,io,os,errno
 from pathlib import Path
+# Hosted Linux ACL metadata is an explicit invented fixture; ownership, modes,
+# symlink, identity and one-shot checks still execute. This is not native ACL proof.
+if sys.platform.startswith('linux'):
+ def fixture_absent_acl(*args,**kwargs):raise OSError(errno.ENODATA,'fixture absent ACL')
+ os.getxattr=fixture_absent_acl
+ print('LINUX_FIXTURE_ACL_SIMULATED')
 sys.path.insert(0,"""+repr(str(runtime))+""")
 from ai_movie_investigator import keychain_credential as k,supervised_authorization as a
 k._native=lambda project:b'sk-SYNTHETIC_FIXTURE'
@@ -118,7 +124,9 @@ a.consume_snapshot_completion=fixture_proof
   path=self.root/'driver.py';path.write_text(driver)
   result=subprocess.run([str(interpreter),'-I','-S','-B',str(path)],cwd=runtime,env=child_env,capture_output=True,timeout=60)
   self.assertEqual(result.returncode,0,result.stderr.decode(errors='replace'))
-  self.assertIn(b'private_report_written',result.stdout);self.assertTrue((self.output/'movie-review.html').exists())
+  self.assertIn(b'private_report_written',result.stdout)
+  if sys.platform.startswith('linux'):self.assertIn(b'LINUX_FIXTURE_ACL_SIMULATED',result.stdout)
+  self.assertTrue((self.output/'movie-review.html').exists())
   self.assertEqual(len(History(self.state/'credit').read()),6)
  def test_replaced_output_refused_before_allocation(self):
   with self.gate():
