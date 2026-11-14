@@ -128,12 +128,13 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
         source_evidence_sha256=attestation['source_sha256'], catalogue_evidence_sha256=attestation['catalogue_sha256'])
 
 
-def build(projection, *, corrected=True):
+def build(projection, *, corrected=True, prose_limited=None):
     """Build only the minimized request; never serialise local identifiers."""
     from .controller import output_schema
     from .credit_test import POLICY
     from .disclosure import aliases, evidence_alias
     from .historical_nano import HISTORICAL_OUTPUT_TOKENS
+    if prose_limited is None:prose_limited=corrected
     p = projection
     run = digest(dict(kind='snapshot_review_v1', case=p['case_id'], version=p['version'],
                       snapshot=p['snapshot_sha256'], source=p['source_evidence_sha256'],
@@ -195,6 +196,14 @@ def build(projection, *, corrected=True):
             positive['properties']['candidate']=candidate
             variants.insert(0,positive)
         schema['properties']['result']={'anyOf':variants}
+    if prose_limited:
+        require(corrected,'snapshot_contract_changed')
+        for variant in variants:
+            for field in ('rationale','uncertainty'):
+                variant['properties'][field]={'type':'string','minLength':1,'maxLength':600}
+        instructions+=(' Write rationale and uncertainty each as one short plain-text paragraph of 1 to 600 characters. '
+            'Do not use URLs, paths, slashes, markup, control characters, opaque aliases or credential terminology. '
+            'This is a distinct new assessment, not a reconstruction of an earlier explanation.')
     wire=dict(**POLICY,instructions=instructions,
         input=[dict(role='user',content=[dict(type='input_text',text=encoded(data).decode())])],
         tools=[],tool_choice='none',store=False,background=False,stream=False,
@@ -205,11 +214,11 @@ def build(projection, *, corrected=True):
     return dict(run=run,disclosure=disclosure,request=wire,selected_evidence=selected)
 
 
-def validate_answer(projection, prepared, reply, *, now, corrected=True):
+def validate_answer(projection, prepared, reply, *, now, corrected=True, prose_limited=None):
     """Validate one exact bound model reply; does not authenticate a receipt."""
     from .disclosure import restore
     from .controller import validate_final
-    require(prepared == build(projection,corrected=corrected), 'snapshot_prepared_changed')
+    require(prepared == build(projection,corrected=corrected,prose_limited=prose_limited), 'snapshot_prepared_changed')
     restored=restore(reply, run=prepared['run'], disclosure=prepared['disclosure'],
                      binding_hash=digest(dict(source='normalized',case_id=projection['case_id'],
                                               version=projection['version'],occurrence=None)))

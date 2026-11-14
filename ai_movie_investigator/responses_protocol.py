@@ -32,6 +32,9 @@ def schema_value(value, schema):
              'object': isinstance(value, dict)}[kind], 'responses_answer_schema')
     if 'enum' in schema:
         require(value in schema['enum'], 'responses_answer_schema')
+    if kind == 'string':
+        require(len(value) >= schema.get('minLength',0) and len(value) <= schema.get('maxLength',len(value)),
+                'responses_answer_schema')
     if kind == 'object':
         require(set(value) == set(schema['required']) == set(schema['properties'])
                 and schema['additionalProperties'] is False, 'responses_answer_schema')

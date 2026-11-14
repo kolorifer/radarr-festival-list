@@ -1,3 +1,10 @@
+## Snapshot bounded prose reassessment, 2026-11-14
+
+A versioned snapshot response contract binds generated prose to the existing
+600-character local limit. One explicitly bound full reassessment may follow an
+exact completed length-withheld result; prior reports and reservations remain
+unchanged. See [scope and validation](reports/2026-11-14-snapshot-prose-bounds.md).
+
 ## Snapshot result contract correction, 2026-11-14
 
 The one-case snapshot request constrains status and candidate together and has a
