@@ -85,7 +85,7 @@ class IntegrationTests(unittest.TestCase):
    with self.gate():gate.execute(self.state,self.f.selected,self.output)
   self.assertEqual(History(self.state).read(),before);self.assertFalse((self.state/'attempt-7').exists())
  def test_installed_issued_wrapper_uses_one_shot_keychain_boundary(self):
-  import json,subprocess,sys
+  import json,subprocess,sys,shutil,sysconfig
   from ai_movie_investigator.installation import install_runtime
   runtime=self.root/'installed';runtime.mkdir(mode=0o700);install_runtime(Path(__file__).resolve().parent,runtime)
   manifest=json.loads((runtime/'runtime-files.json').read_text());self.manifest.clear();self.manifest.update(manifest)
@@ -95,7 +95,12 @@ class IntegrationTests(unittest.TestCase):
    with root.transaction(write=True) as (events,_):grant=gate.proposal(root,events,self.f.selected.data)
    response=self.reply(grant)
   template=Path('automation/snapshot_review_UNISSUED.py').read_text()
-  issued=dict(runtime=str(runtime),runtime_files=manifest,python_sha256=hashlib.sha256(Path(sys.executable).resolve(strict=True).read_bytes()).hexdigest(),main_acceptance_path=str(self.root/'acceptance.json'),authority=self.authority,account_evidence=dict(path=str(self.f.selected.path),sha256=self.f.selected.sha256),state=str(self.state),output_dir=str(self.output),root_prefix_sha256=self.record['root_prefix_sha256'],expected_slot=7)
+  interpreter=Path(sys.executable).resolve(strict=True);child_env=os.environ.copy()
+  if sys.platform.startswith('linux'):
+   interpreter=self.root/'fixture-python';shutil.copyfile(Path(sys.executable).resolve(strict=True),interpreter);interpreter.chmod(0o700)
+   library_dir=sysconfig.get_config_var('LIBDIR')
+   if library_dir:child_env['LD_LIBRARY_PATH']=library_dir
+  issued=dict(runtime=str(runtime),runtime_files=manifest,python_sha256=hashlib.sha256(interpreter.read_bytes()).hexdigest(),main_acceptance_path=str(self.root/'acceptance.json'),authority=self.authority,account_evidence=dict(path=str(self.f.selected.path),sha256=self.f.selected.sha256),state=str(self.state),output_dir=str(self.output),root_prefix_sha256=self.record['root_prefix_sha256'],expected_slot=7)
   wrapper=self.root/'issued-wrapper.py';wrapper.write_text(template.replace('ISSUED = None','ISSUED = '+repr(issued),1));wrapper.chmod(0o600)
   self.pin('acceptance.json',encoded(dict(decision='accepted_exact_normalized_snapshot_assessment',wrapper_sha256=hashlib.sha256(wrapper.read_bytes()).hexdigest(),issued_pins=issued)))
   driver="""import sys,runpy,contextlib,io
@@ -111,7 +116,7 @@ a.consume_snapshot_completion=fixture_proof
   driver+='\nnamespace=runpy.run_path('+repr(str(wrapper))+',run_name="fixture_wrapper")\nsys.argv=['+repr(str(wrapper))+',"--main-accepted-snapshot-review"]\n'
   driver+='with a._simulated_captured_io(),wire_fixture("completed"):\n namespace["main"]()\n'
   path=self.root/'driver.py';path.write_text(driver)
-  result=subprocess.run([str(Path(sys.executable).resolve(strict=True)),'-I','-S','-B',str(path)],cwd=runtime,capture_output=True,timeout=60)
+  result=subprocess.run([str(interpreter),'-I','-S','-B',str(path)],cwd=runtime,env=child_env,capture_output=True,timeout=60)
   self.assertEqual(result.returncode,0,result.stderr.decode(errors='replace'))
   self.assertIn(b'private_report_written',result.stdout);self.assertTrue((self.output/'movie-review.html').exists())
   self.assertEqual(len(History(self.state/'credit').read()),6)
