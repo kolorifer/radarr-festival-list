@@ -2246,3 +2246,5 @@ The dormant normalized-snapshot path has a separately versioned film-scope contr
 The separately versioned [film findings structure correction](reports/2026-11-14-film-findings-structure.md) requires six distinct named findings and admits one reviewed successor of the exact receipt-backed structural refusal. It preserves prior evidence and does not reconstruct the unretained answer.
 
 The separately versioned [film comparison contract](reports/2026-11-14-film-comparison-contract.md) computes attributed evidence comparisons before requesting a model assessment and binds one reviewed successor to the exact receipt-backed v5 field refusal. It retains earlier attempts and does not infer the discarded answer.
+
+The separately versioned [film result consistency correction](reports/2026-11-14-film-result-contract.md) binds supported citations and negative-result blockers directly to their result variants, with one reviewed successor of the exact v6 missing-blocker refusal.
