@@ -2248,3 +2248,5 @@ The separately versioned [film findings structure correction](reports/2026-11-14
 The separately versioned [film comparison contract](reports/2026-11-14-film-comparison-contract.md) computes attributed evidence comparisons before requesting a model assessment and binds one reviewed successor to the exact receipt-backed v5 field refusal. It retains earlier attempts and does not infer the discarded answer.
 
 The separately versioned [film result consistency correction](reports/2026-11-14-film-result-contract.md) binds supported citations and negative-result blockers directly to their result variants, with one reviewed successor of the exact v6 missing-blocker refusal.
+
+The [private film report readability update](reports/2026-11-14-film-report-readability.md) presents the recorded result and relevant observations before expandable technical details, and labels any locally generated summary when model prose was withheld. It does not change assessment or approval state.

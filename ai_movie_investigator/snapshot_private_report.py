@@ -25,91 +25,139 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         type(local_raw) is bytes and hashlib.sha256(local_raw).hexdigest()==local_sha256 and
         report.get('generation_invoked') is True and report.get('provider_receipt_correlated') is True and
         report.get('sent') is False, 'snapshot_report_binding')
-    local=validate_local_context(local_raw)
-    result=report['result'];source=projection['listing'];cat=projection['catalogue']
+    from .snapshot_review import film_comparisons
+    from .new_case import _WITHHELD_PROSE
+    local=validate_local_context(local_raw);result=report['result'];source=projection['listing'];cat=projection['catalogue']
+    ids=projection['source_identifiers'];candidate=result['candidate'];status=result['status']
+    require((status=='supported_candidate' and type(candidate) is dict) or
+            (status in ('unresolved','blocked') and candidate is None),'snapshot_report_binding')
     def show(v):
         if v is None or v=='':return 'Not established'
         if isinstance(v,list):return ', '.join(str(x) for x in v) or 'Not established'
         return str(v)
-    def row(label,left,right):
-        return '<tr><th>'+escape(label)+'</th><td>'+escape(show(left))+'</td><td>'+escape(show(right))+'</td></tr>'
     def li(label,value):return '<li><strong>'+escape(label)+':</strong> '+escape(show(value))+'</li>'
     def duration_ms(value):
         if value is None:return 'Not established'
         hours,remainder=divmod(value,3600000);minutes,remainder=divmod(remainder,60000)
         seconds,millis=divmod(remainder,1000)
         return str(hours)+' h '+str(minutes)+' min '+str(seconds)+'.'+format(millis,'03d')+' s'
+    def minutes(value):return 'Not established' if value is None else show(value)+' minutes'
+    def observed(value):
+        from datetime import datetime,timezone
+        return datetime.fromtimestamp(value,timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
     def reason_label(value):
         return {'title_conflict':'The producer flagged conflicting titles.',
                 'year_conflict':'The producer flagged conflicting years.',
                 'identifier_conflict':'The producer flagged conflicting identifiers.'}.get(value,
                 'The producer flagged '+value.replace('_',' ')+'.')
-    ids=projection['source_identifiers'];candidate=result['candidate']
-    rows=[row('Listing and catalogue title',source['title'],cat['title']),row('Year',source['year'],cat['theatrical_year']),
-          row('Festival years',None,cat['festival_years']),row('Description runtime in minutes',source['description_runtime_minutes'],None),
-          row('NFO runtime ('+source['nfo_runtime_kind']+')',duration_ms(source['nfo_runtime_milliseconds']),None),
-          row('Catalogue runtime in minutes',None,cat['runtime_minutes']),row('Cast',source['cast'],cat['cast']),
-          row('Directors',source['directors'],cat['directors']),row('Listing IMDb versus catalogue IMDb',source['imdb'],cat['imdb']),
-          row('Catalogue TMDb',None,cat['tmdb'])]
-    prior=report.get('previous_assessment')
-    prior_html=''
+    labels={'title':'Titles','year':'Years','people':'People','runtime_description':'Description runtime',
+            'runtime_nfo':'NFO runtime','ids':'Identifiers'}
+    reason_labels={'missing_film_evidence':'missing film evidence',
+                   'conflicting_film_evidence':'conflicting film evidence',
+                   'ambiguous_film_evidence':'ambiguous film evidence'}
+    def detail(aspect):
+        if aspect=='title':return 'Collector: '+show(projection['title'])+'; listing: '+show(source['title'])+'; catalogue: '+show(cat['title'])
+        if aspect=='year':return 'Collector: '+show(projection['year'])+'; listing: '+show(source['year'])+'; catalogue theatrical: '+show(cat['theatrical_year'])+'; catalogue festival: '+show(cat['festival_years'])
+        if aspect=='people':return 'Listing cast: '+show(source['cast'])+'; catalogue cast: '+show(cat['cast'])+'; listing directors: '+show(source['directors'])+'; catalogue directors: '+show(cat['directors'])
+        if aspect=='runtime_description':return 'Listing description: '+minutes(source['description_runtime_minutes'])+'; catalogue: '+minutes(cat['runtime_minutes'])
+        if aspect=='runtime_nfo':return 'NFO '+show(source['nfo_runtime_kind'])+': '+duration_ms(source['nfo_runtime_milliseconds'])+'; catalogue: '+minutes(cat['runtime_minutes'])
+        if aspect=='ids':return ('Listing IMDb: '+show(source['imdb'])+'; collector IMDb: '+show(ids['imdb'])+'; collector TMDb: '+show(ids['tmdb'])+
+            '; producer asserted IMDb: '+show(ids['asserted_imdb'])+'; producer asserted TMDb: '+show(ids['asserted_tmdb'])+
+            '; catalogue IMDb: '+show(cat['imdb'])+'; catalogue TMDb: '+show(cat['tmdb']))
+        return 'No corresponding observation is available.'
+    comparisons=film_comparisons(projection)
+    blockers=result.get('film_blockers')
+    if not isinstance(blockers,list):blockers=[]
+    decision={'supported_candidate':'A film identity is proposed for human review.',
+              'unresolved':'Film identity remains unresolved; no identity is proposed.',
+              'blocked':'The review is blocked; no identity is proposed.'}.get(status,'The recorded assessment status is not recognized.')
+    action={'human_review':'Bring this assessment to human review.',
+            'obtain_retained_evidence':'Review whether retained film evidence is available.',
+            'verify_source_runtime_edition':'Review the source runtime and edition evidence.',
+            'boundary_review':'Review the applicable evidence boundary.'}.get(result.get('next_action'),'Review the recorded next action.')
+    handling=report.get('prose_handling') or {}
+    def prose(field,label):
+        state=handling.get(field,{}).get('status')
+        if state=='withheld':return '<p><strong>'+escape(label)+':</strong> The model’s '+escape(field)+' was withheld by the local text policy; the original text is not retained.</p>'
+        value=result.get(field)
+        if state=='retained' and isinstance(value,str):return '<p><strong>'+escape(label)+':</strong> '+escape(value)+'</p>'
+        if isinstance(value,str) and value!=_WITHHELD_PROSE:
+            return '<p><strong>'+escape(label)+':</strong> '+escape(value)+' <em>Its text-handling status was not recorded.</em></p>'
+        return '<p><strong>'+escape(label)+':</strong> Its text-handling status is not established.</p>'
+    field_names={'title':'title','year':'year','theatrical_year':'theatrical','festival_years':'festival',
+        'cast':'cast','directors':'directors','description_runtime_minutes':'description runtime',
+        'nfo_runtime_milliseconds':'NFO runtime','imdb':'IMDb','tmdb':'TMDb',
+        'asserted_imdb':'asserted IMDb','asserted_tmdb':'asserted TMDb','runtime_minutes':'runtime'}
+    def field_value(origin,field):
+        obj=source if origin=='listing' else cat if origin=='catalogue' else projection if field in ('title','year') else ids
+        value=obj.get(field)
+        if field=='nfo_runtime_milliseconds':return duration_ms(value)+' ('+show(source['nfo_runtime_kind'])+')'
+        if field in ('description_runtime_minutes','runtime_minutes'):return minutes(value)
+        return show(value)
+    def pair(item):
+        lo,lf,ro,rf=item['left_origin'],item['left_field'],item['right_origin'],item['right_field']
+        left=lo+' '+field_names.get(lf,lf.replace('_',' '));right=ro+' '+field_names.get(rf,rf.replace('_',' '))
+        relation={'exact':'matches','overlap':'shares at least one name with','different':'differs from',
+                  'missing':'has missing information compared with','no_observed_overlap':'has no observed name overlap with'}[item['relation']]
+        line=left+': '+field_value(lo,lf)+' '+relation+' '+right+': '+field_value(ro,rf)
+        delta=item.get('difference_minutes')
+        if delta is not None and delta!=0:line+=' ('+str(abs(delta))+' minute'+('s' if abs(delta)!=1 else '')+(' longer' if delta>0 else ' shorter')+')'
+        delta=item.get('difference_milliseconds')
+        if delta is not None and delta!=0:
+            seconds,millis=divmod(abs(delta),1000);mins,secs=divmod(seconds,60)
+            line+=' ('+str(mins)+' min '+str(secs)+'.'+format(millis,'03d')+' sec'+(' longer' if delta>0 else ' shorter')+')'
+        return line
+    def category(relations,heading,empty):
+        rows=[]
+        for aspect,items in comparisons.items():
+            matches=[pair(item) for item in items if item['relation'] in relations]
+            if matches:rows.append(li(labels[aspect],'; '.join(matches)))
+        return '<h3>'+heading+'</h3>'+('<ul>'+''.join(rows)+'</ul>' if rows else '<p>'+empty+'</p>')
+    prior=report.get('previous_assessment');prior_html=''
     if prior is not None:
-        prior_rationale=('Its original rationale was withheld and cannot be recovered.' if prior['rationale'] in ('withheld_unrecoverable','withheld')
-                         else 'The previous explanation remains in the earlier retained report.')
-        prior_html=('<h2>Earlier distinct assessment</h2><p>Status: '+escape(show(prior['status']))+
-            '; proposed identity: '+escape(show(prior['candidate']))+'. '+prior_rationale+' '
-            'The assessment below is a distinct new result, not a reconstruction of that rationale.</p>')
-    if report.get('previous_structure_refusal') is not None:
-        prior_html=('<h2>Earlier structural refusal</h2><p>The earlier assessment received a receipt but its findings failed structural validation. '
-            'Its answer was not retained. This is a distinct corrected assessment.</p>')
-    if report.get('previous_field_refusal') is not None:
-        prior_html=('<h2>Earlier field-validation refusal</h2><p>The earlier assessment received a receipt but failed a field validation check. '
-            'Its answer was not retained, so the specific failed comparison is unknown. This is a distinct corrected assessment.</p>')
-    if report.get('previous_result_refusal') is not None:
-        prior_html=('<h2>Earlier result refusal</h2><p>The earlier assessment received a receipt but did not provide a required film blocker. '
-            'Its answer was not retained. This is a distinct corrected assessment.</p>')
-    findings_html=''
-    if 'film_findings' in result:
-        def field_label(field, default):
-            return ('collector or producer field ' if field.startswith(('collector_','asserted_')) else default)+field.replace('_',' ')
-        findings_html=('<h3>Film identity findings</h3><p>Reconciliations are model interpretations for human review, not verified facts.</p><ul>'+''.join(
-            li(f['aspect'].replace('_',' '),f['disposition']+': '+f['explanation']+
-                ' ('+field_label(f['source_field'],'listing field ')+'; '+field_label(f['catalogue_field'],'catalogue field ')+
-                '; cited '+', '.join(f['evidence'])+')') for f in result['film_findings'])+'</ul>'+
-            '<h3>Remaining film identity blockers</h3><ul>'+(''.join(
-            li(b['aspect'].replace('_',' '),b['reason'].replace('_',' ')+'; cited '+', '.join(b['evidence']))
-            for b in result['film_blockers']) if result['film_blockers'] else '<li>None reported</li>')+'</ul>')
-    if 'film_comparisons' in result:
-        findings_html=('<h3>Computed evidence comparisons</h3><p>These are local comparisons, not film identity conclusions. '
-            'Duration differences do not establish an edition or an identity cutoff.</p><ul>'+''.join(
-            li(aspect.replace('_',' '),item['left_origin']+' '+item['left_field'].replace('_',' ')+' versus '+
-                item['right_origin']+' '+item['right_field'].replace('_',' ')+': '+item['relation'].replace('_',' ')+
-                (('; difference in minutes '+show(item['difference_minutes'])) if item.get('difference_minutes') is not None else '')+
-                (('; difference in milliseconds '+show(item['difference_milliseconds'])) if item.get('difference_milliseconds') is not None else '')+
-                (('; NFO stream '+item['nfo_kind']) if 'nfo_kind' in item else ''))
-            for aspect,items in result['film_comparisons'].items() for item in items)+'</ul><h3>Model-reported film blockers</h3><ul>'+
-            (''.join(li(b['aspect'].replace('_',' '),b['reason'].replace('_',' ')) for b in result['film_blockers']) if result['film_blockers'] else '<li>None reported</li>')+'</ul>')
-    text=['<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Private movie review</title></head><body>',
-          '<h1>Private movie review</h1><p><a rel="noreferrer noopener" href="'+escape(local['tracker_url'],quote=True)+'">Open the exact source listing</a></p>',
-          '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
-          li('Original release name',local['release_name']),li('Collector title',projection['title']),li('Collector year',projection['year']),
-          li('Producer reason',projection['reason']),li('Producer contradictions',projection['producer_contradictions']),'</ul>',
-          '<h2>Evidence comparison</h2><table><thead><tr><th>Fact</th><th>Listing</th><th>Catalogue</th></tr></thead><tbody>',*rows,'</tbody></table>',
-          '<p>NFO duration is uploader-reported for the indicated stream or container; it is not an independently measured edition.</p><ul>',
-          li('Collector source IMDb',ids['imdb']),li('Collector source TMDb',ids['tmdb']),
-          li('Producer asserted IMDb',ids['asserted_imdb']),li('Producer asserted TMDb',ids['asserted_tmdb']),
-          li('Identity fields conflict',projection['conflicting_ids']),'</ul>',
-          prior_html,('<h2>Model assessment</h2><ul>' if 'film_comparisons' in result else '<h2>Assessment</h2><ul>'),li('Result',result['status']),li('Proposed IMDb',candidate.get('imdb') if candidate else None),
-          li('Proposed TMDb',candidate.get('tmdb') if candidate else None),li('Rationale',result['rationale']),
-          li('Uncertainty',result['uncertainty']),li('Next action',result['next_action']),'</ul>',
-          findings_html,
-          '<h3>Evidence cited by the model</h3><ul>',
-          *[li('Listing' if c['evidence_id']=='source' else 'Catalogue',c['claim'].replace('_',' ')) for c in result['citations']],'</ul>',
-          '<p>The model proposal was checked against the bound identifiers and citations. No numeric score was assigned.</p>',
-          '<p>Producer conflict remains for human review; matching IDs alone do not resolve it. This is an unsent review proposal, not identity or download approval.</p>',
-          ('<h3>Separate nonblocking limitations</h3>' if 'film_findings' in result or 'film_comparisons' in result else '')+
-          '<p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. '+
-          ('Identity and acquisition remain unapproved. ' if 'film_findings' in result or 'film_comparisons' in result else '')+
-          'Listing and catalogue provenance were independently reviewed by the supervisor; provider receipt is correlated, not provider-signed billing proof.</p>',
-          '<details><summary>Retained NFO text</summary><pre>'+escape(show(local['nfo_text']))+'</pre></details></body></html>']
-    return ''.join(text)
+        rationale=('Its original rationale was withheld and cannot be recovered.' if prior['rationale'] in ('withheld_unrecoverable','withheld') else 'The previous explanation remains in the earlier retained report.')
+        prior_html=('<h3>Earlier distinct assessment</h3><p>Status: '+escape(show(prior['status']))+'; proposed identity: '+escape(show(prior['candidate']))+'. '+rationale+' The assessment below is a distinct new result, not a reconstruction of that rationale.</p>')
+    if report.get('previous_structure_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but its findings failed structural validation. Its answer was not retained. This is a distinct corrected assessment.</p>'
+    if report.get('previous_field_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but failed a field validation check. Its answer was not retained, so the specific failed comparison is unknown. This is a distinct corrected assessment.</p>'
+    if report.get('previous_result_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but did not provide a required film blocker. Its answer was not retained. This is a distinct corrected assessment.</p>'
+    raw_comparisons=''.join(li(aspect.replace('_',' '),item['left_origin']+' '+item['left_field'].replace('_',' ')+' versus '+item['right_origin']+' '+item['right_field'].replace('_',' ')+': '+item['relation'].replace('_',' ')+
+        (('; difference in minutes '+show(item['difference_minutes'])) if item.get('difference_minutes') is not None else '')+
+        (('; difference in milliseconds '+show(item['difference_milliseconds'])) if item.get('difference_milliseconds') is not None else '')+
+        (('; NFO stream '+item['nfo_kind']) if 'nfo_kind' in item else '')) for aspect,items in comparisons.items() for item in items)
+    model_findings=''.join(li(labels.get(f['aspect'],f['aspect'].replace('_',' ')),f['disposition']+': '+f['explanation']+
+        '; source field: '+f['source_field'].replace('_',' ')+'; comparison field: '+f['catalogue_field'].replace('_',' ')+
+        '; cited: '+', '.join(f['evidence']))
+        for f in result.get('film_findings',[]))
+    blocks=''.join(li(labels.get(b.get('aspect'),show(b.get('aspect')).replace('_',' ')),
+        reason_labels.get(b.get('reason'),show(b.get('reason')).replace('_',' '))+'; observed values — '+detail(b.get('aspect'))+
+        ('; cited evidence: '+(show(b['evidence']) if b['evidence'] else 'None recorded') if 'evidence' in b else '')) for b in blockers)
+    structured=('Model-reported blockers: '+', '.join(labels.get(b.get('aspect'),show(b.get('aspect')).replace('_',' '))+' ('+reason_labels.get(b.get('reason'),show(b.get('reason')).replace('_',' '))+')' for b in blockers) if blockers else 'No structured film blockers were recorded')
+    fallback=('<p><strong>Summary from recorded choices:</strong> '+escape(decision)+' '+escape(structured)+'. This summary is generated locally from retained structured choices; it is not the model’s original explanation.</p>' if any(handling.get(k,{}).get('status')=='withheld' for k in ('rationale','uncertainty')) else '')
+    return ''.join([
+        '<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Private movie review</title><style>body{font:16px system-ui,sans-serif;line-height:1.5;max-width:70rem;margin:2rem auto;padding:0 1rem;color:#202533}h1,h2,h3{line-height:1.2;margin-top:1.5em}li{margin:.4em 0}details{margin:1.2em 0}summary{cursor:pointer;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere}table{border-collapse:collapse}th,td{padding:.35em .6em;text-align:left}</style></head><body>',
+        '<h1>Private movie review</h1><h2>Decision summary</h2><p><strong>'+escape(decision)+'</strong></p>',
+        '<p><a rel="noreferrer noopener" href="'+escape(local['tracker_url'],quote=True)+'">Open the exact source listing</a></p>',
+        '<p>The model selected this status. The local reporting path checks the bound result and observations; this does not independently verify film identity.</p>',
+        ('<p>Proposed IMDb: '+escape(show(candidate.get('imdb')))+'; proposed TMDb: '+escape(show(candidate.get('tmdb')))+'.</p>' if candidate else ''),
+        '<p>Identity and acquisition remain unapproved. '+escape(action)+'</p>',
+        '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
+        li('Original release name',local['release_name']),li('Collector title',projection['title']),li('Collector year',projection['year']),
+        li('Producer contradictions',projection['producer_contradictions']),'</ul>',
+        '<h2>Model-reported film blockers</h2>',('<ul>'+blocks+'</ul>' if blockers else '<p>None reported.</p>' if 'film_blockers' in result else '<p>No structured film blockers were recorded.</p>'),
+        '<p>These are the model’s selected concerns. The values shown are observations, not a claim that they caused its decision.</p>',
+        '<h2>Evidence at a glance</h2><p>Agreements and differences are direct comparisons; they do not establish identity or an edition. Lists may be partial.</p>',
+        '<p>Snapshot generated: '+escape(observed(projection['generated_at']))+'; listing observed: '+escape(observed(source['observed_at']))+'; catalogue observed: '+escape(observed(cat['observed_at']))+'.</p>',
+        category({'exact','overlap'},'Observed agreements','No direct agreement is established.'),
+        category({'different'},'Observed differences','No direct difference is established.'),
+        category({'missing','no_observed_overlap'},'Missing or inconclusive observations','No missing or inconclusive comparison was recorded.'),
+        '<p>NFO duration is uploader-reported for the indicated stream or container; it is not an independently measured edition.</p>',
+        '<h2>Model assessment</h2>',prose('rationale','Rationale'),prose('uncertainty','Uncertainty'),fallback,
+        '<h3>Separate nonblocking limitations</h3><p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. Identity and acquisition remain unapproved. Listing and catalogue provenance were reviewed by the supervisor; source independence is not established.</p>',
+        '<details><summary>Technical details and previous attempts</summary>',prior_html,
+        '<p>Recorded status: '+escape(show(status))+'. Provider receipt is correlated, not provider-signed billing proof.</p>',
+        '<h3>Computed evidence comparisons</h3><ul>',raw_comparisons,'</ul>',
+        ('<h3>Film identity findings</h3><p>Reconciliations are model interpretations for human review, not verified facts.</p><h4>Model-reported findings</h4><ul>'+model_findings+'</ul>' if model_findings else ''),
+        '<h3>Evidence cited by the model</h3><ul>',
+        *[li('Listing' if c['evidence_id']=='source' else 'Catalogue',c['claim'].replace('_',' ')) for c in result['citations']],'</ul>',
+        '<p>Producer conflict remains for human review; matching IDs alone do not resolve it. No numeric score was assigned.</p></details>',
+        '<details><summary>Retained NFO text</summary><pre>'+escape(show(local['nfo_text']))+'</pre></details></body></html>'])
