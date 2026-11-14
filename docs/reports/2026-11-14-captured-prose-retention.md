@@ -77,8 +77,12 @@ complete invented HTTP401 → credential continuation → freshness → static-l
 rejection → completion-correction plain-prose rejection → prose-correction unsent
 report. They checked preserved prefixes/attempts/debits, exact original request
 and clocks, both retained answers, and duplicate/supplied-answer refusal.
-The additional bounded Unicode draft test is checked separately and by exact-head
-supported CI. Independent review and Python 3.12/3.13 CI gate repository merge.
+The additional bounded Unicode draft test and genuine installed-module successor
+test passed together (6.669 seconds) from an isolated public-code checkout.
+The installed successor uses the existing CLI, nonempty manifest and invented
+file/credential/HTTP adapters, checks both durable answers and their hashes,
+and proves one send plus restart refusal with zero external-I/O tripwires.
+This does not verify actual host privacy guards or credentials. Independent review and Python 3.12/3.13 CI gate repository merge.
 No test establishes actual private storage, credential or provider success.
 
 ## Handoff
