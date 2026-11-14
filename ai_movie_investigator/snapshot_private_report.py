@@ -156,7 +156,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         '<details><summary>Technical details and previous attempts</summary>',prior_html,
         '<p>Recorded status: '+escape(show(status))+'. Provider receipt is correlated, not provider-signed billing proof.</p>',
         '<h3>Computed evidence comparisons</h3><ul>',raw_comparisons,'</ul>',
-        ('<h3>Model-reported findings</h3><ul>'+model_findings+'</ul>' if model_findings else ''),
+        ('<h3>Film identity findings</h3><p>Reconciliations are model interpretations for human review, not verified facts.</p><h4>Model-reported findings</h4><ul>'+model_findings+'</ul>' if model_findings else ''),
         '<h3>Evidence cited by the model</h3><ul>',
         *[li('Listing' if c['evidence_id']=='source' else 'Catalogue',c['claim'].replace('_',' ')) for c in result['citations']],'</ul>',
         '<p>Producer conflict remains for human review; matching IDs alone do not resolve it. No numeric score was assigned.</p></details>',
