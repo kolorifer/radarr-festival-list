@@ -54,9 +54,22 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
     prior=report.get('previous_assessment')
     prior_html=''
     if prior is not None:
+        prior_rationale=('Its original rationale was withheld and cannot be recovered.' if prior['rationale'] in ('withheld_unrecoverable','withheld')
+                         else 'The previous explanation remains in the earlier retained report.')
         prior_html=('<h2>Earlier distinct assessment</h2><p>Status: '+escape(show(prior['status']))+
-            '; proposed identity: '+escape(show(prior['candidate']))+'. Its original rationale was withheld and cannot be recovered. '
+            '; proposed identity: '+escape(show(prior['candidate']))+'. '+prior_rationale+' '
             'The assessment below is a distinct new result, not a reconstruction of that rationale.</p>')
+    findings_html=''
+    if 'film_findings' in result:
+        def field_label(field, default):
+            return ('collector or producer field ' if field.startswith(('collector_','asserted_')) else default)+field
+        findings_html=('<h3>Film identity findings</h3><p>Reconciliations are model interpretations for human review, not verified facts.</p><ul>'+''.join(
+            li(f['aspect'].replace('_',' '),f['disposition']+': '+f['explanation']+
+                ' ('+field_label(f['source_field'],'listing field ')+'; '+field_label(f['catalogue_field'],'catalogue field ')+
+                '; cited '+', '.join(f['evidence'])+')') for f in result['film_findings'])+'</ul>'+
+            '<h3>Remaining film identity blockers</h3><ul>'+''.join(
+            li(b['aspect'].replace('_',' '),b['reason'].replace('_',' ')+'; cited '+', '.join(b['evidence']))
+            for b in result['film_blockers'])+'</ul>')
     text=['<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Private movie review</title></head><body>',
           '<h1>Private movie review</h1><p><a rel="noreferrer noopener" href="'+escape(local['tracker_url'],quote=True)+'">Open the exact source listing</a></p>',
           '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
@@ -70,6 +83,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
           prior_html,'<h2>Assessment</h2><ul>',li('Result',result['status']),li('Proposed IMDb',candidate.get('imdb') if candidate else None),
           li('Proposed TMDb',candidate.get('tmdb') if candidate else None),li('Rationale',result['rationale']),
           li('Uncertainty',result['uncertainty']),li('Next action',result['next_action']),'</ul>',
+          findings_html,
           '<h3>Evidence cited by the model</h3><ul>',
           *[li('Listing' if c['evidence_id']=='source' else 'Catalogue',c['claim'].replace('_',' ')) for c in result['citations']],'</ul>',
           '<p>The model proposal was checked against the bound identifiers and citations. No numeric score was assigned.</p>',

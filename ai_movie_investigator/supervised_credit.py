@@ -525,10 +525,10 @@ def prompt_credential():
     return ExplicitCredential(value)
 
 
-def request_value(body, *, captured=False):
+def request_value(body, *, captured=False, film_scope=False):
     """Captured request parsing has its own bound, never the answer allowance."""
     from .contracts import MAX_OUTPUT
-    if captured:
+    if captured or film_scope:
         from .new_case import CAPTURED_REQUEST_BYTES
         return decode(body,CAPTURED_REQUEST_BYTES)
     return decode(body,MAX_OUTPUT)
@@ -537,9 +537,10 @@ def request_value(body, *, captured=False):
 def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,historical=None,keychain=False,captured=None):
     grant=historical or captured
     body=encoded(grant['request']) if grant else request(run)
-    wire=request_value(body,captured=bool(captured))
+    film_scope=bool(historical and historical.get('contract_version')=='film_scope_v4')
+    wire=request_value(body,captured=bool(captured),film_scope=film_scope)
     disclosure=(decode(grant['request']['input'][0]['content'][0]['text'],
-        MAX_INPUT if captured else MAX_OUTPUT) if grant else None)
+        MAX_INPUT if captured or film_scope else MAX_OUTPUT) if grant else None)
     selection=dict(run=run,case=case,request_sha256=digest(wire),
                    local_context_sha256=digest(e))
     r=dict(mode='captured_nano_dormant' if captured else 'historical_nano_manual' if historical else 'synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
@@ -934,7 +935,8 @@ def standing_binding(events,enrolled,selected,slot):
     e=selected.data
     require(start['evidence_sha256']==selected.sha256 and start['evidence_hash']==digest(e) and
             start['expires_at']==e['expires_at'] and start['project']==e['project']==grant['project'] and
-            start['request_sha256']==digest(request_value(expected_request(events,enrolled,slot),captured='captured' in start)) and
+            start['request_sha256']==digest(request_value(expected_request(events,enrolled,slot),captured='captured' in start,
+                film_scope=start.get('historical',{}).get('contract_version')=='film_scope_v4')) and
             e['observed_at']<=start['at']<e['expires_at'],'supervised_standing_binding')
     return start,authorized
 
@@ -1057,6 +1059,9 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
             if 'reassessment' in historical:
                 from .snapshot_authorization import validate_reassessment
                 allowed_lineage.update(validate_reassessment(root,events,historical,creating=True))
+            if 'film_reassessment' in historical:
+                from .snapshot_authorization import validate_film_reassessment
+                allowed_lineage.update(validate_film_reassessment(root,events,historical,creating=True))
             for old,_ in attempts:
                 if old['slot'] in allowed_lineage:continue
                 if 'captured' in old:
