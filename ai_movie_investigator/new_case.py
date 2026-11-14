@@ -204,6 +204,9 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
     if started:
         held=_CAPTURED.get()
         expected_starts=2 if held is not None and 'continuation' in held.grant['authorization'] else 1
+        if held is not None and 'completion_correction' in held.grant['authorization']:
+            held.validate()
+            expected_starts=len([r for r in events[:held.grant['authorization']['completion_correction']['case_count']] if r.get('job')==job and r['type']=='new_case_generation_started'])+1
         require(len(started)==expected_starts and connected is not None and connected[0] is history and
                 connected[1:3]==(request_hash,digest(answer)), 'captured_completion_unbound')
     else:require(connected is None,'captured_completion_unbound')
@@ -216,7 +219,10 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
                 token[0] is history and token[1:]==(request_hash,digest(answer),digest(receipts[0])),
                 'simulated_completion_unbound')
         simulation_receipt = receipts[0]
-    require(not any(e['type'] == 'new_case_completion_started' and e['job'] == job for e in events),
+    correction=_CAPTURED.get() if connected is not None else None
+    prior_count=(correction.grant['authorization']['completion_correction']['case_count']
+        if correction is not None and 'completion_correction' in correction.grant['authorization'] else 0)
+    require(not any(e['type'] == 'new_case_completion_started' and e['job'] == job for e in events[prior_count:]),
             'completion_already_consumed')
     append(dict(type='new_case_completion_started', job=job, at=stamp(history.clock()),
                 reply_hash=digest(answer), provenance=provenance))
@@ -555,6 +561,118 @@ def _captured_continuation(root, root_events, history, events, authority, grant=
     return digest(old)
 
 
+# Exact local-defect successor; no recovery of the discarded answer.
+_OLD_CAPTURED_PROVENANCE = 'Fixed transport request/project correlation; not chat ingestion or delivery'
+_CAPTURED_PROVENANCE = 'Fixed transport request and project correlation; not chat ingestion or delivery'
+
+
+def _completion_fix(pin, authority):
+    from . import supervised_credit as c
+    shape(pin,'path sha256')
+    raw,identity=c._read_evidence(Path(pin['path']),32768);fix=decode(raw,32768)
+    require(raw==encoded(fix) and digest(fix)==pin['sha256'],'captured_correction_proof')
+    shape(fix,'kind prior_slot root_prefix_sha256 case_prefix_sha256 credit_prefix_sha256 '
+        'corrected_module_sha256 main_reference purpose reviewed issued_at expires_at')
+    a=authority['completion_correction']
+    require(fix['kind']=='captured_static_provenance_correction_v1' and fix['reviewed'] is True and
+        fix['prior_slot']==a['prior_slot'] and fix['root_prefix_sha256']==authority['root_prefix_sha256'] and
+        fix['case_prefix_sha256']==a['case_prefix_sha256'] and fix['credit_prefix_sha256']==a['credit_prefix_sha256'] and
+        fix['corrected_module_sha256']==hashlib.sha256(Path(__file__).read_bytes()).hexdigest() and
+        isinstance(fix['main_reference'],str) and bool(fix['main_reference'].strip()) and
+        fix['purpose']=='one_corrected_captured_assessment_after_static_provenance_defect' and
+        fix['main_reference'] in authority['owner_reference'] and pin['sha256'] in authority['owner_reference'] and
+        stamp(fix['issued_at'])<=time.time()<stamp(fix['expires_at']) and
+        fix['expires_at']>=authority['expires_at'],'captured_correction_proof')
+    return list(identity)
+
+
+def captured_completion_correction_consent(root,root_events,history,events,request_hash,evidence,*,prior_slot,correction):
+    """Main-issued proposal for one new attempt after the exact static-label bug."""
+    from . import supervised_credit as c
+    root.require_write_transaction(root_events);history.require_write_transaction(events)
+    attempts=c._standing_attempts(root_events,root_events[1])
+    require(attempts and attempts[-1][0]['slot']==prior_slot,'captured_correction_prior')
+    old=attempts[-1][0].get('captured');require(old is not None,'captured_correction_prior')
+    authority=captured_consent(root,root_events,history,events,request_hash,evidence)
+    rows=History(root.directory/f'attempt-{prior_slot}').read()
+    credit=History(root.directory/'credit').read()
+    terminal=[r for r in root_events if r.get('slot')==prior_slot and r['type']=='supervised_diagnostic']
+    require(len(terminal)==1,'captured_correction_prior')
+    authority['completion_correction']=dict(prior_slot=prior_slot,prior_grant_sha256=digest(old),
+        prior_attempt_sha256=digest(rows),prior_terminal_sha256=digest(terminal[0]),
+        case_prefix_sha256=digest(events),case_count=len(events),credit_prefix_sha256=digest(credit),
+        credit_count=len(credit),correction=correction)
+    authority['completion_correction']['correction_identity']=_completion_fix(correction,authority)
+    _captured_completion_correction(root,root_events,history,events,authority)
+    return authority
+
+
+def _captured_completion_correction(root,root_events,history,events,authority,grant=None):
+    from . import supervised_credit as c
+    root.require_write_transaction(root_events);history.require_write_transaction(events)
+    a=authority['completion_correction']
+    shape(a,'prior_slot prior_grant_sha256 prior_attempt_sha256 prior_terminal_sha256 case_prefix_sha256 '
+        'case_count credit_prefix_sha256 credit_count correction correction_identity')
+    require('continuation' not in authority and 'freshness' not in authority and
+        type(a['prior_slot']) is int and a['prior_slot']>=7,'captured_correction_prior')
+    require(_completion_fix(a['correction'],authority)==a['correction_identity'],'captured_correction_proof')
+    attempts=c._standing_attempts(root_events,root_events[1])
+    credit=History(root.directory/'credit').read()
+    prior=[s for s,_ in attempts if s['slot']==a['prior_slot']]
+    require(len(prior)==1 and 'captured' in prior[0],'captured_correction_prior')
+    old=prior[0]['captured'];oa=old['authorization']
+    require('completion_correction' not in oa and oa['owner_reference']!=authority['owner_reference'],'captured_correction_prior')
+    keys=('root_identity','case_directory','case_identity','case_file_identity','prepared_hash','request_hash',
+        'job','case','material_hash','disclosure_material_hash','capture_event','reconciliation_hash','request',
+        'request_sha256','project','account_reference','assessment_purpose')
+    require(all(authority.get(k)==oa.get(k) for k in keys),'captured_correction_changed')
+    rows=History(root.directory/f"attempt-{a['prior_slot']}").read()
+    terminal=[r for r in root_events if r.get('slot')==a['prior_slot'] and r['type']=='supervised_diagnostic']
+    require(len(terminal)==1 and terminal[0]['phase']=='captured_result_validation' and
+        terminal[0]['reason']=='unsafe_text' and terminal[0]['category']=='validation_refused' and 'cleanup_reason' not in terminal[0] and
+        not any(r.get('slot')==a['prior_slot'] and r['type']=='supervised_completed' for r in root_events) and
+        [r['type'] for r in rows]==['bound_send_reserved','bound_send_attempted','bound_send_receipt'],
+        'captured_correction_prior')
+    require(rows[-1]['request_sha256']==oa['request_sha256'] and
+        digest(rows)==a['prior_attempt_sha256'] and digest(old)==a['prior_grant_sha256'] and
+        digest(terminal[0])==a['prior_terminal_sha256'],'captured_correction_changed')
+    count=a['case_count'];require(type(count) is int and 3<=count<=len(events),'captured_correction_changed')
+    prefix=events[:count];require(digest(prefix)==a['case_prefix_sha256'],'captured_correction_changed')
+    selected=[r for r in prefix if r.get('job')==oa['job']]
+    starts=[r for r in selected if r['type']=='new_case_generation_started']
+    require(len(starts)==(2 if 'continuation' in oa else 1) and starts[-1]['grant_sha256']==digest(old) and
+        [r['type'] for r in selected if r['type'] in ('new_case_completion_started','new_case_completion_rejected','new_case_completed','new_case_simulated_send_started','invocation','result')]==
+        ['new_case_completion_started','new_case_completion_rejected'] and
+        prefix[-2]['type']=='new_case_completion_started' and prefix[-1]['type']=='new_case_completion_rejected' and
+        prefix[-2]['job']==prefix[-1]['job']==oa['job'] and
+        prefix[-2]['provenance']==dict(mode='receipt_correlated_generation',chat_reference=_OLD_CAPTURED_PROVENANCE),
+        'captured_correction_prior')
+    lineage=[a['prior_slot']]
+    if 'continuation' in oa:
+        ancestor=oa['continuation'];lineage.insert(0,ancestor['prior_slot'])
+        original=[s for s,_ in attempts if s['slot']==ancestor['prior_slot']]
+        require(len(original)==1 and ancestor['prior_slot']==a['prior_slot']-1 and
+            digest(original[0]['captured'])==ancestor['prior_grant_sha256'] and
+            starts[0]['grant_sha256']==ancestor['prior_grant_sha256'],'captured_correction_prior')
+    require(type(a['credit_count']) is int and len(credit)>=a['credit_count'] and
+        digest(credit[:a['credit_count']])==a['credit_prefix_sha256'],'captured_correction_changed')
+    retained=[r for r in credit[:a['credit_count']] if r['request_hash']==c.reservation_binding(prior[0])['request_hash']]
+    require(len(retained)==1 and retained[0]['reserved_usd']==[3,100],'captured_correction_changed')
+    uses=[s for s,_ in attempts if 'completion_correction' in s.get('captured',{}).get('authorization',{}) and
+        s['captured']['authorization']['completion_correction']['prior_slot']==a['prior_slot']]
+    if uses:
+        require(len(uses)==1 and grant is not None and uses[0]['captured']==grant and uses[0] is attempts[-1][0] and
+            uses[0]['slot']==a['prior_slot']+1 and uses[0]['prefix_sha256']==authority['root_prefix_sha256'] and
+            uses[0]['credit_count']==a['credit_count'] and uses[0]['credit_sha256']==a['credit_prefix_sha256'],
+            'captured_correction_consumed')
+    else:require(prior[0] is attempts[-1][0] and digest(root_events)==authority['root_prefix_sha256'] and
+        len(credit)==a['credit_count'],'captured_correction_consumed')
+    suffix=events[count:]
+    require(not suffix or (grant is not None and len(suffix)==1 and suffix[0]['type']=='new_case_generation_started' and
+        suffix[0]['job']==oa['job'] and suffix[0]['grant_sha256']==digest(grant)),'captured_correction_consumed')
+    return lineage
+
+
 def _freshness_access_fix(access_fix, slot, prefix, owner_reference, expires_at, now):
     from . import supervised_credit as c
     shape(access_fix,'path sha256')
@@ -708,13 +826,19 @@ class _CapturedCase:
             packet['event']==a['capture_event'] and p['reconciliation_hash']==a['reconciliation_hash'] and
             packet['binding']==a['case'] and expected==body and digest(self.evidence)==a['evidence_hash'] and
             self.evidence['account_reference']==a['account_reference'], 'captured_selection_changed')
+        prior_count=0
+        if 'completion_correction' in a:
+            _captured_completion_correction(self.root,self.root_events,self.history,self.events,a,self.grant)
+            prior_count=a['completion_correction']['case_count']
         require(not any(e.get('job')==p['job'] and e['type'] in ('invocation','result',
-            'new_case_completion_started','new_case_simulated_send_started') for e in self.events), 'assessment_already_consumed')
+            'new_case_completion_started','new_case_simulated_send_started') for e in self.events[prior_count:]), 'assessment_already_consumed')
         starts=[e for e in self.events if e.get('job')==p['job'] and e['type']=='new_case_generation_started']
         if 'freshness' in a:
             prefix=self.events[:-1] if self.started else self.events
             require(digest(prefix)==a['freshness']['case_prefix_sha256'], 'captured_freshness_changed')
-        if 'continuation' in a:
+        if 'completion_correction' in a:
+            require(len(self.events)-prior_count==(1 if self.started else 0),'captured_correction_consumed')
+        elif 'continuation' in a:
             _captured_continuation(self.root,self.root_events,self.history,self.events,a,self.grant)
             require(len(starts)==(2 if self.started else 1),'captured_generation_consumed')
         else:
@@ -741,7 +865,7 @@ class _CapturedCase:
             return _complete_locked(self.history,self.events,self.append,request_hash,answer,
                 dict(mode='simulation' if proof['simulated'] else 'receipt_correlated_generation',
                      chat_reference='Connected fake socket fixture; no authenticated provider or delivery' if proof['simulated'] else
-                         'Fixed transport request/project correlation; not chat ingestion or delivery'))
+                         _CAPTURED_PROVENANCE))
         finally:_CONNECTED_COMPLETION.reset(marker)
 
 
@@ -780,7 +904,10 @@ def authorize_captured(directory,selected,case_directory,request_hash,authority_
         with history.transaction(write=True) as (events,append):
             expected=captured_consent(root,root_events,history,events,request_hash,selected.data)
             raw,identity=c._read_evidence(Path(authority_path),CAPTURED_AUTHORITY_BYTES);a=decode(raw,CAPTURED_AUTHORITY_BYTES)
-            if 'continuation' in a:
+            if 'completion_correction' in a:
+                expected=captured_completion_correction_consent(root,root_events,history,events,request_hash,selected.data,
+                    prior_slot=a['completion_correction']['prior_slot'],correction=a['completion_correction']['correction'])
+            elif 'continuation' in a:
                 expected=captured_continuation_consent(root,root_events,history,events,request_hash,selected.data,
                     prior_slot=a['continuation']['prior_slot'],owner_reference=a['continuation']['owner_reference'])
             require(raw==encoded(a) and digest(a)==authority_sha256 and a==expected,'captured_authority_changed')

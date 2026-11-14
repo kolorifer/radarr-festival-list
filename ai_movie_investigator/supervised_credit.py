@@ -32,7 +32,7 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
-    'captured_refused': frozenset(('captured_freshness_state captured_freshness_started captured_freshness_not_expired captured_freshness_changed captured_freshness_access_fix captured_freshness_consumed captured_continuation_prior captured_continuation_owner captured_continuation_changed captured_continuation_consumed verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
+    'captured_refused': frozenset(('captured_correction_proof captured_correction_prior captured_correction_changed captured_correction_consumed captured_freshness_state captured_freshness_started captured_freshness_not_expired captured_freshness_changed captured_freshness_access_fix captured_freshness_consumed captured_continuation_prior captured_continuation_owner captured_continuation_changed captured_continuation_consumed verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
     'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid keychain_process_required keychain_lookup_timeout keychain_lookup_busy keychain_framework_unavailable keychain_interaction_get_failed keychain_interaction_disable_failed keychain_interaction_restore_failed keychain_query_build_failed keychain_query_failed keychain_release_failed keychain_not_available keychain_parameter_invalid keychain_entitlement_missing').split()),
     'historical_report_refused': frozenset(('pilot_run_alias_changed pilot_one_generation_required pilot_citation_alias_unknown pilot_citation_claim_not_disclosed model_status next_action alternative_limit citation_limit unsupported_citation unsupported_claim unsupported_candidate candidate_status alternative_evidence_missing candidate_evidence_missing conflicting_ids_require_review owner_target_conflict stale_candidate_support insufficient_candidate_support normalized_identity_not_established').split()),
     'historical_refused': frozenset(('historical_expanded_required historical_disclosure_size historical_disclosure_changed historical_owner_confirmation_required historical_receipt_missing historical_route_required historical_pending_grant historical_assessment_consumed historical_renewal_changed historical_renewal_authority historical_renewal_expired historical_renewal_prior historical_renewal_consumed').split()),
@@ -839,6 +839,9 @@ def _standing_attempts(events,enrolled):
 def reservation_binding(start):
     """Keep wire hash; namespace only a selected captured successor's debit."""
     a=start.get('captured',{}).get('authorization',{})
+    if 'completion_correction' in a:
+        binding=dict(wire_request_hash=start['request_sha256'],continuation_authority_sha256=digest(a))
+        return dict(request_hash=digest(dict(kind='captured_completion_correction_reservation',**binding)),**binding)
     if 'continuation' not in a:return dict(request_hash=start['request_sha256'])
     binding=dict(wire_request_hash=start['request_sha256'],continuation_authority_sha256=digest(a))
     return dict(request_hash=digest(dict(kind='captured_credential_continuation_reservation',**binding)),**binding)
@@ -1000,7 +1003,12 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
         require(any(e.get('type')=='supervised_started' and e.get('slot')==attempts[-1][0]['slot'] for e in events),'captured_pending_grant')
     if captured:
         authority=captured['authorization']
+        correction_lineage=[]
+        if 'completion_correction' in authority:
+            from .new_case import _captured_completion_correction
+            correction_lineage=_captured_completion_correction(root,events,held.history,held.events,authority,captured)
         for old,_ in attempts:
+            if old['slot'] in correction_lineage:continue
             if 'captured' not in old:continue
             prior=old['captured']['authorization']
             if authority.get('continuation',{}).get('prior_slot')==old['slot']:
