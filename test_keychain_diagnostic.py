@@ -149,7 +149,7 @@ class KeychainCommandTests(unittest.TestCase):
         from ai_movie_investigator.installation import install_runtime,verify_installation
         self.h.authorize()
         installed=self.f.f.root/'installed-keychain';installed.mkdir(mode=0o700)
-        manifest=install_runtime(Path(__file__).resolve().parent,installed);self.assertEqual(len(manifest),42)
+        manifest=install_runtime(Path(__file__).resolve().parent,installed);self.assertEqual(len(manifest),44)
         hooks=self.f.f.root/'keychain-hooks';hooks.mkdir(mode=0o700)
         hook='''
 import atexit,errno,os,sys
