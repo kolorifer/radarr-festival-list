@@ -2242,3 +2242,5 @@ above remain unchanged.
 ### Film-scope snapshot contract
 
 The dormant normalized-snapshot path has a separately versioned film-scope contract and a receipt-bound, one-child reassessment gate. It distinguishes film identity from edition, queue and approval, retains field-level findings, and preserves earlier serialized contracts and attempt history. See [the film-scope report](reports/2026-11-14-snapshot-film-scope.md). No live operation is authorized by this code change.
+
+The separately versioned [film findings structure correction](reports/2026-11-14-film-findings-structure.md) requires six distinct named findings and admits one reviewed successor of the exact receipt-backed structural refusal. It preserves prior evidence and does not reconstruct the unretained answer.
