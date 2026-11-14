@@ -1,3 +1,11 @@
+## Captured prose withholding, 2026-11-14
+
+Connected final assessments retain validated structured judgment while explicitly
+withholding prose that fails the existing text policy. Original response hashes
+and safe retained hashes remain distinct. One exact main-bound prose-correction
+successor preserves prior consumed history; no generic replay is introduced.
+See [diagnosis, scope and validation](reports/2026-11-14-captured-prose-retention.md).
+
 ## Captured provenance label, 2026-11-14
 
 Receipt-correlated captured completion now uses a slash-free static provenance
