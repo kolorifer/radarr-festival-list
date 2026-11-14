@@ -59,6 +59,9 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         prior_html=('<h2>Earlier distinct assessment</h2><p>Status: '+escape(show(prior['status']))+
             '; proposed identity: '+escape(show(prior['candidate']))+'. '+prior_rationale+' '
             'The assessment below is a distinct new result, not a reconstruction of that rationale.</p>')
+    if report.get('previous_structure_refusal') is not None:
+        prior_html=('<h2>Earlier structural refusal</h2><p>The earlier assessment received a receipt but its findings failed structural validation. '
+            'Its answer was not retained. This is a distinct corrected assessment.</p>')
     findings_html=''
     if 'film_findings' in result:
         def field_label(field, default):

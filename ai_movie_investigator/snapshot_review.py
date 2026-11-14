@@ -415,3 +415,45 @@ def validate_film_scope(projection, prepared, reply, *, now):
     validated['film_findings'] = findings
     validated['film_blockers'] = blockers
     return validated
+
+
+FILM_ASPECTS = ('title','year','people','runtime_description','runtime_nfo','ids')
+
+
+def build_film_structure(projection):
+    """Distinct v5 contract: required named fields replace the v4 array."""
+    import copy
+    prepared=copy.deepcopy(build_film_scope(projection));wire=prepared['request']
+    schema=wire['text']['format']['schema'];item=schema['properties']['film_findings']['items']
+    props=copy.deepcopy(item['properties']);props.pop('aspect')
+    fields={'title':(['title'],['title']), 'year':(['year'],['theatrical_year','festival_years']),
+        'people':(['cast','directors'],['cast','directors']),
+        'runtime_description':(['description_runtime_minutes'],['runtime_minutes']),
+        'runtime_nfo':(['nfo_runtime_milliseconds'],['runtime_minutes']),
+        'ids':(['imdb','collector_imdb','collector_tmdb','asserted_imdb','asserted_tmdb'],
+               ['imdb','tmdb','collector_imdb','collector_tmdb','asserted_imdb','asserted_tmdb'])}
+    named={}
+    for aspect,(source,catalogue) in fields.items():
+        p=copy.deepcopy(props);p['source_field']['enum']=source+['none'];p['catalogue_field']['enum']=catalogue+['none']
+        named[aspect]=dict(type='object',properties=p,required=list(p),additionalProperties=False)
+    schema['properties']['film_findings']=dict(type='object',properties=named,
+        required=list(FILM_ASPECTS),additionalProperties=False)
+    wire['instructions']=wire['instructions'].replace('Return one finding for each of the six listed aspects.',
+        'Return film_findings as one object with all six required named aspect properties.')
+    require(len(encoded(wire))<=65536,'snapshot_disclosure_size')
+    return prepared
+
+
+def validate_film_structure(projection,prepared,reply,*,now):
+    """Validate the named structure, then reuse every v4 semantic guard."""
+    import copy
+    require(prepared==build_film_structure(projection),'snapshot_prepared_changed')
+    answer=copy.deepcopy(reply)
+    require(type(answer) is dict and type(answer.get('film_findings')) is dict and
+            set(answer['film_findings'])==set(FILM_ASPECTS),'snapshot_film_structure')
+    findings=answer['film_findings'];answer['film_findings']=[]
+    for aspect in FILM_ASPECTS:
+        entry=findings[aspect]
+        require(type(entry) is dict and 'aspect' not in entry,'snapshot_film_structure')
+        answer['film_findings'].append(dict(aspect=aspect,**entry))
+    return validate_film_scope(projection,build_film_scope(projection),answer,now=now)
