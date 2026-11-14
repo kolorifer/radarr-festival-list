@@ -741,7 +741,7 @@ class _CapturedCase:
             return _complete_locked(self.history,self.events,self.append,request_hash,answer,
                 dict(mode='simulation' if proof['simulated'] else 'receipt_correlated_generation',
                      chat_reference='Connected fake socket fixture; no authenticated provider or delivery' if proof['simulated'] else
-                         'Fixed transport request/project correlation; not chat ingestion or delivery'))
+                         'Fixed transport request and project correlation; not chat ingestion or delivery'))
         finally:_CONNECTED_COMPLETION.reset(marker)
 
 

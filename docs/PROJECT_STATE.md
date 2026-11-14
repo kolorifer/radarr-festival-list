@@ -1,3 +1,10 @@
+## Captured provenance label, 2026-11-14
+
+Receipt-correlated captured completion now uses a slash-free static provenance
+label compatible with the existing text guard. This fixes deterministic local
+rejection without changing validation or enabling replay of consumed attempts.
+See the [scope and validation](reports/2026-11-14-captured-provenance-label.md).
+
 ## Unstarted captured freshness, 2026-11-14
 
 A single append-only freshness record can reauthorize the same expired but
