@@ -34,7 +34,7 @@ def _simulated_captured_io():
 def _request_value(session,body):
     from .supervised_credit import request_value
     return request_value(body,captured=hasattr(session,'captured'),
-        film_scope=getattr(session,'snapshot_grant',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6'))
+        film_scope=getattr(session,'snapshot_grant',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7'))
 
 
 class _Permit:
@@ -101,7 +101,7 @@ class _Session:
                 from .historical_nano import renewal_history
                 renewal_history(self.root,self.events,grant,creating=False)
             if grant and grant.get('snapshot_profile') == 'normalized_snapshot_v1':
-                from .snapshot_authorization import active,validate_grant,validate_correction,validate_reassessment,validate_film_reassessment,validate_film_structure_correction,validate_comparison_correction
+                from .snapshot_authorization import active,validate_grant,validate_correction,validate_reassessment,validate_film_reassessment,validate_film_structure_correction,validate_comparison_correction,validate_result_correction
                 active().check_root(self.root,self.events,e)
                 validate_grant(grant,e['project'])
                 if 'correction' in grant:validate_correction(self.root,self.events,grant,creating=False)
@@ -109,6 +109,7 @@ class _Session:
                 if 'film_reassessment' in grant:validate_film_reassessment(self.root,self.events,grant,creating=False)
                 if 'film_structure_correction' in grant:validate_film_structure_correction(self.root,self.events,grant,creating=False)
                 if 'comparison_correction' in grant:validate_comparison_correction(self.root,self.events,grant,creating=False)
+                if 'result_correction' in grant:validate_result_correction(self.root,self.events,grant,creating=False)
         require(self.enrolled.get('project')==project==e['project'],'supervised_enrollment_binding')
         require(credential is self.credential,'supervised_credential_binding')
         for h,pin in ((self.root,self.enrolled['root']),(self.credit,self.enrolled['credit']),
@@ -167,7 +168,7 @@ class _Session:
         require(_ACTIVE.get() is self and hasattr(self,'snapshot_grant') and self.snapshot_receipt is not None and
                 self.snapshot_receipt[0]==answer,'snapshot_receipt_unbound')
         from .snapshot_authorization import report
-        return report(self.snapshot_grant,decode(answer,32768 if self.snapshot_grant.get('contract_version')=='film_comparisons_v6' else 8192),self.history)
+        return report(self.snapshot_grant,decode(answer,32768 if self.snapshot_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7') else 8192),self.history)
 
     def bind_captured_receipt(self,result,answer):
         if not hasattr(self,'captured'):return
@@ -269,7 +270,7 @@ def selected_answer_limit(result):
     if session is None or result is None or result is not session.received:return 8192
     session.root.require_write_transaction(session.events)
     grant=getattr(session,'snapshot_grant',{})
-    if grant.get('contract_version')!='film_comparisons_v6':return 8192
+    if grant.get('contract_version') not in ('film_comparisons_v6','film_result_v7'):return 8192
     require(result.request_sha256==digest(grant['request']),'snapshot_selection_changed')
     return 32768
 

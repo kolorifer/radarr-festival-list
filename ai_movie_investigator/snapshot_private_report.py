@@ -65,6 +65,9 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
     if report.get('previous_field_refusal') is not None:
         prior_html=('<h2>Earlier field-validation refusal</h2><p>The earlier assessment received a receipt but failed a field validation check. '
             'Its answer was not retained, so the specific failed comparison is unknown. This is a distinct corrected assessment.</p>')
+    if report.get('previous_result_refusal') is not None:
+        prior_html=('<h2>Earlier result refusal</h2><p>The earlier assessment received a receipt but did not provide a required film blocker. '
+            'Its answer was not retained. This is a distinct corrected assessment.</p>')
     findings_html=''
     if 'film_findings' in result:
         def field_label(field, default):

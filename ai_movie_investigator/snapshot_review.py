@@ -569,3 +569,63 @@ def validate_film_comparisons(projection,prepared,reply,*,now):
         require(bool(blockers),'snapshot_comparison_blocker_missing')
     result['film_comparisons']=comparisons;result['film_blockers']=blockers
     return result
+
+
+def build_film_result(projection):
+    """v7 binds the candidate, citations and blocker to each result variant."""
+    import copy
+    from .disclosure import evidence_alias
+    prepared=copy.deepcopy(build_film_comparisons(projection));wire=prepared['request']
+    schema=wire['text']['format']['schema'];schema['properties'].pop('film_blockers');schema['required'].remove('film_blockers')
+    comparisons=film_comparisons(projection);choices=[]
+    for aspect in FILM_ASPECTS:
+        relations={r['relation'] for r in comparisons[aspect]};reasons=['ambiguous_film_evidence']
+        if 'missing' in relations:reasons.append('missing_film_evidence')
+        if 'different' in relations:reasons.append('conflicting_film_evidence')
+        choices.append(dict(type='object',properties=dict(aspect=dict(type='string',enum=[aspect]),
+            reason=dict(type='string',enum=reasons)),required=['aspect','reason'],additionalProperties=False))
+    blocker=dict(anyOf=choices);variants=[]
+    for original in schema['properties']['result']['anyOf']:
+        variant=copy.deepcopy(original);props=variant['properties'];status=props['status']['enum']
+        props.pop('citations');variant['required'].remove('citations')
+        if status==['supported_candidate']:
+            positive=any(row['relation'] in ('exact','overlap') for row in
+                (comparisons['title'][:1]+comparisons['year'][:2]+comparisons['people']+comparisons['runtime_description']))
+            if projection['listing']['nfo_runtime_kind'] in ('container','video'):
+                positive=positive or comparisons['runtime_nfo'][0]['relation']=='exact'
+            if comparisons['title'][0]['relation']=='different' or not positive:continue
+            def citation(key,claim):
+                return dict(type='object',properties=dict(evidence_id=dict(type='string',enum=[evidence_alias(prepared['run'],key)]),
+                    claim=dict(type='string',enum=[claim])),required=['evidence_id','claim'],additionalProperties=False)
+            props['source_citation']=citation('source','source_identity');props['catalogue_citation']=citation('catalogue','crosswalk')
+            props['primary_blocker']=dict(type='null');props['additional_blockers']=dict(type='array',maxItems=0,items=blocker)
+            props['next_action']=dict(type='string',enum=['human_review'])
+            variant['required']+=['source_citation','catalogue_citation','primary_blocker','additional_blockers']
+        else:
+            props['primary_blocker']=blocker;props['additional_blockers']=dict(type='array',maxItems=5,items=blocker)
+            variant['required']+=['primary_blocker','additional_blockers']
+        variants.append(variant)
+    schema['properties']['result']=dict(anyOf=variants)
+    wire['instructions']=wire['instructions'].replace(
+        'For supported identity cite source identity and catalogue crosswalk, use no film blockers, and request human review. '
+        'For unresolved or blocked identity provide at least one film blocker naming an aspect and a reason. ',
+        'For supported identity use the required source and catalogue citations, a null primary blocker, no additional blockers and human review. '
+        'For unresolved or blocked identity provide the required primary film blocker and any additional blockers. ')
+    require(len(encoded(wire))<=65536,'snapshot_disclosure_size')
+    return prepared
+
+
+def validate_film_result(projection,prepared,reply,*,now):
+    """Normalize v7 into the exact v6 validation path without changing facts."""
+    import copy
+    from .responses_protocol import schema_value
+    require(prepared==build_film_result(projection),'snapshot_prepared_changed')
+    schema_value(reply,prepared['request']['text']['format']['schema'])
+    answer=copy.deepcopy(reply);result=answer['result']
+    primary=result.pop('primary_blocker');additional=result.pop('additional_blockers')
+    if result['status']=='supported_candidate':
+        result['citations']=[result.pop('source_citation'),result.pop('catalogue_citation')]
+        answer['film_blockers']=[]
+    else:
+        result['citations']=[];answer['film_blockers']=[primary]+additional
+    return validate_film_comparisons(projection,build_film_comparisons(projection),answer,now=now)
