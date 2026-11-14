@@ -63,15 +63,16 @@ def reserve(history, *, project, request_hash, input_bound, now, file_identity, 
     output_limit=selected_output_limit(request_hash)
     maximum = input_bound * INPUT_RATE + output_limit * OUTPUT_RATE
     require(maximum <= Fraction(*debit), 'credit_request_ceiling')
-    from .supervised_authorization import reservation_ceiling
+    from .supervised_authorization import reservation_ceiling, selected_reservation_binding
+    binding=selected_reservation_binding(history,project,request_hash)
     ceiling=reservation_ceiling(history,project,request_hash)
     with history.transaction(write=True, file_identity=file_identity) as (events, append):
         retained=retained_total(events,project)
-        require(not any(e['request_hash'] == request_hash for e in events), 'credit_request_consumed')
+        require(not any(e['request_hash'] == binding['request_hash'] for e in events), 'credit_request_consumed')
         require(retained + Fraction(*debit) <= ceiling, 'credit_total_ceiling')
         require(all(now >= e['at'] for e in events), 'credit_clock_rollback')
         append(dict(type='credit_test_reserved', project=project, model=INTEGRATION_MODEL,
-                    request_hash=request_hash, reserved_usd=list(debit), at=now))
+                    **binding, reserved_usd=list(debit), at=now))
     return list(debit)
 
 

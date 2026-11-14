@@ -202,7 +202,9 @@ def _complete_locked(history, events, append, request_hash, answer, provenance):
     connected = _CONNECTED_COMPLETION.get()
     started = [e for e in events if e['type']=='new_case_generation_started' and e['job']==job]
     if started:
-        require(len(started)==1 and connected is not None and connected[0] is history and
+        held=_CAPTURED.get()
+        expected_starts=2 if held is not None and 'continuation' in held.grant['authorization'] else 1
+        require(len(started)==expected_starts and connected is not None and connected[0] is history and
                 connected[1:3]==(request_hash,digest(answer)), 'captured_completion_unbound')
     else:require(connected is None,'captured_completion_unbound')
     simulated = [e for e in events if e['type']=='new_case_simulated_send_started' and e['job']==job]
@@ -476,6 +478,82 @@ def captured_consent(root, root_events, history, events, request_hash, evidence)
     return consent
 
 
+
+def captured_continuation_consent(root, root_events, history, events, request_hash, evidence,
+                                  *, prior_slot, owner_reference):
+    """Proposal only: one owner-resumed 401 after an attested credential change."""
+    from . import supervised_credit as c
+    root.require_write_transaction(root_events); history.require_write_transaction(events)
+    attempts=c._standing_attempts(root_events,root_events[1])
+    require(attempts and attempts[-1][0]['slot']==prior_slot,'captured_continuation_prior')
+    old=attempts[-1][0].get('captured')
+    require(old is not None,'captured_continuation_prior')
+    terminals=[e for e in root_events if e.get('slot')==prior_slot and e['type']=='supervised_diagnostic']
+    require(len(terminals)==1,'captured_continuation_prior')
+    authority=captured_consent(root,root_events,history,events,request_hash,evidence)
+    require(evidence['owner_reference']==owner_reference,'captured_continuation_owner')
+    authority['continuation']=dict(prior_slot=prior_slot,prior_grant_sha256=digest(old),
+        prior_attempt_sha256=digest(History(root.directory/f'attempt-{prior_slot}').read()),
+        prior_terminal_sha256=digest(terminals[0]),case_prefix_sha256=digest(events),
+        material_credential_correction_attested=True,owner_reference=owner_reference)
+    _captured_continuation(root,root_events,history,events,authority)
+    return authority
+
+
+def _captured_continuation(root, root_events, history, events, authority, grant=None):
+    """Check preserved failure and single-use successor under root then case locks."""
+    from . import supervised_credit as c
+    root.require_write_transaction(root_events);history.require_write_transaction(events)
+    a=authority['continuation']
+    shape(a,'prior_slot prior_grant_sha256 prior_attempt_sha256 prior_terminal_sha256 '
+          'case_prefix_sha256 material_credential_correction_attested owner_reference')
+    require(type(a['prior_slot']) is int and a['prior_slot']>=7 and
+        a['material_credential_correction_attested'] is True and
+        isinstance(a['owner_reference'],str) and bool(a['owner_reference'].strip()) and
+        a['owner_reference']==authority['owner_reference'],'captured_continuation_owner')
+    attempts=c._standing_attempts(root_events,root_events[1])
+    prior=[s for s,_ in attempts if s['slot']==a['prior_slot']]
+    require(len(prior)==1 and 'captured' in prior[0],'captured_continuation_prior')
+    old=prior[0]['captured'];oa=old['authorization']
+    require('continuation' not in oa and oa['owner_reference']!=a['owner_reference'],
+        'captured_continuation_owner')
+    terminal=[e for e in root_events if e.get('slot')==a['prior_slot'] and e['type']=='supervised_diagnostic']
+    rows=History(root.directory/f"attempt-{a['prior_slot']}").read()
+    reservations=History(root.directory/'credit').read()
+    retained=[r for r in reservations if r['request_hash']==prior[0]['request_sha256']]
+    require(len(retained)==1 and retained[0]['reserved_usd']==[3,100], 'captured_continuation_prior')
+    require(len(terminal)==1 and terminal[0]['reason']=='responses_http_401' and
+        terminal[0]['phase']=='http_response_received' and terminal[0]['category']=='transport_refused' and
+        'cleanup_reason' not in terminal[0] and
+        [r['type'] for r in rows]==['bound_send_reserved','bound_send_attempted'] and
+        not any(e.get('slot')==a['prior_slot'] and e['type']=='supervised_completed' for e in root_events),
+        'captured_continuation_prior')
+    require(digest(old)==a['prior_grant_sha256'] and digest(rows)==a['prior_attempt_sha256'] and
+        digest(terminal[0])==a['prior_terminal_sha256'],'captured_continuation_changed')
+    # Preserve the prepared occurrence, disclosure and clocks, not just a title.
+    keys=('root_identity','case_directory','case_identity','case_file_identity','prepared_hash',
+          'request_hash','job','case','material_hash','disclosure_material_hash','capture_event',
+          'reconciliation_hash','request','request_sha256','project','account_reference','assessment_purpose')
+    require(all(authority.get(k)==oa.get(k) for k in keys),'captured_continuation_changed')
+    uses=[s for s,_ in attempts if s.get('captured',{}).get('authorization',{}).get('continuation',{}).get('prior_slot')==a['prior_slot']]
+    if uses:
+        require(len(uses)==1 and grant is not None and uses[0]['captured']==grant and
+            uses[0] is attempts[-1][0] and uses[0]['slot']==a['prior_slot']+1 and
+            uses[0]['prefix_sha256']==authority['root_prefix_sha256'],'captured_continuation_consumed')
+    else:
+        require(prior[0] is attempts[-1][0] and digest(root_events)==authority['root_prefix_sha256'],
+            'captured_continuation_consumed')
+    starts=[e for e in events if e.get('job')==authority['job'] and e['type']=='new_case_generation_started']
+    require(starts and starts[0]['grant_sha256']==digest(old),'captured_continuation_changed')
+    prefix=events
+    if len(starts)==2:
+        require(grant is not None and events[-1] is starts[-1] and
+            starts[-1]['grant_sha256']==digest(grant),'captured_continuation_consumed')
+        prefix=events[:-1]
+    else:require(len(starts)==1,'captured_continuation_consumed')
+    require(digest(prefix)==a['case_prefix_sha256'],'captured_continuation_changed')
+    return digest(old)
+
 def validate_captured(grant, project):
     """Validate exact private authority; JSON alone never opens the closed gate."""
     from .supervised_credit import _read_evidence
@@ -529,8 +607,12 @@ class _CapturedCase:
         require(not any(e.get('job')==p['job'] and e['type'] in ('invocation','result',
             'new_case_completion_started','new_case_simulated_send_started') for e in self.events), 'assessment_already_consumed')
         starts=[e for e in self.events if e.get('job')==p['job'] and e['type']=='new_case_generation_started']
-        require((not starts and not self.started) or (self.started and len(starts)==1 and
-            starts[0]['grant_sha256']==digest(self.grant)), 'captured_generation_consumed')
+        if 'continuation' in a:
+            _captured_continuation(self.root,self.root_events,self.history,self.events,a,self.grant)
+            require(len(starts)==(2 if self.started else 1),'captured_generation_consumed')
+        else:
+            require((not starts and not self.started) or (self.started and len(starts)==1 and
+                starts[0]['grant_sha256']==digest(self.grant)), 'captured_generation_consumed')
         return body
 
     def start(self):
@@ -591,6 +673,9 @@ def authorize_captured(directory,selected,case_directory,request_hash,authority_
         with history.transaction(write=True) as (events,append):
             expected=captured_consent(root,root_events,history,events,request_hash,selected.data)
             raw,identity=c._read_evidence(Path(authority_path),CAPTURED_AUTHORITY_BYTES);a=decode(raw,CAPTURED_AUTHORITY_BYTES)
+            if 'continuation' in a:
+                expected=captured_continuation_consent(root,root_events,history,events,request_hash,selected.data,
+                    prior_slot=a['continuation']['prior_slot'],owner_reference=a['continuation']['owner_reference'])
             require(raw==encoded(a) and digest(a)==authority_sha256 and a==expected,'captured_authority_changed')
             grant=dict(authority_path=str(Path(authority_path)),authority_sha256=authority_sha256,
                 authority_identity=list(identity),authorization=a,run='captured-'+digest(a),case=a['case'],request=a['request'])

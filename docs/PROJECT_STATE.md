@@ -1,3 +1,11 @@
+## Explicit captured credential continuation, 2026-11-14
+
+One owner-resumed successor after a precisely bound terminal HTTP 401 preserves
+the same prepared request, original failed slot and all debits. It requires a
+new owner reference and credential-correction attestation, and cannot chain or
+retry automatically. Live activation remains separate. See the
+[scope and verification](reports/2026-11-14-captured-credential-continuation.md).
+
 ## Append-only promotional renewal, 2026-11-11
 
 A single explicit successor promotional-grant record can extend the expired
