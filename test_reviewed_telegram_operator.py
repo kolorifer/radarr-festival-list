@@ -28,7 +28,10 @@ class DeliveryTests(unittest.TestCase):
   self.plan=dict(kind='reviewed_original_card_v1',case_id=self.pin['case_id'],version='d'*64,review_sha256='a'*64,report_sha256='b'*64,receipt_sha256='c'*64,html_sha256='e'*64,local_context_sha256='f'*64,source_url='https://example.invalid/listing/123',candidate=None,summary=dict(discrepancy='Mismatch.',evidence='Evidence.',uncertainty='Unknown.'),reviewed_at=self.now,text='Reviewed proposal. No download approved.\nSource listing: https://example.invalid/listing/123',production_approved=False,download_approved=False)
   self.boundary=dict(kind='main_verified_sender_boundary_v1',single_serial_pump=True,no_other_edit_writers=True,no_original_binding_republication=True,
     deployed_revision='06d17aafefb5a5161364e4bf6f63667a649e1aa3',verified_reference='invented:topology',reviewed_plan_sha256=digest(self.plan),observed_at=self.now,expires_at=self.now+120)
- def call(self,edit):return t.deliver(self.s,self.plan,self.pin,SOURCES,self.boundary,edit,clock=lambda:self.now)
+ def call(self,edit):return t.deliver(self.s,self.plan,self.pin,SOURCES,self.boundary,edit,private_guard=self.guard(),clock=lambda:self.now)
+ def guard(self):
+  from ai_movie_investigator import private_files
+  return dict(private_chain=private_files.private_chain,read_private=private_files.read_private)
  def test_exact_edit_ack_restart_and_old_pump_no_overwrite(self):
   edit=Mock();first=self.call(edit);self.assertEqual(first['status'],'acknowledged');edit.assert_called_once_with([self.ref],{'text':self.plan['text'],'token':None})
   self.s=RetryStore(self.s.directory,clock=lambda:self.now);self.assertEqual(self.call(edit),first);self.assertEqual(edit.call_count,1)
@@ -103,6 +106,24 @@ class DeliveryTests(unittest.TestCase):
    self.call(edit)
   edit.assert_not_called()
   with self.s.tx() as c:self.assertIsNone(c.execute("select name from sqlite_master where name='reviewed_telegram_edits'").fetchone())
+
+ def test_spool_acl_and_parent_change_refuse_without_send(self):
+  from unittest.mock import patch
+  from ai_movie_investigator import private_files as pf
+  spool=self.s.directory/'message-bindings';spool.mkdir(mode=0o700)
+  item=dict(version='f'*64,refs=json.dumps([dict(self.ref,message_id=18)]))
+  path=spool/(item['version']+'.json');path.write_text(json.dumps(item));path.chmod(0o600)
+  acl=pf.safe_acl;inode=spool.stat().st_ino
+  def denied(fd,directory):
+   if os.fstat(fd).st_ino==inode:raise ValueError('storage_acl')
+   return acl(fd,directory)
+  with patch.object(pf,'safe_acl',side_effect=denied),self.assertRaisesRegex(ValueError,'storage_acl'):
+   self.call(Mock(side_effect=AssertionError()))
+  original=pf.read_private
+  def replaced(path,limit):
+   raw=original(path,limit);spool.rename(self.s.directory/'old-spool');spool.mkdir(mode=0o700);return raw
+  with patch.object(pf,'read_private',side_effect=replaced),self.assertRaisesRegex(ValueError,'parent_changed'):
+   self.call(Mock(side_effect=AssertionError()))
 
 class PlanTests(unittest.TestCase):
  def fixture(self):

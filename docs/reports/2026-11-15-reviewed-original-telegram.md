@@ -62,7 +62,7 @@ its existing acknowledgement handling completed; it is not human ingestion.
   uncertainty; these are authored/verified by main, not model-controlled commands.
 - `inspect_target(store, version, sources)` returns the exact read-only original
   row/ref/source binding for main to verify and pin.
-- `deliver(store, plan, target_pin, sources, boundary, edit)` accepts the existing
+- `deliver(store, plan, target_pin, sources, boundary, edit, private_guard=guard)` accepts the existing
   approved sender's `edit_retry_message` function in memory. Main supplies exact
   plan acceptance and a fresh verified actor boundary. The helper does not read
   bot configuration, import/start the actor, or place secrets in files/argv.
@@ -136,3 +136,7 @@ venv in 1.513s. An initial ACL-injection fixture assumed os.getxattr existed on
 this bundled macOS interpreter; the fixture now explicitly supplies that mocked
 Linux API. Production guard bytes and ACL decisions were not changed. Main's
 separate earlier receipt read_ctime refusal is retained and not repaired/replayed.
+
+Pending spool directories and files now use the same frozen private-chain/ACL
+guard as other private inputs, with held descriptor-relative directory scans.
+Invented spool-ACL and parent-replacement tests refuse before any send/reservation.

@@ -160,7 +160,7 @@ def main():
             if os.path.lexists(output):raise ValueError('delivery_output_exists')
             # Exact bot values stay inside function globals; never os.environ/argv/output.
             edit=sender(frozen,pinned(p['bot_configuration'],65536,reader=guard['read_private']))
-            result=helper.deliver(store,plan,target,sources,boundary,edit)
+            result=helper.deliver(store,plan,target,sources,boundary,edit,private_guard=guard)
             raw=json.dumps(result,sort_keys=True,separators=(',',':')).encode()
             if not os.path.samestat(parent_identity,output.parent.lstat()):raise ValueError('delivery_output_changed')
             fd=os.open(output.name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=dfd)

@@ -189,36 +189,22 @@ def _deadline(seconds):
         signal.setitimer(signal.ITIMER_REAL,0);signal.signal(signal.SIGALRM,old)
 
 
-def _check_spool(store,version,ref):
+def _check_spool(store,version,ref,guard):
     # The actor's binding spool is independent of SQLite. Main must additionally
-    # verify no producer can publish another binding for THIS acknowledged ref
-    # during this operation. Fresh sends receive distinct Telegram message IDs.
-    from identity_triage_store import private_path
+    # verify no producer can publish another binding for THIS acknowledged ref.
     spool=store.directory/'message-bindings'
-    if not spool.exists():return
-    private_path(spool,True)
-    paths=[]
-    with os.scandir(spool) as entries:
-        for entry in entries:
-            require(len(paths)<1000,'telegram_spool_capacity');paths.append(Path(entry.path))
-    for path in paths:
-        private_path(path)
-        fd=os.open(path,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK)
-        try:
-            before=os.fstat(fd)
-            require(stat.S_ISREG(before.st_mode) and before.st_uid==os.getuid() and
-                stat.S_IMODE(before.st_mode)==0o600 and before.st_nlink==1 and 0<before.st_size<=131072,
-                'telegram_spool_file')
-            raw=os.read(fd,131073);after=os.fstat(fd)
-            fields=('st_dev','st_ino','st_size','st_mtime_ns','st_ctime_ns','st_mode','st_nlink')
-            require(len(raw)==before.st_size and all(getattr(before,k)==getattr(after,k) for k in fields) and
-                os.path.samestat(after,path.lstat()),'telegram_spool_changed')
-        finally:os.close(fd)
-        item=json.loads(raw)
-        require(path.name==item['version']+'.json' and item['version']!=version,'telegram_original_spool_pending')
-        for other in json.loads(item['refs']):
-            require((str(other.get('chat_id')),other.get('message_id'))!=(ref['chat_id'],ref['message_id']),
-                    'telegram_original_spool_pending')
+    if not os.path.lexists(spool):return
+    with guard['private_chain'](spool) as directory_fd:
+        names=[]
+        with os.scandir(directory_fd) as entries:
+            for entry in entries:
+                require(len(names)<1000,'telegram_spool_capacity');names.append(entry.name)
+        for name in names:
+            item=json.loads(guard['read_private'](spool/name,131072))
+            require(name==item['version']+'.json' and item['version']!=version,'telegram_original_spool_pending')
+            for other in json.loads(item['refs']):
+                require((str(other.get('chat_id')),other.get('message_id'))!=(ref['chat_id'],ref['message_id']),
+                        'telegram_original_spool_pending')
 
 
 def _boundary_valid(boundary,plan,now):
@@ -234,7 +220,7 @@ def _boundary_valid(boundary,plan,now):
 
 
 
-def deliver(store,plan,target_pin,sources,boundary,edit,*,clock=time.time):
+def deliver(store,plan,target_pin,sources,boundary,edit,*,private_guard,clock=time.time):
     """At most ONE exact edit; no resend on restart or uncertain acknowledgement.
 
     The old actor must have one serial pump and no other edit writer. Its existing
@@ -262,7 +248,7 @@ def deliver(store,plan,target_pin,sources,boundary,edit,*,clock=time.time):
                 (row['job_until'] is None or type(row['job_until']) in (int,float) and math.isfinite(row['job_until']) and row['job_until']<=now),
                 'telegram_original_not_quiescent')
         require(row['created']+8*86400>boundary['expires_at'],'telegram_receipt_expiring')
-        _check_spool(store,target_pin['version'],target_pin['ref'])
+        _check_spool(store,target_pin['version'],target_pin['ref'],private_guard)
         now=stamp(clock());_boundary_valid(boundary,plan,now)
         require(row['created']+8*86400>boundary['expires_at'],'telegram_receipt_expiring')
         c.execute('insert into reviewed_telegram_edits values(?,?,?,?,?,"reserved",NULL,?)',
@@ -275,7 +261,7 @@ def deliver(store,plan,target_pin,sources,boundary,edit,*,clock=time.time):
             reservation=c.execute('select case_id,version,plan_sha256,target_sha256,state from reviewed_telegram_edits where message_key=?',(message_key,)).fetchone()
             require(reservation==(plan['case_id'],target_pin['version'],plan_sha,digest(target_pin),'reserved'),
                     'telegram_reservation_changed')
-            _check_spool(store,target_pin['version'],target_pin['ref'])
+            _check_spool(store,target_pin['version'],target_pin['ref'],private_guard)
             current=_target(c,target_pin['version'],sources);row=current['row']
             require(row['state']=='reviewed_reserved','telegram_reservation_changed')
             row['state']='edited'
