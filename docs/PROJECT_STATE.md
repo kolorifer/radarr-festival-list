@@ -1,3 +1,9 @@
+## Recurring supervised intake, 2026-11-15
+
+An operator-only append journal connects existing v13 first-mode assessment to
+main review and explicit delivery acknowledgement. No scheduler or live operation.
+See [scope and executable API](reports/2026-11-15-recurring-reviewed-intake.md).
+
 ## Complete bounded explanations v13, 2026-11-15
 
 Versioned generation/schema/retention headroom preserves complete safe prose and
