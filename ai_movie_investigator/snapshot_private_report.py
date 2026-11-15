@@ -135,6 +135,29 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         ('; cited evidence: '+(show(b['evidence']) if b['evidence'] else 'None recorded') if 'evidence' in b else '')) for b in blockers)
     structured=('Model-reported blockers: '+', '.join(labels.get(b.get('aspect'),show(b.get('aspect')).replace('_',' '))+' ('+reason_labels.get(b.get('reason'),show(b.get('reason')).replace('_',' '))+')' for b in blockers) if blockers else 'No structured film blockers were recorded')
     fallback=('<p><strong>Summary from recorded choices:</strong> '+escape(decision)+' '+escape(structured)+'. This summary is generated locally from retained structured choices; it is not the model’s original explanation.</p>' if any(handling.get(k,{}).get('status')=='withheld' for k in ('rationale','uncertainty')) else '')
+    # A factual view of retained observations, never reconstructed model reasoning.
+    current_rows=[comparisons['title'][0],*comparisons['year'][:2],*comparisons['people'],
+                  comparisons['runtime_description'][0],comparisons['runtime_nfo'][0]]
+    current_rows += [row for row in comparisons['ids']
+                     if row['left_origin']=='listing' and row['right_origin']=='catalogue']
+    evidence_summary=('<h2>Recorded decision and observed evidence</h2><p>'+escape(decision)+
+        ' This summary is generated from the recorded status and computed comparisons; it is not the model’s reasoning and does not independently confirm identity.</p><ul>'+
+        ''.join('<li>'+escape(pair(row)+'.')+'</li>' for row in current_rows)+'</ul>')
+    if 'historical_id_discrepancy' in projection:
+        d=projection['historical_id_discrepancy']
+        evidence_summary+=('<p>'+escape('The retained earlier listing-derived assertion was '+d['old_asserted_imdb']+
+            ', with evidence present by '+observed(d['historical_evidence_present_by'])+
+            '; its exact fetch time is unknown. The later listing observation at '+observed(d['current_observed_at'])+
+            ' records '+d['current_listing_imdb']+'. Both observations remain visible; the discrepancy does not establish source intent or physical identity.')+'</p>')
+    evidence_summary+='<p>Retained producer flags describe the recorded identification problem; they are not themselves a model verdict. Physical edition, source independence and acquisition approval remain separate from the recorded identity proposal or unresolved outcome.</p>'
+    import re
+    possible_incomplete=any(isinstance(result.get(field),str) and
+        result[field]!=_WITHHELD_PROSE and handling.get(field,{}).get('status')!='withheld' and
+        not re.search(r"[.!?][\"'”’)\]]*$",result[field].rstrip()) for field in ('rationale','uncertainty'))
+    model_prose='<div style="white-space:pre-wrap">'+prose('rationale','Rationale')+prose('uncertainty','Uncertainty')+'</div>'
+    if possible_incomplete:
+        model_prose=('<details><summary>Original model interpretation — possibly incomplete wording</summary>'+
+            '<p>At least one field lacks a terminal sentence mark and may end mid-sentence. This is only a punctuation heuristic, not a grammar test or proof of truncation. The retained text below is unchanged; no missing reasoning has been reconstructed.</p>'+model_prose+'</details>')
     temporal=''
     if 'historical_id_discrepancy' in projection:
         d=projection['historical_id_discrepancy']
@@ -146,6 +169,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         '<p>The model selected this status. The local reporting path checks the bound result and observations; this does not independently verify film identity.</p>',
         ('<p>Proposed IMDb: '+escape(show(candidate.get('imdb')))+'; proposed TMDb: '+escape(show(candidate.get('tmdb')))+'.</p>' if candidate else ''),
         '<p>Identity and acquisition remain unapproved. '+escape(action)+'</p>',
+        evidence_summary,
         '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
         li('Original release name',local['release_name']),li('Collector title',projection['title']),li('Collector year',projection['year']),
         li('Producer contradictions',projection['producer_contradictions']),'</ul>',
@@ -158,7 +182,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         category({'missing','no_observed_overlap'},'Missing or inconclusive observations','No missing or inconclusive comparison was recorded.'),
         '<p>NFO duration is uploader-reported for the indicated stream or container; it is not an independently measured edition.</p>',
         temporal,
-        '<h2>Model assessment</h2>',prose('rationale','Rationale'),prose('uncertainty','Uncertainty'),fallback,
+        '<h2>Model assessment</h2><p>Model interpretation, distinct from the factual summary above.</p>',model_prose,fallback,
         '<h3>Separate nonblocking limitations</h3><p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. Identity and acquisition remain unapproved. Listing and catalogue provenance were reviewed by the supervisor; source independence is not established.</p>',
         '<details><summary>Technical details and previous attempts</summary>',prior_html,
         '<p>Recorded status: '+escape(show(status))+'. Provider receipt is correlated, not provider-signed billing proof.</p>',
@@ -166,5 +190,5 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         ('<h3>Film identity findings</h3><p>Reconciliations are model interpretations for human review, not verified facts.</p><h4>Model-reported findings</h4><ul>'+model_findings+'</ul>' if model_findings else ''),
         '<h3>Evidence cited by the model</h3><ul>',
         *[li('Listing' if c['evidence_id']=='source' else 'Catalogue',c['claim'].replace('_',' ')) for c in result['citations']],'</ul>',
-        '<p>Producer conflict remains for human review; matching IDs alone do not resolve it. No numeric score was assigned.</p></details>',
+        '<p>Retained producer flags describe the recorded identification problem, not a model verdict; matching IDs alone do not establish identity. No numeric score was assigned.</p></details>',
         '<details><summary>Retained NFO text</summary><pre>'+escape(show(local['nfo_text']))+'</pre></details></body></html>'])
