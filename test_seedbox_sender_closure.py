@@ -2,8 +2,10 @@
 import json,subprocess,sys,tempfile,unittest
 from pathlib import Path
 from automation.seedbox_package import build
+from test_reviewed_telegram_operator import fixture_acl
 
 class ClosureTests(unittest.TestCase):
+ def setUp(self):fixture_acl(self)
  def test_installed_frozen_edit_and_failure_phases(self):
   with tempfile.TemporaryDirectory(dir=Path.cwd()) as tmp:
    root=Path(tmp);runtime=root/'runtime';runtime.mkdir(mode=0o700);build(Path.cwd(),runtime)
