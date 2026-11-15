@@ -537,7 +537,7 @@ def request_value(body, *, captured=False, film_scope=False):
 def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,historical=None,keychain=False,captured=None):
     grant=historical or captured
     body=encoded(grant['request']) if grant else request(run)
-    film_scope=bool(historical and historical.get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7'))
+    film_scope=bool(historical and historical.get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8'))
     wire=request_value(body,captured=bool(captured),film_scope=film_scope)
     disclosure=(decode(grant['request']['input'][0]['content'][0]['text'],
         MAX_INPUT if captured or film_scope else MAX_OUTPUT) if grant else None)
@@ -676,10 +676,10 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
                         answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
                             history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
                     observe_phase('completion_recording')
-                    retained_answer=decode(answer,32768 if historical_grant and historical_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7') else 8192)
+                    retained_answer=decode(answer,32768 if historical_grant and historical_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7','film_context_v8') else 8192)
                     if historical_grant and historical_grant.get('snapshot_profile') == 'normalized_snapshot_v1':
                         from .new_case import _captured_prose_copy
-                        retained_answer,_=_captured_prose_copy(retained_answer)
+                        retained_answer,_=_captured_prose_copy(retained_answer,film_context=historical_grant.get('contract_version')=='film_context_v8')
                         require(digest(retained_answer)==historical_report['retained_reply_hash'], 'snapshot_retained_reply_changed')
                     if captured_grant:
                         # Original response remains in memory only. Both durable
@@ -936,7 +936,7 @@ def standing_binding(events,enrolled,selected,slot):
     require(start['evidence_sha256']==selected.sha256 and start['evidence_hash']==digest(e) and
             start['expires_at']==e['expires_at'] and start['project']==e['project']==grant['project'] and
             start['request_sha256']==digest(request_value(expected_request(events,enrolled,slot),captured='captured' in start,
-                film_scope=start.get('historical',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7'))) and
+                film_scope=start.get('historical',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8'))) and
             e['observed_at']<=start['at']<e['expires_at'],'supervised_standing_binding')
     return start,authorized
 
@@ -1071,6 +1071,9 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
             if 'result_correction' in historical:
                 from .snapshot_authorization import validate_result_correction
                 allowed_lineage.update(validate_result_correction(root,events,historical,creating=True))
+            if 'context_reassessment' in historical:
+                from .snapshot_authorization import validate_context_reassessment
+                allowed_lineage.update(validate_context_reassessment(root,events,historical,creating=True))
             for old,_ in attempts:
                 if old['slot'] in allowed_lineage:continue
                 if 'captured' in old:

@@ -629,3 +629,57 @@ def validate_film_result(projection,prepared,reply,*,now):
     else:
         result['citations']=[];answer['film_blockers']=[primary]+additional
     return validate_film_comparisons(projection,build_film_comparisons(projection),answer,now=now)
+
+
+def build_film_context(projection):
+    """v8 asks for a concise evidence justification, never internal reasoning."""
+    import copy
+    prepared=copy.deepcopy(build_film_result(projection));wire=prepared['request']
+    wire['instructions']=wire['instructions'].replace(
+        'Do not silently override conflicting identifiers or title evidence; missing data is not a negative. ',
+        'Keep true identifier conflicts and unrelated listing titles unresolved; distinguish those from a collector label discrepancy. Missing data is not a negative. ')
+    wire['instructions']+=(
+        ' Rationale and uncertainty are each at most 300 characters. Weigh supporting and conflicting observations together before choosing a status. '
+        'A producer conflict flag or collector label difference is not an automatic veto. '
+        'A festival/theatrical year alternative or rounded runtime difference is not automatically a contradictory identity; '
+        'explain its significance in context without inventing a tolerance or confidence score. '
+        'Matching IDs alone are insufficient. Corroborating listing title and people with the exact catalogue crosswalk '
+        'may support an advisory candidate; never silently override true ID conflicts or unrelated listing titles. '
+        'For each blocker, support_considered must concisely identify the strongest observed support (or its absence), '
+        'and material_conflict must explain why the cited aspect still prevents film identification after that support. '
+        'An enum, a bare difference, a producer flag, or edition uncertainty alone is not a sufficient explanation. '
+        'These are brief evidence justifications, not internal reasoning. Each blocker prose field is 1 to 160 characters. '
+        'Do not force a positive answer. Film identity remains separate from edition verification and download approval.'
+    )
+    for variant in wire['text']['format']['schema']['properties']['result']['anyOf']:
+        props=variant['properties']
+        for name in ('rationale','uncertainty'):props[name]['maxLength']=300
+        if props['status']['enum']==['supported_candidate']:continue
+        for blocker in (props['primary_blocker'],props['additional_blockers']['items']):
+            for choice in blocker['anyOf']:
+                for name in ('support_considered','material_conflict'):
+                    choice['properties'][name]=dict(type='string',minLength=1,maxLength=160)
+                    if name not in choice['required']:choice['required'].append(name)
+    require(len(encoded(wire))<=65536,'snapshot_disclosure_size')
+    return prepared
+
+
+def validate_film_context(projection,prepared,reply,*,now):
+    import copy
+    from .responses_protocol import schema_value
+    from .new_case import film_prose
+    require(prepared==build_film_context(projection),'snapshot_prepared_changed')
+    schema_value(reply,prepared['request']['text']['format']['schema'])
+    answer=copy.deepcopy(reply);r=answer['result']
+    prose={name:film_prose(r[name]) for name in ('rationale','uncertainty')}
+    # Old structural/citation/identity guards receive fixed safe prose only;
+    # new prose is independently checked above and restored after validation.
+    for name in prose:r[name]='Validated contextual film explanation.'
+    blockers=([r['primary_blocker']] if r['primary_blocker'] is not None else [])+r['additional_blockers']
+    explanations=[]
+    for blocker in blockers:
+        explanations.append({name:film_prose(blocker.pop(name),160) for name in ('support_considered','material_conflict')})
+    result=validate_film_result(projection,build_film_result(projection),answer,now=now)
+    result.update(prose)
+    for blocker,explanation in zip(result['film_blockers'],explanations):blocker.update(explanation)
+    return result
