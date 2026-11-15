@@ -12,7 +12,7 @@ def active(rows):
 
 def record(rows,scope,reason,preparation=None):
     require(scope in ('source','credential','provider','telegram'),'host_circuit_scope')
-    require(reason in ('shared_source_auth_denied','shared_source_configuration_or_access','host_credential_unavailable','responses_http_401','responses_http_403','responses_http_429','host_credit_exhausted','host_credit_expired','telegram_auth_denied','shared_sender_configuration_or_access'),'host_circuit_reason')
+    require(reason in ('shared_source_auth_denied','shared_source_configuration_or_access','host_credential_unavailable','responses_http_401','responses_http_403','responses_http_429','host_credit_exhausted','host_credit_expired','review_validation_unclassified','telegram_auth_denied','shared_sender_configuration_or_access'),'host_circuit_reason')
     return dict(type='seedbox_global_circuit_v1',scope=scope,reason=reason,preparation=preparation,configuration_sha256=rows[0]['configuration_sha256'],at=time.time(),automatic_recovery=False)
 
 
@@ -27,10 +27,11 @@ def recover(queue,evidence_path,evidence_sha256):
     raw=read_private(Path(evidence_path),65536)
     require(hashlib.sha256(raw).hexdigest()==evidence_sha256,'host_recovery_pin')
     evidence=decode(raw,65536)
-    require(set(evidence)=={'kind','circuit_sha256','configuration_sha256','observed_at','material_change','observation_reference'} and evidence['kind']=='main_verified_shared_access_recovery_v1' and evidence['material_change']=='access_restored' and type(evidence['observation_reference']) is str and 1<=len(evidence['observation_reference'])<=512,'host_recovery_evidence')
+    require(set(evidence)=={'kind','circuit_sha256','configuration_sha256','observed_at','material_change','observation_reference'} and evidence['kind']=='main_verified_shared_access_recovery_v1' and evidence['material_change'] in ('access_restored','review_validation_fixed') and type(evidence['observation_reference']) is str and 1<=len(evidence['observation_reference'])<=512,'host_recovery_evidence')
     with queue.locked() as (rows,append):
         matches=[r for r in active(rows) if digest(r)==evidence['circuit_sha256']]
         require(len(matches)==1,'host_recovery_circuit');blocked=matches[0]
+        require(evidence['material_change']==('review_validation_fixed' if blocked.get('reason')=='review_validation_unclassified' else 'access_restored'),'host_recovery_evidence')
         require(evidence['configuration_sha256']==blocked['configuration_sha256']==rows[0]['configuration_sha256'] and blocked['at']<=evidence['observed_at']<=time.time() and time.time()-evidence['observed_at']<=900,'host_recovery_changed')
         append(dict(type='seedbox_global_recovery_v1',circuit_sha256=digest(blocked),evidence_sha256=evidence_sha256,evidence=evidence,at=time.time()))
         if blocked['preparation']:

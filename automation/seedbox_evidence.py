@@ -148,8 +148,8 @@ def correction_proposal(queue,preparation):
     html=render(report,digest(report),projection,evidence['local_raw'],report['local_context_sha256']).encode()
     require(hashlib.sha256(html).hexdigest()==reports[0]['html_sha256'],'host_correction_old_report_changed')
     from automation.seedbox_automated_review import proposal
-    card=proposal(report,projection,evidence['local_raw'],evidence['target_pin'],reports[0]['html_sha256']);request,bindings=build(report,projection,card)
-    review=reviews[0]
+    card=proposal(report,projection,evidence['local_raw'],evidence['target_pin'],reports[0]['html_sha256']);review=reviews[0]
+    request,bindings=build(report,projection,card,revision=review.get('review_request_revision',1))
     require(review['answer']['verdict']=='reject' and review['review_kind']=='separate_automated_generation' and review['personal_main_review'] is False,'host_correction_rejected_review_required')
     from ai_movie_investigator.responses_protocol import schema_value
     schema_value(review['answer'],request['text']['format']['schema'])

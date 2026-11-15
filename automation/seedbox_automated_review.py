@@ -5,7 +5,7 @@ Shared evidence/model may share errors. Owner audits occur later, not pretended
 before delivery. Private listing URL and Telegram routing stay local and hash-bound.
 """
 import copy,hashlib,re,time
-from ai_movie_investigator.contracts import require,encoded,decode,digest
+from ai_movie_investigator.contracts import Refusal,require,encoded,decode,digest,shape,hash_id
 from ai_movie_investigator.snapshot_review import build_film_prose
 from ai_movie_investigator.snapshot_private_report import validate_local_context
 from private_text import redact_text
@@ -104,7 +104,7 @@ def proposal(report,projection,local_raw,target_pin,html_sha256):
     return dict(kind='seedbox_card_proposal_v1',case_id=projection['case_id'],version=projection['version'],report_sha256=digest(report),receipt_sha256=report['receipt_hash'],html_sha256=html_sha256,local_context_sha256=report['local_context_sha256'],source_url=local['tracker_url'],candidate=candidate,summary=summary,text=text,target_sha256=digest(target_pin))
 
 
-def build(report,projection,card):
+def _build_unchanged(report,projection,card):
     request,bindings=_build_v1(report,projection,card)
     if projection.get('host_reporting_revision')!=2:return request,bindings
     packet=decode(request['input'][0]['content'][0]['text'],65536)
@@ -123,12 +123,23 @@ def build(report,projection,card):
     return request,bindings
 
 
-def assessment(queue,preparation):
+def build(report,projection,card,*,revision=1):
+    require(revision in (1,2),'review_request_revision')
+    request,bindings=_build_unchanged(report,projection,card)
+    if revision==2:
+        request['instructions']+=' Return approve only with zero material_problems and at least one substantive evidence finding. If a material problem remains, return reject and explain it. Never force approval; a rejection is a valid per-case outcome. Use plain prose under the existing disclosure restrictions.'
+    return request,bindings
+
+
+def assessment(queue,preparation,*,historical=False):
     from automation.seedbox_evidence import load,persist_report
     persist_report(queue,preparation)
     from ai_movie_investigator.snapshot_review import validate_film_prose
     from ai_movie_investigator.snapshot_private_report import render
-    evidence=load(queue,preparation)
+    with queue.locked() as (rows,_):
+        prior=[r for r in rows if r['type']=='seedbox_assessment_pending_review_v1' and r['preparation']==preparation]
+        require(len(prior)==1,'review_assessment_missing')
+    evidence=load(queue,preparation,now=prior[0]['at'] if historical else None)
     with queue.locked() as (rows,_):
         records=[r for r in rows if r['type']=='seedbox_assessment_pending_review_v1' and r['preparation']==preparation]
         attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1' and r['preparation']==preparation and r['stage']=='assessment']
@@ -145,22 +156,134 @@ def assessment(queue,preparation):
     return report,evidence,card
 
 
-def _execute(queue,preparation,*,policy,credential):
+# Static predicates only. Never echo arbitrary exception text or provider prose.
+_REVIEW_REASONS=frozenset("review_report_binding review_card_size review_proposal_changed review_disclosure_size review_assessment_missing review_assessment_changed review_html_changed review_disclosure review_attempt_changed review_response_unbound review_usage_limit review_binding_changed review_approval_conflicted review_answer_shape review_findings_required review_reason_unsafe review_finding_unsafe review_problem_unsafe review_not_completed review_not_approved review_chain_changed host_review_uncertain_or_refused review_correction_parent review_correction_consumed review_correction_binding review_correction_send_exists review_correction_changed review_request_revision review_circuit_active review_explanation_trivial".split())
+
+
+def diagnostic(error):
+    from ai_movie_investigator.seedbox_authorization import diagnostic as base
+    result=base(error)
+    if type(error) is Refusal and len(error.args)==1 and error.args[0] in _REVIEW_REASONS:
+        result.update(reason=error.args[0],category='review_validation_refused')
+    return result
+
+
+def retained_answer(answer,bindings):
+    """Keep only policy-validated prose; withheld fields never permit approval.
+
+    No global prose-policy change, normalization or invented explanation. A raw
+    answer hash is provenance, not a retained raw answer or signed receipt.
+    """
+    from ai_movie_investigator.new_case import explanation_prose
+    shape(answer,' '.join((*bindings,'verdict','reason','evidence_findings','material_problems')))
+    require(answer['verdict'] in ('approve','reject'),'review_answer_shape')
+    require(type(answer['evidence_findings']) is list and len(answer['evidence_findings'])<=8 and
+            type(answer['material_problems']) is list and len(answer['material_problems'])<=10,'review_answer_shape')
+    retained=dict(bindings,verdict=answer['verdict']);handling={};failed=[]
+    for field,limit,reason in (('reason',2400,'review_reason_unsafe'),('evidence_findings',512,'review_finding_unsafe'),('material_problems',512,'review_problem_unsafe')):
+        values=[answer[field]] if field=='reason' else answer[field];safe=[]
+        for index,value in enumerate(values):
+            try:explanation_prose(value,limit)
+            except Refusal:
+                safe.append(None);handling[field+':'+str(index)]='withheld_by_existing_disclosure_policy';failed.append(reason)
+            else:safe.append(value)
+        retained[field]=safe[0] if field=='reason' else safe
+    predicates=[]
+    if not all(answer[k]==v for k,v in bindings.items()):predicates.append('review_binding_changed')
+    if not answer['evidence_findings']:predicates.append('review_findings_required')
+    predicates.extend(dict.fromkeys(failed))
+    # Reject bare verdict labels, without pretending to verify semantic quality.
+    substantive=[retained['reason'],*retained['evidence_findings']]
+    if any(type(v) is str and v.strip().casefold().rstrip('.!') in ('yes','no','ok','okay','approve','approved','reject','rejected','none','n/a') for v in substantive):predicates.append('review_explanation_trivial')
+    if answer['verdict']=='approve' and answer['material_problems']:predicates.append('review_approval_conflicted')
+    return retained,handling,predicates
+
+
+def _correction_rows(rows,preparation,proof=None,*,allow_existing_send=False):
+    claims=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1' and digest(r)==preparation]
+    reports=[r for r in rows if r['type']=='seedbox_assessment_pending_review_v1' and r['preparation']==preparation]
+    attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1' and r['preparation']==preparation]
+    failed=[r for r in rows if r['type']=='seedbox_review_uncertain_or_refused_v1' and r['preparation']==preparation]
+    require(len(claims)==len(reports)==len(failed)==1 and len(attempts)==2 and [r['stage'] for r in attempts]==['assessment','review'],'review_correction_parent')
+    require(failed[0]['attempt_sha256']==digest(attempts[1]) and failed[0]['diagnostic']['phase']=='historical_result_validation','review_correction_parent')
+    require(not any(r.get('preparation')==preparation and r['type'] in ('seedbox_automated_review_completed_v1','seedbox_assessment_uncertain_or_refused_v1','seedbox_preparation_superseded_v1') for r in rows),'review_correction_parent')
+    case_preps={digest(r) for r in rows if r['type']=='seedbox_preparation_claimed_v1' and r['case_id']==claims[0]['case_id']}
+    require(allow_existing_send or not any(r['type']=='seedbox_sender_started_v1' and r['preparation'] in case_preps for r in rows),'review_correction_send_exists')
+    if proof is not None:
+        require(proof['preparation']==preparation and proof['failed_record_sha256']==digest(failed[0]) and proof['old_attempt_sha256']==digest(attempts[1]) and proof['old_request_sha256']==attempts[1]['request_sha256'] and proof['report_sha256']==digest(reports[0]['report']),'review_correction_changed')
+    validations=[r for r in rows if r['type']=='seedbox_review_validation_refused_v2' and r['preparation']==preparation]
+    require(len(validations)<=1,'review_correction_parent')
+    if validations:
+        v=validations[0]
+        require(v['attempt_sha256']==digest(attempts[1]) and v['receipt_sha256']==digest(v['receipt']) and v['receipt']['request_sha256']==attempts[1]['request_sha256'],'review_correction_parent')
+    if proof is not None:
+        require(proof['retained_validation_sha256']==(digest(validations[0]) if validations else None) and proof['old_outcome']==('retained_validation_refusal' if validations else 'unknown_discarded_response'),'review_correction_changed')
+    return reports[0],attempts[1],failed[0]
+
+
+def correction_proposal(queue,preparation):
+    """Offline exact historical binding; no inference about discarded answers."""
+    report,evidence,card=assessment(queue,preparation,historical=True)
+    with queue.locked() as (rows,_):
+        record,attempt,failure=_correction_rows(rows,preparation)
+        old_request,bindings=build(report,evidence['projection'],card,revision=failure.get('review_request_revision',1))
+        validations=[r for r in rows if r['type']=='seedbox_review_validation_refused_v2' and r['preparation']==preparation]
+        require(not any(r['type']=='seedbox_review_correction_authorized_v1' and r['preparation']==preparation for r in rows),'review_correction_consumed')
+    require(attempt['request_sha256']==digest(old_request) and attempt['review_of']==digest(report) and attempt['evidence_sha256']==bindings['evidence_sha256'],'review_correction_binding')
+    return dict(kind='seedbox_historical_review_correction_v1',purpose='one_distinct_reporting_review_existing_delivery_guards',preparation=preparation,report_sha256=digest(report),card_sha256=digest(card),evidence_sha256=bindings['evidence_sha256'],target_sha256=card['target_sha256'],old_attempt_sha256=digest(attempt),old_request_sha256=digest(old_request),failed_record_sha256=digest(failure),historical_at=record['at'],old_outcome='retained_validation_refusal' if validations else 'unknown_discarded_response',retained_validation_sha256=digest(validations[0]) if validations else None,delivery_authorized=False,ordinary_delivery_checks_required=True,automatic_retry=False)
+
+
+def correction_request(report,projection,card,proof):
+    request,bindings=build(report,projection,card,revision=2)
+    require(proof['report_sha256']==digest(report) and proof['card_sha256']==digest(card) and proof['evidence_sha256']==digest(projection) and proof['target_sha256']==card['target_sha256'],'review_correction_binding')
+    bindings=dict(bindings,correction_sha256=digest(proof))
+    packet=decode(request['input'][0]['content'][0]['text'],65536)
+    packet.update(bindings=bindings,historical_review_correction=proof)
+    request['input'][0]['content'][0]['text']=encoded(packet).decode()
+    schema=request['text']['format']['schema'];schema['properties']['correction_sha256']=dict(type='string',enum=[digest(proof)]);schema['required'].append('correction_sha256')
+    request['instructions']+=' This is one distinct historical reporting review of the dated retained assessment and exact card. It is not a retry or reconstruction of the discarded earlier response, whose outcome status is explicitly bound in this packet; do not infer missing original content or its cause. Do not claim current source freshness, identity approval, or permission to send; approval grants no new delivery rights; existing delivery may proceed only under all ordinary freshness, current-occurrence and exact-target checks.'
+    require(len(encoded(request))<=65536,'review_disclosure_size')
+    return request,bindings
+
+
+def authorize_correction(queue,preparation,expected_proposal_sha256):
+    hash_id(expected_proposal_sha256)
+    proof=correction_proposal(queue,preparation)
+    require(digest(proof)==expected_proposal_sha256,'review_correction_binding')
+    report,evidence,card=assessment(queue,preparation,historical=True)
+    request,_=correction_request(report,evidence['projection'],card,proof)
+    with queue.locked() as (rows,append):
+        _correction_rows(rows,preparation,proof)
+        require(not any(r['type']=='seedbox_review_correction_authorized_v1' and r['preparation']==preparation for r in rows),'review_correction_consumed')
+        record=dict(type='seedbox_review_correction_authorized_v1',preparation=preparation,proof=proof,proof_sha256=digest(proof),request_sha256=digest(request),at=time.time())
+        append(record)
+    return record
+
+
+def _execute(queue,preparation,*,policy,credential,correction=None):
     from ai_movie_investigator.supervised_authorization import observe_phase
     from ai_movie_investigator import seedbox_authorization as host
     from ai_movie_investigator.responses_http import FixedResponsesHTTP,headers
     from ai_movie_investigator.responses_protocol import parse_response
     from ai_movie_investigator.credit_test import MINI_MODEL
-    from ai_movie_investigator.new_case import explanation_prose
-    report,evidence,card=assessment(queue,preparation);projection=evidence['projection']
-    require(time.time()+180<min(policy['expires_at'],projection['evidence_expires_at'],projection['generated_at']+3600),'host_evidence_window')
-    request,bindings=build(report,projection,card);body=encoded(request);headers(credential,policy['project'])
+    from automation.seedbox_circuit import active
+    with queue.locked() as (rows,_):require(not active(rows),'review_circuit_active')
+    report,evidence,card=assessment(queue,preparation,historical=correction is not None);projection=evidence['projection']
+    require(time.time()+180<(policy['expires_at'] if correction is not None else min(policy['expires_at'],projection['evidence_expires_at'],projection['generated_at']+3600)),'host_evidence_window')
+    if correction is None:request,bindings=build(report,projection,card,revision=2)
+    else:
+        with queue.locked() as (rows,_):
+            _correction_rows(rows,preparation,correction['proof'])
+            require(correction in rows and correction['proof_sha256']==digest(correction['proof']),'review_correction_binding')
+        request,bindings=correction_request(report,projection,card,correction['proof'])
+        require(digest(request)==correction['request_sha256'],'review_correction_binding')
+    body=encoded(request);headers(credential,policy['project'])
     require(host._ACTIVE.get() is None and credential.value.encode() not in body,'review_disclosure')
-    now=time.time();attempt=queue.reserve_provider(preparation,policy=policy,request_sha256=digest(request),evidence_sha256=bindings['evidence_sha256'],now=now,stage='review',review_of=digest(report))
+    now=time.time();attempt=queue.reserve_provider(preparation,policy=policy,request_sha256=digest(request),evidence_sha256=bindings['evidence_sha256'],now=now,stage='review' if correction is None else 'review_correction',review_of=digest(report),review_correction=correction)
     with queue.locked() as (rows,append):
         require(rows[-1]==attempt,'review_attempt_changed')
         from automation.seedbox_evidence import verify_current
-        verify_current(queue,preparation,evidence,rows[0]['configuration_sha256'])
+        if correction is None:verify_current(queue,preparation,evidence,rows[0]['configuration_sha256'])
         c=dict(queue=queue,rows=rows,body=body,credential=credential,project=policy['project'],token=host._Permit(),consumed=False,received=None,started_at=now,expires_at=min(now+60,policy['expires_at']),monotonic_expires=time.monotonic()+60)
         marker=host._ACTIVE.set(c)
         try:
@@ -171,19 +294,25 @@ def _execute(queue,preparation,*,policy,credential):
             require(accounting['usage']['input_tokens']<=400000 and accounting['usage']['output_tokens']<=25000,'review_usage_limit')
             observe_phase('historical_result_validation')
             answer=decode(raw,65536)
-            require(all(answer[k]==v for k,v in bindings.items()),'review_binding_changed')
-            explanation_prose(answer['reason'],2400)
-            for value in answer['evidence_findings']+answer['material_problems']:explanation_prose(value,512)
-            require(answer['verdict']!='approve' or not answer['material_problems'],'review_approval_conflicted')
+            retained,handling,predicates=retained_answer(answer,bindings)
             receipt=dict(kind='seedbox_automated_review_receipt_v1',request_sha256=digest(request),accounting=accounting,reserved_usd=attempt['reserved_usd'],at=time.time())
-            record=dict(type='seedbox_automated_review_completed_v1',preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),card=card,answer=answer,receipt=receipt,receipt_sha256=digest(receipt),review_kind='separate_automated_generation',personal_main_review=False,at=time.time())
-            append(record);return record
+            if predicates:
+                append(dict(type='seedbox_review_validation_refused_v2',preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),bindings=bindings,answer=retained,original_answer_sha256=digest(answer),retained_answer_sha256=digest(retained),prose_handling=handling,predicates=predicates,receipt=receipt,receipt_sha256=digest(receipt),decision_usable=False,provider_signed=False,raw_answer_retained=False,at=time.time()))
+                raise Refusal(predicates[0])
+            record=dict(type='seedbox_automated_review_completed_v1',review_request_revision=2,preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),card=card,answer=answer,receipt=receipt,receipt_sha256=digest(receipt),review_kind='separate_automated_generation',personal_main_review=False,at=time.time())
+            if correction is not None:
+                record.update(type='seedbox_review_correction_completed_v1',correction_sha256=digest(correction['proof']),delivery_authorized=False,ordinary_delivery_checks_required=True)
+            append(record)
+            return record
         except BaseException as error:
+            if diagnostic(error)['reason']=='unexpected_exception':
+                from automation.seedbox_circuit import record as circuit_record
+                append(circuit_record(rows,'provider','review_validation_unclassified',preparation))
             if str(error) in ('responses_http_401','responses_http_403','responses_http_429'):
                 from automation.seedbox_circuit import record
                 append(record(rows,'provider',str(error),preparation))
-            append(dict(type='seedbox_review_uncertain_or_refused_v1',preparation=preparation,attempt_sha256=digest(attempt),diagnostic=host.diagnostic(error),at=time.time()))
-            raise ValueError('host_review_uncertain_or_refused') from None
+            append(dict(type='seedbox_review_uncertain_or_refused_v1',review_request_revision=2,preparation=preparation,attempt_sha256=digest(attempt),diagnostic=diagnostic(error),at=time.time()))
+            raise Refusal('host_review_uncertain_or_refused') from None
         finally:host._ACTIVE.reset(marker)
 
 
@@ -191,11 +320,28 @@ def approved_plan(queue,preparation):
     """Reconstruct the durable assessment/card/target/review chain, not a flag."""
     from automation.reviewed_telegram_operator import _validate_plan
     report,evidence,card=assessment(queue,preparation)
-    request,bindings=build(report,evidence['projection'],card)
     with queue.locked() as (rows,_):
+        successors=[r for r in rows if r['type']=='seedbox_review_correction_completed_v1' and r['preparation']==preparation]
         records=[r for r in rows if r['type']=='seedbox_automated_review_completed_v1' and r['preparation']==preparation]
         attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1' and r['preparation']==preparation and r['stage']=='review']
+        if successors:
+            require(not records and len(successors)==1,'review_chain_changed')
+            records=successors
+            attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1' and r['preparation']==preparation and r['stage']=='review_correction']
+            authorizations=[r for r in rows if r['type']=='seedbox_review_correction_authorized_v1' and r['preparation']==preparation]
+            require(len(authorizations)==1 and authorizations[0]['proof_sha256']==successors[0]['correction_sha256']==digest(authorizations[0]['proof']),'review_chain_changed')
+            selected=authorizations[0]
+            oldrows=[r for r in rows if not (r['type']=='seedbox_provider_started_v1' and r['preparation']==preparation and r['stage']=='review_correction')]
+            _correction_rows(oldrows,preparation,selected['proof'],allow_existing_send=True)
+            request,bindings=correction_request(report,evidence['projection'],card,selected['proof'])
+            require(digest(request)==selected['request_sha256'],'review_chain_changed')
+        else:
+            require(len(records)==1,'review_not_completed')
+            request,bindings=build(report,evidence['projection'],card,revision=records[0].get('review_request_revision',1))
         require(len(records)==len(attempts)==1,'review_not_completed');record=records[0];attempt=attempts[0]
+    if record.get('review_request_revision')==2:
+        retained,handling,predicates=retained_answer(record['answer'],bindings)
+        require(not predicates and not handling and retained==record['answer'],'review_chain_changed')
     require(record['answer']['verdict']=='approve' and not record['answer']['material_problems'],'review_not_approved')
     require(record['card']==card and record['report_sha256']==digest(report) and record['attempt_sha256']==digest(attempt) and
         attempt['request_sha256']==digest(request)==record['receipt']['request_sha256'] and

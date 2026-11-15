@@ -1,3 +1,11 @@
+## Separate-review validation correction candidate, 2026-11-15
+
+PR208 completed assessments remain immutable. A separately reviewed fix retains
+safe review refusal evidence and finite diagnostics, opens the existing circuit
+on unclassified review errors, and supplies one explicit purpose-bound review-only
+successor. Existing freshness/currentness/target guards still control delivery.
+The old discarded review causes remain unknown. See [scope and route](reports/2026-11-15-seedbox-review-validation.md).
+
 ## Host evidence/reporting revision2 candidate, 2026-11-15
 
 Correct scoped listing extraction and typed evidence views while preserving exact

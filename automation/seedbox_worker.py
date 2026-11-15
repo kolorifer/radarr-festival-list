@@ -110,7 +110,7 @@ def step(queue,config):
     candidates=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1']
     for claim in candidates:
         preparation=digest(claim)
-        operation=[r['type'] for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_operation_blocked_v1','seedbox_operation_recovery_v1')]
+        operation=[r['type'] for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_operation_blocked_v1','seedbox_operation_recovery_v1','seedbox_review_correction_completed_v1')]
         if operation and operation[-1]=='seedbox_operation_blocked_v1':continue
         if any(r.get('preparation')==preparation and r['type'] in ('seedbox_preparation_superseded_v1','seedbox_delivery_terminal_v1') for r in rows):continue
         if preparation in _source_blocked(rows):continue
@@ -119,7 +119,7 @@ def step(queue,config):
         if deferrals and (len(deferrals)>=3 or time.time()<deferrals[-1]['at']+60):continue
         attempts=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_provider_started_v1']
         reports=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_assessment_pending_review_v1']
-        reviews=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_automated_review_completed_v1']
+        reviews=[r for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_automated_review_completed_v1','seedbox_review_correction_completed_v1')]
         if any(r['stage']=='assessment' for r in attempts) and not reports:continue
         if any(r['stage']=='review' for r in attempts) and not reviews:continue
         phase='source'
@@ -172,6 +172,8 @@ def step(queue,config):
             elif phase=='delivery' and str(error)!='host_sender_pre_send_busy' and (isinstance(error,PermissionError) or str(error).startswith(('host_actor_','host_sender_','host_topology_','selected_bot_configuration','unsafe_'))):
                 _record(queue,record(_rows(queue),'telegram','shared_sender_configuration_or_access',preparation))
             from ai_movie_investigator.seedbox_authorization import diagnostic
+            if phase=='review':
+                from automation.seedbox_automated_review import diagnostic
             _record(queue,dict(type='seedbox_operation_blocked_v1',preparation=preparation,diagnostic=diagnostic(error),at=time.time()))
             return True
     if source_paused(_rows(queue),time.time()):return bool(page['events'])

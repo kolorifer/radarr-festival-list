@@ -284,3 +284,14 @@ unsupported confidence or unsupported blockers. Missing original notification
 records remain blocked. The correction path preserves old reports and permits
 only one explicitly reviewed new attempt with fresh same-source evidence; this
 repository entry does not claim deployment or a live notification.
+
+### Separate reporting-review refusals
+
+An ordinary automated rejection stays with its case. An unexpected unclassified
+review error pauses further provider spending until explicit verified recovery.
+Safe review explanation fields and exact receipts are retained when local
+validation refuses a response; withheld text is never turned into approval.
+A specifically authorized review-only successor preserves the old assessment,
+failed attempt and charge. Even when approved, it can update the original card
+only while all existing freshness, current-case, original-target and no-duplicate
+checks pass. Historical stale reviews remain reports, not delivery authority.
