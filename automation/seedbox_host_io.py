@@ -23,6 +23,7 @@ def database(pin):
             c=sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=.25,isolation_level=None)
             try:
                 c.execute('pragma query_only=on');c.execute('pragma trusted_schema=off');c.execute('pragma temp_store=memory')
+                if 'journal_mode' in pin:require(c.execute('pragma journal_mode').fetchone()[0]==pin['journal_mode'],'host_database_journal_changed')
                 c.setlimit(sqlite3.SQLITE_LIMIT_LENGTH,1048576)
                 deadline=time.monotonic()+20;c.set_progress_handler(lambda:int(time.monotonic()>=deadline),1000)
                 c.execute('BEGIN');yield c;c.rollback()
@@ -129,14 +130,18 @@ def acquire(config,claim,snapshot_raw,metadata):
     import re
     now=time.time();snapshot_sha=hashlib.sha256(snapshot_raw).hexdigest();select(snapshot_raw,snapshot_sha,claim['case_id'],claim['version'],now=now)
     with database(config['actor_database']) as actor:binding=actor_listing(actor,claim['case_id'],metadata,config['sources'],config['listing_source'])
-    env=_configuration(config['source_configuration']);require(env['TMDB_API_TOKEN'] and env['MOVIE_INTEL_TL_COOKIE_FILE'] and env['MOVIE_INTEL_TL_METADATA_ENABLED']=='1','host_source_configuration')
-    # Main selects canonical spelling and pins the existing cookie file. The
-    # configured alias must resolve to that exact selection, never another file.
-    cookie_pin=config['cookie_file'];cookie_path=Path(cookie_pin['path'])
-    require(Path(env['MOVIE_INTEL_TL_COOKIE_FILE']).resolve(strict=True)==cookie_path,'host_cookie_selection')
-    cookies_raw=read_private(cookie_path,16384);require(hashlib.sha256(cookies_raw).hexdigest()==cookie_pin['sha256'],'host_cookie_changed')
-    cookies=json.loads(cookies_raw);require(type(cookies) is dict and cookies and all(type(k) is str and re.fullmatch(r'[A-Za-z0-9_-]{1,100}',k) and type(v) is str and 0<len(v)<=8192 and all(33<=ord(ch)<=126 and ch not in ';,' for ch in v) for k,v in cookies.items()),'host_cookie_format')
+    try:
+        env=_configuration(config['source_configuration']);require(env['TMDB_API_TOKEN'] and env['MOVIE_INTEL_TL_COOKIE_FILE'] and env['MOVIE_INTEL_TL_METADATA_ENABLED']=='1','host_source_configuration')
+        # Main selects canonical spelling and pins the existing cookie file. The
+        # configured alias must resolve to that exact selection, never another file.
+        cookie_pin=config['cookie_file'];cookie_path=Path(cookie_pin['path'])
+        require(Path(env['MOVIE_INTEL_TL_COOKIE_FILE']).resolve(strict=True)==cookie_path,'host_cookie_selection')
+        cookies_raw=read_private(cookie_path,16384);require(hashlib.sha256(cookies_raw).hexdigest()==cookie_pin['sha256'],'host_cookie_changed')
+        cookies=json.loads(cookies_raw);require(type(cookies) is dict and cookies and all(type(k) is str and re.fullmatch(r'[A-Za-z0-9_-]{1,100}',k) and type(v) is str and 0<len(v)<=8192 and all(33<=ord(ch)<=126 and ch not in ';,' for ch in v) for k,v in cookies.items()),'host_cookie_format')
+    except (OSError,ValueError,KeyError):raise SourceFailure('source_configuration_unavailable') from None
     raw,observed=_get(binding['url'],cookies=cookies)
+    from tracker_metadata import parse_listing
+    if parse_listing(raw,binding['release_name'])['reason']=='login_required':raise SourceFailure('source_auth_denied')
     facts=listing_facts(raw,release_name=binding['release_name'],case_id=claim['case_id'],version=claim['version'],observed_at=observed,expires_at=observed+900)
     require(facts['imdb'] is not None,'host_listing_crosswalk_needed')
     found,found_at=_get('https://api.themoviedb.org/3/find/'+facts['imdb']+'?external_source=imdb_id',token=env['TMDB_API_TOKEN'])

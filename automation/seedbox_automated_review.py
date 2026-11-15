@@ -67,7 +67,7 @@ def build(report,projection,card):
         'The private listing link and original bot-owned routing are checked mechanically and withheld; do not claim you independently visited or authenticated those sources. '
         'Give a substantive independent explanation. This is automated review, not personal owner review or independent source verification.')
     request['input'][0]['content'][0]['text']=encoded(packet).decode()
-    props={key:dict(type='string',const=value) for key,value in bindings.items()}
+    props={key:dict(type='string',enum=[value]) for key,value in bindings.items()}
     props.update(verdict=dict(type='string',enum=['approve','reject']),reason=dict(type='string',minLength=1,maxLength=2400),
         evidence_findings=dict(type='array',minItems=1,maxItems=8,items=dict(type='string',minLength=1,maxLength=512)),
         material_problems=dict(type='array',maxItems=10,items=dict(type='string',minLength=1,maxLength=512)))
@@ -107,6 +107,7 @@ def _execute(queue,preparation,*,policy,credential):
     from ai_movie_investigator.credit_test import MINI_MODEL
     from ai_movie_investigator.new_case import explanation_prose
     report,evidence,card=assessment(queue,preparation);projection=evidence['projection']
+    require(time.time()+180<min(policy['expires_at'],projection['evidence_expires_at'],projection['generated_at']+3600),'host_evidence_window')
     request,bindings=build(report,projection,card);body=encoded(request);headers(credential,policy['project'])
     require(host._ACTIVE.get() is None and credential.value.encode() not in body,'review_disclosure')
     now=time.time();attempt=queue.reserve_provider(preparation,policy=policy,request_sha256=digest(request),evidence_sha256=bindings['evidence_sha256'],now=now,stage='review',review_of=digest(report))
@@ -132,7 +133,7 @@ def _execute(queue,preparation,*,policy,credential):
             record=dict(type='seedbox_automated_review_completed_v1',preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),card=card,answer=answer,receipt=receipt,receipt_sha256=digest(receipt),review_kind='separate_automated_generation',personal_main_review=False,at=time.time())
             append(record);return record
         except BaseException as error:
-            if str(error) in ('responses_http_401','responses_http_403'):
+            if str(error) in ('responses_http_401','responses_http_403','responses_http_429'):
                 from automation.seedbox_circuit import record
                 append(record(rows,'provider',str(error),preparation))
             append(dict(type='seedbox_review_uncertain_or_refused_v1',preparation=preparation,attempt_sha256=digest(attempt),diagnostic=host.diagnostic(error),at=time.time()))

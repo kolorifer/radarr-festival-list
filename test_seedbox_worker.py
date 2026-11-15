@@ -23,3 +23,13 @@ class WorkerTests(base.QueueTests):
    self.assertTrue(step(q,config));self.assertTrue(step(q,config));self.assertTrue(step(q,config))
    self.assertEqual(fetch.call_count,2)
   with q.locked() as (rows,_):self.assertFalse(active(rows))
+ def test_rate_limit_pauses_other_source_cases(self):
+  q,config=self.prepare_worker()
+  with patch('automation.seedbox_worker.database',side_effect=lambda _:self.store.connection(readonly=True)),patch('automation.seedbox_evidence.capture',side_effect=SourceFailure('source_rate_limited',retry_after=7200)) as fetch:
+   self.assertTrue(step(q,config));self.assertFalse(step(q,config));self.assertFalse(step(q,config));self.assertEqual(fetch.call_count,1)
+  with q.locked() as (rows,_):self.assertTrue(any(r['type']=='seedbox_source_cooldown_v1' and r['not_before']>time.time()+7100 for r in rows))
+
+
+def load_tests(loader,tests,pattern):
+ import unittest
+ return unittest.TestSuite(WorkerTests(name) for name in WorkerTests.__dict__ if name.startswith('test_'))

@@ -216,7 +216,7 @@ class Queue:
         This method itself grants no retry and does not retire a preparation.
         """
         temporary={'source_rate_limited','source_temporary','source_deadline'}
-        reasons=temporary|{'source_auth_denied','source_missing','source_redirect',
+        reasons=temporary|{'source_configuration_unavailable','source_auth_denied','source_missing','source_redirect',
             'source_http_refused','source_content_invalid','source_size_bound',
             'host_listing_crosswalk_needed','host_listing_ambiguous_or_missing',
             'host_catalogue_ambiguous','host_listing_not_authenticated'}

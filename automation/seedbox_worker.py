@@ -71,6 +71,23 @@ def reconcile_source_interruptions(queue):
             _record(queue,dict(type='seedbox_source_blocked_v1',preparation=r['preparation'],reason='source_interrupted',owner_action=True,retry_not_before=None,provider_request_consumed=False,at=time.time()))
 
 
+def load_key(queue,config):
+    from automation.seedbox_credit_policy import permit
+    from automation.seedbox_encrypted_credential import credential
+    rows=_rows(queue)
+    permit(config['credit_policy'],[dict(request_sha256=r['request_sha256'],reserved_usd=r['reserved_usd']) for r in rows if r['type']=='seedbox_provider_started_v1'],now=time.time())
+    receipt=decode(read_private(Path(config['credential']['path']).parent/'provision-reserved.json'))
+    require(receipt['project']==config['credit_policy']['project'] and receipt['policy_sha256']==digest(config['credit_policy']),'host_credential_provision_changed')
+    from datetime import datetime,timezone
+    expiry=datetime.strptime(receipt['not_after'],'%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc).timestamp()
+    require(time.time()<expiry<=config['credit_policy']['expires_at'],'host_credential_expired')
+    return credential(config['credential'],project=config['credit_policy']['project'])
+
+
+def source_paused(rows,now):
+    return any(r['type']=='seedbox_source_cooldown_v1' and now<r['not_before'] for r in rows)
+
+
 def step(queue,config):
     from automation.seedbox_evidence import capture
     from automation.seedbox_encrypted_credential import credential
@@ -105,6 +122,7 @@ def step(queue,config):
         phase='source'
         try:
             if not any(r.get('preparation')==preparation and r['type']=='seedbox_evidence_retained_v1' for r in rows):
+                if source_paused(rows,time.time()):continue
                 with database(config['collector_database']) as c:raw,_,_=selected_snapshot(c,claim['case_id'],time.time())
                 queue.refresh_preparations(raw,now=time.time())
                 if any(r.get('preparation')==preparation and r['type']=='seedbox_preparation_superseded_v1' for r in _rows(queue)):return True
@@ -112,6 +130,9 @@ def step(queue,config):
                 try:capture(queue,config,preparation)
                 except SourceFailure as error:
                     queue.record_source_failure(preparation,reason=error.reason,retry_after=error.retry_after,now=time.time())
+                    if error.reason=='source_rate_limited':
+                        _record(queue,dict(type='seedbox_source_cooldown_v1',reason='source_rate_limited',not_before=time.time()+max(60,error.retry_after or 60),at=time.time()))
+                    if error.reason=='source_configuration_unavailable':_record(queue,record(_rows(queue),'source','shared_source_configuration_or_access',preparation))
                     if error.reason=='source_auth_denied':_record(queue,record(_rows(queue),'source','shared_source_auth_denied',preparation))
                     return True
                 except ValueError as error:
@@ -120,13 +141,13 @@ def step(queue,config):
                     raise
             if not reports:
                 phase='credential'
-                key=credential(config['credential'],project=config['credit_policy']['project'])
+                key=load_key(queue,config)
                 phase='assessment'
                 assess(queue,preparation,policy=config['credit_policy'],credential=key);del key
                 return True
             if not reviews:
                 phase='credential'
-                key=credential(config['credential'],project=config['credit_policy']['project'])
+                key=load_key(queue,config)
                 phase='review'
                 review(queue,preparation,policy=config['credit_policy'],credential=key);del key
                 return True
@@ -136,12 +157,18 @@ def step(queue,config):
             result=deliver_reviewed(queue,config,preparation)
             _record(queue,dict(type='seedbox_delivery_terminal_v1',preparation=preparation,result=result,at=time.time()));return True
         except Exception as error:
-            if phase=='credential':_record(queue,record(_rows(queue),'credential','host_credential_unavailable',preparation))
+            if phase=='credential':
+                reason=str(error)
+                if reason in ('host_credit_exhausted','host_credit_expired'):_record(queue,record(_rows(queue),'provider',reason,preparation))
+                else:_record(queue,record(_rows(queue),'credential','host_credential_unavailable',preparation))
             elif phase=='source' and (isinstance(error,PermissionError) or str(error).startswith(('host_configuration','host_cookie','host_source_configuration','unsafe_'))):
                 _record(queue,record(_rows(queue),'source','shared_source_configuration_or_access',preparation))
+            elif phase=='delivery' and (isinstance(error,PermissionError) or str(error).startswith(('host_actor_','host_sender_','host_topology_','selected_bot_configuration','unsafe_'))):
+                _record(queue,record(_rows(queue),'telegram','shared_sender_configuration_or_access',preparation))
             from ai_movie_investigator.seedbox_authorization import diagnostic
             _record(queue,dict(type='seedbox_operation_blocked_v1',preparation=preparation,diagnostic=diagnostic(error),at=time.time()))
             return True
+    if source_paused(_rows(queue),time.time()):return bool(page['events'])
     # Discover the next eligible occurrence without a full-export eligible cap.
     for event in _pending(_rows(queue)):
         with database(config['collector_database']) as c:raw,_,_=selected_snapshot(c,event['case_id'],time.time())

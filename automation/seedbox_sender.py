@@ -60,12 +60,30 @@ def _deployed(pin):
     finally:os.close(fd)
 
 
+def actor_directory_scope(pin):
+    path=Path(pin['path']);require(path.name=='outcomes.sqlite3','host_actor_database_name')
+    allowed={path.name,path.name+'-journal',path.name+'-wal',path.name+'-shm','message-bindings'}
+    with private_chain(path.parent) as parent:
+        entries=os.listdir(parent);require(set(entries)<=allowed,'host_actor_directory_scope')
+        for name in entries:
+            info=os.stat(name,dir_fd=parent,follow_symlinks=False)
+            if name=='message-bindings':require(stat.S_ISDIR(info.st_mode) and info.st_uid==os.getuid() and stat.S_IMODE(info.st_mode)==0o700,'host_actor_directory_scope')
+            else:require(stat.S_ISREG(info.st_mode) and info.st_uid==os.getuid() and info.st_nlink==1 and stat.S_IMODE(info.st_mode)==0o600,'host_actor_directory_scope')
+
+
+def journal_clean(pin):
+    # Do not silently recover a producer's interrupted transaction. An active
+    # producer journal is also a conservative local refusal, before our DB open.
+    path=Path(pin['path']);require(not os.path.lexists(path.with_name(path.name+'-journal')),'host_actor_journal_present')
+
+
 def deliver_reviewed(queue,config,preparation):
     from automation.seedbox_automated_review import approved_plan
     from automation.reviewed_telegram_operator import deliver
     from identity_triage_store import private_path
     from ai_movie_investigator import private_files as guards
     plan,target=approved_plan(queue,preparation)
+    actor_directory_scope(config['actor_database']);journal_clean(config['actor_database'])
     selected=config['sender'];require(selected['kind']=='main_selected_actor_topology_v1' and selected['revision']=='06d17aafefb5a5161364e4bf6f63667a649e1aa3' and selected['sole_edit_writer'] is True and selected['single_serial_pump'] is True and selected['no_original_binding_republication'] is True,'host_sender_selection')
     require(type(selected['observed_at']) in (int,float) and selected['observed_at']<=time.time()<selected['expires_at']<=config['credit_policy']['expires_at'],'host_topology_expired')
     observed=_process(selected['process'])
@@ -81,12 +99,16 @@ def deliver_reviewed(queue,config,preparation):
     @contextmanager
     def checked_tx():
         with private_chain(store.directory) as parent:
+            journal_clean(pin)
             fd=os.open(store.path.name,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK,dir_fd=parent)
             try:
                 def check():
                     s=os.fstat(fd);require(stat.S_ISREG(s.st_mode) and s.st_uid==os.getuid() and s.st_nlink==1 and stat.S_IMODE(s.st_mode)==0o600 and [s.st_dev,s.st_ino]==pin['identity'] and os.path.samestat(s,store.path.lstat()),'host_sender_database_changed');safe_acl(fd,False)
                 check()
-                with namespace['tx'](store) as c:check();yield c;check()
+                with namespace['tx'](store) as c:
+                    require(c.execute('pragma journal_mode').fetchone()[0]=='delete','host_actor_journal_changed')
+                    c.execute('pragma trusted_schema=off')
+                    check();yield c;check()
             finally:os.close(fd)
     store.tx=checked_tx
     environment=read_private(Path(config['source_configuration']['path']),65536)
@@ -126,7 +148,7 @@ def deliver_reviewed(queue,config,preparation):
         append(dict(type='seedbox_sender_started_v1',preparation=preparation,plan_sha256=digest(plan),target_sha256=digest(target),process=observed,at=now))
         marker=_ACTIVE.set(dict(queue=queue,rows=rows,boundary=boundary,plan_sha256=digest(plan),deadline=time.monotonic()+120))
         try:
-            result=deliver(store,plan,target,config['sources'],boundary,edit,private_guard=vars(guards))
+            result=deliver(store,plan,target,config['sources'],boundary,edit,private_guard=vars(guards),clock=time.time)
             if auth_denied:
                 from automation.seedbox_circuit import record
                 append(record(rows,'telegram','telegram_auth_denied',preparation))

@@ -28,7 +28,7 @@ class ConnectedTests(base.HostExecutionTests):
   h=lambda b:hashlib.sha256(b).hexdigest()
   att.update(kind='host_authenticated_normalized_case_v1',snapshot_sha256=h(snap),source_sha256=h(source),catalogue_sha256=h(catalogue),source_original_sha256=h(raw),catalogue_original_sha256=h(cat),expires_at=NOW+600)
   self.local=encoded(dict(tracker_url='https://www.torrentleech.org/torrent/123',release_name='Invented release',nfo_text=''))
-  bundle=dict(source_original=raw,catalogue_original=cat,find_original=encoded(dict(movie_results=[dict(id=123)])),snapshot=snap,source=source,catalogue=catalogue,local_raw=self.local,attestation=att,target_pin=dict(version='c'*64,row_sha256='d'*64,ref=dict(chat_id='123',message_id=17,kind='text'),case_id=CASE),coverage=dict(global_collector=value['coverage']))
+  bundle=dict(source_original=raw,catalogue_original=cat,find_original=encoded(dict(movie_results=[dict(id=123)])),snapshot=snap,source=source,catalogue=catalogue,local_raw=self.local,attestation=att,target_pin=getattr(self,'fixture_target',dict(version='c'*64,row_sha256='d'*64,ref=dict(chat_id='123',message_id=17,kind='text'),case_id=CASE)),coverage=dict(global_collector=value['coverage']))
   with patch('time.time',return_value=NOW):self.p=evidence._retain(self.q,self.selected['reservation'],bundle)['projection']
  def execute(self):
   with patch('automation.seedbox_evidence.verify_current'):
@@ -84,3 +84,33 @@ class InstalledTests(ConnectedTests):
    (root/'automation/seedbox_worker.py').unlink()
    r=subprocess.run([sys.executable,'-I','-B',str(root/'automation/seedbox_bootstrap.py'),str(root/'seedbox-runtime.json'),result['manifest_sha256'],'verify'],capture_output=True,timeout=30)
    self.assertNotEqual(r.returncode,0)
+
+class ReportRecoveryTests(ConnectedTests):
+ def test_report_recreated_before_review_from_exact_retained_bytes(self):
+  with patch('time.time',return_value=NOW),framing.wire(self.wire()):self.execute()
+  path=self.path/('report-'+self.selected['reservation']+'.html');old=path.read_bytes();path.unlink()
+  with patch('time.time',return_value=NOW):review.assessment(self.q,self.selected['reservation'])
+  self.assertEqual(path.read_bytes(),old)
+  with self.q.locked() as (rows,_):self.assertEqual(sum(r['type']=='seedbox_provider_started_v1' for r in rows),1)
+
+class RateLimitTests(ConnectedTests):
+ def test_provider_429_retains_attempt_and_pauses_new_cases(self):
+  code=framing.wire_code().replace("status=401 if variant=='rejected' else 200",'status=429')
+  ns={'selected_raw':b'{}','framing':'length'};exec(code,ns)
+  with patch('time.time',return_value=NOW),ns['wire_fixture']('completed'),self.assertRaisesRegex(ValueError,'host_assessment_uncertain'):
+   self.execute()
+  from automation.seedbox_circuit import active
+  from automation.seedbox_worker import step
+  with self.q.locked() as (rows,_):
+   self.assertEqual(active(rows)[0]['reason'],'responses_http_429');self.assertEqual(sum(r['type']=='seedbox_provider_started_v1' for r in rows),1)
+  with patch('automation.seedbox_worker.database',side_effect=AssertionError('must not acquire')):
+   self.assertFalse(step(self.q,{}))
+
+
+def load_tests(loader,tests,pattern):
+ suite=unittest.TestSuite(loader.loadTestsFromTestCase(ConnectedTests))
+ for cls,names in ((InstalledTests,['test_installed_only_nonempty_derivation_and_changed_evidence']),
+                   (ReportRecoveryTests,['test_report_recreated_before_review_from_exact_retained_bytes']),
+                   (RateLimitTests,['test_provider_429_retains_attempt_and_pauses_new_cases'])):
+  suite.addTests(cls(name) for name in names)
+ return suite

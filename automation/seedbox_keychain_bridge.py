@@ -10,8 +10,11 @@ from ai_movie_investigator.private_files import private_chain,read_private
 from ai_movie_investigator.snapshot_authorization import _write_once
 from automation.seedbox_child import captured
 
+_PHASE='bridge_preflight'
+
 
 def run(path,expected):
+    global _PHASE
     raw=read_private(Path(path),65536);require(hashlib.sha256(raw).hexdigest()==expected,'bridge_selection_changed');p=decode(raw,65536)
     require(p['kind']=='seedbox_keychain_bridge_v1' and re.fullmatch(r'[a-zA-Z0-9.-]+',p['host']) and re.fullmatch(r'[a-zA-Z0-9_-]+',p['user']) and type(p['port']) is int and 1<=p['port']<=65535,'bridge_destination')
     from automation.seedbox_credit_policy import validate
@@ -39,7 +42,9 @@ def run(path,expected):
         require(all(type(v) is str and '\x00' not in v and '\n' not in v for v in remote),'bridge_command')
         argv=['/usr/bin/ssh','-F','/dev/null','-T','-o','BatchMode=yes','-o','IdentitiesOnly=yes','-o','StrictHostKeyChecking=yes','-o','GlobalKnownHostsFile=/dev/null','-o','UserKnownHostsFile='+p['known_hosts']['path'],'-o','ConnectTimeout=5','-o','ServerAliveInterval=5','-o','ServerAliveCountMax=1','-i',p['ssh_key']['path'],'-p',str(p['port']),p['user']+'@'+p['host'],shlex.join(remote)]
         from ai_movie_investigator.keychain_credential import one_shot_process,credential
+        _PHASE='keychain_lookup'
         with one_shot_process():secret=credential(p['credit_policy']['project'])
+        _PHASE='ssh_encryption'
         result=captured(argv,secret.value.encode('ascii'),seconds=40,output_limit=128,environment={'PATH':'/usr/bin:/bin'})
         require(result==b'encrypted_credential_stored\n','bridge_uncertain')
         _write_once(parent,'bridge-completed.json',b'{"status":"encrypted_credential_stored"}\n')
@@ -52,7 +57,11 @@ def main():
     try:
         require(len(sys.argv)==3 and sys.flags.isolated and sys.dont_write_bytecode,'bridge_entry')
         run(sys.argv[1],sys.argv[2]);return 0
-    except BaseException:
+    except BaseException as error:
+        import json
+        from ai_movie_investigator.supervised_credit import safe_diagnostic
+        result=safe_diagnostic(error);result['phase']=_PHASE
+        print(json.dumps(dict(status='bridge_refused_or_uncertain',diagnostic=result)),file=sys.stderr)
         return 1
     finally:timer.cancel()
 

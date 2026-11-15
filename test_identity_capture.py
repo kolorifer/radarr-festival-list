@@ -316,7 +316,7 @@ print('isolated_default_startup_passed')
         from ai_movie_investigator.installation import RUNTIME_FILES
         source=Path(__file__).parent
         manifest=json.loads((source/'docs/reports/2026-11-03-issue-127-coordinator-repair-runtime-manifest.json').read_text())['runtime_files']
-        self.assertEqual(set(manifest),set(RUNTIME_FILES));self.assertEqual(len(manifest),47)
+        self.assertEqual(set(manifest),set(RUNTIME_FILES));self.assertEqual(len(manifest),48)
         self.assertTrue({'ai_movie_investigator/captured_evidence_preflight.py','ai_movie_investigator/captured_private_report.py'} <= set(manifest))
         self.assertNotIn('identity_triage_capture.py',manifest)
         runtime=self.root/'investigator';runtime.mkdir(mode=0o700)

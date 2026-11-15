@@ -77,7 +77,7 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at):
 def catalogue_facts(raw,*,expected_tmdb,expected_imdb,observed_at,expires_at):
     require(type(raw) is bytes and 0<len(raw)<=1048576,'host_catalogue_size')
     value=json.loads(raw)
-    require(type(value) is dict and type(expected_tmdb) is int and 0<expected_tmdb<2**31 and type(value.get('id')) is int and value['id']==expected_tmdb and type(expected_imdb) is str and re.fullmatch(r'tt[0-9]{7,10}',expected_imdb) and value.get('imdb_id')==expected_imdb,'host_catalogue_crosswalk')
+    require(type(value) is dict and type(expected_tmdb) is int and 0<expected_tmdb<2**31 and type(value.get('id')) is int and value['id']==expected_tmdb and type(expected_imdb) is str and re.fullmatch(r'tt[0-9]{7,12}',expected_imdb) and value.get('imdb_id')==expected_imdb,'host_catalogue_crosswalk')
     credits=value.get('credits',{});dates=value.get('release_dates',{});theatrical=[];festival=[]
     require(type(credits) is dict and type(dates) is dict,'host_catalogue_shape')
     for region in dates.get('results',[]):

@@ -12,7 +12,7 @@ def active(rows):
 
 def record(rows,scope,reason,preparation=None):
     require(scope in ('source','credential','provider','telegram'),'host_circuit_scope')
-    require(reason in ('shared_source_auth_denied','shared_source_configuration_or_access','host_credential_unavailable','responses_http_401','responses_http_403','telegram_auth_denied'),'host_circuit_reason')
+    require(reason in ('shared_source_auth_denied','shared_source_configuration_or_access','host_credential_unavailable','responses_http_401','responses_http_403','responses_http_429','host_credit_exhausted','host_credit_expired','telegram_auth_denied','shared_sender_configuration_or_access'),'host_circuit_reason')
     return dict(type='seedbox_global_circuit_v1',scope=scope,reason=reason,preparation=preparation,configuration_sha256=rows[0]['configuration_sha256'],at=time.time(),automatic_recovery=False)
 
 

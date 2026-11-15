@@ -31,7 +31,7 @@ def main():
     if Path(__file__).resolve()!=root/'automation/seedbox_bootstrap.py':raise ValueError('bootstrap_location')
     sys.path.insert(0,str(root));mode=sys.argv[3]
     if mode=='verify':
-        for module in ('automation.seedbox_worker','automation.seedbox_sender','automation.seedbox_evidence','automation.seedbox_automated_review','automation.seedbox_keychain_bridge'):
+        for module in ('requests','bs4','automation.seedbox_worker','automation.seedbox_sender','automation.seedbox_evidence','automation.seedbox_automated_review','automation.seedbox_keychain_bridge'):
             __import__(module)
         print('seedbox_runtime_verified');return
     if mode=='bridge':

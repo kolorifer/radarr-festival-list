@@ -1,7 +1,7 @@
 """Linux ABI6 selected-file confinement for the event worker.
 
 Only selected source files, existing SQLite files, public runtime/CA libraries,
-private worker state and user credential IPC are accessible. HTTPS only; no TCP
+private worker state and actor SQLite subtree are accessible. HTTPS only; no TCP
 listener. No write grant to producer code/config or collector source directory.
 """
 import ctypes,os,stat,sys
@@ -32,11 +32,24 @@ def confine(config,code_root):
     pid=config['sender']['process']['pid']
     for name in ('cmdline','stat'):paths[str(Path('/proc')/str(pid)/name)]=READ
     paths['/usr/bin/systemd-creds']=READ|1
-    for name,writable in (('collector_database',False),('actor_database',True)):
-        db=Path(config[name]['path']);paths[str(db.parent)]=1<<3
-        for path in (db,db.with_name(db.name+'-wal'),db.with_name(db.name+'-shm')):
-            require(path.exists(),'host_database_sidecar_missing')
-            paths[str(path)]=READ|((1<<1) if writable or path.name.endswith('-shm') else 0)
+    loader=Path('/lib64/ld-linux-x86-64.so.2').resolve(strict=True)
+    info=loader.stat();require(stat.S_ISREG(info.st_mode) and info.st_uid==0 and not info.st_mode&0o022,'host_system_loader')
+    paths[str(loader)]=READ|1
+    from automation.seedbox_sender import actor_directory_scope
+    actor_directory_scope(config['actor_database'])
+    collector=Path(config['collector_database']['path'])
+    require(config['collector_database']['journal_mode']=='wal' and config['actor_database']['journal_mode']=='delete','host_journal_selection')
+    paths[str(collector.parent)]=1<<3
+    for path in (collector,collector.with_name(collector.name+'-wal'),collector.with_name(collector.name+'-shm')):
+        require(path.exists(),'host_collector_sidecar_missing')
+        paths[str(path)]=READ|((1<<1) if path.name.endswith('-shm') else 0)
+    actor=Path(config['actor_database']['path'])
+    # DELETE mode creates/removes a future rollback-journal filename. Landlock
+    # cannot grant that filename before it exists: the truthful kernel grant is
+    # this actor state subtree, including existing binding-spool descendants.
+    # No directory creation/removal; trusted fixed SQL/sender code constrains
+    # actual writes to the selected DB and SQLite's own journal lifecycle.
+    paths[str(actor.parent)]=READ|(1<<1)|(1<<5)|(1<<8)|(1<<14)
     # Descriptor-relative guards open ancestor directories; directory-name
     # traversal is allowed, while file contents remain separately selected.
     paths['/']=1<<3

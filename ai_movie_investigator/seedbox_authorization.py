@@ -111,7 +111,7 @@ def _execute(queue,preparation,*,policy,credential):
             append(dict(type='seedbox_assessment_pending_review_v1',preparation=preparation,attempt_sha256=digest(attempt),report=report,answer=retained,html_sha256=hashlib.sha256(html.encode()).hexdigest(),at=time.time()))
             return dict(report=report,html=html,projection=projection)
         except BaseException as error:
-            if str(error) in ('responses_http_401','responses_http_403'):
+            if str(error) in ('responses_http_401','responses_http_403','responses_http_429'):
                 from automation.seedbox_circuit import record
                 append(record(rows,'provider',str(error),preparation))
             append(dict(type='seedbox_assessment_uncertain_or_refused_v1',preparation=preparation,attempt_sha256=digest(attempt),diagnostic=diagnostic(error),at=time.time()))

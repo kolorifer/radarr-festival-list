@@ -72,8 +72,13 @@ after the read-only check; this cannot authorize production identity or download
 Weak/outcome-only correlation stays explicitly pending for later collector linkage.
 
 The confined worker permits directory-name traversal for descriptor guards;
-file bytes are restricted separately. Actor DB/WAL writes are file-level grants,
-with PR204 enforcing the table/row mutation contract in trusted code. The fixed
+file bytes are restricted separately. The collector remains WAL/read-only (existing SHM lock writes); the actor stays
+in DELETE journal mode. Its exact private state subtree receives regular-file
+read/write/create/remove/truncate rights for SQLite journals, without directory
+creation/removal. These rights also cover the existing binding spool; Landlock
+cannot subtract a child rule. PR204 and fixed transaction code constrain actual
+table/row/file mutations; this is not a kernel filename/table guarantee. Existing
+rollback journals cause a local refusal, not silent recovery or durability changes. The fixed
 systemd user-scope CLI uses `/run/systemd/io.systemd.Credentials`; ABI6 does not
 path-mediate filesystem Unix-socket connects. The final actual confinement probe
 must pass using invented credentials before real provisioning/activation.
