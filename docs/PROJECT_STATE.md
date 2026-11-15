@@ -1,3 +1,11 @@
+## Frozen sender receipt closure candidate, 2026-11-15
+
+One original-card edit is uncertain and remains consumed. A package-only dynamic
+import defect is reproduced offline; historical delivery is not established.
+The narrow candidate binds the already verified frozen receipt hook and retains
+finite delivery phases without enabling resend. Main owns stopped-service audit
+and any deployment. See [scope and limits](reports/2026-11-15-seedbox-sender-receipt-closure.md).
+
 ## Complete-card and delivery-source revalidation candidate, 2026-11-15
 
 PR209 merged with supported CI and unchanged reviewed content. Main holds all live

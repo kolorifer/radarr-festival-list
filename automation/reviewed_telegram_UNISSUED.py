@@ -5,6 +5,8 @@ Main selects existing files and supplies private pins only after independent rev
 """
 from contextlib import ExitStack,contextmanager
 import ast
+import builtins
+import threading
 import hashlib
 import json
 import os
@@ -72,7 +74,7 @@ def selected_functions(raw,names,namespace):
     exec(compile(ast.Module(body=nodes,type_ignores=[]),'verified-existing-functions','exec'),namespace)
 
 
-def sender(actor_raw,environment_raw):
+def sender(actor_raw,environment_raw,observe=None):
     # Reuse the deployed literal-value parser on a frozen guarded snapshot.
     class Snapshot:
         def stat(self):return types.SimpleNamespace(st_mode=0o600)
@@ -83,7 +85,38 @@ def sender(actor_raw,environment_raw):
     token=values.get('TELEGRAM_BOT_TOKEN');chat=values.get('TELEGRAM_CHAT_ID');values.clear()
     if not token or not chat:raise ValueError('selected_bot_configuration')
     def forbidden(*_):raise ValueError('reviewed_actions_disabled')
-    api=dict(json=json,Request=Request,urlopen=urlopen,HTTPError=HTTPError,
+    # Dynamic imports in frozen actor functions are invisible to package closure.
+    # Bind only this exact import to the already pinned actor function, without
+    # importing actor startup/dependencies or mutating process-wide sys.modules.
+    receipt_module=types.ModuleType('selected_actor_receipt')
+    receipt_module._LOCAL=threading.local()
+    selected_functions(actor_raw['retry_telegram.py'],{'receipt'},receipt_module.__dict__)
+    exact_receipt=receipt_module.receipt
+    observe=observe or (lambda stage:None)
+    def receipt(method,body,response):
+        if method not in ('editMessageText','editMessageCaption'):
+            raise ValueError('reviewed_actions_disabled')
+        observe('receipt_started')
+        result=exact_receipt(method,body,response)
+        observe('receipt_returned')
+        return result
+    receipt_module.receipt=receipt
+    def selected_import(name,globals=None,locals=None,fromlist=(),level=0):
+        if name=='retry_telegram':
+            if level!=0 or tuple(fromlist)!=('receipt',):raise ValueError('selected_receipt_import')
+            return receipt_module
+        return builtins.__import__(name,globals,locals,fromlist,level)
+    def transport(*args,**kwargs):
+        observe('transport_started')
+        response=urlopen(*args,**kwargs)
+        observe('response_received')
+        return response
+    def response_json(response):
+        result=json.load(response)
+        observe('response_accepted' if isinstance(result,dict) and result.get('ok') is True else 'response_rejected')
+        return result
+    api=dict(json=types.SimpleNamespace(dumps=json.dumps,loads=json.loads,load=response_json),Request=Request,urlopen=transport,HTTPError=HTTPError,
+        __builtins__=dict(vars(builtins),__import__=selected_import),
         TELEGRAM_BOT_TOKEN=token,TELEGRAM_CHAT_ID=chat,get_action=forbidden,
         public_action_url=forbidden,_reply_markup=forbidden)
     selected_functions(actor_raw['movie_intel_service.py'],{'_telegram_request','edit_retry_message'},api)
