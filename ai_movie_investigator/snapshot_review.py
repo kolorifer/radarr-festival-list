@@ -67,7 +67,7 @@ def select(snapshot_raw, snapshot_sha256, case_id, version, *, now):
 
 
 def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, catalogue_raw,
-               attestation, *, now, reobservation=None, local_context=None):
+               attestation, *, now, reobservation=None, local_context=None, historical_observed_at=None):
     """Make minimized, typed disclosure; preserve each identity assertion.
 
     The attestation is trusted only after an external exact owner/supervisor
@@ -127,11 +127,11 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
         acquisition_approval='unknown', evidence_expires_at=min(source['expires_at'], catalogue['expires_at']),
         source_evidence_sha256=attestation['source_sha256'], catalogue_evidence_sha256=attestation['catalogue_sha256'])
     if reobservation is not None:
-        _same_listing_reobservation(result,reobservation,attestation,local_context)
+        _same_listing_reobservation(result,reobservation,attestation,local_context,historical_observed_at=historical_observed_at)
     return result
 
 
-def _same_listing_reobservation(p,proof,attestation,local):
+def _same_listing_reobservation(p,proof,attestation,local,*,historical_observed_at=None):
     """Narrow main-reviewed dated observation, not source intent or media truth."""
     from .contracts import hash_id
     shape(proof,'kind source external_id historical_original current_original_sha256 old_asserted_imdb historical_time_basis historical_evidence_present_by current_observed_at historical_release_sha256 current_release_sha256 historical_nfo_sha256 current_nfo_sha256 same_listing_reviewed assertion_origin')
@@ -148,8 +148,10 @@ def _same_listing_reobservation(p,proof,attestation,local):
         ids['asserted_imdb'] is not None and ids['asserted_imdb']==proof['old_asserted_imdb'] and
         source['imdb'] is not None and cat['imdb']==source['imdb'] and cat['tmdb'] is not None and
         source['imdb']!=ids['asserted_imdb'],'snapshot_reobservation')
+    historical_clock=p['observed_at'] if historical_observed_at is None else stamp(historical_observed_at)
+    require(historical_clock<=p['observed_at'],'snapshot_reobservation')
     require(proof['historical_time_basis']=='evidence_present_by_outcome_time' and
-        stamp(proof['historical_evidence_present_by'])==p['observed_at'] and
+        stamp(proof['historical_evidence_present_by'])==historical_clock and
         stamp(proof['current_observed_at'])==source['observed_at'] and
         proof['historical_evidence_present_by']<proof['current_observed_at'] and
         proof['current_original_sha256']==attestation['source_original_sha256'] and
@@ -160,7 +162,7 @@ def _same_listing_reobservation(p,proof,attestation,local):
         require(proof['historical_'+field+'_sha256']==proof['current_'+field+'_sha256']==hashlib.sha256(local[key].encode()).hexdigest(),'snapshot_reobservation')
     comparisons=film_comparisons(p)
     require(comparisons['title'][0]['relation']=='exact' and comparisons['people'][0]['relation']=='overlap','snapshot_reobservation')
-    p['historical_id_discrepancy']=dict(kind=proof['kind'],old_asserted_imdb=ids['asserted_imdb'],current_listing_imdb=source['imdb'],historical_time_basis=proof['historical_time_basis'],historical_evidence_present_by=proof['historical_evidence_present_by'],historical_exact_fetch_at=None,historical_case_observed_at=p['observed_at'],current_observed_at=source['observed_at'],same_listing_reviewed=True,release_nfo_linkage_unchanged=True,source_intent='unknown',physical_identity='unknown')
+    p['historical_id_discrepancy']=dict(kind=proof['kind'],old_asserted_imdb=ids['asserted_imdb'],current_listing_imdb=source['imdb'],historical_time_basis=proof['historical_time_basis'],historical_evidence_present_by=proof['historical_evidence_present_by'],historical_exact_fetch_at=None,historical_case_observed_at=historical_clock,current_observed_at=source['observed_at'],same_listing_reviewed=True,release_nfo_linkage_unchanged=True,source_intent='unknown',physical_identity='unknown')
     # Preserve conflicting_ids and every original assertion; distinguish this
     # reviewed historical discrepancy from a simultaneous current conflict.
     p['blocking_id_conflict']=False
@@ -973,4 +975,85 @@ def validate_film_quality(projection,prepared,reply,*,now):
     else:require(bool(blockers),'snapshot_comparison_blocker_missing')
     result.update(prose)
     result.update(film_comparisons=comparisons,film_blockers=blockers,explanation_quality=caveats)
+    return result
+
+
+def identity_blocker_pairs(p):
+    """Admissible identity questions; runtime/cut/collector-output gaps are context."""
+    c=film_comparisons(p);pairs=[]
+    if _blocking_id_conflict(p):pairs.append(('ids','conflicting_film_evidence'))
+    elif p['citation_eligible_pair'] is None:pairs.append(('ids','missing_film_evidence'))
+    title=c['title'][0]['relation']
+    if title=='different':pairs.append(('title','conflicting_film_evidence'))
+    elif title=='missing':pairs.append(('title','missing_film_evidence'))
+    years=[p['catalogue']['theatrical_year']]+p['catalogue']['festival_years'];years=[y for y in years if y is not None]
+    year=p['listing']['year']
+    if year is not None and years and year not in years:pairs.append(('year','ambiguous_film_evidence'))
+    people=c['people'];overlap=any(r['relation']=='overlap' for r in people)
+    if not overlap and any(r['relation']=='no_observed_overlap' for r in people):pairs.append(('people','ambiguous_film_evidence'))
+    # Missing optional subfields do not veto observed corroboration. With no
+    # corroborating people/year, retain an explicit insufficient-evidence route.
+    if not overlap and not (year is not None and year in years):
+        if year is None or not years:pairs.append(('year','missing_film_evidence'))
+        if all(r['relation']=='missing' for r in people):pairs.append(('people','missing_film_evidence'))
+    return pairs
+
+
+def identity_limitations(p):
+    c=film_comparisons(p);limits=['physical_edition_unverified','acquisition_unapproved']
+    if any(r['relation']=='different' for key in ('runtime_description','runtime_nfo') for r in c[key]):limits.append('runtime_measurements_differ')
+    if 'publisher_edition' in p:limits.append('publisher_claim_not_torrent_measurement')
+    if p['source_identifiers']['imdb'] is None or p['source_identifiers']['tmdb'] is None:limits.append('collector_resolved_outputs_missing')
+    if not _blocking_id_conflict(p) and (p['reason']=='identifier_conflict' or 'identifier_conflict' in p['producer_contradictions']):limits.append('producer_flag_without_current_competing_id')
+    return limits
+
+
+def build_film_identity(p):
+    """v12: ask a film decision; keep edition/context limitations separate."""
+    import copy
+    b=copy.deepcopy(build_film_quality(p));wire=b['request']
+    data=decode(wire['input'][0]['content'][0]['text'],65536)
+    data['admissible_identity_blockers']=[dict(aspect=a,reason=r) for a,r in identity_blocker_pairs(p)]
+    data['separate_limitations']=identity_limitations(p)
+    wire['input'][0]['content'][0]['text']=encoded(data).decode()
+    for variant in wire['text']['format']['schema']['properties']['result']['anyOf']:
+        props=variant['properties']
+        for key in ('primary_blocker','additional_blockers'):
+            blocker=props[key]['items'] if key=='additional_blockers' else props[key]
+            if 'anyOf' in blocker:
+                blocker['anyOf']=[v for v in blocker['anyOf'] if v['properties']['aspect']['enum'][0] in ('title','year','people','ids')]
+    # Keep negative schema variants available: an unsupported negative is refused,
+    # never converted into support. Typed admissibility is independently checked.
+    wire['instructions']+=(
+        ' Underlying film identity and physical edition are separate questions. Return the actual evidence-based film decision. '
+        'A container/catalogue runtime delta, uncertain cut, unverified captured file, or producer flag without a concrete current competing ID '
+        'is never by itself an identity blocker. Missing collector resolved IDs are missing outputs, not competing claims. '
+        'The supplied admissible_identity_blockers lists the identity aspects/reasons supported by current observations; use only these for a negative verdict. '
+        'Do not invent a blocker when that list is empty. Negative schema variants remain available, but an ungrounded negative will be refused, never rewritten as support. '
+        'Current contradictory IDs and titles remain hard identity conflicts. Different supplied years and uncorroborated partial people lists remain identity questions to weigh, not automatic proof of another film. '
+        'A festival-year match resolves a bare theatrical-year delta; partial people lists with no overlap are ambiguity, not proof of another film. '
+        'Exact IMDb alone does not establish identity: weigh non-ID title/year/people evidence and preserve the citation gates. '
+        'The supplied separate_limitations are recorded locally for either verdict; discuss relevant edition/runtime/collector uncertainty outside identity blockers. '
+        'Keep rationale concise and complete and explain the actual film decision. Never claim physical-edition verification or identity/acquisition approval.')
+    require(len(encoded(wire))<=65536,'snapshot_disclosure_size')
+    return b
+
+
+def validate_film_identity(p,prepared,reply,*,now):
+    import copy
+    from .responses_protocol import schema_value
+    require(prepared==build_film_identity(p),'snapshot_prepared_changed')
+    schema_value(reply,prepared['request']['text']['format']['schema'])
+    a=copy.deepcopy(reply);r=a['result'];limits=identity_limitations(p)
+    blockers=([r['primary_blocker']] if r['primary_blocker'] else [])+r['additional_blockers']
+    pairs=identity_blocker_pairs(p)
+    if r['status']!='supported_candidate':
+        require(blockers and all((b['aspect'],b['reason']) in pairs for b in blockers),'snapshot_identity_blocker_unsupported')
+    else:
+        require(not any(aspect in ('ids','title') and reason=='conflicting_film_evidence' for aspect,reason in pairs),'snapshot_identity_contrary_observation')
+        comparisons=film_comparisons(p)
+        require(any(row['relation'] in ('exact','overlap') for row in comparisons['title'][:1]+comparisons['year'][:2]+comparisons['people']),'snapshot_identity_support_missing')
+    result=validate_film_quality(p,build_film_quality(p),a,now=now)
+    # Existing non-ID corroboration/citation/current conflict guards above remain.
+    result['separate_limitations']=limits
     return result

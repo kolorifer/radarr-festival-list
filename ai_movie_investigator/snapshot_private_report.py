@@ -169,6 +169,20 @@ def render(report, report_sha256, projection, local_raw, local_sha256, *, publis
     possible_incomplete=any(isinstance(result.get(field),str) and
         result[field]!=_WITHHELD_PROSE and handling.get(field,{}).get('status')!='withheld' and
         not re.search(r"[.!?][\"'”’)\]]*$",result[field].rstrip()) for field in ('rationale','uncertainty'))
+    collector_observation_html=''
+    if report.get('collector_reobservation') is not None:
+        co=report['collector_reobservation']
+        collector_observation_html=('<p>Prior collector observation: '+escape(observed(co['prior_observed_at']))+
+            '; selected collector observation: '+escape(observed(co['observed_at']))+
+            '. The exact selected substantive case and item facts are unchanged; both versions and the earlier report remain recorded. '
+            'This does not establish the current live queue.</p>')
+    separate_labels={'physical_edition_unverified':'The physical edition and cut are unverified.',
+        'acquisition_unapproved':'Acquisition remains unapproved.',
+        'runtime_measurements_differ':'Listing or NFO runtime differs from catalogue runtime; this alone does not identify a different film.',
+        'publisher_claim_not_torrent_measurement':'Publisher edition runtime is a claim about that edition, not a measurement of the torrent.',
+        'collector_resolved_outputs_missing':'Collector resolved identifiers are missing outputs, not competing identifiers.',
+        'producer_flag_without_current_competing_id':'The producer conflict label has no concrete current competing identifier in the selected observations.'}
+    separate_html=('<h3>Separate edition and evidence limitations</h3><ul>'+''.join('<li>'+escape(separate_labels[k])+'</li>' for k in result['separate_limitations'])+'</ul>') if 'separate_limitations' in result else ''
     quality_labels={'no_alphabetic_words':'no alphabetic words',
         'no_terminal_punctuation':'no terminal punctuation', 'trailing_conjunction':'trailing conjunction',
         'category_labels_only':'category labels only', 'identical_support_and_conflict':'identical support and conflict wording'}
@@ -196,7 +210,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256, *, publis
         '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
         li('Original release name',local['release_name']),li('Collector title',projection['title']),li('Collector year',projection['year']),
         li('Producer contradictions',projection['producer_contradictions']),'</ul>',
-        publisher_html,'<h2>Model-reported film blockers</h2>',quality_html,('<ul>'+blocks+'</ul>' if blockers else '<p>None reported.</p>' if 'film_blockers' in result else '<p>No structured film blockers were recorded.</p>'),
+        publisher_html,collector_observation_html,separate_html,'<h2>Model-reported film blockers</h2>',quality_html,('<ul>'+blocks+'</ul>' if blockers else '<p>None reported.</p>' if 'film_blockers' in result else '<p>No structured film blockers were recorded.</p>'),
         '<p>These are the model’s selected concerns. The values shown are observations, not a claim that they caused its decision.</p>',
         '<h2>Evidence at a glance</h2><p>Agreements and differences are direct comparisons; they do not establish identity or an edition. Lists may be partial.</p>',
         '<p>Snapshot generated: '+escape(observed(projection['generated_at']))+'; listing observed: '+escape(observed(source['observed_at']))+'; catalogue observed: '+escape(observed(cat['observed_at']))+'.</p>',
