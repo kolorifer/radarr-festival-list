@@ -685,7 +685,7 @@ def validate_film_context(projection,prepared,reply,*,now):
     return result
 
 
-def build_film_weighing(projection):
+def build_film_weighing(projection,*,first=False):
     import copy
     from .credit_test import MINI_POLICY
     prepared=copy.deepcopy(build_film_context(projection));wire=prepared['request'];wire.update(MINI_POLICY)
@@ -704,14 +704,15 @@ def build_film_weighing(projection):
         'No named-film exception, invented score or automatic approval is permitted. This is one deliberately '
         'selected Mini reassessment, not a fallback or retry loop.'
     )
+    if first:wire['instructions']=wire['instructions'].replace('selected Mini reassessment','selected Mini first assessment')
     return prepared
 
 
-def validate_film_weighing(projection,prepared,reply,*,now):
+def validate_film_weighing(projection,prepared,reply,*,now,first=False):
     import copy,re
     from .responses_protocol import schema_value
     from .new_case import explanation_prose
-    require(prepared==build_film_weighing(projection),'snapshot_prepared_changed')
+    require(prepared==build_film_weighing(projection,first=first),'snapshot_prepared_changed')
     schema_value(reply,prepared['request']['text']['format']['schema'])
     answer=copy.deepcopy(reply);r=answer['result']
     prose={name:explanation_prose(r[name]) for name in ('rationale','uncertainty')}

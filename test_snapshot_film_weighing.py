@@ -28,6 +28,8 @@ class WeighingTests(unittest.TestCase):
    with self.subTest(text=text),self.assertRaisesRegex(Refusal,'snapshot_justification_label_only'):s.validate_film_weighing(self.p,self.b,a,now=NOW)
  def test_profile_frozen_legacy_and_bound(self):
   self.assertEqual(encoded(s.build_film_context(self.p)),Path('tests/fixtures/snapshot-v8-invented-build.json').read_bytes())
+  self.assertEqual(encoded(self.b),Path('tests/fixtures/snapshot-v9-invented-build.json').read_bytes())
+  self.assertIn('Mini first assessment',s.build_film_weighing(self.p,first=True)['request']['instructions'])
   self.assertEqual(self.b['request']['model'],MINI_POLICY['model']);self.assertEqual(400000*MINI_INPUT_RATE+25000*MINI_OUTPUT_RATE,MINI_DEBIT)
   for change in ('title','ids','binding'):
    p=copy.deepcopy(self.p);a=copy.deepcopy(self.a)
@@ -55,3 +57,16 @@ class WeighingTests(unittest.TestCase):
    kept,handling=_captured_prose_copy(a,film_weighing=True)
    self.assertEqual(a,before);self.assertEqual(handling['rationale']['status'],'withheld')
    self.assertNotIn(text.encode(),encoded(kept));self.assertNotEqual(digest(a),digest(kept))
+
+ def test_dated_assertion_cannot_imply_same_listing_correction(self):
+  import test_snapshot_review as fixture
+  from ai_movie_investigator.contracts import decode
+  snap,src,cat,att=fixture.fixture();obj=decode(snap,1048576)
+  obj['cases'][0]['source_identity']['asserted_tmdb']=456;obj['items'][0]['facts']['tmdb']=456
+  snap=encoded(obj);att['snapshot_sha256']=hashlib.sha256(snap).hexdigest()
+  p=s.projection(snap,att['snapshot_sha256'],fixture.CASE,fixture.VERSION,src,cat,att,now=fixture.NOW)
+  self.assertGreater(p['listing']['observed_at'],p['observed_at'])
+  self.assertTrue(p['conflicting_ids']);self.assertIsNone(p['citation_eligible_pair'])
+  self.assertEqual(p['source_identifiers']['asserted_tmdb'],456)
+  schemas=s.build_film_weighing(p,first=True)['request']['text']['format']['schema']['properties']['result']['anyOf']
+  self.assertFalse(any(v['properties']['status']['enum']==['supported_candidate'] for v in schemas))

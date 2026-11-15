@@ -297,8 +297,9 @@ def validate_evidence(e,now,*,standing=False):
     if mini:
         from .snapshot_authorization import active
         a=active().record
-        require(standing and a.get('weighing_reassessment',{}).get('model_profile')==MINI_PROFILE and
-            a['weighing_reassessment']['model_evidence_sha256']==digest(e) and
+        proof=a.get('first_assessment',a.get('weighing_reassessment',{}))
+        require(standing and proof.get('model_profile')==MINI_PROFILE and
+            proof['model_evidence_sha256']==digest(e) and
             a['project']==e['project'] and a['account_reference']==e['account_reference'],'snapshot_weighing_model')
     require(e['model']==(MINI_MODEL if mini else INTEGRATION_MODEL) and e['policy']==(MINI_POLICY if mini else POLICY) and type(e['context_window']) is int and
             e['context_window']==CONTEXT_TOKENS and rational(e['input_rate'])==(MINI_INPUT_RATE if mini else INPUT_RATE) and
