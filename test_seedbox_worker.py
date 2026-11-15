@@ -23,6 +23,13 @@ class WorkerTests(base.QueueTests):
    self.assertTrue(step(q,config));self.assertTrue(step(q,config));self.assertTrue(step(q,config))
    self.assertEqual(fetch.call_count,2)
   with q.locked() as (rows,_):self.assertFalse(active(rows))
+ def test_missing_original_stays_pre_http_source_block_without_replacement(self):
+  q,config=self.prepare_worker()
+  with patch('automation.seedbox_worker.database',side_effect=lambda _:self.store.connection(readonly=True)),patch('automation.seedbox_evidence.capture',side_effect=ValueError('telegram_original_missing')):
+   self.assertTrue(step(q,config))
+  with q.locked() as (rows,_):
+   self.assertTrue(any(r['type']=='seedbox_source_blocked_v1' and r['reason']=='telegram_original_missing' for r in rows))
+   self.assertFalse(any(r['type']=='seedbox_provider_started_v1' for r in rows));self.assertFalse(active(rows))
  def test_rate_limit_pauses_other_source_cases(self):
   q,config=self.prepare_worker()
   with patch('automation.seedbox_worker.database',side_effect=lambda _:self.store.connection(readonly=True)),patch('automation.seedbox_evidence.capture',side_effect=SourceFailure('source_rate_limited',retry_after=7200)) as fetch:

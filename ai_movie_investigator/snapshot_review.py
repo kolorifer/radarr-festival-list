@@ -1090,6 +1090,30 @@ def build_film_prose(p):
         'Use readable source descriptions. Preserve any exact historical/current IMDb identifiers required by the temporal evidence policy.')
     for v in w['text']['format']['schema']['properties']['result']['anyOf']:
         for field,limit in PROSE_LIMITS_V13.items():v['properties'][field]['maxLength']=limit
+    if p.get('host_reporting_revision')==2:
+        data=decode(w['input'][0]['content'][0]['text'],65536)
+        facts=dict(title=p['title'],year=p['year'],collector_imdb=p['source_identifiers']['imdb'],
+            collector_tmdb=p['source_identifiers']['tmdb'],asserted_imdb=p['source_identifiers']['asserted_imdb'],
+            asserted_tmdb=p['source_identifiers']['asserted_tmdb'],observed_at=p['observed_at'])
+        view=b['disclosure']['rows']['collector']['view'];view['facts']=facts
+        from .disclosure import evidence_alias
+        alias=evidence_alias(b['run'],'collector')
+        for row in data['evidence']:
+            if row['alias']==alias:row['facts']=dict(facts)
+        data['historical_observations']['collector']=dict(facts)
+        data['qualifications']['source_authenticity']='authenticated_host_observations_not_human_review'
+        w['input'][0]['content'][0]['text']=encoded(data).decode()
+        w['instructions']=w['instructions'].replace('The supervisor reviewed the artifact-to-observation mapping.',
+            'The host mechanically bound retained artifacts to typed observations; no human source review is claimed.')
+        w['instructions']=w['instructions'].replace('The supervisor reviewed the artifact mapping;', 'The host mechanically bound retained artifacts;')
+        for key in ('source','catalogue'):
+            rowfacts=dict(data['historical_observations']['listing' if key=='source' else 'catalogue'])
+            b['disclosure']['rows'][key]['view']['facts']=rowfacts
+            for row in data['evidence']:
+                if row['alias']==evidence_alias(b['run'],key):row['facts']=dict(rowfacts)
+        w['input'][0]['content'][0]['text']=encoded(data).decode()
+        require('supervisor reviewed' not in w['instructions'].lower(),'host_provenance_wording')
+        w['instructions']+=' Collector title/year and resolved/asserted IDs are dated collector claims, not independently verified identity. Use the typed collector evidence view when citing those fields.'
     require(len(encoded(w))<=65536,'snapshot_disclosure_size')
     return b
 

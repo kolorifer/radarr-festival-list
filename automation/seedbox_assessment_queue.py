@@ -219,7 +219,7 @@ class Queue:
         reasons=temporary|{'source_configuration_unavailable','source_auth_denied','source_missing','source_redirect',
             'source_http_refused','source_content_invalid','source_size_bound',
             'host_listing_crosswalk_needed','host_listing_ambiguous_or_missing',
-            'host_catalogue_ambiguous','host_listing_not_authenticated'}
+            'host_catalogue_ambiguous','host_listing_not_authenticated','telegram_original_missing'}
         hash_id(preparation);require(reason in reasons,'queue_source_reason');stamp(now)
         require(retry_after is None or type(retry_after) in (int,float) and 0<=retry_after<10**12,'queue_source_cooldown')
         require(reason in temporary or retry_after is None,'queue_source_cooldown')
@@ -249,7 +249,17 @@ class Queue:
             require(preparation not in _source_blocked(rows),'queue_source_blocked')
             attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1']
             require(stage in ('assessment','review'),'queue_provider_stage')
-            require(not any(r['case_id']==claim['case_id'] and r['stage']==stage for r in attempts),'queue_provider_consumed')
+            if 'correction_of' in claim:
+                proof=claim['correction_proposal'];parent=claim['correction_of']
+                require(digest(proof)==claim['correction_proposal_sha256'] and proof['preparation']==parent and proof['changed_fields'] and proof['historical_only'] is True,'queue_correction_binding')
+                prior=[r for r in attempts if r['preparation']==parent]
+                require(len(prior)==2 and [digest(r) for r in prior]==proof['consumed_attempts'],'queue_correction_parent_attempts')
+                require(not any(r['case_id']==claim['case_id'] and r['preparation'] not in (parent,preparation) for r in attempts),'queue_correction_other_attempt')
+                require(not any(r['preparation']==preparation and r['stage']==stage for r in attempts),'queue_provider_consumed')
+                require(any(r['type']=='seedbox_evidence_retained_v1' and r['preparation']==preparation for r in rows),'queue_correction_fresh_evidence_required')
+                require(not any(r['type']=='seedbox_sender_started_v1' and r['preparation']==parent for r in rows),'queue_correction_send_exists')
+            else:
+                require(not any(r['case_id']==claim['case_id'] and r['stage']==stage for r in attempts),'queue_provider_consumed')
             require(not any(r['request_sha256']==request_sha256 for r in attempts),'queue_request_consumed')
             require(digest(policy)==rows[0]['policy_sha256'],'queue_policy_changed')
             if stage=='review':
