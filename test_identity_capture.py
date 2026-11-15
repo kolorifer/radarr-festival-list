@@ -332,7 +332,7 @@ def audit(event,args):
  if event.startswith('socket.'):raise RuntimeError('socket tripwire')
 sys.addaudithook(audit)
 from ai_movie_investigator.installation import verify_installation
-assert len(verify_installation(Path(sys.argv[1])))==47
+assert len(verify_installation(Path(sys.argv[1])))==48
 from identity_triage_store import Store
 from identity_triage_intake import normalize
 s=Store(sys.argv[2]);assert s.ingest(normalize(json.loads(sys.argv[3]),{'example':'Example'}),'release_new')=='accepted'
