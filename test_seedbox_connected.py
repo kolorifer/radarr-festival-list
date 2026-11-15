@@ -38,7 +38,7 @@ class ConnectedTests(base.HostExecutionTests):
  def complete(self,verdict='approve'):
   with patch('time.time',return_value=NOW),framing.wire(self.wire()):self.execute()
   with patch('time.time',return_value=NOW):report,e,card=review.assessment(self.q,self.selected['reservation'])
-  request,bindings=review.build(report,e['projection'],card)
+  request,bindings=review.build(report,e['projection'],card,revision=2)
   answer=dict(bindings,verdict=verdict,reason='The separate observations support the proposed film and preserve edition uncertainty.',evidence_findings=['The listing and catalogue share the same IMDb crosswalk.'],material_problems=[] if verdict=='approve' else ['The proposal needs an owner audit.'])
   response=documented();response.update(model=request['model'],instructions=request['instructions'],text=request['text'],max_output_tokens=25000)
   response['output'][-1]['content'][0]['text']=encoded(answer).decode()

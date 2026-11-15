@@ -48,7 +48,7 @@ def main():
         from automation.seedbox_assessment_queue import Queue
         from automation.seedbox_circuit import recover
         recover(Queue(sys.argv[4]),sys.argv[5],sys.argv[6]);return
-    if mode not in ('enroll','run','probe','correct') or len(sys.argv)!=(8 if mode=='correct' else 6):raise ValueError('bootstrap_mode')
+    if mode not in ('enroll','run','probe','correct','review-correct') or len(sys.argv)!=(8 if mode in ('correct','review-correct') else 6):raise ValueError('bootstrap_mode')
     config_raw=read(Path(sys.argv[4]),131072)
     if hashlib.sha256(config_raw).hexdigest()!=sys.argv[5]:raise ValueError('bootstrap_configuration')
     config=json.loads(config_raw)
@@ -66,6 +66,22 @@ def main():
             with queue.locked() as (rows,_):require(rows[0]['configuration_sha256']==sys.argv[5],'host_configuration_changed')
             result=authorize_correction(queue,sys.argv[6],sys.argv[7])
         print(json.dumps(result,sort_keys=True));return
+    if mode=='review-correct':
+        from automation.seedbox_assessment_queue import Queue
+        from automation.seedbox_worker import singleton,load_key
+        from automation.seedbox_automated_review import authorize_correction,execute
+        from automation.seedbox_confinement import confine
+        # Explicit review-only request; delivery stays with ordinary worker guards.
+        confine(config,root)
+        queue=Queue(config['state'])
+        with singleton(queue):
+            with queue.locked() as (rows,_):require(rows[0]['configuration_sha256']==sys.argv[5],'host_configuration_changed')
+            from automation.seedbox_circuit import active
+            with queue.locked() as (rows,_):require(not active(rows),'review_circuit_active')
+            key=load_key(queue,config)
+            selected=authorize_correction(queue,sys.argv[6],sys.argv[7])
+            result=execute(queue,sys.argv[6],policy=config['credit_policy'],credential=key,correction=selected)
+        print(json.dumps(dict(record_sha256=digest(result),ordinary_delivery_checks_required=True,delivery_authorized=False),sort_keys=True));return
     if mode=='enroll':
         from automation.seedbox_assessment_queue import Queue
         require(len(set(config['legacy_consumed_cases']))==7,'host_legacy_cutover')

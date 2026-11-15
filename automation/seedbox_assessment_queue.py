@@ -233,7 +233,7 @@ class Queue:
             append(record)
             return record
 
-    def reserve_provider(self,preparation,*,policy,request_sha256,evidence_sha256,now,stage='assessment',review_of=None):
+    def reserve_provider(self,preparation,*,policy,request_sha256,evidence_sha256,now,stage='assessment',review_of=None,review_correction=None):
         """Atomic retained debit and no-resend boundary, before provider I/O.
 
         The connected host engine must independently authenticate evidence and
@@ -248,8 +248,13 @@ class Queue:
             require(not any(r['type']=='seedbox_preparation_superseded_v1' and r['preparation']==preparation for r in rows),'queue_preparation_superseded')
             require(preparation not in _source_blocked(rows),'queue_source_blocked')
             attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1']
-            require(stage in ('assessment','review'),'queue_provider_stage')
-            if 'correction_of' in claim:
+            require(stage in ('assessment','review','review_correction'),'queue_provider_stage')
+            if stage=='review_correction':
+                from automation.seedbox_automated_review import _correction_rows
+                require(type(review_correction) is dict and review_correction in rows and review_correction['type']=='seedbox_review_correction_authorized_v1','review_correction_binding')
+                proof=review_correction['proof'];_correction_rows(rows,preparation,proof)
+                require(review_correction['preparation']==preparation and review_correction['proof_sha256']==digest(proof) and review_correction['request_sha256']==request_sha256 and proof['evidence_sha256']==evidence_sha256 and proof['report_sha256']==review_of,'review_correction_binding')
+            elif 'correction_of' in claim:
                 proof=claim['correction_proposal'];parent=claim['correction_of']
                 require(digest(proof)==claim['correction_proposal_sha256'] and proof['preparation']==parent and proof['changed_fields'] and proof['historical_only'] is True,'queue_correction_binding')
                 prior=[r for r in attempts if r['preparation']==parent]
@@ -262,7 +267,7 @@ class Queue:
                 require(not any(r['case_id']==claim['case_id'] and r['stage']==stage for r in attempts),'queue_provider_consumed')
             require(not any(r['request_sha256']==request_sha256 for r in attempts),'queue_request_consumed')
             require(digest(policy)==rows[0]['policy_sha256'],'queue_policy_changed')
-            if stage=='review':
+            if stage in ('review','review_correction'):
                 require(review_of is not None and any(r['type']=='seedbox_assessment_pending_review_v1' and r['preparation']==preparation and digest(r['report'])==review_of for r in rows),'queue_review_assessment_missing')
             else:require(review_of is None,'queue_provider_stage')
             require(policy['prior_history_sha256']==rows[0]['prior_history_sha256'] and policy['prior_credit_sha256']==rows[0]['prior_credit_sha256'],'queue_cutover_changed')
