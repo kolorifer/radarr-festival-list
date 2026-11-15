@@ -238,7 +238,7 @@ def explanation_prose(value, limit=600):
     """
     require(type(value) is str and bool(value.strip()) and len(value)<=limit, 'unsafe_text')
     require(not any(unicodedata.category(c).startswith('C') for c in value), 'unsafe_text')
-    require(not re.search(r'(?:^|/)\.{1,2}(?:/|$)|[\\]|</?[a-z][a-z0-9:-]*(?:[ \t/]|>|$)|<!--|<!doctype|<\?|[\w.%+-]+@[\w.-]+|(?:^|[=,;<>\s(\["\'])(?:/\S|~[/\\]|\.{1,2}[/\\])|\b[a-z]:|\b[a-z][a-z0-9+.-]*:\S|\b(?:https?|ftp|file|mailto|data|javascript|magnet|ssh):|%[0-9a-f]{2}|www\.|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}\b|\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', value, re.I), 'unsafe_text')
+    require(not re.search(r'(?:^|/)\.{1,2}(?:/|$)|[\\]|</?[a-z][a-z0-9:-]*(?:[ \t/]|>|$)|<!--|<!doctype|<\?|[\w.%+-]+@[\w.-]+|(?<!\w)/\S|(?:^|[=,;<>\s(\["\'])(?:~[/\\]|\.{1,2}[/\\])|\b[a-z]:|\b[a-z][a-z0-9+.-]*:\S|\b(?:https?|ftp|file|mailto|data|javascript|magnet|ssh):|%[0-9a-f]{2}|www\.|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}\b|\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', value, re.I), 'unsafe_text')
     require(not re.search(r'\b(?:secret|passkey|password|cookie|bearer|credential|api[ _-]*key|authorization|token)\b|\bsk-[a-z0-9_-]+|[a-zA-Z0-9_-]{48,}',value,re.I),'unsafe_text')
     return value
 

@@ -17,7 +17,7 @@ class WeighingTests(unittest.TestCase):
  def test_prose_and_disclosure(self):
   for v in ('Title/year/runtime differences do not outweigh matching people.','Actor/director/title evidence agrees.','NFO = 84 minutes; 95 > 84 in the description.','Conclusion: why does a year / runtime difference matter?'):
    self.assertEqual(explanation_prose(v),v)
-  for v in ('/Users/owner/file','path=/Users/owner/file','value=/private/data','../file','docs/../../private','./file','~/file','C:\\file','https://example.invalid','mailto:owner@example.invalid','token: abc','<script>unsafe</script>','<img src=x>','password = invented','person@localhost','a\nb','x'*601):
+  for v in ('/Users/owner/file','path=/Users/owner/file','value=/private/data','value|/Users/owner/file','value)/Users/owner/file','value?/private/data','x//private/data','../file','docs/../../private','./file','~/file','C:\\file','https://example.invalid','mailto:owner@example.invalid','token: abc','<script>unsafe</script>','<img src=x>','password = invented','person@localhost','a\nb','x'*601):
    with self.subTest(value=v),self.assertRaises(Refusal):explanation_prose(v)
   a=self.unresolved();a['result']['rationale']='Title/year/runtime differences need context.'
   kept,h=_captured_prose_copy(a,film_weighing=True);self.assertEqual(h['rationale']['status'],'retained')
