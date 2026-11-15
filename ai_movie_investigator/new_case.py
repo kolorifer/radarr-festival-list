@@ -225,8 +225,8 @@ def film_prose(value, limit=600):
     # Only these standalone comparison forms may contain a slash. Unknown
     # forms, nested segments, suffixes and all remaining slashes are refused.
     masked=re.sub(r'(?<![\w./\\])(?:(?:18|19|20|21)[0-9]{2} */ *(?:18|19|20|21)[0-9]{2}|festival */ *theatrical|IMDb */ *TMDb|and */ *or|listing */ *catalogue|title */ *(?:cast|year|runtime|IDs)|cast */ *(?:year|IDs)|year */ *runtime|runtime */ *IDs)(?![\w/\\]|\.[\w.])', 'comparison', value, flags=re.I)
-    require(not re.search(r'[/\\]|[<>@=]|[a-z][a-z0-9+.-]*://|\b(?:https?|ftp|file|mailto|data|javascript|magnet|ssh):|www\.|\b[\w-]+\.(?:com|net|org|io|cc)\b', masked, re.I), 'unsafe_text')
-    require(not re.search(r'\b(?:secret|passkey|password|cookie|bearer|credential|api_key|authorization|token)\b|\bsk-[a-z0-9_-]+|[a-zA-Z0-9_-]{48,}', value, re.I), 'unsafe_text')
+    require(not re.search(r'[/\\]|[<>@=]|[a-z][a-z0-9+.-]*://|\b(?:https?|ftp|file|mailto|data|javascript|magnet|ssh):|\b[a-z]:|\b[a-z][a-z0-9+.-]*:\S|%[0-9a-f]{2}|www\.|\b[\w-]+\.(?:com|net|org|io|cc)\b', masked, re.I), 'unsafe_text')
+    require(not re.search(r'\b(?:secret|passkey|password|cookie|bearer|credential|api[ _-]*key|authorization|token)\b|\bsk-[a-z0-9_-]+|[a-zA-Z0-9_-]{48,}', value, re.I), 'unsafe_text')
     return value
 
 
