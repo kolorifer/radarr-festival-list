@@ -37,6 +37,11 @@ class _Approved:
             data,identity=_read_evidence(Path(pin_record['path']),65536)
             require(hashlib.sha256(data).hexdigest()==pin_record['sha256'],'snapshot_authority_artifact')
             self.pins['historical_original']=(data,identity,65536)
+        if 'publisher_edition' in first:
+            pin_record=first['publisher_edition'];shape(pin_record,'path sha256');hash_id(pin_record['sha256'])
+            data,identity=_read_evidence(Path(pin_record['path']),65536)
+            require(hashlib.sha256(data).hexdigest()==pin_record['sha256'],'snapshot_authority_artifact')
+            self.pins['publisher_edition']=(data,identity,65536)
         self.revalidate()
 
     def revalidate(self):
@@ -52,7 +57,7 @@ class _Approved:
                 type(a['root_count']) is int and a['root_count']>=21,'snapshot_authority_changed')
         hash_id(a['root_prefix_sha256']);hash_id(a['runtime_manifest_sha256'])
         for name,(old,old_identity,limit) in self.pins.items():
-            pin_record=a.get('assessment',a.get('first_assessment'))['reobservation']['historical_original'] if name=='historical_original' else a[name]
+            pin_record=a.get('assessment',a.get('first_assessment'))['reobservation']['historical_original'] if name=='historical_original' else a['assessment']['publisher_edition'] if name=='publisher_edition' else a[name]
             current=_read_evidence(Path(pin_record['path']),limit)
             require(current==(old,old_identity),'snapshot_authority_artifact_changed')
         from .private_files import private_chain
@@ -70,11 +75,14 @@ class _Approved:
         scope=decode(self.pins['owner_scope'][0],65536)
         correcting='correction' in a;reassessing='reassessment' in a;film='film_reassessment' in a;structure='film_structure_correction' in a;comparison='comparison_correction' in a;result_fix='result_correction' in a;context='context_reassessment' in a;weighing='weighing_reassessment' in a;first='first_assessment' in a;assessment='assessment' in a
         selected=a.get('assessment',a.get('first_assessment',{}))
+        quality=assessment and selected.get('kind')=='snapshot_film_quality_v11'
+        publisher='publisher_edition' in selected
+        require(not publisher or quality,'snapshot_publisher_scope')
         temporal=(first or assessment) and 'reobservation' in selected
         require(sum((correcting,reassessing,film,structure,comparison,result_fix,context,weighing,first,assessment)) <= 1,'snapshot_reassessment_changed')
-        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed'+(' prior_slot' if correcting or reassessing or film or structure or comparison or result_fix or context or weighing else '')+(' model_profile_sha256' if weighing or first or assessment else '')+(' reobservation_sha256' if temporal else '')+(' mode' if assessment else '')+(' prior_slot' if assessment and selected.get('mode')=='reassessment' else ''))
+        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed'+(' prior_slot' if correcting or reassessing or film or structure or comparison or result_fix or context or weighing else '')+(' model_profile_sha256' if weighing or first or assessment else '')+(' reobservation_sha256' if temporal else '')+(' publisher_edition_sha256' if publisher else '')+(' mode' if assessment else '')+(' prior_slot' if assessment and selected.get('mode') in ('reassessment','correction') else ''))
         att=a['attestation']
-        expected_scope=dict(kind='snapshot_film_assessment_scope_v10' if assessment else 'snapshot_first_weighing_scope_v1' if first else 'snapshot_weighing_scope_v1' if weighing else 'snapshot_context_scope_v1' if context else 'snapshot_correction_scope_v1' if correcting else 'snapshot_reassessment_scope_v1' if reassessing else 'snapshot_film_scope_v1' if film else 'snapshot_film_structure_scope_v1' if structure else 'snapshot_comparison_scope_v1' if comparison else 'snapshot_result_scope_v1' if result_fix else 'snapshot_assessment_scope_v1',
+        expected_scope=dict(kind='snapshot_film_quality_scope_v11' if quality else 'snapshot_film_assessment_scope_v10' if assessment else 'snapshot_first_weighing_scope_v1' if first else 'snapshot_weighing_scope_v1' if weighing else 'snapshot_context_scope_v1' if context else 'snapshot_correction_scope_v1' if correcting else 'snapshot_reassessment_scope_v1' if reassessing else 'snapshot_film_scope_v1' if film else 'snapshot_film_structure_scope_v1' if structure else 'snapshot_comparison_scope_v1' if comparison else 'snapshot_result_scope_v1' if result_fix else 'snapshot_assessment_scope_v1',
             case_id=att['case_id'],version=att['version'],max_calls=1,disclosure_allowed=True,production_allowed=False)
         if correcting:expected_scope['prior_slot']=a['correction']['prior_slot']
         if reassessing:expected_scope['prior_slot']=a['reassessment']['prior_slot']
@@ -88,20 +96,21 @@ class _Approved:
         if first or assessment:
             from .credit_test import MINI_PROFILE
             proof=selected
-            shape(proof,'kind model_profile model_evidence_sha256 request_sha256'+(' reobservation' if 'reobservation' in proof else '')+(' mode' if assessment else '')+(' prior' if assessment and proof.get('mode')=='reassessment' else ''))
-            require(proof['kind']==('snapshot_film_assessment_v10' if assessment else 'snapshot_first_weighing_v1') and proof['model_profile']==MINI_PROFILE,'snapshot_weighing_model')
+            shape(proof,'kind model_profile model_evidence_sha256 request_sha256'+(' reobservation' if 'reobservation' in proof else '')+(' publisher_edition' if publisher else '')+(' mode' if assessment else '')+(' prior' if assessment and proof.get('mode') in ('reassessment','correction') else ''))
+            require(proof['kind']==('snapshot_film_quality_v11' if quality else 'snapshot_film_assessment_v10' if assessment else 'snapshot_first_weighing_v1') and proof['model_profile']==MINI_PROFILE,'snapshot_weighing_model')
             if assessment:
-                require(proof['mode'] in ('first','reassessment'),'snapshot_assessment_scope')
+                require(proof['mode'] in (('first','correction') if quality else ('first','reassessment')),'snapshot_assessment_scope')
                 expected_scope['mode']=proof['mode']
-                if proof['mode']=='reassessment':expected_scope['prior_slot']=proof['prior']['slot']
+                if proof['mode'] in ('reassessment','correction'):expected_scope['prior_slot']=proof['prior']['slot']
             hash_id(proof['model_evidence_sha256']);hash_id(proof['request_sha256'])
             expected_scope['model_profile_sha256']=digest(MINI_PROFILE)
             if 'reobservation' in proof:expected_scope['reobservation_sha256']=digest(proof['reobservation'])
+        if publisher:expected_scope['publisher_edition_sha256']=selected['publisher_edition']['sha256']
         if context:expected_scope['prior_slot']=a['context_reassessment']['prior_slot']
         if result_fix:expected_scope['prior_slot']=a['result_correction']['prior_slot']
         require(scope==expected_scope,'snapshot_owner_scope')
         review=decode(self.pins['main_review'][0],65536)
-        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed'+(' correction_sha256' if correcting else '')+(' reassessment_sha256' if reassessing else '')+(' film_reassessment_sha256' if film else '')+(' film_structure_correction_sha256' if structure else '')+(' comparison_correction_sha256' if comparison else '')+(' result_correction_sha256' if result_fix else '')+(' context_reassessment_sha256' if context else '')+(' weighing_reassessment_sha256' if weighing else '')+(' first_assessment_sha256' if first else '')+(' assessment_sha256' if assessment else '')+(' same_listing_derivation_sha256 same_listing_derivation_reviewed' if temporal else ''))
+        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed'+(' correction_sha256' if correcting else '')+(' reassessment_sha256' if reassessing else '')+(' film_reassessment_sha256' if film else '')+(' film_structure_correction_sha256' if structure else '')+(' comparison_correction_sha256' if comparison else '')+(' result_correction_sha256' if result_fix else '')+(' context_reassessment_sha256' if context else '')+(' weighing_reassessment_sha256' if weighing else '')+(' first_assessment_sha256' if first else '')+(' assessment_sha256' if assessment else '')+(' same_listing_derivation_sha256 same_listing_derivation_reviewed' if temporal else '')+(' publisher_edition_sha256 publisher_source_reviewed publisher_title_year_linkage_reviewed' if publisher else ''))
         expected_review=dict(kind='snapshot_main_review_v1',owner_scope_sha256=a['owner_scope']['sha256'],
             snapshot_sha256=a['snapshot']['sha256'],source_sha256=a['source']['sha256'],catalogue_sha256=a['catalogue']['sha256'],
             source_original_sha256=a['source_original']['sha256'],catalogue_original_sha256=a['catalogue_original']['sha256'],
@@ -115,6 +124,7 @@ class _Approved:
         if first:expected_review['first_assessment_sha256']=digest(selected)
         if assessment:expected_review['assessment_sha256']=digest(selected)
         if temporal:expected_review.update(same_listing_derivation_sha256=digest(selected['reobservation']),same_listing_derivation_reviewed=True)
+        if publisher:expected_review.update(publisher_edition_sha256=selected['publisher_edition']['sha256'],publisher_source_reviewed=True,publisher_title_year_linkage_reviewed=True)
         if context:expected_review['context_reassessment_sha256']=digest(a['context_reassessment'])
         if result_fix:expected_review['result_correction_sha256']=digest(a['result_correction'])
         require(review==expected_review,'snapshot_main_review')
@@ -123,11 +133,13 @@ class _Approved:
                 att['source_original_sha256']==a['source_original']['sha256'] and
                 att['catalogue_original_sha256']==a['catalogue_original']['sha256'] and
                 stamp(att['expires_at'])<=a['expires_at'],'snapshot_authority_artifact')
-        from .snapshot_review import projection
-        return projection(self.pins['snapshot'][0],a['snapshot']['sha256'],att['case_id'],att['version'],
+        from .snapshot_review import projection,publisher_edition_context
+        p=projection(self.pins['snapshot'][0],a['snapshot']['sha256'],att['case_id'],att['version'],
                           self.pins['source'][0],self.pins['catalogue'][0],att,now=now,
                           reobservation=selected.get('reobservation'),
                           local_context=decode(self.pins['local_context'][0],65536))
+        if publisher:p['publisher_edition']=publisher_edition_context(self.pins['publisher_edition'][0],p,now=now)
+        return p
 
     def check_root(self,root,events,evidence):
         root.require_write_transaction(events);a=self.record
@@ -155,16 +167,16 @@ def active():
 
 
 def proposal(root,events,evidence):
-    from .snapshot_review import build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build,build_film_scope,build_film_structure,build_film_comparisons,build_film_result
+    from .snapshot_review import build_film_quality,validate_film_quality,build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build,build_film_scope,build_film_structure,build_film_comparisons,build_film_result
     held=active();p=held.check_root(root,events,evidence);require_operation_window(p)
-    b=build_film_assessment(p) if 'assessment' in held.record else build_film_weighing(p,first='first_assessment' in held.record) if 'weighing_reassessment' in held.record or 'first_assessment' in held.record else build_film_context(p) if 'context_reassessment' in held.record else build_film_result(p) if 'result_correction' in held.record else build_film_comparisons(p) if 'comparison_correction' in held.record else build_film_structure(p) if 'film_structure_correction' in held.record else build_film_scope(p) if 'film_reassessment' in held.record else build(p,prose_limited='correction' not in held.record)
+    b=build_film_quality(p) if held.record.get('assessment',{}).get('kind')=='snapshot_film_quality_v11' else build_film_assessment(p) if 'assessment' in held.record else build_film_weighing(p,first='first_assessment' in held.record) if 'weighing_reassessment' in held.record or 'first_assessment' in held.record else build_film_context(p) if 'context_reassessment' in held.record else build_film_result(p) if 'result_correction' in held.record else build_film_comparisons(p) if 'comparison_correction' in held.record else build_film_structure(p) if 'film_structure_correction' in held.record else build_film_scope(p) if 'film_reassessment' in held.record else build(p,prose_limited='correction' not in held.record)
     case=dict(source='normalized',case_id=p['case_id'],version=p['version'],occurrence=None)
     a=held.record
     return dict(snapshot_profile='normalized_snapshot_v1',authority_path=str(held.path),authority_sha256=held.pin,
         case=case,run=b['run'],fingerprint=digest(dict(case_id=p['case_id'])),request=b['request'],
         projection_sha256=digest(p),local_context_sha256=a['local_context']['sha256'],selected_evidence=b['selected_evidence'],disclosure=b['disclosure'],
         root_prefix_sha256=a['root_prefix_sha256'],root_count=a['root_count'],
-        contract_version='film_assessment_v10' if 'assessment' in a else 'film_weighing_v9' if 'weighing_reassessment' in a or 'first_assessment' in a else 'film_context_v8' if 'context_reassessment' in a else 'film_result_v7' if 'result_correction' in a else 'film_comparisons_v6' if 'comparison_correction' in a else 'film_structure_v5' if 'film_structure_correction' in a else 'film_scope_v4' if 'film_reassessment' in a else 'status_candidate_v2' if 'correction' in a else 'prose_length_v3',
+        contract_version='film_quality_v11' if a.get('assessment',{}).get('kind')=='snapshot_film_quality_v11' else 'film_assessment_v10' if 'assessment' in a else 'film_weighing_v9' if 'weighing_reassessment' in a or 'first_assessment' in a else 'film_context_v8' if 'context_reassessment' in a else 'film_result_v7' if 'result_correction' in a else 'film_comparisons_v6' if 'comparison_correction' in a else 'film_structure_v5' if 'film_structure_correction' in a else 'film_scope_v4' if 'film_reassessment' in a else 'status_candidate_v2' if 'correction' in a else 'prose_length_v3',
         **({'correction':a['correction']} if 'correction' in a else {}),
         **({'reassessment':a['reassessment']} if 'reassessment' in a else {}),
         **({'film_reassessment':a['film_reassessment']} if 'film_reassessment' in a else {}),
@@ -179,13 +191,13 @@ def proposal(root,events,evidence):
 
 def validate_grant(grant,project):
     held=active();p=held.revalidate();a=held.record
-    from .snapshot_review import build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build,build_film_scope,build_film_structure,build_film_comparisons,build_film_result
-    version=grant.get('contract_version');film=version=='film_scope_v4';structure=version=='film_structure_v5';comparison=version=='film_comparisons_v6';result_fix=version=='film_result_v7';context=version=='film_context_v8';weighing=version=='film_weighing_v9';assessment=version=='film_assessment_v10';corrected=version in ('status_candidate_v2','prose_length_v3') or film or structure or comparison or result_fix or context or weighing or assessment;limited=version=='prose_length_v3'
+    from .snapshot_review import build_film_quality,validate_film_quality,build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build,build_film_scope,build_film_structure,build_film_comparisons,build_film_result
+    version=grant.get('contract_version');film=version=='film_scope_v4';structure=version=='film_structure_v5';comparison=version=='film_comparisons_v6';result_fix=version=='film_result_v7';context=version=='film_context_v8';weighing=version=='film_weighing_v9';quality=version=='film_quality_v11';assessment=version in ('film_assessment_v10','film_quality_v11');corrected=version in ('status_candidate_v2','prose_length_v3') or film or structure or comparison or result_fix or context or weighing or assessment;limited=version=='prose_length_v3'
     require(('correction' not in grant or version=='status_candidate_v2') and ('reassessment' not in grant or limited),'snapshot_correction_changed')
     require(('assessment' in grant)==assessment,'snapshot_assessment_scope')
     require(('film_reassessment' in grant)==film,'snapshot_correction_changed')
     require(('film_structure_correction' in grant)==structure and ('comparison_correction' in grant)==comparison and ('result_correction' in grant)==result_fix and ('context_reassessment' in grant)==context and (('weighing_reassessment' in grant) or ('first_assessment' in grant))==weighing,'snapshot_correction_changed')
-    b=build_film_assessment(p) if assessment else build_film_weighing(p,first='first_assessment' in grant) if weighing else build_film_context(p) if context else build_film_result(p) if result_fix else build_film_comparisons(p) if comparison else build_film_structure(p) if structure else build_film_scope(p) if film else build(p,corrected=corrected,prose_limited=limited)
+    b=build_film_quality(p) if quality else build_film_assessment(p) if assessment else build_film_weighing(p,first='first_assessment' in grant) if weighing else build_film_context(p) if context else build_film_result(p) if result_fix else build_film_comparisons(p) if comparison else build_film_structure(p) if structure else build_film_scope(p) if film else build(p,corrected=corrected,prose_limited=limited)
     shape(grant,'snapshot_profile authority_path authority_sha256 case run fingerprint request projection_sha256 local_context_sha256 selected_evidence disclosure root_prefix_sha256 root_count'+(' contract_version' if corrected else '')+(' correction' if 'correction' in grant else '')+(' reassessment' if 'reassessment' in grant else '')+(' film_reassessment' if 'film_reassessment' in grant else '')+(' film_structure_correction' if 'film_structure_correction' in grant else '')+(' comparison_correction' if 'comparison_correction' in grant else '')+(' result_correction' if 'result_correction' in grant else '')+(' context_reassessment' if 'context_reassessment' in grant else '')+(' weighing_reassessment' if 'weighing_reassessment' in grant else '')+(' first_assessment' if 'first_assessment' in grant else '')+(' assessment' if 'assessment' in grant else ''))
     expected=dict(snapshot_profile='normalized_snapshot_v1',authority_path=str(held.path),authority_sha256=held.pin,
         case=dict(source='normalized',case_id=p['case_id'],version=p['version'],occurrence=None),run=b['run'],
@@ -1002,6 +1014,77 @@ def validate_assessment_reassessment(root,events,grant,*,creating):
     return (proof['slot'],)
 
 
+def quality_refusal_summary(grant):
+    p=grant['assessment']['prior']
+    return dict(slot=p['slot'],terminal_sha256=p['terminal_sha256'],receipt_sha256=p['receipt_sha256'],
+        phase='receipt_recorded',reason='snapshot_assessment_justification',
+        original_answer_retained=False,failed_predicate='unknown')
+
+
+def validate_quality_correction(root,events,grant,*,creating):
+    """One explicitly issued v11 child of an exact failed first v10 operation."""
+    from . import supervised_credit as c
+    from .history import History
+    from .snapshot_review import projection,build_film_assessment,build_film_quality
+    root.require_write_transaction(events);proof=grant['assessment']['prior']
+    shape(proof,'slot start_sha256 grant_sha256 terminal_sha256 attempt_sha256 receipt_sha256 credit_sha256 credit_count request_sha256 projection_sha256 local_context_sha256')
+    require(type(proof['slot']) is int and proof['slot']>=7 and type(proof['credit_count']) is int and proof['credit_count']>=1 and
+        grant['contract_version']=='film_quality_v11' and grant['assessment']['mode']=='correction','snapshot_quality_prior')
+    for k in proof:
+        if k.endswith('_sha256'):hash_id(proof[k])
+    attempts=c._standing_attempts(events,events[1]);matches=[s for s,_ in attempts if s['slot']==proof['slot']]
+    require(len(matches)==1,'snapshot_quality_prior');start=matches[0];old=start.get('historical',{})
+    require(old.get('snapshot_profile')=='normalized_snapshot_v1' and old.get('contract_version')=='film_assessment_v10' and
+        old.get('assessment',{}).get('kind')=='snapshot_film_assessment_v10' and old['assessment']['mode']=='first' and
+        digest(start)==proof['start_sha256'] and digest(old)==proof['grant_sha256'] and old['case']==grant['case'] and
+        start['request_sha256']==proof['request_sha256']==digest(old['request']),'snapshot_quality_prior')
+    terminal=[r for r in events[:grant['root_count']] if r.get('slot')==proof['slot'] and r.get('type')=='supervised_diagnostic']
+    require(len(terminal)==1 and terminal[0].get('phase')=='receipt_recorded' and
+        terminal[0].get('reason')=='snapshot_assessment_justification' and terminal[0].get('category')=='snapshot_refused' and
+        'cleanup_reason' not in terminal[0] and digest(terminal[0])==proof['terminal_sha256'] and
+        not any(r.get('slot')==proof['slot'] and r.get('type')=='supervised_completed' for r in events),'snapshot_quality_terminal')
+    rows=History(root.directory/f"attempt-{proof['slot']}").read()
+    require([r.get('type') for r in rows]==['bound_send_reserved','bound_send_attempted','bound_send_receipt'] and
+        rows[-1].get('request_sha256')==proof['request_sha256'] and digest(rows)==proof['attempt_sha256'] and
+        digest(rows[-1])==proof['receipt_sha256'],'snapshot_quality_receipt')
+    credit=History(root.directory/'credit').read();count=proof['credit_count']
+    require(len(credit)>=count and digest(credit[:count])==proof['credit_sha256'] and
+        len([r for r in credit[:count] if r.get('request_hash')==proof['request_sha256'] and
+             r.get('reserved_usd')==[15,100] and r.get('model')=='gpt-5-mini-2025-08-07'])==1,'snapshot_quality_credit')
+    raw,_=c._read_evidence(Path(old['authority_path']),65536)
+    require(hashlib.sha256(raw).hexdigest()==old['authority_sha256'],'snapshot_quality_authority')
+    authority=decode(raw,65536);artifacts={};held=active();current=held.record
+    require(authority['project']==current['project'] and authority['account_reference']==current['account_reference'] and
+        authority['root_identity']==current['root_identity'] and authority['assessment']==old['assessment'], 'snapshot_quality_authority')
+    for name in ('owner_scope','main_review','snapshot','source','catalogue','source_original','catalogue_original','local_context'):
+        pin=authority[name];value,_=c._read_evidence(Path(pin['path']),1048576 if name=='snapshot' else 65536)
+        require(hashlib.sha256(value).hexdigest()==pin['sha256'],'snapshot_quality_authority');artifacts[name]=value
+        if name not in ('owner_scope','main_review'):
+            require(current[name]==pin and held.pins[name][0]==value,'snapshot_quality_authority')
+    temporal=authority['assessment'].get('reobservation')
+    require(temporal==grant['assessment'].get('reobservation'),'snapshot_quality_authority')
+    if temporal:
+        pin=temporal['historical_original'];value,_=c._read_evidence(Path(pin['path']),65536)
+        require(hashlib.sha256(value).hexdigest()==pin['sha256'],'snapshot_quality_authority')
+    old_p=projection(artifacts['snapshot'],authority['snapshot']['sha256'],old['case']['case_id'],old['case']['version'],
+        artifacts['source'],artifacts['catalogue'],authority['attestation'],now=start['at'],reobservation=temporal,
+        local_context=decode(artifacts['local_context'],65536))
+    p=held.revalidate()
+    base_p={k:v for k,v in p.items() if k!='publisher_edition'}
+    require(base_p==old_p and digest(base_p)==proof['projection_sha256']==old['projection_sha256'] and digest(p)==grant['projection_sha256'] and
+        proof['local_context_sha256']==old['local_context_sha256']==grant['local_context_sha256'] and
+        build_film_assessment(old_p)['request']==old['request'] and grant['request']==build_film_quality(p)['request'] and
+        grant['request']!=old['request'],'snapshot_quality_prior')
+    children=[s for s,_ in attempts if s.get('historical',{}).get('assessment',{}).get('prior',{}).get('slot')==proof['slot']]
+    if creating:
+        require(not children and attempts[-1][0] is start and len(credit)==count and len(events)==grant['root_count'],'snapshot_quality_consumed')
+    else:
+        require(len(children)==1 and children[0] is attempts[-1][0] and children[0]['slot']==proof['slot']+1 and
+            children[0]['historical']==grant and children[0]['prefix_sha256']==grant['root_prefix_sha256'] and
+            children[0]['credit_count']==count and children[0]['credit_sha256']==proof['credit_sha256'],'snapshot_quality_consumed')
+    return (proof['slot'],)
+
+
 def _assessment_refresh(old,current,old_temporal,current_temporal):
     """Freshness clocks/pins may advance; substantive evidence cannot change."""
     import copy
@@ -1037,18 +1120,18 @@ def authorize(directory,selected):
 
 def report(grant,answer,history):
     """Finish only after the existing bound transport stored its real receipt."""
-    from .snapshot_review import build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build, validate_answer,build_film_scope,validate_film_scope,build_film_structure,validate_film_structure,build_film_comparisons,validate_film_comparisons,build_film_result,validate_film_result
+    from .snapshot_review import build_film_quality,validate_film_quality,build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build, validate_answer,build_film_scope,validate_film_scope,build_film_structure,validate_film_structure,build_film_comparisons,validate_film_comparisons,build_film_result,validate_film_result
     from .supervised_authorization import consume_snapshot_completion
     proof=consume_snapshot_completion(grant,answer)
     held=active();validate_grant(grant,held.record['project']);p=held.revalidate()
     from .responses_protocol import schema_value
     from .new_case import _captured_prose_copy
-    version=grant.get('contract_version');film=version=='film_scope_v4';structure=version=='film_structure_v5';comparison=version=='film_comparisons_v6';result_fix=version=='film_result_v7';context=version=='film_context_v8';weighing=version=='film_weighing_v9';assessment=version=='film_assessment_v10';corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
-    prepared=build_film_assessment(p) if assessment else build_film_weighing(p,first='first_assessment' in grant) if weighing else build_film_context(p) if context else build_film_result(p) if result_fix else build_film_comparisons(p) if comparison else build_film_structure(p) if structure else build_film_scope(p) if film else build(p,corrected=corrected,prose_limited=limited);schema_value(answer,prepared['request']['text']['format']['schema'])
+    version=grant.get('contract_version');film=version=='film_scope_v4';structure=version=='film_structure_v5';comparison=version=='film_comparisons_v6';result_fix=version=='film_result_v7';context=version=='film_context_v8';weighing=version=='film_weighing_v9';quality=version=='film_quality_v11';assessment=version in ('film_assessment_v10','film_quality_v11');corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
+    prepared=build_film_quality(p) if quality else build_film_assessment(p) if assessment else build_film_weighing(p,first='first_assessment' in grant) if weighing else build_film_context(p) if context else build_film_result(p) if result_fix else build_film_comparisons(p) if comparison else build_film_structure(p) if structure else build_film_scope(p) if film else build(p,corrected=corrected,prose_limited=limited);schema_value(answer,prepared['request']['text']['format']['schema'])
     require(answer['binding_hash']==decode(prepared['request']['input'][0]['content'][0]['text'],65536 if film or structure or comparison or result_fix or context or weighing or assessment else 8192)['binding_hash'] and
             answer['kind']=='final' and answer['lookups']==[],'snapshot_reply_binding')
     retained,handling=_captured_prose_copy(answer,film_context=context,film_weighing=weighing,film_assessment=assessment)
-    result=validate_film_assessment(p,prepared,retained,now=time.time()) if assessment else validate_film_weighing(p,prepared,retained,now=time.time(),first='first_assessment' in grant) if weighing else validate_film_context(p,prepared,retained,now=time.time()) if context else validate_film_result(p,prepared,retained,now=time.time()) if result_fix else validate_film_comparisons(p,prepared,retained,now=time.time()) if comparison else validate_film_structure(p,prepared,retained,now=time.time()) if structure else validate_film_scope(p,prepared,retained,now=time.time()) if film else validate_answer(p,prepared,retained,now=time.time(),corrected=corrected,prose_limited=limited)
+    result=validate_film_quality(p,prepared,retained,now=time.time()) if quality else validate_film_assessment(p,prepared,retained,now=time.time()) if assessment else validate_film_weighing(p,prepared,retained,now=time.time(),first='first_assessment' in grant) if weighing else validate_film_context(p,prepared,retained,now=time.time()) if context else validate_film_result(p,prepared,retained,now=time.time()) if result_fix else validate_film_comparisons(p,prepared,retained,now=time.time()) if comparison else validate_film_structure(p,prepared,retained,now=time.time()) if structure else validate_film_scope(p,prepared,retained,now=time.time()) if film else validate_answer(p,prepared,retained,now=time.time(),corrected=corrected,prose_limited=limited)
     rows=history.read()
     require(len(rows)==3 and rows[-1]['type']=='bound_send_receipt' and
             rows[-1]['request_sha256']==digest(grant['request']) and digest(rows[-1])==proof['receipt_hash'],'snapshot_receipt_missing')
@@ -1089,7 +1172,8 @@ def report(grant,answer,history):
         result_report['assessment_label']='distinct_mini_film_weighing' if weighing else 'distinct_contextual_film_assessment'
     if 'first_assessment' in grant:result_report['assessment_label']='first_mini_film_weighing'
     if assessment:
-        result_report['assessment_label']='coherent_film_assessment_v10'
+        result_report['assessment_label']='quality_separated_film_assessment_v11' if quality else 'coherent_film_assessment_v10'
+        if quality and grant['assessment']['mode']=='correction':result_report['previous_quality_refusal']=quality_refusal_summary(grant)
         if grant['assessment']['mode']=='reassessment':result_report['previous_assessment']=grant['assessment']['prior']['summary']
     return result_report
 
@@ -1098,6 +1182,8 @@ def require_operation_window(projection):
     """Cover existing send and observation windows; local completion time is not bounded."""
     from .supervised_authorization import SEND_AUTHORITY_SECONDS, RESPONSE_OBSERVATION_SECONDS
     now=time.time();a=active().record
+    if 'publisher_edition' in projection:
+        require(now+SEND_AUTHORITY_SECONDS+RESPONSE_OBSERVATION_SECONDS < projection['publisher_edition']['expires_at'],'snapshot_window_too_short')
     require(now+SEND_AUTHORITY_SECONDS+RESPONSE_OBSERVATION_SECONDS < min(a['expires_at'],projection['generated_at']+3600,
                 projection['evidence_expires_at']), 'snapshot_window_too_short')
 
@@ -1122,7 +1208,7 @@ def write_completed(directory,selected,slot,output_dir):
     """Render the one durable, receipt-bound result; never send or allocate."""
     from . import supervised_credit as c
     from .history import History
-    from .snapshot_review import build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build,validate_answer,build_film_scope,validate_film_scope,build_film_structure,validate_film_structure,build_film_comparisons,validate_film_comparisons,build_film_result,validate_film_result
+    from .snapshot_review import build_film_quality,validate_film_quality,build_film_assessment,validate_film_assessment,build_film_weighing,validate_film_weighing,build_film_context,validate_film_context,build,validate_answer,build_film_scope,validate_film_scope,build_film_structure,validate_film_structure,build_film_comparisons,validate_film_comparisons,build_film_result,validate_film_result
     from .snapshot_private_report import render
     from .private_files import private_chain
     import os
@@ -1146,8 +1232,8 @@ def write_completed(directory,selected,slot,output_dir):
                 receipt[-1]==result['receipt'] and digest(receipt[-1])==result['receipt_hash'] and
                 receipt[-1]['request_sha256']==result['request_sha256'],
                 'snapshot_receipt_missing')
-        version=grant.get('contract_version');film=version=='film_scope_v4';structure=version=='film_structure_v5';comparison=version=='film_comparisons_v6';result_fix=version=='film_result_v7';context=version=='film_context_v8';weighing=version=='film_weighing_v9';assessment=version=='film_assessment_v10';corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
-        checked=validate_film_assessment(p,build_film_assessment(p),answer,now=time.time()) if assessment else validate_film_weighing(p,build_film_weighing(p,first='first_assessment' in grant),answer,now=time.time(),first='first_assessment' in grant) if weighing else validate_film_context(p,build_film_context(p),answer,now=time.time()) if context else validate_film_result(p,build_film_result(p),answer,now=time.time()) if result_fix else validate_film_comparisons(p,build_film_comparisons(p),answer,now=time.time()) if comparison else validate_film_structure(p,build_film_structure(p),answer,now=time.time()) if structure else validate_film_scope(p,build_film_scope(p),answer,now=time.time()) if film else validate_answer(p,build(p,corrected=corrected,prose_limited=limited),answer,now=time.time(),corrected=corrected,prose_limited=limited)
+        version=grant.get('contract_version');film=version=='film_scope_v4';structure=version=='film_structure_v5';comparison=version=='film_comparisons_v6';result_fix=version=='film_result_v7';context=version=='film_context_v8';weighing=version=='film_weighing_v9';quality=version=='film_quality_v11';assessment=version in ('film_assessment_v10','film_quality_v11');corrected=version in ('status_candidate_v2','prose_length_v3');limited=version=='prose_length_v3'
+        checked=validate_film_quality(p,build_film_quality(p),answer,now=time.time()) if quality else validate_film_assessment(p,build_film_assessment(p),answer,now=time.time()) if assessment else validate_film_weighing(p,build_film_weighing(p,first='first_assessment' in grant),answer,now=time.time(),first='first_assessment' in grant) if weighing else validate_film_context(p,build_film_context(p),answer,now=time.time()) if context else validate_film_result(p,build_film_result(p),answer,now=time.time()) if result_fix else validate_film_comparisons(p,build_film_comparisons(p),answer,now=time.time()) if comparison else validate_film_structure(p,build_film_structure(p),answer,now=time.time()) if structure else validate_film_scope(p,build_film_scope(p),answer,now=time.time()) if film else validate_answer(p,build(p,corrected=corrected,prose_limited=limited),answer,now=time.time(),corrected=corrected,prose_limited=limited)
         require(checked==result['result'],'snapshot_result_changed')
         if 'reassessment' in grant:
             prior=grant['reassessment']
@@ -1183,10 +1269,11 @@ def write_completed(directory,selected,slot,output_dir):
         if 'first_assessment' in grant:
             require(result.get('assessment_label')=='first_mini_film_weighing' and 'previous_assessment' not in result,'snapshot_context_result')
         if assessment:
-            require(result.get('assessment_label')=='coherent_film_assessment_v10','snapshot_assessment_scope')
+            require(result.get('assessment_label')==('quality_separated_film_assessment_v11' if quality else 'coherent_film_assessment_v10'),'snapshot_assessment_scope')
+            if quality and grant['assessment']['mode']=='correction':require(result.get('previous_quality_refusal')==quality_refusal_summary(grant),'snapshot_quality_prior')
             require(result.get('previous_assessment')==grant['assessment'].get('prior',{}).get('summary'),'snapshot_assessment_scope')
         local_raw=held.pins['local_context'][0]
-        html=render(result,digest(result),p,local_raw,held.record['local_context']['sha256']).encode('utf-8')
+        html=render(result,digest(result),p,local_raw,held.record['local_context']['sha256'],publisher_raw=held.pins.get('publisher_edition',(None,))[0]).encode('utf-8')
         output_dir=Path(output_dir)
         require(str(output_dir)==held.record['output_dir'],'snapshot_output_changed')
         with private_chain(output_dir) as dfd:
