@@ -64,6 +64,36 @@ class LifetimeTests(unittest.TestCase):
     with patch('automation.seedbox_host_io.os.open',wraps=os.open) as opened:
      with database(pin) as c:self.assertEqual(c.execute('select count(*) from fixture').fetchone()[0],n)
      self.assertFalse(any(str(call.args[0]) in (str(self.db),self.db.name) for call in opened.call_args_list))
+ def test_mismatched_pin_alias_refuses_before_extra_database_descriptor(self):
+  from automation.seedbox_host_io import collector_lifetime,database
+  st=self.db.stat();pin=dict(path=str(self.db),identity=[st.st_dev,st.st_ino],journal_mode='wal')
+  alias=self.root/'actor/alias.sqlite3'
+  with collector_lifetime(pin):
+   os.link(self.db,alias)
+   try:
+    with patch('automation.seedbox_host_io.os.open',wraps=os.open) as opened:
+     with self.assertRaisesRegex(ValueError,'host_database_selection_changed'):
+      with database(dict(path=str(alias),identity=[0,0],journal_mode='delete')):pass
+     self.assertFalse(any(str(call.args[0]) in (str(alias),alias.name) for call in opened.call_args_list))
+   finally:alias.unlink()
+   with database(pin) as c:self.assertEqual(c.execute('select count(*) from fixture').fetchone()[0],1)
+ def test_initial_sqlite_work_has_progress_limit(self):
+  from automation.seedbox_host_io import collector_lifetime
+  st=self.db.stat();pin=dict(path=str(self.db),identity=[st.st_dev,st.st_ino],journal_mode='wal')
+  original=sqlite3.connect;callbacks=[]
+  class Connection:
+   def __init__(self,*a,**kw):self.actual=original(*a,**kw)
+   def __getattr__(self,name):return getattr(self.actual,name)
+   def set_progress_handler(self,callback,steps):callbacks.append(callback);self.actual.set_progress_handler(callback,steps)
+   def execute(self,sql,*args):
+    if sql=='pragma query_only=on':
+     self.assertion=bool(callbacks and callbacks[-1]);assert self.assertion
+     # Enough VM instructions to exercise the installed deadline callback.
+     return self.actual.execute('with recursive n(x) as (values(1) union all select x+1 from n where x<100000) select sum(x) from n')
+    return self.actual.execute(sql,*args)
+  with patch('automation.seedbox_host_io.sqlite3.connect',side_effect=Connection),patch('automation.seedbox_host_io.time.monotonic',side_effect=[0]+[21]*20):
+   with self.assertRaisesRegex(sqlite3.OperationalError,'interrupted'):
+    with collector_lifetime(pin):pass
  def child(self,mode):
   if not sys.platform.startswith('linux'):self.skipTest('Linux Landlock lifetime regression')
   import ctypes

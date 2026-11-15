@@ -47,11 +47,14 @@ def _open_collector(pin):
             held=_HeldCollector(pin,fd,None,sidecars);held.check()
             c=sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=.25,isolation_level=None)
             held.connection=c
+            deadline=time.monotonic()+20
+            c.set_progress_handler(lambda:int(time.monotonic()>=deadline),1000)
             c.execute('pragma query_only=on');c.execute('pragma trusted_schema=off');c.execute('pragma temp_store=memory')
             if 'journal_mode' in pin:require(c.execute('pragma journal_mode').fetchone()[0]==pin['journal_mode'],'host_database_journal_changed')
             c.setlimit(sqlite3.SQLITE_LIMIT_LENGTH,1048576)
             # Establish native WAL/SHM handles, without freezing a data snapshot.
             c.execute('select count(*) from sqlite_schema').fetchone();held.check()
+            c.set_progress_handler(None,0)
             yield held
         finally:
             if c is not None:c.close()
@@ -91,7 +94,14 @@ def database(pin):
         require(pin==held.pin,'host_database_selection_changed')
         with _transaction(held) as c:yield c
     else:
-        require(held is None or pin['identity']!=held.pin['identity'],'host_database_selection_changed')
+        if held is not None:
+            require(pin['identity']!=held.pin['identity'],'host_database_selection_changed')
+            # Check actual identity before an alternate DB descriptor can open
+            # and close our collector inode. Private selected paths must not be
+            # replaced concurrently; this check is not an atomic pathname lock.
+            path=Path(pin['path'])
+            with private_chain(path.parent):
+                require(not os.path.samestat(path.lstat(),os.fstat(held.fd)),'host_database_selection_changed')
         with _open_collector(pin) as selected:
             with _transaction(selected) as c:yield c
 

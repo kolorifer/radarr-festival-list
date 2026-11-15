@@ -46,3 +46,9 @@ credential re-provisioning, provider retry, actor restart or notification replay
 is part of this repository correction. Existing attempts and reservations remain.
 A missing/replaced sidecar still stops rather than being repaired. Runtime startup
 requires native existing WAL sidecars; normal producer checkpoints remain allowed.
+
+Initialization queries also have the 20-second SQLite VM progress limit. This
+bounds executing SQL instructions, not an uninterruptible filesystem stall.
+Alternate database selections are checked against the actual held collector
+inode before opening, including mismatched declared pins. Private selected paths
+must not be concurrently replaced; no atomic pathname-lock claim is made.
