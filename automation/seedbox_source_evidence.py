@@ -72,10 +72,10 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at,revi
         # One section boundary for both duration syntaxes. Preserve v1 exactly.
         general=[];current=None
         for line in nfo.splitlines():
-            header=re.fullmatch(r'[ \t]*(General|Video|Audio|Text|Subtitles?|Menu|Image|Other)(?:[ \t]*#[0-9]+)?(?:[ \t]*:[^\n]*)?[ \t]*',line)
+            header=re.match(r'[ \t]*(General|Video|Audio|Text|Subtitles?|Menu|Image|Other)\b',line)
             if header:
                 if current is not None:general.append('\n'.join(current))
-                current=[] if header[1]=='General' else None
+                current=[] if header[1]=='General' and re.fullmatch(r'[ \t]*General(?:[ \t]*:[^\n]*)?[ \t]*',line) else None
             elif current is not None:current.append(line)
         if current is not None:general.append('\n'.join(current))
     duration_text='\n'.join(general)
@@ -86,6 +86,15 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at,revi
             if 0<value<=86400000:durations.append(value)
     invalid_alternate=False
     if revision==2:
+        durations=[]
+        for line in duration_text.splitlines():
+            if not re.match(r'[ \t]*Duration\b',line):continue
+            match=re.fullmatch(r'[ \t]*Duration[ \t]*:[ \t]*([0-9]{1,2}):([0-9]{2}):([0-9]{2})\.([0-9]{3})[ \t]*',line)
+            if match:
+                h,m,sec,ms=map(int,match.groups());value=((h*60+m)*60+sec)*1000+ms
+                if m<60 and sec<60 and 0<value<=86400000:durations.append(value)
+                else:invalid_alternate=True
+            else:invalid_alternate=True
         blocks=general
         for block in blocks:
             for line in block.splitlines():
