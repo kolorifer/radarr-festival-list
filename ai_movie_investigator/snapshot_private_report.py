@@ -18,7 +18,7 @@ def validate_local_context(local_raw):
     return local
 
 
-def render(report, report_sha256, projection, local_raw, local_sha256):
+def render(report, report_sha256, projection, local_raw, local_sha256, *, publisher_raw=None):
     require(digest(report)==report_sha256 and report.get('kind')=='receipt_bound_snapshot_review_v1' and
         report.get('projection_sha256')==digest(projection) and
         report.get('local_context_sha256')==local_sha256 and
@@ -65,6 +65,20 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
             '; producer asserted IMDb: '+show(ids['asserted_imdb'])+'; producer asserted TMDb: '+show(ids['asserted_tmdb'])+
             '; catalogue IMDb: '+show(cat['imdb'])+'; catalogue TMDb: '+show(cat['tmdb']))
         return 'No corresponding observation is available.'
+    publisher_html=''
+    if 'publisher_edition' in projection:
+        from .snapshot_review import publisher_edition_context
+        pub=projection['publisher_edition']
+        require(type(publisher_raw) is bytes and publisher_edition_context(publisher_raw,projection,now=pub['observed_at'])==pub,'snapshot_report_binding')
+        url=decode(publisher_raw,65536)['source_url']
+        publisher_html=('<h3>Reviewed publisher-edition claim</h3><ul>'+li('Publisher',pub['publisher'])+
+            li('Film',pub['title'])+li('Year',pub['year'])+li('Edition label',pub['edition_label'])+
+            li('Publisher-stated runtime',minutes(pub['runtime_minutes']))+li('Observed',observed(pub['observed_at']))+
+            li('Expires',observed(pub['expires_at']))+li('Provenance hash',pub['provenance_sha256'])+'</ul>'+
+            '<p>Reviewed publisher source: '+escape(url)+'</p>'+
+            '<p>This is a main-attested publisher claim about an edition, not a measurement or identification of this torrent or physical file. '
+            'The original listing, NFO and catalogue observations remain unchanged. Identity and acquisition approval remain separate.</p>')
+    else:require(publisher_raw is None,'snapshot_report_binding')
     comparisons=film_comparisons(projection)
     blockers=result.get('film_blockers')
     if not isinstance(blockers,list):blockers=[]
@@ -120,6 +134,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         prior_html=('<h3>Earlier distinct assessment</h3><p>Status: '+escape(show(prior['status']))+'; proposed identity: '+escape(show(prior['candidate']))+'. '+rationale+' The assessment below is a distinct new result, not a reconstruction of that rationale.</p>')
     if report.get('previous_structure_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but its findings failed structural validation. Its answer was not retained. This is a distinct corrected assessment.</p>'
     if report.get('previous_field_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but failed a field validation check. Its answer was not retained, so the specific failed comparison is unknown. This is a distinct corrected assessment.</p>'
+    if report.get('previous_quality_refusal') is not None:prior_html='<p>The earlier assessment received a receipt, then failed a composite explanation-quality check. Its answer was not retained; the specific failed predicate and original wording are unknown. This is a distinct corrected assessment, not recovery of that answer. The earlier operation and reservation remain recorded.</p>'
     if report.get('previous_result_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but did not provide a required film blocker. Its answer was not retained. This is a distinct corrected assessment.</p>'
     raw_comparisons=''.join(li(aspect.replace('_',' '),item['left_origin']+' '+item['left_field'].replace('_',' ')+' versus '+item['right_origin']+' '+item['right_field'].replace('_',' ')+': '+item['relation'].replace('_',' ')+
         (('; difference in minutes '+show(item['difference_minutes'])) if item.get('difference_minutes') is not None else '')+
@@ -154,6 +169,14 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
     possible_incomplete=any(isinstance(result.get(field),str) and
         result[field]!=_WITHHELD_PROSE and handling.get(field,{}).get('status')!='withheld' and
         not re.search(r"[.!?][\"'”’)\]]*$",result[field].rstrip()) for field in ('rationale','uncertainty'))
+    quality_labels={'no_alphabetic_words':'no alphabetic words',
+        'no_terminal_punctuation':'no terminal punctuation', 'trailing_conjunction':'trailing conjunction',
+        'category_labels_only':'category labels only', 'identical_support_and_conflict':'identical support and conflict wording'}
+    quality=result.get('explanation_quality',[])
+    quality_html=''
+    if quality:
+        quality_html=('<p><strong>Explanation quality caveats:</strong> These finite wording checks do not establish factual correctness or alter the recorded verdict.</p><ul>'+''.join(
+            '<li>Blocker '+escape(str(q['blocker']+1))+', '+escape(q['field'])+': '+escape(quality_labels[q['predicate']])+'.</li>' for q in quality)+'</ul>')
     model_prose='<div style="white-space:pre-wrap">'+prose('rationale','Rationale')+prose('uncertainty','Uncertainty')+'</div>'
     if possible_incomplete:
         model_prose=('<details><summary>Original model interpretation — possibly incomplete wording</summary>'+
@@ -173,7 +196,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         '<h2>Identification problem</h2><p>'+escape(reason_label(projection['reason']))+'</p><ul>',
         li('Original release name',local['release_name']),li('Collector title',projection['title']),li('Collector year',projection['year']),
         li('Producer contradictions',projection['producer_contradictions']),'</ul>',
-        '<h2>Model-reported film blockers</h2>',('<ul>'+blocks+'</ul>' if blockers else '<p>None reported.</p>' if 'film_blockers' in result else '<p>No structured film blockers were recorded.</p>'),
+        publisher_html,'<h2>Model-reported film blockers</h2>',quality_html,('<ul>'+blocks+'</ul>' if blockers else '<p>None reported.</p>' if 'film_blockers' in result else '<p>No structured film blockers were recorded.</p>'),
         '<p>These are the model’s selected concerns. The values shown are observations, not a claim that they caused its decision.</p>',
         '<h2>Evidence at a glance</h2><p>Agreements and differences are direct comparisons; they do not establish identity or an edition. Lists may be partial.</p>',
         '<p>Snapshot generated: '+escape(observed(projection['generated_at']))+'; listing observed: '+escape(observed(source['observed_at']))+'; catalogue observed: '+escape(observed(cat['observed_at']))+'.</p>',

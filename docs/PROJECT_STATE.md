@@ -1,3 +1,10 @@
+## Assessment explanation quality v11, 2026-11-15
+
+A versioned contract retains safe schema-valid explanations with advisory quality
+caveats, preserving v10 history and a single explicitly issued successor of an exact
+failed first-v10 receipt. No original answer recovery, live operation or deployment.
+See [scope, issuer pins and validation](reports/2026-11-15-assessment-quality-v11.md).
+
 ## Private report explanation, 2026-11-15
 
 Renderer-only correction separates a complete factual observation summary from

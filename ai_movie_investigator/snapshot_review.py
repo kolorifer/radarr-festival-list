@@ -872,3 +872,105 @@ def validate_film_assessment(projection,prepared,reply,*,now):
     result.update(prose)
     result.update(film_comparisons=comparisons,film_blockers=blockers)
     return result
+
+
+def publisher_edition_context(raw,projection,*,now):
+    """Main-attested publisher claim, never a torrent/physical-edition measurement."""
+    from urllib.parse import urlsplit
+    from .new_case import explanation_prose
+    from .contracts import hash_id
+    value=decode(raw,65536)
+    shape(value,'kind case_id version title year edition_label publisher runtime_minutes observed_at expires_at provenance_sha256 source_url source_reviewed title_year_linkage_reviewed')
+    require(value['kind']=='publisher_edition_observation_v1' and value['case_id']==projection['case_id'] and
+        value['version']==projection['version'] and value['source_reviewed'] is True and
+        value['title_year_linkage_reviewed'] is True,'snapshot_publisher_scope')
+    for key,limit in (('title',200),('edition_label',200),('publisher',160)):explanation_prose(value[key],limit)
+    cat=projection['catalogue']
+    require(isinstance(cat['title'],str) and value['title'].strip().casefold()==cat['title'].strip().casefold() and
+        type(value['year']) is int and value['year'] in [cat['theatrical_year']]+cat['festival_years'], 'snapshot_publisher_linkage')
+    require(type(value['runtime_minutes']) is int and 1<=value['runtime_minutes']<=1440,'snapshot_publisher_runtime')
+    require(stamp(value['observed_at'])<=now<stamp(value['expires_at']),'snapshot_publisher_freshness')
+    hash_id(value['provenance_sha256'])
+    url=value['source_url']
+    require(type(url) is str and 1<=len(url)<=4096 and not any(ord(c)<32 or ord(c)==127 for c in url),'snapshot_publisher_url')
+    try:
+        u=urlsplit(url)
+        require(u.scheme=='https' and bool(u.hostname) and not u.username and not u.password,'snapshot_publisher_url')
+    except ValueError:require(False,'snapshot_publisher_url')
+    return dict({k:v for k,v in value.items() if k not in ('source_url','case_id','version')},observation_sha256=hashlib.sha256(raw).hexdigest())
+
+
+def build_film_quality(projection):
+    """v11 changes quality handling without modifying persisted v10 requests."""
+    import copy
+    prepared=copy.deepcopy(build_film_assessment(projection))
+    if 'publisher_edition' in projection:
+        wire=prepared['request'];data=decode(wire['input'][0]['content'][0]['text'],65536)
+        data['historical_observations']['publisher_edition']=projection['publisher_edition']
+        wire['input'][0]['content'][0]['text']=encoded(data).decode()
+        wire['instructions']+=(' An optional main-attested publisher-edition observation is a publisher claim about a named edition. '
+            'Consider its stated runtime as contextual evidence without replacing listing, NFO or catalogue measurements. '
+            'It does not establish that the torrent or physical file is that edition, and supplies no approval or numeric tolerance. '
+            'Keep conflicts and remaining edition uncertainty explicit; no forced verdict.')
+    prepared['request']['instructions']+=(' Prose quality is reported separately from evidence validity: punctuation, fragments, labels '
+        'or repeated support/conflict wording are review caveats, never grounds to invent or force a different verdict. '
+        'Keep the same schema, privacy and evidence requirements.')
+    require(len(encoded(prepared['request']))<=65536,'snapshot_disclosure_size')
+    return prepared
+
+
+def _quality_caveats(value):
+    """Finite advisory predicates; no claims about linguistic or factual truth."""
+    words=re.findall(r'[^\W\d_]+',value.casefold());codes=[]
+    if not words:codes.append('no_alphabetic_words')
+    if not re.search(r"[.!?][\"'”’)\]]*$",value.rstrip()):codes.append('no_terminal_punctuation')
+    if words and words[-1] in ('and','or','but','because','although','while'):codes.append('trailing_conjunction')
+    labels=set('title year cast people runtime description nfo ids id film evidence missing conflicting ambiguous conflict contradiction unknown unresolved blocked supported candidate material support considered collector label labels discrepancy discrepancies difference differences different conflicts exact overlap no observed'.split())
+    if words and not set(words)-labels:codes.append('category_labels_only')
+    return codes
+
+
+def validate_film_quality(projection,prepared,reply,*,now):
+    import copy
+    from .responses_protocol import schema_value
+    from .new_case import explanation_prose,_WITHHELD_PROSE
+    require(prepared==build_film_quality(projection),'snapshot_prepared_changed')
+    if 'publisher_edition' in projection:
+        require(stamp(projection['publisher_edition']['observed_at'])<=now<stamp(projection['publisher_edition']['expires_at']),'snapshot_publisher_freshness')
+    schema_value(reply,prepared['request']['text']['format']['schema'])
+    answer=copy.deepcopy(reply);r=answer['result']
+    explanation_prose(r['rationale'],600);explanation_prose(r['uncertainty'],300)
+    if 'historical_id_discrepancy' in projection:
+        d=projection['historical_id_discrepancy']
+        require(all(re.search(r'(?<![A-Za-z0-9_])'+re.escape(d[k])+r'(?![A-Za-z0-9_])',r['rationale']) for k in ('old_asserted_imdb','current_listing_imdb')),'snapshot_reobservation_explanation')
+    primary=r.pop('primary_blocker');additional=r.pop('additional_blockers');blockers=([primary] if primary is not None else [])+additional
+    comparisons=film_comparisons(projection)
+    caveats=[]
+    for index,b in enumerate(blockers):
+        for field in ('support_considered','material_conflict'):
+            explanation_prose(b[field],400)
+            # The fixed withheld marker is unknown original prose, not model wording.
+            if b[field]!=_WITHHELD_PROSE:
+                caveats.extend(dict(blocker=index,field=field,predicate=code) for code in _quality_caveats(b[field]))
+        if _WITHHELD_PROSE not in (b['support_considered'],b['material_conflict']) and b['support_considered'].strip().casefold()==b['material_conflict'].strip().casefold():
+            caveats.append(dict(blocker=index,field='pair',predicate='identical_support_and_conflict'))
+        relations={row['relation'] for row in comparisons[b['aspect']]}
+        if b['reason']=='missing_film_evidence':
+            require('missing' in relations,'snapshot_quality_no_missing_observation')
+            require(not (b['aspect']=='people' and 'overlap' in relations),'snapshot_quality_people_corroborated')
+        if b['reason']=='conflicting_film_evidence':require('different' in relations,'snapshot_comparison_blocker_no_difference')
+    if r['status']=='supported_candidate':
+        r['citations']=[r.pop('source_citation'),r.pop('catalogue_citation')]
+    else:r['citations']=[]
+    prose={name:r[name] for name in ('rationale','uncertainty')}
+    for name in prose:r[name]='Validated film evidence justification.'
+    result=validate_answer(projection,build(projection),answer,now=now)
+    if result['status']=='supported_candidate':
+        require(not blockers and comparisons['title'][0]['relation']!='different','snapshot_comparison_title_conflict')
+        positive=any(row['relation'] in ('exact','overlap') for row in comparisons['title'][:1]+comparisons['year'][:2]+comparisons['people']+comparisons['runtime_description'])
+        if projection['listing']['nfo_runtime_kind'] in ('container','video'):positive=positive or comparisons['runtime_nfo'][0]['relation']=='exact'
+        require(positive,'snapshot_comparison_support_missing')
+    else:require(bool(blockers),'snapshot_comparison_blocker_missing')
+    result.update(prose)
+    result.update(film_comparisons=comparisons,film_blockers=blockers,explanation_quality=caveats)
+    return result
