@@ -74,7 +74,19 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at,revi
         if int(m)<60 and int(s)<60:
             value=((int(h)*60+int(m))*60+int(s))*1000+int(ms)
             if 0<value<=86400000:durations.append(value)
-    duration=_one(durations)
+    invalid_alternate=False
+    if revision==2:
+        blocks=re.findall(r'(?:^|\n)General\s*:\s*[^\n]+\n(.*?)(?=\n(?:General|Video|Audio|Text)(?:\s*#[0-9]+)?(?:\s*:|\s*\n)|\Z)',nfo,re.S)
+        for block in blocks:
+            for line in block.splitlines():
+                if not re.match(r'\s*Length\s*:',line):continue
+                match=re.fullmatch(r'\s*Length\s*:\s*[0-9]+(?:\.[0-9]+)?\s*(?:B|KiB|MiB|GiB|TiB)\s+for\s+([0-9]{1,2})\s*h\s+([0-9]{1,2})\s*min\s+([0-9]{1,2})\s*s\s+([0-9]{1,4})\s*ms\s*',line)
+                if match:
+                    h,m,sec,ms=map(int,match.groups());value=((h*60+m)*60+sec)*1000+ms
+                    if m<60 and sec<60 and ms<1000 and 0<value<=86400000:durations.append(value)
+                    else:invalid_alternate=True
+                else:invalid_alternate=True
+    duration=None if invalid_alternate else _one(durations)
     return dict(kind='selected_listing_facts_v1',case_id=case_id,version=version,observed_at=observed_at,expires_at=expires_at,
         title=_one(titles),year=_one(years),description_runtime_minutes=_one(minutes),nfo_runtime_milliseconds=duration,
         nfo_runtime_kind='container' if duration is not None else 'unknown' if nfo else 'absent',

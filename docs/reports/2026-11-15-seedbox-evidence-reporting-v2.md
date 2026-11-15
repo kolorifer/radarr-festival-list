@@ -71,3 +71,10 @@ Main owns private-case proofs, the explicit one-case correction command and actu
 host checks/deployment. Repository work uses invented fixtures only. The runtime
 manifest and installed package are verified separately; final results belong to
 the PR/checkpoint. Missing retry jobs/original rows remain explicit blocked cases.
+
+Revision2 also handles the strict inline General header plus Length/size/for
+hours-minutes-seconds-milliseconds NFO form. It records exact container
+milliseconds only inside General sections; Video/Audio/Text sections cannot
+supply container duration. Conflicting durations or invalid component ranges
+remain unknown. Revision1 remains byte-compatible; no duration veto or identity
+policy is added.

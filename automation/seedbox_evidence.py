@@ -76,6 +76,7 @@ def load(queue,preparation,*,now=None):
         if revision==2:selected['host_reporting_revision']=2
         if 'correction_of' in claim:
             proof=claim['correction_proposal']
+            require(source['observed_at']>proof['parent_source_observed_at'] and cat['observed_at']>proof['parent_catalogue_observed_at'],'host_correction_observation_not_new')
             require(revision==2 and digest(proof)==claim['correction_proposal_sha256'] and digest({k:v for k,v in source.items() if k not in ('observed_at','expires_at')})==proof['corrected_semantic_sha256'] and digest({k:v for k,v in cat.items() if k not in ('observed_at','expires_at')})==proof['catalogue_semantic_sha256'] and digest(manifest['target_pin'])==proof['target_sha256'] and digest(local['tracker_url'])==proof['source_url_sha256'],'host_correction_evidence_changed')
         require(manifest['target_pin']['case_id']==claim['case_id'],'host_target_changed')
         return dict(snapshot_raw=raw['snapshot'],projection=selected,local_raw=raw['local_raw'],target_pin=manifest['target_pin'],evidence_sha256=record['manifest_sha256'],manifest=manifest)
@@ -124,6 +125,7 @@ def correction_proposal(queue,preparation):
         reviews=[r for r in rows if r['type']=='seedbox_automated_review_completed_v1' and r['preparation']==preparation]
         attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1' and r['preparation']==preparation]
         require(len(reports)==len(reviews)==1 and len(attempts)==2,'host_correction_completed_pair_required')
+        require(not any(r.get('preparation')==preparation and r['type'] in ('seedbox_assessment_uncertain_or_refused_v1','seedbox_review_uncertain_or_refused_v1') for r in rows),'host_correction_uncertain_parent')
         claims=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1' and digest(r)==preparation]
         require(len(claims)==1 and 'correction_of' not in claims[0] and claims[0]['case_id'] not in rows[0]['prior_consumed_cases'],'host_correction_parent')
         case_preps={digest(r) for r in rows if r['type']=='seedbox_preparation_claimed_v1' and r['case_id']==claims[0]['case_id']}
@@ -157,7 +159,7 @@ def correction_proposal(queue,preparation):
         require(len(selected)==1 and digest(selected[0])==entry['attempt_sha256'] and selected[0]['request_sha256']==request_hash,'host_correction_old_attempt_changed')
         expected_evidence=evidence['evidence_sha256'] if stage=='assessment' else bindings['evidence_sha256']
         require(selected[0]['evidence_sha256']==expected_evidence and selected[0]['review_of']==(None if stage=='assessment' else digest(report)) and selected[0]['reserved_usd']==(report['receipt'] if stage=='assessment' else review['receipt'])['reserved_usd'],'host_correction_old_attempt_changed')
-    return dict(kind='seedbox_material_extraction_correction_v2',preparation=preparation,old_manifest_sha256=digest(manifest),original_sha256=manifest['files']['source_original']['sha256'],old_source_sha256=digest(old),corrected_source_sha256=digest(new),changed_fields=changed,corrected_source=new,corrected_semantic_sha256=digest({k:v for k,v in new.items() if k not in ('observed_at','expires_at')}),catalogue_semantic_sha256=digest({k:v for k,v in projection['catalogue'].items() if k not in ('observed_at','expires_at')}),source_url_sha256=digest(local['tracker_url']),target_sha256=digest(evidence['target_pin']),old_report_sha256=digest(report),old_review_sha256=digest(review),consumed_attempts=[digest(a) for a in attempts],observation_clock_unchanged=True,historical_only=True,provider_execution_authorized=False,reassessment='requires_distinct_reviewed_binding_and_freshness_policy_no_replay')
+    return dict(kind='seedbox_material_extraction_correction_v2',preparation=preparation,old_manifest_sha256=digest(manifest),original_sha256=manifest['files']['source_original']['sha256'],old_source_sha256=digest(old),corrected_source_sha256=digest(new),changed_fields=changed,corrected_source=new,parent_source_observed_at=old['observed_at'],parent_catalogue_observed_at=projection['catalogue']['observed_at'],corrected_semantic_sha256=digest({k:v for k,v in new.items() if k not in ('observed_at','expires_at')}),catalogue_semantic_sha256=digest({k:v for k,v in projection['catalogue'].items() if k not in ('observed_at','expires_at')}),source_url_sha256=digest(local['tracker_url']),target_sha256=digest(evidence['target_pin']),old_report_sha256=digest(report),old_review_sha256=digest(review),consumed_attempts=[digest(a) for a in attempts],observation_clock_unchanged=True,historical_only=True,provider_execution_authorized=False,reassessment='requires_distinct_reviewed_binding_and_freshness_policy_no_replay')
 
 
 def record_correction(queue,preparation):

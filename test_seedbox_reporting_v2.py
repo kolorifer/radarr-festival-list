@@ -22,6 +22,14 @@ class ExtractionTests(unittest.TestCase):
  def test_conflicting_titles_and_years_remain_unknown(self):
   raw=HTML.replace(b'</h3>',b'</h3><h3>Different Film (1998)</h3>')
   value=self.parse(raw);self.assertIsNone(value['title']);self.assertIsNone(value['year'])
+ def test_inline_general_length_preserves_exact_container_milliseconds(self):
+  nfo=b'<pre id="nfo_text">General : Invented.other.release.mkv\nLength : 7.25 GiB for 2 h 13 min 27 s 418 ms\nVideo #0 : invented\nAudio #0 : invented\nLength : 1 GiB for 0 h 1 min 0 s 0 ms</pre>'
+  value=self.parse(HTML+nfo);self.assertEqual(value['nfo_runtime_milliseconds'],8007418);self.assertEqual(value['nfo_runtime_kind'],'container')
+  self.assertIsNone(self.parse(HTML+nfo,revision=1)['nfo_runtime_milliseconds'])
+  for altered in (nfo.replace(b'13 min',b'63 min'),nfo.replace(b'418 ms',b'1418 ms'),nfo.replace(b'27 s',b'77 s'),nfo.replace(b'2 h',b'25 h'),nfo.replace(b'General :',b'Text #0 :')):
+   self.assertIsNone(self.parse(HTML+altered)['nfo_runtime_milliseconds'])
+  conflicting=nfo.replace(b'Video #0 :',b'General : Another.invented.mkv\nLength : 2 GiB for 1 h 0 min 0 s 0 ms\nVideo #0 :')
+  self.assertIsNone(self.parse(HTML+conflicting)['nfo_runtime_milliseconds'])
  def test_unlinked_or_missing_original_never_invents_target(self):
   from unittest.mock import Mock
   connection=Mock();connection.execute.return_value.fetchall.return_value=[]
@@ -67,7 +75,7 @@ class LegacyCorrectionTests(ConnectedTests):
 
 class ExecutableCorrectionTests(ConnectedTests):
  SOURCE_HTML=HTML
- def test_distinct_fresh_corrected_pair_keeps_old_receipts_and_reservations(self):
+ def corrected_fixture(self):
   self.complete('reject');oldprep=self.selected['reservation']
   oldhtml=(self.path/('report-'+oldprep+'.html')).read_bytes()
   with patch('time.time',return_value=NOW):
@@ -78,8 +86,12 @@ class ExecutableCorrectionTests(ConnectedTests):
   path=self.path/('evidence-'+oldprep);bundle={k:(path/(k+'.bin')).read_bytes() for k in evidence.RAW_FIELDS}
   manifest=decode((path/'manifest.json').read_bytes(),65536)
   source=listing_facts(HTML,release_name='Invented release',case_id=CASE,version=VERSION,observed_at=NOW-1,expires_at=NOW+600,revision=2)
-  bundle['source']=encoded(source);att=copy.deepcopy(manifest['attestation']);att['source_sha256']=hashlib.sha256(bundle['source']).hexdigest()
+  bundle['source']=encoded(source);cat=decode(bundle['catalogue']);cat['observed_at']=NOW-1;bundle['catalogue']=encoded(cat)
+  att=copy.deepcopy(manifest['attestation']);att['source_sha256']=hashlib.sha256(bundle['source']).hexdigest();att['catalogue_sha256']=hashlib.sha256(bundle['catalogue']).hexdigest();att['observed_at']=NOW
   bundle.update(attestation=att,target_pin=manifest['target_pin'],coverage=manifest['coverage'],derivation_revision=2)
+  return oldprep,newprep,bundle,oldhtml
+ def test_distinct_fresh_corrected_pair_keeps_old_receipts_and_reservations(self):
+  oldprep,newprep,bundle,oldhtml=self.corrected_fixture()
   with patch('time.time',return_value=NOW):self.p=evidence._retain(self.q,newprep,bundle)['projection']
   self.selected={'reservation':newprep};self.complete()
   with patch('time.time',return_value=NOW):plan,_=review.approved_plan(self.q,newprep)
@@ -88,6 +100,18 @@ class ExecutableCorrectionTests(ConnectedTests):
    attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1'];self.assertEqual(len(attempts),4);self.assertEqual(len({r['request_sha256'] for r in attempts}),4)
    self.assertTrue(all(r['reserved_usd']==[3,20] for r in attempts))
   with patch('time.time',return_value=NOW),self.assertRaisesRegex(ValueError,'queue_provider_consumed'):self.execute()
+ def bad_clock(self,field,clock):
+  oldprep,newprep,bundle,_=self.corrected_fixture()
+  value=decode(bundle[field]);value['observed_at']=clock;bundle[field]=encoded(value)
+  bundle['attestation'][field+'_sha256']=hashlib.sha256(bundle[field]).hexdigest()
+  with patch('time.time',return_value=NOW),self.assertRaisesRegex(ValueError,'host_correction_observation_not_new'):evidence._retain(self.q,newprep,bundle)
+  with self.q.locked() as (rows,_):self.assertEqual(sum(r['type']=='seedbox_provider_started_v1' for r in rows),2)
+ def test_equal_source_clock_refuses_before_new_request(self):self.bad_clock('source',NOW-10)
+ def test_older_catalogue_clock_refuses_before_new_request(self):self.bad_clock('catalogue',NOW-20)
+ def test_uncertain_parent_record_refuses_even_with_completed_pair(self):
+  self.complete('reject');prep=self.selected['reservation']
+  with self.q.locked() as (_,append):append(dict(type='seedbox_review_uncertain_or_refused_v1',preparation=prep,at=NOW))
+  with self.assertRaisesRegex(ValueError,'host_correction_uncertain_parent'):evidence.correction_proposal(self.q,prep)
  def test_approved_prior_review_cannot_authorize_correction(self):
   self.complete()
   with patch('time.time',return_value=NOW),self.assertRaisesRegex(ValueError,'host_correction_rejected_review_required'):evidence.correction_proposal(self.q,self.selected['reservation'])
