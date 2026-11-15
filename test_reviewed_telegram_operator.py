@@ -11,8 +11,18 @@ import retry_telegram
 from test_identity_triage import payload,SOURCES
 from test_identity_automation import context
 
+def fixture_acl(test):
+ # Hosted Linux ancestors can carry ACLs. Simulate only ACL metadata I/O,
+ # as existing installed-runtime fixtures do; production guards stay intact.
+ import errno,sys
+ from unittest.mock import patch
+ if sys.platform.startswith('linux'):
+  mock=patch('os.getxattr',side_effect=OSError(errno.ENODATA,'fixture absent ACL'))
+  mock.start();test.addCleanup(mock.stop)
+
 class DeliveryTests(unittest.TestCase):
  def setUp(self):
+  fixture_acl(self)
   old=os.umask(0o077);self.addCleanup(os.umask,old)
   self.tmp=tempfile.TemporaryDirectory(dir=Path.cwd());self.addCleanup(self.tmp.cleanup)
   self.now=time.time();self.s=RetryStore(Path(self.tmp.name).resolve()/'retry',clock=lambda:self.now)
@@ -127,7 +137,8 @@ class DeliveryTests(unittest.TestCase):
 
 class PlanTests(unittest.TestCase):
  def fixture(self):
-  temp=tempfile.TemporaryDirectory();self.addCleanup(temp.cleanup);path=Path(temp.name).resolve()/'local.json'
+  fixture_acl(self)
+  temp=tempfile.TemporaryDirectory(dir=Path.cwd());self.addCleanup(temp.cleanup);path=Path(temp.name).resolve()/'local.json'
   from ai_movie_investigator.contracts import encoded
   raw=encoded(dict(tracker_url='https://example.invalid/listing/123',release_name='Invented release',nfo_text='Invented NFO'));path.write_bytes(raw);path.chmod(0o600)
   import hashlib
@@ -161,7 +172,7 @@ class PlanTests(unittest.TestCase):
 
 class InvocationTests(unittest.TestCase):
  def test_issued_template_exact_sender_no_environment_mutation(self):
-  import hashlib,subprocess,sys
+  import hashlib,subprocess,sys,shutil,sysconfig
   f=DeliveryTests('test_exact_edit_ack_restart_and_old_pump_no_overwrite');f.setUp();self.addCleanup(f.doCleanups)
   from automation import reviewed_telegram_UNISSUED as wrapper
   root=f.s.directory.parent;actor=root/'actor';actor.mkdir(mode=0o700);(actor/'deploy').mkdir(mode=0o700)
@@ -174,15 +185,24 @@ class InvocationTests(unittest.TestCase):
   guards={}
   for name in ('contracts','history','private_files'):
    guards[name]=pin('guard-'+name+'.py',Path('ai_movie_investigator',name+'.py').read_bytes())
+  interpreter=Path(sys.executable).resolve();env=os.environ.copy()
+  if sys.platform.startswith('linux'):
+   interpreter=root/'fixture-python';shutil.copyfile(Path(sys.executable).resolve(),interpreter);interpreter.chmod(0o700)
+   lib=sysconfig.get_config_var('LIBDIR')
+   if lib:env['LD_LIBRARY_PATH']=lib
   issued=dict(guard_files=guards,actor_root=str(actor),actor_files=pins,helper=pin('helper.py',Path('automation/reviewed_telegram_operator.py').read_bytes()),
     plan=obj('plan.json',f.plan),target=obj('target.json',f.pin),sources=obj('sources.json',SOURCES),boundary=obj('boundary.json',f.boundary),
     bot_configuration=pin('private.env',b'TELEGRAM_BOT_TOKEN="SYNTHETIC_BOT_ONLY"\nTELEGRAM_CHAT_ID="123"\nUNRELATED="not exported"\n'),
     state=str(f.s.directory),output=str(root/'receipt.json'),main_acceptance_path=str(root/'acceptance.json'),
-    python_sha256=hashlib.sha256(Path(sys.executable).resolve().read_bytes()).hexdigest())
+    python_sha256=hashlib.sha256(interpreter.read_bytes()).hexdigest())
   raw=Path('automation/reviewed_telegram_UNISSUED.py').read_text().replace('ISSUED = None','ISSUED = '+repr(issued),1)
   entry=pin('issued.py',raw.encode());obj('acceptance.json',dict(decision='accepted_exact_reviewed_telegram_edit',wrapper_sha256=entry['sha256'],issued_pins=issued))
   driver=root/'driver.py'
-  driver.write_text("""import runpy,sys,json,io,os
+  driver.write_text("""import runpy,sys,json,io,os,errno
+if sys.platform.startswith('linux'):
+ def fixture_absent_acl(*args,**kwargs):raise OSError(errno.ENODATA,'fixture absent ACL')
+ os.getxattr=fixture_absent_acl
+ print('fixture_linux_acl_metadata_simulated')
 before=dict(os.environ)
 ns=runpy.run_path("""+repr(entry['path'])+""",run_name='fixture')
 seen=[]
@@ -208,13 +228,15 @@ assert len(seen)==1 and dict(os.environ)==before
 assert 'movie_intel_service' not in sys.modules and 'identity_retry' not in sys.modules
 print('fixture_sender_only_no_actor_start')
 """)
-  result=subprocess.run([str(Path(sys.executable).resolve()),'-I','-S','-B',str(driver)],capture_output=True,timeout=30)
+  result=subprocess.run([str(interpreter),'-I','-S','-B',str(driver)],capture_output=True,timeout=30,env=env)
   self.assertEqual(result.returncode,0,result.stderr.decode());self.assertIn(b'fixture_sender_only_no_actor_start',result.stdout)
+  if sys.platform.startswith('linux'):self.assertIn(b'fixture_linux_acl_metadata_simulated',result.stdout)
   self.assertNotIn(b'SYNTHETIC_BOT_ONLY',result.stdout+result.stderr)
   receipt=json.loads((root/'receipt.json').read_text());self.assertEqual(receipt['status'],'acknowledged')
 
 class GuardTests(unittest.TestCase):
  def setUp(self):
+  fixture_acl(self)
   import hashlib
   from automation.reviewed_telegram_UNISSUED import bootstrap_guard
   self.tmp=tempfile.TemporaryDirectory(dir=Path.cwd());self.addCleanup(self.tmp.cleanup)
