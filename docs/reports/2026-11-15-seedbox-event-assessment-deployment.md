@@ -219,3 +219,14 @@ bytes; a missing HTML file is reconstructed and hash-checked from those bytes
 before review/delivery. Failures retain finite diagnostics, no raw error bodies or
 secret URLs. Report/evidence/attempt records are not deleted on restart. No uncertain
 provider or original-message edit is automatically replayed.
+
+## Collector connection lifetime correction
+
+The bootstrap first denies collector regular-file creation, then opens the exact
+validated read-only collector and retains its native WAL/SHM handles before the
+full confinement layer. Each read still uses a new transaction. Missing/replaced
+sidecars stop; no immutable mode, copied snapshot or source-directory write grant.
+For an existing first-step SHM circuit, main must verify corrected read-only
+access and use the existing bound recovery command on the same queue. Do not
+re-enroll, rewrite history, provision the key again or replay consumed attempts.
+See the [lifecycle correction report](2026-11-15-seedbox-collector-wal-lifetime.md).

@@ -1,3 +1,10 @@
+## Collector WAL lifecycle correction, 2026-11-15
+
+The first deployed PR205 worker stopped safely at collector SHM access before
+intake. A held read-only connection before full confinement is implemented with
+an earlier no-create boundary and per-read fresh transactions. Main owns actual
+read-only validation and recovery of the existing queue. See [scope and evidence](reports/2026-11-15-seedbox-collector-wal-lifetime.md).
+
 ## Seedbox event assessment candidate, 2026-11-15
 
 PR #205 connects retained/current identification failures to v13 assessment,

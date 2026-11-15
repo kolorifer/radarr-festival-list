@@ -6,30 +6,104 @@ from ai_movie_investigator.contracts import require,encoded,decode,digest
 from ai_movie_investigator.private_files import private_chain,read_private,safe_acl
 
 
+from contextvars import ContextVar
+
+_COLLECTOR=ContextVar('seedbox_held_collector',default=None)
+
+
+def _sidecars(path,required=True):
+    result={}
+    for suffix in ('-wal','-shm'):
+        side=path.with_name(path.name+suffix)
+        if not required and not side.exists():continue
+        s=side.lstat()
+        require(stat.S_ISREG(s.st_mode) and s.st_uid==os.getuid() and s.st_nlink==1 and not s.st_mode&0o077,'host_database_sidecar')
+        result[suffix]=(s.st_dev,s.st_ino,s.st_uid,s.st_mode,s.st_nlink)
+    return result
+
+
+class _HeldCollector:
+    def __init__(self,pin,fd,connection,sidecars):
+        self.pin=dict(pin);self.fd=fd;self.connection=connection;self.sidecars=sidecars
+    def check(self):
+        path=Path(self.pin['path'])
+        with private_chain(path.parent):
+            info=os.fstat(self.fd);current=path.lstat()
+            require(stat.S_ISREG(info.st_mode) and stat.S_IMODE(info.st_mode)==0o600 and info.st_uid==os.getuid() and info.st_nlink==1 and [info.st_dev,info.st_ino]==self.pin['identity'] and os.path.samestat(info,current),'host_database_changed')
+            safe_acl(self.fd,False)
+            if self.sidecars is not None:require(_sidecars(path,self.pin.get('journal_mode')=='wal')==self.sidecars,'host_database_sidecar_changed')
+
+
 @contextmanager
-def database(pin):
+def _open_collector(pin):
     path=Path(pin['path'])
     with private_chain(path.parent) as parent:
+        # Keep this descriptor until AFTER SQLite closes: closing another fd for
+        # the DB inode can release this process's POSIX SQLite locks.
         fd=os.open(path.name,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK,dir_fd=parent)
+        c=None
         try:
-            info=os.fstat(fd)
-            require(stat.S_ISREG(info.st_mode) and stat.S_IMODE(info.st_mode)==0o600 and info.st_uid==os.getuid() and info.st_nlink==1 and [info.st_dev,info.st_ino]==pin['identity'],'host_database_changed');safe_acl(fd,False)
-            # Existing WAL/SHM only; the final confinement forbids creation in
-            # source directories. SQLite's existing read locks/SHM are permitted.
-            for suffix in ('-wal','-shm'):
-                side=path.with_name(path.name+suffix)
-                if side.exists():
-                    s=side.lstat();require(stat.S_ISREG(s.st_mode) and s.st_uid==os.getuid() and s.st_nlink==1 and not s.st_mode&0o077,'host_database_sidecar')
+            sidecars=_sidecars(path,pin.get('journal_mode')=='wal')
+            held=_HeldCollector(pin,fd,None,sidecars);held.check()
             c=sqlite3.connect(path.as_uri()+'?mode=ro',uri=True,timeout=.25,isolation_level=None)
-            try:
-                c.execute('pragma query_only=on');c.execute('pragma trusted_schema=off');c.execute('pragma temp_store=memory')
-                if 'journal_mode' in pin:require(c.execute('pragma journal_mode').fetchone()[0]==pin['journal_mode'],'host_database_journal_changed')
-                c.setlimit(sqlite3.SQLITE_LIMIT_LENGTH,1048576)
-                deadline=time.monotonic()+20;c.set_progress_handler(lambda:int(time.monotonic()>=deadline),1000)
-                c.execute('BEGIN');yield c;c.rollback()
-                after=path.lstat();require([after.st_dev,after.st_ino]==pin['identity'],'host_database_changed')
-            finally:c.close()
-        finally:os.close(fd)
+            held.connection=c
+            deadline=time.monotonic()+20
+            c.set_progress_handler(lambda:int(time.monotonic()>=deadline),1000)
+            c.execute('pragma query_only=on');c.execute('pragma trusted_schema=off');c.execute('pragma temp_store=memory')
+            if 'journal_mode' in pin:require(c.execute('pragma journal_mode').fetchone()[0]==pin['journal_mode'],'host_database_journal_changed')
+            c.setlimit(sqlite3.SQLITE_LIMIT_LENGTH,1048576)
+            # Establish native WAL/SHM handles, without freezing a data snapshot.
+            c.execute('select count(*) from sqlite_schema').fetchone();held.check()
+            c.set_progress_handler(None,0)
+            yield held
+        finally:
+            if c is not None:c.close()
+            os.close(fd)
+
+
+@contextmanager
+def collector_lifetime(pin):
+    """Installed runner holds one read-only connection across native WAL cycles.
+
+    The bootstrap establishes a kernel no-create boundary BEFORE this function.
+    Missing/replaced sidecars refuse; they are never manufactured or ignored.
+    """
+    require(_COLLECTOR.get() is None and pin.get('journal_mode')=='wal','host_collector_lifetime')
+    with _open_collector(pin) as held:
+        token=_COLLECTOR.set(held)
+        try:yield
+        finally:_COLLECTOR.reset(token)
+
+
+@contextmanager
+def _transaction(held):
+    held.check();c=held.connection
+    require(not c.in_transaction,'host_database_nested_transaction')
+    deadline=time.monotonic()+20;c.set_progress_handler(lambda:int(time.monotonic()>=deadline),1000)
+    try:
+        c.execute('BEGIN');yield c
+    finally:
+        c.rollback();c.set_progress_handler(None,0)
+    held.check()
+
+
+@contextmanager
+def database(pin):
+    held=_COLLECTOR.get()
+    if held is not None and pin['path']==held.pin['path']:
+        require(pin==held.pin,'host_database_selection_changed')
+        with _transaction(held) as c:yield c
+    else:
+        if held is not None:
+            require(pin['identity']!=held.pin['identity'],'host_database_selection_changed')
+            # Check actual identity before an alternate DB descriptor can open
+            # and close our collector inode. Private selected paths must not be
+            # replaced concurrently; this check is not an atomic pathname lock.
+            path=Path(pin['path'])
+            with private_chain(path.parent):
+                require(not os.path.samestat(path.lstat(),os.fstat(held.fd)),'host_database_selection_changed')
+        with _open_collector(pin) as selected:
+            with _transaction(selected) as c:yield c
 
 
 def selected_snapshot(c,case_id,now):
