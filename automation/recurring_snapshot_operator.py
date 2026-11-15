@@ -11,7 +11,7 @@ from pathlib import Path
 import time
 
 from ai_movie_investigator.contracts import decode, digest, encoded, require, shape, stamp, text
-from ai_movie_investigator.history import History
+from ai_movie_investigator.history import History, FILENAME
 from ai_movie_investigator.private_files import private_chain, read_private
 from ai_movie_investigator import snapshot_authorization as gate, snapshot_review as review
 from ai_movie_investigator import supervised_credit as credit
@@ -44,26 +44,68 @@ def _write(directory,name,raw):
 
 
 class Operator:
+    @staticmethod
+    def enroll(state):
+        """One explicit main operation; interrupted/old enrollment is never reset."""
+        root=History(Path(state))
+        with private_chain(root.directory) as dfd,root.transaction(write=True):
+            journal_path=root.directory/'recurring-intake-v1'
+            anchor_path=root.directory/'recurring-intake-anchor-v1'
+            require(not any(os.path.lexists(p) for p in (journal_path,anchor_path,
+                root.directory/'recurring-intake-binding.json')),'operator_already_enrolled')
+            os.mkdir('recurring-intake-v1',mode=0o700,dir_fd=dfd)
+            os.mkdir('recurring-intake-anchor-v1',mode=0o700,dir_fd=dfd)
+            journal=History(journal_path);anchor=History(anchor_path)
+            with journal.transaction(write=True) as (rows,append):
+                append(dict(type='operator_enrolled_v1',root_identity=list(root.identity),root_path=str(root.directory)))
+                with anchor.transaction(write=True) as (_,save):
+                    save(dict(type='operator_high_water_v1',count=len(rows),sha256=digest(rows)))
+            def identity(p):
+                st=p.lstat();return [st.st_dev,st.st_ino]
+            binding=dict(kind='operator_storage_v1',root_identity=list(root.identity),
+                journal_identity=list(journal.identity),anchor_identity=list(anchor.identity),
+                journal_file=identity(journal_path/FILENAME),anchor_file=identity(anchor_path/FILENAME))
+            return _write(root.directory,'recurring-intake-binding.json',encoded(binding))
+
     def __init__(self,state,journal,*,clock=time.time):
         self.root=History(Path(state));self.journal=History(Path(journal));self.clock=clock
-        require(self.journal.directory==self.root.directory/'recurring-intake-v1',
-                'operator_canonical_journal')
+        require(self.journal.directory==self.root.directory/'recurring-intake-v1','operator_canonical_journal')
+        self.anchor=History(self.root.directory/'recurring-intake-anchor-v1')
+        self.binding_path=self.root.directory/'recurring-intake-binding.json'
+        self.binding_raw=read_private(self.binding_path)
+        self.binding=decode(self.binding_raw)
+        shape(self.binding,'kind root_identity journal_identity anchor_identity journal_file anchor_file')
+        require(self.binding['kind']=='operator_storage_v1' and
+            self.binding['root_identity']==list(self.root.identity) and
+            self.binding['journal_identity']==list(self.journal.identity) and
+            self.binding['anchor_identity']==list(self.anchor.identity),'operator_storage_changed')
 
     @contextmanager
     def locked(self):
-        # Fixed lock order: private chains, existing account root, operator journal.
-        with private_chain(self.root.directory),private_chain(self.journal.directory):
+        # Fixed lock order: account root, high-water journal, intake journal.
+        # Both files must already exist at their enrolled inodes. Each durable
+        # intake append precedes its high-water append; a crash between them
+        # causes mismatch and stops instead of reopening any reservation.
+        with private_chain(self.root.directory),private_chain(self.journal.directory),private_chain(self.anchor.directory):
             with self.root.transaction(write=True) as (root,_):
-                with self.journal.transaction(write=True) as (rows,append):
-                    binding=dict(type='operator_enrolled_v1',root_identity=list(self.root.identity),
-                                 root_path=str(self.root.directory))
-                    if not rows:append(binding)
-                    require(rows[0]==binding,'operator_root_changed')
-                    for r in rows:
-                        if r['type']=='operator_reserved_v1':
-                            require(len(root)>=r['root_count'] and digest(root[:r['root_count']])==r['root_prefix_sha256'],
-                                    'operator_root_rollback')
-                    yield root,rows,append
+                require(read_private(self.binding_path)==self.binding_raw,'operator_storage_changed')
+                with self.anchor.transaction(write=True,file_identity=self.binding['anchor_file']) as (marks,save):
+                    with self.journal.transaction(write=True,file_identity=self.binding['journal_file']) as (rows,append):
+                        binding=dict(type='operator_enrolled_v1',root_identity=list(self.root.identity),root_path=str(self.root.directory))
+                        require(rows and rows[0]==binding and marks,'operator_root_changed')
+                        require(marks[-1]==dict(type='operator_high_water_v1',count=len(rows),sha256=digest(rows)),
+                                'operator_journal_uncertain')
+                        require(len(marks)==len(rows) and all(set(m)=={'type','count','sha256'} and
+                            m['type']=='operator_high_water_v1' and m['count']==i
+                            for i,m in enumerate(marks,1)),'operator_journal_uncertain')
+                        for r in rows:
+                            if r['type']=='operator_reserved_v1':
+                                require(len(root)>=r['root_count'] and digest(root[:r['root_count']])==r['root_prefix_sha256'],
+                                        'operator_root_rollback')
+                        def durable(event):
+                            append(event)
+                            save(dict(type='operator_high_water_v1',count=len(rows),sha256=digest(rows)))
+                        yield root,rows,durable
 
     def status(self):
         with self.locked() as (_,rows,__):return list(rows)

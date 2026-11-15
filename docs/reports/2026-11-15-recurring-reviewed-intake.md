@@ -17,13 +17,24 @@ and separate from the unchanged 47-file v13 runtime. Main verifies this helper,
 It must run in main's isolated reviewed operator process with the selected runtime
 on its import path. It has no autonomous CLI, source reader or provider sender.
 
-Create `Operator(state, journal)` with the existing enrolled account root and a
-existing empty owner-only 0700 `state/recurring-intake-v1` journal directory. All journal writes use
-the existing append-only, no-follow, bounded History implementation under private
-ancestor checks. Lock order is account root then operator journal. Alternate journal locations are refused; prior
-root prefixes are preserved and checked. Snapshot pins/freshness are reread after
-both locks are held. Keep this same
-journal across all cycles; do not reset it to retry an interrupted selection.
+Main first calls `Operator.enroll(state)` once under the enrolled account-root lock.
+It creates owner-only `state/recurring-intake-v1` and
+`state/recurring-intake-anchor-v1`, initializes their separate append-only History
+journals, then writes the immutable `recurring-intake-binding.json` identifying both
+directories and files. Any existing/partial enrollment refuses; it is never reset.
+Then use `Operator(state, state / "recurring-intake-v1")` in every cycle.
+
+All journal writes use the existing no-follow bounded History implementation under
+private ancestor checks. Lock order is account root, high-water anchor, intake
+journal. Routine calls require both existing enrolled inodes and the high-water
+count/digest matching the intake journal. Each intake append is durable before its
+high-water append; interruption between them stops as uncertain. Missing, replaced,
+empty or independently rolled-back journals stop. Prior account-root prefixes are
+preserved and checked. Snapshot pins/freshness are reread after locks are held.
+This is not protection against a privileged actor coherently restoring **all**
+account, binding, intake and anchor files from a backup; main must preserve the
+same storage and never restore/reset it to regain authority. Neither journal is
+an external tamper-proof authority. There is no automatic recovery or resend.
 
 1. `select(snapshot_pin, authenticated_reference=actual_observation_reference)`
    validates the current complete collector snapshot. It reserves at most one
@@ -84,3 +95,8 @@ review/delivery ordering and root/symlink protections. Installed first-v13 fake 
 and exact report/receipt integration passed on the strengthened helper. Exact-head
 independent review and supported Python 3.12/3.13 CI gate merge. No private
 inputs, real account state, provider call or actual delivery was used.
+
+A further independent review reproduced journal-loss auto-enrollment in the initial
+checkpoint. Explicit enrollment, immutable inode binding and a separate durable
+high-water journal now replace that behavior; loss/replacement/rollback/interrupted
+append regressions are included. Final review/CI remain pending.

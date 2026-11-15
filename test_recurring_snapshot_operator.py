@@ -10,7 +10,7 @@ from test_snapshot_review import fixture,NOW
 class OperatorTests(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);self.base=Path(self.tmp.name).resolve();self.base.chmod(0o700)
-  (self.base/'state').mkdir(mode=0o700);(self.base/'state'/'recurring-intake-v1').mkdir(mode=0o700)
+  (self.base/'state').mkdir(mode=0o700);Operator.enroll(self.base/'state')
   self.now=NOW;self.op=Operator(self.base/'state',self.base/'state'/'recurring-intake-v1',clock=lambda:self.now)
   self.snap=decode(fixture()[0],1048576)
   # Two distinct stable release identities, conflict group ordered newest first.
@@ -46,7 +46,7 @@ class OperatorTests(unittest.TestCase):
   a=self.select();reservation=a['reservation'];html=self.pin('report.html',b'invented')
   with self.assertRaises(Refusal):self.op.delivered(reservation,review_sha256='a'*64,delivery_reference='chat:one',delivered_at=self.now)
   p=dict(type='operator_pending_review_v1',reservation=reservation,at=self.now,report_sha256='b'*64,html=html)
-  with self.op.journal.transaction(write=True) as (_,append):append(p)
+  with self.op.locked() as (_,__,append):append(p)
   self.op=Operator(self.base/'state',self.base/'state'/'recurring-intake-v1',clock=lambda:self.now)
   self.assertEqual(self.op.status()[-1],p)
   with self.assertRaises(Refusal):self.op.reviewed(reservation,report_sha256='c'*64,html_sha256=html['sha256'],review_reference='chat:review',observed_at=self.now)
@@ -56,7 +56,7 @@ class OperatorTests(unittest.TestCase):
   with self.assertRaises(Refusal):self.op.delivered(reservation,review_sha256=digest(r),delivery_reference='chat:actual-message',delivered_at=self.now)
  def test_root_binding_and_symlink_refused(self):
   self.select();other=self.base/'other';other.mkdir(mode=0o700)
-  with self.assertRaises(Refusal):Operator(other,self.base/'state'/'recurring-intake-v1').status()
+  with self.assertRaises((Refusal,FileNotFoundError)):Operator(other,self.base/'state'/'recurring-intake-v1').status()
   link=self.base/'link';link.symlink_to(self.base/'state'/'recurring-intake-v1')
   with self.assertRaises(Refusal):Operator(self.base/'state',link)
 
@@ -82,11 +82,25 @@ class OperatorTests(unittest.TestCase):
   with patch.object(self.op,'locked',changed),self.assertRaisesRegex(Refusal,'operator_pin_changed'):
    self.op.select(p,authenticated_reference='fixture')
 
+ def test_missing_replaced_or_rolled_back_journal_stops(self):
+  from ai_movie_investigator.history import FILENAME
+  path=self.op.journal.directory/FILENAME;initial=path.read_bytes();self.select();current=path.read_bytes()
+  path.write_bytes(initial)
+  with self.assertRaisesRegex(Refusal,'operator_journal_uncertain'):self.select()
+  path.write_bytes(current);path.unlink()
+  with self.assertRaisesRegex(Refusal,'history_file_missing'):self.select()
+  path.write_bytes(current);path.chmod(0o600)
+  with self.assertRaisesRegex(Refusal,'history_file_identity_changed'):self.select()
+ def test_enrollment_never_resets_and_highwater_mismatch_stops(self):
+  with self.assertRaisesRegex(Refusal,'operator_already_enrolled'):Operator.enroll(self.base/'state')
+  with self.op.journal.transaction(write=True) as (_,append):append(dict(type='invented_interrupted_append'))
+  with self.assertRaisesRegex(Refusal,'operator_journal_uncertain'):self.select()
+
 class InstalledOperatorTests(unittest.TestCase):
  def test_first_v13_prepared_wrapper_receipt_report_review_delivery(self):
   from test_snapshot_prose_integration import ProseIntegrationTests
   f=ProseIntegrationTests('test_first_worst_unicode_wire_and_retention');f.setUp();self.addCleanup(f.doCleanups)
-  journal=f.f.state/'recurring-intake-v1';journal.mkdir(mode=0o700)
+  Operator.enroll(f.f.state);journal=f.f.state/'recurring-intake-v1'
   op=Operator(f.f.state,journal)
   selected=op.select(f.f.record['snapshot'],authenticated_reference='invented-authenticated-source')
   self.assertEqual(selected['status'],'needs_main_verified_inputs');reservation=selected['reservation']
