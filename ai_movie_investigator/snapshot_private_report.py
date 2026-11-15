@@ -191,7 +191,11 @@ def render(report, report_sha256, projection, local_raw, local_sha256, *, publis
     if quality:
         quality_html=('<p><strong>Explanation quality caveats:</strong> These finite wording checks do not establish factual correctness or alter the recorded verdict.</p><ul>'+''.join(
             '<li>Blocker '+escape(str(q['blocker']+1))+', '+escape(q['field'])+': '+escape(quality_labels[q['predicate']])+'.</li>' for q in quality)+'</ul>')
-    model_prose='<div style="white-space:pre-wrap">'+prose('rationale','Rationale')+prose('uncertainty','Uncertainty')+'</div>'
+    prose_quality_html=''
+    if result.get('prose_quality'):
+        prose_quality_html=('<p><strong>Original explanation quality:</strong> Wording checks are advisory, not proof of truncation or factual correctness. '
+            'The original wording is preserved; no ending has been invented.</p><ul>'+''.join('<li>'+escape(q['field'])+': '+escape(quality_labels[q['predicate']])+'.</li>' for q in result['prose_quality'])+'</ul>')
+    model_prose=prose_quality_html+'<div style="white-space:pre-wrap">'+prose('rationale','Rationale')+prose('uncertainty','Uncertainty')+'</div>'
     if possible_incomplete:
         model_prose=('<details><summary>Original model interpretation — possibly incomplete wording</summary>'+
             '<p>At least one field lacks a terminal sentence mark and may end mid-sentence. This is only a punctuation heuristic, not a grammar test or proof of truncation. The retained text below is unchanged; no missing reasoning has been reconstructed.</p>'+model_prose+'</details>')

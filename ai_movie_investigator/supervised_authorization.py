@@ -34,7 +34,7 @@ def _simulated_captured_io():
 def _request_value(session,body):
     from .supervised_credit import request_value
     return request_value(body,captured=hasattr(session,'captured'),
-        film_scope=getattr(session,'snapshot_grant',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9','film_assessment_v10','film_quality_v11','film_identity_v12'))
+        film_scope=getattr(session,'snapshot_grant',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9','film_assessment_v10','film_quality_v11','film_identity_v12','film_prose_v13'))
 
 
 class _Permit:
@@ -115,6 +115,9 @@ class _Session:
                 if grant.get('contract_version')=='film_quality_v11' and grant['assessment']['mode']=='correction':
                     from .snapshot_authorization import validate_quality_correction
                     validate_quality_correction(self.root,self.events,grant,creating=False)
+                if grant.get('contract_version')=='film_prose_v13' and grant['assessment']['mode']=='reassessment':
+                    from .snapshot_authorization import validate_prose_reassessment
+                    validate_prose_reassessment(self.root,self.events,grant,creating=False)
                 if grant.get('contract_version')=='film_identity_v12':
                     from .snapshot_authorization import validate_identity_reassessment
                     validate_identity_reassessment(self.root,self.events,grant,creating=False)
@@ -186,7 +189,7 @@ class _Session:
         require(_ACTIVE.get() is self and hasattr(self,'snapshot_grant') and self.snapshot_receipt is not None and
                 self.snapshot_receipt[0]==answer,'snapshot_receipt_unbound')
         from .snapshot_authorization import report
-        return report(self.snapshot_grant,decode(answer,32768 if self.snapshot_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9','film_assessment_v10','film_quality_v11','film_identity_v12') else 8192),self.history)
+        return report(self.snapshot_grant,decode(answer,65536 if self.snapshot_grant.get('contract_version')=='film_prose_v13' else 32768 if self.snapshot_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9','film_assessment_v10','film_quality_v11','film_identity_v12','film_prose_v13') else 8192),self.history)
 
     def bind_captured_receipt(self,result,answer):
         if not hasattr(self,'captured'):return
@@ -290,9 +293,9 @@ def selected_answer_limit(result):
     if session is None or result is None or result is not session.received:return 8192
     session.root.require_write_transaction(session.events)
     grant=getattr(session,'snapshot_grant',{})
-    if grant.get('contract_version') not in ('film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9','film_assessment_v10','film_quality_v11','film_identity_v12'):return 8192
+    if grant.get('contract_version') not in ('film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9','film_assessment_v10','film_quality_v11','film_identity_v12','film_prose_v13'):return 8192
     require(result.request_sha256==digest(grant['request']),'snapshot_selection_changed')
-    return 32768
+    return 65536 if grant.get('contract_version')=='film_prose_v13' else 32768
 
 
 def selected_output_limit(request_hash):

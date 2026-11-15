@@ -1,3 +1,10 @@
+## Complete bounded explanations v13, 2026-11-15
+
+Versioned generation/schema/retention headroom preserves complete safe prose and
+reports original fragment quality separately from identity decisions. It binds one
+purposeful completed-v12 successor and an unconsumed first-mode entry. No live use
+or deployment. See [contract and validation](reports/2026-11-15-complete-explanation-v13.md).
+
 ## Film identity separate from edition v12, 2026-11-15
 
 Versioned assessment correction rejects unsupported runtime/edition/producer-label

@@ -243,7 +243,7 @@ def explanation_prose(value, limit=600):
     return value
 
 
-def _captured_prose_copy(answer, *, film_context=False, film_weighing=False, film_assessment=False):
+def _captured_prose_copy(answer, *, film_context=False, film_weighing=False, film_assessment=False, film_prose_v13=False):
     """Retain a safe copy, never rewrite the receipt-bound original in memory.
 
     Whole fields are withheld instead of guessing which substring is private or
@@ -254,14 +254,15 @@ def _captured_prose_copy(answer, *, film_context=False, film_weighing=False, fil
     retained=copy.deepcopy(answer);handling={}
     for field in ('rationale','uncertainty'):
         value=answer['result'][field]
+        limit=({'rationale':2400,'uncertainty':1200}[field] if film_prose_v13 else 600)
         require(isinstance(value,str),'responses_answer_schema')
         try:
-            (explanation_prose if film_weighing or film_assessment else film_prose if film_context else text)(value,600)
+            (explanation_prose if film_weighing or film_assessment or film_prose_v13 else film_prose if film_context else text)(value,limit)
             reason=None
         except Refusal as error:
             if str(error)!='unsafe_text':raise
             if not value.strip():reason='empty'
-            elif len(value)>600:reason='length'
+            elif len(value)>limit:reason='length'
             elif any(unicodedata.category(c).startswith('C') for c in value):reason='unicode_control'
             elif re.search(r'\b(?:secret|passkey|password|cookie|bearer|credential|api_key)\b|\b(?:token|authorization)\s*[:=]',value,re.I):reason='credential_label_or_syntax'
             elif re.search(r'[a-zA-Z0-9_-]{48,}',value):reason='opaque_reference'
