@@ -70,10 +70,12 @@ def main():
         probe(config);return
     from automation.seedbox_confinement import prevent_collector_creation
     from automation.seedbox_host_io import collector_lifetime
-    prevent_collector_creation(config)
-    with collector_lifetime(config['collector_database']):
-        confine(config,root)
-        run(config,sys.argv[5])
+    from automation.seedbox_process import actor_lifetime
+    with actor_lifetime(config['sender']['process']):
+        prevent_collector_creation(config)
+        with collector_lifetime(config['collector_database']):
+            confine(config,root)
+            run(config,sys.argv[5])
 
 if __name__=='__main__':
     try:main()
