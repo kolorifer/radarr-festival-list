@@ -230,3 +230,12 @@ For an existing first-step SHM circuit, main must verify corrected read-only
 access and use the existing bound recovery command on the same queue. Do not
 re-enroll, rewrite history, provision the key again or replay consumed attempts.
 See the [lifecycle correction report](2026-11-15-seedbox-collector-wal-lifetime.md).
+
+## Selected actor process handles
+
+Before either Landlock layer, the bootstrap validates and retains the exact
+selected actor's read-only stat/cmdline handles and nonsignalling pidfd. Each
+later process check rereads metadata and checks liveness; full confinement does
+not re-resolve the hidden actor path. Binary/topology checks remain unchanged.
+Main's installed read-only proof must exercise a distinct existing actor, not the
+probe's own PID. Process exit/change refuses; it does not select a replacement.

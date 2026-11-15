@@ -50,8 +50,10 @@ def confine(config,code_root):
     # ABI6 filesystem Unix-socket connect is not path-mediated. The fixed
     # reviewed executable uses this literal endpoint; abstract IPC is scoped.
     # No claim that Landlock itself authenticates the credential service.
-    pid=config['sender']['process']['pid']
-    for name in ('cmdline','stat'):paths[str(Path('/proc')/str(pid)/name)]=READ
+    from automation.seedbox_process import retained
+    process=config['sender']['process']
+    if not retained(process):
+        for name in ('cmdline','stat'):paths[str(Path('/proc')/str(process['pid'])/name)]=READ
     paths['/usr/bin/systemd-creds']=READ|1
     loader=Path('/lib64/ld-linux-x86-64.so.2').resolve(strict=True)
     info=loader.stat();require(stat.S_ISREG(info.st_mode) and info.st_uid==0 and not info.st_mode&0o022,'host_system_loader')

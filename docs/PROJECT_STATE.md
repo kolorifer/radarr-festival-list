@@ -1,3 +1,11 @@
+## Selected actor visibility correction, 2026-11-15
+
+The PR206 installed read-only check reached the held collector but found that the
+first confinement layer hides the separate actor's process path. Selected live
+metadata handles and a pidfd now span confinement; repeated metadata/liveness and
+binary/topology checks remain required. Main owns installed verification and
+same-queue recovery. See [evidence and limits](reports/2026-11-15-seedbox-held-actor-process.md).
+
 ## Collector WAL lifecycle correction, 2026-11-15
 
 The first deployed PR205 worker stopped safely at collector SHM access before

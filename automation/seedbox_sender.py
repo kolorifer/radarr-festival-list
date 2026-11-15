@@ -27,16 +27,10 @@ def verified(boundary,plan):
 
 
 def _process(pin):
-    pid=pin['pid'];require(type(pid) is int and pid>1,'host_actor_process')
-    proc=Path('/proc')/str(pid);require(proc.stat().st_uid==os.getuid(),'host_actor_owner')
-    raw=(proc/'stat').read_bytes();require(len(raw)<=8192,'host_actor_process')
-    start=int(raw.rsplit(b') ',1)[1].split()[19])
-    command=(proc/'cmdline').read_bytes();require(len(command)<=8192,'host_actor_process')
-    require(start==pin['start_ticks'] and hashlib.sha256(command).hexdigest()==pin['cmdline_sha256'],'host_actor_process_changed')
-    # This proves the selected process lifetime only. Main's separately issued,
-    # finite topology grant is the authority for sole-writer assumptions; a PID
-    # check is never relabelled as a fresh global process/writer audit.
-    return dict(pid=pid,start_ticks=start,cmdline_sha256=pin['cmdline_sha256'])
+    from automation.seedbox_process import observe
+    # Re-read the selected lifetime and command immediately before delivery.
+    # Main's finite topology grant, not this check, supplies sole-writer authority.
+    return observe(pin)
 
 
 def _deployed(pin):
