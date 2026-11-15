@@ -134,7 +134,7 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
 def _same_listing_reobservation(p,proof,attestation,local):
     """Narrow main-reviewed dated observation, not source intent or media truth."""
     from .contracts import hash_id
-    shape(proof,'kind source external_id historical_original current_original_sha256 old_asserted_imdb historical_observed_at historical_case_observed_at current_observed_at historical_release_sha256 current_release_sha256 historical_nfo_sha256 current_nfo_sha256 same_listing_reviewed assertion_origin')
+    shape(proof,'kind source external_id historical_original current_original_sha256 old_asserted_imdb historical_time_basis historical_evidence_present_by current_observed_at historical_release_sha256 current_release_sha256 historical_nfo_sha256 current_nfo_sha256 same_listing_reviewed assertion_origin')
     shape(proof['historical_original'],'path sha256')
     require(proof['kind']=='same_listing_imdb_reobservation_v1' and proof['same_listing_reviewed'] is True and
         proof['assertion_origin']=='listing_derived_imdb','snapshot_reobservation')
@@ -148,10 +148,10 @@ def _same_listing_reobservation(p,proof,attestation,local):
         ids['asserted_imdb'] is not None and ids['asserted_imdb']==proof['old_asserted_imdb'] and
         source['imdb'] is not None and cat['imdb']==source['imdb'] and cat['tmdb'] is not None and
         source['imdb']!=ids['asserted_imdb'],'snapshot_reobservation')
-    require(stamp(proof['historical_case_observed_at'])==p['observed_at'] and
-        stamp(proof['historical_observed_at'])<=proof['historical_case_observed_at'] and
+    require(proof['historical_time_basis']=='evidence_present_by_outcome_time' and
+        stamp(proof['historical_evidence_present_by'])==p['observed_at'] and
         stamp(proof['current_observed_at'])==source['observed_at'] and
-        proof['historical_case_observed_at']<proof['current_observed_at'] and
+        proof['historical_evidence_present_by']<proof['current_observed_at'] and
         proof['current_original_sha256']==attestation['source_original_sha256'] and
         proof['historical_original']['sha256']!=proof['current_original_sha256'],'snapshot_reobservation')
     require(type(local) is dict and type(local.get('release_name')) is str and bool(local['release_name']) and
@@ -160,7 +160,7 @@ def _same_listing_reobservation(p,proof,attestation,local):
         require(proof['historical_'+field+'_sha256']==proof['current_'+field+'_sha256']==hashlib.sha256(local[key].encode()).hexdigest(),'snapshot_reobservation')
     comparisons=film_comparisons(p)
     require(comparisons['title'][0]['relation']=='exact' and comparisons['people'][0]['relation']=='overlap','snapshot_reobservation')
-    p['historical_id_discrepancy']=dict(kind=proof['kind'],old_asserted_imdb=ids['asserted_imdb'],current_listing_imdb=source['imdb'],historical_observed_at=proof['historical_observed_at'],historical_case_observed_at=p['observed_at'],current_observed_at=source['observed_at'],same_listing_reviewed=True,release_nfo_linkage_unchanged=True,source_intent='unknown',physical_identity='unknown')
+    p['historical_id_discrepancy']=dict(kind=proof['kind'],old_asserted_imdb=ids['asserted_imdb'],current_listing_imdb=source['imdb'],historical_time_basis=proof['historical_time_basis'],historical_evidence_present_by=proof['historical_evidence_present_by'],historical_exact_fetch_at=None,historical_case_observed_at=p['observed_at'],current_observed_at=source['observed_at'],same_listing_reviewed=True,release_nfo_linkage_unchanged=True,source_intent='unknown',physical_identity='unknown')
     # Preserve conflicting_ids and every original assertion; distinguish this
     # reviewed historical discrepancy from a simultaneous current conflict.
     p['blocking_id_conflict']=False
@@ -752,7 +752,7 @@ def build_film_weighing(projection,*,first=False):
     )
     if 'historical_id_discrepancy' in projection:
         require(first,'snapshot_reobservation')
-        wire['instructions']+=' A dated main-reviewed reobservation of the same listing is supplied. Keep its earlier asserted IMDb and both observation times visible as historical contrary evidence. The current listing and catalogue may support a proposal, but no source correction intent or media truth is established. In rationale explain the discrepancy between earlier and later observations and include both IMDb identifiers. Do not ignore the earlier observation or force a supported result; unresolved remains available.'
+        wire['instructions']+=' A dated main-reviewed reobservation of the same listing is supplied. Keep its earlier asserted IMDb and evidence-present-by outcome-time bound visible as historical contrary evidence. The exact historical listing fetch time is unknown; do not present the outcome clock as a fetch timestamp. The later listing time is a direct observation. The current listing and catalogue may support a proposal, but no source correction intent or media truth is established. In rationale explain the discrepancy between earlier and later observations and include both IMDb identifiers. Do not ignore the earlier observation or force a supported result; unresolved remains available.'
     if first:wire['instructions']=wire['instructions'].replace('selected Mini reassessment','selected Mini first assessment')
     return prepared
 

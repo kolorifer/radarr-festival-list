@@ -7,7 +7,7 @@ import test_snapshot_review as fixture
 import test_snapshot_first_weighing as first
 
 def proof_for(record,local,old_pin):
- return dict(kind='same_listing_imdb_reobservation_v1',source='invented',external_id='fixture-42',historical_original=old_pin,current_original_sha256=record['attestation']['source_original_sha256'],old_asserted_imdb='tt7654321',historical_observed_at=record['historical_at'],historical_case_observed_at=record['historical_at'],current_observed_at=record['current_at'],historical_release_sha256=hashlib.sha256(local['release_name'].encode()).hexdigest(),current_release_sha256=hashlib.sha256(local['release_name'].encode()).hexdigest(),historical_nfo_sha256=hashlib.sha256(local['nfo_text'].encode()).hexdigest(),current_nfo_sha256=hashlib.sha256(local['nfo_text'].encode()).hexdigest(),same_listing_reviewed=True,assertion_origin='listing_derived_imdb')
+ return dict(kind='same_listing_imdb_reobservation_v1',source='invented',external_id='fixture-42',historical_original=old_pin,current_original_sha256=record['attestation']['source_original_sha256'],old_asserted_imdb='tt7654321',historical_time_basis='evidence_present_by_outcome_time',historical_evidence_present_by=record['historical_at'],current_observed_at=record['current_at'],historical_release_sha256=hashlib.sha256(local['release_name'].encode()).hexdigest(),current_release_sha256=hashlib.sha256(local['release_name'].encode()).hexdigest(),historical_nfo_sha256=hashlib.sha256(local['nfo_text'].encode()).hexdigest(),current_nfo_sha256=hashlib.sha256(local['nfo_text'].encode()).hexdigest(),same_listing_reviewed=True,assertion_origin='listing_derived_imdb')
 
 def material():
  snap,src,cat,att=fixture.fixture();snap=decode(snap,1048576);src=decode(src)
@@ -27,7 +27,7 @@ class ReobservationTests(unittest.TestCase):
  def test_narrow_current_pair_preserves_dated_contrary_evidence(self):
   p=self.project(material());self.assertTrue(p['conflicting_ids']);self.assertFalse(p['blocking_id_conflict']);self.assertEqual(p['source_identifiers']['asserted_imdb'],'tt7654321');self.assertEqual(p['citation_eligible_pair'],dict(imdb='tt1234567',tmdb=123))
   b=s.build_film_weighing(p,first=True);data=decode(b['request']['input'][0]['content'][0]['text'],32768)
-  self.assertEqual(data['historical_observations']['dated_id_discrepancy']['old_asserted_imdb'],'tt7654321');self.assertTrue(data['historical_observations']['retained_id_conflict']);self.assertFalse(data['conflicting_ids'])
+  self.assertEqual(data['historical_observations']['dated_id_discrepancy']['old_asserted_imdb'],'tt7654321');self.assertTrue(data['historical_observations']['retained_id_conflict']);self.assertFalse(data['conflicting_ids']);d=data['historical_observations']['dated_id_discrepancy'];self.assertIsNone(d['historical_exact_fetch_at']);self.assertEqual(d['historical_evidence_present_by'],p['observed_at']);self.assertEqual(d['historical_time_basis'],'evidence_present_by_outcome_time');self.assertIn('exact historical listing fetch time is unknown',b['request']['instructions'])
   statuses=[v['properties']['status']['enum'][0] for v in b['request']['text']['format']['schema']['properties']['result']['anyOf']]
   self.assertIn('supported_candidate',statuses);self.assertIn('unresolved',statuses)
   with self.assertRaises(Refusal):s.build_film_weighing(p)
@@ -43,7 +43,7 @@ class ReobservationTests(unittest.TestCase):
    answer['result']['rationale']=rationale
    with self.subTest(rationale=rationale),self.assertRaisesRegex(Refusal,'snapshot_reobservation_explanation'):s.validate_film_weighing(p,b,answer,now=fixture.NOW,first=True)
  def test_missing_mismatched_or_current_conflicts_never_relaxed(self):
-  changes=['direct_imdb','direct_tmdb','asserted_tmdb','current_conflict','title','cast','same_time','older','external','release','nfo','origin','old_hash','old_id','unknown_title','unknown_cast','none_title','blank_title']
+  changes=['direct_imdb','direct_tmdb','asserted_tmdb','current_conflict','title','cast','same_time','older','external','release','nfo','origin','old_hash','old_id','unknown_title','unknown_cast','none_title','blank_title','invented_exact_time']
   for change in changes:
    m=list(material());snap,src,cat,att,local,proof=m;sj=decode(snap,1048576);so=decode(src);ca=decode(cat)
    if change=='direct_imdb':sj['cases'][0]['source_identity']['imdb']='tt1234567'
@@ -52,12 +52,13 @@ class ReobservationTests(unittest.TestCase):
    elif change=='current_conflict':ca['imdb']='tt9999999'
    elif change=='title':so['title']='Another film'
    elif change=='cast':so['cast']=[]
-   elif change in ('same_time','older'):proof['current_observed_at']=so['observed_at']=proof['historical_observed_at']-(1 if change=='older' else 0)
+   elif change in ('same_time','older'):proof['current_observed_at']=so['observed_at']=proof['historical_evidence_present_by']-(1 if change=='older' else 0)
    elif change=='external':proof['external_id']='different'
    elif change=='release':proof['historical_release_sha256']='f'*64
    elif change=='nfo':proof['historical_nfo_sha256']='f'*64
    elif change=='origin':proof['assertion_origin']='unknown'
    elif change=='old_hash':proof['historical_original']['sha256']=proof['current_original_sha256']
+   elif change=='invented_exact_time':proof['historical_time_basis']='exact_listing_fetch_time'
    elif change=='unknown_title':so['title']=ca['title']='unknown'
    elif change=='none_title':so['title']=ca['title']=None
    elif change=='blank_title':so['title']=ca['title']=''
@@ -101,6 +102,6 @@ class InstalledReobservationTests(unittest.TestCase):
   finally:old.write_bytes(raw)
  def run_case(self,unresolved):
   self.base.installed(unresolved)
-  html=(self.base.f.output/'movie-review.html').read_text();self.assertIn('Dated same-listing ID discrepancy',html);self.assertIn('tt7654321',html);self.assertIn('tt1234567',html);self.assertIn('Source correction intent',html)
+  html=(self.base.f.output/'movie-review.html').read_text();self.assertIn('Dated same-listing ID discrepancy',html);self.assertIn('tt7654321',html);self.assertIn('tt1234567',html);self.assertIn('Source correction intent',html);self.assertIn('Historical evidence present by outcome time',html);self.assertIn('Exact historical listing fetch time',html);self.assertIn('Unknown',html)
  def test_supported(self):self.run_case(False)
  def test_unresolved(self):self.run_case(True)

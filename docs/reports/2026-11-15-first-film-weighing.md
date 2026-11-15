@@ -63,9 +63,11 @@ The proof has exact fields:
 - historical_original: private path/SHA256 pin, re-read under the normal guard;
   current_original_sha256 must equal the existing current source-original pin
 - old_asserted_imdb: exact retained assertion
-- historical_observed_at: independently derived earlier listing-observation time;
-  historical_case_observed_at: exact retained case clock; source time <= case time
-  < current_observed_at, which equals the current listing observation time
+- historical_time_basis: `evidence_present_by_outcome_time`;
+  historical_evidence_present_by: exact retained outcome/case clock, an upper
+  bound on when evidence was available, NOT an exact HTTP fetch timestamp; this
+  bound must precede current_observed_at, the direct current listing observation.
+  Exact historical fetch time is explicitly unknown; no exact-time variant is added.
 - historical_release_sha256/current_release_sha256 and
   historical_nfo_sha256/current_nfo_sha256: unchanged linkage, equal to the exact
   current local release-name/NFO UTF-8 hashes; neither field may be empty
@@ -76,9 +78,16 @@ binds same_listing_derivation_sha256 and same_listing_derivation_reviewed=true.
 Both refer to the exact reobservation proof; its complete hash is also covered
 by the first-assessment proof and request. The main issuer MUST independently
 inspect the pinned historical/current original bytes and derive the stable
-listing identity, assertion origin/field/value/time, and unchanged release/NFO
+listing identity, assertion origin/field/value and its evidence-present-by outcome-time bound,
+and unchanged release/NFO
 linkage, as well as authenticate current source provenance, BEFORE entering the
-trusted wrapper. The code checks those attested facts and pins; it does not parse
+trusted wrapper. The meaning of same_listing_derivation_reviewed=true also
+requires verifying that this exact historical outcome carried the pinned evidence
+before its timestamp, and that the historical/current time sources (including
+clock uncertainty or an independently ordered observation chain) establish the
+claimed ordering. Comparing numbers alone is not enough. If either relationship
+is unverified, main must not issue the proof. This review binds the exact proof
+and both timestamps. The code checks those attested facts and pins; it does not parse
 arbitrary source formats or establish authenticity from hashes. A caller-created
 file or Boolean is not owner authentication. If main cannot establish any fact,
 it must not issue this optional scope. No real evidence was inspected here.
@@ -96,8 +105,10 @@ prove prose quality; the explanation remains a model interpretation for human
 review. No source correction intent, false-at-the-time conclusion, physical media
 truth, identity or acquisition approval is inferred.
 
-The report displays earlier main-attested listing time, recorded case time, later
-listing time and both IDs together. No schema field or answer-size allowance was
+The model and report display the historical evidence-present-by outcome-time
+bound, unknown exact historical fetch time, recorded case time, later directly
+observed listing time and both IDs together. The ordinary producer stamps the
+outcome after obtaining evidence; it does not retain the original HTTP fetch time. No schema field or answer-size allowance was
 added. Old v1–v9 default request bytes and legacy conflict handling are unchanged.
 Invented tests cover positive and unresolved installed outcomes, all scope limits,
 meaningful corroboration, exact-ID explanation requirements, owner/main tampering
@@ -106,3 +117,7 @@ and historical byte pin mismatch. No live operation is authorized by these tests
 Final focused temporal validation: two installed outcome tests passed73.047s;
 one main/owner/historical-pin negative test passed22.546s; fourteen pure and
 finite-diagnostic tests passed0.767s. Exact-head CI remains the integration gate.
+
+Final upper-bound timestamp tests: all three installed/pin-negative cases passed;
+fourteen pure/diagnostic checks passed. Exact run durations are retained in the
+local delivery checkpoint; supported exact-head CI gates repository integration.
