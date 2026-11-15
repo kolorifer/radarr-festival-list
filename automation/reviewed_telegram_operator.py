@@ -208,6 +208,12 @@ def _check_spool(store,version,ref,guard):
 
 
 def _boundary_valid(boundary,plan,now):
+    if type(boundary) is not dict:
+        from automation.seedbox_sender import _HostBoundary,verified
+        require(type(boundary) is _HostBoundary,'telegram_sender_boundary')
+        verified(boundary,plan)
+        require(now<boundary['expires_at'] and boundary['expires_at']-now>=30,'telegram_sender_boundary')
+        return
     shape(boundary,'kind single_serial_pump no_other_edit_writers no_original_binding_republication deployed_revision verified_reference reviewed_plan_sha256 observed_at expires_at')
     require(boundary['kind']=='main_verified_sender_boundary_v1' and boundary['single_serial_pump'] is True and
         boundary['no_other_edit_writers'] is True and boundary['no_original_binding_republication'] is True and

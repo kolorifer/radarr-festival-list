@@ -245,6 +245,8 @@ def authorization_for(path,body,credential,project,fallback=None):
 
 
 def response_observation_window(token,body,credential,project,path):
+    from . import seedbox_authorization as host
+    if host.handles(token):return host.observation(token,body,credential,project,path)
     from .supervised_credit import expected_request
     """Observation of one bound synthetic response, never extra send authority."""
     session=_ACTIVE.get()
@@ -262,6 +264,8 @@ def response_observation_window(token,body,credential,project,path):
 
 
 def bind_observed_response(token,result,body,credential,project,path):
+    from . import seedbox_authorization as host
+    if host.handles(token):return host.bind(token,result,body,credential,project,path)
     """Bind the actual immutable HTTP result in memory; never persist its body."""
     from .responses_http import HTTPResult
     response_observation_window(token,body,credential,project,path)
@@ -273,6 +277,8 @@ def bind_observed_response(token,result,body,credential,project,path):
 
 
 def response_limits(result,raw,request_id,model):
+    from . import seedbox_authorization as host
+    if host.selected(result):return host.limits(result,raw,request_id,model)
     """No caller flag/model name grants the larger parser envelope."""
     from .responses_http import MAX_RESPONSE,SYNTHETIC_MAX_RESPONSE
     from .responses_protocol import INTEGRATION_MODEL
@@ -288,6 +294,8 @@ def response_limits(result,raw,request_id,model):
 
 
 def selected_answer_limit(result):
+    from . import seedbox_authorization as host
+    if host.selected(result):return 65536
     """Larger answer only for the exact active v6 snapshot receipt session."""
     session=_ACTIVE.get()
     if session is None or result is None or result is not session.received:return 8192
@@ -410,6 +418,8 @@ def bind_captured_receipt(result,answer):
 
 
 def response_output_limit(result):
+    from . import seedbox_authorization as host
+    if host.selected(result):return 25000
     from .responses_protocol import OUTPUT_TOKENS
     session=_ACTIVE.get()
     if session is None or result is None or result is not session.received:return OUTPUT_TOKENS

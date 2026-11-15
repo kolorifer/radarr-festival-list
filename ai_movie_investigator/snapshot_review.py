@@ -47,8 +47,9 @@ def select(snapshot_raw, snapshot_sha256, case_id, version, *, now):
     """Validate complete, fresh snapshot and bind exactly one eligible movie."""
     require(type(snapshot_raw) is bytes and len(snapshot_raw) <= 1048576 and
             hashlib.sha256(snapshot_raw).hexdigest() == snapshot_sha256, 'snapshot_pin')
-    from identity_research_handoff import validate_snapshot
-    snapshot = validate_snapshot(decode(snapshot_raw, 1048576), stamp(now))
+    from identity_research_handoff import validate_snapshot,validate_host_snapshot
+    value=decode(snapshot_raw,1048576)
+    snapshot = (validate_host_snapshot if value.get('kind')=='seedbox_selected_snapshot_v1' else validate_snapshot)(value,stamp(now))
     cases = [x for x in snapshot['cases'] if x['case_id'] == case_id and x['version'] == version]
     items = [x for x in snapshot['items'] if x['case_id'] == case_id and
              x['provenance'][0]['digest'] == version]
@@ -80,7 +81,7 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
     from .contracts import hash_id
     for k in ('snapshot_sha256','source_sha256','catalogue_sha256','source_original_sha256','catalogue_original_sha256'):
         hash_id(attestation[k])
-    require(attestation['kind'] == 'main_reviewed_normalized_case_v1' and
+    require(attestation['kind'] in ('main_reviewed_normalized_case_v1','host_authenticated_normalized_case_v1') and
             (attestation['snapshot_sha256'], attestation['case_id'], attestation['version']) ==
             (snapshot_sha256, case_id, version) and
             attestation['source_linkage_verified'] is True and attestation['catalogue_crosswalk_verified'] is True and

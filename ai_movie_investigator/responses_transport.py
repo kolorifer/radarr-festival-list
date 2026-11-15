@@ -27,6 +27,8 @@ class SimulatedAuthorization:
 def real_activation_refusal(authorization, **wire):
     # Only the ephemeral enrolled interactive synthetic command can authorize
     # its exact reserved operations. Generic/movie/boolean callers stay closed.
+    from . import seedbox_authorization as host
+    if host.handles(authorization):return host.refusal(authorization,**wire)
     from .supervised_authorization import refusal
     return refusal(authorization, **wire)
 
