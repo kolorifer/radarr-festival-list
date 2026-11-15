@@ -21,7 +21,8 @@ rule was added. Local validators bind evidence/shape; they cannot prove that the
 model's prose is substantively correct. Human review remains necessary.
 
 The v8-only prose policy permits ordinary labels, questions, and bounded standalone
-comparison forms: festival/theatrical, IMDb/TMDb, and/or, and two four-digit years
+comparison forms: festival/theatrical, IMDb/TMDb, and/or, listing/catalogue,
+selected title/cast/year/runtime/IDs pairs, and two four-digit years
 (with optional spaces around the slash). Other slash forms, path segments, URLs,
 credential syntax, markup, controls and long opaque strings remain refused.
 Whole unsafe fields are withheld, without logging originals or internal reasoning.

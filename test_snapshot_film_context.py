@@ -12,7 +12,7 @@ class ContextTests(unittest.TestCase):
  def setUp(self):
   f=prior.ResultTests();f.setUp();self.p=f.p;self.answer=f.answer;self.prepared=s.build_film_context(self.p)
  def test_safe_prose_and_legacy_frozen(self):
-  for value in ('Conclusion: festival/theatrical years 2001/2002 differ; why?', 'IMDb / TMDb agree, and/or a cast overlap supports review.', 'Year 1999 / 2000; runtime (97.5 minutes) is rounded.', 'Title: An Invented Film — a dated observation.'):
+  for value in ('Conclusion: festival/theatrical years 2001/2002 differ; why?', 'IMDb / TMDb agree, and/or a cast overlap supports review.', 'Year 1999 / 2000; runtime (97.5 minutes) is rounded.', 'Title: An Invented Film — a dated observation.', 'Listing/catalogue titles agree; title/cast supports review.', 'Title / year and runtime/IDs need separate review.'):
    with self.subTest(value=value):self.assertEqual(film_prose(value),value)
   self.assertEqual(encoded(s.build_film_result(self.p)),Path('tests/fixtures/snapshot-v7-invented-build.json').read_bytes())
   a=copy.deepcopy(self.answer);a['result']['rationale']='Festival/theatrical dates: 2001/2002.'
@@ -20,7 +20,7 @@ class ContextTests(unittest.TestCase):
   self.assertEqual(s.validate_film_context(self.p,self.prepared,retained,now=NOW)['rationale'],a['result']['rationale'])
   self.assertEqual(_captured_prose_copy(a)[1]['rationale']['status'],'withheld')
  def test_disclosure_refused(self):
-  for value in ('/Users/person/private','../private','./private','~/private','file.txt/private','C:\\private','festival/theatrical/private','2001/2002.txt','https://example.invalid','file:private','mailto:person','Bearer invented','token: invented','sk-invented','a'*48,'<script>oops</script>','a\nb','\u202esecret', 'x'*601,'unknown/slash','user@example.invalid','www.example.invalid'):
+  for value in ('/Users/person/private','../private','./private','~/private','file.txt/private','C:\\private','festival/theatrical/private','2001/2002.txt','https://example.invalid','file:private','mailto:person','Bearer invented','token: invented','sk-invented','a'*48,'<script>oops</script>','a\nb','\u202esecret', 'x'*601,'unknown/slash','listing/catalogue/private','title/cast.json','title/cast/year','./title/cast','user@example.invalid','www.example.invalid'):
    with self.subTest(value=value),self.assertRaises(Refusal):film_prose(value)
  def test_contextual_instructions_and_material_explanation(self):
   wire=self.prepared['request'];instructions=wire['instructions']
