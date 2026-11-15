@@ -9,8 +9,9 @@ from test_snapshot_review import fixture,NOW
 
 class OperatorTests(unittest.TestCase):
  def setUp(self):
-  self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup);self.base=Path(self.tmp.name).resolve();self.base.chmod(0o700)
-  (self.base/'state').mkdir(mode=0o700);Operator.enroll(self.base/'state')
+  from test_standing_credit import StandingTests
+  standing=StandingTests('test_grant_preserves_legacy_hashes_and_default_cap');standing.setUp();self.addCleanup(standing.doCleanups);standing.grant()
+  self.base=standing.state.parent;Operator.enroll(standing.state)
   self.now=NOW;self.op=Operator(self.base/'state',self.base/'state'/'recurring-intake-v1',clock=lambda:self.now)
   self.snap=decode(fixture()[0],1048576)
   # Two distinct stable release identities, conflict group ordered newest first.
@@ -95,6 +96,16 @@ class OperatorTests(unittest.TestCase):
   with self.assertRaisesRegex(Refusal,'operator_already_enrolled'):Operator.enroll(self.base/'state')
   with self.op.journal.transaction(write=True) as (_,append):append(dict(type='invented_interrupted_append'))
   with self.assertRaisesRegex(Refusal,'operator_journal_uncertain'):self.select()
+
+ def test_empty_unrelated_root_refused_without_new_files(self):
+  from ai_movie_investigator.history import FILENAME
+  empty=self.base/'empty';empty.mkdir(mode=0o700)
+  with self.assertRaises(FileNotFoundError):Operator.enroll(empty)
+  self.assertEqual(list(empty.iterdir()),[])
+  with History(empty).transaction(write=True) as (_,append):append(dict(type='unrelated'))
+  before=(empty/FILENAME).read_bytes()
+  with self.assertRaisesRegex(Refusal,'operator_existing_enrollment_required'):Operator.enroll(empty)
+  self.assertEqual(list(empty.iterdir()),[empty/FILENAME]);self.assertEqual((empty/FILENAME).read_bytes(),before)
 
 class InstalledOperatorTests(unittest.TestCase):
  def test_first_v13_prepared_wrapper_receipt_report_review_delivery(self):

@@ -43,12 +43,24 @@ def _write(directory,name,raw):
     return dict(path=str(path),sha256=hashlib.sha256(raw).hexdigest())
 
 
+def _enrolled(root,events):
+    require(len(events)>=21 and events[0].get('type')=='supervised_enrollment_started' and
+        events[1].get('type')=='supervised_enrolled' and events[1].get('root')==list(root.identity),
+        'operator_existing_enrollment_required')
+    credit._standing_base(events,events[1])
+
+
+def _inode(path):
+    st=path.lstat();return [st.st_dev,st.st_ino]
+
+
 class Operator:
     @staticmethod
     def enroll(state):
         """One explicit main operation; interrupted/old enrollment is never reset."""
         root=History(Path(state))
-        with private_chain(root.directory) as dfd,root.transaction(write=True):
+        with private_chain(root.directory) as dfd,root.transaction(write=True,file_identity=_inode(root.directory/FILENAME)) as (events,_):
+            _enrolled(root,events)
             journal_path=root.directory/'recurring-intake-v1'
             anchor_path=root.directory/'recurring-intake-anchor-v1'
             require(not any(os.path.lexists(p) for p in (journal_path,anchor_path,
@@ -62,7 +74,7 @@ class Operator:
                     save(dict(type='operator_high_water_v1',count=len(rows),sha256=digest(rows)))
             def identity(p):
                 st=p.lstat();return [st.st_dev,st.st_ino]
-            binding=dict(kind='operator_storage_v1',root_identity=list(root.identity),
+            binding=dict(kind='operator_storage_v1',root_identity=list(root.identity),root_file=_inode(root.directory/FILENAME),
                 journal_identity=list(journal.identity),anchor_identity=list(anchor.identity),
                 journal_file=identity(journal_path/FILENAME),anchor_file=identity(anchor_path/FILENAME))
             return _write(root.directory,'recurring-intake-binding.json',encoded(binding))
@@ -74,7 +86,7 @@ class Operator:
         self.binding_path=self.root.directory/'recurring-intake-binding.json'
         self.binding_raw=read_private(self.binding_path)
         self.binding=decode(self.binding_raw)
-        shape(self.binding,'kind root_identity journal_identity anchor_identity journal_file anchor_file')
+        shape(self.binding,'kind root_identity root_file journal_identity anchor_identity journal_file anchor_file')
         require(self.binding['kind']=='operator_storage_v1' and
             self.binding['root_identity']==list(self.root.identity) and
             self.binding['journal_identity']==list(self.journal.identity) and
@@ -87,7 +99,8 @@ class Operator:
         # intake append precedes its high-water append; a crash between them
         # causes mismatch and stops instead of reopening any reservation.
         with private_chain(self.root.directory),private_chain(self.journal.directory),private_chain(self.anchor.directory):
-            with self.root.transaction(write=True) as (root,_):
+            with self.root.transaction(write=True,file_identity=self.binding['root_file']) as (root,_):
+                _enrolled(self.root,root)
                 require(read_private(self.binding_path)==self.binding_raw,'operator_storage_changed')
                 with self.anchor.transaction(write=True,file_identity=self.binding['anchor_file']) as (marks,save):
                     with self.journal.transaction(write=True,file_identity=self.binding['journal_file']) as (rows,append):

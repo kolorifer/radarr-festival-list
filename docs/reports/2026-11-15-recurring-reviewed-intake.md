@@ -18,7 +18,9 @@ It must run in main's isolated reviewed operator process with the selected runti
 on its import path. It has no autonomous CLI, source reader or provider sender.
 
 Main first calls `Operator.enroll(state)` once under the enrolled account-root lock.
-It creates owner-only `state/recurring-intake-v1` and
+It first requires the existing account-history inode, supervised enrollment/root
+identity and standing base, without creating an empty account history. Routine
+cycles retain that root-file inode check. It creates owner-only `state/recurring-intake-v1` and
 `state/recurring-intake-anchor-v1`, initializes their separate append-only History
 journals, then writes the immutable `recurring-intake-binding.json` identifying both
 directories and files. Any existing/partial enrollment refuses; it is never reset.
@@ -100,3 +102,6 @@ A further independent review reproduced journal-loss auto-enrollment in the init
 checkpoint. Explicit enrollment, immutable inode binding and a separate durable
 high-water journal now replace that behavior; loss/replacement/rollback/interrupted
 append regressions are included. Final review/CI remain pending.
+
+Enrollment now also refuses empty or unrelated account roots before creating any
+sidecar. Pure fixtures use the actual invented standing-enrollment fixture.
