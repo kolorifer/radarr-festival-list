@@ -138,3 +138,8 @@ class InstalledOperatorTests(unittest.TestCase):
   reviewed=op.reviewed(reservation,report_sha256=pending['report_sha256'],html_sha256=pin['sha256'],review_reference='fixture:actual-full-review',observed_at=time.time())
   op.delivered(reservation,review_sha256=digest(reviewed),delivery_reference='fixture:actual-delivery',delivered_at=time.time())
   self.assertEqual(op.status()[-1]['type'],'operator_delivered_v1')
+  from automation import reviewed_telegram_operator as telegram
+  card=telegram.prepare(op,reservation,dict(discrepancy='The observed year differs.',evidence='The reviewed report retains the source and catalogue observations.',uncertainty='The identification remains unresolved.'))
+  self.assertIsNone(card['plan']['candidate'])
+  self.assertIn('Source listing:',card['plan']['text'])
+  self.assertEqual(card['plan']['report_sha256'],pending['report_sha256'])

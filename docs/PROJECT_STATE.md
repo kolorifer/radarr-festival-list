@@ -1,3 +1,9 @@
+## Reviewed original Telegram card, 2026-11-15
+
+A bounded operator connects genuinely reviewed v13 results to one exact original
+Telegram receipt, with durable no-resend state and an unissued sender template.
+No actor/runtime deployment or live send. See [scope and verification](reports/2026-11-15-reviewed-original-telegram.md).
+
 ## Recurring supervised intake, 2026-11-15
 
 An operator-only append journal connects existing v13 first-mode assessment to
