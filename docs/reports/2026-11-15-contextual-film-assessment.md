@@ -32,8 +32,8 @@ reply hashes remain distinct. Reports show model-provided blocker explanations
 and preserve the actual earlier rationale/uncertainty withholding states.
 
 Rationale and uncertainty are limited to 300 characters each; each of up to six
-blockers has two 160-character explanations. The invented maximal non-BMP answer
-is 31,110 encoded bytes, below the unchanged 32,768-byte parser limit. This avoids
+blockers has two 160-character explanations. One invented maximal-length-field non-BMP fixture
+is 31,110 encoded bytes (an independent schema-derived fixture is 31,205 bytes), below the unchanged 32,768-byte parser limit. This avoids
 increasing transport or durable record limits.
 
 ## One deliberately issued child

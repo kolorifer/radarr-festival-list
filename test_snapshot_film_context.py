@@ -20,7 +20,7 @@ class ContextTests(unittest.TestCase):
   self.assertEqual(s.validate_film_context(self.p,self.prepared,retained,now=NOW)['rationale'],a['result']['rationale'])
   self.assertEqual(_captured_prose_copy(a)[1]['rationale']['status'],'withheld')
  def test_disclosure_refused(self):
-  for value in ('/Users/person/private','../private','./private','~/private','file.txt/private','C:\\private','festival/theatrical/private','2001/2002.txt','https://example.invalid','file:private','C:private.txt','custom:opaque','API key: invented','API-key: invented','%2Fprivate%2Ffile','mailto:person','Bearer invented','token: invented','sk-invented','a'*48,'<script>oops</script>','a\nb','\u202esecret', 'x'*601,'unknown/slash','listing/catalogue/private','title/cast.json','title/cast/year','./title/cast','user@example.invalid','www.example.invalid'):
+  for value in ('/Users/person/private','../private','./private','~/private','file.txt/private','C:\\private','festival/theatrical/private','2001/2002.txt','https://example.invalid','file:private','C:private.txt','custom:opaque','API key: invented','API-key: invented','%2Fprivate%2Ffile','mailto:person','Bearer invented','token: invented','sk-invented','a'*48,'<script>oops</script>','a\nb','\u202esecret', 'x'*601,'unknown/slash','listing/catalogue/private','title/cast.json','title/cast/year','./title/cast','user@example.invalid','www.example.invalid','tracker.example.xyz','192.0.2.1'):
    with self.subTest(value=value),self.assertRaises(Refusal):film_prose(value)
  def test_contextual_instructions_and_material_explanation(self):
   wire=self.prepared['request'];instructions=wire['instructions']
