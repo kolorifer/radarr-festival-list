@@ -37,7 +37,7 @@ class ConnectedTests(base.HostExecutionTests):
    return host.execute(self.q,self.selected['reservation'],policy=self.policy,credential=ExplicitCredential('sk-SYNTHETIC_FIXTURE'))
  def complete(self,verdict='approve'):
   with patch('time.time',return_value=NOW),framing.wire(self.wire()):self.execute()
-  with patch('time.time',return_value=NOW):report,e,card=review.assessment(self.q,self.selected['reservation'])
+  with patch('time.time',return_value=NOW):report,e,card=review.assessment(self.q,self.selected['reservation'],card_revision=2)
   request,bindings=review.build(report,e['projection'],card,revision=2)
   answer=dict(bindings,verdict=verdict,reason='The separate observations support the proposed film and preserve edition uncertainty.',evidence_findings=['The listing and catalogue share the same IMDb crosswalk.'],material_problems=[] if verdict=='approve' else ['The proposal needs an owner audit.'])
   response=documented();response.update(model=request['model'],instructions=request['instructions'],text=request['text'],max_output_tokens=25000)
@@ -47,7 +47,7 @@ class ConnectedTests(base.HostExecutionTests):
  def test_separate_review_two_receipts_and_private_html(self):
   self.complete()
   with patch('time.time',return_value=NOW):plan,target=review.approved_plan(self.q,self.selected['reservation'])
-  self.assertIn('Example Movie (2021)',plan['text']);self.assertIn('Title conflict:',plan['text']);self.assertFalse(plan['download_approved'])
+  self.assertIn('Example Movie (2021)',plan['text']);self.assertIn('Collector claim:',plan['text']);self.assertFalse(plan['download_approved'])
   self.assertTrue((self.path/('report-'+self.selected['reservation']+'.html')).is_file())
   with self.q.locked() as (rows,_):
    attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1'];self.assertEqual([r['stage'] for r in attempts],['assessment','review']);self.assertNotEqual(attempts[0]['request_sha256'],attempts[1]['request_sha256'])

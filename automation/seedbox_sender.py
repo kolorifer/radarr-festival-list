@@ -136,10 +136,11 @@ def deliver_reviewed(queue,config,preparation):
         # Evidence was reconstructed before taking the queue lock. Avoid a
         # nested queue transaction inside this sender callback.
         verify_current(queue,preparation,evidence,configuration_sha256)
+        require(time.time()+15<min(evidence['projection']['evidence_expires_at'],evidence['projection']['generated_at']+3600),'host_delivery_evidence_expired')
         require(time.time()+15<boundary['expires_at'],'host_topology_expired')
         return original_edit(*args)
-    from automation.seedbox_evidence import load
-    evidence=load(queue,preparation)
+    from automation.seedbox_delivery_evidence import current
+    evidence=current(queue,preparation,expected_plan=plan)
     with queue.locked() as (rows,append):
         configuration_sha256=rows[0]['configuration_sha256']
         prior=[r for r in rows if r['type']=='seedbox_sender_started_v1' and r['preparation']==preparation]

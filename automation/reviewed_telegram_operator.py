@@ -40,12 +40,12 @@ def text(value,limit):
 
 def _validate_plan(plan,now):
     shape(plan,'kind case_id version review_sha256 report_sha256 receipt_sha256 html_sha256 local_context_sha256 source_url candidate summary text reviewed_at production_approved download_approved')
-    require(plan['kind']=='reviewed_original_card_v1' and plan['production_approved'] is False and
+    require(plan['kind'] in ('reviewed_original_card_v1','reviewed_original_card_v2') and plan['production_approved'] is False and
         plan['download_approved'] is False and re.fullmatch(r'outcome-[a-f0-9]{64}',plan['case_id']), 'telegram_plan')
     for k in ('version','review_sha256','report_sha256','receipt_sha256','html_sha256','local_context_sha256'):
         require(type(plan[k]) is str and re.fullmatch('[a-f0-9]{64}',plan[k]),'telegram_plan')
     require(stamp(plan['reviewed_at'])<=now and type(plan['text']) is str and
-        0<len(plan['text'].encode('utf-16-le'))//2<=900,'telegram_plan')
+        0<len(plan['text'].encode('utf-16-le'))//2<=(4096 if plan['kind']=='reviewed_original_card_v2' else 900),'telegram_plan')
     from urllib.parse import urlsplit
     u=urlsplit(plan['source_url'])
     require(u.scheme=='https' and bool(u.hostname) and not(u.username or u.password or u.query or u.fragment) and
@@ -237,6 +237,8 @@ def deliver(store,plan,target_pin,sources,boundary,edit,*,private_guard,clock=ti
     _validate_plan(plan,now)
     shape(target_pin,'version row_sha256 ref case_id')
     require(target_pin['case_id']==plan['case_id'],'telegram_case_changed')
+    require(target_pin['ref']['kind'] in ('text','caption'),'telegram_original_ref')
+    require(len(plan['text'].encode('utf-16-le'))//2<=(4096 if target_pin['ref']['kind']=='text' else 1024),'telegram_target_size')
     message_key=digest([target_pin['ref']['chat_id'],target_pin['ref']['message_id']]);plan_sha=digest(plan)
     # Commit a permanent no-resend reservation BEFORE external I/O. Separate
     # table survives the old retry_messages eight-day cleanup.
