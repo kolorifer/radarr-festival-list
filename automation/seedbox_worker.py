@@ -135,7 +135,7 @@ def step(queue,config):
                     queue.record_source_failure(preparation,reason=error.reason,retry_after=error.retry_after,now=time.time())
                     return True
                 except ValueError as error:
-                    reasons={'host_listing_crosswalk_needed','host_listing_ambiguous_or_missing','host_catalogue_ambiguous','host_listing_not_authenticated'}
+                    reasons={'host_listing_crosswalk_needed','host_listing_ambiguous_or_missing','host_catalogue_ambiguous','host_listing_not_authenticated','telegram_original_missing'}
                     if str(error) in reasons:queue.record_source_failure(preparation,reason=str(error),retry_after=None,now=time.time());return True
                     raise
             if not reports:

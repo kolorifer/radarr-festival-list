@@ -204,6 +204,10 @@ def acquire(config,claim,snapshot_raw,metadata):
     import re
     now=time.time();snapshot_sha=hashlib.sha256(snapshot_raw).hexdigest();select(snapshot_raw,snapshot_sha,claim['case_id'],claim['version'],now=now)
     with database(config['actor_database']) as actor:binding=actor_listing(actor,claim['case_id'],metadata,config['sources'],config['listing_source'])
+    proof=claim.get('correction_proposal')
+    if proof is not None:
+        target=dict(version=binding['actor_version'],row_sha256=binding['target']['row_sha256'],ref=binding['target']['ref'],case_id=claim['case_id'])
+        require(digest(proof)==claim['correction_proposal_sha256'] and digest(binding['url'])==proof['source_url_sha256'] and digest(target)==proof['target_sha256'],'host_correction_source_target_changed')
     try:
         env=_configuration(config['source_configuration']);require(env['TMDB_API_TOKEN'] and env['MOVIE_INTEL_TL_COOKIE_FILE'] and env['MOVIE_INTEL_TL_METADATA_ENABLED']=='1','host_source_configuration')
         # Main selects canonical spelling and pins the existing cookie file. The
@@ -216,15 +220,17 @@ def acquire(config,claim,snapshot_raw,metadata):
     raw,observed=_get(binding['url'],cookies=cookies)
     from tracker_metadata import parse_listing
     if parse_listing(raw,binding['release_name'])['reason']=='login_required':raise SourceFailure('source_auth_denied')
-    facts=listing_facts(raw,release_name=binding['release_name'],case_id=claim['case_id'],version=claim['version'],observed_at=observed,expires_at=observed+900)
+    facts=listing_facts(raw,release_name=binding['release_name'],case_id=claim['case_id'],version=claim['version'],observed_at=observed,expires_at=observed+900,revision=2)
+    if proof is not None:require(digest({k:v for k,v in facts.items() if k not in ('observed_at','expires_at')})==proof['corrected_semantic_sha256'],'host_correction_source_changed')
     require(facts['imdb'] is not None,'host_listing_crosswalk_needed')
     found,found_at=_get('https://api.themoviedb.org/3/find/'+facts['imdb']+'?external_source=imdb_id',token=env['TMDB_API_TOKEN'])
     movies=json.loads(found).get('movie_results');require(type(movies) is list and len(movies)==1 and type(movies[0].get('id')) is int and movies[0]['id']>0,'host_catalogue_ambiguous')
     tmdb=movies[0]['id'];cat_raw,cat_at=_get('https://api.themoviedb.org/3/movie/'+str(tmdb)+'?append_to_response=credits,release_dates',token=env['TMDB_API_TOKEN'])
     catalogue=catalogue_facts(cat_raw,expected_tmdb=tmdb,expected_imdb=facts['imdb'],observed_at=cat_at,expires_at=cat_at+900)
+    if proof is not None:require(digest({k:v for k,v in catalogue.items() if k not in ('observed_at','expires_at')})==proof['catalogue_semantic_sha256'],'host_correction_catalogue_changed')
     source_raw=encoded(facts);catalogue_raw=encoded(catalogue);h=lambda b:hashlib.sha256(b).hexdigest()
     att=dict(kind='host_authenticated_normalized_case_v1',snapshot_sha256=snapshot_sha,case_id=claim['case_id'],version=claim['version'],source_sha256=h(source_raw),catalogue_sha256=h(catalogue_raw),source_original_sha256=h(raw),catalogue_original_sha256=h(cat_raw),source_linkage_verified=True,catalogue_crosswalk_verified=True,observed_at=time.time(),expires_at=max(observed,cat_at)+900)
     projected=projection(snapshot_raw,snapshot_sha,claim['case_id'],claim['version'],source_raw,catalogue_raw,att,now=time.time())
     soup=BeautifulSoup(raw,'html.parser');node=soup.select_one('#nfo_text');nfo=node.get_text('\n',strip=True) if node else ''
     local=encoded(dict(tracker_url=binding['url'],release_name=binding['release_name'],nfo_text=nfo[:16384]))
-    return dict(projection=projected,local_raw=local,source_original=raw,catalogue_original=cat_raw,find_original=found,snapshot=snapshot_raw,source=source_raw,catalogue=catalogue_raw,attestation=att,target_pin=dict(version=binding['actor_version'],row_sha256=binding['target']['row_sha256'],ref=binding['target']['ref'],case_id=claim['case_id']),coverage=dict(nfo_truncated=len(nfo)>16384,cast_truncated=len(json.loads(cat_raw).get('credits',{}).get('cast',[]))>20,source_original_observed_at=observed,catalogue_original_observed_at=cat_at))
+    return dict(derivation_revision=2,projection=projected,local_raw=local,source_original=raw,catalogue_original=cat_raw,find_original=found,snapshot=snapshot_raw,source=source_raw,catalogue=catalogue_raw,attestation=att,target_pin=dict(version=binding['actor_version'],row_sha256=binding['target']['row_sha256'],ref=binding['target']['ref'],case_id=claim['case_id']),coverage=dict(nfo_truncated=len(nfo)>16384,cast_truncated=len(json.loads(cat_raw).get('credits',{}).get('cast',[]))>20,source_original_observed_at=observed,catalogue_original_observed_at=cat_at))

@@ -274,3 +274,13 @@ as automated review, keeps uncertainty visible and removes approval buttons.
 It does not approve remembered identity reuse or downloads. Unknown calls and
 edits are not replayed; shared access failures pause further work. Later human
 audits remain distinct from the automated review and Telegram acknowledgement.
+
+## Faithful host reporting revision2 candidate
+
+Collector titles and years are labeled as claims. Unresolved cards preserve their
+material identity blockers; approving an accurate unresolved report does not
+approve a film identity or download. Separate automated review can reject either
+unsupported confidence or unsupported blockers. Missing original notification
+records remain blocked. The correction path preserves old reports and permits
+only one explicitly reviewed new attempt with fresh same-source evidence; this
+repository entry does not claim deployment or a live notification.

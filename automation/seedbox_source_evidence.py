@@ -37,9 +37,10 @@ def _one(values):
     return next(iter(values)) if len(values)==1 else None
 
 
-def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at):
+def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at,revision=1):
     from bs4 import BeautifulSoup
     require(type(raw) is bytes and 0<len(raw)<=1000000,'host_listing_size')
+    require(revision in (1,2),'host_listing_revision')
     checked=parse_listing(raw,release_name)
     require(checked['reason'] in ('listing_id_found','listing_id_missing','listing_id_conflict'),'host_listing_not_authenticated')
     soup=BeautifulSoup(raw,'html.parser');section=soup.select_one('.torrent-info-details')
@@ -49,11 +50,18 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at):
             value=heading.get_text(' ',strip=True)
             match=re.fullmatch(r'(.+?)\s*\((18[7-9][0-9]|19[0-9]{2}|20[0-9]{2}|2100)\)',value)
             if match:titles.append(safe_text(match[1],256));years.append(int(match[2]))
-        for node in section.select('.torrent-extra-info > p'):
+            elif revision==2 and value:titles.append(safe_text(value,256))
+        for node in section.select('.torrent-extra-info p' if revision==2 else '.torrent-extra-info > p'):
             value=node.get_text(' ',strip=True)
-            for label,out in (('Cast',casts),('Director',directors),('Directors',directors)):
+            if revision==2:
+                year=re.fullmatch(r'Year:\s*(18[7-9][0-9]|19[0-9]{2}|20[0-9]{2}|2100)',value)
+                if year:years.append(int(year[1]))
+            labels=(('Cast',casts),('Director',directors),('Directors',directors))+((('Stars',casts),) if revision==2 else ())
+            for label,out in labels:
                 if value.startswith(label+':'):
                     names=[safe_text(x.strip(),128) for x in value[len(label)+1:].split(',') if x.strip()]
+                    if revision==2 and label in ('Cast','Stars') and node.select('a'):
+                        names=[safe_text(a.get_text(' ',strip=True),128) for a in node.select('a') if a.get_text(' ',strip=True)]
                     if len(names)<=20:out.extend(names)
             m=re.fullmatch(r'(?:Runtime|Duration):\s*([0-9]{1,4})\s*(?:min|minutes)',value)
             if m and 0<int(m[1])<=1440:minutes.append(int(m[1]))

@@ -224,7 +224,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256, *, publis
         '<p>NFO duration is uploader-reported for the indicated stream or container; it is not an independently measured edition.</p>',
         temporal,
         '<h2>Model assessment</h2><p>Model interpretation, distinct from the factual summary above.</p>',model_prose,fallback,
-        '<h3>Separate nonblocking limitations</h3><p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. Identity and acquisition remain unapproved. Listing and catalogue provenance were reviewed by the supervisor; source independence is not established.</p>',
+        ('<h3>Separate nonblocking limitations</h3><p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. Identity and acquisition remain unapproved. Listing and catalogue observations were authenticated and mechanically bound by the host; separate automated reporting review and later main audit are distinct. No per-case human source review or source independence is established.</p>' if projection.get('host_reporting_revision')==2 else '<h3>Separate nonblocking limitations</h3><p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. Identity and acquisition remain unapproved. Listing and catalogue provenance were reviewed by the supervisor; source independence is not established.</p>'),
         '<details><summary>Technical details and previous attempts</summary>',prior_html,
         '<p>Recorded status: '+escape(show(status))+'. Provider receipt is correlated, not provider-signed billing proof.</p>',
         '<h3>Computed evidence comparisons</h3><ul>',raw_comparisons,'</ul>',

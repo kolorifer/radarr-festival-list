@@ -1,3 +1,10 @@
+## Host evidence/reporting revision2 candidate, 2026-11-15
+
+Correct scoped listing extraction and typed evidence views while preserving exact
+old receipt/HTML semantics. Add one explicitly bound material correction path on
+the same ledger; no blind retry or missing-target repair. Main's worker is stopped
+with three assessed/reviewed rejected cases and zero sends. See [scope and executable correction](reports/2026-11-15-seedbox-evidence-reporting-v2.md).
+
 ## Selected actor visibility correction, 2026-11-15
 
 The PR206 installed read-only check reached the held collector but found that the
