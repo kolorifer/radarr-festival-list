@@ -214,7 +214,23 @@ def complete(history, request_hash, answer, provenance):
 _WITHHELD_PROSE = 'Model explanation withheld by local text policy; see structured citations and review limitations.'
 
 
-def _captured_prose_copy(answer):
+def film_prose(value, limit=600):
+    """Bounded prose only: a narrow year-alternative slash, never a path.
+
+    This is a disclosure filter, not a universal secret detector. Keep the
+    generic envelope validator and all old response contracts unchanged.
+    """
+    require(type(value) is str and bool(value.strip()) and len(value)<=limit, 'unsafe_text')
+    require(not any(unicodedata.category(c).startswith('C') for c in value), 'unsafe_text')
+    # Only these standalone comparison forms may contain a slash. Unknown
+    # forms, nested segments, suffixes and all remaining slashes are refused.
+    masked=re.sub(r'(?<![\w./\\])(?:(?:18|19|20|21)[0-9]{2} */ *(?:18|19|20|21)[0-9]{2}|festival */ *theatrical|IMDb */ *TMDb|and */ *or|listing */ *catalogue|title */ *(?:cast|year|runtime|IDs)|cast */ *(?:year|IDs)|year */ *runtime|runtime */ *IDs)(?![\w/\\]|\.[\w.])', 'comparison', value, flags=re.I)
+    require(not re.search(r'[/\\]|[<>@=]|[a-z][a-z0-9+.-]*://|\b(?:https?|ftp|file|mailto|data|javascript|magnet|ssh):|\b[a-z]:|\b[a-z][a-z0-9+.-]*:\S|%[0-9a-f]{2}|www\.|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}\b|\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', masked, re.I), 'unsafe_text')
+    require(not re.search(r'\b(?:secret|passkey|password|cookie|bearer|credential|api[ _-]*key|authorization|token)\b|\bsk-[a-z0-9_-]+|[a-zA-Z0-9_-]{48,}', value, re.I), 'unsafe_text')
+    return value
+
+
+def _captured_prose_copy(answer, *, film_context=False):
     """Retain a safe copy, never rewrite the receipt-bound original in memory.
 
     Whole fields are withheld instead of guessing which substring is private or
@@ -227,7 +243,7 @@ def _captured_prose_copy(answer):
         value=answer['result'][field]
         require(isinstance(value,str),'responses_answer_schema')
         try:
-            text(value,600)
+            (film_prose if film_context else text)(value,600)
             reason=None
         except Refusal as error:
             if str(error)!='unsafe_text':raise
@@ -241,6 +257,17 @@ def _captured_prose_copy(answer):
             else:reason='other_text_policy'
             retained['result'][field]=_WITHHELD_PROSE
         handling[field]=dict(status='retained' if reason is None else 'withheld',predicate=reason)
+    if film_context:
+        blockers=([retained['result']['primary_blocker']] if retained['result'].get('primary_blocker') is not None else [])+retained['result'].get('additional_blockers',[])
+        for index,blocker in enumerate(blockers):
+            for field in ('support_considered','material_conflict'):
+                value=blocker[field]
+                try:
+                    film_prose(value,160);state=dict(status='retained',predicate=None)
+                except Refusal:
+                    blocker[field]=_WITHHELD_PROSE
+                    state=dict(status='withheld',predicate='film_prose_policy')
+                handling[f'blocker_{index}_{field}']=state
     return retained,handling
 
 

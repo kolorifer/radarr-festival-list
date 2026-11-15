@@ -116,6 +116,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
     prior=report.get('previous_assessment');prior_html=''
     if prior is not None:
         rationale=('Its original rationale was withheld and cannot be recovered.' if prior['rationale'] in ('withheld_unrecoverable','withheld') else 'The previous explanation remains in the earlier retained report.')
+        if prior.get('uncertainty')=='withheld':rationale+=' Its original uncertainty explanation was withheld and cannot be recovered.'
         prior_html=('<h3>Earlier distinct assessment</h3><p>Status: '+escape(show(prior['status']))+'; proposed identity: '+escape(show(prior['candidate']))+'. '+rationale+' The assessment below is a distinct new result, not a reconstruction of that rationale.</p>')
     if report.get('previous_structure_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but its findings failed structural validation. Its answer was not retained. This is a distinct corrected assessment.</p>'
     if report.get('previous_field_refusal') is not None:prior_html='<p>The earlier assessment received a receipt but failed a field validation check. Its answer was not retained, so the specific failed comparison is unknown. This is a distinct corrected assessment.</p>'
@@ -130,6 +131,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         for f in result.get('film_findings',[]))
     blocks=''.join(li(labels.get(b.get('aspect'),show(b.get('aspect')).replace('_',' ')),
         reason_labels.get(b.get('reason'),show(b.get('reason')).replace('_',' '))+'; observed values — '+detail(b.get('aspect'))+
+        ('; support considered: '+b['support_considered']+'; why still material: '+b['material_conflict'] if 'support_considered' in b else '')+
         ('; cited evidence: '+(show(b['evidence']) if b['evidence'] else 'None recorded') if 'evidence' in b else '')) for b in blockers)
     structured=('Model-reported blockers: '+', '.join(labels.get(b.get('aspect'),show(b.get('aspect')).replace('_',' '))+' ('+reason_labels.get(b.get('reason'),show(b.get('reason')).replace('_',' '))+')' for b in blockers) if blockers else 'No structured film blockers were recorded')
     fallback=('<p><strong>Summary from recorded choices:</strong> '+escape(decision)+' '+escape(structured)+'. This summary is generated locally from retained structured choices; it is not the model’s original explanation.</p>' if any(handling.get(k,{}).get('status')=='withheld' for k in ('rationale','uncertainty')) else '')

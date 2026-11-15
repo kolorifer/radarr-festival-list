@@ -1,3 +1,11 @@
+## Contextual film assessment, 2026-11-15
+
+Implemented a separately authorized v8 contextual assessment and bounded prose
+filter, with an exact single child of a completed path/URL-withheld v7 report.
+All previous history, debits and old contracts remain. Independent review and
+exact-head checks gate repository integration; live assessment remains separately
+issued by the main reviewer. See [scope and validation](reports/2026-11-15-contextual-film-assessment.md).
+
 ## Snapshot bounded prose reassessment, 2026-11-14
 
 A versioned snapshot response contract binds generated prose to the existing
