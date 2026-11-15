@@ -1,3 +1,10 @@
+## Film weighing v9, 2026-11-15
+
+Implemented separately authorized ordinary explanation prose and evidence-weighing
+validation, with an exact Mini model profile and15-cent purpose-bound reservation.
+Legacy contracts/history remain unchanged. Review and exact-head CI gate merge;
+no live use or deployment. See [scope and validation](reports/2026-11-15-film-weighing-v9.md).
+
 ## Contextual film assessment, 2026-11-15
 
 Implemented a separately authorized v8 contextual assessment and bounded prose

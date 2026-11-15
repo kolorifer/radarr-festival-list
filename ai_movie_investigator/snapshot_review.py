@@ -683,3 +683,49 @@ def validate_film_context(projection,prepared,reply,*,now):
     result.update(prose)
     for blocker,explanation in zip(result['film_blockers'],explanations):blocker.update(explanation)
     return result
+
+
+def build_film_weighing(projection):
+    import copy
+    from .credit_test import MINI_POLICY
+    prepared=copy.deepcopy(build_film_context(projection));wire=prepared['request'];wire.update(MINI_POLICY)
+    wire['instructions']=wire['instructions'].replace('Rationale and uncertainty are each at most 300 characters.', 'Rationale is at most 600 characters; uncertainty is at most 300 characters.').replace('1 to 160 characters','1 to 140 characters')
+    for variant in wire['text']['format']['schema']['properties']['result']['anyOf']:
+        props=variant['properties'];props['rationale']['maxLength']=600
+        if props['status']['enum']==['supported_candidate']:continue
+        for item in (props['primary_blocker'],props['additional_blockers']['items']):
+            for choice in item['anyOf']:
+                for name in ('support_considered','material_conflict'):choice['properties'][name]['maxLength']=140
+    wire['instructions']+=(
+        ' Distinguish actual competing film claims from metadata, edition and collector-label discrepancies. '
+        'For each material conflict identify what observation supports a different film and why the strongest '
+        'corroborating observations do not resolve it. Do not treat a year/runtime difference as another film '
+        'without evidence. Explain disagreements as evidence justifications, not category labels or repeated enums. '
+        'No named-film exception, invented score or automatic approval is permitted. This is one deliberately '
+        'selected Mini reassessment, not a fallback or retry loop.'
+    )
+    return prepared
+
+
+def validate_film_weighing(projection,prepared,reply,*,now):
+    import copy,re
+    from .responses_protocol import schema_value
+    from .new_case import explanation_prose
+    require(prepared==build_film_weighing(projection),'snapshot_prepared_changed')
+    schema_value(reply,prepared['request']['text']['format']['schema'])
+    answer=copy.deepcopy(reply);r=answer['result']
+    prose={name:explanation_prose(r[name]) for name in ('rationale','uncertainty')}
+    for name in prose:r[name]='Validated film evidence justification.'
+    blockers=([r['primary_blocker']] if r['primary_blocker'] is not None else [])+r['additional_blockers']
+    explanations=[]
+    labels=set('title year cast people runtime description nfo ids id film evidence missing conflicting ambiguous conflict contradiction unknown unresolved blocked supported candidate material support considered collector label labels discrepancy discrepancies difference differences different conflicts exact overlap no observed'.split())
+    for blocker in blockers:
+        fields={name:explanation_prose(blocker[name],140) for name in ('support_considered','material_conflict')}
+        for value in fields.values():
+            words=set(re.findall(r'[^\W\d_]+',value.casefold()))
+            require(bool(words-labels),'snapshot_justification_label_only')
+        explanations.append(fields)
+        for name in fields:blocker[name]='Validated film evidence justification.'
+    result=validate_film_context(projection,build_film_context(projection),answer,now=now);result.update(prose)
+    for blocker,fields in zip(result['film_blockers'],explanations):blocker.update(fields)
+    return result

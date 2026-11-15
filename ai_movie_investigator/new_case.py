@@ -230,7 +230,20 @@ def film_prose(value, limit=600):
     return value
 
 
-def _captured_prose_copy(answer, *, film_context=False):
+def explanation_prose(value, limit=600):
+    """v9 prose: slash comparisons are prose; only explicit paths are paths.
+
+    Relative word/word comparisons are intentionally not classified by their
+    vocabulary. This is a finite disclosure policy, not a secret detector.
+    """
+    require(type(value) is str and bool(value.strip()) and len(value)<=limit, 'unsafe_text')
+    require(not any(unicodedata.category(c).startswith('C') for c in value), 'unsafe_text')
+    require(not re.search(r'(?:^|/)\.{1,2}(?:/|$)|[\\]|</?[a-z][a-z0-9:-]*(?:[ \t/]|>|$)|<!--|<!doctype|<\?|[\w.%+-]+@[\w.-]+|(?:^|[=,;<>\s(\["\'])(?:/\S|~[/\\]|\.{1,2}[/\\])|\b[a-z]:|\b[a-z][a-z0-9+.-]*:\S|\b(?:https?|ftp|file|mailto|data|javascript|magnet|ssh):|%[0-9a-f]{2}|www\.|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,}\b|\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', value, re.I), 'unsafe_text')
+    require(not re.search(r'\b(?:secret|passkey|password|cookie|bearer|credential|api[ _-]*key|authorization|token)\b|\bsk-[a-z0-9_-]+|[a-zA-Z0-9_-]{48,}',value,re.I),'unsafe_text')
+    return value
+
+
+def _captured_prose_copy(answer, *, film_context=False, film_weighing=False):
     """Retain a safe copy, never rewrite the receipt-bound original in memory.
 
     Whole fields are withheld instead of guessing which substring is private or
@@ -243,7 +256,7 @@ def _captured_prose_copy(answer, *, film_context=False):
         value=answer['result'][field]
         require(isinstance(value,str),'responses_answer_schema')
         try:
-            (film_prose if film_context else text)(value,600)
+            (explanation_prose if film_weighing else film_prose if film_context else text)(value,600)
             reason=None
         except Refusal as error:
             if str(error)!='unsafe_text':raise
@@ -257,13 +270,13 @@ def _captured_prose_copy(answer, *, film_context=False):
             else:reason='other_text_policy'
             retained['result'][field]=_WITHHELD_PROSE
         handling[field]=dict(status='retained' if reason is None else 'withheld',predicate=reason)
-    if film_context:
+    if film_context or film_weighing:
         blockers=([retained['result']['primary_blocker']] if retained['result'].get('primary_blocker') is not None else [])+retained['result'].get('additional_blockers',[])
         for index,blocker in enumerate(blockers):
             for field in ('support_considered','material_conflict'):
                 value=blocker[field]
                 try:
-                    film_prose(value,160);state=dict(status='retained',predicate=None)
+                    (explanation_prose if film_weighing else film_prose)(value,160);state=dict(status='retained',predicate=None)
                 except Refusal:
                     blocker[field]=_WITHHELD_PROSE
                     state=dict(status='withheld',predicate='film_prose_policy')

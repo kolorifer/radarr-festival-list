@@ -5,7 +5,7 @@ fixtures only. It does not enroll authority or establish prices or live access.
 """
 from .contracts import decode, digest, encoded, require, shape, scope, stamp, hash_id, text
 from .history import History
-from .responses_protocol import MODEL, INTEGRATION_MODEL, INTEGRATION_SHUTDOWN, parse_response
+from .responses_protocol import MODEL, INTEGRATION_MODEL, MINI_MODEL, INTEGRATION_SHUTDOWN, parse_response
 from .controller import output_schema
 from .spending import rational
 from .responses_http import FixedResponsesHTTP
@@ -28,7 +28,10 @@ def _send_bound(history, body, *, case, run, parent, credential, context_sha256=
     scope(case)
     request = decode(body, 65536)
     require(type(body) is bytes and encoded(request) == body, 'binding_body')
-    require(request.get('model') in (MODEL, INTEGRATION_MODEL), 'binding_model')
+    require(request.get('model') in (MODEL, INTEGRATION_MODEL, MINI_MODEL), 'binding_model')
+    if request.get('model')==MINI_MODEL:
+        from .supervised_authorization import selected_mini_profile
+        require(type(parent) is HistoricalDiagnosticParent and selected_mini_profile(digest(request)),'snapshot_weighing_model')
     selected = dict(run=run, case=case, request_sha256=digest(request))
     if context_sha256 is not None:
         selected['local_context_sha256'] = hash_id(context_sha256)
@@ -133,19 +136,23 @@ class HistoricalDiagnosticParent:
         require(type(c.record_json) is bytes and
                 hashlib.sha256(c.record_json).hexdigest() == hash_id(c.record_sha256), 'operator_context_pin')
         r = decode(c.record_json, 32768)
-        integration = r.get('mode') in ('synthetic_api_integration','historical_nano_manual','captured_nano_dormant')
+        integration = r.get('mode') in ('synthetic_api_integration','historical_nano_manual','captured_nano_dormant','snapshot_mini_v9')
         shape(r, 'mode selection project model issued_at expires_at history_identity currency ceiling output_limit evidence' +
               (' credit_history_identity credit_history_file_identity' if integration else ''))
-        require(r['mode'] in ('historical_manual_diagnostic', 'synthetic_api_integration','historical_nano_manual','captured_nano_dormant') and type(self._credential) is ExplicitCredential,
+        require(r['mode'] in ('historical_manual_diagnostic', 'synthetic_api_integration','historical_nano_manual','captured_nano_dormant','snapshot_mini_v9') and type(self._credential) is ExplicitCredential,
                 'operator_route_missing')
         require(bool(self._credential.value), 'operator_route_missing')
         require(r['history_identity'] == list(self.history.identity), 'operator_history_changed')
         now = self.history.clock()
         require(stamp(r['issued_at']) <= now < stamp(r['expires_at']), 'operator_authority_stale')
-        require(r['model'] == (INTEGRATION_MODEL if integration else MODEL) and isinstance(r['project'], str) and
+        mini=r.get('mode')=='snapshot_mini_v9'
+        if mini:
+            from .supervised_authorization import selected_mini_profile
+            require(selected_mini_profile(r['selection']['request_sha256']),'snapshot_weighing_model')
+        require(r['model'] == (MINI_MODEL if mini else INTEGRATION_MODEL if integration else MODEL) and isinstance(r['project'], str) and
                 __import__('re').fullmatch(r'proj_[A-Za-z0-9_-]+', r['project']), 'operator_account_unknown')
         output_limit=OUTPUT_TOKENS
-        if r['mode'] in ('historical_nano_manual','captured_nano_dormant'):
+        if r['mode'] in ('historical_nano_manual','captured_nano_dormant','snapshot_mini_v9'):
             from .supervised_authorization import selected_output_limit
             output_limit=selected_output_limit(r['selection']['request_sha256'])
         require(r['currency'] in ('USD', 'TEST-USD') and rational(r['ceiling']) > 0 and
@@ -154,7 +161,7 @@ class HistoricalDiagnosticParent:
             require(type(self.credit_history) is History and self.credit_history is not self.history and
                     self.credit_history.identity != self.history.identity and
                     list(self.credit_history.identity) == r['credit_history_identity'], 'credit_history_missing')
-            require(rational(r['ceiling']) <= rational([3,100]) and now < INTEGRATION_SHUTDOWN and
+            require((rational(r['ceiling']) == rational([15,100]) if mini else rational(r['ceiling']) <= rational([3,100])) and now < INTEGRATION_SHUTDOWN and
                     r['expires_at'] <= INTEGRATION_SHUTDOWN, 'credit_scope_or_model_expired')
         roles = {'owner', 'privacy', 'account', 'credential_route', 'coverage', 'pricing'}
         require(type(r['evidence']) is dict and set(r['evidence']) == roles and
@@ -183,9 +190,11 @@ class HistoricalDiagnosticParent:
 
     def _permit(self, selected, body):
         r = self._record()
-        integration = r['mode'] in ('synthetic_api_integration','historical_nano_manual','captured_nano_dormant')
+        integration = r['mode'] in ('synthetic_api_integration','historical_nano_manual','captured_nano_dormant','snapshot_mini_v9')
         from .credit_test import POLICY as CREDIT_POLICY, request as credit_request, CONTEXT_TOKENS, CONTEXT_COVERAGE
-        policy = CREDIT_POLICY if integration else POLICY
+        mini=r['mode']=='snapshot_mini_v9'
+        from .credit_test import MINI_POLICY,MINI_INPUT_RATE,MINI_OUTPUT_RATE,MINI_DEBIT
+        policy = MINI_POLICY if mini else CREDIT_POLICY if integration else POLICY
         shape(selected, 'run case request_sha256 local_context_sha256')
         scope(selected['case'])
         require(selected == r['selection'] and
@@ -198,7 +207,7 @@ class HistoricalDiagnosticParent:
                 self._credential.value.encode() not in self.context.record_json, 'operator_credential_disclosed')
         from .controller import INSTRUCTIONS
         instructions,schema=INSTRUCTIONS,output_schema()
-        if r['mode'] in ('historical_nano_manual','captured_nano_dormant'):
+        if r['mode'] in ('historical_nano_manual','captured_nano_dormant','snapshot_mini_v9'):
             from .supervised_authorization import selected_response_contract
             instructions,schema=selected_response_contract(selected['request_sha256'])
         require(request.get('instructions') == instructions and request.get('model') == r['model'] and
@@ -222,7 +231,7 @@ class HistoricalDiagnosticParent:
         from .contracts import MAX_INPUT
         data = decode(part['text'], MAX_INPUT if r['mode']=='captured_nano_dormant' else 32768)
         from .supervised_authorization import selected_snapshot_request
-        is_snapshot = r['mode']=='historical_nano_manual' and selected_snapshot_request(selected,body)
+        is_snapshot = r['mode'] in ('historical_nano_manual','snapshot_mini_v9') and selected_snapshot_request(selected,body)
         if r['mode']=='captured_nano_dormant':
             from .supervised_authorization import selected_captured_request
             selected_captured_request(selected,body)
@@ -282,9 +291,9 @@ class HistoricalDiagnosticParent:
         coverage = facts['coverage']
         shape(coverage, 'request_sha256 policy coverage counter_identity input_upper_bound')
         require(coverage['request_sha256'] == selected['request_sha256'] and coverage['policy'] == policy and
-                coverage['coverage'] == (CONTEXT_COVERAGE if integration and r['ceiling']==[3,100] else COVERAGE) and isinstance(coverage['counter_identity'], str) and
+                coverage['coverage'] == (CONTEXT_COVERAGE if integration and (mini or r['ceiling']==[3,100]) else COVERAGE) and isinstance(coverage['counter_identity'], str) and
                 coverage['counter_identity'] not in ('', 'unknown') and type(coverage['input_upper_bound']) is int and
-                (coverage['input_upper_bound']==CONTEXT_TOKENS if integration and r['ceiling']==[3,100] else 0<coverage['input_upper_bound']<=INPUT_TOKENS), 'operator_coverage_unknown')
+                (coverage['input_upper_bound']==CONTEXT_TOKENS if integration and (mini or r['ceiling']==[3,100]) else 0<coverage['input_upper_bound']<=INPUT_TOKENS), 'operator_coverage_unknown')
         pricing = facts['pricing']
         shape(pricing, 'policy currency input cache_read cache_write output ancillary_maximum')
         require(pricing['policy'] == policy and pricing['currency'] == r['currency'], 'operator_pricing_unknown')
@@ -294,18 +303,18 @@ class HistoricalDiagnosticParent:
         require(0 < maximum <= rational(r['ceiling']), 'operator_coverage_above_cap')
         if integration:
             from .credit_test import INPUT_RATE, OUTPUT_RATE, PER_REQUEST
-            require(rates['input'] == INPUT_RATE and rates['cache_read'] == INPUT_RATE / 10 and
-                    rates['cache_write'] == 0 and rates['output'] == OUTPUT_RATE and
-                    rates['ancillary_maximum'] == 0 and rational(r['ceiling']) in (rational([1,100]), PER_REQUEST),
+            require(rates['input'] == (MINI_INPUT_RATE if mini else INPUT_RATE) and rates['cache_read'] == (MINI_INPUT_RATE if mini else INPUT_RATE) / 10 and
+                    rates['cache_write'] == 0 and rates['output'] == (MINI_OUTPUT_RATE if mini else OUTPUT_RATE) and
+                    rates['ancillary_maximum'] == 0 and rational(r['ceiling']) in ((MINI_DEBIT,) if mini else (rational([1,100]), PER_REQUEST)),
                     'credit_pricing_changed')
             maximum = rational(r['ceiling'])  # Full selected debit survives every outcome.
 
         return dict(selection=selected, project=r['project'], model=r['model'], expires_at=r['expires_at'],
                     input_limit=coverage['input_upper_bound'], output_limit=r['output_limit'],
-                    maximum_debit=pair(maximum), currency=r['currency'], authority_context_sha256=self.context.record_sha256)
+                    maximum_debit=[15,100] if mini else pair(maximum), currency=r['currency'], authority_context_sha256=self.context.record_sha256)
 
     def reserve_credit_test(self, permit):
-        if permit['model'] != INTEGRATION_MODEL:
+        if permit['model'] not in (INTEGRATION_MODEL,MINI_MODEL):
             return
         r = self._record()
         require(permit['project'] == r['project'], 'credit_project_changed')

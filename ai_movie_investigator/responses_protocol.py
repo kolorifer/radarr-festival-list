@@ -5,6 +5,7 @@ from .contracts import Refusal, MAX_OUTPUT, decode, encoded, require
 
 MODEL = 'gpt-6.1-sol'
 INTEGRATION_MODEL = 'gpt-5-nano-2025-08-07'
+MINI_MODEL = 'gpt-5-mini-2025-08-07'
 INTEGRATION_RETENTION = 'in_memory'  # Explicit synthetic contract; not zero retention.
 INTEGRATION_SHUTDOWN = 1796947200  # 2026-12-11 UTC; no automatic replacement
 INPUT_TOKENS = 65536
@@ -54,7 +55,7 @@ def response_id(value):
 
 def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_result=None):
     from .responses_http import MAX_RESPONSE
-    require(expected_model in (MODEL, INTEGRATION_MODEL), 'responses_model_profile')
+    require(expected_model in (MODEL, INTEGRATION_MODEL, MINI_MODEL), 'responses_model_profile')
     envelope_limit,opaque_limit=MAX_RESPONSE,16384
     output_limit=OUTPUT_TOKENS
     if http_result is not None:
@@ -98,14 +99,14 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
             and response.get('max_output_tokens') == output_limit,
             'responses_contract_changed')
     cache = response.get('prompt_cache_options')
-    cache_ok = cache is None if expected_model == INTEGRATION_MODEL else (
+    cache_ok = cache is None if expected_model in (INTEGRATION_MODEL,MINI_MODEL) else (
         isinstance(cache, dict) and set(cache) <= {'ttl', 'mode', 'comparison_response_id'}
         and cache.get('ttl') == '30m' and cache.get('mode', 'implicit') == 'implicit'
         and cache.get('comparison_response_id') is None)
     require(response.get('service_tier') == 'default' and cache_ok and
             response.get('prompt_cache_diagnostics') is None and
             response.get('prompt_cache_retention') ==
-            (INTEGRATION_RETENTION if expected_model == INTEGRATION_MODEL else None) and
+            (INTEGRATION_RETENTION if expected_model in (INTEGRATION_MODEL,MINI_MODEL) else None) and
             response.get('prompt_cache_key') is None, 'responses_cache_or_tier_changed')
     output = response.get('output')
     require(isinstance(output, list) and 1 <= len(output) <= 3, 'responses_output_shape')
@@ -143,7 +144,7 @@ def parse_response(raw, schema, request_id=None, *, expected_model=MODEL, http_r
         schema_value(answer, schema)
         answers.append(encoded(answer))
     require(len(answers) == 1, 'responses_answer_count')
-    usage = validate_usage(response.get('usage'), legacy=expected_model == INTEGRATION_MODEL, output_limit=output_limit)
+    usage = validate_usage(response.get('usage'), legacy=expected_model in (INTEGRATION_MODEL,MINI_MODEL), output_limit=output_limit)
     policy = dict(model=expected_model, service_tier='default')
     if expected_model == MODEL:
         policy['prompt_cache_options'] = dict(ttl='30m')
