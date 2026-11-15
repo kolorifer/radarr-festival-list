@@ -1,3 +1,11 @@
+## Complete-card and delivery-source revalidation candidate, 2026-11-15
+
+PR209 merged with supported CI and unchanged reviewed content. Main holds all live
+calls because old cards could lose long material uncertainty and original sources
+expired. The bounded follow-on preserves full dated explanations and old hashes,
+then permits one explicit source-only unchanged-facts proof under existing guards.
+No reassessment or automatic retry. See [scope and exact route](reports/2026-11-15-seedbox-full-card-revalidation.md).
+
 ## Separate-review validation correction candidate, 2026-11-15
 
 PR208 completed assessments remain immutable. A separately reviewed fix retains

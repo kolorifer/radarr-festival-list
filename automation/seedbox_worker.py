@@ -85,7 +85,7 @@ def load_key(queue,config):
 
 
 def source_paused(rows,now):
-    return any(r['type']=='seedbox_source_blocked_v1' and r['reason']=='source_rate_limited' and now<r['retry_not_before'] for r in rows)
+    return any(r['type'] in ('seedbox_source_blocked_v1','seedbox_delivery_revalidation_failed_v1') and r['reason']=='source_rate_limited' and now<r['retry_not_before'] for r in rows)
 
 
 def step(queue,config):
@@ -110,8 +110,8 @@ def step(queue,config):
     candidates=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1']
     for claim in candidates:
         preparation=digest(claim)
-        operation=[r['type'] for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_operation_blocked_v1','seedbox_operation_recovery_v1','seedbox_review_correction_completed_v1')]
-        if operation and operation[-1]=='seedbox_operation_blocked_v1':continue
+        operation=[r['type'] for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_operation_blocked_v1','seedbox_operation_recovery_v1','seedbox_review_correction_completed_v1','seedbox_delivery_evidence_retained_v1','seedbox_delivery_revalidation_failed_v1')]
+        if operation and operation[-1] in ('seedbox_operation_blocked_v1','seedbox_delivery_revalidation_failed_v1'):continue
         if any(r.get('preparation')==preparation and r['type'] in ('seedbox_preparation_superseded_v1','seedbox_delivery_terminal_v1') for r in rows):continue
         if preparation in _source_blocked(rows):continue
         deferrals=[r for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1' and r['preparation']==preparation]

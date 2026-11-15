@@ -196,7 +196,7 @@ def _get(url,*,token=None,cookies=None):
     except requests.RequestException:raise SourceFailure('source_temporary',retry_after=60) from None
 
 
-def acquire(config,claim,snapshot_raw,metadata):
+def acquire(config,claim,snapshot_raw,metadata,*,revalidation=None):
     """Fixed exact listing + exact IMDb catalogue crosswalk. No title search."""
     from automation.seedbox_source_evidence import actor_listing,listing_facts,catalogue_facts
     from ai_movie_investigator.snapshot_review import projection,select
@@ -204,6 +204,9 @@ def acquire(config,claim,snapshot_raw,metadata):
     import re
     now=time.time();snapshot_sha=hashlib.sha256(snapshot_raw).hexdigest();select(snapshot_raw,snapshot_sha,claim['case_id'],claim['version'],now=now)
     with database(config['actor_database']) as actor:binding=actor_listing(actor,claim['case_id'],metadata,config['sources'],config['listing_source'])
+    if revalidation is not None:
+        target=dict(version=binding['actor_version'],row_sha256=binding['target']['row_sha256'],ref=binding['target']['ref'],case_id=claim['case_id'])
+        require(digest(binding['url'])==revalidation['source_url_sha256'] and digest(target)==revalidation['target_sha256'],'delivery_selected_target_changed')
     proof=claim.get('correction_proposal')
     if proof is not None:
         target=dict(version=binding['actor_version'],row_sha256=binding['target']['row_sha256'],ref=binding['target']['ref'],case_id=claim['case_id'])
@@ -223,6 +226,7 @@ def acquire(config,claim,snapshot_raw,metadata):
     facts=listing_facts(raw,release_name=binding['release_name'],case_id=claim['case_id'],version=claim['version'],observed_at=observed,expires_at=observed+900,revision=2)
     if proof is not None:require(facts['observed_at']>proof['parent_source_observed_at'],'host_correction_observation_not_new')
     if proof is not None:require(digest({k:v for k,v in facts.items() if k not in ('observed_at','expires_at')})==proof['corrected_semantic_sha256'],'host_correction_source_changed')
+    if revalidation is not None:require(digest({k:v for k,v in facts.items() if k not in ('observed_at','expires_at')})==revalidation['listing_semantic_sha256'],'delivery_material_facts_changed')
     require(facts['imdb'] is not None,'host_listing_crosswalk_needed')
     found,found_at=_get('https://api.themoviedb.org/3/find/'+facts['imdb']+'?external_source=imdb_id',token=env['TMDB_API_TOKEN'])
     movies=json.loads(found).get('movie_results');require(type(movies) is list and len(movies)==1 and type(movies[0].get('id')) is int and movies[0]['id']>0,'host_catalogue_ambiguous')
@@ -230,6 +234,7 @@ def acquire(config,claim,snapshot_raw,metadata):
     catalogue=catalogue_facts(cat_raw,expected_tmdb=tmdb,expected_imdb=facts['imdb'],observed_at=cat_at,expires_at=cat_at+900)
     if proof is not None:require(catalogue['observed_at']>proof['parent_catalogue_observed_at'],'host_correction_observation_not_new')
     if proof is not None:require(digest({k:v for k,v in catalogue.items() if k not in ('observed_at','expires_at')})==proof['catalogue_semantic_sha256'],'host_correction_catalogue_changed')
+    if revalidation is not None:require(digest({k:v for k,v in catalogue.items() if k not in ('observed_at','expires_at')})==revalidation['catalogue_semantic_sha256'],'delivery_material_facts_changed')
     source_raw=encoded(facts);catalogue_raw=encoded(catalogue);h=lambda b:hashlib.sha256(b).hexdigest()
     att=dict(kind='host_authenticated_normalized_case_v1',snapshot_sha256=snapshot_sha,case_id=claim['case_id'],version=claim['version'],source_sha256=h(source_raw),catalogue_sha256=h(catalogue_raw),source_original_sha256=h(raw),catalogue_original_sha256=h(cat_raw),source_linkage_verified=True,catalogue_crosswalk_verified=True,observed_at=time.time(),expires_at=max(observed,cat_at)+900)
     projected=projection(snapshot_raw,snapshot_sha,claim['case_id'],claim['version'],source_raw,catalogue_raw,att,now=time.time())

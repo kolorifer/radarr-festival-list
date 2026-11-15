@@ -295,3 +295,15 @@ A specifically authorized review-only successor preserves the old assessment,
 failed attempt and charge. Even when approved, it can update the original card
 only while all existing freshness, current-case, original-target and no-duplicate
 checks pass. Historical stale reviews remain reports, not delivery authority.
+
+### Complete explanations and stale sources
+
+New reporting cards preserve the full retained explanation and uncertainty, with
+all identity blockers and dated observations. The exact original message type
+controls the limit: text4096, caption1024 (conservatively counted as UTF-16 units).
+Oversize cards stop; they are not shortened or sent as replacement messages.
+For a selected historical correction, an explicit source-only revalidation must
+confirm unchanged material facts, current occurrence and original target before
+delivery. The old assessment and its timestamps remain unchanged. Changed facts,
+failed or interrupted checks, and expired new evidence stop delivery without
+automatic reassessment. Identity reuse and downloads still require confirmation.

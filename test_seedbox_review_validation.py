@@ -17,7 +17,7 @@ class ReviewTests(ConnectedTests):
  def prepare(self):
   with patch('time.time',return_value=NOW),framing.wire(self.wire()):self.execute()
  def answer(self,correction=None):
-  with patch('time.time',return_value=NOW):report,e,card=review.assessment(self.q,self.selected['reservation'])
+  with patch('time.time',return_value=NOW):report,e,card=review.assessment(self.q,self.selected['reservation'],card_revision=2)
   request,bindings=review.build(report,e['projection'],card,revision=2) if correction is None else review.correction_request(report,e['projection'],card,correction['proof'])
   answer=dict(bindings,verdict='approve',reason='The collector title is a claim, while the listing and catalogue identify Example Movie. The shared IMDb identifier, Actor One and Director One provide convergent film evidence. The listing year and catalogue theatrical year agree; physical edition identity remains unverified. This supports faithful reporting, not identity reuse or a download.',evidence_findings=['The listing and catalogue agree on IMDb tt1234567 and TMDb 123 through the retained crosswalk.','The listing names Actor One; the catalogue cast includes Actor One.','The original title conflict is presented explicitly as a collector claim rather than silently corrected.'],material_problems=[])
   return request,answer
@@ -75,7 +75,10 @@ class ReviewTests(ConnectedTests):
   attempts=[r for r in rows if r['type']=='seedbox_provider_started_v1'];self.assertEqual(len(attempts),3);self.assertEqual(len({r['request_sha256'] for r in attempts}),3)
   self.assertTrue(all(r['reserved_usd']==[3,20] for r in attempts))
   with patch('time.time',return_value=NOW+700),self.assertRaises(Refusal):review.approved_plan(self.q,prep)
-  with patch('time.time',return_value=NOW+1):plan,_=review.approved_plan(self.q,prep)
+  with patch('time.time',return_value=NOW+1),self.assertRaisesRegex(Refusal,'review_delivery_revalidation_required'):review.approved_plan(self.q,prep)
+  from test_seedbox_delivery_revalidation import retain_fixture
+  retain_fixture(self,NOW+2)
+  with patch('time.time',return_value=NOW+2):plan,_=review.approved_plan(self.q,prep)
   self.assertFalse(plan['production_approved'])
   with self.assertRaisesRegex(Refusal,'review_correction_parent'):self.call_review(newrequest,newanswer,authorization)
  def test_unclassified_validation_opens_existing_shared_circuit(self):
@@ -95,7 +98,7 @@ class ReviewTests(ConnectedTests):
   with patch('time.time',return_value=NOW),self.assertRaisesRegex(Refusal,'review_not_approved'):review.approved_plan(self.q,self.selected['reservation'])
  def test_old_default_request_and_record_remain_reconstructable(self):
   self.prepare();request,answer=self.answer()
-  with patch('time.time',return_value=NOW):report,e,card=review.assessment(self.q,self.selected['reservation'])
+  with patch('time.time',return_value=NOW):report,e,card=review.assessment(self.q,self.selected['reservation'],card_revision=2)
   old,_=review.build(report,e['projection'],card)
   self.assertEqual(old,review._build_unchanged(report,e['projection'],card)[0]);self.assertNotEqual(digest(old),digest(request))
  def legacy_discarded(self):
@@ -131,6 +134,8 @@ class CorrectedSenderTests(SenderTests,ReviewTests):
  def complete(self,verdict='approve'):
   selected=ReviewTests.legacy_discarded(self);request,answer=ReviewTests.answer(self,selected)
   ReviewTests.call_review(self,request,answer,selected)
+  from test_seedbox_delivery_revalidation import retain_fixture
+  retain_fixture(self,NOW)
  def test_corrected_review_reuses_exact_original_sender_and_no_replay(self):
   SenderTests.test_real_existing_sender_exact_edit_and_restart_no_replay(self)
  def test_corrected_review_keeps_original_target_guard(self):

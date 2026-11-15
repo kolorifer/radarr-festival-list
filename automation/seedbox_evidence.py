@@ -45,16 +45,16 @@ def _retain(queue,preparation,bundle):
     return load(queue,preparation)
 
 
-def load(queue,preparation,*,now=None):
+def load(queue,preparation,*,now=None,delivery=False):
     from automation.seedbox_source_evidence import listing_facts,catalogue_facts
     from ai_movie_investigator.snapshot_private_report import validate_local_context
     from ai_movie_investigator.snapshot_review import projection
     hash_id(preparation);now=time.time() if now is None else now
     with queue.locked() as (rows,_):
-        records=[r for r in rows if r['type']=='seedbox_evidence_retained_v1' and r['preparation']==preparation]
+        records=[r for r in rows if r['type']==('seedbox_delivery_evidence_retained_v1' if delivery else 'seedbox_evidence_retained_v1') and r['preparation']==preparation]
         claims=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1' and digest(r)==preparation]
         require(len(records)==len(claims)==1,'host_evidence_missing');record=records[0];claim=claims[0]
-    path=queue.path/('evidence-'+preparation)
+    path=queue.path/(('delivery-evidence-' if delivery else 'evidence-')+preparation)
     with private_chain(path):
         manifest=decode(read_private(path/'manifest.json',65536),65536)
         require(digest(manifest)==record['manifest_sha256'] and manifest['preparation']==preparation and set(manifest['files'])==set(RAW_FIELDS),'host_evidence_changed')
@@ -148,7 +148,8 @@ def correction_proposal(queue,preparation):
     html=render(report,digest(report),projection,evidence['local_raw'],report['local_context_sha256']).encode()
     require(hashlib.sha256(html).hexdigest()==reports[0]['html_sha256'],'host_correction_old_report_changed')
     from automation.seedbox_automated_review import proposal
-    card=proposal(report,projection,evidence['local_raw'],evidence['target_pin'],reports[0]['html_sha256']);review=reviews[0]
+    review=reviews[0]
+    card=proposal(report,projection,evidence['local_raw'],evidence['target_pin'],reports[0]['html_sha256'],revision=review.get('card_revision',1))
     request,bindings=build(report,projection,card,revision=review.get('review_request_revision',1))
     require(review['answer']['verdict']=='reject' and review['review_kind']=='separate_automated_generation' and review['personal_main_review'] is False,'host_correction_rejected_review_required')
     from ai_movie_investigator.responses_protocol import schema_value
