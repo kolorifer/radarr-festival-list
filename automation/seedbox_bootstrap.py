@@ -64,11 +64,16 @@ def main():
         return
     from automation.seedbox_confinement import confine
     from automation.seedbox_worker import run
-    confine(config,root)
     if mode=='probe':
+        confine(config,root)
         from automation.seedbox_probe import probe
         probe(config);return
-    run(config,sys.argv[5])
+    from automation.seedbox_confinement import prevent_collector_creation
+    from automation.seedbox_host_io import collector_lifetime
+    prevent_collector_creation(config)
+    with collector_lifetime(config['collector_database']):
+        confine(config,root)
+        run(config,sys.argv[5])
 
 if __name__=='__main__':
     try:main()

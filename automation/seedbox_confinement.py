@@ -13,6 +13,27 @@ class Port(ctypes.Structure):
     _fields_=[('access',ctypes.c_uint64),('port',ctypes.c_uint64)]
 
 
+def prevent_collector_creation(config):
+    """Stack a narrow no-create layer before SQLite opens any source handle.
+
+    Only regular-file creation is handled here; the existing complete confinement
+    follows after validated WAL handles are retained. No collector creation grant.
+    """
+    from ai_movie_investigator.private_files import private_chain
+    lib=_kernel();abi=_call(lib,444,ctypes.c_void_p(),ctypes.c_size_t(0),ctypes.c_uint(1));require(abi>=6,'host_sandbox_abi')
+    require(lib.prctl(38,1,0,0,0)==0,'host_sandbox_privileges')
+    create=1<<8;policy=Ruleset(create,0,0)
+    rules=_call(lib,444,ctypes.byref(policy),ctypes.sizeof(policy),0)
+    collector=Path(config['collector_database']['path']).parent.resolve(strict=True)
+    try:
+        for selected in (Path(config['state']),Path(config['actor_database']['path']).parent):
+            require(selected!=collector and selected not in collector.parents,'host_collector_creation_scope')
+            with private_chain(selected) as fd:
+                rule=Beneath(create,fd);_call(lib,445,rules,1,ctypes.byref(rule),0)
+        _call(lib,446,rules,0)
+    finally:os.close(rules)
+
+
 def confine(config,code_root):
     lib=_kernel();abi=_call(lib,444,ctypes.c_void_p(),ctypes.c_size_t(0),ctypes.c_uint(1));require(abi>=6,'host_sandbox_abi')
     require(lib.prctl(38,1,0,0,0)==0,'host_sandbox_privileges')
@@ -55,7 +76,7 @@ def confine(config,code_root):
     paths['/']=1<<3
     spool=Path(config['actor_database']['path']).parent/'message-bindings'
     if spool.exists():paths[str(spool)]=READ
-    # The actor's original-message binding spool is read-only.
+    # The inherited actor-subtree mutation grant also reaches this spool.
     for pin in config['sender']['deployed_files'].values():paths[pin['path']]=READ
     try:
         for path,rights in paths.items():
