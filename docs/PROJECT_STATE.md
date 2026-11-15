@@ -1,3 +1,10 @@
+## Coherent assessment v10, 2026-11-15
+
+Implemented a single current-versus-historical assessment policy, corroboration-aware
+people blockers, longer bounded justifications and one purpose-bound completed-v9
+first-assessment successor. Old outcomes/contracts remain unchanged. No live use
+or deployment. See [contract and validation](reports/2026-11-15-coherent-assessment-v10.md).
+
 ## First normalized-case v9 entry, 2026-11-15
 
 Implemented a separately authorized general first-assessment entry using the
