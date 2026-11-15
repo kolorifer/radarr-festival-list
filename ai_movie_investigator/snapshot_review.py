@@ -1008,6 +1008,11 @@ def identity_limitations(p):
     return limits
 
 
+def _identity_support(p):
+    c=film_comparisons(p)
+    return any(row['relation'] in ('exact','overlap') for row in c['title'][:1]+c['year'][:2]+c['people'])
+
+
 def build_film_identity(p):
     """v12: ask a film decision; keep edition/context limitations separate."""
     import copy
@@ -1016,6 +1021,8 @@ def build_film_identity(p):
     data['admissible_identity_blockers']=[dict(aspect=a,reason=r) for a,r in identity_blocker_pairs(p)]
     data['separate_limitations']=identity_limitations(p)
     wire['input'][0]['content'][0]['text']=encoded(data).decode()
+    schema=wire['text']['format']['schema']['properties']['result']
+    if not _identity_support(p):schema['anyOf']=[v for v in schema['anyOf'] if v['properties']['status']['enum']!=['supported_candidate']]
     for variant in wire['text']['format']['schema']['properties']['result']['anyOf']:
         props=variant['properties']
         for key in ('primary_blocker','additional_blockers'):
@@ -1051,8 +1058,7 @@ def validate_film_identity(p,prepared,reply,*,now):
         require(blockers and all((b['aspect'],b['reason']) in pairs for b in blockers),'snapshot_identity_blocker_unsupported')
     else:
         require(not any(aspect in ('ids','title') and reason=='conflicting_film_evidence' for aspect,reason in pairs),'snapshot_identity_contrary_observation')
-        comparisons=film_comparisons(p)
-        require(any(row['relation'] in ('exact','overlap') for row in comparisons['title'][:1]+comparisons['year'][:2]+comparisons['people']),'snapshot_identity_support_missing')
+        require(_identity_support(p),'snapshot_identity_support_missing')
     result=validate_film_quality(p,build_film_quality(p),a,now=now)
     # Existing non-ID corroboration/citation/current conflict guards above remain.
     result['separate_limitations']=limits

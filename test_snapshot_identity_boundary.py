@@ -71,7 +71,12 @@ class IdentityBoundaryTests(unittest.TestCase):
 
  def test_matching_runtime_and_id_alone_are_not_identity_support(self):
   p=copy.deepcopy(self.p);p.pop('publisher_edition');p['listing'].update(title=None,year=None,cast=[],directors=[],description_runtime_minutes=p['catalogue']['runtime_minutes'],nfo_runtime_milliseconds=p['catalogue']['runtime_minutes']*60000)
-  with self.assertRaisesRegex(Refusal,'snapshot_identity_support_missing'):s.validate_film_identity(p,s.build_film_identity(p),self.reply(p),now=NOW)
+  from ai_movie_investigator.responses_protocol import schema_value
+  schema=s.build_film_identity(p)['request']['text']['format']['schema']
+  with self.assertRaises(Refusal):schema_value(self.reply(p),schema)
+  with self.assertRaises(Refusal):s.validate_film_identity(p,s.build_film_identity(p),self.reply(p),now=NOW)
+  a=self.reply(p,True);a['result']['primary_blocker'].update(aspect='title',reason='missing_film_evidence');schema_value(a,schema)
+  self.assertEqual(s.validate_film_identity(p,s.build_film_identity(p),a,now=NOW)['status'],'unresolved')
 
  def test_changed_original_requires_new_observation_even_if_normalized_unchanged(self):
   from ai_movie_investigator.snapshot_authorization import _identity_original_refresh
