@@ -35,6 +35,18 @@ try:edit([dict(chat_id=123,message_id=17,kind='text')],dict(text='Invented',toke
 except RuntimeError:pass
 else:raise AssertionError('accepted rejection')
 assert stages==['transport_started','response_received','response_rejected'],stages
+# Preserve the frozen sender's existing HTTP400 handling too.
+from urllib.error import HTTPError
+for description,accepted in [('Bad Request: message is not modified',True),('Bad Request: ordinary failure',False)]:
+ def error_http(*args,**kwargs):
+  raise HTTPError('https://fixture.invalid',400,'invented',{},io.BytesIO(json.dumps({'description':description}).encode()))
+ module.urlopen=error_http
+ stages.clear()
+ try:edit([dict(chat_id=123,message_id=17,kind='text')],dict(text='Invented',token=None))
+ except RuntimeError:assert not accepted
+ else:assert accepted
+ assert stages==['transport_started'],stages
+module.urlopen=http
 # Exact frozen hook raises after successful JSON: never invent a receipt.
 actor['retry_telegram.py']='def receipt(method,body,response):\n raise ModuleNotFoundError("INVENTED_PRIVATE_TEXT")\n'
 payload=b'{"ok":true}';stages.clear()

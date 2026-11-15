@@ -115,7 +115,7 @@ def sender(actor_raw,environment_raw,observe=None):
         result=json.load(response)
         observe('response_accepted' if isinstance(result,dict) and result.get('ok') is True else 'response_rejected')
         return result
-    api=dict(json=types.SimpleNamespace(dumps=json.dumps,load=response_json),Request=Request,urlopen=transport,HTTPError=HTTPError,
+    api=dict(json=types.SimpleNamespace(dumps=json.dumps,loads=json.loads,load=response_json),Request=Request,urlopen=transport,HTTPError=HTTPError,
         __builtins__=dict(vars(builtins),__import__=selected_import),
         TELEGRAM_BOT_TOKEN=token,TELEGRAM_CHAT_ID=chat,get_action=forbidden,
         public_action_url=forbidden,_reply_markup=forbidden)

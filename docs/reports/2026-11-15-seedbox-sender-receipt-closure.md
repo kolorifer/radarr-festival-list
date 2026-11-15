@@ -19,7 +19,9 @@ No actor startup, whole-module execution or broader runtime dependency is added.
 
 A new append-only diagnostic binds the sender start and records finite callback,
 transport, response and receipt phases plus a finite failure category. It contains
-no exception text, token, URL, response body or message. These observations cannot
+no exception text, token, URL, response body or message. Returned states outside
+the known finite set are represented as unrecognized_status in this diagnostic;
+this does not rewrite existing actor rows or the existing delivery result. These observations cannot
 prove human ingestion or repair an uncertain attempt. Existing DB reservation,
 acknowledgement transaction and no-resend behavior remain unchanged.
 
@@ -28,7 +30,7 @@ acknowledgement transaction and no-resend behavior remain unchanged.
 An isolated Python -I -S installed-only test exercises the real frozen edit and
 HTTP callback with invented credentials/response, verifies missing ambient module,
 receipt success, rejected response, missing frozen function and post-response
-receipt failure. Connected queue/actor tests verify uncertain/null receipt,
+receipt failure, and existing HTTP400 not-modified/ordinary-error behavior. Connected queue/actor tests verify uncertain/null receipt,
 reserved original, sanitized diagnostic and no replay after injected failure.
 Exact-head independent review and full supported CI remain merge gates; final
 results are retained in the PR and work checkpoint. No live operation, credential,

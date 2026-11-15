@@ -167,7 +167,7 @@ def deliver_reviewed(queue,config,preparation):
             result=deliver(store,plan,target,config['sources'],boundary,edit,private_guard=vars(guards),clock=time.time)
             append(dict(type='seedbox_sender_diagnostic_v1',preparation=preparation,
                 sender_start_sha256=digest(started),stage=diagnostic['stage'],
-                failure=diagnostic['failure'],status=result['status'],at=time.time()))
+                failure=diagnostic['failure'],status=result['status'] if result['status'] in ('acknowledged','uncertain','reserved') else 'unrecognized_status',at=time.time()))
             return result
         except _FirstTransactionBusy:
             append(dict(type='seedbox_sender_pre_send_deferred_v1',preparation=preparation,sender_start_sha256=digest(started),reason='first_transaction_busy_before_application_reservation_or_sender',at=time.time()))
