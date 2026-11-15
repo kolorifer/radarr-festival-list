@@ -1,3 +1,9 @@
+## Private report explanation, 2026-11-15
+
+Renderer-only correction separates a complete factual observation summary from
+unchanged model interpretation, with an expandable section for possibly incomplete
+prose. No assessment/state/authority change. See [callable contract and validation](reports/2026-11-15-private-report-explanation.md).
+
 ## Coherent assessment v10, 2026-11-15
 
 Implemented a single current-versus-historical assessment policy, corroboration-aware
