@@ -122,3 +122,17 @@ blobs from the exact deployed revision as actor_root and independently verifies 
 live actor boundary. The prepared eight-file bundle is byte-exact to 06d17aaf;
 the full issued-template fake-HTTP test also passes with that actual frozen bundle,
 not only repository-HEAD fixtures. The main-owned actor process remains untouched.
+
+The final wrapper also freezes the unchanged accepted contracts/history/private_files
+bootstrap guard. Private configuration/artifacts, held ancestor chains and the
+selected SQLite file use its ACL and inode checks; mutable database bytes are not
+copied or hashed. Existing Outbox transactions are wrapped only with those checks,
+not replaced or initialized. Initial scans run under an armed deadline, and fresh
+clock/topology/lifetime checks run immediately before durable reservation. Invented
+ACL-presence, parent-replacement and scan-expiry regressions cover those refusals.
+
+The corrected 17-test helper/template suite passed on the existing Python 3.12.14
+venv in 1.513s. An initial ACL-injection fixture assumed os.getxattr existed on
+this bundled macOS interpreter; the fixture now explicitly supplies that mocked
+Linux API. Production guard bytes and ACL decisions were not changed. Main's
+separate earlier receipt read_ctime refusal is retained and not repaired/replayed.

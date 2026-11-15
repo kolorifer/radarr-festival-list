@@ -221,15 +221,8 @@ def _check_spool(store,version,ref):
                     'telegram_original_spool_pending')
 
 
-def deliver(store,plan,target_pin,sources,boundary,edit,*,clock=time.time):
-    """At most ONE exact edit; no resend on restart or uncertain acknowledgement.
-
-    The old actor must have one serial pump and no other edit writer. Its existing
-    `edited` row is a callback-return record, not independent human ingestion.
-    This external topology/code fact is verified by main, not inferred from DB.
-    """
+def _boundary_valid(boundary,plan,now):
     shape(boundary,'kind single_serial_pump no_other_edit_writers no_original_binding_republication deployed_revision verified_reference reviewed_plan_sha256 observed_at expires_at')
-    now=stamp(clock())
     require(boundary['kind']=='main_verified_sender_boundary_v1' and boundary['single_serial_pump'] is True and
         boundary['no_other_edit_writers'] is True and boundary['no_original_binding_republication'] is True and
         boundary['reviewed_plan_sha256']==digest(plan) and
@@ -238,13 +231,24 @@ def deliver(store,plan,target_pin,sources,boundary,edit,*,clock=time.time):
         boundary['expires_at']<=boundary['observed_at']+300 and
         boundary['expires_at']-now>=30,'telegram_sender_boundary')
     text(boundary['verified_reference'],512)
+
+
+
+def deliver(store,plan,target_pin,sources,boundary,edit,*,clock=time.time):
+    """At most ONE exact edit; no resend on restart or uncertain acknowledgement.
+
+    The old actor must have one serial pump and no other edit writer. Its existing
+    `edited` row is a callback-return record, not independent human ingestion.
+    This external topology/code fact is verified by main, not inferred from DB.
+    """
+    now=stamp(clock());_boundary_valid(boundary,plan,now)
     _validate_plan(plan,now)
     shape(target_pin,'version row_sha256 ref case_id')
     require(target_pin['case_id']==plan['case_id'],'telegram_case_changed')
     message_key=digest([target_pin['ref']['chat_id'],target_pin['ref']['message_id']]);plan_sha=digest(plan)
     # Commit a permanent no-resend reservation BEFORE external I/O. Separate
     # table survives the old retry_messages eight-day cleanup.
-    with store.tx() as c:
+    with _deadline(15),store.tx() as c:
         _schema(c)
         old=c.execute('select plan_sha256,target_sha256,state,receipt from reviewed_telegram_edits where message_key=? or case_id=?',(message_key,plan['case_id'])).fetchall()
         if old:
@@ -259,6 +263,8 @@ def deliver(store,plan,target_pin,sources,boundary,edit,*,clock=time.time):
                 'telegram_original_not_quiescent')
         require(row['created']+8*86400>boundary['expires_at'],'telegram_receipt_expiring')
         _check_spool(store,target_pin['version'],target_pin['ref'])
+        now=stamp(clock());_boundary_valid(boundary,plan,now)
+        require(row['created']+8*86400>boundary['expires_at'],'telegram_receipt_expiring')
         c.execute('insert into reviewed_telegram_edits values(?,?,?,?,?,"reserved",NULL,?)',
             (message_key,plan['case_id'],target_pin['version'],plan_sha,digest(target_pin),now))
         c.execute('update retry_messages set state="reviewed_reserved" where version=?',(target_pin['version'],))

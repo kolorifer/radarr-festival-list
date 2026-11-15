@@ -3,6 +3,7 @@
 No actor startup, environment mutation, provider call or credential CLI argument.
 Main selects existing files and supplies private pins only after independent review.
 """
+from contextlib import ExitStack,contextmanager
 import ast
 import hashlib
 import json
@@ -44,11 +45,25 @@ def read_file(path,limit,private=True):
     finally:os.close(fd)
 
 
-def pinned(pin,limit=131072,private=True):
+def pinned(pin,limit=131072,private=True,reader=None):
     if set(pin)!={'path','sha256'}:raise ValueError('selected_pin')
-    raw=read_file(pin['path'],limit,private)
+    raw=reader(Path(pin['path']),limit) if reader else read_file(pin['path'],limit,private)
     if hashlib.sha256(raw).hexdigest()!=pin['sha256']:raise ValueError('selected_pin_changed')
     return raw
+
+
+def bootstrap_guard(pins):
+    # Public guard bytes are hash-verified before execution. Reuse the existing
+    # accepted private-file ACL and descriptor-relative chain checks unchanged.
+    if set(pins)!={'contracts','history','private_files'}:raise ValueError('guard_closure')
+    frozen={name:ast.parse(pinned(pin,1048576)) for name,pin in pins.items()}
+    nodes=[]
+    for name,selected in (('contracts',{'Refusal','require'}),('history',{'checked'})):
+        nodes.extend(n for n in frozen[name].body if isinstance(n,(ast.FunctionDef,ast.ClassDef)) and n.name in selected)
+    nodes.extend(n for n in frozen['private_files'].body if not(isinstance(n,ast.ImportFrom) and n.level))
+    namespace={'os':os,'stat':stat}
+    exec(compile(ast.Module(body=nodes,type_ignores=[]),'verified-private-guard','exec'),namespace)
+    return namespace
 
 
 def selected_functions(raw,names,namespace):
@@ -80,54 +95,80 @@ def main():
     if sys.argv[1:]!=['--main-accepted-reviewed-telegram'] or not(sys.flags.isolated and sys.flags.no_site and sys.dont_write_bytecode):
         raise ValueError('isolated_main_acceptance_required')
     p=ISSUED;os.umask(0o077)
-    if set(p)!={'python_sha256','main_acceptance_path','actor_root','actor_files','helper','plan','target','sources','boundary','state','output','bot_configuration'}:raise ValueError('issued_schema')
+    if set(p)!={'python_sha256','main_acceptance_path','actor_root','actor_files','helper','plan','target','sources','boundary','state','output','bot_configuration','guard_files'}:raise ValueError('issued_schema')
     if hashlib.sha256(read_file(Path(sys.executable),104857600,False)).hexdigest()!=p['python_sha256']:raise ValueError('selected_python_changed')
-    acceptance=json.loads(read_file(p['main_acceptance_path'],131072))
-    if acceptance!={'decision':'accepted_exact_reviewed_telegram_edit','wrapper_sha256':hashlib.sha256(read_file(__file__,65536)).hexdigest(),'issued_pins':p}:
-        raise ValueError('main_acceptance_changed')
-    required={name+'.py' for name in MODULES}|{'movie_intel_service.py','deploy/run.py'}
-    if set(p['actor_files'])!=required:raise ValueError('actor_closure_changed')
-    actor=Path(p['actor_root']);frozen={}
-    for relative,sha in p['actor_files'].items():
-        frozen[relative]=pinned(dict(path=str(actor/relative),sha256=sha),1048576,False)
-    for name in MODULES:
-        if name in sys.modules:raise ValueError('actor_module_preloaded')
-        module=types.ModuleType(name);module.__file__=str(actor/(name+'.py'));sys.modules[name]=module
-        exec(compile(frozen[name+'.py'],module.__file__,'exec'),module.__dict__)
-    helper=types.ModuleType('selected_reviewed_telegram_helper')
-    exec(compile(pinned(p['helper'],1048576),p['helper']['path'],'exec'),helper.__dict__)
-    plan=json.loads(pinned(p['plan']));target=json.loads(pinned(p['target']));sources=json.loads(pinned(p['sources']));boundary=json.loads(pinned(p['boundary']))
-    # Bind an existing store without its initializer, migrations or admission.
-    from identity_outcome_outbox import Outbox
-    from identity_triage_store import private_path
-    store=Outbox.__new__(Outbox);store.directory=Path(p['state']);store.path=store.directory/'outcomes.sqlite3'
-    private_path(store.directory,True);private_path(store.path)
-    # Mutable SQLite bytes are not copied or hashed; the existing transaction
-    # and exact selected row pins govern them. Check its ancestor permissions.
-    if store.path.resolve(strict=True)!=store.path:raise ValueError('selected_path')
-    for parent in store.path.parents:
-        info=parent.lstat()
-        if not stat.S_ISDIR(info.st_mode) or info.st_uid not in (0,os.getuid()) or info.st_mode&0o022:raise ValueError('selected_ancestor')
-    output=Path(p['output']);private_path(output.parent,True)
-    if not output.is_absolute() or output.parent.resolve(strict=True)!=output.parent:raise ValueError('selected_path')
-    for parent in [output.parent,*output.parent.parents]:
-        info=parent.lstat()
-        if not stat.S_ISDIR(info.st_mode) or info.st_uid not in (0,os.getuid()) or info.st_mode&0o022:raise ValueError('selected_ancestor')
-    dfd=os.open(output.parent,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW)
-    try:
-        parent_identity=os.fstat(dfd)
-        if os.path.lexists(output):raise ValueError('delivery_output_exists')
-        # Exact bot values stay inside function globals; never os.environ/argv/output.
-        edit=sender(frozen,pinned(p['bot_configuration'],65536))
-        result=helper.deliver(store,plan,target,sources,boundary,edit)
-        raw=json.dumps(result,sort_keys=True,separators=(',',':')).encode()
-        if not os.path.samestat(parent_identity,output.parent.lstat()):raise ValueError('delivery_output_changed')
-        fd=os.open(output.name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=dfd)
+    guard=bootstrap_guard(p['guard_files'])
+    with ExitStack() as chains:
+        directories={Path(p['actor_root']),Path(__file__).parent,Path(p['main_acceptance_path']).parent,
+            Path(p['state']),Path(p['output']).parent}
+        for key in ('helper','plan','target','sources','boundary','bot_configuration'):
+            directories.add(Path(p[key]['path']).parent)
+        for pin in p['guard_files'].values():directories.add(Path(pin['path']).parent)
+        for directory in sorted(directories):chains.enter_context(guard['private_chain'](directory))
+        acceptance=json.loads(guard['read_private'](Path(p['main_acceptance_path']),131072))
+        if acceptance!={'decision':'accepted_exact_reviewed_telegram_edit','wrapper_sha256':hashlib.sha256(guard['read_private'](Path(__file__),65536)).hexdigest(),'issued_pins':p}:
+            raise ValueError('main_acceptance_changed')
+        required={name+'.py' for name in MODULES}|{'movie_intel_service.py','deploy/run.py'}
+        if set(p['actor_files'])!=required:raise ValueError('actor_closure_changed')
+        actor=Path(p['actor_root']);frozen={}
+        for relative,sha in p['actor_files'].items():
+            frozen[relative]=pinned(dict(path=str(actor/relative),sha256=sha),1048576,reader=guard['read_private'])
+        for name in MODULES:
+            if name in sys.modules:raise ValueError('actor_module_preloaded')
+            module=types.ModuleType(name);module.__file__=str(actor/(name+'.py'));sys.modules[name]=module
+            exec(compile(frozen[name+'.py'],module.__file__,'exec'),module.__dict__)
+        helper=types.ModuleType('selected_reviewed_telegram_helper')
+        exec(compile(pinned(p['helper'],1048576,reader=guard['read_private']),p['helper']['path'],'exec'),helper.__dict__)
+        plan=json.loads(pinned(p['plan'],reader=guard['read_private']));target=json.loads(pinned(p['target'],reader=guard['read_private']));sources=json.loads(pinned(p['sources'],reader=guard['read_private']));boundary=json.loads(pinned(p['boundary'],reader=guard['read_private']))
+        # Bind an existing store without its initializer, migrations or admission.
+        from identity_outcome_outbox import Outbox
+        from identity_triage_store import private_path
+        store=Outbox.__new__(Outbox);store.directory=Path(p['state']);store.path=store.directory/'outcomes.sqlite3'
+        private_path(store.directory,True);private_path(store.path)
+        db_identity=guard['identity'](store.path.lstat())
+        @contextmanager
+        def checked_transaction():
+            with guard['private_chain'](store.directory) as parent_fd:
+                dbfd=os.open(store.path.name,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK,dir_fd=parent_fd)
+                try:
+                    acl=guard['safe_acl'](dbfd,False)
+                    def check_db():
+                        info=os.fstat(dbfd);guard['checked'](info)
+                        if (guard['identity'](info)!=db_identity or guard['safe_acl'](dbfd,False)!=acl or
+                            guard['identity'](os.stat(store.path.name,dir_fd=parent_fd,follow_symlinks=False))!=db_identity):
+                            raise ValueError('selected_database_changed')
+                    check_db()
+                    with Outbox.tx(store) as connection:
+                        check_db();yield connection;check_db()
+                    check_db()
+                finally:os.close(dbfd)
+        store.tx=checked_transaction
+        # Mutable SQLite bytes are not copied or hashed; the existing transaction
+        # and exact selected row pins govern them. Check its ancestor permissions.
+        if store.path.resolve(strict=True)!=store.path:raise ValueError('selected_path')
+        for parent in store.path.parents:
+            info=parent.lstat()
+            if not stat.S_ISDIR(info.st_mode) or info.st_uid not in (0,os.getuid()) or info.st_mode&0o022:raise ValueError('selected_ancestor')
+        output=Path(p['output']);private_path(output.parent,True)
+        if not output.is_absolute() or output.parent.resolve(strict=True)!=output.parent:raise ValueError('selected_path')
+        for parent in [output.parent,*output.parent.parents]:
+            info=parent.lstat()
+            if not stat.S_ISDIR(info.st_mode) or info.st_uid not in (0,os.getuid()) or info.st_mode&0o022:raise ValueError('selected_ancestor')
+        dfd=os.open(output.parent,os.O_RDONLY|os.O_DIRECTORY|os.O_NOFOLLOW)
         try:
-            with os.fdopen(fd,'wb',closefd=False) as f:f.write(raw);f.flush();os.fsync(f.fileno())
-        finally:os.close(fd)
-        os.fsync(dfd)
-    finally:os.close(dfd)
+            parent_identity=os.fstat(dfd)
+            if os.path.lexists(output):raise ValueError('delivery_output_exists')
+            # Exact bot values stay inside function globals; never os.environ/argv/output.
+            edit=sender(frozen,pinned(p['bot_configuration'],65536,reader=guard['read_private']))
+            result=helper.deliver(store,plan,target,sources,boundary,edit)
+            raw=json.dumps(result,sort_keys=True,separators=(',',':')).encode()
+            if not os.path.samestat(parent_identity,output.parent.lstat()):raise ValueError('delivery_output_changed')
+            fd=os.open(output.name,os.O_WRONLY|os.O_CREAT|os.O_EXCL|os.O_NOFOLLOW,0o600,dir_fd=dfd)
+            try:
+                with os.fdopen(fd,'wb',closefd=False) as f:f.write(raw);f.flush();os.fsync(f.fileno())
+            finally:os.close(fd)
+            os.fsync(dfd)
+        finally:os.close(dfd)
     print(json.dumps({'status':result['status'],'receipt_file_sha256':hashlib.sha256(raw).hexdigest()},sort_keys=True))
 
 

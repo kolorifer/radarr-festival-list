@@ -95,6 +95,15 @@ class DeliveryTests(unittest.TestCase):
   with self.assertRaisesRegex(TimeoutError,'telegram_edit_deadline'):
    with t._deadline(.02):time.sleep(.2)
 
+ def test_expiry_during_initial_scan_leaves_no_reservation(self):
+  from unittest.mock import patch
+  def slow(*args):self.now+=500
+  edit=Mock(side_effect=AssertionError())
+  with patch.object(t,'_check_spool',side_effect=slow),self.assertRaisesRegex(ValueError,'telegram_sender_boundary'):
+   self.call(edit)
+  edit.assert_not_called()
+  with self.s.tx() as c:self.assertIsNone(c.execute("select name from sqlite_master where name='reviewed_telegram_edits'").fetchone())
+
 class PlanTests(unittest.TestCase):
  def fixture(self):
   temp=tempfile.TemporaryDirectory();self.addCleanup(temp.cleanup);path=Path(temp.name).resolve()/'local.json'
@@ -141,7 +150,10 @@ class InvocationTests(unittest.TestCase):
   def pin(name,raw):
    p=root/name;p.write_bytes(raw);p.chmod(0o600);return dict(path=str(p),sha256=hashlib.sha256(raw).hexdigest())
   def obj(name,value):return pin(name,json.dumps(value,sort_keys=True).encode())
-  issued=dict(actor_root=str(actor),actor_files=pins,helper=pin('helper.py',Path('automation/reviewed_telegram_operator.py').read_bytes()),
+  guards={}
+  for name in ('contracts','history','private_files'):
+   guards[name]=pin('guard-'+name+'.py',Path('ai_movie_investigator',name+'.py').read_bytes())
+  issued=dict(guard_files=guards,actor_root=str(actor),actor_files=pins,helper=pin('helper.py',Path('automation/reviewed_telegram_operator.py').read_bytes()),
     plan=obj('plan.json',f.plan),target=obj('target.json',f.pin),sources=obj('sources.json',SOURCES),boundary=obj('boundary.json',f.boundary),
     bot_configuration=pin('private.env',b'TELEGRAM_BOT_TOKEN="SYNTHETIC_BOT_ONLY"\nTELEGRAM_CHAT_ID="123"\nUNRELATED="not exported"\n'),
     state=str(f.s.directory),output=str(root/'receipt.json'),main_acceptance_path=str(root/'acceptance.json'),
@@ -179,3 +191,24 @@ print('fixture_sender_only_no_actor_start')
   self.assertEqual(result.returncode,0,result.stderr.decode());self.assertIn(b'fixture_sender_only_no_actor_start',result.stdout)
   self.assertNotIn(b'SYNTHETIC_BOT_ONLY',result.stdout+result.stderr)
   receipt=json.loads((root/'receipt.json').read_text());self.assertEqual(receipt['status'],'acknowledged')
+
+class GuardTests(unittest.TestCase):
+ def setUp(self):
+  import hashlib
+  from automation.reviewed_telegram_UNISSUED import bootstrap_guard
+  self.tmp=tempfile.TemporaryDirectory(dir=Path.cwd());self.addCleanup(self.tmp.cleanup)
+  self.root=Path(self.tmp.name).resolve();pins={}
+  for name in ('contracts','history','private_files'):
+   raw=Path('ai_movie_investigator',name+'.py').read_bytes();p=self.root/(name+'.py');p.write_bytes(raw);p.chmod(0o600)
+   pins[name]=dict(path=str(p),sha256=hashlib.sha256(raw).hexdigest())
+  self.guard=bootstrap_guard(pins)
+ def test_acl_presence_refuses_before_private_read(self):
+  from unittest.mock import patch
+  p=self.root/'private';p.write_bytes(b'invented');p.chmod(0o600)
+  with patch.object(self.guard['sys'],'platform','linux'),patch.object(self.guard['os'],'getxattr',return_value=b'present',create=True),self.assertRaisesRegex(ValueError,'storage_acl'):
+   self.guard['read_private'](p)
+ def test_held_parent_replacement_refuses(self):
+  p=self.root/'selected';p.mkdir(mode=0o700)
+  with self.assertRaisesRegex(ValueError,'parent_changed'):
+   with self.guard['private_chain'](p):
+    p.rename(self.root/'old-selected');p.mkdir(mode=0o700)
