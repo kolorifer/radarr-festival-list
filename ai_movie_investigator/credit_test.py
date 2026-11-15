@@ -19,6 +19,24 @@ CONTEXT_TOKENS = 400000
 CONTEXT_COVERAGE = "documented-full-model-context-v1"
 TOTAL = Fraction(5, 100)
 
+# Purpose-specific Mini v9 profile; legacy constants above remain immutable.
+MINI_MODEL='gpt-5-mini-2025-08-07'
+MINI_POLICY=dict(model=MINI_MODEL,service_tier='default',prompt_cache_retention='in_memory')
+MINI_INPUT_RATE=Fraction(25,100000000)
+MINI_OUTPUT_RATE=Fraction(2,1000000)
+MINI_DEBIT=Fraction(15,100)
+MINI_PROFILE=dict(kind='film_weighing_mini_v9',model=MINI_MODEL,policy=MINI_POLICY,
+    context_window=400000,output_limit=25000,input_rate=[25,100000000],cached_input_rate=[25,1000000000],
+    output_rate=[2,1000000],reserved_usd=[15,100],paid_fallback=False)
+
+
+def is_mini(grant):
+    return isinstance(grant,dict) and grant.get('contract_version')=='film_weighing_v9' and 'weighing_reassessment' in grant
+
+
+def profile(grant=None):
+    return (MINI_MODEL,MINI_POLICY,MINI_INPUT_RATE,MINI_OUTPUT_RATE,MINI_DEBIT) if is_mini(grant) else (INTEGRATION_MODEL,POLICY,INPUT_RATE,OUTPUT_RATE,PER_REQUEST)
+
 
 def request(run):
     data = dict(protocol='single-pilot-v1', binding_hash=aliases(run), conflicting_ids=False,
@@ -35,8 +53,8 @@ def request(run):
 def retained_total(events, project):
     """Pure ledger validation/sum; this grants no spending authority."""
     require(all(e['type']=='credit_test_reserved' and e['project']==project and
-                e['model']==INTEGRATION_MODEL and type(e['reserved_usd']) is list and
-                all(type(v) is int for v in e['reserved_usd']) and e['reserved_usd'] in ([1,100],[3,100])
+                type(e['reserved_usd']) is list and
+                all(type(v) is int for v in e['reserved_usd']) and ((e['model']==INTEGRATION_MODEL and e['reserved_usd'] in ([1,100],[3,100])) or (e['model']==MINI_MODEL and e['reserved_usd']==[15,100] and e.get('model_profile')=='film_weighing_mini_v9'))
                 for e in events), 'credit_budget_changed')
     total=sum((Fraction(*e['reserved_usd']) for e in events), Fraction(0))
     return total
@@ -56,12 +74,14 @@ def reserve(history, *, project, request_hash, input_bound, now, file_identity, 
     hash_id(request_hash)
     require(isinstance(project, str) and __import__('re').fullmatch(r'proj_[A-Za-z0-9_-]+', project), 'credit_project')
     require(stamp(now) < INTEGRATION_SHUTDOWN, 'integration_model_retired')
-    require(tuple(debit) in ((1,100),(3,100)), 'credit_request_ceiling')
-    full_context=tuple(debit)==(3,100)
+    from .supervised_authorization import selected_mini_profile
+    mini=selected_mini_profile(request_hash)
+    require(tuple(debit) in (((15,100),) if mini else ((1,100),(3,100))), 'credit_request_ceiling')
+    full_context=mini or tuple(debit)==(3,100)
     require(type(input_bound) is int and (input_bound==CONTEXT_TOKENS if full_context else 0<input_bound<=INPUT_TOKENS), 'credit_input_bound')
     from .supervised_authorization import selected_output_limit
     output_limit=selected_output_limit(request_hash)
-    maximum = input_bound * INPUT_RATE + output_limit * OUTPUT_RATE
+    maximum = input_bound * (MINI_INPUT_RATE if mini else INPUT_RATE) + output_limit * (MINI_OUTPUT_RATE if mini else OUTPUT_RATE)
     require(maximum <= Fraction(*debit), 'credit_request_ceiling')
     from .supervised_authorization import reservation_ceiling, selected_reservation_binding
     binding=selected_reservation_binding(history,project,request_hash)
@@ -71,8 +91,8 @@ def reserve(history, *, project, request_hash, input_bound, now, file_identity, 
         require(not any(e['request_hash'] == binding['request_hash'] for e in events), 'credit_request_consumed')
         require(retained + Fraction(*debit) <= ceiling, 'credit_total_ceiling')
         require(all(now >= e['at'] for e in events), 'credit_clock_rollback')
-        append(dict(type='credit_test_reserved', project=project, model=INTEGRATION_MODEL,
-                    **binding, reserved_usd=list(debit), at=now))
+        append(dict(type='credit_test_reserved', project=project, model=MINI_MODEL if mini else INTEGRATION_MODEL,
+                    **({'model_profile':'film_weighing_mini_v9'} if mini else {}), **binding, reserved_usd=list(debit), at=now))
     return list(debit)
 
 

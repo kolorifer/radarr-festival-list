@@ -21,6 +21,7 @@ from .credit_test import POLICY, PER_REQUEST, CONTEXT_TOKENS, CONTEXT_COVERAGE, 
 from .history import History, FILENAME, checked
 from .responses_http import ExplicitCredential, headers
 from .responses_protocol import INTEGRATION_MODEL, OUTPUT_TOKENS
+from .credit_test import MINI_MODEL,MINI_POLICY,MINI_INPUT_RATE,MINI_OUTPUT_RATE,MINI_DEBIT,MINI_PROFILE,is_mini,profile
 from .responses_transport import ResponsesTransport
 from .supervised_authorization import command_authority, diagnostic_scope, diagnostic_phase, observe_phase
 from .spending import rational
@@ -32,7 +33,7 @@ ACCOUNT_EVIDENCE_SECONDS = 900
 
 # Finite literal codes only; arbitrary exceptions and remote values are excluded.
 _SAFE_REASON_GROUPS = {
-    'snapshot_refused': frozenset(('snapshot_context_authority snapshot_context_changed snapshot_context_consumed snapshot_context_credit snapshot_context_freshness snapshot_context_lineage snapshot_context_prior snapshot_context_receipt snapshot_context_request snapshot_context_result snapshot_result_scope snapshot_result_prior snapshot_result_terminal snapshot_result_receipt snapshot_result_credit snapshot_result_authority snapshot_result_freshness snapshot_result_consumed snapshot_comparison_blockers_shape snapshot_comparison_blocker_invalid snapshot_comparison_blocker_no_missing snapshot_comparison_blocker_no_difference snapshot_comparison_supported_blockers snapshot_comparison_title_conflict snapshot_comparison_support_missing snapshot_comparison_blocker_missing snapshot_comparison_correction snapshot_comparison_scope snapshot_comparison_prior snapshot_comparison_terminal snapshot_comparison_receipt snapshot_comparison_credit snapshot_comparison_authority snapshot_comparison_freshness snapshot_comparison_consumed snapshot_film_structure snapshot_film_structure_correction snapshot_film_blockers snapshot_film_evidence snapshot_film_field snapshot_film_findings snapshot_film_freshness snapshot_film_id_conflict snapshot_film_prior_authority snapshot_film_prose snapshot_film_reassessment_changed snapshot_film_reassessment_consumed snapshot_film_reassessment_credit snapshot_film_reassessment_prior snapshot_film_reassessment_receipt snapshot_film_reassessment_result snapshot_film_support snapshot_film_title_conflict snapshot_reassessment_changed snapshot_reassessment_prior snapshot_reassessment_result snapshot_reassessment_receipt snapshot_reassessment_credit snapshot_reassessment_disclosure snapshot_reassessment_consumed snapshot_contract_changed snapshot_correction_changed snapshot_correction_prior snapshot_correction_receipt snapshot_correction_credit snapshot_correction_disclosure snapshot_correction_consumed snapshot_alternatives_unavailable snapshot_attestation snapshot_candidate_not_bound snapshot_disclosure_size snapshot_future_clock snapshot_imdb snapshot_names snapshot_observation_binding snapshot_observation_clock snapshot_observation_pin snapshot_pin snapshot_prepared_changed snapshot_runtime snapshot_runtime_kind snapshot_selection snapshot_tmdb snapshot_year snapshot_activation_unissued snapshot_authority_artifact snapshot_authority_artifact_changed snapshot_authority_changed snapshot_authority_expired snapshot_grant_changed snapshot_main_review snapshot_nested snapshot_output_not_empty snapshot_output_changed snapshot_owner_scope snapshot_receipt_missing snapshot_receipt_unbound snapshot_reply_binding snapshot_result_changed snapshot_result_missing snapshot_root_changed snapshot_runner_failed snapshot_runtime_changed snapshot_window_too_short snapshot_case_consumed snapshot_selection_changed snapshot_retained_reply_changed snapshot_report_binding snapshot_report_local snapshot_report_url').split()),
+    'snapshot_refused': frozenset(('snapshot_weighing_model snapshot_justification_label_only snapshot_weighing_authority snapshot_weighing_changed snapshot_weighing_consumed snapshot_weighing_credit snapshot_weighing_freshness snapshot_weighing_prior snapshot_weighing_receipt snapshot_weighing_request snapshot_weighing_result snapshot_context_authority snapshot_context_changed snapshot_context_consumed snapshot_context_credit snapshot_context_freshness snapshot_context_lineage snapshot_context_prior snapshot_context_receipt snapshot_context_request snapshot_context_result snapshot_result_scope snapshot_result_prior snapshot_result_terminal snapshot_result_receipt snapshot_result_credit snapshot_result_authority snapshot_result_freshness snapshot_result_consumed snapshot_comparison_blockers_shape snapshot_comparison_blocker_invalid snapshot_comparison_blocker_no_missing snapshot_comparison_blocker_no_difference snapshot_comparison_supported_blockers snapshot_comparison_title_conflict snapshot_comparison_support_missing snapshot_comparison_blocker_missing snapshot_comparison_correction snapshot_comparison_scope snapshot_comparison_prior snapshot_comparison_terminal snapshot_comparison_receipt snapshot_comparison_credit snapshot_comparison_authority snapshot_comparison_freshness snapshot_comparison_consumed snapshot_film_structure snapshot_film_structure_correction snapshot_film_blockers snapshot_film_evidence snapshot_film_field snapshot_film_findings snapshot_film_freshness snapshot_film_id_conflict snapshot_film_prior_authority snapshot_film_prose snapshot_film_reassessment_changed snapshot_film_reassessment_consumed snapshot_film_reassessment_credit snapshot_film_reassessment_prior snapshot_film_reassessment_receipt snapshot_film_reassessment_result snapshot_film_support snapshot_film_title_conflict snapshot_reassessment_changed snapshot_reassessment_prior snapshot_reassessment_result snapshot_reassessment_receipt snapshot_reassessment_credit snapshot_reassessment_disclosure snapshot_reassessment_consumed snapshot_contract_changed snapshot_correction_changed snapshot_correction_prior snapshot_correction_receipt snapshot_correction_credit snapshot_correction_disclosure snapshot_correction_consumed snapshot_alternatives_unavailable snapshot_attestation snapshot_candidate_not_bound snapshot_disclosure_size snapshot_future_clock snapshot_imdb snapshot_names snapshot_observation_binding snapshot_observation_clock snapshot_observation_pin snapshot_pin snapshot_prepared_changed snapshot_runtime snapshot_runtime_kind snapshot_selection snapshot_tmdb snapshot_year snapshot_activation_unissued snapshot_authority_artifact snapshot_authority_artifact_changed snapshot_authority_changed snapshot_authority_expired snapshot_grant_changed snapshot_main_review snapshot_nested snapshot_output_not_empty snapshot_output_changed snapshot_owner_scope snapshot_receipt_missing snapshot_receipt_unbound snapshot_reply_binding snapshot_result_changed snapshot_result_missing snapshot_root_changed snapshot_runner_failed snapshot_runtime_changed snapshot_window_too_short snapshot_case_consumed snapshot_selection_changed snapshot_retained_reply_changed snapshot_report_binding snapshot_report_local snapshot_report_url').split()),
     'captured_refused': frozenset(('evidence_prior_missing evidence_prior_invalid evidence_prior_changed evidence_successor_consumed evidence_successor_not_refreshable attested_citations_required attested_alternatives_unavailable captured_projection_mode source_identity_unproven captured_retained_answer_changed captured_correction_proof captured_correction_prior captured_correction_changed captured_correction_consumed captured_freshness_state captured_freshness_started captured_freshness_not_expired captured_freshness_changed captured_freshness_access_fix captured_freshness_consumed captured_continuation_prior captured_continuation_owner captured_continuation_changed captured_continuation_consumed verified_identity_check_scope assessment_purpose verified_capture_grant verified_capture_qualification captured_real_activation_unissued captured_authority_changed captured_authority_expired captured_selection_changed captured_generation_consumed captured_completion_unbound captured_lock_required captured_route_required captured_pending_grant captured_receipt_unbound').split()),
     'keychain_refused': frozenset(('keychain_platform keychain_project keychain_missing keychain_interaction_required keychain_denied keychain_unavailable keychain_data_invalid keychain_process_required keychain_lookup_timeout keychain_lookup_busy keychain_framework_unavailable keychain_interaction_get_failed keychain_interaction_disable_failed keychain_interaction_restore_failed keychain_query_build_failed keychain_query_failed keychain_release_failed keychain_not_available keychain_parameter_invalid keychain_entitlement_missing').split()),
     'historical_report_refused': frozenset(('pilot_run_alias_changed pilot_one_generation_required pilot_citation_alias_unknown pilot_citation_claim_not_disclosed model_status next_action alternative_limit citation_limit unsupported_citation unsupported_claim unsupported_candidate candidate_status alternative_evidence_missing candidate_evidence_missing conflicting_ids_require_review owner_target_conflict stale_candidate_support insufficient_candidate_support normalized_identity_not_established').split()),
@@ -292,9 +293,16 @@ def validate_evidence(e,now,*,standing=False):
             'supervised_credit_only')
     for name in ('account_reference','billing_reference','owner_reference','pricing_reference','context_reference','model_access_reference'):
         require(isinstance(e[name],str) and 1<=len(e[name])<=300 and e[name]!='unknown','supervised_evidence_missing')
-    require(e['model']==INTEGRATION_MODEL and e['policy']==POLICY and type(e['context_window']) is int and
-            e['context_window']==CONTEXT_TOKENS and rational(e['input_rate'])==INPUT_RATE and
-            rational(e['cached_input_rate'])==INPUT_RATE/10 and rational(e['output_rate'])==OUTPUT_RATE,
+    mini=e['model']==MINI_MODEL
+    if mini:
+        from .snapshot_authorization import active
+        a=active().record
+        require(standing and a.get('weighing_reassessment',{}).get('model_profile')==MINI_PROFILE and
+            a['weighing_reassessment']['model_evidence_sha256']==digest(e) and
+            a['project']==e['project'] and a['account_reference']==e['account_reference'],'snapshot_weighing_model')
+    require(e['model']==(MINI_MODEL if mini else INTEGRATION_MODEL) and e['policy']==(MINI_POLICY if mini else POLICY) and type(e['context_window']) is int and
+            e['context_window']==CONTEXT_TOKENS and rational(e['input_rate'])==(MINI_INPUT_RATE if mini else INPUT_RATE) and
+            rational(e['cached_input_rate'])==(MINI_INPUT_RATE if mini else INPUT_RATE)/10 and rational(e['output_rate'])==(MINI_OUTPUT_RATE if mini else OUTPUT_RATE),
             'supervised_model_pricing_unknown')
 
 
@@ -536,25 +544,28 @@ def request_value(body, *, captured=False, film_scope=False):
 
 def operator_context(e,history,credit,enrollment,run,case,now,*,expires_at=None,historical=None,keychain=False,captured=None):
     grant=historical or captured
+    model,policy,input_rate,output_rate,debit=profile(historical)
+    mini=is_mini(historical);debit_pair=[15,100] if mini else [3,100]
+    require(e['model']==model and e['policy']==policy,'snapshot_weighing_model')
     body=encoded(grant['request']) if grant else request(run)
-    film_scope=bool(historical and historical.get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8'))
+    film_scope=bool(historical and historical.get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9'))
     wire=request_value(body,captured=bool(captured),film_scope=film_scope)
     disclosure=(decode(grant['request']['input'][0]['content'][0]['text'],
         MAX_INPUT if captured or film_scope else MAX_OUTPUT) if grant else None)
     selection=dict(run=run,case=case,request_sha256=digest(wire),
                    local_context_sha256=digest(e))
-    r=dict(mode='captured_nano_dormant' if captured else 'historical_nano_manual' if historical else 'synthetic_api_integration',selection=selection,project=e['project'],model=INTEGRATION_MODEL,
+    r=dict(mode='snapshot_mini_v9' if mini else 'captured_nano_dormant' if captured else 'historical_nano_manual' if historical else 'synthetic_api_integration',selection=selection,project=e['project'],model=model,
         issued_at=now,expires_at=min(e['expires_at'],expires_at) if expires_at is not None else e['expires_at'],history_identity=list(history.identity),currency='USD',
-        ceiling=[3,100],output_limit=wire['max_output_tokens'],credit_history_identity=enrollment['credit'],
+        ceiling=debit_pair,output_limit=wire['max_output_tokens'],credit_history_identity=enrollment['credit'],
         credit_history_file_identity=enrollment['credit_file'])
-    facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=[3,100]),
+    facts=dict(owner=dict(operation=r['mode'],max_calls=1,currency='USD',ceiling=debit_pair),
         privacy=dict(request_sha256=selection['request_sha256'],store=False,tools=[]),
-        account=dict(project=e['project'],model=INTEGRATION_MODEL,policy=POLICY),
+        account=dict(project=e['project'],model=model,policy=policy),
         credential_route=dict(project=e['project'],injection_route='fixed-project-keychain-memory-only' if keychain else 'local-no-echo-memory-only'),
-        coverage=dict(request_sha256=selection['request_sha256'],policy=POLICY,coverage=CONTEXT_COVERAGE,
+        coverage=dict(request_sha256=selection['request_sha256'],policy=policy,coverage=CONTEXT_COVERAGE,
             counter_identity=e['context_reference'],input_upper_bound=CONTEXT_TOKENS),
-        pricing=dict(policy=POLICY,currency='USD',input=[5,100000000],cache_read=[5,1000000000],
-            cache_write=[0,1],output=[4,10000000],ancillary_maximum=[0,1]))
+        pricing=dict(policy=policy,currency='USD',input=[25,100000000] if mini else [5,100000000],cache_read=[25,1000000000] if mini else [5,1000000000],
+            cache_write=[0,1],output=[2,1000000] if mini else [4,10000000],ancillary_maximum=[0,1]))
     if grant:facts['privacy']['disclosure_sha256']=digest(disclosure)
     binding=digest(r)
     r['evidence']={role:dict(binding_hash=binding,issuer='supervised-operator',
@@ -618,7 +629,7 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
                      recovery_retained(root,events,enrolled,selected,credit,slot) if slot in (3,4,5,6) else TOTAL)
             with credit.transaction(file_identity=enrolled['credit_file']) as (old,_):
                 from .credit_test import retained_total
-                require(retained_total(old,evidence['project'])+PER_REQUEST<=ceiling,'credit_total_ceiling')
+                require(retained_total(old,evidence['project'])+(MINI_DEBIT if evidence['model']==MINI_MODEL else PER_REQUEST)<=ceiling,'credit_total_ceiling')
             require(not history.read(),'supervised_attempt_consumed')
         historical_grant=None; captured_grant=None; captured_case=None
         if slot>=7 and not next_attempt:
@@ -676,10 +687,10 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
                         answer=ResponsesTransport(enabled=True,credential=credential,clock=clock).complete_credit_test(
                             history=history,run=run_id,case=case,context_sha256=selection['local_context_sha256'],parent=parent)
                     observe_phase('completion_recording')
-                    retained_answer=decode(answer,32768 if historical_grant and historical_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7','film_context_v8') else 8192)
+                    retained_answer=decode(answer,32768 if historical_grant and historical_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9') else 8192)
                     if historical_grant and historical_grant.get('snapshot_profile') == 'normalized_snapshot_v1':
                         from .new_case import _captured_prose_copy
-                        retained_answer,_=_captured_prose_copy(retained_answer,film_context=historical_grant.get('contract_version')=='film_context_v8')
+                        retained_answer,_=_captured_prose_copy(retained_answer,film_context=historical_grant.get('contract_version')=='film_context_v8',film_weighing=is_mini(historical_grant))
                         require(digest(retained_answer)==historical_report['retained_reply_hash'], 'snapshot_retained_reply_changed')
                     if captured_grant:
                         # Original response remains in memory only. Both durable
@@ -687,12 +698,12 @@ def _run(directory,selected,slot,*,clock=time.time,historical=False,keychain=Fal
                         retained_answer['result']=captured_report['assessment']
                         require(digest(retained_answer)==captured_report['retained_reply_hash'],'captured_retained_answer_changed')
                     append(dict(type='supervised_completed',slot=slot,at=clock(),answer=retained_answer,
-                                request_hash=selection['request_sha256'],reserved_usd=[3,100],
+                                request_hash=selection['request_sha256'],reserved_usd=[15,100] if is_mini(historical_grant) else [3,100],
                                 **({'historical_report':historical_report} if historical_grant else
                                    {'captured_report':captured_report} if captured_grant else {})))
                     observe_phase('completed')
                     return dict(status='completed',slot=slot,request_hash=selection['request_sha256'],
-                                input_upper_bound=CONTEXT_TOKENS,reserved_usd=[3,100])
+                                input_upper_bound=CONTEXT_TOKENS,reserved_usd=[15,100] if is_mini(historical_grant) else [3,100])
             except (Exception,KeyboardInterrupt) as error:
                 diagnostic=safe_diagnostic(error)
                 _LAST_DIAGNOSTIC.set(diagnostic)
@@ -826,7 +837,7 @@ def _standing_attempts(events,enrolled):
         require(not ('historical' in start and 'captured' in start),'captured_route_required')
         require(start['type']=='supervised_standing_attempt_started' and type(start['slot']) is int and
                 start['slot']==slot and start['prefix_sha256']==digest(events[:index]) and
-                start['project']==enrolled['project'] and start['policy']==POLICY,
+                start['project']==enrolled['project'] and start['policy']==profile(start.get('historical'))[1],
                 'supervised_standing_binding')
         require(index+1<len(events),'supervised_standing_interrupted')
         granted=events[index+1];shape(granted,'type at slot start_sha256 attempt')
@@ -845,7 +856,7 @@ def _standing_attempts(events,enrolled):
                 row=events[index]
                 require(row['slot']==slot and stamp(row['at'])>=events[index-1]['at'],'supervised_standing_binding')
                 if row['type']=='supervised_completed':
-                    require(row['request_hash']==start['request_sha256'] and row['reserved_usd']==[3,100],
+                    require(row['request_hash']==start['request_sha256'] and row['reserved_usd']==([15,100] if is_mini(start.get('historical')) else [3,100]),
                             'supervised_standing_binding')
                 index+=1
         result.append((start,granted));slot+=1
@@ -890,8 +901,8 @@ def _standing_history(root,events,enrolled,credit):
             permit=rows[0]['permit']
             require(permit['selection']['run']==(start['historical']['run'] if 'historical' in start else start['captured']['run'] if 'captured' in start else f"synthetic-integration-{start['slot']}") and
                     permit['selection']['request_sha256']==start['request_sha256'] and
-                    permit['project']==enrolled['project'] and permit['model']==INTEGRATION_MODEL and
-                    permit['maximum_debit']==[3,100],'supervised_standing_history')
+                    permit['project']==enrolled['project'] and permit['model']==profile(start.get('historical'))[0] and
+                    permit['maximum_debit']==([15,100] if is_mini(start.get('historical')) else [3,100]),'supervised_standing_history')
         if len(rows)>1:require(rows[1]['request_sha256']==start['request_sha256'],'supervised_standing_history')
     reservations=credit.read();total=retained_total(reservations,enrolled['project'])
     renewal=_promotional_renewal(events,enrolled)
@@ -902,7 +913,9 @@ def _standing_history(root,events,enrolled,credit):
     if attempts:
         require(attempts[0][0]['previous_attempt_sha256']==grant['attempts']['6']['sha256'],'supervised_standing_history')
     known={reservation_binding(start)['request_hash']:reservation_binding(start) for start,_ in attempts}
-    require(all(r['request_hash'] in known and r['reserved_usd']==[3,100] and
+    models={reservation_binding(start)['request_hash']:profile(start.get('historical'))[0] for start,_ in attempts}
+    require(all(r['request_hash'] in known and r['model']==models[r['request_hash']] and
+            r['reserved_usd']==([15,100] if models[r['request_hash']]==MINI_MODEL else [3,100]) and
             all(r.get(k)==known[r['request_hash']].get(k) for k in
                 ('request_hash','wire_request_hash','continuation_authority_sha256')) for r in reservations[5:]) and
             len({r['request_hash'] for r in reservations})==len(reservations),'supervised_standing_history')
@@ -936,7 +949,7 @@ def standing_binding(events,enrolled,selected,slot):
     require(start['evidence_sha256']==selected.sha256 and start['evidence_hash']==digest(e) and
             start['expires_at']==e['expires_at'] and start['project']==e['project']==grant['project'] and
             start['request_sha256']==digest(request_value(expected_request(events,enrolled,slot),captured='captured' in start,
-                film_scope=start.get('historical',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8'))) and
+                film_scope=start.get('historical',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9'))) and
             e['observed_at']<=start['at']<e['expires_at'],'supervised_standing_binding')
     return start,authorized
 
@@ -1010,6 +1023,7 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
         require(held.root is root and held.root_events is events and
                 captured['authorization']['root_prefix_sha256']==digest(events),'captured_authority_changed')
     e=selected.data
+    require(e['model']==profile(historical)[0],'snapshot_weighing_model')
     require(len(events)>=21,'supervised_standing_missing');enrolled=events[1]
     credit=History(root.directory/'credit')
     grant,attempts,reservations,total=_standing_history(root,events,enrolled,credit)
@@ -1017,7 +1031,7 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
     require(e['project']==grant['project'] and e['account_reference']==grant['account_reference'] and e['credit_expires_at']<=grant['credit_expires_at'] and
             time.time()<grant['credit_expires_at'],'supervised_standing_credit')
     ceiling=min(rational(grant['ceiling_usd']),rational(e['available_usd']))
-    require(total+PER_REQUEST<=ceiling,'supervised_standing_credit')
+    require(total+profile(historical)[4]<=ceiling,'supervised_standing_credit')
     if attempts and 'historical' in attempts[-1][0]:
         require(any(e.get('type')=='supervised_started' and e.get('slot')==attempts[-1][0]['slot'] for e in events),'historical_pending_grant')
     if attempts and 'captured' in attempts[-1][0]:
@@ -1074,6 +1088,9 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
             if 'context_reassessment' in historical:
                 from .snapshot_authorization import validate_context_reassessment
                 allowed_lineage.update(validate_context_reassessment(root,events,historical,creating=True))
+            if 'weighing_reassessment' in historical:
+                from .snapshot_authorization import validate_weighing_reassessment
+                allowed_lineage.update(validate_weighing_reassessment(root,events,historical,creating=True))
             for old,_ in attempts:
                 if old['slot'] in allowed_lineage:continue
                 if 'captured' in old:
@@ -1093,7 +1110,7 @@ def _prepare_next_locked(root,events,append,selected,*,create,historical=None,ca
     prior=digest(History(root.directory/f'attempt-{slot-1}').read())
     selected.revalidate();now=time.time();validate_evidence(e,now,standing=True)
     from .spending import pair
-    start=dict(type='supervised_standing_attempt_started',at=now,slot=slot,project=e['project'],policy=POLICY,
+    start=dict(type='supervised_standing_attempt_started',at=now,slot=slot,project=e['project'],policy=profile(historical)[1],
         prefix_sha256=digest(events),evidence_sha256=selected.sha256,evidence_hash=digest(e),expires_at=e['expires_at'],
         request_sha256=digest(decode(request(f'synthetic-integration-{slot}'))),credit_sha256=digest(reservations),
         credit_count=len(reservations),previous_attempt_sha256=prior,ceiling_usd=pair(ceiling))

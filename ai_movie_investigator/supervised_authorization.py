@@ -34,7 +34,7 @@ def _simulated_captured_io():
 def _request_value(session,body):
     from .supervised_credit import request_value
     return request_value(body,captured=hasattr(session,'captured'),
-        film_scope=getattr(session,'snapshot_grant',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8'))
+        film_scope=getattr(session,'snapshot_grant',{}).get('contract_version') in ('film_scope_v4','film_structure_v5','film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9'))
 
 
 class _Permit:
@@ -92,6 +92,9 @@ class _Session:
         self.selected.revalidate()
         e=self.selected.data
         validate_evidence(e,now,standing=self.slot>=7)
+        from .credit_test import profile
+        model,policy,input_rate,output_rate,debit=profile(getattr(self,'snapshot_grant',None))
+        debit_pair=[15,100] if model=='gpt-5-mini-2025-08-07' else [3,100]
         require(now<INTEGRATION_SHUTDOWN,'integration_model_retired')
         selection_binding(self.events,self.enrolled,self.selected,self.slot)
         if self.slot>=7:
@@ -109,6 +112,9 @@ class _Session:
                 if 'film_reassessment' in grant:validate_film_reassessment(self.root,self.events,grant,creating=False)
                 if 'film_structure_correction' in grant:validate_film_structure_correction(self.root,self.events,grant,creating=False)
                 if 'comparison_correction' in grant:validate_comparison_correction(self.root,self.events,grant,creating=False)
+                if 'weighing_reassessment' in grant:
+                    from .snapshot_authorization import validate_weighing_reassessment
+                    validate_weighing_reassessment(self.root,self.events,grant,creating=False)
                 if 'context_reassessment' in grant:
                     from .snapshot_authorization import validate_context_reassessment
                     validate_context_reassessment(self.root,self.events,grant,creating=False)
@@ -132,7 +138,7 @@ class _Session:
         else:ledger_total(reservations,project,ceiling=ceiling)
         binding=selected_reservation_binding(self.credit,project,fingerprint)
         selected=[r for r in reservations if all(r.get(k)==v for k,v in binding.items())]
-        require(len(selected)==1 and selected[0]['reserved_usd']==[3,100],'supervised_reservation_required')
+        require(len(selected)==1 and selected[0]['reserved_usd']==debit_pair,'supervised_reservation_required')
         rows=[r for r in self.events if r.get('slot')==self.slot]
         require(len([r for r in rows if r['type']=='supervised_started'])==1 and
                 not any(r['type']=='supervised_completed' for r in rows),'supervised_attempt_consumed')
@@ -143,7 +149,7 @@ class _Session:
                 local[1]['type']=='bound_send_attempted','supervised_generation_not_reserved')
         permit=local[0]['permit']
         require(permit['selection']['run']==self.run and permit['selection']['request_sha256']==fingerprint and
-                permit['project']==project and permit['maximum_debit']==[3,100] and
+                permit['project']==project and permit['maximum_debit']==debit_pair and permit['model']==model and
                 permit['input_limit']==CONTEXT_TOKENS,'supervised_generation_binding')
         self.check_time() # Metadata/ledger checks must not outlive prompt authority.
 
@@ -160,7 +166,7 @@ class _Session:
                 _CAPTURED_SIMULATED_IO.get() is self.snapshot_io_marker, 'snapshot_receipt_unbound')
         wire=decode(body,65536)
         parsed,accounting=parse_response(result.body,wire['text']['format']['schema'],result.request_id,
-            expected_model=INTEGRATION_MODEL,http_result=result)
+            expected_model=wire['model'],http_result=result)
         rows=self.history.read()
         require(parsed==answer and len(rows)==3 and rows[-1]['type']=='bound_send_receipt' and
                 rows[-1]['request_sha256']==digest(wire) and rows[-1]['accounting']==accounting and
@@ -171,7 +177,7 @@ class _Session:
         require(_ACTIVE.get() is self and hasattr(self,'snapshot_grant') and self.snapshot_receipt is not None and
                 self.snapshot_receipt[0]==answer,'snapshot_receipt_unbound')
         from .snapshot_authorization import report
-        return report(self.snapshot_grant,decode(answer,32768 if self.snapshot_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7','film_context_v8') else 8192),self.history)
+        return report(self.snapshot_grant,decode(answer,32768 if self.snapshot_grant.get('contract_version') in ('film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9') else 8192),self.history)
 
     def bind_captured_receipt(self,result,answer):
         if not hasattr(self,'captured'):return
@@ -262,7 +268,9 @@ def response_limits(result,raw,request_id,model):
     if session is None or result is None or result is not session.received:
         return MAX_RESPONSE,16384
     session.root.require_write_transaction(session.events)
-    require(model==INTEGRATION_MODEL and raw is result.body and request_id==result.request_id,
+    from .credit_test import profile
+    expected_model=profile(getattr(session,'snapshot_grant',None))[0]
+    require(model==expected_model and raw is result.body and request_id==result.request_id,
             'supervised_observation_binding')
     return SYNTHETIC_MAX_RESPONSE,SYNTHETIC_MAX_RESPONSE
 
@@ -273,7 +281,7 @@ def selected_answer_limit(result):
     if session is None or result is None or result is not session.received:return 8192
     session.root.require_write_transaction(session.events)
     grant=getattr(session,'snapshot_grant',{})
-    if grant.get('contract_version') not in ('film_comparisons_v6','film_result_v7','film_context_v8'):return 8192
+    if grant.get('contract_version') not in ('film_comparisons_v6','film_result_v7','film_context_v8','film_weighing_v9'):return 8192
     require(result.request_sha256==digest(grant['request']),'snapshot_selection_changed')
     return 32768
 
@@ -489,3 +497,16 @@ def observe_phase(phase):
 def diagnostic_phase():
     state=_DIAGNOSTIC.get()
     return state['phase'] if state is not None else None
+
+
+def selected_mini_profile(request_hash):
+    from .credit_test import is_mini
+    session=_ACTIVE.get()
+    if session is None:return False
+    session.root.require_write_transaction(session.events)
+    grant=getattr(session,'snapshot_grant',{})
+    if not is_mini(grant):return False
+    from .snapshot_authorization import validate_grant
+    body=validate_grant(grant,session.enrolled['project'])
+    require(request_hash==digest(decode(body,65536)),'snapshot_selection_changed')
+    return True
