@@ -88,10 +88,14 @@ class OperatorTests(unittest.TestCase):
   path=self.op.journal.directory/FILENAME;initial=path.read_bytes();self.select();current=path.read_bytes()
   path.write_bytes(initial)
   with self.assertRaisesRegex(Refusal,'operator_journal_uncertain'):self.select()
-  path.write_bytes(current);path.unlink()
-  with self.assertRaisesRegex(Refusal,'history_file_missing'):self.select()
-  path.write_bytes(current);path.chmod(0o600)
-  with self.assertRaisesRegex(Refusal,'history_file_identity_changed'):self.select()
+  path.write_bytes(current)
+  # Keep the original inode alive: Linux may otherwise immediately reuse it
+  # for a same-byte replacement, which is not an identity-change fixture.
+  with path.open('rb'):
+   path.unlink()
+   with self.assertRaisesRegex(Refusal,'history_file_missing'):self.select()
+   path.write_bytes(current);path.chmod(0o600)
+   with self.assertRaisesRegex(Refusal,'history_file_identity_changed'):self.select()
  def test_enrollment_never_resets_and_highwater_mismatch_stops(self):
   with self.assertRaisesRegex(Refusal,'operator_already_enrolled'):Operator.enroll(self.base/'state')
   with self.op.journal.transaction(write=True) as (_,append):append(dict(type='invented_interrupted_append'))
