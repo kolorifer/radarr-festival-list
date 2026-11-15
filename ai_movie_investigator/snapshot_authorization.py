@@ -31,6 +31,12 @@ class _Approved:
             data,identity=_read_evidence(Path(pin_record['path']),limit)
             require(hashlib.sha256(data).hexdigest()==pin_record['sha256'],'snapshot_authority_artifact')
             self.pins[name]=(data,identity,limit)
+        first=self.record.get('first_assessment',{})
+        if 'reobservation' in first:
+            pin_record=first['reobservation']['historical_original'];shape(pin_record,'path sha256')
+            data,identity=_read_evidence(Path(pin_record['path']),65536)
+            require(hashlib.sha256(data).hexdigest()==pin_record['sha256'],'snapshot_authority_artifact')
+            self.pins['historical_original']=(data,identity,65536)
         self.revalidate()
 
     def revalidate(self):
@@ -46,7 +52,8 @@ class _Approved:
                 type(a['root_count']) is int and a['root_count']>=21,'snapshot_authority_changed')
         hash_id(a['root_prefix_sha256']);hash_id(a['runtime_manifest_sha256'])
         for name,(old,old_identity,limit) in self.pins.items():
-            current=_read_evidence(Path(a[name]['path']),limit)
+            pin_record=a['first_assessment']['reobservation']['historical_original'] if name=='historical_original' else a[name]
+            current=_read_evidence(Path(pin_record['path']),limit)
             require(current==(old,old_identity),'snapshot_authority_artifact_changed')
         from .private_files import private_chain
         import os
@@ -63,7 +70,7 @@ class _Approved:
         scope=decode(self.pins['owner_scope'][0],65536)
         correcting='correction' in a;reassessing='reassessment' in a;film='film_reassessment' in a;structure='film_structure_correction' in a;comparison='comparison_correction' in a;result_fix='result_correction' in a;context='context_reassessment' in a;weighing='weighing_reassessment' in a;first='first_assessment' in a
         require(sum((correcting,reassessing,film,structure,comparison,result_fix,context,weighing,first)) <= 1,'snapshot_reassessment_changed')
-        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed'+(' prior_slot' if correcting or reassessing or film or structure or comparison or result_fix or context or weighing else '')+(' model_profile_sha256' if weighing or first else ''))
+        shape(scope,'kind case_id version max_calls disclosure_allowed production_allowed'+(' prior_slot' if correcting or reassessing or film or structure or comparison or result_fix or context or weighing else '')+(' model_profile_sha256' if weighing or first else '')+(' reobservation_sha256' if first and 'reobservation' in a['first_assessment'] else ''))
         att=a['attestation']
         expected_scope=dict(kind='snapshot_first_weighing_scope_v1' if first else 'snapshot_weighing_scope_v1' if weighing else 'snapshot_context_scope_v1' if context else 'snapshot_correction_scope_v1' if correcting else 'snapshot_reassessment_scope_v1' if reassessing else 'snapshot_film_scope_v1' if film else 'snapshot_film_structure_scope_v1' if structure else 'snapshot_comparison_scope_v1' if comparison else 'snapshot_result_scope_v1' if result_fix else 'snapshot_assessment_scope_v1',
             case_id=att['case_id'],version=att['version'],max_calls=1,disclosure_allowed=True,production_allowed=False)
@@ -79,15 +86,16 @@ class _Approved:
         if first:
             from .credit_test import MINI_PROFILE
             proof=a['first_assessment']
-            shape(proof,'kind model_profile model_evidence_sha256 request_sha256')
+            shape(proof,'kind model_profile model_evidence_sha256 request_sha256'+(' reobservation' if 'reobservation' in proof else ''))
             require(proof['kind']=='snapshot_first_weighing_v1' and proof['model_profile']==MINI_PROFILE,'snapshot_weighing_model')
             hash_id(proof['model_evidence_sha256']);hash_id(proof['request_sha256'])
             expected_scope['model_profile_sha256']=digest(MINI_PROFILE)
+            if 'reobservation' in proof:expected_scope['reobservation_sha256']=digest(proof['reobservation'])
         if context:expected_scope['prior_slot']=a['context_reassessment']['prior_slot']
         if result_fix:expected_scope['prior_slot']=a['result_correction']['prior_slot']
         require(scope==expected_scope,'snapshot_owner_scope')
         review=decode(self.pins['main_review'][0],65536)
-        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed'+(' correction_sha256' if correcting else '')+(' reassessment_sha256' if reassessing else '')+(' film_reassessment_sha256' if film else '')+(' film_structure_correction_sha256' if structure else '')+(' comparison_correction_sha256' if comparison else '')+(' result_correction_sha256' if result_fix else '')+(' context_reassessment_sha256' if context else '')+(' weighing_reassessment_sha256' if weighing else '')+(' first_assessment_sha256' if first else ''))
+        shape(review,'kind owner_scope_sha256 snapshot_sha256 source_sha256 catalogue_sha256 source_original_sha256 catalogue_original_sha256 local_context_sha256 provenance_reviewed'+(' correction_sha256' if correcting else '')+(' reassessment_sha256' if reassessing else '')+(' film_reassessment_sha256' if film else '')+(' film_structure_correction_sha256' if structure else '')+(' comparison_correction_sha256' if comparison else '')+(' result_correction_sha256' if result_fix else '')+(' context_reassessment_sha256' if context else '')+(' weighing_reassessment_sha256' if weighing else '')+(' first_assessment_sha256' if first else '')+(' same_listing_derivation_sha256 same_listing_derivation_reviewed' if first and 'reobservation' in a['first_assessment'] else ''))
         expected_review=dict(kind='snapshot_main_review_v1',owner_scope_sha256=a['owner_scope']['sha256'],
             snapshot_sha256=a['snapshot']['sha256'],source_sha256=a['source']['sha256'],catalogue_sha256=a['catalogue']['sha256'],
             source_original_sha256=a['source_original']['sha256'],catalogue_original_sha256=a['catalogue_original']['sha256'],
@@ -98,7 +106,10 @@ class _Approved:
         if structure:expected_review['film_structure_correction_sha256']=digest(a['film_structure_correction'])
         if comparison:expected_review['comparison_correction_sha256']=digest(a['comparison_correction'])
         if weighing:expected_review['weighing_reassessment_sha256']=digest(a['weighing_reassessment'])
-        if first:expected_review['first_assessment_sha256']=digest(a['first_assessment'])
+        if first:
+            expected_review['first_assessment_sha256']=digest(a['first_assessment'])
+            if 'reobservation' in a['first_assessment']:
+                expected_review.update(same_listing_derivation_sha256=digest(a['first_assessment']['reobservation']),same_listing_derivation_reviewed=True)
         if context:expected_review['context_reassessment_sha256']=digest(a['context_reassessment'])
         if result_fix:expected_review['result_correction_sha256']=digest(a['result_correction'])
         require(review==expected_review,'snapshot_main_review')
@@ -109,7 +120,9 @@ class _Approved:
                 stamp(att['expires_at'])<=a['expires_at'],'snapshot_authority_artifact')
         from .snapshot_review import projection
         return projection(self.pins['snapshot'][0],a['snapshot']['sha256'],att['case_id'],att['version'],
-                          self.pins['source'][0],self.pins['catalogue'][0],att,now=now)
+                          self.pins['source'][0],self.pins['catalogue'][0],att,now=now,
+                          reobservation=a.get('first_assessment',{}).get('reobservation'),
+                          local_context=decode(self.pins['local_context'][0],65536))
 
     def check_root(self,root,events,evidence):
         root.require_write_transaction(events);a=self.record

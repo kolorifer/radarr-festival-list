@@ -47,32 +47,62 @@ The model snapshot still needs independently verified actual availability and
 fresh authorization before use; no fallback or generic activation is added.
 Unrelated CODEX_TASK cleanup remains assigned and untouched.
 
-## Temporal-ID contract limitation — do not send a predetermined assessment
+## Narrow dated same-listing reobservation contract
 
-The current contract cannot prove that a newer listing observation corrects an
-older assertion on the same listing. `selected_listing_facts_v1` has case/version,
-observation time and IMDb, but no immutable listing key or typed correction
-relationship. The attestation's source_linkage_verified Boolean and original-byte
-hashes do not identify which historical field was superseded or establish that
-the source changed it. The current source record has no TMDb field; a changed IMDb or catalogue crosswalk
-alone cannot supersede an earlier asserted TMDb value. Newer observation time alone proves neither correction
-nor currentness. Therefore this change does not discard historical IDs or relax
-the existing conflict guard. An invented regression preserves the older asserted
-ID and blocks a positive branch even when listing observation is later.
+The earlier v1 contract cannot distinguish historical assertions by time alone.
+This pass adds an OPTIONAL `first_assessment.reobservation`, accepted only for a
+new first assessment with no direct collector IMDb/TMDb and no asserted TMDb.
+Only a differing older listing-derived asserted IMDb may be considered historical
+contrary evidence. Missing proof preserves the existing hard-conflict behavior.
 
-Minimal additional versioned provenance needed before a temporal treatment:
+The proof has exact fields:
 
-- Stable same-listing identity, independently reviewed and bound to both retained
-  historical and current source originals (opaque key/hash kept local).
-- Exact historical assertion field/value and observation timestamp, bound to
-  the normalized case/version and old original evidence hash.
-- Exact current source field/value, observation timestamp and original evidence
-  hash, with explicit typed supersession relation and reviewer verification of
-  source origin and same-listing continuity. Mere later timestamp is insufficient.
-- Exact fresh catalogue/crosswalk evidence hash and time. Any disagreement between
-  current source and catalogue remains a hard conflict; history stays disclosed
-  as dated contrary evidence and the report must explain any accepted supersession.
+- kind: `same_listing_imdb_reobservation_v1`
+- source, external_id: exact stable source/listing key; the case must equal
+  `outcome-` plus digest([source, 'torrent', ['external', external_id]])
+- historical_original: private path/SHA256 pin, re-read under the normal guard;
+  current_original_sha256 must equal the existing current source-original pin
+- old_asserted_imdb: exact retained assertion
+- historical_observed_at: independently derived earlier listing-observation time;
+  historical_case_observed_at: exact retained case clock; source time <= case time
+  < current_observed_at, which equals the current listing observation time
+- historical_release_sha256/current_release_sha256 and
+  historical_nfo_sha256/current_nfo_sha256: unchanged linkage, equal to the exact
+  current local release-name/NFO UTF-8 hashes; neither field may be empty
+- same_listing_reviewed: true; assertion_origin: `listing_derived_imdb`
 
-This requires a separately reviewed typed evidence extension; none is inferred
-from untyped prose or the chosen movie. Main must resolve this evidence limitation
-before invoking the new entry for a case that depends on superseding old IDs.
+Owner scope additionally binds reobservation_sha256. Main review additionally
+binds same_listing_derivation_sha256 and same_listing_derivation_reviewed=true.
+Both refer to the exact reobservation proof; its complete hash is also covered
+by the first-assessment proof and request. The main issuer MUST independently
+inspect the pinned historical/current original bytes and derive the stable
+listing identity, assertion origin/field/value/time, and unchanged release/NFO
+linkage, as well as authenticate current source provenance, BEFORE entering the
+trusted wrapper. The code checks those attested facts and pins; it does not parse
+arbitrary source formats or establish authenticity from hashes. A caller-created
+file or Boolean is not owner authentication. If main cannot establish any fact,
+it must not issue this optional scope. No real evidence was inspected here.
+
+The current listing IMDb must match the independently verified catalogue pair,
+with meaningful matching titles and same-role cast overlap. Direct collector IDs,
+asserted TMDb, current source/catalogue mismatch, same-time/older observations,
+missing/mismatched lineage or placeholder title/cast refuse this scope. The old
+asserted IMDb and all clocks remain in the projection and report. Original
+conflicting_ids remains true; a separate blocking_id_conflict=false distinguishes
+this narrow reviewed historical discrepancy from a simultaneous current conflict.
+The request discloses both, permits supported OR unresolved, and requires rationale
+to explain the discrepancy and mention both exact IMDb tokens. Token checks cannot
+prove prose quality; the explanation remains a model interpretation for human
+review. No source correction intent, false-at-the-time conclusion, physical media
+truth, identity or acquisition approval is inferred.
+
+The report displays earlier main-attested listing time, recorded case time, later
+listing time and both IDs together. No schema field or answer-size allowance was
+added. Old v1–v9 default request bytes and legacy conflict handling are unchanged.
+Invented tests cover positive and unresolved installed outcomes, all scope limits,
+meaningful corroboration, exact-ID explanation requirements, owner/main tampering
+and historical byte pin mismatch. No live operation is authorized by these tests.
+
+Final focused temporal validation: two installed outcome tests passed73.047s;
+one main/owner/historical-pin negative test passed22.546s; fourteen pure and
+finite-diagnostic tests passed0.767s. Exact-head CI remains the integration gate.

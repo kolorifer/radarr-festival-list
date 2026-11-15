@@ -135,6 +135,10 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         ('; cited evidence: '+(show(b['evidence']) if b['evidence'] else 'None recorded') if 'evidence' in b else '')) for b in blockers)
     structured=('Model-reported blockers: '+', '.join(labels.get(b.get('aspect'),show(b.get('aspect')).replace('_',' '))+' ('+reason_labels.get(b.get('reason'),show(b.get('reason')).replace('_',' '))+')' for b in blockers) if blockers else 'No structured film blockers were recorded')
     fallback=('<p><strong>Summary from recorded choices:</strong> '+escape(decision)+' '+escape(structured)+'. This summary is generated locally from retained structured choices; it is not the model’s original explanation.</p>' if any(handling.get(k,{}).get('status')=='withheld' for k in ('rationale','uncertainty')) else '')
+    temporal=''
+    if 'historical_id_discrepancy' in projection:
+        d=projection['historical_id_discrepancy']
+        temporal='<h3>Dated same-listing ID discrepancy</h3><ul>'+li('Earlier listing-derived asserted IMDb',d['old_asserted_imdb'])+li('Earlier listing observation (main-attested)',observed(d['historical_observed_at']))+li('Recorded case observation',observed(d['historical_case_observed_at']))+li('Later listing IMDb',d['current_listing_imdb'])+li('Later observation',observed(d['current_observed_at']))+'</ul><p>Main reviewed same-listing continuity and unchanged release/NFO linkage. The earlier assertion is retained as historical contrary evidence. Source correction intent and physical identity remain unknown; this is not identity or download approval.</p>'
     return ''.join([
         '<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'"><title>Private movie review</title><style>body{font:16px system-ui,sans-serif;line-height:1.5;max-width:70rem;margin:2rem auto;padding:0 1rem;color:#202533}h1,h2,h3{line-height:1.2;margin-top:1.5em}li{margin:.4em 0}details{margin:1.2em 0}summary{cursor:pointer;font-weight:600}pre{white-space:pre-wrap;overflow-wrap:anywhere}table{border-collapse:collapse}th,td{padding:.35em .6em;text-align:left}</style></head><body>',
         '<h1>Private movie review</h1><h2>Decision summary</h2><p><strong>'+escape(decision)+'</strong></p>',
@@ -153,6 +157,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256):
         category({'different'},'Observed differences','No direct difference is established.'),
         category({'missing','no_observed_overlap'},'Missing or inconclusive observations','No missing or inconclusive comparison was recorded.'),
         '<p>NFO duration is uploader-reported for the indicated stream or container; it is not an independently measured edition.</p>',
+        temporal,
         '<h2>Model assessment</h2>',prose('rationale','Rationale'),prose('uncertainty','Uncertainty'),fallback,
         '<h3>Separate nonblocking limitations</h3><p>Original collector bytes, current queue, complete decisions and physical edition remain unverified. Identity and acquisition remain unapproved. Listing and catalogue provenance were reviewed by the supervisor; source independence is not established.</p>',
         '<details><summary>Technical details and previous attempts</summary>',prior_html,
