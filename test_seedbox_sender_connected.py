@@ -36,6 +36,29 @@ class SenderTests(connected.ConnectedTests):
   self.assertEqual(len(requests),1);self.assertTrue(requests[0][0].endswith('/editMessageText'));self.assertEqual(requests[0][1]['message_id'],17);self.assertEqual(requests[0][1]['reply_markup'],{'inline_keyboard':[]})
   again,_=self.call(lambda *a,**kw:self.fail('replayed edit'));self.assertEqual(again['status'],'uncertain_or_previously_started')
   with self.delivery.s.tx() as c:self.assertEqual(c.execute('select state from reviewed_telegram_edits').fetchone()[0],'acknowledged')
+ def test_post_response_receipt_failure_is_uncertain_and_never_replayed(self):
+  calls=[]
+  def http(*a,**kw):
+   calls.append(True);result=io.BytesIO(b'{"ok":true}');result.status=200;return result
+  from automation import reviewed_telegram_UNISSUED as frozen
+  selected=frozen.selected_functions
+  def functions(raw,names,namespace):
+   selected(raw,names,namespace)
+   if names=={'receipt'}:
+    def fail(*args):raise ModuleNotFoundError('INVENTED_SECRET_NOT_RETAINED')
+    namespace['receipt']=fail
+  with patch.object(frozen,'selected_functions',side_effect=functions):result,_=self.call(http)
+  self.assertEqual(result['status'],'uncertain');self.assertIsNone(result['receipt']);self.assertEqual(len(calls),1)
+  with self.q.locked() as (rows,_):
+   records=[r for r in rows if r['type']=='seedbox_sender_diagnostic_v1']
+   self.assertEqual(len(records),1);self.assertEqual(records[0]['stage'],'receipt_started')
+   self.assertEqual(records[0]['failure'],'missing_dependency')
+   self.assertNotIn('INVENTED_SECRET_NOT_RETAINED',json.dumps(rows))
+  with self.delivery.s.tx() as c:
+   self.assertEqual(c.execute('select state,receipt from reviewed_telegram_edits').fetchone(),('uncertain',None))
+   self.assertEqual(c.execute('select state from retry_messages').fetchone()[0],'reviewed_reserved')
+  again,_=self.call(lambda *a,**k:self.fail('replayed uncertain edit'))
+  self.assertEqual(again['status'],'uncertain_or_previously_started')
  def test_first_transaction_busy_is_proven_unsent_and_can_finish_once(self):
   blocker=sqlite3.connect(self.delivery.s.path,isolation_level=None)
   blocker.execute('begin immediate')

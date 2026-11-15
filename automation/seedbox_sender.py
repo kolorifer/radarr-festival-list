@@ -111,7 +111,9 @@ def deliver_reviewed(queue,config,preparation):
     store.tx=checked_tx
     environment=read_private(Path(config['source_configuration']['path']),65536)
     require(hashlib.sha256(environment).hexdigest()==config['source_configuration']['sha256'],'host_sender_environment_changed')
-    edit=sender(actor,environment);now=time.time()
+    diagnostic=dict(stage='callback_not_started',failure=None)
+    def observe(stage):diagnostic['stage']=stage
+    edit=sender(actor,environment,observe=observe);now=time.time()
     auth_denied=[]
     request=edit.__globals__['_telegram_request']
     def observed_request(*args):
@@ -138,7 +140,14 @@ def deliver_reviewed(queue,config,preparation):
         verify_current(queue,preparation,evidence,configuration_sha256)
         require(time.time()+15<min(evidence['projection']['evidence_expires_at'],evidence['projection']['generated_at']+3600),'host_delivery_evidence_expired')
         require(time.time()+15<boundary['expires_at'],'host_topology_expired')
-        return original_edit(*args)
+        observe('callback_started')
+        try:
+            result=original_edit(*args)
+            observe('callback_returned')
+            return result
+        except Exception as error:
+            diagnostic['failure']='missing_dependency' if isinstance(error,ModuleNotFoundError) else 'callback_failed'
+            raise
     from automation.seedbox_delivery_evidence import current
     evidence=current(queue,preparation,expected_plan=plan)
     with queue.locked() as (rows,append):
@@ -156,6 +165,9 @@ def deliver_reviewed(queue,config,preparation):
         marker=_ACTIVE.set(dict(queue=queue,rows=rows,boundary=boundary,plan_sha256=digest(plan),deadline=time.monotonic()+120))
         try:
             result=deliver(store,plan,target,config['sources'],boundary,edit,private_guard=vars(guards),clock=time.time)
+            append(dict(type='seedbox_sender_diagnostic_v1',preparation=preparation,
+                sender_start_sha256=digest(started),stage=diagnostic['stage'],
+                failure=diagnostic['failure'],status=result['status'],at=time.time()))
             return result
         except _FirstTransactionBusy:
             append(dict(type='seedbox_sender_pre_send_deferred_v1',preparation=preparation,sender_start_sha256=digest(started),reason='first_transaction_busy_before_application_reservation_or_sender',at=time.time()))

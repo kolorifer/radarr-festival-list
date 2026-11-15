@@ -307,3 +307,11 @@ confirm unchanged material facts, current occurrence and original target before
 delivery. The old assessment and its timestamps remain unchanged. Changed facts,
 failed or interrupted checks, and expired new evidence stop delivery without
 automatic reassessment. Identity reuse and downloads still require confirmation.
+
+### Uncertain delivery diagnostics
+
+The isolated sender uses the receipt hook from its exact verified actor snapshot.
+New attempts can retain a bounded last-observed delivery stage without storing
+credentials or response bodies. A successful remote response followed by a local
+failure still leaves an uncertain attempt consumed. Neither diagnostics nor an
+offline reproduction authorizes a resend or proves the original message arrived.
