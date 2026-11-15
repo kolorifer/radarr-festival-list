@@ -1,3 +1,11 @@
+## First normalized-case v9 entry, 2026-11-15
+
+Implemented a separately authorized general first-assessment entry using the
+accepted Mini film-weighing pipeline. Existing consumed-case and append-only
+history guards remain. An optional narrowly bound same-listing IMDb reobservation
+retains dated contrary evidence; main must authenticate its original-byte derivation.
+No live use or deployment. See [contract and validation](reports/2026-11-15-first-film-weighing.md).
+
 ## Film weighing v9, 2026-11-15
 
 Implemented separately authorized ordinary explanation prose and evidence-weighing
