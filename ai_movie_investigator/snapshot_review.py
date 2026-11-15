@@ -1063,3 +1063,51 @@ def validate_film_identity(p,prepared,reply,*,now):
     # Existing non-ID corroboration/citation/current conflict guards above remain.
     result['separate_limitations']=limits
     return result
+
+
+PROSE_LIMITS_V13={'rationale':2400,'uncertainty':1200}
+
+
+def retained_prose_quality(result):
+    from .new_case import _WITHHELD_PROSE
+    return [dict(field=field,predicate=code) for field in PROSE_LIMITS_V13
+            if result[field]!=_WITHHELD_PROSE for code in _quality_caveats(result[field])]
+
+
+def build_film_prose(p):
+    """v13 bounded complete explanation, unchanged v12 identity policy."""
+    import copy
+    b=copy.deepcopy(build_film_identity(p));w=b['request']
+    old='Rationale is at most600 characters, uncertainty at most300.'
+    require(old in w['instructions'],'snapshot_prose_contract')
+    w['instructions']=w['instructions'].replace(old,
+        'Aim for two to five concise complete sentences explaining the film decision, usually below1000 characters; '
+        'aim for one or two complete uncertainty sentences, usually below500 characters. '
+        'The hard limits are2400 characters for rationale and1200 for uncertainty. Finish every sentence; '
+        'do not compress into fragments or stop mid-clause to meet a target. The targets are preferences, not validation gates. '
+        'Do not repeat internal evidence aliases in prose; the structured citation fields already carry them. '
+        'Use readable source descriptions. Preserve any exact historical/current IMDb identifiers required by the temporal evidence policy.')
+    for v in w['text']['format']['schema']['properties']['result']['anyOf']:
+        for field,limit in PROSE_LIMITS_V13.items():v['properties'][field]['maxLength']=limit
+    require(len(encoded(w))<=65536,'snapshot_disclosure_size')
+    return b
+
+
+def validate_film_prose(p,prepared,reply,*,now):
+    import copy
+    from .responses_protocol import schema_value
+    from .new_case import explanation_prose
+    require(prepared==build_film_prose(p),'snapshot_prepared_changed')
+    schema_value(reply,prepared['request']['text']['format']['schema'])
+    a=copy.deepcopy(reply);r=a['result'];prose={field:explanation_prose(r[field],limit) for field,limit in PROSE_LIMITS_V13.items()}
+    if 'historical_id_discrepancy' in p:
+        d=p['historical_id_discrepancy']
+        require(all(re.search(r'(?<![A-Za-z0-9_])'+re.escape(d[k])+r'(?![A-Za-z0-9_])',prose['rationale']) for k in ('old_asserted_imdb','current_listing_imdb')),'snapshot_reobservation_explanation')
+        r['rationale']='Validated explanation of '+d['old_asserted_imdb']+' and '+d['current_listing_imdb']+'.'
+    else:r['rationale']='Validated film evidence explanation.'
+    r['uncertainty']='Validated separate uncertainty explanation.'
+    # Only the independently checked prose is substituted for legacy validation;
+    # every identity, source, citation, blocker and temporal fact remains intact.
+    result=validate_film_identity(p,build_film_identity(p),a,now=now)
+    result.update(prose);result['prose_quality']=retained_prose_quality(prose)
+    return result
