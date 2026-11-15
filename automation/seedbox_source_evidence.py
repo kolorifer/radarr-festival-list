@@ -68,6 +68,16 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at,revi
     # Do not truncate NFO duration into a guessed edition measurement.
     nfo_node=soup.select_one('#nfo_text');nfo=nfo_node.get_text('\n',strip=True) if nfo_node else ''
     general=re.findall(r'(?:^|\n)General\s*\n(.*?)(?=\n(?:General|Video|Audio|Text)\b|\Z)',nfo,re.S)
+    if revision==2:
+        # One section boundary for both duration syntaxes. Preserve v1 exactly.
+        general=[];current=None
+        for line in nfo.splitlines():
+            header=re.fullmatch(r'[ \t]*(General|Video|Audio|Text|Subtitles?|Menu|Image|Other)(?:[ \t]*#[0-9]+)?(?:[ \t]*:[^\n]*)?[ \t]*',line)
+            if header:
+                if current is not None:general.append('\n'.join(current))
+                current=[] if header[1]=='General' else None
+            elif current is not None:current.append(line)
+        if current is not None:general.append('\n'.join(current))
     duration_text='\n'.join(general)
     durations=[]
     for h,m,s,ms in re.findall(r'\bDuration\s*:\s*([0-9]{1,2}):([0-9]{2}):([0-9]{2})\.([0-9]{3})\b',duration_text):
@@ -76,7 +86,7 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at,revi
             if 0<value<=86400000:durations.append(value)
     invalid_alternate=False
     if revision==2:
-        blocks=re.findall(r'(?:^|\n)[ \t]*General[ \t]*:[ \t]*[^\n]+\n(.*?)(?=\n[ \t]*(?:General|Video|Audio|Text|Subtitles?)(?:[ \t]*#[0-9]+)?(?:[ \t]*:|[ \t]*\n)|\Z)',nfo,re.S)
+        blocks=general
         for block in blocks:
             for line in block.splitlines():
                 if not re.match(r'\s*Length\s*:',line):continue
