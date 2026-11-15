@@ -1,5 +1,18 @@
 # Movie notifications: a practical guide
 
+**15 November — reviewed original-card correction (implementation, not yet live):**
+a main-reviewed, receipt-backed assessment can update its exact acknowledged
+Telegram card through a bounded operator. It says that the assessment supports a
+candidate, explains the discrepancy and evidence, preserves uncertainty, and
+includes the exact approved source-listing link from the private report. It does
+not mark production identity as verified or approve a download. Existing action
+buttons are cleared; review continues in the main chat. An ambiguous edit is
+retained and never blindly resent. Waiting, expired, multi-message or unverified
+bindings stop for the operator instead of sending a new notification. Scheduling,
+actual card correction and review/delivery verification remain with main; code
+acceptance alone does not establish live operation. See the
+[operator boundary](reports/2026-11-15-reviewed-original-telegram.md).
+
 **5 November follow-up — disabled delivery connection:** a selected investigator
 draft can now use the existing notification ledger and final sender boundary in
 code. Duplicate suppression and uncertain-send handling are retained. It has not
