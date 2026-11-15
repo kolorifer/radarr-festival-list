@@ -243,7 +243,7 @@ def explanation_prose(value, limit=600):
     return value
 
 
-def _captured_prose_copy(answer, *, film_context=False, film_weighing=False):
+def _captured_prose_copy(answer, *, film_context=False, film_weighing=False, film_assessment=False):
     """Retain a safe copy, never rewrite the receipt-bound original in memory.
 
     Whole fields are withheld instead of guessing which substring is private or
@@ -256,7 +256,7 @@ def _captured_prose_copy(answer, *, film_context=False, film_weighing=False):
         value=answer['result'][field]
         require(isinstance(value,str),'responses_answer_schema')
         try:
-            (explanation_prose if film_weighing else film_prose if film_context else text)(value,600)
+            (explanation_prose if film_weighing or film_assessment else film_prose if film_context else text)(value,600)
             reason=None
         except Refusal as error:
             if str(error)!='unsafe_text':raise
@@ -270,13 +270,13 @@ def _captured_prose_copy(answer, *, film_context=False, film_weighing=False):
             else:reason='other_text_policy'
             retained['result'][field]=_WITHHELD_PROSE
         handling[field]=dict(status='retained' if reason is None else 'withheld',predicate=reason)
-    if film_context or film_weighing:
+    if film_context or film_weighing or film_assessment:
         blockers=([retained['result']['primary_blocker']] if retained['result'].get('primary_blocker') is not None else [])+retained['result'].get('additional_blockers',[])
         for index,blocker in enumerate(blockers):
             for field in ('support_considered','material_conflict'):
                 value=blocker[field]
                 try:
-                    (explanation_prose if film_weighing else film_prose)(value,160);state=dict(status='retained',predicate=None)
+                    (explanation_prose if film_weighing or film_assessment else film_prose)(value,400 if film_assessment else 160);state=dict(status='retained',predicate=None)
                 except Refusal:
                     blocker[field]=_WITHHELD_PROSE
                     state=dict(status='withheld',predicate='film_prose_policy')
