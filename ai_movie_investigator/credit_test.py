@@ -31,7 +31,7 @@ MINI_PROFILE=dict(kind='film_weighing_mini_v9',model=MINI_MODEL,policy=MINI_POLI
 
 
 def is_mini(grant):
-    return isinstance(grant,dict) and ((grant.get('contract_version')=='film_weighing_v9' and (('weighing_reassessment' in grant) != ('first_assessment' in grant))) or (grant.get('contract_version') in ('film_assessment_v10','film_quality_v11') and 'assessment' in grant))
+    return isinstance(grant,dict) and ((grant.get('contract_version')=='film_weighing_v9' and (('weighing_reassessment' in grant) != ('first_assessment' in grant))) or (grant.get('contract_version') in ('film_assessment_v10','film_quality_v11','film_identity_v12') and 'assessment' in grant))
 
 
 def profile(grant=None):

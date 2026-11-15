@@ -1,3 +1,10 @@
+## Film identity separate from edition v12, 2026-11-15
+
+Versioned assessment correction rejects unsupported runtime/edition/producer-label
+identity blockers, preserves separate limitations, and binds one explicitly issued
+completed-v11 successor with exact same-case observation lineage. No live use or
+deployment. See [scope and issuer contract](reports/2026-11-15-film-identity-v12.md).
+
 ## Assessment explanation quality v11, 2026-11-15
 
 A versioned contract retains safe schema-valid explanations with advisory quality
