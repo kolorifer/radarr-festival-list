@@ -7,7 +7,7 @@ from ai_movie_investigator.private_files import read_private
 
 def active(rows):
     cleared={r['circuit_sha256'] for r in rows if r['type']=='seedbox_global_recovery_v1'}
-    return [r for r in rows if r['type']=='seedbox_global_circuit_v1' and digest(r) not in cleared]
+    return [r for r in rows if (r['type']=='seedbox_global_circuit_v1' or r['type']=='seedbox_source_blocked_v1' and r['reason'] in ('source_auth_denied','source_configuration_unavailable')) and digest(r) not in cleared]
 
 
 def record(rows,scope,reason,preparation=None):

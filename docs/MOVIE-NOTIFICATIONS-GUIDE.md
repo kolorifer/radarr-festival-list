@@ -262,3 +262,15 @@ An explicitly authorized private check may inspect a matcher assertion before a
 separate selected notification is available. Its draft states that supporting
 observation is missing; it does not imply strong source correlation, confirmed
 identity or download approval. These private drafts are not sent automatically.
+
+## Seedbox automated review candidate (2026-11-15)
+
+PR #205 implements a seedbox worker for eligible identification failures, without
+requiring the Mac to stay running or imposing one case per hour. This repository
+entry is not a deployment claim. Once main activates the accepted version, each
+case retains its evidence and assessment, then receives a separately generated
+automated review before any original-card correction. The card identifies this
+as automated review, keeps uncertainty visible and removes approval buttons.
+It does not approve remembered identity reuse or downloads. Unknown calls and
+edits are not replayed; shared access failures pause further work. Later human
+audits remain distinct from the automated review and Telegram acknowledgement.

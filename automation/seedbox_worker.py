@@ -85,7 +85,7 @@ def load_key(queue,config):
 
 
 def source_paused(rows,now):
-    return any(r['type']=='seedbox_source_cooldown_v1' and now<r['not_before'] for r in rows)
+    return any(r['type']=='seedbox_source_blocked_v1' and r['reason']=='source_rate_limited' and now<r['retry_not_before'] for r in rows)
 
 
 def step(queue,config):
@@ -114,6 +114,8 @@ def step(queue,config):
         if operation and operation[-1]=='seedbox_operation_blocked_v1':continue
         if any(r.get('preparation')==preparation and r['type'] in ('seedbox_preparation_superseded_v1','seedbox_delivery_terminal_v1') for r in rows):continue
         if preparation in _source_blocked(rows):continue
+        waits=[r for r in rows if r['type']=='seedbox_delivery_wait_v1' and r['preparation']==preparation]
+        if waits and (waits[-1]['next_check_at'] is None or time.time()<waits[-1]['next_check_at']):continue
         attempts=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_provider_started_v1']
         reports=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_assessment_pending_review_v1']
         reviews=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_automated_review_completed_v1']
@@ -130,10 +132,6 @@ def step(queue,config):
                 try:capture(queue,config,preparation)
                 except SourceFailure as error:
                     queue.record_source_failure(preparation,reason=error.reason,retry_after=error.retry_after,now=time.time())
-                    if error.reason=='source_rate_limited':
-                        _record(queue,dict(type='seedbox_source_cooldown_v1',reason='source_rate_limited',not_before=time.time()+max(60,error.retry_after or 60),at=time.time()))
-                    if error.reason=='source_configuration_unavailable':_record(queue,record(_rows(queue),'source','shared_source_configuration_or_access',preparation))
-                    if error.reason=='source_auth_denied':_record(queue,record(_rows(queue),'source','shared_source_auth_denied',preparation))
                     return True
                 except ValueError as error:
                     reasons={'host_listing_crosswalk_needed','host_listing_ambiguous_or_missing','host_catalogue_ambiguous','host_listing_not_authenticated'}
@@ -157,13 +155,20 @@ def step(queue,config):
             result=deliver_reviewed(queue,config,preparation)
             _record(queue,dict(type='seedbox_delivery_terminal_v1',preparation=preparation,result=result,at=time.time()));return True
         except Exception as error:
+            if phase=='delivery' and str(error)=='host_sender_pre_send_busy':
+                current=_rows(queue)
+                deferred={r['sender_start_sha256'] for r in current if r['type']=='seedbox_sender_pre_send_deferred_v1'}
+                if not any(r['type']=='seedbox_sender_started_v1' and r['preparation']==preparation and digest(r) not in deferred for r in current):
+                    count=sum(r['type']=='seedbox_delivery_wait_v1' and r['preparation']==preparation for r in current)+1
+                    _record(queue,dict(type='seedbox_delivery_wait_v1',preparation=preparation,reason='first_sqlite_transaction_busy_proven_unsent',checks=count,next_check_at=time.time()+60 if count<3 else None,status='bounded_local_recheck' if count<3 else 'operator_inspection_needed',at=time.time()))
+                    return True
             if phase=='credential':
                 reason=str(error)
                 if reason in ('host_credit_exhausted','host_credit_expired'):_record(queue,record(_rows(queue),'provider',reason,preparation))
                 else:_record(queue,record(_rows(queue),'credential','host_credential_unavailable',preparation))
             elif phase=='source' and (isinstance(error,PermissionError) or str(error).startswith(('host_configuration','host_cookie','host_source_configuration','unsafe_'))):
                 _record(queue,record(_rows(queue),'source','shared_source_configuration_or_access',preparation))
-            elif phase=='delivery' and (isinstance(error,PermissionError) or str(error).startswith(('host_actor_','host_sender_','host_topology_','selected_bot_configuration','unsafe_'))):
+            elif phase=='delivery' and str(error)!='host_sender_pre_send_busy' and (isinstance(error,PermissionError) or str(error).startswith(('host_actor_','host_sender_','host_topology_','selected_bot_configuration','unsafe_'))):
                 _record(queue,record(_rows(queue),'telegram','shared_sender_configuration_or_access',preparation))
             from ai_movie_investigator.seedbox_authorization import diagnostic
             _record(queue,dict(type='seedbox_operation_blocked_v1',preparation=preparation,diagnostic=diagnostic(error),at=time.time()))

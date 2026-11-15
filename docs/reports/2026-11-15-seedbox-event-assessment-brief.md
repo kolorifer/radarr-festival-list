@@ -77,8 +77,9 @@ in DELETE journal mode. Its exact private state subtree receives regular-file
 read/write/create/remove/truncate rights for SQLite journals, without directory
 creation/removal. These rights also cover the existing binding spool; Landlock
 cannot subtract a child rule. PR204 and fixed transaction code constrain actual
-table/row/file mutations; this is not a kernel filename/table guarantee. Existing
-rollback journals cause a local refusal, not silent recovery or durability changes. The fixed
+table/row/file mutations; this is not a kernel filename/table guarantee. A rollback journal observed before our open causes a local refusal/recheck;
+the check is not atomic with SQLite lock acquisition, whose normal recovery
+semantics govern a concurrent appearance. No mode/durability change is made. The fixed
 systemd user-scope CLI uses `/run/systemd/io.systemd.Credentials`; ABI6 does not
 path-mediate filesystem Unix-socket connects. The final actual confinement probe
 must pass using invented credentials before real provisioning/activation.

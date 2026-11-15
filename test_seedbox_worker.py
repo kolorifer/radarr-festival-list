@@ -27,9 +27,22 @@ class WorkerTests(base.QueueTests):
   q,config=self.prepare_worker()
   with patch('automation.seedbox_worker.database',side_effect=lambda _:self.store.connection(readonly=True)),patch('automation.seedbox_evidence.capture',side_effect=SourceFailure('source_rate_limited',retry_after=7200)) as fetch:
    self.assertTrue(step(q,config));self.assertFalse(step(q,config));self.assertFalse(step(q,config));self.assertEqual(fetch.call_count,1)
-  with q.locked() as (rows,_):self.assertTrue(any(r['type']=='seedbox_source_cooldown_v1' and r['not_before']>time.time()+7100 for r in rows))
+  with q.locked() as (rows,_):self.assertTrue(any(r['type']=='seedbox_source_blocked_v1' and r['reason']=='source_rate_limited' and r['retry_not_before']>time.time()+7100 for r in rows))
+
+
+class CrashCircuitTests(base.QueueTests):
+ def test_durable_source_denial_alone_pauses_all_new_work(self):
+  self.event(1);q=self.queue();q.ingest(self.page(),collector_identity='a'*64);claim=q.reserve(self.snapshot(),now=time.time())
+  q.record_source_failure(claim['reservation'],reason='source_auth_denied',retry_after=None,now=time.time())
+  with patch('automation.seedbox_worker.database',side_effect=AssertionError('must not reacquire after restart')):
+   self.assertFalse(step(base.Queue(self.state),{}))
+ def test_durable_429_alone_preserves_cross_case_cooldown(self):
+  from automation.seedbox_worker import source_paused
+  self.event(1);q=self.queue();q.ingest(self.page(),collector_identity='a'*64);claim=q.reserve(self.snapshot(),now=time.time())
+  q.record_source_failure(claim['reservation'],reason='source_rate_limited',retry_after=7200,now=time.time())
+  with base.Queue(self.state).locked() as (rows,_):self.assertTrue(source_paused(rows,time.time()))
 
 
 def load_tests(loader,tests,pattern):
  import unittest
- return unittest.TestSuite(WorkerTests(name) for name in WorkerTests.__dict__ if name.startswith('test_'))
+ return unittest.TestSuite(cls(name) for cls in (WorkerTests,CrashCircuitTests) for name in cls.__dict__ if name.startswith('test_'))

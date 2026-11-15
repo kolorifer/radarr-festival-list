@@ -164,8 +164,10 @@ Reference: systemd257 `src/shared/creds-util.c` uses
    as the final unit. It must decrypt exactly the invented value, create/read
    retained evidence, and deny the ungranted fixture file. No model/source/bot call.
    Linux CI separately tests actual rollback-journal creation/commit/removal and
-   collector read-only behavior where ABI6 is available. Existing journals refuse
-   before our writer opens the DB; no automatic producer recovery is claimed.
+   collector read-only behavior where ABI6 is available. Journals observed before our open refuse locally. This is not atomic with
+   subsequent SQLite lock acquisition; SQLite governs a concurrent appearance.
+   An observed normal actor transaction gets up to three bounded local rechecks,
+   then explicit operator inspection, without a credential-failure claim.
 5. Main performs actual secure bridge provisioning only after exact code review,
    required checks and this invented actual-host check. Verify ciphertext and
    nonsecret provision receipts; construct final canonical worker selection.
@@ -201,7 +203,8 @@ Trusted fixed Outbox/PR204 logic constrains actual SQLite table/row changes and
 never writes bindings. This is explicitly not a kernel filename/table guarantee.
 No producer code/config writes or unrelated directory writes are granted.
 
-Source429 retains a cross-case cooldown. Shared source/auth/credential/provider
+Source429 retains a cross-case cooldown in the same durable denial record;
+there is no separate-write crash gap. Shared source/auth/credential/provider
 401/403/429 or bot401/403 blocks new affected work across cases; case-specific gaps
 do not open that circuit. Provider429 is not interpreted as evidence that credits
 can be purchased or retried. Main's material access-recovery evidence may resume

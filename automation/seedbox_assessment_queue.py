@@ -227,7 +227,7 @@ class Queue:
             require(any(r['type']=='seedbox_preparation_claimed_v1' and digest(r)==preparation for r in rows),'queue_preparation_missing')
             require(not any(r['type']=='seedbox_provider_started_v1' and r['preparation']==preparation for r in rows),'queue_provider_consumed')
             record=dict(type='seedbox_source_blocked_v1',preparation=preparation,
-                reason=reason,owner_action=reason not in temporary,
+                reason=reason,scope='source',configuration_sha256=rows[0]['configuration_sha256'],owner_action=reason not in temporary,
                 retry_not_before=now+max(60,retry_after or 60) if reason in temporary else None,
                 provider_request_consumed=False,at=now)
             append(record)

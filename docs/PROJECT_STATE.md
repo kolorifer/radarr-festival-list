@@ -1,3 +1,10 @@
+## Seedbox event assessment candidate, 2026-11-15
+
+PR #205 connects retained/current identification failures to v13 assessment,
+separate automated review and an exact original Telegram edit in one serial
+seedbox worker. Final review/CI and main deployment remain separate gates; this
+entry does not claim activation. See [engineering evidence and limits](reports/2026-11-15-seedbox-event-assessment.md).
+
 ## Reviewed original Telegram card, 2026-11-15
 
 A bounded operator connects genuinely reviewed v13 results to one exact original

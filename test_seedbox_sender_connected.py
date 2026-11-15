@@ -1,5 +1,5 @@
 """Two invented model generations through the existing original-card sender."""
-import hashlib,io,json,time,unittest,sys
+import hashlib,io,json,time,unittest,sys,sqlite3
 from pathlib import Path
 from unittest.mock import patch
 from urllib.error import HTTPError
@@ -36,6 +36,32 @@ class SenderTests(connected.ConnectedTests):
   self.assertEqual(len(requests),1);self.assertTrue(requests[0][0].endswith('/editMessageText'));self.assertEqual(requests[0][1]['message_id'],17);self.assertEqual(requests[0][1]['reply_markup'],{'inline_keyboard':[]})
   again,_=self.call(lambda *a,**kw:self.fail('replayed edit'));self.assertEqual(again['status'],'uncertain_or_previously_started')
   with self.delivery.s.tx() as c:self.assertEqual(c.execute('select state from reviewed_telegram_edits').fetchone()[0],'acknowledged')
+ def test_first_transaction_busy_is_proven_unsent_and_can_finish_once(self):
+  blocker=sqlite3.connect(self.delivery.s.path,isolation_level=None)
+  blocker.execute('begin immediate')
+  try:
+   with self.assertRaisesRegex(ValueError,'host_sender_pre_send_busy'):
+    self.call(lambda *a,**kw:self.fail('sent while first transaction busy'))
+  finally:blocker.rollback();blocker.close()
+  with self.q.locked() as (rows,_):
+   self.assertEqual(len([r for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1']),1)
+   self.assertFalse(active(rows))
+  calls=[]
+  def http(*a,**kw):
+   calls.append(True);result=io.BytesIO(b'{"ok":true,"result":{}}');result.status=200;return result
+  result,_=self.call(http);self.assertEqual(result['status'],'acknowledged');self.assertEqual(len(calls),1)
+  self.call(lambda *a,**kw:self.fail('replayed completed edit'))
+ def test_existing_binding_spool_bytes_are_unchanged(self):
+  spool=self.delivery.s.directory/'message-bindings'
+  spool.mkdir(mode=0o700)
+  item=dict(version='f'*64,refs=json.dumps([dict(chat_id=123,message_id=999,kind='fixture')]))
+  fixture=spool/(item['version']+'.json');fixture.write_text(json.dumps(item));fixture.chmod(0o600)
+  before={str(p.relative_to(spool)):p.read_bytes() for p in spool.rglob('*') if p.is_file()}
+  self.assertTrue(before)
+  def http(*a,**kw):
+   result=io.BytesIO(b'{"ok":true,"result":{}}');result.status=200;return result
+  result,_=self.call(http);self.assertEqual(result['status'],'acknowledged')
+  self.assertEqual(before,{str(p.relative_to(spool)):p.read_bytes() for p in spool.rglob('*') if p.is_file()})
  def test_bot_auth_failure_global_circuit_without_retry(self):
   def denied(*a,**kw):raise HTTPError('https://fixture.invalid',401,'fixture',{},io.BytesIO(b'{}'))
   result,_=self.call(denied);self.assertEqual(result['status'],'uncertain')
