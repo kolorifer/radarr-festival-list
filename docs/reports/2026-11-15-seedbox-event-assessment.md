@@ -55,7 +55,7 @@ Not activated by this repository change. Main alone selects and deploys the
 final accepted immutable bytes and real configuration under the runbook.
 Existing collector WAL and actor DELETE journal modes are preserved. Normal
 SQLite locking/recovery is retained. Only a first transaction proven BUSY before
-any application statement or send permits a bounded local recheck; uncertainty
+any application reservation or send permits a bounded local recheck; uncertainty
 remains consumed.
 
 Landlock grants regular-file mutation within the actor state subtree, including
