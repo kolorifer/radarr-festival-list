@@ -43,7 +43,7 @@ def _note(stage):
 def one_shot_process():
     """Only the actual -m entry opens this process-termination boundary."""
     main=sys.modules.get('__main__');spec=getattr(main,'__spec__',None)
-    require(getattr(spec,'name',None)=='ai_movie_investigator.supervised_credit' and
+    require(getattr(spec,'name',None) in ('ai_movie_investigator.supervised_credit','automation.seedbox_keychain_bridge') and
             threading.current_thread() is threading.main_thread() and _ONE_SHOT.get() is None,'keychain_process_required')
     token=_ONE_SHOT.set(_CLI_TOKEN)
     try:yield

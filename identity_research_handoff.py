@@ -19,6 +19,21 @@ ROUTES={'eligible','retry_later','review_only','quarantine','unmatched','unasses
 
 
 def validate_snapshot(value,now):
+    return _validate_snapshot(value,now)
+
+
+def validate_host_snapshot(value,now):
+    """Explicit selected-case envelope; coverage remains the global observation."""
+    if not isinstance(value,dict) or set(value)!={'kind','selected_case_id','version','generated_at','coverage','cases','items'} or value['kind']!='seedbox_selected_snapshot_v1':
+        raise ValueError('host_snapshot_schema')
+    selected=value['selected_case_id']
+    if not isinstance(selected,str) or len(value['cases'])!=1 or value['cases'][0].get('case_id')!=selected:
+        raise ValueError('host_snapshot_selection')
+    _validate_snapshot({k:v for k,v in value.items() if k not in ('kind','selected_case_id')},now,selected_case=selected)
+    return value
+
+
+def _validate_snapshot(value,now,*,selected_case=None):
     if not isinstance(value,dict) or set(value)!={'version','generated_at','coverage','cases','items'} or value['version']!=1:
         raise ValueError('snapshot_schema')
     if type(value['generated_at']) not in (int,float) or not now-3600<value['generated_at']<=now+300:raise ValueError('snapshot_stale')
@@ -52,7 +67,7 @@ def validate_snapshot(value,now):
         if type(coverage[key])!=int or coverage[key]<0:raise ValueError('coverage_count')
     for key in ('routes','correlation','counters'):
         if not isinstance(coverage[key],dict) or len(coverage[key])>50 or any(not re.fullmatch('[a-z_]{1,64}',k) or type(v)!=int or v<0 for k,v in coverage[key].items()):raise ValueError('coverage_counts')
-    if coverage['coverage']!='incomplete' or coverage['automatic_research_enabled'] is not False or coverage['assessed_release_cases']!=len(value['cases']):raise ValueError('coverage_state')
+    if coverage['coverage']!='incomplete' or coverage['automatic_research_enabled'] is not False or (coverage['assessed_release_cases']!=len(value['cases']) if selected_case is None else coverage['assessed_release_cases']<len(value['cases'])):raise ValueError('coverage_state')
     return value
 
 
