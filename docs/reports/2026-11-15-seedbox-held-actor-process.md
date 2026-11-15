@@ -18,7 +18,7 @@ https://www.kernel.org/doc/html/latest/userspace-api/landlock.html
 ## Correction
 
 Before either confinement layer, the bootstrap opens only the selected actor's
-process directory, stat and cmdline plus a nonsignalling pidfd. It validates owner,
+process directory, stat, cmdline and status plus a nonsignalling pidfd. It validates owner,
 PID, start ticks and command digest, keeps the handles close-on-exec, and retains
 them for the worker lifetime. Full confinement validates this exact held selection
 without resolving the now-hidden process path or expanding process access.
@@ -44,3 +44,17 @@ the PR and private checkpoint.
 Main alone performs the final installed read-only proof and recovers the same
 retained queue if verified. No actor restart, history reset, re-enrollment,
 credential provisioning, provider retry or notification replay is included.
+
+## Installed candidate correction
+
+The first candidate's full host proof failed when querying metadata on the held
+process directory after confinement, despite working retained reads. It was not
+merged. Main then proved fresh status reads, all four current UID fields, stat,
+cmdline and pidfd liveness after the early layer. The corrected implementation
+validates descriptor ownership/type before confinement and closes the directory
+handle immediately. Later checks use fresh bounded status PID/TGID and all four
+UID fields before and after stat/cmdline, with no proc inode getattr dependency.
+Missing/duplicate/malformed status fields or changed credentials refuse. Tests
+explicitly simulate getattr denial while permitting fresh reads, then alter UID
+status to prove ownership is not cached. The Linux tests also deny getattr during
+the live retained-handle assertion. Final actual full host proof remains required.

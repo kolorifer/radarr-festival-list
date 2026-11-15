@@ -2,7 +2,7 @@
 import hashlib,json,os,subprocess,sys,unittest
 from pathlib import Path
 from unittest.mock import patch
-from automation.seedbox_process import _validate
+from automation.seedbox_process import _validate,_owner,_read
 from test_seedbox_collector_lifetime import LifetimeTests
 
 DRIVER='''import sys,os,errno,json
@@ -29,7 +29,8 @@ with actor_lifetime(pin):
   try:fd=os.open('/proc/'+str(pin['pid'])+'/cmdline',os.O_RDONLY)
   except (PermissionError,FileNotFoundError):pass
   else:os.close(fd);raise AssertionError('fresh actor metadata open permitted')
-  assert retained(pin) and observe(pin)['cmdline_sha256']==pin['cmdline_sha256']
+  with patch('automation.seedbox_process.os.fstat',side_effect=FileNotFoundError('invented proc getattr denial')):
+   assert retained(pin) and observe(pin)['cmdline_sha256']==pin['cmdline_sha256']
   print('LIVE',flush=True);sys.stdin.readline()
   try:observe(pin)
   except (ValueError,ProcessLookupError):print('REFUSED',flush=True)
@@ -45,6 +46,24 @@ class MetadataTests(unittest.TestCase):
   self.assertEqual(_validate(pin,self.raw(),b'invented')['pid'],123)
   for raw,command in ((self.raw(b'Z'),b'invented'),(self.raw(),b''),(self.raw(),b'changed'),(self.raw().replace(b'456',b'457'),b'invented')):
    with self.assertRaises(ValueError):_validate(pin,raw,command)
+
+ def status(self,uid=None):
+  uid=os.getuid() if uid is None else uid
+  return ('Pid:\t123\nTgid:\t123\nUid:\t'+('\t'.join([str(uid)]*4))+'\n').encode()
+ def test_current_owner_status_refuses_missing_duplicate_malformed_or_changed(self):
+  pin=dict(pid=123)
+  _owner(pin,self.status())
+  for status in (b'',self.status()+b'Uid: 1 1 1 1\n',self.status().replace(b'Pid:\t123',b'Pid:\t124'),self.status().replace(b'Tgid:\t123',b'Tgid: bad'),self.status(os.getuid()+1)):
+   with self.assertRaises(ValueError):_owner(pin,status)
+ def test_fresh_ownership_without_post_confinement_getattr(self):
+  pin=dict(pid=123,start_ticks=456,cmdline_sha256=hashlib.sha256(b'invented').hexdigest())
+  held=dict(pin=pin,pidfd=4,stat=5,cmdline=6,status=7)
+  values={5:self.raw(),6:b'invented',7:self.status()}
+  with patch('automation.seedbox_process.os.fstat',side_effect=FileNotFoundError('getattr denied')),patch('automation.seedbox_process.select.select',return_value=([],[],[])),patch('automation.seedbox_process.os.pread',side_effect=lambda fd,n,offset:values[fd]) as reads:
+   self.assertEqual(_read(held,pin)['pid'],123)
+   self.assertEqual([call.args for call in reads.call_args_list],[(7,65537,0),(5,8193,0),(6,8193,0),(7,65537,0)])
+   values[7]=self.status(os.getuid()+1)
+   with self.assertRaisesRegex(ValueError,'host_actor_owner'):_read(held,pin)
 
 class ProcessTests(LifetimeTests):
  def run_process_case(self,mode):
@@ -87,7 +106,9 @@ class ProcessTests(LifetimeTests):
       with actor_lifetime(selected):pass
     else:
      with actor_lifetime(selected):
-      self.assertTrue(all(not os.get_inheritable(fd) for fd in opened))
+      from automation.seedbox_process import _HELD
+      held=_HELD.get()
+      self.assertTrue(all(not os.get_inheritable(held[name]) for name in ('stat','cmdline','status','pidfd')))
    for fd in opened:
     with self.assertRaises(OSError):os.fstat(fd)
 
