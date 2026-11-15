@@ -28,6 +28,9 @@ class ExtractionTests(unittest.TestCase):
   self.assertIsNone(self.parse(HTML+nfo,revision=1)['nfo_runtime_milliseconds'])
   for altered in (nfo.replace(b'13 min',b'63 min'),nfo.replace(b'418 ms',b'1418 ms'),nfo.replace(b'27 s',b'77 s'),nfo.replace(b'2 h',b'25 h'),nfo.replace(b'General :',b'Text #0 :')):
    self.assertIsNone(self.parse(HTML+altered)['nfo_runtime_milliseconds'])
+  for heading in (b'  Audio #0 : invented',b'  Text #0 : invented',b'  Subtitle #0 : invented'):
+   only_audio=b'<pre id="nfo_text">General : Invented.mkv\nTitle : invented\n'+heading+b'\nLength : 1 GiB for 0 h 1 min 0 s 0 ms</pre>'
+   self.assertIsNone(self.parse(HTML+only_audio)['nfo_runtime_milliseconds'])
   conflicting=nfo.replace(b'Video #0 :',b'General : Another.invented.mkv\nLength : 2 GiB for 1 h 0 min 0 s 0 ms\nVideo #0 :')
   self.assertIsNone(self.parse(HTML+conflicting)['nfo_runtime_milliseconds'])
  def test_unlinked_or_missing_original_never_invents_target(self):

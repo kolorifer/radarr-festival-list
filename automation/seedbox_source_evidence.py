@@ -76,7 +76,7 @@ def listing_facts(raw,*,release_name,case_id,version,observed_at,expires_at,revi
             if 0<value<=86400000:durations.append(value)
     invalid_alternate=False
     if revision==2:
-        blocks=re.findall(r'(?:^|\n)General\s*:\s*[^\n]+\n(.*?)(?=\n(?:General|Video|Audio|Text)(?:\s*#[0-9]+)?(?:\s*:|\s*\n)|\Z)',nfo,re.S)
+        blocks=re.findall(r'(?:^|\n)[ \t]*General[ \t]*:[ \t]*[^\n]+\n(.*?)(?=\n[ \t]*(?:General|Video|Audio|Text|Subtitles?)(?:[ \t]*#[0-9]+)?(?:[ \t]*:|[ \t]*\n)|\Z)',nfo,re.S)
         for block in blocks:
             for line in block.splitlines():
                 if not re.match(r'\s*Length\s*:',line):continue
