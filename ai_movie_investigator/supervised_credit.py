@@ -73,7 +73,7 @@ _SAFE_REASON_GROUPS = {
         'responses_context_changed responses_tool_usage_denied responses_unsupported_shape responses_usage_invalid responses_usage_limit responses_usage_required '
     ).split()),
     'binding_refused': frozenset((
-        'supervised_observation_binding '
+        'supervised_observation_binding host_provenance_wording '
         'binding_attempt_consumed binding_authority binding_body binding_debit '
         'binding_expired binding_history binding_history_changed binding_model '
         'binding_parent_refused binding_project binding_receipt_refused binding_response_unknown '
