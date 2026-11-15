@@ -153,6 +153,9 @@ def deliver_reviewed(queue,config,preparation):
         # can be audited independently; no attempt to resend uncertain delivery.
         deferred={r['sender_start_sha256'] for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1'}
         if any(digest(r) not in deferred for r in prior):return dict(status='uncertain_or_previously_started',resend=False)
+        require(len(prior)<3,'host_sender_pre_send_checks_exhausted')
+        previous=[r for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1' and r['preparation']==preparation]
+        require(not previous or now>=previous[-1]['at']+60,'host_sender_pre_send_cooldown')
         started=dict(type='seedbox_sender_started_v1',preparation=preparation,plan_sha256=digest(plan),target_sha256=digest(target),process=observed,at=now)
         append(started)
         marker=_ACTIVE.set(dict(queue=queue,rows=rows,boundary=boundary,plan_sha256=digest(plan),deadline=time.monotonic()+120))

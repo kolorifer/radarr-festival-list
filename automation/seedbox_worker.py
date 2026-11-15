@@ -114,8 +114,9 @@ def step(queue,config):
         if operation and operation[-1]=='seedbox_operation_blocked_v1':continue
         if any(r.get('preparation')==preparation and r['type'] in ('seedbox_preparation_superseded_v1','seedbox_delivery_terminal_v1') for r in rows):continue
         if preparation in _source_blocked(rows):continue
-        waits=[r for r in rows if r['type']=='seedbox_delivery_wait_v1' and r['preparation']==preparation]
-        if waits and (waits[-1]['next_check_at'] is None or time.time()<waits[-1]['next_check_at']):continue
+        deferrals=[r for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1' and r['preparation']==preparation]
+        # The durable deferral itself enforces the count and cooldown.
+        if deferrals and (len(deferrals)>=3 or time.time()<deferrals[-1]['at']+60):continue
         attempts=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_provider_started_v1']
         reports=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_assessment_pending_review_v1']
         reviews=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_automated_review_completed_v1']
@@ -159,7 +160,7 @@ def step(queue,config):
                 current=_rows(queue)
                 deferred={r['sender_start_sha256'] for r in current if r['type']=='seedbox_sender_pre_send_deferred_v1'}
                 if not any(r['type']=='seedbox_sender_started_v1' and r['preparation']==preparation and digest(r) not in deferred for r in current):
-                    count=sum(r['type']=='seedbox_delivery_wait_v1' and r['preparation']==preparation for r in current)+1
+                    count=sum(r['type']=='seedbox_sender_pre_send_deferred_v1' and r['preparation']==preparation for r in current)
                     _record(queue,dict(type='seedbox_delivery_wait_v1',preparation=preparation,reason='first_sqlite_transaction_busy_proven_unsent',checks=count,next_check_at=time.time()+60 if count<3 else None,status='bounded_local_recheck' if count<3 else 'operator_inspection_needed',at=time.time()))
                     return True
             if phase=='credential':

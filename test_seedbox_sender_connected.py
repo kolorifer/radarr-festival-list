@@ -24,7 +24,7 @@ class SenderTests(connected.ConnectedTests):
   st=self.delivery.s.path.stat();names=('identity_triage_store.py','identity_triage_intake.py','identity_outcome_outbox.py','identity_triage_observer.py','retry_telegram.py','torrent_research_evidence.py','movie_intel_service.py','deploy/run.py')
   self.config=dict(credit_policy=self.policy,sources=SOURCES,actor_database=dict(path=str(self.delivery.s.path),identity=[st.st_dev,st.st_ino]),source_configuration=dict(path=str(env),sha256=hashlib.sha256(env.read_bytes()).hexdigest()),sender=dict(kind='main_selected_actor_topology_v1',revision='06d17aafefb5a5161364e4bf6f63667a649e1aa3',sole_edit_writer=True,single_serial_pump=True,no_original_binding_republication=True,acceptance_reference='invented:accepted-topology',observed_at=NOW-1,expires_at=NOW+500,process={'pid':123},deployed_files={name:{'fixture':name} for name in names}))
  def call(self,urlopen):
-  with patch('time.time',return_value=NOW),patch('automation.seedbox_sender._process',return_value={'pid':123}) as process,patch('automation.seedbox_sender._deployed',side_effect=lambda pin:Path(pin['fixture']).read_bytes()),patch('automation.seedbox_evidence.verify_current'),patch('automation.reviewed_telegram_UNISSUED.urlopen',side_effect=urlopen):
+  with patch('time.time',return_value=getattr(self,'delivery_time',NOW)),patch('automation.seedbox_sender._process',return_value={'pid':123}) as process,patch('automation.seedbox_sender._deployed',side_effect=lambda pin:Path(pin['fixture']).read_bytes()),patch('automation.seedbox_evidence.verify_current'),patch('automation.reviewed_telegram_UNISSUED.urlopen',side_effect=urlopen):
    result=deliver_reviewed(self.q,self.config,self.selected['reservation'])
    return result,process.call_count
  def test_real_existing_sender_exact_edit_and_restart_no_replay(self):
@@ -46,11 +46,29 @@ class SenderTests(connected.ConnectedTests):
   with self.q.locked() as (rows,_):
    self.assertEqual(len([r for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1']),1)
    self.assertFalse(active(rows))
+  self.delivery_time=NOW+61
   calls=[]
   def http(*a,**kw):
    calls.append(True);result=io.BytesIO(b'{"ok":true,"result":{}}');result.status=200;return result
   result,_=self.call(http);self.assertEqual(result['status'],'acknowledged');self.assertEqual(len(calls),1)
   self.call(lambda *a,**kw:self.fail('replayed completed edit'))
+ def test_durable_deferrals_enforce_cooldown_and_three_check_cap(self):
+  blocker=sqlite3.connect(self.delivery.s.path,isolation_level=None);blocker.execute('begin immediate')
+  try:
+   for number in range(3):
+    self.delivery_time=NOW+number*61
+    with self.assertRaisesRegex(ValueError,'host_sender_pre_send_busy'):
+     self.call(lambda *a,**kw:self.fail('unexpected send'))
+    if number==0:
+     with self.assertRaisesRegex(ValueError,'host_sender_pre_send_cooldown'):
+      self.call(lambda *a,**kw:self.fail('cooldown bypass'))
+   self.delivery_time=NOW+183
+   with self.assertRaisesRegex(ValueError,'host_sender_pre_send_checks_exhausted'):
+    self.call(lambda *a,**kw:self.fail('fourth check'))
+  finally:blocker.rollback();blocker.close()
+  with self.q.locked() as (rows,_):
+   self.assertEqual(len([r for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1']),3)
+   self.assertFalse(any(r['type']=='seedbox_delivery_wait_v1' for r in rows))
  def test_existing_binding_spool_bytes_are_unchanged(self):
   spool=self.delivery.s.directory/'message-bindings'
   spool.mkdir(mode=0o700)
