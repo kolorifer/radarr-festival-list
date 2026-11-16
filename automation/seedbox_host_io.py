@@ -196,14 +196,20 @@ def _get(url,*,token=None,cookies=None):
     except requests.RequestException:raise SourceFailure('source_temporary',retry_after=60) from None
 
 
-def acquire(config,claim,snapshot_raw,metadata,*,revalidation=None):
+def acquire(config,claim,snapshot_raw,metadata,*,revalidation=None,before_source=None):
     """Fixed exact listing + exact IMDb catalogue crosswalk. No title search."""
     from automation.seedbox_source_evidence import actor_listing,listing_facts,catalogue_facts
     from ai_movie_investigator.snapshot_review import projection,select
     from bs4 import BeautifulSoup
     import re
     now=time.time();snapshot_sha=hashlib.sha256(snapshot_raw).hexdigest();select(snapshot_raw,snapshot_sha,claim['case_id'],claim['version'],now=now)
-    with database(config['actor_database']) as actor:binding=actor_listing(actor,claim['case_id'],metadata,config['sources'],config['listing_source'])
+    from automation.seedbox_original_readiness import binding as original_binding
+    with database(config['actor_database']) as actor:
+        if revalidation is None:binding,readiness=original_binding(actor,claim['case_id'],metadata,config['sources'],config['listing_source'])
+        else:binding=actor_listing(actor,claim['case_id'],metadata,config['sources'],config['listing_source'])
+    if claim.get('original_recovery_view'):
+        proof=claim['original_recovery_view']
+        require(readiness['local_sha256']==proof['local_sha256'] and readiness['target_sha256']==proof['target_sha256'],'original_recovery_changed')
     if revalidation is not None:
         target=dict(version=binding['actor_version'],row_sha256=binding['target']['row_sha256'],ref=binding['target']['ref'],case_id=claim['case_id'])
         require(digest(binding['url'])==revalidation['source_url_sha256'] and digest(target)==revalidation['target_sha256'],'delivery_selected_target_changed')
@@ -211,6 +217,7 @@ def acquire(config,claim,snapshot_raw,metadata,*,revalidation=None):
     if proof is not None:
         target=dict(version=binding['actor_version'],row_sha256=binding['target']['row_sha256'],ref=binding['target']['ref'],case_id=claim['case_id'])
         require(digest(proof)==claim['correction_proposal_sha256'] and digest(binding['url'])==proof['source_url_sha256'] and digest(target)==proof['target_sha256'],'host_correction_source_target_changed')
+    if before_source is not None:before_source()
     try:
         env=_configuration(config['source_configuration']);require(env['TMDB_API_TOKEN'] and env['MOVIE_INTEL_TL_COOKIE_FILE'] and env['MOVIE_INTEL_TL_METADATA_ENABLED']=='1','host_source_configuration')
         # Main selects canonical spelling and pins the existing cookie file. The

@@ -48,7 +48,7 @@ def main():
         from automation.seedbox_assessment_queue import Queue
         from automation.seedbox_circuit import recover
         recover(Queue(sys.argv[4]),sys.argv[5],sys.argv[6]);return
-    if mode not in ('enroll','run','probe','correct','review-correct','delivery-revalidate') or len(sys.argv)!=(8 if mode in ('correct','review-correct','delivery-revalidate') else 6):raise ValueError('bootstrap_mode')
+    if mode not in ('enroll','run','probe','correct','review-correct','delivery-revalidate','original-recover') or len(sys.argv)!=(8 if mode in ('correct','review-correct','delivery-revalidate','original-recover') else 6):raise ValueError('bootstrap_mode')
     config_raw=read(Path(sys.argv[4]),131072)
     if hashlib.sha256(config_raw).hexdigest()!=sys.argv[5]:raise ValueError('bootstrap_configuration')
     config=json.loads(config_raw)
@@ -66,6 +66,20 @@ def main():
             with queue.locked() as (rows,_):require(rows[0]['configuration_sha256']==sys.argv[5],'host_configuration_changed')
             result=authorize_correction(queue,sys.argv[6],sys.argv[7])
         print(json.dumps(result,sort_keys=True));return
+    if mode=='original-recover':
+        from automation.seedbox_assessment_queue import Queue
+        from automation.seedbox_worker import singleton
+        from automation.seedbox_original_readiness import recover
+        from automation.seedbox_confinement import confine,prevent_collector_creation
+        from automation.seedbox_host_io import collector_lifetime
+        from automation.seedbox_process import actor_lifetime
+        with actor_lifetime(config['sender']['process']):
+            prevent_collector_creation(config)
+            with collector_lifetime(config['collector_database']):
+                confine(config,root)
+                queue=Queue(config['state'])
+                with singleton(queue):result=recover(queue,config,sys.argv[6],sys.argv[7])
+        print(json.dumps(dict(record_sha256=digest(result),historical_source_outcome='unknown'),sort_keys=True));return
     if mode=='delivery-revalidate':
         from automation.seedbox_assessment_queue import Queue
         from automation.seedbox_worker import singleton

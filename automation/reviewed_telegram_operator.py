@@ -136,6 +136,13 @@ def inspect_target(store,version,sources):
     with store.tx() as c:return _target(c,version,sources)
 
 
+def original_quiescent(row,now):
+    require(row['state']=='edited' and row['attempts']>0 and row['job_state'] in ('done','review') and
+            row['job_reason']!='superseded' and row['job_lease'] is None and
+            (row['job_until'] is None or type(row['job_until']) in (int,float) and math.isfinite(row['job_until']) and row['job_until']<=now),
+            'telegram_original_not_quiescent')
+
+
 def _target(c,version,sources):
     from identity_triage_intake import normalize
     from identity_triage_observer import envelope
@@ -251,10 +258,7 @@ def deliver(store,plan,target_pin,sources,boundary,edit,*,private_guard,clock=ti
         target=_target(c,target_pin['version'],sources);row=target['row']
         require(target['row_sha256']==target_pin['row_sha256'] and target['ref']==target_pin['ref'] and
                 target['case_id']==plan['case_id'],'telegram_target_changed')
-        require(row['state']=='edited' and row['attempts']>0 and row['job_state'] in ('done','review') and
-                row['job_reason']!='superseded' and row['job_lease'] is None and
-                (row['job_until'] is None or type(row['job_until']) in (int,float) and math.isfinite(row['job_until']) and row['job_until']<=now),
-                'telegram_original_not_quiescent')
+        original_quiescent(row,now)
         require(row['created']+8*86400>boundary['expires_at'],'telegram_receipt_expiring')
         _check_spool(store,target_pin['version'],target_pin['ref'],private_guard)
         now=stamp(clock());_boundary_valid(boundary,plan,now)

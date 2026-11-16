@@ -315,3 +315,12 @@ New attempts can retain a bounded last-observed delivery stage without storing
 credentials or response bodies. A successful remote response followed by a local
 failure still leaves an uncertain attempt consumed. Neither diagnostics nor an
 offline reproduction authorizes a resend or proves the original message arrived.
+
+### Waiting for the original message
+
+Assessment source preparation waits while the exact original message is still
+being prepared. Repeated unchanged observations do not fetch sources or consume
+model requests. Progress requires changed local prerequisite records; invalid or
+ambiguous originals still stop. Earlier generic failures remain unknown and need
+an explicit reviewed recovery bound to the now-complete original. There is no
+replacement message, guessed target, producer retry or resend of an uncertain edit.

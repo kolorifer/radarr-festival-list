@@ -10,7 +10,7 @@ from identity_triage_intake import normalize,safe_text
 from tracker_metadata import valid_listing_url,parse_listing
 
 
-def actor_listing(connection,case_id,metadata,sources,allowed_source):
+def actor_listing(connection,case_id,metadata,sources,allowed_source,*,ready_at=None):
     from automation.reviewed_telegram_operator import _target
     require(case_id.startswith('outcome-') and metadata['source']==allowed_source,'host_listing_source')
     rows=connection.execute('select version,body from retry_jobs where source=? limit 101',(case_id[8:],)).fetchall()
@@ -20,6 +20,9 @@ def actor_listing(connection,case_id,metadata,sources,allowed_source):
         if record.get('reason') or record['metadata']!=metadata:continue
         target=_target(connection,version,sources)
         require(target['case_id']==case_id,'host_listing_case')
+        if ready_at is not None:
+            from automation.reviewed_telegram_operator import original_quiescent
+            original_quiescent(target['row'],ready_at)
         release=item['observation']['data']['release'];external=release.get('external_id')
         require(type(external) is str and re.fullmatch(r'[1-9][0-9]{0,19}',external),'host_listing_id')
         url='https://www.torrentleech.org/torrent/'+external

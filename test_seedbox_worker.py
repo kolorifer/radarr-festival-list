@@ -8,6 +8,8 @@ import time
 
 class WorkerTests(base.QueueTests):
  def prepare_worker(self):
+  # This suite isolates source-result handling; readiness has connected tests.
+  readiness=patch('automation.seedbox_original_readiness.ready',return_value=True);readiness.start();self.addCleanup(readiness.stop)
   self.event(1);self.event(2);q=self.queue();q.ingest(self.page(),collector_identity='a'*64);q.reserve(self.snapshot(),now=time.time())
   return q,dict(collector_database={},collector_identity='a'*64,source_attempt_limit=2)
  def test_shared_auth_denial_stops_other_case_calls(self):
