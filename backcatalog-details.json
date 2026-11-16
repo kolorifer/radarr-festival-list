@@ -22,8 +22,8 @@
   },
   "watch_policy": "watched films remain candidates but recommended_monitored=false",
   "universe_count": 951,
-  "resolved_count": 946,
-  "unresolved_count": 5,
+  "resolved_count": 948,
+  "unresolved_count": 3,
   "candidates": [
     {
       "title": "Moonlight",
@@ -4239,6 +4239,23 @@
       "recommended_monitored": true
     },
     {
+      "title": "Fahrenheit 9/11",
+      "year": 2004,
+      "imdb_id": "tt0361596",
+      "tspdt_rank": 741,
+      "score": 1.5,
+      "signals": [
+        "TSPDT 21st-century #741",
+        "Cannes Palme d'Or"
+      ],
+      "director": "Moore, Michael",
+      "country": "USA",
+      "runtime": 122,
+      "status": "candidate",
+      "watch_state": "unknown",
+      "recommended_monitored": true
+    },
+    {
       "title": "I, Daniel Blake",
       "year": 2016,
       "imdb_id": "tt5168192",
@@ -8165,6 +8182,22 @@
       "recommended_monitored": true
     },
     {
+      "title": "La Porte Rouge",
+      "year": 2007,
+      "imdb_id": "tt4698742",
+      "tspdt_rank": 509,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #509"
+      ],
+      "director": "Erice, Víctor",
+      "country": "Spain",
+      "runtime": 32,
+      "status": "candidate",
+      "watch_state": "unknown",
+      "recommended_monitored": true
+    },
+    {
       "title": "The Wind Rises",
       "year": 2013,
       "imdb_id": "tt2013293",
@@ -8768,6 +8801,22 @@
       "director": "Cronenberg, David",
       "country": "UK",
       "runtime": 101,
+      "status": "candidate",
+      "watch_state": "unknown",
+      "recommended_monitored": true
+    },
+    {
+      "title": "Los Muertos",
+      "year": 2004,
+      "imdb_id": "tt0407021",
+      "tspdt_rank": 550,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #550"
+      ],
+      "director": "Alonso, Lisandro",
+      "country": "Argentina",
+      "runtime": 78,
       "status": "candidate",
       "watch_state": "unknown",
       "recommended_monitored": true
@@ -14805,22 +14854,6 @@
       "recommended_monitored": true
     },
     {
-      "title": "Shirley",
-      "year": 2020,
-      "imdb_id": "tt8430598",
-      "tspdt_rank": 971,
-      "score": 0.5,
-      "signals": [
-        "TSPDT 21st-century #971"
-      ],
-      "director": "Decker, Josephine",
-      "country": "USA",
-      "runtime": 107,
-      "status": "candidate",
-      "watch_state": "unknown",
-      "recommended_monitored": true
-    },
-    {
       "title": "Il Divo",
       "year": 2008,
       "imdb_id": "tt1023490",
@@ -15249,19 +15282,9 @@
       "tspdt_rank": 401
     },
     {
-      "title": "La Morte rouge",
-      "year": 2006,
-      "tspdt_rank": 509
-    },
-    {
-      "title": "Los Muertos",
-      "year": 2004,
-      "tspdt_rank": 550
-    },
-    {
-      "title": "Fahrenheit 9/11",
-      "year": 2004,
-      "tspdt_rank": 741
+      "title": "Shirley",
+      "year": 2020,
+      "tspdt_rank": 971
     }
   ]
 }
