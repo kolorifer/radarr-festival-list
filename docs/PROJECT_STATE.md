@@ -1,3 +1,11 @@
+## Local original readiness candidate, 2026-11-16
+
+A current original Telegram lifecycle is incomplete. Two prior generic source
+failures retain unknown historical phases. The bounded candidate waits on local
+material readiness before source access and requires an explicit current-proof
+recovery for older blocked preparations. No producer or delivery guard change.
+See [scope and recovery boundary](reports/2026-11-16-seedbox-original-readiness.md).
+
 ## Frozen sender receipt closure candidate, 2026-11-15
 
 One original-card edit is uncertain and remains consumed. A package-only dynamic

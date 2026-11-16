@@ -66,6 +66,7 @@ def reconcile_source_interruptions(queue):
     for r in rows:
         if r['type']!='seedbox_source_started_v1':continue
         later=rows[rows.index(r)+1:]
+        if any(x['type']=='seedbox_original_recovery_v1' and digest(r) in x['proof']['source_start_sha256'] for x in later):continue
         if not any(x.get('preparation')==r['preparation'] and x['type'] in ('seedbox_evidence_retained_v1','seedbox_source_blocked_v1') for x in later):
             # A GET may have happened. Retain the interruption; no automatic replay.
             _record(queue,dict(type='seedbox_source_blocked_v1',preparation=r['preparation'],reason='source_interrupted',owner_action=True,retry_not_before=None,provider_request_consumed=False,at=time.time()))
@@ -110,7 +111,7 @@ def step(queue,config):
     candidates=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1']
     for claim in candidates:
         preparation=digest(claim)
-        operation=[r['type'] for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_operation_blocked_v1','seedbox_operation_recovery_v1','seedbox_review_correction_completed_v1','seedbox_delivery_evidence_retained_v1','seedbox_delivery_revalidation_failed_v1')]
+        operation=[r['type'] for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_operation_blocked_v1','seedbox_operation_recovery_v1','seedbox_original_recovery_v1','seedbox_review_correction_completed_v1','seedbox_delivery_evidence_retained_v1','seedbox_delivery_revalidation_failed_v1')]
         if operation and operation[-1] in ('seedbox_operation_blocked_v1','seedbox_delivery_revalidation_failed_v1'):continue
         if any(r.get('preparation')==preparation and r['type'] in ('seedbox_preparation_superseded_v1','seedbox_delivery_terminal_v1') for r in rows):continue
         if preparation in _source_blocked(rows):continue
@@ -122,15 +123,22 @@ def step(queue,config):
         reviews=[r for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_automated_review_completed_v1','seedbox_review_correction_completed_v1')]
         if any(r['stage']=='assessment' for r in attempts) and not reports:continue
         if any(r['stage']=='review' for r in attempts) and not reviews:continue
-        phase='source'
+        phase='source_local'
         try:
             if not any(r.get('preparation')==preparation and r['type']=='seedbox_evidence_retained_v1' for r in rows):
                 if source_paused(rows,time.time()):continue
                 with database(config['collector_database']) as c:raw,_,_=selected_snapshot(c,claim['case_id'],time.time())
                 queue.refresh_preparations(raw,now=time.time())
                 if any(r.get('preparation')==preparation and r['type']=='seedbox_preparation_superseded_v1' for r in _rows(queue)):return True
-                _record(queue,dict(type='seedbox_source_started_v1',preparation=preparation,at=time.time()))
+                from automation.seedbox_original_readiness import ready,OriginalWait,bind_view,transition
+                if not ready(queue,config,preparation):continue
+                phase='source_acquisition'
                 try:capture(queue,config,preparation)
+                except OriginalWait as error:
+                    # The repeated local binding refused BEFORE the source marker
+                    # and credentials/GET, even if the earlier precheck was ready.
+                    transition(queue,preparation,bind_view(queue,config,preparation,error.view))
+                    return False
                 except SourceFailure as error:
                     queue.record_source_failure(preparation,reason=error.reason,retry_after=error.retry_after,now=time.time())
                     return True
@@ -167,14 +175,18 @@ def step(queue,config):
                 reason=str(error)
                 if reason in ('host_credit_exhausted','host_credit_expired'):_record(queue,record(_rows(queue),'provider',reason,preparation))
                 else:_record(queue,record(_rows(queue),'credential','host_credential_unavailable',preparation))
-            elif phase=='source' and (isinstance(error,PermissionError) or str(error).startswith(('host_configuration','host_cookie','host_source_configuration','unsafe_'))):
+            elif phase in ('source_local','source_acquisition') and (isinstance(error,PermissionError) or str(error).startswith(('host_configuration','host_cookie','host_source_configuration','unsafe_'))):
                 _record(queue,record(_rows(queue),'source','shared_source_configuration_or_access',preparation))
             elif phase=='delivery' and str(error)!='host_sender_pre_send_busy' and (isinstance(error,PermissionError) or str(error).startswith(('host_actor_','host_sender_','host_topology_','selected_bot_configuration','unsafe_'))):
                 _record(queue,record(_rows(queue),'telegram','shared_sender_configuration_or_access',preparation))
             from ai_movie_investigator.seedbox_authorization import diagnostic
             if phase=='review':
                 from automation.seedbox_automated_review import diagnostic
-            _record(queue,dict(type='seedbox_operation_blocked_v1',preparation=preparation,diagnostic=diagnostic(error),at=time.time()))
+            if phase in ('source_local','source_acquisition'):
+                from automation.seedbox_original_readiness import diagnostic as source_diagnostic
+                detail=source_diagnostic(error,phase)
+            else:detail=diagnostic(error)
+            _record(queue,dict(type='seedbox_operation_blocked_v1',preparation=preparation,diagnostic=detail,at=time.time()))
             return True
     if source_paused(_rows(queue),time.time()):return bool(page['events'])
     # Discover the next eligible occurrence without a full-export eligible cap.

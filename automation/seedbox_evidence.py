@@ -16,10 +16,16 @@ def capture(queue,config,preparation):
     with queue.locked() as (rows,_):
         claims=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1' and digest(r)==preparation]
         require(len(claims)==1,'host_preparation_missing');claim=claims[0]
+        recovered=[r for r in rows if r['type']=='seedbox_original_recovery_v1' and r['preparation']==preparation]
+        if recovered:claim=dict(claim,original_recovery_view=recovered[-1]['proof']['view'])
         require(not any(r.get('preparation')==preparation and r['type'] in ('seedbox_evidence_retained_v1','seedbox_provider_started_v1','seedbox_preparation_superseded_v1') for r in rows),'host_evidence_consumed')
     with database(config['collector_database']) as c:
         raw,metadata,coverage=selected_snapshot(c,claim['case_id'],time.time())
-    bundle=acquire(config,claim,raw,metadata)
+    def source_started():
+        with queue.locked() as (rows,append):
+            require(not any(r.get('preparation')==preparation and r['type'] in ('seedbox_evidence_retained_v1','seedbox_provider_started_v1','seedbox_preparation_superseded_v1') for r in rows),'host_evidence_consumed')
+            append(dict(type='seedbox_source_started_v1',preparation=preparation,local_original_checked=True,at=time.time()))
+    bundle=acquire(config,claim,raw,metadata,before_source=source_started)
     bundle['coverage']['global_collector']=coverage
     return _retain(queue,preparation,bundle)
 

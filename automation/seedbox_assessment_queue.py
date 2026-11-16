@@ -292,5 +292,5 @@ def _source_blocked(rows):
     blocked=set()
     for row in rows:
         if row['type']=='seedbox_source_blocked_v1':blocked.add(row['preparation'])
-        elif row['type']=='seedbox_source_recovery_v1':blocked.discard(row['preparation'])
+        elif row['type'] in ('seedbox_source_recovery_v1','seedbox_original_recovery_v1'):blocked.discard(row['preparation'])
     return blocked
