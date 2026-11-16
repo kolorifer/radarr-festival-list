@@ -324,3 +324,15 @@ model requests. Progress requires changed local prerequisite records; invalid or
 ambiguous originals still stop. Earlier generic failures remain unknown and need
 an explicit reviewed recovery bound to the now-complete original. There is no
 replacement message, guessed target, producer retry or resend of an uncertain edit.
+
+
+### Early assessment candidate (2026-11-16; deployment separate)
+
+A valid original notification receipt can support assessment and a separate
+reporting review while the normal metadata retry is pending. The assessment may
+honestly report that an authenticated exact IMDb lookup returned no movie
+mapping; that is not proof that the film does not exist and does not authorize a
+candidate, identity reuse or download. The worker waits for the original message
+to finish before editing it. A proven terminal retry and, when needed, one
+same-facts source check preserve the old report and its observation dates.
+Changed evidence stops delivery rather than silently regenerating the report.

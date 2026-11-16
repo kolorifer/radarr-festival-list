@@ -1,3 +1,12 @@
+## Early assessment candidate, 2026-11-16
+
+A retained initial original receipt now has a separate assessment ownership
+contract. The candidate allows assessment/reporting review before ordinary actor
+retry completion, then requires a proven terminal handoff before notification.
+Authenticated empty movie lookup is explicit missing-mapping evidence, never an
+identity candidate. No live operation is evidenced by this implementation.
+See [scope, proof and limits](reports/2026-11-16-seedbox-early-assessment.md).
+
 ## Local original readiness candidate, 2026-11-16
 
 A current original Telegram lifecycle is incomplete. Two prior generic source

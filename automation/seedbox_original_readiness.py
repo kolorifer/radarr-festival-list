@@ -11,7 +11,7 @@ class OriginalWait(ValueError):
         super().__init__(view['reason']);self.view=view
 
 
-def binding(connection,case_id,metadata,sources,allowed_source):
+def binding(connection,case_id,metadata,sources,allowed_source,*,assessment=False):
     from automation.seedbox_source_evidence import actor_listing
     require(case_id.startswith('outcome-') and metadata['source']==allowed_source,'host_listing_source')
     jobs=connection.execute('select version,body,state,reason,lease,until from retry_jobs where source=? order by version limit 101',(case_id[8:],)).fetchall()
@@ -28,7 +28,7 @@ def binding(connection,case_id,metadata,sources,allowed_source):
         raise OriginalWait(dict(kind='seedbox_original_readiness_v1',status='waiting',reason='original_job_missing',case_id=case_id,local_sha256=fingerprint))
     require(len(matched)==1,'host_listing_ambiguous_or_missing')
     try:
-        selected=actor_listing(connection,case_id,metadata,sources,allowed_source,ready_at=time.time())
+        selected=actor_listing(connection,case_id,metadata,sources,allowed_source,ready_at=time.time(),assessment=assessment)
     except ValueError as error:
         reason=str(error)
         if reason not in WAIT_REASONS:raise
@@ -38,10 +38,10 @@ def binding(connection,case_id,metadata,sources,allowed_source):
         require(job[2] in ('pending','leased','done','review') and job[3]!='superseded','original_wait_invalid_lifecycle')
         require(message is None or message[6] in ('waiting','edited'),'original_wait_invalid_lifecycle')
         raise OriginalWait(dict(kind='seedbox_original_readiness_v1',status='waiting',reason=reason,case_id=case_id,local_sha256=fingerprint)) from None
-    return selected,dict(kind='seedbox_original_readiness_v1',status='ready',reason='original_complete_quiescent',case_id=case_id,local_sha256=fingerprint,target_sha256=digest(selected['target']),actor_version=selected['actor_version'])
+    return selected,dict(kind='seedbox_original_readiness_v1',status='ready',reason='original_receipt_validated' if assessment else 'original_complete_quiescent',case_id=case_id,local_sha256=digest(selected['target']['ownership_pin']) if assessment else fingerprint,target_sha256=digest(selected['target']['ownership_pin']) if assessment else digest(selected['target']),actor_version=selected['actor_version'])
 
 
-def inspect(queue,config,preparation):
+def inspect(queue,config,preparation,*,assessment=False):
     from automation.seedbox_host_io import database,selected_snapshot
     from ai_movie_investigator.snapshot_review import select
     import hashlib
@@ -52,9 +52,9 @@ def inspect(queue,config,preparation):
     with database(config['collector_database']) as c:raw,metadata,_=selected_snapshot(c,claim['case_id'],time.time())
     select(raw,hashlib.sha256(raw).hexdigest(),claim['case_id'],claim['version'],now=time.time())
     with database(config['actor_database']) as c:
-        try:_,view=binding(c,claim['case_id'],metadata,config['sources'],config['listing_source'])
+        try:_,view=binding(c,claim['case_id'],metadata,config['sources'],config['listing_source'],assessment=assessment)
         except OriginalWait as error:view=error.view
-    return bind_view(queue,config,preparation,view)
+    return bind_view(queue,config,preparation,dict(view,purpose="assessment") if assessment else view)
 
 
 def bind_view(queue,config,preparation,view):
@@ -70,16 +70,17 @@ def transition(queue,preparation,view):
         prior=[r for r in rows if r['type']=='seedbox_original_readiness_v1' and r['preparation']==preparation]
         if prior and prior[-1]['view']==view:return False
         # A clock alone cannot turn an unchanged waiting row into permission.
-        if prior and prior[-1]['view']['status']=='waiting' and view['status']=='ready' and prior[-1]['view']['local_sha256']==view['local_sha256']:return False
+        if prior and prior[-1]['view']['status']=='waiting' and view['status']=='ready' and prior[-1]['view'].get('purpose')==view.get('purpose') and prior[-1]['view']['local_sha256']==view['local_sha256']:return False
         append(dict(type='seedbox_original_readiness_v1',preparation=preparation,view=view,at=time.time()))
     return True
 
 
-def ready(queue,config,preparation):
-    view=inspect(queue,config,preparation)
+def ready(queue,config,preparation,*,assessment=False):
     with queue.locked() as (rows,_):
         recovered=[r for r in rows if r['type']=='seedbox_original_recovery_v1' and r['preparation']==preparation]
-        if recovered:require(view==recovered[-1]['proof']['view'],'original_recovery_changed')
+    if recovered and recovered[-1]['proof']['kind']=='seedbox_original_recovery_proposal_v1':assessment=False
+    view=inspect(queue,config,preparation,assessment=assessment)
+    if recovered:require(view==recovered[-1]['proof']['view'],'original_recovery_changed')
     transition(queue,preparation,view)
     if view['status']!='ready':return False
     with queue.locked() as (rows,_):last=[r for r in rows if r['type']=='seedbox_original_readiness_v1' and r['preparation']==preparation][-1]
@@ -91,12 +92,12 @@ def diagnostic(error,phase):
     return dict(kind='seedbox_source_diagnostic_v1',phase=phase,reason=reason if reason in REFUSALS|{'original_wait_invalid_lifecycle','host_configuration_changed'} else 'source_unclassified')
 
 
-def recovery_proposal(queue,config,preparation):
+def recovery_proposal(queue,config,preparation,*,assessment=False):
     """Explicit one-new-observation authority; never proves old GET absence."""
     import os
     from ai_movie_investigator.private_files import private_chain
     from automation.seedbox_circuit import active
-    view=inspect(queue,config,preparation)
+    view=inspect(queue,config,preparation,assessment=assessment)
     require(view['status']=='ready','original_recovery_not_ready')
     with queue.locked() as (rows,_):
         require(not active(rows),'original_recovery_circuit')
@@ -118,18 +119,18 @@ def recovery_proposal(queue,config,preparation):
                 try:os.stat('evidence-'+prep,dir_fd=parent,follow_symlinks=False)
                 except FileNotFoundError:pass
                 else:raise ValueError('original_recovery_evidence_exists')
-        return dict(kind='seedbox_original_recovery_proposal_v1',preparation=preparation,view=view,
+        return dict(kind='seedbox_assessment_original_recovery_v1' if assessment else 'seedbox_original_recovery_proposal_v1',preparation=preparation,view=view,
             history_sha256=digest(rows),blocked_sha256=digest(blocked[0]),source_start_sha256=[digest(r) for r in starts],
             source_failure_sha256=[digest(r) for r in failures],historical_source_outcome='unknown',
             authorization='one_new_source_observation',provider_or_sender_consumed=False)
 
 
-def recover(queue,config,preparation,proposal_sha256):
-    proof=recovery_proposal(queue,config,preparation)
+def recover(queue,config,preparation,proposal_sha256,*,assessment=False):
+    proof=recovery_proposal(queue,config,preparation,assessment=assessment)
     require(digest(proof)==proposal_sha256,'original_recovery_changed')
     # Caller holds the ordinary singleton. Recompute current local proof again;
     # capture still rechecks it before the future source marker/credential/GET.
-    require(recovery_proposal(queue,config,preparation)==proof,'original_recovery_changed')
+    require(recovery_proposal(queue,config,preparation,assessment=assessment)==proof,'original_recovery_changed')
     with queue.locked() as (rows,append):
         require(not any(r.get('preparation')==preparation and r['type']=='seedbox_original_recovery_v1' for r in rows),'original_recovery_consumed')
         require(digest(rows)==proof['history_sha256'],'original_recovery_changed')

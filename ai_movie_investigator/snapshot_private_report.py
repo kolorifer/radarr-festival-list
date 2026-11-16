@@ -218,6 +218,7 @@ def render(report, report_sha256, projection, local_raw, local_sha256, *, publis
         '<p>These are the model’s selected concerns. The values shown are observations, not a claim that they caused its decision.</p>',
         '<h2>Evidence at a glance</h2><p>Agreements and differences are direct comparisons; they do not establish identity or an edition. Lists may be partial.</p>',
         '<p>Snapshot generated: '+escape(observed(projection['generated_at']))+'; listing observed: '+escape(observed(source['observed_at']))+'; catalogue observed: '+escape(observed(cat['observed_at']))+'.</p>',
+        ('<p>Catalogue lookup: the authenticated lookup for '+escape(cat['lookup_imdb'])+' returned no movie mapping at '+escape(observed(cat['observed_at']))+'. No catalogue crosswalk or identity candidate is established; this does not prove that no film exists.</p>' if projection.get('catalogue_lookup_status') else ''),
         category({'exact','overlap'},'Observed agreements','No direct agreement is established.'),
         category({'different'},'Observed differences','No direct difference is established.'),
         category({'missing','no_observed_overlap'},'Missing or inconclusive observations','No missing or inconclusive comparison was recorded.'),

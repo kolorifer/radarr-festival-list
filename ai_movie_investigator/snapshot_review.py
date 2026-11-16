@@ -81,10 +81,11 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
     from .contracts import hash_id
     for k in ('snapshot_sha256','source_sha256','catalogue_sha256','source_original_sha256','catalogue_original_sha256'):
         hash_id(attestation[k])
-    require(attestation['kind'] in ('main_reviewed_normalized_case_v1','host_authenticated_normalized_case_v1') and
+    missing_movie=attestation['kind']=='host_authenticated_no_movie_mapping_v1'
+    require(attestation['kind'] in ('main_reviewed_normalized_case_v1','host_authenticated_normalized_case_v1','host_authenticated_no_movie_mapping_v1') and
             (attestation['snapshot_sha256'], attestation['case_id'], attestation['version']) ==
             (snapshot_sha256, case_id, version) and
-            attestation['source_linkage_verified'] is True and attestation['catalogue_crosswalk_verified'] is True and
+            attestation['source_linkage_verified'] is True and attestation['catalogue_crosswalk_verified'] is (not missing_movie) and
             stamp(attestation['observed_at']) <= now < stamp(attestation['expires_at']), 'snapshot_attestation')
     for raw, key in ((source_raw, 'source_sha256'), (catalogue_raw, 'catalogue_sha256')):
         require(type(raw) is bytes and len(raw) <= 65536 and hashlib.sha256(raw).hexdigest() == attestation[key],
@@ -92,10 +93,14 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
     source = decode(source_raw, 65536); catalogue = decode(catalogue_raw, 65536)
     shape(source, 'kind case_id version observed_at title year description_runtime_minutes '
           'nfo_runtime_milliseconds nfo_runtime_kind cast directors imdb expires_at')
-    shape(catalogue, 'kind observed_at expires_at title theatrical_year festival_years runtime_minutes cast directors imdb tmdb')
+    shape(catalogue, 'kind observed_at expires_at title theatrical_year festival_years runtime_minutes cast directors imdb tmdb'+(' lookup_imdb' if missing_movie else ''))
+    if missing_movie:
+        require(catalogue['lookup_imdb']==source['imdb'] and source['imdb'] is not None and
+            all(catalogue[k] is None for k in ('title','theatrical_year','runtime_minutes','imdb','tmdb')) and
+            all(catalogue[k]==[] for k in ('festival_years','cast','directors')),'snapshot_missing_catalogue')
     require(source['kind'] == 'selected_listing_facts_v1' and
             (source['case_id'], source['version']) == (case_id, version) and
-            catalogue['kind'] == 'catalogue_facts_v1', 'snapshot_observation_binding')
+            catalogue['kind'] == ('catalogue_no_movie_mapping_v1' if missing_movie else 'catalogue_facts_v1'), 'snapshot_observation_binding')
     for obj in (source, catalogue):
         require(stamp(obj['observed_at']) <= attestation['observed_at'] and
                 now < stamp(obj['expires_at']) <= attestation['expires_at'] and
@@ -127,6 +132,7 @@ def projection(snapshot_raw, snapshot_sha256, case_id, version, source_raw, cata
         complete_decisions='unknown', physical_edition='unknown', identity_approval='unknown',
         acquisition_approval='unknown', evidence_expires_at=min(source['expires_at'], catalogue['expires_at']),
         source_evidence_sha256=attestation['source_sha256'], catalogue_evidence_sha256=attestation['catalogue_sha256'])
+    if missing_movie:result['catalogue_lookup_status']='authenticated_no_movie_mapping_at_observed_time'
     if reobservation is not None:
         _same_listing_reobservation(result,reobservation,attestation,local_context,historical_observed_at=historical_observed_at)
     return result
@@ -1114,6 +1120,18 @@ def build_film_prose(p):
         w['input'][0]['content'][0]['text']=encoded(data).decode()
         require('supervisor reviewed' not in w['instructions'].lower(),'host_provenance_wording')
         w['instructions']+=' Collector title/year and resolved/asserted IDs are dated collector claims, not independently verified identity. Use the typed collector evidence view when citing those fields.'
+    if p.get('catalogue_lookup_status'):
+        data=decode(w['input'][0]['content'][0]['text'],65536)
+        observation=dict(status=p['catalogue_lookup_status'],requested_imdb=p['catalogue']['lookup_imdb'],observed_at=p['catalogue']['observed_at'],crosswalk_verified=False)
+        data['historical_observations']['catalogue']['movie_lookup']=observation
+        data['qualifications']['catalogue_movie_lookup']=observation
+        from .disclosure import evidence_alias
+        facts=b['disclosure']['rows']['catalogue']['view'].setdefault('facts',{})
+        facts['movie_lookup']=observation
+        for row in data['evidence']:
+            if row['alias']==evidence_alias(b['run'],'catalogue'):row.setdefault('facts',{})['movie_lookup']=observation
+        w['input'][0]['content'][0]['text']=encoded(data).decode()
+        w['instructions']+=' The exact authenticated IMDb lookup returned no movie mapping at its recorded observation time. Explain that observed result explicitly. It is not proof that no film exists, not a verified crosswalk, and cannot support an identity candidate. Preserve the missing film-evidence blocker; do not invent a catalogue match.'
     require(len(encoded(w))<=65536,'snapshot_disclosure_size')
     return b
 

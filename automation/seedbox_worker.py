@@ -131,7 +131,7 @@ def step(queue,config):
                 queue.refresh_preparations(raw,now=time.time())
                 if any(r.get('preparation')==preparation and r['type']=='seedbox_preparation_superseded_v1' for r in _rows(queue)):return True
                 from automation.seedbox_original_readiness import ready,OriginalWait,bind_view,transition
-                if not ready(queue,config,preparation):continue
+                if not ready(queue,config,preparation,assessment=True):continue
                 phase='source_acquisition'
                 try:capture(queue,config,preparation)
                 except OriginalWait as error:
@@ -161,6 +161,8 @@ def step(queue,config):
             if reviews[0]['answer']['verdict']!='approve':
                 _record(queue,dict(type='seedbox_delivery_terminal_v1',preparation=preparation,status='review_rejected',at=time.time()));return True
             phase='delivery'
+            from automation.seedbox_assessment_handoff import before_delivery
+            if not before_delivery(queue,config,preparation):continue
             result=deliver_reviewed(queue,config,preparation)
             _record(queue,dict(type='seedbox_delivery_terminal_v1',preparation=preparation,result=result,at=time.time()));return True
         except Exception as error:
