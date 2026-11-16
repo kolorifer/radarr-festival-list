@@ -106,7 +106,8 @@ def _proposal_unchanged(report,projection,local_raw,target_pin,html_sha256):
 
 def proposal(report,projection,local_raw,target_pin,html_sha256,*,revision=1):
     if revision==1:return _proposal_unchanged(report,projection,local_raw,target_pin,html_sha256)
-    require(revision==2,'review_card_revision')
+    require(revision in (2,3),'review_card_revision')
+    if revision==3:require(target_pin.get('kind')=='seedbox_assessment_original_ownership_v1','review_card_ownership')
     local=validate_local_context(local_raw)
     require(report['projection_sha256']==digest(projection) and report['local_context_sha256']==hashlib.sha256(local_raw).hexdigest() and report['provider_receipt_correlated'] is True,'review_report_binding')
     result=report['result'];candidate=result['candidate'];listing=projection['listing'];catalogue=projection['catalogue']
@@ -128,7 +129,7 @@ def proposal(report,projection,local_raw,target_pin,html_sha256,*,revision=1):
     text='\n'.join((identity,discrepancy,evidence,uncertainty,dated,'Source listing: '+local['tracker_url'],'Reporting reviewed automatically; identity reuse and downloads are not approved.'))
     kind=target_pin['ref']['kind'];require(kind in ('text','caption'),'review_card_target_kind')
     require(0<len(text.encode('utf-16-le'))//2<=(4096 if kind=='text' else 1024),'review_card_size')
-    return dict(kind='seedbox_card_proposal_v2',case_id=projection['case_id'],version=projection['version'],report_sha256=digest(report),receipt_sha256=report['receipt_hash'],html_sha256=html_sha256,local_context_sha256=report['local_context_sha256'],source_url=local['tracker_url'],candidate=candidate,summary=summary,text=text,target_sha256=digest(target_pin))
+    return dict(kind='seedbox_card_proposal_v3' if revision==3 else 'seedbox_card_proposal_v2',case_id=projection['case_id'],version=projection['version'],report_sha256=digest(report),receipt_sha256=report['receipt_hash'],html_sha256=html_sha256,local_context_sha256=report['local_context_sha256'],source_url=local['tracker_url'],candidate=candidate,summary=summary,text=text,target_sha256=digest(target_pin))
 
 
 def _build_unchanged(report,projection,card):
@@ -184,7 +185,7 @@ def assessment(queue,preparation,*,historical=False,card_revision=1):
 
 
 # Static predicates only. Never echo arbitrary exception text or provider prose.
-_REVIEW_REASONS=frozenset("review_report_binding review_card_size review_proposal_changed review_disclosure_size review_assessment_missing review_assessment_changed review_html_changed review_disclosure review_attempt_changed review_response_unbound review_usage_limit review_binding_changed review_approval_conflicted review_answer_shape review_findings_required review_reason_unsafe review_finding_unsafe review_problem_unsafe review_not_completed review_not_approved review_chain_changed host_review_uncertain_or_refused review_correction_parent review_correction_consumed review_correction_binding review_correction_send_exists review_correction_changed review_request_revision review_circuit_active review_explanation_trivial review_card_revision review_card_target_kind review_delivery_revalidation_required".split())
+_REVIEW_REASONS=frozenset("review_report_binding review_card_size review_proposal_changed review_disclosure_size review_assessment_missing review_assessment_changed review_html_changed review_disclosure review_attempt_changed review_response_unbound review_usage_limit review_binding_changed review_approval_conflicted review_answer_shape review_findings_required review_reason_unsafe review_finding_unsafe review_problem_unsafe review_not_completed review_not_approved review_chain_changed host_review_uncertain_or_refused review_correction_parent review_correction_consumed review_correction_binding review_correction_send_exists review_correction_changed review_request_revision review_circuit_active review_explanation_trivial review_card_ownership review_card_revision review_card_target_kind review_delivery_revalidation_required".split())
 
 
 def diagnostic(error):
@@ -253,14 +254,15 @@ def correction_proposal(queue,preparation):
     with queue.locked() as (rows,_):
         _,_,oldfailure=_correction_rows(rows,preparation)
     report,evidence,oldcard=assessment(queue,preparation,historical=True,card_revision=oldfailure.get('card_revision',1))
-    card=proposal(report,evidence['projection'],evidence['local_raw'],evidence['target_pin'],oldcard['html_sha256'],revision=2)
+    card_revision=3 if evidence['target_pin'].get('kind')=='seedbox_assessment_original_ownership_v1' else 2
+    card=proposal(report,evidence['projection'],evidence['local_raw'],evidence['target_pin'],oldcard['html_sha256'],revision=card_revision)
     with queue.locked() as (rows,_):
         record,attempt,failure=_correction_rows(rows,preparation)
         old_request,bindings=build(report,evidence['projection'],oldcard,revision=failure.get('review_request_revision',1))
         validations=[r for r in rows if r['type']=='seedbox_review_validation_refused_v2' and r['preparation']==preparation]
         require(not any(r['type']=='seedbox_review_correction_authorized_v1' and r['preparation']==preparation for r in rows),'review_correction_consumed')
     require(attempt['request_sha256']==digest(old_request) and attempt['review_of']==digest(report) and attempt['evidence_sha256']==bindings['evidence_sha256'],'review_correction_binding')
-    return dict(kind='seedbox_historical_review_correction_v2',card_revision=2,old_card_sha256=digest(oldcard),purpose='one_distinct_reporting_review_existing_delivery_guards',preparation=preparation,report_sha256=digest(report),card_sha256=digest(card),evidence_sha256=bindings['evidence_sha256'],target_sha256=card['target_sha256'],old_attempt_sha256=digest(attempt),old_request_sha256=digest(old_request),failed_record_sha256=digest(failure),historical_at=record['at'],old_outcome='retained_validation_refusal' if validations else 'unknown_discarded_response',retained_validation_sha256=digest(validations[0]) if validations else None,delivery_authorized=False,ordinary_delivery_checks_required=True,automatic_retry=False)
+    return dict(kind='seedbox_historical_review_correction_v2',card_revision=card_revision,old_card_sha256=digest(oldcard),purpose='one_distinct_reporting_review_existing_delivery_guards',preparation=preparation,report_sha256=digest(report),card_sha256=digest(card),evidence_sha256=bindings['evidence_sha256'],target_sha256=card['target_sha256'],old_attempt_sha256=digest(attempt),old_request_sha256=digest(old_request),failed_record_sha256=digest(failure),historical_at=record['at'],old_outcome='retained_validation_refusal' if validations else 'unknown_discarded_response',retained_validation_sha256=digest(validations[0]) if validations else None,delivery_authorized=False,ordinary_delivery_checks_required=True,automatic_retry=False)
 
 
 def correction_request(report,projection,card,proof):
@@ -298,7 +300,11 @@ def _execute(queue,preparation,*,policy,credential,correction=None):
     from ai_movie_investigator.credit_test import MINI_MODEL
     from automation.seedbox_circuit import active
     with queue.locked() as (rows,_):require(not active(rows),'review_circuit_active')
-    report,evidence,card=assessment(queue,preparation,historical=correction is not None,card_revision=2 if correction is None else correction['proof'].get('card_revision',1));projection=evidence['projection']
+    if correction is None:
+        from automation.seedbox_evidence import load
+        card_revision=3 if load(queue,preparation)['manifest']['kind']=='seedbox_ownership_evidence_v1' else 2
+    else:card_revision=correction['proof'].get('card_revision',1)
+    report,evidence,card=assessment(queue,preparation,historical=correction is not None,card_revision=card_revision);projection=evidence['projection']
     require(time.time()+180<(policy['expires_at'] if correction is not None else min(policy['expires_at'],projection['evidence_expires_at'],projection['generated_at']+3600)),'host_evidence_window')
     if correction is None:request,bindings=build(report,projection,card,revision=2)
     else:
@@ -329,7 +335,7 @@ def _execute(queue,preparation,*,policy,credential,correction=None):
             if predicates:
                 append(dict(type='seedbox_review_validation_refused_v2',preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),bindings=bindings,answer=retained,original_answer_sha256=digest(answer),retained_answer_sha256=digest(retained),prose_handling=handling,predicates=predicates,receipt=receipt,receipt_sha256=digest(receipt),decision_usable=False,provider_signed=False,raw_answer_retained=False,at=time.time()))
                 raise Refusal(predicates[0])
-            record=dict(type='seedbox_automated_review_completed_v1',review_request_revision=2,card_revision=2 if correction is None else correction['proof'].get('card_revision',1),preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),card=card,answer=answer,receipt=receipt,receipt_sha256=digest(receipt),review_kind='separate_automated_generation',personal_main_review=False,at=time.time())
+            record=dict(type='seedbox_automated_review_completed_v1',review_request_revision=2,card_revision=card_revision,preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),card=card,answer=answer,receipt=receipt,receipt_sha256=digest(receipt),review_kind='separate_automated_generation',personal_main_review=False,at=time.time())
             if correction is not None:
                 record.update(type='seedbox_review_correction_completed_v1',correction_sha256=digest(correction['proof']),delivery_authorized=False,ordinary_delivery_checks_required=True)
             append(record)
@@ -341,7 +347,7 @@ def _execute(queue,preparation,*,policy,credential,correction=None):
             if str(error) in ('responses_http_401','responses_http_403','responses_http_429'):
                 from automation.seedbox_circuit import record
                 append(record(rows,'provider',str(error),preparation))
-            append(dict(type='seedbox_review_uncertain_or_refused_v1',review_request_revision=2,card_revision=2 if correction is None else correction['proof'].get('card_revision',1),preparation=preparation,attempt_sha256=digest(attempt),diagnostic=diagnostic(error),at=time.time()))
+            append(dict(type='seedbox_review_uncertain_or_refused_v1',review_request_revision=2,card_revision=card_revision,preparation=preparation,attempt_sha256=digest(attempt),diagnostic=diagnostic(error),at=time.time()))
             raise Refusal('host_review_uncertain_or_refused') from None
         finally:host._ACTIVE.reset(marker)
 
@@ -353,7 +359,7 @@ def approved_plan(queue,preparation,*,historical=False):
         candidates=[r for r in rows if r.get('preparation')==preparation and r['type'] in ('seedbox_automated_review_completed_v1','seedbox_review_correction_completed_v1')]
         require(len(candidates)==1,'review_not_completed')
         revalidated=any(r.get('preparation')==preparation and r['type'] in ('seedbox_delivery_evidence_retained_v1','seedbox_delivery_revalidation_started_v1') for r in rows)
-        needs_revalidation=candidates[0]['type']=='seedbox_review_correction_completed_v1' and candidates[0].get('card_revision',1)==2
+        needs_revalidation=candidates[0]['type']=='seedbox_review_correction_completed_v1' and candidates[0].get('card_revision',1) in (2,3)
         require(historical or not needs_revalidation or revalidated,'review_delivery_revalidation_required')
     report,evidence,card=assessment(queue,preparation,historical=historical or revalidated,card_revision=candidates[0].get('card_revision',1))
     with queue.locked() as (rows,_):
@@ -386,7 +392,7 @@ def approved_plan(queue,preparation,*,historical=False):
         record['receipt']['reserved_usd']==attempt['reserved_usd'] and record['personal_main_review'] is False and
         record['review_kind']=='separate_automated_generation','review_chain_changed')
     plan={k:v for k,v in card.items() if k not in ('kind','target_sha256')}
-    plan.update(kind='reviewed_original_card_v2' if card['kind']=='seedbox_card_proposal_v2' else 'reviewed_original_card_v1',review_sha256=digest(record),reviewed_at=record['at'],production_approved=False,download_approved=False)
+    plan.update(kind='reviewed_original_card_v3' if card['kind']=='seedbox_card_proposal_v3' else 'reviewed_original_card_v2' if card['kind']=='seedbox_card_proposal_v2' else 'reviewed_original_card_v1',review_sha256=digest(record),reviewed_at=record['at'],production_approved=False,download_approved=False)
     _validate_plan(plan,time.time())
     if revalidated and not historical:
         from automation.seedbox_delivery_evidence import current

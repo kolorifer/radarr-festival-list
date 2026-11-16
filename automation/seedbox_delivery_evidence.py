@@ -1,7 +1,7 @@
 """One explicit same-facts delivery observation; never reassess or rewrite clocks."""
 import hashlib,math,os,time
 from ai_movie_investigator.contracts import require,encoded,decode,digest,hash_id,Refusal
-from ai_movie_investigator.private_files import private_chain
+from ai_movie_investigator.private_files import private_chain,read_private
 from ai_movie_investigator.snapshot_authorization import _write_once
 from automation.seedbox_evidence import load,RAW_FIELDS
 
@@ -9,7 +9,7 @@ from automation.seedbox_evidence import load,RAW_FIELDS
 def _semantic(value):return {k:v for k,v in value.items() if k not in ('observed_at','expires_at')}
 
 
-def _compare(old,fresh):
+def _compare(old,fresh,handoff=None):
     a=old['projection'];b=fresh['projection']
     excluded={'snapshot_sha256','generated_at','listing','catalogue','evidence_expires_at','source_evidence_sha256','catalogue_evidence_sha256'}
     require({k:v for k,v in a.items() if k not in excluded}=={k:v for k,v in b.items() if k not in excluded},'delivery_occurrence_changed')
@@ -18,7 +18,7 @@ def _compare(old,fresh):
     require(b['generated_at']>=a['generated_at'] and all(b[k]['observed_at']>a[k]['observed_at'] for k in ('listing','catalogue')),'delivery_observation_not_new')
 
 
-def _binding(queue,preparation):
+def _binding(queue,preparation,*,handoff=None):
     from automation.seedbox_automated_review import approved_plan
     plan,target=approved_plan(queue,preparation,historical=True)
     with queue.locked() as (rows,_):
@@ -26,24 +26,27 @@ def _binding(queue,preparation):
         require(len(reports)==1,'delivery_report_missing');record=reports[0]
     old=load(queue,preparation,now=record['at'])
     proof=dict(kind='seedbox_delivery_revalidation_binding_v1',preparation=preparation,plan_sha256=digest(plan),review_sha256=plan['review_sha256'],report_sha256=plan['report_sha256'],old_manifest_sha256=digest(old['manifest']),target_sha256=digest(target),source_url_sha256=digest(decode(old['local_raw'])['tracker_url']),listing_semantic_sha256=digest(_semantic(old['projection']['listing'])),catalogue_semantic_sha256=digest(_semantic(old['projection']['catalogue'])),original_report_at=record['at'],original_evidence_expires_at=old['projection']['evidence_expires_at'],reassessment=False,automatic_retry=False)
+    if handoff:
+        require(old['target_pin'].get('kind')=='seedbox_assessment_original_ownership_v1' and handoff['ownership_sha256']==digest(target) and handoff['old_manifest_sha256']==digest(old['manifest']),'handoff_binding')
+        proof.update(kind='seedbox_delivery_revalidation_binding_v2',handoff=handoff,snapshot_semantics='retained_assessment_case_with_new_wrapper_generation_only',automatic_retry=False)
     return proof,old
 
 
-def proposal(queue,preparation):
-    hash_id(preparation);proof,_=_binding(queue,preparation)
+def proposal(queue,preparation,*,handoff=None):
+    hash_id(preparation);proof,_=_binding(queue,preparation,handoff=handoff)
     with queue.locked() as (rows,_):
         require(not any(r.get('preparation')==preparation and r['type'] in ('seedbox_delivery_revalidation_started_v1','seedbox_sender_started_v1','seedbox_preparation_superseded_v1') for r in rows),'delivery_revalidation_consumed')
     return proof
 
 
-def revalidate(queue,config,preparation,expected_sha256):
+def revalidate(queue,config,preparation,expected_sha256,*,handoff=None):
     """Only this explicit command acquires selected sources once. No provider."""
     from automation.seedbox_host_io import database,selected_snapshot,acquire
     from automation.seedbox_circuit import active
     from automation.seedbox_worker import source_paused
-    hash_id(expected_sha256);proof=proposal(queue,preparation)
+    hash_id(expected_sha256);proof=proposal(queue,preparation,handoff=handoff)
     require(digest(proof)==expected_sha256,'delivery_revalidation_binding')
-    _,old=_binding(queue,preparation)
+    _,old=_binding(queue,preparation,handoff=handoff)
     with queue.locked() as (rows,append):
         require(digest(config)==rows[0]['configuration_sha256'],'host_configuration_changed')
         require(not active(rows) and not source_paused(rows,time.time()),'delivery_circuit_active')
@@ -52,9 +55,21 @@ def revalidate(queue,config,preparation,expected_sha256):
         require(len(claims)==1,'delivery_preparation_missing');claim=claims[0]
         started=dict(type='seedbox_delivery_revalidation_started_v1',preparation=preparation,proof=proof,proof_sha256=digest(proof),at=time.time());append(started)
     try:
-        with database(config['collector_database']) as c:raw,metadata,coverage=selected_snapshot(c,claim['case_id'],time.time())
+        if handoff:
+            from automation.seedbox_assessment_handoff import observe
+            require(observe(queue,config,preparation)==handoff,'handoff_changed')
+            claim=dict(claim,ownership_admission=True)
+        with database(config['collector_database']) as c:
+            if handoff:
+                from automation.seedbox_assessment_handoff import verify_collector
+                verify_collector(c,handoff)
+                snapshot=decode(old['snapshot_raw'],1048576);snapshot['generated_at']=time.time()
+                from identity_selection import metrics
+                raw=encoded(snapshot);metadata=old['target_pin']['metadata'];coverage=dict(metrics(c))
+            else:raw,metadata,coverage=selected_snapshot(c,claim['case_id'],time.time())
         bundle=acquire(config,claim,raw,metadata,revalidation=proof)
         bundle['coverage']['global_collector']=coverage
+        if handoff:bundle['terminal_handoff']=handoff
         return _retain(queue,preparation,bundle,started,old)
     except BaseException as error:
         allowed={'delivery_occurrence_changed','delivery_material_facts_changed','delivery_context_target_changed','delivery_observation_not_new','delivery_selected_target_changed','host_correction_source_changed','host_correction_catalogue_changed'}
@@ -80,10 +95,11 @@ def _retain(queue,preparation,bundle,started,old):
             raw=bundle[key];require(type(raw) is bytes and len(raw)<=1048576,'host_evidence_size')
             _write_once(fd,key+'.bin',raw);pins[key]=dict(sha256=hashlib.sha256(raw).hexdigest(),size=len(raw))
         manifest=dict(kind='seedbox_evidence_bundle_v1',preparation=preparation,files=pins,attestation=bundle['attestation'],target_pin=bundle['target_pin'],coverage=bundle['coverage'],derivation_revision=2)
+        if bundle.get('terminal_handoff'):manifest.update(kind='seedbox_handoff_evidence_v1',terminal_handoff=bundle['terminal_handoff'])
         _write_once(fd,'manifest.json',encoded(manifest))
     # Compare even before publishing an eligible retained-evidence record.
     projected=dict(bundle['projection'],host_reporting_revision=2)
-    _compare(old,dict(projection=projected,local_raw=bundle['local_raw'],target_pin=bundle['target_pin']))
+    _compare(old,dict(projection=projected,local_raw=bundle['local_raw'],target_pin=bundle['target_pin']),handoff=bundle.get('terminal_handoff'))
     with queue.locked() as (rows,append):
         require(started in rows and not any(r.get('preparation')==preparation and r['type'] in ('seedbox_delivery_evidence_retained_v1','seedbox_sender_started_v1') for r in rows),'delivery_revalidation_consumed')
         record=dict(type='seedbox_delivery_evidence_retained_v1',preparation=preparation,manifest_sha256=digest(manifest),started_sha256=digest(started),proof_sha256=started['proof_sha256'],at=time.time())
@@ -104,7 +120,11 @@ def current(queue,preparation,*,expected_plan=None):
         require(len(records)==len(starts)==1 and records[0]['started_sha256']==digest(starts[0]) and records[0]['proof_sha256']==starts[0]['proof_sha256']==digest(starts[0]['proof']),'delivery_revalidation_binding')
         require(not any(r.get('preparation')==preparation and r['type']=='seedbox_delivery_revalidation_failed_v1' for r in rows),'delivery_revalidation_refused')
         selected=starts[0]['proof']
-    proof,old=_binding(queue,preparation)
+    proof,old=_binding(queue,preparation,handoff=selected.get('handoff'))
     require(proof==selected and (expected_plan is None or proof['plan_sha256']==digest(expected_plan)),'delivery_revalidation_binding')
-    fresh=load(queue,preparation,delivery=True);_compare(old,fresh)
+    fresh=load(queue,preparation,delivery=True);_compare(old,fresh,handoff=selected.get('handoff'))
+    if selected.get('handoff'):
+        from automation.seedbox_assessment_handoff import observe
+        config=decode(read_private(queue.path/'configuration.json',131072),131072)
+        require(observe(queue,config,preparation)==selected['handoff'],'handoff_changed')
     return fresh

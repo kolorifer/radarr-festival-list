@@ -10,7 +10,7 @@ from identity_triage_intake import normalize,safe_text
 from tracker_metadata import valid_listing_url,parse_listing
 
 
-def actor_listing(connection,case_id,metadata,sources,allowed_source,*,ready_at=None):
+def actor_listing(connection,case_id,metadata,sources,allowed_source,*,ready_at=None,assessment=False):
     from automation.reviewed_telegram_operator import _target
     require(case_id.startswith('outcome-') and metadata['source']==allowed_source,'host_listing_source')
     rows=connection.execute('select version,body from retry_jobs where source=? limit 101',(case_id[8:],)).fetchall()
@@ -18,9 +18,12 @@ def actor_listing(connection,case_id,metadata,sources,allowed_source,*,ready_at=
     for version,body in rows:
         item=json.loads(body);record=normalize(item['observation'],sources,'outcome')
         if record.get('reason') or record['metadata']!=metadata:continue
-        target=_target(connection,version,sources)
+        if assessment:
+            from automation.seedbox_original_ownership import target as ownership_target
+            target=ownership_target(connection,version,sources)
+        else:target=_target(connection,version,sources)
         require(target['case_id']==case_id,'host_listing_case')
-        if ready_at is not None:
+        if ready_at is not None and not assessment:
             from automation.reviewed_telegram_operator import original_quiescent
             original_quiescent(target['row'],ready_at)
         release=item['observation']['data']['release'];external=release.get('external_id')
@@ -140,3 +143,13 @@ def catalogue_facts(raw,*,expected_tmdb,expected_imdb,observed_at,expires_at):
     return dict(kind='catalogue_facts_v1',observed_at=observed_at,expires_at=expires_at,title=safe_text(value['title'],256),
         theatrical_year=_one(theatrical),festival_years=sorted(set(festival))[:20],runtime_minutes=runtime or None,
         cast=actors,directors=directors,imdb=expected_imdb,tmdb=expected_tmdb)
+
+
+def missing_movie_facts(raw,*,requested_imdb,observed_at,expires_at):
+    """Observed absence in one exact authenticated movie lookup, not film absence."""
+    require(type(raw) is bytes and 0<len(raw)<=1048576,'host_catalogue_size')
+    value=json.loads(raw)
+    require(type(value) is dict and value.get('success',True) is True and 'status_code' not in value and type(value.get('movie_results')) is list and value['movie_results']==[],'host_catalogue_missing_lookup')
+    require(type(requested_imdb) is str and re.fullmatch(r'tt[0-9]{7,12}',requested_imdb),'host_catalogue_crosswalk')
+    return dict(kind='catalogue_no_movie_mapping_v1',lookup_imdb=requested_imdb,observed_at=observed_at,expires_at=expires_at,
+        title=None,theatrical_year=None,festival_years=[],runtime_minutes=None,cast=[],directors=[],imdb=None,tmdb=None)

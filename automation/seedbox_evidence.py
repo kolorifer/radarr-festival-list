@@ -15,18 +15,23 @@ def capture(queue,config,preparation):
     from automation.seedbox_host_io import database,selected_snapshot,acquire
     with queue.locked() as (rows,_):
         claims=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1' and digest(r)==preparation]
-        require(len(claims)==1,'host_preparation_missing');claim=claims[0]
+        require(len(claims)==1,'host_preparation_missing');claim=dict(claims[0],ownership_admission=True)
         recovered=[r for r in rows if r['type']=='seedbox_original_recovery_v1' and r['preparation']==preparation]
-        if recovered:claim=dict(claim,original_recovery_view=recovered[-1]['proof']['view'])
+        if recovered:
+            claim=dict(claim,original_recovery_view=recovered[-1]['proof']['view'])
+            if recovered[-1]['proof']['kind']=='seedbox_original_recovery_proposal_v1':claim['ownership_admission']=False
         require(not any(r.get('preparation')==preparation and r['type'] in ('seedbox_evidence_retained_v1','seedbox_provider_started_v1','seedbox_preparation_superseded_v1') for r in rows),'host_evidence_consumed')
     with database(config['collector_database']) as c:
         raw,metadata,coverage=selected_snapshot(c,claim['case_id'],time.time())
+        from automation.seedbox_assessment_handoff import anchor
+        occurrence=anchor(c,claim['case_id'])
     def source_started():
         with queue.locked() as (rows,append):
             require(not any(r.get('preparation')==preparation and r['type'] in ('seedbox_evidence_retained_v1','seedbox_provider_started_v1','seedbox_preparation_superseded_v1') for r in rows),'host_evidence_consumed')
             append(dict(type='seedbox_source_started_v1',preparation=preparation,local_original_checked=True,at=time.time()))
     bundle=acquire(config,claim,raw,metadata,before_source=source_started)
     bundle['coverage']['global_collector']=coverage
+    if claim['ownership_admission']:bundle['assessment_anchor']=occurrence
     return _retain(queue,preparation,bundle)
 
 
@@ -43,6 +48,8 @@ def _retain(queue,preparation,bundle):
             _write_once(fd,key+'.bin',raw);pins[key]=dict(sha256=hashlib.sha256(raw).hexdigest(),size=len(raw))
         manifest=dict(kind='seedbox_evidence_bundle_v1',preparation=preparation,files=pins,
             attestation=bundle['attestation'],target_pin=bundle['target_pin'],coverage=bundle['coverage'])
+        if bundle.get('assessment_anchor'):
+            manifest.update(kind='seedbox_ownership_evidence_v1',assessment_anchor=bundle['assessment_anchor'])
         if bundle.get('derivation_revision')==2:manifest['derivation_revision']=2
         _write_once(fd,'manifest.json',encoded(manifest))
     with queue.locked() as (rows,append):
@@ -52,7 +59,7 @@ def _retain(queue,preparation,bundle):
 
 
 def load(queue,preparation,*,now=None,delivery=False):
-    from automation.seedbox_source_evidence import listing_facts,catalogue_facts
+    from automation.seedbox_source_evidence import listing_facts,catalogue_facts,missing_movie_facts
     from ai_movie_investigator.snapshot_private_report import validate_local_context
     from ai_movie_investigator.snapshot_review import projection
     hash_id(preparation);now=time.time() if now is None else now
@@ -68,13 +75,20 @@ def load(queue,preparation,*,now=None,delivery=False):
         for key,pin in manifest['files'].items():
             value=read_private(path/(key+'.bin'),1048576)
             require(len(value)==pin['size'] and hashlib.sha256(value).hexdigest()==pin['sha256'],'host_evidence_changed');raw[key]=value
+        if manifest.get('kind')=='seedbox_handoff_evidence_v1':
+            require(delivery and manifest['terminal_handoff']['preparation']==preparation,'handoff_binding')
+            require(manifest['terminal_handoff']['ownership_sha256']==digest(manifest['target_pin']),'handoff_binding')
         local=validate_local_context(raw['local_raw']);source=decode(raw['source'],65536);cat=decode(raw['catalogue'],65536)
         revision=manifest.get('derivation_revision',1);require(revision in (1,2),'host_listing_revision')
         derived=listing_facts(raw['source_original'],release_name=local['release_name'],case_id=claim['case_id'],version=claim['version'],observed_at=source['observed_at'],expires_at=source['expires_at'],revision=revision)
         require(derived==source,'host_source_derivation_changed')
-        found=json.loads(raw['find_original']);movies=found.get('movie_results')
-        require(type(movies) is list and len(movies)==1 and type(movies[0].get('id')) is int and movies[0]['id']==cat['tmdb'],'host_crosswalk_changed')
-        derived_cat=catalogue_facts(raw['catalogue_original'],expected_tmdb=cat['tmdb'],expected_imdb=source['imdb'],observed_at=cat['observed_at'],expires_at=cat['expires_at'])
+        found=json.loads(raw['find_original']);require(type(found) is dict,'host_crosswalk_changed');movies=found.get('movie_results')
+        if cat['kind']=='catalogue_no_movie_mapping_v1':
+            require(raw['catalogue_original']==raw['find_original'],'host_crosswalk_changed')
+            derived_cat=missing_movie_facts(raw['find_original'],requested_imdb=source['imdb'],observed_at=cat['observed_at'],expires_at=cat['expires_at'])
+        else:
+            require(type(movies) is list and len(movies)==1 and type(movies[0].get('id')) is int and movies[0]['id']==cat['tmdb'],'host_crosswalk_changed')
+            derived_cat=catalogue_facts(raw['catalogue_original'],expected_tmdb=cat['tmdb'],expected_imdb=source['imdb'],observed_at=cat['observed_at'],expires_at=cat['expires_at'])
         require(derived_cat==cat,'host_catalogue_derivation_changed')
         att=manifest['attestation']
         require(att['source_original_sha256']==manifest['files']['source_original']['sha256'] and att['catalogue_original_sha256']==manifest['files']['catalogue_original']['sha256'],'host_originals_changed')
@@ -96,6 +110,10 @@ def verify_current(queue,preparation,evidence,configuration_sha256):
     require(digest(config)==configuration_sha256,'host_configuration_changed')
     p=evidence['projection'];old=decode(evidence['snapshot_raw'],1048576)['cases'][0]
     with database(config['collector_database']) as c:
+        if evidence['manifest'].get('kind')=='seedbox_handoff_evidence_v1':
+            from automation.seedbox_assessment_handoff import verify_collector
+            verify_collector(c,evidence['manifest']['terminal_handoff'])
+            return time.time()
         raw,_,_=selected_snapshot(c,p['case_id'],time.time())
         case,_,_=select(raw,hashlib.sha256(raw).hexdigest(),p['case_id'],p['version'],now=time.time())
         require(case['observed_at']==old['observed_at'],'host_current_occurrence_changed')

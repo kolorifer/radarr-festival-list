@@ -72,7 +72,15 @@ def deliver_reviewed(queue,config,preparation):
     from automation.reviewed_telegram_operator import deliver
     from identity_triage_store import private_path
     from ai_movie_investigator import private_files as guards
+    with queue.locked() as (rows,_):
+        deferred={r['sender_start_sha256'] for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1'}
+        if any(r['type']=='seedbox_sender_started_v1' and r['preparation']==preparation and digest(r) not in deferred for r in rows):
+            return dict(status='uncertain_or_previously_started',resend=False)
     plan,target=approved_plan(queue,preparation)
+    ownership=target if target.get('kind')=='seedbox_assessment_original_ownership_v1' else None
+    if ownership:
+        from automation.seedbox_assessment_handoff import observe
+        handoff=observe(queue,config,preparation);target=handoff['target']
     actor_directory_scope(config['actor_database'])
     selected=config['sender'];require(selected['kind']=='main_selected_actor_topology_v1' and selected['revision']=='06d17aafefb5a5161364e4bf6f63667a649e1aa3' and selected['sole_edit_writer'] is True and selected['single_serial_pump'] is True and selected['no_original_binding_republication'] is True,'host_sender_selection')
     require(type(selected['observed_at']) in (int,float) and selected['observed_at']<=time.time()<selected['expires_at']<=config['credit_policy']['expires_at'],'host_topology_expired')
@@ -138,6 +146,10 @@ def deliver_reviewed(queue,config,preparation):
         # Evidence was reconstructed before taking the queue lock. Avoid a
         # nested queue transaction inside this sender callback.
         verify_current(queue,preparation,evidence,configuration_sha256)
+        if ownership:
+            from automation.seedbox_assessment_handoff import verify_collector
+            from automation.seedbox_host_io import database
+            with database(config['collector_database']) as c:verify_collector(c,handoff)
         require(time.time()+15<min(evidence['projection']['evidence_expires_at'],evidence['projection']['generated_at']+3600),'host_delivery_evidence_expired')
         require(time.time()+15<boundary['expires_at'],'host_topology_expired')
         observe('callback_started')
@@ -161,6 +173,8 @@ def deliver_reviewed(queue,config,preparation):
         previous=[r for r in rows if r['type']=='seedbox_sender_pre_send_deferred_v1' and r['preparation']==preparation]
         require(not previous or now>=previous[-1]['at']+60,'host_sender_pre_send_cooldown')
         started=dict(type='seedbox_sender_started_v1',preparation=preparation,plan_sha256=digest(plan),target_sha256=digest(target),process=observed,at=now)
+        if ownership:
+            append(dict(type='seedbox_terminal_target_bound_v1',preparation=preparation,ownership_sha256=digest(ownership),target_sha256=digest(target),handoff_sha256=digest(handoff),plan_sha256=digest(plan),at=now))
         append(started)
         marker=_ACTIVE.set(dict(queue=queue,rows=rows,boundary=boundary,plan_sha256=digest(plan),deadline=time.monotonic()+120))
         try:

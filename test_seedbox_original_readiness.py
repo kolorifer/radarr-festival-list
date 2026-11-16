@@ -57,12 +57,13 @@ class OriginalTests(DeliveryTests):
   root=Path(self.tmp.name).resolve();collector=Store(root/'collector')
   collector.ingest(normalize(self.p,SOURCES,'release_new'),'release_new')
   from test_identity_automation import context
-  collector.ingest(normalize(envelope(self.p,context('title_conflict','needs_review'),SOURCES),SOURCES,'outcome'),'outcome')
+  collector.ingest(normalize(envelope(self.p,getattr(self,'worker_outcome_context',context('title_conflict','needs_review')),SOURCES),SOURCES,'outcome'),'outcome')
   state=root/'queue';state.mkdir(mode=0o700)
   def pin(path):
    st=path.stat();return dict(path=str(path),identity=[st.st_dev,st.st_ino])
   config=dict(state=str(state),collector_database=pin(collector.path),actor_database=pin(self.s.path),collector_identity='a'*64,source_attempt_limit=3,source_configuration={},sources=SOURCES,listing_source=self.metadata['source'])
-  Queue.enroll(state,collector_identity='a'*64,prior_consumed_cases=[],prior_history_sha256='b'*64,prior_credit_sha256='c'*64,delegated_policy=CreditPolicyTests().policy(),configuration_sha256=digest(config))
+  config.update(getattr(self,'worker_config_extra',{}))
+  Queue.enroll(state,collector_identity='a'*64,prior_consumed_cases=[],prior_history_sha256='b'*64,prior_credit_sha256='c'*64,delegated_policy=config.get('credit_policy',CreditPolicyTests().policy()),configuration_sha256=digest(config),configuration=config)
   q=Queue(state)
   with collector.connection(readonly=True) as c:
    page=collector_page(c,0);raw,_,_=selected_snapshot(c,self.pin['case_id'],time.time())
@@ -74,8 +75,8 @@ class OriginalTests(DeliveryTests):
   from automation.seedbox_host_io import SourceFailure
   q,config,prep=self.worker_fixture()
   with self.s.tx() as c:
-   old=c.execute('select context,prepared,terminal from retry_messages where version=?',(self.version,)).fetchone()
-   c.execute('update retry_messages set context=NULL,prepared=NULL,terminal=NULL where version=?',(self.version,))
+   old=c.execute('select refs from retry_messages where version=?',(self.version,)).fetchone()
+   c.execute('update retry_messages set refs=NULL where version=?',(self.version,))
   with patch('automation.seedbox_host_io._configuration',side_effect=AssertionError('credentials before original ready')) as credentials:
    step(q,config)
    with q.locked() as (rows,_):first=list(rows)
@@ -83,7 +84,7 @@ class OriginalTests(DeliveryTests):
    with q.locked() as (rows,_):self.assertEqual(rows,first)
    self.assertFalse(credentials.called)
   with q.locked() as (rows,_):self.assertFalse(any(r['type']=='seedbox_source_started_v1' for r in rows))
-  with self.s.tx() as c:c.execute('update retry_messages set context=?,prepared=?,terminal=? where version=?',(*old,self.version))
+  with self.s.tx() as c:c.execute('update retry_messages set refs=? where version=?',(*old,self.version))
   # The actual capture/acquire local checks run; stop at invented configuration.
   with patch('automation.seedbox_host_io._configuration',side_effect=SourceFailure('source_configuration_unavailable')) as credentials:
    step(q,config);self.assertEqual(credentials.call_count,1)
@@ -120,8 +121,8 @@ class OriginalTests(DeliveryTests):
   from automation.seedbox_package import build
   q,config,prep=self.worker_fixture();root=Path(self.tmp.name).resolve()
   with self.s.tx() as c:
-   saved=c.execute('select context,prepared,terminal from retry_messages where version=?',(self.version,)).fetchone()
-   c.execute('update retry_messages set context=NULL,prepared=NULL,terminal=NULL where version=?',(self.version,))
+   saved=c.execute('select refs from retry_messages where version=?',(self.version,)).fetchone()
+   c.execute('update retry_messages set refs=NULL where version=?',(self.version,))
   runtime=root/'runtime';runtime.mkdir(mode=0o700);build(Path.cwd(),runtime)
   fixture=root/'fixture.json';fixture.write_text(json.dumps(dict(config=config,preparation=prep,version=self.version,saved=saved)))
   script="""
@@ -146,7 +147,7 @@ with patch('automation.seedbox_host_io._configuration',side_effect=AssertionErro
  with q.locked() as (rows,_):assert rows==old
  assert not credential.called
 with sqlite3.connect(f['config']['actor_database']['path']) as c:
- c.execute('update retry_messages set context=?,prepared=?,terminal=? where version=?',(*f['saved'],f['version']))
+ c.execute('update retry_messages set refs=? where version=?',(*f['saved'],f['version']))
 with patch('automation.seedbox_host_io._configuration',side_effect=SourceFailure('source_configuration_unavailable')) as credential:
  step(q,f['config']);assert credential.call_count==1
 with q.locked() as (rows,_):
@@ -170,9 +171,9 @@ print('installed original waiting and changed-record progress passed')
   from automation.seedbox_worker import step
   from automation import seedbox_original_readiness as original
   q,config,prep=self.worker_fixture();check=original.ready
-  def change(*args):
-   result=check(*args)
-   with self.s.tx() as c:c.execute('update retry_messages set prepared=NULL where version=?',(self.version,))
+  def change(*args,**kwargs):
+   result=check(*args,**kwargs)
+   with self.s.tx() as c:c.execute('update retry_messages set refs=NULL where version=?',(self.version,))
    return result
   with patch.object(original,'ready',side_effect=change),patch('automation.seedbox_host_io._configuration',side_effect=AssertionError('credential race')) as credential:
    self.assertFalse(step(q,config));self.assertFalse(credential.called)
