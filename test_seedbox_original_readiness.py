@@ -191,6 +191,17 @@ print('installed original waiting and changed-record progress passed')
    other=list(row);other[0]='0'*64;c.execute('insert into retry_jobs values (?,?,?,?,?,?,?,?,?,?)',other)
   with self.assertRaisesRegex(ValueError,'host_listing_ambiguous_or_missing'):self.inspect()
 
+ def test_imported_consumed_case_cannot_receive_recovery(self):
+  from contextlib import contextmanager
+  from automation.seedbox_original_readiness import recovery_proposal,inspect
+  q,config,prep=self.worker_fixture();view=inspect(q,config,prep)
+  with q.locked() as (rows,_):inherited=copy.deepcopy(rows)
+  inherited[0]['prior_consumed_cases']=[self.pin['case_id']]
+  @contextmanager
+  def locked():yield inherited,lambda *a:self.fail('imported case recovery wrote')
+  with patch.object(q,'locked',locked),patch('automation.seedbox_original_readiness.inspect',return_value=view),patch('automation.seedbox_host_io._get',side_effect=AssertionError('unexpected source')):
+   with self.assertRaisesRegex(ValueError,'original_recovery_consumed'):recovery_proposal(q,config,prep)
+
 
 def load_tests(loader,tests,pattern):
  return unittest.TestSuite(OriginalTests(n) for n in OriginalTests.__dict__ if n.startswith('test_'))

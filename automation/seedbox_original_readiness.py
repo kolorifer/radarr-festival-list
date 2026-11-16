@@ -100,9 +100,10 @@ def recovery_proposal(queue,config,preparation):
     require(view['status']=='ready','original_recovery_not_ready')
     with queue.locked() as (rows,_):
         require(not active(rows),'original_recovery_circuit')
+        require(view['case_id'] not in rows[0]['prior_consumed_cases'],'original_recovery_consumed')
         claims=[r for r in rows if r['type']=='seedbox_preparation_claimed_v1' and r['case_id']==view['case_id']]
         related={digest(r) for r in claims}
-        require(not any(r.get('preparation') in related and r['type'] in ('seedbox_provider_started_v1','seedbox_sender_started_v1','seedbox_evidence_retained_v1','seedbox_delivery_terminal_v1','seedbox_original_recovery_v1') for r in rows),'original_recovery_consumed')
+        require(not any((r.get('preparation') in related or r.get('case_id')==view['case_id']) and r['type'] in ('seedbox_provider_started_v1','seedbox_sender_started_v1','seedbox_evidence_retained_v1','seedbox_delivery_terminal_v1','seedbox_original_recovery_v1') for r in rows),'original_recovery_consumed')
         require(not any(r.get('preparation')==preparation and r['type']=='seedbox_preparation_superseded_v1' for r in rows),'original_recovery_superseded')
         blocked=[r for r in rows if r.get('preparation')==preparation and r['type']=='seedbox_operation_blocked_v1']
         require(len(blocked)==1,'original_recovery_block')
