@@ -24,6 +24,7 @@ class ConnectedTests(base.HostExecutionTests):
   raw=b'<h2 id="torrentnameid">Invented release</h2><input name="imdbID" value="tt1234567"><div class="torrent-info-details"><h3>Example Movie (2020)</h3><div class="torrent-extra-info"><p>Cast: Actor One</p><p>Director: Director One</p><p>Runtime: 95 min</p></div></div>'
   raw=getattr(self,'SOURCE_HTML',raw)
   cat=encoded(dict(id=123,imdb_id='tt1234567',title='Example Movie',runtime=94,credits=dict(cast=[dict(name='Actor One',order=0)],crew=[dict(name='Director One',job='Director')]),release_dates=dict(results=[dict(release_dates=[dict(type=3,release_date='2021-01-01T00:00:00Z')])])))
+  cat=getattr(self,'CATALOGUE_RAW',cat)
   source=encoded(listing_facts(raw,release_name='Invented release',case_id=CASE,version=VERSION,observed_at=NOW-10,expires_at=NOW+600,revision=getattr(self,'SOURCE_REVISION',1)))
   catalogue=encoded(catalogue_facts(cat,expected_tmdb=123,expected_imdb='tt1234567',observed_at=NOW-9,expires_at=NOW+600))
   h=lambda b:hashlib.sha256(b).hexdigest()

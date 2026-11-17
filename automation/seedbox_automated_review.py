@@ -152,11 +152,83 @@ def _build_unchanged(report,projection,card):
 
 
 def build(report,projection,card,*,revision=1):
-    require(revision in (1,2),'review_request_revision')
+    require(revision in (1,2,3),'review_request_revision')
     request,bindings=_build_unchanged(report,projection,card)
     if revision==2:
         request['instructions']+=' Return approve only with zero material_problems and at least one substantive evidence finding. If a material problem remains, return reject and explain it. Never force approval; a rejection is a valid per-case outcome. Use plain prose under the existing disclosure restrictions.'
+    if revision==3:return _reporting_contract(request,bindings)
     return request,bindings
+
+
+
+_REPORT_DEFECTS=('unsupported_candidate','unsupported_blocker','omitted_conflict','misrepresented_evidence','misleading_confidence')
+
+
+def _field_hashes(value,prefix):
+    """References address only already-disclosed values, including null/empty."""
+    fields={}
+    if type(value) is dict:
+        for key,part in sorted(value.items()):fields.update(_field_hashes(part,prefix+'.'+key))
+    else:fields[prefix]=digest(value)
+    require(len(fields)<=128,'review_reference_capacity')
+    return fields
+
+
+def _reporting_contract(request,bindings):
+    packet=decode(request['input'][0]['content'][0]['text'],65536)
+    locations=_field_hashes(packet['assessment'],'assessment')
+    locations['proposed_card']=digest(packet['proposed_card'])
+    observations=_field_hashes(packet['evidence']['historical_observations'],'observations')
+    contract=dict(kind='reporting_review_contract_v3',report_fields=locations,observation_fields=observations)
+    bindings=dict(bindings,review_contract_sha256=digest(contract));packet.update(kind='independent_reporting_review_v3',bindings=bindings,reporting_contract=contract)
+    request['input'][0]['content'][0]['text']=encoded(packet).decode()
+    def ref(fields):
+        props=dict(field=dict(type='string',enum=sorted(fields)),value_sha256=dict(type='string',enum=sorted(set(fields.values()))))
+        return dict(type='object',properties=props,required=list(props),additionalProperties=False)
+    props=dict(kind=dict(type='string',enum=list(_REPORT_DEFECTS)),location=ref(locations),evidence=dict(type='array',minItems=1,maxItems=8,items=ref(observations)),explanation=dict(type='string',minLength=1,maxLength=512))
+    schema=request['text']['format']['schema'];schema['properties']['review_contract_sha256']=dict(type='string',enum=[bindings['review_contract_sha256']]);schema['required'].append('review_contract_sha256')
+    schema['properties']['material_problems']=dict(type='array',maxItems=10,items=dict(type='object',properties=props,required=list(props),additionalProperties=False))
+    schema['properties']['source_uncertainties']=dict(type='array',maxItems=8,items=dict(type='string',minLength=1,maxLength=512));schema['required'].append('source_uncertainties')
+    request['instructions']+=(
+        ' Review contract v3: material_problems means defects in the ASSESSMENT OR CARD REPORTING, not unresolved source identity, edition or acquisition suitability. '
+        'Put faithfully disclosed unresolved source facts in source_uncertainties; those may remain with approve. Matching IDs or cast do not compel identity approval, and a year disagreement does not by itself make faithful unresolved reporting defective. '
+        'Approve requires zero material_problems; reject requires at least one actual reporting defect. For each alleged defect cite its exact assessment/card location and one or more relevant disclosed observations using the supplied field and value_sha256 pairs. '
+        'Explain how that reported claim, blocker, omission or confidence misrepresents or lacks support in those observations. An omission may cite the proposed_card as its location. Empty/null observations may establish missing evidence, not verified contrary facts. '
+        'Reject unsupported candidates, exaggerated or unsupported blockers, omitted material conflicts and misleading reporting when warranted. Do not invent a defect merely because identity remains unresolved. Do not force approval or change a rejection to approval. '
+        'These references establish what you cite, not semantic correctness. Reporting approval never grants identity reuse, production or acquisition approval. Give substantive evidence_findings for either verdict; preserve uncertainty honestly.')
+    require(len(encoded(request))<=65536,'review_disclosure_size')
+    return request,bindings
+
+
+def retained_reporting_answer(answer,bindings,request):
+    """Validate typed references and prose, never mechanically decide identity."""
+    from ai_movie_investigator.new_case import explanation_prose
+    shape(answer,' '.join((*bindings,'verdict','reason','evidence_findings','material_problems','source_uncertainties')))
+    packet=decode(request['input'][0]['content'][0]['text'],65536);contract=packet['reporting_contract']
+    require(digest(contract)==bindings['review_contract_sha256'] and packet['bindings']==bindings,'review_contract_changed')
+    require(type(answer['material_problems']) is list and len(answer['material_problems'])<=10 and type(answer['source_uncertainties']) is list and len(answer['source_uncertainties'])<=8,'review_answer_shape')
+    def reference(value,fields):
+        shape(value,'field value_sha256')
+        require(type(value['field']) is str and value['field'] in fields and value['value_sha256']==fields[value['field']],'review_reference_changed')
+    defects=answer['material_problems']
+    for defect in defects:
+        shape(defect,'kind location evidence explanation');require(defect['kind'] in _REPORT_DEFECTS,'review_defect_kind')
+        reference(defect['location'],contract['report_fields'])
+        require(type(defect['evidence']) is list and 1<=len(defect['evidence'])<=8,'review_defect_evidence')
+        for ref in defect['evidence']:reference(ref,contract['observation_fields'])
+        require(len({ref['field'] for ref in defect['evidence']})==len(defect['evidence']),'review_defect_evidence')
+    require(len({digest(d) for d in defects})==len(defects),'review_defect_evidence')
+    legacy={k:v for k,v in answer.items() if k!='source_uncertainties'};legacy['material_problems']=[d['explanation'] for d in defects]
+    retained,handling,predicates=retained_answer(legacy,bindings)
+    retained['material_problems']=[dict(d,explanation=prose) for d,prose in zip(defects,retained['material_problems'])]
+    safe=[]
+    for index,value in enumerate(answer['source_uncertainties']):
+        try:explanation_prose(value,512)
+        except Refusal:safe.append(None);handling['source_uncertainties:'+str(index)]='withheld_by_existing_disclosure_policy';predicates.append('review_uncertainty_unsafe')
+        else:safe.append(value)
+    retained['source_uncertainties']=safe
+    if answer['verdict']=='reject' and not defects:predicates.append('review_rejection_without_defect')
+    return retained,handling,list(dict.fromkeys(predicates))
 
 
 def assessment(queue,preparation,*,historical=False,card_revision=1):
@@ -185,7 +257,7 @@ def assessment(queue,preparation,*,historical=False,card_revision=1):
 
 
 # Static predicates only. Never echo arbitrary exception text or provider prose.
-_REVIEW_REASONS=frozenset("review_report_binding review_card_size review_proposal_changed review_disclosure_size review_assessment_missing review_assessment_changed review_html_changed review_disclosure review_attempt_changed review_response_unbound review_usage_limit review_binding_changed review_approval_conflicted review_answer_shape review_findings_required review_reason_unsafe review_finding_unsafe review_problem_unsafe review_not_completed review_not_approved review_chain_changed host_review_uncertain_or_refused review_correction_parent review_correction_consumed review_correction_binding review_correction_send_exists review_correction_changed review_request_revision review_circuit_active review_explanation_trivial review_card_ownership review_card_revision review_card_target_kind review_delivery_revalidation_required".split())
+_REVIEW_REASONS=frozenset("review_contract_changed review_reference_capacity review_reference_changed review_defect_kind review_defect_evidence review_uncertainty_unsafe review_rejection_without_defect review_report_binding review_card_size review_proposal_changed review_disclosure_size review_assessment_missing review_assessment_changed review_html_changed review_disclosure review_attempt_changed review_response_unbound review_usage_limit review_binding_changed review_approval_conflicted review_answer_shape review_findings_required review_reason_unsafe review_finding_unsafe review_problem_unsafe review_not_completed review_not_approved review_chain_changed host_review_uncertain_or_refused review_correction_parent review_correction_consumed review_correction_binding review_correction_send_exists review_correction_changed review_request_revision review_circuit_active review_explanation_trivial review_card_ownership review_card_revision review_card_target_kind review_delivery_revalidation_required".split())
 
 
 def diagnostic(error):
@@ -253,6 +325,7 @@ def correction_proposal(queue,preparation):
     """Offline exact historical binding; no inference about discarded answers."""
     with queue.locked() as (rows,_):
         _,_,oldfailure=_correction_rows(rows,preparation)
+    require(oldfailure.get('review_request_revision',1) in (1,2),'review_request_revision')
     report,evidence,oldcard=assessment(queue,preparation,historical=True,card_revision=oldfailure.get('card_revision',1))
     card_revision=3 if evidence['target_pin'].get('kind')=='seedbox_assessment_original_ownership_v1' else 2
     card=proposal(report,evidence['projection'],evidence['local_raw'],evidence['target_pin'],oldcard['html_sha256'],revision=card_revision)
@@ -292,7 +365,7 @@ def authorize_correction(queue,preparation,expected_proposal_sha256):
     return record
 
 
-def _execute(queue,preparation,*,policy,credential,correction=None):
+def _execute(queue,preparation,*,policy,credential,correction=None,request_revision=2):
     from ai_movie_investigator.supervised_authorization import observe_phase
     from ai_movie_investigator import seedbox_authorization as host
     from ai_movie_investigator.responses_http import FixedResponsesHTTP,headers
@@ -306,7 +379,8 @@ def _execute(queue,preparation,*,policy,credential,correction=None):
     else:card_revision=correction['proof'].get('card_revision',1)
     report,evidence,card=assessment(queue,preparation,historical=correction is not None,card_revision=card_revision);projection=evidence['projection']
     require(time.time()+180<(policy['expires_at'] if correction is not None else min(policy['expires_at'],projection['evidence_expires_at'],projection['generated_at']+3600)),'host_evidence_window')
-    if correction is None:request,bindings=build(report,projection,card,revision=2)
+    require(request_revision in (2,3) and (correction is None or request_revision==2),'review_request_revision')
+    if correction is None:request,bindings=build(report,projection,card,revision=request_revision)
     else:
         with queue.locked() as (rows,_):
             _correction_rows(rows,preparation,correction['proof'])
@@ -330,12 +404,12 @@ def _execute(queue,preparation,*,policy,credential,correction=None):
             require(accounting['usage']['input_tokens']<=400000 and accounting['usage']['output_tokens']<=25000,'review_usage_limit')
             observe_phase('historical_result_validation')
             answer=decode(raw,65536)
-            retained,handling,predicates=retained_answer(answer,bindings)
+            retained,handling,predicates=(retained_reporting_answer(answer,bindings,request) if request_revision==3 else retained_answer(answer,bindings))
             receipt=dict(kind='seedbox_automated_review_receipt_v1',request_sha256=digest(request),accounting=accounting,reserved_usd=attempt['reserved_usd'],at=time.time())
             if predicates:
                 append(dict(type='seedbox_review_validation_refused_v2',preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),bindings=bindings,answer=retained,original_answer_sha256=digest(answer),retained_answer_sha256=digest(retained),prose_handling=handling,predicates=predicates,receipt=receipt,receipt_sha256=digest(receipt),decision_usable=False,provider_signed=False,raw_answer_retained=False,at=time.time()))
                 raise Refusal(predicates[0])
-            record=dict(type='seedbox_automated_review_completed_v1',review_request_revision=2,card_revision=card_revision,preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),card=card,answer=answer,receipt=receipt,receipt_sha256=digest(receipt),review_kind='separate_automated_generation',personal_main_review=False,at=time.time())
+            record=dict(type='seedbox_automated_review_completed_v1',review_request_revision=request_revision,card_revision=card_revision,preparation=preparation,attempt_sha256=digest(attempt),report_sha256=digest(report),card=card,answer=answer,receipt=receipt,receipt_sha256=digest(receipt),review_kind='separate_automated_generation',personal_main_review=False,at=time.time())
             if correction is not None:
                 record.update(type='seedbox_review_correction_completed_v1',correction_sha256=digest(correction['proof']),delivery_authorized=False,ordinary_delivery_checks_required=True)
             append(record)
@@ -347,7 +421,7 @@ def _execute(queue,preparation,*,policy,credential,correction=None):
             if str(error) in ('responses_http_401','responses_http_403','responses_http_429'):
                 from automation.seedbox_circuit import record
                 append(record(rows,'provider',str(error),preparation))
-            append(dict(type='seedbox_review_uncertain_or_refused_v1',review_request_revision=2,card_revision=card_revision,preparation=preparation,attempt_sha256=digest(attempt),diagnostic=diagnostic(error),at=time.time()))
+            append(dict(type='seedbox_review_uncertain_or_refused_v1',review_request_revision=request_revision,card_revision=card_revision,preparation=preparation,attempt_sha256=digest(attempt),diagnostic=diagnostic(error),at=time.time()))
             raise Refusal('host_review_uncertain_or_refused') from None
         finally:host._ACTIVE.reset(marker)
 
@@ -381,8 +455,8 @@ def approved_plan(queue,preparation,*,historical=False):
             require(len(records)==1,'review_not_completed')
             request,bindings=build(report,evidence['projection'],card,revision=records[0].get('review_request_revision',1))
         require(len(records)==len(attempts)==1,'review_not_completed');record=records[0];attempt=attempts[0]
-    if record.get('review_request_revision')==2:
-        retained,handling,predicates=retained_answer(record['answer'],bindings)
+    if record.get('review_request_revision') in (2,3):
+        retained,handling,predicates=(retained_reporting_answer(record['answer'],bindings,request) if record['review_request_revision']==3 else retained_answer(record['answer'],bindings))
         require(not predicates and not handling and retained==record['answer'],'review_chain_changed')
     require(record['answer']['verdict']=='approve' and not record['answer']['material_problems'],'review_not_approved')
     require(record['card']==card and record['report_sha256']==digest(report) and record['attempt_sha256']==digest(attempt) and
