@@ -156,7 +156,7 @@ def step(queue,config):
                 phase='credential'
                 key=load_key(queue,config)
                 phase='review'
-                review(queue,preparation,policy=config['credit_policy'],credential=key);del key
+                review(queue,preparation,policy=config['credit_policy'],credential=key,request_revision=3);del key
                 return True
             if reviews[0]['answer']['verdict']!='approve':
                 _record(queue,dict(type='seedbox_delivery_terminal_v1',preparation=preparation,status='review_rejected',at=time.time()));return True

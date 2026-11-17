@@ -105,8 +105,8 @@ class LifecycleTests(OriginalTests):
   a['result']['rationale']='The exact authenticated IMDb lookup returned no movie mapping, so no catalogue candidate is supported.'
   built=review.build_film_prose(p);response=documented();response.update(model=MINI_MODEL,instructions=built['request']['instructions'],text=built['request']['text'],max_output_tokens=25000);response['output'][-1]['content'][0]['text']=encoded(a).decode()
   with patch('automation.seedbox_worker.load_key',return_value=ExplicitCredential('sk-INVENTED')),framing.wire(encoded(response)):self.assertTrue(step(self.q,self.config))
-  report,e,card=separate.assessment(self.q,self.prep,card_revision=3);request,bindings=separate.build(report,e['projection'],card,revision=2)
-  answer=dict(bindings,verdict='approve',reason='The report honestly preserves the missing catalogue mapping and does not propose a candidate.',evidence_findings=['The exact authenticated lookup contains no movie results.'],material_problems=[])
+  report,e,card=separate.assessment(self.q,self.prep,card_revision=3);request,bindings=separate.build(report,e['projection'],card,revision=3)
+  answer=dict(bindings,verdict='approve',reason='The report honestly preserves the missing catalogue mapping and does not propose a candidate.',evidence_findings=['The exact authenticated lookup contains no movie results.'],material_problems=[],source_uncertainties=['The catalogue mapping remains absent at its observation time.'])
   response=documented();response.update(model=request['model'],instructions=request['instructions'],text=request['text'],max_output_tokens=25000);response['output'][-1]['content'][0]['text']=encoded(answer).decode()
   with patch('automation.seedbox_worker.load_key',return_value=ExplicitCredential('sk-INVENTED')),framing.wire(encoded(response)):self.assertTrue(step(self.q,self.config))
   return p

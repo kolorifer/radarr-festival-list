@@ -1,3 +1,12 @@
+## Prospective reporting-review contract candidate, 2026-11-17
+
+Offline invented evidence demonstrates that the old untyped material-problem
+list can conflate unresolved source facts with reporting defects. Revision3
+separates those fields and requires bound report/evidence references for alleged
+defects; the normal worker selects it prospectively. Earlier review bytes and
+consumed attempts remain unchanged. No live deployment or case retry is included.
+See [scope, validation and semantic limits](reports/2026-11-17-seedbox-reporting-review-contract.md).
+
 ## Early assessment candidate, 2026-11-16
 
 A retained initial original receipt now has a separate assessment ownership

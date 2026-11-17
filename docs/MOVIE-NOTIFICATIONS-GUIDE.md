@@ -336,3 +336,14 @@ candidate, identity reuse or download. The worker waits for the original message
 to finish before editing it. A proven terminal retry and, when needed, one
 same-facts source check preserve the old report and its observation dates.
 Changed evidence stops delivery rather than silently regenerating the report.
+
+
+### Reporting review contract candidate (2026-11-17; deployment separate)
+
+A report can accurately say that identity remains unresolved. Prospective review
+revision3 records those source uncertainties separately from alleged defects in
+the assessment or card. Rejection must identify a reporting defect and cite the
+relevant disclosed fields; approval may preserve unresolved facts. The references
+are checked mechanically, but the reviewer's interpretation can still be wrong.
+Neither verdict approves identity reuse or downloads. Older review records are
+preserved, and a rejection does not cause repeated generation until approval.
