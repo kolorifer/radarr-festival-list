@@ -52,7 +52,7 @@ def main(stage=_ignore_stage):
         from automation.seedbox_assessment_queue import Queue
         from automation.seedbox_circuit import recover
         recover(Queue(sys.argv[4]),sys.argv[5],sys.argv[6]);return
-    if mode not in ('enroll','run','probe','source-preflight','correct','review-correct','delivery-revalidate','original-recover','assessment-recover') or len(sys.argv)!=(8 if mode in ('correct','review-correct','delivery-revalidate','original-recover','assessment-recover') else 6):raise ValueError('bootstrap_mode')
+    if mode not in ('enroll','run','probe','source-preflight','source-read-check','correct','review-correct','delivery-revalidate','original-recover','assessment-recover') or len(sys.argv)!=(8 if mode in ('correct','review-correct','delivery-revalidate','original-recover','assessment-recover') else 7 if mode=='source-read-check' else 6):raise ValueError('bootstrap_mode')
     stage('worker_configuration_access')
     config_raw=read(Path(sys.argv[4]),131072)
     stage('worker_configuration_pin')
@@ -62,18 +62,29 @@ def main(stage=_ignore_stage):
     from ai_movie_investigator.private_files import private_chain
     from ai_movie_investigator.contracts import digest,require
     from automation.seedbox_credit_policy import validate
-    if mode not in ('probe','source-preflight'):validate(config['credit_policy'],now=__import__('time').time())
+    if mode not in ('probe','source-preflight','source-read-check'):validate(config['credit_policy'],now=__import__('time').time())
     stage('private_state_access')
     with private_chain(Path(config['state'])):pass
-    if mode=='source-preflight':
+    if mode in ('source-preflight','source-read-check'):
         from automation.seedbox_confinement import confine
         from automation.seedbox_process import actor_lifetime
+        selected = None
+        if mode=='source-read-check':
+            import time
+            from automation.seedbox_source_read_check import SELECTION_LIMIT,select
+            stage('selection')
+            raw=sys.stdin.buffer.read(SELECTION_LIMIT+1)
+            selected=select(raw,sys.argv[6],config,sys.argv[5],time.time())
+            del raw
         stage('actor_selection')
         with actor_lifetime(config['sender']['process']):
             stage('confinement')
             # No SQLite connection: even a query-only WAL reader can change SHM.
             # The same Landlock selection is restricted to read access and no TCP.
-            confine(config,root,source_preflight=stage)
+            confine(config,root,source_preflight=stage,source_read_check=selected is not None)
+            if selected is not None:
+                from automation.seedbox_source_read_check import observe
+                return observe(config,selected,stage)
             stage('source_runtime')
             import requests
             from bs4 import BeautifulSoup
@@ -161,32 +172,41 @@ def main(stage=_ignore_stage):
             confine(config,root)
             run(config,sys.argv[5])
 
-def source_preflight():
+def source_preflight(mode='source-preflight'):
     stage = 'bootstrap'
 
     def mark(value):
         nonlocal stage
         stage = value
 
-    result = dict(kind='seedbox_source_preflight_v1', external_source_authentication='not_tested',
-                  full_source_access='not_established')
+    remote = mode=='source-read-check'
+    result = (dict(kind='seedbox_source_read_check_v1', retention='not_tested',
+                   full_source_access='not_established') if remote else
+              dict(kind='seedbox_source_preflight_v1', external_source_authentication='not_tested',
+                   full_source_access='not_established'))
     try:
-        main(mark)
+        outcome = main(mark)
     except BaseException as error:
         reason = ('permission_denied' if isinstance(error,PermissionError)
                   else 'missing' if isinstance(error,FileNotFoundError)
                   else 'runtime_unavailable' if stage=='source_runtime'
                   else 'refused')
+        if remote and stage in ('listing_get','catalogue_find','catalogue_detail') and len(error.args)==1:
+            code=error.args[0]
+            if type(code) is str and code in ('source_auth_denied','source_rate_limited','source_missing',
+                                              'source_redirect','source_temporary','source_http_refused',
+                                              'source_content_invalid','source_size_bound','source_deadline'):
+                reason=code
         print(json.dumps(dict(result,status='failed',stage=stage,reason=reason),sort_keys=True))
         return 1
-    print(json.dumps(dict(result,status='passed',stage='complete',reason='local_inputs_only'),sort_keys=True))
+    print(json.dumps(dict(result,status='passed',stage='complete',reason=outcome if remote else 'local_inputs_only'),sort_keys=True))
     return 0
 
 
 if __name__=='__main__':
     try:
-        if len(sys.argv)>3 and sys.argv[3]=='source-preflight':
-            raise SystemExit(source_preflight())
+        if len(sys.argv)>3 and sys.argv[3] in ('source-preflight','source-read-check'):
+            raise SystemExit(source_preflight(sys.argv[3]))
         main()
     except SystemExit:raise
     except BaseException:
