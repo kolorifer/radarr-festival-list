@@ -34,7 +34,8 @@ def prevent_collector_creation(config):
     finally:os.close(rules)
 
 
-def confine(config,code_root,*,source_preflight=None):
+def confine(config,code_root,*,source_preflight=None,source_read_check=False):
+    require(not source_read_check or source_preflight is not None,'source_read_confinement')
     lib=_kernel();abi=_call(lib,444,ctypes.c_void_p(),ctypes.c_size_t(0),ctypes.c_uint(1));require(abi>=6,'host_sandbox_abi')
     require(lib.prctl(38,1,0,0,0)==0,'host_sandbox_privileges')
     policy=Ruleset(HANDLED_FS,3,3);rules=_call(lib,444,ctypes.byref(policy),ctypes.sizeof(policy),0)
@@ -97,10 +98,10 @@ def confine(config,code_root,*,source_preflight=None):
                 if not stat.S_ISDIR(os.fstat(fd).st_mode):rights &= ~(1<<3)
                 rule=Beneath(rights,fd);_call(lib,445,rules,1,ctypes.byref(rule),0)
             finally:os.close(fd)
-        if source_preflight is None:
-            port=Port(2,443);_call(lib,445,rules,2,ctypes.byref(port),0)
-        else:
+        if source_preflight is not None:
             source_preflight('confinement')
+        if source_preflight is None or source_read_check:
+            port=Port(2,443);_call(lib,445,rules,2,ctypes.byref(port),0)
         _call(lib,446,rules,0)
     finally:os.close(rules)
     return abi
