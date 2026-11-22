@@ -27,10 +27,9 @@ def write_pin(path, body):
 
 class SourcePreflightTests(unittest.TestCase):
     def setUp(self):
-        # GitHub's checkout ancestry can carry access ACLs. Use the hosted
-        # tool cache outside that ancestry so the installed test can keep the
-        # production ACL checks and real Landlock policy enabled.
-        fixture_parent = Path(os.environ.get('RUNNER_TOOL_CACHE', Path.cwd())).resolve()
+        # CI provisions a private fixture parent outside the checkout and tool
+        # cache so their permissions do not require mocking the ACL guards.
+        fixture_parent = Path(os.environ.get('SEEDBOX_PREFLIGHT_TEST_PARENT', Path.cwd())).resolve()
         temporary = tempfile.TemporaryDirectory(dir=fixture_parent)
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)
