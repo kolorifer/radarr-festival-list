@@ -30,10 +30,12 @@ from radarr_client import (
     build_release_push,
     configured as radarr_configured,
     ensure_movie,
+    ensure_watched_movie,
     get_movie_by_tmdb,
     movie_has_tag,
     push_release,
     selection_context,
+    watched_movie,
 )
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
 from tracker_metadata import lookup_listing
@@ -579,18 +581,18 @@ def _reply_markup(action_url):
     if not action_url:
         return None
     label="➕ Add to Radarr & grab this release"
+    offer_watched = False
     try:
         action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
+        offer_watched = bool(action and action.get('kind') is None)
         if action and action.get('kind')=='alternative':label='⬇️ Grab Anyway'
         if action and action.get('kind')=='identity_review':
             label=('🔎 Confirm remembered movie' if action.get('review',{}).get('type')=='remembered_movie' else '🔎 Review evidence & choose movie')
     except (OSError,ValueError):pass
-    return {
-        "inline_keyboard": [[{
-            "text": label,
-            "url": action_url,
-        }]]
-    }
+    rows = [[{"text": label, "url": action_url}]]
+    if offer_watched:
+        rows.append([{"text": "Add to Radarr as watched", "url": action_url + "/watched"}])
+    return {"inline_keyboard": rows}
 
 
 def _telegram_payload(text, parse_mode="HTML", action_url=None):
@@ -825,7 +827,7 @@ def render_alternative(action):
     return _page('Confirm exact release',body)
 
 
-def render_confirmation(action, context):
+def render_confirmation(action, context, *, watched=False):
     movie = action.get("movie") or {}
     release = action.get("release") or {}
     title = redact_text(movie.get("title") or "Movie")
@@ -834,9 +836,10 @@ def render_confirmation(action, context):
     poster_html = f'<img src="{html.escape(str(poster), quote=True)}" alt="poster">' if poster else ""
 
     root_options = []
+    context = context or {}
     if context.get('root_default') is None:
         root_options.append('<option value="" selected disabled>Select a root folder</option>')
-    for row in context["roots"]:
+    for row in context.get("roots", []):
         path = row.get("path")
         if not path:
             continue
@@ -847,7 +850,7 @@ def render_confirmation(action, context):
     profile_options = []
     if context.get('profile_default') is None:
         profile_options.append('<option value="" selected disabled>Select a quality profile</option>')
-    for row in context["profiles"]:
+    for row in context.get("profiles", []):
         if row.get("id") is None:
             continue
         profile_id = int(row["id"])
@@ -857,26 +860,37 @@ def render_confirmation(action, context):
 
     body = [
         poster_html,
-        f"<h2>Add {html.escape(str(title))}" + (f" ({html.escape(str(year))})" if year else "") + "</h2>",
-        "<p class=\"muted\">This creates the movie in Radarr without an indexer search, then re-pushes the exact release autobrr announced.</p>",
-        f"<p><b>Release</b><br><code>{html.escape(redact_text(release.get('name') or release.get('title') or 'Unknown release'))}</code></p>",
+        ("<h2>Mark watched: " if watched else "<h2>Add ") + html.escape(str(title))
+        + (f" ({html.escape(str(year))})" if year else "") + "</h2>",
+        ('<p class="muted">This marks the movie watched and unmonitored in Radarr. '
+         'Existing files and tags are kept. No search or download starts.</p>' if watched else
+         '<p class="muted">This creates the movie in Radarr without an indexer search, then re-pushes the exact release autobrr announced.</p>'),
+        ("" if watched else f"<p><b>Release</b><br><code>{html.escape(redact_text(release.get('name') or release.get('title') or 'Unknown release'))}</code></p>"),
         "<form method=\"post\">",
-        "<label for=\"root\">Root folder</label>",
-        f'<select id="root" name="root_folder" required>{"".join(root_options)}</select>',
-        "<label for=\"profile\">Quality profile</label>",
-        f'<select id="profile" name="quality_profile" required>{"".join(profile_options)}</select>',
-        "<button type=\"submit\">Add movie & grab this release</button>",
-        "</form>",
     ]
-    return _page("Add to Radarr", "".join(body))
+    if not watched or context:
+        body.extend([
+            "<label for=\"root\">Root folder</label>",
+            f'<select id="root" name="root_folder" required>{"".join(root_options)}</select>',
+            "<label for=\"profile\">Quality profile</label>",
+            f'<select id="profile" name="quality_profile" required>{"".join(profile_options)}</select>',
+        ])
+    body.extend([
+        ('<button type="submit" name="confirm_watched" value="yes">Confirm watched</button>' if watched else
+         '<button type="submit">Add movie & grab this release</button>'),
+        "</form>",
+    ])
+    return _page("Add to Radarr as watched" if watched else "Add to Radarr", "".join(body))
 
 
-def render_result(action, success, message):
+def render_result(action, success, message, *, watched=False):
     movie = action.get("movie") or {}
     title = redact_text(movie.get("title") or "Movie")
     klass = "ok" if success else "err"
     heading = "Added and sent to downloader" if success else "Radarr could not complete the action"
     if action.get("kind")=="alternative":heading="Alternative release result"
+    if watched:
+        heading = "Marked watched in Radarr" if success else "Watched status could not be confirmed"
     body = (
         f'<h2 class="{klass}">{html.escape(heading)}</h2>'
         f'<p><b>{html.escape(str(title))}</b></p>'
@@ -891,6 +905,7 @@ def uncertain_action(action):
 
 REVIEW_MESSAGE = ('The previous attempt may have reached Radarr. Further submissions are blocked. '
                   'Inspect Radarr and downloader history before any new acquisition attempt.')
+WATCHED_SUCCESS = 'Radarr confirmed the watched tag and unmonitored status. No search or download was started.'
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -913,10 +928,11 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(raw)
 
-    def _action_token(self):
+    def _action_token(self, *, watched=False):
         path = urlparse(self.path).path
         parts = path.strip("/").split("/")
-        if len(parts) == 2 and parts[0] == "action" and ACTION_TOKEN_RE.fullmatch(parts[1]):
+        suffix = ["watched"] if watched else []
+        if len(parts) == 2 + len(suffix) and parts[0] == "action" and parts[2:] == suffix and ACTION_TOKEN_RE.fullmatch(parts[1]):
             return parts[1]
         return None
 
@@ -926,7 +942,8 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, {"ok": True, "movies": len(INDEX), "radarr": radarr_configured()})
             return
 
-        token = self._action_token()
+        watched_token = self._action_token(watched=True)
+        token = watched_token or self._action_token()
         if token:
             try:
                 action = get_action(token)
@@ -936,6 +953,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if not action:
                 self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
+                return
+            if watched_token:
+                self._watched_action(watched_token, action, submit=False)
                 return
             if uncertain_action(action):
                 self._html(409, render_result(action, False, REVIEW_MESSAGE))
@@ -965,9 +985,67 @@ class Handler(BaseHTTPRequestHandler):
 
         self._json(404, {"ok": False})
 
-    def _handle_action_post(self, token):
+    def _handle_action_post(self, token, *, watched=False):
         with _APPROVAL_LOCK:
-            self._handle_action_post_locked(token)
+            self._handle_action_post_locked(token, watched=watched)
+
+    def _watched_action(self, token, action, *, submit):
+        def result(status, message):
+            self._html(status, render_result(action, status == 200, message, watched=True))
+
+        movie = action.get('movie') or {}
+        if (action.get('kind') is not None or movie.get('identity_status') not in (None, 'verified_tmdb')
+                or not valid_tmdb_id(movie.get('tmdb_id'))):
+            result(409, 'This action is unavailable for the selected movie.')
+            return
+        if uncertain_action(action):
+            result(409, 'A previous download submission needs review in Radarr before this action can be used.')
+            return
+        if action.get('watched_completed') is True:
+            result(200, 'This link already marked the movie watched and unmonitored. No further change was made.')
+            return
+        if not reviewed_action_current(action):
+            result(409, 'The movie identity changed or could not be revalidated. Nothing was changed in Radarr.')
+            return
+        attempted = False
+        try:
+            if not submit:
+                context = selection_context() if watched_movie(movie) is None else None
+                self._html(200, render_confirmation(action, context, watched=True))
+                return
+            length = int(self.headers.get('Content-Length', '0'))
+            if not 0 < length <= 16384:
+                raise ValueError('form')
+            params = parse_qs(self.rfile.read(length).decode('utf-8'), keep_blank_values=True)
+            choices = {'root_folder', 'quality_profile'}
+            if (params.get('confirm_watched') != ['yes']
+                    or set(params) not in ({'confirm_watched'}, {'confirm_watched'} | choices)
+                    or any(len(values) != 1 for values in params.values())):
+                raise ValueError('form')
+            selection = None
+            if watched_movie(movie) is None:
+                if not choices.issubset(params):
+                    result(409, 'The movie is no longer in Radarr. Reopen this link and choose a folder and profile.')
+                    return
+                profile = int(params['quality_profile'][0])
+                root = params['root_folder'][0]
+                context = selection_context()
+                if (root not in {row['path'] for row in context['roots'] if row.get('path')}
+                        or profile not in {int(row['id']) for row in context['profiles'] if row.get('id') is not None}):
+                    raise ValueError('form')
+                selection = (profile, root)
+            attempted = True
+            ensure_watched_movie(movie, selection)
+            if not update_action(token, watched_completed=True):
+                raise OSError('action_expired')
+            result(200, WATCHED_SUCCESS)
+        except (ValueError, UnicodeDecodeError):
+            result(400, 'Confirm the watched action and select a valid folder and profile if needed.')
+        except (RadarrError, OSError, TypeError, KeyError):
+            if attempted:
+                result(502, 'Radarr may have applied part of the change. Check the movie or reopen this link to verify its state. No search or download was started.')
+            else:
+                result(502, 'The exact movie or current Radarr settings could not be verified. No change was submitted.')
 
     def _memory_review_post(self,token,action):
         import identity_memory
@@ -1056,7 +1134,7 @@ class Handler(BaseHTTPRequestHandler):
                 except OSError:pass
             self._html(409,render_result(action,False,'The existing movie/file changed or the action is unavailable. No automatic retry will run.'))
 
-    def _handle_action_post_locked(self, token):
+    def _handle_action_post_locked(self, token, *, watched=False):
         try:
             action = get_action(token)
         except (OSError, ValueError):
@@ -1065,6 +1143,9 @@ class Handler(BaseHTTPRequestHandler):
             return
         if not action:
             self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
+            return
+        if watched:
+            self._watched_action(token, action, submit=True)
             return
         if uncertain_action(action):
             decision_log('approval', 'blocked_uncertain_attempt')
@@ -1146,9 +1227,10 @@ class Handler(BaseHTTPRequestHandler):
             self._html(502, render_result(action, False, message))
 
     def do_POST(self):
-        token = self._action_token()
+        watched_token = self._action_token(watched=True)
+        token = watched_token or self._action_token()
         if token:
-            self._handle_action_post(token)
+            self._handle_action_post(token, watched=bool(watched_token))
             return
 
         path = urlparse(self.path).path

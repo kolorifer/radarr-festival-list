@@ -156,6 +156,21 @@ This button is for a supported **Unknown Movie** event with a verified identity 
 
 On the page, review the movie and release, choose from the available Radarr root folders and quality profiles, and confirm. The service rechecks the action and movie identity. It adds the movie if necessary with automatic search disabled, then sends the **original release reference** to Radarr for that specific release. Radarr still applies its own rules and download-client configuration. A successful submission is not proof that the download finished or that the file was imported. Existing movie state, an expired link, a changed source, a missing profile or an unavailable service can stop the action.
 
+### Add to Radarr as watched
+
+On actor versions that support it, new or normally updated release cards that
+offer **Add to Radarr & grab this release** also offer **Add to Radarr as
+watched**. Open the watched link and confirm the same resolved movie. If it
+isn't already in Radarr, choose a root folder and quality profile.
+
+Radarr keeps the movie unmonitored and adds its `watched` tag. If the movie is
+already present, its existing tags, files, folder and profile are kept. This
+action never starts a search or downloads the release. Confirm a successful
+watched action again and the page reports that it was already completed.
+If a response is uncertain, check the movie in Radarr. Reopening the still-valid
+link lets you verify or finish the requested watched state. Both buttons share
+the release approval's expiry. An already consumed Grab approval closes the link.
+
 ### Grab Anyway
 
 This is for certain supported rejections where Radarr has a matching monitored movie with an existing file and rejected the new release because of an existing-file quality or equal/higher custom-format score. It is not a general override for every Radarr rejection. The film identity, existing movie and file, supported source and original release reference must all be verified. Mixed or unsupported rejection reasons can prevent the button.

@@ -90,6 +90,101 @@ def get_movie_by_tmdb(tmdb_id):
     return None
 
 
+def watched_movie(movie_info):
+    """Read only the approved movie. Malformed replies are not absence."""
+    tmdb_id = int(movie_info['tmdb_id'])
+    query = urlencode({'tmdbId': tmdb_id, 'excludeLocalCovers': 'true'})
+    rows = _request('/movie?' + query)
+    if rows == []:
+        return None
+    if (not isinstance(rows, list) or len(rows) != 1 or not isinstance(rows[0], dict)
+            or type(rows[0].get('tmdbId')) is not int or rows[0]['tmdbId'] != tmdb_id
+            or type(rows[0].get('id')) is not int or rows[0]['id'] <= 0
+            or type(rows[0].get('monitored')) is not bool
+            or not isinstance(rows[0].get('tags'), list)
+            or any(type(tag) is not int or tag <= 0 for tag in rows[0]['tags'])):
+        raise RadarrError('Could not verify the exact Radarr movie')
+    movie = rows[0]
+    if movie_info.get('imdb_id') and movie.get('imdbId') not in (None, '', movie_info['imdb_id']):
+        raise RadarrError('Radarr returned a conflicting IMDb identity')
+    return movie
+
+
+def _watched_tag_id():
+    rows = _request('/tag')
+    if (not isinstance(rows, list) or any(
+            not isinstance(row, dict) or type(row.get('id')) is not int or row['id'] <= 0
+            or not isinstance(row.get('label'), str) for row in rows)
+            or len({row['id'] for row in rows}) != len(rows)):
+        raise RadarrError('Radarr returned invalid tags')
+    matches = [row['id'] for row in rows if row['label'].strip().casefold() == 'watched']
+    if len(matches) > 1:
+        raise RadarrError('Radarr has ambiguous watched tags')
+    return matches[0] if matches else None
+
+
+def ensure_watched_movie(movie_info, selection=None):
+    """Add as unmonitored, or edit only monitoring and add the watched tag."""
+    movie = watched_movie(movie_info)
+    if movie is None and selection is None:
+        raise RadarrError('A new movie needs a root folder and quality profile')
+    tag_id = _watched_tag_id()
+    if tag_id is None:
+        try:
+            _request('/tag', method='POST', payload={'label': 'watched'})
+        except (RadarrError, OSError):
+            pass  # An external creator or a lost response can leave the tag present.
+        tag_id = _watched_tag_id()
+        if tag_id is None:
+            raise RadarrError('The watched tag could not be verified')
+
+    # Re-read after tag creation and before a movie write. Radarr's additive
+    # editor keeps any tags added by another writer after this read.
+    current = watched_movie(movie_info)
+    if movie is not None and (current is None or current['id'] != movie['id']):
+        raise RadarrError('The Radarr movie changed before the watched update')
+    if _watched_tag_id() != tag_id:
+        raise RadarrError('The watched tag changed before the movie update')
+    if current is None:
+        profile_id, root_folder = selection
+        body = {
+            'tmdbId': int(movie_info['tmdb_id']),
+            'qualityProfileId': profile_id,
+            'rootFolderPath': root_folder,
+            'monitored': False,
+            'tags': [tag_id],
+            'minimumAvailability': 'released',
+            'addOptions': {'searchForMovie': False},
+        }
+        if movie_info.get('title'):
+            body['title'] = str(movie_info['title'])
+        try:
+            _request('/movie', method='POST', payload=body)
+        except (RadarrError, OSError):
+            pass  # Reconcile a concurrent add or an uncertain response by exact ID.
+        current = watched_movie(movie_info)
+        if current is None:
+            raise RadarrError('The movie addition could not be verified')
+    if current['monitored'] is False and tag_id in current['tags'] and _watched_tag_id() == tag_id:
+        return
+
+    if _watched_tag_id() != tag_id:
+        raise RadarrError('The watched tag changed before the movie update')
+    previous_tags = set(current['tags'])
+    try:
+        _request('/movie/editor', method='PUT', payload={
+            'movieIds': [current['id']], 'monitored': False,
+            'tags': [tag_id], 'applyTags': 'add',
+        })
+    except (RadarrError, OSError):
+        pass  # Read back before reporting any partial or uncertain result.
+    after = watched_movie(movie_info)
+    if (after is None or after['id'] != current['id'] or after['monitored']
+            or not (previous_tags | {tag_id}) <= set(after['tags'])
+            or _watched_tag_id() != tag_id):
+        raise RadarrError('The watched tag and monitoring state could not both be verified')
+
+
 def movie_has_tag(movie, label):
     """Resolve this movie's numeric tag IDs against Radarr's current labels."""
     tags = movie.get('tags') if isinstance(movie, dict) else None
