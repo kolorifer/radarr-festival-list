@@ -68,17 +68,18 @@ class SourceReadCheckTests(unittest.TestCase):
     def test_exact_head_and_id_then_single_empty_or_exact_catalogue(self):
         empty = json.dumps({'movie_results':[]}).encode()
         self.assertEqual(self.run_observation([LISTING,empty]),
-                         ('authenticated_no_movie_mapping',['listing_get','listing_heading_id','catalogue_find'],2))
+                         ('authenticated_no_movie_mapping',['listing_get','listing_heading_id','listing_facts','catalogue_find'],2))
         found = json.dumps({'movie_results':[{'id':321}]}).encode()
         detail = json.dumps({'id':321,'imdb_id':IMDB,'title':'Invented Film'}).encode()
         self.assertEqual(self.run_observation([LISTING,found,detail]),
-                         ('authenticated_crosswalk',['listing_get','listing_heading_id','catalogue_find','catalogue_detail'],3))
+                         ('authenticated_crosswalk',['listing_get','listing_heading_id','listing_facts','catalogue_find','catalogue_detail'],3))
 
     def test_changed_heading_or_id_never_reaches_catalogue(self):
         selected = self.select()
-        for page in (LISTING.replace(b'Invented',b'Different'), LISTING.replace(b'tt1234567',b'tt7654321')):
+        for page, reason in ((LISTING.replace(b'Invented',b'Different'),'listing_mismatch'),
+                             (LISTING.replace(b'tt1234567',b'tt7654321'),'listing_expected_imdb_mismatch')):
             with patch('automation.seedbox_host_io._source_inputs',return_value=({},{})), \
                  patch('automation.seedbox_host_io._get',return_value=(page,self.now)) as fetch:
-                with self.assertRaisesRegex(Refusal,'listing_heading_or_id_refused'):
+                with self.assertRaisesRegex(Refusal,reason):
                     observe(self.config,selected,lambda stage:None,clock=lambda:self.now)
                 self.assertEqual(fetch.call_count,1)

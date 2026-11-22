@@ -131,19 +131,41 @@ sys.addaudithook(audit)
 if sys.argv[3] == 'source-read-check':
     import time
 
+    fixture = os.environ['SEEDBOX_TEST_LISTING']
+    heading = b'<h2 id="torrentnameid">Invented.Film.2001</h2>'
+    field = b'<input name="imdbID" value="tt1234567">'
+    pages = {
+        'ok': heading + field,
+        'login_required': b'<input type="password">' + heading + field,
+        'listing_mismatch': heading.replace(b'Invented', b'Different') + field,
+        'listing_id_missing': heading,
+        'listing_id_invalid': heading + field.replace(b'tt1234567', b'unrecognized'),
+        'listing_id_conflict': heading + field + b'<p>tt7654321</p>',
+        'listing_expected_imdb_mismatch': heading + field.replace(b'tt1234567', b'tt7654321'),
+        'listing_facts_refused': heading + field,
+        'listing_facts_imdb_mismatch': heading + field,
+    }
+
     def fixture_fetch(url, *, cookies=None, token=None):
         if url == 'https://www.torrentleech.org/torrent/123' and cookies and token is None:
-            return (b'<h2 id="torrentnameid">Invented.Film.2001</h2>'
-                    b'<input name="imdbID" value="tt1234567">', time.time())
-        if url == 'https://api.themoviedb.org/3/find/tt1234567?external_source=imdb_id' and token and cookies is None:
+            return pages[fixture], time.time()
+        if fixture == 'ok' and url == 'https://api.themoviedb.org/3/find/tt1234567?external_source=imdb_id' and token and cookies is None:
             return b'{"movie_results":[]}', time.time()
         raise AssertionError("unselected source request")
+
+    def fixture_facts(*args, **kwargs):
+        if fixture == 'listing_facts_imdb_mismatch':
+            return {'imdb': 'tt7654321'}
+        raise ValueError('invented-secret-never-in-output')
 
     def inject(frame, event, arg):
         if event == 'call' and frame.f_globals.get('__name__') == 'automation.seedbox_source_read_check' \
                 and frame.f_code.co_name == 'observe':
             from automation import seedbox_host_io
             seedbox_host_io._get = fixture_fetch
+            if fixture in ('listing_facts_refused', 'listing_facts_imdb_mismatch'):
+                from automation import seedbox_source_evidence
+                seedbox_source_evidence.listing_facts = fixture_facts
             sys.settrace(None)
         return None
 
@@ -151,7 +173,7 @@ if sys.argv[3] == 'source-read-check':
 runpy.run_path(sys.argv[0], run_name='__main__')
 """)
 
-        def run(status, stage, reason, *, audited, read_check=False):
+        def run(status, stage, reason, *, audited, read_check=False, listing='ok'):
             pin = write_pin(config_path, json.dumps(self.config).encode())
             args = [str(bootstrap), str(runtime / 'seedbox-runtime.json'), package['manifest_sha256'],
                     'source-preflight', str(config_path), pin['sha256']]
@@ -166,10 +188,13 @@ runpy.run_path(sys.argv[0], run_name='__main__')
                 return {str(path): path.read_bytes() for path in self.root.rglob('*') if path.is_file()}
             before = snapshot()
             result = subprocess.run([sys.executable, '-I', '-B', *([str(guard)] if audited else []), *args],
-                                    cwd='/', capture_output=True, text=True, input=request, timeout=20)
+                                    cwd='/', env=dict(os.environ,SEEDBOX_TEST_LISTING=listing),
+                                    capture_output=True, text=True, input=request, timeout=20)
             self.assertEqual(result.stderr, '')
             self.assertNotIn(SECRET, result.stdout)
             self.assertNotIn(str(self.root), result.stdout)
+            for private in ('tt1234567','tt7654321','Invented.Film.2001','Different.Film.2001'):
+                self.assertNotIn(private, result.stdout)
             self.assertEqual(result.returncode, int(status != 'passed'), result.stdout)
             identity = (dict(kind='seedbox_source_read_check_v1',retention='not_tested') if read_check else
                         dict(kind='seedbox_source_preflight_v1',external_source_authentication='not_tested'))
@@ -181,5 +206,11 @@ runpy.run_path(sys.argv[0], run_name='__main__')
         run('passed', 'complete', 'local_inputs_only', audited=True)
         self.config.update(sources={'example':'Example'},listing_source='example')
         run('passed', 'complete', 'authenticated_no_movie_mapping', audited=True, read_check=True)
+        for reason in ('login_required','listing_mismatch','listing_id_missing','listing_id_invalid',
+                       'listing_id_conflict','listing_expected_imdb_mismatch',
+                       'listing_facts_refused','listing_facts_imdb_mismatch'):
+            with self.subTest(reason=reason):
+                stage = 'listing_facts' if reason.startswith('listing_facts_') else 'listing_heading_id'
+                run('failed',stage,reason,audited=True,read_check=True,listing=reason)
         self.config['cookie_file'] = write_pin(self.cookie, json.dumps({'session': SECRET + ';'}).encode())
         run('failed', 'cookie_format', 'refused', audited=True)
