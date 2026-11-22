@@ -8,7 +8,8 @@ PYTHON -I -B CODE/automation/seedbox_bootstrap.py CODE/seedbox-runtime.json MANI
 
 Use the installed interpreter, manifest and selected configuration for the
 worker being diagnosed. The command exits zero on local success and one on
-refusal. It emits one JSON record with a finite stage and reason. It checks
+refusal. Apply the wall-clock deadline in the caller. It emits one JSON record
+with a finite stage and reason. It checks
 the package and configuration pins, private state and selected actor guards,
 static source dependencies and readable CA bundle, then the selected source
 configuration and cookie inputs under Landlock.

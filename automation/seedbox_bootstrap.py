@@ -172,7 +172,7 @@ def source_preflight():
                   full_source_access='not_established')
     try:
         main(mark)
-    except Exception as error:
+    except BaseException as error:
         reason = ('permission_denied' if isinstance(error,PermissionError)
                   else 'missing' if isinstance(error,FileNotFoundError)
                   else 'runtime_unavailable' if stage=='source_runtime'

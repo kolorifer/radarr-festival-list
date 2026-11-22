@@ -1,6 +1,7 @@
 """Invented local inputs and the installed entry. No live services."""
 import ctypes
 import hashlib
+import io
 import json
 import os
 from pathlib import Path
@@ -8,6 +9,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
+from unittest.mock import patch
 
 from automation.seedbox_host_io import _source_inputs
 from automation.seedbox_package import build
@@ -36,6 +39,24 @@ class SourcePreflightTests(unittest.TestCase):
         return write_pin(self.env, (f'TMDB_API_TOKEN={SECRET}\n'
                                    f'MOVIE_INTEL_TL_COOKIE_FILE="{cookie}"\n'
                                    'MOVIE_INTEL_TL_METADATA_ENABLED=1\n').encode())
+
+    def test_early_exit_emits_only_finite_diagnostic(self):
+        from automation import seedbox_bootstrap
+
+        def fail(mark):
+            mark('source_runtime')
+            raise SystemExit(SECRET)
+
+        output, errors = io.StringIO(), io.StringIO()
+        with patch.object(seedbox_bootstrap, 'main', side_effect=fail):
+            with redirect_stdout(output), redirect_stderr(errors):
+                self.assertEqual(seedbox_bootstrap.source_preflight(), 1)
+        self.assertEqual(errors.getvalue(), '')
+        self.assertNotIn(SECRET, output.getvalue())
+        self.assertEqual(json.loads(output.getvalue()), dict(
+            kind='seedbox_source_preflight_v1', external_source_authentication='not_tested',
+            full_source_access='not_established', status='failed', stage='source_runtime',
+            reason='runtime_unavailable'))
 
     def test_selected_input_stages(self):
         stages = []
