@@ -19,7 +19,11 @@ def read(path,limit=1048576):
     finally:os.close(fd)
 
 
-def main():
+def _ignore_stage(stage):
+    pass
+
+
+def main(stage=_ignore_stage):
     if not sys.flags.isolated or not sys.dont_write_bytecode or len(sys.argv)<4:raise ValueError('bootstrap_entry')
     manifest_path=Path(sys.argv[1]);raw=read(manifest_path)
     if hashlib.sha256(raw).hexdigest()!=sys.argv[2]:raise ValueError('bootstrap_manifest')
@@ -48,15 +52,41 @@ def main():
         from automation.seedbox_assessment_queue import Queue
         from automation.seedbox_circuit import recover
         recover(Queue(sys.argv[4]),sys.argv[5],sys.argv[6]);return
-    if mode not in ('enroll','run','probe','correct','review-correct','delivery-revalidate','original-recover','assessment-recover') or len(sys.argv)!=(8 if mode in ('correct','review-correct','delivery-revalidate','original-recover','assessment-recover') else 6):raise ValueError('bootstrap_mode')
+    if mode not in ('enroll','run','probe','source-preflight','correct','review-correct','delivery-revalidate','original-recover','assessment-recover') or len(sys.argv)!=(8 if mode in ('correct','review-correct','delivery-revalidate','original-recover','assessment-recover') else 6):raise ValueError('bootstrap_mode')
+    stage('worker_configuration_access')
     config_raw=read(Path(sys.argv[4]),131072)
+    stage('worker_configuration_pin')
     if hashlib.sha256(config_raw).hexdigest()!=sys.argv[5]:raise ValueError('bootstrap_configuration')
+    stage('worker_configuration_format')
     config=json.loads(config_raw)
     from ai_movie_investigator.private_files import private_chain
     from ai_movie_investigator.contracts import digest,require
     from automation.seedbox_credit_policy import validate
-    if mode!='probe':validate(config['credit_policy'],now=__import__('time').time())
+    if mode not in ('probe','source-preflight'):validate(config['credit_policy'],now=__import__('time').time())
+    stage('private_state_access')
     with private_chain(Path(config['state'])):pass
+    if mode=='source-preflight':
+        from automation.seedbox_confinement import confine
+        from automation.seedbox_process import actor_lifetime
+        stage('actor_selection')
+        with actor_lifetime(config['sender']['process']):
+            stage('confinement')
+            # No SQLite connection: even a query-only WAL reader can change SHM.
+            # The same Landlock selection is restricted to read access and no TCP.
+            confine(config,root,source_preflight=stage)
+            stage('source_runtime')
+            import requests
+            from bs4 import BeautifulSoup
+            from tracker_metadata import _backoff,parse_listing
+            from ai_movie_investigator.responses_http import total_deadline
+            from automation.seedbox_source_evidence import listing_facts,catalogue_facts,missing_movie_facts
+            from automation.seedbox_host_io import _source_inputs
+            require(all(map(callable,(requests.Session,BeautifulSoup,_backoff,parse_listing,
+                                      total_deadline,listing_facts,catalogue_facts,missing_movie_facts))),
+                    'source_runtime_unavailable')
+            with open(requests.certs.where(),'rb'):pass
+            _source_inputs(config,stage)
+        return
     if mode=='correct':
         from automation.seedbox_assessment_queue import Queue
         from automation.seedbox_worker import singleton
@@ -131,8 +161,33 @@ def main():
             confine(config,root)
             run(config,sys.argv[5])
 
+def source_preflight():
+    stage = 'bootstrap'
+
+    def mark(value):
+        nonlocal stage
+        stage = value
+
+    result = dict(kind='seedbox_source_preflight_v1', external_source_authentication='not_tested',
+                  full_source_access='not_established')
+    try:
+        main(mark)
+    except Exception as error:
+        reason = ('permission_denied' if isinstance(error,PermissionError)
+                  else 'missing' if isinstance(error,FileNotFoundError)
+                  else 'runtime_unavailable' if stage=='source_runtime'
+                  else 'refused')
+        print(json.dumps(dict(result,status='failed',stage=stage,reason=reason),sort_keys=True))
+        return 1
+    print(json.dumps(dict(result,status='passed',stage='complete',reason='local_inputs_only'),sort_keys=True))
+    return 0
+
+
 if __name__=='__main__':
-    try:main()
+    try:
+        if len(sys.argv)>3 and sys.argv[3]=='source-preflight':
+            raise SystemExit(source_preflight())
+        main()
     except SystemExit:raise
     except BaseException:
         print('seedbox_worker_stopped_safe',file=sys.stderr);raise SystemExit(1) from None

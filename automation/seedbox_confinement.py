@@ -34,19 +34,21 @@ def prevent_collector_creation(config):
     finally:os.close(rules)
 
 
-def confine(config,code_root):
+def confine(config,code_root,*,source_preflight=None):
     lib=_kernel();abi=_call(lib,444,ctypes.c_void_p(),ctypes.c_size_t(0),ctypes.c_uint(1));require(abi>=6,'host_sandbox_abi')
     require(lib.prctl(38,1,0,0,0)==0,'host_sandbox_privileges')
     policy=Ruleset(HANDLED_FS,3,3);rules=_call(lib,444,ctypes.byref(policy),ctypes.sizeof(policy),0)
     paths={str(code_root):READ,str(Path(sys.prefix).resolve()):READ,'/usr':READ,'/proc':1<<3,
         '/etc/ld.so.cache':READ,'/etc/passwd':READ,'/etc/group':READ,
         '/etc/ssl':READ,'/etc/resolv.conf':READ,'/etc/hosts':READ,'/etc/nsswitch.conf':READ,
-        config['state']:STATE|(1<<7),str(Path(config['credential']['path']).parent):READ,
+        config['state']:STATE|(1<<7),
+        **({str(Path(config['credential']['path']).parent):READ} if source_preflight is None else {}),
         config['source_configuration']['path']:READ,config['cookie_file']['path']:READ}
     # Credentials IPC is a filesystem Unix socket; no new abstract sockets may
     # escape this service. It does not grant the hidden master key as a file.
-    ipc=Path('/run/systemd/io.systemd.Credentials')
-    require(ipc.exists(),'host_credential_ipc_missing')
+    if source_preflight is None:
+        ipc=Path('/run/systemd/io.systemd.Credentials')
+        require(ipc.exists(),'host_credential_ipc_missing')
     # ABI6 filesystem Unix-socket connect is not path-mediated. The fixed
     # reviewed executable uses this literal endpoint; abstract IPC is scoped.
     # No claim that Landlock itself authenticates the credential service.
@@ -54,10 +56,11 @@ def confine(config,code_root):
     process=config['sender']['process']
     if not retained(process):
         for name in ('cmdline','stat'):paths[str(Path('/proc')/str(process['pid'])/name)]=READ
-    paths['/usr/bin/systemd-creds']=READ|1
-    loader=Path('/lib64/ld-linux-x86-64.so.2').resolve(strict=True)
-    info=loader.stat();require(stat.S_ISREG(info.st_mode) and info.st_uid==0 and not info.st_mode&0o022,'host_system_loader')
-    paths[str(loader)]=READ|1
+    if source_preflight is None:
+        paths['/usr/bin/systemd-creds']=READ|1
+        loader=Path('/lib64/ld-linux-x86-64.so.2').resolve(strict=True)
+        info=loader.stat();require(stat.S_ISREG(info.st_mode) and info.st_uid==0 and not info.st_mode&0o022,'host_system_loader')
+        paths[str(loader)]=READ|1
     from automation.seedbox_sender import actor_directory_scope
     actor_directory_scope(config['actor_database'])
     collector=Path(config['collector_database']['path'])
@@ -82,13 +85,22 @@ def confine(config,code_root):
     for pin in config['sender']['deployed_files'].values():paths[pin['path']]=READ
     try:
         for path,rights in paths.items():
+            if source_preflight is not None:
+                source_preflight({
+                    config['source_configuration']['path']: 'source_configuration_access',
+                    config['cookie_file']['path']: 'cookie_access',
+                }.get(path, 'confinement'))
+                rights &= READ
             p=Path(path);resolved=p.resolve(strict=True)
             fd=os.open(resolved,os.O_PATH|os.O_CLOEXEC)
             try:
                 if not stat.S_ISDIR(os.fstat(fd).st_mode):rights &= ~(1<<3)
                 rule=Beneath(rights,fd);_call(lib,445,rules,1,ctypes.byref(rule),0)
             finally:os.close(fd)
-        port=Port(2,443);_call(lib,445,rules,2,ctypes.byref(port),0)
+        if source_preflight is None:
+            port=Port(2,443);_call(lib,445,rules,2,ctypes.byref(port),0)
+        else:
+            source_preflight('confinement')
         _call(lib,446,rules,0)
     finally:os.close(rules)
     return abi
