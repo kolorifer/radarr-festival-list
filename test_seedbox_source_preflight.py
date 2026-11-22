@@ -27,7 +27,11 @@ def write_pin(path, body):
 
 class SourcePreflightTests(unittest.TestCase):
     def setUp(self):
-        temporary = tempfile.TemporaryDirectory(dir=Path.cwd().resolve())
+        # GitHub's checkout ancestry can carry access ACLs. Use the hosted
+        # tool cache outside that ancestry so the installed test can keep the
+        # production ACL checks and real Landlock policy enabled.
+        fixture_parent = Path(os.environ.get('RUNNER_TOOL_CACHE', Path.cwd())).resolve()
+        temporary = tempfile.TemporaryDirectory(dir=fixture_parent)
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)
         self.cookie = self.root / 'cookie'
