@@ -155,6 +155,17 @@ class WatchedReleaseActionTests(unittest.TestCase):
         self.assertEqual([(m,p) for m,p,_ in self.writes],[('POST','/movie'),('PUT','/movie/editor')])
         self.assertEqual(self.movie,dict(MOVIE,monitored=False,tags=[2,3,5]))
 
+    def test_store_failure_after_radarr_success_reports_possible_change(self):
+        self.movie = copy.deepcopy(MOVIE)
+        with patch.object(svc,'update_action',side_effect=ValueError('invented store error')):
+            status, page = self.handle({'confirm_watched':'yes'})
+        self.assertEqual(status,502)
+        self.assertIn('Radarr may have applied',page)
+        self.assertNotIn('invented store error',page)
+        self.assertEqual(self.movie,dict(MOVIE,monitored=False,tags=[2,3,5]))
+        self.assertEqual(self.handle({'confirm_watched':'yes'})[0],200)
+        self.assertEqual(len(self.writes),1)
+
     def test_stale_identity_malformed_lookup_and_invalid_confirmation_refuse(self):
         self.assertEqual(self.handle(FORM,current=False)[0],409)
         self.assertEqual(self.handle({'confirm_watched':['yes','yes']})[0],400)

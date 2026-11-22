@@ -1039,11 +1039,11 @@ class Handler(BaseHTTPRequestHandler):
             if not update_action(token, watched_completed=True):
                 raise OSError('action_expired')
             result(200, WATCHED_SUCCESS)
-        except (ValueError, UnicodeDecodeError):
-            result(400, 'Confirm the watched action and select a valid folder and profile if needed.')
-        except (RadarrError, OSError, TypeError, KeyError):
+        except (RadarrError, OSError, TypeError, KeyError, ValueError) as error:
             if attempted:
                 result(502, 'Radarr may have applied part of the change. Check the movie or reopen this link to verify its state. No search or download was started.')
+            elif isinstance(error, ValueError):
+                result(400, 'Confirm the watched action and select a valid folder and profile if needed.')
             else:
                 result(502, 'The exact movie or current Radarr settings could not be verified. No change was submitted.')
 
