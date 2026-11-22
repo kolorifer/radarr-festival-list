@@ -127,9 +127,17 @@ def selected_snapshot(c,case_id,now):
     return snapshot,m,global_coverage
 
 
-def _configuration(pin):
+def _ignore_stage(stage):
+    pass
+
+
+def _configuration(pin, stage=_ignore_stage):
     from deploy.run import read_environment
-    raw=read_private(Path(pin['path']),65536);require(hashlib.sha256(raw).hexdigest()==pin['sha256'],'host_configuration_changed')
+    stage('source_configuration_access')
+    raw=read_private(Path(pin['path']),65536)
+    stage('source_configuration_pin')
+    require(hashlib.sha256(raw).hexdigest()==pin['sha256'],'host_configuration_changed')
+    stage('source_configuration_format')
     class Text:
         def read_text(self,*a,**kw):return raw.decode()
         def stat(self):return Path(pin['path']).stat()
@@ -137,6 +145,33 @@ def _configuration(pin):
     # No exporting into os.environ and no returning unrelated production keys.
     selected={k:values.get(k) for k in ('TMDB_API_TOKEN','MOVIE_INTEL_TL_COOKIE_FILE','MOVIE_INTEL_TL_METADATA_ENABLED')}
     values.clear();return selected
+
+
+def _source_inputs(config, stage=_ignore_stage):
+    """Validate only the selected local inputs shared with acquisition."""
+    import re
+
+    env = (_configuration(config['source_configuration']) if stage is _ignore_stage
+           else _configuration(config['source_configuration'], stage))
+    require(env['TMDB_API_TOKEN'] and env['MOVIE_INTEL_TL_COOKIE_FILE']
+            and env['MOVIE_INTEL_TL_METADATA_ENABLED'] == '1', 'host_source_configuration')
+    stage('cookie_selection')
+    cookie_pin = config['cookie_file']
+    cookie_path = Path(cookie_pin['path'])
+    require(Path(env['MOVIE_INTEL_TL_COOKIE_FILE']).resolve(strict=True) == cookie_path,
+            'host_cookie_selection')
+    stage('cookie_access')
+    raw = read_private(cookie_path, 16384)
+    stage('cookie_pin')
+    require(hashlib.sha256(raw).hexdigest() == cookie_pin['sha256'], 'host_cookie_changed')
+    stage('cookie_format')
+    cookies = json.loads(raw)
+    require(type(cookies) is dict and cookies and all(
+        type(k) is str and re.fullmatch(r'[A-Za-z0-9_-]{1,100}', k)
+        and type(v) is str and 0 < len(v) <= 8192
+        and all(33 <= ord(ch) <= 126 and ch not in ';,' for ch in v)
+        for k, v in cookies.items()), 'host_cookie_format')
+    return env, cookies
 
 
 class SourceFailure(ValueError):
@@ -201,7 +236,6 @@ def acquire(config,claim,snapshot_raw,metadata,*,revalidation=None,before_source
     from automation.seedbox_source_evidence import actor_listing,listing_facts,catalogue_facts,missing_movie_facts
     from ai_movie_investigator.snapshot_review import projection,select
     from bs4 import BeautifulSoup
-    import re
     now=time.time();snapshot_sha=hashlib.sha256(snapshot_raw).hexdigest();select(snapshot_raw,snapshot_sha,claim['case_id'],claim['version'],now=now)
     from automation.seedbox_original_readiness import binding as original_binding
     with database(config['actor_database']) as actor:
@@ -222,13 +256,7 @@ def acquire(config,claim,snapshot_raw,metadata,*,revalidation=None,before_source
         require(digest(proof)==claim['correction_proposal_sha256'] and digest(binding['url'])==proof['source_url_sha256'] and digest(target)==proof['target_sha256'],'host_correction_source_target_changed')
     if before_source is not None:before_source()
     try:
-        env=_configuration(config['source_configuration']);require(env['TMDB_API_TOKEN'] and env['MOVIE_INTEL_TL_COOKIE_FILE'] and env['MOVIE_INTEL_TL_METADATA_ENABLED']=='1','host_source_configuration')
-        # Main selects canonical spelling and pins the existing cookie file. The
-        # configured alias must resolve to that exact selection, never another file.
-        cookie_pin=config['cookie_file'];cookie_path=Path(cookie_pin['path'])
-        require(Path(env['MOVIE_INTEL_TL_COOKIE_FILE']).resolve(strict=True)==cookie_path,'host_cookie_selection')
-        cookies_raw=read_private(cookie_path,16384);require(hashlib.sha256(cookies_raw).hexdigest()==cookie_pin['sha256'],'host_cookie_changed')
-        cookies=json.loads(cookies_raw);require(type(cookies) is dict and cookies and all(type(k) is str and re.fullmatch(r'[A-Za-z0-9_-]{1,100}',k) and type(v) is str and 0<len(v)<=8192 and all(33<=ord(ch)<=126 and ch not in ';,' for ch in v) for k,v in cookies.items()),'host_cookie_format')
+        env,cookies=_source_inputs(config)
     except (OSError,ValueError,KeyError):raise SourceFailure('source_configuration_unavailable') from None
     raw,observed=_get(binding['url'],cookies=cookies)
     from tracker_metadata import parse_listing

@@ -20,5 +20,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: python -m pip install -r requirements.txt
       - run: python -m pip check
+      - name: Prepare private input fixtures for the installed source preflight
+        run: |
+          fixture_parent=$(sudo mktemp -d /seedbox-preflight-test.XXXXXXXX)
+          sudo chown "$(id -u):$(id -g)" "$fixture_parent"
+          printf 'SEEDBOX_PREFLIGHT_TEST_PARENT=%s\n' "$fixture_parent" >> "$GITHUB_ENV"
       - run: python -m unittest -v
       - run: python production_scoring.py --check
