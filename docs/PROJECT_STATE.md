@@ -1,3 +1,11 @@
+## Release-card watched action candidate, 2026-11-22
+
+The movie-intel actor adds a separate confirmation for marking the resolved
+release's movie watched and unmonitored. New movies use the selected folder and
+profile with search disabled. Existing movies use an additive tag and monitoring
+edit. See the [engineering and deployment notes](reports/2026-11-22-radarr-watched-release-action.md).
+This repository change does not establish live activation.
+
 ## Prospective reporting-review contract candidate, 2026-11-17
 
 Offline invented evidence demonstrates that the old untyped material-problem
