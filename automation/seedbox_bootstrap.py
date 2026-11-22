@@ -197,6 +197,17 @@ def source_preflight(mode='source-preflight'):
                                               'source_redirect','source_temporary','source_http_refused',
                                               'source_content_invalid','source_size_bound','source_deadline'):
                 reason=code
+        if remote and stage=='listing_heading_id' and len(error.args)==1:
+            code=error.args[0]
+            if type(code) is str and code in (
+                'login_required','listing_mismatch','listing_id_missing','listing_id_invalid',
+                'listing_id_conflict','listing_expected_imdb_mismatch',
+            ):
+                reason=code
+        if remote and stage=='listing_facts':
+            code=error.args[0] if len(error.args)==1 else None
+            reason=('listing_facts_imdb_mismatch' if type(code) is str and code=='listing_facts_imdb_mismatch'
+                    else 'listing_facts_refused')
         print(json.dumps(dict(result,status='failed',stage=stage,reason=reason),sort_keys=True))
         return 1
     print(json.dumps(dict(result,status='passed',stage='complete',reason=outcome if remote else 'local_inputs_only'),sort_keys=True))

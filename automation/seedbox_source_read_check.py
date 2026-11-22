@@ -67,12 +67,13 @@ def observe(config, selected, stage, *, clock=time.time):
     page, observed = get('listing_get', selected['url'], cookies=cookies)
     stage('listing_heading_id')
     listing = parse_listing(page, selected['release_name'])
-    require(listing['reason'] == 'listing_id_found' and listing['imdb_id'] == selected['imdb'],
-            'listing_heading_or_id_refused')
+    require(listing['reason'] == 'listing_id_found', listing['reason'])
+    require(listing['imdb_id'] == selected['imdb'], 'listing_expected_imdb_mismatch')
+    stage('listing_facts')
     facts = listing_facts(page, release_name=selected['release_name'],
                           case_id=selected['case_id'], version=selected['version'],
                           observed_at=observed, expires_at=observed + 900, revision=2)
-    require(facts['imdb'] == selected['imdb'], 'listing_heading_or_id_refused')
+    require(facts['imdb'] == selected['imdb'], 'listing_facts_imdb_mismatch')
 
     imdb = selected['imdb']
     found, found_at = get('catalogue_find',

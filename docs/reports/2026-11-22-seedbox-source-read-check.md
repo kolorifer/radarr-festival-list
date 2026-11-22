@@ -29,7 +29,10 @@ result. The command makes one exact listing GET, one exact TMDb IMDb lookup if
 the heading and single pinned IMDb assertion match, and one exact TMDb details
 GET only if the lookup yields a unique movie. It verifies the details response
 against both IDs. An authenticated empty lookup records no movie mapping at
-inspection time. Any refusal stops the check. A timeout consumes the selected
+inspection time. Listing refusals distinguish login, heading mismatch, missing,
+invalid or conflicting IMDb assertions, a mismatch with the selected IMDb, and
+refusal during the subsequent listing-facts checks. The result contains finite
+codes. Any refusal stops the check. A timeout consumes the selected
 opportunity. The operator enforces one invocation because the diagnostic has
 no durable ledger. Its result does not authorize retries or any case action.
 
@@ -38,6 +41,19 @@ port 443. The reused HTTP adapter enforces exact hosts and routes, no redirects,
 credential separation, deadlines and response bounds. No source body or
 identifier is emitted. No model, sender, queue entry, report, or evidence bundle
 is created. Existing pauses, attempts and permissions remain in force.
+
+The actor observer envelope and collector material used for selection do not
+tag an IMDb value as coming from the listing input field. Webhook metadata and
+the resolver's asserted IMDb stay distinct, but the resolver assertion can
+originate from several inputs. The presence of a description, NFO or image
+projection does not change this. Use separately retained, release-bound
+evidence of the parser result to establish the expected listing assertion.
+The actor's terminal context can contain `review_listing` with source
+`torrentleech_listing`, reason `listing_id_found` and its IMDb assertion.
+It qualifies only when already within review scope and proven to belong to
+the same release and the selected occurrence. It can be missing or overwritten
+by a later terminal outcome. A current eligible collector row alone cannot
+supply this proof.
 
 A successful check establishes current authenticated reads for the selected
 release. It leaves the original retention path untested. A historical diagnosis
