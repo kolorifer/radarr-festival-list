@@ -41,6 +41,8 @@ from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reas
 from tracker_metadata import lookup_listing
 from telegram_routing import notification_route, topic_fields
 import alternative_grab
+import pending_actions
+from webhook_archive import archive_json, valid_json_syntax
 from film_editions import annotation as edition_annotation, candidate as edition_candidate
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
 
@@ -57,6 +59,11 @@ INDEX = build_index()
 # transaction so simultaneous browser submissions cannot re-push a release.
 _APPROVAL_LOCK = threading.Lock()
 ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
+ARCHIVE_ONLY_AUTOBRR_EVENTS = frozenset({
+    'release.new', 'irc.disconnected', 'irc.reconnected', 'irc.unhealthy', 'irc.healthy',
+    'list.refresh_success', 'list.refresh_error', 'feed.refresh_success', 'feed.refresh_error',
+    'app.update_available',
+})
 ACTION_TOKEN_RE = re.compile(r"^[A-Za-z0-9_-]{20,128}$")
 
 
@@ -908,6 +915,16 @@ REVIEW_MESSAGE = ('The previous attempt may have reached Radarr. Further submiss
 WATCHED_SUCCESS = 'Radarr confirmed the watched tag and unmonitored status. No search or download was started.'
 
 
+def _archive_webhook(raw):
+    try:
+        archive_json(raw, pending_actions.STORE_PATH.parent)
+        return True
+    except (OSError, ValueError):
+        # Keep the response and journal free of private bodies and error text.
+        print('webhook_archive write_failed', file=sys.stderr, flush=True)
+        return False
+
+
 class Handler(BaseHTTPRequestHandler):
     def _json(self, status, obj):
         raw = json.dumps(obj).encode()
@@ -1246,13 +1263,38 @@ class Handler(BaseHTTPRequestHandler):
             if length <= 0 or length > 1_000_000:
                 raise ValueError("invalid body size")
             raw = self.rfile.read(length)
+            standard_json = True
+
+            def nonstandard_constant(value):
+                nonlocal standard_json
+                standard_json = False
+                return float(value)
+
             try:
-                payload = json.loads(raw)
+                payload = json.loads(raw, parse_constant=nonstandard_constant)
             except json.JSONDecodeError:
                 text = raw.decode("utf-8", errors="replace").strip()
                 if text:
                     send_telegram(redact_text(text)[:4000], parse_mode=None)
                 self._json(200, {"ok": True, "forwarded": "text"})
+                return
+            except (ValueError, RecursionError):
+                # A JSON number or nesting level can exceed Python's object
+                # parser limits. Retain valid bytes and preserve the old
+                # business failure without constructing the payload.
+                if len(raw) == length and valid_json_syntax(raw):
+                    _archive_webhook(raw)
+                raise
+
+            archived = standard_json and len(raw) == length and _archive_webhook(raw)
+            event = payload.get('event') if isinstance(payload, dict) else None
+            if isinstance(event, str) and event in ARCHIVE_ONLY_AUTOBRR_EVENTS:
+                if archived:
+                    self._json(200, {"ok": True})
+                elif not standard_json or len(raw) != length:
+                    self._json(400, {"ok": False, "error": "invalid_json"})
+                else:
+                    self._json(503, {"ok": False, "error": "archive_unavailable"})
                 return
 
             data = payload.get("data") if isinstance(payload, dict) else None
