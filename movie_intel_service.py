@@ -41,6 +41,8 @@ from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reas
 from tracker_metadata import lookup_listing
 from telegram_routing import notification_route, topic_fields
 import alternative_grab
+import pending_actions
+from webhook_archive import archive_json
 from film_editions import annotation as edition_annotation, candidate as edition_candidate
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
 
@@ -57,6 +59,11 @@ INDEX = build_index()
 # transaction so simultaneous browser submissions cannot re-push a release.
 _APPROVAL_LOCK = threading.Lock()
 ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
+ARCHIVE_ONLY_AUTOBRR_EVENTS = frozenset({
+    'release.new', 'irc.disconnected', 'irc.reconnected', 'irc.unhealthy', 'irc.healthy',
+    'list.refresh_success', 'list.refresh_error', 'feed.refresh_success', 'feed.refresh_error',
+    'app.update_available',
+})
 ACTION_TOKEN_RE = re.compile(r"^[A-Za-z0-9_-]{20,128}$")
 
 
@@ -1246,13 +1253,39 @@ class Handler(BaseHTTPRequestHandler):
             if length <= 0 or length > 1_000_000:
                 raise ValueError("invalid body size")
             raw = self.rfile.read(length)
+            standard_json = True
+
+            def nonstandard_constant(value):
+                nonlocal standard_json
+                standard_json = False
+                return float(value)
+
             try:
-                payload = json.loads(raw)
+                payload = json.loads(raw, parse_constant=nonstandard_constant)
             except json.JSONDecodeError:
                 text = raw.decode("utf-8", errors="replace").strip()
                 if text:
                     send_telegram(redact_text(text)[:4000], parse_mode=None)
                 self._json(200, {"ok": True, "forwarded": "text"})
+                return
+
+            archived = False
+            if standard_json and len(raw) == length:
+                try:
+                    archive_json(raw, pending_actions.STORE_PATH.parent)
+                    archived = True
+                except (OSError, ValueError):
+                    # Preserve webhook handling and report the archive gap without
+                    # logging any body, filename, credentials or exception text.
+                    print('webhook_archive write_failed', file=sys.stderr, flush=True)
+            event = payload.get('event') if isinstance(payload, dict) else None
+            if isinstance(event, str) and event in ARCHIVE_ONLY_AUTOBRR_EVENTS:
+                if archived:
+                    self._json(200, {"ok": True})
+                elif not standard_json or len(raw) != length:
+                    self._json(400, {"ok": False, "error": "invalid_json"})
+                else:
+                    self._json(503, {"ok": False, "error": "archive_unavailable"})
                 return
 
             data = payload.get("data") if isinstance(payload, dict) else None
