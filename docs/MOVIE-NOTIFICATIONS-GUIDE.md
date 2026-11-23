@@ -156,6 +156,14 @@ This button is for a supported **Unknown Movie** event with a verified identity 
 
 On the page, review the movie and release, choose from the available Radarr root folders and quality profiles, and confirm. The service rechecks the action and movie identity. It adds the movie if necessary with automatic search disabled, then sends the **original release reference** to Radarr for that specific release. Radarr still applies its own rules and download-client configuration. A successful submission is not proof that the download finished or that the file was imported. Existing movie state, an expired link, a changed source, a missing profile or an unavailable service can stop the action.
 
+On versions with the evaluator integration, an actionable Unknown Movie card
+arrives first. Its evaluation follows as a reply in the same Telegram topic,
+with a text file for a long result. It describes the announced release and can
+disagree with the resolved movie in the card. The card's movie and approval stay
+authoritative. If Radarr accepts the Grab, the service submits watch feedback
+for that approved movie. Opening either link or choosing the watched action
+does not send feedback.
+
 ### Add to Radarr as watched
 
 On actor versions that support it, new or normally updated release cards that

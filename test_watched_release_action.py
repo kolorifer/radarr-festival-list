@@ -28,6 +28,10 @@ class WatchedReleaseActionTests(unittest.TestCase):
         storage = patch.object(pending_actions,'STORE_PATH',Path(directory.name)/'actions.json')
         storage.start()
         self.addCleanup(storage.stop)
+        for name, result in (('reserve',False),('watched_feedback','recorded')):
+            evaluator = patch.object(svc.telegram_evaluator,name,return_value=result)
+            evaluator.start()
+            self.addCleanup(evaluator.stop)
         self.movie = None
         self.tags = [dict(id=5,label='watched')]
         self.writes = []
