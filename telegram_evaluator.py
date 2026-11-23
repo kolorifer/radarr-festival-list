@@ -18,8 +18,12 @@ _START_LOCK = threading.Lock()
 _THREADS = 0
 SECRET_TEXT = re.compile(
     r'(?i)\b(?:authorization|cookie|set-cookie)["\']?\s*[:=]\s*[^\r\n]+'
-    r'|\b(?:api[_ -]?key|token|passkey|password|secret)["\']?\s*[:=]\s*(?:"(?:\\.|[^"\\])*"|[^\s,;]+)'
+    r'|\bbearer\s+[A-Za-z0-9._~+/-]{8,}=*'
+    r'|\b(?:[a-z][a-z0-9_-]{0,127})?(?:api[_ -]?key|token|passkey|password|secret|credential)s?'
+    r'["\']?\s*[:=]\s*(?:"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|[^\s,;]+)'
 )
+SECRET_KEY_ENDINGS = ('apikey','token','passkey','password','secret','credential',
+                      'authorization','cookie')
 
 
 def reserve():
@@ -120,7 +124,9 @@ def _clean_strings(value):
             while unique in cleaned:
                 number += 1
                 unique = f'{label} [{number}]'
-            cleaned[unique] = _clean_strings(item)
+            normalized = re.sub(r'[^a-z0-9]','',key.casefold()).removesuffix('s')
+            cleaned[unique] = ('[redacted]' if normalized.endswith(SECRET_KEY_ENDINGS)
+                               else _clean_strings(item))
         return cleaned
     if isinstance(value, list):
         return [_clean_strings(item) for item in value]

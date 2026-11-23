@@ -56,6 +56,24 @@ class EvaluatorClientTests(unittest.TestCase):
         with patch.object(ev,'_post',return_value=(200,b'a'*(ev.MAX_REPLY+1))):
             self.assertIn('exceeded',ev.evaluation(NAME))
 
+    def test_compound_credential_keys_and_labels_are_redacted(self):
+        body = {'access_token':'PRIVATE_ONE','clientSecret':'PRIVATE_TWO',
+                'details':"refresh_token: PRIVATE_THREE\napi_key: 'PRIVATE FOUR'",
+                'token_count':17}
+        with patch.object(ev,'_post',return_value=(200,json.dumps(body).encode())):
+            result = ev.evaluation(NAME)
+        parsed = json.loads(result.split('\n',1)[1])
+        self.assertEqual(parsed['access_token'],'[redacted]')
+        self.assertEqual(parsed['clientSecret'],'[redacted]')
+        self.assertEqual(parsed['token_count'],17)
+        self.assertNotIn('PRIVATE_',result)
+        self.assertNotIn('PRIVATE FOUR',result)
+        plain = b'clientSecret=PRIVATE_FIVE\naccess_token: PRIVATE_SIX\nEOF'
+        with patch.object(ev,'_post',return_value=(502,plain)):
+            result = ev.evaluation(NAME)
+        self.assertNotIn('PRIVATE_',result)
+        self.assertTrue(result.endswith('EOF'))
+
     def test_unexpected_evaluator_failure_still_delivers_error(self):
         deliver = Mock()
         with (patch.object(ev,'_QUEUE',Mock(**{'get.side_effect':[(NAME,deliver),StopIteration]})),
