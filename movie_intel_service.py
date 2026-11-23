@@ -42,7 +42,7 @@ from tracker_metadata import lookup_listing
 from telegram_routing import notification_route, topic_fields
 import alternative_grab
 import pending_actions
-from webhook_archive import archive_json
+from webhook_archive import archive_json, valid_json_syntax
 from film_editions import annotation as edition_annotation, candidate as edition_candidate
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
 
@@ -915,6 +915,16 @@ REVIEW_MESSAGE = ('The previous attempt may have reached Radarr. Further submiss
 WATCHED_SUCCESS = 'Radarr confirmed the watched tag and unmonitored status. No search or download was started.'
 
 
+def _archive_webhook(raw):
+    try:
+        archive_json(raw, pending_actions.STORE_PATH.parent)
+        return True
+    except (OSError, ValueError):
+        # Keep the response and journal free of private bodies and error text.
+        print('webhook_archive write_failed', file=sys.stderr, flush=True)
+        return False
+
+
 class Handler(BaseHTTPRequestHandler):
     def _json(self, status, obj):
         raw = json.dumps(obj).encode()
@@ -1268,16 +1278,15 @@ class Handler(BaseHTTPRequestHandler):
                     send_telegram(redact_text(text)[:4000], parse_mode=None)
                 self._json(200, {"ok": True, "forwarded": "text"})
                 return
+            except (ValueError, RecursionError):
+                # A JSON number or nesting level can exceed Python's object
+                # parser limits. Retain valid bytes and preserve the old
+                # business failure without constructing the payload.
+                if len(raw) == length and valid_json_syntax(raw):
+                    _archive_webhook(raw)
+                raise
 
-            archived = False
-            if standard_json and len(raw) == length:
-                try:
-                    archive_json(raw, pending_actions.STORE_PATH.parent)
-                    archived = True
-                except (OSError, ValueError):
-                    # Preserve webhook handling and report the archive gap without
-                    # logging any body, filename, credentials or exception text.
-                    print('webhook_archive write_failed', file=sys.stderr, flush=True)
+            archived = standard_json and len(raw) == length and _archive_webhook(raw)
             event = payload.get('event') if isinstance(payload, dict) else None
             if isinstance(event, str) and event in ARCHIVE_ONLY_AUTOBRR_EVENTS:
                 if archived:

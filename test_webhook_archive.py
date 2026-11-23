@@ -113,6 +113,19 @@ class WebhookArchiveTests(unittest.TestCase):
         filters.assert_not_called()
         self.assertEqual(errors.getvalue().splitlines(),['webhook_archive write_failed']*2)
 
+    def test_missing_passwd_record_refuses_archive_without_changing_business_route(self):
+        errors = io.StringIO()
+        with (patch.object(webhook_archive.pwd,'getpwuid',side_effect=KeyError('invented account')),
+              redirect_stderr(errors)):
+            normal, send, _ = self.post(BODY)
+            only, only_send, _ = self.post(b'{"event":"release.new"}')
+        self.assertEqual(normal[0],200)
+        send.assert_called_once()
+        self.assertEqual(only,(503,{'ok':False,'error':'archive_unavailable'}))
+        only_send.assert_not_called()
+        self.assertEqual(errors.getvalue().splitlines(),['webhook_archive write_failed']*2)
+        self.assertFalse(self.archive.exists())
+
     def test_concurrent_duplicates_keep_complete_distinct_files(self):
         with ThreadPoolExecutor(max_workers=8) as pool:
             list(pool.map(lambda _: webhook_archive.archive_json(BODY,self.root),range(24)))
@@ -174,3 +187,29 @@ class WebhookArchiveTests(unittest.TestCase):
             with self.assertRaises(OSError):
                 webhook_archive.archive_json(BODY,self.root)
         self.assertEqual(list(self.archive.iterdir()),[])
+
+    def test_valid_json_beyond_object_parser_limits_is_archived_only(self):
+        deep = b'['*200_000+b'null'+b']'*200_000
+        integer = b'{"number":'+b'9'*5000+b'}'
+        for body, error, valid in (
+            (deep,RecursionError('invented nesting limit'),True),
+            (deep[:-1],RecursionError('invented nesting limit'),False),
+            (integer,ValueError('invented integer limit'),True),
+            (integer[:-1]+b',}',ValueError('invented integer limit'),False),
+        ):
+            with self.subTest(length=len(body), valid=valid):
+                self.assertIs(webhook_archive.valid_json_syntax(body),valid)
+                with patch.object(svc.json,'loads',side_effect=error):
+                    response, send, filters = self.post(body)
+                self.assertEqual(response[0],500)
+                send.assert_not_called()
+                filters.assert_not_called()
+        self.assertEqual({p.read_bytes() for p in self.archive.glob('*.json')},{deep,integer})
+
+    def test_fallback_grammar_handles_strict_delimiters_escapes_and_encoding(self):
+        valid = ' { "x": [-0, 2.25E-5, true, false, null, {"escaped": "\\u1234"}] } '
+        invalid = ('[1,]', '{"a" 2}', '{"a":}', '[01]', '1e+', '"\\uqqqq"', 'true false', 'NaN', '')
+        self.assertTrue(webhook_archive.valid_json_syntax(valid.encode('utf-16')))
+        for value in invalid:
+            with self.subTest(value=value):
+                self.assertFalse(webhook_archive.valid_json_syntax(value.encode()))

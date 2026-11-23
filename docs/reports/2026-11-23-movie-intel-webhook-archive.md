@@ -24,6 +24,8 @@ not an archive receipt. The archive cannot recover events the producer or proxy
 never delivered, deliveries during downtime, or invalid, incomplete or oversized
 bodies. Monitor archive failures and available disk space. A crash can leave a
 hidden partial file, which is not a completed archive item. Never replay it.
+Valid bodies that exceed Python's integer or nesting limit still archive after
+an iterative syntax check. Their prior business error response is preserved.
 
 ## Retrieve exact bytes
 

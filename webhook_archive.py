@@ -1,15 +1,73 @@
 """Owner-only byte archive. No outbound calls and no content-derived names."""
 from contextlib import contextmanager
 from datetime import datetime, timezone
+import json
 import os
 from pathlib import Path
 import pwd
+import re
 import secrets
 import stat
 
 
 DIRECTORY = 'webhook-archive'
 DIRECTORY_FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+SPACE = re.compile(r'[ \t\n\r]*')
+ATOM = re.compile(r'true|false|null|-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?')
+
+
+def valid_json_syntax(raw):
+    """Check grammar without recursion or integer conversion on parser-limit errors."""
+    try:
+        source = raw.decode(json.detect_encoding(raw), 'surrogatepass')
+        index, state = 0, 'value'
+        closes = []
+        while True:
+            index = SPACE.match(source,index).end()
+            char = source[index:index+1]
+            if state == 'done':
+                if not closes:
+                    return index == len(source)
+                if char == closes[-1]:
+                    closes.pop()
+                elif char == ',':
+                    state = 'key' if closes[-1] == '}' else 'value'
+                else:
+                    return False
+            elif state in ('array_first','object_first'):
+                if char == closes[-1]:
+                    closes.pop()
+                    state = 'done'
+                else:
+                    state = 'value' if state == 'array_first' else 'key'
+                    continue
+            elif state == 'key':
+                if char != '"':
+                    return False
+                _, index = json.decoder.scanstring(source,index+1,True)
+                state = 'colon'
+                continue
+            elif state == 'colon':
+                if char != ':':
+                    return False
+                state = 'value'
+            elif char == '[' or char == '{':
+                closes.append(']' if char == '[' else '}')
+                state = 'array_first' if char == '[' else 'object_first'
+            elif char == '"':
+                _, index = json.decoder.scanstring(source,index+1,True)
+                state = 'done'
+                continue
+            else:
+                atom = ATOM.match(source,index)
+                if atom is None:
+                    return False
+                index = atom.end()
+                state = 'done'
+                continue
+            index += 1
+    except (ValueError, UnicodeError):
+        return False
 
 
 def _owner_only(fd, mode):
@@ -42,7 +100,10 @@ def _trusted_directory(path):
 def _physical_state(path):
     """Allow only the provider's root-owned passwd-home alias."""
     path = Path(path)
-    home = Path(pwd.getpwuid(os.getuid()).pw_dir)
+    try:
+        home = Path(pwd.getpwuid(os.getuid()).pw_dir)
+    except KeyError:
+        raise ValueError('archive_home_lookup') from None
     if not path.is_relative_to(home):
         return path
     with _trusted_directory(home.parent) as parent_fd:
