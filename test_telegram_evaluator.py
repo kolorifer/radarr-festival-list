@@ -236,6 +236,7 @@ class TelegramEvaluationTests(unittest.TestCase):
               patch.object(svc,'urlopen',return_value=response) as send):
             svc.edit_retry_message(refs,prepared)
         send.assert_called_once()
+        self.assertIn('when available',json.loads(send.call_args.args[0].data)['caption'])
         submit.assert_not_called()
         release.assert_called_once()
 

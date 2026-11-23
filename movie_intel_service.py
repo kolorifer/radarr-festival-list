@@ -730,7 +730,7 @@ def _submit_evaluation(name, ref):
 
 
 def _evaluation_note(text, reserved):
-    return text + ('\n\nMovie evaluation follows in a reply.' if reserved else
+    return text + ('\n\nMovie evaluation appears in a reply when available.' if reserved else
                    '\n\nMovie evaluation is unavailable. The evaluation queue could not accept this release.')
 
 
