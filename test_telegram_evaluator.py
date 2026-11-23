@@ -186,6 +186,24 @@ class TelegramEvaluationTests(unittest.TestCase):
             callback('Full evaluation')
             self.assertEqual(request.call_args.args[0],'sendMessage')
             self.assertEqual(request.call_args.args[1]['reply_parameters']['message_id'],47)
+            self.assertNotIn('message_thread_id',request.call_args.args[1])
+
+    def test_retry_reply_uses_topic_from_edit_ack_instead_of_current_setting(self):
+        action = dict(ACTION)
+        refs = [{'chat_id':'7','message_id':123,'kind':'caption'}]
+        prepared = {'token':TOKEN,'text':'Corrected card','parse_mode':'HTML'}
+        with (patch.dict(os.environ,{'TELEGRAM_ADD_GRAB_TOPIC_ID':'333'}),
+              patch.object(svc,'get_action',return_value=action),
+              patch.object(svc,'update_action',return_value=True),
+              patch.object(ev,'reserve',return_value=True),
+              patch.object(ev,'submit') as submit,
+              patch.object(svc,'urlopen',side_effect=lambda *a,**kw:self.telegram_response()) as send):
+            svc.edit_retry_message(refs,prepared)
+            _,callback = submit.call_args.args
+            callback('Result')
+        reply = json.loads(send.call_args.args[0].data)
+        self.assertEqual(reply['message_thread_id'],89)
+        self.assertEqual(reply['reply_parameters']['message_id'],123)
 
 
 class FeedbackTests(unittest.TestCase):

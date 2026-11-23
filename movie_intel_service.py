@@ -636,7 +636,7 @@ def _telegram_photo_payload(photo, caption, action_url=None):
     return body
 
 
-def _telegram_request(method, body):
+def _telegram_request(method, body, *, edit_receipt=None):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         raise RuntimeError("Telegram credentials are not configured")
     content_type = "application/json"
@@ -667,6 +667,13 @@ def _telegram_request(method, body):
             raise RuntimeError("Telegram did not accept the notification")
         from retry_telegram import receipt
         receipt(method,body,result)
+        if edit_receipt is not None:
+            message = result.get('result')
+            if (isinstance(message,dict) and message.get('message_id') == body.get('message_id')
+                    and str((message.get('chat') or {}).get('id')) == str(body.get('chat_id'))):
+                thread = message.get('message_thread_id')
+                if type(thread) is int and thread > 0:
+                    edit_receipt['message_thread_id'] = thread
         if method in ('sendMessage','sendPhoto'):
             selected = _EVALUATOR_CARD.get()
             if selected:
@@ -874,8 +881,13 @@ def edit_retry_message(refs,prepared):
                            'show_caption_above_media':False}
             if parse_mode:body['media']['parse_mode']=parse_mode
         transferred = False
+        evaluation_target = dict(ref)
         try:
-            try:_telegram_request(method,body)
+            try:
+                if reserved:
+                    _telegram_request(method,body,edit_receipt=evaluation_target)
+                else:
+                    _telegram_request(method,body)
             except HTTPError as exc:
                 # Repeating an edit after a lost ACK is idempotent.
                 try:detail=json.loads(exc.read(65536)).get('description','')
@@ -884,8 +896,7 @@ def edit_retry_message(refs,prepared):
             if reserved:
                 try:
                     if update_action(token,retry_evaluation_issued=True):
-                        with notification_route('add_grab'):
-                            _submit_evaluation(name,dict(ref,**_topic_fields()))
+                        _submit_evaluation(name,evaluation_target)
                         transferred = True
                 except (OSError,ValueError,RuntimeError):
                     decision_log('evaluator','retry_enqueue_unavailable')

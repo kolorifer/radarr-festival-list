@@ -9,9 +9,14 @@ and shows an unavailable message on the card if it cannot admit the release.
 Admitted work waits for a slot and each started evaluation has an 80-second
 limit. Slow evaluations can delay the replies behind them.
 
-The result is a reply to the actual card. It leaves newer edits and both
-buttons intact. It presents all parsed fields or the complete received error
-within the 128 KiB response budget, with private values redacted. Short results
+The result is a reply to the actual card. It uses the topic acknowledged by
+Telegram when available. Legacy receipts without a confirmed topic use the
+exact message as a required reply target. They never substitute the current
+topic setting. The reply leaves newer edits and both buttons intact. It
+presents all parsed fields or the complete received error
+within the 128 KiB response budget, with private values redacted. Redaction
+covers known secrets, URLs and recognizable credential labels. Unlabelled
+secret strings cannot be reliably identified. Short results
 are HTML-escaped text. Long results are a text file sent privately through
 Telegram's [document upload](https://core.telegram.org/bots/api#senddocument).
 Transport errors, timeouts and rejected or oversized responses are visible as
