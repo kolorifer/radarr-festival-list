@@ -150,6 +150,21 @@ class TelegramEvaluationTests(unittest.TestCase):
         self.assertIn(b'{"message_id": 22, "allow_sending_without_reply": false}',request.data)
         self.assertIn(result.encode(),request.data)
 
+    def test_missing_or_malformed_send_receipt_does_not_repeat_the_card(self):
+        for bad in (True, [], {'chat':True,'message_id':123},
+                    {'chat':{'id':7},'message_id':True}):
+            response = io.BytesIO(json.dumps({'ok':True,'result':bad}).encode())
+            response.status = 200
+            with (self.subTest(result=bad),patch.object(svc,'get_action',return_value=ACTION),
+                  patch.object(ev,'reserve',return_value=True),patch.object(ev,'submit') as submit,
+                  patch.object(ev,'release') as release,
+                  patch.object(svc,'urlopen',return_value=response) as send):
+                self.assertEqual(svc.send_movie_notification('Movie','https://image.invalid/poster',URL),200)
+                send.assert_called_once()
+                self.assertTrue(send.call_args.args[0].full_url.endswith('/sendPhoto'))
+                submit.assert_not_called()
+                release.assert_called_once()
+
     def test_capacity_error_remains_visible_and_only_actionable_cards_queue(self):
         with (patch.object(svc,'get_action',return_value=ACTION),
               patch.object(ev,'reserve',return_value=False) as reserve,
@@ -171,11 +186,16 @@ class TelegramEvaluationTests(unittest.TestCase):
         action = dict(ACTION)
         refs = [{'chat_id':'7','message_id':47,'kind':'caption'}]
         prepared = {'token':TOKEN,'text':'Corrected <b>card</b>','parse_mode':'HTML'}
+
+        def receipt(method, body, *, edit_receipt=None):
+            if edit_receipt is not None:
+                edit_receipt.update(chat_id=body['chat_id'],message_id=body['message_id'])
+
         with (patch.object(svc,'get_action',side_effect=lambda _:dict(action)),
               patch.object(svc,'update_action',side_effect=lambda _,**kw:action.update(kw) or True),
               patch.object(ev,'reserve',return_value=True),
               patch.object(ev,'submit') as submit,
-              patch.object(svc,'_telegram_request') as request):
+              patch.object(svc,'_telegram_request',side_effect=receipt) as request):
             svc.edit_retry_message(refs,prepared)
             svc.edit_retry_message(refs,prepared)
             self.assertEqual([c.args[0] for c in request.call_args_list],['editMessageCaption']*2)
@@ -204,6 +224,20 @@ class TelegramEvaluationTests(unittest.TestCase):
         reply = json.loads(send.call_args.args[0].data)
         self.assertEqual(reply['message_thread_id'],89)
         self.assertEqual(reply['reply_parameters']['message_id'],123)
+
+    def test_uncertain_legacy_topic_does_not_send_elsewhere(self):
+        refs = [{'chat_id':'7','message_id':123,'kind':'caption'}]
+        prepared = {'token':TOKEN,'text':'Corrected card','parse_mode':'HTML'}
+        response = io.BytesIO(b'{"ok":true,"result":{"chat":{"id":7,"is_forum":true,"type":"supergroup"},"message_id":123}}')
+        response.status = 200
+        with (patch.object(svc,'get_action',return_value=ACTION),
+              patch.object(ev,'reserve',return_value=True), patch.object(ev,'release') as release,
+              patch.object(ev,'submit') as submit,
+              patch.object(svc,'urlopen',return_value=response) as send):
+            svc.edit_retry_message(refs,prepared)
+        send.assert_called_once()
+        submit.assert_not_called()
+        release.assert_called_once()
 
 
 class FeedbackTests(unittest.TestCase):

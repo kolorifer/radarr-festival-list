@@ -10,18 +10,21 @@ Admitted work waits for a slot and each started evaluation has an 80-second
 limit. Slow evaluations can delay the replies behind them.
 
 The result is a reply to the actual card. It uses the topic acknowledged by
-Telegram when available. Legacy receipts without a confirmed topic use the
-exact message as a required reply target. They never substitute the current
-topic setting. The reply leaves newer edits and both buttons intact. It
+Telegram. A legacy edit that does not confirm its reply target and topic is
+left without an evaluation reply, with a fixed journal marker. The current
+topic setting is not substituted. The reply leaves newer edits and both buttons intact. It
 presents all parsed fields or the complete received error
 within the 128 KiB response budget, with private values redacted. Redaction
 covers known secrets, URLs and recognizable credential labels. Unlabelled
 secret strings cannot be reliably identified. Short results
-are HTML-escaped text. Long results are a text file sent privately through
+are HTML-escaped text. Long results are a text file sent to the same configured
+Telegram destination through
 Telegram's [document upload](https://core.telegram.org/bots/api#senddocument).
 Transport errors, timeouts and rejected or oversized responses are visible as
 errors. A Telegram delivery failure emits a fixed diagnostic. There is no
 automatic resend. Work still in memory at an actor restart may be lost.
+An initial acknowledgement without a verifiable message ID cannot receive a
+safe reply. The actor preserves the original notification outcome.
 
 The evaluator's identity is advisory. Following a confirmed Add & Grab,
 Radarr's accepted push is followed by one best-effort feedback call using the

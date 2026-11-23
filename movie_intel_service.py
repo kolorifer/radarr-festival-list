@@ -636,6 +636,22 @@ def _telegram_photo_payload(photo, caption, action_url=None):
     return body
 
 
+def _evaluation_target(message, chat_id, *, message_id=None, requested_thread=None):
+    chat = message.get('chat') if isinstance(message,dict) else None
+    if (not isinstance(chat,dict) or str(chat.get('id')) != str(chat_id)
+            or type(message.get('message_id')) is not int or message['message_id'] <= 0
+            or (message_id is not None and message['message_id'] != message_id)):
+        return None
+    target = dict(chat_id=chat_id,message_id=message['message_id'])
+    thread = message.get('message_thread_id', requested_thread)
+    if type(thread) is int and thread > 0:
+        target['message_thread_id'] = thread
+    elif (message.get('is_topic_message') is True or chat.get('is_forum') is True
+          or chat.get('type') not in ('private','group','supergroup','channel')):
+        return None
+    return target
+
+
 def _telegram_request(method, body, *, edit_receipt=None):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         raise RuntimeError("Telegram credentials are not configured")
@@ -668,24 +684,20 @@ def _telegram_request(method, body, *, edit_receipt=None):
         from retry_telegram import receipt
         receipt(method,body,result)
         if edit_receipt is not None:
-            message = result.get('result')
-            if (isinstance(message,dict) and message.get('message_id') == body.get('message_id')
-                    and str((message.get('chat') or {}).get('id')) == str(body.get('chat_id'))):
-                thread = message.get('message_thread_id')
-                if type(thread) is int and thread > 0:
-                    edit_receipt['message_thread_id'] = thread
+            target = _evaluation_target(result.get('result'),body.get('chat_id'),
+                                        message_id=body.get('message_id'))
+            if target:
+                edit_receipt.update(target)
         if method in ('sendMessage','sendPhoto'):
             selected = _EVALUATOR_CARD.get()
             if selected:
                 action_url, targets = selected
                 rows = (body.get('reply_markup') or {}).get('inline_keyboard', [])
-                message = result.get('result') or {}
-                thread = message.get('message_thread_id', body.get('message_thread_id'))
-                if (str((message.get('chat') or {}).get('id')) == str(TELEGRAM_CHAT_ID)
-                        and type(message.get('message_id')) is int and message['message_id'] > 0
-                        and any(button.get('url') == action_url for row in rows for button in row)):
-                    targets.append(dict(chat_id=TELEGRAM_CHAT_ID,message_id=message['message_id'],
-                                        message_thread_id=thread))
+                if any(button.get('url') == action_url for row in rows for button in row):
+                    target = _evaluation_target(result.get('result'),TELEGRAM_CHAT_ID,
+                                                requested_thread=body.get('message_thread_id'))
+                    if target:
+                        targets.append(target)
         return response.status
 
 
@@ -881,7 +893,7 @@ def edit_retry_message(refs,prepared):
                            'show_caption_above_media':False}
             if parse_mode:body['media']['parse_mode']=parse_mode
         transferred = False
-        evaluation_target = dict(ref)
+        evaluation_target = {}
         try:
             try:
                 if reserved:
@@ -894,12 +906,15 @@ def edit_retry_message(refs,prepared):
                 except Exception:detail=''
                 if exc.code!=400 or 'message is not modified' not in detail.casefold():raise RuntimeError('retry_message_edit_failed') from None
             if reserved:
-                try:
-                    if update_action(token,retry_evaluation_issued=True):
-                        _submit_evaluation(name,evaluation_target)
-                        transferred = True
-                except (OSError,ValueError,RuntimeError):
-                    decision_log('evaluator','retry_enqueue_unavailable')
+                if evaluation_target:
+                    try:
+                        if update_action(token,retry_evaluation_issued=True):
+                            _submit_evaluation(name,evaluation_target)
+                            transferred = True
+                    except (OSError,ValueError,RuntimeError):
+                        decision_log('evaluator','retry_enqueue_unavailable')
+                else:
+                    decision_log('evaluator','retry_reply_target_unverified')
         finally:
             if reserved and not transferred:
                 telegram_evaluator.release()
