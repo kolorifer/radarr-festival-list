@@ -6,12 +6,14 @@ tracker URLs stay server-side and are never placed in Telegram messages, action
 URLs, or logs.
 """
 import argparse
+from contextvars import ContextVar
 import html
 import hashlib
 import json
 import math
 import os
 import re
+import secrets
 import sys
 import threading
 from pathlib import Path
@@ -42,6 +44,7 @@ from tracker_metadata import lookup_listing
 from telegram_routing import notification_route, topic_fields
 import alternative_grab
 import pending_actions
+import telegram_evaluator
 from webhook_archive import archive_json, valid_json_syntax
 from film_editions import annotation as edition_annotation, candidate as edition_candidate
 from identity_triage_observer import observe as observe_identity_outcome, start as start_identity_observer
@@ -58,6 +61,7 @@ INDEX = build_index()
 # One process owns the store; serialize approvals through their complete Radarr
 # transaction so simultaneous browser submissions cannot re-push a release.
 _APPROVAL_LOCK = threading.Lock()
+_EVALUATOR_CARD = ContextVar('evaluator_card',default=None)
 ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
 ARCHIVE_ONLY_AUTOBRR_EVENTS = frozenset({
     'release.new', 'irc.disconnected', 'irc.reconnected', 'irc.unhealthy', 'irc.healthy',
@@ -635,11 +639,26 @@ def _telegram_photo_payload(photo, caption, action_url=None):
 def _telegram_request(method, body):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
         raise RuntimeError("Telegram credentials are not configured")
-    raw = json.dumps(body).encode()
+    content_type = "application/json"
+    if method == 'sendDocument':
+        boundary = secrets.token_hex(24)
+        parts = []
+        for key, value in body.items():
+            prefix = f'--{boundary}\r\nContent-Disposition: form-data; name="{key}"'
+            if key == 'document':
+                parts.append((prefix+'; filename="movie-evaluation.txt"\r\n'
+                              'Content-Type: text/plain; charset=utf-8\r\n\r\n').encode()+value+b'\r\n')
+            else:
+                field = json.dumps(value) if isinstance(value, dict) else str(value)
+                parts.append((prefix+'\r\n\r\n'+field+'\r\n').encode())
+        raw = b''.join(parts) + f'--{boundary}--\r\n'.encode()
+        content_type = f'multipart/form-data; boundary={boundary}'
+    else:
+        raw = json.dumps(body).encode()
     req = Request(
         f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/{method}",
         data=raw,
-        headers={"Content-Type": "application/json"},
+        headers={"Content-Type": content_type},
         method="POST",
     )
     with urlopen(req, timeout=15) as response:
@@ -648,6 +667,18 @@ def _telegram_request(method, body):
             raise RuntimeError("Telegram did not accept the notification")
         from retry_telegram import receipt
         receipt(method,body,result)
+        if method in ('sendMessage','sendPhoto'):
+            selected = _EVALUATOR_CARD.get()
+            if selected:
+                action_url, targets = selected
+                rows = (body.get('reply_markup') or {}).get('inline_keyboard', [])
+                message = result.get('result') or {}
+                thread = message.get('message_thread_id', body.get('message_thread_id'))
+                if (str((message.get('chat') or {}).get('id')) == str(TELEGRAM_CHAT_ID)
+                        and type(message.get('message_id')) is int and message['message_id'] > 0
+                        and any(button.get('url') == action_url for row in rows for button in row)):
+                    targets.append(dict(chat_id=TELEGRAM_CHAT_ID,message_id=message['message_id'],
+                                        message_thread_id=thread))
         return response.status
 
 
@@ -655,14 +686,61 @@ def send_telegram(text, parse_mode="HTML", action_url=None):
     return _telegram_request("sendMessage", _telegram_payload(text, parse_mode=parse_mode, action_url=action_url))
 
 
+def _card_release_name(action):
+    if not action or action.get('kind') is not None:
+        return None
+    name = (action.get('release') or {}).get('name')
+    return name if isinstance(name,str) and name.strip() else None
+
+
+def _evaluation_reply(ref, result):
+    fields = {'chat_id':ref['chat_id'],'reply_parameters':{
+        'message_id':ref['message_id'],'allow_sending_without_reply':False}}
+    if type(ref.get('message_thread_id')) is int and ref['message_thread_id'] > 0:
+        fields['message_thread_id'] = ref['message_thread_id']
+    text = '<b>Movie evaluation for the announced release</b>\n<pre>'+html.escape(result,quote=False)+'</pre>'
+    if len(text.encode('utf-16-le'))//2 <= 3800:
+        _telegram_request('sendMessage',dict(fields,text=text,parse_mode='HTML'))
+    else:
+        _telegram_request('sendDocument',dict(fields,document=result.encode('utf-8'),
+                                             caption='Full movie evaluation'))
+
+
+def _submit_evaluation(name, ref):
+    telegram_evaluator.submit(name,lambda result:_evaluation_reply(ref,result))
+
+
+def _evaluation_note(text, reserved):
+    return text + ('\n\nMovie evaluation follows in a reply.' if reserved else
+                   '\n\nMovie evaluation is unavailable. The evaluation queue could not accept this release.')
+
+
 def send_movie_notification(text, poster_url=None, action_url=None):
     kind=None
+    action=None
     if action_url:
         action=get_action(urlparse(action_url).path.rsplit('/',1)[-1])
         if action:
             kind='alternative' if action.get('kind')=='alternative' else 'add_grab' if action.get('kind') not in ('identity_review',) else None
     with notification_route(kind):
-        return _send_movie_notification(text,poster_url,action_url)
+        name = _card_release_name(action)
+        if name is None:
+            return _send_movie_notification(text,poster_url,action_url)
+        if not telegram_evaluator.reserve():
+            return _send_movie_notification(_evaluation_note(text,False),poster_url,action_url)
+        targets = []
+        marker = _EVALUATOR_CARD.set((action_url,targets))
+        transferred = False
+        try:
+            status = _send_movie_notification(_evaluation_note(text,True),poster_url,action_url)
+            if targets:
+                _submit_evaluation(name,targets[-1])
+                transferred = True
+            return status
+        finally:
+            _EVALUATOR_CARD.reset(marker)
+            if not transferred:
+                telegram_evaluator.release()
 
 
 def _send_movie_notification(text, poster_url=None, action_url=None):
@@ -778,9 +856,16 @@ def edit_retry_message(refs,prepared):
         text=prepared['text'] if index==0 else 'Identification result updated in the original message above.'
         if index==0 and token and not action:
             text='\n'.join(prepared['text'].splitlines()[:2])+'\nThe previous confirmation is unavailable or has already been used. Check Radarr before taking further action.'
+        parse_mode=prepared.get('parse_mode') if index==0 else None
+        name = None
+        reserved = False
+        if index==0 and url and action.get('kind') is None:
+            name = _card_release_name(action)
+            if name:
+                reserved = not action.get('retry_evaluation_issued') and telegram_evaluator.reserve()
+                text = _evaluation_note(text,reserved or action.get('retry_evaluation_issued'))
         body={'chat_id':ref['chat_id'],'message_id':ref['message_id'],field:text,
               'reply_markup':_reply_markup(url) if index==0 and url else {'inline_keyboard':[]}}
-        parse_mode=prepared.get('parse_mode') if index==0 else None
         if parse_mode:body['parse_mode']=parse_mode
         if index==0 and prepared.get('poster_url'):
             method='editMessageMedia'
@@ -788,12 +873,25 @@ def edit_retry_message(refs,prepared):
             body['media']={'type':'photo','media':prepared['poster_url'],'caption':text,
                            'show_caption_above_media':False}
             if parse_mode:body['media']['parse_mode']=parse_mode
-        try:_telegram_request(method,body)
-        except HTTPError as exc:
-            # Repeating an edit after a lost ACK is idempotent.
-            try:detail=json.loads(exc.read(65536)).get('description','')
-            except Exception:detail=''
-            if exc.code!=400 or 'message is not modified' not in detail.casefold():raise RuntimeError('retry_message_edit_failed') from None
+        transferred = False
+        try:
+            try:_telegram_request(method,body)
+            except HTTPError as exc:
+                # Repeating an edit after a lost ACK is idempotent.
+                try:detail=json.loads(exc.read(65536)).get('description','')
+                except Exception:detail=''
+                if exc.code!=400 or 'message is not modified' not in detail.casefold():raise RuntimeError('retry_message_edit_failed') from None
+            if reserved:
+                try:
+                    if update_action(token,retry_evaluation_issued=True):
+                        with notification_route('add_grab'):
+                            _submit_evaluation(name,dict(ref,**_topic_fields()))
+                        transferred = True
+                except (OSError,ValueError,RuntimeError):
+                    decision_log('evaluator','retry_enqueue_unavailable')
+        finally:
+            if reserved and not transferred:
+                telegram_evaluator.release()
 
 
 def public_action_url(headers, token):
@@ -1221,6 +1319,16 @@ class Handler(BaseHTTPRequestHandler):
                 event_timestamp=action.get("event_timestamp"),
                 tmdb_id=tmdb_id,
             )
+            feedback_movie = dict(movie_info)
+            if not feedback_movie.get('imdb_id') and movie.get('tmdbId') == int(tmdb_id):
+                feedback_movie['imdb_id'] = movie.get('imdbId')
+            try:
+                # The executing marker is already durable. A lost feedback
+                # response cannot make this approval eligible for another send.
+                feedback = telegram_evaluator.watched_feedback(feedback_movie)
+            except Exception:
+                feedback = 'unavailable'
+            decision_log('evaluator_feedback',feedback)
             delete_action(token)
             decision_log('approval', 'exact_release_approved')
             message = "Movie is available in Radarr and the exact announced release was re-pushed. No indexer search was run."
