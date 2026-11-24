@@ -24,11 +24,23 @@ ACTION = {'movie':META,'release':{'name':NAME}}
 class EvaluatorClientTests(unittest.TestCase):
     def test_rated_feedback_uses_exact_decision_and_note(self):
         for decision in ('watch','skip'):
-            with patch.object(ev,'_post',return_value=(200,b'{}')) as post:
-                self.assertEqual(ev.watched_feedback(META,decision=decision,note='watched'),'recorded')
+            ack = json.dumps({'status':'saved','decision':decision,'total_feedback':2}).encode()
+            with patch.object(ev,'_post',return_value=(200,ack)) as post:
+                self.assertEqual(ev.watched_feedback(
+                    META,decision=decision,note='watched',require_saved_ack=True),'recorded')
             post.assert_called_once_with('/feedback',{
                 'imdb_id':META['imdb_id'],'tmdb_id':META['tmdb_id'],'title':META['title'],
                 'decision':decision,'note':'watched'},4)
+
+    def test_rated_feedback_requires_the_installed_saved_ack(self):
+        for reply in ((202,b'{"status":"saved","decision":"watch","total_feedback":2}'),
+                      (200,b'{}'),(200,b'{"ok":false}'),(200,b'not JSON'),
+                      (200,b'{"status":"saved","decision":"skip","total_feedback":2}'),
+                      (200,b'{"status":"saved","decision":"watch","total_feedback":true}'),
+                      (200,b'{"status":"saved","decision":"watch","total_feedback":0}')):
+            with self.subTest(reply=reply),patch.object(ev,'_post',return_value=reply) as post:
+                self.assertEqual(ev.watched_feedback(META,note='watched',require_saved_ack=True),'unconfirmed')
+                post.assert_called_once()
 
     def test_exact_release_only_and_complete_safe_json(self):
         body = {'identification':{'title':'A < B'},'ratings':{'rating':8},'recognition':[],

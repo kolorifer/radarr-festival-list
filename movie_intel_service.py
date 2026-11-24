@@ -1196,7 +1196,8 @@ class Handler(BaseHTTPRequestHandler):
                     feedback_movie['imdb_id'] = verified.get('imdbId')
                 try:
                     feedback = telegram_evaluator.watched_feedback(
-                        feedback_movie, decision={'good':'watch','bad':'skip'}[rating], note='watched')
+                        feedback_movie, decision={'good':'watch','bad':'skip'}[rating],
+                        note='watched', require_saved_ack=True)
                 except Exception:
                     feedback = 'unavailable'
                 decision_log('evaluator_feedback',feedback)

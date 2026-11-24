@@ -21,6 +21,9 @@ completed action never retries feedback or gives the alternative rating another
 attempt. If the actor stops after persisting completion but before submitting
 feedback, the rating may be missing. Grab has its own existing outcome and
 feedback. Failed or unconfirmed watched updates send no feedback.
+The page reports a saved rating only after the installed evaluator acknowledges
+the same decision with HTTP 200, status `saved` and a positive feedback count.
+An uncertain response leaves the confirmed Radarr result visible.
 
 ## Actor release
 

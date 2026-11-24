@@ -118,7 +118,7 @@ class WatchedReleaseActionTests(unittest.TestCase):
                     for other in (None,'good','bad'):
                         self.assertIn('already marked',self.handle(
                             {'confirm_watched':other or 'yes'},token=token,rating=other)[1])
-                    feedback.assert_called_once_with(META,decision=decision,note='watched')
+                    feedback.assert_called_once_with(META,decision=decision,note='watched',require_saved_ack=True)
         self.assertEqual(len(self.writes),2)
         self.assertTrue(all(path=='/movie/editor' for _,path,_ in self.writes))
 
@@ -134,7 +134,7 @@ class WatchedReleaseActionTests(unittest.TestCase):
             self.assertIn('Radarr confirmed',page)
             self.assertIn('The Bad rating could not be confirmed.',page)
             self.assertEqual(self.handle({'confirm_watched':'good'},token=token,rating='good')[0],200)
-            feedback.assert_called_once_with(META,decision='skip',note='watched')
+            feedback.assert_called_once_with(META,decision='skip',note='watched',require_saved_ack=True)
 
     def test_partial_or_unpersisted_watched_update_never_sends_feedback(self):
         self.movie = copy.deepcopy(MOVIE)
