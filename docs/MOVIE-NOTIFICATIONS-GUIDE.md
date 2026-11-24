@@ -161,22 +161,25 @@ arrives first. Its evaluation follows as a reply in the same Telegram topic,
 with a text file for a long result. It describes the announced release and can
 disagree with the resolved movie in the card. The card's movie and approval stay
 authoritative. If Radarr accepts the Grab, the service submits watch feedback
-for that approved movie. Opening either link or choosing the watched action
-does not send feedback.
+for that approved movie. Opening a link does not send feedback.
 
-### Add to Radarr as watched
+### Add as watched - Good or Bad
 
 On actor versions that support it, new or normally updated release cards that
-offer **Add to Radarr & grab this release** also offer **Add to Radarr as
-watched**. Open the watched link and confirm the same resolved movie. If it
+offer **Add to Radarr & grab this release** also offer **Add as watched - Good**
+and **Add as watched - Bad**. Open one link and confirm the same resolved movie
+and the chosen rating. If it
 isn't already in Radarr, choose a root folder and quality profile.
 
 Radarr keeps the movie unmonitored and adds its `watched` tag. If the movie is
 already present, its existing tags, files, folder and profile are kept. This
 action never starts a search or downloads the release. Confirm a successful
 watched action again and the page reports that it was already completed.
+Both rated choices share one watched completion. Good sends watch feedback and
+Bad sends skip feedback after Radarr verifies the watched state. An older
+unrated link still marks the movie watched and sends no rating.
 If a response is uncertain, check the movie in Radarr. Reopening the still-valid
-link lets you verify or finish the requested watched state. Both buttons share
+link lets you verify or finish the requested watched state. All buttons share
 the release approval's expiry. An already consumed Grab approval closes the link.
 
 ### Grab Anyway

@@ -32,7 +32,9 @@ approved movie's IMDb and TMDb IDs and title, decision `watch`, and note
 `Grabbed via Telegram`. Feedback gets four seconds and never retries an
 uncertain response. The existing approval's durable executing marker prevents
 another submission from the same approval if a process stops before cleanup.
-Watched actions, failed grabs, link opens and alternative grabs send no feedback.
+At this revision, watched actions, failed grabs, link opens and alternative
+grabs send no feedback. The [rated watched update](2026-11-24-rated-watched-actions.md)
+adds explicit Good and Bad confirmations.
 
 ## Verification and actor release
 

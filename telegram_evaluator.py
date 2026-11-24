@@ -166,7 +166,7 @@ def evaluation(release_name):
     return heading + '\n' + body
 
 
-def watched_feedback(movie):
+def watched_feedback(movie, *, decision='watch', note='Grabbed via Telegram'):
     """One best-effort submission of the already approved Radarr identity."""
     tmdb = movie.get('tmdb_id')
     imdb = movie.get('imdb_id')
@@ -178,7 +178,7 @@ def watched_feedback(movie):
     try:
         status, _ = _post('/feedback', {
             'imdb_id':imdb, 'tmdb_id':int(tmdb), 'title':title,
-            'decision':'watch', 'note':'Grabbed via Telegram',
+            'decision':decision, 'note':note,
         }, 4)
         return 'recorded' if 200 <= status < 300 else 'refused'
     except (OSError, http.client.HTTPException, ValueError):

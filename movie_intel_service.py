@@ -602,7 +602,8 @@ def _reply_markup(action_url):
     except (OSError,ValueError):pass
     rows = [[{"text": label, "url": action_url}]]
     if offer_watched:
-        rows.append([{"text": "Add to Radarr as watched", "url": action_url + "/watched"}])
+        rows.extend([[{"text": "Add as watched - Good", "url": action_url + "/watched/good"}],
+                     [{"text": "Add as watched - Bad", "url": action_url + "/watched/bad"}]])
     return {"inline_keyboard": rows}
 
 
@@ -958,7 +959,7 @@ def render_alternative(action):
     return _page('Confirm exact release',body)
 
 
-def render_confirmation(action, context, *, watched=False):
+def render_confirmation(action, context, *, watched=False, rating=None):
     movie = action.get("movie") or {}
     release = action.get("release") or {}
     title = redact_text(movie.get("title") or "Movie")
@@ -1006,9 +1007,10 @@ def render_confirmation(action, context, *, watched=False):
             "<label for=\"profile\">Quality profile</label>",
             f'<select id="profile" name="quality_profile" required>{"".join(profile_options)}</select>',
         ])
+    watched_label = 'Confirm watched' + (f' - {rating.title()}' if rating else '')
     body.extend([
-        ('<button type="submit" name="confirm_watched" value="yes">Confirm watched</button>' if watched else
-         '<button type="submit">Add movie & grab this release</button>'),
+        (f'<button type="submit" name="confirm_watched" value="{rating or "yes"}">{watched_label}</button>'
+         if watched else '<button type="submit">Add movie & grab this release</button>'),
         "</form>",
     ])
     return _page("Add to Radarr as watched" if watched else "Add to Radarr", "".join(body))
@@ -1069,13 +1071,19 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(raw)
 
-    def _action_token(self, *, watched=False):
+    def _action_token(self):
         path = urlparse(self.path).path
         parts = path.strip("/").split("/")
-        suffix = ["watched"] if watched else []
-        if len(parts) == 2 + len(suffix) and parts[0] == "action" and parts[2:] == suffix and ACTION_TOKEN_RE.fullmatch(parts[1]):
+        if len(parts) == 2 and parts[0] == "action" and ACTION_TOKEN_RE.fullmatch(parts[1]):
             return parts[1]
         return None
+
+    def _watched_link(self):
+        parts = urlparse(self.path).path.strip('/').split('/')
+        if (len(parts) in (3,4) and parts[0]=='action' and ACTION_TOKEN_RE.fullmatch(parts[1])
+                and parts[2]=='watched' and (len(parts)==3 or parts[3] in ('good','bad'))):
+            return parts[1], parts[3] if len(parts)==4 else None
+        return None, None
 
     def do_GET(self):
         path = urlparse(self.path).path
@@ -1083,7 +1091,7 @@ class Handler(BaseHTTPRequestHandler):
             self._json(200, {"ok": True, "movies": len(INDEX), "radarr": radarr_configured()})
             return
 
-        watched_token = self._action_token(watched=True)
+        watched_token, rating = self._watched_link()
         token = watched_token or self._action_token()
         if token:
             try:
@@ -1096,7 +1104,7 @@ class Handler(BaseHTTPRequestHandler):
                 self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
                 return
             if watched_token:
-                self._watched_action(watched_token, action, submit=False)
+                self._watched_action(watched_token, action, submit=False, rating=rating)
                 return
             if uncertain_action(action):
                 self._html(409, render_result(action, False, REVIEW_MESSAGE))
@@ -1126,11 +1134,11 @@ class Handler(BaseHTTPRequestHandler):
 
         self._json(404, {"ok": False})
 
-    def _handle_action_post(self, token, *, watched=False):
+    def _handle_action_post(self, token, *, watched=False, rating=None):
         with _APPROVAL_LOCK:
-            self._handle_action_post_locked(token, watched=watched)
+            self._handle_action_post_locked(token, watched=watched, rating=rating)
 
-    def _watched_action(self, token, action, *, submit):
+    def _watched_action(self, token, action, *, submit, rating=None):
         def result(status, message):
             self._html(status, render_result(action, status == 200, message, watched=True))
 
@@ -1152,14 +1160,14 @@ class Handler(BaseHTTPRequestHandler):
         try:
             if not submit:
                 context = selection_context() if watched_movie(movie) is None else None
-                self._html(200, render_confirmation(action, context, watched=True))
+                self._html(200, render_confirmation(action, context, watched=True, rating=rating))
                 return
             length = int(self.headers.get('Content-Length', '0'))
             if not 0 < length <= 16384:
                 raise ValueError('form')
             params = parse_qs(self.rfile.read(length).decode('utf-8'), keep_blank_values=True)
             choices = {'root_folder', 'quality_profile'}
-            if (params.get('confirm_watched') != ['yes']
+            if (params.get('confirm_watched') != [rating or 'yes']
                     or set(params) not in ({'confirm_watched'}, {'confirm_watched'} | choices)
                     or any(len(values) != 1 for values in params.values())):
                 raise ValueError('form')
@@ -1176,10 +1184,27 @@ class Handler(BaseHTTPRequestHandler):
                     raise ValueError('form')
                 selection = (profile, root)
             attempted = True
-            ensure_watched_movie(movie, selection)
+            verified = ensure_watched_movie(movie, selection)
+            # All three watched links share this durable completion, written
+            # before feedback so an uncertain append can never be retried.
             if not update_action(token, watched_completed=True):
                 raise OSError('action_expired')
-            result(200, WATCHED_SUCCESS)
+            message = WATCHED_SUCCESS
+            if rating is not None:
+                feedback_movie = dict(movie)
+                if not feedback_movie.get('imdb_id') and verified:
+                    feedback_movie['imdb_id'] = verified.get('imdbId')
+                try:
+                    feedback = telegram_evaluator.watched_feedback(
+                        feedback_movie, decision={'good':'watch','bad':'skip'}[rating], note='watched')
+                except Exception:
+                    feedback = 'unavailable'
+                decision_log('evaluator_feedback',feedback)
+                if feedback == 'recorded':
+                    message += f' The {rating.title()} rating was saved.'
+                else:
+                    message += f' The {rating.title()} rating could not be confirmed.'
+            result(200, message)
         except (RadarrError, OSError, TypeError, KeyError, ValueError) as error:
             if attempted:
                 result(502, 'Radarr may have applied part of the change. Check the movie or reopen this link to verify its state. No search or download was started.')
@@ -1275,7 +1300,7 @@ class Handler(BaseHTTPRequestHandler):
                 except OSError:pass
             self._html(409,render_result(action,False,'The existing movie/file changed or the action is unavailable. No automatic retry will run.'))
 
-    def _handle_action_post_locked(self, token, *, watched=False):
+    def _handle_action_post_locked(self, token, *, watched=False, rating=None):
         try:
             action = get_action(token)
         except (OSError, ValueError):
@@ -1286,7 +1311,7 @@ class Handler(BaseHTTPRequestHandler):
             self._html(410, _page("Expired action", "<h2>Action expired or already used</h2>"))
             return
         if watched:
-            self._watched_action(token, action, submit=True)
+            self._watched_action(token, action, submit=True, rating=rating)
             return
         if uncertain_action(action):
             decision_log('approval', 'blocked_uncertain_attempt')
@@ -1378,10 +1403,10 @@ class Handler(BaseHTTPRequestHandler):
             self._html(502, render_result(action, False, message))
 
     def do_POST(self):
-        watched_token = self._action_token(watched=True)
+        watched_token, rating = self._watched_link()
         token = watched_token or self._action_token()
         if token:
-            self._handle_action_post(token, watched=bool(watched_token))
+            self._handle_action_post(token, watched=bool(watched_token), rating=rating)
             return
 
         path = urlparse(self.path).path

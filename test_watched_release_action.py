@@ -59,11 +59,13 @@ class WatchedReleaseActionTests(unittest.TestCase):
         else:
             self.fail(f'Unexpected Radarr operation: {method} {path}')
 
-    def handle(self, params=None, *, watched=True, token=None, current=True, request=None):
+    def handle(self, params=None, *, watched=True, rating=None, token=None, current=True, request=None):
         handler = object.__new__(svc.Handler)
         handler._html = Mock()
         handler._json = Mock()
         handler.path = '/action/' + (token or self.token) + ('/watched' if watched else '')
+        if rating:
+            handler.path += '/' + rating
         with (patch.object(radarr_client,'_request',side_effect=request or self.request),
               patch.object(svc,'reviewed_action_current',return_value=current),
               patch.object(svc,'selection_context',return_value=CONTEXT),
@@ -84,18 +86,64 @@ class WatchedReleaseActionTests(unittest.TestCase):
                      svc._telegram_photo_payload('photo','Release',action_url=url)):
             self.assertEqual(body['reply_markup']['inline_keyboard'],
                              [[{'text':'➕ Add to Radarr & grab this release','url':url}],
-                              [{'text':'Add to Radarr as watched','url':url+'/watched'}]])
+                              [{'text':'Add as watched - Good','url':url+'/watched/good'}],
+                              [{'text':'Add as watched - Bad','url':url+'/watched/bad'}]])
         with (patch.object(svc,'TELEGRAM_CHAT_ID','7'),
               patch.object(svc,'PUBLIC_BASE_URL','https://public.invalid'),
               patch.object(svc,'_telegram_request') as send):
             svc.edit_retry_message([dict(chat_id='7',message_id=12,kind='text')],
                                    dict(token=self.token,text='Release'))
-        self.assertEqual(len(send.call_args.args[1]['reply_markup']['inline_keyboard']),2)
+        self.assertEqual(len(send.call_args.args[1]['reply_markup']['inline_keyboard']),3)
         for kind in ('alternative','identity_review'):
             token = pending_actions.create_action({'kind':kind,'movie':META})
             self.assertEqual(len(svc._reply_markup('https://public.invalid/action/'+token)['inline_keyboard']),1)
             self.assertEqual(self.handle(FORM,token=token)[0],409)
         self.assertEqual(self.writes,[])
+
+    def test_rated_confirmation_and_legacy_links_share_one_completion(self):
+        for rating, decision in (('good','watch'),('bad','skip')):
+            with self.subTest(rating=rating):
+                self.movie = copy.deepcopy(MOVIE)
+                token = pending_actions.create_action({'movie':META})
+                with patch.object(svc.telegram_evaluator,'watched_feedback',return_value='recorded') as feedback:
+                    status, page = self.handle(token=token,rating=rating)
+                    self.assertEqual(status,200)
+                    self.assertIn(f'Confirm watched - {rating.title()}',page)
+                    self.assertEqual(self.handle({'confirm_watched':'yes'},token=token,rating=rating)[0],400)
+                    self.assertEqual(self.handle({'confirm_watched':rating},token=token,rating=rating,current=False)[0],409)
+                    feedback.assert_not_called()
+                    status, page = self.handle({'confirm_watched':rating},token=token,rating=rating)
+                    self.assertEqual(status,200)
+                    self.assertIn(f'The {rating.title()} rating was saved.',page)
+                    for other in (None,'good','bad'):
+                        self.assertIn('already marked',self.handle(
+                            {'confirm_watched':other or 'yes'},token=token,rating=other)[1])
+                    feedback.assert_called_once_with(META,decision=decision,note='watched')
+        self.assertEqual(len(self.writes),2)
+        self.assertTrue(all(path=='/movie/editor' for _,path,_ in self.writes))
+
+    def test_old_link_and_uncertain_rated_feedback_are_never_replayed(self):
+        self.movie = copy.deepcopy(MOVIE)
+        with patch.object(svc.telegram_evaluator,'watched_feedback',side_effect=TimeoutError) as feedback:
+            self.assertEqual(self.handle({'confirm_watched':'yes'})[0],200)
+            self.assertEqual(self.handle({'confirm_watched':'good'},rating='good')[0],200)
+            feedback.assert_not_called()
+            token = pending_actions.create_action({'movie':dict(META,imdb_id=None)})
+            status, page = self.handle({'confirm_watched':'bad'},token=token,rating='bad')
+            self.assertEqual(status,200)
+            self.assertIn('Radarr confirmed',page)
+            self.assertIn('The Bad rating could not be confirmed.',page)
+            self.assertEqual(self.handle({'confirm_watched':'good'},token=token,rating='good')[0],200)
+            feedback.assert_called_once_with(META,decision='skip',note='watched')
+
+    def test_partial_or_unpersisted_watched_update_never_sends_feedback(self):
+        self.movie = copy.deepcopy(MOVIE)
+        with patch.object(svc.telegram_evaluator,'watched_feedback') as feedback:
+            with patch.object(svc,'ensure_watched_movie',side_effect=radarr_client.RadarrError('partial')):
+                self.assertEqual(self.handle({'confirm_watched':'good'},rating='good')[0],502)
+            with patch.object(svc,'update_action',return_value=False):
+                self.assertEqual(self.handle({'confirm_watched':'good'},rating='good')[0],502)
+            feedback.assert_not_called()
 
     def test_watched_get_and_post_are_independent_of_grab(self):
         status, page = self.handle()
