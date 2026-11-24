@@ -166,7 +166,7 @@ def ensure_watched_movie(movie_info, selection=None):
         if current is None:
             raise RadarrError('The movie addition could not be verified')
     if current['monitored'] is False and tag_id in current['tags'] and _watched_tag_id() == tag_id:
-        return
+        return current
 
     if _watched_tag_id() != tag_id:
         raise RadarrError('The watched tag changed before the movie update')
@@ -183,6 +183,7 @@ def ensure_watched_movie(movie_info, selection=None):
             or not (previous_tags | {tag_id}) <= set(after['tags'])
             or _watched_tag_id() != tag_id):
         raise RadarrError('The watched tag and monitoring state could not both be verified')
+    return after
 
 
 def movie_has_tag(movie, label):

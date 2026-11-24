@@ -166,7 +166,7 @@ def evaluation(release_name):
     return heading + '\n' + body
 
 
-def watched_feedback(movie):
+def watched_feedback(movie, *, decision='watch', note='Grabbed via Telegram', require_saved_ack=False):
     """One best-effort submission of the already approved Radarr identity."""
     tmdb = movie.get('tmdb_id')
     imdb = movie.get('imdb_id')
@@ -176,10 +176,21 @@ def watched_feedback(movie):
             or not isinstance(title,str) or not title.strip()):
         return 'identity_incomplete'
     try:
-        status, _ = _post('/feedback', {
+        status, raw = _post('/feedback', {
             'imdb_id':imdb, 'tmdb_id':int(tmdb), 'title':title,
-            'decision':'watch', 'note':'Grabbed via Telegram',
+            'decision':decision, 'note':note,
         }, 4)
+        if require_saved_ack and 200 <= status < 300:
+            if status != 200 or len(raw) > MAX_REPLY:
+                return 'unconfirmed'
+            try:
+                ack = json.loads(raw)
+            except (ValueError, RecursionError):
+                return 'unconfirmed'
+            if (not isinstance(ack,dict) or ack.get('status') != 'saved'
+                    or ack.get('decision') != decision
+                    or type(ack.get('total_feedback')) is not int or ack['total_feedback'] < 1):
+                return 'unconfirmed'
         return 'recorded' if 200 <= status < 300 else 'refused'
     except (OSError, http.client.HTTPException, ValueError):
         return 'unavailable'
