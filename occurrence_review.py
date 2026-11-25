@@ -47,6 +47,16 @@ def render(action):
     for i,image in enumerate(evidence['images'],1):
         body+='<p><a target="_blank" rel="noopener noreferrer" href="'+html.escape(image['url'],quote=True)+'">View image '+str(i)+' ('+esc(image['section'])+')</a></p>'
     body+='<p>Unsupported images: '+str(evidence['unavailable_images'])+'. Text/reference collection truncated: '+str(evidence['truncated'])+'.</p><h3>Researched candidates</h3>'
+    proposal = action.get('evaluator_proposal')
+    if proposal and not action.get('chosen'):
+        body += '<h4>Proposed by the movie evaluator</h4><p>'+esc(proposal['title'])+' ('+esc(proposal['year'])+')</p>'
+        body += '<p>IMDb '+esc(proposal['imdb_id'])+' / TMDb '+esc(proposal['tmdb_id'])+' · Confidence '+esc(proposal['confidence'])+'</p>'
+        if proposal['reason']:
+            body += '<p>'+esc(proposal['reason'])+'</p>'
+        body += ('<form method="post"><input type="hidden" name="imdb" value="'+esc(proposal['imdb_id'])
+                 +'"><input type="hidden" name="tmdb" value="'+esc(proposal['tmdb_id'])
+                 +'"><label><input type="checkbox" name="confirm_identity" value="yes" required> I reviewed the evidence for this movie.</label>'
+                 +'<button>Select proposed movie — no download</button></form>')
     rows=candidates(action)
     if not rows:body+='<p>No matching research proposal available yet. You can review this evidence with ChatGPT and enter the verified candidate IDs below.</p>'
     for row in rows:

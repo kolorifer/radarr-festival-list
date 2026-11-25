@@ -40,6 +40,7 @@ from radarr_client import (
     watched_movie,
 )
 from tmdb_resolver import resolve_movie, resolve_external_movie, resolution_reason, valid_imdb_id, valid_tmdb_id
+from tmdb_resolver import _search_exact as resolve_uncached_title
 from tracker_metadata import lookup_listing
 from telegram_routing import notification_route, topic_fields
 import alternative_grab
@@ -62,6 +63,8 @@ INDEX = build_index()
 # transaction so simultaneous browser submissions cannot re-push a release.
 _APPROVAL_LOCK = threading.Lock()
 _EVALUATOR_CARD = ContextVar('evaluator_card',default=None)
+_EVALUATIONS_LOCK = threading.Lock()
+_PENDING_EVALUATIONS = {}
 ROUTINE_RELEASE_REJECTIONS = {"quality", "existing", "not_upgrade"}
 ARCHIVE_ONLY_AUTOBRR_EVENTS = frozenset({
     'release.new', 'irc.disconnected', 'irc.reconnected', 'irc.unhealthy', 'irc.healthy',
@@ -378,13 +381,14 @@ def build_movie_context(payload):
                 'identity_source':meta.get('identity_source'), 'imdb_id':meta.get('imdb_id')}
         observed_reason = 'runtime_conflict'
         decision_log('identity', 'runtime_conflict', payload)
-    torrent_evidence = (listing or {}).get('torrent_evidence')
+    evaluation_listing = listing
     # Native-ID failures also need source context; this does not alter resolution.
     if listing is None and meta and meta.get('identity_status') in {'needs_review','unresolved','imdb_associated'}:
         try:
-            torrent_evidence = lookup_listing(release, data.get('indexer') or {}).get('torrent_evidence')
+            evaluation_listing = lookup_listing(release, data.get('indexer') or {})
         except Exception:
             pass  # Observational evidence must never change the action path.
+    torrent_evidence = (evaluation_listing or {}).get('torrent_evidence')
     asserted = {k:v for k,v in (('asserted_imdb', (meta or {}).get('imdb_id')),
                                  ('asserted_tmdb', (meta or {}).get('tmdb_id'))) if v is not None}
     blocked = meta and meta.get('identity_status') not in (None, 'verified_tmdb')
@@ -410,6 +414,7 @@ def build_movie_context(payload):
     decision_log('enrichment', 'local_catalog' if movie else 'outside_catalog' if meta and not blocked else 'unresolved', payload)
     return {
         "review_listing": listing,
+        "evaluation_listing": evaluation_listing,
         "identity_observation": {"reason": "identity_conflict" if observed_reason == "runtime_conflict" else observed_reason, **asserted, **({"torrent_evidence": torrent_evidence} if torrent_evidence and (blocked or (meta or {}).get("identity_source")=="torrent_evidence") else {})},
         "text": text,
         "poster_url": (meta or {}).get("poster_url"),
@@ -422,6 +427,17 @@ def build_movie_context(payload):
 def reviewed_action_current(action):
     """Never reuse a legacy decision; a chosen occurrence must still be live."""
     movie = action.get('movie') or {}
+    if movie.get('evaluator_verified') is True:
+        try:
+            release = action['release']
+            listing = lookup_listing(release,action['indexer'],force_refresh=True)
+            payload = {'data':{'release':release,'indexer':action['indexer']}}
+            target = _verified_evaluator_target(payload,{'evaluation_listing':listing},movie,
+                                                force_refresh=True)
+            return bool(target and all(target.get(key)==movie.get(key) for key in
+                                      ('identity_source','identity_evidence')))
+        except (OSError,ValueError,TypeError,KeyError):
+            return False
     import source_identity_guard
     if not source_identity_guard.current(action, lookup_listing, resolve_external_movie):return False
     if movie.get('identity_memory_choice') or movie.get('identity_source')=='owner_remembered_choice':
@@ -522,12 +538,7 @@ def create_pending_action(payload, meta):
         decision_log('action', 'invalid_release', payload)
         return None
 
-    release_keys = (
-        "protocol", "timestamp", "publishDate", "publish_date", "name", "title", "year", "size", "seeders", "leechers",
-        "download_url", "downloadUrl", "magnet_uri", "magnetUrl", "magnet_url",
-        "info_url", "infoUrl", "link", "external_id",
-    )
-    stored_release = {key: release[key] for key in release_keys if key in release}
+    stored_release = {key: release[key] for key in REVIEW_RELEASE_KEYS if key in release}
     stored_indexer = {key: indexer[key] for key in ("name", "protocol", "identifier") if key in indexer}
     movie_title = meta.get("title") or release.get("title") or release.get("name")
     action = {
@@ -543,6 +554,7 @@ def create_pending_action(payload, meta):
             **({"identity_choice": meta["identity_choice"]} if meta.get("identity_choice") else {}),
             **({"identity_memory_choice": meta["identity_memory_choice"]} if meta.get("identity_memory_choice") else {}),
             **({"identity_evidence": meta["identity_evidence"]} if meta.get("identity_evidence") else {}),
+            **({"evaluator_verified":True} if meta.get('evaluator_verified') is True else {}),
             "identity_title_basis": meta.get('identity_title_basis'),
             "identity_year_basis": meta.get('identity_year_basis'),
             "matched_release_year": meta.get('matched_release_year'),
@@ -694,7 +706,7 @@ def _telegram_request(method, body, *, edit_receipt=None):
             if selected:
                 action_url, targets = selected
                 rows = (body.get('reply_markup') or {}).get('inline_keyboard', [])
-                if any(button.get('url') == action_url for row in rows for button in row):
+                if action_url is None or any(button.get('url') == action_url for row in rows for button in row):
                     target = _evaluation_target(result.get('result'),TELEGRAM_CHAT_ID,
                                                 requested_thread=body.get('message_thread_id'))
                     if target:
@@ -713,21 +725,212 @@ def _card_release_name(action):
     return name if isinstance(name,str) and name.strip() else None
 
 
-def _evaluation_reply(ref, result):
+def _evaluation_reply(ref, result, *, unidentified=False, review_url=None, verified=None, action_url=None):
     fields = {'chat_id':ref['chat_id'],'reply_parameters':{
         'message_id':ref['message_id'],'allow_sending_without_reply':False}}
     if type(ref.get('message_thread_id')) is int and ref['message_thread_id'] > 0:
         fields['message_thread_id'] = ref['message_thread_id']
-    text = '<b>Movie evaluation for the announced release</b>\n<pre>'+html.escape(result,quote=False)+'</pre>'
+    heading = '<b>Movie evaluation for the announced release</b>'
+    if verified:
+        heading = ('<b>Movie independently verified for this release</b>\n'
+                   + html.escape(verified['title'])+' ('+html.escape(str(verified['year']))+')'
+                   + '\nIMDb: '+verified['imdb_id']+' · TMDb: '+str(verified['tmdb_id']))
+        heading += ('\nOpen a link below to review and confirm.' if action_url
+                    else '\nThis release has no available Radarr action.')
+    elif unidentified:
+        if result.proposal:
+            proposal = result.proposal
+            heading = (
+                '<b>Proposed movie</b>\n'
+                + html.escape(proposal['title']) + ' (' + str(proposal['year']) + ')'
+                + '\nIMDb: ' + (proposal['imdb_id'] or 'unavailable')
+                + ' · TMDb: ' + str(proposal['tmdb_id'] or 'unavailable')
+                + '\nEvaluator confidence: ' + proposal['confidence']
+            )
+            if proposal['reason']:
+                heading += '\n' + html.escape(proposal['reason'])
+            heading += '\nIdentity still requires verification.'
+        else:
+            heading += '\nNo usable movie identity was returned.'
+    if review_url:
+        fields['reply_markup'] = {'inline_keyboard':[[{
+            'text':'Review proposed movie','url':review_url}]]}
+    elif action_url:
+        fields['reply_markup'] = _reply_markup(action_url)
+    text = heading+'\n<pre>'+html.escape(result.text,quote=False)+'</pre>'
     if len(text.encode('utf-16-le'))//2 <= 3800:
         _telegram_request('sendMessage',dict(fields,text=text,parse_mode='HTML'))
     else:
-        _telegram_request('sendDocument',dict(fields,document=result.encode('utf-8'),
-                                             caption='Full movie evaluation'))
+        # Bound the caption without cutting HTML. Full reasoning stays in the file.
+        caption = heading if len(heading.encode('utf-16-le'))//2 <= 950 else heading.split('\nEvaluator confidence:',1)[0]
+        _telegram_request('sendDocument',dict(fields,document=result.text.encode('utf-8'),
+                                             caption=caption,parse_mode='HTML'))
 
 
-def _submit_evaluation(name, ref):
-    telegram_evaluator.submit(name,lambda result:_evaluation_reply(ref,result))
+def _evaluation_key(ref):
+    return str(ref['chat_id']),ref['message_id']
+
+
+def _invalidate_evaluation(ref, *, except_revision=None):
+    key = _evaluation_key(ref)
+    with _EVALUATIONS_LOCK:
+        pending = _PENDING_EVALUATIONS.get(key)
+    if pending and (except_revision is None or pending[1] != except_revision):
+        ticket, _ = pending
+        with ticket, _EVALUATIONS_LOCK:
+            if _PENDING_EVALUATIONS.get(key) is pending:
+                del _PENDING_EVALUATIONS[key]
+
+
+def _offer_evaluator_review(url, proposal, release_name):
+    if not url or not proposal or not proposal['imdb_id'] or not proposal['tmdb_id']:
+        return None
+    token = urlparse(url).path.rsplit('/',1)[-1]
+    try:
+        action = get_action(token)
+        if (not action or action.get('kind') != 'identity_review' or action.get('chosen')
+                or not (action.get('review') or {}).get('bound')
+                or (action.get('release') or {}).get('name') != release_name):
+            return None
+        if update_action(token,evaluator_proposal=proposal):
+            return url
+    except (OSError,ValueError):
+        decision_log('evaluator','review_proposal_unavailable')
+    return None
+
+
+def _verified_evaluator_target(payload, context, candidate, *, force_refresh=False):
+    """The evaluator supplies the IDs. Existing source and catalogue checks decide."""
+    data = payload['data']
+    release, indexer = data['release'], data.get('indexer') or {}
+    imdb, tmdb = candidate.get('imdb_id'), candidate.get('tmdb_id')
+    if not valid_imdb_id(imdb) or not valid_tmdb_id(tmdb):
+        return None
+    status = (context.get('meta') or {}).get('identity_status')
+    observed = (context.get('identity_observation') or {}).get('reason')
+    if status == 'needs_review' or observed in ('ambiguous_exact_matches','identity_conflict','runtime_conflict'):
+        return None
+    title, year = release.get('title'),release.get('year')
+    if not isinstance(title,str) or not title.strip() or type(year) not in (int,str):
+        return None
+    if release.get('meta_imdb') not in (None,'',imdb):
+        return None
+    native_tmdb = release.get('meta_tmdb')
+    if native_tmdb not in (None,'') and (not valid_tmdb_id(native_tmdb) or int(native_tmdb) != int(tmdb)):
+        return None
+    parsed_local = find_local(title,year,INDEX)
+    if parsed_local and parsed_local.get('imdb_id') != imdb:
+        return None
+
+    listing = context.get('evaluation_listing') or context.get('review_listing') or {}
+    reason = listing.get('reason')
+    if reason is None and release.get('meta_imdb') in (None,'') and native_tmdb in (None,''):
+        return None
+    if reason == 'listing_id_missing':
+        # A supported tracker with an ID-less listing keeps its original
+        # conjunctive evidence requirements. A matching title is insufficient.
+        from torrent_evidence_identity import resolve
+        target = resolve(release,indexer,listing)
+    elif reason in (None,'disabled','unsupported_indexer','listing_id_found'):
+        if reason == 'listing_id_found' and listing.get('imdb_id') != imdb:
+            return None
+        if reason != 'listing_id_found':
+            # When no listing can corroborate these IDs, use the actor's
+            # independent title resolution before examining either proposed ID.
+            corroborated = resolve_uncached_title(title,year)
+            if not corroborated or any(corroborated.get(k)!=candidate[k] for k in ('imdb_id','tmdb_id')):
+                return None
+        target = resolve_external_movie(title,year,imdb_id=imdb,tmdb_id=tmdb,force_refresh=force_refresh)
+    else:
+        return None
+    if (not target or target.get('identity_status') != 'verified_tmdb'
+            or target.get('imdb_id') != imdb or target.get('tmdb_id') != tmdb):
+        return None
+    from source_identity_guard import runtime_conflict
+    if reason == 'listing_id_found':
+        target = dict(target,identity_source='torrentleech_listing')
+    if runtime_conflict(listing,target):
+        return None
+    canonical_local = find_local(target['title'],target['year'],INDEX)
+    if canonical_local and canonical_local.get('imdb_id') != imdb:
+        return None
+    return dict(target,identity_source=target.get('identity_source') or 'evaluator_catalogue_match',
+                evaluator_verified=True)
+
+
+def _evaluator_action_url(payload,target):
+    if not PUBLIC_BASE_URL:
+        return None
+    # Creation may return an older action for the same release/TMDb pair.
+    # Only a usable action carrying this same proof may be linked from the reply.
+    token = create_pending_action(payload,target)
+    existing = get_action(token) if token else None
+    movie = (existing or {}).get('movie') or {}
+    data = payload['data']
+    release = {k:v for k,v in data['release'].items() if k in REVIEW_RELEASE_KEYS}
+    indexer = {k:v for k,v in (data.get('indexer') or {}).items() if k in ('name','protocol','identifier')}
+    if (not existing or existing.get('kind') is not None or uncertain_action(existing)
+            or any(existing.get(key) for key in ('used','completed','watched_completed'))
+            or existing.get('release') != release or existing.get('indexer') != indexer
+            or existing.get('event_timestamp') != payload.get('timestamp')
+            or any(movie.get(key) != target.get(key) for key in (
+                'evaluator_verified','identity_source','identity_evidence','imdb_id','tmdb_id'))):
+        return None
+    return public_action_url({},token)
+
+
+def _submit_evaluation(request, ref, *, unidentified=False, action_url=None, revision=None, original=None):
+    key = _evaluation_key(ref)
+    ticket = threading.Lock()
+    pending = ticket, revision
+    with _EVALUATIONS_LOCK:
+        if key in _PENDING_EVALUATIONS:
+            return False
+        _PENDING_EVALUATIONS[key] = pending
+
+    def deliver(result):
+        target = None
+        if unidentified and not action_url and original and result.proposal and result.proposal['confidence']=='high':
+            with _EVALUATIONS_LOCK:
+                if _PENDING_EVALUATIONS.get(key) is not pending:
+                    return
+            try:
+                target = _verified_evaluator_target(*original,result.proposal)
+            except (OSError,ValueError,TypeError,KeyError):
+                decision_log('evaluator','independent_identity_unavailable')
+        with ticket:
+            with _EVALUATIONS_LOCK:
+                if _PENDING_EVALUATIONS.get(key) is not pending:
+                    return
+            try:
+                review_url = (_offer_evaluator_review(action_url,result.proposal,request['raw_text'])
+                              if unidentified else None)
+                corrected_url = _evaluator_action_url(original[0],target) if target else None
+                _evaluation_reply(ref,result,unidentified=unidentified,review_url=review_url,
+                                  verified=target,action_url=corrected_url)
+            finally:
+                with _EVALUATIONS_LOCK:
+                    del _PENDING_EVALUATIONS[key]
+
+    try:
+        telegram_evaluator.submit(request,deliver)
+    except Exception:
+        _invalidate_evaluation(ref)
+        raise
+    return True
+
+
+def _evaluation_for(payload, context):
+    data = payload['data']
+    context = context or {}
+    return telegram_evaluator.evaluation_request(
+        data['release'],data.get('indexer') or {},context.get('evaluation_listing') or context.get('review_listing'),
+        original=context.get('evaluation_original'))
+
+
+def _verified_movie(context):
+    meta = (context or {}).get('meta') or {}
+    return valid_tmdb_id(meta.get('tmdb_id')) and meta.get('identity_status') in (None,'verified_tmdb')
 
 
 def _evaluation_note(text, reserved):
@@ -735,7 +938,7 @@ def _evaluation_note(text, reserved):
                    '\n\nMovie evaluation is unavailable. The evaluation queue could not accept this release.')
 
 
-def send_movie_notification(text, poster_url=None, action_url=None):
+def send_movie_notification(text, poster_url=None, action_url=None, *, payload=None, context=None):
     kind=None
     action=None
     if action_url:
@@ -743,9 +946,14 @@ def send_movie_notification(text, poster_url=None, action_url=None):
         if action:
             kind='alternative' if action.get('kind')=='alternative' else 'add_grab' if action.get('kind') not in ('identity_review',) else None
     with notification_route(kind):
-        name = _card_release_name(action)
-        if name is None:
+        eligible = payload is not None and notification_kind(payload) == 'add_grab'
+        if not eligible and not _card_release_name(action):
             return _send_movie_notification(text,poster_url,action_url)
+        request = (_evaluation_for(payload,context) if eligible else
+                   telegram_evaluator.evaluation_request(action['release'],action.get('indexer') or {}))
+        if request is None:
+            return _send_movie_notification(
+                text+'\n\nMovie evaluation is unavailable for this release name.',poster_url,action_url)
         if not telegram_evaluator.reserve():
             return _send_movie_notification(_evaluation_note(text,False),poster_url,action_url)
         targets = []
@@ -754,8 +962,9 @@ def send_movie_notification(text, poster_url=None, action_url=None):
         try:
             status = _send_movie_notification(_evaluation_note(text,True),poster_url,action_url)
             if targets:
-                _submit_evaluation(name,targets[-1])
-                transferred = True
+                transferred = _submit_evaluation(
+                    request,targets[-1],unidentified=eligible and not _verified_movie(context),action_url=action_url,
+                    original=(payload,context or {}) if eligible and PUBLIC_BASE_URL else None)
             return status
         finally:
             _EVALUATOR_CARD.reset(marker)
@@ -789,14 +998,24 @@ def _send_movie_notification(text, poster_url=None, action_url=None):
     if chunk:
         chunks.append((chunk, 'HTML'))
     for index, (part, mode) in enumerate(chunks):
-        status = send_telegram(part, parse_mode=mode, action_url=action_url if index == len(chunks)-1 else None)
+        if index == len(chunks)-1:
+            status = send_telegram(part, parse_mode=mode, action_url=action_url)
+        else:
+            marker = _EVALUATOR_CARD.set(None)
+            try:
+                status = send_telegram(part, parse_mode=mode)
+            finally:
+                _EVALUATOR_CARD.reset(marker)
     decision_log('telegram', 'text_sent')
     if poster_url and units(text) > 950:
+        marker = _EVALUATOR_CARD.set(None)
         try:
             _telegram_request('sendPhoto', _telegram_photo_payload(poster_url, 'Movie poster'))
             decision_log('telegram', 'supplemental_photo_sent')
         except Exception:
             decision_log('telegram', 'supplemental_photo_failed')
+        finally:
+            _EVALUATOR_CARD.reset(marker)
     return status
 
 
@@ -832,6 +1051,11 @@ def prepare_retry_message(payload,context,terminal):
     meta=context.get('meta') or {};release=payload['data']['release'];token=None
     verified=terminal!='retry_exhausted' and meta.get('identity_status')=='verified_tmdb'
     original_available=terminal!='original_event_unavailable'
+    presentation = {}
+    if original_available and terminal != 'retry_exhausted' and notification_kind(payload) == 'add_grab':
+        projected_context = dict(context,evaluation_original=payload.get('_evaluation_original'))
+        presentation['evaluation_card'] = {'request':_evaluation_for(payload,projected_context),
+                                           'unidentified':not verified}
     if verified and original_available and PUBLIC_BASE_URL:token=create_pending_action(payload,meta)
     elif terminal!='retry_exhausted' and original_available and PUBLIC_BASE_URL:token=create_identity_review(payload,context)
     url=public_action_url({},token) if token else None
@@ -847,7 +1071,7 @@ def prepare_retry_message(payload,context,terminal):
             text=html.unescape(re.sub(r'<[^>]*>','',text))
             text=text.encode('utf-16-le')[:1798].decode('utf-16-le',errors='ignore')+'…'
             parse_mode=None
-        return {'text':text,'token':token,'parse_mode':parse_mode,'poster_url':meta.get('poster_url')}
+        return {'text':text,'token':token,'parse_mode':parse_mode,'poster_url':meta.get('poster_url'),**presentation}
     title=meta.get('title') or release.get('title') or 'Movie'
     year=meta.get('year') or release.get('year') or ''
     status=('✅ Movie identified' if verified else '⚠️ Automatic identification needs review')
@@ -861,15 +1085,28 @@ def prepare_retry_message(payload,context,terminal):
         text+='\nAutomatic retries have ended. No download is approved.'
         text+=('\nReview the collected identity evidence.' if token else '\nReview this case in the main ChatGPT conversation.')
     text+='\nRelease: '+str(release.get('name') or '')
-    return {'text':redact_text(text).encode('utf-16-le')[:1800].decode('utf-16-le',errors='ignore'),'token':token}
+    return {'text':redact_text(text).encode('utf-16-le')[:1800].decode('utf-16-le',errors='ignore'),'token':token,
+            **presentation}
 
 
-def edit_retry_message(refs,prepared):
+def edit_retry_message(refs,prepared,*,original=None):
     token=prepared.get('token');action=get_action(token) if token else None
     # Never recreate an expired, consumed or uncertain action when retrying edits.
     if action and (action.get('status') in ('executing','needs_review') or any(action.get(k) for k in ('used','completed'))):action=None
     url=public_action_url({},token) if action else None
-    for index,ref in enumerate(refs):
+    evaluation = prepared.get('evaluation_card')
+    edits = list(enumerate(refs))
+    revision = None
+    if evaluation:
+        # A correction supersedes pending replies to any part of the original
+        # card. Send the primary edit last so an ancillary failure cannot replay it.
+        if any(str(ref['chat_id'])!=str(TELEGRAM_CHAT_ID) for ref in refs):
+            raise ValueError('retry_chat_changed')
+        revision = token, prepared['text'], evaluation
+        for ref in refs:
+            _invalidate_evaluation(ref,except_revision=revision)
+        edits = edits[1:] + edits[:1]
+    for index,ref in edits:
         if str(ref['chat_id'])!=str(TELEGRAM_CHAT_ID):raise ValueError('retry_chat_changed')
         method='editMessageCaption' if ref['kind']=='caption' else 'editMessageText'
         field='caption' if ref['kind']=='caption' else 'text'
@@ -877,11 +1114,21 @@ def edit_retry_message(refs,prepared):
         if index==0 and token and not action:
             text='\n'.join(prepared['text'].splitlines()[:2])+'\nThe previous confirmation is unavailable or has already been used. Check Radarr before taking further action.'
         parse_mode=prepared.get('parse_mode') if index==0 else None
-        name = None
+        request = None
         reserved = False
-        if index==0 and url and action.get('kind') is None:
-            name = _card_release_name(action)
-            if name:
+        if index==0 and evaluation:
+            request = evaluation['request']
+            if request:
+                reserved = not (action or {}).get('retry_evaluation_issued') and telegram_evaluator.reserve()
+                # Keep the same edit bytes on retries, including after a lost ACK.
+                # Cap the original caption separately so the note always fits.
+                note = '\n\nMovie evaluation follows in a reply, subject to availability.'
+                if len((text+note).encode('utf-16-le'))//2 <= 980:
+                    text += note
+        elif index==0 and url and action.get('kind') is None:
+            if _card_release_name(action):
+                request = telegram_evaluator.evaluation_request(action['release'],action.get('indexer') or {})
+            if request:
                 reserved = not action.get('retry_evaluation_issued') and telegram_evaluator.reserve()
                 text = _evaluation_note(text,reserved or action.get('retry_evaluation_issued'))
         body={'chat_id':ref['chat_id'],'message_id':ref['message_id'],field:text,
@@ -897,7 +1144,7 @@ def edit_retry_message(refs,prepared):
         evaluation_target = {}
         try:
             try:
-                if reserved:
+                if reserved or (evaluation and index==0 and request and not (action or {}).get('retry_evaluation_issued')):
                     _telegram_request(method,body,edit_receipt=evaluation_target)
                 else:
                     _telegram_request(method,body)
@@ -909,13 +1156,20 @@ def edit_retry_message(refs,prepared):
             if reserved:
                 if evaluation_target:
                     try:
-                        if update_action(token,retry_evaluation_issued=True):
-                            _submit_evaluation(name,evaluation_target)
-                            transferred = True
+                        if not url or update_action(token,retry_evaluation_issued=True):
+                            transferred = _submit_evaluation(
+                                request,evaluation_target,unidentified=bool(evaluation and evaluation['unidentified']),
+                                action_url=url,revision=revision,original=original if PUBLIC_BASE_URL else None)
                     except (OSError,ValueError,RuntimeError):
                         decision_log('evaluator','retry_enqueue_unavailable')
                 else:
                     decision_log('evaluator','retry_reply_target_unverified')
+            elif evaluation_target:
+                try:
+                    _evaluation_reply(evaluation_target,telegram_evaluator.Evaluation(
+                        'Movie evaluation is unavailable. The evaluation queue could not accept this release.'))
+                except (OSError,ValueError,RuntimeError):
+                    decision_log('evaluator','retry_reply_unavailable')
         finally:
             if reserved and not transferred:
                 telegram_evaluator.release()
@@ -1491,7 +1745,8 @@ class Handler(BaseHTTPRequestHandler):
                     context['text'] += '\n\n'+alternative_unavailable_message(payload,context.get('meta'))
                 from retry_telegram import capture
                 with notification_route(notification_kind(payload)), capture() as receipts:
-                    send_movie_notification(context["text"], context["poster_url"], action_url=action_url)
+                    send_movie_notification(context["text"], context["poster_url"], action_url=action_url,
+                                            payload=payload,context=context)
                 bind_retry_message(payload,context,receipts)
                 self._json(200, {
                     "ok": True,

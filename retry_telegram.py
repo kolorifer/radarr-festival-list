@@ -43,6 +43,12 @@ def schema(c):
 def completed(c,version,context,terminal,now):
     # Written in the same transaction as the retry outcome, including expiry.
     kept={k:context[k] for k in ('meta','category','review_listing') if k in context} if context else {}
+    evaluation_listing = (context or {}).get('evaluation_listing')
+    if evaluation_listing and evaluation_listing != kept.get('review_listing'):
+        kept['evaluation_listing'] = evaluation_listing
+    reason = ((context or {}).get('identity_observation') or {}).get('reason')
+    if reason:
+        kept['identity_observation'] = {'reason':reason}
     raw=json.dumps(kept)
     if len(raw.encode())>262144:raw='{}'
     c.execute('insert into retry_messages(version,context,terminal,created) values(?,?,?,?) on conflict(version) do update set context=excluded.context,terminal=excluded.terminal',
@@ -64,6 +70,11 @@ def binding(payload,context,refs,sources):
         'indexer':{k:v for k,v in data['indexer'].items() if k in ('name','protocol','identifier')},
         'action':{'type':(data.get('action') or {}).get('type')},
         'result':{'rejections':(data.get('result') or {}).get('rejections',[])}}}
+    if context.get('category') == 'unknown_movie':
+        from telegram_evaluator import evaluation_request
+        projected = evaluation_request(data['release'],data['indexer'])
+        if projected and projected.get('torrent_info'):
+            saved['_evaluation_original'] = {'torrent_info':projected['torrent_info']}
     raw=json.dumps(saved)
     if len(raw.encode())>65536:return False
     return {'version':version,'payload':raw,'refs':json.dumps(refs),'created':time.time()}
@@ -141,7 +152,11 @@ def pump(store,prepare,edit):
             if original.get('_retry_original_event')!=1:terminal='original_event_unavailable'
             prepared=json.dumps(prepare(original,json.loads(context),terminal))
             with store.tx() as c:c.execute('update retry_messages set prepared=? where version=?',(prepared,version))
-        edit(json.loads(refs),json.loads(prepared))
+        presentation = json.loads(prepared)
+        if presentation.get('evaluation_card'):
+            edit(json.loads(refs),presentation,original=(json.loads(payload),json.loads(context)))
+        else:
+            edit(json.loads(refs),presentation)
     except Exception:
         with store.tx() as c:c.execute('update retry_messages set attempts=attempts+1,due=?,state=? where version=?',
             (now+min(3600,60*2**attempts),'failed' if attempts>=4 else 'waiting',version))
