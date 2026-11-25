@@ -73,9 +73,11 @@ def parse_listing(body, release_name):
     # TL appends this separate presentation badge to its h2, while h4 keeps
     # the exact release name. Ignore only the observed badge element/text;
     # never strip words from a release name or accept a mismatching heading.
+    freeleech = False
     for heading in headings:
         for badge in heading.select('span.new.label.labelfreeleech'):
             if badge.get_text(' ', strip=True) == 'FREELEECH':
+                freeleech = True
                 badge.decompose()
     names = [node.get('value') if node.name == 'input' else node.get_text(' ', strip=True)
              for node in headings]
@@ -88,7 +90,9 @@ def parse_listing(body, release_name):
     except (ValueError, TypeError, RecursionError):
         evidence = None  # Research projection must not change identification.
     def result(reason, imdb_id=None):
-        return _result(reason, imdb_id) | ({'torrent_evidence': evidence} if evidence is not None else {})
+        return (_result(reason, imdb_id)
+                | ({'torrent_evidence': evidence} if evidence is not None else {})
+                | ({'freeleech': True} if freeleech else {}))
     fields = soup.select('input[name="imdbID"]')
     ids = set(re.findall(r'\btt[0-9]{7,12}\b', str(soup)))
     if (not fields or (len(fields)==1 and fields[0].get('value') in (None,''))) and not ids:
