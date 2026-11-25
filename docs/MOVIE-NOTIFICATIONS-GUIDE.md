@@ -156,12 +156,20 @@ This button is for a supported **Unknown Movie** event with a verified identity 
 
 On the page, review the movie and release, choose from the available Radarr root folders and quality profiles, and confirm. The service rechecks the action and movie identity. It adds the movie if necessary with automatic search disabled, then sends the **original release reference** to Radarr for that specific release. Radarr still applies its own rules and download-client configuration. A successful submission is not proof that the download finished or that the file was imported. Existing movie state, an expired link, a changed source, a missing profile or an unavailable service can stop the action.
 
-On versions with the evaluator integration, an actionable Unknown Movie card
-arrives first. Its evaluation follows as a reply in the same Telegram topic,
-with a text file for a long result. It describes the announced release and can
-disagree with the resolved movie in the card. The card's movie and approval stay
-authoritative. If Radarr accepts the Grab, the service submits watch feedback
-for that approved movie. Opening a link does not send feedback.
+Unknown Movie cards are sent first, including cards without an approval link.
+The evaluator gets the original release name and available release facts, such
+as the parsed title and year, the tracker’s ID hints and redacted listing and
+NFO text. Its response follows in a reply to that card in the same topic. Long
+results arrive as a text file.
+
+If the movie was unidentified, the reply shows the evaluator’s proposed title,
+year, IDs, confidence and reasoning when available. A high-confidence proposal
+can offer the normal Radarr buttons after the service independently checks the
+release and movie. Conflicts and incomplete evidence may require the existing
+identity review. Any movie already verified on the card stays authoritative.
+
+If Radarr accepts the Grab, the service submits watch feedback for the approved
+movie. Opening a link does not send feedback.
 
 ### Add as watched - Good or Bad
 

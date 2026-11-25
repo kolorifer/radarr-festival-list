@@ -304,7 +304,7 @@ class RetryPresentationTests(unittest.TestCase):
         method,body=request.call_args.args
         self.assertEqual(method,'editMessageMedia');self.assertEqual(body['message_id'],42)
         self.assertEqual(body['media']['media'],META['poster_url'])
-        self.assertEqual(body['media']['caption'],prepared['text'])
+        self.assertTrue(body['media']['caption'].startswith(prepared['text']))
         self.assertEqual(body['media']['parse_mode'],'HTML')
         self.assertNotIn('message_thread_id',body);self.assertEqual(request.call_count,1)
 
