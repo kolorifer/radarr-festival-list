@@ -22,8 +22,8 @@
   },
   "watch_policy": "watched films remain candidates but recommended_monitored=false",
   "universe_count": 951,
-  "resolved_count": 945,
-  "unresolved_count": 6,
+  "resolved_count": 946,
+  "unresolved_count": 5,
   "candidates": [
     {
       "title": "Moonlight",
@@ -13685,6 +13685,22 @@
       "recommended_monitored": true
     },
     {
+      "title": "Inheritance",
+      "year": 2020,
+      "imdb_id": "tt7923220",
+      "tspdt_rank": 897,
+      "score": 0.5,
+      "signals": [
+        "TSPDT 21st-century #897"
+      ],
+      "director": "Asili, Ephraim",
+      "country": "USA",
+      "runtime": 100,
+      "status": "candidate",
+      "watch_state": "unknown",
+      "recommended_monitored": true
+    },
+    {
       "title": "Brick",
       "year": 2005,
       "imdb_id": "tt0393109",
@@ -15241,11 +15257,6 @@
       "title": "Fahrenheit 9/11",
       "year": 2004,
       "tspdt_rank": 741
-    },
-    {
-      "title": "The Inheritance",
-      "year": 2020,
-      "tspdt_rank": 897
     },
     {
       "title": "Shirley",
